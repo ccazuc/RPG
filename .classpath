@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="sqlite.jar"/>
+	<classpathentry kind="lib" path="D:/Java project/RPG/src/com/mideas/rpg/v2/lwjgl-2.9.1/lwjgl-2.9.1/jar/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="D:/Java project/RPG/src/com/mideas/rpg/v2/slick-util.jar"/>
+	<classpathentry kind="lib" path="D:/Java project/RPG/src/com/mideas/rpg/v2/lwjgl-2.9.1/lwjgl-2.9.1/jar/lwjgl.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

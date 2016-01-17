@@ -1,0 +1,23 @@
+package com.mideas.rpg.v2.jdo.wrapper;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import com.mideas.rpg.v2.jdo.JDO;
+
+public class SQLite extends JDO {
+	
+	/**
+	 * Create SQLite connection to file
+	 * @param file
+	 * @throws SQLException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 */
+	public SQLite(final String file) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    	Class.forName("org.sqlite.JDBC").newInstance(); 
+		connection = DriverManager.getConnection("jdbc:sqlite:"+file);
+	}
+	
+}
