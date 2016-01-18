@@ -2738,7 +2738,10 @@ public class Mideas {
 				j++;
 				continue first;
 			}
-			
+			if(Mideas.joueur1.getSpells(i) != null) {
+				Mideas.joueur1.getSpells(i).setSpellCd(Mideas.joueur1.getSpells(i), Spell.getSpellCd(Mideas.joueur1.getSpells(i))-1);
+			}
+			i++;
 		}
 	}
 	
