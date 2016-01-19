@@ -83,8 +83,8 @@ public class SpellBarFrame {
 					else if(spellCount+2 == 12) {
 						TTF2.font5.drawStringShadow(Display.getWidth()/2-35+x, Display.getHeight()-61, "=", Color.white, Color.black, 1, 1, 1);
 					}
-					if(Spell.getSpellCd(spell) > 0) {
-						TTF2.font5.drawStringShadow(Display.getWidth()/2-35+x, Display.getHeight()-34, String.valueOf(Spell.getSpellCd(spell)), Color.white, Color.black, 1, 1, 1);
+					if(spell.getSpellCd() > 0) {
+						TTF2.font5.drawStringShadow(Display.getWidth()/2-35+x, Display.getHeight()-34, String.valueOf(spell.getSpellCd()), Color.white, Color.black, 1, 1, 1);
 					}
 				}
 			}
@@ -102,11 +102,11 @@ public class SpellBarFrame {
 					Mideas.setCurrentPlayer(false);
 				}
 				else if(hoveredSpell != null) {
-					if(Spell.getSpellCd(hoveredSpell) <= 0 && Mideas.joueur1().cast(hoveredSpell)) {
+					if(hoveredSpell.getSpellCd() <= 0 && Mideas.joueur1().cast(hoveredSpell)) {
 						//hoveredSpell.setSpellCd(hoveredSpell,hoveredSpell.getSpellBaseCd());
 						checkClickCd();
 					}
-					else if (Spell.getSpellCd(hoveredSpell) <= 0){
+					else if (hoveredSpell.getSpellCd() <= 0){
 						Mideas.joueur1().cast(hoveredSpell);
 					}
 					else {
@@ -184,11 +184,11 @@ public class SpellBarFrame {
 	
 	private static void keyboardAttack(int i) {
 		if(Mideas.joueur1().getSpells()[i] != null) {
-			if(Spell.getSpellCd(Mideas.joueur1().getSpells()[i]) <= 0 && Mideas.joueur1().cast(Mideas.joueur1().getSpells()[i])) {
+			if(Mideas.joueur1().getSpells(i).getSpellCd() <= 0 && Mideas.joueur1().cast(Mideas.joueur1().getSpells()[i])) {
 				/*Mideas.joueur1.getSpells()[i].setSpellCd(Mideas.joueur1.getSpells()[i], Mideas.joueur1.getSpells()[i].getSpellBaseCd());*/
 				checkKeyboardCd(i);
 			}
-			else if (Spell.getSpellCd(Mideas.joueur1().getSpells()[i]) <= 0){
+			else if (Mideas.joueur1().getSpells(i).getSpellCd() <= 0){
 				Mideas.joueur1().cast(Mideas.joueur1().getSpells()[i]);
 			}
 			else {
@@ -201,7 +201,7 @@ public class SpellBarFrame {
 	private static void checkClickCd() {
 		for(Spell spell : Mideas.joueur1().getSpells()) {
 			if(spell != null && hoveredSpell.getId() == spell.getId()) {
-				spell.setSpellCd(spell, spell.getSpellBaseCd());
+				spell.setSpellCd(spell.getSpellBaseCd());
 			}
 		}
 	}
@@ -209,7 +209,7 @@ public class SpellBarFrame {
 	private static void checkKeyboardCd(int i) {
 		for(Spell spell : Mideas.joueur1().getSpells()) {
 			if(spell != null && Mideas.joueur1().getSpells()[i].getId() == spell.getId()) {
-				spell.setSpellCd(spell, spell.getSpellBaseCd());
+				spell.setSpellCd(spell.getSpellBaseCd());
 			}
 		}
 	}

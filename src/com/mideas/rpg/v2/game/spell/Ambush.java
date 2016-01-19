@@ -4,8 +4,8 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.game.spell.Spell;
 
 public class Ambush extends Spell {
-	
-	private int cd;
+
+	private static int cd;
 	
 	public Ambush() {
 		super(6000, 6000, 3000, 0, 0, 0, 4, 0, 701);

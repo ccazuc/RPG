@@ -4,7 +4,7 @@ import com.mideas.rpg.v2.Sprites;
 
 public class MortalStrike extends Spell {
 	
-	private int cd;
+	private static int cd;
 	
 	public MortalStrike() {
 		super(20000, 2000, 750, 0, 0, 0, 4, 0, 103);

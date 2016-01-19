@@ -134,12 +134,11 @@ public class Spell {
 		return baseCd;
 	}
 	
-	public static int getSpellCd(Spell spell) {
-		return spell.cd;
+	public int getSpellCd() {
+		return 0;
 	}
 	
-	public void setSpellCd(Spell spell, int number) {
-		this.cd = number;
+	public void setSpellCd(int number) {
 	}
 	
 	public void setDamage(float number) {
