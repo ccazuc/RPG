@@ -2744,7 +2744,7 @@ public class Mideas {
 			if(Mideas.joueur1.getSpells(i) != null) {	
 				Mideas.joueur1.getSpells(i).setSpellCd(Mideas.joueur1.getSpells(i).getSpellCd()-1);
 			}
-			i++;
+				i++;
 		}
 	}
 	
