@@ -138,6 +138,13 @@ public class Spell {
 		return 0;
 	}
 	
+	public boolean equal(Spell spell) {
+		if(this.id == spell.getId()) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void setSpellCd(int number) {
 	}
 	

@@ -2735,7 +2735,7 @@ public class Mideas {
 		while(i < Mideas.joueur1.getSpells().length) {
 			j = 0;
 			while(j < i) {
-				if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(j) != null && Mideas.joueur1.getSpells(i).getId() == Mideas.joueur1.getSpells(j).getId()) {
+				if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(j) != null && Mideas.joueur1.getSpells(i).equal(Mideas.joueur1.getSpells(j))) {
 					i++;
 					continue first;
 				}
