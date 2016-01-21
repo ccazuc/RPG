@@ -157,31 +157,31 @@ public class ClassSelectFrame {
 
 	public static String classTxt() {
 		if(Mideas.joueur1() != null && !isStuffEquipped) {
-			if(Mideas.joueur1().getClasse() == "Guerrier") {
+			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "equippedItemsGuerrier.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Paladin") {
+			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
 				return "equippedItemsPaladin.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Hunter") {
+			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
 				return "equippedItemsHunter.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Rogue") {
+			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
 				return "equippedItemsRogue.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Priest") {
+			else if(Mideas.joueur1().getClasse().equals("Priest")) {
 				return "equippedItemsPriest.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "DeathKnight") {
+			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 				return "equippedItemsDeathKnight.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Shaman") {
+			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
 				return "equippedItemsShaman.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Mage") {
+			else if(Mideas.joueur1().getClasse().equals("Mage")) {
 				return "equippedItemsMage.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Warlock") {
+			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
 				return "equippedItemsWarlock.txt";
 			}
 		return "equippedItemsMonk.txt";
@@ -192,31 +192,31 @@ public class ClassSelectFrame {
 	}
 	public static String goldTxt() {
 		if(Mideas.joueur1() != null) {
-			if(Mideas.joueur1().getClasse() == "Guerrier") {
+			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "goldGuerrier.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Paladin") {
+			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
 				return "goldPaladin.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Hunter") {
+			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
 				return "goldHunter.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Rogue") {
+			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
 				return "goldRogue.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Priest") {
+			else if(Mideas.joueur1().getClasse().equals("Priest")) {
 				return "goldPriest.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "DeathKnight") {
+			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 				return "goldDeathKnight.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Shaman") {
+			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
 				return "goldShaman.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Mage") {
+			else if(Mideas.joueur1().getClasse().equals("Mage")) {
 				return "goldMage.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Warlock") {
+			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
 				return "goldWarlock.txt";
 			}
 		return "equippedItemsMonk.txt";
@@ -227,31 +227,31 @@ public class ClassSelectFrame {
 	
 	public static String bagTxt() {
 		if(Mideas.joueur1() != null && !isBagEquipped) {
-			if(Mideas.joueur1().getClasse() == "Guerrier") {
+			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "bagGuerrier.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Paladin") {
+			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
 				return "bagPaladin.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Hunter") {
+			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
 				return "bagHunter.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Rogue") {
+			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
 				return "bagRogue.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Priest") {
+			else if(Mideas.joueur1().getClasse().equals("Priest")) {
 				return "bagPriest.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "DeathKnight") {
+			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 				return "bagDeathKnight.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Shaman") {
+			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
 				return "bagShaman.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Mage") {
+			else if(Mideas.joueur1().getClasse().equals("Mage")) {
 				return "bagMage.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Warlock") {
+			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
 				return "bagWarlock.txt";
 			}
 			else {
@@ -263,31 +263,31 @@ public class ClassSelectFrame {
 	}
 	public static String talentTxt() {
 		if(Mideas.joueur1() != null && !isBagEquipped) {
-			if(Mideas.joueur1().getClasse() == "Guerrier") {
+			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "talentGuerrier.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Paladin") {
+			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
 				return "talentPaladin.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Hunter") {
+			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
 				return "talentHunter.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Rogue") {
+			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
 				return "talentRogue.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Priest") {
+			else if(Mideas.joueur1().getClasse().equals("Priest")) {
 				return "talentPriest.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "DeathKnight") {
+			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 				return "talentDeathKnight.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Shaman") {
+			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
 				return "talentShaman.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Mage") {
+			else if(Mideas.joueur1().getClasse().equals("Mage")) {
 				return "talentMage.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Warlock") {
+			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
 				return "talentWarlock.txt";
 			}
 			else {
@@ -299,31 +299,31 @@ public class ClassSelectFrame {
 
 	public static String expTxt() {
 		if(!isExpSet) {
-			if(Mideas.joueur1().getClasse() == "Guerrier") {
+			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "expGuerrier.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Paladin") {
+			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
 				return "expPaladin.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Hunter") {
+			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
 				return "expHunter.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Rogue") {
+			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
 				return "expRogue.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Priest") {
+			else if(Mideas.joueur1().getClasse().equals("Priest")) {
 				return "expPriest.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "DeathKnight") {
+			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 				return "expDeathKnight.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Shaman") {
+			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
 				return "expShaman.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Mage") {
+			else if(Mideas.joueur1().getClasse().equals("Mage")) {
 				return "expMage.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Warlock") {
+			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
 				return "expWarlock.txt";
 			}
 			else {
@@ -336,31 +336,31 @@ public class ClassSelectFrame {
 	
 	public static String shopPage1Txt() {
 		if(Mideas.joueur1() != null) {
-			if(Mideas.joueur1().getClasse() == "Guerrier") {
+			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "shopGuerrierPage1.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Paladin") {
+			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
 				return "shopPaladinPage1.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Hunter") {
+			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
 				return "shopHunterPage1.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Rogue") {
+			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
 				return "shopRoguePage1.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Priest") {
+			else if(Mideas.joueur1().getClasse().equals("Priest")) {
 				return "shopPriestPage1.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "DeathKnight") {
+			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 				return "shopDeathKnightPage1.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Shaman") {
+			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
 				return "shopShamanPage1.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Mage") {
+			else if(Mideas.joueur1().getClasse().equals("Mage")) {
 				return "shopMagePage1.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Warlock") {
+			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
 				return "shopWarlockPage1.txt";
 			}
 			else {
@@ -372,31 +372,31 @@ public class ClassSelectFrame {
 	
 	public static String shopPage2Txt() {
 		if(Mideas.joueur1() != null) {
-			if(Mideas.joueur1().getClasse() == "Guerrier") {
+			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "shopGuerrierPage2.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Paladin") {
+			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
 				return "shopPaladinPage2.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Hunter") {
+			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
 				return "shopHunterPage2.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Rogue") {
+			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
 				return "shopRoguePage2.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Priest") {
+			else if(Mideas.joueur1().getClasse().equals("Priest")) {
 				return "shopPriestPage2.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "DeathKnight") {
+			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 				return "shopDeathKnightPage2.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Shaman") {
+			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
 				return "shopShamanPage2.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Mage") {
+			else if(Mideas.joueur1().getClasse().equals("Mage")) {
 				return "shopMagePage2.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Warlock") {
+			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
 				return "shopWarlockPage2.txt";
 			}
 			else {
@@ -408,31 +408,31 @@ public class ClassSelectFrame {
 
 	public static String shopPage3Txt() {
 		if(Mideas.joueur1() != null) {
-			if(Mideas.joueur1().getClasse() == "Guerrier") {
+			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "shopGuerrierPage3.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Paladin") {
+			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
 				return "shopPaladinPage3.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Hunter") {
+			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
 				return "shopHunterPage3.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Rogue") {
+			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
 				return "shopRoguePage3.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Priest") {
+			else if(Mideas.joueur1().getClasse().equals("Priest")) {
 				return "shopPriestPage3.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "DeathKnight") {
+			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 				return "shopDeathKnightPage3.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Shaman") {
+			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
 				return "shopShamanPage3.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Mage") {
+			else if(Mideas.joueur1().getClasse().equals("Mage")) {
 				return "shopMagePage3.txt";
 			}
-			else if(Mideas.joueur1().getClasse() == "Warlock") {
+			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
 				return "shopWarlockPage3.txt";
 			}
 			else {

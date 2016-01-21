@@ -27,42 +27,23 @@ public class DragSpellManager {
 		}
 	}
 	
-	private static void isHover(int x, int y, int i) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+66 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+56) {
-			hover[i] = true;
-		}
-	}
-	
 	public static boolean mouseEvent() {
 		int x = -332;
 		int xShift = 68;
 		int y = -61;
 		Arrays.fill(hover, false);
-		isHover(x, y, 0);
-		isHover(x+xShift, y, 1);
-		isHover(x+2*xShift, y, 2);
-		isHover(x+3*xShift, y, 3);
-		isHover(x+4*xShift, y, 4);
-		isHover(x+5*xShift, y, 5);
-		isHover(x+6*xShift, y, 6);
-		isHover(x+7*xShift, y, 7);
-		isHover(x+8*xShift, y, 8);
-		isHover(x+9*xShift, y, 9);
-		isHover(x+10*xShift, y, 10);
-		isHover(x+11*xShift, y, 11);
+		int i = 0;
+		while(i <= 12) {
+			isHover(x+i*xShift, y, i);
+			i++;
+		}
 		if(Mouse.getEventButton() == 1) {
 			if(Mouse.getEventButtonState()) {
-				clickSpell(0);
-				clickSpell(1);
-				clickSpell(2);
-				clickSpell(3);
-				clickSpell(4);
-				clickSpell(5);
-				clickSpell(6);
-				clickSpell(7);
-				clickSpell(8);
-				clickSpell(9);
-				clickSpell(10);
+				i = 0;
+				while(i <= 10) {
+					clickSpell(i);
+					i++;
+				}
 				if(SpellBookFrame.getHoverBook(1) && Mideas.joueur1().getSpellUnlocked(0) != null) {
 					draggedSpell = new HeroicStrike();
 				}
@@ -80,22 +61,22 @@ public class DragSpellManager {
 				}
 			}
 			else {
-				dropSpell(0);
-				dropSpell(1);
-				dropSpell(2);
-				dropSpell(3);
-				dropSpell(4);
-				dropSpell(5);
-				dropSpell(6);
-				dropSpell(7);
-				dropSpell(8);
-				dropSpell(9);
-				dropSpell(10);
+				i = 0;
+				while(i <= 10) {
+					dropSpell(i);
+					i++;
+				}
 				deleteSpell(draggedSpell);
 				draggedSpell = null;
 			}
 		}
 		return false;
+	}
+	
+	private static void isHover(int x, int y, int i) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+66 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+56) {
+			hover[i] = true;
+		}
 	}
 	
 	private static void deleteSpell(Spell draggedSpell) {

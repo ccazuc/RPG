@@ -75,22 +75,22 @@ public class ChangeBackGroundFrame {
 	}
 	
 	public static String getCurrentBackground() {
-		if(Sprites.current_bg == Sprites.bg) {
+		if(Sprites.current_bg.equals(Sprites.bg)) {
 			return "bg";
 		}
-		else if(Sprites.current_bg == Sprites.bc_bg) {
+		else if(Sprites.current_bg.equals(Sprites.bc_bg)) {
 			return "bc_bg";
 		}
-		else if(Sprites.current_bg == Sprites.doge_bg) {
+		else if(Sprites.current_bg.equals(Sprites.doge_bg)) {
 			return "doge_bg";
 		}
-		else if(Sprites.current_bg == Sprites.illidan_bg) {
+		else if(Sprites.current_bg.equals(Sprites.illidan_bg)) {
 			return "illidan_bg";
 		}
-		else if(Sprites.current_bg == Sprites.sunwell1_bg) {
+		else if(Sprites.current_bg.equals(Sprites.sunwell1_bg)) {
 			return "sunwell1_bg";
 		}
-		else if(Sprites.current_bg == Sprites.sunwell2_bg) {
+		else if(Sprites.current_bg.equals(Sprites.sunwell2_bg)) {
 			return "sunwell2_bg";
 		}
 		else {

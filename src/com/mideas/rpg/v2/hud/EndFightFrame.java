@@ -274,34 +274,34 @@ public class EndFightFrame {
 	}
 	
 	private static void lootManager() throws FileNotFoundException {
-		if(Mideas.joueur1().getClasse() == "DeathKnight") {
+		if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 			lootGuerrier();
 		}
-		if(Mideas.joueur1().getClasse() == "Guerrier") {
+		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			lootGuerrier();
 		}
-		if(Mideas.joueur1().getClasse() == "Hunter") {
+		if(Mideas.joueur1().getClasse().equals("Hunter")) {
 			lootHunter();
 		}
-		if(Mideas.joueur1().getClasse() == "Mage") {
+		if(Mideas.joueur1().getClasse().equals("Mage")) {
 			lootMage();
 		}
-		if(Mideas.joueur1().getClasse() == "Monk") {
+		if(Mideas.joueur1().getClasse().equals("Monk")) {
 			lootGuerrier();
 		}
-		if(Mideas.joueur1().getClasse() == "Paladin") {
+		if(Mideas.joueur1().getClasse().equals("Paladin")) {
 			lootPaladin();
 		}
-		if(Mideas.joueur1().getClasse() == "Priest") {
+		if(Mideas.joueur1().getClasse().equals("Priest")) {
 			lootGuerrier();
 		}
-		if(Mideas.joueur1().getClasse() == "Rogue") {
+		if(Mideas.joueur1().getClasse().equals("Rogue")) {
 			lootGuerrier();
 		}
-		if(Mideas.joueur1().getClasse() == "Shaman") {
+		if(Mideas.joueur1().getClasse().equals("Shaman")) {
 			lootGuerrier();
 		}
-		if(Mideas.joueur1().getClasse() == "Warlock") {
+		if(Mideas.joueur1().getClasse().equals("Warlock")) {
 			lootGuerrier();
 		}			
 	}

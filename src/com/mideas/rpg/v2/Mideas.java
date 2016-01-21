@@ -1246,62 +1246,62 @@ public class Mideas {
 			br = new BufferedReader(new FileReader("exp.txt"));
 			while(i <10) {
 				sCurrentLine = br.readLine();
-				if(joueur1.getClasse() == "DeathKnight" && i == 0) {
+				if(joueur1.getClasse().equals("DeathKnight") && i == 0) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 				}
 				else if(i == 0) {
 					content+= sCurrentLine+"\r\n";
 				}
-				if(joueur1.getClasse() == "Guerrier" && i == 1) {
+				if(joueur1.getClasse().equals("Guerrier") && i == 1) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 					
 				}
 				else if(i == 1){
 					content+= sCurrentLine+"\r\n";
 				}
-				if(joueur1.getClasse() == "Hunter"&& i == 2) {
+				if(joueur1.getClasse().equals("Hunter") && i == 2) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 				}
 				else if(i == 2) {
 					content+= sCurrentLine+"\r\n";
 				}
-				if(joueur1.getClasse() == "Mage" && i == 3) {
+				if(joueur1.getClasse().equals("Mage") && i == 3) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 				}
 				else if(i == 3) {
 					content+= sCurrentLine+"\r\n";
 				}
-				if(joueur1.getClasse() == "Monk" && i == 4) {
+				if(joueur1.getClasse().equals("Monk") && i == 4) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 				}
 				else if(i == 4) {
 					content+= sCurrentLine+"\r\n";
 				}
-				if(joueur1.getClasse() == "Paladin" && i == 5) {
+				if(joueur1.getClasse().equals("Paladin") && i == 5) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 				}
 				else if(i == 5) {
 					content+= sCurrentLine+"\r\n";
 				}
-				if(joueur1.getClasse() == "Priest"&& i == 6) {
+				if(joueur1.getClasse().equals("Priest") && i == 6) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 				}
 				else if(i == 6) {
 					content+= sCurrentLine+"\r\n";
 				}
-				if(joueur1.getClasse() == "Rogue" && i == 7) {
+				if(joueur1.getClasse().equals("Rogue") && i == 7) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 				}
 				else if(i == 7) {
 					content+= sCurrentLine+"\r\n";
 				}
-				if(joueur1.getClasse() == "Shaman" && i == 8) {
+				if(joueur1.getClasse().equals("Shaman") && i == 8) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 				}
 				else if(i == 8) {
 					content+= sCurrentLine+"\r\n";
 				}
-				if(joueur1.getClasse() == "Warlock" && i == 9) {
+				if(joueur1.getClasse().equals("Warlock") && i == 9) {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 				}
 				else if(i == 9) {
@@ -1625,61 +1625,61 @@ public class Mideas {
 			br = new BufferedReader(new FileReader("gold.txt"));
 			while(i <10) {
 				sCurrentLine = br.readLine();
-				if(joueur1.getClasse() == "DeathKnight" && i == 0) {
+				if(joueur1.getClasse().equals("DeathKnight") && i == 0) {
 					content+= joueur1.getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 0) {
 					content+= sCurrentLine+System.lineSeparator();
 				}
-				if(joueur1.getClasse() == "Guerrier" && i == 1) {
+				if(joueur1.getClasse().equals("Guerrier") && i == 1) {
 					content+= joueur1.getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 1){
 					content+= sCurrentLine+System.lineSeparator();
 				}
-				if(joueur1.getClasse() == "Hunter"&& i == 2) {
+				if(joueur1.getClasse().equals("Hunter")&& i == 2) {
 					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 2) {
 					content+= sCurrentLine+System.lineSeparator();
 				}
-				if(joueur1.getClasse() == "Mage" && i == 3) {
+				if(joueur1.getClasse().equals("Mage") && i == 3) {
 					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 3) {
 					content+= sCurrentLine+System.lineSeparator();
 				}
-				if(joueur1.getClasse() == "Monk" && i == 4) {
+				if(joueur1.getClasse().equals("Monk") && i == 4) {
 					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 4) {
 					content+= sCurrentLine+System.lineSeparator();
 				}
-				if(joueur1.getClasse() == "Paladin" && i == 5) {
+				if(joueur1.getClasse().equals("Paladin") && i == 5) {
 					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 5) {
 					content+= sCurrentLine+System.lineSeparator();
 				}
-				if(joueur1.getClasse() == "Priest" && i == 6) {
+				if(joueur1.getClasse().equals("Priest") && i == 6) {
 					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 6) {
 					content+= sCurrentLine+System.lineSeparator();
 				}
-				if(joueur1.getClasse() == "Rogue" && i == 7) {
+				if(joueur1.getClasse().equals("Rogue") && i == 7) {
 					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 7) {
 					content+= sCurrentLine+System.lineSeparator();
 				}
-				if(joueur1.getClasse() == "Shaman" && i == 8) {
+				if(joueur1.getClasse().equals("Shaman") && i == 8) {
 					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 8) {
 					content+= sCurrentLine+System.lineSeparator();
 				}
-				if(joueur1.getClasse() == "Warlock" && i == 9) {
+				if(joueur1.getClasse().equals("Warlock") && i == 9) {
 					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
 				}
 				else if(i == 9) {
@@ -2078,290 +2078,7 @@ public class Mideas {
 	}
 	
 	public static int getLevel() throws FileNotFoundException {
-		if(getExp() <= 400) {
-			level = 1;
-			return level;
-		}
-		else if(getExp() <= 900) {
-			level = 2;
-			return level;
-		}
-		else if(getExp() <= 1400) {
-			level = 3;
-			return level;
-		}
-		else if(getExp() <= 2100) {
-			level = 4;
-			return level;
-		}
-		else if(getExp() <= 2800) {
-			level = 5;
-			return level;
-		}
-		else if(getExp() <= 3600) {
-			level = 6;
-			return level;
-		}
-		else if(getExp() <= 4500) {
-			level = 7;
-			return level;
-		}
-		else if(getExp() <= 5400) {
-			level = 8;
-			return level;
-		}
-		else if(getExp() <= 6500) {
-			level = 9;
-			return level;
-		}
-		else if(getExp() <= 7600) {
-			level = 10;
-			return level;
-		}
-		else if(getExp() <= 8700) {
-			level = 11;
-			return level;
-		}
-		else if(getExp() <= 9800) {
-			level = 12;
-			return level;
-		}
-		else if(getExp() <= 11000) {
-			level = 13;
-			return level;
-		}
-		else if(getExp() <= 12300) {
-			level = 14;
-			return level;
-		}
-		else if(getExp() <= 13600) {
-			level = 15;
-			return level;
-		}
-		else if(getExp() <= 15000) {
-			level = 16;
-			return level;
-		}
-		else if(getExp() <= 16400) {
-			level = 17;
-			return level;
-		}
-		else if(getExp() <= 17800) {
-			level = 18;
-			return level;
-		}
-		else if(getExp() <= 19300) {
-			level = 19;
-			return level;
-		}
-		else if(getExp() <= 20800) {
-			level = 20;
-			return level;
-		}
-		else if(getExp() <= 22400) {
-			level = 21;
-			return level;
-		}
-		else if(getExp() <= 24000) {
-			level = 22;
-			return level;
-		}
-		else if(getExp() <= 25500) {
-			level = 23;
-			return level;
-		}
-		else if(getExp() <= 27200) {
-			level = 24;
-			return level;
-		}
-		else if(getExp() <= 28900) {
-			level = 25;
-			return level;
-		}
-		else if(getExp() <= 30500) {
-			level = 26;
-			return level;
-		}
-		else if(getExp() <= 32200) {
-			level = 27;
-			return level;
-		}
-		else if(getExp() <= 33900) {
-			level = 28;
-			return level;
-		}
-		else if(getExp() <= 36300) {
-			level = 29;
-			return level;
-		}
-		else if(getExp() <= 38800) {
-			level = 30;
-			return level;
-		}
-		else if(getExp() <= 41600) {
-			level = 31;
-			return level;
-		}
-		else if(getExp() <= 44600) {
-			level = 32;
-			return level;
-		}
-		else if(getExp() <= 48000) {
-			level = 33;
-			return level;
-		}
-		else if(getExp() <= 51400) {
-			level = 34;
-			return level;
-		}
-		else if(getExp() <= 55000) {
-			level = 35;
-			return level;
-		}
-		else if(getExp() <= 58700) {
-			level = 36;
-			return level;
-		}
-		else if(getExp() <= 62400) {
-			level = 37;
-			return level;
-		}
-		else if(getExp() <= 66200) {
-			level = 38;
-			return level;
-		}
-		else if(getExp() <= 70200) {
-			level = 39;
-			return level;
-		}
-		else if(getExp() <= 74300) {
-			level = 40;
-			return level;
-		}
-		else if(getExp() <= 78500) {
-			level = 41;
-			return level;
-		}
-		else if(getExp() <= 82800) {
-			level = 42;
-			return level;
-		}
-		else if(getExp() <= 87100) {
-			level = 43;
-			return level;
-		}
-		else if(getExp() <= 91600) {
-			level = 44;
-			return level;
-		}
-		else if(getExp() <= 96300) {
-			level = 45;
-			return level;
-		}
-		else if(getExp() <= 101000) {
-			level = 46;
-			return level;
-		}
-		else if(getExp() <= 105800) {
-			level = 47;
-			return level;
-		}
-		else if(getExp() <= 110700) {
-			level = 48;
-			return level;
-		}
-		else if(getExp() <= 115700) {
-			level = 49;
-			return level;
-		}
-		else if(getExp() <= 120900) {
-			level = 50;
-			return level;
-		}
-		else if(getExp() <= 126100) {
-			level = 51;
-			return level;
-		}
-		else if(getExp() <= 131500) {
-			level = 52;
-			return level;
-		}
-		else if(getExp() <= 137000) {
-			level = 53;
-			return level;
-		}
-		else if(getExp() <= 142500) {
-			level = 54;
-			return level;
-		}
-		else if(getExp() <= 148200) {
-			level = 55;
-			return level;
-		}
-		else if(getExp() <= 154000) {
-			level = 56;
-			return level;
-		}
-		else if(getExp() <= 159900) {
-			level = 57;
-			return level;
-		}
-		else if(getExp() <= 165800) {
-			level = 58;
-			return level;
-		}
-		else if(getExp() <= 172000) {
-			level = 59;
-			return level;
-		}
-		else if(getExp() <= 290000) {
-			level = 60;
-			return level;
-		}
-		else if(getExp() <= 317000) {
-			level = 61;
-			return level;
-		}
-		else if(getExp() <= 349000) {
-			level = 62;
-			return level;
-		}
-		else if(getExp() <= 386000) {
-			level = 63;
-			return level;
-		}
-		else if(getExp() <= 428000) {
-			level = 64;
-			return level;
-		}
-		else if(getExp() <= 475000) {
-			level = 65;
-			return level;
-		}
-		else if(getExp() <= 527000) {
-			level = 66;
-			return level;
-		}
-		else if(getExp() <= 585000) {
-			level = 67;
-			return level;
-		}
-		else if(getExp() <= 648000) {
-			level = 68;
-			return level;
-		}
-		else if(getExp() <= 717000) {
-			level = 69;
-			return level;
-		}
-		else if(getExp() <= 1523800) {
-			level = 70;
-			return level;
-		}
-		else {
-			level = 70;
-			return level;
-		}
+		return getLevelAll(getExp());
 	}
 	
 	public static int getExpNeeded(int level) throws FileNotFoundException {
@@ -2649,68 +2366,68 @@ public class Mideas {
 
 	public static void setJoueur1(Joueur joueur) throws FileNotFoundException {
 		joueur1 = joueur;
-		if(joueur1.getClasse() == "Guerrier") {
+		if(joueur1.getClasse().equals("Guerrier")) {
 			CharacterStuff.getEquippedItems();
 		}
-		else if(joueur1.getClasse() == "Paladin") {
+		else if(joueur1.getClasse().equals("Paladin")) {
 			CharacterStuff.getEquippedItems();
 		}
-		else if(joueur1.getClasse() == "Hunter") {
+		else if(joueur1.getClasse().equals("Hunter")) {
 			CharacterStuff.getEquippedItems();
 		}
-		else if(joueur1.getClasse() == "Rogue") {
+		else if(joueur1.getClasse().equals("Rogue")) {
 			CharacterStuff.getEquippedItems();
 		}
-		else if(joueur1.getClasse() == "Priest") {
+		else if(joueur1.getClasse().equals("Priest")) {
 			CharacterStuff.getEquippedItems();
 		}
-		else if(joueur1.getClasse() == "DeathKnight") {
+		else if(joueur1.getClasse().equals("DeathKnight")) {
 			CharacterStuff.getEquippedItems();
 		}
-		else if(joueur1.getClasse() == "Shaman") {
+		else if(joueur1.getClasse().equals("Shaman")) {
 			CharacterStuff.getEquippedItems();
 		}
-		else if(joueur1.getClasse() == "Mage") {
+		else if(joueur1.getClasse().equals("Mage")) {
 			CharacterStuff.getEquippedItems();
 		}
-		else if(joueur1.getClasse() == "Warlock") {
+		else if(joueur1.getClasse().equals("Warlock")) {
 			CharacterStuff.getEquippedItems();
 		}
-		else if(joueur1.getClasse() == "Monk") {
+		else if(joueur1.getClasse().equals("Monk")) {
 			CharacterStuff.getEquippedItems();
 		}
 	}
 	
 	public static int getClassLine() {
 		if(joueur1 != null) {
-			if(joueur1.getClasse() == "DeathKnight") {
+			if(joueur1.getClasse().equals("DeathKnight")) {
 				return 0;
 			}
-			if(joueur1.getClasse() == "Guerrier") {
+			if(joueur1.getClasse().equals("Guerrier")) {
 				return 1;
 			}
-			if(joueur1.getClasse() == "Hunter") {
+			if(joueur1.getClasse().equals("Hunter")) {
 				return 2;
 			}
-			if(joueur1.getClasse() == "Mage") {
+			if(joueur1.getClasse().equals("Mage")) {
 				return 3;
 			}
-			if(joueur1.getClasse() == "Monk") {
+			if(joueur1.getClasse().equals("Monk")) {
 				return 4;
 			}
-			if(joueur1.getClasse() == "Paladin") {
+			if(joueur1.getClasse().equals("Paladin")) {
 				return 5;
 			}
-			if(joueur1.getClasse() == "Priest") {
+			if(joueur1.getClasse().equals("Priest")) {
 				return 6;
 			}
-			if(joueur1.getClasse() == "Rogue") {
+			if(joueur1.getClasse().equals("Rogue")) {
 				return 7;
 			}
-			if(joueur1.getClasse() == "Shaman") {
+			if(joueur1.getClasse().equals("Shaman")) {
 				return 8;
 			}
-			if(joueur1.getClasse() == "Warlock") {
+			if(joueur1.getClasse().equals("Warlock")) {
 				return 9;
 			}
 			else {

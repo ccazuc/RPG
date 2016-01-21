@@ -24,7 +24,7 @@ public class SpellBookFrame {
 		int y = -290;
 		int yShift = 85;
 		Draw.drawQuad(Sprites.spellbook_page1, Display.getWidth()/2, Display.getHeight()/2-350);
-		if(Mideas.joueur1().getClasse() == "Guerrier") {
+		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y);
 			Draw.drawQuad(Sprites.spell_book_heroic_strike, Display.getWidth()/2+x+20, Display.getHeight()/2+y+yShift+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y+yShift);
@@ -52,11 +52,11 @@ public class SpellBookFrame {
 				return true;
 			}
 		}
-		isHoverBook(x, y, yShift, 1);
-		isHoverBook(x, y, 2*yShift, 2);
-		isHoverBook(x, y, 3*yShift, 3);
-		isHoverBook(x, y, 4*yShift, 4);
-		isHoverBook(x, y, 5*yShift, 5);
+		int i = 0;
+		while(i <= 5) {
+			isHoverBook(x, y, i*yShift, i);
+			i++;
+		}
 		return false;
 	}
 	
