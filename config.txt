@@ -1,1 +1,1 @@
-bg=bc_bg
+bg=bg

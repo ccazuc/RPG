@@ -12,25 +12,8 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.stuff.Stuff;
-import com.mideas.rpg.v2.game.stuff.back.Back;
-import com.mideas.rpg.v2.game.stuff.belt.Belt;
-import com.mideas.rpg.v2.game.stuff.boots.Boots;
-import com.mideas.rpg.v2.game.stuff.chest.Chest;
-import com.mideas.rpg.v2.game.stuff.gloves.Gloves;
-import com.mideas.rpg.v2.game.stuff.head.Head;
 import com.mideas.rpg.v2.game.stuff.item.Item;
 import com.mideas.rpg.v2.game.stuff.item.potion.healingPotion.HealingPotion;
-import com.mideas.rpg.v2.game.stuff.leggings.Leggings;
-import com.mideas.rpg.v2.game.stuff.mainHand.MainHand;
-import com.mideas.rpg.v2.game.stuff.necklace.Necklace;
-import com.mideas.rpg.v2.game.stuff.offHand.OffHand;
-import com.mideas.rpg.v2.game.stuff.ranged.Ranged;
-import com.mideas.rpg.v2.game.stuff.ring.Ring;
-import com.mideas.rpg.v2.game.stuff.ring2.Ring2;
-import com.mideas.rpg.v2.game.stuff.shoulders.Shoulders;
-import com.mideas.rpg.v2.game.stuff.trinket.Trinket;
-import com.mideas.rpg.v2.game.stuff.trinket2.Trinket2;
-import com.mideas.rpg.v2.game.stuff.wrists.Wrists;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class DragManager {
@@ -697,7 +680,7 @@ public class DragManager {
 		if(CharacterFrame.getHoverCharacterFrame(i)) {
 			Stuff tempItem = draggedItem;
 			draggedItem = Mideas.joueur1().getStuff(i);
-			if(tempItem != null && tempItem.getSlot() == Stuff.getSlot(i) ) {
+			if(tempItem != null && tempItem.getSlot() == Stuff.getSlot(i)) {
 				Mideas.joueur1().setStuff(i, tempItem);
 				setNullCharacter(tempItem);
 				calcStats(Mideas.joueur1().getStuff(i));

@@ -852,42 +852,17 @@ public class Mideas {
 	public static int getExp() throws FileNotFoundException {
 		BufferedReader br = null;
 		try {
-			int i = 0;
 			String sCurrentLine;
 			String tempExp[] = {"1","2","3"};
 			br = new BufferedReader(new FileReader("exp.txt"));
 			while ((sCurrentLine = br.readLine()) != null) {
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");	
+				int j = 0;
+				while(j < 10) {
+					if(Mideas.getClassLine() == j) {
+						tempExp = sCurrentLine.split("=");
+					}
+					j++;
 				}
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
 			}
 			exp = Integer.parseInt(tempExp[1]);
 			
@@ -907,30 +882,6 @@ public class Mideas {
 		}
 		return exp;
 	}
-	
-	/*public static int getExp() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			String sCurrentLine;
-			br = new BufferedReader(new FileReader(ClassSelectFrame.expTxt()));
-			while ((sCurrentLine = br.readLine()) != null) {
-				exp = Integer.parseInt(sCurrentLine);
-			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return exp;
-	}*/
 	
 	public static int getExpDeathKnight() throws FileNotFoundException {
 		BufferedReader br = null;
@@ -1256,7 +1207,7 @@ public class Mideas {
 					content+= joueur1.getClasse()+"="+exp+"\r\n";
 					
 				}
-				else if(i == 1){
+				else if(i == 1) {
 					content+= sCurrentLine+"\r\n";
 				}
 				if(joueur1.getClasse().equals("Hunter") && i == 2) {
@@ -1512,7 +1463,7 @@ public class Mideas {
 					file.createNewFile();
 				}
 			br = new BufferedReader(new FileReader("config.txt"));
-			while(i <10) {
+			while(i < 10) {
 				//sCurrentLine = br.readLine();
 				if(i == 0) {
 					content+= "bg="+ChangeBackGroundFrame.getCurrentBackground()+System.lineSeparator();

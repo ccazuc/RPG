@@ -611,6 +611,7 @@ public class CharacterStuff {
 	public static void getBagItems() throws FileNotFoundException {
 		BufferedReader br = null;
 		int i = 0;
+		int j = 0;
 		int id;
 		try {
 			String sCurrentLine;
@@ -772,59 +773,93 @@ public class CharacterStuff {
 			while ((sCurrentLine = br.readLine()) != null) {
 				id = Integer.parseInt(sCurrentLine);	
 				if(i == 0) {
-					Mideas.joueur1().setStuff(i, getHead(id));
+					if(CharacterStuff.getStuff(id) instanceof Head) {
+						Mideas.joueur1().setStuff(i, getHead(id));
+					}
 				}
 				else if( i == 1) {
-					Mideas.joueur1().setStuff(i, getNecklace(id));
+					if(CharacterStuff.getStuff(id) instanceof Necklace) {
+						Mideas.joueur1().setStuff(i, getNecklace(id));
+					}
 				}
 				else if( i == 2) {
-					Mideas.joueur1().setStuff(i, getShoulders(id));
+					if(CharacterStuff.getStuff(id) instanceof Shoulders) {
+						Mideas.joueur1().setStuff(i, getShoulders(id));
+					}
 				}
 				else if( i == 3) {
-					Mideas.joueur1().setStuff(i, getBack(id));
+					if(CharacterStuff.getStuff(id) instanceof Back) {
+						Mideas.joueur1().setStuff(i, getBack(id));
+					}
 				}
 				else if( i == 4) {
-					Mideas.joueur1().setStuff(i, getChest(id));
+					if(CharacterStuff.getStuff(id) instanceof Chest) {
+						Mideas.joueur1().setStuff(i, getChest(id));
+					}
 				}
 				else if( i == 5) {
 				}
 				else if( i == 6) {
 				}
 				else if( i == 7) {
-					Mideas.joueur1().setStuff(i, getWrists(id));
+					if(CharacterStuff.getStuff(id) instanceof Wrists) {
+						Mideas.joueur1().setStuff(i, getWrists(id));
+					}
 				}
 				else if( i == 8) {
-					Mideas.joueur1().setStuff(i, getGloves(id));
+					if(CharacterStuff.getStuff(id) instanceof Gloves) {
+						Mideas.joueur1().setStuff(i, getGloves(id));
+					}
 				}
 				else if( i == 9) {
-					Mideas.joueur1().setStuff(i, getBelt(id));
+					if(CharacterStuff.getStuff(id) instanceof Belt) {
+						Mideas.joueur1().setStuff(i, getBelt(id));
+					}
 				}
 				else if( i == 10) {
-					Mideas.joueur1().setStuff(i, getLeggings(id));
+					if(CharacterStuff.getStuff(id) instanceof Leggings) {
+						Mideas.joueur1().setStuff(i, getLeggings(id));
+					}
 				}
 				else if( i == 11) {
-					Mideas.joueur1().setStuff(i, getBoots(id));
+					if(CharacterStuff.getStuff(id) instanceof Boots) {
+						Mideas.joueur1().setStuff(i, getBoots(id));
+					}
 				}
 				else if( i == 12) {
-					Mideas.joueur1().setStuff(i, getRing(id));
+					if(CharacterStuff.getStuff(id) instanceof Ring) {
+						Mideas.joueur1().setStuff(i, getRing(id));
+					}
 				}
 				else if( i == 13) {
-					Mideas.joueur1().setStuff(i, getRing2(id));
+					if(CharacterStuff.getStuff(id) instanceof Ring2) {
+						Mideas.joueur1().setStuff(i, getRing2(id));
+					}
 				}
 				else if( i == 14) {
-					Mideas.joueur1().setStuff(i, getTrinket(id));
+					if(CharacterStuff.getStuff(id) instanceof Trinket) {
+						Mideas.joueur1().setStuff(i, getTrinket(id));
+					}
 				}
 				else if( i == 15) {
-					Mideas.joueur1().setStuff(i, getTrinket2(id));
+					if(CharacterStuff.getStuff(id) instanceof Trinket2) {
+						Mideas.joueur1().setStuff(i, getTrinket2(id));
+					}
 				}
 				else if( i == 16) {
-					Mideas.joueur1().setStuff(i, getMainHand(id));
+					if(CharacterStuff.getStuff(id) instanceof MainHand) {
+						Mideas.joueur1().setStuff(i, getMainHand(id));
+					}
 				}
 				else if( i == 17) {
-					Mideas.joueur1().setStuff(i, getOffHand(id));
+					if(CharacterStuff.getStuff(id) instanceof OffHand) {
+						Mideas.joueur1().setStuff(i, getOffHand(id));
+					}
 				}
 				else if( i == 18) {
-					Mideas.joueur1().setStuff(i, getRanged(id));
+					if(CharacterStuff.getStuff(id) instanceof Ranged) {
+						Mideas.joueur1().setStuff(i, getRanged(id));
+					}
 				}
 				i++;
 			}
