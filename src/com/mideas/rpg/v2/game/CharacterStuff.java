@@ -611,7 +611,6 @@ public class CharacterStuff {
 	public static void getBagItems() throws FileNotFoundException {
 		BufferedReader br = null;
 		int i = 0;
-		int j = 0;
 		int id;
 		try {
 			String sCurrentLine;
@@ -745,7 +744,7 @@ public class CharacterStuff {
 				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) != null) {
 						if(Mideas.bag().getBag(i) instanceof Item) {
-							content+= Mideas.bag().getBag(i).getId()+"="+Mideas.joueur1().getNumberPotion(Mideas.bag().getBag(i))+System.lineSeparator();
+							content+= Mideas.bag().getBag(i).getId()+"="+Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+System.lineSeparator();
 						}
 						else {
 							content+= Mideas.bag().getBag(i).getId()+System.lineSeparator();

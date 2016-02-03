@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellHeal;
 import com.mideas.rpg.v2.game.stuff.Stuff;
+import com.mideas.rpg.v2.game.stuff.item.craft.LinenCloth;
 import com.mideas.rpg.v2.game.stuff.item.potion.healingPotion.SuperHealingPotion;
 import com.mideas.rpg.v2.hud.LogChat;
 
@@ -31,6 +32,7 @@ public class Joueur {
 	private Spell[] spellUnlocked;
 	private Stuff[] stuff;
 	private int numberSuperHealingPotion;
+	private int numberLinenCloth;
 	private int maxStamina;
 	private int expGained;
 	private int isHealer;
@@ -590,16 +592,23 @@ public class Joueur {
 		exp = baseExp+expGained;
 	}
 	
-	public int getNumberPotion(Stuff potion) {
+	public int getNumberItem(Stuff potion) {
 		if(potion instanceof SuperHealingPotion) {
 			return numberSuperHealingPotion;
 		}
+		if(potion instanceof LinenCloth) {
+			return numberLinenCloth;
+		}
+		
 		return 0;
 	}
 	
 	public void setNumberPotion(Stuff potion, int number) {
 		if(potion instanceof SuperHealingPotion) {
 			numberSuperHealingPotion = number;
+		}
+		if(potion instanceof LinenCloth) {
+			numberLinenCloth = number;
 		}
 	}
 } 

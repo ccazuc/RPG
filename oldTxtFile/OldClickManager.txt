@@ -1,0 +1,184 @@
+
+				/*if(CharacterFrame.getHoverCharacterFrame(0)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(0);
+					if(tempItem != null && tempItem instanceof Head) {
+						Mideas.joueur1().setStuff(0, (Head)tempItem);
+						setNullCharacter(tempItem);
+						calcStats(Mideas.joueur1().getStuff(0));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(1)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(1);
+					if(tempItem != null && tempItem instanceof Necklace) {
+						Mideas.joueur1().setStuff(1, (Necklace)tempItem);
+						calcStats(Mideas.joueur1().getStuff(0));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(2)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(2);
+					if(tempItem != null && tempItem instanceof Shoulders) {
+						Mideas.joueur1().setStuff(2, (Shoulders)tempItem);
+						calcStats(Mideas.joueur1().getStuff(2));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(3)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(3);
+					if(tempItem != null && tempItem instanceof Back) {
+						Mideas.joueur1().setStuff(3, (Back)tempItem);
+						calcStats(Mideas.joueur1().getStuff(3));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(4)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(4);
+					if(tempItem != null && tempItem instanceof Chest) {
+						Mideas.joueur1().setStuff(4, (Chest)tempItem);
+						calcStats(Mideas.joueur1().getStuff(4));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.hoverCharacterFrame6) {
+					Stuff tempItem = draggedItem;
+					draggedItem = slotEquipped6;
+					slotEquipped6 = tempItem;
+					return true;
+				}
+				else if(CharacterFrame.hoverCharacterFrame7) {
+					Stuff tempItem = draggedItem;
+					draggedItem = slotEquipped7;
+					slotEquipped7 = tempItem;
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(7)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(7);
+					if(tempItem != null && tempItem instanceof Wrists) {
+						Mideas.joueur1().setStuff(7, (Wrists)tempItem);
+						calcStats(Mideas.joueur1().getStuff(7));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(8)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(8);
+					if(tempItem != null && tempItem instanceof Gloves) {
+						Mideas.joueur1().setStuff(8, (Gloves)tempItem);
+						calcStats(Mideas.joueur1().getStuff(8));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(9)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(9);
+					if(tempItem != null && tempItem instanceof Belt) {
+						Mideas.joueur1().setStuff(9, (Belt)tempItem);
+						calcStats(Mideas.joueur1().getStuff(9));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(10)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(10);
+					if(tempItem != null && tempItem instanceof Leggings) {
+						Mideas.joueur1().setStuff(10, (Leggings)tempItem);
+						calcStats(Mideas.joueur1().getStuff(10));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(11)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(11);
+					if(tempItem != null && tempItem instanceof Boots) {
+						Mideas.joueur1().setStuff(11, (Boots)tempItem);
+						calcStats(Mideas.joueur1().getStuff(11));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(12)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(12);
+					if(tempItem != null && tempItem instanceof Ring) {
+						Mideas.joueur1().setStuff(12, (Ring)tempItem);
+						calcStats(Mideas.joueur1().getStuff(12));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(13)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(13);
+					if(tempItem != null && tempItem instanceof Ring2) {
+						Mideas.joueur1().setStuff(13, (Ring2)tempItem);
+						calcStats(Mideas.joueur1().getStuff(13));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(14)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(14);
+					if(tempItem != null && tempItem instanceof Trinket) {
+						Mideas.joueur1().setStuff(14, (Trinket)tempItem);
+						calcStats(Mideas.joueur1().getStuff(14));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(15)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(15);
+					if(tempItem != null && tempItem instanceof Trinket2) {
+						Mideas.joueur1().setStuff(15, (Trinket2)tempItem);
+						calcStats(Mideas.joueur1().getStuff(15));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(16)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(16);
+					if(tempItem != null && tempItem instanceof MainHand) {
+						Mideas.joueur1().setStuff(16, (MainHand)tempItem);
+						calcStats(Mideas.joueur1().getStuff(16));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(17)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(17);
+					if(tempItem != null && tempItem instanceof OffHand) {
+						Mideas.joueur1().setStuff(17, (OffHand)tempItem);
+						calcStats(Mideas.joueur1().getStuff(17));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}
+				else if(CharacterFrame.getHoverCharacterFrame(18)) {
+					Stuff tempItem = draggedItem;
+					draggedItem = Mideas.joueur1().getStuff(18);
+					if(tempItem != null && tempItem instanceof Ranged) {
+						Mideas.joueur1().setStuff(18, (Ranged)tempItem);
+						calcStats(Mideas.joueur1().getStuff(18));
+						CharacterStuff.setEquippedItems();
+					}
+					return true;
+				}*/

@@ -679,7 +679,7 @@ public class ContainerFrame {
 	private static void drawBorder(Stuff bag, Texture border, int x, int y) {
 		if(bag != null && bag != DragManager.getDraggedItem()) {
 			if(bag instanceof Item) {
-				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberPotion(bag))), Display.getHeight()/2+y+20, String.valueOf(Mideas.joueur1().getNumberPotion(bag)), Color.white, Color.black, 1, 1, 1);
+				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(bag))), Display.getHeight()/2+y+20, String.valueOf(Mideas.joueur1().getNumberItem(bag)), Color.white, Color.black, 1, 1, 1);
 			}
 		Draw.drawQuad(border, Display.getWidth()+x, Display.getHeight()/2+y);
 		}
@@ -688,8 +688,8 @@ public class ContainerFrame {
 	private static boolean sellItem(Stuff item, boolean slot_hover) throws FileNotFoundException {
 		if(item != null && slot_hover && Interface.getShopFrameStatus()) {
 			if(item instanceof Item) {
-				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberPotion(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberPotion(item));
-				Mideas.setGold(item.getSellPrice()*Mideas.joueur1().getNumberPotion(item));
+				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
+				Mideas.setGold(item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
 				Mideas.joueur1().setNumberPotion(item, 0);
 			}
 			else {
@@ -773,7 +773,7 @@ public class ContainerFrame {
 		if(Mideas.bag().getBag(i) != null && !(Mideas.bag().getBag(i) == DragManager.getDraggedItem())) {
 			Draw.drawQuad(CharacterStuff.getBagSprite(Mideas.bag().getBag(i).getId()), Display.getWidth()+x, Display.getHeight()/2+y);
 			Draw.drawQuad(Sprites.cursor, -200, -200);
-			if(Mideas.bag().getBag(i) instanceof Item && Mideas.joueur1().getNumberPotion(Mideas.bag().getBag(i)) <= 0) {
+			if(Mideas.bag().getBag(i) instanceof Item && Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
 				Mideas.bag().setBag(i, null);
 			}
 		}

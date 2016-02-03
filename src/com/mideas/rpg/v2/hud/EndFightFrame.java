@@ -35,6 +35,7 @@ import com.mideas.rpg.v2.game.stuff.head.CowlOfTheTempest;
 import com.mideas.rpg.v2.game.stuff.head.GronnstalkersHelmet;
 import com.mideas.rpg.v2.game.stuff.head.LightbringerFaceguard;
 import com.mideas.rpg.v2.game.stuff.head.OnslaughtGreathelm;
+import com.mideas.rpg.v2.game.stuff.item.craft.LinenCloth;
 import com.mideas.rpg.v2.game.stuff.item.potion.Potion;
 import com.mideas.rpg.v2.game.stuff.item.potion.healingPotion.SuperHealingPotion;
 import com.mideas.rpg.v2.game.stuff.leggings.GronnstalkersLeggings;
@@ -147,7 +148,7 @@ public class EndFightFrame {
 				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) == null) {
 						Mideas.bag().setBag(i, potion);
-						number = Mideas.joueur1().getNumberPotion(potion)+1;
+						number = Mideas.joueur1().getNumberItem(potion)+1;
 						Mideas.joueur1().setNumberPotion(potion, number);
 						CharacterStuff.setBagItems();
 						return true;
@@ -197,7 +198,7 @@ public class EndFightFrame {
 	private static void lootPotions(Stuff bag, Stuff potion, int number) throws FileNotFoundException {
 		if(bag != null && bag.equals(potion)) {
 			bag = potion;
-			number = Mideas.joueur1().getNumberPotion(potion)+1;
+			number = Mideas.joueur1().getNumberItem(potion)+1;
 			Mideas.joueur1().setNumberPotion(potion, number);
 			CharacterStuff.setBagItems();
 		}
@@ -205,7 +206,6 @@ public class EndFightFrame {
 	
 	private static void lootGuerrier() throws FileNotFoundException {
 		float x = 0.005f;
-		//double rand = Math.random();
 		drop(x, new OnslaughtShoulderguards());
 		drop(x, new SunwellBack());
 		drop(x, new OnslaughtWaistguard());
@@ -219,11 +219,11 @@ public class EndFightFrame {
 		drop(.01f*x, new ThoridalTheStarsFury());
 		drop(.01f*x, new WarglaiveOfAzzinoth());
 		drop(100*x, new SuperHealingPotion());
+		drop(20*x, new LinenCloth());
 	}
 
 	private static void lootHunter() throws FileNotFoundException {
 		float x = 0.005f;
-		//double rand = Math.random();
 		drop(x, new GronnstalkersSpaulders());
 		drop(x, new SunwellBack());
 		drop(x, new GronnstalkersBelt());
@@ -236,6 +236,7 @@ public class EndFightFrame {
 		drop(x, new GronnstalkersBracers());
 		drop(0.01f*x, new ThoridalTheStarsFury());
 		drop(100*x, new SuperHealingPotion());
+		drop(20*x, new LinenCloth());
 		/*if(Math.random() < 100*x && !drop) {
 			drop = true;
 			dropPotion(new SuperHealingPotion(), 1);
@@ -243,7 +244,6 @@ public class EndFightFrame {
 	}
 	private static void lootPaladin() throws FileNotFoundException {
 		float x = 0.005f;
-		//double rand = Math.random();
 		drop(x, new LightbringerShoulderguards());
 		drop(x, new SunwellBack());
 		drop(x, new GirdleOfHope());
@@ -255,11 +255,11 @@ public class EndFightFrame {
 		drop(x, new SunwellNecklace());
 		drop(x, new TheSeekersWristguards());
 		drop(100*x, new SuperHealingPotion());
+		drop(20*x, new LinenCloth());
 	}
 
 	private static void lootMage() throws FileNotFoundException {
 		float x = 0.005f;
-		//double rand = Math.random();
 		drop(x, new MantleOfTheTempest());
 		drop(x, new SunwellBack());
 		drop(x, new BeltOfTheTempest());
@@ -271,9 +271,54 @@ public class EndFightFrame {
 		drop(x, new SunwellNecklace());
 		drop(x, new BracersOfTheTempest());
 		drop(100*x, new SuperHealingPotion());
+		drop(20*x, new LinenCloth());
 	}
 	
-	private static void lootManager() throws FileNotFoundException {
+	private static boolean lootManager() throws FileNotFoundException {
+		if(Mideas.joueur2().getClasse().equals("DeathKnight")) {
+			lootGuerrier();
+			return true;
+		}
+		else if(Mideas.joueur2().getClasse().equals("Guerrier")) {
+			lootGuerrier();
+			return true;
+		}
+		else if(Mideas.joueur2().getClasse().equals("Hunter")) {
+			lootHunter();
+			return true;
+		}
+		else if(Mideas.joueur2().getClasse().equals("Mage")) {
+			lootMage();
+			return true;
+		}
+		else if(Mideas.joueur2().getClasse().equals("Monk")) {
+			lootGuerrier();
+			return true;
+		}
+		else if(Mideas.joueur2().getClasse().equals("Paladin")) {
+			lootPaladin();
+			return true;
+		}
+		else if(Mideas.joueur2().getClasse().equals("Priest")) {
+			lootGuerrier();
+			return true;
+		}
+		else if(Mideas.joueur2().getClasse().equals("Rogue")) {
+			lootGuerrier();
+			return true;
+		}
+		else if(Mideas.joueur2().getClasse().equals("Shaman")) {
+			lootGuerrier();
+			return true;
+		}
+		else if(Mideas.joueur2().getClasse().equals("Warlock")) {
+			lootGuerrier();
+			return true;
+		}	
+		return false;	
+	}
+	
+	/*private static void lootManager() throws FileNotFoundException {
 		if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
 			lootGuerrier();
 		}
@@ -304,7 +349,7 @@ public class EndFightFrame {
 		if(Mideas.joueur1().getClasse().equals("Warlock")) {
 			lootGuerrier();
 		}			
-	}
+	}*/
 	
 	private static void drop(float x, Stuff item) throws FileNotFoundException {
 		if(Math.random() <= x && !drop) {

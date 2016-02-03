@@ -18,6 +18,7 @@ import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
 import com.mideas.rpg.v2.hud.ClassSelectFrame;
 import com.mideas.rpg.v2.hud.ContainerFrame;
+import com.mideas.rpg.v2.hud.CraftManager;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
 import com.mideas.rpg.v2.hud.EndFightFrame;
@@ -51,6 +52,7 @@ public class Interface {
 	private static boolean isTalentLoaded;
 	private static boolean isConfigLoaded;
 	private static boolean isChangeClassActive;
+	private static boolean craftFrameActive;
 
 	public static void draw() throws LWJGLException, IOException {
 		Draw.drawQuad(Sprites.current_bg, Display.getWidth()/2-Sprites.current_bg.getImageWidth()/2, Display.getHeight()/2-Sprites.current_bg.getImageHeight()/2);	
@@ -106,6 +108,9 @@ public class Interface {
 					}
 					if(spellBookFrameActive) {
 						SpellBookFrame.draw();
+					}
+					if(craftFrameActive) {
+						CraftManager.draw();
 					}
 					if(!isShopLoaded) {
 						CharacterStuff.getShopItems();
@@ -294,6 +299,18 @@ public class Interface {
 				changeBackgroundFrameActive = !changeBackgroundFrameActive;
 				return true;
 			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_K) {
+				closeTalentFrame();
+				closeShopFrame();
+				closeCharacterFrame();
+				closeSpellBookFrame();
+				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+				Arrays.fill(ShopFrame.getShopHover(), false);
+				Arrays.fill(SpellBookFrame.getHoverBook(), false);
+				ClassSelectFrame.setHoverFalse();
+				craftFrameActive = !craftFrameActive;
+				return true;
+			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_M) {
 				dungeonFrameActive = !dungeonFrameActive;
 			}
@@ -392,5 +409,13 @@ public class Interface {
 	
 	public static void setIsChangeClassActive(boolean we) {
 		isChangeClassActive = we;
+	}
+	
+	public static boolean getCraftFrameStatus() {
+		return craftFrameActive;
+	}
+	
+	public static void setCraftFrameActive(boolean we) {
+		craftFrameActive = we;
 	}
 }
