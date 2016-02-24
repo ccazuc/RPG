@@ -12,7 +12,7 @@ public class Paladin extends Joueur {
 	public static final int MAX_MANA = 3000;
 	
 	public Paladin() {
-		super(16000, 450, 190, 190, 190, 5, 3000, new Spell[49], new Spell[49], new Stuff[21], "Paladin", 8, 16000, 3000, 1, 2000, 1450);
+		super(16000, 450, 190, 190, 190, 5, 3000, new Spell[49], new Spell[49], new Stuff[21], "Paladin", 8, 16000, 3000, 1, 2000, 1450, 0);
 		setSpells(0, new LayOnHands());
 		setSpells(1, new CrusaderStrike());
 		setSpells(2, new Judgment());

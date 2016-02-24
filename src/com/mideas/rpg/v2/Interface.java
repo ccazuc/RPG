@@ -111,6 +111,7 @@ public class Interface {
 					}
 					if(craftFrameActive) {
 						CraftManager.draw();
+						System.out.println("a");
 					}
 					if(!isShopLoaded) {
 						CharacterStuff.getShopItems();
@@ -314,10 +315,23 @@ public class Interface {
 			else if(Keyboard.getEventKey() == Keyboard.KEY_M) {
 				dungeonFrameActive = !dungeonFrameActive;
 			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_I) {
+				craftFrameActive = !craftFrameActive;
+				closeTalentFrame();
+				closeShopFrame();
+				closeCharacterFrame();
+				closeSpellBookFrame();
+				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+				Arrays.fill(ShopFrame.getShopHover(), false);
+				Arrays.fill(SpellBookFrame.getHoverBook(), false);
+				ClassSelectFrame.setHoverFalse();
+				
 			if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur2().getStamina() > 0) {
 				if(SpellBarFrame.keyboardEvent()) {
 					return true;
 				}
+			}
+			
 			}
 		}
 		return false;

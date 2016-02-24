@@ -49,16 +49,18 @@ public class Joueur {
 	private int goldGained;
 	private int defaultArmor;
 	private int defaultStuffArmor;
+	private int tailorExp;
 	public int x;
 	public static int y;
 	public static int z;
 	
-	public Joueur(int stamina, int strength, float armor, int defaultArmor, int defaultStuffArmor, int critical, int mana, Spell[] spells, Spell[] spellUnlocked, Stuff[] stuff, String classe, int id, int maxStamina, int maxMana, int isHealer, int expGained, int goldGained) {
+	public Joueur(int stamina, int strength, float armor, int defaultArmor, int defaultStuffArmor, int critical, int mana, Spell[] spells, Spell[] spellUnlocked, Stuff[] stuff, String classe, int id, int maxStamina, int maxMana, int isHealer, int expGained, int goldGained, int tailorExp) {
 		this.maxStamina = maxStamina;
 		this.expGained = expGained;
 		this.goldGained = goldGained;
 		this.isHealer = isHealer;
 		this.critical = critical;
+		this.tailorExp = tailorExp;
 		this.stamina = stamina;
 		this.maxMana = maxMana;
 		this.strength = strength;

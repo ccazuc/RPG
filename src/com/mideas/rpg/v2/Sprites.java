@@ -458,8 +458,10 @@ public class Sprites {
 	public static Texture spellbook_spell_bg_grey;
 	public static Texture close_spell_book_hover;
 	public static Texture linen_cloth;
+	public static Texture craft_frame;
 	
 	public static void sprite() throws IOException {
+		craft_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/craft_frame.png"));
 		linen_cloth = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/craft/linen_cloth.jpg"));
 		admin_panel = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/admin_panel.png"));
 		current_bg = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bg.png"));

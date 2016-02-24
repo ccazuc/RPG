@@ -17,8 +17,8 @@ public class Stuff {
 	protected String slot;
 	private static String[] slotStuff = new String[19];
 	protected int id;
-	
-	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, String classe2, String classe3, String classe4, int price, int sellPrice, String slot) {
+
+	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, String classe2, String classe3, String classe4, int price, int sellPrice, int expCraftGiven, String slot) {
 		this.critical = critical;
 		this.sellPrice = sellPrice;
 		this.stamina = stamina;
@@ -35,7 +35,7 @@ public class Stuff {
 		this.id = id;
 	}	
 	
-	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, String classe2, String classe3, int price, int sellPrice, String slot) {
+	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, String classe2, String classe3, int price, int sellPrice, int expCraftGiven, String slot) {
 		this.critical = critical;
 		this.stamina = stamina;
 		this.strength = strength;
@@ -51,7 +51,7 @@ public class Stuff {
 		this.id = id;
 	}
 	
-	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, String classe2, int price, int sellPrice, String slot) {
+	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, String classe2, int price, int sellPrice,  int expCraftGiven, String slot) {
 		this.critical = critical;
 		this.stamina = stamina;
 		this.strength = strength;
@@ -66,7 +66,7 @@ public class Stuff {
 		this.id = id;
 	}
 	
-	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, int price, int sellPrice, String slot) {
+	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, int price, int sellPrice,  int expCraftGiven, String slot) {
 		this.sellPrice = sellPrice;
 		this.critical = critical;
 		this.strength = strength;

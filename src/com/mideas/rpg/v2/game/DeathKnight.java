@@ -12,7 +12,7 @@ public class DeathKnight extends Joueur {
 	public static final int MAX_MANA = 2000;
 	
 	public DeathKnight() {
-		super(15000, 300, 100, 100, 100, 5, 2000, new Spell[49], new Spell[49], new Stuff[21], "DeathKnight", 5, 15000, 2000, 0, 1500, 1550);
+		super(15000, 300, 100, 100, 100, 5, 2000, new Spell[49], new Spell[49], new Stuff[21], "DeathKnight", 5, 15000, 2000, 0, 1500, 1550, 0);
 		setSpells(0, new DeathStrike());
 		setSpells(1, new PlagueStrike());
 		setSpells(2, new DeathCoil());

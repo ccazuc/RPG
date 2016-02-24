@@ -41,6 +41,7 @@ import com.mideas.rpg.v2.game.stuff.head.Head;
 import com.mideas.rpg.v2.game.stuff.head.LightbringerFaceguard;
 import com.mideas.rpg.v2.game.stuff.head.OnslaughtGreathelm;
 import com.mideas.rpg.v2.game.stuff.item.Item;
+import com.mideas.rpg.v2.game.stuff.item.craft.LinenCloth;
 import com.mideas.rpg.v2.game.stuff.item.potion.healingPotion.SuperHealingPotion;
 import com.mideas.rpg.v2.game.stuff.leggings.GronnstalkersLeggings;
 import com.mideas.rpg.v2.game.stuff.leggings.Leggings;
@@ -76,6 +77,9 @@ public class CharacterStuff {
 	private static Stuff getStuff(int id) {
 		if(id == 1) {
 			return new SuperHealingPotion();
+		}
+		else if(id == 2) {
+			return new LinenCloth();
 		}
 		else if(id == 101) {
 			return new OnslaughtGreathelm();
@@ -191,6 +195,9 @@ public class CharacterStuff {
 	public static Texture getSprite(int id) {
 		if(id == 1) {
 			return Sprites.super_healing_potion;
+		}
+		else if(id == 2) {
+			return Sprites.linen_cloth;
 		}
 		else if(id == 101) {
 			return Sprites.warrior_t6_head;
@@ -309,6 +316,9 @@ public class CharacterStuff {
 		if(id == 1) {
 			return Sprites.bag_super_healing_potion;
 		}
+		else if(id == 2) {
+			return Sprites.linen_cloth;
+		}
 		else if(id == 101) {
 			return Sprites.warrior_bag_t6_head;
 		}
@@ -425,6 +435,9 @@ public class CharacterStuff {
 	public static Texture getShopSprite(int id) {
 		if(id == 1) {
 			return Sprites.shop_super_healing_potion;
+		}
+		else if(id == 2) {
+			return Sprites.linen_cloth;
 		}
 		else if(id == 101) {
 			return Sprites.warrior_shop_t6_head;

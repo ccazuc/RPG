@@ -318,39 +318,6 @@ public class EndFightFrame {
 		return false;	
 	}
 	
-	/*private static void lootManager() throws FileNotFoundException {
-		if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-			lootGuerrier();
-		}
-		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-			lootGuerrier();
-		}
-		if(Mideas.joueur1().getClasse().equals("Hunter")) {
-			lootHunter();
-		}
-		if(Mideas.joueur1().getClasse().equals("Mage")) {
-			lootMage();
-		}
-		if(Mideas.joueur1().getClasse().equals("Monk")) {
-			lootGuerrier();
-		}
-		if(Mideas.joueur1().getClasse().equals("Paladin")) {
-			lootPaladin();
-		}
-		if(Mideas.joueur1().getClasse().equals("Priest")) {
-			lootGuerrier();
-		}
-		if(Mideas.joueur1().getClasse().equals("Rogue")) {
-			lootGuerrier();
-		}
-		if(Mideas.joueur1().getClasse().equals("Shaman")) {
-			lootGuerrier();
-		}
-		if(Mideas.joueur1().getClasse().equals("Warlock")) {
-			lootGuerrier();
-		}			
-	}*/
-	
 	private static void drop(float x, Stuff item) throws FileNotFoundException {
 		if(Math.random() <= x && !drop) {
 			if(item instanceof Potion) {

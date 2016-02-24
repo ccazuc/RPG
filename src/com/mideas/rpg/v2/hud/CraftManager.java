@@ -1,12 +1,16 @@
 package com.mideas.rpg.v2.hud;
 
+import org.lwjgl.opengl.Display;
+
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.game.stuff.Stuff;
+import com.mideas.rpg.v2.utils.Draw;
 
 public class CraftManager {
 
 	public static void draw() {
-		
+		Draw.drawQuad(Sprites.craft_frame, Display.getWidth()/2-480, Display.getHeight()/2-350);
 	}
 	
 	public static boolean mouseEvent() {
