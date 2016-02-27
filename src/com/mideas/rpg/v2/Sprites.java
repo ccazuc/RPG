@@ -85,6 +85,7 @@ public class Sprites {
 	public static Texture cursor;
 	public static Texture cursor_buy;
 	public static Texture alert;
+	public static Texture alert_dungeon;
 	public static Texture character_frame;
 	public static Texture character_frame2;
 	public static Texture character_frame_stats;
@@ -458,11 +459,13 @@ public class Sprites {
 	public static Texture spellbook_spell_bg_grey;
 	public static Texture close_spell_book_hover;
 	public static Texture linen_cloth;
+	public static Texture bag_linen_cloth;
 	public static Texture craft_frame;
 	
 	public static void sprite() throws IOException {
 		craft_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/craft_frame.png"));
 		linen_cloth = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/craft/linen_cloth.jpg"));
+		bag_linen_cloth = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/bagcraft/bag_linen_cloth.jpg"));
 		admin_panel = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/admin_panel.png"));
 		current_bg = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bg.png"));
 		doge_bg = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/interface/bgDoge.jpg"));
@@ -905,6 +908,7 @@ public class Sprites {
 		cursor = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/cursor.png"));
 		cursor_buy = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/cursor_buy.png"));
 		alert = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/alert.png"));
+		alert_dungeon = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/alert_dungeon.png"));
 		close_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_hover.png"));
 		close_shop_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_shop_hover.png"));
 

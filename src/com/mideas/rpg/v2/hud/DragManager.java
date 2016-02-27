@@ -93,7 +93,7 @@ public class DragManager {
 			if(Mouse.getEventButtonState()) {
 				if(hoverDelete && deleteItem) {
 					if(draggedItem instanceof Item) {
-						Mideas.joueur1().setNumberPotion(draggedItem, 0);
+						Mideas.joueur1().setNumberItem(draggedItem, 0);
 					}
 					deleteItem(draggedItem);
 					deleteItem = false;
@@ -220,7 +220,7 @@ public class DragManager {
 				number++;
 			}
 			number--;
-			Mideas.joueur1().setNumberPotion(stuff, number);
+			Mideas.joueur1().setNumberItem(stuff, number);
 			CharacterStuff.setBagItems();
 			if(number <= 0) {
 				return true;

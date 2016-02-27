@@ -23,7 +23,7 @@ public class CraftManager {
 			int i = 0;
 			while(i < Mideas.bag().getBag().length) {
 				if(Mideas.bag().getBag(i).equals(item)) {
-					Mideas.joueur1().setNumberPotion(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))-itemNumber);
+					Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))-itemNumber);
 					return true;
 				}
 				i++;

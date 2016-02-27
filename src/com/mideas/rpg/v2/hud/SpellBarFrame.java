@@ -126,16 +126,6 @@ public class SpellBarFrame {
 			return true;
 		}
 		if(Keyboard.getEventKey() == Keyboard.KEY_2) {
-			/*if(Spell.getSpellCd(Mideas.joueur1.getSpells()[0]) <= 0 && Mideas.joueur1().cast(Mideas.joueur1().getSpells()[0])) {
-				//Mideas.joueur1().cast(Mideas.joueur1().getSpells()[2]);
-				Mideas.joueur1.getSpells()[0].setSpellCd(Mideas.joueur1.getSpells()[0], Mideas.joueur1.getSpells()[0].getSpellBaseCd());
-			}
-			else if (Spell.getSpellCd(Mideas.joueur1.getSpells()[0]) <= 0){
-				Mideas.joueur1.cast(Mideas.joueur1.getSpells()[0]);
-			}
-			else {
-				Mideas.joueur1.tick();
-			}*/
 			keyboardAttack(0);
 			return true;
 		}

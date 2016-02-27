@@ -111,7 +111,6 @@ public class Interface {
 					}
 					if(craftFrameActive) {
 						CraftManager.draw();
-						System.out.println("a");
 					}
 					if(!isShopLoaded) {
 						CharacterStuff.getShopItems();
@@ -127,7 +126,7 @@ public class Interface {
 					TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), Color.decode("#F0CE0C"), Color.black, 1, 1, 1);
 					if(Mideas.joueur2() != null) {
 						PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
-						if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0) {
+						if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
 							EndFightFrame.draw();
 						}
 					}
@@ -164,7 +163,7 @@ public class Interface {
 					return true;
 				}
 			}
-			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0) {
+			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
 				EndFightFrame.mouseEvent();
 				return true;
 			}
@@ -325,13 +324,11 @@ public class Interface {
 				Arrays.fill(ShopFrame.getShopHover(), false);
 				Arrays.fill(SpellBookFrame.getHoverBook(), false);
 				ClassSelectFrame.setHoverFalse();
-				
+			}	
 			if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur2().getStamina() > 0) {
 				if(SpellBarFrame.keyboardEvent()) {
 					return true;
 				}
-			}
-			
 			}
 		}
 		return false;

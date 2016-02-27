@@ -1,5 +1,5 @@
 DeathKnight=10000
-Guerrier=1195195
+Guerrier=2130535
 Hunter=1551
 Mage=0
 Monk=99999

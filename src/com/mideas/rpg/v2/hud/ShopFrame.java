@@ -240,7 +240,7 @@ public class ShopFrame {
 			else {
 				if(Mideas.getGold() >= stuff.getPrice()) {
 					if(stuff instanceof Item) {
-						EndFightFrame.dropPotion(stuff, 1);
+						EndFightFrame.dropItem(stuff, 1);
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
 						Mideas.setGold(-stuff.getPrice());
 					}
@@ -273,13 +273,6 @@ public class ShopFrame {
 				TTF2.statsName.drawStringShadow(Display.getWidth()+x_string+x_bg, Display.getHeight()/2+y_string+60, "+"+stuff.getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
 				TTF2.statsName.drawStringShadow(Display.getWidth()+x_string+x_bg, Display.getHeight()/2+y_string+80, "+"+stuff.getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
 			}
-			/*Draw.drawColorQuad(Display.getWidth()+xLeft-300, Display.getHeight()/2-80, 150+TTF.itemName.getWidth(Mideas.shop.stuff1.getStuffName())/2, 80+TTF.statsName.getHeight()*4, bgColor);
-			TTF.itemName.drawStringShadow(Display.getWidth()+xLeft-180-TTF.itemName.getWidth(Mideas.shop.stuff1.getStuffName())/2, Display.getHeight()/2+y-20, Mideas.shop.stuff1.getStuffName());
-			TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y, "+"+Mideas.shop.stuff1.getArmor()+" Armor");
-			TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y+20, "+"+Mideas.shop.stuff1.getStamina()+" Stamina");
-			TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y+40, "+"+Mideas.shop.stuff1.getMana()+" Mana");
-			TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y+60, "+"+Mideas.shop.stuff1.getStrengh()+" Strengh");
-			TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y+80, "+"+Mideas.shop.stuff1.getCritical()+" Critical");*/
 		}
 	}
 	

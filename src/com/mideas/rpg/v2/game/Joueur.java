@@ -605,7 +605,7 @@ public class Joueur {
 		return 0;
 	}
 	
-	public void setNumberPotion(Stuff potion, int number) {
+	public void setNumberItem(Stuff potion, int number) {
 		if(potion instanceof SuperHealingPotion) {
 			numberSuperHealingPotion = number;
 		}

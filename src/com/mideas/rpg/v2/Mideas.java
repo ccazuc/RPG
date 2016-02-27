@@ -53,7 +53,6 @@ public class Mideas {
 	private static long last;
 	private static int count;
 	private static String fps;
-	private static boolean isSpritesLoaded;
 	private static BufferedImage cursor_image;
 	private static int exp;
 	private static int expDeathKnight;
@@ -143,13 +142,9 @@ public class Mideas {
 		cursor_buffer.position(0);
 		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));
 		//Display.setFullscreen(true);
-		if(!isSpritesLoaded) {
-			Sprites.sprite();
-			TTF2.init();
-			Stuff.loadSlotStuff();
-			isSpritesLoaded = true;
-		}
-		
+		Sprites.sprite();
+		TTF2.init();
+		Stuff.loadSlotStuff();
 		/*cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
 		final int cursor_width = cursor_image.getWidth();
 		final int cursor_height = cursor_image.getHeight();
@@ -852,20 +847,44 @@ public class Mideas {
 	public static int getExp() throws FileNotFoundException {
 		BufferedReader br = null;
 		try {
+			int j = 0;
 			String sCurrentLine;
 			String tempExp[] = {"1","2","3"};
 			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				int j = 0;
-				while(j < 10) {
-					if(Mideas.getClassLine() == j) {
-						tempExp = sCurrentLine.split("=");
-					}
-					j++;
+			while((sCurrentLine = br.readLine()) != null) {
+				if(Mideas.getClassLine() == j) {
+					tempExp = sCurrentLine.split("=");	
 				}
+				if(Mideas.getClassLine() == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == j) {
+				tempExp = sCurrentLine.split("=");
+				}
+				j++;
 			}
-			exp = Integer.parseInt(tempExp[1]);
-			
+			exp = Integer.parseInt(tempExp[1]);		
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -881,6 +900,94 @@ public class Mideas {
 			}
 		}
 		return exp;
+	}
+	
+	public static void setExp() throws FileNotFoundException {
+		exp = getExp()+Mideas.joueur2.getExpGained();
+		BufferedReader br = null;
+		try {
+			String content = "";
+			String sCurrentLine;
+			int i = 0;
+			File file = new File("exp.txt");
+				if(!file.exists()) {
+					file.createNewFile();
+				}
+			br = new BufferedReader(new FileReader("exp.txt"));
+			while(i < 10) {
+				sCurrentLine = br.readLine();
+				if(joueur1.getClasse().equals("DeathKnight") && i == 0) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+				}
+				else if(i == 0) {
+					content+= sCurrentLine+"\r\n";
+				}
+				if(joueur1.getClasse().equals("Guerrier") && i == 1) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+					
+				}
+				else if(i == 1) {
+					content+= sCurrentLine+"\r\n";
+				}
+				if(joueur1.getClasse().equals("Hunter") && i == 2) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+				}
+				else if(i == 2) {
+					content+= sCurrentLine+"\r\n";
+				}
+				if(joueur1.getClasse().equals("Mage") && i == 3) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+				}
+				else if(i == 3) {
+					content+= sCurrentLine+"\r\n";
+				}
+				if(joueur1.getClasse().equals("Monk") && i == 4) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+				}
+				else if(i == 4) {
+					content+= sCurrentLine+"\r\n";
+				}
+				if(joueur1.getClasse().equals("Paladin") && i == 5) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+				}
+				else if(i == 5) {
+					content+= sCurrentLine+"\r\n";
+				}
+				if(joueur1.getClasse().equals("Priest") && i == 6) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+				}
+				else if(i == 6) {
+					content+= sCurrentLine+"\r\n";
+				}
+				if(joueur1.getClasse().equals("Rogue") && i == 7) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+				}
+				else if(i == 7) {
+					content+= sCurrentLine+"\r\n";
+				}
+				if(joueur1.getClasse().equals("Shaman") && i == 8) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+				}
+				else if(i == 8) {
+					content+= sCurrentLine+"\r\n";
+				}
+				if(joueur1.getClasse().equals("Warlock") && i == 9) {
+					content+= joueur1.getClasse()+"="+exp+"\r\n";
+				}
+				else if(i == 9) {
+					content+= sCurrentLine+"\r\n";
+				}
+				i++;
+			}
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.close();
+			br.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static int getExpDeathKnight() throws FileNotFoundException {
@@ -1182,94 +1289,7 @@ public class Mideas {
 		}
 		return expWarlock;
 	}
-	
-	public static void setExp() throws FileNotFoundException {
-		exp = getExp()+Mideas.joueur2.getExpGained();
-		BufferedReader br = null;
-		try {
-			String content = "";
-			String sCurrentLine;
-			int i = 0;
-			File file = new File("exp.txt");
-				if (!file.exists()) {
-					file.createNewFile();
-				}
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while(i <10) {
-				sCurrentLine = br.readLine();
-				if(joueur1.getClasse().equals("DeathKnight") && i == 0) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 0) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Guerrier") && i == 1) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-					
-				}
-				else if(i == 1) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Hunter") && i == 2) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 2) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Mage") && i == 3) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 3) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Monk") && i == 4) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 4) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Paladin") && i == 5) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 5) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Priest") && i == 6) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 6) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Rogue") && i == 7) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 7) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Shaman") && i == 8) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 8) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Warlock") && i == 9) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 9) {
-					content+= sCurrentLine+"\r\n";
-				}
-				i++;
-			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
-			br.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 	/*public static void setExp() throws FileNotFoundException {
 		exp = getExp()+Mideas.joueur2.getExpGained();
@@ -1574,7 +1594,7 @@ public class Mideas {
 					file.createNewFile();
 				}
 			br = new BufferedReader(new FileReader("gold.txt"));
-			while(i <10) {
+			while(i < 10) {
 				sCurrentLine = br.readLine();
 				if(joueur1.getClasse().equals("DeathKnight") && i == 0) {
 					content+= joueur1.getClasse()+"="+gold+System.lineSeparator();

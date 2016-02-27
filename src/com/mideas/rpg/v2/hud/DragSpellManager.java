@@ -18,7 +18,7 @@ import com.mideas.rpg.v2.utils.Draw;
 public class DragSpellManager {
 
 	private static Spell draggedSpell;
-	private static boolean[] hover = new boolean[12];
+	private static boolean[] hover = new boolean[13];
 	
 	public static void draw() {
 		if(draggedSpell != null) {

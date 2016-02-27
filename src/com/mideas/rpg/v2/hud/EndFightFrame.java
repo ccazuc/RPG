@@ -10,8 +10,6 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.dungeon.BlackTemple;
-import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.stuff.Stuff;
 import com.mideas.rpg.v2.game.stuff.back.SunwellBack;
@@ -35,8 +33,8 @@ import com.mideas.rpg.v2.game.stuff.head.CowlOfTheTempest;
 import com.mideas.rpg.v2.game.stuff.head.GronnstalkersHelmet;
 import com.mideas.rpg.v2.game.stuff.head.LightbringerFaceguard;
 import com.mideas.rpg.v2.game.stuff.head.OnslaughtGreathelm;
+import com.mideas.rpg.v2.game.stuff.item.Item;
 import com.mideas.rpg.v2.game.stuff.item.craft.LinenCloth;
-import com.mideas.rpg.v2.game.stuff.item.potion.Potion;
 import com.mideas.rpg.v2.game.stuff.item.potion.healingPotion.SuperHealingPotion;
 import com.mideas.rpg.v2.game.stuff.leggings.GronnstalkersLeggings;
 import com.mideas.rpg.v2.game.stuff.leggings.LeggingsOfTheTempest;
@@ -68,61 +66,57 @@ public class EndFightFrame {
 		Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
 		Arrays.fill(ShopFrame.getShopHover(), false);
 		Arrays.fill(SpellBookFrame.getHoverBook(), false);
-		if(!Dungeon.getDungeonStatus() && !BlackTemple.getBlackTempleStatus()) {
-			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Display.getHeight()/2-80);
-			if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
-				Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+		Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Display.getHeight()/2-80);
+		if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
+			Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+		}
+		else {
+			Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+		}
+		if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
+			Draw.drawQuad(Sprites.button_hover2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
+		}
+		else {
+			Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
+		}
+		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Retry")/2-69, Display.getHeight()/2-41, "Retry", Color.white, Color.black, 1, 1, 1);
+		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit")/2+69, Display.getHeight()/2-41, "Quit", Color.white, Color.black, 1, 1, 1);
+		if(Mideas.joueur1().getStamina() <= 0) {
+			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 2 WON", Color.white, Color.black, 1, 1, 1);
+		}
+		else if(Mideas.joueur2().getStamina() <= 0) {
+			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 WON", Color.white, Color.black, 1, 1, 1);
+			isGold = true;
+			if(!expGiven) {
+				Mideas.setExp();
+				Mideas.getLevel();
+				expGiven = true;
 			}
-			else {
-				Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+			if(!gold) {
+				Mideas.setGold(Mideas.joueur2().getGoldGained());
+				gold = true;
 			}
-			if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
-				Draw.drawQuad(Sprites.button_hover2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
-			}
-			else {
-				Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
-			}
-			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Retry")/2-69, Display.getHeight()/2-41, "Retry", Color.white, Color.black, 1, 1, 1);
-			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit")/2+69, Display.getHeight()/2-41, "Quit", Color.white, Color.black, 1, 1, 1);
-			if(Mideas.joueur1().getStamina() <= 0) {
-				TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 2 WON", Color.white, Color.black, 1, 1, 1);
-			}
-			else if(Mideas.joueur2().getStamina() <= 0) {
-				TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 WON", Color.white, Color.black, 1, 1, 1);
-				isGold = true;
-				if(!expGiven) {
-					Mideas.setExp();
-					Mideas.getLevel();
-					expGiven = true;
-				}
-				if(!gold) {
-					Mideas.setGold(Mideas.joueur2().getGoldGained());
-					gold = true;
-				}
-				lootManager();
-			}
+			lootManager();
 		}
 	}
 	
 	public static void mouseEvent() {
-		if(!Dungeon.getDungeonStatus() && !BlackTemple.getBlackTempleStatus()) {
-			if(Mouse.getEventButton() == 0) {
-				if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
-					System.exit(1);
+		if(Mouse.getEventButton() == 0) {
+			if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
+				System.exit(1);
+			}
+			else if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
+				Mideas.setJoueur2(Mideas.getRandomClass(2));
+				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
+				Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
+				LogChat.setStatusText("");
+				LogChat.setStatusText2("");
+				expGiven = false;
+				drop = false;
+				if(isGold) {
+					gold = false;
 				}
-				else if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
-					Mideas.setJoueur2(Mideas.getRandomClass(2));
-					Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
-					Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
-					LogChat.setStatusText("");
-					LogChat.setStatusText2("");
-					expGiven = false;
-					drop = false;
-					if(isGold) {
-						gold = false;
-					}
-					isGold = false;
-				}
+				isGold = false;
 			}
 		}
 	}
@@ -141,15 +135,15 @@ public class EndFightFrame {
 		return false;
 	}
 	
-	public static boolean dropPotion(Stuff potion, int number) throws FileNotFoundException {
-		if(potion instanceof Potion) {
-			if(checkBagPotions(potion)) {
+	public static boolean dropItem(Stuff potion, int number) throws FileNotFoundException {
+		if(potion instanceof Item) {
+			if(checkBagItems(potion)) {
 				int i = 0;
 				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) == null) {
 						Mideas.bag().setBag(i, potion);
 						number = Mideas.joueur1().getNumberItem(potion)+1;
-						Mideas.joueur1().setNumberPotion(potion, number);
+						Mideas.joueur1().setNumberItem(potion, number);
 						CharacterStuff.setBagItems();
 						return true;
 					}
@@ -159,7 +153,7 @@ public class EndFightFrame {
 			else {
 				int i = 0;
 				while(i < Mideas.bag().getBag().length) {
-					lootPotions(Mideas.bag().getBag(i), potion, number);
+					lootItems(Mideas.bag().getBag(i), potion, number);
 					i++;
 				}
 			}
@@ -167,7 +161,7 @@ public class EndFightFrame {
 		return false;
 	}
 	
-	public static boolean checkBagPotions(Stuff item) {
+	public static boolean checkBagItems(Stuff item) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) != null && item.equals(Mideas.bag().getBag(i))) {
@@ -195,11 +189,11 @@ public class EndFightFrame {
 		return true;
 	}
 	
-	private static void lootPotions(Stuff bag, Stuff potion, int number) throws FileNotFoundException {
+	private static void lootItems(Stuff bag, Stuff potion, int number) throws FileNotFoundException {
 		if(bag != null && bag.equals(potion)) {
 			bag = potion;
 			number = Mideas.joueur1().getNumberItem(potion)+1;
-			Mideas.joueur1().setNumberPotion(potion, number);
+			Mideas.joueur1().setNumberItem(potion, number);
 			CharacterStuff.setBagItems();
 		}
 	}
@@ -219,7 +213,7 @@ public class EndFightFrame {
 		drop(.01f*x, new ThoridalTheStarsFury());
 		drop(.01f*x, new WarglaiveOfAzzinoth());
 		drop(100*x, new SuperHealingPotion());
-		drop(20*x, new LinenCloth());
+		drop(200*x, new LinenCloth());
 	}
 
 	private static void lootHunter() throws FileNotFoundException {
@@ -236,7 +230,7 @@ public class EndFightFrame {
 		drop(x, new GronnstalkersBracers());
 		drop(0.01f*x, new ThoridalTheStarsFury());
 		drop(100*x, new SuperHealingPotion());
-		drop(20*x, new LinenCloth());
+		drop(200*x, new LinenCloth());
 		/*if(Math.random() < 100*x && !drop) {
 			drop = true;
 			dropPotion(new SuperHealingPotion(), 1);
@@ -255,7 +249,7 @@ public class EndFightFrame {
 		drop(x, new SunwellNecklace());
 		drop(x, new TheSeekersWristguards());
 		drop(100*x, new SuperHealingPotion());
-		drop(20*x, new LinenCloth());
+		drop(200*x, new LinenCloth());
 	}
 
 	private static void lootMage() throws FileNotFoundException {
@@ -271,10 +265,14 @@ public class EndFightFrame {
 		drop(x, new SunwellNecklace());
 		drop(x, new BracersOfTheTempest());
 		drop(100*x, new SuperHealingPotion());
-		drop(20*x, new LinenCloth());
+		drop(200*x, new LinenCloth());
 	}
 	
-	private static boolean lootManager() throws FileNotFoundException {
+	private static void lootIllidan() throws FileNotFoundException {
+		drop(.03f, new WarglaiveOfAzzinoth());
+	}
+	
+	public static boolean lootManager() throws FileNotFoundException {
 		if(Mideas.joueur2().getClasse().equals("DeathKnight")) {
 			lootGuerrier();
 			return true;
@@ -314,14 +312,21 @@ public class EndFightFrame {
 		else if(Mideas.joueur2().getClasse().equals("Warlock")) {
 			lootGuerrier();
 			return true;
-		}	
+		}
+		else if(Mideas.joueur2().getClasse().equals("Illidan")) {
+			lootIllidan();
+			return true;
+		}		
 		return false;	
 	}
 	
 	private static void drop(float x, Stuff item) throws FileNotFoundException {
 		if(Math.random() <= x && !drop) {
-			if(item instanceof Potion) {
-				dropPotion(new SuperHealingPotion(), 1);
+			if(item instanceof SuperHealingPotion) {
+				dropItem(new SuperHealingPotion(), 1);
+			}
+			else if(item instanceof LinenCloth) {
+				dropItem(new LinenCloth(), 1);
 			}
 			else {
 				dropRate(item);
@@ -329,6 +334,10 @@ public class EndFightFrame {
 			LogChat.setStatusText3("Vous avez obtenus "+item.getStuffName());
 			drop = true;
 		}
+	}
+	
+	public static void setDrop(boolean we) {
+		drop = we;
 	}
 }
 

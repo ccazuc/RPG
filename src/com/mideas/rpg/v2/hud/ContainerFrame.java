@@ -662,12 +662,14 @@ public class ContainerFrame {
 		slotHover(x+2*xShift, y+ySecondBag+3*yShift, 30);
 		slotHover(x+3*xShift, y+ySecondBag+3*yShift, 31);
 			if(Mouse.getEventButton() == 1) {
-				int i = 0;
-				while(i < Mideas.bag().getBag().length) {
-					clickSellItem(i);
-					i++;
-				}
+				if(Mouse.getEventButtonState()) {
+					int i = 0;
+					while(i < Mideas.bag().getBag().length) {
+						clickSellItem(i);
+						i++;
+					}
 				CharacterStuff.setBagItems();
+				}
 			}
 		return false;
 	}
@@ -690,7 +692,7 @@ public class ContainerFrame {
 			if(item instanceof Item) {
 				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
 				Mideas.setGold(item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
-				Mideas.joueur1().setNumberPotion(item, 0);
+				Mideas.joueur1().setNumberItem(item, 0);
 			}
 			else {
 				Mideas.setGold(item.getSellPrice());

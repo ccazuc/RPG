@@ -17,13 +17,13 @@ public class LogChat {
 		Draw.drawColorQuad(30, Display.getHeight()-280, 510, 130, bgColor);
 	}
 	
-	public static void drawStatus() {
+	public static void drawStatus() { // player2
 		int x = 40;
 		int y = -190; 
 		TTF2.font4.drawStringShadow(x, Display.getHeight()+y, statusText2, Color.white, Color.black, 1, 1, 1); 
 	}
 	
-	public static void drawStatus2() {
+	public static void drawStatus2() { // player1
 		int x = 40;
 		int y = -230; 
 		TTF2.font4.drawStringShadow(x, Display.getHeight()+y, statusText, Color.white, Color.black, 1, 1, 1);

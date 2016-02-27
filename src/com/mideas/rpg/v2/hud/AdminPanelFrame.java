@@ -73,6 +73,7 @@ public class AdminPanelFrame {
 				Mideas.joueur2().setMana(Mideas.joueur2().getMaxMana());
 			}
 			else if(hover[6]) {
+				LogChat.setStatusText2("Killed by god");
 				Mideas.joueur2().setStamina(0);
 			}
 		}

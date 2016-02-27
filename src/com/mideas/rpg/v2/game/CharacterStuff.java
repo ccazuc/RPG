@@ -317,7 +317,7 @@ public class CharacterStuff {
 			return Sprites.bag_super_healing_potion;
 		}
 		else if(id == 2) {
-			return Sprites.linen_cloth;
+			return Sprites.bag_linen_cloth;
 		}
 		else if(id == 101) {
 			return Sprites.warrior_bag_t6_head;
@@ -1296,7 +1296,7 @@ public class CharacterStuff {
 		Mideas.bag().setBag(i, (getStuff(id)));
 		if(Mideas.bag().getBag(i) instanceof Item) {
 			String number[] = sCurrentLine.split("=");
-			Mideas.joueur1().setNumberPotion(Mideas.bag().getBag(i), Integer.parseInt(number[1]));
+			Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Integer.parseInt(number[1]));
 		}
 	}
 }
