@@ -1,7 +1,8 @@
 package com.mideas.rpg.v2.game.stuff;
 
-public class Stuff {
+public class Stuff implements Cloneable {
 
+	protected StuffType type;
 	protected String classe;
 	protected String classe2 = "";
 	protected String classe3 = "";
@@ -18,6 +19,19 @@ public class Stuff {
 	private static String[] slotStuff = new String[19];
 	protected int id;
 
+	public Stuff(Stuff stuff) {
+		this.type = stuff.type;
+		this.classe = stuff.classe;
+		this.critical = stuff.critical;
+		this.sellPrice = stuff.sellPrice;
+		this.name = stuff.name;
+		this.strength = stuff.strength;
+		this.stamina = stuff.stamina;
+		this.armor = stuff.armor;
+		this.mana = stuff.mana;
+		this.id = stuff.id;
+	}
+	
 	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, String classe2, String classe3, String classe4, int price, int sellPrice, int expCraftGiven, String slot) {
 		this.critical = critical;
 		this.sellPrice = sellPrice;
@@ -128,6 +142,66 @@ public class Stuff {
 		slotStuff[16] = "MainHand";
 		slotStuff[17] = "OffHand";
 		slotStuff[18] = "Ranged";
+	}
+	
+	public boolean isHead() {
+		return type == StuffType.HEAD;
+	}
+	
+	public boolean isNecklace() {
+		return type == StuffType.NECKLACE;
+	}
+	
+	public boolean isShoulders() {
+		return type == StuffType.SHOULDERS;
+	}
+	
+	public boolean isChest() {
+		return type == StuffType.CHEST;
+	}
+	
+	public boolean isBack() {
+		return type == StuffType.BACK;
+	}
+	
+	public boolean isWrists() {
+		return type == StuffType.WRISTS;
+	}
+	
+	public boolean isGloves() {
+		return type == StuffType.GLOVES;
+	}
+	
+	public boolean isBelt() {
+		return type == StuffType.BELT;
+	}
+	
+	public boolean isLeggings() {
+		return type == StuffType.LEGGINGS;
+	}
+	
+	public boolean isBoots() {
+		return type == StuffType.BOOTS;
+	}
+	
+	public boolean isRing() {
+		return type == StuffType.RING;
+	}
+	
+	public boolean isTrinket() {
+		return type == StuffType.TRINKET;
+	}
+	
+	public boolean isMainHand() {
+		return type == StuffType.MAINHAND;
+	}
+	
+	public boolean isOffHand() {
+		return type == StuffType.OFFHAND;
+	}
+	
+	public boolean isRanged() {
+		return type == StuffType.RANGED;
 	}
 	
 	public static String getSlot(int i) {

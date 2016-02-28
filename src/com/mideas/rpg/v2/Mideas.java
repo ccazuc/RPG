@@ -40,16 +40,18 @@ import com.mideas.rpg.v2.game.stuff.Bag;
 import com.mideas.rpg.v2.game.stuff.Shop;
 import com.mideas.rpg.v2.game.stuff.Stuff;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
+import com.mideas.rpg.v2.jdo.JDO;
+import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
 
 public class Mideas {
 	
 	private static boolean currentPlayer;
 	private static Joueur joueur1;
 	private static Joueur joueur2;
+	private static JDO jdo;
 	private static Bag bag = new Bag();
 	private static Shop shop = new Shop();
 	private static String cursor;
-	//private static JDO jdo;
 	private static long last;
 	private static int count;
 	private static String fps;
@@ -155,7 +157,16 @@ public class Mideas {
 	}
 	
 	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, InterruptedException {
+		initSQL();
 		loop();
+	}
+	
+	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "mideas", "mideas");
+	}
+	
+	public static JDO getJDO() {
+		return jdo;
 	}
 	
 	public static int mouseX() {

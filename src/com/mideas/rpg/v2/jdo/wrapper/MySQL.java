@@ -5,10 +5,16 @@ import java.sql.SQLException;
 
 import com.mideas.rpg.v2.jdo.JDO;
 
+/**
+ * 
+ * @author Jukino
+ *
+ */
 public class MySQL extends JDO {
 	
 	/**
 	 * Create a connection to a MySQL server
+	 * 
 	 * @param host
 	 * @param database
 	 * @param user
@@ -22,9 +28,9 @@ public class MySQL extends JDO {
 		this(host, (short)3306, database, user, password);
 	}
 	
-	
 	/**
 	 * Create a connection to a MySQL server
+	 * 
 	 * @param host
 	 * @param port
 	 * @param database
@@ -37,7 +43,7 @@ public class MySQL extends JDO {
 	 */
 	public MySQL(final String host, final int port, final String database, final String user, final String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
     	Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-		connection = DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+database, user, password);
+		this.connection = DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+database, user, password);
 	}
 	
 }

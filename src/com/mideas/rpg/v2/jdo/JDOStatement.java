@@ -1,9 +1,16 @@
 package com.mideas.rpg.v2.jdo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLTimeoutException;
 
+/**
+ * 
+ * @author Jukino
+ *
+ */
 public class JDOStatement {
 	
 	private PreparedStatement statement;
@@ -12,101 +19,171 @@ public class JDOStatement {
 	
 	/**
 	 * Create new JDO Statement
-	 * @param request
-	 * @param jdo
-	 * @throws SQLException
+	 * 
+	 * @param request an SQL statement that may contain one or more '?' IN parameter placeholders
+	 * @param connection a JDO object
+	 * @throws SQLException if a database access error occurs or this method is called on a closed connection
 	 */
-	protected JDOStatement(final String request, final JDO jdo) throws SQLException {
-		statement = jdo.getConnection().prepareStatement(request);
+	protected JDOStatement(final String request, final Connection connection) throws SQLException {
+		this.statement = connection.prepareStatement(request);
 	}
 	
 	/**
-	 * Put boolean
-	 * @param b
-	 * @throws SQLException
+	 * Sets the designated parameter to the given Java <code>boolean</code> value.
+     * The driver converts this to an SQL <code>TINYINT</code> value when it sends it to the database.
+     *
+	 * @param b the parameter value
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final void putBoolean(final boolean b) throws SQLException {
-		statement.setByte(++index, (byte)(b?1:0));
+		this.statement.setByte(++this.index, (byte)(b?1:0));
 	}
 	
 	/**
-	 * Put byte
-	 * @param b
-	 * @throws SQLException
+	 * Sets the designated parameter to the given Java <code>byte</code> value.
+     * The driver converts this to an SQL <code>TINYINT</code> value when it sends it to the database.
+     *
+	 * @param b the parameter value
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final void putByte(final byte b) throws SQLException {
-		statement.setByte(++index, b);
+		this.statement.setByte(++this.index, b);
 	}
 	
 	/**
-	 * Put short
-	 * @param s
-	 * @throws SQLException
+	 * Sets the designated parameter to the given Java <code>short</code> value.
+     * The driver converts this to an SQL <code>SMALLINT</code> value when it sends it to the database.
+     *
+	 * @param s the parameter value
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final void putShort(final short s) throws SQLException {
-		statement.setShort(++index, s);
+		this.statement.setShort(++this.index, s);
 	}
 	
 	/**
-	 * Put integer
-	 * @param i
-	 * @throws SQLException
+	 * Sets the designated parameter to the given Java <code>int</code> value.
+     * The driver converts this to an SQL <code>INTEGER</code> value when it sends it to the database.
+     *
+	 * @param i the parameter value
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final void putInt(final int i) throws SQLException {
-		statement.setInt(++index, i);
+		this.statement.setInt(++this.index, i);
 	}
 	
 	/**
-	 * Put long
-	 * @param l
-	 * @throws SQLException
+	 * Sets the designated parameter to the given Java <code>long</code> value.
+     * The driver converts this to an SQL <code>BIGINT</code> value when it sends it to the database.
+     * 
+	 * @param l the parameter value
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final void putLong(final long l) throws SQLException {
-		statement.setLong(++index, l);
+		this.statement.setLong(++this.index, l);
 	}
 	
 	/**
-	 * Put float
-	 * @param f
-	 * @throws SQLException
+	 * Sets the designated parameter to the given Java <code>float</code> value.
+     * The driver converts this  to an SQL <code>REAL</code> value when it sends it to the database.
+     * 
+	 * @param f the parameter value
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final void putFloat(float f) throws SQLException {
-		statement.setFloat(++index, f);
+		this.statement.setFloat(++this.index, f);
 	}
 	
 	/**
-	 * Put double
-	 * @param d
-	 * @throws SQLException
+	 * Sets the designated parameter to the given Java <code>double</code> value.
+     * The driver converts this to an SQL <code>DOUBLE</code> value when it sends it to the database.
+     * 
+	 * @param d the parameter value
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final void putDouble(final double d) throws SQLException {
-		statement.setDouble(++index, d);
+		this.statement.setDouble(++this.index, d);
 	}
 	
 	/**
-	 * Put char
-	 * @param c
-	 * @throws SQLException
+	 * Sets the designated parameter to the given Java <code>char</code> value.
+     * The driver converts this to an SQL <code>VARCHAR</code> or <code>LONGVARCHAR</code> value (depending on the argument's size relative to the driver's limits on <code>VARCHAR</code> values) when it sends it to the database.
+     * 
+	 * @param c the parameter value
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final void putChar(final char c) throws SQLException {
-		statement.setString(++index, Character.toString(c));
+		this.statement.setString(++this.index, Character.toString(c));
 	}
 	
 	/**
-	 * Put string
-	 * @param s
-	 * @throws SQLException
+	 * Sets the designated parameter to the given Java <code>String</code> value.
+     * The driver converts this to an SQL <code>VARCHAR</code> or <code>LONGVARCHAR</code> value (depending on the argument's size relative to the driver's limits on <code>VARCHAR</code> values) when it sends it to the database.
+     * 
+	 * @param s the parameter value
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final void putString(final String s) throws SQLException {
-		statement.setString(++index, s);
+		this.statement.setString(++this.index, s);
 	}
 	
 	/**
-	 * Execute statement
-	 * @throws SQLException
+	 * Executes the SQL query in this <code>JDOStatement</code> object.
+	 * 
+	 * @throws SQLException if a database access error occurs; this method is called on a closed PreparedStatement or the SQL statement does not return a ResultSet object
+	 * @throws SQLTimeoutException when the driver has determined that the timeout value that was specified by the setQueryTimeout method has been exceeded and has at least attempted to cancel the currently running Statement
 	 */
-	public final void execute() throws SQLException {
-		result = statement.executeQuery();
+	public final void execute() throws SQLException, SQLTimeoutException {
+		synchronized(this.statement.getConnection()) {
+			if(this.result != null) {
+				this.result.close();
+			}
+			this.result = this.statement.executeQuery();
+		}
+	}
+	
+	/**
+     * Executes the SQL statement in this <code>JDOStatement</code> object, which must be an SQL Data Manipulation Language (DML) statement, such as <code>INSERT</code>, <code>UPDATE</code> or <code>DELETE</code>; or an SQL statement that returns nothing, such as a DDL statement.
+     *
+     * @return either (1) the row count for SQL Data Manipulation Language (DML) statements or (2) 0 for SQL statements that return nothing
+     * @exception SQLException if a database access error occurs; this method is called on a closed  <code>PreparedStatement</code> or the SQL statement returns a <code>ResultSet</code> object
+     * @throws SQLTimeoutException when the driver has determined that the timeout value that was specified by the {@code setQueryTimeout} method has been exceeded and has at least attempted to cancel the currently running {@code Statement}
+     */
+	public final void executeUpdate() throws SQLException, SQLTimeoutException {
+		synchronized(this.statement.getConnection()) {
+			this.statement.executeUpdate();
+		}
+	}
+	
+	/**
+     * Adds a set of parameters to this <code>JDOStatement</code> object's batch of commands.
+     *
+     * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
+     */
+	public final void batch() throws SQLException {
+		synchronized(this.statement.getConnection()) {
+			this.statement.addBatch();
+		}
+	}
+	
+    /**
+     * Submits a batch of commands to the database for execution and if all commands execute successfully, returns an array of update counts.
+     * The <code>int</code> elements of the array that is returned are ordered to correspond to the commands in the batch, which are ordered according to the order in which they were added to the batch.
+     * 
+     * @throws SQLException if a database access error occurs, this method is called on a closed <code>Statement</code> or the driver does not support batch statements.
+     */
+	public final void executeBatch() throws SQLException {
+		synchronized(this.statement.getConnection()) {
+			this.statement.executeBatch();
+		}
+	}
+	
+	/**
+	 * Clears the current parameter values immediately.
+	 * In general, parameter values remain in force for repeated use of a statement. Setting a parameter value automatically clears its previous value. However, in some cases it is useful to immediately release the resources used by the current parameter values; this can be done by calling the method clearParameters.
+	 */
+	public final void clear() {
+		this.index = 0;
 	}
 	
 	/**
@@ -115,99 +192,108 @@ public class JDOStatement {
 	 * @throws SQLException
 	 */
 	public final boolean fetch() throws SQLException {
-		index = 0;
-		return result.next();
+		this.index = 0;
+		return this.result.next();
 	}
 	
 	/**
-	 * Get boolean
-	 * @return
-	 * @throws SQLException
+	 * Retrieves the value of the designated column in the current row of this <code>JDOStatement</code> object as a <code>boolean</code> in the Java programming language.
+     * 
+	 * @return the column value; if the value is SQL <code>NULL</code>, the value returned is <code>0</code>
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final boolean getBoolean() throws SQLException {
-		return result.getByte(++index) == 1;
+		return this.result.getByte(++this.index) == 1;
 	}
 	
 	/**
-	 * Get byte
-	 * @return
-	 * @throws SQLException
+	 * Retrieves the value of the designated column in the current row of this <code>JDOStatement</code> object as a <code>byte</code> in the Java programming language.
+     * 
+	 * @return the column value; if the value is SQL <code>NULL</code>, the value returned is <code>0</code>
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final byte getByte() throws SQLException {
-		return result.getByte(++index);
+		return this.result.getByte(++this.index);
 	}
 	
 	/**
-	 * Get short
-	 * @return
-	 * @throws SQLException
+	 * Retrieves the value of the designated column in the current row of this <code>JDOStatement</code> object as a <code>short</code> in the Java programming language.
+     *
+	 * @return the column value; if the value is SQL <code>NULL</code>, the value returned is <code>0</code>
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final short getShort() throws SQLException {
-		return result.getShort(++index);
+		return this.result.getShort(++this.index);
 	}
 	
 	/**
-	 * Get integer
-	 * @return
-	 * @throws SQLException
+	 * Retrieves the value of the designated column in the current row of this <code>JDOStatement</code> object as an <code>int</code> in the Java programming language.
+     *
+	 * @return the column value; if the value is SQL <code>NULL</code>, the value returned is <code>0</code>
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final int getInt() throws SQLException {
-		return result.getInt(++index);
+		return this.result.getInt(++this.index);
 	}
 	
 	/**
-	 * Get long
-	 * @return
-	 * @throws SQLException
+	 * Retrieves the value of the designated column in the current row of this <code>JDOStatement</code> object as a <code>long</code> in the Java programming language.
+     *
+	 * @return the column value; if the value is SQL <code>NULL</code>, the value returned is <code>0</code>
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final long getLong() throws SQLException {
-		return result.getLong(++index);
+		return this.result.getLong(++this.index);
 	}
 	
 	/**
-	 * Get float
-	 * @return
-	 * @throws SQLException
+	 * Retrieves the value of the designated column in the current row of this <code>JDOStatement</code> object as a <code>float</code> in the Java programming language.
+     *
+	 * @return the column value; if the value is SQL <code>NULL</code>, the value returned is <code>0</code>
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final float getFloat() throws SQLException {
-		return result.getFloat(++index);
+		return this.result.getFloat(++this.index);
 	}
 	
 	/**
-	 * Get double
-	 * @return
-	 * @throws SQLException
+	 * Retrieves the value of the designated column in the current row of this <code>JDOStatement</code> object as a <code>double</code> in the Java programming language.
+     *
+	 * @return the column value; if the value is SQL <code>NULL</code>, the value returned is <code>0</code>
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final double getDouble() throws SQLException {
-		return result.getDouble(++index);
+		return this.result.getDouble(++this.index);
 	}
 	
 	/**
-	 * Get char
-	 * @return
-	 * @throws SQLException
+	 * Retrieves the value of the designated column in the current row of this <code>JDOStatement</code> object as a <code>char</code> in the Java programming language.
+     *
+	 * @return the column value; if the value is SQL <code>NULL</code>, the value returned is <code>0</code>
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final char getChar() throws SQLException {
-		final String res = result.getString(++index);
-		return res.length()>0?res.charAt(0):'\0';
+		return this.result.getString(++this.index).charAt(0);
 	}
 	
 	/**
-	 * Get string
-	 * @return
-	 * @throws SQLException
+	 * Retrieves the value of the designated column in the current row of this <code>JDOStatement</code> object as a <code>String</code> in the Java programming language.
+     *
+	 * @return the column value; if the value is SQL <code>NULL</code>, the value returned is <code>0</code>
+	 * @throws SQLException if a database access error occurs or this method is called on a closed <code>JDOStatement</code>
 	 */
 	public final String getString() throws SQLException {
-		return result.getString(++index);
+		return this.result.getString(++this.index);
 	}
 	
 	/**
 	 * Close the statement
+	 * 
 	 * @throws SQLException
 	 */
 	public final void close() throws SQLException {
-		statement.close();
-		result.close();
+		this.statement.close();
+		this.result.close();
 	}
 	
 }

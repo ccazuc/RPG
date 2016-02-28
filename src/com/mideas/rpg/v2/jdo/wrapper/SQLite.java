@@ -5,10 +5,16 @@ import java.sql.SQLException;
 
 import com.mideas.rpg.v2.jdo.JDO;
 
+/**
+ * 
+ * @author Jukino
+ *
+ */
 public class SQLite extends JDO {
 	
 	/**
 	 * Create SQLite connection to file
+	 * 
 	 * @param file
 	 * @throws SQLException
 	 * @throws InstantiationException
@@ -16,8 +22,8 @@ public class SQLite extends JDO {
 	 * @throws ClassNotFoundException
 	 */
 	public SQLite(final String file) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-    	Class.forName("org.sqlite.JDBC").newInstance(); 
-		connection = DriverManager.getConnection("jdbc:sqlite:"+file);
+    	Class.forName("org.sqlite.JDBC").newInstance();
+		this.connection = DriverManager.getConnection("jdbc:sqlite:"+file);
 	}
 	
 }

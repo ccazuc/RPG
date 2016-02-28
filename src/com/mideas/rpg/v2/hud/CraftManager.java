@@ -14,6 +14,7 @@ public class CraftManager {
 	private static int y_elevator_base;
 	private static int y_elevator_last;
 	private static boolean elevator_selected;
+	private static boolean[] expand = new boolean[30];
 
 	public static void draw() {
 		Draw.drawQuad(Sprites.craft_frame, Display.getWidth()/2-480, Display.getHeight()/2-350);

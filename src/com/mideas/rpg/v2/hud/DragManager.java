@@ -12,12 +12,14 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.stuff.Stuff;
+import com.mideas.rpg.v2.game.stuff.StuffType;
 import com.mideas.rpg.v2.game.stuff.item.Item;
 import com.mideas.rpg.v2.game.stuff.item.potion.healingPotion.HealingPotion;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class DragManager {
 	
+	private static StuffType[] type = new StuffType[]{StuffType.HEAD, StuffType.NECKLACE, StuffType.SHOULDERS, StuffType.CHEST, StuffType.BACK, StuffType.WRISTS, StuffType.GLOVES, StuffType.BELT, StuffType.LEGGINGS, StuffType.BOOTS, StuffType.RING, StuffType.TRINKET, StuffType.MAINHAND, StuffType.OFFHAND, StuffType.RANGED};
 	private static boolean deleteItem;
 	private static boolean hoverDelete;
 	private static boolean hoverSave;
