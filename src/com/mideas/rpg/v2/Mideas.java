@@ -22,7 +22,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.DeathKnight;
@@ -41,7 +40,6 @@ import com.mideas.rpg.v2.game.stuff.Bag;
 import com.mideas.rpg.v2.game.stuff.Shop;
 import com.mideas.rpg.v2.game.stuff.Stuff;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
-import com.mideas.rpg.v2.utils.Draw;
 
 public class Mideas {
 	
@@ -57,16 +55,6 @@ public class Mideas {
 	private static String fps;
 	private static BufferedImage cursor_image;
 	private static int exp;
-	private static int expDeathKnight;
-	private static int expGuerrier;
-	private static int expHunter;
-	private static int expMage;
-	private static int expMonk;
-	private static int expPaladin;
-	private static int expPriest;
-	private static int expRogue;
-	private static int expShaman;
-	private static int expWarlock;
 	private static int level;
 	private static int expNeeded;
 	private static int gold;
@@ -86,25 +74,6 @@ public class Mideas {
         GL11.glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
-        /*cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
-		final int cursor_width = cursor_image.getWidth();
-		final int cursor_height = cursor_image.getHeight();
-		final int[] cursor_pixels = new int[cursor_width*cursor_height];
-		final ByteBuffer cursor_buffer = BufferUtils.createByteBuffer(cursor_width*cursor_height*4);
-		cursor_image.getRGB(0, 0, cursor_width, cursor_height, cursor_pixels, 0, cursor_width);
-		int cursor_y = 32;
-		while(--cursor_y > -1) {
-			int cursor_x = -1;
-			while(++cursor_x < 32) {
-				int i = cursor_y*32+cursor_x;
-				cursor_buffer.put((byte)(cursor_pixels[i]>>16));
-				cursor_buffer.put((byte)(cursor_pixels[i]>>8));
-				cursor_buffer.put((byte) cursor_pixels[i]);
-				cursor_buffer.put((byte)(cursor_pixels[i]>>24));
-			}
-		}
-		cursor_buffer.position(0);
-		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));*/
 	}
 	
 	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
@@ -158,13 +127,13 @@ public class Mideas {
 		Sprites.sprite8();
 		Sprites.sprite9();
 		Sprites.sprite10();
-		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s");
+		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		joueur2 = getRandomClass(2);
 		while(!Display.isCloseRequested()) {
 			fpsUpdate();
 			context2D();
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			if(joueur1 != null && !currentPlayer && Mideas.joueur2.getStamina() > 0) {
+			if(joueur1 != null && !currentPlayer && joueur2.getStamina() > 0) {
 				joueur2.attackUI(Spell.getRandomSpell());
 				currentPlayer = true;
 				lessCd();
@@ -185,6 +154,10 @@ public class Mideas {
 		}
 	}
 	
+	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, InterruptedException {
+		loop();
+	}
+	
 	public static int mouseX() {
 		return Mouse.getX();
 	}
@@ -200,10 +173,6 @@ public class Mideas {
 			fps = String.valueOf(count);
 			count = 0;
 		}
-	}
-	
-	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, InterruptedException {
-		loop();
 	}
 	
 	public static Joueur getRandomClass(int id) {

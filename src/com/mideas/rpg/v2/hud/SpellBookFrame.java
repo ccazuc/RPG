@@ -72,7 +72,7 @@ public class SpellBookFrame {
 			Draw.drawQuad(grey_texture, Display.getWidth()/2+x+20, Display.getHeight()/2+y+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg_grey, Display.getWidth()/2+x, Display.getHeight()/2+y);
 			TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+15, spellName, Color.decode("#633E21"), Color.black, 1, 1, 1);
-			TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+30, "Available at leve "+level, Color.decode("#633E21"), Color.black, 1, 1, 1);
+			TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+30, "Available at level "+level, Color.decode("#633E21"), Color.black, 1, 1, 1);
 		}
 		else {
 			Draw.drawQuad(texture, Display.getWidth()/2+x+20, Display.getHeight()/2+y+15);

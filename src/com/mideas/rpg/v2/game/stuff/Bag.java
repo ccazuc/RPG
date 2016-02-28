@@ -13,6 +13,6 @@ public class Bag {
 	}
 	
 	public void setBag(int i, Stuff stuff) {
-		this.bag[i] = stuff;
+		bag[i] = stuff;
 	}
 }

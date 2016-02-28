@@ -129,9 +129,11 @@ public class Stuff {
 		slotStuff[17] = "OffHand";
 		slotStuff[18] = "Ranged";
 	}
+	
 	public static String getSlot(int i) {
 		return slotStuff[i];
 	}
+	
 	public boolean equals(Stuff item) {
 		return item != null && item.getId() == id;
 	}
@@ -147,15 +149,19 @@ public class Stuff {
 	public String getSecondClasse() {
 		return classe2;
 	}
+	
 	public String getThirdClasse() {
 		return classe3;
 	}
+	
 	public String getFourthClasse() {
 		return classe4;
 	}
+	
 	public int getPrice() {
 		return price;
 	}
+	
 	public int getSellPrice() {
 		return sellPrice;
 	}

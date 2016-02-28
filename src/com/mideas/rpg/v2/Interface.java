@@ -182,6 +182,11 @@ public class Interface {
 					return true;
 				}
 			}
+			if(craftFrameActive) {
+				if(CraftManager.mouseEvent()) {
+					return true;
+				}
+			}
 			if(talentFrameActive) {
 				if(Talent.mouseEvent()) {
 					return true;
@@ -313,17 +318,6 @@ public class Interface {
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_M) {
 				dungeonFrameActive = !dungeonFrameActive;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_I) {
-				craftFrameActive = !craftFrameActive;
-				closeTalentFrame();
-				closeShopFrame();
-				closeCharacterFrame();
-				closeSpellBookFrame();
-				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-				Arrays.fill(ShopFrame.getShopHover(), false);
-				Arrays.fill(SpellBookFrame.getHoverBook(), false);
-				ClassSelectFrame.setHoverFalse();
 			}	
 			if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur2().getStamina() > 0) {
 				if(SpellBarFrame.keyboardEvent()) {

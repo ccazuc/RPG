@@ -45,9 +45,9 @@ public class BlackTemple extends Dungeon {
 	}
 	
 	public static void event() throws FileNotFoundException {
-		BlackTemple.fightOrder();
 		BlackTemple.draw();
 		if(!BlackTemple.getIsBlackTempleLoaded()) {
+			BlackTemple.fightOrder();
 			Mideas.setJoueur2(BlackTemple.getJoueur(i));
 			BlackTemple.setIsBlackTempleLoaded(true);
 		}
