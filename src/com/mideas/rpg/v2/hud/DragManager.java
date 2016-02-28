@@ -279,7 +279,7 @@ public class DragManager {
 	
 	private static void dropInventoryItem(int i) throws FileNotFoundException {
 		if(CharacterFrame.getHoverCharacterFrame(i) && draggedItem != null) {
-			if(draggedItem.getSlot() == Stuff.getSlot(i) && !draggedItem.equals(Mideas.joueur1().getStuff(i))/* && (draggedItem.getClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getSecondClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getThirdClasse().equals(Mideas.joueur1().getClasse()))*/) {
+			if(draggedItem.getType() == type[i] && !draggedItem.equals(Mideas.joueur1().getStuff(i))/* && (draggedItem.getClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getSecondClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getThirdClasse().equals(Mideas.joueur1().getClasse()))*/) {
 				if(draggedItem.getClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getSecondClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getThirdClasse().equals(Mideas.joueur1().getClasse())) {
 					setNullCharacter(draggedItem);
 					Stuff tempItem = Mideas.joueur1().getStuff(i);

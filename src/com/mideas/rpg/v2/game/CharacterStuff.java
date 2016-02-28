@@ -784,27 +784,27 @@ public class CharacterStuff {
 			while ((sCurrentLine = br.readLine()) != null) {
 				id = Integer.parseInt(sCurrentLine);	
 				if(i == 0) {
-					if(CharacterStuff.getStuff(id) instanceof Head) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isHead()) {
 						Mideas.joueur1().setStuff(i, getHead(id));
 					}
 				}
 				else if( i == 1) {
-					if(CharacterStuff.getStuff(id) instanceof Necklace) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isNecklace()) {
 						Mideas.joueur1().setStuff(i, getNecklace(id));
 					}
 				}
 				else if( i == 2) {
-					if(CharacterStuff.getStuff(id) instanceof Shoulders) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isShoulders()) {
 						Mideas.joueur1().setStuff(i, getShoulders(id));
 					}
 				}
 				else if( i == 3) {
-					if(CharacterStuff.getStuff(id) instanceof Back) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isBack()) {
 						Mideas.joueur1().setStuff(i, getBack(id));
 					}
 				}
 				else if( i == 4) {
-					if(CharacterStuff.getStuff(id) instanceof Chest) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isChest()) {
 						Mideas.joueur1().setStuff(i, getChest(id));
 					}
 				}
@@ -813,62 +813,62 @@ public class CharacterStuff {
 				else if( i == 6) {
 				}
 				else if( i == 7) {
-					if(CharacterStuff.getStuff(id) instanceof Wrists) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isWrists()) {
 						Mideas.joueur1().setStuff(i, getWrists(id));
 					}
 				}
 				else if( i == 8) {
-					if(CharacterStuff.getStuff(id) instanceof Gloves) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isGloves()) {
 						Mideas.joueur1().setStuff(i, getGloves(id));
 					}
 				}
 				else if( i == 9) {
-					if(CharacterStuff.getStuff(id) instanceof Belt) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isBelt()) {
 						Mideas.joueur1().setStuff(i, getBelt(id));
 					}
 				}
 				else if( i == 10) {
-					if(CharacterStuff.getStuff(id) instanceof Leggings) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isLeggings()) {
 						Mideas.joueur1().setStuff(i, getLeggings(id));
 					}
 				}
 				else if( i == 11) {
-					if(CharacterStuff.getStuff(id) instanceof Boots) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isBoots()) {
 						Mideas.joueur1().setStuff(i, getBoots(id));
 					}
 				}
 				else if( i == 12) {
-					if(CharacterStuff.getStuff(id) instanceof Ring) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isRing()) {
 						Mideas.joueur1().setStuff(i, getRing(id));
 					}
 				}
 				else if( i == 13) {
-					if(CharacterStuff.getStuff(id) instanceof Ring2) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isRing()) {
 						Mideas.joueur1().setStuff(i, getRing2(id));
 					}
 				}
 				else if( i == 14) {
-					if(CharacterStuff.getStuff(id) instanceof Trinket) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isTrinket()) {
 						Mideas.joueur1().setStuff(i, getTrinket(id));
 					}
 				}
 				else if( i == 15) {
-					if(CharacterStuff.getStuff(id) instanceof Trinket2) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isTrinket()) {
 						Mideas.joueur1().setStuff(i, getTrinket2(id));
 					}
 				}
 				else if( i == 16) {
-					if(CharacterStuff.getStuff(id) instanceof MainHand) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isMainHand()) {
 						Mideas.joueur1().setStuff(i, getMainHand(id));
 					}
 				}
 				else if( i == 17) {
-					if(CharacterStuff.getStuff(id) instanceof OffHand) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isOffHand()) {
 						Mideas.joueur1().setStuff(i, getOffHand(id));
 					}
 				}
 				else if( i == 18) {
-					if(CharacterStuff.getStuff(id) instanceof Ranged) {
+					if(CharacterStuff.getStuff(id) != null && CharacterStuff.getStuff(id).isRanged()) {
 						Mideas.joueur1().setStuff(i, getRanged(id));
 					}
 				}

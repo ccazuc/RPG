@@ -34,6 +34,7 @@ import com.mideas.rpg.v2.game.Paladin;
 import com.mideas.rpg.v2.game.Priest;
 import com.mideas.rpg.v2.game.Rogue;
 import com.mideas.rpg.v2.game.Shaman;
+import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.Warlock;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.stuff.Bag;
@@ -119,6 +120,7 @@ public class Mideas {
 		Stuff.loadSlotStuff();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		double time = System.currentTimeMillis();
+		//IconsManager.loadSprites();
 		Sprites.sprite();
 		Sprites.sprite2();
 		Sprites.sprite3();
@@ -162,7 +164,7 @@ public class Mideas {
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "mideas", "mideas");
+		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
 	}
 	
 	public static JDO getJDO() {
@@ -297,35 +299,12 @@ public class Mideas {
 			String tempExp[] = {"1","2","3"};
 			br = new BufferedReader(new FileReader("exp.txt"));
 			while((sCurrentLine = br.readLine()) != null) {
-				if(Mideas.getClassLine() == j) {
-					tempExp = sCurrentLine.split("=");	
-				}
-				if(Mideas.getClassLine() == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == j) {
-				tempExp = sCurrentLine.split("=");
+				int i = 0;
+				while(i < 10) {
+					if(Mideas.getClassLine() == j) {
+						tempExp = sCurrentLine.split("=");	
+					}
+					i++;
 				}
 				j++;
 			}
@@ -442,36 +421,13 @@ public class Mideas {
 			String sCurrentLine;
 			String tempGold[] = {"1","2","3"};
 			br = new BufferedReader(new FileReader("gold.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");	
-				}
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempGold = sCurrentLine.split("=");
+			while((sCurrentLine = br.readLine()) != null) {
+				int j = 0;
+				while(j < 10) {
+					if(Mideas.getClassLine() == i) {
+						tempGold = sCurrentLine.split("=");	
+					}
+					j++;
 				}
 				i++;
 			}

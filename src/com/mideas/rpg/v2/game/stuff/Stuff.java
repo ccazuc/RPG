@@ -36,6 +36,51 @@ public class Stuff implements Cloneable {
 		this.critical = critical;
 		this.sellPrice = sellPrice;
 		this.stamina = stamina;
+		if(slot.equals("Head")) {
+			this.type = StuffType.HEAD;
+		}
+		if(slot.equals("Necklace")) {
+			this.type = StuffType.NECKLACE;
+		}
+		if(slot.equals("Shoulders")) {
+			this.type = StuffType.SHOULDERS;
+		}
+		if(slot.equals("Chest")) {
+			this.type = StuffType.CHEST;
+		}
+		if(slot.equals("Back")) {
+			this.type = StuffType.BACK;
+		}
+		if(slot.equals("Wrists")) {
+			this.type = StuffType.WRISTS;
+		}
+		if(slot.equals("Gloves")) {
+			this.type = StuffType.GLOVES;
+		}
+		if(slot.equals("Belt")) {
+			this.type = StuffType.BELT;
+		}
+		if(slot.equals("Leggings")) {
+			this.type = StuffType.LEGGINGS;
+		}
+		if(slot.equals("Boots")) {
+			this.type = StuffType.BOOTS;
+		}
+		if(slot.equals("Ring")) {
+			this.type = StuffType.RING;
+		}
+		if(slot.equals("Trinket")) {
+			this.type = StuffType.TRINKET;
+		}
+		if(slot.equals("MainHand")) {
+			this.type = StuffType.MAINHAND;
+		}
+		if(slot.equals("OffHand")) {
+			this.type = StuffType.OFFHAND;
+		}
+		if(slot.equals("Ranged")) {
+			this.type = StuffType.RANGED;
+		}
 		this.slot = slot;
 		this.strength = strength;
 		this.classe2 = classe2;
@@ -51,6 +96,51 @@ public class Stuff implements Cloneable {
 	
 	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, String classe2, String classe3, int price, int sellPrice, int expCraftGiven, String slot) {
 		this.critical = critical;
+		if(slot.equals("Head")) {
+			this.type = StuffType.HEAD;
+		}
+		if(slot.equals("Necklace")) {
+			this.type = StuffType.NECKLACE;
+		}
+		if(slot.equals("Shoulders")) {
+			this.type = StuffType.SHOULDERS;
+		}
+		if(slot.equals("Chest")) {
+			this.type = StuffType.CHEST;
+		}
+		if(slot.equals("Back")) {
+			this.type = StuffType.BACK;
+		}
+		if(slot.equals("Wrists")) {
+			this.type = StuffType.WRISTS;
+		}
+		if(slot.equals("Gloves")) {
+			this.type = StuffType.GLOVES;
+		}
+		if(slot.equals("Belt")) {
+			this.type = StuffType.BELT;
+		}
+		if(slot.equals("Leggings")) {
+			this.type = StuffType.LEGGINGS;
+		}
+		if(slot.equals("Boots")) {
+			this.type = StuffType.BOOTS;
+		}
+		if(slot.equals("Ring")) {
+			this.type = StuffType.RING;
+		}
+		if(slot.equals("Trinket")) {
+			this.type = StuffType.TRINKET;
+		}
+		if(slot.equals("MainHand")) {
+			this.type = StuffType.MAINHAND;
+		}
+		if(slot.equals("OffHand")) {
+			this.type = StuffType.OFFHAND;
+		}
+		if(slot.equals("Ranged")) {
+			this.type = StuffType.RANGED;
+		}
 		this.stamina = stamina;
 		this.strength = strength;
 		this.sellPrice = sellPrice;
@@ -67,6 +157,51 @@ public class Stuff implements Cloneable {
 	
 	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, String classe2, int price, int sellPrice,  int expCraftGiven, String slot) {
 		this.critical = critical;
+		if(slot.equals("Head")) {
+			this.type = StuffType.HEAD;
+		}
+		if(slot.equals("Necklace")) {
+			this.type = StuffType.NECKLACE;
+		}
+		if(slot.equals("Shoulders")) {
+			this.type = StuffType.SHOULDERS;
+		}
+		if(slot.equals("Chest")) {
+			this.type = StuffType.CHEST;
+		}
+		if(slot.equals("Back")) {
+			this.type = StuffType.BACK;
+		}
+		if(slot.equals("Wrists")) {
+			this.type = StuffType.WRISTS;
+		}
+		if(slot.equals("Gloves")) {
+			this.type = StuffType.GLOVES;
+		}
+		if(slot.equals("Belt")) {
+			this.type = StuffType.BELT;
+		}
+		if(slot.equals("Leggings")) {
+			this.type = StuffType.LEGGINGS;
+		}
+		if(slot.equals("Boots")) {
+			this.type = StuffType.BOOTS;
+		}
+		if(slot.equals("Ring")) {
+			this.type = StuffType.RING;
+		}
+		if(slot.equals("Trinket")) {
+			this.type = StuffType.TRINKET;
+		}
+		if(slot.equals("MainHand")) {
+			this.type = StuffType.MAINHAND;
+		}
+		if(slot.equals("OffHand")) {
+			this.type = StuffType.OFFHAND;
+		}
+		if(slot.equals("Ranged")) {
+			this.type = StuffType.RANGED;
+		}
 		this.stamina = stamina;
 		this.strength = strength;
 		this.sellPrice = sellPrice;
@@ -82,6 +217,51 @@ public class Stuff implements Cloneable {
 	
 	public Stuff(int id, String name, int critical, int strength, int stamina, int armor, int mana, String classe, int price, int sellPrice,  int expCraftGiven, String slot) {
 		this.sellPrice = sellPrice;
+		if(slot.equals("Head")) {
+			this.type = StuffType.HEAD;
+		}
+		if(slot.equals("Necklace")) {
+			this.type = StuffType.NECKLACE;
+		}
+		if(slot.equals("Shoulders")) {
+			this.type = StuffType.SHOULDERS;
+		}
+		if(slot.equals("Chest")) {
+			this.type = StuffType.CHEST;
+		}
+		if(slot.equals("Back")) {
+			this.type = StuffType.BACK;
+		}
+		if(slot.equals("Wrists")) {
+			this.type = StuffType.WRISTS;
+		}
+		if(slot.equals("Gloves")) {
+			this.type = StuffType.GLOVES;
+		}
+		if(slot.equals("Belt")) {
+			this.type = StuffType.BELT;
+		}
+		if(slot.equals("Leggings")) {
+			this.type = StuffType.LEGGINGS;
+		}
+		if(slot.equals("Boots")) {
+			this.type = StuffType.BOOTS;
+		}
+		if(slot.equals("Ring")) {
+			this.type = StuffType.RING;
+		}
+		if(slot.equals("Trinket")) {
+			this.type = StuffType.TRINKET;
+		}
+		if(slot.equals("MainHand")) {
+			this.type = StuffType.MAINHAND;
+		}
+		if(slot.equals("OffHand")) {
+			this.type = StuffType.OFFHAND;
+		}
+		if(slot.equals("Ranged")) {
+			this.type = StuffType.RANGED;
+		}
 		this.critical = critical;
 		this.strength = strength;
 		this.stamina = stamina;
@@ -120,6 +300,10 @@ public class Stuff implements Cloneable {
 	
 	public String getSlot() {
 		return slot;
+	}
+	
+	public StuffType getType() {
+		return this.type;
 	}
 	
 	public static void loadSlotStuff() {
