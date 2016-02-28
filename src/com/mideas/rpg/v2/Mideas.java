@@ -22,6 +22,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.DeathKnight;
@@ -40,6 +41,7 @@ import com.mideas.rpg.v2.game.stuff.Bag;
 import com.mideas.rpg.v2.game.stuff.Shop;
 import com.mideas.rpg.v2.game.stuff.Stuff;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
+import com.mideas.rpg.v2.utils.Draw;
 
 public class Mideas {
 	
@@ -142,45 +144,21 @@ public class Mideas {
 		cursor_buffer.position(0);
 		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));
 		//Display.setFullscreen(true);
-		Sprites.sprite();
 		TTF2.init();
 		Stuff.loadSlotStuff();
-		/*cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
-		final int cursor_width = cursor_image.getWidth();
-		final int cursor_height = cursor_image.getHeight();
-		final int[] cursor_pixels = new int[cursor_width*cursor_height];
-		final ByteBuffer cursor_buffer = BufferUtils.createByteBuffer(cursor_width*cursor_height*4);
-		cursor_image.getRGB(0, 0, cursor_width, cursor_height, cursor_pixels, 0, cursor_width);
-		int cursor_y = 32;
-		while(--cursor_y > -1) {
-			int cursor_x = -1;
-			while(++cursor_x < 32) {
-				int i = cursor_y*32+cursor_x;
-				cursor_buffer.put((byte)(cursor_pixels[i]>>16));
-				cursor_buffer.put((byte)(cursor_pixels[i]>>8));
-				cursor_buffer.put((byte) cursor_pixels[i]);
-				cursor_buffer.put((byte)(cursor_pixels[i]>>24));
-			}
-		}
-		cursor_buffer.position(0);
-		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));*/
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		/*openSQLite();
-		generateStuff();
-		joueur1 = getRandomClass(1);
-		joueur2 = getRandomClass(2);*/
-		/*joueur1.setLeggings((Leggings)stuffManager.getStuff(1));
-		joueur1.setChest((Chest)stuffManager.getStuff(3));
-		joueur1.setHead((Head)stuffManager.getStuff(5));
-		joueur1.setBoots((Boots)stuffManager.getStuff(7));
-		joueur1.setWrists((Wrists)stuffManager.getStuff(9));
-		joueur2.setLeggings((Leggings)StuffManager.getStuff(2));
-		joueur2.setChest((Chest)StuffManager.getStuff(4));
-		joueur2.setHead((Head)StuffManager.getStuff(6));
-		joueur2.setBoots((Boots)StuffManager.getStuff(8));
-		joueur2.setWrists((Wrists)StuffManager.getStuff(10));*/
-		/*Hud.lifeBars();
-		Hud.manaBars();*/
+		double time = System.currentTimeMillis();
+		Sprites.sprite();
+		Sprites.sprite2();
+		Sprites.sprite3();
+		Sprites.sprite4();
+		Sprites.sprite5();
+		Sprites.sprite6();
+		Sprites.sprite7();
+		Sprites.sprite8();
+		Sprites.sprite9();
+		Sprites.sprite10();
+		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s");
 		joueur2 = getRandomClass(2);
 		while(!Display.isCloseRequested()) {
 			fpsUpdate();
@@ -205,543 +183,6 @@ public class Mideas {
 			Display.update();
 			Display.sync(60);
 		}
-		/*
-		boolean closeRequested = false;
-		while(!(closeRequested = Display.isCloseRequested()) && !c) {
-			fpsUpdate();
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			GL11.glLoadIdentity();
-			context2D();
-			while(Mouse.next()) {
-				if(Mouse.getEventButtonState()) { 
-					joueur1 = setClasse(1);
-					System.out.println("gg");
-				}
-			}
-			Hud.render();  
-			x = Mouse.getX();
-			y = Window.getHeight()-Mouse.getY();
-			Draw.drawQuad(Sprites.bg, Display.getWidth()/2-Sprites.bg.getImageWidth()/2, Display.getHeight()/2-Sprites.bg.getImageHeight()/2);
-			Draw.drawQuad(Sprites.class_choose, Window.getWidth()/2-162, Window.getHeight()/2-119);
-			Draw.drawQuad(Sprites.warrior_create_classe, Window.getWidth()/2-140, Window.getHeight()/2-80);
-			Draw.drawQuad(Sprites.paladin_create_classe,Window.getWidth()/2-78, Window.getHeight()/2-80);
-			Draw.drawQuad(Sprites.hunter_create_classe,Window.getWidth()/2-16, Window.getHeight()/2-80);
-			Draw.drawQuad(Sprites.rogue_create_classe,Window.getWidth()/2+46, Window.getHeight()/2-80);
-			Draw.drawQuad(Sprites.priest_create_classe, Window.getWidth()/2+108, Window.getHeight()/2-80);
-			Draw.drawQuad(Sprites.deathknight_create_classe,Window.getWidth()/2-140, Window.getHeight()/2-13);
-			Draw.drawQuad(Sprites.shaman_create_classe,Window.getWidth()/2-78, Window.getHeight()/2-13);
-			Draw.drawQuad(Sprites.mage_create_classe,Window.getWidth()/2-16, Window.getHeight()/2-13);
-			Draw.drawQuad(Sprites.warlock_create_classe,Window.getWidth()/2+46, Window.getHeight()/2-13);
-			Draw.drawQuad(Sprites.monk_create_classe,Window.getWidth()/2+108, Window.getHeight()/2-13);
-			
-			Draw.drawQuad(Sprites.border, Window.getWidth()/2-146, Window.getHeight()/2-85);
-			Draw.drawQuad(Sprites.border2, Window.getWidth()/2-84, Window.getHeight()/2-85);
-			Draw.drawQuad(Sprites.border3, Window.getWidth()/2-22, Window.getHeight()/2-85);
-			Draw.drawQuad(Sprites.border4, Window.getWidth()/2+40, Window.getHeight()/2-85);
-			Draw.drawQuad(Sprites.border5, Window.getWidth()/2+102, Window.getHeight()/2-85);
-			Draw.drawQuad(Sprites.border6, Window.getWidth()/2-146, Window.getHeight()/2-18);
-			Draw.drawQuad(Sprites.border7, Window.getWidth()/2-84, Window.getHeight()/2-18);
-			Draw.drawQuad(Sprites.border8, Window.getWidth()/2-22, Window.getHeight()/2-18);
-			Draw.drawQuad(Sprites.border9, Window.getWidth()/2+40, Window.getHeight()/2-18);
-			Draw.drawQuad(Sprites.border10, Window.getWidth()/2+102, Window.getHeight()/2-18);
-			
-			TTF.playerName.drawString(Window.getWidth()/2-26, Window.getHeight()/2-108, "Class select", Color.yellow);
-			
-			if(x >= Window.getWidth()/2-140 && x <= Window.getWidth()/2-84 && y >= Window.getHeight()/2-80 && y <= Window.getHeight()/2-24) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2-144, Window.getHeight()/2-82);
-			}
-			else if(x >= Window.getWidth()/2-78 && x <= Window.getWidth()/2-22 && y >= Window.getHeight()/2-80 && y <= Window.getHeight()/2-24) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2-82, Window.getHeight()/2-82);
-			}
-			else if(x >= Window.getWidth()/2-16 && x <= Window.getWidth()/2+40 && y >= Window.getHeight()/2-80 && y <= Window.getHeight()/2-24) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2-20, Window.getHeight()/2-82);
-			}
-			else if(x >= Window.getWidth()/2+46 && x <= Window.getWidth()/2+102 && y >= Window.getHeight()/2-80 && y <= Window.getHeight()/2-24) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2+40, Window.getHeight()/2-82);
-			}
-			else if(x >= Window.getWidth()/2+108 && x <= Window.getWidth()/2+164 && y >= Window.getHeight()/2-80 && y <= Window.getHeight()/2-24) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2+104, Window.getHeight()/2-82);
-			}
-			else if(x >= Window.getWidth()/2-140 && x <= Window.getWidth()/2-84 && y >= Window.getHeight()/2-13 && y <= Window.getHeight()/2+43) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2-144, Window.getHeight()/2-15);
-			}
-			else if(x >= Window.getWidth()/2-78 && x <= Window.getWidth()/2-22 && y >= Window.getHeight()/2-13 && y <= Window.getHeight()/2+43) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2-82, Window.getHeight()/2-15);
-			}
-			else if(x >= Window.getWidth()/2-16 && x <= Window.getWidth()/2+40 && y >= Window.getHeight()/2-13 && y <= Window.getHeight()/2+43) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2-20, Window.getHeight()/2-15);
-			}
-			else if(x >= Window.getWidth()/2+46 && x <= Window.getWidth()/2+102 && y >= Window.getHeight()/2-13 && y <= Window.getHeight()/2+43) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2+40, Window.getHeight()/2-15);
-			}
-			else if(x >= Window.getWidth()/2+108 && x <= Window.getWidth()/2+164 && y >= Window.getHeight()/2-13 && y <= Window.getHeight()/2+43) {
-				Draw.drawQuad(Sprites.hover, Window.getWidth()/2+104, Window.getHeight()/2-15);
-			}
-			Display.update();
-			Display.sync(60);
-		}*/
-		/*while(!(closeRequested = Display.isCloseRequested()) && joueur1.getStamina() > 0 && joueur2.getStamina() > 0) {
-			boolean hasNext = Keyboard.next();
-			if(hasNext) {
-				do {
-					if(Keyboard.getEventKeyState()) {
-						if(Keyboard.getEventKey() == Keyboard.KEY_RETURN) {
-							if(currentPlayer) {
-        						joueur1.tick();
-        					}
-        					else {
-        						joueur2.attackUI(Spell.getRandomSpell());
-        					}
-    						Hud.lifeBars();
-    						Hud.manaBars();
-    						Hud.redBars();
-    						if(Hud.redBars()) {
-    							break;
-    						}
-							currentPlayer = !currentPlayer;
-						}
-						if(Keyboard.getEventKey() == Keyboard.KEY_1) {
-							if(currentPlayer) {
-								joueur1.tick();
-								Hud.lifeBars();
-								Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-							}
-        					else {
-        						joueur2.attackUI(Spell.getRandomSpell());
-        						Hud.lifeBars();
-        						Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-        					}
-							currentPlayer = !currentPlayer;
-						}
-						else if(Keyboard.getEventKey() == Keyboard.KEY_2) {
-							if(currentPlayer) {
-								joueur1.cast(Mideas.joueur1().getSpells()[2], joueur2);
-								Hud.lifeBars();
-								Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-							}
-        					else {
-        						joueur2.attackUI(Spell.getRandomSpell());
-        						Hud.lifeBars();
-        						Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-        					}
-							currentPlayer = !currentPlayer;
-						}
-						else if(Keyboard.getEventKey() == Keyboard.KEY_3) {
-							if(currentPlayer) {
-								joueur1.cast(Mideas.joueur1().getSpells()[1], joueur2);
-								Hud.lifeBars();
-								Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-							}
-        					else {
-        						joueur2.attackUI(Spell.getRandomSpell());
-        						Hud.lifeBars();
-        						Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-        					}
-							currentPlayer = !currentPlayer;
-						}
-						else if(Keyboard.getEventKey() == Keyboard.KEY_4) {
-							if(currentPlayer) {
-								joueur1.cast(Mideas.joueur1().getSpells()[0], joueur2);
-								Hud.lifeBars();
-								Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-							}
-        					else {
-        						joueur2.attackUI(Spell.getRandomSpell());
-        						Hud.lifeBars();
-        						Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-        					}
-							currentPlayer = !currentPlayer;
-						}
-						else if(Keyboard.getEventKey() == Keyboard.KEY_C) {
-							if(currentPlayer) {
-								while(!key) {
-									while(Keyboard.next()) {						
-									}
-									fpsUpdate();
-									GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-									GL11.glLoadIdentity();
-									context2D();
-									Hud.render();
-									Draw.drawQuad(Sprites.cursor, -100, -100);
-									InventoryFrame.frame();
-									Display.update();
-									Display.sync(60);
-									if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-										key = true;
-									}
-								}
-							}
-							key = false;
-						}
-						else if(Keyboard.getEventKey() == Keyboard.KEY_B) {
-							if(currentPlayer) {
-								while(!key) {
-									while(Keyboard.next()) {						
-									}
-									fpsUpdate();
-									GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-									GL11.glLoadIdentity();
-									context2D();
-									Hud.render();
-									Draw.drawQuad(Sprites.cursor, -100, -100);
-									InventoryFrame.bags();
-									Display.update();
-									Display.sync(60);
-									if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-										key = true;
-									}
-								}
-							}
-						}
-						key = false;
-					}				
-				} while(Keyboard.next());
-			}
-			while(Mouse.next()) {
-				x = Mouse.getX();
-				y = Display.getHeight()-Mouse.getY();
-				if(Mouse.getEventButtonState()) {
-					if(Hud.hoveredSpell != null) {
-						if(currentPlayer) {
-							joueur1.cast(Hud.hoveredSpell, joueur2);
-							System.out.println(Hud.hoveredSpell);
-    						Hud.redBars();
-    						if(Hud.redBars()) {
-    							break;
-    						}
-						}
-						else {
-							joueur2.cast(Spell.getRandomSpell(), joueur1);
-							System.out.println(Hud.hoveredSpell);
-    						Hud.redBars();
-    						if(Hud.redBars()) {
-    							break;
-    						}
-						}
-						currentPlayer = !currentPlayer;
-					}			
-					else {
-						x = Mouse.getX();
-						y = Display.getHeight()-Mouse.getY();
-						if(Mideas.x >= Window.getWidth()-739 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()-683 && Mideas.y <= Window.getHeight()-5) {
-							if(currentPlayer) {
-								joueur1.tick();
-			        			Hud.lifeBars();
-        						Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-			        		}
-			        		else {
-			        			joueur2.attackUI(Spell.getRandomSpell());
-			        			Hud.lifeBars();
-        						Hud.manaBars();
-        						Hud.redBars();
-        						if(Hud.redBars()) {
-        							break;
-        						}
-			        		}
-			        		currentPlayer = !currentPlayer;
-						}
-					}
-				}
-			}
-			if(!currentPlayer) {
-				joueur2.attackUI(Spell.getRandomSpell());
-				currentPlayer = !currentPlayer;
-			}
-			fpsUpdate();
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			GL11.glLoadIdentity();
-			context2D();
-			Hud.render();
-			Display.update();
-			Display.sync(60);
-		}
-		if(!closeRequested) {
-			while(!Display.isCloseRequested()) {
-				fpsUpdate();
-				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-				GL11.glLoadIdentity();
-				context2D();
-				Display.sync(60);
-				Hud.setStatusText("");
-				Hud.setStatusText2("");
-				Hud.redBars();
-				Hud.render();
-				x = Mouse.getX();
-				y = Display.getHeight()-Mouse.getY();
-				while(Keyboard.next()) {
-					
-				}
-				Draw.drawQuad(Sprites.alert, Window.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Window.getHeight()/2-80);
-				if(x >= Window.getWidth()/2-130 && x <= Window.getWidth()/2-3 && y <= Window.getHeight()/2-18 && y >= Window.getHeight()/2-37) {
-					Draw.drawQuad(Sprites.button_hover, Window.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Window.getHeight()/2-43);
-				}
-				else {
-					Draw.drawQuad(Sprites.button, Window.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Window.getHeight()/2-43);
-				}
-				TTF.buttonFont.drawString(Window.getWidth()/2-TTF.buttonFont.getWidth("Retry")/2-70, Window.getHeight()/2-40, "Retry", Color.black);
-				TTF.buttonFont.drawString(Window.getWidth()/2-TTF.buttonFont.getWidth("Retry")/2-69, Window.getHeight()/2-41, "Retry", Color.white);
-				if(x >= Window.getWidth()/2+7 && x <= Window.getWidth()/2+134 && y <= Window.getHeight()/2-15 && y >= Window.getHeight()/2-38) {
-					Draw.drawQuad(Sprites.button_hover2, Window.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Window.getHeight()/2-43);
-					if(Mouse.getEventButtonState()) {
-						System.exit(1);
-					}
-				}
-				else {
-					Draw.drawQuad(Sprites.button2, Window.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Window.getHeight()/2-43);
-				}
-				TTF.buttonFont.drawString(Window.getWidth()/2-TTF.buttonFont.getWidth("Quit")/2+70, Window.getHeight()/2-40, "Quit", Color.black);
-				TTF.buttonFont.drawString(Window.getWidth()/2-TTF.buttonFont.getWidth("Quit")/2+69, Window.getHeight()/2-41, "Quit", Color.white);
-				if(Mideas.joueur1.getStamina() <= 0) {
-					TTF.font4.drawString(Window.getWidth()/2-49, Window.getHeight()/2-65, "Player 2 WON", Color.black);
-					TTF.font4.drawString(Window.getWidth()/2-50, Window.getHeight()/2-66, "Player 2 WON", Color.white);
-					//TTF.font2.drawString(250-104-TTF.font.getWidth("Dead")/2, 56, "Dead", Color.black); 
-				}
-				else if(Mideas.joueur2.getStamina() <= 0) {
-					TTF.font4.drawString(Window.getWidth()/2-49, Window.getHeight()/2-65, "Player 1 WON", Color.black);
-					TTF.font4.drawString(Window.getWidth()/2-50, Window.getHeight()/2-66, "Player 1 WON", Color.white);
-					//TTF.font2.drawString(Window.getWidth()-104-TTF.font.getWidth("Dead")/2, 56, "Dead", Color.black);
-					if(isExp == 0) {
-						setExp();
-						getLevel();
-						isExp++;
-					}
-				}
-				//Display.update();
-				while(Mouse.next()) {
-					if(Mouse.getEventButtonState()) {
-						if(x >= Window.getWidth()/2-130 && x <= Window.getWidth()/2-3 && y <= Window.getHeight()/2-18 && y >= Window.getHeight()/2-37) {
-							joueur2 = getRandomClass(2);
-							joueur1.setStamina(joueur1.getMaxStamina());
-							joueur1.setMana(joueur1.getMaxMana());
-							/*joueur1.setLeggings((Leggings)stuffManager.getStuff(1));
-							joueur1.setChest((Chest)stuffManager.getStuff(3));
-							joueur1.setHead((Head)stuffManager.getStuff(5));
-							joueur1.setBoots((Boots)stuffManager.getStuff(7));
-							joueur1.setWrists((Wrists)stuffManager.getStuff(9));
-							joueur2.setLeggings((Leggings)stuffManager.getStuff(2));
-							joueur2.setChest((Chest)stuffManager.getStuff(4));
-							joueur2.setHead((Head)stuffManager.getStuff(6));
-							joueur2.setBoots((Boots)stuffManager.getStuff(8));
-							joueur2.setWrists((Wrists)stuffManager.getStuff(10));
-							System.out.println("Joueur 1 hp : "+Mideas.joueur1.getStamina());
-							System.out.println("Joueur 2 hp : "+Mideas.joueur2.getStamina());
-							Hud.lifeBars();
-							Hud.manaBars();
-							closeRequested = false;
-							while(!(closeRequested = Display.isCloseRequested()) && joueur1.getStamina() > 0 && joueur2.getStamina() > 0) {
-								boolean hasNext = Keyboard.next();
-								isExp = 0;
-								if(hasNext) {
-									do {
-										if(Keyboard.getEventKeyState()) {
-											if(Keyboard.getEventKey() == Keyboard.KEY_RETURN) {
-												if(currentPlayer) {
-					        						joueur1.tick();
-					        						Hud.lifeBars();
-					        						Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-					        					}
-					        					else {
-					        						joueur2.attackUI(Spell.getRandomSpell());
-					        						Hud.lifeBars();
-					        						Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-					        					}
-												currentPlayer = !currentPlayer;
-											}
-											if(Keyboard.getEventKey() == Keyboard.KEY_1) {
-												if(currentPlayer) {
-													joueur1.tick();
-													Hud.lifeBars();
-													Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-												}
-					        					else {
-					        						joueur2.attackUI(Spell.getRandomSpell());
-					        						Hud.lifeBars();
-					        						Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-					        					}
-												currentPlayer = !currentPlayer;
-											}
-											else if(Keyboard.getEventKey() == Keyboard.KEY_2) {
-												if(currentPlayer) {
-													joueur1.cast(Mideas.joueur1().getSpells()[2], joueur2);
-													Hud.lifeBars();
-													Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-												}
-					        					else {
-					        						joueur2.attackUI(Spell.getRandomSpell());
-					        						Hud.lifeBars();
-					        						Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-					        					}
-												currentPlayer = !currentPlayer;
-											}
-											else if(Keyboard.getEventKey() == Keyboard.KEY_3) {
-												if(currentPlayer) {
-													joueur1.cast(Mideas.joueur1().getSpells()[1], joueur2);
-													Hud.lifeBars();
-													Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-												}
-					        					else {
-					        						joueur2.attackUI(Spell.getRandomSpell());
-					        						Hud.lifeBars();
-					        						Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-					        					}
-												currentPlayer = !currentPlayer;
-											}
-											else if(Keyboard.getEventKey() == Keyboard.KEY_4) {
-												if(currentPlayer) {
-													joueur1.cast(Mideas.joueur1().getSpells()[0], joueur2);
-													Hud.lifeBars();
-													Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-												}
-					        					else {
-					        						joueur2.attackUI(Spell.getRandomSpell());
-					        						Hud.lifeBars();
-					        						Hud.manaBars();
-					        					}
-												currentPlayer = !currentPlayer;
-											}
-											else if(Keyboard.getEventKey() == Keyboard.KEY_C) {
-												if(currentPlayer) {
-													while(!key) {
-														while(Keyboard.next()) {			
-														}
-														fpsUpdate();
-														Draw.drawQuad(Sprites.character_frame2, Window.getWidth()/2-300, Window.getHeight()/2-380);
-														InventoryFrame.frame();
-														Display.update();
-														Display.sync(60);
-														if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-															key = true;
-														}
-													}
-												}
-											}
-											key = false;
-										}
-									} while(Keyboard.next());
-								}
-								while(Mouse.next()) {
-									x = Mouse.getX();
-									y = Display.getHeight()-Mouse.getY();
-									if(Mouse.getEventButtonState()) {
-										if(Hud.hoveredSpell != null) {
-											if(currentPlayer) {
-												joueur1.cast(Hud.hoveredSpell, joueur2);
-												System.out.println(Hud.hoveredSpell);
-				        						Hud.redBars();
-				        						if(Hud.redBars()) {
-				        							break;
-				        						}
-											}
-											currentPlayer = !currentPlayer;
-										}			
-										else {
-											x = Mouse.getX();
-											y = Display.getHeight()-Mouse.getY();
-											if(Mideas.x >= Window.getWidth()-739 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()-683 && Mideas.y <= Window.getHeight()-5) {
-												if(currentPlayer) {
-													joueur1.tick();
-								        			Hud.lifeBars();
-					        						Hud.manaBars();
-					        						Hud.redBars();
-					        						if(Hud.redBars()) {
-					        							break;
-					        						}
-								        		}
-								        		currentPlayer = !currentPlayer;
-											}
-										}
-									}
-								}
-								if(!currentPlayer) {
-									joueur2.attackUI(Spell.getRandomSpell());
-									currentPlayer = !currentPlayer;
-								}
-								fpsUpdate();
-								GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-								GL11.glLoadIdentity();
-								context2D();
-								Hud.render();
-								Display.update();
-								Display.sync(60);
-							}
-						}
-					}
-				}
-				Display.update();
-			}
-		}*/
 	}
 	
 	public static int mouseX() {
@@ -809,40 +250,64 @@ public class Mideas {
 			return new Warlock();
 		}
 	}
-	
-	/*private static void generateStuff() throws SQLException {
-		JDOStatement statement = jdo.prepare("SELECT * FROM items");
-		statement.execute();
-		while(statement.fetch()) {
-			int id = statement.getInt();
-			int type = statement.getInt();
-			String name = statement.getString();
-			int critical = statement.getInt();
-			int strengh = statement.getInt();
-			int stamina = statement.getInt();
-			int armor = statement.getInt();
-			int mana = statement.getInt();
-			Stuff stuff = null;
-			switch(type) {
-				case 1:
-					stuff = new Leggings(id, name, critical, strengh, stamina, armor, mana);
-					break;
-				case 2:
-					stuff = new Chest(id, name, critical, strengh, stamina, armor, mana);
-					break;
-				case 3:
-					stuff = new Head(id, name, critical, strengh, stamina, armor, mana);
-					break;
-				case 4:
-					stuff = new Boots(id, name, critical, strengh, stamina, armor, mana);
-					break;
-				case 5:
-					stuff = new Wrists(id, name, critical, strengh, stamina, armor, mana);
-					break;
+
+	public static int getExpAll(int i) throws FileNotFoundException {
+		BufferedReader br = null;
+		try {
+			int j = 0;
+			String sCurrentLine;
+			String tempExp[] = {"1","2","3"};
+			br = new BufferedReader(new FileReader("exp.txt"));
+			while((sCurrentLine = br.readLine()) != null) {
+				if(i == j) {
+					tempExp = sCurrentLine.split("=");	
+				}
+				if(i == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(i == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(i == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(i == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(i == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(i == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(i == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(i == j) {
+					tempExp = sCurrentLine.split("=");
+				}
+				if(i == j) {
+				tempExp = sCurrentLine.split("=");
+				}
+				j++;
 			}
-			StuffManager.addStuff(stuff);
+			exp = Integer.parseInt(tempExp[1]);		
 		}
-	}*/
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+			}
+			catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return exp;
+	}
 	
 	public static int getExp() throws FileNotFoundException {
 		BufferedReader br = null;
@@ -990,349 +455,6 @@ public class Mideas {
 		}
 	}
 	
-	public static int getExpDeathKnight() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 0) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expDeathKnight = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expDeathKnight;
-	}
-	
-	public static int getExpGuerrier() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 1) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expGuerrier = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expGuerrier;
-	}
-	
-	public static int getExpHunter() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 2) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expHunter = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expHunter;
-	}
-	
-	public static int getExpMage() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 3) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expMage = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expMage;
-	}
-	
-	public static int getExpMonk() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 4) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expMonk = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expMonk;
-	}
-	
-	public static int getExpPaladin() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 5) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expPaladin = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expPaladin;
-	}
-	
-	public static int getExpPriest() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 6) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expPriest = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expPriest;
-	}
-	
-	public static int getExpRogue() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 7) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expRogue = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expRogue;
-	}
-	
-	public static int getExpShaman() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 8) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expShaman = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expShaman;
-	}
-	
-	public static int getExpWarlock() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 9) {
-					tempExp = sCurrentLine.split("=");
-				}
-				i++;
-			}
-			expWarlock = Integer.parseInt(tempExp[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return expWarlock;
-	}
-
-	
-	/*public static void setExp() throws FileNotFoundException {
-		exp = getExp()+Mideas.joueur2.getExpGained();
-		try {
-			String content = String.valueOf(exp);
-			File file = new File(ClassSelectFrame.expTxt());
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}*/
-
-	/*public static int getGold() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			String sCurrentLine;
-			br = new BufferedReader(new FileReader(ClassSelectFrame.goldTxt()));
-			while ((sCurrentLine = br.readLine()) != null) {
-				gold = Integer.parseInt(sCurrentLine);
-			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null)
-					br.close();
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return gold;
-	}*/
-	
 	public static int getGold() throws FileNotFoundException {
 		BufferedReader br = null;
 		try {
@@ -1390,87 +512,6 @@ public class Mideas {
 		}
 		return gold;
 	}
-	
-	/*public static void setGold(int gold) throws FileNotFoundException {
-		gold+= joueur1.getGold();
-		try {
-			String content = "";
-			int i = 0;
-			File file = new File("gold.txt");
-				if (!file.exists()) {
-					file.createNewFile();
-				}
-				FileWriter fw = new FileWriter(file.getAbsoluteFile());
-				BufferedWriter bw = new BufferedWriter(fw);
-				if(joueur1.getClasse() == "DeathKnight") {
-					content+= joueur1.getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				if(joueur1.getClasse() == "Guerrier") {
-					content+= joueur1.getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				if(Mideas.getClassLine() == i) {
-					content+= joueur1().getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				if(Mideas.getClassLine() == i) {
-					content+= joueur1().getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				if(Mideas.getClassLine() == i) {
-					content+= joueur1().getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				if(Mideas.getClassLine() == i) {
-					content+= joueur1().getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				if(Mideas.getClassLine() == i) {
-					content+= joueur1().getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				if(Mideas.getClassLine() == i) {
-					content+= joueur1().getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				if(Mideas.getClassLine() == i) {
-					content+= joueur1().getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				if(Mideas.getClassLine() == i) {
-					content+= joueur1().getClasse()+"="+gold+"\r\n";
-				}
-				else {
-					content+= "\r\n";
-				}
-				System.out.println(content);
-				i++;
-				bw.write(content);
-				bw.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}*/
 	
 	public static void setConfig() throws FileNotFoundException {
 		BufferedReader br = null;
@@ -1538,24 +579,6 @@ public class Mideas {
 					ChangeBackGroundFrame.loadBG(tempConfig[1]);
 				}
 				/*if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
 					tempConfig = sCurrentLine.split("=");
 				}
 				if(Mideas.getClassLine() == i) {
@@ -1669,24 +692,6 @@ public class Mideas {
 		}
 	}
 	
-	/*public static void setGold(int gold) throws FileNotFoundException {
-		gold+= getGold();
-		try {
-			String content = String.valueOf(gold);
-			File file = new File(ClassSelectFrame.goldTxt());
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}*/
-	
 	public static int getCurrentGold() {
 		return gold;
 	}
@@ -1729,29 +734,6 @@ public class Mideas {
 		}
 		return k;
 	}
-	
-	/*public static void cursorFrame(String cursor) throws LWJGLException, IOException {
-		cursor_image = ImageIO.read(new File(cursor));
-		final int cursor_width = cursor_image.getWidth();
-		final int cursor_height = cursor_image.getHeight();
-		final int[] cursor_pixels = new int[cursor_width*cursor_height];
-		final ByteBuffer cursor_buffer = BufferUtils.createByteBuffer(cursor_width*cursor_height*4);
-		cursor_image.getRGB(0, 0, cursor_width, cursor_height, cursor_pixels, 0, cursor_width);
-		int cursor_y = 32;
-		while(--cursor_y > -1) {
-			int cursor_x = -1;
-			while(++cursor_x < 32) {
-				int i = cursor_y*32+cursor_x;
-				cursor_buffer.put((byte)(cursor_pixels[i]>>16));
-				cursor_buffer.put((byte)(cursor_pixels[i]>>8));
-				cursor_buffer.put((byte) cursor_pixels[i]);
-				cursor_buffer.put((byte)(cursor_pixels[i]>>24));
-			}
-		}
-		cursor_buffer.position(0);
-		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));
-		setCursor("cursor");
-	}*/
 	
 	public static String getCursor() {
 		return cursor;
@@ -2408,14 +1390,6 @@ public class Mideas {
 		return 10;
 	}
 	
-	/*private static void lessCd() {
-		int i = 0;
-		while(i < Mideas.joueur1.getSpells().length && Mideas.joueur1.getSpells(i) != null) {
-			Mideas.joueur1.getSpells()[i].setSpellCd(Mideas.joueur1.getSpells()[i], Spell.getSpellCd(Mideas.joueur1.getSpells()[i])-1);
-			i++;
-		}
-	}*/
-	
 	private static void lessCd() {
 		int i = 0;
 		int j = 0;
@@ -2472,15 +1446,14 @@ public class Mideas {
 		return fps;
 	}
 	
-	public static void setDisplayMode(int width, int height, boolean fullscreen) {
-		 
+	public static void setDisplayMode(int width, int height, boolean fullscreen) {	 
 	    // return if requested DisplayMode is already set
-	    if ((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen)) {
+	    if((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen)) {
 	        return;
 	    }
 	    try {
 	        DisplayMode targetDisplayMode = null;
-		    if (fullscreen) {
+		    if(fullscreen) {
 		        DisplayMode[] modes = Display.getAvailableDisplayModes();
 		        int freq = 0;             
 		        for(int i=0;i<modes.length;i++) {
@@ -2500,16 +1473,16 @@ public class Mideas {
 		        }
 		    } 
 		    else {
-            targetDisplayMode = new DisplayMode(width,height);
+		    	targetDisplayMode = new DisplayMode(width,height);
 	        }
-	        if (targetDisplayMode == null) {
+	        if(targetDisplayMode == null) {
 	            System.out.println("Failed to find value mode: "+width+"x"+height+" fs="+fullscreen);
 	            return;
 	        }
 	        Display.setDisplayMode(targetDisplayMode);
 	        Display.setFullscreen(fullscreen);        
 	    } 
-	    catch (LWJGLException e) {
+	    catch(LWJGLException e) {
 	        System.out.println("Unable to setup mode "+width+"x"+height+" fullscreen="+fullscreen + e);
 	    }
 	}

@@ -24,7 +24,7 @@ public class BlackTemple extends Dungeon {
 	private static boolean blackTempleActive;
 	private static Joueur[] joueur = new Joueur[5];
 	private static boolean isBlackTempleLoaded;
-	private static int maxRoom = 4;
+	private static int maxRoom;
 	private static boolean isGold;
 	private static boolean expGiven;
 	private static boolean gold;
@@ -58,77 +58,7 @@ public class BlackTemple extends Dungeon {
 			BlackTemple.setBlackTempleStatus(false);
 		}
 		else if(Mideas.joueur2().getStamina() <= 0) {
-			isGold = true;
-			if(!expGiven) {
-				Mideas.setExp();
-				Mideas.getLevel();
-				expGiven = true;
-			}
-			if(!gold) {
-				Mideas.setGold(Mideas.joueur2().getGoldGained());
-				gold = true;
-			}
-			EndFightFrame.lootManager();
-			if(i != maxRoom-1) {
-				Draw.drawQuad(Sprites.alert_dungeon, Display.getWidth()/2-Sprites.alert_dungeon.getImageWidth()/2+38, Display.getHeight()/2-150);
-				if(button(-Sprites.button.getImageWidth()/2, -50, 0, -75, Sprites.button_hover)) {
-					if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
-						resetEndFight();
-						i++;
-						if(i >= maxRoom) {
-							closeDungeon();
-						}
-						else {
-							Mideas.setJoueur2(BlackTemple.getJoueur(i));
-						}
-					}
-				}
-				else {
-					Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2, Display.getHeight()/2-75);
-				}
-				if(button(-130, -18, -70, -43, Sprites.button_hover2)) {
-					if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
-						Dungeon.closeDungeon();
-					}
-				}
-				else {
-					Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
-				}
-				if(button(7, -18, 70, -43, Sprites.button_hover)) {
-					if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
-						System.exit(1);
-					}
-				}
-				else {
-					Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
-				}
-				TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit dungeon")/2-69, Display.getHeight()/2-41, "Quit dungeon", Color.white, Color.black, 1, 1, 1);
-				TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit game")/2+69, Display.getHeight()/2-41, "Quit game", Color.white, Color.black, 1, 1, 1);
-				TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Continue dungeon")/2, Display.getHeight()/2-73, "Continue dungeon", Color.white, Color.black, 1, 1, 1);
-			}
-			else {
-				Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Display.getHeight()/2-80);
-				if(button(-130, -18, -70, -43, Sprites.button_hover2)) {
-					if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
-						resetEndFight();
-						Dungeon.closeDungeon();
-					}
-				}
-				else {
-					Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
-				}
-				if(button(7, -18, 70, -43, Sprites.button_hover)) {
-					if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
-						System.exit(1);
-					}
-				}
-				else {
-					Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
-				}
-				TTF2.font4.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Dungeon cleared !")/2, Display.getHeight()/2-65, "Dungeon cleared !", Color.white, Color.black, 1, 1, 1);
-				TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Return game")/2-69, Display.getHeight()/2-41, "Return game", Color.white, Color.black, 1, 1, 1);
-				TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit game")/2+69, Display.getHeight()/2-41, "Quit game", Color.white, Color.black, 1, 1, 1);
-			}
+			endFight(4);
 		}
 	}
 	
@@ -151,6 +81,81 @@ public class BlackTemple extends Dungeon {
 			return true;
 		}
 		return false;
+	}
+	
+	public static void endFight(int x) throws FileNotFoundException {
+		maxRoom = x;
+		isGold = true;
+		if(!expGiven) {
+			Mideas.setExp();
+			Mideas.getLevel();
+			expGiven = true;
+		}
+		if(!gold) {
+			Mideas.setGold(Mideas.joueur2().getGoldGained());
+			gold = true;
+		}
+		EndFightFrame.lootManager();
+		if(i != maxRoom-1) {
+			Draw.drawQuad(Sprites.alert_dungeon, Display.getWidth()/2-Sprites.alert_dungeon.getImageWidth()/2+38, Display.getHeight()/2-150);
+			if(button(-Sprites.button.getImageWidth()/2, -50, 0, -75, Sprites.button_hover)) {
+				if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
+					resetEndFight();
+					i++;
+					if(i >= maxRoom) {
+						closeDungeon();
+					}
+					else {
+						Mideas.setJoueur2(BlackTemple.getJoueur(i));
+					}
+				}
+			}
+			else {
+				Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2, Display.getHeight()/2-75);
+			}
+			if(button(-130, -18, -70, -43, Sprites.button_hover2)) {
+				if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
+					Dungeon.closeDungeon();
+				}
+			}
+			else {
+				Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+			}
+			if(button(7, -18, 70, -43, Sprites.button_hover)) {
+				if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
+					System.exit(1);
+				}
+			}
+			else {
+				Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
+			}
+			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit dungeon")/2-69, Display.getHeight()/2-41, "Quit dungeon", Color.white, Color.black, 1, 1, 1);
+			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit game")/2+69, Display.getHeight()/2-41, "Quit game", Color.white, Color.black, 1, 1, 1);
+			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Continue dungeon")/2, Display.getHeight()/2-73, "Continue dungeon", Color.white, Color.black, 1, 1, 1);
+		}
+		else {
+			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Display.getHeight()/2-80);
+			if(button(-130, -18, -70, -43, Sprites.button_hover2)) {
+				if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
+					resetEndFight();
+					Dungeon.closeDungeon();
+				}
+			}
+			else {
+				Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+			}
+			if(button(7, -18, 70, -43, Sprites.button_hover)) {
+				if(Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
+					System.exit(1);
+				}
+			}
+			else {
+				Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
+			}
+			TTF2.font4.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Dungeon cleared !")/2, Display.getHeight()/2-65, "Dungeon cleared !", Color.white, Color.black, 1, 1, 1);
+			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Return game")/2-69, Display.getHeight()/2-41, "Return game", Color.white, Color.black, 1, 1, 1);
+			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit game")/2+69, Display.getHeight()/2-41, "Quit game", Color.white, Color.black, 1, 1, 1);
+		}
 	}
 	
 	public static boolean getIsBlackTempleLoaded() {

@@ -77,16 +77,16 @@ public class ClassSelectFrame {
 		int xRight = 90;
 		int y = -295;
 		int yShift = 60;
-		drawLevel(Mideas.getExpGuerrier(), xLeft, y);
-		drawLevel(Mideas.getExpPaladin(), xLeft, y+yShift);
-		drawLevel(Mideas.getExpHunter(), xLeft, y+2*yShift);
-		drawLevel(Mideas.getExpRogue(), xLeft, y+3*yShift);
-		drawLevel(Mideas.getExpPriest(), xLeft, y+4*yShift);
-		drawLevel(Mideas.getExpDeathKnight(), xRight, y);
-		drawLevel(Mideas.getExpShaman(), xRight, y+yShift);
-		drawLevel(Mideas.getExpMage(), xRight, y+2*yShift);
-		drawLevel(Mideas.getExpWarlock(), xRight, y+3*yShift);
-		drawLevel(Mideas.getExpMonk(), xRight, y+4*yShift);
+		drawLevel(Mideas.getExpAll(1), xLeft, y);
+		drawLevel(Mideas.getExpAll(5), xLeft, y+yShift);
+		drawLevel(Mideas.getExpAll(2), xLeft, y+2*yShift);
+		drawLevel(Mideas.getExpAll(7), xLeft, y+3*yShift);
+		drawLevel(Mideas.getExpAll(6), xLeft, y+4*yShift);
+		drawLevel(Mideas.getExpAll(0), xRight, y);
+		drawLevel(Mideas.getExpAll(8), xRight, y+yShift);
+		drawLevel(Mideas.getExpAll(3), xRight, y+2*yShift);
+		drawLevel(Mideas.getExpAll(9), xRight, y+3*yShift);
+		drawLevel(Mideas.getExpAll(4), xRight, y+4*yShift);
 		y = -30;
 		TTF2.spellName.drawStringShadow(Display.getWidth()/2+5, Display.getHeight()+y-295, "Level :", Color.white, Color.black, 1, 1, 1);
 		xLeft = -270;
@@ -105,27 +105,27 @@ public class ClassSelectFrame {
 		xLeft = -220;
 		xRight = 80;
 		y = -270;
-		drawExpBar(Mideas.getExpGuerrier(), xLeft, y);
-		drawExpBar(Mideas.getExpPaladin(), xLeft, y+yShift);
-		drawExpBar(Mideas.getExpHunter(), xLeft, y+2*yShift);
-		drawExpBar(Mideas.getExpRogue(), xLeft, y+3*yShift);
-		drawExpBar(Mideas.getExpPriest(), xLeft, y+4*yShift);
-		drawExpBar(Mideas.getExpDeathKnight(), xRight, y);
-		drawExpBar(Mideas.getExpShaman(), xRight, y+yShift);
-		drawExpBar(Mideas.getExpMage(), xRight, y+2*yShift);
-		drawExpBar(Mideas.getExpWarlock(), xRight, y+3*yShift);
-		drawExpBar(Mideas.getExpMonk(), xRight, y+4*yShift);
+		drawExpBar(Mideas.getExpAll(1), xLeft, y);
+		drawExpBar(Mideas.getExpAll(5), xLeft, y+yShift);
+		drawExpBar(Mideas.getExpAll(2), xLeft, y+2*yShift);
+		drawExpBar(Mideas.getExpAll(7), xLeft, y+3*yShift);
+		drawExpBar(Mideas.getExpAll(6), xLeft, y+4*yShift);
+		drawExpBar(Mideas.getExpAll(0), xRight, y);
+		drawExpBar(Mideas.getExpAll(8), xRight, y+yShift);
+		drawExpBar(Mideas.getExpAll(3), xRight, y+2*yShift);
+		drawExpBar(Mideas.getExpAll(9), xRight, y+3*yShift);
+		drawExpBar(Mideas.getExpAll(4), xRight, y+4*yShift);
 		y = -30;
-		isClassHoverExp(warriorHover, Mideas.getExpGuerrier(), -144, -82, -220, y, -240);
-		isClassHoverExp(paladinHover, Mideas.getExpPaladin(), -82, -82, -220, y, -180);
-		isClassHoverExp(hunterHover, Mideas.getExpHunter(), -20, -82, -220, y, -120);
-		isClassHoverExp(rogueHover, Mideas.getExpRogue(), 40, -82, -220, y, -60);
-		isClassHoverExp(priestHover, Mideas.getExpPriest(), 104, -82, -220, y, 0);
-		isClassHoverExp(deathknightHover, Mideas.getExpDeathKnight(), -144, -15, 80, y, -240);
-		isClassHoverExp(shamanHover, Mideas.getExpShaman(), -82, -15, 80, y, -180);
-		isClassHoverExp(mageHover, Mideas.getExpMage(), -20, -15, 80, y, -120);
-		isClassHoverExp(warlockHover, Mideas.getExpWarlock(), 40, -15, 80, y, -60);
-		isClassHoverExp(monkHover, Mideas.getExpMonk(), 104, -15, 80, y, 0);
+		isClassHoverExp(warriorHover, Mideas.getExpAll(1), -144, -82, -220, y, -240);
+		isClassHoverExp(paladinHover, Mideas.getExpAll(5), -82, -82, -220, y, -180);
+		isClassHoverExp(hunterHover, Mideas.getExpAll(2), -20, -82, -220, y, -120);
+		isClassHoverExp(rogueHover, Mideas.getExpAll(7), 40, -82, -220, y, -60);
+		isClassHoverExp(priestHover, Mideas.getExpAll(6), 104, -82, -220, y, 0);
+		isClassHoverExp(deathknightHover, Mideas.getExpAll(0), -144, -15, 80, y, -240);
+		isClassHoverExp(shamanHover, Mideas.getExpAll(8), -82, -15, 80, y, -180);
+		isClassHoverExp(mageHover, Mideas.getExpAll(3), -20, -15, 80, y, -120);
+		isClassHoverExp(warlockHover, Mideas.getExpAll(9), 40, -15, 80, y, -60);
+		isClassHoverExp(monkHover, Mideas.getExpAll(4), 104, -15, 80, y, 0);
 	}
 	
 	public static boolean mouseEvent() throws FileNotFoundException {
@@ -473,7 +473,7 @@ public class ClassSelectFrame {
 	
 	private static boolean setNewClass(String string, Joueur joueur, boolean hover) throws FileNotFoundException {
 		if(hover) {
-			if(Mideas.joueur1()!= null && Mideas.joueur1().getClasse() == string){
+			if(Mideas.joueur1()!= null && Mideas.joueur1().getClasse().equals(string)){
 				Interface.setIsChangeClassActive(true);
 				return true;
 			}
