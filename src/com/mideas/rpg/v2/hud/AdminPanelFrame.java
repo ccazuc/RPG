@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -42,7 +43,7 @@ public class AdminPanelFrame {
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+55, Display.getHeight()/2+y+2*yShift+2, "kill", Color.white, Color.black, 1, 1, 1);
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		Arrays.fill(hover, false);
 		isHover(0, xLeft, y);
 		isHover(1, xLeft, y+yShift);

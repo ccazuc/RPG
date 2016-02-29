@@ -7,12 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.game.stuff.Stuff;
+import com.mideas.rpg.v2.game.stuff.StuffManager;
 import com.mideas.rpg.v2.game.stuff.back.Back;
 import com.mideas.rpg.v2.game.stuff.back.SunwellBack;
 import com.mideas.rpg.v2.game.stuff.belt.Belt;
@@ -71,6 +73,7 @@ import com.mideas.rpg.v2.game.stuff.wrists.TheSeekersWristguards;
 import com.mideas.rpg.v2.game.stuff.wrists.Wrists;
 import com.mideas.rpg.v2.hud.ClassSelectFrame;
 import com.mideas.rpg.v2.hud.ShopFrame;
+import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class CharacterStuff {
 
@@ -199,7 +202,7 @@ public class CharacterStuff {
 		else if(id == 2) {
 			return Sprites.linen_cloth;
 		}
-		else if(id == 101) {
+		else if(id == 1001) {
 			return Sprites.warrior_t6_head;
 		}
 		else if(id == 121) {
@@ -211,7 +214,7 @@ public class CharacterStuff {
 		else if(id == 151) {
 			return Sprites.paladin_t6_head;
 		}
-		else if(id == 201) {
+		else if(id == 2001) {
 			return Sprites.necklace_sunwell;
 		}
 		else if(id == 301) {
@@ -319,7 +322,7 @@ public class CharacterStuff {
 		else if(id == 2) {
 			return Sprites.bag_linen_cloth;
 		}
-		else if(id == 101) {
+		else if(id == 1001) {
 			return Sprites.warrior_bag_t6_head;
 		}
 		else if(id == 121) {
@@ -331,7 +334,7 @@ public class CharacterStuff {
 		else if(id == 151) {
 			return Sprites.paladin_bag_t6_head;
 		}
-		else if(id == 201) {
+		else if(id == 2001) {
 			return Sprites.necklace_bag_sunwell;
 		}
 		else if(id == 301) {
@@ -620,10 +623,21 @@ public class CharacterStuff {
 		return (Ranged)getStuff(id);
 	}
 	
-	public static void getBagItems() throws FileNotFoundException {
-		BufferedReader br = null;
-		int i = 0;
-		int id;
+	public static void getBagItems() throws FileNotFoundException, SQLException {
+	int i = 0;
+	int id;
+	JDOStatement statement = Mideas.getJDO().prepare("SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23, slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31, slot32 FROM bag");
+	statement.execute();
+	if(statement.fetch()) {
+		while(i < 32) {
+			id = statement.getInt();
+			if(StuffManager.exists(id)) {
+				Mideas.bag().setBag(i, StuffManager.getClone(id));
+			}
+			i++;
+		}
+	}
+		/*BufferedReader br = null;
 		try {
 			String sCurrentLine;
 			//String number[] = {"1","2","3"};
@@ -741,10 +755,23 @@ public class CharacterStuff {
 			catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
+		}*/
 	}
-	public static void setBagItems() throws FileNotFoundException {
+	public static void setBagItems() throws FileNotFoundException, SQLException {
 		try {
+			JDOStatement statement = Mideas.getJDO().prepare("UPDATE bag SET slot1 = ?, slot2 = ?, slot3 = ?, slot4 = ?, slot5 = ?, slot6 = ?, slot7 = ?, slot8 = ?, slot9 = ?, slot10 = ?, slot11 = ?, slot12 = ?, slot13 = ?, slot14 = ?, slot15 = ?, slot16 = ?, slot17 = ?, slot18 = ?, slot19 = ?, slot20 = ?, slot21 = ?, slot22 = ?, slot23 = ?, slot24 = ?, slot25 = ?, slot26 = ?, slot27 = ?, slot28 = ?, slot29 = ?, slot30 = ?, slot31 = ?, slot32 = ?");
+			int i = 0;
+			while(i < 32) {
+				Stuff tempBag = Mideas.bag().getBag(i);
+				if(tempBag == null) {
+					statement.putInt(0);
+				}
+				else {
+					statement.putInt(tempBag.getId());
+				}
+				i++;
+			}
+			statement.execute();	
 			String content = "";
 			File file = new File(ClassSelectFrame.bagTxt());
 				if (!file.exists()) {
@@ -752,8 +779,8 @@ public class CharacterStuff {
 				}
 				FileWriter fw = new FileWriter(file.getAbsoluteFile());
 				BufferedWriter bw = new BufferedWriter(fw);
-				int i = 0;
-				while(i < Mideas.bag().getBag().length) {
+				i = 0;
+				/*while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) != null) {
 						if(Mideas.bag().getBag(i) instanceof Item) {
 							content+= Mideas.bag().getBag(i).getId()+"="+Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+System.lineSeparator();
@@ -766,7 +793,48 @@ public class CharacterStuff {
 						content+= "0"+System.lineSeparator();
 					}
 					i++;
+				}*/
+				//bbw.write(content);
+				bw.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setEquippedItems() throws FileNotFoundException, SQLException {
+		try {
+			JDOStatement statement = Mideas.getJDO().prepare("UPDATE character_stuff SET head = ?, necklace = ?, shoulders = ?, chest = ?, back = ?, wrists = ?, gloves = ?, belt = ?, leggings = ?, boots = ?, ring = ?, ring2 = ?, trinket = ?, trinket2 = ?, mainhand = ?, offhand = ?, ranged = ? WHERE class = ?");
+			int i = 0;
+			while(i < 17) {
+				Stuff tempStuff = Mideas.joueur1().getStuff(i);
+				if(tempStuff == null) {
+					statement.putInt(0);
 				}
+				else {
+					statement.putInt(tempStuff.getId());
+				}
+				i++;
+			}
+			statement.putString(Mideas.joueur1().getClasse());
+			statement.execute();
+			String content = "";
+			File file = new File(ClassSelectFrame.classTxt());
+				if (!file.exists()) {
+					file.createNewFile();
+				}
+				FileWriter fw = new FileWriter(file.getAbsoluteFile());
+				BufferedWriter bw = new BufferedWriter(fw);
+				/*i = 0;
+				while(i < Mideas.joueur1().getStuff().length) {
+					if(Mideas.joueur1().getStuff(i) != null) {
+						content+= Mideas.joueur1().getStuff(i).getId()+System.lineSeparator();
+					}
+					else {
+						content+= "0"+System.lineSeparator();
+					}
+					i++;
+				}*/
 				bw.write(content);
 				bw.close();
 		}
@@ -774,11 +842,88 @@ public class CharacterStuff {
 			e.printStackTrace();
 		}
 	}
-	public static void getEquippedItems() throws FileNotFoundException {
+	
+	public static void getEquippedItems() throws FileNotFoundException, SQLException {
 		BufferedReader br = null;
 		int i = 0;
 		int id;
-		try {
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT head, necklace, shoulders, chest, back, wrists, gloves, belt, leggings, boots, ring, ring2, trinket, trinket2, mainhand, offhand, ranged FROM character_stuff WHERE class = ?");
+		statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
+		if(statement.fetch()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isHead()) {
+				Mideas.joueur1().setStuff(0, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isNecklace()) {
+				Mideas.joueur1().setStuff(1, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isShoulders()) {
+				Mideas.joueur1().setStuff(2, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isChest()) {
+				Mideas.joueur1().setStuff(3, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBack()) {
+				Mideas.joueur1().setStuff(4, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isWrists()) {
+				Mideas.joueur1().setStuff(7, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isGloves()) {
+				Mideas.joueur1().setStuff(8, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBelt()) {
+				Mideas.joueur1().setStuff(9, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isLeggings()) {
+				Mideas.joueur1().setStuff(10, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBoots()) {
+				Mideas.joueur1().setStuff(11, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing()) {
+				Mideas.joueur1().setStuff(12, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing()) {
+				Mideas.joueur1().setStuff(13, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isTrinket()) {
+				Mideas.joueur1().setStuff(14, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isTrinket()) {
+				Mideas.joueur1().setStuff(15, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isMainHand()) {
+				Mideas.joueur1().setStuff(16, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isOffHand()) {
+				Mideas.joueur1().setStuff(17, StuffManager.getClone(id));
+			}
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRanged()) {
+				Mideas.joueur1().setStuff(18, StuffManager.getClone(id));
+			}
+		}
+		else {
+			System.out.println("statement error");
+		}
+		/*try {
 			String sCurrentLine;
 			br = new BufferedReader(new FileReader(ClassSelectFrame.classTxt()));
 			while ((sCurrentLine = br.readLine()) != null) {
@@ -885,7 +1030,7 @@ public class CharacterStuff {
 			catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
+		}*/
 	}
 	
 	public static void getShopItems() throws FileNotFoundException {
@@ -948,33 +1093,6 @@ public class CharacterStuff {
 			catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
-	}
-	
-	public static void setEquippedItems() throws FileNotFoundException {
-		try {
-			String content = "";
-			File file = new File(ClassSelectFrame.classTxt());
-				if (!file.exists()) {
-					file.createNewFile();
-				}
-				FileWriter fw = new FileWriter(file.getAbsoluteFile());
-				BufferedWriter bw = new BufferedWriter(fw);
-				int i = 0;
-				while(i < Mideas.joueur1().getStuff().length) {
-					if(Mideas.joueur1().getStuff(i) != null) {
-						content+= Mideas.joueur1().getStuff(i).getId()+System.lineSeparator();
-					}
-					else {
-						content+= "0"+System.lineSeparator();
-					}
-					i++;
-				}
-				bw.write(content);
-				bw.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 

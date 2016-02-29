@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.dungeon;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -24,7 +25,7 @@ public class Dungeon {
 		Draw.drawQuad(Sprites.resized_bc_bg, 100, 50);
 	}
 	
-	public static void event() throws FileNotFoundException {
+	public static void event() throws FileNotFoundException, SQLException {
 		if(BlackTemple.getBlackTempleStatus()) {
 			BlackTemple.event();
 		}

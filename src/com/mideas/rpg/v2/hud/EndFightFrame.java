@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -60,7 +61,7 @@ public class EndFightFrame {
 	private static boolean gold;
 	private static boolean isGold;
 
-	public static void draw() throws FileNotFoundException {
+	public static void draw() throws FileNotFoundException, SQLException {
 		Arrays.fill(AdminPanelFrame.getHover(), false);
 		Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
 		Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
@@ -121,7 +122,7 @@ public class EndFightFrame {
 		}
 	}
 	
-	private static boolean dropRate(Stuff item) throws FileNotFoundException {
+	private static boolean dropRate(Stuff item) throws FileNotFoundException, SQLException {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
@@ -135,7 +136,7 @@ public class EndFightFrame {
 		return false;
 	}
 	
-	public static boolean dropItem(Stuff potion, int number) throws FileNotFoundException {
+	public static boolean dropItem(Stuff potion, int number) throws FileNotFoundException, SQLException {
 		if(potion instanceof Item) {
 			if(checkBagItems(potion)) {
 				int i = 0;
@@ -189,7 +190,7 @@ public class EndFightFrame {
 		return true;
 	}
 	
-	private static void lootItems(Stuff bag, Stuff potion, int number) throws FileNotFoundException {
+	private static void lootItems(Stuff bag, Stuff potion, int number) throws FileNotFoundException, SQLException {
 		if(bag != null && bag.equals(potion)) {
 			bag = potion;
 			number = Mideas.joueur1().getNumberItem(potion)+1;
@@ -198,7 +199,7 @@ public class EndFightFrame {
 		}
 	}
 	
-	private static void lootGuerrier() throws FileNotFoundException {
+	private static void lootGuerrier() throws FileNotFoundException, SQLException {
 		float x = 0.005f;
 		drop(x, new OnslaughtShoulderguards());
 		drop(x, new SunwellBack());
@@ -216,7 +217,7 @@ public class EndFightFrame {
 		drop(200*x, new LinenCloth());
 	}
 
-	private static void lootHunter() throws FileNotFoundException {
+	private static void lootHunter() throws FileNotFoundException, SQLException {
 		float x = 0.005f;
 		drop(x, new GronnstalkersSpaulders());
 		drop(x, new SunwellBack());
@@ -236,7 +237,7 @@ public class EndFightFrame {
 			dropPotion(new SuperHealingPotion(), 1);
 		}*/
 	}
-	private static void lootPaladin() throws FileNotFoundException {
+	private static void lootPaladin() throws FileNotFoundException, SQLException {
 		float x = 0.005f;
 		drop(x, new LightbringerShoulderguards());
 		drop(x, new SunwellBack());
@@ -252,7 +253,7 @@ public class EndFightFrame {
 		drop(200*x, new LinenCloth());
 	}
 
-	private static void lootMage() throws FileNotFoundException {
+	private static void lootMage() throws FileNotFoundException, SQLException {
 		float x = 0.005f;
 		drop(x, new MantleOfTheTempest());
 		drop(x, new SunwellBack());
@@ -268,11 +269,11 @@ public class EndFightFrame {
 		drop(200*x, new LinenCloth());
 	}
 	
-	private static void lootIllidan() throws FileNotFoundException {
+	private static void lootIllidan() throws FileNotFoundException, SQLException {
 		drop(.03f, new WarglaiveOfAzzinoth());
 	}
 	
-	public static boolean lootManager() throws FileNotFoundException {
+	public static boolean lootManager() throws FileNotFoundException, SQLException {
 		if(Mideas.joueur2().getClasse().equals("DeathKnight")) {
 			lootGuerrier();
 			return true;
@@ -320,7 +321,7 @@ public class EndFightFrame {
 		return false;	
 	}
 	
-	private static void drop(float x, Stuff item) throws FileNotFoundException {
+	private static void drop(float x, Stuff item) throws FileNotFoundException, SQLException {
 		if(Math.random() <= x && !drop) {
 			if(item instanceof SuperHealingPotion) {
 				dropItem(new SuperHealingPotion(), 1);

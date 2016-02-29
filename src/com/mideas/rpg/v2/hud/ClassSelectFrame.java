@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -128,7 +129,7 @@ public class ClassSelectFrame {
 		isClassHoverExp(monkHover, Mideas.getExpAll(4), 104, -15, 80, y, 0);
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		setHoverFalse();
 		warriorHover = isClassHover(-140, -80);
 		paladinHover = isClassHover(-78, -80);
@@ -471,7 +472,7 @@ public class ClassSelectFrame {
 		}
 	}
 	
-	private static boolean setNewClass(String string, Joueur joueur, boolean hover) throws FileNotFoundException {
+	private static boolean setNewClass(String string, Joueur joueur, boolean hover) throws FileNotFoundException, SQLException {
 		if(hover) {
 			if(Mideas.joueur1()!= null && Mideas.joueur1().getClasse().equals(string)){
 				Interface.setIsChangeClassActive(true);

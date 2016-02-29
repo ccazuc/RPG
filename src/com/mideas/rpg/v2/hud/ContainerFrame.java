@@ -2,6 +2,7 @@ package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.LWJGLException;
@@ -616,7 +617,7 @@ public class ContainerFrame {
 		//}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		Arrays.fill(slot_hover, false);
 		if(Mouse.getEventButtonState()) {
 			if(Mideas.mouseX() >= Display.getWidth()/2+545 && Mideas.mouseX() <= Display.getWidth()/2+563 && Mideas.mouseY() >= Display.getHeight()/2-95 && Mideas.mouseY() <= Display.getHeight()/2-70 || (Mideas.mouseX() >= Display.getWidth()/2+545 && Mideas.mouseX() <= Display.getWidth()/2+563 && Mideas.mouseY() >= Display.getHeight()/2+155 && Mideas.mouseY() <= Display.getHeight()/2+175 )) {

@@ -40,6 +40,7 @@ import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.stuff.Bag;
 import com.mideas.rpg.v2.game.stuff.Shop;
 import com.mideas.rpg.v2.game.stuff.Stuff;
+import com.mideas.rpg.v2.game.stuff.StuffManager;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
@@ -79,7 +80,7 @@ public class Mideas {
         GL11.glLoadIdentity();
 	}
 	
-	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
+	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException, CloneNotSupportedException {
 		//System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
 		//Display.setDisplayMode(new DisplayMode(1200, 800));
 		Display.setDisplayMode(new DisplayMode(1200, 930));
@@ -131,6 +132,7 @@ public class Mideas {
 		Sprites.sprite8();
 		Sprites.sprite9();
 		Sprites.sprite10();
+		StuffManager.loadStuffs();
 		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		joueur2 = getRandomClass(2);
 		while(!Display.isCloseRequested()) {
@@ -158,13 +160,13 @@ public class Mideas {
 		}
 	}
 	
-	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, InterruptedException {
+	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, InterruptedException, CloneNotSupportedException {
 		initSQL();
 		loop();
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
 	}
 	
 	public static JDO getJDO() {
@@ -1253,7 +1255,7 @@ public class Mideas {
 		}
 	}
 
-	public static void setJoueur1(Joueur joueur) throws FileNotFoundException {
+	public static void setJoueur1(Joueur joueur) throws FileNotFoundException, SQLException {
 		joueur1 = joueur;
 		if(joueur1.getClasse().equals("Guerrier")) {
 			CharacterStuff.getEquippedItems();

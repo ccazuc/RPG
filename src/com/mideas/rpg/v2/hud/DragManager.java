@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -19,7 +20,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class DragManager {
 	
-	private static StuffType[] type = new StuffType[]{StuffType.HEAD, StuffType.NECKLACE, StuffType.SHOULDERS, StuffType.CHEST, StuffType.BACK, StuffType.WRISTS, StuffType.GLOVES, StuffType.BELT, StuffType.LEGGINGS, StuffType.BOOTS, StuffType.RING, StuffType.TRINKET, StuffType.MAINHAND, StuffType.OFFHAND, StuffType.RANGED};
+	private static StuffType[] type = new StuffType[]{StuffType.HEAD, StuffType.NECKLACE, StuffType.SHOULDERS, StuffType.BACK, StuffType.CHEST, StuffType.WRISTS, StuffType.GLOVES, StuffType.BELT, StuffType.LEGGINGS, StuffType.BOOTS, StuffType.RING, StuffType.TRINKET, StuffType.MAINHAND, StuffType.OFFHAND, StuffType.RANGED};
 	private static boolean deleteItem;
 	private static boolean hoverDelete;
 	private static boolean hoverSave;
@@ -61,7 +62,7 @@ public class DragManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		if(Mouse.getEventButton() == 0) {
 			if(Mouse.getEventButtonState()) {
 				int i = 0;
@@ -186,7 +187,7 @@ public class DragManager {
 		return false;
 	}
 	
-	private static void calcStats(Stuff stuff) throws FileNotFoundException {
+	private static void calcStats(Stuff stuff) throws FileNotFoundException, SQLException {
 		if(stuff != null) {
 			CharacterStuff.setEquippedItems();
 			Mideas.joueur1().setStuffArmor(stuff.getArmor());
@@ -207,7 +208,7 @@ public class DragManager {
 		}
 	}
 	
-	private static boolean doHealingPotion(Stuff stuff, boolean hover, int number) throws FileNotFoundException {
+	private static boolean doHealingPotion(Stuff stuff, boolean hover, int number) throws FileNotFoundException, SQLException {
 		if(hover && stuff != null && stuff instanceof HealingPotion) {
 			if(Mideas.joueur1().getStamina()+stuff.getStamina() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
@@ -231,7 +232,7 @@ public class DragManager {
 		return false;
 	}
 	
-	private static void dropBagItem(int i) throws FileNotFoundException {
+	private static void dropBagItem(int i) throws FileNotFoundException, SQLException {
 		if(ContainerFrame.getContainerFrameSlotHover(i) && draggedItem != null) {
 			if(!draggedItem.equals(Mideas.bag().getBag(i))) {
 				Stuff tempItem = Mideas.bag().getBag(i);
@@ -252,7 +253,7 @@ public class DragManager {
 		}
 	}
 	
-	private static void clickBagItem(int i) throws FileNotFoundException {
+	private static void clickBagItem(int i) throws FileNotFoundException, SQLException {
 		if(ContainerFrame.getContainerFrameSlotHover(i)) {
 			Stuff tempItem = draggedItem;
 			draggedItem = Mideas.bag().getBag(i);
@@ -264,7 +265,7 @@ public class DragManager {
 		}
 	}
 	
-	private static void clickInventoryItem(int i) throws FileNotFoundException {
+	private static void clickInventoryItem(int i) throws FileNotFoundException, SQLException {
 		if(CharacterFrame.getHoverCharacterFrame(i)) {
 			Stuff tempItem = draggedItem;
 			draggedItem = Mideas.joueur1().getStuff(i);
@@ -277,17 +278,17 @@ public class DragManager {
 		}
 	}
 	
-	private static void dropInventoryItem(int i) throws FileNotFoundException {
+	private static void dropInventoryItem(int i) throws FileNotFoundException, SQLException {
 		if(CharacterFrame.getHoverCharacterFrame(i) && draggedItem != null) {
 			if(draggedItem.getType() == type[i] && !draggedItem.equals(Mideas.joueur1().getStuff(i))/* && (draggedItem.getClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getSecondClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getThirdClasse().equals(Mideas.joueur1().getClasse()))*/) {
-				if(draggedItem.getClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getSecondClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getThirdClasse().equals(Mideas.joueur1().getClasse())) {
+				//if(draggedItem.getClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getSecondClasse().equals(Mideas.joueur1().getClasse()) || draggedItem.getThirdClasse().equals(Mideas.joueur1().getClasse())) {
 					setNullCharacter(draggedItem);
 					Stuff tempItem = Mideas.joueur1().getStuff(i);
 					Mideas.joueur1().setStuff(i, draggedItem);
 					draggedItem = tempItem;
 					CharacterStuff.setBagItems();
 					calcStats(Mideas.joueur1().getStuff(i));
-				}
+				//}
 			}
 			else {
 				draggedItem = null;

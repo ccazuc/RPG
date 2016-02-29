@@ -2,6 +2,7 @@ package com.mideas.rpg.v2;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.LWJGLException;
@@ -54,7 +55,7 @@ public class Interface {
 	private static boolean isChangeClassActive;
 	private static boolean craftFrameActive;
 
-	public static void draw() throws LWJGLException, IOException {
+	public static void draw() throws LWJGLException, IOException, SQLException {
 		Draw.drawQuad(Sprites.current_bg, Display.getWidth()/2-Sprites.current_bg.getImageWidth()/2, Display.getHeight()/2-Sprites.current_bg.getImageHeight()/2);	
 		if(!isConfigLoaded) {
 			Mideas.getConfig();
@@ -143,7 +144,7 @@ public class Interface {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		if(changeBackgroundFrameActive) {
 			if(ChangeBackGroundFrame.mouseEvent()) {
 				return true;
