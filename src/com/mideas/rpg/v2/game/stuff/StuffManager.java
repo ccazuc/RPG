@@ -22,7 +22,7 @@ public class StuffManager {
 			int critical = statement.getInt();
 			int strength = statement.getInt();
 			int sellPrice = statement.getInt();
-			Stuff newPiece = new Stuff(id, name, critical, strength, stamina, armor, mana, "", "", "", "", 0, sellPrice, 0, "");
+			Stuff newPiece = new Stuff(StuffType.TRINKET, id, name, critical, strength, stamina, armor, mana, "", "", "", "", 0, sellPrice, 0, "");
 			stuffList.add(newPiece);
 		}
 	}

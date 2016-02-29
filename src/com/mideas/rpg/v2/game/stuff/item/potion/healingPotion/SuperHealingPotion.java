@@ -4,6 +4,5 @@ public class SuperHealingPotion extends HealingPotion {
 
 	public SuperHealingPotion() {
 		super(1, "Super Healing Potion", 0, 0, 3500, 0, 0, "", 550, 1543, 0, "HealingPotion");
-		//sprite = 
 	}
 }

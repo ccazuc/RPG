@@ -268,7 +268,7 @@ public class DragManager {
 		if(CharacterFrame.getHoverCharacterFrame(i)) {
 			Stuff tempItem = draggedItem;
 			draggedItem = Mideas.joueur1().getStuff(i);
-			if(tempItem != null && tempItem.getSlot() == Stuff.getSlot(i)) {
+			if(tempItem != null && tempItem.getType() == type[i]) {
 				Mideas.joueur1().setStuff(i, tempItem);
 				setNullCharacter(tempItem);
 				calcStats(Mideas.joueur1().getStuff(i));
