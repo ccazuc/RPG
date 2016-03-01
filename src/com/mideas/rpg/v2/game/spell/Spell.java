@@ -43,7 +43,6 @@ public class Spell {
 	
 	public boolean cast(Joueur joueur, Joueur joueur2, Spell spell) {
 		if(hasMana()) {
-			//tryStun(joueur);
 			doDamage(joueur);
 			useMana(joueur2, spell);
 			return true;
