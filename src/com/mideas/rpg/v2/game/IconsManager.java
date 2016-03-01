@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.game;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -10,9 +11,10 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class IconsManager {
 
-	private static HashMap<String, Texture> sprites = new HashMap<String, Texture>();
+	private static Map<String, Texture> sprites42 = new HashMap<String, Texture>();
+	private static Map<String, Texture> sprites35 = new HashMap<String, Texture>();
 	
-	public static void loadSprites() throws IOException {
+	/*public static void loadSprites() throws IOException {
 		File folder = new File("icons");
 		if(folder.exists()) {
 			File[] files = folder.listFiles();
@@ -27,15 +29,55 @@ public class IconsManager {
 				}
 			}
 		}
-	}
+	}*/
 	
-	public static Texture getSprite(String id) {
-		if(sprites.containsKey(id)) {
-			return sprites.get(id);
+	public static Texture getSprite42(String id) {
+		if(sprites42.containsKey(id)) {
+			return sprites42.get(id);
 		}
-		if(sprites.containsKey("inv_misc_questionmark")) {
-			return sprites.get("inv_misc_questionmark");
+		loadTexture42(id);
+		if(sprites42.containsKey("inv_misc_questionmark")) {
+			return sprites42.get("inv_misc_questionmark");
 		}
 		return null;
+	}
+	
+	public static Texture getSprite35(String id) {
+		if(sprites35.containsKey(id)) {
+			return sprites35.get(id);
+		}
+		loadTexture35(id);
+		if(sprites35.containsKey("inv_misc_questionmark")) {
+			return sprites35.get("inv_misc_questionmark");
+		}
+		return null;
+	}
+	
+	private static void loadTexture42(String id) {
+		File file = new File("inventory_icons/"+id+".jpg");
+		if(file.exists()) {
+			Texture newTexture;
+			try {
+				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
+				sprites42.put(id, newTexture);
+			} 
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void loadTexture35(String id) {
+		File file = new File("bag_icons/"+id+".jpg");
+		if(file.exists()) {
+			Texture newTexture;
+			try {
+				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
+				sprites35.put(id, newTexture);
+			} 
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

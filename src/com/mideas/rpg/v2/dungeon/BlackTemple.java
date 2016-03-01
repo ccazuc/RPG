@@ -12,11 +12,11 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.game.Illidan;
 import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.game.Paladin;
-import com.mideas.rpg.v2.game.Shaman;
-import com.mideas.rpg.v2.game.Warlock;
+import com.mideas.rpg.v2.game.classes.Illidan;
+import com.mideas.rpg.v2.game.classes.Paladin;
+import com.mideas.rpg.v2.game.classes.Shaman;
+import com.mideas.rpg.v2.game.classes.Warlock;
 import com.mideas.rpg.v2.hud.EndFightFrame;
 import com.mideas.rpg.v2.utils.Draw;
 

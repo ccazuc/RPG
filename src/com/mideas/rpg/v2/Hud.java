@@ -2,20 +2,21 @@ package com.mideas.rpg.v2;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
-import com.mideas.rpg.v2.game.DeathKnight;
-import com.mideas.rpg.v2.game.Guerrier;
-import com.mideas.rpg.v2.game.Hunter;
-import com.mideas.rpg.v2.game.Mage;
-import com.mideas.rpg.v2.game.Monk;
-import com.mideas.rpg.v2.game.Paladin;
-import com.mideas.rpg.v2.game.Priest;
-import com.mideas.rpg.v2.game.Rogue;
-import com.mideas.rpg.v2.game.Shaman;
-import com.mideas.rpg.v2.game.Warlock;
+import com.mideas.rpg.v2.game.classes.DeathKnight;
+import com.mideas.rpg.v2.game.classes.Guerrier;
+import com.mideas.rpg.v2.game.classes.Hunter;
+import com.mideas.rpg.v2.game.classes.Mage;
+import com.mideas.rpg.v2.game.classes.Monk;
+import com.mideas.rpg.v2.game.classes.Paladin;
+import com.mideas.rpg.v2.game.classes.Priest;
+import com.mideas.rpg.v2.game.classes.Rogue;
+import com.mideas.rpg.v2.game.classes.Shaman;
+import com.mideas.rpg.v2.game.classes.Warlock;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -32,7 +33,7 @@ public class Hud {
 	static int selectedSpell;
 	static Spell hoveredSpell;
 	
-	public static void render() throws IOException {  
+	public static void render() throws IOException, SQLException {  
 		if(sprite) {
 			Sprites.sprite();
 			sprite = false;
@@ -373,8 +374,8 @@ public class Hud {
 		return false;
 	}
 	
-	public static void expBar() throws FileNotFoundException {
-		e = ((float)Mideas.getExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
+	public static void expBar() throws FileNotFoundException, SQLException {
+		e = ((float)Mideas.getCurrentExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
 		Draw.drawColorQuad(Window.getWidth()/2-140, Window.getHeight()-80, 270*e, 11,  Color.decode("#680764"));
 	}
 }

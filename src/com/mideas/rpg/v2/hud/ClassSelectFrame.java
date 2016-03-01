@@ -12,17 +12,18 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.game.DeathKnight;
-import com.mideas.rpg.v2.game.Guerrier;
-import com.mideas.rpg.v2.game.Hunter;
+import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.game.Mage;
-import com.mideas.rpg.v2.game.Monk;
-import com.mideas.rpg.v2.game.Paladin;
-import com.mideas.rpg.v2.game.Priest;
-import com.mideas.rpg.v2.game.Rogue;
-import com.mideas.rpg.v2.game.Shaman;
-import com.mideas.rpg.v2.game.Warlock;
+import com.mideas.rpg.v2.game.classes.DeathKnight;
+import com.mideas.rpg.v2.game.classes.Guerrier;
+import com.mideas.rpg.v2.game.classes.Hunter;
+import com.mideas.rpg.v2.game.classes.Mage;
+import com.mideas.rpg.v2.game.classes.Monk;
+import com.mideas.rpg.v2.game.classes.Paladin;
+import com.mideas.rpg.v2.game.classes.Priest;
+import com.mideas.rpg.v2.game.classes.Rogue;
+import com.mideas.rpg.v2.game.classes.Shaman;
+import com.mideas.rpg.v2.game.classes.Warlock;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ClassSelectFrame {
@@ -37,12 +38,10 @@ public class ClassSelectFrame {
 	private static boolean mageHover;
 	private static boolean warlockHover;
 	private static boolean monkHover;
-	private static boolean isStuffEquipped;
 	private static boolean isBagEquipped;
-	private static boolean isExpSet;
 	private static float expClass;
 	
-	public static void draw() throws FileNotFoundException {
+	public static void draw() throws FileNotFoundException, SQLException {
 		Color bgColor = new Color(0, 0, 0,.45f); 
 		Draw.drawColorQuad(Display.getWidth()/2-280, Display.getHeight()-330, 600, 550, bgColor);
 		int x = -140;
@@ -156,7 +155,7 @@ public class ClassSelectFrame {
 		return false;
 	}
 
-	public static String classTxt() {
+	/*public static String classTxt() {
 		if(Mideas.joueur1() != null && !isStuffEquipped) {
 			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "equippedItemsGuerrier.txt";
@@ -190,7 +189,8 @@ public class ClassSelectFrame {
 		isStuffEquipped = true;
 		return null;
 	
-	}
+	}*/
+	
 	public static String goldTxt() {
 		if(Mideas.joueur1() != null) {
 			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
@@ -226,7 +226,7 @@ public class ClassSelectFrame {
 	
 	}
 	
-	public static String bagTxt() {
+	/*public static String bagTxt() {
 		if(Mideas.joueur1() != null && !isBagEquipped) {
 			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "bagGuerrier.txt";
@@ -261,7 +261,8 @@ public class ClassSelectFrame {
 		}
 		isBagEquipped = true;
 		return null;
-	}
+	}*/
+	
 	public static String talentTxt() {
 		if(Mideas.joueur1() != null && !isBagEquipped) {
 			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
@@ -298,7 +299,7 @@ public class ClassSelectFrame {
 		return null;
 	}
 
-	public static String expTxt() {
+	/*public static String expTxt() {
 		if(!isExpSet) {
 			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "expGuerrier.txt";
@@ -441,7 +442,7 @@ public class ClassSelectFrame {
 			}
 		}
 		return null;
-	}
+	}*/
 	
 	private static boolean isClassHover(int x, int y) {
 		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+56 && Mideas.mouseY() >= Display.getHeight()/2+y && Mideas.mouseY() <= Display.getHeight()/2+y+56){
@@ -476,12 +477,14 @@ public class ClassSelectFrame {
 		if(hover) {
 			if(Mideas.joueur1()!= null && Mideas.joueur1().getClasse().equals(string)){
 				Interface.setIsChangeClassActive(true);
+				CharacterStuff.getBagItems();
 				return true;
 			}
 			if(Mideas.joueur2() != null) {
 				Mideas.joueur2().setStamina(Mideas.joueur2().getMaxStamina());
 			}
 			Mideas.setJoueur1(joueur);
+			CharacterStuff.getBagItems();
 			SpellLevel.setSpellLevelFalse();
 			Interface.setIsStuffEquipped(false);
 			Interface.setIsShopLoaded(false);

@@ -41,6 +41,7 @@ public class AdminPanelFrame {
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+30, Display.getHeight()/2+y+2, "set max HP", Color.white, Color.black, 1, 1, 1);
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+22, Display.getHeight()/2+y+yShift+2, "set max mana", Color.white, Color.black, 1, 1, 1);
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+55, Display.getHeight()/2+y+2*yShift+2, "kill", Color.white, Color.black, 1, 1, 1);
+		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+35, Display.getHeight()/2+y+3*yShift+2, "Update all", Color.white, Color.black, 1, 1, 1);
 	}
 	
 	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
@@ -76,6 +77,12 @@ public class AdminPanelFrame {
 			else if(hover[6]) {
 				LogChat.setStatusText2("Killed by god");
 				Mideas.joueur2().setStamina(0);
+			}
+			else if(hover[7]) {
+				Mideas.getGold();
+				Mideas.getExp();
+				CharacterStuff.getBagItems();
+				CharacterStuff.getEquippedItems();
 			}
 		}
 		return false;

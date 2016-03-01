@@ -1,9 +1,13 @@
 package com.mideas.rpg.v2.hud;
 
+import java.sql.SQLException;
+
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class LogChat {
@@ -35,15 +39,30 @@ public class LogChat {
 		TTF2.font4.drawStringShadow(x, Display.getHeight()+y, statusText3, Color.white, Color.black, 1, 1, 1);
 	}
 	
-	public static void setStatusText(String text) {
+	public static void setStatusText(String text) throws SQLException {
 		statusText = text;
+		JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
+		statement.putLong(System.currentTimeMillis());
+		statement.putString(statusText);
+		//statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
 	}
 	
-	public static void setStatusText2(String text) {
+	public static void setStatusText2(String text) throws SQLException {
 		statusText2 = text;
+		JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
+		statement.putLong(System.currentTimeMillis());
+		statement.putString(statusText2);
+		//statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
 	}
 	
-	public static void setStatusText3(String text) {
+	public static void setStatusText3(String text) throws SQLException {
 		statusText3 = text;
+		JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
+		statement.putLong(System.currentTimeMillis());
+		statement.putString(statusText3);
+		//statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
 	}
 }

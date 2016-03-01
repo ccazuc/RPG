@@ -15,8 +15,11 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.stuff.Stuff;
-import com.mideas.rpg.v2.game.stuff.item.Item;
+import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.potion.Potion;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ShopFrame {
@@ -220,7 +223,7 @@ public class ShopFrame {
 		return true;
 	}
 	
-	private static boolean dropRate(Stuff item) throws FileNotFoundException, SQLException {
+	private static boolean dropRate(Item item) throws FileNotFoundException, SQLException {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
@@ -234,19 +237,19 @@ public class ShopFrame {
 		return false;
 	}
 	
-	public static void buyItems(boolean slot_hover, Stuff stuff) throws FileNotFoundException, SQLException {
+	public static void buyItems(boolean slot_hover, Item stuff) throws FileNotFoundException, SQLException {
 		if(Mouse.getEventButton() == 1 && slot_hover && stuff != null) {
 			if(Mouse.getEventButtonState()) {
 			}
 			else {
-				if(Mideas.getGold() >= stuff.getPrice()) {
-					if(stuff instanceof Item) {
-						EndFightFrame.dropItem(stuff, 1);
+				if(Mideas.getCurrentGold() >= stuff.getSellPrice()) {
+					if(stuff.getItemType() == ItemType.POTION) {
+						EndFightFrame.dropItem((Potion)stuff, 1);
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
-						Mideas.setGold(-stuff.getPrice());
+						Mideas.setGold(-stuff.getSellPrice());
 					}
 					else if(dropRate(stuff)) {
-						Mideas.setGold(-stuff.getPrice());
+						Mideas.setGold(-stuff.getSellPrice());
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
 					}
 				}
@@ -302,13 +305,12 @@ public class ShopFrame {
 	private static void shopHover(int i, int x, int y) {
 		if(slot_hover[i]) {
 			Draw.drawQuad(Sprites.shop_hover, Display.getWidth()/2+x, Display.getHeight()/2+y);
-			//Mideas.cursorFrame("sprite/interface/cursor_buy.png");
 		}
 	}
 	
 	private static void drawShopItem(int i, int x, int y) {
 		if(Mideas.shop().getStuff(i) != null) {
-			Draw.drawQuad(CharacterStuff.getShopSprite(Mideas.shop().getStuff(i).getId()), Display.getWidth()/2+x+3, Display.getHeight()/2+y+3);
+			Draw.drawQuad(IconsManager.getSprite35((Mideas.shop().getStuff(i).getSpriteId())), Display.getWidth()/2+x+3, Display.getHeight()/2+y+3);
 		}
 	}
 	

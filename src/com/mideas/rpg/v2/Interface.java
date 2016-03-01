@@ -13,6 +13,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.talent.Talent;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
@@ -67,11 +68,11 @@ public class Interface {
 			}
 			else {
 				if(Mideas.joueur1() != null && !isGoldLoaded) {
-					Mideas.getExp();
+					Mideas.getGold();
 					isGoldLoaded = true;
 				}
 				if(Mideas.joueur1() != null && !isExpLoaded) {
-					Mideas.getGold();
+					Mideas.getExp();
 					isExpLoaded = true;
 				}
 				if(Mideas.joueur1() != null && !isStuffEquipped) {
@@ -96,7 +97,7 @@ public class Interface {
 						GoldFrame.draw();
 					}
 					if(shopFrameActive) {
-						ShopFrame.draw();		
+						ShopManager.draw();		
 					}
 					if(escapeFrameActive) {
 						EscapeFrame.draw();
@@ -114,7 +115,7 @@ public class Interface {
 						CraftManager.draw();
 					}
 					if(!isShopLoaded) {
-						CharacterStuff.getShopItems();
+						//CharacterStuff.getShopItems();
 						isShopLoaded = true;
 					}
 					if(BlackTemple.getBlackTempleStatus()) {
@@ -179,7 +180,7 @@ public class Interface {
 				}
 			}
 			if(shopFrameActive) {
-				if(ShopFrame.mouseEvent()) {
+				if(ShopManager.mouseEvent()) {
 					return true;
 				}
 			}
@@ -219,7 +220,7 @@ public class Interface {
 		return false;
 	}
 	
-	public static boolean keyboardEvent() throws LWJGLException, IOException {
+	public static boolean keyboardEvent() throws LWJGLException, IOException, SQLException {
 		if(Keyboard.getEventKeyState()) {
 			if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
 				closeShopFrame();

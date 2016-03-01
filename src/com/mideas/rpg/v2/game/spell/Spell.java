@@ -16,7 +16,6 @@ public class Spell {
 	private int baseHeal;
 	private int baseCd;
 	private int defaultDamage;
-	private int cd;
 	private int id;
 	
 	public Spell(int baseDamage, int manaCost, int baseHeal) {
@@ -39,7 +38,6 @@ public class Spell {
 		this.stunDuration = stunDuration;
 		this.baseHeal = baseHeal;
 		this.baseCd = baseCd;
-		this.cd = cd;
 		this.id = id;
 	}
 	

@@ -5,7 +5,6 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.game.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class CraftManager {
@@ -68,17 +67,17 @@ public class CraftManager {
 		}
 	}
 	
-	private static boolean checkNumberItems(int number, Stuff item, int itemNumber) {
+	/*private static boolean checkNumberItemss(int number, Stuff item, int itemNumber) {
 		if(itemNumber > number) {
 			int i = 0;
 			while(i < Mideas.bag().getBag().length) {
 				if(Mideas.bag().getBag(i).equals(item)) {
-					Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))-itemNumber);
+					Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i), ContainerFrame.getSlotItem(item)))-itemNumber);
 					return true;
 				}
 				i++;
 			}
 		}
 		return false;
-	}
+	}*/
 }

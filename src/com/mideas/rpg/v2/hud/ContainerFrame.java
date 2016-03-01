@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.hud;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLTimeoutException;
 import java.util.Arrays;
 
 import org.lwjgl.LWJGLException;
@@ -16,23 +17,30 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.stuff.Stuff;
-import com.mideas.rpg.v2.game.stuff.item.Item;
+import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ContainerFrame {
 	
 	private static boolean[] slot_hover = new boolean[33];
+	private static Color bgColor = new Color(0, 0, 0,.8f); 
+	private static int x;
+	private static int xShift;
+	private static int y;
+	private static int yShift;
+	private static int ySecondBag = 251;
 	
 	public static void draw() throws LWJGLException, IOException {
-		Color bgColor = new Color(0, 0, 0,.8f); 
 		Draw.drawQuad(Sprites.back_bag, Display.getWidth()-220, Display.getHeight()/2+150);
 		Draw.drawQuad(Sprites.back_bag2, Display.getWidth()-220, Display.getHeight()/2-100);
-		int x = -202;
-		int xShift = 41;
-		int y = -51;
-		int yShift = 42;
-		int ySecondBag = 251;
+		x = -202;
+		xShift = 41;
+		y = -51;
+		yShift = 42;
+		ySecondBag = 251;
 		drawBag(0, x, y);
 		drawBag(1, x+xShift, y);
 		drawBag(2, x+2*xShift, y);
@@ -100,11 +108,13 @@ public class ContainerFrame {
 		drawBorder(Mideas.bag().getBag(29), Sprites.bag_border30, x+xShift, y+3*yShift+ySecondBag);
 		drawBorder(Mideas.bag().getBag(30), Sprites.bag_border31, x+2*xShift, y+3*yShift+ySecondBag);
 		drawBorder(Mideas.bag().getBag(31), Sprites.bag_border32, x+3*xShift, y+3*yShift+ySecondBag);
-		if(slot_hover[0]) {
+		drawHoverBag(0, x, y, 1, 2);
+		drawHoverBag(1, x, y, 42, 2);
+		/*if(slot_hover[0]) {
 			if(Mideas.bag().getBag(0) != null) {
 				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()/2-80, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
 				TTF2.itemName.drawStringShadow(Display.getWidth()+x-180-TTF2.itemName.getWidth(Mideas.bag().getBag(0).getStuffName())/2, Display.getHeight()/2+y-20, Mideas.bag().getBag(0).getStuffName(), Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y, "+"+Mideas.bag().getBag(0).getArmor()+" Armor", Color.white, Color.black, 1, 1, 1);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y, "+"+((Stuff)Mideas.bag().getBag(0)).getArmor()+" Armor", Color.white, Color.black, 1, 1, 1);
 				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+20, "+"+Mideas.bag().getBag(0).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
 				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+40, "+"+Mideas.bag().getBag(0).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
 				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+60, "+"+Mideas.bag().getBag(0).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
@@ -611,10 +621,7 @@ public class ContainerFrame {
 				}
 			}
 			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x+126, Display.getHeight()/2+y+126+ySecondBag);
-		}
-		//else if(!Mideas.getCursor().equals("sprite/interface/cursor.png")) {
-			//Mideas.cursorFrame("sprite/interface/cursor.png");
-		//}
+		}*/
 	}
 	
 	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
@@ -679,21 +686,21 @@ public class ContainerFrame {
 		
 	}
 	
-	private static void drawBorder(Stuff bag, Texture border, int x, int y) {
-		if(bag != null && bag != DragManager.getDraggedItem()) {
-			if(bag instanceof Item) {
-				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(bag))), Display.getHeight()/2+y+20, String.valueOf(Mideas.joueur1().getNumberItem(bag)), Color.white, Color.black, 1, 1, 1);
+	private static void drawBorder(Item item, Texture border, int x, int y) {
+		if(item != null && item != DragManager.getDraggedItem()) {
+			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
+				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(item, getSlotItem(item)))), Display.getHeight()/2+y+20, String.valueOf(Mideas.joueur1().getNumberItem(item, getSlotItem(item))), Color.white, Color.black, 1, 1, 1);
 			}
 		Draw.drawQuad(border, Display.getWidth()+x, Display.getHeight()/2+y);
 		}
 	}
 	
-	private static boolean sellItem(Stuff item, boolean slot_hover) throws FileNotFoundException {
+	private static boolean sellItem(Item item, boolean slot_hover) throws FileNotFoundException, SQLTimeoutException, SQLException {
 		if(item != null && slot_hover && Interface.getShopFrameStatus()) {
-			if(item instanceof Item) {
-				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
-				Mideas.setGold(item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
-				Mideas.joueur1().setNumberItem(item, 0);
+			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
+				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item, getSlotItem(item))+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item, getSlotItem(item)));
+				Mideas.setGold(item.getSellPrice()*Mideas.joueur1().getNumberItem(item, getSlotItem(item)));
+				Mideas.joueur1().setNumberItem(item, ContainerFrame.getSlotItem(item), 0);
 			}
 			else {
 				Mideas.setGold(item.getSellPrice());
@@ -766,7 +773,7 @@ public class ContainerFrame {
 		return slot_hover;
 	}
 	
-	private static void clickSellItem(int i) throws FileNotFoundException {
+	private static void clickSellItem(int i) throws FileNotFoundException, SQLTimeoutException, SQLException {
 		if(sellItem(Mideas.bag().getBag(i), slot_hover[i])) {
 			Mideas.bag().setBag(i, null);
 		}
@@ -774,11 +781,41 @@ public class ContainerFrame {
 	
 	private static void drawBag(int i, int x, int y) {
 		if(Mideas.bag().getBag(i) != null && !(Mideas.bag().getBag(i) == DragManager.getDraggedItem())) {
-			Draw.drawQuad(CharacterStuff.getBagSprite(Mideas.bag().getBag(i).getId()), Display.getWidth()+x, Display.getHeight()/2+y);
+			Draw.drawQuad(IconsManager.getSprite35((Mideas.bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()/2+y);
 			Draw.drawQuad(Sprites.cursor, -200, -200);
-			if(Mideas.bag().getBag(i) instanceof Item && Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
+			if(Mideas.bag().getBag(i).getItemType() == ItemType.ITEM && Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i), getSlotItem(Mideas.bag().getBag(i))) <= 0) {
 				Mideas.bag().setBag(i, null);
 			}
 		}
+	}
+	
+	private static void drawHoverBag(int i, int x, int z, int a, int b) throws FileNotFoundException {
+		if(slot_hover[i]) {
+			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
+				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()/2-80, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
+				TTF2.itemName.drawStringShadow(Display.getWidth()+x-180-TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())/2, Display.getHeight()/2+y-20, Mideas.bag().getBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+z, "+"+((Stuff)Mideas.bag().getBag(i)).getArmor()+" Armor", Color.white, Color.black, 1, 1, 1);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+20+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+40+z, "+"+((Stuff)Mideas.bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+60+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+80+z, "+"+((Stuff)Mideas.bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
+				ContainerFrame.calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-70, y+100);
+				if(Interface.getShopFrameStatus()) {
+					//Mideas.cursorFrame("sprite/interface/cursor_buy.png");
+				}
+			}
+			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x+a, Display.getHeight()/2+y+b);
+		}
+	}
+	
+	public static int getSlotItem(Item item) {
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(item != null && Mideas.bag().getBag(i) != null && item.getId() == Mideas.bag().getBag(i).getId()) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
 	}
 }

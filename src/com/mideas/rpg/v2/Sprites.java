@@ -217,7 +217,7 @@ public class Sprites {
 	public static Texture stuff_border18;
 	public static Texture stuff_border19;
 	public static Texture stuff_hover;
-	public static Texture warrior_t6_belt;
+	/*public static Texture warrior_t6_belt;
 	public static Texture warrior_t6_boots;
 	public static Texture warrior_t6_chest;
 	public static Texture warrior_t6_gloves;
@@ -438,7 +438,7 @@ public class Sprites {
 	public static Texture shop_thoridal;
 	public static Texture warglaive_of_azzinoth;
 	public static Texture bag_warglaive_of_azzinoth;
-	public static Texture shop_warglaive_of_azzinoth;
+	public static Texture shop_warglaive_of_azzinoth;*/
 	public static Texture super_healing_potion;
 	public static Texture bag_super_healing_potion;
 	public static Texture shop_super_healing_potion;
@@ -585,7 +585,7 @@ public class Sprites {
 		return true;
 	}
 
-	public static boolean sprite3() throws IOException {
+	/*public static boolean sprite3() throws IOException {
 		warrior_t6_belt = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/warrior_t6_belt.png"));
 		warrior_t6_boots = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/warrior_t6_boots.png"));
 		warrior_t6_chest = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/warrior_t6_chest.png"));
@@ -674,7 +674,7 @@ public class Sprites {
 	
 	public static boolean sprite5() throws IOException {
 
-		/*monk_t6_belt = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/mage_t6_belt.png"));
+		monk_t6_belt = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/mage_t6_belt.png"));
 		monk_t6_boots = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/monk_t6_boots.png"));
 		monk_t6_chest = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/monk_t6_chest.png"));
 		monk_t6_gloves = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/monk_t6_gloves.png"));
@@ -690,7 +690,7 @@ public class Sprites {
 		monk_bag_t6_head = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/bagt6/bag_monk_t6_head.png"));
 		monk_bag_t6_leggings = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/bagt6/bag_monk_t6_leggings.png"));
 		monk_bag_t6_shoulders = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/bagt6/bag_monk_t6_shoulders.png"));
-		monk_bag_t6_wrists = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/bagt6/bag_monk_t6_wrists.png"));*/
+		monk_bag_t6_wrists = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/bagt6/bag_monk_t6_wrists.png"));
 
 		paladin_t6_belt = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/paladin_t6_belt.png"));
 		paladin_t6_boots = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/t6/paladin_t6_boots.png"));
@@ -833,14 +833,14 @@ public class Sprites {
 		warlock_bag_t6_shoulders = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/bagt6/bag_warlock_t6_shoulders.png"));
 		warlock_bag_t6_wrists = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/bagt6/bag_warlock_t6_wrists.png"));
 		return true;
-	}
+	}*/
 		
 	public static boolean sprite8() throws IOException {
 		bag_super_healing_potion = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/bagpotion/bag_super_healing_potion.jpg"));
 		shop_super_healing_potion = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/shoppotion/shop_super_healing_potion.jpg"));
 		super_healing_potion = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/potion/super_healing_potion.jpg"));
 		
-		necklace_sunwell = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/necklace/necklace_sunwell.jpg"));
+		/*necklace_sunwell = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/necklace/necklace_sunwell.jpg"));
 		necklace_bag_sunwell = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/bagnecklace/necklace_bag_sunwell.jpg"));
 		necklace_shop_sunwell = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/shopnecklace/necklace_shop_sunwell.jpg"));
 		
@@ -857,7 +857,7 @@ public class Sprites {
 		
 		warglaive_of_azzinoth = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/mainhand/warglaive_of_azzinoth.jpg"));
 		bag_warglaive_of_azzinoth = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/bagmainhand/bag_warglaive_of_azzinoth.jpg"));
-		shop_warglaive_of_azzinoth = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/shopmainhand/shop_warglaive_of_azzinoth.png"));
+		shop_warglaive_of_azzinoth = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/items/shopmainhand/shop_warglaive_of_azzinoth.png"));*/
 		
 
 		bag_border1 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));

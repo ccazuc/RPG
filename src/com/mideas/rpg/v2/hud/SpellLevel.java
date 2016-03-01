@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.spell.Charge;
@@ -18,7 +19,7 @@ public class SpellLevel {
 	private static boolean spell10;
 	private static boolean spell15;
 
-	public static void addSpell() throws FileNotFoundException {
+	public static void addSpell() throws FileNotFoundException, SQLException {
 		if(Mideas.joueur1().getClasse() == "Guerrier") {
 			if(!spell1 && Mideas.getLevel() >= 1) {
 				Mideas.joueur1().setSpellUnlocked(0, new HeroicStrike());

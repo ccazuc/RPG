@@ -1,11 +1,13 @@
 package com.mideas.rpg.v2.game;
 
+import java.sql.SQLException;
+
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellHeal;
-import com.mideas.rpg.v2.game.stuff.Stuff;
-import com.mideas.rpg.v2.game.stuff.item.craft.LinenCloth;
-import com.mideas.rpg.v2.game.stuff.item.potion.healingPotion.SuperHealingPotion;
 import com.mideas.rpg.v2.hud.LogChat;
 
 public class Joueur {
@@ -14,8 +16,6 @@ public class Joueur {
 	private Spell[] spells;
 	private Spell[] spellUnlocked;
 	private Stuff[] stuff;
-	private int numberSuperHealingPotion;
-	private int numberLinenCloth;
 	private int maxStamina;
 	private int expGained;
 	private int isHealer;
@@ -57,7 +57,7 @@ public class Joueur {
 		this.classe = classe;
 	}
 	
-	public void tick() {
+	public void tick() throws SQLException {
 		if(stun > 0) {
 			System.out.println("Le joueur "+(Mideas.joueur1().equals(this)?1:2)+" est stun");
 			stun--;
@@ -70,7 +70,7 @@ public class Joueur {
 		
 	}
 	
-	public boolean cast(Spell spell) {
+	public boolean cast(Spell spell) throws SQLException {
 		if(spell instanceof Spell) {
 			if(!spell.hasMana()) {
 				attack(Mideas.joueur2());
@@ -102,7 +102,7 @@ public class Joueur {
 		return false;
 	}
 	
-	public void attack(Joueur joueur) {
+	public void attack(Joueur joueur) throws SQLException {
 		double damage = Mideas.joueur1().getStrength()+Math.random()*100;
 		if(Math.random() < critical/100.) {
 			damage*= 2;
@@ -123,7 +123,7 @@ public class Joueur {
 		}
 	}
 	
-	public void attackUI(Spell spell) {
+	public void attackUI(Spell spell) throws SQLException {
 		double damage = Mideas.joueur2().getStrength()+Math.random()*100;
 		float rand = (float) Math.random();
 		if(rand < Mideas.joueur2().getCritical()/100.) {
@@ -261,8 +261,13 @@ public class Joueur {
 		return stuff[i];
 	}
 	
-	public void setStuff(int i, Stuff stuff) {
-		this.stuff[i] = stuff;
+	public void setStuff(int i, Item tempItem) {
+		if(tempItem == null) {
+			this.stuff[i] = null;
+		}
+		else if(tempItem.getItemType() == ItemType.STUFF) {
+			this.stuff[i] = (Stuff)tempItem;
+		}
 	}
 
 	public void setSpellUnlocked(int i, Spell spell) {
@@ -301,23 +306,16 @@ public class Joueur {
 		exp = baseExp+expGained;
 	}
 	
-	public int getNumberItem(Stuff potion) {
-		if(potion instanceof SuperHealingPotion) {
-			return numberSuperHealingPotion;
+	public int getNumberItem(Item item, int i) {
+		if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
+			return Mideas.bag().getNumberBagItem(i);
 		}
-		if(potion instanceof LinenCloth) {
-			return numberLinenCloth;
-		}
-		
 		return 0;
 	}
 	
-	public void setNumberItem(Stuff potion, int number) {
-		if(potion instanceof SuperHealingPotion) {
-			numberSuperHealingPotion = number;
-		}
-		if(potion instanceof LinenCloth) {
-			numberLinenCloth = number;
+	public void setNumberItem(Item potion, int i, int number) {
+		if(potion.getItemType() == ItemType.ITEM || potion.getItemType() == ItemType.POTION) {
+			Mideas.bag().setNumberBagItem(i, number);;
 		}
 	}
 } 

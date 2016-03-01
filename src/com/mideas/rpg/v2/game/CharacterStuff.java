@@ -1,83 +1,18 @@
 package com.mideas.rpg.v2.game;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.SQLException;
 
-import org.newdawn.slick.opengl.Texture;
-
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.game.stuff.Stuff;
-import com.mideas.rpg.v2.game.stuff.StuffManager;
-import com.mideas.rpg.v2.game.stuff.back.Back;
-import com.mideas.rpg.v2.game.stuff.back.SunwellBack;
-import com.mideas.rpg.v2.game.stuff.belt.Belt;
-import com.mideas.rpg.v2.game.stuff.belt.BeltOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.belt.GirdleOfHope;
-import com.mideas.rpg.v2.game.stuff.belt.GronnstalkersBelt;
-import com.mideas.rpg.v2.game.stuff.belt.OnslaughtWaistguard;
-import com.mideas.rpg.v2.game.stuff.boots.Boots;
-import com.mideas.rpg.v2.game.stuff.boots.BootsOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.boots.GronnstalkersBoots;
-import com.mideas.rpg.v2.game.stuff.boots.OnslaughtBoots;
-import com.mideas.rpg.v2.game.stuff.boots.PearlInlaidBoots;
-import com.mideas.rpg.v2.game.stuff.chest.Chest;
-import com.mideas.rpg.v2.game.stuff.chest.GronnstalkersChestguard;
-import com.mideas.rpg.v2.game.stuff.chest.LightbringerChestguard;
-import com.mideas.rpg.v2.game.stuff.chest.OnslaughtChestguard;
-import com.mideas.rpg.v2.game.stuff.chest.RobesOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.gloves.Gloves;
-import com.mideas.rpg.v2.game.stuff.gloves.GlovesOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.gloves.GronnstalkersGloves;
-import com.mideas.rpg.v2.game.stuff.gloves.LightbringerHandguards;
-import com.mideas.rpg.v2.game.stuff.gloves.OnslaughtHandguards;
-import com.mideas.rpg.v2.game.stuff.head.CowlOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.head.GronnstalkersHelmet;
-import com.mideas.rpg.v2.game.stuff.head.Head;
-import com.mideas.rpg.v2.game.stuff.head.LightbringerFaceguard;
-import com.mideas.rpg.v2.game.stuff.head.OnslaughtGreathelm;
-import com.mideas.rpg.v2.game.stuff.item.Item;
-import com.mideas.rpg.v2.game.stuff.item.craft.LinenCloth;
-import com.mideas.rpg.v2.game.stuff.item.potion.healingPotion.SuperHealingPotion;
-import com.mideas.rpg.v2.game.stuff.leggings.GronnstalkersLeggings;
-import com.mideas.rpg.v2.game.stuff.leggings.Leggings;
-import com.mideas.rpg.v2.game.stuff.leggings.LeggingsOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.leggings.LightbringerLegguards;
-import com.mideas.rpg.v2.game.stuff.leggings.OnslaughtLegguards;
-import com.mideas.rpg.v2.game.stuff.mainHand.MainHand;
-import com.mideas.rpg.v2.game.stuff.mainHand.WarglaiveOfAzzinoth;
-import com.mideas.rpg.v2.game.stuff.necklace.Necklace;
-import com.mideas.rpg.v2.game.stuff.necklace.SunwellNecklace;
-import com.mideas.rpg.v2.game.stuff.offHand.OffHand;
-import com.mideas.rpg.v2.game.stuff.ranged.Ranged;
-import com.mideas.rpg.v2.game.stuff.ranged.ThoridalTheStarsFury;
-import com.mideas.rpg.v2.game.stuff.ring.Ring;
-import com.mideas.rpg.v2.game.stuff.ring2.Ring2;
-import com.mideas.rpg.v2.game.stuff.shoulders.GronnstalkersSpaulders;
-import com.mideas.rpg.v2.game.stuff.shoulders.LightbringerShoulderguards;
-import com.mideas.rpg.v2.game.stuff.shoulders.MantleOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.shoulders.OnslaughtShoulderguards;
-import com.mideas.rpg.v2.game.stuff.shoulders.Shoulders;
-import com.mideas.rpg.v2.game.stuff.trinket.Trinket;
-import com.mideas.rpg.v2.game.stuff.trinket2.Trinket2;
-import com.mideas.rpg.v2.game.stuff.wrists.BracersOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.wrists.GronnstalkersBracers;
-import com.mideas.rpg.v2.game.stuff.wrists.OnslaughtWristguard;
-import com.mideas.rpg.v2.game.stuff.wrists.TheSeekersWristguards;
-import com.mideas.rpg.v2.game.stuff.wrists.Wrists;
-import com.mideas.rpg.v2.hud.ClassSelectFrame;
-import com.mideas.rpg.v2.hud.ShopFrame;
+import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class CharacterStuff {
 
-	private static Stuff getStuff(int id) {
+	/*private static Stuff getStuff(int id) {
 		if(id == 1) {
 			return new SuperHealingPotion();
 		}
@@ -193,9 +128,9 @@ public class CharacterStuff {
 			return new ThoridalTheStarsFury();
 		}
 		return null;
-	}
+	}*/
 	
-	public static Texture getSprite(int id) {
+	/*public static Texture getSprite(int id) {
 		if(id == 1) {
 			return Sprites.super_healing_potion;
 		}
@@ -313,9 +248,9 @@ public class CharacterStuff {
 		else {
 			return null;
 		}
-	}
+	}*/
 	
-	public static Texture getBagSprite(int id) {
+	/*public static Texture getBagSprite(int id) {
 		if(id == 1) {
 			return Sprites.bag_super_healing_potion;
 		}
@@ -433,9 +368,9 @@ public class CharacterStuff {
 		else {
 			return null;
 		}
-	}
+	}*/
 	
-	public static Texture getShopSprite(int id) {
+	/*public static Texture getShopSprite(int id) {
 		if(id == 1) {
 			return Sprites.shop_super_healing_potion;
 		}
@@ -553,86 +488,90 @@ public class CharacterStuff {
 		else {
 			return null;
 		}
-	}
+	}*/
 	
-	public static Head getHead(int id) {
-		return (Head)getStuff(id);
+	/*public static Head getHead(int id) {
+		return (Head)StuffManager.getClone(id);
 	}
 	
 	public static Necklace getNecklace(int id) {
-		return (Necklace)getStuff(id);
+		return (Necklace)StuffManager.getClone(id);
 	}
 	
 	public static Shoulders getShoulders(int id) {
-		return (Shoulders)getStuff(id);
+		return (Shoulders)StuffManager.getClone(id);
 	}
 
 	public static Back getBack(int id) {
-		return (Back)getStuff(id);
+		return (Back)StuffManager.getClone(id);
 	}
 
 	public static Chest getChest(int id) {
-		return (Chest)getStuff(id);
+		return (Chest)StuffManager.getClone(id);
 	}
 	
 	public static Wrists getWrists(int id) {
-		return (Wrists)getStuff(id);
+		return (Wrists)StuffManager.getClone(id);
 	}
 	
 	public static Gloves getGloves(int id) {
-		return (Gloves)getStuff(id);
+		return (Gloves)StuffManager.getClone(id);
 	}
 
 	public static Belt getBelt(int id) {
-		return (Belt)getStuff(id);
+		return (Belt)StuffManager.getClone(id);
 	}
 	
 	public static Leggings getLeggings(int id) {
-		return (Leggings)getStuff(id);
+		return (Leggings)StuffManager.getClone(id);
 	}
 
 	public static Boots getBoots(int id) {
-		return (Boots)getStuff(id);
+		return (Boots)StuffManager.getClone(id);
 	}
 	
 	public static Ring getRing(int id) {
-		return (Ring)getStuff(id);
+		return (Ring)StuffManager.getClone(id);
 	}
 	
 	public static Ring2 getRing2(int id) {
-		return (Ring2)getStuff(id);
+		return (Ring2)StuffManager.getClone(id);
 	}
 	
 	public static Trinket getTrinket(int id) {
-		return (Trinket)getStuff(id);
+		return (Trinket)StuffManager.getClone(id);
 	}
 	
 	public static Trinket2 getTrinket2(int id) {
-		return (Trinket2)getStuff(id);
+		return (Trinket2)StuffManager.getClone(id);
 	}
 	
 	public static MainHand getMainHand(int id) {
-		return (MainHand)getStuff(id);
+		return (MainHand)StuffManager.getClone(id);
 	}
 	
 	public static OffHand getOffHand(int id) {
-		return (OffHand)getStuff(id);
+		return (OffHand)StuffManager.getClone(id);
 	}
 	
 	public static Ranged getRanged(int id) {
-		return (Ranged)getStuff(id);
-	}
+		return (Ranged)StuffManager.getClone(id);
+	}*/
 	
 	public static void getBagItems() throws FileNotFoundException, SQLException {
 	int i = 0;
 	int id;
-	JDOStatement statement = Mideas.getJDO().prepare("SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23, slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31, slot32 FROM bag");
+	JDOStatement statement = Mideas.getJDO().prepare("SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23, slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31, slot32 FROM bag WHERE class = ?");
+	statement.putString(Mideas.joueur1().getClasse());
 	statement.execute();
 	if(statement.fetch()) {
 		while(i < 32) {
 			id = statement.getInt();
 			if(StuffManager.exists(id)) {
 				Mideas.bag().setBag(i, StuffManager.getClone(id));
+			}
+			else if(id == 0) {
+				Mideas.bag().setBag(i, null);
 			}
 			i++;
 		}
@@ -758,20 +697,21 @@ public class CharacterStuff {
 		}*/
 	}
 	public static void setBagItems() throws FileNotFoundException, SQLException {
-		try {
-			JDOStatement statement = Mideas.getJDO().prepare("UPDATE bag SET slot1 = ?, slot2 = ?, slot3 = ?, slot4 = ?, slot5 = ?, slot6 = ?, slot7 = ?, slot8 = ?, slot9 = ?, slot10 = ?, slot11 = ?, slot12 = ?, slot13 = ?, slot14 = ?, slot15 = ?, slot16 = ?, slot17 = ?, slot18 = ?, slot19 = ?, slot20 = ?, slot21 = ?, slot22 = ?, slot23 = ?, slot24 = ?, slot25 = ?, slot26 = ?, slot27 = ?, slot28 = ?, slot29 = ?, slot30 = ?, slot31 = ?, slot32 = ?");
-			int i = 0;
-			while(i < 32) {
-				Stuff tempBag = Mideas.bag().getBag(i);
-				if(tempBag == null) {
-					statement.putInt(0);
-				}
-				else {
-					statement.putInt(tempBag.getId());
-				}
-				i++;
+		JDOStatement statement = Mideas.getJDO().prepare("UPDATE bag SET slot1 = ?, slot2 = ?, slot3 = ?, slot4 = ?, slot5 = ?, slot6 = ?, slot7 = ?, slot8 = ?, slot9 = ?, slot10 = ?, slot11 = ?, slot12 = ?, slot13 = ?, slot14 = ?, slot15 = ?, slot16 = ?, slot17 = ?, slot18 = ?, slot19 = ?, slot20 = ?, slot21 = ?, slot22 = ?, slot23 = ?, slot24 = ?, slot25 = ?, slot26 = ?, slot27 = ?, slot28 = ?, slot29 = ?, slot30 = ?, slot31 = ?, slot32 = ? WHERE class = ?");
+		int i = 0;
+		while(i < 32) {
+			Item tempBag = Mideas.bag().getBag(i);
+			if(tempBag == null) {
+				statement.putInt(0);
 			}
-			statement.execute();	
+			else {
+				statement.putInt(tempBag.getId());
+			}
+			i++;
+		}
+		statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
+		/*try {	
 			String content = "";
 			File file = new File(ClassSelectFrame.bagTxt());
 				if (!file.exists()) {
@@ -780,7 +720,7 @@ public class CharacterStuff {
 				FileWriter fw = new FileWriter(file.getAbsoluteFile());
 				BufferedWriter bw = new BufferedWriter(fw);
 				i = 0;
-				/*while(i < Mideas.bag().getBag().length) {
+				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) != null) {
 						if(Mideas.bag().getBag(i) instanceof Item) {
 							content+= Mideas.bag().getBag(i).getId()+"="+Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+System.lineSeparator();
@@ -793,31 +733,31 @@ public class CharacterStuff {
 						content+= "0"+System.lineSeparator();
 					}
 					i++;
-				}*/
+				}
 				//bbw.write(content);
 				bw.close();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public static void setEquippedItems() throws FileNotFoundException, SQLException {
-		try {
-			JDOStatement statement = Mideas.getJDO().prepare("UPDATE character_stuff SET head = ?, necklace = ?, shoulders = ?, chest = ?, back = ?, wrists = ?, gloves = ?, belt = ?, leggings = ?, boots = ?, ring = ?, ring2 = ?, trinket = ?, trinket2 = ?, mainhand = ?, offhand = ?, ranged = ? WHERE class = ?");
-			int i = 0;
-			while(i < 17) {
-				Stuff tempStuff = Mideas.joueur1().getStuff(i);
-				if(tempStuff == null) {
-					statement.putInt(0);
-				}
-				else {
-					statement.putInt(tempStuff.getId());
-				}
-				i++;
+		JDOStatement statement = Mideas.getJDO().prepare("UPDATE character_stuff SET head = ?, necklace = ?, shoulders = ?, back = ?, chest = ?, useless =?, useless2 =?, wrists = ?, gloves = ?, belt = ?, leggings = ?, boots = ?, ring = ?, ring2 = ?, trinket = ?, trinket2 = ?, mainhand = ?, offhand = ?, ranged = ? WHERE class = ?");
+		int i = 0;
+		while(i < 19) {
+			Stuff tempStuff = Mideas.joueur1().getStuff(i);
+			if(tempStuff == null) {
+				statement.putInt(0);
 			}
-			statement.putString(Mideas.joueur1().getClasse());
-			statement.execute();
+			else {
+				statement.putInt(tempStuff.getId());
+			}
+			i++;
+		}
+		statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
+		/*try {
 			String content = "";
 			File file = new File(ClassSelectFrame.classTxt());
 				if (!file.exists()) {
@@ -825,7 +765,7 @@ public class CharacterStuff {
 				}
 				FileWriter fw = new FileWriter(file.getAbsoluteFile());
 				BufferedWriter bw = new BufferedWriter(fw);
-				/*i = 0;
+				i = 0;
 				while(i < Mideas.joueur1().getStuff().length) {
 					if(Mideas.joueur1().getStuff(i) != null) {
 						content+= Mideas.joueur1().getStuff(i).getId()+System.lineSeparator();
@@ -834,20 +774,20 @@ public class CharacterStuff {
 						content+= "0"+System.lineSeparator();
 					}
 					i++;
-				}*/
+				}
 				bw.write(content);
 				bw.close();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public static void getEquippedItems() throws FileNotFoundException, SQLException {
-		BufferedReader br = null;
-		int i = 0;
+		//BufferedReader br = null;
+		//int i = 0;
 		int id;
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT head, necklace, shoulders, chest, back, wrists, gloves, belt, leggings, boots, ring, ring2, trinket, trinket2, mainhand, offhand, ranged FROM character_stuff WHERE class = ?");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT head, necklace, shoulders, back, chest, wrists, gloves, belt, leggings, boots, ring, ring2, trinket, trinket2, mainhand, offhand, ranged FROM character_stuff WHERE class = ?");
 		statement.putString(Mideas.joueur1().getClasse());
 		statement.execute();
 		if(statement.fetch()) {
@@ -864,11 +804,11 @@ public class CharacterStuff {
 				Mideas.joueur1().setStuff(2, StuffManager.getClone(id));
 			}
 			id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isChest()) {
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBack()) {
 				Mideas.joueur1().setStuff(3, StuffManager.getClone(id));
 			}
 			id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBack()) {
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isChest()) {
 				Mideas.joueur1().setStuff(4, StuffManager.getClone(id));
 			}
 			id = statement.getInt();
@@ -1033,7 +973,7 @@ public class CharacterStuff {
 		}*/
 	}
 	
-	public static void getShopItems() throws FileNotFoundException {
+	/*public static void getShopItems() throws FileNotFoundException {
 		BufferedReader br = null;
 		int i = 0;
 		int id;
@@ -1051,34 +991,34 @@ public class CharacterStuff {
 			while ((sCurrentLine = br.readLine()) != null) {
 				id = Integer.parseInt(sCurrentLine);	
 				if(i == 0) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				else if(i == 1) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				else if(i == 2) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				else if(i == 3) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				else if(i == 4) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				else if(i == 5) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				else if(i == 6) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				else if(i == 7) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				else if(i == 8) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				else if(i == 9) {
-					Mideas.shop().setStuff(i, getStuff(id));
+					Mideas.shop().setStuff(i, StuffManager.getClone(id));
 				}
 				i++;
 			}
@@ -1094,7 +1034,7 @@ public class CharacterStuff {
 				ex.printStackTrace();
 			}
 		}
-	}
+	}*/
 
 	public static void calcStuffStats() {
 		if(Mideas.joueur1() != null) {
@@ -1113,10 +1053,10 @@ public class CharacterStuff {
 	}
 	
 	private static void getBag(int i, int id, String sCurrentLine) {
-		Mideas.bag().setBag(i, (getStuff(id)));
+		Mideas.bag().setBag(i, (StuffManager.getClone(id)));
 		if(Mideas.bag().getBag(i) instanceof Item) {
 			String number[] = sCurrentLine.split("=");
-			Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Integer.parseInt(number[1]));
+			Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), ContainerFrame.getSlotItem(Mideas.bag().getBag(i)), Integer.parseInt(number[1]));
 		}
 	}
 }

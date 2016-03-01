@@ -1,13 +1,13 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.utils.Draw;
@@ -35,7 +35,7 @@ public class ChangeBackGroundFrame {
 		drawBorder(xLeft+xShift, y+yShift, 5);
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		Arrays.fill(hover, false);
 		isHover(xLeft, y, 0);
 		isHover(xLeft, y+yShift, 1);
@@ -60,11 +60,10 @@ public class ChangeBackGroundFrame {
 		}
 	}
 	
-	private static void changeBackground(int i, Texture texture) throws FileNotFoundException {
+	private static void changeBackground(int i, Texture texture) throws FileNotFoundException, SQLException {
 		if(hover[i]) {
 			Sprites.current_bg = texture;
 			Mideas.setConfig();
-			Interface.closeChangeBackgroundFrame();
 		}
 	}
 	
@@ -74,7 +73,7 @@ public class ChangeBackGroundFrame {
 		}
 	}
 	
-	public static String getCurrentBackground() {
+	public static String getCurrentBackground() throws SQLException {
 		if(Sprites.current_bg.equals(Sprites.bg)) {
 			return "bg";
 		}

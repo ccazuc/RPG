@@ -12,46 +12,10 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.stuff.Stuff;
-import com.mideas.rpg.v2.game.stuff.back.SunwellBack;
-import com.mideas.rpg.v2.game.stuff.belt.BeltOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.belt.GirdleOfHope;
-import com.mideas.rpg.v2.game.stuff.belt.GronnstalkersBelt;
-import com.mideas.rpg.v2.game.stuff.belt.OnslaughtWaistguard;
-import com.mideas.rpg.v2.game.stuff.boots.BootsOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.boots.GronnstalkersBoots;
-import com.mideas.rpg.v2.game.stuff.boots.OnslaughtBoots;
-import com.mideas.rpg.v2.game.stuff.boots.PearlInlaidBoots;
-import com.mideas.rpg.v2.game.stuff.chest.GronnstalkersChestguard;
-import com.mideas.rpg.v2.game.stuff.chest.LightbringerChestguard;
-import com.mideas.rpg.v2.game.stuff.chest.OnslaughtChestguard;
-import com.mideas.rpg.v2.game.stuff.chest.RobesOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.gloves.GlovesOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.gloves.GronnstalkersGloves;
-import com.mideas.rpg.v2.game.stuff.gloves.LightbringerHandguards;
-import com.mideas.rpg.v2.game.stuff.gloves.OnslaughtHandguards;
-import com.mideas.rpg.v2.game.stuff.head.CowlOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.head.GronnstalkersHelmet;
-import com.mideas.rpg.v2.game.stuff.head.LightbringerFaceguard;
-import com.mideas.rpg.v2.game.stuff.head.OnslaughtGreathelm;
-import com.mideas.rpg.v2.game.stuff.item.Item;
-import com.mideas.rpg.v2.game.stuff.item.craft.LinenCloth;
-import com.mideas.rpg.v2.game.stuff.item.potion.healingPotion.SuperHealingPotion;
-import com.mideas.rpg.v2.game.stuff.leggings.GronnstalkersLeggings;
-import com.mideas.rpg.v2.game.stuff.leggings.LeggingsOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.leggings.LightbringerLegguards;
-import com.mideas.rpg.v2.game.stuff.leggings.OnslaughtLegguards;
-import com.mideas.rpg.v2.game.stuff.mainHand.WarglaiveOfAzzinoth;
-import com.mideas.rpg.v2.game.stuff.necklace.SunwellNecklace;
-import com.mideas.rpg.v2.game.stuff.ranged.ThoridalTheStarsFury;
-import com.mideas.rpg.v2.game.stuff.shoulders.GronnstalkersSpaulders;
-import com.mideas.rpg.v2.game.stuff.shoulders.LightbringerShoulderguards;
-import com.mideas.rpg.v2.game.stuff.shoulders.MantleOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.shoulders.OnslaughtShoulderguards;
-import com.mideas.rpg.v2.game.stuff.wrists.BracersOfTheTempest;
-import com.mideas.rpg.v2.game.stuff.wrists.GronnstalkersBracers;
-import com.mideas.rpg.v2.game.stuff.wrists.OnslaughtWristguard;
-import com.mideas.rpg.v2.game.stuff.wrists.TheSeekersWristguards;
+import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.potion.PotionManager;
+import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class EndFightFrame {
@@ -101,7 +65,7 @@ public class EndFightFrame {
 		}
 	}
 	
-	public static void mouseEvent() {
+	public static void mouseEvent() throws SQLException {
 		if(Mouse.getEventButton() == 0) {
 			if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
 				System.exit(1);
@@ -122,7 +86,7 @@ public class EndFightFrame {
 		}
 	}
 	
-	private static boolean dropRate(Stuff item) throws FileNotFoundException, SQLException {
+	private static boolean dropRate(Item item) throws FileNotFoundException, SQLException {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
@@ -136,15 +100,15 @@ public class EndFightFrame {
 		return false;
 	}
 	
-	public static boolean dropItem(Stuff potion, int number) throws FileNotFoundException, SQLException {
-		if(potion instanceof Item) {
+	public static boolean dropItem(Item potion, int number) throws FileNotFoundException, SQLException {
+		if(potion.getItemType() == ItemType.ITEM || potion.getItemType() == ItemType.POTION) {
 			if(checkBagItems(potion)) {
 				int i = 0;
 				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) == null) {
 						Mideas.bag().setBag(i, potion);
-						number = Mideas.joueur1().getNumberItem(potion)+1;
-						Mideas.joueur1().setNumberItem(potion, number);
+						number = Mideas.joueur1().getNumberItem(potion, i)+1;
+						Mideas.joueur1().setNumberItem(potion, ContainerFrame.getSlotItem(potion), 1);
 						CharacterStuff.setBagItems();
 						return true;
 					}
@@ -154,7 +118,7 @@ public class EndFightFrame {
 			else {
 				int i = 0;
 				while(i < Mideas.bag().getBag().length) {
-					lootItems(Mideas.bag().getBag(i), potion, number);
+					lootItems(Mideas.bag().getBag(i), i, potion, number);
 					i++;
 				}
 			}
@@ -162,10 +126,10 @@ public class EndFightFrame {
 		return false;
 	}
 	
-	public static boolean checkBagItems(Stuff item) {
+	public static boolean checkBagItems(Item potion) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) != null && item.equals(Mideas.bag().getBag(i))) {
+			if(Mideas.bag().getBag(i) != null && potion.getId() ==  Mideas.bag().getBag(i).getId()) {
 				return false;
 			}
 			i++;
@@ -173,7 +137,7 @@ public class EndFightFrame {
 		return true;
 	}
 	
-	public static boolean bagItems(Stuff item) {
+	public static boolean bagItems(Item item) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) != null && item.equals(Mideas.bag().getBag(i))) {
@@ -186,58 +150,62 @@ public class EndFightFrame {
 			if(Mideas.joueur1().getStuff(i) != null && item.equals(Mideas.joueur1().getStuff(i))) {
 				return false;
 			}
+			i++;
 		}
 		return true;
 	}
 	
-	private static void lootItems(Stuff bag, Stuff potion, int number) throws FileNotFoundException, SQLException {
-		if(bag != null && bag.equals(potion)) {
-			bag = potion;
-			number = Mideas.joueur1().getNumberItem(potion)+1;
-			Mideas.joueur1().setNumberItem(potion, number);
+	private static void lootItems(Item item, int i, Item potion, int number) throws FileNotFoundException, SQLException {
+		if(item != null && item.equals(potion)) {
+			item = potion;
+			number = Mideas.joueur1().getNumberItem(potion, i)+1;
+			Mideas.joueur1().setNumberItem(potion, ContainerFrame.getSlotItem(potion), 1);
 			CharacterStuff.setBagItems();
 		}
 	}
 	
 	private static void lootGuerrier() throws FileNotFoundException, SQLException {
 		float x = 0.005f;
-		drop(x, new OnslaughtShoulderguards());
-		drop(x, new SunwellBack());
-		drop(x, new OnslaughtWaistguard());
-		drop(x, new OnslaughtBoots());
-		drop(x, new OnslaughtChestguard());
-		drop(x, new OnslaughtHandguards());
-		drop(x, new OnslaughtGreathelm());
-		drop(x, new OnslaughtLegguards());
-		drop(x, new SunwellNecklace());
-		drop(x, new OnslaughtWristguard());
-		drop(.01f*x, new ThoridalTheStarsFury());
-		drop(.01f*x, new WarglaiveOfAzzinoth());
-		drop(100*x, new SuperHealingPotion());
-		drop(200*x, new LinenCloth());
+		drop(x, StuffManager.getClone(1001));
+		drop(x, StuffManager.getClone(2001));
+		drop(x, StuffManager.getClone(3001));
+		drop(x, StuffManager.getClone(4001));
+		drop(x, StuffManager.getClone(5001));
+		drop(x, StuffManager.getClone(6001));
+		drop(x, StuffManager.getClone(7001));
+		drop(x, StuffManager.getClone(8001));
+		drop(x, StuffManager.getClone(9001));
+		drop(x, StuffManager.getClone(10001));
+		drop(x, StuffManager.getClone(10001));
+		drop(.95f, PotionManager.getClone(1));
+		//drop(.01f*x, new ThoridalTheStarsFury());
+		drop(.01f*x, StuffManager.getClone(15001));
+		drop(.01f*x, StuffManager.getClone(16001));
+		//drop(100*x, new SuperHealingPotion());
+		//drop(200*x, new LinenCloth());
 	}
 
 	private static void lootHunter() throws FileNotFoundException, SQLException {
 		float x = 0.005f;
-		drop(x, new GronnstalkersSpaulders());
-		drop(x, new SunwellBack());
-		drop(x, new GronnstalkersBelt());
-		drop(x, new GronnstalkersBoots());
-		drop(x, new GronnstalkersChestguard());
-		drop(x, new GronnstalkersGloves());
-		drop(x, new GronnstalkersHelmet());
-		drop(x, new GronnstalkersLeggings());
-		drop(x, new SunwellNecklace());
-		drop(x, new GronnstalkersBracers());
-		drop(0.01f*x, new ThoridalTheStarsFury());
-		drop(100*x, new SuperHealingPotion());
-		drop(200*x, new LinenCloth());
+		drop(x, StuffManager.getClone(1201));
+		drop(x, StuffManager.getClone(2001));
+		drop(x, StuffManager.getClone(3201));
+		drop(x, StuffManager.getClone(4001));
+		drop(x, StuffManager.getClone(5201));
+		drop(x, StuffManager.getClone(6201));
+		drop(x, StuffManager.getClone(7201));
+		drop(x, StuffManager.getClone(8201));
+		drop(x, StuffManager.getClone(9201));
+		drop(x, StuffManager.getClone(10201));
+		//drop(0.01f*x, new ThoridalTheStarsFury());
+		//drop(100*x, new SuperHealingPotion());
+		//drop(200*x, new LinenCloth());
 		/*if(Math.random() < 100*x && !drop) {
 			drop = true;
 			dropPotion(new SuperHealingPotion(), 1);
 		}*/
 	}
-	private static void lootPaladin() throws FileNotFoundException, SQLException {
+	/*private static void lootPaladin() throws FileNotFoundException, SQLException {
 		float x = 0.005f;
 		drop(x, new LightbringerShoulderguards());
 		drop(x, new SunwellBack());
@@ -267,10 +235,10 @@ public class EndFightFrame {
 		drop(x, new BracersOfTheTempest());
 		drop(100*x, new SuperHealingPotion());
 		drop(200*x, new LinenCloth());
-	}
+	}*/
 	
 	private static void lootIllidan() throws FileNotFoundException, SQLException {
-		drop(.03f, new WarglaiveOfAzzinoth());
+		//drop(.03f, new WarglaiveOfAzzinoth());
 	}
 	
 	public static boolean lootManager() throws FileNotFoundException, SQLException {
@@ -287,7 +255,7 @@ public class EndFightFrame {
 			return true;
 		}
 		else if(Mideas.joueur2().getClasse().equals("Mage")) {
-			lootMage();
+			lootGuerrier();
 			return true;
 		}
 		else if(Mideas.joueur2().getClasse().equals("Monk")) {
@@ -295,7 +263,7 @@ public class EndFightFrame {
 			return true;
 		}
 		else if(Mideas.joueur2().getClasse().equals("Paladin")) {
-			lootPaladin();
+			lootGuerrier();
 			return true;
 		}
 		else if(Mideas.joueur2().getClasse().equals("Priest")) {
@@ -321,13 +289,10 @@ public class EndFightFrame {
 		return false;	
 	}
 	
-	private static void drop(float x, Stuff item) throws FileNotFoundException, SQLException {
-		if(Math.random() <= x && !drop) {
-			if(item instanceof SuperHealingPotion) {
-				dropItem(new SuperHealingPotion(), 1);
-			}
-			else if(item instanceof LinenCloth) {
-				dropItem(new LinenCloth(), 1);
+	private static void drop(float x, Item item) throws FileNotFoundException, SQLException {
+		if(Math.random() <= x && !drop && item != null) {
+			if(item.getItemType() == ItemType.POTION || item.getItemType() == ItemType.ITEM) {
+				dropItem(item, 1);
 			}
 			else {
 				dropRate(item);
@@ -335,6 +300,10 @@ public class EndFightFrame {
 			LogChat.setStatusText3("Vous avez obtenus "+item.getStuffName());
 			drop = true;
 		}
+	}
+	
+	public static boolean getExpGiven() {
+		return expGiven;
 	}
 	
 	public static void setDrop(boolean we) {

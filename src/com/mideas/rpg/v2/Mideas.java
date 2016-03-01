@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.SQLException;
+import java.sql.SQLTimeoutException;
 
 import javax.imageio.ImageIO;
 
@@ -24,25 +25,29 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.DeathKnight;
-import com.mideas.rpg.v2.game.Guerrier;
-import com.mideas.rpg.v2.game.Hunter;
+import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.game.Mage;
-import com.mideas.rpg.v2.game.Monk;
-import com.mideas.rpg.v2.game.Paladin;
-import com.mideas.rpg.v2.game.Priest;
-import com.mideas.rpg.v2.game.Rogue;
-import com.mideas.rpg.v2.game.Shaman;
-import com.mideas.rpg.v2.game.IconsManager;
-import com.mideas.rpg.v2.game.Warlock;
+import com.mideas.rpg.v2.game.ShopManager;
+import com.mideas.rpg.v2.game.classes.DeathKnight;
+import com.mideas.rpg.v2.game.classes.Guerrier;
+import com.mideas.rpg.v2.game.classes.Hunter;
+import com.mideas.rpg.v2.game.classes.Mage;
+import com.mideas.rpg.v2.game.classes.Monk;
+import com.mideas.rpg.v2.game.classes.Paladin;
+import com.mideas.rpg.v2.game.classes.Priest;
+import com.mideas.rpg.v2.game.classes.Rogue;
+import com.mideas.rpg.v2.game.classes.Shaman;
+import com.mideas.rpg.v2.game.classes.Warlock;
+import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.potion.PotionManager;
+import com.mideas.rpg.v2.game.item.shop.Shop;
+import com.mideas.rpg.v2.game.item.stuff.Bag;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.spell.Spell;
-import com.mideas.rpg.v2.game.stuff.Bag;
-import com.mideas.rpg.v2.game.stuff.Shop;
-import com.mideas.rpg.v2.game.stuff.Stuff;
-import com.mideas.rpg.v2.game.stuff.StuffManager;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.jdo.JDO;
+import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
 
 public class Mideas {
@@ -64,6 +69,9 @@ public class Mideas {
 	private static int gold;
 	private static int i;
 	private static int k;
+	private static int[] expAll = new int[11];
+	private static int currentExp;
+	private static int currentGold;
 	
 	public static void context2D() throws LWJGLException, IOException {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -118,21 +126,23 @@ public class Mideas {
 		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));
 		//Display.setFullscreen(true);
 		TTF2.init();
-		Stuff.loadSlotStuff();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		double time = System.currentTimeMillis();
 		//IconsManager.loadSprites();
 		Sprites.sprite();
 		Sprites.sprite2();
-		Sprites.sprite3();
+		/*Sprites.sprite3();
 		Sprites.sprite4();
 		Sprites.sprite5();
 		Sprites.sprite6();
-		Sprites.sprite7();
+		Sprites.sprite7();*/
 		Sprites.sprite8();
 		Sprites.sprite9();
 		Sprites.sprite10();
 		StuffManager.loadStuffs();
+		PotionManager.loadPotions();
+		ShopManager.loadStuffs();
+		getExpAll();
 		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		joueur2 = getRandomClass(2);
 		while(!Display.isCloseRequested()) {
@@ -235,8 +245,16 @@ public class Mideas {
 		}
 	}
 
-	public static int getExpAll(int i) throws FileNotFoundException {
-		BufferedReader br = null;
+	public static void getExpAll() throws FileNotFoundException, SQLException {
+		int id;
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats");
+		statement.execute();
+		while(statement.fetch()) {
+			id = statement.getInt();
+			expAll[i] = id;
+			i++;
+		}
+		/*BufferedReader br = null;
 		try {
 			int j = 0;
 			String sCurrentLine;
@@ -244,7 +262,7 @@ public class Mideas {
 			br = new BufferedReader(new FileReader("exp.txt"));
 			while((sCurrentLine = br.readLine()) != null) {
 				if(i == j) {
-					tempExp = sCurrentLine.split("=");	
+					tempExp = sCurrentLine.split("=");
 				}
 				if(i == j) {
 					tempExp = sCurrentLine.split("=");
@@ -275,7 +293,7 @@ public class Mideas {
 				}
 				j++;
 			}
-			exp = Integer.parseInt(tempExp[1]);		
+			expAll[i] = Integer.parseInt(tempExp[1]);	
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -289,12 +307,25 @@ public class Mideas {
 			catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
-		return exp;
+		}*/
 	}
 	
-	public static int getExp() throws FileNotFoundException {
-		BufferedReader br = null;
+	public static int getExpAll(int i) {
+		return expAll[i];
+	}
+	
+	public static int getCurrentExp() {
+		return currentExp;
+	}
+	
+	public static int getExp() throws FileNotFoundException, SQLException {
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats WHERE class = ?");
+		statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
+		if(statement.fetch()) {
+			exp = statement.getInt();
+		}
+		/*BufferedReader br = null;
 		try {
 			int j = 0;
 			String sCurrentLine;
@@ -324,13 +355,19 @@ public class Mideas {
 			catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
+		}*/
+		currentExp = exp;
 		return exp;
 	}
 	
-	public static void setExp() throws FileNotFoundException {
-		exp = getExp()+Mideas.joueur2.getExpGained();
-		BufferedReader br = null;
+	public static void setExp() throws FileNotFoundException, SQLException {
+		exp = currentExp+Mideas.joueur2.getExpGained();
+		currentExp = exp;
+		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET exp = ? WHERE class = ?");
+		statement.putInt(exp);
+		statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
+		/*BufferedReader br = null;
 		try {
 			String content = "";
 			String sCurrentLine;
@@ -413,138 +450,17 @@ public class Mideas {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
-	public static int getGold() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempGold[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("gold.txt"));
-			while((sCurrentLine = br.readLine()) != null) {
-				int j = 0;
-				while(j < 10) {
-					if(Mideas.getClassLine() == i) {
-						tempGold = sCurrentLine.split("=");	
-					}
-					j++;
-				}
-				i++;
-			}
-			gold = Integer.parseInt(tempGold[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null) {
-					br.close();
-				}
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return gold;
-	}
-	
-	public static void setConfig() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			String content = "";
-			//String sCurrentLine;
-			int i = 0;
-			File file = new File("config.txt");
-				if (!file.exists()) {
-					file.createNewFile();
-				}
-			br = new BufferedReader(new FileReader("config.txt"));
-			while(i < 10) {
-				//sCurrentLine = br.readLine();
-				if(i == 0) {
-					content+= "bg="+ChangeBackGroundFrame.getCurrentBackground()+System.lineSeparator();
-				}/*
-				else if(i == 1){
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				else if(i == 2) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				else if(i == 3) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				else if(i == 4) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				else if(i == 5) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				else if(i == 6) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				else if(i == 7) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				else if(i == 8) {
-					content+= sCurrentLine+System.lineSeparator();
-				}*/
-				i++;
-			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
-			br.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void getConfig() throws FileNotFoundException {
-		BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempConfig[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("config.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 0) {
-					tempConfig = sCurrentLine.split("=");
-					ChangeBackGroundFrame.loadBG(tempConfig[1]);
-				}
-				/*if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}*/
-				i++;
-			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null) {
-					br.close();
-				}
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
-	
-	public static void setGold(int gold) throws FileNotFoundException {
-		gold+= getGold();
+	public static void setGold(int golds) throws FileNotFoundException, SQLTimeoutException, SQLException {
+		gold = Mideas.getCurrentGold()+golds;
+		currentGold = gold;
+		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET gold = ? WHERE class = ?");
+		statement.putInt(gold);
+		statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
+		/*gold+= getGold();
 		BufferedReader br = null;
 		try {
 			String content = "";
@@ -627,15 +543,143 @@ public class Mideas {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
-	public static int getCurrentGold() {
+	public static int getGold() throws FileNotFoundException, SQLException {
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT gold FROM stats WHERE class = ?");
+		statement.putString(Mideas.joueur1().getClasse());
+		statement.execute();
+		if(statement.fetch()) {
+			gold = statement.getInt();
+			currentGold = gold;
+		}
+		/*BufferedReader br = null;
+		try {
+			int i = 0;
+			String sCurrentLine;
+			String tempGold[] = {"1","2","3"};
+			br = new BufferedReader(new FileReader("gold.txt"));
+			while((sCurrentLine = br.readLine()) != null) {
+				int j = 0;
+				while(j < 10) {
+					if(Mideas.getClassLine() == i) {
+						tempGold = sCurrentLine.split("=");	
+					}
+					j++;
+				}
+				i++;
+			}
+			gold = Integer.parseInt(tempGold[1]);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+			}
+			catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}*/
 		return gold;
 	}
 	
-	public static int calcGoldCoin() throws FileNotFoundException {
-		gold = Mideas.getGold();
+	public static void setConfig() throws FileNotFoundException, SQLException {
+		JDOStatement statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
+		statement.putString(ChangeBackGroundFrame.getCurrentBackground());
+		statement.putString("background");
+		statement.execute();
+		/*BufferedReader br = null;
+		try {
+			String content = "";
+			//String sCurrentLine;
+			int i = 0;
+			File file = new File("config.txt");
+				if (!file.exists()) {
+					file.createNewFile();
+				}
+			br = new BufferedReader(new FileReader("config.txt"));
+			while(i < 10) {
+				//sCurrentLine = br.readLine();
+				if(i == 0) {
+					content+= "bg="+ChangeBackGroundFrame.getCurrentBackground()+System.lineSeparator();
+				}
+				else if(i == 1){
+					content+= sCurrentLine+System.lineSeparator();
+				}
+				else if(i == 2) {
+					content+= sCurrentLine+System.lineSeparator();
+				}
+				i++;
+			}
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.close();
+			br.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}*/
+	}
+
+	public static void getConfig() throws FileNotFoundException, SQLException {
+		String bg = "";
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
+		statement.putString("background");
+		statement.execute();
+		if(statement.fetch()) {
+			bg = statement.getString();
+		}
+		ChangeBackGroundFrame.loadBG(bg);
+		/*BufferedReader br = null;
+		try {
+			int i = 0;
+			String sCurrentLine;
+			String tempConfig[] = {"1","2","3"};
+			br = new BufferedReader(new FileReader("config.txt"));
+			while ((sCurrentLine = br.readLine()) != null) {
+				if(i == 0) {
+					tempConfig = sCurrentLine.split("=");
+					ChangeBackGroundFrame.loadBG(tempConfig[1]);
+				}
+				if(Mideas.getClassLine() == i) {
+					tempConfig = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == i) {
+					tempConfig = sCurrentLine.split("=");
+				}
+				if(Mideas.getClassLine() == i) {
+					tempConfig = sCurrentLine.split("=");
+				}
+				i++;
+			}
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+			}
+			catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}*/
+	}
+	
+	public static int getCurrentGold() {
+		return currentGold;
+	}
+	
+	public static int calcGoldCoin() throws FileNotFoundException, SQLException {
+		gold = Mideas.getCurrentGold();
 		i = 0;
 		while(gold-10000 >= 0) {
 			gold-= 10000;
@@ -644,8 +688,8 @@ public class Mideas {
 		return i;
 	}
 	
-	public static int calcSilverCoin() throws FileNotFoundException {
-		gold = Mideas.getGold()-i*10000;
+	public static int calcSilverCoin() throws FileNotFoundException, SQLException {
+		gold = Mideas.getCurrentGold()-i*10000;
 		k = 0;
 		while(gold-100 >= 0) {
 			gold-= 100;
@@ -968,8 +1012,8 @@ public class Mideas {
 		}
 	}
 	
-	public static int getLevel() throws FileNotFoundException {
-		return getLevelAll(getExp());
+	public static int getLevel() throws FileNotFoundException, SQLException {
+		return getLevelAll(getCurrentExp());
 	}
 	
 	public static int getExpNeeded(int level) throws FileNotFoundException {

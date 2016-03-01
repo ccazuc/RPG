@@ -11,8 +11,8 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.stuff.Stuff;
+import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class CharacterFrame {
@@ -471,7 +471,7 @@ public class CharacterFrame {
 	
 	public static void drawCharacterItems(Stuff stuff, Texture stuff_border, int x, int y) {
 		if(stuff != null && !(stuff == DragManager.getDraggedItem())) {
-			Draw.drawQuad(CharacterStuff.getSprite(stuff.getId()), Display.getWidth()/2+x, Display.getHeight()/2+y);
+			Draw.drawQuad(IconsManager.getSprite42((stuff.getSpriteId())), Display.getWidth()/2+x, Display.getHeight()/2+y);
 			Draw.drawQuad(Sprites.stuff_border, Display.getWidth()/2+x-5, Display.getHeight()/2+y-5);
 		}
 	}

@@ -1,7 +1,7 @@
 DeathKnight=10000
-Guerrier=2311895
-Hunter=1551
-Mage=0
+Guerrier=19024988
+Hunter=1291851
+Mage=7040
 Monk=99999
 Paladin=5000
 Priest=5515

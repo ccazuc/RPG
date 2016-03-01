@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.lwjgl.opengl.Display;
 
@@ -26,7 +27,7 @@ public class Talent {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		if(Mideas.joueur1().getClasse() == "Guerrier") {
 			GuerrierTalent.mouseEvent();
 		}

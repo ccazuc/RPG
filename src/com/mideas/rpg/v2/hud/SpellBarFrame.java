@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -19,18 +20,18 @@ public class SpellBarFrame {
 	private static Spell hoveredSpell;
 	private static boolean hoverAttack;
 	
-	public static boolean draw() throws FileNotFoundException {
+	public static boolean draw() throws FileNotFoundException, SQLException {
 		hoverAttack = false;
 		hoveredSpell = null;
 		if(Mideas.getLevel() == 70) {
 			Draw.drawColorQuad(Display.getWidth()/2-140, Display.getHeight()-80, 790, 11,  Color.decode("#680764"));
 		}
 		else if(Mideas.getLevel() > 1) {
-			float e = ((float)Mideas.getExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
+			float e = ((float)Mideas.getCurrentExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
 			Draw.drawColorQuad(Display.getWidth()/2-393, Display.getHeight()-80, 790*e, 12,  Color.decode("#680764"));
 		}
 		else {
-			float e = ((float)Mideas.getExp()/Mideas.getExpNeeded(Mideas.getLevel()));
+			float e = ((float)Mideas.getCurrentExp()/Mideas.getExpNeeded(Mideas.getLevel()));
 			Draw.drawColorQuad(Display.getWidth()/2-393, Display.getHeight()-80, 790*e, 12,  Color.decode("#680764"));
 		}
         //Draw.drawQuad(Sprites.spellbar, Display.getWidth()/2-300, Display.getHeight()-120);  
@@ -94,7 +95,7 @@ public class SpellBarFrame {
 		return false;
 	}
 	
-	public static boolean mouseEvent() {
+	public static boolean mouseEvent() throws SQLException {
 		if(Mouse.getEventButton() == 0) {
 			if(!Mouse.getEventButtonState()) {
 				if(hoverAttack) {
@@ -119,7 +120,7 @@ public class SpellBarFrame {
 		return false;
 	}
 	
-	public static boolean keyboardEvent() {
+	public static boolean keyboardEvent() throws SQLException {
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == Keyboard.KEY_1) {
 			Mideas.joueur1().tick();
 			Mideas.setCurrentPlayer(false);
@@ -172,7 +173,7 @@ public class SpellBarFrame {
 		return false;
 	}
 	
-	private static void keyboardAttack(int i) {
+	private static void keyboardAttack(int i) throws SQLException {
 		if(Mideas.joueur1().getSpells()[i] != null) {
 			if(Mideas.joueur1().getSpells(i).getSpellCd() <= 0 && Mideas.joueur1().cast(Mideas.joueur1().getSpells()[i])) {
 				/*Mideas.joueur1.getSpells()[i].setSpellCd(Mideas.joueur1.getSpells()[i], Mideas.joueur1.getSpells()[i].getSpellBaseCd());*/
