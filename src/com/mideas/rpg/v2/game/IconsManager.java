@@ -13,6 +13,7 @@ public class IconsManager {
 
 	private static Map<String, Texture> sprites42 = new HashMap<String, Texture>();
 	private static Map<String, Texture> sprites35 = new HashMap<String, Texture>();
+	private static Map<String, Texture> sprites54 = new HashMap<String, Texture>();
 	
 	/*public static void loadSprites() throws IOException {
 		File folder = new File("icons");
@@ -53,6 +54,17 @@ public class IconsManager {
 		return null;
 	}
 	
+	public static Texture getSprite54(String id) {
+		if(sprites54.containsKey(id)) {
+			return sprites54.get(id);
+		}
+		loadTexture54(id);
+		if(sprites54.containsKey("inv_misc_questionmark")) {
+			return sprites54.get("inv_misc_questionmark");
+		}
+		return null;
+	}
+	
 	private static void loadTexture42(String id) {
 		File file = new File("inventory_icons/"+id+".jpg");
 		if(file.exists()) {
@@ -74,6 +86,20 @@ public class IconsManager {
 			try {
 				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
 				sprites35.put(id, newTexture);
+			} 
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void loadTexture54(String id) {
+		File file = new File("spellbar_icons/"+id+".jpg");
+		if(file.exists()) {
+			Texture newTexture;
+			try {
+				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
+				sprites54.put(id, newTexture);
 			} 
 			catch(IOException e) {
 				e.printStackTrace();

@@ -88,6 +88,7 @@ public class Interface {
 					isTalentLoaded = true;
 				}
 				if(Mideas.joueur1() != null) {
+					SpellBarFrame.draw();
 					SpellLevel.addSpell();
 					if(characterFrameActive) {
 						CharacterFrame.draw();
@@ -132,7 +133,6 @@ public class Interface {
 							EndFightFrame.draw();
 						}
 					}
-					SpellBarFrame.draw();
 					DragSpellManager.draw();
 				}
 			}
@@ -145,7 +145,7 @@ public class Interface {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException, CloneNotSupportedException {
 		if(changeBackgroundFrameActive) {
 			if(ChangeBackGroundFrame.mouseEvent()) {
 				return true;

@@ -90,7 +90,7 @@ public class DragManager {
 					dropBagItem(i);
 					i++;
 				}
-				if(draggedItem != null) {
+				if(draggedItem != null && !isCharacterHover()) {
 					deleteItem = true;
 				}
 			}
@@ -102,14 +102,18 @@ public class DragManager {
 						Mideas.joueur1().setNumberItem(draggedItem, ContainerFrame.getSlotItem(draggedItem), 0);
 					}
 					deleteItem(draggedItem);
-					deleteItem = false;
 					draggedItem = null;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
 				}
 				if(hoverSave && deleteItem) {
+					if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
+						checkFreeSlotBag(draggedItem);
+					}
 					draggedItem = null;
-					deleteItem = false;
+				}
+				if(deleteItem) {
+					draggedItem = null;
 				}
 				deleteItem = false;
 			}
@@ -131,14 +135,6 @@ public class DragManager {
 	
 	private static boolean setNullCharacter(Item tempItem) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(tempItem.equals(Mideas.bag().getBag(i))) {
-				Mideas.bag().setBag(i, null);
-				return true;
-			}
-			i++;
- 		}
-		i = 0;
 		while(i < Mideas.joueur1().getStuff().length) {
 			if(tempItem == Mideas.joueur1().getStuff(i)) {
 				Mideas.joueur1().setStuff(i, null);
@@ -148,7 +144,7 @@ public class DragManager {
 		}
 		return false;
 	}
-	
+
 	private static boolean deleteItem(Item draggedItem2) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
@@ -169,21 +165,33 @@ public class DragManager {
 		return false;
 	}
 	
-	private static boolean setNullContainer(Item draggedItem2, Item item) {
+	private static boolean checkCharacterItems(Item item) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(draggedItem2 == Mideas.bag().getBag(i)) {
-				Mideas.bag().setBag(i, item);
+		while(i < Mideas.joueur1().getStuff().length) {
+			if(Mideas.joueur1().getStuff(i) == item) {
 				return true;
 			}
 			i++;
 		}
-		i = 0;
-		while(i < Mideas.joueur1().getStuff().length) {
-			if(draggedItem2 != null & Mideas.joueur1().getStuff(i) != null && draggedItem2.equals(Mideas.joueur1().getStuff(i))) {
-				System.out.println("a");
-				calcStatsLess(Mideas.joueur1().getStuff(i));
-				Mideas.joueur1().setStuff(i, null);
+		return false;
+		
+	}
+	
+	private static boolean checkBagItems(Item item) {
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(Mideas.bag().getBag(i) == item) {
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}
+	private static boolean setNullContainer(Item item) {
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(item == Mideas.bag().getBag(i)) {
+				Mideas.bag().setBag(i, null);
 				return true;
 			}
 			i++;
@@ -236,17 +244,25 @@ public class DragManager {
 		return false;
 	}
 	
-	private static void dropBagItem(int i) throws FileNotFoundException, SQLException {
+	/*private static void dropBagItem(int i) throws FileNotFoundException, SQLException {
+		//System.out.println(Mideas.joueur1().getStuff(15));
+		//System.out.println(Mideas.joueur1().getStuff(14));
 		if(ContainerFrame.getContainerFrameSlotHover(i) && draggedItem != null) {
 			if(!draggedItem.equals(Mideas.bag().getBag(i))) {
-				System.out.println("a");
 				Item tempItem = Mideas.bag().getBag(i);
 				if(setNullContainer(draggedItem, Mideas.bag().getBag(i))) {
 					Mideas.bag().setBag(i, draggedItem);
-					draggedItem = null;
+					
+						System.out.println("b");
 				}
+					else {
+						draggedItem = null;
+					}
+			}
 				else {
 					Mideas.bag().setBag(i, draggedItem);
+					System.out.println("a");
+					setNullCharacter(draggedItem);
 					draggedItem = tempItem;
 				}
 				CharacterStuff.setEquippedItems();
@@ -256,52 +272,301 @@ public class DragManager {
 				draggedItem = null;
 			}
 		}
+	}*/
+	
+	private static boolean checkFreeSlotBag(Item item) {
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(Mideas.bag().getBag(i) == null) {
+				Mideas.bag().setBag(i, item);
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}
+	
+	private static boolean exchangeBagItems(Item draggedItem, Item item) {
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(draggedItem == Mideas.bag().getBag(i)) {
+				Mideas.bag().setBag(i, item);
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}
+	
+	private static void dropBagItem(int i) throws FileNotFoundException, SQLException {
+	//System.out.println(Mideas.joueur1().getStuff(15));
+	//System.out.println(Mideas.joueur1().getStuff(14));
+	if(ContainerFrame.getContainerFrameSlotHover(i) && draggedItem != null) {
+		//if(!draggedItem.equals(Mideas.bag().getBag(i))) {
+			if(checkCharacterItems(draggedItem)) {                                          //if draggedItem comes from inventory       
+				if(Mideas.bag().getBag(i) == null) { 
+					Mideas.bag().setBag(i, draggedItem);
+					calcStatsLess(draggedItem);
+					setNullCharacter(draggedItem);
+					draggedItem = null;
+				}
+				else {
+					Item tempItem = Mideas.bag().getBag(i);
+					if(checkFreeSlotBag(tempItem)) {
+						calcStatsLess(draggedItem);
+						setNullCharacter(draggedItem);
+						Mideas.bag().setBag(i, draggedItem);
+						draggedItem = null;
+					}
+					else {
+						tempItem = Mideas.bag().getBag(i);
+						Mideas.bag().setBag(i, draggedItem);
+						draggedItem = tempItem;
+					}
+				}
+			}
+			else if(checkBagItems(draggedItem)) {                             //if draggedItem comes from bags
+				if(Mideas.bag().getBag(i) == null) {
+					setNullContainer(draggedItem);
+					Mideas.bag().setBag(i, draggedItem);
+					draggedItem = null;
+				}
+				else {
+					exchangeBagItems(draggedItem, Mideas.bag().getBag(i));
+					Mideas.bag().setBag(i, draggedItem);
+					draggedItem = null;
+				}
+			}
+			/*Item tempItem = Mideas.bag().getBag(i);
+			Mideas.bag().setBag(i, draggedItem);
+			System.out.println("a");
+			setNullCharacter(draggedItem);
+			draggedItem = tempItem;*/
+			CharacterStuff.setEquippedItems();
+			CharacterStuff.setBagItems();
+		//}
+	}
+		//else {
+			//draggedItem = null;
+		//}
 	}
 	
 	private static void clickBagItem(int i) throws FileNotFoundException, SQLException {
 		if(ContainerFrame.getContainerFrameSlotHover(i)) {
-			Item tempItem = draggedItem;
+			if(draggedItem == null) {
+				if(Mideas.bag().getBag(i) == null) {
+				}
+				else {
+					draggedItem = Mideas.bag().getBag(i);
+				}
+			}
+			else if(checkCharacterItems(draggedItem)) {        
+				if(Mideas.bag().getBag(i) == null) {
+					calcStatsLess(draggedItem);
+					setNullCharacter(draggedItem);
+					Mideas.bag().setBag(i, draggedItem);
+					draggedItem = null;
+				}
+				else {
+					Item tempItem = Mideas.bag().getBag(i);
+					Mideas.bag().setBag(i, draggedItem);
+					setNullCharacter(draggedItem);
+					draggedItem = tempItem;
+				}
+			}
+			else if(checkBagItems(draggedItem)) {
+				if(Mideas.bag().getBag(i) == null) {
+					Mideas.bag().setBag(i, draggedItem);
+					draggedItem = null;
+				}
+				else {
+					Item tempItem = Mideas.bag().getBag(i);
+					exchangeBagItems(draggedItem, Mideas.bag().getBag(i));
+					Mideas.bag().setBag(i, draggedItem);
+					draggedItem = tempItem;
+				}
+			}
+			else {
+				if(Mideas.bag().getBag(i) == null) {
+					Mideas.bag().setBag(i, draggedItem);
+					draggedItem = null;
+				}
+				else {
+					Item tempItem = Mideas.bag().getBag(i);
+					Mideas.bag().setBag(i, draggedItem);
+					draggedItem = tempItem;
+				}
+			}
+			CharacterStuff.setEquippedItems();
+			CharacterStuff.setBagItems();
+			/*	Item tempItem = draggedItem;
 			draggedItem = Mideas.bag().getBag(i);
 			if(tempItem != null) {
 				setNullContainer(tempItem, Mideas.bag().getBag(i));
 				Mideas.bag().setBag(i, tempItem);;
 				CharacterStuff.setBagItems();
-			}
+			}*/
 		}
 	}
 	
 	private static void clickInventoryItem(int i) throws FileNotFoundException, SQLException {
 		if(CharacterFrame.getHoverCharacterFrame(i)) {
-			Item tempItem = draggedItem;
+			if(draggedItem == null) {
+				if(Mideas.joueur1().getStuff(i) == null) {
+					
+				}
+				else {
+					draggedItem = Mideas.joueur1().getStuff(i);
+				}
+			}
+			else if(checkCharacterItems(draggedItem)) {
+				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {        //draggeditem same stuff type of slot hover
+					if(Mideas.joueur1().getStuff(i) == null) {
+						setNullCharacter(draggedItem);
+						calcStatsLess(draggedItem);
+						Mideas.joueur1().setStuff(i, draggedItem);
+						calcStats(draggedItem);
+					}
+					else {
+						Item tempItem = Mideas.joueur1().getStuff(i);
+						setNullCharacter(draggedItem);
+						calcStatsLess(draggedItem);
+						Mideas.joueur1().setStuff(i, draggedItem);
+						calcStats(draggedItem);
+						draggedItem = tempItem;
+					}
+				}
+				else {
+					
+				}
+			}
+			else if(checkBagItems(draggedItem)) {
+				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
+					if(Mideas.joueur1().getStuff(i) == null) {
+						Mideas.joueur1().setStuff(i, draggedItem);
+						calcStats(draggedItem);
+					}
+					else {
+						Item tempItem = Mideas.joueur1().getStuff(i);
+						calcStatsLess(Mideas.joueur1().getStuff(i));
+						Mideas.joueur1().setStuff(i, draggedItem);
+						calcStats(draggedItem);
+						setNullContainer(draggedItem);
+						draggedItem = tempItem;
+					}
+				}
+			}
+			else {
+				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
+					if(Mideas.joueur1().getStuff(i) == null) {
+						Mideas.joueur1().setStuff(i, draggedItem);
+						calcStats(draggedItem);
+						draggedItem = null;
+					}
+					else {
+						Item tempItem = Mideas.joueur1().getStuff(i);
+						calcStatsLess(Mideas.joueur1().getStuff(i));
+						Mideas.joueur1().setStuff(i, draggedItem);
+						calcStats(draggedItem);
+						draggedItem = tempItem;
+					}
+				}
+			}
+			CharacterStuff.setEquippedItems();
+			CharacterStuff.setBagItems();
+			/*Item tempItem = draggedItem;
 			draggedItem = Mideas.joueur1().getStuff(i);
 			if(tempItem != null && tempItem.getItemType() == ItemType.STUFF && ((Stuff)tempItem).getType() == type[i]) {
 				Mideas.joueur1().setStuff(i, tempItem);
 				setNullCharacter(tempItem);
 				calcStats(Mideas.joueur1().getStuff(i));
 				CharacterStuff.setEquippedItems();
-			}
+			}*/
 		}
 	}
 	
 	private static void dropInventoryItem(int i) throws FileNotFoundException, SQLException {
 		if(CharacterFrame.getHoverCharacterFrame(i) && draggedItem != null) {
-			if(draggedItem.getItemType() == ItemType.STUFF && ((Stuff)draggedItem).getType() == type[i] && !draggedItem.equals(Mideas.joueur1().getStuff(i))) {
-				if(((Stuff)draggedItem).canEquipTo(convClassType())) {
+			if(checkCharacterItems(draggedItem)) {
+				if(Mideas.joueur1().getStuff(i) == null) {
+					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
+						setNullCharacter(draggedItem);
+						calcStatsLess(draggedItem);
+						Mideas.joueur1().setStuff(i, draggedItem);
+						calcStats(draggedItem);
+						draggedItem = null;
+					}
+				}
+				else if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
+					Item tempItem = Mideas.joueur1().getStuff(i);
+					calcStatsLess(Mideas.joueur1().getStuff(i));
 					setNullCharacter(draggedItem);
-					Stuff tempItem = Mideas.joueur1().getStuff(i);
 					Mideas.joueur1().setStuff(i, draggedItem);
+					calcStats(draggedItem);
 					draggedItem = tempItem;
-					CharacterStuff.setBagItems();
-					calcStats(Mideas.joueur1().getStuff(i));
+				}
+			}
+			else if(checkBagItems(draggedItem)) {
+				if(Mideas.joueur1().getStuff(i) == null) {
+					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
+						setNullContainer(draggedItem);
+						Mideas.joueur1().setStuff(i, draggedItem);
+						calcStats(draggedItem);
+						draggedItem = null;
+					}
 				}
 				else {
-					draggedItem  = null;
+					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
+						Item tempItem = Mideas.joueur1().getStuff(i);
+						calcStatsLess(Mideas.joueur1().getStuff(i));
+						setNullContainer(draggedItem);
+						Mideas.joueur1().setStuff(i, draggedItem);
+						calcStats(draggedItem);
+						draggedItem = tempItem;
+					}
+				}
+			}
+			CharacterStuff.setEquippedItems();
+			CharacterStuff.setBagItems();
+			/*if(draggedItem.getItemType() == ItemType.STUFF && ((Stuff)draggedItem).getType() == type[i] && !draggedItem.equals(Mideas.joueur1().getStuff(i))) {
+				if(Mideas.joueur1().getStuff(i) == null) {
+					if(((Stuff)draggedItem).canEquipTo(convClassType())) {
+						//setNullContainer(draggedItem, null);
+						setNullCharacter(draggedItem);
+						Stuff tempItem = Mideas.joueur1().getStuff(i);
+						Mideas.joueur1().setStuff(i, draggedItem);
+						draggedItem = tempItem;
+						CharacterStuff.setBagItems();
+						calcStats(Mideas.joueur1().getStuff(i));
+					}
+					else {
+						draggedItem  = null;
+					}
+				}
+				else {
+					if(((Stuff)draggedItem).canEquipTo(convClassType())) {
+						Stuff tempItem = Mideas.joueur1().getStuff(i);
+						Mideas.joueur1().setStuff(i, draggedItem);
+						//setNullContainer(draggedItem, null);
+						draggedItem = tempItem;
+					}
 				}
 			}
 			else {
 				draggedItem = null;
-			}
+			}*/
 		}
+	}
+	
+	private static boolean isCharacterHover() {
+		int i = 0;
+		while(i < CharacterFrame.getHoverCharacterFrame().length) {
+			if(CharacterFrame.getHoverCharacterFrame(i)) {
+				return true;
+			}
+			i++;
+		}
+		return false;
 	}
 	
 	public static Item getDraggedItem() {
@@ -309,38 +574,40 @@ public class DragManager {
 	}
 	
 	private static ClassType convClassType() {
-		ClassType tempClasse = null;
 		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-			tempClasse = ClassType.GUERRIER;
+			return ClassType.GUERRIER;
 		}
-		else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-			tempClasse = ClassType.DEATHKNIGHT;
+		if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
+			return ClassType.DEATHKNIGHT;
 		}
-		else if(Mideas.joueur1().getClasse().equals("Hunter")) {
-			tempClasse = ClassType.HUNTER;
+		if(Mideas.joueur1().getClasse().equals("Hunter")) {
+			return ClassType.HUNTER;
 		}
-		else if(Mideas.joueur1().getClasse().equals("Mage")) {
-			tempClasse = ClassType.MAGE;
+		if(Mideas.joueur1().getClasse().equals("Mage")) {
+			return ClassType.MAGE;
 		}
-		else if(Mideas.joueur1().getClasse().equals("MONK")) {
-			tempClasse = ClassType.MONK;
+		if(Mideas.joueur1().getClasse().equals("MONK")) {
+			return ClassType.MONK;
 		}
-		else if(Mideas.joueur1().getClasse().equals("Paladin")) {
-			tempClasse = ClassType.PALADIN;
+		if(Mideas.joueur1().getClasse().equals("Paladin")) {
+			return ClassType.PALADIN;
 		}
-		else if(Mideas.joueur1().getClasse().equals("Priest")) {
-			tempClasse = ClassType.PRIEST;
+		if(Mideas.joueur1().getClasse().equals("Priest")) {
+			return ClassType.PRIEST;
 		}
-		else if(Mideas.joueur1().getClasse().equals("Rogue")) {
-			tempClasse = ClassType.ROGUE;
+		if(Mideas.joueur1().getClasse().equals("Rogue")) {
+			return ClassType.ROGUE;
 		}
-		else if(Mideas.joueur1().getClasse().equals("Shaman")) {
-			tempClasse = ClassType.SHAMAN;
+		if(Mideas.joueur1().getClasse().equals("Shaman")) {
+			return ClassType.SHAMAN;
 		}
-		else if(Mideas.joueur1().getClasse().equals("Warlock")) {
-			tempClasse = ClassType.WARLOCK;
+		if(Mideas.joueur1().getClasse().equals("Warlock")) {
+			return ClassType.WARLOCK;
 		}
-		System.out.println(tempClasse);
-		return tempClasse;
+		return null;
+	}
+	
+	public static StuffType getStuffType(int i) {
+		return type[i];
 	}
 }

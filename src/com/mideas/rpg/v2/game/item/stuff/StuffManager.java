@@ -10,6 +10,7 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 public class StuffManager {
 
 	private static ArrayList<Stuff> stuffList = new ArrayList<Stuff>();
+	private static int numberStuffLoaded;
 	
 	public static void loadStuffs() throws SQLException, CloneNotSupportedException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, type, name, class, sprite_id, armor, stamina, mana, critical, strength, sellprice FROM stuff");
@@ -30,6 +31,7 @@ public class StuffManager {
 			int sellPrice = statement.getInt();
 			Stuff newPiece = new Stuff(type, classeType, sprite_id, id, name, critical, strength, stamina, armor, mana, sellPrice);
 			stuffList.add(newPiece);
+			numberStuffLoaded++;
 		}
 	}
 	
@@ -157,6 +159,10 @@ public class StuffManager {
 			return StuffType.RANGED;
 		}
 		return null;
+	}
+	
+	public static int getNumberStuffLoaded() {
+		return numberStuffLoaded;
 	}
 	
 }

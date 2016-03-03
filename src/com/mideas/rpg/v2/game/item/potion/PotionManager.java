@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 public class PotionManager {
 	
 	private static ArrayList<Potion> potionList = new ArrayList<Potion>();
+	private static int numberPotionLoaded;
 	
 	public static void loadPotions() throws SQLException, CloneNotSupportedException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, heal, mana, sellprice FROM potion");
@@ -22,6 +23,7 @@ public class PotionManager {
 			int sellPrice = statement.getInt();
 			Potion newPotion = new Potion(id, sprite_id, name, heal, mana, sellPrice);
 			potionList.add(newPotion);
+			numberPotionLoaded++;
 		}
 	}
 	
@@ -46,5 +48,9 @@ public class PotionManager {
 	
 	public static boolean exists(int id) {
 		return getPotion(id) != null;
+	}
+	
+	public static int getNumberPotionLoaded() {
+		return numberPotionLoaded;
 	}
 }

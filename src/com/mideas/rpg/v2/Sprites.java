@@ -464,6 +464,7 @@ public class Sprites {
 	public static Texture bag_linen_cloth;
 	public static Texture craft_frame;
 	public static Texture elevator_button;
+	public static Texture shop_border;
 	
 	public static boolean sprite() throws IOException {
 		elevator_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/elevator_button.png"));
@@ -892,6 +893,7 @@ public class Sprites {
 		bag_border30 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
 		bag_border31 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
 		bag_border32 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
+		shop_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shop_border.png"));
 		return true;
 	}
 		

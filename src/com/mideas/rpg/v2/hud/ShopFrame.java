@@ -145,8 +145,7 @@ public class ShopFrame {
 			else if(shopPage.equals("shopPage3") && left_arrow) {
 				shopPage = "shopPage2";
 				Interface.setIsShopLoaded(false);
-			}
-			
+			}			
 		}
 		if(Mideas.mouseX() >= Display.getWidth()/2+27 && Mideas.mouseX() <= Display.getWidth()/2+46 && Mideas.mouseY() >= Display.getHeight()/2-337 && Mideas.mouseY() <= Display.getHeight()/2-319) {
 			button_hover = true;
@@ -160,8 +159,7 @@ public class ShopFrame {
 		isSlotHover(xRight, y, 52, 93, 6);
 		isSlotHover(xRight, y, 104, 145, 7);
 		isSlotHover(xRight, y, 156, 197, 8);
-		isSlotHover(xRight, y, 208, 249, 9);
-		
+		isSlotHover(xRight, y, 208, 249, 9);	
 		int i = 0;
 		while(i < Mideas.shop().getstuff().length) {
 			buyItems(slot_hover[i], Mideas.shop().getStuff(i));
@@ -311,6 +309,7 @@ public class ShopFrame {
 	private static void drawShopItem(int i, int x, int y) {
 		if(Mideas.shop().getStuff(i) != null) {
 			Draw.drawQuad(IconsManager.getSprite35((Mideas.shop().getStuff(i).getSpriteId())), Display.getWidth()/2+x+3, Display.getHeight()/2+y+3);
+			Draw.drawQuad(Sprites.shop_border, Display.getWidth()/2+x, Display.getHeight()/2+y);
 		}
 	}
 	

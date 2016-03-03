@@ -84,7 +84,6 @@ public class Stuff extends Item {
 	public boolean canEquipTo(ClassType type) {
 		int i = 0;
 		while(i < classType.length) {
-			System.out.println(classType[i]);
 			if(type == classType[i]) {
 				return true;
 			}
@@ -92,6 +91,7 @@ public class Stuff extends Item {
 		}
 		return false;
 	}
+	
 	public boolean isNecklace() {
 		return type == StuffType.NECKLACE;
 	}

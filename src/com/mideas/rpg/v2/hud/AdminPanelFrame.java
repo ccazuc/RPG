@@ -12,6 +12,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class AdminPanelFrame {
@@ -44,7 +45,7 @@ public class AdminPanelFrame {
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+35, Display.getHeight()/2+y+3*yShift+2, "Update all", Color.white, Color.black, 1, 1, 1);
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException, CloneNotSupportedException {
 		Arrays.fill(hover, false);
 		isHover(0, xLeft, y);
 		isHover(1, xLeft, y+yShift);
@@ -81,6 +82,8 @@ public class AdminPanelFrame {
 			else if(hover[7]) {
 				Mideas.getGold();
 				Mideas.getExp();
+				ShopManager.getShopList().clear();
+				ShopManager.loadStuffs();
 				CharacterStuff.getBagItems();
 				CharacterStuff.getEquippedItems();
 			}

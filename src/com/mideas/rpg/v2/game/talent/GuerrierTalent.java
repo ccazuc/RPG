@@ -161,7 +161,7 @@ public class GuerrierTalent {
 						numberArmsTalent++;
 						numberFirstArms++;
 						numberTalent++;
-						Mideas.joueur1().getSpells()[0].setDamage(Mideas.joueur1().getSpells()[0].getDefaultDamage()*0.05f);
+						Mideas.joueur1().getSpells(0).setDamage(Mideas.joueur1().getSpells(0).getDefaultDamage()*0.05f);
 						Talent.setTalent();
 					}
 					else if(hoverLeft2 && deflectionTalent < 5) {

@@ -4,12 +4,13 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.game.spell.Charge;
-import com.mideas.rpg.v2.game.spell.HeroicStrike;
-import com.mideas.rpg.v2.game.spell.MortalStrike;
-import com.mideas.rpg.v2.game.spell.Rend;
-import com.mideas.rpg.v2.game.spell.Spell;
-import com.mideas.rpg.v2.game.spell.ThunderClap;
+import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
+import com.mideas.rpg.v2.game.spell.SpellManager;
+import com.mideas.rpg.v2.game.spell.list.Charge;
+import com.mideas.rpg.v2.game.spell.list.HeroicStrike;
+import com.mideas.rpg.v2.game.spell.list.MortalStrike;
+import com.mideas.rpg.v2.game.spell.list.Rend;
+import com.mideas.rpg.v2.game.spell.list.ThunderClap;
 
 public class SpellLevel {
 
@@ -26,22 +27,22 @@ public class SpellLevel {
 				spell1 = true;
 			}
 			if(!spell3 && Mideas.getLevel() >= 3) {
-				checkSpellSlot(new Charge());
+				checkSpellSlot(SpellManager.getShortcutSpell(101));
 				Mideas.joueur1().setSpellUnlocked(1, new Charge());
 				spell3 = true;
 			}
 			if(!spell7 && Mideas.getLevel() >= 7) {
-				checkSpellSlot(new ThunderClap());
+				checkSpellSlot(SpellManager.getShortcutSpell(105));
 				Mideas.joueur1().setSpellUnlocked(2, new ThunderClap());
 				spell7 = true;
 			}	
 			if(!spell10 && Mideas.getLevel() >= 10) {
-				checkSpellSlot(new Rend());
+				checkSpellSlot(SpellManager.getShortcutSpell(104));
 				Mideas.joueur1().setSpellUnlocked(3, new Rend());
 				spell10 = true;
 			}
 			if(!spell15 && Mideas.getLevel() >= 15) {
-				checkSpellSlot(new MortalStrike());
+				checkSpellSlot(SpellManager.getShortcutSpell(103));
 				Mideas.joueur1().setSpellUnlocked(4, new MortalStrike());
 				spell15 = true;
 			}	
@@ -56,7 +57,7 @@ public class SpellLevel {
 		spell15 = false;
 	}
 	
-	private static boolean checkSpellSlot(Spell spell) {
+	private static boolean checkSpellSlot(SpellShortcut spell) {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(Mideas.joueur1().getSpells(i) == null) {

@@ -6,16 +6,19 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.shortcut.Shortcut;
+import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
-import com.mideas.rpg.v2.game.spell.SpellHeal;
+import com.mideas.rpg.v2.game.spell.SpellType;
 import com.mideas.rpg.v2.hud.LogChat;
 
 public class Joueur {
 	
 	private String classe;
-	private Spell[] spells;
+	private SpellShortcut[] spells;
 	private Spell[] spellUnlocked;
 	private Stuff[] stuff;
+	private Shortcut[] shortcut;
 	private int maxStamina;
 	private int expGained;
 	private int isHealer;
@@ -32,18 +35,18 @@ public class Joueur {
 	private int goldGained;
 	private int defaultArmor;
 	private int defaultStuffArmor;
-	private int tailorExp;
+	//private int tailorExp;
 	public int x;
 	public static int y;
 	public static int z;
 	
-	public Joueur(int stamina, int strength, float armor, int defaultArmor, int defaultStuffArmor, int critical, int mana, Spell[] spells, Spell[] spellUnlocked, Stuff[] stuff, String classe, int id, int maxStamina, int maxMana, int isHealer, int expGained, int goldGained, int tailorExp) {
+	public Joueur(int stamina, int strength, float armor, int defaultArmor, int defaultStuffArmor, int critical, int mana, SpellShortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff, String classe, int id, int maxStamina, int maxMana, int isHealer, int expGained, int goldGained, int tailorExp) {
 		this.maxStamina = maxStamina;
 		this.expGained = expGained;
 		this.goldGained = goldGained;
 		this.isHealer = isHealer;
 		this.critical = critical;
-		this.tailorExp = tailorExp;
+		//this.tailorExp = tailorExp;
 		this.stamina = stamina;
 		this.maxMana = maxMana;
 		this.strength = strength;
@@ -70,8 +73,8 @@ public class Joueur {
 		
 	}
 	
-	public boolean cast(Spell spell) throws SQLException {
-		if(spell instanceof Spell) {
+	public boolean cast(SpellShortcut spell) throws SQLException {
+		if(spell.getSpellType() == SpellType.DAMAGE) {
 			if(!spell.hasMana()) {
 				attack(Mideas.joueur2());
 			}
@@ -81,7 +84,7 @@ public class Joueur {
 				return true;
 			}
 		}
-		else {
+		else if(spell.getSpellType() == SpellType.HEAL) {
 			if(!spell.hasMana()) {
 				attack(Mideas.joueur2());
 			}
@@ -123,13 +126,13 @@ public class Joueur {
 		}
 	}
 	
-	public void attackUI(Spell spell) throws SQLException {
+	public void attackUI(SpellShortcut spell) throws SQLException {
 		double damage = Mideas.joueur2().getStrength()+Math.random()*100;
 		float rand = (float) Math.random();
 		if(rand < Mideas.joueur2().getCritical()/100.) {
 			damage*= 2;
 		}
-		if(spell instanceof SpellHeal && spell.hasMana()) {
+		if(spell.getSpellType() == SpellType.HEAL && spell.hasMana()) {
 			if(Mideas.joueur2().getStamina() < Mideas.joueur2().getMaxStamina()) {
 				if(Mideas.joueur2().getStamina()+spell.getHeal() >= Mideas.joueur2().getMaxStamina()) {
 					int diff = Mideas.joueur2().getMaxStamina()-Mideas.joueur2().getStamina();
@@ -143,7 +146,7 @@ public class Joueur {
 			}
 		}
 		else {
-			Spell cast = Spell.getRandomSpell();
+			SpellShortcut cast = Spell.getRandomSpell();
 			if(rand > .2 && rand <= .4 && cast.hasMana()) {	
 				cast.cast(Mideas.joueur1(), Mideas.joueur2(), spell);
 				LogChat.setStatusText2("Le joueur 2 a enlevée "+cast.getDamage()+" hp au "+Mideas.joueur1().getClasse()+", "+Mideas.joueur1().getStamina()+" hp restant");
@@ -233,15 +236,15 @@ public class Joueur {
 		return x;
 	}
 
-	public Spell[] getSpells() {
+	public SpellShortcut[] getSpells() {
 		return spells;
 	}
 
-	public Spell getSpells(int i) {
+	public SpellShortcut getSpells(int i) {
 		return spells[i];
 	}
 	
-	public void setSpells(int i, Spell spell) {
+	public void setSpells(int i, SpellShortcut spell) {
 		this.spells[i] = spell;
 	}
 	
@@ -268,6 +271,14 @@ public class Joueur {
 		else if(tempItem.getItemType() == ItemType.STUFF) {
 			this.stuff[i] = (Stuff)tempItem;
 		}
+	}
+	
+	public Shortcut getShortcut(int i) {
+		return shortcut[i];
+	}
+	
+	public Shortcut[] getShortcut() {
+		return shortcut;
 	}
 
 	public void setSpellUnlocked(int i, Spell spell) {

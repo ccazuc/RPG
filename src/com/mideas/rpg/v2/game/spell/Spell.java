@@ -4,6 +4,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.Joueur;
+import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 
 public class Spell {
 	
@@ -39,6 +40,15 @@ public class Spell {
 		this.baseHeal = baseHeal;
 		this.baseCd = baseCd;
 		this.id = id;
+	}
+	
+	public Spell(int id, String sprite_id, String name, SpellType type, int baseDamage, int manaCost, int baseHeal, int baseCd, int cd) {
+		this.id = id;
+		this.name = name;
+		this.baseDamage = baseDamage;
+		this.manaCost = manaCost;
+		this.baseHeal = baseHeal;
+		this.baseCd = baseCd;
 	}
 	
 	public boolean cast(Joueur joueur, Joueur joueur2, Spell spell) {
@@ -136,7 +146,7 @@ public class Spell {
 	}
 	
 	public boolean equal(Spell spell) {
-		if(this.id == spell.getId()) {
+		if(this.id == spell.getSpellId()) {
 			return true;
 		}
 		return false;
@@ -144,29 +154,45 @@ public class Spell {
 	
 	public void setSpellCd(int number) {
 	}
+
+	public static void checkKeyboardCd(Spell spell) {
+		if(spell != null && spell.getSpellId() == spell.getSpellId()) {
+			spell.setSpellCd(spell.getSpellBaseCd());
+		}
+	}
 	
 	public void setDamage(float number) {
 		this.baseDamage = (int)(baseDamage+number);
 	}
 	
-	public int getId() {
+	public int getSpellId() {
 		return this.id;
 	}
 	
-	public static Spell getRandomSpell() {
+	public static SpellShortcut getRandomSpell() {
 		float rand = (float) Math.random();
-		if(rand <= 1/3f) {
-			return Mideas.joueur2().getSpells()[0];
+		if(rand <= 1/3f && Mideas.joueur2().getSpells(0) != null) {
+			return Mideas.joueur2().getSpells(0);
 		}
-		else if(rand <= 2/3f) {
-			if(Mideas.joueur2().getSpells()[1] != null) {
-				return Mideas.joueur2().getSpells()[1];
+		else if(rand <= 2/3f && Mideas.joueur2().getSpells(1) != null) {
+			return Mideas.joueur2().getSpells(1);
+		}
+		else if(Mideas.joueur2().getSpells(2) != null) {
+			return Mideas.joueur2().getSpells(2);
+		}
+		return Mideas.joueur2().getSpells(0);
+	}
+	
+	public static SpellShortcut getSpellToShortcut(Spell spell) {
+		int i = 0;
+		while(i < SpellManager.getSpellShortcutList().size()) {
+			if(SpellManager.getSpellShortcutList().get(i).getSpellId() == spell.getSpellId()) {
+				SpellShortcut tempSpell = SpellManager.getSpellShortcutList().get(i);
+				return new SpellShortcut(tempSpell);
 			}
+			i++;
 		}
-		else if(Mideas.joueur2().getSpells()[2] != null) {
-			return Mideas.joueur2().getSpells()[2];
-		}
-		return Mideas.joueur2().getSpells()[0];
+		return null;
 	}
 }
 

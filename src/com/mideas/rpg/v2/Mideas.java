@@ -2,12 +2,8 @@ package com.mideas.rpg.v2;
 
 import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.SQLException;
@@ -25,26 +21,16 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.classes.DeathKnight;
 import com.mideas.rpg.v2.game.classes.Guerrier;
-import com.mideas.rpg.v2.game.classes.Hunter;
-import com.mideas.rpg.v2.game.classes.Mage;
-import com.mideas.rpg.v2.game.classes.Monk;
-import com.mideas.rpg.v2.game.classes.Paladin;
-import com.mideas.rpg.v2.game.classes.Priest;
-import com.mideas.rpg.v2.game.classes.Rogue;
-import com.mideas.rpg.v2.game.classes.Shaman;
-import com.mideas.rpg.v2.game.classes.Warlock;
-import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.stuff.Bag;
-import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
@@ -139,9 +125,12 @@ public class Mideas {
 		Sprites.sprite8();
 		Sprites.sprite9();
 		Sprites.sprite10();
+		double times = System.currentTimeMillis();
 		StuffManager.loadStuffs();
 		PotionManager.loadPotions();
 		ShopManager.loadStuffs();
+		SpellManager.loadSpells();
+		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-times)/1000.0+"s.");
 		getExpAll();
 		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		joueur2 = getRandomClass(2);
@@ -202,24 +191,24 @@ public class Mideas {
 	
 	public static Joueur getRandomClass(int id) {
 		double rand = Math.random();
-		//rand = 2/10f;
+		rand = 4/10f;
 		if(rand <= 1/10f) {
 			System.out.println("Le joueur "+id+" est un Guerrier !");
 			return new Guerrier();
 		}
-		else if(rand <= 2/10f) {
+		/*else if(rand <= 2/10f) {
 			System.out.println("Le joueur "+id+" est un Priest !");
 			return new Priest();
 		}
 		else if(rand <= 3/10f){
 			System.out.println("Le joueur "+id+" est un Mage !");
 			return new Mage();
-		}
+		}*/
 		else if(rand <= 4/10f) {
 			System.out.println("Le joueur "+id+" est un DeathKnight !");
 			return new DeathKnight();
 		}
-		else if(rand <= 5/10f) {
+		/*else if(rand <= 5/10f) {
 			System.out.println("Le joueur "+id+" est un Hunter !");
 			return new Hunter();
 		}
@@ -242,7 +231,8 @@ public class Mideas {
 		else {
 			System.out.println("Le joueur "+id+" est un Warlock !");
 			return new Warlock();
-		}
+		}*/
+		return new DeathKnight();
 	}
 
 	public static void getExpAll() throws FileNotFoundException, SQLException {
@@ -1299,38 +1289,8 @@ public class Mideas {
 		}
 	}
 
-	public static void setJoueur1(Joueur joueur) throws FileNotFoundException, SQLException {
+	public static void setJoueur1(Joueur joueur) {
 		joueur1 = joueur;
-		if(joueur1.getClasse().equals("Guerrier")) {
-			CharacterStuff.getEquippedItems();
-		}
-		else if(joueur1.getClasse().equals("Paladin")) {
-			CharacterStuff.getEquippedItems();
-		}
-		else if(joueur1.getClasse().equals("Hunter")) {
-			CharacterStuff.getEquippedItems();
-		}
-		else if(joueur1.getClasse().equals("Rogue")) {
-			CharacterStuff.getEquippedItems();
-		}
-		else if(joueur1.getClasse().equals("Priest")) {
-			CharacterStuff.getEquippedItems();
-		}
-		else if(joueur1.getClasse().equals("DeathKnight")) {
-			CharacterStuff.getEquippedItems();
-		}
-		else if(joueur1.getClasse().equals("Shaman")) {
-			CharacterStuff.getEquippedItems();
-		}
-		else if(joueur1.getClasse().equals("Mage")) {
-			CharacterStuff.getEquippedItems();
-		}
-		else if(joueur1.getClasse().equals("Warlock")) {
-			CharacterStuff.getEquippedItems();
-		}
-		else if(joueur1.getClasse().equals("Monk")) {
-			CharacterStuff.getEquippedItems();
-		}
 	}
 	
 	public static int getClassLine() {
@@ -1386,7 +1346,7 @@ public class Mideas {
 				j++;
 			}
 			if(Mideas.joueur1.getSpells(i) != null) {	
-				Mideas.joueur1.getSpells(i).setSpellCd(Mideas.joueur1.getSpells(i).getSpellCd()-1);
+				Mideas.joueur1.getSpells(i).setCd(Mideas.joueur1.getSpells(i).getSpellId(), Mideas.joueur1.getSpells(i).getSpellCd(Mideas.joueur1.getSpells(i).getSpellId())-1);
 			}
 				i++;
 		}

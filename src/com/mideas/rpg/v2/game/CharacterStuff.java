@@ -7,11 +7,12 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class CharacterStuff {
 
+	private static int numberPieceLoaded;
+	private static int numberBagPieceLoaded;
 	/*private static Stuff getStuff(int id) {
 		if(id == 1) {
 			return new SuperHealingPotion();
@@ -573,6 +574,9 @@ public class CharacterStuff {
 			else if(id == 0) {
 				Mideas.bag().setBag(i, null);
 			}
+			if(id != 0) {
+				numberBagPieceLoaded++;
+			}
 			i++;
 		}
 	}
@@ -794,70 +798,87 @@ public class CharacterStuff {
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isHead()) {
 				Mideas.joueur1().setStuff(0, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isNecklace()) {
 				Mideas.joueur1().setStuff(1, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isShoulders()) {
 				Mideas.joueur1().setStuff(2, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBack()) {
 				Mideas.joueur1().setStuff(3, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isChest()) {
 				Mideas.joueur1().setStuff(4, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isWrists()) {
 				Mideas.joueur1().setStuff(7, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isGloves()) {
 				Mideas.joueur1().setStuff(8, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBelt()) {
 				Mideas.joueur1().setStuff(9, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isLeggings()) {
 				Mideas.joueur1().setStuff(10, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBoots()) {
 				Mideas.joueur1().setStuff(11, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing()) {
 				Mideas.joueur1().setStuff(12, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing()) {
 				Mideas.joueur1().setStuff(13, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isTrinket()) {
 				Mideas.joueur1().setStuff(14, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isTrinket()) {
 				Mideas.joueur1().setStuff(15, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isMainHand()) {
 				Mideas.joueur1().setStuff(16, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isOffHand()) {
 				Mideas.joueur1().setStuff(17, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRanged()) {
 				Mideas.joueur1().setStuff(18, StuffManager.getClone(id));
+				numberPieceLoaded++;
 			}
 		}
 		else {
@@ -1052,11 +1073,19 @@ public class CharacterStuff {
 		}
 	}
 	
-	private static void getBag(int i, int id, String sCurrentLine) {
+	public static int getNumberBagPieceLoaded() {
+		return numberBagPieceLoaded;
+	}
+	
+	public static int getNumberPieceLoaded() {
+		return numberPieceLoaded;
+	}
+	
+	/*private static void getBag(int i, int id, String sCurrentLine) {
 		Mideas.bag().setBag(i, (StuffManager.getClone(id)));
 		if(Mideas.bag().getBag(i) instanceof Item) {
 			String number[] = sCurrentLine.split("=");
 			Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), ContainerFrame.getSlotItem(Mideas.bag().getBag(i)), Integer.parseInt(number[1]));
 		}
-	}
+	}*/
 }

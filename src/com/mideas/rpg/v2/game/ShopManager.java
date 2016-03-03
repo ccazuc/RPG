@@ -11,6 +11,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
@@ -21,10 +22,11 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class ShopManager {
 	
-	private static boolean button_hover;
 	private static boolean[] slot_hover = new boolean[12];
 	private static boolean left_arrow;
 	private static boolean right_arrow;
+	private static boolean hover_button;
+	private static int page;
 
 	private static ArrayList<Shop> shopList = new ArrayList<Shop>();
 	
@@ -56,9 +58,6 @@ public class ShopManager {
 		drawShopItem(7, xRight, y+2*yShift);
 		drawShopItem(8, xRight, y+3*yShift);
 		drawShopItem(9, xRight, y+4*yShift);
-		if(button_hover) {
-			Draw.drawQuad(Sprites.close_shop_hover, Display.getWidth()/2+27, Display.getHeight()/2-337);
-		}
 		shopHover(0, xLeft, y);
 		shopHover(1, xLeft, y+yShift);
 		shopHover(2, xLeft, y+2*yShift);
@@ -80,13 +79,65 @@ public class ShopManager {
 		drawGoldCoin(8, xRight, y+3*yShift);
 		drawGoldCoin(9, xRight, y+4*yShift);
 		calcCoin(Mideas.joueur1().getGold(), xRight, y+250);
+		if(hover_button) {
+			Draw.drawQuad(Sprites.close_shop_hover, Display.getWidth()/2+27, Display.getHeight()/2-337);
+		}
+		if(page != 0) {
+			Draw.drawQuad(Sprites.left_colored_arrow, Display.getWidth()/2+xLeft+3, Display.getHeight()/2+y+268);
+		}
+		if(page != 2) {
+			Draw.drawQuad(Sprites.right_colored_arrow, Display.getWidth()/2+xRight+125, Display.getHeight()/2+y+268);
+		}
+		if(right_arrow && page != 2) {
+			Draw.drawQuad(Sprites.right_arrow_hover, Display.getWidth()/2+xRight+125, Display.getHeight()/2+y+268);
+		}
+		if(left_arrow && page != 0) {
+			Draw.drawQuad(Sprites.left_arrow_hover, Display.getWidth()/2+xLeft+3, Display.getHeight()/2+y+268);
+		}
+		if(page == 2) {
+			Draw.drawQuad(Sprites.right_uncolored_arrow, Display.getWidth()/2+xRight+125, Display.getHeight()/2+y+268);
+		}
 	}
 	
 	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		Arrays.fill(slot_hover, false);
+		right_arrow = false;
+		left_arrow = false;
+		hover_button = false;
 		int xLeft = -279;
 		int xRight = -114;
 		int y = -275;
+		if(Mideas.mouseX() >= Display.getWidth()/2+xRight+126 && Mideas.mouseX() <= Display.getWidth()/2+xRight+151 && Mideas.mouseY() >= Display.getHeight()/2+y+266 && Mideas.mouseY() <= Display.getHeight()/2+y+292) {
+			right_arrow = true;
+		}
+		else if(Mideas.mouseX() >= Display.getWidth()/2+xRight-161 && Mideas.mouseX() <= Display.getWidth()/2+xRight-136 && Mideas.mouseY() >= Display.getHeight()/2+y+266 && Mideas.mouseY() <= Display.getHeight()/2+y+292) {
+			left_arrow = true;
+		}
+		if(Mideas.mouseX() >= Display.getWidth()/2+27 && Mideas.mouseX() <= Display.getWidth()/2+46 && Mideas.mouseY() >= Display.getHeight()/2-337 && Mideas.mouseY() <= Display.getHeight()/2-319) {
+			hover_button = true;
+		}
+		if(Mouse.getEventButtonState()) {
+			if(Mideas.mouseX() >= Display.getWidth()/2+27 && Mideas.mouseX() <= Display.getWidth()/2+46 && Mideas.mouseY() >= Display.getHeight()/2-337 && Mideas.mouseY() <= Display.getHeight()/2-319) {
+				Interface.closeShopFrame();
+				return true;
+			}
+			else if(page == 0 && right_arrow) {
+				page++;
+				Interface.setIsShopLoaded(false);
+			}
+			else if(page == 1 && right_arrow) {
+				page++;
+				Interface.setIsShopLoaded(false);
+			}
+			else if(page == 1 && left_arrow) {
+				page--;
+				Interface.setIsShopLoaded(false);
+			}
+			else if(page == 2 && left_arrow) {
+				page--;
+				Interface.setIsShopLoaded(false);
+			}	
+		}
 		isSlotHover(xLeft, y, 0, 41, 0);
 		isSlotHover(xLeft, y, 52, 93, 1);
 		isSlotHover(xLeft, y, 104, 145, 2);
@@ -98,8 +149,8 @@ public class ShopManager {
 		isSlotHover(xRight, y, 156, 197, 8);
 		isSlotHover(xRight, y, 208, 249, 9);
 		int i = 0;
-		while(i < shopList.size()) {
-			buyItems(slot_hover[i], shopList.get(i));
+		while(i < 10 && i+10*page < shopList.size()) {
+			buyItems(slot_hover[i], shopList.get(i+10*page));
 			i++;
 		}
 		return false;
@@ -111,7 +162,7 @@ public class ShopManager {
 			}
 			else {
 				if(Mideas.getCurrentGold() >= stuff.getSellPrice()) {
-					/*if(stuff instanceof Item) {
+					/*if(stuff.get) {
 						EndFightFrame.dropItem(stuff, 1);
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
 						Mideas.setGold(-stuff.getSellPrice());
@@ -132,7 +183,7 @@ public class ShopManager {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
-				Mideas.bag().setBag(i, StuffManager.getStuff(item.getId()));
+				Mideas.bag().setBag(i, StuffManager.getClone(item.getId()));
 				CharacterStuff.setBagItems();
 				return true;
 			}
@@ -143,8 +194,9 @@ public class ShopManager {
 	}
 
 	private static void drawShopItem(int i, int x, int y) {
-		if(i < shopList.size() && shopList.get(i) != null && StuffManager.getStuff(shopList.get(i).getId()) != null) {
-			Draw.drawQuad(IconsManager.getSprite35(StuffManager.getStuff(shopList.get(i).getId()).getSpriteId()), Display.getWidth()/2+x+3, Display.getHeight()/2+y+3);
+		if(i+10*page < shopList.size() && shopList.get(i+10*page) != null && StuffManager.getStuff(shopList.get(i+10*page).getId()) != null) {
+			Draw.drawQuad(IconsManager.getSprite35(StuffManager.getStuff(shopList.get(i+10*page).getId()).getSpriteId()), Display.getWidth()/2+x+3, Display.getHeight()/2+y+3);
+			Draw.drawQuad(Sprites.shop_border, Display.getWidth()/2+x-1, Display.getHeight()/2+y);
 		}
 	}
 	
@@ -161,8 +213,8 @@ public class ShopManager {
 	}
 
 	private static void drawGoldCoin(int i, int x, int y) throws FileNotFoundException {
-		if(i < shopList.size()) {
-			calcCoin(shopList.get(i).getSellPrice(), x+49, y+35);
+		if(i+10*page < shopList.size()) {
+			calcCoin(shopList.get(i+10*page).getSellPrice(), x+49, y+35);
 			Draw.drawQuad(Sprites.cursor, -100, -100);
 		}
 	}
@@ -214,5 +266,9 @@ public class ShopManager {
 			return true;
 		}
 		return true;
+	}
+	
+	public static ArrayList<Shop> getShopList() {
+		return shopList;
 	}
 }

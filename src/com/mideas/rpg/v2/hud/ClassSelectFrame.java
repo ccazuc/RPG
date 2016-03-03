@@ -485,6 +485,7 @@ public class ClassSelectFrame {
 			}
 			Mideas.setJoueur1(joueur);
 			CharacterStuff.getBagItems();
+			CharacterStuff.getEquippedItems();
 			SpellLevel.setSpellLevelFalse();
 			Interface.setIsStuffEquipped(false);
 			Interface.setIsShopLoaded(false);
