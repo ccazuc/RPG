@@ -15,7 +15,7 @@ public class Potion extends Item {
 		
 	}
 	
-	public Potion( int id, String sprite_id, String name, int doHeal, int doMana, int sellPrice) {
+	public Potion(int id, String sprite_id, String name, int doHeal, int doMana, int sellPrice) {
 		super(id, sprite_id, ItemType.POTION, name, sellPrice, 200);
 		this.doHeal = doHeal;
 		this.doMana = doMana;

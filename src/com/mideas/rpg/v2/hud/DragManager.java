@@ -19,6 +19,7 @@ import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffType;
+import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class DragManager {
@@ -90,7 +91,7 @@ public class DragManager {
 					dropBagItem(i);
 					i++;
 				}
-				if(draggedItem != null && !isCharacterHover()) {
+				if(draggedItem != null && !isCharacterHover() && !isSpellBarHover()) {
 					deleteItem = true;
 				}
 			}
@@ -98,8 +99,8 @@ public class DragManager {
 		if(Mouse.getEventButton() == 0) {
 			if(Mouse.getEventButtonState()) {
 				if(hoverDelete && deleteItem) {
-					if(draggedItem.getItemType() == ItemType.ITEM) {
-						Mideas.joueur1().setNumberItem(draggedItem, ContainerFrame.getSlotItem(draggedItem), 0);
+					if(draggedItem.getItemType() == ItemType.ITEM || draggedItem.getItemType() == ItemType.POTION) {
+						Mideas.joueur1().setNumberItem(draggedItem, -1);
 					}
 					deleteItem(draggedItem);
 					draggedItem = null;
@@ -147,6 +148,13 @@ public class DragManager {
 
 	private static boolean deleteItem(Item draggedItem2) {
 		int i = 0;
+		while(i < Mideas.joueur1().getSpells().length) {
+			if(Mideas.joueur1().getSpells(i) instanceof StuffShortcut && ((StuffShortcut)Mideas.joueur1().getSpells(i)).getStuff() == draggedItem2) {
+				Mideas.joueur1().setSpells(i, null);
+			}
+			i++;
+		}
+		i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(draggedItem2 == Mideas.bag().getBag(i)) {
 				Mideas.bag().setBag(i, null);
@@ -235,7 +243,7 @@ public class DragManager {
 				number++;
 			}
 			number--;
-			Mideas.joueur1().setNumberItem(item, ContainerFrame.getSlotItem(item), -1);
+			Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item.getId())-1);
 			CharacterStuff.setBagItems();
 			if(number <= 1) {
 				return true;
@@ -569,8 +577,15 @@ public class DragManager {
 		return false;
 	}
 	
-	public static Item getDraggedItem() {
-		return draggedItem;
+	private static boolean isSpellBarHover() {
+		int i = 0;
+		while(i < SpellBarFrame.getHoverSpellBar().length) {
+			if(SpellBarFrame.getHoverSpellBar(i)) {
+				return true;
+			}
+			i++;
+		}
+		return false;
 	}
 	
 	private static ClassType convClassType() {
@@ -609,5 +624,13 @@ public class DragManager {
 	
 	public static StuffType getStuffType(int i) {
 		return type[i];
+	}
+	
+	public static void setDraggedItem(Item item) {
+		draggedItem = item;
+	}
+	
+	public static Item getDraggedItem() {
+		return draggedItem;
 	}
 }

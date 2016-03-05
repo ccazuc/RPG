@@ -4,11 +4,16 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.Joueur;
+import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
+import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 
 public class Spell {
 	
 	protected Texture sprite;
+	private SpellType type;
 	protected String name = "";
 	private int baseDamage;
 	private int manaCost;
@@ -17,6 +22,7 @@ public class Spell {
 	private int baseHeal;
 	private int baseCd;
 	private int defaultDamage;
+	private String sprite_id;
 	private int id;
 	
 	public Spell(int baseDamage, int manaCost, int baseHeal) {
@@ -44,7 +50,9 @@ public class Spell {
 	
 	public Spell(int id, String sprite_id, String name, SpellType type, int baseDamage, int manaCost, int baseHeal, int baseCd, int cd) {
 		this.id = id;
+		this.sprite_id = sprite_id;
 		this.name = name;
+		this.type = type;
 		this.baseDamage = baseDamage;
 		this.manaCost = manaCost;
 		this.baseHeal = baseHeal;
@@ -57,7 +65,6 @@ public class Spell {
 			useMana(joueur2, spell);
 			return true;
 		}
-		
 		return false;
 	}
 	
@@ -85,6 +92,14 @@ public class Spell {
 	
 	public boolean hasMana() {
 		return Mideas.joueur1().getMana() >= manaCost;
+	}
+	
+	public String getSpriteId() {
+		return sprite_id;
+	}
+	
+	public SpellType getType() {
+		return type;
 	}
 	
 	public void doDamage(Joueur joueur) {
@@ -169,30 +184,18 @@ public class Spell {
 		return this.id;
 	}
 	
-	public static SpellShortcut getRandomSpell() {
+	public static Spell getRandomSpell() {
 		float rand = (float) Math.random();
 		if(rand <= 1/3f && Mideas.joueur2().getSpells(0) != null) {
-			return Mideas.joueur2().getSpells(0);
+			return ((SpellShortcut)Mideas.joueur2().getSpells(0)).getSpell();
 		}
 		else if(rand <= 2/3f && Mideas.joueur2().getSpells(1) != null) {
-			return Mideas.joueur2().getSpells(1);
+			return ((SpellShortcut)Mideas.joueur2().getSpells(1)).getSpell();
 		}
 		else if(Mideas.joueur2().getSpells(2) != null) {
-			return Mideas.joueur2().getSpells(2);
+			return ((SpellShortcut)Mideas.joueur2().getSpells(2)).getSpell();
 		}
-		return Mideas.joueur2().getSpells(0);
-	}
-	
-	public static SpellShortcut getSpellToShortcut(Spell spell) {
-		int i = 0;
-		while(i < SpellManager.getSpellShortcutList().size()) {
-			if(SpellManager.getSpellShortcutList().get(i).getSpellId() == spell.getSpellId()) {
-				SpellShortcut tempSpell = SpellManager.getSpellShortcutList().get(i);
-				return new SpellShortcut(tempSpell);
-			}
-			i++;
-		}
-		return null;
+		return ((SpellShortcut)Mideas.joueur2().getSpells(0)).getSpell();
 	}
 }
 

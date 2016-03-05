@@ -29,6 +29,7 @@ import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.stuff.Bag;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
@@ -1339,14 +1340,14 @@ public class Mideas {
 		while(i < Mideas.joueur1.getSpells().length) {
 			j = 0;
 			while(j < i) {
-				if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(j) != null && Mideas.joueur1.getSpells(i).equal(Mideas.joueur1.getSpells(j))) {
+				if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(j) != null && Mideas.joueur1.getSpells(i) instanceof SpellShortcut && Mideas.joueur1.getSpells(j) instanceof SpellShortcut && ((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().equal(((SpellShortcut)Mideas.joueur1.getSpells(j)).getSpell())) {
 					i++;
 					continue first;
 				}
 				j++;
 			}
-			if(Mideas.joueur1.getSpells(i) != null) {	
-				Mideas.joueur1.getSpells(i).setCd(Mideas.joueur1.getSpells(i).getSpellId(), Mideas.joueur1.getSpells(i).getSpellCd(Mideas.joueur1.getSpells(i).getSpellId())-1);
+			if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(i) instanceof SpellShortcut) {	
+				Mideas.joueur1.getSpells(i).setCd(((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().getSpellId(), SpellManager.getCd(((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().getSpellId())-1);
 			}
 				i++;
 		}

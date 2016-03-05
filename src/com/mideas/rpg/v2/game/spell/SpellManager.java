@@ -29,10 +29,10 @@ public class SpellManager {
 			int baseHeal = statement.getInt();
 			int baseCd = statement.getInt();
 			int cd = statement.getInt();
-			Spell newPiece = new Spell(id, sprite_id, name, type, baseDamage, manaCost, baseHeal, baseCd, cd);
-			SpellShortcut newShortcutPiece = new SpellShortcut(id, sprite_id, name, type, baseDamage, manaCost, baseHeal, baseCd, cd);
-			spellList.add(newPiece);
-			spellShortcutList.add(newShortcutPiece);
+			Spell newSpell = new Spell(id, sprite_id, name, type, baseDamage, manaCost, baseHeal, baseCd, cd);
+			SpellShortcut newShortcutSpell = new SpellShortcut(newSpell);
+			spellList.add(newSpell);
+			spellShortcutList.add(newShortcutSpell);
 			spellCdList.put(id, 0);
 			numberSpellLoaded++;
 		}
@@ -62,7 +62,7 @@ public class SpellManager {
 	public static SpellShortcut getShortcutSpell(int id) {
 		int i = 0;
 		while(i < spellShortcutList.size()) {
-			if(spellShortcutList.get(i).getSpellId() == id) {
+			if(spellShortcutList.get(i).getSpell().getSpellId() == id) {
 				return spellShortcutList.get(i);
 			}
 			i++;

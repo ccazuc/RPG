@@ -7,7 +7,10 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
+import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.list.Charge;
 import com.mideas.rpg.v2.game.spell.list.HeroicStrike;
@@ -19,7 +22,7 @@ import com.mideas.rpg.v2.utils.Draw;
 public class DragSpellManager {
 
 	private static Spell draggedBookSpell;
-	private static SpellShortcut draggedShortcutSpell;
+	private static Shortcut draggedShortcut;
 	private static boolean[] hover = new boolean[13];
 	
 	public static void draw() {
@@ -27,8 +30,8 @@ public class DragSpellManager {
 			Draw.drawQuad(draggedBookSpell.getSprite(), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 		}
-		if(draggedShortcutSpell != null) {
-			Draw.drawQuad(draggedShortcutSpell.getSprite(), Mideas.mouseX(), Mideas.mouseY());
+		if(draggedShortcut != null) {
+			Draw.drawQuad(draggedShortcut.getSprite(), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 		}
 	}
@@ -43,8 +46,8 @@ public class DragSpellManager {
 			isHoverSpellBar(x+i*xShift, y, i);
 			i++;
 		}
-		if(Mouse.getEventButton() == 1) {
-			if(Mouse.getEventButtonState()) {
+		if(Mouse.getEventButtonState()) {
+		   	if(Mouse.getEventButton() == 1) {
 				i = 0;
 				while(i <= 10) {
 					clickSpell(i);
@@ -66,20 +69,29 @@ public class DragSpellManager {
 					draggedBookSpell = new MortalStrike();
 				}
 			}
-			else {
+		}
+		if(!Mouse.getEventButtonState()) {
+			if(DragManager.getDraggedItem() != null && Mouse.getEventButton() == 0) {
 				i = 0;
 				while(i <= 10) {
 					dropSpell(i);
 					i++;
 				}
-				if(draggedShortcutSpell != null) {
-					deleteSpell(draggedShortcutSpell);
-					draggedShortcutSpell = null;
+			}
+			else if(Mouse.getEventButton() == 1) {
+				i = 0;
+				while(i <= 10) {
+					dropSpell(i);
+					i++;
 				}
-				if(draggedBookSpell != null) {
-					//deleteSpell(draggedSpellBook);
-					draggedBookSpell = null;
-				}
+			}
+			if(draggedShortcut != null) {
+				deleteSpell(draggedShortcut);
+				//draggedShortcutSpell = null;
+			}
+			if(draggedBookSpell != null) {
+				//deleteSpell(draggedSpellBook);
+				draggedBookSpell = null;
 			}
 		}
 		return false;
@@ -91,7 +103,7 @@ public class DragSpellManager {
 		}
 	}
 	
-	private static void deleteSpell(SpellShortcut draggedSpell) {
+	private static void deleteSpell(Shortcut draggedSpell) {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(draggedSpell == Mideas.joueur1().getSpells(i)) {
@@ -103,19 +115,36 @@ public class DragSpellManager {
 	
 	private static void clickSpell(int i) {
 		if(hover[i]) {
-			SpellShortcut tempShortcutSpell = Mideas.joueur1().getSpells(i);
-			draggedShortcutSpell = Mideas.joueur1().getSpells(i);
-			if(tempShortcutSpell != null) {
-				Mideas.joueur1().setSpells(i, tempShortcutSpell);
+			if(Mideas.joueur1().getSpells(i) instanceof SpellShortcut) {
+				if(Mideas.joueur1().getSpells(i) == null) {
+					if(draggedShortcut != null) {
+						Mideas.joueur1().setSpells(i, draggedShortcut);
+						draggedShortcut = null;
+					}
+				}
+				else if(Mideas.joueur1().getSpells(i) != null) {
+					if(draggedShortcut != null) {
+						Shortcut tempShortcutSpell = Mideas.joueur1().getSpells(i);
+						Mideas.joueur1().setSpells(i, draggedShortcut);
+						draggedShortcut = tempShortcutSpell;
+					}
+					else {
+						draggedShortcut = Mideas.joueur1().getSpells(i);
+						Mideas.joueur1().setSpells(i, null);
+					}
+				}
+			}
+			else if(Mideas.joueur1().getSpells(i) instanceof StuffShortcut) {
+				
 			}
 		}
 	}
 	
-	private static boolean setNullSpell(SpellShortcut draggedSpell, SpellShortcut slot) {
+	private static boolean setNullSpell(Shortcut spell) {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
-			if(draggedSpell == Mideas.joueur1().getSpells(i)) {
-				Mideas.joueur1().setSpells(i, slot);
+			if(spell == Mideas.joueur1().getSpells(i)) {
+				Mideas.joueur1().setSpells(i, null);
 				return true;
 			}
 			i++;
@@ -124,27 +153,39 @@ public class DragSpellManager {
 	}
 	
 	private static void dropSpell(int i) {
-		if(hover[i] && draggedShortcutSpell != null) {
-			SpellShortcut tempSpell = Mideas.joueur1().getSpells(i);
-			if(setNullSpell(draggedShortcutSpell, Mideas.joueur1().getSpells(i))) {
-				Mideas.joueur1().setSpells(i, draggedShortcutSpell);
-				draggedShortcutSpell = null;
+		if(hover[i] && draggedShortcut != null) {
+			if(Mideas.joueur1().getSpells(i) == null) {
+				setNullSpell(draggedShortcut);
+				Mideas.joueur1().setSpells(i, draggedShortcut);
+				draggedShortcut = null;
 			}
 			else {
-				Mideas.joueur1().setSpells(i, draggedShortcutSpell);
-				draggedShortcutSpell = tempSpell;
+				Shortcut tempSpellShortcut = Mideas.joueur1().getSpells(i);
+				Mideas.joueur1().setSpells(i, tempSpellShortcut);
+				setNullSpell(draggedShortcut);
+				draggedShortcut = tempSpellShortcut;
 			}
 		}
-		if(hover[i] && draggedBookSpell != null) {
-			SpellShortcut tempSpell = Mideas.joueur1().getSpells(i);
-			Mideas.joueur1().setSpells(i, Spell.getSpellToShortcut(draggedBookSpell));
-			if(Mideas.joueur1().getSpells(i) != null) {
-				draggedShortcutSpell = tempSpell;
+		else if(hover[i] && draggedBookSpell != null) {
+			if(Mideas.joueur1().getSpells(i) == null) {
+				Mideas.joueur1().setSpells(i, new SpellShortcut(draggedBookSpell));
+				draggedShortcut = null;
+			}
+			else {
+				Shortcut tempSpell = Mideas.joueur1().getSpells(i);
+				Mideas.joueur1().setSpells(i, new SpellShortcut(draggedBookSpell));
+				draggedShortcut = tempSpell;
+			}
+		}
+		else if(hover[i] && DragManager.getDraggedItem() != null) {
+			if(Mideas.joueur1().getSpells(i) == null) {
+				Mideas.joueur1().setSpells(i, new StuffShortcut((Stuff)DragManager.getDraggedItem()));
+				DragManager.setDraggedItem(null);
 			}
 		}
 	}
 	
-	public static SpellShortcut getDraggedSpell() {
-		return draggedShortcutSpell;
+	public static Shortcut getDraggedSpell() {
+		return draggedShortcut;
 	}
 }

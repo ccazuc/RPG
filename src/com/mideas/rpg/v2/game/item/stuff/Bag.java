@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
+import java.util.HashMap;
+
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
@@ -8,17 +10,38 @@ public class Bag {
 	
 	private Item[] bag = new Item[33];
 	private int[] numberItem = new int[33];
+	private HashMap<Item, Integer> numberStack = new HashMap<Item, Integer>();
 	
 	public Item[] getBag() {
 		return bag;
 	}
 	
-	public int getNumberBagItem(int i) {
-		return numberItem[i];
+	public HashMap<Item, Integer> getNumberStack() {
+		return numberStack;
 	}
 	
-	public void setNumberBagItem(int i, int number) {
-		numberItem[i]+= number;
+	public Item getEquals(Item item) {
+		int i = 0;
+		//while(i < numberStack.size()) {
+	//		if(numberStack.get(i) != null && numberStack.get(i).equals(item)) {
+				return getKey(item);
+		//	}
+			//i++;
+		//}
+		//return null;
+	}
+	
+	private Item getKey(Item item){
+	    for(Item key : numberStack.keySet()) {
+	        if(key.getId() == item.getId()) {
+	        	return key;
+	        }
+	    }
+	    return null;
+	}
+	
+	public int getNumberBagItem(int i) {
+		return numberStack.get(i);
 	}
 	
 	public Item getBag(int i) {
@@ -42,6 +65,6 @@ public class Bag {
 	
 	public void setBag(int i, Item stuff, int number) {
 		bag[i] = stuff;
-		numberItem[i] = number;
+		numberStack.put(stuff, number);
 	}
 }

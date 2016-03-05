@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
@@ -562,14 +564,22 @@ public class CharacterStuff {
 	public static void getBagItems() throws FileNotFoundException, SQLException {
 	int i = 0;
 	int id;
-	JDOStatement statement = Mideas.getJDO().prepare("SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23, slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31, slot32 FROM bag WHERE class = ?");
+	int number;
+	JDOStatement statement = Mideas.getJDO().prepare("SELECT slot1, numberstack1, slot2, numberstack2, slot3, numberstack3, slot4, numberstack4, slot5, numberstack5, slot6, numberstack6, slot7, numberstack7, slot8, numberstack8, slot9, numberstack9, slot10, numberstack10, slot11, numberstack11, slot12, numberstack12, slot13, numberstack13, slot14, numberstack14, slot15, numberstack15, slot16, numberstack16, slot17, numberstack17, slot18, numberstack18, slot19, numberstack19, slot20, numberstack20, slot21, numberstack21, slot22, numberstack22, slot23, numberstack23, slot24, numberstack24, slot25, numberstack25, slot26, numberstack26, slot27, numberstack27, slot28, numberstack28, slot29, numberstack29, slot30, numberstack30, slot31, numberstack31, slot32, numberstack32 FROM bag WHERE class = ?");
 	statement.putString(Mideas.joueur1().getClasse());
 	statement.execute();
 	if(statement.fetch()) {
 		while(i < 32) {
 			id = statement.getInt();
+			number = statement.getInt();
 			if(StuffManager.exists(id)) {
 				Mideas.bag().setBag(i, StuffManager.getClone(id));
+			}
+			if(PotionManager.exists(id)) {
+				if(PotionManager.getPotion(id).getItemType() == ItemType.POTION) {
+					Mideas.bag().setBag(i, PotionManager.getClone(id));
+					Mideas.bag().getNumberStack().put(Mideas.bag().getBag(i), number);
+				}
 			}
 			else if(id == 0) {
 				Mideas.bag().setBag(i, null);
@@ -701,15 +711,21 @@ public class CharacterStuff {
 		}*/
 	}
 	public static void setBagItems() throws FileNotFoundException, SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("UPDATE bag SET slot1 = ?, slot2 = ?, slot3 = ?, slot4 = ?, slot5 = ?, slot6 = ?, slot7 = ?, slot8 = ?, slot9 = ?, slot10 = ?, slot11 = ?, slot12 = ?, slot13 = ?, slot14 = ?, slot15 = ?, slot16 = ?, slot17 = ?, slot18 = ?, slot19 = ?, slot20 = ?, slot21 = ?, slot22 = ?, slot23 = ?, slot24 = ?, slot25 = ?, slot26 = ?, slot27 = ?, slot28 = ?, slot29 = ?, slot30 = ?, slot31 = ?, slot32 = ? WHERE class = ?");
+		JDOStatement statement = Mideas.getJDO().prepare("UPDATE bag SET slot1 = ?, numberStack1 = ?, slot2 = ?, numberStack2 = ?, slot3 = ?, numberStack3 = ?, slot4 = ?, numberStack4 = ?, slot5 = ?, numberStack5 = ?, slot6 = ?, numberStack6 = ?, slot7 = ?, numberStack7 = ?, slot8 = ?, numberStack8 = ?, slot9 = ?, numberStack9 = ?, slot10 = ?, numberStack10 = ?, slot11 = ?, numberStack11 = ?, slot12 = ?, numberStack12 = ?, slot13 = ?, numberStack13 = ?, slot14 = ?, numberStack14 = ?, slot15 = ?, numberStack15 = ?, slot16 = ?, numberStack16 = ?, slot17 = ?, numberStack17 = ?, slot18 = ?, numberStack18 = ?, slot19 = ?, numberStack19 = ?, slot20 = ?, numberStack20 = ?, slot21 = ?, numberStack21 = ?, slot22 = ?, numberStack22 = ?, slot23 = ?, numberStack23 = ?, slot24 = ?, numberStack24 = ?, slot25 = ?, numberStack25 = ?, slot26 = ?, numberStack26 = ?, slot27 = ?, numberStack27 = ?, slot28 = ?, numberStack28 = ?, slot29 = ?, numberStack29 = ?, slot30 = ?, numberStack30 = ?, slot31 = ?, numberStack31 = ?, slot32 = ?, numberStack32 = ? WHERE class = ?");
 		int i = 0;
 		while(i < 32) {
 			Item tempBag = Mideas.bag().getBag(i);
 			if(tempBag == null) {
 				statement.putInt(0);
+				statement.putInt(0);
 			}
-			else {
+			else if(tempBag.getItemType() == ItemType.STUFF) {
 				statement.putInt(tempBag.getId());
+				statement.putInt(0);
+			}
+			else if(tempBag.getItemType() == ItemType.ITEM || tempBag.getItemType() == ItemType.POTION) {
+				statement.putInt(tempBag.getId());
+				statement.putInt(Mideas.bag().getNumberStack().get(tempBag));
 			}
 			i++;
 		}

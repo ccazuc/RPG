@@ -700,7 +700,7 @@ public class ContainerFrame {
 			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
 				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item, getSlotItem(item))+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item, getSlotItem(item)));
 				Mideas.setGold(item.getSellPrice()*Mideas.joueur1().getNumberItem(item, getSlotItem(item)));
-				Mideas.joueur1().setNumberItem(item, ContainerFrame.getSlotItem(item), 0);
+				Mideas.joueur1().setNumberItem(item, 0);
 			}
 			else {
 				Mideas.setGold(item.getSellPrice());

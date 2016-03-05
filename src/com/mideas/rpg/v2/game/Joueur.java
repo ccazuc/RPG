@@ -6,6 +6,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -15,7 +16,7 @@ import com.mideas.rpg.v2.hud.LogChat;
 public class Joueur {
 	
 	private String classe;
-	private SpellShortcut[] spells;
+	private Shortcut[] spells;
 	private Spell[] spellUnlocked;
 	private Stuff[] stuff;
 	private Shortcut[] shortcut;
@@ -40,7 +41,7 @@ public class Joueur {
 	public static int y;
 	public static int z;
 	
-	public Joueur(int stamina, int strength, float armor, int defaultArmor, int defaultStuffArmor, int critical, int mana, SpellShortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff, String classe, int id, int maxStamina, int maxMana, int isHealer, int expGained, int goldGained, int tailorExp) {
+	public Joueur(int stamina, int strength, float armor, int defaultArmor, int defaultStuffArmor, int critical, int mana, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff, String classe, int id, int maxStamina, int maxMana, int isHealer, int expGained, int goldGained, int tailorExp) {
 		this.maxStamina = maxStamina;
 		this.expGained = expGained;
 		this.goldGained = goldGained;
@@ -73,8 +74,9 @@ public class Joueur {
 		
 	}
 	
-	public boolean cast(SpellShortcut spell) throws SQLException {
-		if(spell.getSpellType() == SpellType.DAMAGE) {
+	public boolean cast(Spell spell) throws SQLException {
+		System.out.println(spell);
+		if(spell.getType() == SpellType.DAMAGE) {
 			if(!spell.hasMana()) {
 				attack(Mideas.joueur2());
 			}
@@ -84,7 +86,7 @@ public class Joueur {
 				return true;
 			}
 		}
-		else if(spell.getSpellType() == SpellType.HEAL) {
+		else if(spell.getType() == SpellType.HEAL) {
 			if(!spell.hasMana()) {
 				attack(Mideas.joueur2());
 			}
@@ -126,13 +128,13 @@ public class Joueur {
 		}
 	}
 	
-	public void attackUI(SpellShortcut spell) throws SQLException {
+	public void attackUI(Spell spell) throws SQLException {
 		double damage = Mideas.joueur2().getStrength()+Math.random()*100;
 		float rand = (float) Math.random();
 		if(rand < Mideas.joueur2().getCritical()/100.) {
 			damage*= 2;
 		}
-		if(spell.getSpellType() == SpellType.HEAL && spell.hasMana()) {
+		if(spell.getType() == SpellType.HEAL && spell.hasMana()) {
 			if(Mideas.joueur2().getStamina() < Mideas.joueur2().getMaxStamina()) {
 				if(Mideas.joueur2().getStamina()+spell.getHeal() >= Mideas.joueur2().getMaxStamina()) {
 					int diff = Mideas.joueur2().getMaxStamina()-Mideas.joueur2().getStamina();
@@ -146,7 +148,7 @@ public class Joueur {
 			}
 		}
 		else {
-			SpellShortcut cast = Spell.getRandomSpell();
+			Spell cast = Spell.getRandomSpell();
 			if(rand > .2 && rand <= .4 && cast.hasMana()) {	
 				cast.cast(Mideas.joueur1(), Mideas.joueur2(), spell);
 				LogChat.setStatusText2("Le joueur 2 a enlevée "+cast.getDamage()+" hp au "+Mideas.joueur1().getClasse()+", "+Mideas.joueur1().getStamina()+" hp restant");
@@ -236,15 +238,15 @@ public class Joueur {
 		return x;
 	}
 
-	public SpellShortcut[] getSpells() {
+	public Shortcut[] getSpells() {
 		return spells;
 	}
 
-	public SpellShortcut getSpells(int i) {
+	public Shortcut getSpells(int i) {
 		return spells[i];
 	}
 	
-	public void setSpells(int i, SpellShortcut spell) {
+	public void setSpells(int i, Shortcut spell) {
 		this.spells[i] = spell;
 	}
 	
@@ -319,14 +321,14 @@ public class Joueur {
 	
 	public int getNumberItem(Item item, int i) {
 		if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
-			return Mideas.bag().getNumberBagItem(i);
+			return Mideas.bag().getNumberStack().get(item);
 		}
 		return 0;
 	}
 	
-	public void setNumberItem(Item potion, int i, int number) {
+	public void setNumberItem(Item potion, int number) {
 		if(potion.getItemType() == ItemType.ITEM || potion.getItemType() == ItemType.POTION) {
-			Mideas.bag().setNumberBagItem(i, number);;
+			Mideas.bag().getNumberStack().put(potion, number);
 		}
 	}
 } 

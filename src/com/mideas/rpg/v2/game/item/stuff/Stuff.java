@@ -57,10 +57,12 @@ public class Stuff extends Item {
 		return mana;
 	}
 	
+	@Override
 	public int getId() {
 		return id;
 	}
-	
+
+	@Override
 	public String getSpriteId() {
 		return sprite_id;
 	}
@@ -151,7 +153,8 @@ public class Stuff extends Item {
 	public boolean equals(Stuff item) {
 		return item != null && item.getId() == id;
 	}
-	
+
+	@Override
 	public String getStuffName() {
 		return name;
 	}
@@ -159,7 +162,8 @@ public class Stuff extends Item {
 	public int getPrice() {
 		return price;
 	}
-	
+
+	@Override
 	public int getSellPrice() {
 		return sellPrice;
 	}

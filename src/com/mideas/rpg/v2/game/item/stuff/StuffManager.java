@@ -5,11 +5,13 @@ import java.util.ArrayList;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class StuffManager {
 
 	private static ArrayList<Stuff> stuffList = new ArrayList<Stuff>();
+	private static ArrayList<StuffShortcut> stuffShortcutList = new ArrayList<StuffShortcut>();
 	private static int numberStuffLoaded;
 	
 	public static void loadStuffs() throws SQLException, CloneNotSupportedException {
@@ -30,6 +32,8 @@ public class StuffManager {
 			int strength = statement.getInt();
 			int sellPrice = statement.getInt();
 			Stuff newPiece = new Stuff(type, classeType, sprite_id, id, name, critical, strength, stamina, armor, mana, sellPrice);
+			StuffShortcut newShortcutPiece = new StuffShortcut(newPiece);
+			stuffShortcutList.add(newShortcutPiece);
 			stuffList.add(newPiece);
 			numberStuffLoaded++;
 		}
@@ -163,6 +167,14 @@ public class StuffManager {
 	
 	public static int getNumberStuffLoaded() {
 		return numberStuffLoaded;
+	}
+	
+	public static ArrayList<Stuff> getStuffList() {
+		return stuffList;
+	}
+	
+	public static ArrayList<StuffShortcut> getStuffShortcutList() {
+		return stuffShortcutList;
 	}
 	
 }

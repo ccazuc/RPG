@@ -107,8 +107,8 @@ public class EndFightFrame {
 				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) == null) {
 						Mideas.bag().setBag(i, potion);
-						number = Mideas.joueur1().getNumberItem(potion, i)+1;
-						Mideas.joueur1().setNumberItem(potion, ContainerFrame.getSlotItem(potion), 1);
+						//number = Mideas.joueur1().getNumberItem(potion, i)+1;
+						Mideas.joueur1().setNumberItem(potion, 1);
 						CharacterStuff.setBagItems();
 						return true;
 					}
@@ -118,7 +118,7 @@ public class EndFightFrame {
 			else {
 				int i = 0;
 				while(i < Mideas.bag().getBag().length) {
-					lootItems(Mideas.bag().getBag(i), i, potion, number);
+					lootItems(Mideas.bag().getBag(i), i, potion, 1);
 					i++;
 				}
 			}
@@ -156,10 +156,10 @@ public class EndFightFrame {
 	}
 	
 	private static void lootItems(Item item, int i, Item potion, int number) throws FileNotFoundException, SQLException {
-		if(item != null && item.equals(potion)) {
+		if(item != null && item == potion) {
 			item = potion;
 			number = Mideas.joueur1().getNumberItem(potion, i)+1;
-			Mideas.joueur1().setNumberItem(potion, ContainerFrame.getSlotItem(potion), 1);
+			Mideas.joueur1().setNumberItem(potion,  1);
 			CharacterStuff.setBagItems();
 		}
 	}

@@ -10,6 +10,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class GuerrierTalent {
@@ -161,7 +162,7 @@ public class GuerrierTalent {
 						numberArmsTalent++;
 						numberFirstArms++;
 						numberTalent++;
-						Mideas.joueur1().getSpells(0).setDamage(Mideas.joueur1().getSpells(0).getDefaultDamage()*0.05f);
+						((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().setDamage(((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().getDefaultDamage()*0.05f);
 						Talent.setTalent();
 					}
 					else if(hoverLeft2 && deflectionTalent < 5) {
@@ -205,7 +206,7 @@ public class GuerrierTalent {
 					numberArmsTalent--;
 					numberFirstArms--;
 					numberTalent--;
-					Mideas.joueur1().getSpells()[0].setDamage(-Mideas.joueur1().getSpells()[0].getDefaultDamage()*0.05f);
+					((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().setDamage(-((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().getDefaultDamage()*0.05f);
 					Talent.setTalent();
 				}
 				else if(hoverLeft2 && deflectionTalent > 0 && checkLine(numberFirstArms, improvedCharge, ironWill, improvedThunderClap)) {
