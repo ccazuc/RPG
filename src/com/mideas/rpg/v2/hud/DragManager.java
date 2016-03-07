@@ -37,7 +37,7 @@ public class DragManager {
 			Draw.drawQuad(IconsManager.getSprite42((draggedItem.getSpriteId())), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 			if(draggedItem.getItemType() == ItemType.ITEM || draggedItem.getItemType() == ItemType.POTION) {
-				TTF2.itemNumber.drawStringShadow(Mideas.mouseX()+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(draggedItem, ContainerFrame.getSlotItem(draggedItem)))), Mideas.mouseY()+20, String.valueOf(Mideas.joueur1().getNumberItem(draggedItem, ContainerFrame.getSlotItem(draggedItem))), Color.white, Color.black, 1, 1, 1);
+				TTF2.itemNumber.drawStringShadow(Mideas.mouseX()+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(draggedItem))), Mideas.mouseY()+20, String.valueOf(Mideas.joueur1().getNumberItem(draggedItem)), Color.white, Color.black, 1, 1, 1);
 			}
 		}
 		if(deleteItem && draggedItem != null) {
@@ -123,7 +123,7 @@ public class DragManager {
 			if(Mouse.getEventButtonState()) {
 				int i = 0;
 				while(i < Mideas.bag().getBag().length) {
-					if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getItemType() == ItemType.POTION && doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i), ContainerFrame.getSlotItem(Mideas.bag().getBag(i))))) {
+					if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getItemType() == ItemType.POTION && doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i))) {
 						Mideas.bag().setBag(i, null);
 						return true;
 					}
@@ -228,24 +228,24 @@ public class DragManager {
 		}
 	}
 	
-	private static boolean doHealingPotion(Potion item, boolean hover, int number) throws FileNotFoundException, SQLException {
+	private static boolean doHealingPotion(Potion item, boolean hover) throws FileNotFoundException, SQLException {
 		if(hover && item != null && item.getItemType() == ItemType.POTION) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
+				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
 			}
 			else if(Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()+item.getPotionHeal());
 				LogChat.setStatusText3("Vous vous êtes rendu "+item.getPotionHeal()+" hp");
+				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
 			}
 			else {
 				LogChat.setStatusText3("Vos HP étaient déjà au maximum");
-				number++;
 			}
-			number--;
-			Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item.getId())-1);
 			CharacterStuff.setBagItems();
-			if(number <= 1) {
+			if(Mideas.joueur1().getNumberItem(item) <= 0) {
+				CharacterStuff.setBagItems();
 				return true;
 			}
 		}

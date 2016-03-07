@@ -10,7 +10,7 @@ public class Bag {
 	
 	private Item[] bag = new Item[33];
 	private int[] numberItem = new int[33];
-	private HashMap<Item, Integer> numberStack = new HashMap<Item, Integer>();
+	private static HashMap<Item, Integer> numberStack = new HashMap<Item, Integer>();
 	
 	public Item[] getBag() {
 		return bag;
@@ -22,26 +22,26 @@ public class Bag {
 	
 	public Item getEquals(Item item) {
 		int i = 0;
-		//while(i < numberStack.size()) {
-	//		if(numberStack.get(i) != null && numberStack.get(i).equals(item)) {
+		while(i < numberStack.size()) {
+			if(numberStack.get(i) != null && numberStack.get(i).equals(item)) {
 				return getKey(item);
-		//	}
-			//i++;
-		//}
-		//return null;
+			}
+			i++;
+		}
+		return null;
 	}
 	
-	private Item getKey(Item item){
+	public static Item getKey(Item item){
 	    for(Item key : numberStack.keySet()) {
-	        if(key.getId() == item.getId()) {
+	       if(key.getId() == item.getId()) {
 	        	return key;
 	        }
 	    }
 	    return null;
 	}
 	
-	public int getNumberBagItem(int i) {
-		return numberStack.get(i);
+	public int getNumberBagItem(Item item) {
+		return numberStack.get(item);
 	}
 	
 	public Item getBag(int i) {

@@ -319,7 +319,7 @@ public class Joueur {
 		exp = baseExp+expGained;
 	}
 	
-	public int getNumberItem(Item item, int i) {
+	public int getNumberItem(Item item) {
 		if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
 			return Mideas.bag().getNumberStack().get(item);
 		}

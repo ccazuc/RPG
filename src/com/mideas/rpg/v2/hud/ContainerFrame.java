@@ -689,7 +689,7 @@ public class ContainerFrame {
 	private static void drawBorder(Item item, Texture border, int x, int y) {
 		if(item != null && item != DragManager.getDraggedItem()) {
 			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
-				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(item, getSlotItem(item)))), Display.getHeight()/2+y+20, String.valueOf(Mideas.joueur1().getNumberItem(item, getSlotItem(item))), Color.white, Color.black, 1, 1, 1);
+				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(item))), Display.getHeight()/2+y+20, String.valueOf(Mideas.joueur1().getNumberItem(item)), Color.white, Color.black, 1, 1, 1);
 			}
 		Draw.drawQuad(border, Display.getWidth()+x, Display.getHeight()/2+y);
 		}
@@ -698,8 +698,8 @@ public class ContainerFrame {
 	private static boolean sellItem(Item item, boolean slot_hover) throws FileNotFoundException, SQLTimeoutException, SQLException {
 		if(item != null && slot_hover && Interface.getShopFrameStatus()) {
 			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
-				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item, getSlotItem(item))+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item, getSlotItem(item)));
-				Mideas.setGold(item.getSellPrice()*Mideas.joueur1().getNumberItem(item, getSlotItem(item)));
+				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
+				Mideas.setGold(item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
 				Mideas.joueur1().setNumberItem(item, 0);
 			}
 			else {
@@ -783,7 +783,7 @@ public class ContainerFrame {
 		if(Mideas.bag().getBag(i) != null && !(Mideas.bag().getBag(i) == DragManager.getDraggedItem())) {
 			Draw.drawQuad(IconsManager.getSprite35((Mideas.bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()/2+y);
 			Draw.drawQuad(Sprites.cursor, -200, -200);
-			if(Mideas.bag().getBag(i).getItemType() == ItemType.ITEM && Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i), getSlotItem(Mideas.bag().getBag(i))) <= 0) {
+			if(Mideas.bag().getBag(i).getItemType() == ItemType.ITEM && Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
 				Mideas.bag().setBag(i, null);
 			}
 		}

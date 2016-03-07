@@ -146,11 +146,6 @@ public class SpellBarFrame {
 	}
 	
 	public static boolean keyboardEvent() throws SQLException {
-		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == Keyboard.KEY_1) {
-			Mideas.joueur1().tick();
-			Mideas.setCurrentPlayer(false);
-			return true;
-		}
 		if(Keyboard.getEventKey() == Keyboard.KEY_2) {
 			keyboardAttack(Mideas.joueur1().getSpells(0));
 			return true;
@@ -240,7 +235,7 @@ public class SpellBarFrame {
 				number++;
 			}
 			number--;
-			Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(ContainerFrame.getSlotItem(item))-1);
+			Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
 			CharacterStuff.setBagItems();
 			if(number <= 1) {
 				return true;

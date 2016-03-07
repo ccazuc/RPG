@@ -16,7 +16,7 @@ public class PotionShortcut {
 	Potion potion;
 	
 	public void use() throws SQLException, FileNotFoundException {
-		SpellBarFrame.doHealingPotion(potion, Mideas.joueur1().getNumberItem(potion, ContainerFrame.getSlotItem(potion)));
+		SpellBarFrame.doHealingPotion(potion, Mideas.joueur1().getNumberItem(potion));
 	}
 	
 	public Texture getSprite() {
