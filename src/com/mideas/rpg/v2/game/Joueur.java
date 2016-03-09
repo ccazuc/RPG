@@ -6,9 +6,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
-import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
-import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellType;
 import com.mideas.rpg.v2.hud.LogChat;
@@ -317,6 +315,14 @@ public class Joueur {
 	
 	public void setExp(int baseExp, int expGained ) {
 		exp = baseExp+expGained;
+	}
+	
+	public void setMaxStamina(int stamina) {
+		maxStamina = stamina;
+	}
+	
+	public void setMaxMana(int mana) {
+		maxMana = mana;
 	}
 	
 	public int getNumberItem(Item item) {

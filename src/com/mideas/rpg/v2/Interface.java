@@ -18,6 +18,7 @@ import com.mideas.rpg.v2.game.talent.Talent;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
+import com.mideas.rpg.v2.hud.ChatFrame;
 import com.mideas.rpg.v2.hud.ClassSelectFrame;
 import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.CraftManager;
@@ -55,9 +56,11 @@ public class Interface {
 	private static boolean isConfigLoaded;
 	private static boolean isChangeClassActive;
 	private static boolean craftFrameActive;
+	private static boolean chatFrameActive = true;
+	private static boolean logFightFrameActive;
 
 	public static void draw() throws LWJGLException, IOException, SQLException {
-		Draw.drawQuad(Sprites.current_bg, Display.getWidth()/2-Sprites.current_bg.getImageWidth()/2, Display.getHeight()/2-Sprites.current_bg.getImageHeight()/2);	
+		Draw.drawQuad(Sprites.current_bg, Display.getWidth()/2-Sprites.current_bg.getImageWidth()/2, Display.getHeight()/2-Sprites.current_bg.getImageHeight()/2);
 		if(!isConfigLoaded) {
 			Mideas.getConfig();
 			isConfigLoaded = true;
@@ -115,14 +118,13 @@ public class Interface {
 					if(craftFrameActive) {
 						CraftManager.draw();
 					}
-					if(!isShopLoaded) {
-						//CharacterStuff.getShopItems();
-						isShopLoaded = true;
-					}
 					if(BlackTemple.getBlackTempleStatus()) {
 						Dungeon.event();
 					}
 					LogChat.draw();
+					if(chatFrameActive) {
+						ChatFrame.draw();
+					}
 					DragManager.draw();
 					PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
 					Draw.drawQuad(Sprites.level, 50, 95);
@@ -184,6 +186,11 @@ public class Interface {
 					return true;
 				}
 			}
+			if(chatFrameActive) {
+				if(ChatFrame.mouseEvent()) {
+					return true;
+				}
+			}
 			if(craftFrameActive) {
 				if(CraftManager.mouseEvent()) {
 					return true;
@@ -220,110 +227,114 @@ public class Interface {
 		return false;
 	}
 	
-	public static boolean keyboardEvent() throws LWJGLException, IOException, SQLException {
-		if(Keyboard.getEventKeyState()) {
-			if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
-				closeShopFrame();
-				closeSpellBookFrame();
-				closeAdminPanelFrame();
-				Arrays.fill(ShopFrame.getShopHover(), false);
-				Arrays.fill(SpellBookFrame.getHoverBook(), false);
-				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-				characterFrameActive = !characterFrameActive;
-				return true;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_B && !escapeFrameActive) {
-				containerFrameActive = !containerFrameActive;
-				Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
-				//Mideas.cursorFrame("sprite/interface/cursor.png");
-				return true;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_T && !escapeFrameActive) {
-				closeCharacterFrame();
-				closeSpellBookFrame();
-				closeAdminPanelFrame();
-				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-				Arrays.fill(SpellBookFrame.getHoverBook(), false);
-				Arrays.fill(ShopFrame.getShopHover(), false);
-				ShopFrame.setHoverShopFalse();
-				shopFrameActive = !shopFrameActive;
-				//Mideas.cursorFrame("sprite/interface/cursor.png");
-				return true;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_N) {
-				closeCharacterFrame();
-				closeShopFrame();
-				closeSpellBookFrame();
-				closeAdminPanelFrame();
-				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-				Arrays.fill(ShopFrame.getShopHover(), false);
-				Arrays.fill(SpellBookFrame.getHoverBook(), false);
-				Arrays.fill(ShopFrame.getShopHover(), false);
-				ShopFrame.setHoverShopFalse();
-				talentFrameActive = !talentFrameActive;
-				return true;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-				closeCharacterFrame();
-				closeContainerFrame();
-				closeShopFrame();
-				closeTalentFrame();
-				closeSpellBookFrame();
-				closeAdminPanelFrame();
-				Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
-				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-				Arrays.fill(ShopFrame.getShopHover(), false);
-				Arrays.fill(SpellBookFrame.getHoverBook(), false);
-				ShopFrame.setHoverShopFalse();
-				escapeFrameActive = !escapeFrameActive;
-				//Mideas.cursorFrame("sprite/interface/cursor.png");
-				return true;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_P) {
-				closeTalentFrame();
-				closeShopFrame();
-				closeCharacterFrame();
-				closeAdminPanelFrame();
-				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-				Arrays.fill(ShopFrame.getShopHover(), false);
-				Arrays.fill(SpellBookFrame.getHoverBook(), false);
-				spellBookFrameActive = !spellBookFrameActive;
-				return true;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_A) {
-				closeTalentFrame();
-				closeShopFrame();
-				closeCharacterFrame();
-				closeSpellBookFrame();
-				closeContainerFrame();
-				closeEscapeFrame();
-				closeAdminPanelFrame();
-				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-				Arrays.fill(ShopFrame.getShopHover(), false);
-				Arrays.fill(SpellBookFrame.getHoverBook(), false);
-				Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
-				ClassSelectFrame.setHoverFalse();
-				changeBackgroundFrameActive = !changeBackgroundFrameActive;
-				return true;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_K) {
-				closeTalentFrame();
-				closeShopFrame();
-				closeCharacterFrame();
-				closeSpellBookFrame();
-				Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-				Arrays.fill(ShopFrame.getShopHover(), false);
-				Arrays.fill(SpellBookFrame.getHoverBook(), false);
-				ClassSelectFrame.setHoverFalse();
-				craftFrameActive = !craftFrameActive;
-				return true;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_M) {
-				dungeonFrameActive = !dungeonFrameActive;
-			}	
-			if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur2().getStamina() > 0) {
-				if(SpellBarFrame.keyboardEvent()) {
-					return true;
+	public static boolean keyboardEvent() throws LWJGLException, IOException, SQLException, CloneNotSupportedException {
+		if(Keyboard.getEventKey() != 0) {
+			if(Keyboard.getEventKeyState()) {
+				if(!ChatFrame.getChatActive()) {
+					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
+						closeShopFrame();
+						closeSpellBookFrame();
+						closeAdminPanelFrame();
+						Arrays.fill(ShopFrame.getShopHover(), false);
+						Arrays.fill(SpellBookFrame.getHoverBook(), false);
+						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+						characterFrameActive = !characterFrameActive;
+						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_B && !escapeFrameActive) {
+						containerFrameActive = !containerFrameActive;
+						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_T && !escapeFrameActive) {
+						closeCharacterFrame();
+						closeSpellBookFrame();
+						closeAdminPanelFrame();
+						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+						Arrays.fill(SpellBookFrame.getHoverBook(), false);
+						Arrays.fill(ShopFrame.getShopHover(), false);
+						ShopFrame.setHoverShopFalse();
+						shopFrameActive = !shopFrameActive;
+						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_N) {
+						closeCharacterFrame();
+						closeShopFrame();
+						closeSpellBookFrame();
+						closeAdminPanelFrame();
+						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+						Arrays.fill(ShopFrame.getShopHover(), false);
+						Arrays.fill(SpellBookFrame.getHoverBook(), false);
+						Arrays.fill(ShopFrame.getShopHover(), false);
+						ShopFrame.setHoverShopFalse();
+						talentFrameActive = !talentFrameActive;
+						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+						closeCharacterFrame();
+						closeContainerFrame();
+						closeShopFrame();
+						closeTalentFrame();
+						closeSpellBookFrame();
+						closeAdminPanelFrame();
+						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+						Arrays.fill(ShopFrame.getShopHover(), false);
+						Arrays.fill(SpellBookFrame.getHoverBook(), false);
+						ShopFrame.setHoverShopFalse();
+						escapeFrameActive = !escapeFrameActive;
+						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_P) {
+						closeTalentFrame();
+						closeShopFrame();
+						closeCharacterFrame();
+						closeAdminPanelFrame();
+						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+						Arrays.fill(ShopFrame.getShopHover(), false);
+						Arrays.fill(SpellBookFrame.getHoverBook(), false);
+						spellBookFrameActive = !spellBookFrameActive;
+						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_A) {
+						closeTalentFrame();
+						closeShopFrame();
+						closeCharacterFrame();
+						closeSpellBookFrame();
+						closeContainerFrame();
+						closeEscapeFrame();
+						closeAdminPanelFrame();
+						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+						Arrays.fill(ShopFrame.getShopHover(), false);
+						Arrays.fill(SpellBookFrame.getHoverBook(), false);
+						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+						ClassSelectFrame.setHoverFalse();
+						changeBackgroundFrameActive = !changeBackgroundFrameActive;
+						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_K) {
+						closeTalentFrame();
+						closeShopFrame();
+						closeCharacterFrame();
+						closeSpellBookFrame();
+						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+						Arrays.fill(ShopFrame.getShopHover(), false);
+						Arrays.fill(SpellBookFrame.getHoverBook(), false);
+						ClassSelectFrame.setHoverFalse();
+						craftFrameActive = !craftFrameActive;
+						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_M) {
+						dungeonFrameActive = !dungeonFrameActive;
+					}	
+				}
+				if(chatFrameActive) {
+					ChatFrame.event();
+				}
+				if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur2().getStamina() > 0) {
+					if(SpellBarFrame.keyboardEvent()) {
+						return true;
+					}
 				}
 			}
 		}

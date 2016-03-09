@@ -22,9 +22,6 @@ public class PlayerPortraitFrame {
 		drawHealthText(joueur, x, y);
 		drawManaText(joueur, x, y);
 		drawPortait(joueur, x, y);
-		LogChat.drawStatus();
-		LogChat.drawStatus2();
-		LogChat.drawStatus3();
 	}
 	
 	private static void drawHealthBar(Joueur joueur, int x, int y) {

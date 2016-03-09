@@ -488,7 +488,6 @@ public class ClassSelectFrame {
 			CharacterStuff.getEquippedItems();
 			SpellLevel.setSpellLevelFalse();
 			Interface.setIsStuffEquipped(false);
-			Interface.setIsShopLoaded(false);
 			Interface.setIsStatsCalc(false);
 			Interface.setIsChangeClassActive(true);
 			return true;

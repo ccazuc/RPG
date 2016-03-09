@@ -3,13 +3,8 @@ package com.mideas.rpg.v2.game.shortcut;
 import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.IconsManager;
-import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
-import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.stuff.StuffType;
 import com.mideas.rpg.v2.hud.DragManager;
 
 public class StuffShortcut implements Shortcut {

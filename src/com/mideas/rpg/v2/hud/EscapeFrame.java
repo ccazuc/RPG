@@ -70,6 +70,7 @@ public class EscapeFrame {
 		}
 		if(Mouse.getEventButtonState()) {
 			if(hoverQuit) {
+				CharacterStuff.setEquippedItems();
 				CharacterStuff.setBagItems();
 				System.exit(1);
 			}

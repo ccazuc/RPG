@@ -9,7 +9,6 @@ import com.mideas.rpg.v2.game.item.potion.Potion;
 public class Bag {
 	
 	private Item[] bag = new Item[33];
-	private int[] numberItem = new int[33];
 	private static HashMap<Item, Integer> numberStack = new HashMap<Item, Integer>();
 	
 	public Item[] getBag() {

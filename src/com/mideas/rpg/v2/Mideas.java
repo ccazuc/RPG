@@ -20,11 +20,19 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
-import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.classes.DeathKnight;
 import com.mideas.rpg.v2.game.classes.Guerrier;
+import com.mideas.rpg.v2.game.classes.Hunter;
+import com.mideas.rpg.v2.game.classes.Illidan;
+import com.mideas.rpg.v2.game.classes.Mage;
+import com.mideas.rpg.v2.game.classes.Monk;
+import com.mideas.rpg.v2.game.classes.Paladin;
+import com.mideas.rpg.v2.game.classes.Priest;
+import com.mideas.rpg.v2.game.classes.Rogue;
+import com.mideas.rpg.v2.game.classes.Shaman;
+import com.mideas.rpg.v2.game.classes.Warlock;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.stuff.Bag;
@@ -33,6 +41,7 @@ import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
+import com.mideas.rpg.v2.hud.ChatFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
@@ -188,6 +197,43 @@ public class Mideas {
 			fps = String.valueOf(count);
 			count = 0;
 		}
+	}
+	
+	public static Joueur getJoueur(String joueur) {
+		if(joueur.equals("Guerrier")) {
+			return new Guerrier();
+		}
+		else if(joueur.equals("DeathKnight")) {
+			return new DeathKnight();
+		}
+		else if(joueur.equals("Hunter")) {
+			return new Hunter();
+		}
+		else if(joueur.equals("Mage")) {
+			return new Mage();
+		}
+		else if(joueur.equals("Monk")) {
+			return new Monk();
+		}
+		else if(joueur.equals("Paladin")) {
+			return new Paladin();
+		}
+		else if(joueur.equals("Priest")) {
+			return new Priest();
+		}
+		else if(joueur.equals("Rogue")) {
+			return new Rogue();
+		}
+		else if(joueur.equals("Shaman")) {
+			return new Shaman();
+		}
+		else if(joueur.equals("Warlock")) {
+			return new Warlock();
+		}
+		else if(joueur.equals("Illidan")) {
+			return new Illidan();
+		}
+		return null;
 	}
 	
 	public static Joueur getRandomClass(int id) {

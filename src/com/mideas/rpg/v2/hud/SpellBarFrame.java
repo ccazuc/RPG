@@ -13,7 +13,6 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
@@ -33,18 +32,17 @@ public class SpellBarFrame {
 		Arrays.fill(hoverSpellBar, false);
 		hoverAttack = false;
 		hoveredSpell = null;
-		if(Mideas.getLevel() == 70) {
-			Draw.drawColorQuad(Display.getWidth()/2-140, Display.getHeight()-80, 790, 11,  Color.decode("#680764"));
+		if(Mideas.getLevel() >= 70) {
+			Draw.drawColorQuad(Display.getWidth()/2-393, Display.getHeight()-80, 790, 13,  Color.decode("#680764"));
 		}
 		else if(Mideas.getLevel() > 1) {
 			float e = ((float)Mideas.getCurrentExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
-			Draw.drawColorQuad(Display.getWidth()/2-393, Display.getHeight()-80, 790*e, 12,  Color.decode("#680764"));
+			Draw.drawColorQuad(Display.getWidth()/2-393, Display.getHeight()-80, 790*e, 13,  Color.decode("#680764"));
 		}
 		else {
 			float e = ((float)Mideas.getCurrentExp()/Mideas.getExpNeeded(Mideas.getLevel()));
-			Draw.drawColorQuad(Display.getWidth()/2-393, Display.getHeight()-80, 790*e, 12,  Color.decode("#680764"));
+			Draw.drawColorQuad(Display.getWidth()/2-393, Display.getHeight()-80, 790*e, 13,  Color.decode("#680764"));
 		}
-        //Draw.drawQuad(Sprites.spellbar, Display.getWidth()/2-300, Display.getHeight()-120);  
         Draw.drawQuad(Sprites.large_spellbar, Display.getWidth()/2-570, Display.getHeight()-140);                                                         //spellBar
 		Draw.drawQuad(Sprites.spell_attack, Display.getWidth()/2-395, Display.getHeight()-58);                                              //attack
 		Draw.drawQuad(Sprites.border, Display.getWidth()/2-399, Display.getHeight()-66);  

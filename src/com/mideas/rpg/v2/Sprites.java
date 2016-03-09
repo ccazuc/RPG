@@ -465,9 +465,13 @@ public class Sprites {
 	public static Texture craft_frame;
 	public static Texture elevator_button;
 	public static Texture shop_border;
+	public static Texture chat_button;
+	public static Texture up_chat_button;
 	
 	public static boolean sprite() throws IOException {
 		elevator_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/elevator_button.png"));
+		up_chat_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/up_chat_button.png"));
+		chat_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/chat_button.png"));
 		loading_screen = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/interface/loading_screen.jpg"));
 		craft_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/craft_frame.png"));
 		linen_cloth = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/craft/linen_cloth.jpg"));

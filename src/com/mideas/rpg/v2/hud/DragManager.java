@@ -185,6 +185,21 @@ public class DragManager {
 		
 	}
 	
+	public static boolean deleteItem(int id) {
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == id) {
+				if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION || (Mideas.bag().getBag(i).getItemType() == ItemType.ITEM)) {
+					Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), 0);
+				}
+				Mideas.bag().setBag(i, null);
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}
+	
 	private static boolean checkBagItems(Item item) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
@@ -282,7 +297,7 @@ public class DragManager {
 		}
 	}*/
 	
-	private static boolean checkFreeSlotBag(Item item) {
+	public static boolean checkFreeSlotBag(Item item) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {

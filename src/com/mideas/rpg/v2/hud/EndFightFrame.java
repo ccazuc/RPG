@@ -15,7 +15,6 @@ import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
-import com.mideas.rpg.v2.game.item.stuff.Bag;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -129,15 +128,6 @@ public class EndFightFrame {
 			}
 		}
 		return false;
-	}
-	
-	private static void lootItems(Item item, int i, Item potion, int number) throws FileNotFoundException, SQLException {
-		if(item != null && item.equals(potion)) {
-			item = potion;
-			number = Mideas.joueur1().getNumberItem(potion)+1;
-			Mideas.joueur1().setNumberItem(potion,  1);
-			CharacterStuff.setBagItems();
-		}
 	}
 	
 	public static boolean checkBagItems(Item potion) {

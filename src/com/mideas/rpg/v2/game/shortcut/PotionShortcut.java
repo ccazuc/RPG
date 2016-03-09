@@ -8,7 +8,6 @@ import org.newdawn.slick.opengl.Texture;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
-import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class PotionShortcut {
