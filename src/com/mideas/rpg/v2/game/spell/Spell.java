@@ -55,10 +55,10 @@ public class Spell {
 		this.baseCd = baseCd;
 	}
 	
-	public boolean cast(Joueur joueur, Joueur joueur2, Spell spell) {
+	public boolean cast(Joueur joueur2, Joueur joueur, Spell spell) {
 		if(hasMana()) {
-			doDamage(joueur);
-			useMana(joueur2, spell);
+			doDamage(joueur2, joueur);
+			useMana(joueur, spell);
 			return true;
 		}
 		return false;
@@ -98,8 +98,8 @@ public class Spell {
 		return type;
 	}
 	
-	public void doDamage(Joueur joueur) {
-		joueur.setStamina(joueur.getStamina()-getDamage());
+	public void doDamage(Joueur joueur2, Joueur joueur) {
+		joueur2.setStamina(joueur2.getStamina()-getDamage()+joueur.getStrength());
 	}
 	
 	public void doHeal(Joueur joueur) {

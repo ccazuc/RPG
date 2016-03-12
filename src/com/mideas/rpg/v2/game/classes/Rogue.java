@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.list.Ambush;
 import com.mideas.rpg.v2.game.spell.list.Eviscerate;
 import com.mideas.rpg.v2.game.spell.list.SinisterStrike;
@@ -18,9 +19,11 @@ public class Rogue extends Joueur {
 		//setSpells(0, new Ambush());
 		//setSpells(1, new Eviscerate());
 		//setSpells(2, new SinisterStrike());
+		setSpells(0, SpellManager.getShortcutSpell(701));
+		setSpells(1, SpellManager.getShortcutSpell(702));
+		setSpells(2, SpellManager.getShortcutSpell(703));
 		setSpellUnlocked(0, new Ambush());
 		setSpellUnlocked(1, new Eviscerate());
 		setSpellUnlocked(2, new SinisterStrike());
 	}
-	
 }

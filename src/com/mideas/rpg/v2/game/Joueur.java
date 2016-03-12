@@ -73,7 +73,6 @@ public class Joueur {
 	}
 	
 	public boolean cast(Spell spell) throws SQLException {
-		System.out.println(spell);
 		if(spell.getType() == SpellType.DAMAGE) {
 			if(!spell.hasMana()) {
 				attack(Mideas.joueur2());

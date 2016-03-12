@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.list.CrusaderStrike;
 import com.mideas.rpg.v2.game.spell.list.Judgment;
 import com.mideas.rpg.v2.game.spell.list.LayOnHands;
@@ -18,9 +19,11 @@ public class Paladin extends Joueur {
 		//setSpells(0, new LayOnHands());
 		//setSpells(1, new CrusaderStrike());
 		//setSpells(2, new Judgment());
+		setSpells(0, SpellManager.getShortcutSpell(501));
+		setSpells(1, SpellManager.getShortcutSpell(502));
+		setSpells(2, SpellManager.getShortcutSpell(503));
 		setSpellUnlocked(0, new LayOnHands());
 		setSpellUnlocked(1, new CrusaderStrike());
 		setSpellUnlocked(2, new Judgment());
-	}
-	
+	}	
 }

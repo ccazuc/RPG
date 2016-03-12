@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.list.TigerPalm;
 import com.mideas.rpg.v2.game.spell.list.TigerStrikes;
 import com.mideas.rpg.v2.game.spell.list.TouchOfDeath;
@@ -18,9 +19,11 @@ public class Monk extends Joueur {
 		//setSpells(0, new TouchOfDeath());
 		//setSpells(1, new TigerStrikes());
 		//setSpells(2, new TigerPalm());
+		setSpells(0, SpellManager.getShortcutSpell(401));
+		setSpells(1, SpellManager.getShortcutSpell(402));
+		setSpells(2, SpellManager.getShortcutSpell(403));
 		setSpellUnlocked(0, new TouchOfDeath());
 		setSpellUnlocked(1, new TigerStrikes());
 		setSpellUnlocked(2, new TigerPalm());
 	}
-	
 }

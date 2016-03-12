@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.list.Fireball;
 import com.mideas.rpg.v2.game.spell.list.FlameShock;
 import com.mideas.rpg.v2.game.spell.list.Pyroblast;
@@ -18,9 +19,11 @@ public class Mage extends Joueur {
 		//setSpells(0, new Fireball());
 		//setSpells(1, new FlameShock());
 		//setSpells(2, new Pyroblast());
+		setSpells(0, SpellManager.getShortcutSpell(301));
+		setSpells(1, SpellManager.getShortcutSpell(302));
+		setSpells(2, SpellManager.getShortcutSpell(303));
 		setSpellUnlocked(0, new Fireball());
 		setSpellUnlocked(1, new FlameShock());
 		setSpellUnlocked(2, new Pyroblast());
 	}
-	
 }

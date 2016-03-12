@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.list.ChainLightning;
 import com.mideas.rpg.v2.game.spell.list.HealingSurge;
 import com.mideas.rpg.v2.game.spell.list.LightningBolt;
@@ -18,9 +19,11 @@ public class Shaman extends Joueur {
 		//setSpells(0, new HealingSurge());
 		//setSpells(1, new ChainLightning());
 		//setSpells(2, new LightningBolt());
+		setSpells(0, SpellManager.getShortcutSpell(801));
+		setSpells(1, SpellManager.getShortcutSpell(802));
+		setSpells(2, SpellManager.getShortcutSpell(803));
 		setSpellUnlocked(0, new HealingSurge());
 		setSpellUnlocked(1, new ChainLightning());
 		setSpellUnlocked(2, new LightningBolt());
 	}
-	
 }

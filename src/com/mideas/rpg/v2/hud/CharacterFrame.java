@@ -33,7 +33,7 @@ public class CharacterFrame {
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215, Display.getHeight()/2-3, "Armor:", Color.yellow, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88-TTF2.characterFrameStats.getWidth(String.valueOf((int)Mideas.joueur1().getArmor())), Display.getHeight()/2-3, String.valueOf((int)Mideas.joueur1().getArmor()), Color.white, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215, Display.getHeight()/2+9, "Critical:", Color.yellow, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getCritical())), Display.getHeight()/2+9, String.valueOf(Mideas.joueur1().getCritical()), Color.white, Color.black, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getCritical())+"%"), Display.getHeight()/2+9, String.valueOf(Mideas.joueur1().getCritical())+"%", Color.white, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215, Display.getHeight()/2+21, "Mana:", Color.yellow, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getMana())), Display.getHeight()/2+21, String.valueOf(Mideas.joueur1().getMana()), Color.white, Color.black, 1, 1, 1);
 		drawCharacterItems(Mideas.joueur1().getStuff(0), Sprites.stuff_border, -281, -288);

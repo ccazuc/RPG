@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.list.ArcaneShot;
 import com.mideas.rpg.v2.game.spell.list.MultiShot;
 import com.mideas.rpg.v2.game.spell.list.SteadyShot;
@@ -18,5 +19,8 @@ public class Illidan extends Joueur {
 		//setSpells(0, new ArcaneShot());
 		//setSpells(1, new SteadyShot());
 		//setSpells(2, new MultiShot());
+		setSpells(1, SpellManager.getShortcutSpell(201));
+		setSpells(2, SpellManager.getShortcutSpell(202));
+		setSpells(0, SpellManager.getShortcutSpell(203));
 	}
 }

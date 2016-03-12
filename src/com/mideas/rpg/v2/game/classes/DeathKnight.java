@@ -23,5 +23,4 @@ public class DeathKnight extends Joueur {
 		setSpellUnlocked(1, new PlagueStrike());
 		setSpellUnlocked(2, new DeathCoil());
 	}
-	
 }

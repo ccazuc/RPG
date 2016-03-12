@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.list.FlashHeal;
 import com.mideas.rpg.v2.game.spell.list.HolyNova;
 import com.mideas.rpg.v2.game.spell.list.Penance;
@@ -18,9 +19,11 @@ public class Priest extends Joueur {
 		//setSpells(0, new FlashHeal());
 		//setSpells(1, new HolyNova());
 		//setSpells(2, new Penance());
+		setSpells(0, SpellManager.getShortcutSpell(601));
+		setSpells(1, SpellManager.getShortcutSpell(602));
+		setSpells(2, SpellManager.getShortcutSpell(603));
 		setSpellUnlocked(0, new FlashHeal());
 		setSpellUnlocked(1, new HolyNova());
 		setSpellUnlocked(2, new Penance());
 	}
-	
 }
