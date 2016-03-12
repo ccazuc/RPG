@@ -22,6 +22,7 @@ public class Sprites {
 	public static Texture deux_yellow_square_talent;
 	public static Texture left_second_line_talent;
 	public static Texture cinq_green_talent;
+	public static Texture spell_hover;
 	public static Texture current_bg;
 	public static Texture bg;
 	public static Texture bc_bg;
@@ -467,9 +468,23 @@ public class Sprites {
 	public static Texture shop_border;
 	public static Texture chat_button;
 	public static Texture up_chat_button;
+	public static Texture final_spellbar;
+	public static Texture spellbar_case;
+	public static Texture spellbar_case2;
+	public static Texture talent_frame_open;
+	public static Texture spellbook_frame_open;
+	public static Texture character_frame_open;
+	public static Texture escape_frame_open;
 	
 	public static boolean sprite() throws IOException {
 		elevator_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/elevator_button.png"));
+		spellbook_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-Spellbook-Down.png"));
+		talent_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-Talents-Down.png"));
+		character_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-CharacterNightElf-Down.png"));
+		escape_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-MainMenu-Down.png"));
+		spellbar_case = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/UI-Quickslot.png"));
+		spellbar_case2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/UI-Quickslot.png"));
+		final_spellbar = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/final_spellbar.png"));
 		up_chat_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/up_chat_button.png"));
 		chat_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/chat_button.png"));
 		loading_screen = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/interface/loading_screen.jpg"));
@@ -925,6 +940,7 @@ public class Sprites {
 		shop_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shop_frame.png"));
 		class_choose = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/class_choose.png"));
 		border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));
+		spell_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/spell_hover.png"));
 		spell_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/spell_border.png"));
 		border2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));
 		border3 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));

@@ -30,6 +30,7 @@ import com.mideas.rpg.v2.hud.GoldFrame;
 import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
 import com.mideas.rpg.v2.hud.ShopFrame;
+import com.mideas.rpg.v2.hud.ShortcutFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.SpellLevel;
@@ -127,6 +128,7 @@ public class Interface {
 					}
 					DragManager.draw();
 					PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
+					ShortcutFrame.draw();
 					Draw.drawQuad(Sprites.level, 50, 95);
 					TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), Color.decode("#F0CE0C"), Color.black, 1, 1, 1);
 					if(Mideas.joueur2() != null) {
@@ -166,7 +168,10 @@ public class Interface {
 				if(DragSpellManager.mouseEvent()) {
 					return true;
 				}
-			}
+				if(ShortcutFrame.mouseEvent()) {
+					return true;
+				}
+ 			}
 			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
 				EndFightFrame.mouseEvent();
 				return true;
@@ -345,6 +350,14 @@ public class Interface {
 		characterFrameActive = false;
 	}
 	
+	public static boolean getCharacterFrameStatus() {
+		return characterFrameActive;
+	}
+	
+	public static void setCharacterFrameStatus(boolean we) {
+		characterFrameActive = we;
+	}
+	
 	public static void closeContainerFrame() {
 		containerFrameActive = false;
 	}
@@ -361,8 +374,19 @@ public class Interface {
 		escapeFrameActive = false;
 	}
 	
+	public static void setEscapeFrameStatus(boolean  we) {
+		escapeFrameActive = we;
+	}
 	public static void closeSpellBookFrame() {
 		spellBookFrameActive = false;
+	}
+	
+	public static boolean isSpellBookFrameActive() {
+		return spellBookFrameActive;
+	}
+	
+	public static void setSpellBookFrameStatus(boolean we) {
+		spellBookFrameActive = we;
 	}
 	
 	public static void closeAdminPanelFrame() {
@@ -435,5 +459,13 @@ public class Interface {
 	
 	public static void setCraftFrameActive(boolean we) {
 		craftFrameActive = we;
+	}
+	
+	public static boolean isTalentFrameActive() {
+		return talentFrameActive;
+	}
+	
+	public static void setTalentFrameStatus(boolean we) {
+		talentFrameActive = we;
 	}
 }

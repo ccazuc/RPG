@@ -113,7 +113,7 @@ public class EscapeFrame {
 		Draw.drawQuad(Sprites.cursor, -200, -200);
 	}
 	
-	private static void setHoverFalse() {
+	public static void setHoverFalse() {
 		hoverQuit = false;
 		hoverHelp = false;
 		hoverChangeClass = false;

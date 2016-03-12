@@ -783,7 +783,7 @@ public class ContainerFrame {
 		if(Mideas.bag().getBag(i) != null && !(Mideas.bag().getBag(i) == DragManager.getDraggedItem())) {
 			Draw.drawQuad(IconsManager.getSprite35((Mideas.bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()/2+y);
 			Draw.drawQuad(Sprites.cursor, -200, -200);
-			if(Mideas.bag().getBag(i).getItemType() == ItemType.ITEM && Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
+			if((Mideas.bag().getBag(i).getItemType() == ItemType.ITEM || Mideas.bag().getBag(i).getItemType() == ItemType.POTION) && Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
 				Mideas.bag().setBag(i, null);
 			}
 		}

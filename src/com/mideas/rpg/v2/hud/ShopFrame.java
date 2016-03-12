@@ -241,7 +241,7 @@ public class ShopFrame {
 			}
 			else {
 				if(Mideas.getCurrentGold() >= stuff.getSellPrice()) {
-					if(stuff.getItemType() == ItemType.POTION) {
+					if(stuff.getItemType() == ItemType.POTION || stuff.getItemType() == ItemType.ITEM) {
 						EndFightFrame.dropItem((Potion)stuff, 1);
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
 						Mideas.setGold(-stuff.getSellPrice());

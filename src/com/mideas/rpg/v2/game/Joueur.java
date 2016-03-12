@@ -128,7 +128,7 @@ public class Joueur {
 	
 	public void attackUI(Spell spell) throws SQLException {
 		double damage = Mideas.joueur2().getStrength()+Math.random()*100;
-		float rand = (float) Math.random();
+		float rand = (float)Math.random();
 		if(rand < Mideas.joueur2().getCritical()/100.) {
 			damage*= 2;
 		}
@@ -145,7 +145,7 @@ public class Joueur {
 				}
 			}
 		}
-		else {
+		else if(spell.getType() == SpellType.DAMAGE) {
 			Spell cast = Spell.getRandomSpell();
 			if(rand > .2 && rand <= .4 && cast.hasMana()) {	
 				cast.cast(Mideas.joueur1(), Mideas.joueur2(), spell);

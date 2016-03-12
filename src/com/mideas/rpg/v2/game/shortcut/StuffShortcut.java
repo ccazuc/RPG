@@ -10,13 +10,11 @@ import com.mideas.rpg.v2.hud.DragManager;
 public class StuffShortcut implements Shortcut {
 
 	private Stuff stuff;
-	
-	public Texture getSprite() {
-		return IconsManager.getSprite54(stuff.getSpriteId());
-	}
+	private ShortcutType type;
 
 	public StuffShortcut(Stuff stuff) {
 		this.stuff = stuff;
+		this.type = ShortcutType.STUFF;
 	}
 	
 	public boolean use(Shortcut shortcut) {
@@ -31,10 +29,19 @@ public class StuffShortcut implements Shortcut {
 		return false;
 	}
 	
+	
+	public Texture getSprite() {
+		return IconsManager.getSprite47(stuff.getSpriteId());
+	}
+
 	public void setCd(int id, int cd) {
 	}
 	
 	public Stuff getStuff() {
 		return stuff;
+	}
+	
+	public ShortcutType getShortcutType() {
+		return type;
 	}
 }

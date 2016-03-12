@@ -41,7 +41,6 @@ import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
-import com.mideas.rpg.v2.hud.ChatFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
@@ -175,7 +174,7 @@ public class Mideas {
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "random");
+		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "11391139");
 	}
 	
 	public static JDO getJDO() {

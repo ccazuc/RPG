@@ -12,15 +12,13 @@ import com.mideas.rpg.v2.game.spell.SpellManager;
 public class SpellShortcut implements Shortcut {
 	
 	private Spell spell;
+	private ShortcutType type;
 	
 	public SpellShortcut(Spell spell) {
 		this.spell = spell;
-		
+		this.type = ShortcutType.SPELL;
 	}
 	
-	public Spell getSpell() {
-		return spell;
-	}
 	
 	public boolean use(Shortcut spell) throws SQLException {
 		if(Mideas.joueur1().cast(((SpellShortcut)spell).getSpell())) {
@@ -30,10 +28,18 @@ public class SpellShortcut implements Shortcut {
 	}
 	
 	public Texture getSprite() {
-		return IconsManager.getSprite54(spell.getSpriteId());
+		return IconsManager.getSprite47(spell.getSpriteId());
 	}
 	
 	public void setCd(int id, int cd) {
 		SpellManager.setCd(id, cd);
+	}
+	
+	public Spell getSpell() {
+		return spell;
+	}
+	
+	public ShortcutType getShortcutType() {
+		return type;
 	}
 }
