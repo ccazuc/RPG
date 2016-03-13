@@ -42,27 +42,24 @@ public class LogChat {
 	public static void setStatusText(String text) throws SQLException {
 		statusText = text;
 		JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
-		statement.putLong(System.currentTimeMillis());
+		statement.putLong(System.nanoTime());
 		statement.putString(statusText);
-		//statement.putString(Mideas.joueur1().getClasse());
 		statement.execute();
 	}
 	
 	public static void setStatusText2(String text) throws SQLException {
 		statusText2 = text;
 		JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
-		statement.putLong(System.currentTimeMillis());
+		statement.putLong(System.nanoTime());
 		statement.putString(statusText2);
-		//statement.putString(Mideas.joueur1().getClasse());
 		statement.execute();
 	}
 	
 	public static void setStatusText3(String text) throws SQLException {
 		statusText3 = text;
 		JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
-		statement.putLong(System.currentTimeMillis());
+		statement.putLong(System.nanoTime());
 		statement.putString(statusText3);
-		//statement.putString(Mideas.joueur1().getClasse());
 		statement.execute();
 	}
 }

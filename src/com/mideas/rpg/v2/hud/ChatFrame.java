@@ -227,6 +227,12 @@ public class ChatFrame {
 		else if(tempMessage.equals(".clear chat")) {
 			messages.clear();
 		}
+		else if(tempMessage.equals(".set fullscreen true")) {
+			Mideas.setDisplayMode(1920, 1080, true);
+		}
+		else if(tempMessage.equals(".set fullscreen false")) {
+			Mideas.setDisplayMode(1700, 930, false);
+		}	
 		else if(tempMessage.equals(".set admin pw:mideas")) {
 			isAdmin = true;
 		}

@@ -98,8 +98,10 @@ public class Interface {
 						CharacterFrame.draw();
 					}
 					if(containerFrameActive) {
+						//double time = System.currentTimeMillis();
 						ContainerFrame.draw();
 						GoldFrame.draw();
+						//System.out.println("Draw bag frame : "+(System.currentTimeMillis()-time)/1000.0);
 					}
 					if(shopFrameActive) {
 						ShopManager.draw();		

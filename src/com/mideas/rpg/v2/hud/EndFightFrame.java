@@ -8,6 +8,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
@@ -26,11 +27,21 @@ public class EndFightFrame {
 	private static boolean isGold;
 
 	public static void draw() throws FileNotFoundException, SQLException {
-		Arrays.fill(AdminPanelFrame.getHover(), false);
-		Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-		Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
-		Arrays.fill(ShopFrame.getShopHover(), false);
-		Arrays.fill(SpellBookFrame.getHoverBook(), false);
+		if(Interface.getAdminPanelFrameStatus()) {
+			Arrays.fill(AdminPanelFrame.getHover(), false);
+		}
+		if(Interface.getCharacterFrameStatus()) {
+			Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+		}
+		if(Interface.getContainerFrameStatus()) {
+			Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+		}
+		if(Interface.getShopFrameStatus()) {
+			Arrays.fill(ShopFrame.getShopHover(), false);
+		}
+		if(Interface.isSpellBookFrameActive()) {
+			Arrays.fill(SpellBookFrame.getHoverBook(), false);
+		}
 		Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Display.getHeight()/2-80);
 		if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
 			Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
@@ -47,13 +58,15 @@ public class EndFightFrame {
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Retry")/2-69, Display.getHeight()/2-41, "Retry", Color.white, Color.black, 1, 1, 1);
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit")/2+69, Display.getHeight()/2-41, "Quit", Color.white, Color.black, 1, 1, 1);
 		if(Mideas.joueur1().getStamina() <= 0) {
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 2 WON", Color.white, Color.black, 1, 1, 1);
+			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 2 won", Color.white, Color.black, 1, 1, 1);
 		}
 		else if(Mideas.joueur2().getStamina() <= 0) {
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 WON", Color.white, Color.black, 1, 1, 1);
+			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 won", Color.white, Color.black, 1, 1, 1);
 			isGold = true;
 			if(!expGiven) {
+				double time = System.currentTimeMillis();
 				Mideas.setExp();
+				System.out.println((System.currentTimeMillis()-time)/1000.0+" end event");
 				Mideas.getLevel();
 				expGiven = true;
 			}
@@ -61,8 +74,9 @@ public class EndFightFrame {
 				Mideas.setGold(Mideas.joueur2().getGoldGained());
 				gold = true;
 			}
-			lootManager();
+			//lootManager();
 		}
+		
 	}
 	
 	public static void mouseEvent() throws SQLException {
@@ -288,9 +302,11 @@ public class EndFightFrame {
 		if(Math.random() <= x && !drop && item != null) {
 			if(item.getItemType() == ItemType.POTION || item.getItemType() == ItemType.ITEM) {
 				dropItem(item, 1);
+				SpellBarFrame.setBagChange(true);
 			}
 			else {
 				dropRate(item);
+				SpellBarFrame.setBagChange(true);
 			}
 			LogChat.setStatusText3("Vous avez obtenus "+item.getStuffName());
 			drop = true;

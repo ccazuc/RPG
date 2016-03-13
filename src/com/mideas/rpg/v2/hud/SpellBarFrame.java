@@ -28,6 +28,7 @@ public class SpellBarFrame {
 	
 	private static Shortcut hoveredSpell;
 	private static boolean hoverAttack;
+	private static boolean bagChange = true;
 	private static boolean[] hoverSpellBar = new boolean[35];
 	
 	public static boolean draw() throws FileNotFoundException, SQLException {
@@ -68,7 +69,12 @@ public class SpellBarFrame {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-393, Display.getHeight()-248, "No mana cost", Color.white, Color.black, 1, 1, 1);
 			hoverAttack = true;
 		}
-		TTF2.statsName.drawStringShadow(Display.getWidth()-316, Display.getHeight()-23, "("+Integer.toString(checkNumberFreeSlotBag())+")", Color.white, Color.black, 1, 1, 1);
+		int numberFreeSlotBag = 0;
+		if(bagChange) {
+			numberFreeSlotBag = checkNumberFreeSlotBag();
+			bagChange = false;
+		}
+		TTF2.statsName.drawStringShadow(Display.getWidth()/2+650-TTF2.statsName.getWidth("("+Integer.toString(numberFreeSlotBag)+")")/2, Display.getHeight()-23, "("+Integer.toString(checkNumberFreeSlotBag())+")", Color.white, Color.black, 1, 1, 1);
 		float x = -678+56.3f;
 		int spellCount = 0;
 		int yShift = 0;
@@ -189,7 +195,12 @@ public class SpellBarFrame {
 	}
 	
 	public static boolean keyboardEvent() throws SQLException, FileNotFoundException {
-		if(Keyboard.getEventKey() == Keyboard.KEY_2) {
+		if(Keyboard.getEventKey() == Keyboard.KEY_1) {
+			Mideas.joueur1().tick();
+			Mideas.setCurrentPlayer(false);
+			return true;
+		}
+		else if(Keyboard.getEventKey() == Keyboard.KEY_2) {
 			keyboardAttack(Mideas.joueur1().getSpells(0));
 			return true;
 		}
@@ -252,6 +263,9 @@ public class SpellBarFrame {
 		else if(spell != null && spell.getShortcutType() == ShortcutType.POTION) {
 			spell.use(spell);
 		}
+		else if(spell != null && spell.getShortcutType() == ShortcutType.STUFF) {
+			spell.use(spell);
+		}
 	}
 	
 	private static void checkClickCd() {
@@ -310,6 +324,10 @@ public class SpellBarFrame {
 			i++;
 		}
 		return number;
+	}
+	
+	public static void setBagChange(boolean we) {
+		bagChange = we;
 	}
 	
 	public static boolean getHoverSpellBar(int i) {

@@ -89,6 +89,7 @@ public class DragManager {
 				int i = 0;
 				while(i < CharacterFrame.getHoverCharacterFrame().length) {
 					if(dropInventoryItem(i)) {
+						SpellBarFrame.setBagChange(true);
 						break;
 					}
 					i++;
@@ -96,6 +97,7 @@ public class DragManager {
 				i = 0;
 				while(i < Mideas.bag().getBag().length) {
 					if(dropBagItem(i)) {
+						SpellBarFrame.setBagChange(true);
 						break;
 					}
 					i++;
@@ -111,14 +113,19 @@ public class DragManager {
 					if(draggedItem.getItemType() == ItemType.ITEM || draggedItem.getItemType() == ItemType.POTION) {
 						Mideas.joueur1().setNumberItem(draggedItem, -1);
 					}
+					if(checkCharacterItems(draggedItem)) {
+						calcStatsLess(draggedItem);
+					}
 					deleteItem(draggedItem);
 					draggedItem = null;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
+					SpellBarFrame.setBagChange(true);
 				}
 				if(hoverSave && deleteItem) {
 					if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
 						checkFreeSlotBag(draggedItem);
+						SpellBarFrame.setBagChange(true);
 					}
 					draggedItem = null;
 				}
@@ -158,22 +165,23 @@ public class DragManager {
 	private static boolean deleteItem(Item draggedItem2) {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
-			if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.STUFF && ((StuffShortcut)Mideas.joueur1().getSpells(i)).getStuff() == draggedItem2) {
+			if(Mideas.joueur1().getSpells(i) != null && Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.STUFF && ((StuffShortcut)Mideas.joueur1().getSpells(i)).getStuff() == draggedItem2) {
 				Mideas.joueur1().setSpells(i, null);
 			}
 			i++;
 		}
 		i = 0;
 		while(i < Mideas.bag().getBag().length) {
-			if(draggedItem2 == Mideas.bag().getBag(i)) {
+			if(Mideas.bag().getBag(i) != null && draggedItem2 == Mideas.bag().getBag(i)) {
 				Mideas.bag().setBag(i, null);
+				SpellBarFrame.setBagChange(true);
 				return true;
 			}
 			i++;
 		}
 		i = 0;
 		while(i < Mideas.joueur1().getStuff().length) {
-			if(draggedItem2 == Mideas.joueur1().getStuff(i)) {
+			if(Mideas.joueur1().getStuff(i) != null && draggedItem2 == Mideas.joueur1().getStuff(i)) {
 				Mideas.joueur1().setStuff(i, null);
 				return true;
 			}
@@ -202,6 +210,7 @@ public class DragManager {
 					Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), 0);
 				}
 				Mideas.bag().setBag(i, null);
+				SpellBarFrame.setBagChange(true);
 				return true;
 			}
 			i++;
@@ -219,11 +228,12 @@ public class DragManager {
 		}
 		return false;
 	}
-	private static boolean setNullContainer(Item item) {
+	public static boolean setNullContainer(Item item) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(item == Mideas.bag().getBag(i)) {
 				Mideas.bag().setBag(i, null);
+				SpellBarFrame.setBagChange(true);
 				return true;
 			}
 			i++;
@@ -231,7 +241,7 @@ public class DragManager {
 		return false;
 	}
 	
-	private static void calcStats(Item stuff) throws FileNotFoundException, SQLException {
+	public static void calcStats(Item stuff) throws FileNotFoundException, SQLException {
 		if(stuff != null && stuff.getItemType() == ItemType.STUFF) {
 			CharacterStuff.setEquippedItems();
 			Mideas.joueur1().setStuffArmor(((Stuff)stuff).getArmor());
@@ -323,6 +333,7 @@ public class DragManager {
 		while(i < Mideas.bag().getBag().length) {
 			if(draggedItem == Mideas.bag().getBag(i)) {
 				Mideas.bag().setBag(i, item);
+				SpellBarFrame.setBagChange(true);
 				return true;
 			}
 			i++;
@@ -338,6 +349,7 @@ public class DragManager {
 			if(checkCharacterItems(draggedItem)) {                                          //if draggedItem comes from inventory       
 				if(Mideas.bag().getBag(i) == null) { 
 					Mideas.bag().setBag(i, draggedItem);
+					SpellBarFrame.setBagChange(true);
 					calcStatsLess(draggedItem);
 					setNullCharacter(draggedItem);
 					draggedItem = null;
@@ -351,6 +363,7 @@ public class DragManager {
 						calcStatsLess(draggedItem);
 						setNullCharacter(draggedItem);
 						Mideas.bag().setBag(i, draggedItem);
+						SpellBarFrame.setBagChange(true);
 						draggedItem = null;
 						CharacterStuff.setEquippedItems();
 						CharacterStuff.setBagItems();
@@ -359,6 +372,7 @@ public class DragManager {
 					else {
 						tempItem = Mideas.bag().getBag(i);
 						Mideas.bag().setBag(i, draggedItem);
+						SpellBarFrame.setBagChange(true);
 						draggedItem = tempItem;
 						CharacterStuff.setEquippedItems();
 						CharacterStuff.setBagItems();
@@ -370,6 +384,7 @@ public class DragManager {
 				if(Mideas.bag().getBag(i) == null) {
 					setNullContainer(draggedItem);
 					Mideas.bag().setBag(i, draggedItem);
+					SpellBarFrame.setBagChange(true);
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
 					draggedItem = null;
@@ -378,6 +393,7 @@ public class DragManager {
 				else {
 					exchangeBagItems(draggedItem, Mideas.bag().getBag(i));
 					Mideas.bag().setBag(i, draggedItem);
+					SpellBarFrame.setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
@@ -411,6 +427,7 @@ public class DragManager {
 					calcStatsLess(draggedItem);
 					setNullCharacter(draggedItem);
 					Mideas.bag().setBag(i, draggedItem);
+					SpellBarFrame.setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
@@ -419,6 +436,7 @@ public class DragManager {
 				else {
 					Item tempItem = Mideas.bag().getBag(i);
 					Mideas.bag().setBag(i, draggedItem);
+					SpellBarFrame.setBagChange(true);
 					setNullCharacter(draggedItem);
 					draggedItem = tempItem;
 					CharacterStuff.setEquippedItems();
@@ -429,6 +447,7 @@ public class DragManager {
 			else if(checkBagItems(draggedItem)) {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, draggedItem);
+					SpellBarFrame.setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
@@ -438,6 +457,7 @@ public class DragManager {
 					Item tempItem = Mideas.bag().getBag(i);
 					exchangeBagItems(draggedItem, Mideas.bag().getBag(i));
 					Mideas.bag().setBag(i, draggedItem);
+					SpellBarFrame.setBagChange(true);
 					draggedItem = tempItem;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
@@ -447,6 +467,7 @@ public class DragManager {
 			else {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, draggedItem);
+					SpellBarFrame.setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
@@ -455,6 +476,7 @@ public class DragManager {
 				else {
 					Item tempItem = Mideas.bag().getBag(i);
 					Mideas.bag().setBag(i, draggedItem);
+					SpellBarFrame.setBagChange(true);
 					draggedItem = tempItem;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
@@ -582,6 +604,7 @@ public class DragManager {
 				if(Mideas.joueur1().getStuff(i) == null) {
 					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
 						setNullContainer(draggedItem);
+						SpellBarFrame.setBagChange(true);
 						Mideas.joueur1().setStuff(i, draggedItem);
 						calcStats(draggedItem);
 						draggedItem = null;
@@ -595,6 +618,7 @@ public class DragManager {
 						Item tempItem = Mideas.joueur1().getStuff(i);
 						calcStatsLess(Mideas.joueur1().getStuff(i));
 						setNullContainer(draggedItem);
+						SpellBarFrame.setBagChange(true);
 						Mideas.joueur1().setStuff(i, draggedItem);
 						calcStats(draggedItem);
 						draggedItem = tempItem;

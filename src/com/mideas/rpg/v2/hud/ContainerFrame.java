@@ -10,7 +10,6 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
@@ -20,6 +19,7 @@ import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -41,7 +41,26 @@ public class ContainerFrame {
 		y = -51;
 		yShift = 42;
 		ySecondBag = 251;
-		drawBag(0, x, y);
+		int i = 0;
+		int j = 0;
+		int k = 0;
+		int z = 0;
+		while(i < Mideas.bag().getBag().length) {
+			drawBag(i, x+j*xShift, y+k*yShift+z*ySecondBag);
+			i++;
+			j++;
+			if(j == 4) {
+				j = 0;
+			}
+			if(i != 0 && i%4 == 0) {
+				k++;
+			}
+			if(i == 16) {
+				z++;
+				k = 0;
+			}
+		}
+		/*drawBag(0, x, y);
 		drawBag(1, x+xShift, y);
 		drawBag(2, x+2*xShift, y);
 		drawBag(3, x+3*xShift, y);
@@ -72,44 +91,7 @@ public class ContainerFrame {
 		drawBag(28, x, y+3*yShift+ySecondBag);
 		drawBag(29, x+xShift, y+3*yShift+ySecondBag);
 		drawBag(30, x+2*xShift, y+3*yShift+ySecondBag);
-		drawBag(31, x+3*xShift, y+3*yShift+ySecondBag);
-		x = -205;
-		yShift = 42;
-		y = -53;
-		drawBorder(Mideas.bag().getBag(0), Sprites.bag_border1, x, y);
-		drawBorder(Mideas.bag().getBag(1), Sprites.bag_border2, x+xShift, y);
-		drawBorder(Mideas.bag().getBag(2), Sprites.bag_border3, x+2*xShift, y);
-		drawBorder(Mideas.bag().getBag(3), Sprites.bag_border4, x+3*xShift, y);
-		drawBorder(Mideas.bag().getBag(4), Sprites.bag_border5, x, y+yShift);
-		drawBorder(Mideas.bag().getBag(5), Sprites.bag_border6, x+xShift, y+yShift);
-		drawBorder(Mideas.bag().getBag(6), Sprites.bag_border7, x+2*xShift, y+yShift);
-		drawBorder(Mideas.bag().getBag(7), Sprites.bag_border8, x+3*xShift, y+yShift);
-		drawBorder(Mideas.bag().getBag(8), Sprites.bag_border9, x, y+2*yShift);
-		drawBorder(Mideas.bag().getBag(9), Sprites.bag_border10, x+xShift, y+2*yShift);
-		drawBorder(Mideas.bag().getBag(10), Sprites.bag_border11, x+2*xShift, y+2*yShift);
-		drawBorder(Mideas.bag().getBag(11), Sprites.bag_border12, x+3*xShift, y+2*yShift);
-		drawBorder(Mideas.bag().getBag(12), Sprites.bag_border13, x, y+3*yShift);
-		drawBorder(Mideas.bag().getBag(13), Sprites.bag_border14, x+xShift, y+3*yShift);
-		drawBorder(Mideas.bag().getBag(14), Sprites.bag_border15, x+2*xShift, y+3*yShift);
-		drawBorder(Mideas.bag().getBag(15), Sprites.bag_border16, x+3*xShift, y+3*yShift);
-		drawBorder(Mideas.bag().getBag(16), Sprites.bag_border17, x, y+ySecondBag);
-		drawBorder(Mideas.bag().getBag(17), Sprites.bag_border18, x+xShift, y+ySecondBag);
-		drawBorder(Mideas.bag().getBag(18), Sprites.bag_border19, x+2*xShift, y+ySecondBag);
-		drawBorder(Mideas.bag().getBag(19), Sprites.bag_border20, x+3*xShift, y+ySecondBag);
-		drawBorder(Mideas.bag().getBag(20), Sprites.bag_border21, x, y+yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(21), Sprites.bag_border22, x+xShift, y+yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(22), Sprites.bag_border23, x+2*xShift, y+yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(23), Sprites.bag_border24, x+3*xShift, y+yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(24), Sprites.bag_border25, x, y+2*yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(25), Sprites.bag_border26, x+xShift, y+2*yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(26), Sprites.bag_border27, x+2*xShift, y+2*yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(27), Sprites.bag_border28, x+3*xShift, y+2*yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(28), Sprites.bag_border29, x, y+3*yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(29), Sprites.bag_border30, x+xShift, y+3*yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(30), Sprites.bag_border31, x+2*xShift, y+3*yShift+ySecondBag);
-		drawBorder(Mideas.bag().getBag(31), Sprites.bag_border32, x+3*xShift, y+3*yShift+ySecondBag);
-		drawHoverBag(0, x, y, 1, 2);
-		drawHoverBag(1, x, y, 42, 2);
+		drawBag(31, x+3*xShift, y+3*yShift+ySecondBag);*/
 		/*if(slot_hover[0]) {
 			if(Mideas.bag().getBag(0) != null) {
 				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()/2-80, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
@@ -637,7 +619,60 @@ public class ContainerFrame {
 		int yShift = 42;
 		int ySecondBag = 251;
 		int y = -50;
-		slotHover(x, y, 0);
+		int i = 0;
+		int j = 0;
+		int k = 0;
+		int z = 0;
+		int yHoverShift = 41;
+		int xHoverShift = 41;
+		drawHoverBag(0, x, y, -1, 0);
+		drawHoverBag(1, x, y, -1+xHoverShift, 0);
+		drawHoverBag(2, x, y, -1+2*xHoverShift, 0);
+		drawHoverBag(3, x, y, -1+3*xHoverShift, 0);
+		drawHoverBag(4, x, y, -1, yHoverShift);
+		drawHoverBag(5, x, y, -1+xHoverShift, yHoverShift);
+		drawHoverBag(6, x, y, -1+2*xHoverShift, yHoverShift);
+		drawHoverBag(7, x, y, -1+3*xHoverShift, yHoverShift);
+		drawHoverBag(8, x, y, -1, 2*yHoverShift);
+		drawHoverBag(9, x, y, -1+xHoverShift, 2*yHoverShift);
+		drawHoverBag(10, x, y, -1+2*xHoverShift, 2*yHoverShift);
+		drawHoverBag(11, x, y, -1+3*xHoverShift, 2*yHoverShift);
+		drawHoverBag(12, x, y, -1, 3*yHoverShift);
+		drawHoverBag(13, x, y, -1+xHoverShift, 3*yHoverShift);
+		drawHoverBag(14, x, y, -1+2*xHoverShift, 3*yHoverShift);
+		drawHoverBag(15, x, y, -1+3*xHoverShift, 3*yHoverShift);
+		drawHoverBag(16, x, y+ySecondBag, -1, ySecondBag, ySecondBag);
+		drawHoverBag(17, x, y+ySecondBag, -1+xHoverShift, ySecondBag, ySecondBag);
+		drawHoverBag(18, x, y+ySecondBag, -1+2*xHoverShift, ySecondBag, ySecondBag);
+		drawHoverBag(19, x, y+ySecondBag, -1+3*xHoverShift, ySecondBag, ySecondBag);
+		drawHoverBag(20, x, y+ySecondBag, -1, yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(21, x, y+ySecondBag, -1+xHoverShift, yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(22, x, y+ySecondBag, -1+2*xHoverShift, yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(23, x, y+ySecondBag, -1+3*xHoverShift, yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(24, x, y+ySecondBag, -1, 2*yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(25, x, y+ySecondBag, -1+xHoverShift, 2*yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(26, x, y+ySecondBag, -1+2*xHoverShift, 2*yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(27, x, y+ySecondBag, -1+3*xHoverShift, 2*yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(28, x, y+ySecondBag, -1, 3*yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(29, x, y+ySecondBag, -1+xHoverShift, 3*yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(30, x, y+ySecondBag, -1+2*xHoverShift, 3*yHoverShift+ySecondBag, ySecondBag);
+		drawHoverBag(31, x, y+ySecondBag, -1+3*xHoverShift, 3*yHoverShift+ySecondBag, ySecondBag);
+		while(i < Mideas.bag().getBag().length) {
+			slotHover(x+j*xShift, y+k*yShift+z*ySecondBag, i);
+			i++;
+			j++;
+			if(j == 4) {
+				j = 0;
+			}
+			if(i != 0 && i%4 == 0) {
+				k++;
+			}
+			if(i == 16) {
+				z++;
+				k = 0;
+			}
+		}
+		/*slotHover(x, y, 0);
 		slotHover(x+xShift, y, 1);
 		slotHover(x+2*xShift, y, 2);
 		slotHover(x+3*xShift, y, 3);
@@ -668,31 +703,22 @@ public class ContainerFrame {
 		slotHover(x, y+ySecondBag+3*yShift, 28);
 		slotHover(x+xShift, y+ySecondBag+3*yShift, 29);
 		slotHover(x+2*xShift, y+ySecondBag+3*yShift, 30);
-		slotHover(x+3*xShift, y+ySecondBag+3*yShift, 31);
-			if(Mouse.getEventButton() == 1) {
-				if(Mouse.getEventButtonState()) {
-					int i = 0;
-					while(i < Mideas.bag().getBag().length) {
-						clickSellItem(i);
-						i++;
-					}
-				CharacterStuff.setBagItems();
+		slotHover(x+3*xShift, y+ySecondBag+3*yShift, 31);*/
+		if(Mouse.getEventButton() == 1) {
+			if(Mouse.getEventButtonState()) {
+				i = 0;
+				while(i < Mideas.bag().getBag().length) {
+					clickSellItem(i);
+					i++;
 				}
+			CharacterStuff.setBagItems();
 			}
+		}
 		return false;
 	}
 	
 	public static void keyboardEvent() {
 		
-	}
-	
-	private static void drawBorder(Item item, Texture border, int x, int y) {
-		if(item != null && item != DragManager.getDraggedItem()) {
-			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
-				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(item))), Display.getHeight()/2+y+20, String.valueOf(Mideas.joueur1().getNumberItem(item)), Color.white, Color.black, 1, 1, 1);
-			}
-		Draw.drawQuad(border, Display.getWidth()+x, Display.getHeight()/2+y);
-		}
 	}
 	
 	private static boolean sellItem(Item item, boolean slot_hover) throws FileNotFoundException, SQLTimeoutException, SQLException {
@@ -760,7 +786,7 @@ public class ContainerFrame {
 	}
 	
 	private static void slotHover(int x, int y, int i) {
-		if(Mideas.mouseX() >= Display.getWidth()+x-3 && Mideas.mouseX() <= Display.getWidth()+x+38 && Mideas.mouseY() >= Display.getHeight()/2+y-3 && Mideas.mouseY() <= Display.getHeight()/2+y+38) {
+		if(Mideas.mouseX() >= Display.getWidth()+x-3 && Mideas.mouseX() <= Display.getWidth()+x+37 && Mideas.mouseY() >= Display.getHeight()/2+y-3 && Mideas.mouseY() <= Display.getHeight()/2+y+38) {
 			slot_hover[i] = true;
 		}
 	}
@@ -782,29 +808,96 @@ public class ContainerFrame {
 	private static void drawBag(int i, int x, int y) {
 		if(Mideas.bag().getBag(i) != null && !(Mideas.bag().getBag(i) == DragManager.getDraggedItem())) {
 			Draw.drawQuad(IconsManager.getSprite35((Mideas.bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()/2+y);
-			Draw.drawQuad(Sprites.cursor, -200, -200);
-			if((Mideas.bag().getBag(i).getItemType() == ItemType.ITEM || Mideas.bag().getBag(i).getItemType() == ItemType.POTION) && Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
-				Mideas.bag().setBag(i, null);
+			Draw.drawQuad(Sprites.bag_border1, Display.getWidth()+x-3, Display.getHeight()/2+y-2);
+			if((Mideas.bag().getBag(i).getItemType() == ItemType.ITEM || Mideas.bag().getBag(i).getItemType() == ItemType.POTION)) {
+				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+15, Display.getHeight()/2+y+17, Integer.toString(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))), Color.white, Color.black, 1, 1, 1);
+				if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
+					Mideas.bag().setBag(i, null);
+				}
 			}
 		}
 	}
-	
-	private static void drawHoverBag(int i, int x, int z, int a, int b) throws FileNotFoundException {
+	private static void drawHoverBag(int i, int x, int z, int x_hover, int y_hover) throws FileNotFoundException {
 		if(slot_hover[i]) {
+			int shift = 60;
 			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
 				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()/2-80, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
 				TTF2.itemName.drawStringShadow(Display.getWidth()+x-180-TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())/2, Display.getHeight()/2+y-20, Mideas.bag().getBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+z, "+"+((Stuff)Mideas.bag().getBag(i)).getArmor()+" Armor", Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+20+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+40+z, "+"+((Stuff)Mideas.bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+60+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+80+z, "+"+((Stuff)Mideas.bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
+				if(((Stuff)Mideas.bag().getBag(i)).getArmor() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getArmor()+" Armor", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getStamina() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getMana() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getStrength() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getCritical() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
+				}
 				ContainerFrame.calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-70, y+100);
-				if(Interface.getShopFrameStatus()) {
-					//Mideas.cursorFrame("sprite/interface/cursor_buy.png");
+			}
+			else if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
+				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()/2-80, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
+				TTF2.itemName.drawStringShadow(Display.getWidth()+x-180-TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())/2, Display.getHeight()/2+y-20, Mideas.bag().getBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
+				if(((Potion)Mideas.bag().getBag(i)).getPotionHeal() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionHeal()+" Hp", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Potion)Mideas.bag().getBag(i)).getPotionMana() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionMana()+" Mana", Color.white, Color.black, 1, 1, 1);
 				}
 			}
-			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x+a, Display.getHeight()/2+y+b);
+			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x+x_hover, Display.getHeight()/2+y+y_hover);
+		}
+	}
+	
+	private static void drawHoverBag(int i, int x, int z, int x_hover, int y_hover, int y_quad) throws FileNotFoundException {
+		if(slot_hover[i]) {
+			int shift = 60;
+			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
+				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()/2-80+y_quad, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
+				TTF2.itemName.drawStringShadow(Display.getWidth()+x-180-TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())/2, Display.getHeight()/2+y+32+z, Mideas.bag().getBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
+				if(((Stuff)Mideas.bag().getBag(i)).getArmor() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getArmor()+" Armor", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getStamina() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getMana() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getStrength() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getCritical() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
+				}
+				ContainerFrame.calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-70, y+100+y_quad);
+			}
+			else if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
+				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()/2-80+y_quad, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
+				TTF2.itemName.drawStringShadow(Display.getWidth()+x-180-TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())/2, Display.getHeight()/2+y+32+z, Mideas.bag().getBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
+				if(((Potion)Mideas.bag().getBag(i)).getPotionHeal() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionHeal()+" Hp", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Potion)Mideas.bag().getBag(i)).getPotionMana() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+				}
+			}
+			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x+x_hover, Display.getHeight()/2+y+y_hover+y_quad);
 		}
 	}
 	

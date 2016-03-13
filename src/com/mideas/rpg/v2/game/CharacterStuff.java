@@ -898,7 +898,7 @@ public class CharacterStuff {
 			}
 		}
 		else {
-			System.out.println("statement error");
+			System.out.println("statement error (stuff load)");
 		}
 		/*try {
 			String sCurrentLine;

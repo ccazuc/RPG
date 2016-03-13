@@ -86,8 +86,8 @@ public class Mideas {
 	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException, CloneNotSupportedException {
 		//System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
 		//Display.setDisplayMode(new DisplayMode(1200, 800));
-		Display.setDisplayMode(new DisplayMode(1200, 930));
-		//setDisplayMode(1920, 1080, true);
+		//Display.setDisplayMode(new DisplayMode(1200, 930));
+		//setDisplayMode(1920, 1080, false);
 		//Display.setFullscreen(true);
 		Display.setTitle("World Of Warcraft");
 		final String[] ICON_PATHS = {"sprite/interface/icon_32.png", "sprite/interface/icon_128.png"};
@@ -99,7 +99,8 @@ public class Mideas {
 		Display.setIcon(icon_array);
 		Display.create();
 		Display.setResizable(true);
-		Display.setDisplayMode(new DisplayMode(1200, 930));
+		Display.setDisplayMode(new DisplayMode(1700, 930));
+		//setDisplayMode(1920, 1080, true);
         cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
 		final int cursor_width = cursor_image.getWidth();
 		final int cursor_height = cursor_image.getHeight();
@@ -164,7 +165,7 @@ public class Mideas {
 			}
 			Interface.draw();
 			Display.update();
-			Display.sync(60);
+			//Display.sync(60);
 		}
 	}
 	
@@ -237,24 +238,24 @@ public class Mideas {
 	
 	public static Joueur getRandomClass(int id) {
 		double rand = Math.random();
-		rand = 4/10f;
+		//rand = 4/10f;
 		if(rand <= 1/10f) {
 			System.out.println("Le joueur "+id+" est un Guerrier !");
 			return new Guerrier();
 		}
-		/*else if(rand <= 2/10f) {
+		else if(rand <= 2/10f) {
 			System.out.println("Le joueur "+id+" est un Priest !");
 			return new Priest();
 		}
 		else if(rand <= 3/10f){
 			System.out.println("Le joueur "+id+" est un Mage !");
 			return new Mage();
-		}*/
+		}
 		else if(rand <= 4/10f) {
 			System.out.println("Le joueur "+id+" est un DeathKnight !");
 			return new DeathKnight();
 		}
-		/*else if(rand <= 5/10f) {
+		else if(rand <= 5/10f) {
 			System.out.println("Le joueur "+id+" est un Hunter !");
 			return new Hunter();
 		}
@@ -277,8 +278,7 @@ public class Mideas {
 		else {
 			System.out.println("Le joueur "+id+" est un Warlock !");
 			return new Warlock();
-		}*/
-		return new DeathKnight();
+		}
 	}
 
 	public static void getExpAll() throws FileNotFoundException, SQLException {
@@ -759,6 +759,146 @@ public class Mideas {
 	
 	public static void setCursor(String string) {
 		cursor = string;
+	}
+
+	public static void setJoueur1(Joueur joueur) {
+		joueur1 = joueur;
+	}
+	
+	public static int getClassLine() {
+		if(joueur1 != null) {
+			if(joueur1.getClasse().equals("DeathKnight")) {
+				return 0;
+			}
+			if(joueur1.getClasse().equals("Guerrier")) {
+				return 1;
+			}
+			if(joueur1.getClasse().equals("Hunter")) {
+				return 2;
+			}
+			if(joueur1.getClasse().equals("Mage")) {
+				return 3;
+			}
+			if(joueur1.getClasse().equals("Monk")) {
+				return 4;
+			}
+			if(joueur1.getClasse().equals("Paladin")) {
+				return 5;
+			}
+			if(joueur1.getClasse().equals("Priest")) {
+				return 6;
+			}
+			if(joueur1.getClasse().equals("Rogue")) {
+				return 7;
+			}
+			if(joueur1.getClasse().equals("Shaman")) {
+				return 8;
+			}
+			if(joueur1.getClasse().equals("Warlock")) {
+				return 9;
+			}
+			else {
+				return 10;
+			}
+		}
+		return 10;
+	}
+	
+	private static void lessCd() {
+		int i = 0;
+		int j = 0;
+		first:
+		while(i < Mideas.joueur1.getSpells().length) {
+			j = 0;
+			while(j < i) {
+				if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(j) != null && Mideas.joueur1.getSpells(i) instanceof SpellShortcut && Mideas.joueur1.getSpells(j) instanceof SpellShortcut && ((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().equal(((SpellShortcut)Mideas.joueur1.getSpells(j)).getSpell())) {
+					i++;
+					continue first;
+				}
+				j++;
+			}
+			if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(i) instanceof SpellShortcut) {	
+				Mideas.joueur1.getSpells(i).setCd(((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().getSpellId(), SpellManager.getCd(((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().getSpellId())-1);
+			}
+				i++;
+		}
+	}
+	
+	public static Joueur joueur1() {
+		return joueur1;
+	}
+	
+	public static Joueur joueur2() {
+		return joueur2;
+	}
+	
+	public static void setJoueur2(Joueur joueur) {
+		joueur2 = joueur;
+	}
+	
+	public static void setJoueur1Null() {
+		joueur1 = null;
+	}
+	
+	public static Bag bag() {
+		return bag;
+	}
+	
+	public static Shop shop() {
+		return shop;
+	}
+	
+	public static boolean getCurrentPlayer() {
+		return currentPlayer;
+	}
+	
+	public static void setCurrentPlayer(boolean we) {
+		currentPlayer = we;
+	}
+	
+	public static String getFps() {
+		return fps;
+	}
+	
+	public static void setDisplayMode(int width, int height, boolean fullscreen) {	 
+	    // return if requested DisplayMode is already set
+	    if((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen)) {
+	        return;
+	    }
+	    try {
+	        DisplayMode targetDisplayMode = null;
+		    if(fullscreen) {
+		        DisplayMode[] modes = Display.getAvailableDisplayModes();
+		        int freq = 0;             
+		        for(int i=0;i<modes.length;i++) {
+		            DisplayMode current = modes[i];       
+			        if((current.getWidth() == width) && (current.getHeight() == height)) {
+			            if((targetDisplayMode == null) || (current.getFrequency() >= freq)) {
+			                if((targetDisplayMode == null) || (current.getBitsPerPixel() > targetDisplayMode.getBitsPerPixel())) {
+			                	targetDisplayMode = current;
+			                	freq = targetDisplayMode.getFrequency();
+			                }
+			            }
+			            if((current.getBitsPerPixel() == Display.getDesktopDisplayMode().getBitsPerPixel()) && (current.getFrequency() == Display.getDesktopDisplayMode().getFrequency())) {
+		                    targetDisplayMode = current;
+		                    break;
+			            }
+			        }
+		        }
+		    } 
+		    else {
+		    	targetDisplayMode = new DisplayMode(width,height);
+	        }
+	        if(targetDisplayMode == null) {
+	            System.out.println("Failed to find value mode: "+width+"x"+height+" fs="+fullscreen);
+	            return;
+	        }
+	        Display.setDisplayMode(targetDisplayMode);
+	        Display.setFullscreen(fullscreen);        
+	    } 
+	    catch(LWJGLException e) {
+	        System.out.println("Unable to setup mode "+width+"x"+height+" fullscreen="+fullscreen + e);
+	    }
 	}
 	
 	public static int getLevelAll(int exp) {
@@ -1333,145 +1473,5 @@ public class Mideas {
 			expNeeded = 1;
 			return expNeeded;
 		}
-	}
-
-	public static void setJoueur1(Joueur joueur) {
-		joueur1 = joueur;
-	}
-	
-	public static int getClassLine() {
-		if(joueur1 != null) {
-			if(joueur1.getClasse().equals("DeathKnight")) {
-				return 0;
-			}
-			if(joueur1.getClasse().equals("Guerrier")) {
-				return 1;
-			}
-			if(joueur1.getClasse().equals("Hunter")) {
-				return 2;
-			}
-			if(joueur1.getClasse().equals("Mage")) {
-				return 3;
-			}
-			if(joueur1.getClasse().equals("Monk")) {
-				return 4;
-			}
-			if(joueur1.getClasse().equals("Paladin")) {
-				return 5;
-			}
-			if(joueur1.getClasse().equals("Priest")) {
-				return 6;
-			}
-			if(joueur1.getClasse().equals("Rogue")) {
-				return 7;
-			}
-			if(joueur1.getClasse().equals("Shaman")) {
-				return 8;
-			}
-			if(joueur1.getClasse().equals("Warlock")) {
-				return 9;
-			}
-			else {
-				return 10;
-			}
-		}
-		return 10;
-	}
-	
-	private static void lessCd() {
-		int i = 0;
-		int j = 0;
-		first:
-		while(i < Mideas.joueur1.getSpells().length) {
-			j = 0;
-			while(j < i) {
-				if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(j) != null && Mideas.joueur1.getSpells(i) instanceof SpellShortcut && Mideas.joueur1.getSpells(j) instanceof SpellShortcut && ((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().equal(((SpellShortcut)Mideas.joueur1.getSpells(j)).getSpell())) {
-					i++;
-					continue first;
-				}
-				j++;
-			}
-			if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(i) instanceof SpellShortcut) {	
-				Mideas.joueur1.getSpells(i).setCd(((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().getSpellId(), SpellManager.getCd(((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().getSpellId())-1);
-			}
-				i++;
-		}
-	}
-	
-	public static Joueur joueur1() {
-		return joueur1;
-	}
-	
-	public static Joueur joueur2() {
-		return joueur2;
-	}
-	
-	public static void setJoueur2(Joueur joueur) {
-		joueur2 = joueur;
-	}
-	
-	public static void setJoueur1Null() {
-		joueur1 = null;
-	}
-	
-	public static Bag bag() {
-		return bag;
-	}
-	
-	public static Shop shop() {
-		return shop;
-	}
-	
-	public static boolean getCurrentPlayer() {
-		return currentPlayer;
-	}
-	
-	public static void setCurrentPlayer(boolean we) {
-		currentPlayer = we;
-	}
-	
-	public static String getFps() {
-		return fps;
-	}
-	
-	public static void setDisplayMode(int width, int height, boolean fullscreen) {	 
-	    // return if requested DisplayMode is already set
-	    if((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen)) {
-	        return;
-	    }
-	    try {
-	        DisplayMode targetDisplayMode = null;
-		    if(fullscreen) {
-		        DisplayMode[] modes = Display.getAvailableDisplayModes();
-		        int freq = 0;             
-		        for(int i=0;i<modes.length;i++) {
-		            DisplayMode current = modes[i];       
-			        if((current.getWidth() == width) && (current.getHeight() == height)) {
-			            if((targetDisplayMode == null) || (current.getFrequency() >= freq)) {
-			                if((targetDisplayMode == null) || (current.getBitsPerPixel() > targetDisplayMode.getBitsPerPixel())) {
-			                	targetDisplayMode = current;
-			                	freq = targetDisplayMode.getFrequency();
-			                }
-			            }
-			            if((current.getBitsPerPixel() == Display.getDesktopDisplayMode().getBitsPerPixel()) && (current.getFrequency() == Display.getDesktopDisplayMode().getFrequency())) {
-		                    targetDisplayMode = current;
-		                    break;
-			            }
-			        }
-		        }
-		    } 
-		    else {
-		    	targetDisplayMode = new DisplayMode(width,height);
-	        }
-	        if(targetDisplayMode == null) {
-	            System.out.println("Failed to find value mode: "+width+"x"+height+" fs="+fullscreen);
-	            return;
-	        }
-	        Display.setDisplayMode(targetDisplayMode);
-	        Display.setFullscreen(fullscreen);        
-	    } 
-	    catch(LWJGLException e) {
-	        System.out.println("Unable to setup mode "+width+"x"+height+" fullscreen="+fullscreen + e);
-	    }
 	}
 }

@@ -191,7 +191,7 @@ public class ClassSelectFrame {
 	
 	}*/
 	
-	public static String goldTxt() {
+	/*public static String goldTxt() {
 		if(Mideas.joueur1() != null) {
 			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 				return "goldGuerrier.txt";
@@ -224,7 +224,7 @@ public class ClassSelectFrame {
 		}
 		return null;
 	
-	}
+	}*/
 	
 	/*public static String bagTxt() {
 		if(Mideas.joueur1() != null && !isBagEquipped) {
@@ -453,7 +453,7 @@ public class ClassSelectFrame {
 	
 	private static void isClassHoverExp(boolean classHover, float expClass, int x_sprite, int y_sprite, int x_exp_bar, int y_exp_bar, int y_exp_bar_border) throws FileNotFoundException {
 		if(classHover) {
-			if(Mideas.getLevelAll((int)expClass) > 1) {
+			if(Mideas.getLevelAll((int)expClass) > 1 && Mideas.getLevelAll((int)expClass) < 70) {
 				expClass = ((float)expClass-(float)Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass)-1))/((float)Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass))-Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass)-1)); 
 			}
 			else if(Mideas.getLevelAll((int)expClass) == 70) {
@@ -486,6 +486,8 @@ public class ClassSelectFrame {
 			Mideas.setJoueur1(joueur);
 			CharacterStuff.getBagItems();
 			CharacterStuff.getEquippedItems();
+			Mideas.getGold();
+			Mideas.getExp();
 			SpellLevel.setSpellLevelFalse();
 			Interface.setIsStuffEquipped(false);
 			Interface.setIsStatsCalc(false);

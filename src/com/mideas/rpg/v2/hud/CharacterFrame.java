@@ -5,7 +5,6 @@ import java.util.Arrays;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
@@ -36,25 +35,25 @@ public class CharacterFrame {
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getCritical())+"%"), Display.getHeight()/2+9, String.valueOf(Mideas.joueur1().getCritical())+"%", Color.white, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215, Display.getHeight()/2+21, "Mana:", Color.yellow, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getMana())), Display.getHeight()/2+21, String.valueOf(Mideas.joueur1().getMana()), Color.white, Color.black, 1, 1, 1);
-		drawCharacterItems(Mideas.joueur1().getStuff(0), Sprites.stuff_border, -281, -288);
-		drawCharacterItems(Mideas.joueur1().getStuff(1), Sprites.stuff_border2, -281, -240);
-		drawCharacterItems(Mideas.joueur1().getStuff(2), Sprites.stuff_border3, -281, -192);
-		drawCharacterItems(Mideas.joueur1().getStuff(3), Sprites.stuff_border4, -281, -144);
-		drawCharacterItems(Mideas.joueur1().getStuff(4), Sprites.stuff_border5, -281, -93);
+		drawCharacterItems(Mideas.joueur1().getStuff(0), -281, -288);
+		drawCharacterItems(Mideas.joueur1().getStuff(1), -281, -240);
+		drawCharacterItems(Mideas.joueur1().getStuff(2), -281, -192);
+		drawCharacterItems(Mideas.joueur1().getStuff(3), -281, -144);
+		drawCharacterItems(Mideas.joueur1().getStuff(4), -281, -93);
 		//drawCharacterItems(Mideas.joueur1().getNecklace(), Sprites.stuff_border6, -281, -194);
 		//drawCharacterItems(Mideas.joueur1().getChest(), Sprites.stuff_border7, -281, -194);
-		drawCharacterItems(Mideas.joueur1().getStuff(7), Sprites.stuff_border8, -281, 54);
-		drawCharacterItems(Mideas.joueur1().getStuff(8), Sprites.stuff_border9, 79, -288);
-		drawCharacterItems(Mideas.joueur1().getStuff(9), Sprites.stuff_border10, 79, -240);
-		drawCharacterItems(Mideas.joueur1().getStuff(10), Sprites.stuff_border11, 79, -192);
-		drawCharacterItems(Mideas.joueur1().getStuff(11), Sprites.stuff_border12, 79, -144);
-		drawCharacterItems(Mideas.joueur1().getStuff(12), Sprites.stuff_border13, 79, -93);
-		drawCharacterItems(Mideas.joueur1().getStuff(13), Sprites.stuff_border14, 79, -42);
-		drawCharacterItems(Mideas.joueur1().getStuff(14), Sprites.stuff_border15, 79, 6);
-		drawCharacterItems(Mideas.joueur1().getStuff(15), Sprites.stuff_border16, 79, 56);
-		drawCharacterItems(Mideas.joueur1().getStuff(16), Sprites.stuff_border17, -154, 85);
-		drawCharacterItems(Mideas.joueur1().getStuff(17), Sprites.stuff_border18, -101, 85);
-		drawCharacterItems(Mideas.joueur1().getStuff(18), Sprites.stuff_border19, -48, 85);
+		drawCharacterItems(Mideas.joueur1().getStuff(7), -281, 54);
+		drawCharacterItems(Mideas.joueur1().getStuff(8), 79, -288);
+		drawCharacterItems(Mideas.joueur1().getStuff(9), 79, -240);
+		drawCharacterItems(Mideas.joueur1().getStuff(10), 79, -192);
+		drawCharacterItems(Mideas.joueur1().getStuff(11), 79, -144);
+		drawCharacterItems(Mideas.joueur1().getStuff(12), 79, -93);
+		drawCharacterItems(Mideas.joueur1().getStuff(13), 79, -42);
+		drawCharacterItems(Mideas.joueur1().getStuff(14), 79, 6);
+		drawCharacterItems(Mideas.joueur1().getStuff(15), 79, 56);
+		drawCharacterItems(Mideas.joueur1().getStuff(16), -154, 85);
+		drawCharacterItems(Mideas.joueur1().getStuff(17), -101, 85);
+		drawCharacterItems(Mideas.joueur1().getStuff(18), -48, 85);
 		if(hoverCloseButton) {
 			Draw.drawQuad(Sprites.close_hover, Display.getWidth()/2+109, Display.getHeight()/2-362);
 		}
@@ -469,7 +468,7 @@ public class CharacterFrame {
 		}
 	}
 	
-	public static void drawCharacterItems(Stuff stuff, Texture stuff_border, int x, int y) {
+	public static void drawCharacterItems(Stuff stuff, int x, int y) {
 		if(stuff != null && !(stuff == DragManager.getDraggedItem())) {
 			Draw.drawQuad(IconsManager.getSprite42((stuff.getSpriteId())), Display.getWidth()/2+x, Display.getHeight()/2+y);
 			Draw.drawQuad(Sprites.stuff_border, Display.getWidth()/2+x-5, Display.getHeight()/2+y-5);

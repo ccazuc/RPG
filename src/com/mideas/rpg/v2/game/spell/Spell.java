@@ -99,7 +99,7 @@ public class Spell {
 	}
 	
 	public void doDamage(Joueur joueur2, Joueur joueur) {
-		joueur2.setStamina(joueur2.getStamina()-getDamage()+joueur.getStrength());
+		joueur2.setStamina(joueur2.getStamina()-getDamage()-joueur.getStrength());
 	}
 	
 	public void doHeal(Joueur joueur) {

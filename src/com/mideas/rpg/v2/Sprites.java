@@ -96,7 +96,7 @@ public class Sprites {
 	public static Texture class_choose;
 	public static Texture bag_hover;
 	public static Texture bag_border1;
-	public static Texture bag_border2;
+	/*public static Texture bag_border2;
 	public static Texture bag_border3;
 	public static Texture bag_border4;
 	public static Texture bag_border5;
@@ -126,7 +126,7 @@ public class Sprites {
 	public static Texture bag_border29;
 	public static Texture bag_border30;
 	public static Texture bag_border31;
-	public static Texture bag_border32;
+	public static Texture bag_border32;*/
 	public static Texture bag4;
 	public static Texture bag6;
 	public static Texture bag8;
@@ -199,7 +199,7 @@ public class Sprites {
 	public static Texture close_shop_hover;
 	public static Texture shop_hover;
 	public static Texture stuff_border;
-	public static Texture stuff_border2;
+	/*public static Texture stuff_border2;
 	public static Texture stuff_border3;
 	public static Texture stuff_border4;
 	public static Texture stuff_border5;
@@ -216,7 +216,7 @@ public class Sprites {
 	public static Texture stuff_border16;
 	public static Texture stuff_border17;
 	public static Texture stuff_border18;
-	public static Texture stuff_border19;
+	public static Texture stuff_border19;*/
 	public static Texture stuff_hover;
 	/*public static Texture warrior_t6_belt;
 	public static Texture warrior_t6_boots;
@@ -584,7 +584,7 @@ public class Sprites {
 		warrior_create_classe_level = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/createClasses/warrior_level.jpg"));
 		
 		stuff_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
-		stuff_border2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
+		/*stuff_border2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
 		stuff_border3 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
 		stuff_border4 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
 		stuff_border5 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
@@ -601,7 +601,7 @@ public class Sprites {
 		stuff_border16 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
 		stuff_border17 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
 		stuff_border18 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
-		stuff_border19 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));
+		stuff_border19 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_border.png"));*/
 		return true;
 	}
 
@@ -881,7 +881,7 @@ public class Sprites {
 		
 
 		bag_border1 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
-		bag_border2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
+		/*bag_border2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
 		bag_border3 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
 		bag_border4 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
 		bag_border5 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
@@ -911,7 +911,7 @@ public class Sprites {
 		bag_border29 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
 		bag_border30 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
 		bag_border31 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
-		bag_border32 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));
+		bag_border32 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_border.png"));*/
 		shop_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shop_border.png"));
 		return true;
 	}
