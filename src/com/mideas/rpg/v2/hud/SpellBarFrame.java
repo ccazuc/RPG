@@ -95,7 +95,7 @@ public class SpellBarFrame {
 						Draw.drawQuad(spell.getSprite(), Display.getWidth()/2+x, Display.getHeight()-49+yShift);
 						Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-1+x, Display.getHeight()-51+yShift);
 					}
-					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+47+x && Mideas.mouseY() >= Display.getHeight()-49+yShift  && Mideas.mouseY() <= Display.getHeight()-2) {
+					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+47+x && Mideas.mouseY() >= Display.getHeight()-49+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
 						Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x, Display.getHeight()-49+yShift);
 						Draw.drawQuad(Sprites.tooltip, Display.getWidth()/2-74+x, Display.getHeight()-220);
 						TTF2.font4.drawString(Display.getWidth()/2-66+x, Display.getHeight()-210, ((SpellShortcut)spell).getSpell().getName(), Color.white);
@@ -184,6 +184,7 @@ public class SpellBarFrame {
 						Mideas.setCurrentPlayer(false);
 					}
 					else if(hoveredSpell.getShortcutType() == ShortcutType.STUFF) {
+						((StuffShortcut)hoveredSpell).use(hoveredSpell);
 					}
 					else if(hoveredSpell.getShortcutType() == ShortcutType.POTION) {
 						((PotionShortcut)hoveredSpell).use(hoveredSpell);

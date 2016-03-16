@@ -482,7 +482,10 @@ public class CharacterFrame {
 	}
 	
 	public static boolean getHoverCharacterFrame(int i) {
-		return hoverCharacterFrame[i];
+		if(i < hoverCharacterFrame.length) {
+			return hoverCharacterFrame[i];
+		}
+		return false;
 	}
 	
 	public static boolean[] getHoverCharacterFrame() {

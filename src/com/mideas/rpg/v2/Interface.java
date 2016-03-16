@@ -92,6 +92,12 @@ public class Interface {
 					isTalentLoaded = true;
 				}
 				if(Mideas.joueur1() != null) {
+					if(Mideas.joueur2() != null) {
+						PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
+						if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
+							EndFightFrame.draw();
+						}
+					}
 					SpellBarFrame.draw();
 					SpellLevel.addSpell();
 					if(characterFrameActive) {
@@ -133,12 +139,6 @@ public class Interface {
 					ShortcutFrame.draw();
 					Draw.drawQuad(Sprites.level, 50, 95);
 					TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), Color.decode("#F0CE0C"), Color.black, 1, 1, 1);
-					if(Mideas.joueur2() != null) {
-						PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
-						if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
-							EndFightFrame.draw();
-						}
-					}
 					DragSpellManager.draw();
 				}
 			}

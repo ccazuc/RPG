@@ -125,14 +125,30 @@ public class DragSpellManager {
 	
 	private static void clickSpell(int i) {
 		if(hover[i]) {
-			if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.SPELL) {
-				if(Mideas.joueur1().getSpells(i) == null) {
+			if(Mideas.joueur1().getSpells(i) != null) {
+				if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.SPELL) {
 					if(draggedShortcut != null) {
+						Shortcut tempShortcutSpell = Mideas.joueur1().getSpells(i);
 						Mideas.joueur1().setSpells(i, draggedShortcut);
-						draggedShortcut = null;
+						draggedShortcut = tempShortcutSpell;
+					}
+					else {
+						draggedShortcut = Mideas.joueur1().getSpells(i);
+						Mideas.joueur1().setSpells(i, null);
 					}
 				}
-				else if(Mideas.joueur1().getSpells(i) != null) {
+				else if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.STUFF) {
+					if(draggedShortcut != null) {
+						Shortcut tempShortcutSpell = Mideas.joueur1().getSpells(i);
+						Mideas.joueur1().setSpells(i, draggedShortcut);
+						draggedShortcut = tempShortcutSpell;
+					}
+					else {
+						draggedShortcut = Mideas.joueur1().getSpells(i);
+						Mideas.joueur1().setSpells(i, null);
+					}
+				}
+				else if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.POTION) {
 					if(draggedShortcut != null) {
 						Shortcut tempShortcutSpell = Mideas.joueur1().getSpells(i);
 						Mideas.joueur1().setSpells(i, draggedShortcut);
@@ -144,43 +160,18 @@ public class DragSpellManager {
 					}
 				}
 			}
-			else if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.STUFF) {
-				if(Mideas.joueur1().getSpells(i) == null) {
-					if(draggedShortcut != null) {
-						Mideas.joueur1().setSpells(i, draggedShortcut);
-						draggedShortcut = null;
-					}
+			else if(Mideas.joueur1().getSpells(i) == null) {
+				if(draggedShortcut != null) {
+					Mideas.joueur1().setSpells(i, draggedShortcut);
+					draggedShortcut = null;
 				}
-				else if(Mideas.joueur1().getSpells(i) != null) {
-					if(draggedShortcut != null) {
-						Shortcut tempShortcutSpell = Mideas.joueur1().getSpells(i);
-						Mideas.joueur1().setSpells(i, draggedShortcut);
-						draggedShortcut = tempShortcutSpell;
-					}
-					else {
-						draggedShortcut = Mideas.joueur1().getSpells(i);
-						Mideas.joueur1().setSpells(i, null);
-					}
+				if(draggedShortcut != null) {
+					Mideas.joueur1().setSpells(i, draggedShortcut);
+					draggedShortcut = null;
 				}
-			}
-			
-			else if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.POTION) {
-				if(Mideas.joueur1().getSpells(i) == null) {
-					if(draggedShortcut != null) {
-						Mideas.joueur1().setSpells(i, draggedShortcut);
-						draggedShortcut = null;
-					}
-				}
-				else if(Mideas.joueur1().getSpells(i) != null) {
-					if(draggedShortcut != null) {
-						Shortcut tempShortcutSpell = Mideas.joueur1().getSpells(i);
-						Mideas.joueur1().setSpells(i, draggedShortcut);
-						draggedShortcut = tempShortcutSpell;
-					}
-					else {
-						draggedShortcut = Mideas.joueur1().getSpells(i);
-						Mideas.joueur1().setSpells(i, null);
-					}
+				if(draggedShortcut != null) {
+					Mideas.joueur1().setSpells(i, draggedShortcut);
+					draggedShortcut = null;
 				}
 			}
 		}
@@ -213,11 +204,6 @@ public class DragSpellManager {
 					draggedShortcut = tempSpellShortcut;
 					return true;
 				}
-			}
-			else {
-				//setNullSpell(draggedShortcut);
-				//draggedShortcut = null;
-				//return true;
 			}
 		}
 		else if(draggedBookSpell != null) {
