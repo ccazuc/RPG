@@ -114,25 +114,27 @@ public class DragManager {
 			else {
 				int i = 0;
 				if(draggedItem != null) {
-					if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
-						if(!checkCharacterHover()) {
-							if(checkCharacterItems(draggedItem)) {
-								draggedItem = null;
-								leftClickInventoryDown = false;
-								Arrays.fill(clickInventory, false);
-								return true;
+					if(Interface.getCharacterFrameStatus()) {
+						if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
+							if(!checkCharacterHover()) {
+								if(checkCharacterItems(draggedItem)) {
+									draggedItem = null;
+									leftClickInventoryDown = false;
+									Arrays.fill(clickInventory, false);
+									return true;
+								}
 							}
 						}
 					}
 					if(Interface.getContainerFrameStatus()) {
-						if(Mideas.mouseX() >= Display.getWidth()/2-200 && Mideas.mouseX() <= Display.getWidth()/2-9 && Mideas.mouseY() >= Display.getHeight()/2-100 && Mideas.mouseY() <= Display.getHeight()+387) {
+						if(Mideas.mouseX() >= Display.getWidth()-200 && Mideas.mouseX() <= Display.getWidth()-9 && Mideas.mouseY() >= Display.getHeight()/2-100 && Mideas.mouseY() <= Display.getHeight()+387) {
 							if(!checkBagHover()) {
-								/*while(i < Mideas.bag().getBag().length) {
+								while(i < Mideas.bag().getBag().length) {
 									if(clickBagItem(i)) {
 										return true;
 									}
 									i++;
-								}*/
+								}
 								draggedItem = null;
 								leftClickBagDown = false;
 								Arrays.fill(clickBag, false);
@@ -160,13 +162,28 @@ public class DragManager {
 						i++;
 					}
 				}
-				i = 0;
-				if(isHoverBagFrame()) {
-					while(i < Mideas.bag().getBag().length) {
-						if(clickBagItem(i)) {
-							break;
+				if(Interface.getContainerFrameStatus()) {
+					if(Mideas.mouseX() >= Display.getWidth()-200 && Mideas.mouseX() <= Display.getWidth()-9 && Mideas.mouseY() >= Display.getHeight()/2-100 && Mideas.mouseY() <= Display.getHeight()+387) {
+						i = 0;
+						if(isHoverBagFrame()) {
+							while(i < Mideas.bag().getBag().length) {
+								if(clickBagItem(i)) {
+									return true;
+								}
+								i++;
+							}
 						}
-						i++;
+					}
+				}
+				if(Interface.getCharacterFrameStatus()) {
+					if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
+						i = 0;
+						while(i < Mideas.joueur1().getStuff().length) {
+							if(clickInventoryItem(i)) {
+								return true;
+							}
+							i++;
+						}
 					}
 				}
 				/*while(i < CharacterFrame.getHoverCharacterFrame().length) {
