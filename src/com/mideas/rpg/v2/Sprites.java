@@ -13,6 +13,7 @@ public class Sprites {
 	public static Texture playerUI;
 	public static Texture admin_panel;
 	public static Texture hover;
+	public static Texture bag_hover2;
 	public static Texture un_green_talent;
 	public static Texture deux_green_talent;
 	public static Texture trois_green_talent;
@@ -36,6 +37,7 @@ public class Sprites {
 	public static Texture resized_sunwell1_bg;
 	public static Texture resized_sunwell2_bg;
 	public static Texture resized_illidan_bg;
+	public static Texture bag_open_border;
 	public static Texture spell_border;
 	public static Texture illidan;
 	public static Texture priest;
@@ -96,6 +98,7 @@ public class Sprites {
 	public static Texture class_choose;
 	public static Texture bag_hover;
 	public static Texture bag_border1;
+	public static Texture bag_click_hover;
 	/*public static Texture bag_border2;
 	public static Texture bag_border3;
 	public static Texture bag_border4;
@@ -478,7 +481,9 @@ public class Sprites {
 	
 	public static boolean sprite() throws IOException {
 		elevator_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/elevator_button.png"));
+		bag_click_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_click_hover.png"));
 		spellbook_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-Spellbook-Down.png"));
+		bag_open_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_open_border.png"));
 		talent_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-Talents-Down.png"));
 		character_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-CharacterNightElf-Down.png"));
 		escape_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-MainMenu-Down.png"));
@@ -932,6 +937,7 @@ public class Sprites {
 		back_bag4 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/backbag.png"));
 		icon_bag = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/icon_bag.png"));
 		bag_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_hover.png"));
+		bag_hover2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_hover.png"));
 		shop_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shop_hover.png"));
 		stuff_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_hover.png"));
 		character_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/characterFrame.png"));

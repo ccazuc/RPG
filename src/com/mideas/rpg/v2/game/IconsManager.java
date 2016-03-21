@@ -9,8 +9,6 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.mideas.rpg.v2.Sprites;
-
 public class IconsManager {
 
 	private static Map<String, Texture> sprites42 = new HashMap<String, Texture>();

@@ -61,22 +61,24 @@ public class CharacterFrame {
 		int x_hoverRight = 76;
 		//int x = -568;
 		//int y = -277;
-		characterLeftItemsHover(hoverCharacterFrame[0], Mideas.joueur1().getStuff(0), x_hoverLeft, -568, -257, 110, -460, -280, -290, -410, -272, "Head");
-		characterLeftItemsHover(hoverCharacterFrame[1], Mideas.joueur1().getStuff(1), x_hoverLeft, -540, -227, 85, -460, -250, -242, -425, -240, "Necklace");
-		characterLeftItemsHover(hoverCharacterFrame[2], Mideas.joueur1().getStuff(2), x_hoverLeft, -550, -177, 85, -460, -200, -194, -428, -190, "Shoulders");
-		characterLeftItemsHover(hoverCharacterFrame[3], Mideas.joueur1().getStuff(3), x_hoverLeft, -540, -127, 85, -460, -150, -146, -410, -140, "Back");
-		characterLeftItemsHover(hoverCharacterFrame[4], Mideas.joueur1().getStuff(4), x_hoverLeft, -540, -78, 85, -460, -100, -95, -392, -90, "Chest");
-		//characterLeftItemsHover(hoverCharacterFrame[5], Mideas.joueur1().getChest(), x_hoverLeft, -540, -78, 85, -460, -100, -98, -392, -90);
-		//characterLeftItemsHover(hoverCharacterFrame[6}, Mideas.joueur1().getChest(), x_hoverLeft, -540, -78, 85, -460, -100, -98, -392, -90);
-		characterLeftItemsHover(hoverCharacterFrame[7], Mideas.joueur1().getStuff(7), x_hoverLeft, -540, -22, 85, -460, -43, 51, -417, 40, "Wrists");
-		characterRightItemsHover(hoverCharacterFrame[8], Mideas.joueur1().getStuff(8), x_hoverRight, 172, -300, -115, 0, -300, -290, 203, -290, "Gloves");
-		characterRightItemsHover(hoverCharacterFrame[9], Mideas.joueur1().getStuff(9), x_hoverRight, 170, -250, -115, 0, -250, -242, 212, -240, "Belt");
-		characterRightItemsHover(hoverCharacterFrame[10], Mideas.joueur1().getStuff(10), x_hoverRight, 168, -200, -115, 0, -200, -194, 193, -190, "Leggings");
-		characterRightItemsHover(hoverCharacterFrame[11], Mideas.joueur1().getStuff(11), x_hoverRight, 170, -158, -115, 0, -150, -146, 203, -140, "Boots");
-		characterRightItemsHover(hoverCharacterFrame[12], Mideas.joueur1().getStuff(12), x_hoverRight, 168, -110, -115, 0, -100, -95, 203, -90, "Ring");
-		characterRightItemsHover(hoverCharacterFrame[13], Mideas.joueur1().getStuff(13), x_hoverRight, 168, -60, -115, 0, -50, -45, 203, -40, "Ring2");
-		characterRightItemsHover(hoverCharacterFrame[14], Mideas.joueur1().getStuff(14), x_hoverRight, 170, -10, -115, 0, 0, 3, 202, 10, "Trinket");
-		characterRightItemsHover(hoverCharacterFrame[15], Mideas.joueur1().getStuff(15), x_hoverRight, 168, 40, -115, 0, 50, 52, 202, 60, "Trinket2");
+		if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
+			characterLeftItemsHover(hoverCharacterFrame[0], Mideas.joueur1().getStuff(0), x_hoverLeft, -568, -257, 110, -460, -280, -290, -410, -272, "Head");
+			characterLeftItemsHover(hoverCharacterFrame[1], Mideas.joueur1().getStuff(1), x_hoverLeft, -540, -227, 85, -460, -250, -242, -425, -240, "Necklace");
+			characterLeftItemsHover(hoverCharacterFrame[2], Mideas.joueur1().getStuff(2), x_hoverLeft, -550, -177, 85, -460, -200, -194, -428, -190, "Shoulders");
+			characterLeftItemsHover(hoverCharacterFrame[3], Mideas.joueur1().getStuff(3), x_hoverLeft, -540, -127, 85, -460, -150, -146, -410, -140, "Back");
+			characterLeftItemsHover(hoverCharacterFrame[4], Mideas.joueur1().getStuff(4), x_hoverLeft, -540, -78, 85, -460, -100, -95, -392, -90, "Chest");
+			//characterLeftItemsHover(hoverCharacterFrame[5], Mideas.joueur1().getChest(), x_hoverLeft, -540, -78, 85, -460, -100, -98, -392, -90);
+			//characterLeftItemsHover(hoverCharacterFrame[6}, Mideas.joueur1().getChest(), x_hoverLeft, -540, -78, 85, -460, -100, -98, -392, -90);
+			characterLeftItemsHover(hoverCharacterFrame[7], Mideas.joueur1().getStuff(7), x_hoverLeft, -540, -22, 85, -460, -43, 51, -417, 40, "Wrists");
+			characterRightItemsHover(hoverCharacterFrame[8], Mideas.joueur1().getStuff(8), x_hoverRight, 172, -300, -115, 0, -300, -290, 203, -290, "Gloves");
+			characterRightItemsHover(hoverCharacterFrame[9], Mideas.joueur1().getStuff(9), x_hoverRight, 170, -250, -115, 0, -250, -242, 212, -240, "Belt");
+			characterRightItemsHover(hoverCharacterFrame[10], Mideas.joueur1().getStuff(10), x_hoverRight, 168, -200, -115, 0, -200, -194, 193, -190, "Leggings");
+			characterRightItemsHover(hoverCharacterFrame[11], Mideas.joueur1().getStuff(11), x_hoverRight, 170, -158, -115, 0, -150, -146, 203, -140, "Boots");
+			characterRightItemsHover(hoverCharacterFrame[12], Mideas.joueur1().getStuff(12), x_hoverRight, 168, -110, -115, 0, -100, -95, 203, -90, "Ring");
+			characterRightItemsHover(hoverCharacterFrame[13], Mideas.joueur1().getStuff(13), x_hoverRight, 168, -60, -115, 0, -50, -45, 203, -40, "Ring2");
+			characterRightItemsHover(hoverCharacterFrame[14], Mideas.joueur1().getStuff(14), x_hoverRight, 170, -10, -115, 0, 0, 3, 202, 10, "Trinket");
+			characterRightItemsHover(hoverCharacterFrame[15], Mideas.joueur1().getStuff(15), x_hoverRight, 168, 40, -115, 0, 50, 52, 202, 60, "Trinket2");
+			}
 		
 		/*if(hoverCharacterFrame) {
 			if(Mideas.joueur1.getHead() == null) {
@@ -409,25 +411,27 @@ public class CharacterFrame {
 		if(Mideas.mouseX() >= Display.getWidth()/2+112 && Mideas.mouseX() <= Display.getWidth()/2+132 && Mideas.mouseY() >= Display.getHeight()/2-360 && Mideas.mouseY() <= Display.getHeight()/2-342) {
 			hoverCloseButton = true;
 		}
-		isHover(xLeft, y, 0);
-		isHover(xLeft, y+yShift, 1);
-		isHover(xLeft, y+2*yShift, 2);
-		isHover(xLeft, y+3*yShift, 3);
-		isHover(xLeft, y+4*yShift, 4);
-		isHover(xLeft, y+5*yShift, 5);
-		isHover(xLeft, y+6*yShift, 6);
-		isHover(xLeft, y+7*yShift, 7);
-		isHover(xRight, y, 8);
-		isHover(xRight, y+1*yShift, 9);
-		isHover(xRight, y+2*yShift, 10);
-		isHover(xRight, y+3*yShift, 11);
-		isHover(xRight, y+4*yShift, 12);
-		isHover(xRight, y+5*yShift, 13);
-		isHover(xRight, y+6*yShift, 14);
-		isHover(xRight, y+7*yShift, 15);
-		isHover(xLeft+126, y+372, 16);
-		isHover(xLeft+180, y+372, 17);
-		isHover(xLeft+233, y+372, 18);
+		if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
+			isHover(xLeft, y, 0);
+			isHover(xLeft, y+yShift, 1);
+			isHover(xLeft, y+2*yShift, 2);
+			isHover(xLeft, y+3*yShift, 3);
+			isHover(xLeft, y+4*yShift, 4);
+			isHover(xLeft, y+5*yShift, 5);
+			isHover(xLeft, y+6*yShift, 6);
+			isHover(xLeft, y+7*yShift, 7);
+			isHover(xRight, y, 8);
+			isHover(xRight, y+1*yShift, 9);
+			isHover(xRight, y+2*yShift, 10);
+			isHover(xRight, y+3*yShift, 11);
+			isHover(xRight, y+4*yShift, 12);
+			isHover(xRight, y+5*yShift, 13);
+			isHover(xRight, y+6*yShift, 14);
+			isHover(xRight, y+7*yShift, 15);
+			isHover(xLeft+126, y+372, 16);
+			isHover(xLeft+180, y+372, 17);
+			isHover(xLeft+233, y+372, 18);
+		}
 		return false;
 	}
 	

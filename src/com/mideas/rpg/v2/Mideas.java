@@ -36,6 +36,7 @@ import com.mideas.rpg.v2.game.classes.Warlock;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.stuff.Bag;
+import com.mideas.rpg.v2.game.item.stuff.BagManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -136,6 +137,8 @@ public class Mideas {
 		Sprites.sprite9();
 		Sprites.sprite10();
 		double times = System.currentTimeMillis();
+		BagManager.loadBags();
+		BagManager.loadBagsSprites();
 		StuffManager.loadStuffs();
 		PotionManager.loadPotions();
 		ShopManager.loadStuffs();
@@ -175,7 +178,7 @@ public class Mideas {
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		jdo = new MariaDB("192.168.0.12", 3306, "rpg", "root", "mideas");
 	}
 	
 	public static JDO getJDO() {

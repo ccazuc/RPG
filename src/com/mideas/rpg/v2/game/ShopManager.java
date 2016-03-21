@@ -123,19 +123,15 @@ public class ShopManager {
 			}
 			else if(page == 0 && right_arrow) {
 				page++;
-				Interface.setIsShopLoaded(false);
 			}
 			else if(page == 1 && right_arrow) {
 				page++;
-				Interface.setIsShopLoaded(false);
 			}
 			else if(page == 1 && left_arrow) {
 				page--;
-				Interface.setIsShopLoaded(false);
 			}
 			else if(page == 2 && left_arrow) {
 				page--;
-				Interface.setIsShopLoaded(false);
 			}	
 		}
 		isSlotHover(xLeft, y, 0, 41, 0);

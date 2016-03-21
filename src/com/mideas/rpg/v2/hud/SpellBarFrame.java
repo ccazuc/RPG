@@ -13,6 +13,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
@@ -47,17 +48,6 @@ public class SpellBarFrame {
 			Draw.drawColorQuad(Display.getWidth()/2-678, Display.getHeight()-85, 1339*e, 13,  Color.decode("#680764"));
 		}
         Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-809, Display.getHeight()-100);
-       /* float xShift = 56.3f;
-        int i = 0;
-        while(i < 24) {
-        	if(i%2 == 0) {
-        		Draw.drawQuad(Sprites.spellbar_case, Display.getWidth()/2-678+i*xShift, Display.getHeight()-130);
-        	}
-        	else {
-        		Draw.drawQuad(Sprites.spellbar_case2, Display.getWidth()/2-678+i*xShift, Display.getHeight()-130);
-        	}
-            i++;
-        }*/
 		Draw.drawQuad(Sprites.spell_attack, Display.getWidth()/2-678, Display.getHeight()-49);
 		Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-679, Display.getHeight()-51);  
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1, 1, 1);
@@ -73,6 +63,19 @@ public class SpellBarFrame {
 		if(bagChange) {
 			numberFreeSlotBag = checkNumberFreeSlotBag();
 			bagChange = false;
+		}
+		int i = 0;
+		while(i < 4) {
+			if(Mideas.bag().getEquippedBag(i) != null) {
+				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(i)), Display.getWidth()-272-46*i, Display.getHeight()-40);
+				if(ContainerFrame.getBagOpen(i+1)) {
+					Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()-272-46*i, Display.getHeight()-40);
+					i++;
+					continue;
+				}
+				Draw.drawQuad(Sprites.cursor, -100, -100);
+			}
+			i++;
 		}
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+650-TTF2.statsName.getWidth("("+Integer.toString(numberFreeSlotBag)+")")/2, Display.getHeight()-23, "("+Integer.toString(checkNumberFreeSlotBag())+")", Color.white, Color.black, 1, 1, 1);
 		float x = -678+56.3f;
@@ -127,16 +130,16 @@ public class SpellBarFrame {
 				}
 				if(DragSpellManager.getDraggedSpell() != Mideas.joueur1().getSpells(spellCount)) {
 					if(spellCount+2 <= 9) {
-						TTF2.font5.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, String.valueOf(spellCount+2), Color.white, Color.black, 1, 1, 1);
+						TTF2.statsName.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, String.valueOf(spellCount+2), Color.white, Color.black, 1, 1, 1);
 					}
 					else if(spellCount+2 == 10) {
-						TTF2.font5.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, "0", Color.white, Color.black, 1, 1, 1);
+						TTF2.statsName.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, "0", Color.white, Color.black, 1, 1, 1);
 					}
 					else if(spellCount+2 == 11) {
-						TTF2.font5.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, ")", Color.white, Color.black, 1, 1, 1);
+						TTF2.statsName.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, ")", Color.white, Color.black, 1, 1, 1);
 					}
 					else if(spellCount+2 == 12) {
-						TTF2.font5.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, "=", Color.white, Color.black, 1, 1, 1);
+						TTF2.statsName.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, "=", Color.white, Color.black, 1, 1, 1);
 					}
 				}
 			}

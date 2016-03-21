@@ -132,19 +132,15 @@ public class ShopFrame {
 			}
 			else if(shopPage.equals("shopPage1") && right_arrow) {
 				shopPage = "shopPage2";
-				Interface.setIsShopLoaded(false);
 			}
 			else if(shopPage.equals("shopPage2") && right_arrow) {
-				shopPage = "shopPage3";
-				Interface.setIsShopLoaded(false);
+				shopPage = "shopPage3";;
 			}
 			else if(shopPage.equals("shopPage2") && left_arrow) {
 				shopPage = "shopPage1";
-				Interface.setIsShopLoaded(false);
 			}
 			else if(shopPage.equals("shopPage3") && left_arrow) {
 				shopPage = "shopPage2";
-				Interface.setIsShopLoaded(false);
 			}			
 		}
 		if(Mideas.mouseX() >= Display.getWidth()/2+27 && Mideas.mouseX() <= Display.getWidth()/2+46 && Mideas.mouseY() >= Display.getHeight()/2-337 && Mideas.mouseY() <= Display.getHeight()/2-319) {

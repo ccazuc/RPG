@@ -22,6 +22,7 @@ import com.mideas.rpg.v2.hud.ChatFrame;
 import com.mideas.rpg.v2.hud.ClassSelectFrame;
 import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.CraftManager;
+import com.mideas.rpg.v2.hud.DragBagManager;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
 import com.mideas.rpg.v2.hud.EndFightFrame;
@@ -52,15 +53,13 @@ public class Interface {
 	private static boolean adminPanelFrameActive;
 	private static boolean interfaceFrameActive;
 	private static boolean dungeonFrameActive;
-	private static boolean isShopLoaded;
 	private static boolean isTalentLoaded;
 	private static boolean isConfigLoaded;
 	private static boolean isChangeClassActive;
 	private static boolean craftFrameActive;
 	private static boolean chatFrameActive = true;
-	private static boolean logFightFrameActive;
 
-	public static void draw() throws LWJGLException, IOException, SQLException {
+	public static void draw() throws LWJGLException, IOException, SQLException, CloneNotSupportedException {
 		Draw.drawQuad(Sprites.current_bg, Display.getWidth()/2-Sprites.current_bg.getImageWidth()/2, Display.getHeight()/2-Sprites.current_bg.getImageHeight()/2);
 		if(!isConfigLoaded) {
 			Mideas.getConfig();
@@ -80,6 +79,7 @@ public class Interface {
 					isExpLoaded = true;
 				}
 				if(Mideas.joueur1() != null && !isStuffEquipped) {
+					CharacterStuff.getEquippedBags();
 					CharacterStuff.getBagItems();
 					isStuffEquipped = true;
 				}
@@ -103,11 +103,9 @@ public class Interface {
 					if(characterFrameActive) {
 						CharacterFrame.draw();
 					}
-					if(containerFrameActive) {
-						//double time = System.currentTimeMillis();
+					if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 						ContainerFrame.draw();
 						GoldFrame.draw();
-						//System.out.println("Draw bag frame : "+(System.currentTimeMillis()-time)/1000.0);
 					}
 					if(shopFrameActive) {
 						ShopManager.draw();		
@@ -173,6 +171,7 @@ public class Interface {
 				if(ShortcutFrame.mouseEvent()) {
 					return true;
 				}
+				DragBagManager.openBag();
  			}
 			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
 				EndFightFrame.mouseEvent();
@@ -248,10 +247,42 @@ public class Interface {
 						characterFrameActive = !characterFrameActive;
 						return true;
 					}
-					else if(Keyboard.getEventKey() == Keyboard.KEY_B && !escapeFrameActive) {
+					else if(Keyboard.isKeyDown(42) && Keyboard.getEventKey() == Keyboard.KEY_B && !escapeFrameActive) {
+						if(containerFrameActive) {
+							ContainerFrame.setBagOpen(0, false);
+							ContainerFrame.setBagOpen(1, false);
+							ContainerFrame.setBagOpen(2, false);
+							ContainerFrame.setBagOpen(3, false);
+							ContainerFrame.setBagOpen(4, false);
+						}
+						else {
+							ContainerFrame.setBagOpen(0, true);
+							ContainerFrame.setBagOpen(1, true);
+							ContainerFrame.setBagOpen(2, true);
+							ContainerFrame.setBagOpen(3, true);
+							ContainerFrame.setBagOpen(4, true);
+						}
 						containerFrameActive = !containerFrameActive;
 						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
 						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_B && !escapeFrameActive) {
+						if(containerFrameActive) {
+							ContainerFrame.setBagOpen(0, false);
+							ContainerFrame.setBagOpen(1, false);
+							ContainerFrame.setBagOpen(2, false);
+							ContainerFrame.setBagOpen(3, false);
+							ContainerFrame.setBagOpen(4, false);
+						}
+						else {
+							ContainerFrame.setBagOpen(0, true);
+						}
+						containerFrameActive = !containerFrameActive;
+						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_W) {
+						ContainerFrame.setBagOpen(3, false);
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_T && !escapeFrameActive) {
 						closeCharacterFrame();
@@ -438,10 +469,6 @@ public class Interface {
  	public static void setIsStatsCalc(boolean we) {
  		isStatsCalc = we;
  	}
- 	
-	public static void setIsShopLoaded(boolean we) {
-		isShopLoaded = we;
-	}
 	
 	public static void setIsStuffEquipped(boolean we) {
 		isStuffEquipped = we;

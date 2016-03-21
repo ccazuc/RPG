@@ -264,6 +264,7 @@ public class ChatFrame {
 			Mideas.getExp();
 			ShopManager.getShopList().clear();
 			ShopManager.loadStuffs();
+			CharacterStuff.getEquippedBags();
 			CharacterStuff.getBagItems();
 			CharacterStuff.getEquippedItems();
 		}
@@ -278,7 +279,6 @@ public class ChatFrame {
 		else if(tempMessage.contains(".modify exp ")) {
 			String[] temp = tempMessage.split("exp ");
 			int value = Integer.parseInt(temp[1]);	
-			System.out.println(value);
 			Mideas.joueur1().setExp(0, value);
 		}
 	}

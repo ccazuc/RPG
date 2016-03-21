@@ -64,9 +64,7 @@ public class EndFightFrame {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 won", Color.white, Color.black, 1, 1, 1);
 			isGold = true;
 			if(!expGiven) {
-				double time = System.currentTimeMillis();
 				Mideas.setExp();
-				System.out.println((System.currentTimeMillis()-time)/1000.0+" end event");
 				Mideas.getLevel();
 				expGiven = true;
 			}
@@ -74,7 +72,7 @@ public class EndFightFrame {
 				Mideas.setGold(Mideas.joueur2().getGoldGained());
 				gold = true;
 			}
-			//lootManager();
+			lootManager();
 		}
 		
 	}
@@ -174,7 +172,7 @@ public class EndFightFrame {
 	}
 	
 	private static void lootGuerrier() throws FileNotFoundException, SQLException {
-		float x = 0.005f;
+		float x = 0.05f;
 		drop(x, StuffManager.getClone(1001));
 		drop(x, StuffManager.getClone(2001));
 		drop(x, StuffManager.getClone(3001));
@@ -190,6 +188,7 @@ public class EndFightFrame {
 		//drop(.01f*x, new ThoridalTheStarsFury());
 		drop(.01f*x, StuffManager.getClone(15001));
 		drop(.01f*x, StuffManager.getClone(16001));
+		drop = true;
 		//drop(100*x, new SuperHealingPotion());
 		//drop(200*x, new LinenCloth());
 	}
@@ -206,6 +205,7 @@ public class EndFightFrame {
 		drop(x, StuffManager.getClone(8201));
 		drop(x, StuffManager.getClone(9201));
 		drop(x, StuffManager.getClone(10201));
+		drop = true;
 		//drop(0.01f*x, new ThoridalTheStarsFury());
 		//drop(100*x, new SuperHealingPotion());
 		//drop(200*x, new LinenCloth());
@@ -300,6 +300,7 @@ public class EndFightFrame {
 	
 	private static void drop(float x, Item item) throws FileNotFoundException, SQLException {
 		if(Math.random() <= x && !drop && item != null) {
+			System.out.println('a');
 			if(item.getItemType() == ItemType.POTION || item.getItemType() == ItemType.ITEM) {
 				dropItem(item, 1);
 				SpellBarFrame.setBagChange(true);
@@ -309,7 +310,6 @@ public class EndFightFrame {
 				SpellBarFrame.setBagChange(true);
 			}
 			LogChat.setStatusText3("Vous avez obtenus "+item.getStuffName());
-			drop = true;
 		}
 	}
 	

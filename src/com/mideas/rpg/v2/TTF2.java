@@ -81,7 +81,8 @@ public class TTF2 {
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-		awtFont = awtFont.deriveFont(10f);
+		awtFont = awtFont.deriveFont(Font.BOLD);
+		awtFont = awtFont.deriveFont(11f);
 	    coin = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
