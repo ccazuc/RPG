@@ -100,8 +100,8 @@ public class ChatFrame {
 			if(chatActive) {
 				if(tempMessage != "") {
 					rawMessages.add(tempMessage);
-					checkTempMessage();
 					addMessage();
+					checkTempMessage();
 					numberMessageSent++;
 				}
 				tempMessage =  "";
@@ -111,6 +111,16 @@ public class ChatFrame {
 			}
 			chatActive = !chatActive;
 		}
+        else if(Keyboard.getEventKey() == 201 && !chatActive) {  //scroll up
+			if(messages.size()-5+shift > 0) {
+				shift--;
+			}
+        }
+        else if(Keyboard.getEventKey() == 209 && !chatActive) {  //scroll down
+			if(shift < 0) {
+				shift++;
+			}
+        }
 	}
 	
 	public static boolean mouseEvent() {
@@ -280,6 +290,19 @@ public class ChatFrame {
 			String[] temp = tempMessage.split("exp ");
 			int value = Integer.parseInt(temp[1]);	
 			Mideas.joueur1().setExp(0, value);
+		}
+		else if(tempMessage.equals(".help")) {
+			messages.add(".kill [joueur]");
+			messages.add(".modify hp [joueur] [value]");
+			messages.add(".modify mana [joueur] [value]");
+			messages.add(".lookup item [id]");
+			messages.add(".lookup spell [id]");
+			messages.add(".set joueur2 [joueur]");
+			messages.add(".damage [joueur] [value]");
+			messages.add(".add stuff [id]");
+			messages.add(".delete bag item [id]");
+			messages.add(".clear chat");
+			messages.add(".set fullscreen [boolean]");
 		}
 	}
 	

@@ -182,10 +182,8 @@ public class Interface {
 					return true;
 				}
 			}
-			if(containerFrameActive) {
-				if(ContainerFrame.mouseEvent()) {
-					return true;	
-				}
+			if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
+				ContainerFrame.mouseEvent();
 			}
 			if(shopFrameActive) {
 				if(ShopManager.mouseEvent()) {

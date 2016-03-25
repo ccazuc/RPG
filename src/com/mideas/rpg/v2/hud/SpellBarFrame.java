@@ -67,9 +67,9 @@ public class SpellBarFrame {
 		int i = 0;
 		while(i < 4) {
 			if(Mideas.bag().getEquippedBag(i) != null) {
-				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(i)), Display.getWidth()-272-46*i, Display.getHeight()-40);
+				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(i)), Display.getWidth()/2+578-46*i, Display.getHeight()-40);
 				if(ContainerFrame.getBagOpen(i+1)) {
-					Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()-272-46*i, Display.getHeight()-40);
+					Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()/2+575-46*i, Display.getHeight()-41);
 					i++;
 					continue;
 				}
