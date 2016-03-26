@@ -637,6 +637,9 @@ public class CharacterStuff {
 				if(BagManager.exists(id)) {
 					Mideas.bag().setEquippedBag(i, BagManager.getClone(id));
 				}
+				else {
+					Mideas.bag().setEquippedBag(i, null);
+				}
 				i++;
 			}
 		}

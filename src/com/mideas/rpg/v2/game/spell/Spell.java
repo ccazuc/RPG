@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.game.spell;
 import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 
@@ -139,10 +140,10 @@ public class Spell {
 	public String getName() {
 		return name;
 	}
-	
 	public Texture getSprite() {
-		return sprite;
+		return IconsManager.getSprite47(sprite_id);
 	}
+	
 	
 	public void setDamage(Spell spell, int number) {
 		this.baseDamage = baseDamage+number;

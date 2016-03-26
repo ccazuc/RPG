@@ -17,14 +17,15 @@ public class BagManager {
 	private static HashMap<Integer, Texture> bagsIconsSprites = new HashMap<Integer, Texture>();
 	
 	public static void loadBags() throws SQLException, CloneNotSupportedException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, size FROM container");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, size, sellprice FROM container");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
 			String sprite_id = statement.getString();
 			String name = statement.getString();
 			int size = statement.getInt();
-			Bag newPiece = new Bag(id, sprite_id, name, size);
+			int sellPrice = statement.getInt();
+			Bag newPiece = new Bag(id, sprite_id, name, size, sellPrice);
 			containerList.add(newPiece);
 		}
 	}

@@ -28,11 +28,11 @@ public class DragSpellManager {
 	public static void draw() {
 		if(draggedBookSpell != null) {
 			Draw.drawQuad(draggedBookSpell.getSprite(), Mideas.mouseX(), Mideas.mouseY());
-			Draw.drawQuad(Sprites.border, Mideas.mouseX()-5, Mideas.mouseY()-5);
+			Draw.drawQuad(Sprites.draggedspell_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 		}
 		if(draggedShortcut != null) {
 			Draw.drawQuad(draggedShortcut.getSprite(), Mideas.mouseX(), Mideas.mouseY());
-			Draw.drawQuad(Sprites.border, Mideas.mouseX()-5, Mideas.mouseY()-5);
+			Draw.drawQuad(Sprites.draggedspell_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 		}
 	}
 	

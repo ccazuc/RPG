@@ -17,6 +17,8 @@ public class Item implements Cloneable {
 		this.id = id;
 		this.maxStack = maxStack;
 	}
+	
+	public Item() {}
 
 	public int getId() {
 		return id;

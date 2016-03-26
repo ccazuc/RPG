@@ -42,22 +42,38 @@ public class ContainerFrame {
 		
 	}
 	public static void draw() throws LWJGLException, IOException {
-		if(!bagChange) {
+		//if(!bagChange) {
 			bagSize[0] = Sprites.back_bag.getImageHeight();
 			if(Mideas.bag().getEquippedBag(0) != null) {
 				bagSize[1] = BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(0).getId()).getImageHeight();
 			}
+			else {
+				bagSize[1] = 0;
+				isBagOpen[1] = false;
+			}
 			if(Mideas.bag().getEquippedBag(1) != null) {
 				bagSize[2] = BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(1).getId()).getImageHeight();
+			}
+			else {
+				bagSize[2] = 0;
+				isBagOpen[2] = false;
 			}
 			if(Mideas.bag().getEquippedBag(2) != null) {
 				bagSize[3] = BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(2).getId()).getImageHeight();
 			}
+			else {
+				bagSize[3] = 0;
+				isBagOpen[3] = false;
+			}
 			if(Mideas.bag().getEquippedBag(3) != null) {
 				bagSize[4] = BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(3).getId()).getImageHeight();
 			}
+			else {
+				bagSize[4] = 0;
+				isBagOpen[4] = false;
+			}
 			bagChange = true;
-		}
+		//}
 		int xBagShift = 0;
 		int bagShift = 0;
 		int yBagShift = 0;
@@ -73,7 +89,7 @@ public class ContainerFrame {
 				else {
 					yBagShift = -bagSize[1]-67;
 				}
-				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(0)), Display.getWidth()-213, Display.getHeight()+bagShift+yBagShift-8);
+				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(0)), Display.getWidth()-213+xBagShift, Display.getHeight()+bagShift+yBagShift-8);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(0).getId()), Display.getWidth()-220, Display.getHeight()+bagShift+yBagShift-10);
 				if(isBagOpen[0]) {
 					bagShift+= -bagSize[1];
@@ -93,7 +109,7 @@ public class ContainerFrame {
 				else {
 					yBagShift = -bagSize[2]-67;
 				}
-				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(1)), Display.getWidth()-213, Display.getHeight()+bagShift+yBagShift-8);
+				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(1)), Display.getWidth()-213+xBagShift, Display.getHeight()+bagShift+yBagShift-8);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(1).getId()), Display.getWidth()-220+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 				if(isBagOpen[0] || isBagOpen[1]) {
 					bagShift+= -bagSize[2];
@@ -120,7 +136,7 @@ public class ContainerFrame {
 					yBagShift = -bagSize[3]-67;
 					resize = true;
 				}
-				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(2)), Display.getWidth()-213, Display.getHeight()+bagShift+yBagShift-8);
+				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(2)), Display.getWidth()-213+xBagShift, Display.getHeight()+bagShift+yBagShift-8);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(2).getId()), Display.getWidth()-220+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 				if((isBagOpen[0] || isBagOpen[1] || isBagOpen[2]) && !resize) {
 					bagShift+= -bagSize[3];
@@ -154,8 +170,8 @@ public class ContainerFrame {
 				Draw.drawQuad(Sprites.cursor, -100, -100);
 			}
 		}
-		x = -202;
-		xShift = 41;
+		x = -204;
+		xShift = 42;
 		y = -51;
 		yShift = 41;
 		boolean backPack = true;
@@ -182,7 +198,7 @@ public class ContainerFrame {
 					drawBags(i, x+j*xShift+xBagShift, y+k*yShift+z, x+xBagShift, y+z, z);
 				}
 			}
-			else if(i >= 16 && i <= Mideas.bag().getEquippedBagSize(0)+16) {
+			else if(i >= 16 && i < Mideas.bag().getEquippedBagSize(0)+16) {
 				if(isBagOpen[1]) {
 					drawBags(i, x+j*xShift+xBagShift, y+k*yShift+z, x+xBagShift, y+z, z);
 				}
@@ -211,122 +227,130 @@ public class ContainerFrame {
 				k++;
 			}
 			if(i == size && first) {
-				if(isBagOpen[1]) {
-					if(isBagOpen[0]) {
-						z+= -bagSize[1]-8;
+				if(Mideas.bag().getEquippedBag(0) != null) {
+					if(isBagOpen[1]) {
+						if(isBagOpen[0]) {
+							z+= -bagSize[1]-8;
+						}
+						else {
+							z+= -bagSize[1]+22;
+						}
 					}
-					else {
-						z+= -bagSize[1]+22;
-					}
+					yBagShift = 0;
+					size+= Mideas.bag().getEquippedBagSize(0);
 				}
-				yBagShift = 0;
-				size+= Mideas.bag().getEquippedBagSize(0);
 				first = false;
 				j = 0;
 				k = 0;
 			}
-			else if(i == size && second && Mideas.bag().getEquippedBagSize(0) != -1) {
-				if(isBagOpen[2]) {
-					if(isBagOpen[0] && !isBagOpen[1]) {
-						z+= -bagSize[2]-8;
+			if(i == size && second) {
+				if(Mideas.bag().getEquippedBag(1) != null) {
+					if(isBagOpen[2]) {
+						if(isBagOpen[0] && !isBagOpen[1]) {
+							z+= -bagSize[2]-8;
+						}
+						else if(!isBagOpen[0] && isBagOpen[1]) {
+							z+= -bagSize[2];
+						}
+						else if(isBagOpen[0] && isBagOpen[1]) {
+							z+= -bagSize[2];
+						}
+						else {
+							z+= -bagSize[2]+22;
+						}
+						yBagShift = 0;
 					}
-					else if(!isBagOpen[0] && isBagOpen[1]) {
-						z+= -bagSize[2];
-					}
-					else if(isBagOpen[0] && isBagOpen[1]) {
-						z+= -bagSize[2];
-					}
-					else {
-						z+= -bagSize[2]+22;
-					}
-					yBagShift = 0;
+					size+= Mideas.bag().getEquippedBagSize(1);
 				}
-				size+= Mideas.bag().getEquippedBagSize(1);
 				second = false;
 				j = 0;
 				k = 0;
 			}
-			else if(i == size && third && Mideas.bag().getEquippedBagSize(1) != -1) {
-				if(isBagOpen[3]) {
-					boolean resize = false;
-					if(z <= -650) {
-						z = 0;
-						xBagShift = -198;
-						yBagShift = -bagSize[3]+22;
-						resize = true;
+			if(i == size && third) {
+				if(Mideas.bag().getEquippedBag(2) != null) {
+					if(isBagOpen[3]) {
+						boolean resize = false;
+						if(z <= -650) {
+							z = 0;
+							xBagShift = -200;
+							yBagShift = -bagSize[3]+22;
+							resize = true;
+						}
+						if((isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) && !resize) {
+							z+= -bagSize[3]-60;
+						}
+						else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
+							z+= -bagSize[3]-52;
+						}
+						else if(!isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize) {
+							z+= -bagSize[3]-50;
+						}
+						else if(!resize) {
+							z+= -bagSize[3]-28;
+						}
+						else if(resize) {
+							z+= -bagSize[3]-28;
+						}
+						resize = false;
 					}
-					if((isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) && !resize) {
-						z+= -bagSize[3]-60;
-					}
-					else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
-						z+= -bagSize[3]-52;
-					}
-					else if(!isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize) {
-						z+= -bagSize[3]-50;
-					}
-					else if(!resize) {
-						z+= -bagSize[3]-28;
-					}
-					else if(resize) {
-						z+= -bagSize[3]-28;
-					}
-					resize = false;
+					size+= Mideas.bag().getEquippedBagSize(2);
 				}
-				size+= Mideas.bag().getEquippedBagSize(2);
 				third = false;
 				j = 0;
 				k = 0;
 			}
-			else if(i == size && fourth && Mideas.bag().getEquippedBagSize(2) != -1) {
-				if(isBagOpen[4]) {
-					boolean resize = false;
-					if(z <= -650) {
-						z = 0;
-						xBagShift = -198;
-						yBagShift = -bagSize[4]+22;
-						resize = true;
+			if(i == size && fourth) {
+				if(Mideas.bag().getEquippedBag(3) != null) {
+					if(isBagOpen[4]) {
+						boolean resize = false;
+						if(z <= -650) {
+							z = 0;
+							xBagShift = -200;
+							yBagShift = -bagSize[4]+22;
+							resize = true;
+						}
+						if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(isBagOpen[1] && isBagOpen[2] && !resize)  {
+							z+= -bagSize[4]-52;
+						}
+						else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(!isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if((isBagOpen[1] || isBagOpen[2]) && !resize)  {
+							z+= -bagSize[4]-52;
+						}
+						else if((isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) && !resize) {
+							z+= -bagSize[4]-60;
+						}
+						else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
+							z+= -bagSize[4]-52;
+						}
+						else if(isBagOpen[3] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(isBagOpen[3] && isBagOpen[1] && isBagOpen[2] && !resize) {
+							z+= -bagSize[4]-28;
+						}
+						else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
+							z+= -bagSize[4]-52;
+						}
+						else if(!resize) {
+							z+= -bagSize[4]-28;
+						}
+						else if(resize) {
+							z+= -bagSize[4]-28;
+						}
 					}
-					if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if(isBagOpen[1] && isBagOpen[2] && !resize)  {
-						z+= -bagSize[4]-52;
-					}
-					else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if(!isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if((isBagOpen[1] || isBagOpen[2]) && !resize)  {
-						z+= -bagSize[4]-52;
-					}
-					else if((isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) && !resize) {
-						z+= -bagSize[4]-60;
-					}
-					else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
-						z+= -bagSize[4]-52;
-					}
-					else if(isBagOpen[3] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if(isBagOpen[3] && isBagOpen[1] && isBagOpen[2] && !resize) {
-						z+= -bagSize[4]-28;
-					}
-					else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
-						z+= -bagSize[4]-52;
-					}
-					else if(!resize) {
-						z+= -bagSize[4]-28;
-					}
-					else if(resize) {
-						z+= -bagSize[4]-28;
-					}
+					size+= Mideas.bag().getEquippedBagSize(3);
 				}
-				size+= Mideas.bag().getEquippedBagSize(3);
 				fourth = false;
 				j = 0;
 				k = 0;
@@ -398,115 +422,126 @@ public class ContainerFrame {
 				k++;
 			}
 			if(i == size && first) {
-				if(isBagOpen[1]) {
-					if(isBagOpen[0]) {
-						z+= -bagSize[1]-8;
+				if(Mideas.bag().getEquippedBag(0) != null) {
+					if(isBagOpen[1]) {
+						if(isBagOpen[0]) {
+							z+= -bagSize[1]-8;
+						}
+						else {
+							z+= -bagSize[1]+22;
+						}
 					}
-					else {
-						z+= -bagSize[1]+22;
-					}
+					size+= Mideas.bag().getEquippedBagSize(0);
 				}
-				size+= Mideas.bag().getEquippedBagSize(0);
 				first = false;
 				j = 0;
 				k = 0;
 			}
-			else if(i == size && second && Mideas.bag().getEquippedBagSize(0) != -1) {
-				if(isBagOpen[2]) {
-					if(isBagOpen[0] && !isBagOpen[1]) {
-						z+= -bagSize[2]-8;
+			if(i == size && second) {
+				if(Mideas.bag().getEquippedBag(1) != null) {
+					if(isBagOpen[2]) {
+						if(isBagOpen[0] && !isBagOpen[1]) {
+							z+= -bagSize[2]-8;
+						}
+						else if(!isBagOpen[0] && isBagOpen[1]) {
+							z+= -bagSize[2];
+						}
+						else if(isBagOpen[0] && isBagOpen[1]) {
+							z+= -bagSize[2];
+						}
+						else {
+							z+= -bagSize[2]+22;
+						}
 					}
-					else if(!isBagOpen[0] && isBagOpen[1]) {
-						z+= -bagSize[2];
-					}
-					else if(isBagOpen[0] && isBagOpen[1]) {
-						z+= -bagSize[2];
-					}
-					else {
-						z+= -bagSize[2]+22;
-					}
+					size+= Mideas.bag().getEquippedBagSize(1);
 				}
-				size+= Mideas.bag().getEquippedBagSize(1);
 				second = false;
 				j = 0;
 				k = 0;
 			}
-			else if(i == size && third && Mideas.bag().getEquippedBagSize(1) != -1) {
-				if(isBagOpen[3]) {
-					boolean resize = false;
-					if(z <= -650) {
-						z = 0;
-						xBagShift = -198;
-						resize = true;
+			if(i == size && third) {
+				if(Mideas.bag().getEquippedBag(2) != null) {
+					if(isBagOpen[3]) {
+						boolean resize = false;
+						if(z <= -650) {
+							z = 0;
+							xBagShift = -198;
+							resize = true;
+						}
+						if((isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) && !resize) {
+							z+= -bagSize[3]-60;
+						}
+						else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
+							z+= -bagSize[3]-52;
+						}
+						else if(!isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize) {
+							z+= -bagSize[3]-50;
+						}
+						else if(!resize) {
+							z+= -bagSize[3]-28;
+						}
+						else if(resize) {
+							z+= -bagSize[3]-28;
+						}
+						resize = false;
 					}
-					if((isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) && !resize) {
-						z+= -bagSize[3]-60;
-					}
-					else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
-						z+= -bagSize[3]-52;
-					}
-					else if(!resize) {
-						z+= -bagSize[3]-28;
-					}
-					else if(resize) {
-						z+= -bagSize[3]-28;
-					}
-					resize = false;
+					size+= Mideas.bag().getEquippedBagSize(2);
 				}
-				size+= Mideas.bag().getEquippedBagSize(2);
 				third = false;
 				j = 0;
 				k = 0;
 			}
-			else if(i == size && fourth && Mideas.bag().getEquippedBagSize(2) != -1) {
-				if(isBagOpen[4]) {
-					boolean resize = false;
-					if(z <= -650) {
-						z = 0;
-						xBagShift = -198;
-						resize = true;
+			if(i == size && fourth) {
+				if(Mideas.bag().getEquippedBag(3) != null) {
+					if(isBagOpen[4]) {
+						boolean resize = false;
+						if(z <= -650) {
+							z = 0;
+							xBagShift = -198;
+							resize = true;
+						}
+						if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(isBagOpen[1] && isBagOpen[2] && !resize)  {
+							z+= -bagSize[4]-52;
+						}
+						else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(!isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if((isBagOpen[1] || isBagOpen[2]) && !resize)  {
+							z+= -bagSize[4]-52;
+						}
+						else if((isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) && !resize) {
+							z+= -bagSize[4]-60;
+						}
+						else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
+							z+= -bagSize[4]-52;
+						}
+						else if(isBagOpen[3] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(isBagOpen[3] && isBagOpen[1] && isBagOpen[2] && !resize) {
+							z+= -bagSize[4]-28;
+						}
+						else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
+							z+= -bagSize[4]-52;
+						}
+						else if(!resize) {
+							z+= -bagSize[4]-28;
+						}
+						else if(resize) {
+							z+= -bagSize[4]-28;
+						}
 					}
-					if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if(isBagOpen[1] && isBagOpen[2] && !resize)  {
-						z+= -bagSize[4]-52;
-					}
-					else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if(!isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if((isBagOpen[1] || isBagOpen[2]) && !resize)  {
-						z+= -bagSize[4]-52;
-					}
-					else if((isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) && !resize) {
-						z+= -bagSize[4]-60;
-					}
-					else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
-						z+= -bagSize[4]-52;
-					}
-					else if(isBagOpen[3] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
-						z+= -bagSize[4];
-					}
-					else if(isBagOpen[3] && isBagOpen[1] && isBagOpen[2] && !resize) {
-						z+= -bagSize[4]-28;
-					}
-					else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
-						z+= -bagSize[4]-52;
-					}
-					else if(!resize) {
-						z+= -bagSize[4]-28;
-					}
-					else if(resize) {
-						z+= -bagSize[4]-28;
-					}
+					size+= Mideas.bag().getEquippedBagSize(3);
 				}
-				size+= Mideas.bag().getEquippedBagSize(3);
 				fourth = false;
 				j = 0;
 				k = 0;

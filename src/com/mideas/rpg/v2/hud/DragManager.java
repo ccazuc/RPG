@@ -167,6 +167,8 @@ public class DragManager {
 				}
 				leftClickInventoryDown = false;
 				leftClickBagDown = false;
+				Arrays.fill(clickBag, false);
+				Arrays.fill(clickInventory, false);
 			}
 		}
 		if(leftClickInventoryDown && draggedItem == null) {
@@ -796,7 +798,7 @@ public class DragManager {
 		return false;
 	}*/
 	
-	private static boolean isSpellBarHover() {
+	public static boolean isSpellBarHover() {
 		int i = 0;
 		while(i < SpellBarFrame.getHoverSpellBar().length) {
 			if(SpellBarFrame.getHoverSpellBar(i)) {
@@ -856,7 +858,7 @@ public class DragManager {
 		return draggedItem;
 	}
 	
-	private static boolean isHoverCharacterFrame() {
+	public static boolean isHoverCharacterFrame() {
 		if(Interface.getCharacterFrameStatus()) {
 			if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
 				return true;
@@ -866,8 +868,10 @@ public class DragManager {
 	}
 	
 	public static boolean isHoverBagFrame() {
-		if(Mideas.mouseX() >= Display.getWidth()-450 && Mideas.mouseX() <= Display.getWidth()-9 && Mideas.mouseY() >= Display.getHeight()/2-700 && Mideas.mouseY() <= Display.getHeight()/2+387) {
-			return true;
+		if(Interface.getContainerFrameStatus()) {
+			if(Mideas.mouseX() >= Display.getWidth()-450 && Mideas.mouseX() <= Display.getWidth()-9 && Mideas.mouseY() >= Display.getHeight()/2-700 && Mideas.mouseY() <= Display.getHeight()/2+387) {
+				return true;
+			}
 		}
 		return false;
 	}

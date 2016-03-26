@@ -443,6 +443,7 @@ public class Sprites {
 	public static Texture warglaive_of_azzinoth;
 	public static Texture bag_warglaive_of_azzinoth;
 	public static Texture shop_warglaive_of_azzinoth;*/
+	public static Texture draggedspell_border;
 	public static Texture super_healing_potion;
 	public static Texture bag_super_healing_potion;
 	public static Texture shop_super_healing_potion;
@@ -478,8 +479,10 @@ public class Sprites {
 	public static Texture spellbook_frame_open;
 	public static Texture character_frame_open;
 	public static Texture escape_frame_open;
+	public static Texture shortcut_hover;
 	
 	public static boolean sprite() throws IOException {
+		shortcut_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shortcut_hover.png"));
 		elevator_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/elevator_button.png"));
 		bag_click_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_click_hover.png"));
 		spellbook_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-Spellbook-Down.png"));
@@ -547,6 +550,7 @@ public class Sprites {
 	}
 	
 	public static boolean sprite2() throws IOException {
+		draggedspell_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/draggedspell_border.png"));
 		mage = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/classes/mage.png"));
 		mage2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/classes/mage.png"));
 		war = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/classes/warrior.png"));

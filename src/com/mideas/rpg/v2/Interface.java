@@ -104,6 +104,7 @@ public class Interface {
 						CharacterFrame.draw();
 					}
 					if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
+						containerFrameActive = true;
 						ContainerFrame.draw();
 						GoldFrame.draw();
 					}
@@ -133,6 +134,7 @@ public class Interface {
 						ChatFrame.draw();
 					}
 					DragManager.draw();
+					DragBagManager.draw();
 					PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
 					ShortcutFrame.draw();
 					Draw.drawQuad(Sprites.level, 50, 95);
@@ -172,6 +174,9 @@ public class Interface {
 					return true;
 				}
 				DragBagManager.openBag();
+				if(DragBagManager.mouseEvent()) {
+					return true;
+				}
  			}
 			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
 				EndFightFrame.mouseEvent();
@@ -450,6 +455,10 @@ public class Interface {
 	
  	public static boolean getContainerFrameStatus() {
  		return containerFrameActive;
+ 	}
+ 	
+ 	public static void setContainerFrameStatsu(boolean we) {
+ 		containerFrameActive = we;
  	}
  	
  	public static boolean getEscapeFrameStatus() {

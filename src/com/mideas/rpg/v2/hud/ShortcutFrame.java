@@ -12,10 +12,11 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class ShortcutFrame {
 	
-	private static boolean hoverTalent;
-	private static boolean hoverSpellBook;
-	private static boolean hoverEscape;
-	private static boolean hoverCharacter;
+	private static boolean[] hover = new boolean[10];
+	private static int x = 51;
+	private static int xShift = 33;
+	private static int y = -50;
+	
 
 	public static void draw() {
 		if(Interface.isTalentFrameActive()) {
@@ -30,28 +31,35 @@ public class ShortcutFrame {
 		if(Interface.getCharacterFrameStatus()) {
 			Draw.drawQuad(Sprites.character_frame_open, Display.getWidth()/2+51, Display.getHeight()-49);
 		}
+		if(Mideas.mouseX() >= Display.getWidth()/2+51 && Mideas.mouseX() <= Display.getWidth()/2+11*33+33 && Mideas.mouseY() >= Display.getHeight()-50 && Mideas.mouseY() <= Display.getHeight()-4) {
+			int i = 0;
+			float xShift = 33.6f;
+			while(i < hover.length) {
+				if(hover[i]) {
+					Draw.drawQuad(Sprites.shortcut_hover, Display.getWidth()/2+x+3+i*xShift, Display.getHeight()+y+4);
+					break;
+				}
+				i++;
+			}
+		}
 	}
 	
 	public static boolean mouseEvent() {
-		hoverTalent = false;
-		hoverSpellBook = false;
-		hoverEscape = false;
-		hoverCharacter = false;
-		if(Mideas.mouseX() >= Display.getWidth()/2+119 && Mideas.mouseX() <= Display.getWidth()/2+150 && Mideas.mouseY() >= Display.getHeight()-50 && Mideas.mouseY() <= Display.getHeight()-5) {
-			hoverTalent = true;
-		}
-		else if(Mideas.mouseX() >= Display.getWidth()/2+84 && Mideas.mouseX() <= Display.getWidth()/2+117 && Mideas.mouseY() >= Display.getHeight()-50 && Mideas.mouseY() <= Display.getHeight()-5) {
-			hoverSpellBook = true;
-		}
-		else if(Mideas.mouseX() >= Display.getWidth()/2+319 && Mideas.mouseX() <= Display.getWidth()/2+353 && Mideas.mouseY() >= Display.getHeight()-50 && Mideas.mouseY() <= Display.getHeight()-5) {
-			hoverEscape = true;
-		}
-		else if(Mideas.mouseX() >= Display.getWidth()/2+51 && Mideas.mouseX() <= Display.getWidth()/2+82 && Mideas.mouseY() >= Display.getHeight()-49 && Mideas.mouseY() <= Display.getHeight()-4) {
-			hoverCharacter = true;
+		Arrays.fill(hover, false);
+		x = 51;
+		xShift = 34;
+		y = -50;
+		int i = 0;
+		while(i < hover.length) {
+			if(isHover(x+i*xShift, y)) {
+				hover[i] = true;
+				break;
+			}
+			i++;
 		}
 		if(Mouse.getEventButton() == 0) {
 			if(!Mouse.getEventButtonState()) {
-				if(hoverTalent) {
+				if(hover[2]) { 																			//talent
 					Interface.setTalentFrameStatus(!Interface.isTalentFrameActive());
 					Interface.closeCharacterFrame();
 					Interface.closeShopFrame();
@@ -66,7 +74,7 @@ public class ShortcutFrame {
 					EscapeFrame.setHoverFalse();
 					return true;
 				}
-				else if(hoverSpellBook) {
+				else if(hover[1]) {																		//spellbook
 					Interface.setSpellBookFrameStatus(!Interface.isSpellBookFrameActive());
 					Interface.closeTalentFrame();
 					Interface.closeShopFrame();
@@ -79,7 +87,7 @@ public class ShortcutFrame {
 					EscapeFrame.setHoverFalse();
 					return true;
 				}
-				else if(hoverEscape) {
+				else if(hover[6]) {																		//escape menu
 					Interface.setEscapeFrameStatus(!Interface.getEscapeFrameStatus());
 					Interface.closeCharacterFrame();
 					Interface.closeContainerFrame();
@@ -95,7 +103,7 @@ public class ShortcutFrame {
 					EscapeFrame.setHoverFalse();
 					return true;
 				}
-				else if(hoverCharacter) {
+				else if(hover[0]) {																		//character menu
 					Interface.setCharacterFrameStatus(!Interface.getCharacterFrameStatus());
 					Interface.closeShopFrame();
 					Interface.closeSpellBookFrame();
@@ -109,6 +117,13 @@ public class ShortcutFrame {
 					return true;
 				}
 			}
+		}
+		return false;
+	}
+	
+	private static boolean isHover(int x, int y) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+31 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+45) {
+			return true;
 		}
 		return false;
 	}

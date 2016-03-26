@@ -74,6 +74,10 @@ public class ChatFrame {
 			if(Keyboard.getEventKey() == 1) { //escape
 				chatActive = false;
 			}
+			else if(Keyboard.isKeyDown(29) && Keyboard.getEventKey() == 14) {
+				tempMessage = "";
+				tempLength = 0;
+			}
 			else if(Keyboard.getEventKey() == 14) { //delete
 				if(tempMessage.length() > 0) {
 					tempMessage = tempMessage.substring(0, tempMessage.length()-1);

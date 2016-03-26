@@ -51,7 +51,7 @@ public class SpellBarFrame {
 		Draw.drawQuad(Sprites.spell_attack, Display.getWidth()/2-678, Display.getHeight()-49);
 		Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-679, Display.getHeight()-51);  
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1, 1, 1);
-		TTF2.font5.drawString(Display.getWidth()/2-648, Display.getHeight()-49, "1", Color.white);
+		TTF2.statsName.drawStringShadow(Display.getWidth()/2-648, Display.getHeight()-49, "1", Color.white, Color.black, 1, 1, 1);
 		if(Mideas.mouseX() >= Display.getWidth()/2-678 && Mideas.mouseX() <= Display.getWidth()/2-678+47 && Mideas.mouseY() >= Display.getHeight()-49 && Mideas.mouseY() <= Display.getHeight()-2) {
 			Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2-678, Display.getHeight()-49);	
 			Draw.drawQuad(Sprites.tooltip, Display.getWidth()/2-401, Display.getHeight()-280);
@@ -68,6 +68,12 @@ public class SpellBarFrame {
 		while(i < 4) {
 			if(Mideas.bag().getEquippedBag(i) != null) {
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(i)), Display.getWidth()/2+578-46*i, Display.getHeight()-40);
+				if(DragBagManager.getHoverBag(i)) {
+					Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+577-46*i, Display.getHeight()-41);
+				}
+				if(DragBagManager.getClickBag(i)) {
+					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+577-46*i, Display.getHeight()-41);
+				}
 				if(ContainerFrame.getBagOpen(i+1)) {
 					Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()/2+575-46*i, Display.getHeight()-41);
 					i++;
