@@ -32,6 +32,8 @@ public class DragBagManager {
 	private static Item draggedBag;
 	
 	public static void draw() {
+		hoverDelete = false;
+		hoverSave = false;
 		if(draggedBag != null) {
 			Draw.drawQuad(IconsManager.getSprite42(draggedBag.getSpriteId()), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
@@ -74,7 +76,7 @@ public class DragBagManager {
 			}
 			else {
 				if(draggedBag != null) {
-					if(draggedBag != null && !deleteItem && !DragManager.isSpellBarHover() && !DragManager.isHoverCharacterFrame() && !DragManager.isHoverBagFrame()) {
+					if(draggedBag != null && !leftClickDown && !deleteItem && !DragManager.isSpellBarHover() && !DragManager.isHoverCharacterFrame() && !DragManager.isHoverBagFrame()) {
 						deleteItem = true;
 						return true;
 					}
@@ -121,6 +123,13 @@ public class DragBagManager {
 					draggedBag = null;
 				}
 				deleteItem = false;
+			}
+		}
+		if(Mouse.getEventButton() == 1) {
+			if(Mouse.getEventButtonState()) {
+				if(draggedBag != null) {
+					draggedBag = null;
+				}
 			}
 		}
 		return false;
@@ -241,5 +250,9 @@ public class DragBagManager {
 			return clickBag[i];
 		}
 		return false;
+	}
+	
+	public static Item getDraggedBag() {
+		return draggedBag;
 	}
 }
