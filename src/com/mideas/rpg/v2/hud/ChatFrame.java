@@ -29,13 +29,22 @@ public class ChatFrame {
 	private static int i;
 	private static int numberUpArrow = 1;
 	private static boolean isAdmin;
-	private static boolean hover_button1;
-	private static boolean hover_button2;
-	private static boolean hover_button3;
+	private static boolean topArrow;
+	private static boolean bottomArrow;
+	private static boolean toBottomArrow;
+	private static boolean hoverHeightResize;
+	private static boolean heightResizing;
+	private static int defaultHeight = Display.getHeight()-285;
+	private static int yResize;
+	private static int messageShowHeight = 4;
 	private static int tempLength;
 	private static int shift;
+	private static Color bgColor = new Color(0, 0, 0,.35f); 
 
-	public static boolean draw() {
+	public static void draw() {
+		messageShowHeight = 4+yResize/TTF2.font4.getLineHeight();
+		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510, 130+yResize, bgColor);
+		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
 		if(chatActive) {
 			if(TTF2.font4.getWidth(tempMessage.substring(tempLength)) >= 490) {
 				tempLength = tempMessage.length()-10;
@@ -45,9 +54,8 @@ public class ChatFrame {
 				TTF2.font4.drawString(40+TTF2.font4.getWidth(tempMessage.substring(tempLength)), Display.getHeight()-175, "|", Color.white);
 			}
 		}
-		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
 		int j = 0;
-		if(messages.size() <= 4) {
+		/*if(messages.size() <= messageShowHeight) {
 			int k = messages.size()-1;
 			while(k >= 0) {
 				TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), messages.get(k+shift), Color.white);
@@ -55,18 +63,17 @@ public class ChatFrame {
 				j++;
 			}
 		}
-		else if(messages.size() >= 5) {
+		else if(messages.size() >= messageShowHeight+1) {*/
 			int k = messages.size()-1;
-			while(k > messages.size()-6) {
+			while(k > messages.size()-messageShowHeight-2 && k+shift < messages.size() && k+shift >= 0) {
 				TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), messages.get(k+shift), Color.white);
 				k--;
 				j++;
 			}
-		}
-		if(hover_button1) {
+		//}
+		if(topArrow) {
 			Draw.drawQuad(Sprites.up_chat_button, 3, Display.getHeight()-236);
 		}
-		return false;
 	}
 	
 	public static void event() throws FileNotFoundException, SQLException, CloneNotSupportedException {
@@ -74,8 +81,9 @@ public class ChatFrame {
 			if(Keyboard.getEventKey() == 1) { //escape
 				chatActive = false;
 			}
-			else if(Keyboard.isKeyDown(29) && Keyboard.getEventKey() == 14) {
-				tempMessage = "";
+			else if(Keyboard.isKeyDown(29) && Keyboard.getEventKey() == 14) { //ctrl+delete
+				//tempMessage = "";
+				delMessage();
 				tempLength = 0;
 			}
 			else if(Keyboard.getEventKey() == 14) { //delete
@@ -86,8 +94,13 @@ public class ChatFrame {
 			else if(Keyboard.getEventKey() == 200) {  //up arrow
 				if(i >= numberUpArrow) {
 					tempMessage = rawMessages.get(numberMessageSent-numberUpArrow);
-					System.out.println(tempMessage);
 					numberUpArrow++;
+				}
+			}
+			else if(Keyboard.getEventKey() == 208) { //down arrow
+				if(numberUpArrow > 1) {
+					numberUpArrow--;
+					tempMessage = rawMessages.get(numberMessageSent-numberUpArrow);
 				}
 			}
 			else if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
@@ -95,17 +108,18 @@ public class ChatFrame {
 	                tempMessage = Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "");
 	            }
 	        }
-			else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN) {
+			else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN) { //write
 				char tempChar = Keyboard.getEventCharacter();
 				tempMessage = tempMessage+tempChar;
 			}
 		}
-        if(Keyboard.getEventKey() == Keyboard.KEY_RETURN) {
+        if(Keyboard.getEventKey() == Keyboard.KEY_RETURN) { //enter
 			if(chatActive) {
 				if(tempMessage != "") {
 					rawMessages.add(tempMessage);
-					addMessage();
-					checkTempMessage();
+					if(!checkTempMessage()) {
+						addMessage();
+					}
 					numberMessageSent++;
 				}
 				tempMessage =  "";
@@ -116,7 +130,7 @@ public class ChatFrame {
 			chatActive = !chatActive;
 		}
         else if(Keyboard.getEventKey() == 201 && !chatActive) {  //scroll up
-			if(messages.size()-5+shift > 0) {
+			if(messages.size()-messageShowHeight+shift > 1) {
 				shift--;
 			}
         }
@@ -128,32 +142,50 @@ public class ChatFrame {
 	}
 	
 	public static boolean mouseEvent() {
-		hover_button1 = false;
-		hover_button2 = false;
-		hover_button3 = false;
+		topArrow = false;
+		bottomArrow = false;
+		toBottomArrow = false;
+		hoverHeightResize = false;
 		if(Mideas.mouseX() >= 3 && Mideas.mouseX() <= 27 && Mideas.mouseY() >= Display.getHeight()-236 && Mideas.mouseY() <= Display.getHeight()-213) {
-			hover_button1 = true;
+			topArrow = true;
 		}
 		else if(Mideas.mouseX() >= 3 && Mideas.mouseX() <= 27 && Mideas.mouseY() >= Display.getHeight()-202 && Mideas.mouseY() <= Display.getHeight()-179) {
-			hover_button2 = true;
+			bottomArrow = true;
 		}
 		else if(Mideas.mouseX() >= 3 && Mideas.mouseX() <= 27 && Mideas.mouseY() >= Display.getHeight()-168 && Mideas.mouseY() <= Display.getHeight()-145) {
-			hover_button3 = true;
+			toBottomArrow = true;
 		}
-		if(Mouse.getEventButtonState()) {
-			if(Mouse.getEventButton() == 0) {
-				if(hover_button1) {
-					if(messages.size()-5+shift > 0) {
+		else if(Mideas.mouseX() >= 3 && Mideas.mouseX() <= 513 && Mideas.mouseY() >= Display.getHeight()-285-yResize && Mideas.mouseY() <= Display.getHeight()-275-yResize) {
+			hoverHeightResize = true;
+		}
+		if(heightResizing) {
+			if(Mideas.mouseY() >= defaultHeight-250 && Mideas.mouseY() <= defaultHeight) {
+				yResize = -(Mideas.mouseY()-defaultHeight);
+			}
+		}
+		if(Mouse.getEventButton() == 0) {
+			if(Mouse.getEventButtonState()) {
+				if(topArrow) {
+					if(messages.size()-messageShowHeight+shift > 1) {
 						shift--;
 					}
 				}
-				else if(hover_button2) {
+				else if(bottomArrow) {
 					if(shift < 0) {
 						shift++;
 					}
 				}
-				else if(hover_button3) {
+				else if(toBottomArrow) {
 					shift = 0;
+				}
+				else if(hoverHeightResize && !heightResizing) {
+					heightResizing = true;
+					return true;
+				}
+			}
+			else {
+				if(heightResizing) {
+					heightResizing = false;
 				}
 			}
 		}
@@ -188,123 +220,149 @@ public class ChatFrame {
 		return i;
 	}
 	
-	private static void checkTempMessage() throws FileNotFoundException, SQLException, CloneNotSupportedException {
-		if(tempMessage.equals(".kill joueur2")) {
-			Mideas.joueur2().setStamina(0);
-		}
-		else if(tempMessage.equals(".kill joueur1")) {
-			Mideas.joueur1().setStamina(0);
-		}
-		else if(tempMessage.contains(".modify hp joueur1 ")) {
-			String[] temp = tempMessage.split("joueur1 ");
-			int value = Integer.parseInt(temp[1]);	
-			Mideas.joueur1().setStamina(value);
-			Mideas.joueur1().setMaxStamina(value);
-		}
-		else if(tempMessage.contains(".modify hp joueur2 ")) {
-			String[] temp = tempMessage.split("joueur2 ");
-			int value = Integer.parseInt(temp[1]);	
-			Mideas.joueur2().setStamina(value);
-			Mideas.joueur2().setMaxStamina(value);
-		}
-		else if(tempMessage.contains(".modify mana joueur1 ")) {
-			String[] temp = tempMessage.split("joueur1 ");
-			int value = Integer.parseInt(temp[1]);	
-			Mideas.joueur1().setMana(value);
-			Mideas.joueur1().setMaxMana(value);
-		}
-		else if(tempMessage.contains(".modify mana joueur2 ")) {
-			String[] temp = tempMessage.split("joueur2 ");
-			int value = Integer.parseInt(temp[1]);	
-			Mideas.joueur2().setMana(value);
-			Mideas.joueur2().setMaxMana(value);
-		}
-		else if(tempMessage.contains(".lookup item ")) {
-			String[] temp = tempMessage.split("item ");
-			int value = Integer.parseInt(temp[1]);	
-			messages.add(StuffManager.getStuff(value).getStuffName());
-		}
-		else if(tempMessage.contains(".lookup spell ")) {
-			String[] temp = tempMessage.split("spell ");
-			int value = Integer.parseInt(temp[1]);	
-			messages.add(SpellManager.getBookSpell(value).getName());
-		}
-		else if(tempMessage.contains(".set joueur2 ")) {
-			String[] temp = tempMessage.split("joueur2 ");
-			String joueur = temp[1];
-			if(Mideas.getJoueur(joueur.substring(1)) != null) {
-				Mideas.setJoueur2(Mideas.getJoueur(joueur.substring(1)));
+	private static void delMessage() {
+		int i = tempMessage.length()-1;
+		while(i > 0) {
+			System.out.println("i : "+i+" length : "+tempMessage.length()+" char : "+tempMessage.substring(i-1, i).charAt(0));
+			if(tempMessage.substring(i-1, i).charAt(0) == ' ') {
+				tempMessage = tempMessage.substring(0, i);
+				return;
 			}
+			i--;
 		}
-		else if(tempMessage.contains(".damage joueur1 ")) {
-			String[] temp = tempMessage.split("joueur1 ");
-			int value = Integer.parseInt(temp[1]);
-			Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()-value);
+		tempMessage = "";
+	}
+	
+	private static boolean checkTempMessage() throws FileNotFoundException, SQLException, CloneNotSupportedException {
+		if(tempMessage.substring(0, 1).equals(".") && tempMessage.length() > 1 && !tempMessage.substring(1, 2).equals(".")) {
+			if(tempMessage.equals(".kill joueur2")) {
+				Mideas.joueur2().setStamina(0);
+			}
+			else if(tempMessage.equals(".kill joueur1")) {
+				Mideas.joueur1().setStamina(0);
+			}
+			else if(tempMessage.contains(".modify hp joueur1 ")) {
+				String[] temp = tempMessage.split("joueur1 ");
+				int value = Integer.parseInt(temp[1]);	
+				Mideas.joueur1().setStamina(value);
+				Mideas.joueur1().setMaxStamina(value);
+			}
+			else if(tempMessage.contains(".modify hp joueur2 ")) {
+				String[] temp = tempMessage.split("joueur2 ");
+				int value = Integer.parseInt(temp[1]);	
+				Mideas.joueur2().setStamina(value);
+				Mideas.joueur2().setMaxStamina(value);
+			}
+			else if(tempMessage.contains(".modify mana joueur1 ")) {
+				String[] temp = tempMessage.split("joueur1 ");
+				int value = Integer.parseInt(temp[1]);	
+				Mideas.joueur1().setMana(value);
+				Mideas.joueur1().setMaxMana(value);
+			}
+			else if(tempMessage.contains(".modify mana joueur2 ")) {
+				String[] temp = tempMessage.split("joueur2 ");
+				int value = Integer.parseInt(temp[1]);	
+				Mideas.joueur2().setMana(value);
+				Mideas.joueur2().setMaxMana(value);
+			}
+			else if(tempMessage.contains(".lookup item ")) {
+				String[] temp = tempMessage.split("item ");
+				int value = Integer.parseInt(temp[1]);	
+				messages.add(StuffManager.getStuff(value).getStuffName());
+			}
+			else if(tempMessage.contains(".lookup spell ")) {
+				String[] temp = tempMessage.split("spell ");
+				int value = Integer.parseInt(temp[1]);	
+				messages.add(SpellManager.getBookSpell(value).getName());
+			}
+			else if(tempMessage.contains(".set joueur2 ")) {
+				String[] temp = tempMessage.split("joueur2 ");
+				String joueur = temp[1];
+				if(Mideas.getJoueur(joueur.substring(1)) != null) {
+					Mideas.setJoueur2(Mideas.getJoueur(joueur.substring(1)));
+				}
+			}
+			else if(tempMessage.contains(".damage joueur1 ")) {
+				String[] temp = tempMessage.split("joueur1 ");
+				int value = Integer.parseInt(temp[1]);
+				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()-value);
+			}
+			else if(tempMessage.contains(".damage joueur2 ")) {
+				String[] temp = tempMessage.split("joueur2 ");
+				int value = Integer.parseInt(temp[1]);
+				Mideas.joueur2().setStamina(Mideas.joueur2().getStamina()-value);
+			}
+			else if(tempMessage.contains(".add stuff ")) {
+				String[] temp = tempMessage.split("stuff ");
+				int value = Integer.parseInt(temp[1]);
+				DragManager.checkFreeSlotBag(StuffManager.getClone(value));
+				CharacterStuff.setBagItems();
+			}
+			else if(tempMessage.contains(".delete bag item ")) {
+				String[] temp = tempMessage.split("item ");
+				int value = Integer.parseInt(temp[1]);
+				DragManager.deleteItem(value);
+				CharacterStuff.setBagItems();
+			}
+			else if(tempMessage.equals(".clear chat")) {
+				messages.clear();
+			}
+			else if(tempMessage.equals(".set fullscreen true")) {
+				Mideas.setDisplayMode(1920, 1080, true);
+			}
+			else if(tempMessage.equals(".set fullscreen false")) {
+				Mideas.setDisplayMode(1700, 930, false);
+			}	
+			else if(tempMessage.equals(".set admin pw:mideas")) {
+				isAdmin = true;
+			}
+			else if(tempMessage.equals(".update")) {
+				Mideas.getGold();
+				Mideas.getExp();
+				ShopManager.getShopList().clear();
+				ShopManager.loadStuffs();
+				CharacterStuff.getEquippedBags();
+				CharacterStuff.getBagItems();
+				CharacterStuff.getEquippedItems();
+			}
+			else if(tempMessage.equals(".quit")) {
+				System.exit(1);
+				CharacterStuff.setBagItems();
+				CharacterStuff.setEquippedBags();
+				CharacterStuff.setEquippedItems();
+				Mideas.setConfig();
+				Mideas.setExp();
+				Mideas.setGold(0);
+			}
+			else if(tempMessage.contains(".modify gold ")) {
+				String[] temp = tempMessage.split("gold ");
+				int value = Integer.parseInt(temp[1]);	
+				Mideas.setGold(value);
+			}
+			else if(tempMessage.contains(".modify exp ")) {
+				String[] temp = tempMessage.split("exp ");
+				int value = Integer.parseInt(temp[1]);	
+				Mideas.joueur1().setExp(0, value);
+			}
+			else if(tempMessage.equals(".help")) {
+				messages.add(".kill [joueur]");
+				messages.add(".modify hp [joueur] [value]");
+				messages.add(".modify mana [joueur] [value]");
+				messages.add(".lookup item [id]");
+				messages.add(".lookup spell [id]");
+				messages.add(".set joueur2 [joueur]");
+				messages.add(".damage [joueur] [value]");
+				messages.add(".add stuff [id]");
+				messages.add(".delete bag item [id]");
+				messages.add(".clear chat");
+				messages.add(".set fullscreen [boolean]");
+			}
+			else {
+				messages.add("Unknown command");
+			}
+			return true;
 		}
-		else if(tempMessage.contains(".damage joueur2 ")) {
-			String[] temp = tempMessage.split("joueur2 ");
-			int value = Integer.parseInt(temp[1]);
-			Mideas.joueur2().setStamina(Mideas.joueur2().getStamina()-value);
-		}
-		else if(tempMessage.contains(".add stuff ")) {
-			String[] temp = tempMessage.split("stuff ");
-			int value = Integer.parseInt(temp[1]);
-			DragManager.checkFreeSlotBag(StuffManager.getClone(value));
-			CharacterStuff.setBagItems();
-		}
-		else if(tempMessage.contains(".delete bag item ")) {
-			String[] temp = tempMessage.split("item ");
-			int value = Integer.parseInt(temp[1]);
-			DragManager.deleteItem(value);
-			CharacterStuff.setBagItems();
-		}
-		else if(tempMessage.equals(".clear chat")) {
-			messages.clear();
-		}
-		else if(tempMessage.equals(".set fullscreen true")) {
-			Mideas.setDisplayMode(1920, 1080, true);
-		}
-		else if(tempMessage.equals(".set fullscreen false")) {
-			Mideas.setDisplayMode(1700, 930, false);
-		}	
-		else if(tempMessage.equals(".set admin pw:mideas")) {
-			isAdmin = true;
-		}
-		else if(tempMessage.equals(".update")) {
-			Mideas.getGold();
-			Mideas.getExp();
-			ShopManager.getShopList().clear();
-			ShopManager.loadStuffs();
-			CharacterStuff.getEquippedBags();
-			CharacterStuff.getBagItems();
-			CharacterStuff.getEquippedItems();
-		}
-		else if(tempMessage.equals(".quit")) {
-			System.exit(1);
-		}
-		else if(tempMessage.contains(".modify gold ")) {
-			String[] temp = tempMessage.split("gold ");
-			int value = Integer.parseInt(temp[1]);	
-			Mideas.setGold(value);
-		}
-		else if(tempMessage.contains(".modify exp ")) {
-			String[] temp = tempMessage.split("exp ");
-			int value = Integer.parseInt(temp[1]);	
-			Mideas.joueur1().setExp(0, value);
-		}
-		else if(tempMessage.equals(".help")) {
-			messages.add(".kill [joueur]");
-			messages.add(".modify hp [joueur] [value]");
-			messages.add(".modify mana [joueur] [value]");
-			messages.add(".lookup item [id]");
-			messages.add(".lookup spell [id]");
-			messages.add(".set joueur2 [joueur]");
-			messages.add(".damage [joueur] [value]");
-			messages.add(".add stuff [id]");
-			messages.add(".delete bag item [id]");
-			messages.add(".clear chat");
-			messages.add(".set fullscreen [boolean]");
-		}
+		return false;
 	}
 	
 	private static String convTime(long time) {

@@ -40,8 +40,7 @@ public class GuerrierTalent {
 	private static Color bgColor = new Color(0, 0, 0,.8f); 
 	
 	public static void draw() {
-		/*if(heroicStrikeTalent == 1) {
-			drawTalent(heroicStrikeTalent, 3, Talent.getX()+24+32, Talent.getY()+53);
+		if(heroicStrikeTalent == 1) {
 			Draw.drawQuad(Sprites.un_green_talent, Display.getWidth()/2+Talent.getX()+24+32, Display.getHeight()/2+Talent.getY()+53);
 		}
 		else if(heroicStrikeTalent == 2) {
@@ -49,10 +48,10 @@ public class GuerrierTalent {
 		}
 		else if(heroicStrikeTalent == 3) {
 			Draw.drawQuad(Sprites.trois_yellow_square_talent, Display.getWidth()/2+Talent.getX()+20, Display.getHeight()/2+Talent.getY()+5);
-		}*/
-		drawTalent(heroicStrikeTalent, 3, Talent.getX()+24+32, Talent.getY()+53);
+		}
+		//drawTalent(heroicStrikeTalent, 3, Talent.getX()+24+32, Talent.getY()+53, Talent.getX()+20, Talent.getY()+5);
 		Draw.drawQuad(Sprites.cursor, -100, -100);
-		/*if(deflectionTalent == 1) {
+		if(deflectionTalent == 1) {
 			Draw.drawQuad(Sprites.un_green_talent, Display.getWidth()/2+Talent.getX()+24+97, Display.getHeight()/2+Talent.getY()+53);
 		}
 		else if(deflectionTalent == 2) {
@@ -66,8 +65,8 @@ public class GuerrierTalent {
 		}
 		else if(deflectionTalent == 5) {
 			Draw.drawQuad(Sprites.cinq_yellow_square_talent, Display.getWidth()/2+Talent.getX()+85, Display.getHeight()/2+Talent.getY()+7);
-		}*/
-		drawTalent(deflectionTalent, 5, Talent.getX()+24+97, Talent.getY()+53);
+		}
+		//drawTalent(deflectionTalent, 5, Talent.getX()+24+97, Talent.getY()+53, Talent.getX()+85, Talent.getY()+7);
 		Draw.drawQuad(Sprites.cursor, -100, -100);
 		if(improvedRend == 1) {
 			Draw.drawQuad(Sprites.un_green_talent, Display.getWidth()/2+Talent.getX()+24+162, Display.getHeight()/2+Talent.getY()+53);
@@ -290,7 +289,7 @@ public class GuerrierTalent {
 		return true;
 	}
 	
-	private static void drawTalent(int talent, int maxLevel, int x, int y) {
+	private static void drawTalent(int talent, int maxLevel, int x, int y, int xLevelMax, int yLevelMax) {
 		Texture temp = null;
 		if(maxLevel == 5) {
 			if(talent == 1) {
@@ -307,6 +306,8 @@ public class GuerrierTalent {
 			}
 			else if(talent == 5) {
 				temp = Sprites.cinq_yellow_square_talent;
+				x = xLevelMax;
+				y = yLevelMax;
 			}
 		}
 		else if(maxLevel == 3) {
@@ -318,6 +319,8 @@ public class GuerrierTalent {
 			}
 			else if(talent == 3) {
 				temp = Sprites.trois_yellow_square_talent;
+				x = xLevelMax;
+				y = yLevelMax;
 			}
 		}
 		else if(maxLevel == 2) {
@@ -326,6 +329,8 @@ public class GuerrierTalent {
 			}
 			else if(talent == 2) {
 				temp = Sprites.deux_yellow_square_talent;
+				x = xLevelMax;
+				y = yLevelMax;
 			}
 		}
 		else if(maxLevel == 1) {

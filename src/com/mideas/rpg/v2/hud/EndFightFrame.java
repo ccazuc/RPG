@@ -17,15 +17,12 @@ import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
+import com.mideas.rpg.v2.game.item.stuff.BagManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class EndFightFrame {
 
-	//private static boolean expGiven;
-	//private static boolean drop;
-	//private static boolean gold;
-	//private static boolean isGold;
 	private static boolean endFightEvent;
 
 	public static void draw() throws FileNotFoundException, SQLException {
@@ -64,38 +61,34 @@ public class EndFightFrame {
 		}
 		else if(Mideas.joueur2().getStamina() <= 0) {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 won", Color.white, Color.black, 1, 1, 1);
-			//isGold = true;
 			if(!endFightEvent) {
 				doEndFightEvent();
 				endFightEvent = true;
 			}
-			/*if(!expGiven) {
-				Mideas.setExp();
-				Mideas.getLevel();
-				expGiven = true;
-			}
-			if(!gold) {
-				Mideas.setGold(Mideas.joueur2().getGoldGained());
-				gold = true;
-			}
-			lootManager();
-			*/
 		}
 		
 	}
 	
-	public static void mouseEvent() throws SQLException {
+	public static void mouseEvent() throws SQLException, FileNotFoundException {
 		if(Mouse.getEventButton() == 0) {
-			if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
-				System.exit(1);
-			}
-			else if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
-				Mideas.setJoueur2(Mideas.getRandomClass(2));
-				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
-				Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
-				LogChat.setStatusText("");
-				LogChat.setStatusText2("");
-				endFightEvent = false;
+			if(!Mouse.getEventButtonState()) {
+				if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
+					System.exit(1);
+					CharacterStuff.setBagItems();
+					CharacterStuff.setEquippedBags();
+					CharacterStuff.setEquippedItems();
+					Mideas.setConfig();
+					Mideas.setExp();
+					Mideas.setGold(0);
+				}
+				else if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
+					Mideas.setJoueur2(Mideas.getRandomClass(2));
+					Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
+					Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
+					LogChat.setStatusText("");
+					LogChat.setStatusText2("");
+					endFightEvent = false;
+				}
 			}
 		}
 	}
@@ -121,7 +114,6 @@ public class EndFightFrame {
 				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) == null) {
 						Mideas.bag().setBag(i, potion);
-						//number = Mideas.joueur1().getNumberItem(potion, i)+1;
 						Mideas.joueur1().setNumberItem(potion, 1);
 						CharacterStuff.setBagItems();
 						return true;
@@ -185,17 +177,19 @@ public class EndFightFrame {
 		drop(x, StuffManager.getClone(8001));
 		drop(x, StuffManager.getClone(9001));
 		drop(x, StuffManager.getClone(10001));
-		drop(x, StuffManager.getClone(10001));
-		drop(.95f, PotionManager.getClone(1));
-		//drop(.01f*x, new ThoridalTheStarsFury());
+		drop(x, StuffManager.getClone(13001));
+		drop(x, StuffManager.getClone(13002));
+		drop(x, StuffManager.getClone(14001));
+		drop(x, StuffManager.getClone(14002));
 		drop(.01f*x, StuffManager.getClone(15001));
 		drop(.01f*x, StuffManager.getClone(16001));
-		//drop(100*x, new SuperHealingPotion());
-		//drop(200*x, new LinenCloth());
+		drop(.01f*x,StuffManager.getClone(17001));
+		drop(.95f, PotionManager.getClone(1));
+		drop(.95f, BagManager.getClone(4));
 	}
 
 	private static void lootHunter() throws FileNotFoundException, SQLException {
-		float x = 0.005f;
+		float x = 0.05f;
 		drop(x, StuffManager.getClone(1201));
 		drop(x, StuffManager.getClone(2001));
 		drop(x, StuffManager.getClone(3201));
@@ -206,45 +200,39 @@ public class EndFightFrame {
 		drop(x, StuffManager.getClone(8201));
 		drop(x, StuffManager.getClone(9201));
 		drop(x, StuffManager.getClone(10201));
-		//drop(0.01f*x, new ThoridalTheStarsFury());
-		//drop(100*x, new SuperHealingPotion());
-		//drop(200*x, new LinenCloth());
-		/*if(Math.random() < 100*x && !drop) {
-			drop = true;
-			dropPotion(new SuperHealingPotion(), 1);
-		}*/
+		drop(.01f*x,StuffManager.getClone(17001));
+		drop(.95f, PotionManager.getClone(1));
 	}
-	/*private static void lootPaladin() throws FileNotFoundException, SQLException {
-		float x = 0.005f;
-		drop(x, new LightbringerShoulderguards());
-		drop(x, new SunwellBack());
-		drop(x, new GirdleOfHope());
-		drop(x, new PearlInlaidBoots());
-		drop(x, new LightbringerChestguard());
-		drop(x, new LightbringerHandguards());
-		drop(x, new LightbringerFaceguard());
-		drop(x, new LightbringerLegguards());
-		drop(x, new SunwellNecklace());
-		drop(x, new TheSeekersWristguards());
-		drop(100*x, new SuperHealingPotion());
-		drop(200*x, new LinenCloth());
+	
+	private static void lootPaladin() throws FileNotFoundException, SQLException {
+		float x = 0.05f;
+		drop(x, StuffManager.getClone(1501));
+		drop(x, StuffManager.getClone(2001));
+		drop(x, StuffManager.getClone(3501));
+		drop(x, StuffManager.getClone(4001));
+		drop(x, StuffManager.getClone(5501));
+		drop(x, StuffManager.getClone(6501));
+		drop(x, StuffManager.getClone(7501));
+		drop(x, StuffManager.getClone(8501));
+		drop(x, StuffManager.getClone(9501));
+		drop(x, StuffManager.getClone(10501));
+		drop(.95f, PotionManager.getClone(1));
 	}
 
 	private static void lootMage() throws FileNotFoundException, SQLException {
-		float x = 0.005f;
-		drop(x, new MantleOfTheTempest());
-		drop(x, new SunwellBack());
-		drop(x, new BeltOfTheTempest());
-		drop(x, new BootsOfTheTempest());
-		drop(x, new RobesOfTheTempest());
-		drop(x, new GlovesOfTheTempest());
-		drop(x, new CowlOfTheTempest());
-		drop(x, new LeggingsOfTheTempest());
-		drop(x, new SunwellNecklace());
-		drop(x, new BracersOfTheTempest());
-		drop(100*x, new SuperHealingPotion());
-		drop(200*x, new LinenCloth());
-	}*/
+		float x = 0.05f;
+		drop(x, StuffManager.getClone(1301));
+		drop(x, StuffManager.getClone(2001));
+		drop(x, StuffManager.getClone(3301));
+		drop(x, StuffManager.getClone(4001));
+		drop(x, StuffManager.getClone(5301));
+		drop(x, StuffManager.getClone(6301));
+		drop(x, StuffManager.getClone(7301));
+		drop(x, StuffManager.getClone(8301));
+		drop(x, StuffManager.getClone(9301));
+		drop(x, StuffManager.getClone(10301));
+		drop(.95f, PotionManager.getClone(1));
+	}
 	
 	private static void lootIllidan() throws FileNotFoundException, SQLException {
 		//drop(.03f, new WarglaiveOfAzzinoth());
@@ -264,7 +252,7 @@ public class EndFightFrame {
 			return true;
 		}
 		else if(Mideas.joueur2().getClasse().equals("Mage")) {
-			lootGuerrier();
+			lootMage();
 			return true;
 		}
 		else if(Mideas.joueur2().getClasse().equals("Monk")) {
@@ -272,7 +260,7 @@ public class EndFightFrame {
 			return true;
 		}
 		else if(Mideas.joueur2().getClasse().equals("Paladin")) {
-			lootGuerrier();
+			lootPaladin();
 			return true;
 		}
 		else if(Mideas.joueur2().getClasse().equals("Priest")) {
@@ -300,15 +288,13 @@ public class EndFightFrame {
 	
 	private static void drop(float x, Item item) throws FileNotFoundException, SQLException {
 		if(Math.random() <= x && item != null) {
-			System.out.println('a');
 			if(item.getItemType() == ItemType.POTION || item.getItemType() == ItemType.ITEM) {
 				dropItem(item, 1);
-				SpellBarFrame.setBagChange(true);
 			}
 			else {
 				dropRate(item);
-				SpellBarFrame.setBagChange(true);
 			}
+			SpellBarFrame.setBagChange(true);
 			LogChat.setStatusText3("Vous avez obtenus "+item.getStuffName());
 		}
 	}

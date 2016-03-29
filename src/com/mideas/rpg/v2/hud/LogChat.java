@@ -17,8 +17,6 @@ public class LogChat {
 	private static String statusText3 = "";
 	
 	public static void draw() {
-		Color bgColor = new Color(0, 0, 0,.35f); 
-		Draw.drawColorQuad(30, Display.getHeight()-280, 510, 130, bgColor);
 	}
 	
 	public static void drawStatus() { // player2

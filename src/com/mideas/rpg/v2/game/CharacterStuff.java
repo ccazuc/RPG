@@ -605,7 +605,7 @@ public class CharacterStuff {
 					statement.putInt(0);
 					statement.putInt(0);
 				}
-				else if(tempBag.getItemType() == ItemType.STUFF) {
+				else if(tempBag.getItemType() == ItemType.STUFF || tempBag.getItemType() == ItemType.BAG) {
 					statement.putInt(tempBag.getId());
 					statement.putInt(0);
 				}
@@ -677,8 +677,6 @@ public class CharacterStuff {
 	}
 	
 	public static void getEquippedItems() throws FileNotFoundException, SQLException {
-		//BufferedReader br = null;
-		//int i = 0;
 		int id;
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT head, necklace, shoulders, back, chest, wrists, gloves, belt, leggings, boots, ring, ring2, trinket, trinket2, mainhand, offhand, ranged FROM character_stuff WHERE class = ?");
 		statement.putString(Mideas.joueur1().getClasse());
@@ -688,83 +686,84 @@ public class CharacterStuff {
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isHead()) {
 				Mideas.joueur1().setStuff(0, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isNecklace()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isNecklace()) {
 				Mideas.joueur1().setStuff(1, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isShoulders()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isShoulders()) {
 				Mideas.joueur1().setStuff(2, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isBack()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBack()) {
 				Mideas.joueur1().setStuff(3, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isChest()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isChest()) {
 				Mideas.joueur1().setStuff(4, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isWrists()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isWrists()) {
 				Mideas.joueur1().setStuff(7, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isGloves()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isGloves()) {
 				Mideas.joueur1().setStuff(8, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isBelt()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBelt()) {
 				Mideas.joueur1().setStuff(9, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isLeggings()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isLeggings()) {
 				Mideas.joueur1().setStuff(10, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isBoots()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBoots()) {
 				Mideas.joueur1().setStuff(11, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing()) {
 				Mideas.joueur1().setStuff(12, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing()) {
 				Mideas.joueur1().setStuff(13, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isTrinket()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isTrinket()) {
 				Mideas.joueur1().setStuff(14, StuffManager.getClone(id));
 				numberPieceLoaded++;
 			}
+			id = statement.getInt();
 			if(StuffManager.exists(id) && StuffManager.getStuff(id).isTrinket()) {
 				Mideas.joueur1().setStuff(15, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isMainHand()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isMainHand()) {
 				Mideas.joueur1().setStuff(16, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isOffHand()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isOffHand()) {
 				Mideas.joueur1().setStuff(17, StuffManager.getClone(id));
 				numberPieceLoaded++;
-				id = statement.getInt();
 			}
-			else if(StuffManager.exists(id) && StuffManager.getStuff(id).isRanged()) {
+			id = statement.getInt();
+			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRanged()) {
 				Mideas.joueur1().setStuff(18, StuffManager.getClone(id));
 				numberPieceLoaded++;
 			}
