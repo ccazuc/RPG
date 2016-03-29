@@ -2,6 +2,7 @@ package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.sql.SQLTimeoutException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -21,10 +22,11 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class EndFightFrame {
 
-	private static boolean expGiven;
-	private static boolean drop;
-	private static boolean gold;
-	private static boolean isGold;
+	//private static boolean expGiven;
+	//private static boolean drop;
+	//private static boolean gold;
+	//private static boolean isGold;
+	private static boolean endFightEvent;
 
 	public static void draw() throws FileNotFoundException, SQLException {
 		if(Interface.getAdminPanelFrameStatus()) {
@@ -62,8 +64,12 @@ public class EndFightFrame {
 		}
 		else if(Mideas.joueur2().getStamina() <= 0) {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 won", Color.white, Color.black, 1, 1, 1);
-			isGold = true;
-			if(!expGiven) {
+			//isGold = true;
+			if(!endFightEvent) {
+				doEndFightEvent();
+				endFightEvent = true;
+			}
+			/*if(!expGiven) {
 				Mideas.setExp();
 				Mideas.getLevel();
 				expGiven = true;
@@ -73,6 +79,7 @@ public class EndFightFrame {
 				gold = true;
 			}
 			lootManager();
+			*/
 		}
 		
 	}
@@ -88,12 +95,7 @@ public class EndFightFrame {
 				Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
 				LogChat.setStatusText("");
 				LogChat.setStatusText2("");
-				expGiven = false;
-				drop = false;
-				if(isGold) {
-					gold = false;
-				}
-				isGold = false;
+				endFightEvent = false;
 			}
 		}
 	}
@@ -188,7 +190,6 @@ public class EndFightFrame {
 		//drop(.01f*x, new ThoridalTheStarsFury());
 		drop(.01f*x, StuffManager.getClone(15001));
 		drop(.01f*x, StuffManager.getClone(16001));
-		drop = true;
 		//drop(100*x, new SuperHealingPotion());
 		//drop(200*x, new LinenCloth());
 	}
@@ -205,7 +206,6 @@ public class EndFightFrame {
 		drop(x, StuffManager.getClone(8201));
 		drop(x, StuffManager.getClone(9201));
 		drop(x, StuffManager.getClone(10201));
-		drop = true;
 		//drop(0.01f*x, new ThoridalTheStarsFury());
 		//drop(100*x, new SuperHealingPotion());
 		//drop(200*x, new LinenCloth());
@@ -299,7 +299,7 @@ public class EndFightFrame {
 	}
 	
 	private static void drop(float x, Item item) throws FileNotFoundException, SQLException {
-		if(Math.random() <= x && !drop && item != null) {
+		if(Math.random() <= x && item != null) {
 			System.out.println('a');
 			if(item.getItemType() == ItemType.POTION || item.getItemType() == ItemType.ITEM) {
 				dropItem(item, 1);
@@ -313,12 +313,19 @@ public class EndFightFrame {
 		}
 	}
 	
-	public static boolean getExpGiven() {
-		return expGiven;
+	public static boolean getEndFightEventState() {
+		return endFightEvent;
 	}
 	
-	public static void setDrop(boolean we) {
-		drop = we;
+	public static void setEndFightEvent(boolean we) {
+		endFightEvent = we;
+	}
+	
+	public static void doEndFightEvent() throws SQLTimeoutException, FileNotFoundException, SQLException {
+		Mideas.setExp();
+		Mideas.getLevel();
+		Mideas.setGold(Mideas.joueur2().getGoldGained());
+		lootManager();
 	}
 }
 

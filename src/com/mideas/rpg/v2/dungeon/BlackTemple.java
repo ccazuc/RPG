@@ -26,9 +26,9 @@ public class BlackTemple extends Dungeon {
 	private static Joueur[] joueur = new Joueur[5];
 	private static boolean isBlackTempleLoaded;
 	private static int maxRoom;
-	private static boolean isGold;
-	private static boolean expGiven;
-	private static boolean gold;
+	//private static boolean isGold;
+	//private static boolean expGiven;
+	//private static boolean gold;
 	private static int i;
 
 	public static void draw() {
@@ -86,17 +86,10 @@ public class BlackTemple extends Dungeon {
 	
 	public static void endFight(int x) throws FileNotFoundException, SQLException {
 		maxRoom = x;
-		isGold = true;
-		if(!expGiven) {
-			Mideas.setExp();
-			Mideas.getLevel();
-			expGiven = true;
+		if(!EndFightFrame.getEndFightEventState()) {
+			EndFightFrame.doEndFightEvent();
+			EndFightFrame.setEndFightEvent(true);
 		}
-		if(!gold) {
-			Mideas.setGold(Mideas.joueur2().getGoldGained());
-			gold = true;
-		}
-		EndFightFrame.lootManager();
 		if(i != maxRoom-1) {
 			Draw.drawQuad(Sprites.alert_dungeon, Display.getWidth()/2-Sprites.alert_dungeon.getImageWidth()/2+38, Display.getHeight()/2-150);
 			if(button(-Sprites.button.getImageWidth()/2, -50, 0, -75, Sprites.button_hover)) {
@@ -180,11 +173,6 @@ public class BlackTemple extends Dungeon {
 	}
 	
 	private static void resetEndFight() {
-		expGiven = false;
-		EndFightFrame.setDrop(false);
-		if(isGold) {
-			gold = false;
-		}
-		isGold = false;
+		EndFightFrame.setEndFightEvent(false);
 	}
 }

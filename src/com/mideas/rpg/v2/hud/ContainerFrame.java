@@ -34,7 +34,7 @@ public class ContainerFrame {
 	private static int yShift;
 	private static boolean[] isBagOpen = new boolean[5];
 	private static int[] bagSize = new int[5];
-	private static boolean bagChange;
+	private static boolean bagChange = true;
 	
 	private static void drawBags(int i, int x_item, int y_item, int x_text, int y_text, int z) throws FileNotFoundException {
 		drawBag(i, x_item, y_item);
@@ -42,7 +42,7 @@ public class ContainerFrame {
 		
 	}
 	public static void draw() throws LWJGLException, IOException {
-		//if(!bagChange) {
+		if(bagChange) {
 			bagSize[0] = Sprites.back_bag.getImageHeight();
 			if(Mideas.bag().getEquippedBag(0) != null) {
 				bagSize[1] = BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(0).getId()).getImageHeight();
@@ -72,8 +72,8 @@ public class ContainerFrame {
 				bagSize[4] = 0;
 				isBagOpen[4] = false;
 			}
-			bagChange = true;
-		//}
+			bagChange = false;
+		}
 		int xBagShift = 0;
 		int bagShift = 0;
 		int yBagShift = 0;
@@ -831,5 +831,9 @@ public class ContainerFrame {
 			return isBagOpen[i];
 		}
 		return false;
+	}
+	
+	public static void setBagchange(boolean we) {
+		bagChange = we;
 	}
 }

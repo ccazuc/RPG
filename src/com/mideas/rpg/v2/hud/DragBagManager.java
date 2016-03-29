@@ -68,7 +68,7 @@ public class DragBagManager {
 		//hover BagFrame
 		if(Mouse.getEventButton() == 0) {
 			if(Mouse.getEventButtonState()) {
-				if(checkInventoryClick() && draggedBag == null) {
+				if(checkBagClick() && draggedBag == null) {
 					leftClickDown = true;
 					mouseX = Mideas.mouseX();
 					mouseY = Mideas.mouseY();
@@ -109,6 +109,7 @@ public class DragBagManager {
 						CharacterStuff.setBagItems();
 						SpellBarFrame.setBagChange(true);
 						deleteItem = false;
+						ContainerFrame.setBagchange(true);
 					}
 				}
 				if(hoverSave && deleteItem) {
@@ -174,7 +175,7 @@ public class DragBagManager {
 		return false;
 	}
 
-	private static boolean checkInventoryClick() {
+	private static boolean checkBagClick() {
 		int i = 0 ;
 		while(i < clickBag.length) {
 			if(hoverBag[i] == true && draggedBag == null) {
