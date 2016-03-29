@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -39,7 +40,8 @@ public class GuerrierTalent {
 	private static Color bgColor = new Color(0, 0, 0,.8f); 
 	
 	public static void draw() {
-		if(heroicStrikeTalent == 1) {
+		/*if(heroicStrikeTalent == 1) {
+			drawTalent(heroicStrikeTalent, 3, Talent.getX()+24+32, Talent.getY()+53);
 			Draw.drawQuad(Sprites.un_green_talent, Display.getWidth()/2+Talent.getX()+24+32, Display.getHeight()/2+Talent.getY()+53);
 		}
 		else if(heroicStrikeTalent == 2) {
@@ -47,9 +49,10 @@ public class GuerrierTalent {
 		}
 		else if(heroicStrikeTalent == 3) {
 			Draw.drawQuad(Sprites.trois_yellow_square_talent, Display.getWidth()/2+Talent.getX()+20, Display.getHeight()/2+Talent.getY()+5);
-		}
+		}*/
+		drawTalent(heroicStrikeTalent, 3, Talent.getX()+24+32, Talent.getY()+53);
 		Draw.drawQuad(Sprites.cursor, -100, -100);
-		if(deflectionTalent == 1) {
+		/*if(deflectionTalent == 1) {
 			Draw.drawQuad(Sprites.un_green_talent, Display.getWidth()/2+Talent.getX()+24+97, Display.getHeight()/2+Talent.getY()+53);
 		}
 		else if(deflectionTalent == 2) {
@@ -63,7 +66,8 @@ public class GuerrierTalent {
 		}
 		else if(deflectionTalent == 5) {
 			Draw.drawQuad(Sprites.cinq_yellow_square_talent, Display.getWidth()/2+Talent.getX()+85, Display.getHeight()/2+Talent.getY()+7);
-		}
+		}*/
+		drawTalent(deflectionTalent, 5, Talent.getX()+24+97, Talent.getY()+53);
 		Draw.drawQuad(Sprites.cursor, -100, -100);
 		if(improvedRend == 1) {
 			Draw.drawQuad(Sprites.un_green_talent, Display.getWidth()/2+Talent.getX()+24+162, Display.getHeight()/2+Talent.getY()+53);
@@ -85,40 +89,40 @@ public class GuerrierTalent {
 		}
 		if(hoverLeft1) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+74, Display.getHeight()/2+Talent.getY()-80, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-78, "Frappe héroïque améliorée", Color.white, Color.black, 1, 1, 1);
+			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-78, "Frappe hï¿½roï¿½que amï¿½liorï¿½e", Color.white, Color.black, 1, 1, 1);
 			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-65, "Rang "+heroicStrikeTalent+"/3", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-43, "Réduit le coup en rage de votre technique", Color.yellow, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-33, "frappe héroïque de 1 points.", Color.yellow, Color.black, 1, 1, 1);
+			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-43, "Rï¿½duit le coup en rage de votre technique", Color.yellow, Color.black, 1, 1, 1);
+			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-33, "frappe hï¿½roï¿½que de 1 points.", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 0, heroicStrikeTalent, 5, 78, -50, 0, "");
 		}
 		else if(hoverLeft2) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+139, Display.getHeight()/2+Talent.getY()-80, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-78, "Déviation", Color.white, Color.black, 1, 1, 1);
+			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-78, "Dï¿½viation", Color.white, Color.black, 1, 1, 1);
 			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-65, "Rang "+deflectionTalent+"/5", Color.white, Color.black, 1, 1, 1);
 			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-43, "Augmente votre armure de 5", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 0, deflectionTalent, 5, 143, -50, 0, "");
 		}
 		else if(hoverLeft3) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+204, Display.getHeight()/2+Talent.getY()-80, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-78, "Pourfendre améliorée", Color.white, Color.black, 1, 1, 1);
+			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-78, "Pourfendre amï¿½liorï¿½e", Color.white, Color.black, 1, 1, 1);
 			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-65, "Rang "+improvedRend+"/3", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-35, "Augmente de 25% les points de dégâts", Color.yellow, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-25, "infligés par la technique Pourfendre.", Color.yellow, Color.black, 1, 1, 1);
+			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-35, "Augmente de 25% les points de dï¿½gï¿½ts", Color.yellow, Color.black, 1, 1, 1);
+			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-25, "infligï¿½s par la technique Pourfendre.", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 0, improvedRend, 3, 208, -50, 0, "");
 		}
 		else if(hoverLeft4) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+74, Display.getHeight()/2+Talent.getY()-18, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-15, "Charge améliorée", Color.white, Color.black, 1, 1, 1);
+			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-15, "Charge amï¿½liorï¿½e", Color.white, Color.black, 1, 1, 1);
 			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY(), "Rang "+improvedCharge+"/2", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantité de Rage générée par", Color.yellow, Color.black, 1, 1, 1);
+			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantitï¿½ de Rage gï¿½nï¿½rï¿½e par", Color.yellow, Color.black, 1, 1, 1);
 			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 5, improvedCharge, 2, 78, 15, 65, "Requiert 5 points en Armes");
 		}
 		else if(hoverLeft5) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+139, Display.getHeight()/2+Talent.getY()-18, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-15, "Volonté de fer", Color.white, Color.black, 1, 1, 1);
+			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-15, "Volontï¿½ de fer", Color.white, Color.black, 1, 1, 1);
 			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY(), "Rang "+ironWill+"/5", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantité de Rage générée par", Color.yellow, Color.black, 1, 1, 1);
+			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantitï¿½ de Rage gï¿½nï¿½rï¿½e par", Color.yellow, Color.black, 1, 1, 1);
 			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 5, ironWill, 5, 143, 15, 65, "Requiert 5 points en Armes");
 		}
@@ -254,7 +258,7 @@ public class GuerrierTalent {
 		TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Cliquer pour apprendre", Color.green, Color.black, 1, 1, 1);
 	}
 	public static void clickToUnlearn(int x, int y) {
-		TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Clic droit pour désapprendre", Color.red, Color.black, 1, 1, 1);
+		TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Clic droit pour dï¿½sapprendre", Color.red, Color.black, 1, 1, 1);
 	}
 	 
 	private static void requiredPoint(int numberTalentSpec, int number, int talent, int numberTalent, int x_string, int y_string, int y_stringClickToLearn, String string) {
@@ -284,5 +288,51 @@ public class GuerrierTalent {
 			}
 		}
 		return true;
+	}
+	
+	private static void drawTalent(int talent, int maxLevel, int x, int y) {
+		Texture temp = null;
+		if(maxLevel == 5) {
+			if(talent == 1) {
+				temp = Sprites.un_green_talent;
+			}
+			else if(talent == 2) {
+				temp = Sprites.deux_green_talent;
+			}
+			else if(talent == 3) {
+				temp = Sprites.trois_green_talent;
+			}
+			else if(talent == 4) {
+				temp = Sprites.quatre_green_talent;
+			}
+			else if(talent == 5) {
+				temp = Sprites.cinq_yellow_square_talent;
+			}
+		}
+		else if(maxLevel == 3) {
+			if(talent == 1) {
+				temp = Sprites.un_green_talent;
+			}
+			else if(talent == 2) {
+				temp = Sprites.deux_green_talent;
+			}
+			else if(talent == 3) {
+				temp = Sprites.trois_yellow_square_talent;
+			}
+		}
+		else if(maxLevel == 2) {
+			if(talent == 1) {
+				temp = Sprites.un_green_talent;
+			}
+			else if(talent == 2) {
+				temp = Sprites.deux_yellow_square_talent;
+			}
+		}
+		else if(maxLevel == 1) {
+			if(talent == 1) {
+				//one yellow  talent
+			}
+		}
+		Draw.drawQuad(temp, Display.getWidth()/2+x, Display.getHeight()/2+y);
 	}
 }

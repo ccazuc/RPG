@@ -271,9 +271,6 @@ public class ChatFrame {
 			isAdmin = true;
 		}
 		else if(tempMessage.equals(".update")) {
-			/*if(!isAdmin) {
-				Sys.alert("Admin", "Vous n'êtes pas admin.");
-			}*/
 			Mideas.getGold();
 			Mideas.getExp();
 			ShopManager.getShopList().clear();

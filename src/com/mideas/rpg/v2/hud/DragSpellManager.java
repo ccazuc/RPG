@@ -37,28 +37,36 @@ public class DragSpellManager {
 	}
 	
 	public static boolean mouseEvent() {
-		Arrays.fill(hover, false);
+		if(isHoverSpellBarFrame()) {
+			Arrays.fill(hover, false);
+		}
 		float x = -678+56.3f;
 		float xShift = 56.3f;
+		float yShift = 56.3f;
 		int y = -49;
 		int i = 0;
 		int j = 0;
-		while(i < SpellBarFrame.getHoverSpellBar().length) {
-			isHoverSpellBar(x+j*xShift, y, i);
-			j++;
-			i++;
-			if(i == 11) {
-				y = -130;
-				j = -1;
+		if(isHoverSpellBarFrame()) {
+			while(i < SpellBarFrame.getHoverSpellBar().length) {
+				isHoverSpellBar(x+j*xShift, y+j*yShift, i);
+				j++;
+				i++;
+				if(i == 11) {
+					y = -130;
+					j = -1;
+				}
 			}
 		}
 		if(Mouse.getEventButton() == 1) {
 			if(Mouse.getEventButtonState()) {
-				i = 0;
-				while(i <= hover.length-1) {
-					clickSpell(i);
-					i++;
+				if(isHoverSpellBarFrame()) {
+					i = 0;
+					while(i <= hover.length-1) {
+						clickSpell(i);
+						i++;
+					}
 				}
+				//hover spellbook
 				if(SpellBookFrame.getHoverBook(1) && Mideas.joueur1().getSpellUnlocked(0) != null) {
 					draggedBookSpell = SpellManager.getBookSpell(102);
 				}
@@ -78,28 +86,31 @@ public class DragSpellManager {
 		}
 		if(!Mouse.getEventButtonState()) {
 			if(DragManager.getDraggedItem() != null && Mouse.getEventButton() == 0) {
-				i = 0;
-				while(i <= hover.length-1) {
-					dropSpell(i);
-					i++;
+				if(isHoverSpellBarFrame()) {
+					i = 0;
+					while(i <= hover.length-1) {
+						dropSpell(i);
+						i++;
+					}
 				}
 			}
 			else if(Mouse.getEventButton() == 1) {
-				i = 0;
-				while(i <= hover.length-1) {
-					if(dropSpell(i)) {
-						break;
+				if(isHoverSpellBarFrame()) {
+					i = 0;
+					while(i <= hover.length-1) {
+						if(dropSpell(i)) {
+							break;
+						}
+						i++;
 					}
-					i++;
 				}
 			}
 			if(Mouse.getEventButton() == 1) {
-				if(draggedShortcut != null && !isHoverSpellBar()) {
+				if(draggedShortcut != null && !isHoverSpellBarFrame()) {
 					deleteSpell(draggedShortcut);
 					draggedShortcut = null;
 				}
 				if(draggedBookSpell != null) {
-					//deleteSpell(draggedSpellBook);
 					draggedBookSpell = null;
 				}
 			}
@@ -107,7 +118,7 @@ public class DragSpellManager {
 		return false;
 	}
 	
-	private static void isHoverSpellBar(float x, int y, int i) {
+	private static void isHoverSpellBar(float x, float y, int i) {
 		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+47 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+47) {
 			hover[i] = true;
 		}
@@ -190,7 +201,7 @@ public class DragSpellManager {
 	}
 	
 	private static boolean dropSpell(int i) {
-		if(draggedShortcut != null) {
+		if(draggedShortcut != null && DragManager.isHoverBagFrame()) {
 			if(hover[i]) {
 				if(Mideas.joueur1().getSpells(i) == null) {
 					setNullSpell(draggedShortcut);
@@ -245,13 +256,9 @@ public class DragSpellManager {
 		return draggedShortcut;
 	}
 	
-	private static boolean isHoverSpellBar() {
-		int i = 0;
-		while(i < hover.length) {
-			if(hover[i]) {
-				return true;
-			}
-			i++;
+	private static boolean isHoverSpellBarFrame() {
+		if(Mideas.mouseX() >= Display.getWidth()/2-809 && Mideas.mouseX() <= Display.getWidth()/2-809+Sprites.final_spellbar.getImageWidth() && Mideas.mouseY() >= Display.getHeight()-100 && Mideas.mouseY() <= Display.getHeight()) {
+			return true;
 		}
 		return false;
 	}
