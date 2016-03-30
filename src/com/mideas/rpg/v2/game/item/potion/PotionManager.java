@@ -12,7 +12,7 @@ public class PotionManager {
 	private static int numberPotionLoaded;
 	
 	public static void loadPotions() throws SQLException, CloneNotSupportedException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, heal, mana, sellprice FROM potion");
+		/*JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, heal, mana, sellprice FROM potion");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
@@ -24,7 +24,7 @@ public class PotionManager {
 			Potion newPotion = new Potion(id, sprite_id, name, heal, mana, sellPrice);
 			potionList.add(newPotion);
 			numberPotionLoaded++;
-		}
+		}*/
 	}
 	
 	public static Potion getPotion(int id) {

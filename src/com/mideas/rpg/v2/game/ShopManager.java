@@ -160,12 +160,12 @@ public class ShopManager {
 				if(Mideas.getCurrentGold() >= stuff.getSellPrice()) {
 					/*if(stuff.get) {
 						EndFightFrame.dropItem(stuff, 1);
-						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
+						LogChat.setStatusText3("Vous avez bien achetï¿½ "+stuff.getStuffName());
 						Mideas.setGold(-stuff.getSellPrice());
 					}*/
 					if(checkInventory(stuff)) {
 						Mideas.setGold(-stuff.getSellPrice());
-						LogChat.setStatusText3("Vous avez bien acheté "+StuffManager.getStuff(stuff.getId()).getStuffName());
+						LogChat.setStatusText3("Vous avez bien achetï¿½ "+StuffManager.getStuff(stuff.getId()).getStuffName());
 					}
 				}
 				else {

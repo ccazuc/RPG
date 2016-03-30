@@ -29,6 +29,7 @@ public class ChatFrame {
 	private static int i;
 	private static int numberUpArrow = 1;
 	private static boolean isAdmin;
+	private static int cursorPosition;
 	private static boolean topArrow;
 	private static boolean bottomArrow;
 	private static boolean toBottomArrow;
@@ -39,9 +40,11 @@ public class ChatFrame {
 	private static int messageShowHeight = 4;
 	private static int tempLength;
 	private static int shift;
+	private static int cursorShift;
 	private static Color bgColor = new Color(0, 0, 0,.35f); 
 
 	public static void draw() {
+		//System.out.println(cursorPosition);
 		messageShowHeight = 4+yResize/TTF2.font4.getLineHeight();
 		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510, 130+yResize, bgColor);
 		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
@@ -51,7 +54,8 @@ public class ChatFrame {
 			}
 			TTF2.font4.drawString(40, Display.getHeight()-175, tempMessage.substring(tempLength), Color.white);
 			if(System.currentTimeMillis()%1000 < 500) {
-				TTF2.font4.drawString(40+TTF2.font4.getWidth(tempMessage.substring(tempLength)), Display.getHeight()-175, "|", Color.white);
+				//shift 
+				TTF2.font4.drawString(37+cursorShift+TTF2.font4.getWidth(tempMessage.substring(tempLength)), Display.getHeight()-175, "|", Color.white);
 			}
 		}
 		int j = 0;
@@ -82,7 +86,6 @@ public class ChatFrame {
 				chatActive = false;
 			}
 			else if(Keyboard.isKeyDown(29) && Keyboard.getEventKey() == 14) { //ctrl+delete
-				//tempMessage = "";
 				delMessage();
 				tempLength = 0;
 			}
@@ -95,12 +98,32 @@ public class ChatFrame {
 				if(i >= numberUpArrow) {
 					tempMessage = rawMessages.get(numberMessageSent-numberUpArrow);
 					numberUpArrow++;
+					cursorPosition = tempMessage.length();
+					System.out.println(tempMessage.length());
+					cursorShift = TTF2.font4.getWidth(tempMessage.substring(0, tempMessage.length()));
 				}
 			}
 			else if(Keyboard.getEventKey() == 208) { //down arrow
 				if(numberUpArrow > 1) {
 					numberUpArrow--;
 					tempMessage = rawMessages.get(numberMessageSent-numberUpArrow);
+				}
+			}
+			else if(Keyboard.getEventKey() == 203) { //left arrow
+				if(cursorPosition > 0) {
+					cursorPosition--;
+					if(cursorPosition == 0) {
+						cursorShift-= TTF2.font4.getWidth(tempMessage.substring(0, 1));
+					}
+					else {
+						cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1, cursorPosition));
+					}
+				}
+			}
+			else if(Keyboard.getEventKey() == 205) { //right arrow
+				if(cursorPosition < tempMessage.length()) {
+					cursorPosition++;
+					cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1, cursorPosition));
 				}
 			}
 			else if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
@@ -110,7 +133,8 @@ public class ChatFrame {
 	        }
 			else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN) { //write
 				char tempChar = Keyboard.getEventCharacter();
-				tempMessage = tempMessage+tempChar;
+				write(tempChar);
+				cursorPosition++;
 			}
 		}
         if(Keyboard.getEventKey() == Keyboard.KEY_RETURN) { //enter
@@ -121,6 +145,8 @@ public class ChatFrame {
 						addMessage();
 					}
 					numberMessageSent++;
+					cursorPosition = 0;
+					cursorShift = 0;
 				}
 				tempMessage =  "";
 				tempLength = 0;
@@ -231,6 +257,28 @@ public class ChatFrame {
 			i--;
 		}
 		tempMessage = "";
+	}
+	
+	private static void write(String add) {
+		if(cursorPosition == 0 || cursorPosition == tempMessage.length()) {
+			tempMessage+= add;
+		}
+		else {
+			String beg = tempMessage.substring(0, cursorPosition);
+			String end = tempMessage.substring(cursorPosition+1, tempMessage.length());
+			tempMessage = beg+add+end;
+		}
+	}
+	
+	private static void write(char add) {
+		if(cursorPosition == tempMessage.length()) {
+			tempMessage+= add;
+		}
+		else {
+			String beg = tempMessage.substring(0, cursorPosition);
+			String end = tempMessage.substring(cursorPosition, tempMessage.length());
+			tempMessage = beg+add+end;
+		}
 	}
 	
 	private static boolean checkTempMessage() throws FileNotFoundException, SQLException, CloneNotSupportedException {

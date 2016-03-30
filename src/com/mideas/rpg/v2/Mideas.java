@@ -178,7 +178,7 @@ public class Mideas {
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
 	}
 	
 	public static JDO getJDO() {
@@ -285,14 +285,14 @@ public class Mideas {
 	}
 
 	public static void getExpAll() throws FileNotFoundException, SQLException {
-		int id;
+		/*int id;
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats");
 		statement.execute();
 		while(statement.fetch()) {
 			id = statement.getInt();
 			expAll[i] = id;
 			i++;
-		}
+		}*/
 		/*BufferedReader br = null;
 		try {
 			int j = 0;
@@ -667,14 +667,14 @@ public class Mideas {
 	}
 
 	public static void getConfig() throws FileNotFoundException, SQLException {
-		String bg = "";
+		/*String bg = "";
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
 		statement.putString("background");
 		statement.execute();
 		if(statement.fetch()) {
 			bg = statement.getString();
 		}
-		ChangeBackGroundFrame.loadBG(bg);
+		ChangeBackGroundFrame.loadBG(bg);*/
 		/*BufferedReader br = null;
 		try {
 			int i = 0;
