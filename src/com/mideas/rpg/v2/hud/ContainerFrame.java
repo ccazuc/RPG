@@ -26,8 +26,9 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class ContainerFrame {
 	
-	private static boolean[] slot_hover = new boolean[300];
-	private static Color bgColor = new Color(0, 0, 0,.8f); 
+	private static boolean[] slot_hover = new boolean[97];
+	private static Color bgColor = new Color(0, 0, 0, .6f); 
+	private static Color borderColor = Color.decode("#494D4B");
 	private static int x;
 	private static int xShift;
 	private static int y;
@@ -36,12 +37,12 @@ public class ContainerFrame {
 	private static int[] bagSize = new int[5];
 	private static boolean bagChange = true;
 	
-	private static void drawBags(int i, int x_item, int y_item, int x_text, int y_text, int z) throws FileNotFoundException {
+	private static void drawBags(int i, int x_item, int y_item, int x_text, int y_text, int z) throws FileNotFoundException, SQLException {
 		drawBag(i, x_item, y_item);
 		drawHoverBag(i, x_text, y_text, x_item, y_item, z);
 		
 	}
-	public static void draw() throws LWJGLException, IOException {
+	public static void draw() throws LWJGLException, IOException, SQLException {
 		if(bagChange) {
 			bagSize[0] = Sprites.back_bag.getImageHeight();
 			if(Mideas.bag().getEquippedBag(0) != null) {
@@ -78,6 +79,8 @@ public class ContainerFrame {
 		int bagShift = 0;
 		int yBagShift = 0;
 		if(isBagOpen[0]) {
+			yBagShift = -bagSize[0]-78;
+			Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()-54, Display.getHeight()+bagShift+yBagShift-2);
 			Draw.drawQuad(Sprites.back_bag, Display.getWidth()-220, Display.getHeight()-bagSize[0]-78);
 			bagShift+= -bagSize[0]-78;
 		}
@@ -89,6 +92,7 @@ public class ContainerFrame {
 				else {
 					yBagShift = -bagSize[1]-67;
 				}
+				Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()-54, Display.getHeight()+bagShift+yBagShift-2);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(0)), Display.getWidth()-213+xBagShift, Display.getHeight()+bagShift+yBagShift-8);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(0).getId()), Display.getWidth()-220, Display.getHeight()+bagShift+yBagShift-10);
 				if(isBagOpen[0]) {
@@ -109,6 +113,7 @@ public class ContainerFrame {
 				else {
 					yBagShift = -bagSize[2]-67;
 				}
+				Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()-54, Display.getHeight()+bagShift+yBagShift-2);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(1)), Display.getWidth()-213+xBagShift, Display.getHeight()+bagShift+yBagShift-8);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(1).getId()), Display.getWidth()-220+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 				if(isBagOpen[0] || isBagOpen[1]) {
@@ -136,6 +141,7 @@ public class ContainerFrame {
 					yBagShift = -bagSize[3]-67;
 					resize = true;
 				}
+				Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()-54+xBagShift, Display.getHeight()+bagShift+yBagShift-2);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(2)), Display.getWidth()-213+xBagShift, Display.getHeight()+bagShift+yBagShift-8);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(2).getId()), Display.getWidth()-220+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 				if((isBagOpen[0] || isBagOpen[1] || isBagOpen[2]) && !resize) {
@@ -165,6 +171,7 @@ public class ContainerFrame {
 					xBagShift = -200;
 					yBagShift = -bagSize[4]-67;
 				}
+				Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()-54+xBagShift, Display.getHeight()+bagShift+yBagShift-2);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(3)), Display.getWidth()-213+xBagShift, Display.getHeight()+bagShift+yBagShift-8);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(3).getId()), Display.getWidth()-220+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 				Draw.drawQuad(Sprites.cursor, -100, -100);
@@ -172,7 +179,7 @@ public class ContainerFrame {
 		}
 		x = -204;
 		xShift = 42;
-		y = -51;
+		y = -50;
 		yShift = 41;
 		boolean backPack = true;
 		boolean first = true;
@@ -184,6 +191,7 @@ public class ContainerFrame {
 		int j = 0;
 		int k = 0;
 		int z = 0;
+		boolean resize = false;
 		xBagShift = 0;
 		yBagShift = 0;
 		while(i < Mideas.bag().getBag().length) {
@@ -230,7 +238,7 @@ public class ContainerFrame {
 				if(Mideas.bag().getEquippedBag(0) != null) {
 					if(isBagOpen[1]) {
 						if(isBagOpen[0]) {
-							z+= -bagSize[1]-8;
+							z+= -bagSize[1]-10;
 						}
 						else {
 							z+= -bagSize[1]+22;
@@ -247,7 +255,7 @@ public class ContainerFrame {
 				if(Mideas.bag().getEquippedBag(1) != null) {
 					if(isBagOpen[2]) {
 						if(isBagOpen[0] && !isBagOpen[1]) {
-							z+= -bagSize[2]-8;
+							z+= -bagSize[2]-10;
 						}
 						else if(!isBagOpen[0] && isBagOpen[1]) {
 							z+= -bagSize[2];
@@ -269,10 +277,9 @@ public class ContainerFrame {
 			if(i == size && third) {
 				if(Mideas.bag().getEquippedBag(2) != null) {
 					if(isBagOpen[3]) {
-						boolean resize = false;
 						if(z <= -650) {
 							z = 0;
-							xBagShift = -200;
+							xBagShift = -199;
 							yBagShift = -bagSize[3]+22;
 							resize = true;
 						}
@@ -291,7 +298,6 @@ public class ContainerFrame {
 						else if(resize) {
 							z+= -bagSize[3]-28;
 						}
-						resize = false;
 					}
 					size+= Mideas.bag().getEquippedBagSize(2);
 				}
@@ -302,17 +308,22 @@ public class ContainerFrame {
 			if(i == size && fourth) {
 				if(Mideas.bag().getEquippedBag(3) != null) {
 					if(isBagOpen[4]) {
-						boolean resize = false;
 						if(z <= -650) {
 							z = 0;
-							xBagShift = -200;
+							xBagShift = -199;
 							yBagShift = -bagSize[4]+22;
 							resize = true;
 						}
 						if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
 							z+= -bagSize[4];
 						}
-						else if(isBagOpen[1] && isBagOpen[2] && !resize)  {
+						else if(isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && !isBagOpen[3] && !resize) {
+							z+= -bagSize[4]-52;
+						}
+						else if(isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(isBagOpen[1] && isBagOpen[2] && !resize) {
 							z+= -bagSize[4]-52;
 						}
 						else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
@@ -324,13 +335,16 @@ public class ContainerFrame {
 						else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
 							z+= -bagSize[4];
 						}
+						else if(isBagOpen[0] && !isBagOpen[1] && !resize) {
+							z+= -bagSize[4];
+						}
 						else if((isBagOpen[1] || isBagOpen[2]) && !resize)  {
 							z+= -bagSize[4]-52;
 						}
 						else if((isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) && !resize) {
 							z+= -bagSize[4]-60;
 						}
-						else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
+						else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
 							z+= -bagSize[4]-52;
 						}
 						else if(isBagOpen[3] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
@@ -346,7 +360,7 @@ public class ContainerFrame {
 							z+= -bagSize[4]-28;
 						}
 						else if(resize) {
-							z+= -bagSize[4]-28;
+							z+= -bagSize[4];
 						}
 					}
 					size+= Mideas.bag().getEquippedBagSize(3);
@@ -380,6 +394,7 @@ public class ContainerFrame {
 		boolean second = true;
 		boolean third = true;
 		boolean fourth = true;
+		boolean resize = false;
 		int size = 16;
 		while(i < Mideas.bag().getBag().length) {
 			if(backPack) {
@@ -462,7 +477,6 @@ public class ContainerFrame {
 			if(i == size && third) {
 				if(Mideas.bag().getEquippedBag(2) != null) {
 					if(isBagOpen[3]) {
-						boolean resize = false;
 						if(z <= -650) {
 							z = 0;
 							xBagShift = -198;
@@ -483,7 +497,6 @@ public class ContainerFrame {
 						else if(resize) {
 							z+= -bagSize[3]-28;
 						}
-						resize = false;
 					}
 					size+= Mideas.bag().getEquippedBagSize(2);
 				}
@@ -494,13 +507,18 @@ public class ContainerFrame {
 			if(i == size && fourth) {
 				if(Mideas.bag().getEquippedBag(3) != null) {
 					if(isBagOpen[4]) {
-						boolean resize = false;
 						if(z <= -650) {
 							z = 0;
 							xBagShift = -198;
 							resize = true;
 						}
 						if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && !isBagOpen[3] && !resize) {
+							z+= -bagSize[4]-52;
+						}
+						else if(isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
 							z+= -bagSize[4];
 						}
 						else if(isBagOpen[1] && isBagOpen[2] && !resize)  {
@@ -513,6 +531,9 @@ public class ContainerFrame {
 							z+= -bagSize[4];
 						}
 						else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
+							z+= -bagSize[4];
+						}
+						else if(isBagOpen[0] && !isBagOpen[1] && !resize) {
 							z+= -bagSize[4];
 						}
 						else if((isBagOpen[1] || isBagOpen[2]) && !resize)  {
@@ -537,7 +558,7 @@ public class ContainerFrame {
 							z+= -bagSize[4]-28;
 						}
 						else if(resize) {
-							z+= -bagSize[4]-28;
+							z+= -bagSize[4];
 						}
 					}
 					size+= Mideas.bag().getEquippedBagSize(3);
@@ -634,48 +655,48 @@ public class ContainerFrame {
 	}
 	public static boolean calcCoinContainer(int cost, int x, int y) throws FileNotFoundException {
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-30-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-30-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y);
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y);
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()/2+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-30-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-30-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 <= 0) {
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()/2+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()/2+y);
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()/2+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x+20, Display.getHeight()/2+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) <= 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y);
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()/2+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) <= 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y);
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()/2+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x-5-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) <= 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 <= 0) {
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))), Display.getHeight()/2+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x+20, Display.getHeight()/2+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) <= 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 <= 0) {
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()/2+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x+20, Display.getHeight()/2+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) <= 0 && Mideas.calcSilverCoinCost(cost) <= 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
-			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()/2+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
-			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()/2+y);
+			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x+20-TTF2.coinContainer.getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
+			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		return true;
@@ -711,7 +732,7 @@ public class ContainerFrame {
 			Draw.drawQuad(IconsManager.getSprite35((Mideas.bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()+y);
 			Draw.drawQuad(Sprites.bag_border1, Display.getWidth()+x-3, Display.getHeight()+y-2);
 			if((Mideas.bag().getBag(i).getItemType() == ItemType.ITEM || Mideas.bag().getBag(i).getItemType() == ItemType.POTION)) {
-				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+15, Display.getHeight()+y+17, Integer.toString(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))), Color.white, Color.black, 1, 1, 1);
+				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.font4.getWidth(Integer.toString(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i)))), Display.getHeight()+y+20, Integer.toString(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))), Color.white, Color.black, 1, 1, 1);
 				if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
 					Mideas.bag().setBag(i, null);
 				}
@@ -764,49 +785,148 @@ public class ContainerFrame {
 		}
 	}*/
 	
-	private static void drawHoverBag(int i, int x, int z, int x_hover, int y_hover, int y_quad) throws FileNotFoundException {
+	private static void drawHoverBag(int i, int x, int z, int x_hover, int y_hover, int y_quad) throws FileNotFoundException, SQLException {
 		if(slot_hover[i]) {
-			int shift = 60;
-			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
-				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()-80+y_quad, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
-				TTF2.itemName.drawStringShadow(Display.getWidth()+x-180-TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())/2, Display.getHeight()+y+32+z, Mideas.bag().getBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
-				if(((Stuff)Mideas.bag().getBag(i)).getArmor() > 0) {
-					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getArmor()+" Armor", Color.white, Color.black, 1, 1, 1);
-					shift+= 20;
+			if(Mideas.bag().getBag(i) != null) {
+				int shift = 70;
+				//Draw.drawQuad(Sprites.bag_hover_tooltip, Display.getWidth()+x-300, Display.getHeight()+30+y+z);#33384D
+				//Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()+30+y+z, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
+				//Draw.drawColorQuadBorder(Display.getWidth()+x-301, Display.getHeight()+30+y+z, 287, 82+TTF2.statsName.getLineHeight()*4, Color.decode("#494D4B"));
+				//Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()+30+y+z, 285, 80+TTF2.statsName.getLineHeight()*4, Color.decode("#33384D"));
+				if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
+					Color temp = null;
+					int xShift = 0;
+					if(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName()) > 285) {
+						xShift = TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())-275;
+						System.out.println(xShift);
+					}
+					Draw.drawColorQuad(Display.getWidth()+x-15, Display.getHeight()+30+y+z, -285-xShift, 100+TTF2.statsName.getLineHeight()*getNumberStats((Stuff)Mideas.bag().getBag(i)), bgColor);
+					Draw.drawColorQuadBorder(Display.getWidth()+x-14, Display.getHeight()+30+y+z, -287-xShift, 100+TTF2.statsName.getLineHeight()*getNumberStats((Stuff)Mideas.bag().getBag(i)), borderColor);
+					TTF2.itemName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+32+z, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1, 1, 1);
+					//Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()+30+y+z, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+55+z, ((Stuff)Mideas.bag().getBag(i)).convStuffTypeToString(), Color.white, Color.black, 1, 1, 1);
+					if(DragManager.canWear((Stuff)Mideas.bag().getBag(i))) {
+						temp = Color.white;
+					}
+					else {
+						temp = Color.red;
+					}
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-xShift-20-TTF2.font4.getWidth(((Stuff)Mideas.bag().getBag(i)).convWearToString()), Display.getHeight()+y+55+z, ((Stuff)Mideas.bag().getBag(i)).convWearToString(), temp, Color.black, 1, 1, 1);
+					if(((Stuff)Mideas.bag().getBag(i)).getArmor() > 0) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "Armor : "+((Stuff)Mideas.bag().getBag(i)).getArmor(), Color.white, Color.black, 1, 1, 1);
+						shift+= 20;
+					}
+					if(((Stuff)Mideas.bag().getBag(i)).getStrength() > 0) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "+ "+((Stuff)Mideas.bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
+						shift+= 20;
+					}
+					if(((Stuff)Mideas.bag().getBag(i)).getMana() > 0) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "+ "+((Stuff)Mideas.bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+						shift+= 20;
+					}
+					if(((Stuff)Mideas.bag().getBag(i)).getStamina() > 0) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "+ "+((Stuff)Mideas.bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
+						shift+= 20;
+					}
+					if(((Stuff)Mideas.bag().getBag(i)).getCritical() > 0) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "+ "+((Stuff)Mideas.bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
+						shift+= 20;
+					}
+					if(((Stuff)Mideas.bag().getBag(i)).canEquipTo(DragManager.convClassType())) {
+						temp = Color.white;
+					}
+					else {
+						temp = Color.red;
+					}
+					if(((Stuff)Mideas.bag().getBag(i)).getClassType().length < 10) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "Classes: ", temp, Color.black, 1, 1, 1);
+						int k = 0;
+						int xClassShift = 0;
+						while(k < ((Stuff)Mideas.bag().getBag(i)).getClassType().length) {
+							if(k == ((Stuff)Mideas.bag().getBag(i)).getClassType().length-1) {
+								TTF2.statsName.drawStringShadow(Display.getWidth()+x-225+xClassShift-xShift, Display.getHeight()+y+shift+z, ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k), temp, Color.black, 1, 1, 1);
+							}
+							else {
+								TTF2.statsName.drawStringShadow(Display.getWidth()+x-225+xClassShift-xShift, Display.getHeight()+y+shift+z, ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k)+", ", temp, Color.black, 1, 1, 1);
+							}
+							xClassShift+= TTF2.font4.getWidth(((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k)+", ");
+							k++;
+						}
+						shift+= 20;
+					}
+					if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "Level "+((Stuff)Mideas.bag().getBag(i)).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
+					}
+					else {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "Level "+((Stuff)Mideas.bag().getBag(i)).getLevel()+" required", Color.red, Color.black, 1, 1, 1);
+					}
+					calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-70, z+shift-50);
 				}
-				if(((Stuff)Mideas.bag().getBag(i)).getStamina() > 0) {
-					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
-					shift+= 20;
+				else if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
+					Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()+30+y+z, 285, 40+TTF2.statsName.getLineHeight()*3, bgColor);
+					Draw.drawColorQuadBorder(Display.getWidth()+x-301, Display.getHeight()+30+y+z, 287, 40+TTF2.statsName.getLineHeight()*3, borderColor);
+					TTF2.itemName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+32+z, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1, 1, 1);
+					if(((Potion)Mideas.bag().getBag(i)).getPotionHeal() > 0) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionHeal()+" Hp", Color.green, Color.black, 1, 1, 1);
+						shift+= 20;
+					}
+					if(((Potion)Mideas.bag().getBag(i)).getPotionMana() > 0) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionMana()+" Mana", Color.green, Color.black, 1, 1, 1);
+					}
 				}
-				if(((Stuff)Mideas.bag().getBag(i)).getMana() > 0) {
-					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
-					shift+= 20;
+				else if(Mideas.bag().getBag(i).getItemType() == ItemType.BAG) {
+					
 				}
-				if(((Stuff)Mideas.bag().getBag(i)).getStrength() > 0) {
-					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
-					shift+= 20;
-				}
-				if(((Stuff)Mideas.bag().getBag(i)).getCritical() > 0) {
-					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
-				}
-				ContainerFrame.calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-70, y+100+y_quad);
 			}
-			else if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
-				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()-80+y_quad, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
-				TTF2.itemName.drawStringShadow(Display.getWidth()+x-180-TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())/2, Display.getHeight()+y+32+z, Mideas.bag().getBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
-				if(((Potion)Mideas.bag().getBag(i)).getPotionHeal() > 0) {
-					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionHeal()+" Hp", Color.white, Color.black, 1, 1, 1);
-					shift+= 20;
-				}
-				if(((Potion)Mideas.bag().getBag(i)).getPotionMana() > 0) {
-					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionMana()+" Mana", Color.white, Color.black, 1, 1, 1);
-				}
-			}
-			if(Mideas.bag().getBag(i) != null && DragManager.getClickBag(i) && DragManager.getDraggedItem() == null) {
+			if(DragManager.getClickBag(i) && DragManager.getDraggedItem() == null) {
 				Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()+x_hover, Display.getHeight()+y_hover);
 			}
 			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x_hover, Display.getHeight()+y_hover);
 		}
+	}
+	
+	public static int getNumberStats(Stuff stuff) {
+		int i = 0;
+		if(stuff.getArmor() > 0) {
+			i++;
+		}
+		if(stuff.getCritical() > 0) {
+			i++;
+		}
+		if(stuff.getMana() > 0) {
+			i++;
+		}
+		if(stuff.getStamina() > 0) {
+			i++;
+		}
+		if(stuff.getStrength() > 0) {
+			i++;
+		}
+		return i;
+	}
+	
+	public static Color getItemNameColor(Item item) {
+		if(item.getQuality() == 0) {
+			return Color.gray;
+		}
+		if(item.getQuality() == 1) {
+			return Color.white;
+		}
+		if(item.getQuality() == 2) {
+			return Color.green;
+		}
+		if(item.getQuality() == 3) {
+			//return Color.decode("#3129CC");
+			return Color.decode("#0268CC");
+		}
+		if(item.getQuality() == 4) {
+			//return Color.decode("#480080");
+			return Color.decode("#822CB7");
+		}
+		if(item.getQuality() == 5) {
+			return Color.decode("#FFA078");
+		}
+		return Color.white;
 	}
 	
 	public static int getSlotItem(Item item) {

@@ -7,9 +7,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
-import com.mideas.rpg.v2.game.item.stuff.Bag;
 import com.mideas.rpg.v2.game.item.stuff.BagManager;
-import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
@@ -663,7 +661,7 @@ public class CharacterStuff {
 	public static void setEquippedItems() throws FileNotFoundException, SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("UPDATE character_stuff SET head = ?, necklace = ?, shoulders = ?, back = ?, chest = ?, useless = ?, useless2 = ?, wrists = ?, gloves = ?, belt = ?, leggings = ?, boots = ?, ring = ?, ring2 = ?, trinket = ?, trinket2 = ?, mainhand = ?, offhand = ?, ranged = ? WHERE class = ?");
 		int i = 0;
-		while(i < Mideas.joueur1().getStuff().length-2) {
+		while(i < Mideas.joueur1().getStuff().length-1) {
 			if(Mideas.joueur1().getStuff(i) == null) {
 				statement.putInt(0);
 			}

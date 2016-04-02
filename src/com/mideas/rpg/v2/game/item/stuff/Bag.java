@@ -21,14 +21,15 @@ public class Bag extends Item implements Cloneable {
 	public Bag() {}
 	
 	public Bag(Bag bag) {
-		super(bag.id, bag.sprite_id, bag.itemType, bag.name, bag.sellPrice, bag.maxStack);
+		super(bag.id, bag.sprite_id, bag.itemType, bag.name, bag.quality, bag.sellPrice, bag.maxStack);
 		this.id = bag.id;
 		this.sprite_id = bag.sprite_id;
 		this.name = bag.name;
 		this.size = bag.size;
 	}
-	public Bag(int id, String sprite_id, String name, int size, int sellPrice) {
-		super(id, sprite_id, ItemType.BAG, name, sellPrice, 1);
+	
+	public Bag(int id, String sprite_id, String name, int quality, int size, int sellPrice) {
+		super(id, sprite_id, ItemType.BAG, name, quality, sellPrice, 1);
 		this.id = id;
 		this.sprite_id = sprite_id;
 		this.name = name;
@@ -50,6 +51,11 @@ public class Bag extends Item implements Cloneable {
 	public String getSpriteId()  {
 		return sprite_id;
 	}
+	
+	public int getSize() {
+		return size;
+	}
+	
 	public String getSpriteId(int i) {
 		if(i < equippedBag.length) {
 			return equippedBag[i].sprite_id;

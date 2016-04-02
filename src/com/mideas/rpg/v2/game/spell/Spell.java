@@ -14,8 +14,6 @@ public class Spell {
 	protected String name = "";
 	private int baseDamage;
 	private int manaCost;
-	private int stunRate;
-	private int stunDuration;
 	private int baseHeal;
 	private int baseCd;
 	private int defaultDamage;
@@ -29,8 +27,6 @@ public class Spell {
 	public Spell(int baseDamage, int manaCost, int stunRate, int stunDuration, int baseHeal) {
 		this.baseDamage = baseDamage;
 		this.manaCost = manaCost;
-		this.stunRate = stunRate;
-		this.stunDuration = stunDuration;
 		this.baseHeal = baseHeal;
 	}
 	
@@ -38,8 +34,6 @@ public class Spell {
 		this.defaultDamage = defaultDamage;
 		this.baseDamage = baseDamage;
 		this.manaCost = manaCost;
-		this.stunRate = stunRate;
-		this.stunDuration = stunDuration;
 		this.baseHeal = baseHeal;
 		this.baseCd = baseCd;
 		this.id = id;
@@ -129,12 +123,6 @@ public class Spell {
 	
 	public void useMana(Joueur joueur, Spell spell) {
 		joueur.setMana(joueur.getMana()-spell.manaCost);
-	}
-	
-	public void tryStun(Joueur joueur) {
-		if(Math.random() < stunRate/100.) {
-			joueur.setStun(stunDuration);
-		}
 	}
 	
 	public String getName() {

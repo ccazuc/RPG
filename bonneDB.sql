@@ -1,4 +1,4 @@
--- --------------------------------------------------------
+﻿-- --------------------------------------------------------
 -- Hôte:                         127.0.0.1
 -- Version du serveur:           10.1.12-MariaDB - mariadb.org binary distribution
 -- Serveur OS:                   Win64
@@ -11,8 +11,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Export de la structure de la base pour rpg
-CREATE DATABASE IF NOT EXISTS `rpg` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `rpg`;
+USE `b11_17772706_rpg`;
 
 
 -- Export de la structure de table rpg. bag

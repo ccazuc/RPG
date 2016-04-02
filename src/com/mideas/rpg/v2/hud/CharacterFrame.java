@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -11,6 +13,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -18,11 +21,12 @@ public class CharacterFrame {
 	
 	private static boolean[] hoverCharacterFrame = new boolean[20];
 	private static boolean hoverCloseButton;
-	private static Color bgColor = new Color(0, 0, 0,.8f); 
+	private static Color bgColor = new Color(0, 0, 0, .6f); 
+	private static Color borderColor = Color.decode("#494D4B");
+	private static int hover;
 	
-	public static void draw() {
-		
-		bgColor = new Color(0, 0, 0,.8f); 
+	public static void draw() throws FileNotFoundException, SQLException {
+		hover = 0;
 		Draw.drawQuad(Sprites.character_frame, Display.getWidth()/2-300, Display.getHeight()/2-380);
 		Draw.drawQuad(Sprites.character_frame_stats, Display.getWidth()/2-224, Display.getHeight()/2-60);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215, Display.getHeight()/2-27, "Strength:", Color.yellow, Color.black, 1, 1, 1);
@@ -57,28 +61,59 @@ public class CharacterFrame {
 		if(hoverCloseButton) {
 			Draw.drawQuad(Sprites.close_hover, Display.getWidth()/2+109, Display.getHeight()/2-362);
 		}
-		int x_hoverLeft = -284;
-		int x_hoverRight = 76;
+		//int x_hoverLeft = -284;
+		//int x_hoverRight = 76;
 		//int x = -568;
 		//int y = -277;
 		if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
-			characterLeftItemsHover(hoverCharacterFrame[0], Mideas.joueur1().getStuff(0), x_hoverLeft, -568, -257, 110, -460, -280, -290, -410, -272, "Head");
+			/*characterLeftItemsHover(hoverCharacterFrame[0], Mideas.joueur1().getStuff(0), x_hoverLeft, -568, -257, 110, -460, -280, -290, -410, -272, "Head");
 			characterLeftItemsHover(hoverCharacterFrame[1], Mideas.joueur1().getStuff(1), x_hoverLeft, -540, -227, 85, -460, -250, -242, -425, -240, "Necklace");
 			characterLeftItemsHover(hoverCharacterFrame[2], Mideas.joueur1().getStuff(2), x_hoverLeft, -550, -177, 85, -460, -200, -194, -428, -190, "Shoulders");
 			characterLeftItemsHover(hoverCharacterFrame[3], Mideas.joueur1().getStuff(3), x_hoverLeft, -540, -127, 85, -460, -150, -146, -410, -140, "Back");
 			characterLeftItemsHover(hoverCharacterFrame[4], Mideas.joueur1().getStuff(4), x_hoverLeft, -540, -78, 85, -460, -100, -95, -392, -90, "Chest");
 			//characterLeftItemsHover(hoverCharacterFrame[5], Mideas.joueur1().getChest(), x_hoverLeft, -540, -78, 85, -460, -100, -98, -392, -90);
 			//characterLeftItemsHover(hoverCharacterFrame[6}, Mideas.joueur1().getChest(), x_hoverLeft, -540, -78, 85, -460, -100, -98, -392, -90);
-			characterLeftItemsHover(hoverCharacterFrame[7], Mideas.joueur1().getStuff(7), x_hoverLeft, -540, -22, 85, -460, -43, 51, -417, 40, "Wrists");
-			characterRightItemsHover(hoverCharacterFrame[8], Mideas.joueur1().getStuff(8), x_hoverRight, 172, -300, -115, 0, -300, -290, 203, -290, "Gloves");
+			characterLeftItemsHover(hoverCharacterFrame[7], Mideas.joueur1().getStuff(7), x_hoverLeft, -540, -22, 85, -460, -43, 51, -417, 40, "Wrists");*/
+			/*characterRightItemsHover(hoverCharacterFrame[8], Mideas.joueur1().getStuff(8), x_hoverRight, 172, -300, -115, 0, -300, -290, 203, -290, "Gloves");
 			characterRightItemsHover(hoverCharacterFrame[9], Mideas.joueur1().getStuff(9), x_hoverRight, 170, -250, -115, 0, -250, -242, 212, -240, "Belt");
 			characterRightItemsHover(hoverCharacterFrame[10], Mideas.joueur1().getStuff(10), x_hoverRight, 168, -200, -115, 0, -200, -194, 193, -190, "Leggings");
 			characterRightItemsHover(hoverCharacterFrame[11], Mideas.joueur1().getStuff(11), x_hoverRight, 170, -158, -115, 0, -150, -146, 203, -140, "Boots");
 			characterRightItemsHover(hoverCharacterFrame[12], Mideas.joueur1().getStuff(12), x_hoverRight, 168, -110, -115, 0, -100, -95, 203, -90, "Ring");
 			characterRightItemsHover(hoverCharacterFrame[13], Mideas.joueur1().getStuff(13), x_hoverRight, 168, -60, -115, 0, -50, -45, 203, -40, "Ring2");
 			characterRightItemsHover(hoverCharacterFrame[14], Mideas.joueur1().getStuff(14), x_hoverRight, 170, -10, -115, 0, 0, 3, 202, 10, "Trinket");
-			characterRightItemsHover(hoverCharacterFrame[15], Mideas.joueur1().getStuff(15), x_hoverRight, 168, 40, -115, 0, 50, 52, 202, 60, "Trinket2");
+			characterRightItemsHover(hoverCharacterFrame[15], Mideas.joueur1().getStuff(15), x_hoverRight, 168, 40, -115, 0, 50, 52, 202, 60, "Trinket2");*/
+			int i = 0;
+			int x_item = -580;
+			int y_item = -380;
+			int x_hover = -285;
+			int y_hover = -290;
+			float yShift = 48.8f;
+			int z = 0;
+			int j = 0;
+			while(i < Mideas.joueur1().getStuff().length) {
+				characterItemHover(i, x_item+z*yShift, y_item+j*yShift, x_hover+z*yShift, y_hover+j*yShift);
+				i++;
+				if(i < 16) {
+					j++;
+				}
+				else {
+					j = 0;
+					x_hover = -205;
+					x_item = -270;
+					y_item = 115;
+					y_hover = 80;
+					z++;
+				}
+				if(i == 17) {
+					yShift = 51;
+				}
+				if(i == 8) {
+					j = 0;
+					x_item = 140;
+					x_hover = 75;
+				}
 			}
+		}
 		
 		/*if(hoverCharacterFrame) {
 			if(Mideas.joueur1.getHead() == null) {
@@ -172,10 +207,10 @@ public class CharacterFrame {
 			Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x_hoverLeft, Display.getHeight()/2-93);
 		}*/
 		if(hoverCharacterFrame[5]) {
-			Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x_hoverLeft, Display.getHeight()/2-45);
+			//Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x_hoverLeft, Display.getHeight()/2-45);
 		}
 		else if(hoverCharacterFrame[6]) {
-			Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x_hoverLeft, Display.getHeight()/2+5);
+			//Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x_hoverLeft, Display.getHeight()/2+5);
 		}
 		/*if(hoverCharacterFrame8) {
 			if(Mideas.joueur1.getWrists() == null) {
@@ -339,7 +374,7 @@ public class CharacterFrame {
 			}
 			Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x_hoverRight, Display.getHeight()/2+55);
 		}*/
-		if(hoverCharacterFrame[16]) {
+		/*if(hoverCharacterFrame[16]) {
 			if(Mideas.joueur1().getStuff(16) == null) {
 				Draw.drawColorQuad(Display.getWidth()/2-100, Display.getHeight()/2+150, 150, 80, bgColor);
 				TTF2.itemName.drawStringShadow(Display.getWidth()/2-73, Display.getHeight()/2+160, "MainHand", Color.white, Color.black, 1, 1, 1);
@@ -392,7 +427,7 @@ public class CharacterFrame {
 				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y+113, "+"+Mideas.joueur1().getStuff(18).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
 			}
 			Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2-52, Display.getHeight()/2+82);
-		}
+		}*/
 	}
 
 	public static boolean mouseEvent() {
@@ -435,25 +470,88 @@ public class CharacterFrame {
 		return false;
 	}
 	
-	public static void characterLeftItemsHover(boolean hoverCharacter, Stuff stuff, int x_stuff_hover, int x_item, int y_item, int move_item_name, int x_bg, int y_bg, int y_stuff_hover, int x_item_name, int y_item_name, String base_name) {
+	/*public static void characterLeftItemsHover(boolean hoverCharacter, Stuff stuff, int x_stuff_hover, int x_item, int y_item, int move_item_name, int x_bg, int y_bg, int y_stuff_hover, int x_item_name, int y_item_name, String base_name) {
 		if(hoverCharacter) {
 			if(stuff == null) {
 				Draw.drawColorQuad(Display.getWidth()/2+x_bg, Display.getHeight()/2+y_bg, 150, 80, bgColor);
 				TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item_name, Display.getHeight()/2+y_item_name, base_name, Color.white, Color.black, 1, 1, 1);
 			}
 			else {
-				Draw.drawColorQuad(Display.getWidth()/2+x_bg-TTF2.itemName.getWidth(stuff.getStuffName())/2, Display.getHeight()/2+y_bg, 150+TTF2.itemName.getWidth(stuff.getStuffName())/2, 80+TTF2.statsName.getLineHeight()*4, bgColor);
-				TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item+move_item_name-TTF2.itemName.getWidth(stuff.getStuffName())/2, Display.getHeight()/2+y_item-20, stuff.getStuffName(), Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, "+"+stuff.getArmor()+" Armor", Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+20, "+"+stuff.getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+40, "+"+stuff.getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+60, "+"+stuff.getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+80, "+"+stuff.getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);		
+				Draw.drawColorQuad(Display.getWidth()+x_item-300, Display.getHeight()+30+y+z, 285, 60+TTF2.statsName.getLineHeight()*getNumberStats((Stuff)Mideas.bag().getBag(i)), bgColor);
+				Draw.drawColorQuadBorder(Display.getWidth()+x_item-301, Display.getHeight()+30+y+z, 287, 60+TTF2.statsName.getLineHeight()*getNumberStats((Stuff)Mideas.bag().getBag(i)), borderColor);
+				TTF2.itemName.drawStringShadow(Display.getWidth()+x_item-295, Display.getHeight()+y+32+z, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1, 1, 1);
+				//Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()+30+y+z, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
+				if(((Stuff)Mideas.bag().getBag(i)).getArmor() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "Armor : "+((Stuff)Mideas.bag().getBag(i)).getArmor(), Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getStrength() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "+ "+((Stuff)Mideas.bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getMana() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "+ "+((Stuff)Mideas.bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getStamina() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "+ "+((Stuff)Mideas.bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(((Stuff)Mideas.bag().getBag(i)).getCritical() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "+ "+((Stuff)Mideas.bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "Level "+((Stuff)Mideas.bag().getBag(i)).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
+				}
+				else {
+					TTF2.statsName.drawStringShadow(Display.getWidth()+x-295, Display.getHeight()+y+shift+z, "Level "+((Stuff)Mideas.bag().getBag(i)).getLevel()+" required", Color.red, Color.black, 1, 1, 1);
+				}	
 			}
 			Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x_stuff_hover, Display.getHeight()/2+y_stuff_hover);
 		}
+	}*/
+	
+	private static void characterItemHover(int i, float x_item, float y_item, float x_hover, float y_hover) throws FileNotFoundException, SQLException {
+		if(hoverCharacterFrame[i]) {
+			if(Mideas.joueur1().getStuff(i) != null) {
+				int shift = 60;
+				Draw.drawColorQuad(Display.getWidth()/2+x_item, Display.getHeight()/2+30+y_item, 285, 60+TTF2.statsName.getLineHeight()*ContainerFrame.getNumberStats(Mideas.joueur1().getStuff(i)), bgColor);
+				Draw.drawColorQuadBorder(Display.getWidth()/2+x_item, Display.getHeight()/2+30+y_item, 287, 60+TTF2.statsName.getLineHeight()*ContainerFrame.getNumberStats(Mideas.joueur1().getStuff(i)), borderColor);
+				TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item+5, Display.getHeight()/2+y_item+32, Mideas.joueur1().getStuff(i).getStuffName(), ContainerFrame.getItemNameColor(Mideas.joueur1().getStuff(i)), Color.black, 1, 1, 1);
+				//Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()+30+y+z, 285, 80+TTF2.statsName.getLineHeight()*4, bgColor);
+				if(Mideas.joueur1().getStuff(i).getArmor() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item+5, Display.getHeight()/2+y_item+shift, "Armor : "+Mideas.joueur1().getStuff(i).getArmor(), Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(Mideas.joueur1().getStuff(i).getStrength() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item+5, Display.getHeight()/2+y_item+shift, "+ "+Mideas.joueur1().getStuff(i).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(Mideas.joueur1().getStuff(i).getMana() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item+5, Display.getHeight()/2+y_item+shift, "+ "+Mideas.joueur1().getStuff(i).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(Mideas.joueur1().getStuff(i).getStamina() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item+5, Display.getHeight()/2+y_item+shift, "+ "+Mideas.joueur1().getStuff(i).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(Mideas.joueur1().getStuff(i).getCritical() > 0) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item+5, Display.getHeight()/2+y_item+shift, "+ "+Mideas.joueur1().getStuff(i).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
+					shift+= 20;
+				}
+				if(Mideas.getLevel() >= Mideas.joueur1().getStuff(i).getLevel()) {
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item+5, Display.getHeight()/2+y_item+shift, "Level "+Mideas.joueur1().getStuff(i).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
+				}
+				else {
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item+5, Display.getHeight()/2+y_item+shift, "Level "+Mideas.joueur1().getStuff(i).getLevel()+" required", Color.red, Color.black, 1, 1, 1);
+				}	
+			}
+			Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x_hover, Display.getHeight()/2+y_hover);
+		}
 	}
-	public static void characterRightItemsHover(boolean hoverCharacter, Stuff stuff, int x_stuff_hover, int x_item, int y_item, int move_item_name, int x_bg, int y_bg, int y_stuff_hover, int x_item_name, int y_item_name, String base_name) {
+	
+	/*private static void characterRightItemsHover(boolean hoverCharacter, Stuff stuff, int x_stuff_hover, int x_item, int y_item, int move_item_name, int x_bg, int y_bg, int y_stuff_hover, int x_item_name, int y_item_name, String base_name) {
 		if(hoverCharacter) {
 			if(stuff == null) {
 				Draw.drawColorQuad(Display.getWidth()/2+160, Display.getHeight()/2+y_bg, 150, 80, bgColor);
@@ -470,13 +568,24 @@ public class CharacterFrame {
 			}
 			Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x_stuff_hover, Display.getHeight()/2+y_stuff_hover);
 		}
-	}
+	}*/
 	
-	public static void drawCharacterItems(Stuff stuff, int x, int y) {
-		if(stuff != null && !(stuff == DragManager.getDraggedItem())) {
-			Draw.drawQuad(IconsManager.getSprite42((stuff.getSpriteId())), Display.getWidth()/2+x, Display.getHeight()/2+y);
-			Draw.drawQuad(Sprites.stuff_border, Display.getWidth()/2+x-5, Display.getHeight()/2+y-5);
+	private static void drawCharacterItems(Stuff stuff, int x, int y) {
+		if(stuff != null) {
+			if(!(stuff == DragManager.getDraggedItem())) {
+				Draw.drawQuad(IconsManager.getSprite42((stuff.getSpriteId())), Display.getWidth()/2+x, Display.getHeight()/2+y);
+				Draw.drawQuad(Sprites.stuff_border, Display.getWidth()/2+x-5, Display.getHeight()/2+y-5);
+			}
+			if(DragManager.getDraggedItem() != null && DragManager.getDraggedItem().getItemType() == ItemType.STUFF && ((Stuff)DragManager.getDraggedItem()).getType() == stuff.getType()) {
+				if(hover%2 == 0) {
+					Draw.drawQuad(Sprites.stuff_hover, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
+				}
+				else {
+					Draw.drawQuad(Sprites.stuff_hover2, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
+				}
+			}
 		}
+		hover++;
 	}
 	
 	private static void isHover(int x, int y, int i) {

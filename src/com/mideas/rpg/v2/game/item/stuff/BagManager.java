@@ -14,30 +14,34 @@ public class BagManager {
 	
 	private static ArrayList<Bag> containerList = new ArrayList<Bag>();
 	private static HashMap<Integer, Texture> bagsSprites = new HashMap<Integer, Texture>();
-	private static HashMap<Integer, Texture> bagsIconsSprites = new HashMap<Integer, Texture>();
 	
 	public static void loadBags() throws SQLException, CloneNotSupportedException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, size, sellprice FROM container");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, size, sellprice FROM container");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
 			String sprite_id = statement.getString();
 			String name = statement.getString();
+			int quality = statement.getInt();
 			int size = statement.getInt();
 			int sellPrice = statement.getInt();
-			Bag newPiece = new Bag(id, sprite_id, name, size, sellPrice);
+			Bag newPiece = new Bag(id, sprite_id, name, quality, size, sellPrice);
 			containerList.add(newPiece);
 		}
 	}
 	
 	public static void loadBagsSprites() {
-		bagsSprites.put(1, Sprites.back_bag);
-		bagsSprites.put(3, Sprites.bag20);
-		bagsSprites.put(4, Sprites.bag12);
+		bagsSprites.put(100001, Sprites.back_bag);
+		bagsSprites.put(100003, Sprites.bag20);
+		bagsSprites.put(100004, Sprites.bag12);
 	}
 	
 	public static HashMap<Integer, Texture> getBagsSprites() {
 		return bagsSprites;
+	}
+	
+	public static ArrayList<Bag> getContainerList() {
+		return containerList;
 	}
 	
 	public static Bag getContainer(int id) {

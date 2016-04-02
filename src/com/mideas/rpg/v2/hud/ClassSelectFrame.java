@@ -14,16 +14,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.game.classes.DeathKnight;
-import com.mideas.rpg.v2.game.classes.Guerrier;
-import com.mideas.rpg.v2.game.classes.Hunter;
-import com.mideas.rpg.v2.game.classes.Mage;
-import com.mideas.rpg.v2.game.classes.Monk;
-import com.mideas.rpg.v2.game.classes.Paladin;
-import com.mideas.rpg.v2.game.classes.Priest;
-import com.mideas.rpg.v2.game.classes.Rogue;
-import com.mideas.rpg.v2.game.classes.Shaman;
-import com.mideas.rpg.v2.game.classes.Warlock;
+import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ClassSelectFrame {
@@ -141,16 +132,16 @@ public class ClassSelectFrame {
 		warlockHover = isClassHover(46, -13);
 		monkHover = isClassHover(108, -13);
 		if(Mouse.getEventButtonState()) {
-			setNewClass("Guerrier", new Guerrier(), warriorHover);
-			setNewClass("Paladin", new Paladin(), paladinHover);
-			setNewClass("Hunter", new Hunter(), hunterHover);
-			setNewClass("Rogue", new Rogue(), rogueHover);
-			setNewClass("Priest", new Priest(), priestHover);
-			setNewClass("DeathKnight", new DeathKnight(), deathknightHover);
-			setNewClass("Shaman", new Shaman(), shamanHover);
-			setNewClass("Mage", new Mage(), mageHover);
-			setNewClass("Warlock", new Warlock(), warlockHover);
-			setNewClass("Monk", new Monk(), monkHover);
+			setNewClass("Guerrier", ClassManager.getPlayer("Guerrier"), warriorHover);
+			setNewClass("Paladin", ClassManager.getPlayer("Paladin"), paladinHover);
+			setNewClass("Hunter", ClassManager.getPlayer("Hunter"), hunterHover);
+			setNewClass("Rogue", ClassManager.getPlayer("Rogue"), rogueHover);
+			setNewClass("Priest", ClassManager.getPlayer("Priest"), priestHover);
+			setNewClass("DeathKnight", ClassManager.getPlayer("DeathKnight"), deathknightHover);
+			setNewClass("Shaman", ClassManager.getPlayer("Shaman"), shamanHover);
+			setNewClass("Mage", ClassManager.getPlayer("Mage"), mageHover);
+			setNewClass("Warlock", ClassManager.getPlayer("Warlock"), warlockHover);
+			setNewClass("Monk", ClassManager.getPlayer("Monk"), monkHover);
 		}
 		return false;
 	}

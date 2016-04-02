@@ -21,7 +21,7 @@ public class SpellLevel {
 	private static boolean spell15;
 
 	public static void addSpell() throws FileNotFoundException, SQLException {
-		if(Mideas.joueur1().getClasse() == "Guerrier") {
+		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			if(!spell1 && Mideas.getLevel() >= 1) {
 				Mideas.joueur1().setSpellUnlocked(0, new HeroicStrike());
 				spell1 = true;

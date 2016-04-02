@@ -22,7 +22,7 @@ import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
-public class ShopFrame {
+public class ShopFrame { // UNUSED
 	
 	private static boolean button_hover;
 	private static boolean[] slot_hover = new boolean[12];

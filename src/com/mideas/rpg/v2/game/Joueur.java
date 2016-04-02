@@ -6,6 +6,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.Wear;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellType;
@@ -13,33 +14,31 @@ import com.mideas.rpg.v2.hud.LogChat;
 
 public class Joueur {
 	
-	private String classe;
 	private Shortcut[] spells;
 	private Spell[] spellUnlocked;
 	private Stuff[] stuff;
 	private Shortcut[] shortcut;
 	private int maxStamina;
 	private int expGained;
-	private int isHealer;
 	private int critical;
 	public int stamina;
 	private int maxMana;
 	private int baseExp;
 	private int strength;
 	private float armor;
+	private Wear wear;
 	private int mana;
-	private int stun;
 	private int exp;
 	private int gold;
 	private int goldGained;
 	private int defaultArmor;
-	private int defaultStuffArmor;
 	//private int tailorExp;
+	private String id;
 	public int x;
 	public static int y;
 	public static int z;
 	
-	public Joueur(int stamina, int strength, float armor, int defaultArmor, int defaultStuffArmor, int critical, int mana, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff, String classe, int id, int maxStamina, int maxMana, int isHealer, int expGained, int goldGained, int tailorExp) {
+	/*public Joueur(int stamina, int strength, float armor, int defaultArmor, int defaultStuffArmor, int critical, int mana, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff, String classe, int id, int maxStamina, int maxMana, int isHealer, int expGained, int goldGained, int tailorExp) {
 		this.maxStamina = maxStamina;
 		this.expGained = expGained;
 		this.goldGained = goldGained;
@@ -52,24 +51,52 @@ public class Joueur {
 		this.armor = armor;
 		this.mana = mana;
 		this.defaultArmor = defaultArmor;
-		this.defaultStuffArmor = defaultStuffArmor;
 		this.spells = spells;
 		this.spellUnlocked = spellUnlocked;
 		this.stuff = stuff;
 		this.classe = classe;
+	}*/
+	
+	public Joueur(String id, Wear wear, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
+		this.id = id;
+		this.stamina = stamina;
+		this.mana = mana;
+		this.strength = strength;
+		this.armor = armor;
+		this.defaultArmor = defaultArmor;
+		this.critical = critical;
+		this.maxStamina = maxStamina;
+		this.maxMana = maxMana;
+		this.expGained = expGained;
+		this.goldGained = goldGained;
+		this.spells = spells;
+		this.spellUnlocked = spellUnlocked;
+		this.stuff = stuff;
+		this.wear = wear;
+	}
+	
+	public Joueur(Joueur joueur) {
+		this.id = joueur.id;
+		this.stamina = joueur.stamina;
+		this.mana = joueur.mana;
+		this.strength = joueur.strength;
+		this.armor = joueur.armor;
+		this.defaultArmor = joueur.defaultArmor;
+		this.critical = joueur.critical;
+		this.maxStamina = joueur.maxStamina;
+		this.maxMana = joueur.maxMana;
+		this.expGained = joueur.expGained;
+		this.goldGained = joueur.goldGained;
+		this.spells = joueur.spells;
+		this.spellUnlocked = joueur.spellUnlocked;
+		this.stuff = joueur.stuff;
+		this.wear = joueur.wear;
 	}
 	
 	public void tick() throws SQLException {
-		if(stun > 0) {
-			System.out.println("Le joueur "+(Mideas.joueur1().equals(this)?1:2)+" est stun");
-			stun--;
+		if(Mideas.getCurrentPlayer()) {
+			attack(Mideas.joueur2());
 		}
-		else {
-			if(Mideas.getCurrentPlayer()) {
-				attack(Mideas.joueur2());
-			}
-		}
-		
 	}
 	
 	public boolean cast(Spell spell) throws SQLException {
@@ -179,20 +206,12 @@ public class Joueur {
 		this.mana+= mana;
 	}
 	
-	public int getDefaultStuffArmor() {
-		return defaultStuffArmor;
-	}
-	
 	public String getClasse() {
-		return classe;
+		return id;
 	}
 	
 	public float getArmor() {
 		return armor;
-	}
-	
-	public int getIsHealer() {
-		return isHealer;
 	}
 	
 	public void setStamina(double d) {
@@ -205,6 +224,10 @@ public class Joueur {
 	
 	public int getStamina() {
 		return stamina;
+	}
+	
+	public Wear getWear() {
+		return wear;
 	}
 	
 	public int getCritical() {
@@ -225,10 +248,6 @@ public class Joueur {
 	
 	public int getMaxMana() {
 		return maxMana;
-	}
-	
-	public void setStun(int stun) {
-		this.stun = stun;
 	}
 	
 	public int getX() {

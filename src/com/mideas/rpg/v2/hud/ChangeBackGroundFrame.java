@@ -8,6 +8,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.utils.Draw;
@@ -64,6 +65,7 @@ public class ChangeBackGroundFrame {
 		if(hover[i]) {
 			Sprites.current_bg = texture;
 			Mideas.setConfig();
+			Interface.closeChangeBackgroundFrame();
 		}
 	}
 	

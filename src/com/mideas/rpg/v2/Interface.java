@@ -239,6 +239,7 @@ public class Interface {
 	public static boolean keyboardEvent() throws LWJGLException, IOException, SQLException, CloneNotSupportedException {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
+				//System.out.println(Keyboard.getEventKey());
 				if(!ChatFrame.getChatActive()) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
 						closeShopFrame();

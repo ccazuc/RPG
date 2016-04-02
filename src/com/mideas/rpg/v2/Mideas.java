@@ -22,17 +22,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.ShopManager;
-import com.mideas.rpg.v2.game.classes.DeathKnight;
-import com.mideas.rpg.v2.game.classes.Guerrier;
-import com.mideas.rpg.v2.game.classes.Hunter;
-import com.mideas.rpg.v2.game.classes.Illidan;
-import com.mideas.rpg.v2.game.classes.Mage;
-import com.mideas.rpg.v2.game.classes.Monk;
-import com.mideas.rpg.v2.game.classes.Paladin;
-import com.mideas.rpg.v2.game.classes.Priest;
-import com.mideas.rpg.v2.game.classes.Rogue;
-import com.mideas.rpg.v2.game.classes.Shaman;
-import com.mideas.rpg.v2.game.classes.Warlock;
+import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.stuff.Bag;
@@ -136,16 +126,18 @@ public class Mideas {
 		Sprites.sprite8();
 		Sprites.sprite9();
 		Sprites.sprite10();
-		double times = System.currentTimeMillis();
+		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
+		time = System.currentTimeMillis();
+		initSQL();
 		BagManager.loadBags();
 		BagManager.loadBagsSprites();
 		StuffManager.loadStuffs();
 		PotionManager.loadPotions();
 		ShopManager.loadStuffs();
 		SpellManager.loadSpells();
-		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-times)/1000.0+"s.");
+		ClassManager.loadClasses();
+		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		getExpAll();
-		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		joueur2 = getRandomClass(2);
 		while(!Display.isCloseRequested()) {
 			fpsUpdate();
@@ -168,17 +160,18 @@ public class Mideas {
 			}
 			Interface.draw();
 			Display.update();
-			//Display.sync(60);
+			Display.sync(60);
 		}
 	}
 	
 	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, InterruptedException, CloneNotSupportedException {
-		initSQL();
 		loop();
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		//jdo = new MariaDB("sql107.byethost11.com", "b11_17772706_rpg", "b11_17772706", "11391139");
+		//jdo = new MariaDB("mysql.hostinger.fr", "u606410288_rpg", "u606410288_midea", "11391139");
 	}
 	
 	public static JDO getJDO() {
@@ -202,97 +195,95 @@ public class Mideas {
 		}
 	}
 	
-	public static Joueur getJoueur(String joueur) {
+	/*public static Joueur getJoueur(String joueur) {
 		if(joueur.equals("Guerrier")) {
-			return new Guerrier();
+			return ClassManager.getPlayer("Guerrier");
 		}
-		else if(joueur.equals("DeathKnight")) {
-			return new DeathKnight();
+		if(joueur.equals("DeathKnight")) {
+			return ClassManager.getPlayer("DeathKnight");
 		}
-		else if(joueur.equals("Hunter")) {
-			return new Hunter();
+		if(joueur.equals("Hunter")) {
+			return ClassManager.getPlayer("Hunter");
 		}
-		else if(joueur.equals("Mage")) {
-			return new Mage();
+		if(joueur.equals("Mage")) {
+			return ClassManager.getPlayer("Mage");
 		}
-		else if(joueur.equals("Monk")) {
-			return new Monk();
+		if(joueur.equals("Monk")) {
+			return ClassManager.getPlayer("Monk");
 		}
-		else if(joueur.equals("Paladin")) {
-			return new Paladin();
+		if(joueur.equals("Paladin")) {
+			return ClassManager.getPlayer("Paladin");
 		}
-		else if(joueur.equals("Priest")) {
-			return new Priest();
+		if(joueur.equals("Priest")) {
+			return ClassManager.getPlayer("Priest");
 		}
-		else if(joueur.equals("Rogue")) {
-			return new Rogue();
+		if(joueur.equals("Rogue")) {
+			return ClassManager.getPlayer("Rogue");
 		}
-		else if(joueur.equals("Shaman")) {
-			return new Shaman();
+		if(joueur.equals("Shaman")) {
+			return ClassManager.getPlayer("Shaman");
 		}
-		else if(joueur.equals("Warlock")) {
-			return new Warlock();
+		if(joueur.equals("Warlock")) {
+			return ClassManager.getPlayer("Warlock");
 		}
-		else if(joueur.equals("Illidan")) {
-			return new Illidan();
+		if(joueur.equals("Illidan")) {
+			return ClassManager.getPlayer("Illidan");
 		}
 		return null;
-	}
+	}*/
 	
 	public static Joueur getRandomClass(int id) {
 		double rand = Math.random();
-		//rand = 4/10f;
+		rand = 1/10f;
 		if(rand <= 1/10f) {
 			System.out.println("Le joueur "+id+" est un Guerrier !");
-			return new Guerrier();
+			return ClassManager.getClone("Guerrier");
 		}
-		else if(rand <= 2/10f) {
+		if(rand <= 2/10f) {
 			System.out.println("Le joueur "+id+" est un Priest !");
-			return new Priest();
+			return ClassManager.getClone("Priest");
 		}
-		else if(rand <= 3/10f){
+		if(rand <= 3/10f){
 			System.out.println("Le joueur "+id+" est un Mage !");
-			return new Mage();
+			return ClassManager.getClone("Mage");
 		}
-		else if(rand <= 4/10f) {
+		if(rand <= 4/10f) {
 			System.out.println("Le joueur "+id+" est un DeathKnight !");
-			return new DeathKnight();
+			return ClassManager.getClone("DeathKnight");
 		}
-		else if(rand <= 5/10f) {
+		if(rand <= 5/10f) {
 			System.out.println("Le joueur "+id+" est un Hunter !");
-			return new Hunter();
+			return ClassManager.getClone("Hunter");
 		}
-		else if(rand <= 6/10f) {
+		if(rand <= 6/10f) {
 			System.out.println("Le joueur "+id+" est un Monk !");
-			return new Monk();
+			return ClassManager.getClone("Monk");
 		}
-		else if(rand <= 7/10f) {
+		if(rand <= 7/10f) {
 			System.out.println("Le joueur "+id+" est un Paladin !");
-			return new Paladin();
+			return ClassManager.getClone("Paladin");
 		}
-		else if(rand <= 8/10f) {
+		if(rand <= 8/10f) {
 			System.out.println("Le joueur "+id+" est un Rogue !");
-			return new Rogue();
+			return ClassManager.getClone("Rogue");
 		}
-		else if(rand <= 9/10f) {
+		if(rand <= 9/10f) {
 			System.out.println("Le joueur "+id+" est un Shaman !");
-			return new Shaman();
+			return ClassManager.getClone("Shaman");
 		}
-		else {
-			System.out.println("Le joueur "+id+" est un Warlock !");
-			return new Warlock();
-		}
+		System.out.println("Le joueur "+id+" est un Warlock !");
+		return ClassManager.getClone("Warlock");
 	}
 
 	public static void getExpAll() throws FileNotFoundException, SQLException {
-		/*int id;
+		int id;
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats");
 		statement.execute();
 		while(statement.fetch()) {
 			id = statement.getInt();
 			expAll[i] = id;
 			i++;
-		}*/
+		}
 		/*BufferedReader br = null;
 		try {
 			int j = 0;
@@ -667,14 +658,14 @@ public class Mideas {
 	}
 
 	public static void getConfig() throws FileNotFoundException, SQLException {
-		/*String bg = "";
+		String bg = "";
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
 		statement.putString("background");
 		statement.execute();
 		if(statement.fetch()) {
 			bg = statement.getString();
 		}
-		ChangeBackGroundFrame.loadBG(bg);*/
+		ChangeBackGroundFrame.loadBG(bg);
 		/*BufferedReader br = null;
 		try {
 			int i = 0;
@@ -813,7 +804,7 @@ public class Mideas {
 		first:
 		while(i < Mideas.joueur1.getSpells().length) {
 			j = 0;
-			while(j < i) {
+			while(j < i) { //check if the spells i appears more than once between 0 and i
 				if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(j) != null && Mideas.joueur1.getSpells(i) instanceof SpellShortcut && Mideas.joueur1.getSpells(j) instanceof SpellShortcut && ((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().equal(((SpellShortcut)Mideas.joueur1.getSpells(j)).getSpell())) {
 					i++;
 					continue first;
@@ -823,7 +814,7 @@ public class Mideas {
 			if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(i) instanceof SpellShortcut) {	
 				Mideas.joueur1.getSpells(i).setCd(((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().getSpellId(), SpellManager.getCd(((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().getSpellId())-1);
 			}
-				i++;
+			i++;
 		}
 	}
 	

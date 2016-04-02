@@ -15,6 +15,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.ShopManager;
+import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.utils.Draw;
@@ -26,9 +27,9 @@ public class ChatFrame {
 	private static ArrayList<String> rawMessages = new ArrayList<String>();
 	private static int numberMessageSent;
 	private static String tempMessage = "";
+	private static String[] tempTable = new String[30];
 	private static int i;
 	private static int numberUpArrow = 1;
-	private static boolean isAdmin;
 	private static int cursorPosition;
 	private static boolean topArrow;
 	private static boolean bottomArrow;
@@ -37,27 +38,41 @@ public class ChatFrame {
 	private static boolean heightResizing;
 	private static int defaultHeight = Display.getHeight()-285;
 	private static int yResize;
+	private static boolean hoverWidthResize;
+	private static boolean widthResizing;
+	private static boolean hoverAllResize;
+	private static boolean allResizing;
+	private static int defaultWidth = 540;
+	private static int xResize;
 	private static int messageShowHeight = 4;
 	private static int tempLength;
 	private static int shift;
 	private static int cursorShift;
+	private static int maxLength = 490;
 	private static Color bgColor = new Color(0, 0, 0,.35f); 
 
 	public static void draw() {
-		//System.out.println(cursorPosition);
 		messageShowHeight = 4+yResize/TTF2.font4.getLineHeight();
-		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510, 130+yResize, bgColor);
+		maxLength = 490+xResize;
+		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 130+yResize, bgColor);
 		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
 		if(chatActive) {
-			if(TTF2.font4.getWidth(tempMessage.substring(tempLength)) >= 490) {
+			if(TTF2.font4.getWidth(tempMessage.substring(tempLength)) >= maxLength) {
 				tempLength = tempMessage.length()-10;
+				cursorPosition = tempMessage.substring(tempLength).length();
+				cursorShift = TTF2.font4.getWidth(tempMessage.substring(tempLength));
 			}
-			TTF2.font4.drawString(40, Display.getHeight()-175, tempMessage.substring(tempLength), Color.white);
+			if(tempLength != 0 && tempMessage.substring(tempLength).equals("")) {
+				tempLength-= getLength(tempMessage, 0, maxLength-130);
+				cursorPosition = tempMessage.substring(tempLength).length();
+				cursorShift = TTF2.font4.getWidth(tempMessage.substring(tempLength));
+			}
 			if(System.currentTimeMillis()%1000 < 500) {
-				//shift 
-				TTF2.font4.drawString(37+cursorShift+TTF2.font4.getWidth(tempMessage.substring(tempLength)), Display.getHeight()-175, "|", Color.white);
+				TTF2.font4.drawString(37+cursorShift, Display.getHeight()-175, "|", Color.white);
+				//TTF2.font4.drawString(37+cursorShift+TTF2.font4.getWidth(tempMessage.substring(tempLength)), Display.getHeight()-175, "|", Color.white);
 			}
 		}
+		TTF2.font4.drawString(40, Display.getHeight()-175, tempMessage.substring(tempLength), Color.white);
 		int j = 0;
 		/*if(messages.size() <= messageShowHeight) {
 			int k = messages.size()-1;
@@ -69,10 +84,75 @@ public class ChatFrame {
 		}
 		else if(messages.size() >= messageShowHeight+1) {*/
 			int k = messages.size()-1;
-			while(k > messages.size()-messageShowHeight-2 && k+shift < messages.size() && k+shift >= 0) {
-				TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), messages.get(k+shift), Color.white);
+			String draw = "";
+			int numberLineSent = 0;
+			int beg = 0;
+			while(k > messages.size()-messageShowHeight-2 && numberLineSent < messageShowHeight+1 && k+shift < messages.size() && k+shift >= 0) {
+				beg = 0;
+				if(TTF2.font4.getWidth(messages.get(k+shift)) >= maxLength) {
+					String temp = messages.get(k+shift);
+					//System.out.println(temp);
+					draw = temp;
+					/*String temp = messages.get(k+shift);
+					draw = temp;
+					l = 0;
+					while(l <= getNumberLine(temp)) {
+						if(TTF2.font4.getWidth(draw) > maxLength-10){
+							draw = temp.substring(0, getLength(temp, maxLength-10));
+						}
+						else {
+							//temp = temp.substring(getLength(temp, maxLength-10));
+							draw = temp.substring(getLength(temp, maxLength-10));
+						}
+						TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+z+1), draw, Color.white);
+						z++;
+						l++;
+						System.out.println("z : "+z+" draw : "+draw+" temp : "+temp+" numberline : "+getNumberLine(temp));
+						//System.out.println(l+" line : "+getNumberLine(temp));
+					}*/
+					//length = getLength(draw, 0, maxLength-30);
+					//draw = temp.substring(0, length);
+					//System.out.println(length+" draw : ");
+					//System.out.println(draw+" length : "+length+" total length : "+draw.length());
+					/*if(!draw.equals("") && numberLineSent < messageShowHeight+1) {
+						//System.out.println(draw+" length : "+getLength(draw, maxLength-10)+" total length : "+draw.length());
+						TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), draw, Color.white);
+						j++;
+						numberLineSent++;
+					}
+					draw = temp;
+					beg = getLength(draw, beg, maxLength-30);*/
+					int x = 0;
+					while(x < getNumberLine(temp) && numberLineSent < messageShowHeight+1/*TTF2.font4.getWidth(draw) >= maxLength && numberLineSent < messageShowHeight+1*/) {
+						//length = getLength(draw, beg, maxLength-30);
+						draw = temp.substring(beg, getLength(temp, beg, maxLength-30));
+						beg = getLength(draw, beg, maxLength-30);
+						//System.out.println(draw+" length : "+getLength(draw, maxLength-10)+" total length : "+draw.length()+" font : "+TTF2.font4.getWidth(temp)+" maxL : "+maxLength);
+						//TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), draw, Color.white);
+						//j++;
+						//k--;
+						x++;
+						//numberLineSent++;
+						tempTable[x] = draw;
+						//System.out.println(draw);
+						//System.out.println(draw+" x : "+x);
+					}
+					int i = 0;
+					while(i < x && i < messageShowHeight+1) {
+						if(numberLineSent < messageShowHeight+1) {
+							TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), tempTable[x-i], Color.white);
+							j++;
+							numberLineSent++;
+						}
+						i++;
+					}
+				}
+				else {
+					TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), messages.get(k+shift), Color.white);
+					j++;
+					numberLineSent++;
+				}
 				k--;
-				j++;
 			}
 		//}
 		if(topArrow) {
@@ -85,13 +165,29 @@ public class ChatFrame {
 			if(Keyboard.getEventKey() == 1) { //escape
 				chatActive = false;
 			}
-			else if(Keyboard.isKeyDown(29) && Keyboard.getEventKey() == 14) { //ctrl+delete
-				delMessage();
-				tempLength = 0;
+			else if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
+				if(Keyboard.getEventKey() == 14) { //delete
+					delMessage();
+					tempLength = 0;
+				}
+				else if(Keyboard.getEventKey() == Keyboard.KEY_V) { // c/c
+	                write(Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", ""));
+	                cursorPosition+= Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "").length();
+	            }
+				else if(Keyboard.getEventKey() == 203) { //left arrow
+					leftArrow();
+				}
+				else if(Keyboard.getEventKey() == 205) { //right arrow
+					rightArrow();
+				}
 			}
 			else if(Keyboard.getEventKey() == 14) { //delete
 				if(tempMessage.length() > 0) {
-					tempMessage = tempMessage.substring(0, tempMessage.length()-1);
+					cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
+					String beg = tempMessage.substring(0, cursorPosition-1);
+					String end = tempMessage.substring(cursorPosition);
+					tempMessage = beg+end;
+					cursorPosition--;
 				}
 			}
 			else if(Keyboard.getEventKey() == 200) {  //up arrow
@@ -99,8 +195,7 @@ public class ChatFrame {
 					tempMessage = rawMessages.get(numberMessageSent-numberUpArrow);
 					numberUpArrow++;
 					cursorPosition = tempMessage.length();
-					System.out.println(tempMessage.length());
-					cursorShift = TTF2.font4.getWidth(tempMessage.substring(0, tempMessage.length()));
+					cursorShift = TTF2.font4.getWidth(tempMessage);
 				}
 			}
 			else if(Keyboard.getEventKey() == 208) { //down arrow
@@ -116,28 +211,35 @@ public class ChatFrame {
 						cursorShift-= TTF2.font4.getWidth(tempMessage.substring(0, 1));
 					}
 					else {
-						cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1, cursorPosition));
+						cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition, cursorPosition+1));
 					}
 				}
 			}
 			else if(Keyboard.getEventKey() == 205) { //right arrow
 				if(cursorPosition < tempMessage.length()) {
 					cursorPosition++;
-					cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1, cursorPosition));
+					if(cursorPosition == tempMessage.length()) {
+						cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1));
+					}
+					else {
+						cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1, cursorPosition));
+					}
 				}
 			}
-			else if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
-	            if(Keyboard.getEventKey() == Keyboard.KEY_V) {
-	                tempMessage = Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "");
-	            }
-	        }
-			else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN) { //write
+			else if(Keyboard.getEventKey() == 211) { //suppr
+				if(cursorPosition < tempMessage.length()) {
+					String beg = tempMessage.substring(0, cursorPosition);
+					String end = tempMessage.substring(cursorPosition+1);
+					tempMessage = beg+end;
+				}
+			}
+			else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156) { //write
 				char tempChar = Keyboard.getEventCharacter();
 				write(tempChar);
 				cursorPosition++;
 			}
 		}
-        if(Keyboard.getEventKey() == Keyboard.KEY_RETURN) { //enter
+        if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) { //enter
 			if(chatActive) {
 				if(tempMessage != "") {
 					rawMessages.add(tempMessage);
@@ -172,6 +274,8 @@ public class ChatFrame {
 		bottomArrow = false;
 		toBottomArrow = false;
 		hoverHeightResize = false;
+		hoverWidthResize = false;
+		hoverAllResize = false;
 		if(Mideas.mouseX() >= 3 && Mideas.mouseX() <= 27 && Mideas.mouseY() >= Display.getHeight()-236 && Mideas.mouseY() <= Display.getHeight()-213) {
 			topArrow = true;
 		}
@@ -181,12 +285,31 @@ public class ChatFrame {
 		else if(Mideas.mouseX() >= 3 && Mideas.mouseX() <= 27 && Mideas.mouseY() >= Display.getHeight()-168 && Mideas.mouseY() <= Display.getHeight()-145) {
 			toBottomArrow = true;
 		}
-		else if(Mideas.mouseX() >= 3 && Mideas.mouseX() <= 513 && Mideas.mouseY() >= Display.getHeight()-285-yResize && Mideas.mouseY() <= Display.getHeight()-275-yResize) {
+		else if(Mideas.mouseX() >= 535+xResize && Mideas.mouseX() <= 545+xResize && Mideas.mouseY() >= Display.getHeight()-285-yResize && Mideas.mouseY() <= Display.getHeight()-275-yResize) {
+			hoverAllResize = true;
+		}
+		else if(Mideas.mouseX() >= 3 && Mideas.mouseX() <= 513+xResize && Mideas.mouseY() >= Display.getHeight()-285-yResize && Mideas.mouseY() <= Display.getHeight()-275-yResize) {
 			hoverHeightResize = true;
 		}
-		if(heightResizing) {
-			if(Mideas.mouseY() >= defaultHeight-250 && Mideas.mouseY() <= defaultHeight) {
-				yResize = -(Mideas.mouseY()-defaultHeight);
+		else if(Mideas.mouseX() >= 535+xResize && Mideas.mouseX() <= 545+xResize && Mideas.mouseY() >= Display.getHeight()-280-yResize && Mideas.mouseY() <= Display.getHeight()-150) {
+			hoverWidthResize = true;
+		}
+		if(allResizing) {
+			if(Mideas.mouseY() >= defaultHeight-550 && Mideas.mouseY() <= defaultHeight) {
+				yResize = -Mideas.mouseY()+defaultHeight;
+			}
+			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+550) {
+				xResize = Mideas.mouseX()-defaultWidth;
+			}
+		}
+		else if(heightResizing) {
+			if(Mideas.mouseY() >= defaultHeight-550 && Mideas.mouseY() <= defaultHeight) {
+				yResize = -Mideas.mouseY()+defaultHeight;
+			}
+		}
+		else if(widthResizing) {
+			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+550) {
+				xResize = Mideas.mouseX()-defaultWidth;
 			}
 		}
 		if(Mouse.getEventButton() == 0) {
@@ -204,14 +327,28 @@ public class ChatFrame {
 				else if(toBottomArrow) {
 					shift = 0;
 				}
+				else if(hoverAllResize && !allResizing) {
+					allResizing = true;
+					return true;
+				}
 				else if(hoverHeightResize && !heightResizing) {
 					heightResizing = true;
 					return true;
 				}
+				else if(hoverWidthResize && !widthResizing) {
+					widthResizing = true;
+					return true;
+				}
 			}
 			else {
-				if(heightResizing) {
+				if(allResizing) {
+					allResizing = false;
+				}
+				else if(heightResizing) {
 					heightResizing = false;
+				}
+				else if(widthResizing) {
+					widthResizing = false;
 				}
 			}
 		}
@@ -220,54 +357,121 @@ public class ChatFrame {
 	
 	private static void addMessage() {
 		String temp = tempMessage;
-		if(TTF2.font4.getWidth(temp) <= 383) {
+		messages.add(convTime(System.currentTimeMillis())+temp);
+		/*if(TTF2.font4.getWidth(temp) <= maxLength-107) {
 			messages.add(convTime(System.currentTimeMillis())+temp);
 		}
 		else {
-			messages.add(convTime(System.currentTimeMillis())+temp.substring(0, getLength(temp, 383)));
-			temp = temp.substring(getLength(temp, 383));
-			while(TTF2.font4.getWidth(temp) > 490) {
-				messages.add(temp.substring(0, getLength(temp, 480)));
-				temp = temp.substring(getLength(temp, 480));
+			messages.add(convTime(System.currentTimeMillis())+temp.substring(0, getLength(temp, maxLength-107)));
+			temp = temp.substring(getLength(temp, maxLength-107));
+			while(TTF2.font4.getWidth(temp) > maxLength) {
+				messages.add(temp.substring(0, getLength(temp, maxLength-10)));
+				temp = temp.substring(getLength(temp, maxLength-10));
 			}
 			if(temp != "") {
 				messages.add(temp);
 			}
-		}
+		}*/
 	}
 	
-	private static int getLength(String msg, int length) {
-		int i = 0;
+	private static boolean leftArrow() {
+		int i = cursorPosition;
+		if(tempMessage.length() != 0 && i > 0) {
+			if(tempMessage.substring(cursorPosition-1).charAt(0) == ' ' || tempMessage.substring(cursorPosition-1).charAt(0) == ',') {
+				cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
+				cursorPosition--;
+				i--;
+			}
+		}
+		while(i > 0) {
+			cursorPosition--;
+			cursorShift-= TTF2.font4.getWidth(tempMessage.substring(i-1, i).charAt(0));
+			i--;
+			if(i <= 0) {
+				return true;
+			}
+			if(tempMessage.substring(i-1, i).charAt(0) == ' ' || tempMessage.substring(i-1, i).charAt(0) == ',') {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private static boolean rightArrow() {
+		int i = cursorPosition;
+		if(i < tempMessage.length()) {
+			if(tempMessage.length() != 0) {
+				if(tempMessage.substring(cursorPosition+1).charAt(0) == ' ' || tempMessage.substring(cursorPosition+1).charAt(0) == ',') {
+					cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition+1).charAt(0));
+					cursorPosition++;
+					i++;
+				}
+			}
+			while(i < tempMessage.length() && i >= 0) {
+				cursorPosition++;
+				cursorShift+= TTF2.font4.getWidth(tempMessage.substring(i, i+1).charAt(0));
+				i++;
+				if(i >= tempMessage.length()) {
+					return true;
+				}
+				if(tempMessage.substring(i, i+1).charAt(0) == ' ' || tempMessage.substring(i, i+1).charAt(0) == ',') {
+					cursorPosition++;
+					cursorShift+= TTF2.font4.getWidth(tempMessage.substring(i, i+1).charAt(0));
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private static int getNumberLine(String msg) {
+		return TTF2.font4.getWidth(msg)/maxLength+1;
+	}
+	
+	private static int getLength(String msg, int beg, int length) {
+		int i = beg;
 		String temp = "";
 		while(TTF2.font4.getWidth(temp) <= length && i < msg.length()) {
-			temp = msg.substring(0, i);
+			temp = msg.substring(beg, i);
 			i++;
 		}
 		return i;
 	}
 	
-	private static void delMessage() {
-		int i = tempMessage.length()-1;
+	private static boolean delMessage() {
+		int i = cursorPosition;
+		String temp = tempMessage.substring(cursorPosition);
+		if(tempMessage.length() != 0) {
+			if(tempMessage.substring(tempMessage.length()-1).charAt(0) == ' ' || tempMessage.substring(tempMessage.length()-1).charAt(0) == ',') {
+				tempMessage = tempMessage.substring(0, tempMessage.length()-1);
+				i--;
+			}
+		}
 		while(i > 0) {
-			System.out.println("i : "+i+" length : "+tempMessage.length()+" char : "+tempMessage.substring(i-1, i).charAt(0));
-			if(tempMessage.substring(i-1, i).charAt(0) == ' ') {
+			if(tempMessage.substring(i-1, i).charAt(0) == ' ' || tempMessage.substring(i-1, i).charAt(0) == ',') {
 				tempMessage = tempMessage.substring(0, i);
-				return;
+				cursorPosition = tempMessage.length();
+				cursorShift = TTF2.font4.getWidth(tempMessage);
+				return true;
 			}
 			i--;
 		}
-		tempMessage = "";
+		tempMessage = temp;
+		cursorPosition = 0;
+		cursorShift = 0;
+		return false;
 	}
 	
 	private static void write(String add) {
-		if(cursorPosition == 0 || cursorPosition == tempMessage.length()) {
+		if(cursorPosition == tempMessage.length()) {
 			tempMessage+= add;
 		}
 		else {
 			String beg = tempMessage.substring(0, cursorPosition);
-			String end = tempMessage.substring(cursorPosition+1, tempMessage.length());
+			String end = tempMessage.substring(cursorPosition, tempMessage.length());
 			tempMessage = beg+add+end;
 		}
+		cursorShift+= TTF2.font4.getWidth(add);
 	}
 	
 	private static void write(char add) {
@@ -279,6 +483,7 @@ public class ChatFrame {
 			String end = tempMessage.substring(cursorPosition, tempMessage.length());
 			tempMessage = beg+add+end;
 		}
+		cursorShift+= TTF2.font4.getWidth(add);
 	}
 	
 	private static boolean checkTempMessage() throws FileNotFoundException, SQLException, CloneNotSupportedException {
@@ -326,8 +531,8 @@ public class ChatFrame {
 			else if(tempMessage.contains(".set joueur2 ")) {
 				String[] temp = tempMessage.split("joueur2 ");
 				String joueur = temp[1];
-				if(Mideas.getJoueur(joueur.substring(1)) != null) {
-					Mideas.setJoueur2(Mideas.getJoueur(joueur.substring(1)));
+				if(ClassManager.exists(joueur.substring(1))) {
+					Mideas.setJoueur2(ClassManager.getClone((joueur.substring(1))));
 				}
 			}
 			else if(tempMessage.contains(".damage joueur1 ")) {
@@ -360,9 +565,6 @@ public class ChatFrame {
 			}
 			else if(tempMessage.equals(".set fullscreen false")) {
 				Mideas.setDisplayMode(1700, 930, false);
-			}	
-			else if(tempMessage.equals(".set admin pw:mideas")) {
-				isAdmin = true;
 			}
 			else if(tempMessage.equals(".update")) {
 				Mideas.getGold();
@@ -372,6 +574,7 @@ public class ChatFrame {
 				CharacterStuff.getEquippedBags();
 				CharacterStuff.getBagItems();
 				CharacterStuff.getEquippedItems();
+				ContainerFrame.setBagchange(true);
 			}
 			else if(tempMessage.equals(".quit")) {
 				System.exit(1);
@@ -405,6 +608,10 @@ public class ChatFrame {
 				messages.add(".clear chat");
 				messages.add(".set fullscreen [boolean]");
 			}
+			else if(tempMessage.equals(".clear chat")) {
+				messages.clear();
+				rawMessages.clear();
+			}
 			else {
 				messages.add("Unknown command");
 			}
@@ -418,7 +625,7 @@ public class ChatFrame {
 		while(time-(60*60*24) >= 0) {
 			time-= (60*60*24);
 		}
-		int hour = 0;
+		int hour = 1;
 		while(time-3600 >= 0) {
 			time-= 3600;
 			hour++;

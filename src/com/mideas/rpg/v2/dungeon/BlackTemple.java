@@ -13,10 +13,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.game.classes.Illidan;
-import com.mideas.rpg.v2.game.classes.Paladin;
-import com.mideas.rpg.v2.game.classes.Shaman;
-import com.mideas.rpg.v2.game.classes.Warlock;
+import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.hud.EndFightFrame;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -64,10 +61,10 @@ public class BlackTemple extends Dungeon {
 	}
 	
 	public static void fightOrder() {
-		joueur[0] = new Warlock();
-		joueur[1] = new Shaman();
-		joueur[2] = new Paladin();
-		joueur[3] = new Illidan();
+		joueur[0] = ClassManager.getPlayer("Warlock");
+		joueur[1] = ClassManager.getPlayer("Shaman");
+		joueur[2] = ClassManager.getPlayer("Paladin");
+		joueur[3] = ClassManager.getPlayer("Illidan");
 	}
 	
 	public static void closeDungeon() {

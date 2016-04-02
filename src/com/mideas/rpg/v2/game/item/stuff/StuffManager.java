@@ -15,7 +15,7 @@ public class StuffManager {
 	private static int numberStuffLoaded;
 	
 	public static void loadStuffs() throws SQLException, CloneNotSupportedException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, type, name, class, sprite_id, armor, stamina, mana, critical, strength, sellprice FROM stuff");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, type, name, class, wear, sprite_id, quality, level, armor, stamina, mana, critical, strength, sellprice FROM stuff");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
@@ -24,14 +24,18 @@ public class StuffManager {
 			String name = statement.getString();
 			short classeTemp = statement.getShort();
 			ClassType[] classeType = getClasses(classeTemp);
+			String tempWear = statement.getString();
+			Wear wear = getWear(tempWear);
 			String sprite_id = statement.getString();
+			int quality = statement.getInt();
+			int level = statement.getInt();
 			int armor = statement.getInt();
 			int stamina = statement.getInt();
 			int mana = statement.getInt();
 			int critical = statement.getInt();
 			int strength = statement.getInt();
 			int sellPrice = statement.getInt();
-			Stuff newPiece = new Stuff(type, classeType, sprite_id, id, name, critical, strength, stamina, armor, mana, sellPrice);
+			Stuff newPiece = new Stuff(type, classeType, sprite_id, id, name, quality, level, wear, critical, strength, stamina, armor, mana, sellPrice);
 			StuffShortcut newShortcutPiece = new StuffShortcut(newPiece);
 			stuffShortcutList.add(newShortcutPiece);
 			stuffList.add(newPiece);
@@ -163,6 +167,22 @@ public class StuffManager {
 			return StuffType.RANGED;
 		}
 		return null;
+	}
+	
+	private static Wear getWear(String wear) {
+		if(wear.equals("CLOTH")) {
+			return Wear.CLOTH;
+		}
+		if(wear.equals("LEATHER")) {
+			return Wear.LEATHER;
+		}
+		if(wear.equals("MAIL")) {
+			return Wear.MAIL;
+		}
+		if(wear.equals("PLATE")) {
+			return Wear.PLATE;
+		}
+		return Wear.NONE;
 	}
 	
 	public static int getNumberStuffLoaded() {

@@ -20,6 +20,7 @@ import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffType;
+import com.mideas.rpg.v2.game.item.stuff.Wear;
 import com.mideas.rpg.v2.game.shortcut.ShortcutType;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.utils.Draw;
@@ -218,19 +219,27 @@ public class DragManager {
 				int i = 0;
 				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) != null) {
-						if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION && doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i))) {
-							Mideas.bag().setBag(i, null);
-							return true;
-						}
-						else if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
-							equipBagItem(i);
-							return true;
+						if(ContainerFrame.getContainerFrameSlotHover(i)) {
+							if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION && doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i))) {
+								Mideas.bag().setBag(i, null);
+								Arrays.fill(clickBag, false);
+								return true;
+							}
+							else if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
+								equipBagItem(i);
+								Arrays.fill(clickBag, false);
+								return true;
+							}
 						}
 					}
 					i++;
 				}
+				Arrays.fill(clickBag, false);
 			}
 			else {
+				if(checkBagClick() && draggedItem == null) {
+					return true;
+				}
 				if(draggedItem != null) {
 					draggedItem = null;
 				}
@@ -265,18 +274,24 @@ public class DragManager {
 			if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
 				int j = 0;
 				while(j < type.length) {
-					if(Mideas.bag().getBag(i) != null && ((Stuff)Mideas.bag().getBag(i)).getType() == type[j]) {
-						if(Mideas.joueur1().getStuff(j) == null) {
-							Mideas.joueur1().setStuff(j, Mideas.bag().getBag(i));
-							calcStats(Mideas.joueur1().getStuff(j));
-							setNullContainer(Mideas.bag().getBag(i));
-						}
-						else {
-							Item tempItem = Mideas.bag().getBag(i);
-							Mideas.bag().setBag(i, Mideas.joueur1().getStuff(j));
-							calcStatsLess(Mideas.joueur1().getStuff(j));
-							Mideas.joueur1().setStuff(j, tempItem);
-							calcStats(Mideas.joueur1().getStuff(j));
+					if(((Stuff)Mideas.bag().getBag(i)) != null && ((Stuff)Mideas.bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && canWear((Stuff)Mideas.bag().getBag(i))) {
+						if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
+							if(Mideas.joueur1().getStuff(j) == null) {
+								Mideas.joueur1().setStuff(j, Mideas.bag().getBag(i));
+								calcStats(Mideas.joueur1().getStuff(j));
+								setNullContainer(Mideas.bag().getBag(i));
+								CharacterStuff.setBagItems();
+								CharacterStuff.setEquippedItems();
+							}
+							else {
+								Item tempItem = Mideas.bag().getBag(i);
+								Mideas.bag().setBag(i, Mideas.joueur1().getStuff(j));
+								calcStatsLess(Mideas.joueur1().getStuff(j));
+								Mideas.joueur1().setStuff(j, tempItem);
+								calcStats(Mideas.joueur1().getStuff(j));
+								CharacterStuff.setBagItems();
+								CharacterStuff.setEquippedItems();
+							}
 						}
 					}
 					j++;
@@ -286,7 +301,7 @@ public class DragManager {
 	}
 	
 	private static boolean doHealingPotion(Potion item, boolean hover) throws FileNotFoundException, SQLException {
-		if(hover && item != null && item.getItemType() == ItemType.POTION) {
+		if(hover && item != null && item.getItemType() == ItemType.POTION && Mideas.getLevel() >= item.getLevel()) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
@@ -491,7 +506,7 @@ public class DragManager {
 				}
 			}
 			else if(checkCharacterItems(draggedItem) && draggedItem.getItemType() == ItemType.STUFF) {
-				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {        //draggeditem same stuff type of slot hover
+				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && canWear((Stuff)draggedItem)) {        //draggeditem same stuff type of slot hover
 					if(Mideas.joueur1().getStuff(i) == null) {
 						setNullCharacter(draggedItem);
 						calcStatsLess(draggedItem);
@@ -514,11 +529,12 @@ public class DragManager {
 					}
 				}
 				else {
+					draggedItem = null;
 					return true;
 				}
 			}
 			else if(checkBagItems(draggedItem) && draggedItem.getItemType() == ItemType.STUFF) {
-				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
+				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && canWear((Stuff)draggedItem)) {
 					if(Mideas.joueur1().getStuff(i) == null) {
 						Mideas.joueur1().setStuff(i, draggedItem);
 						calcStats(draggedItem);
@@ -529,17 +545,23 @@ public class DragManager {
 						return true;
 					}
 					else {
+						Stuff temp = Mideas.joueur1().getStuff(i);
 						calcStatsLess(Mideas.joueur1().getStuff(i));
 						Mideas.joueur1().setStuff(i, draggedItem);
 						calcStats(draggedItem);
+						setNullContainer(draggedItem);
+						draggedItem = temp;
 						CharacterStuff.setEquippedItems();
 						CharacterStuff.setBagItems();
 						return true;
 					}
 				}
+				else {
+					draggedItem = null;
+				}
 			}
 			else if(draggedItem.getItemType() == ItemType.STUFF){
-				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
+				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && canWear((Stuff)draggedItem)) {
 					if(Mideas.joueur1().getStuff(i) == null) {
 						Mideas.joueur1().setStuff(i, draggedItem);
 						calcStats(draggedItem);
@@ -558,6 +580,9 @@ public class DragManager {
 						CharacterStuff.setBagItems();
 						return true;
 					}
+				}
+				else {
+					draggedItem = null;
 				}
 			}
 		}
@@ -809,7 +834,7 @@ public class DragManager {
 		return false;
 	}
 	
-	private static ClassType convClassType() {
+	public static ClassType convClassType() {
 		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			return ClassType.GUERRIER;
 		}
@@ -822,7 +847,7 @@ public class DragManager {
 		if(Mideas.joueur1().getClasse().equals("Mage")) {
 			return ClassType.MAGE;
 		}
-		if(Mideas.joueur1().getClasse().equals("MONK")) {
+		if(Mideas.joueur1().getClasse().equals("MonK")) {
 			return ClassType.MONK;
 		}
 		if(Mideas.joueur1().getClasse().equals("Paladin")) {
@@ -929,5 +954,32 @@ public class DragManager {
 	
 	public static boolean getClickBag(int i) {
 		return clickBag[i];
+	}
+	
+	public static boolean canWear(Stuff stuff) {
+		if(stuff != null) {
+			if(Mideas.joueur1().getWear() == Wear.PLATE) {
+				return true;
+			}
+			if(Mideas.joueur1().getWear() == Wear.MAIL) {
+				if(stuff.getWear() == Wear.PLATE) {
+					return false;
+				}
+				return true;
+			}
+			if(Mideas.joueur1().getWear() == Wear.LEATHER) {
+				if(stuff.getWear() == Wear.PLATE || stuff.getWear() == Wear.MAIL) {
+					return false;
+				}
+				return true;
+			}
+			if(Mideas.joueur1().getWear() == Wear.CLOTH) {
+				if(stuff.getWear() == Wear.CLOTH || stuff.getWear() == Wear.NONE) {
+					return true;
+				}
+				return false;
+			}
+		}
+		return false;
 	}
 }

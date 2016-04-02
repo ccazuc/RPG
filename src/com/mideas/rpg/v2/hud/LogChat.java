@@ -8,7 +8,6 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.jdo.JDOStatement;
-import com.mideas.rpg.v2.utils.Draw;
 
 public class LogChat {
 	

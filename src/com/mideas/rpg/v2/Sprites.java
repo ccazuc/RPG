@@ -10,10 +10,12 @@ public class Sprites {
 
 	private static boolean spriteLoaded;
 	public static Texture loading_screen;
+	public static Texture stuff_hover2;
 	public static Texture playerUI;
 	public static Texture admin_panel;
 	public static Texture hover;
 	public static Texture bag_hover2;
+	public static Texture close_bag_button;
 	public static Texture un_green_talent;
 	public static Texture deux_green_talent;
 	public static Texture trois_green_talent;
@@ -480,9 +482,12 @@ public class Sprites {
 	public static Texture character_frame_open;
 	public static Texture escape_frame_open;
 	public static Texture shortcut_hover;
+	public static Texture bag_hover_tooltip;
 	
 	public static boolean sprite() throws IOException {
 		shortcut_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shortcut_hover.png"));
+		close_bag_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_bag.png"));
+		bag_hover_tooltip = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_hover_tooltip.png"));
 		elevator_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/elevator_button.png"));
 		bag_click_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_click_hover.png"));
 		spellbook_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-Spellbook-Down.png"));
@@ -944,6 +949,7 @@ public class Sprites {
 		bag_hover2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_hover.png"));
 		shop_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shop_hover.png"));
 		stuff_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_hover.png"));
+		stuff_hover2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_hover.png"));
 		character_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/characterFrame.png"));
 		character_frame2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/characterFrame.png"));
 		character_frame_stats = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/character_frame_stats.png"));

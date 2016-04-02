@@ -21,14 +21,14 @@ public class Talent {
 	private static int y = -400;
 
 	public static void draw() {
-		if(Mideas.joueur1().getClasse() == "Guerrier") {
+		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			Draw.drawQuad(Sprites.warrior_talent_tree, Display.getWidth()/2+getX(), Display.getHeight()/2+y);
 			GuerrierTalent.draw();
 		}
 	}
 	
 	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
-		if(Mideas.joueur1().getClasse() == "Guerrier") {
+		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			GuerrierTalent.mouseEvent();
 		}
 		return false;

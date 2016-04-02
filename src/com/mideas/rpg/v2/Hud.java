@@ -7,16 +7,6 @@ import java.sql.SQLException;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
-import com.mideas.rpg.v2.game.classes.DeathKnight;
-import com.mideas.rpg.v2.game.classes.Guerrier;
-import com.mideas.rpg.v2.game.classes.Hunter;
-import com.mideas.rpg.v2.game.classes.Mage;
-import com.mideas.rpg.v2.game.classes.Monk;
-import com.mideas.rpg.v2.game.classes.Paladin;
-import com.mideas.rpg.v2.game.classes.Priest;
-import com.mideas.rpg.v2.game.classes.Rogue;
-import com.mideas.rpg.v2.game.classes.Shaman;
-import com.mideas.rpg.v2.game.classes.Warlock;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -233,7 +223,7 @@ public class Hud {
 	}*/
 	
 	public static void lifeBars() {
-		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
+		/*if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			x = Mideas.joueur1().getStamina()/(float)Guerrier.MAX_HEALTH;
 		}
 		else if(Mideas.joueur1().getClasse().equals("Mage")) {
@@ -294,11 +284,11 @@ public class Hud {
 		}
 		else {
 			y = Mideas.joueur2().getStamina()/(float)Warlock.MAX_HEALTH;
-		}
+		}*/
 	}
 	
 	public static void manaBars() {
-		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
+		/*if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			a = Mideas.joueur1().getMana()/(float)Guerrier.MAX_MANA+0.01f;
 		}
 		else if(Mideas.joueur1().getClasse().equals("Mage")) {
@@ -359,7 +349,7 @@ public class Hud {
 		}
 		else {
 			b = Mideas.joueur2().getMana()/(float)Warlock.MAX_MANA+0.015f;
-		}
+		}*/
 	}
 	
 	public static boolean redBars() {

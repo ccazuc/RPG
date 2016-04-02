@@ -56,37 +56,37 @@ public class PlayerPortraitFrame {
 	
 	private static void drawPortait(Joueur joueur, int x, int y) {
 		Texture portrait = null;
-		if(joueur.getClasse() == "Priest") {
+		if(joueur.getClasse().equals("Priest")) {
 			portrait = Sprites.priest;
 		}
-		else if(joueur.getClasse() == "Mage") {
+		else if(joueur.getClasse().equals("Mage")) {
 			portrait = Sprites.mage;
 		}
-		else if(joueur.getClasse() == "DeathKnight") {
+		else if(joueur.getClasse().equals("DeathKnight")) {
 			portrait = Sprites.deathknight;
 		}
-		else if(joueur.getClasse() == "Guerrier") {
+		else if(joueur.getClasse().equals("Guerrier")) {
 			portrait = Sprites.war;
 		}
-		else if(joueur.getClasse() == "Hunter") {
+		else if(joueur.getClasse().equals("Hunter")) {
 			portrait = Sprites.hunter;
 		}
-		else if(joueur.getClasse() == "Monk") {
+		else if(joueur.getClasse().equals("Monk")) {
 			portrait = Sprites.monk;
 		}	
-		else if(joueur.getClasse() == "Paladin") {
+		else if(joueur.getClasse().equals("Paladin")) {
 			portrait = Sprites.paladin;
 		}
-		else if(joueur.getClasse() == "Rogue") {
+		else if(joueur.getClasse().equals("Rogue")) {
 			portrait = Sprites.rogue;
 		}
-		else if(joueur.getClasse() == "Shaman") {
+		else if(joueur.getClasse().equals("Shaman")) {
 			portrait = Sprites.shaman;
 		}
-		else if(joueur.getClasse() == "Warlock") {
+		else if(joueur.getClasse().equals("Warlock")) {
 			portrait = Sprites.warlock;
 		}
-		else if(joueur.getClasse() == "Illidan") {
+		else if(joueur.getClasse().equals("Illidan")) {
 			portrait = Sprites.illidan;
 		}
 		Draw.drawQuad(portrait, x+11, y+8);

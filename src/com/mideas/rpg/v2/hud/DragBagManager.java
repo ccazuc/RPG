@@ -15,8 +15,6 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
-import com.mideas.rpg.v2.game.item.stuff.Bag;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class DragBagManager {
@@ -209,18 +207,15 @@ public class DragBagManager {
 			}
 			i++;
 		}
-		//System.out.println("position : "+position);
 		int size = 0;
 		i = 0;
 		while(i < position) {
 			size+= Mideas.bag().getEquippedBagSize(i);
 			i++;
 		}
-		//System.out.println("size : "+size);
 		i = size+16;
 		while(i < size+Mideas.bag().getEquippedBagSize(position)+16) {
 			if(Mideas.bag().getBag(i) != null) {
-				//System.out.println("!null : "+i);
 				return false;
 			}
 			i++;
