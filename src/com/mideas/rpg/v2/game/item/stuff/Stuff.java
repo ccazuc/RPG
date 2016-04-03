@@ -142,7 +142,7 @@ public class Stuff extends Item {
 	public String convClassTypeToString(int i) {
 		if(i < classType.length) {
 			if(classType[i] == ClassType.DEATHKNIGHT) {
-				return "Death Knight";
+				return "DeathKnight";
 			}
 			if(classType[i] == ClassType.GUERRIER) {
 				return "Warrior";
@@ -154,7 +154,7 @@ public class Stuff extends Item {
 				return "Mage";
 			}
 			if(classType[i] == ClassType.MONK) {
-				return "MONK";
+				return "MonK";
 			}
 			if(classType[i] == ClassType.PALADIN) {
 				return "Paladin";

@@ -236,7 +236,6 @@ public class Mideas {
 		double rand = Math.random();
 		rand = 1/10f;
 		if(rand <= 1/10f) {
-			System.out.println("Le joueur "+id+" est un Guerrier !");
 			return ClassManager.getClone("Guerrier");
 		}
 		if(rand <= 2/10f) {

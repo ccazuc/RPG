@@ -796,8 +796,28 @@ public class ContainerFrame {
 				if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
 					Color temp = null;
 					int xShift = 0;
-					if(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName()) > 285) {
-						xShift = TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())-275;
+					String classe = "";
+					if(((Stuff)Mideas.bag().getBag(i)).getClassType().length < 10) {
+						//TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "Classes: ", temp, Color.black, 1, 1, 1);
+						classe = "Classes: ";
+						int k = 0;
+						//int xClassShift = 0;
+						while(k < ((Stuff)Mideas.bag().getBag(i)).getClassType().length) {
+							if(k == ((Stuff)Mideas.bag().getBag(i)).getClassType().length-1) {
+								//TTF2.statsName.drawStringShadow(Display.getWidth()+x-225+xClassShift-xShift, Display.getHeight()+y+shift+z, ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k), temp, Color.black, 1, 1, 1);
+								classe+= ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k);
+							}
+							else {
+								//TTF2.statsName.drawStringShadow(Display.getWidth()+x-225+xClassShift-xShift, Display.getHeight()+y+shift+z, ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k)+", ", temp, Color.black, 1, 1, 1);
+								classe+= ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k)+", ";
+							}
+							//xClassShift+= TTF2.font4.getWidth(((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k)+", ");
+							k++;
+						}
+						//shift+= 20;
+					}
+					if(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName()) > 285 || TTF2.statsName.getWidth(classe) > 285) {
+						xShift = Math.max(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName()), TTF2.font4.getWidth(classe))-275;
 						System.out.println(xShift);
 					}
 					Draw.drawColorQuad(Display.getWidth()+x-15, Display.getHeight()+30+y+z, -285-xShift, 100+TTF2.statsName.getLineHeight()*getNumberStats((Stuff)Mideas.bag().getBag(i)), bgColor);
@@ -838,7 +858,11 @@ public class ContainerFrame {
 					else {
 						temp = Color.red;
 					}
-					if(((Stuff)Mideas.bag().getBag(i)).getClassType().length < 10) {
+					if(!classe.equals("")) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, classe, temp, Color.black, 1, 1, 1);
+						shift+= 20;
+					}
+					/*if(((Stuff)Mideas.bag().getBag(i)).getClassType().length < 10) {
 						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "Classes: ", temp, Color.black, 1, 1, 1);
 						int k = 0;
 						int xClassShift = 0;
@@ -853,7 +877,7 @@ public class ContainerFrame {
 							k++;
 						}
 						shift+= 20;
-					}
+					}*/
 					if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
 						TTF2.statsName.drawStringShadow(Display.getWidth()+x-290-xShift, Display.getHeight()+y+shift+z, "Level "+((Stuff)Mideas.bag().getBag(i)).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
 					}
