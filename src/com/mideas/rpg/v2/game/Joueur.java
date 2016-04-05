@@ -6,6 +6,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.WeaponType;
 import com.mideas.rpg.v2.game.item.stuff.Wear;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -17,6 +18,7 @@ public class Joueur {
 	private Shortcut[] spells;
 	private Spell[] spellUnlocked;
 	private Stuff[] stuff;
+	private WeaponType[] weaponType;
 	private Shortcut[] shortcut;
 	private int maxStamina;
 	private int expGained;
@@ -57,7 +59,7 @@ public class Joueur {
 		this.classe = classe;
 	}*/
 	
-	public Joueur(String id, Wear wear, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
+	public Joueur(String id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
 		this.id = id;
 		this.stamina = stamina;
 		this.mana = mana;
@@ -71,12 +73,14 @@ public class Joueur {
 		this.goldGained = goldGained;
 		this.spells = spells;
 		this.spellUnlocked = spellUnlocked;
+		this.weaponType = weaponType;
 		this.stuff = stuff;
 		this.wear = wear;
 	}
 	
 	public Joueur(Joueur joueur) {
 		this.id = joueur.id;
+		this.weaponType = joueur.weaponType;
 		this.stamina = joueur.stamina;
 		this.mana = joueur.mana;
 		this.strength = joueur.strength;
@@ -355,4 +359,16 @@ public class Joueur {
 			Mideas.bag().getNumberStack().put(potion, number);
 		}
 	}
+	
+	public WeaponType[] getWeaponType() {
+		return weaponType;
+	}
+	
+	public WeaponType getweaponType(int i) {
+		if(i < weaponType.length) {
+			return weaponType[i];
+		}
+		return null;
+	}
 } 
+

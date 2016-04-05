@@ -20,6 +20,7 @@ import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffType;
+import com.mideas.rpg.v2.game.item.stuff.Weapon;
 import com.mideas.rpg.v2.game.item.stuff.Wear;
 import com.mideas.rpg.v2.game.shortcut.ShortcutType;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
@@ -979,6 +980,17 @@ public class DragManager {
 				}
 				return false;
 			}
+		}
+		return false;
+	}
+	
+	public static boolean canWear(Weapon weapon) {
+		int i = 0;
+		while(i < Mideas.joueur1().getWeaponType().length) {
+			if(Mideas.joueur1().getweaponType(i) == weapon.getWeaponType()) {
+				return true;
+			}
+			i++;
 		}
 		return false;
 	}

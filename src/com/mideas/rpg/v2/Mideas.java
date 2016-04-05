@@ -28,6 +28,7 @@ import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.stuff.Bag;
 import com.mideas.rpg.v2.game.item.stuff.BagManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
@@ -131,6 +132,7 @@ public class Mideas {
 		initSQL();
 		BagManager.loadBags();
 		BagManager.loadBagsSprites();
+		WeaponManager.loadWeapons();
 		StuffManager.loadStuffs();
 		PotionManager.loadPotions();
 		ShopManager.loadStuffs();
@@ -170,8 +172,7 @@ public class Mideas {
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
-		//jdo = new MariaDB("sql107.byethost11.com", "b11_17772706_rpg", "b11_17772706", "11391139");
-		//jdo = new MariaDB("mysql.hostinger.fr", "u606410288_rpg", "u606410288_midea", "11391139");
+		//jdo = new MariaDB("sql7.freesqldatabase.com", "sql7113715", "sql7113715", "y17JcUeCEl");
 	}
 	
 	public static JDO getJDO() {
@@ -745,14 +746,7 @@ public class Mideas {
 		}
 		return k;
 	}
-	
-	public static String getCursor() {
-		return cursor;
-	}
-	
-	public static void setCursor(String string) {
-		cursor = string;
-	}
+
 
 	public static void setJoueur1(Joueur joueur) {
 		joueur1 = joueur;

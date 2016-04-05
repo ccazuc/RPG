@@ -188,6 +188,7 @@ public class Stuff extends Item {
 		}
 		return "";
 	}
+	
 	public boolean canEquipTo(ClassType type) {
 		int i = 0;
 		while(i < classType.length) {

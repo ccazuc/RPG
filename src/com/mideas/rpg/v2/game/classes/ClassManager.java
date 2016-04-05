@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.WeaponType;
 import com.mideas.rpg.v2.game.item.stuff.Wear;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -18,12 +19,14 @@ public class ClassManager {
 	private static HashMap<String, Joueur> iaList = new HashMap<String, Joueur>();
 	
 	public static void loadClasses() throws SQLException, CloneNotSupportedException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, wear, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana, exp_gained, gold_gained FROM player");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, wear, weapon_type, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana, exp_gained, gold_gained FROM player");
 		statement.execute();
 		while(statement.fetch()) {
 			String id = statement.getString();
 			String temp = statement.getString();
 			Wear wear = getWear(temp);
+			short tempType = statement.getShort();
+			WeaponType[] type = getWeaponTypes(tempType);
 			int stamina = statement.getInt();
 			int mana = statement.getInt();
 			int strength = statement.getInt();
@@ -33,16 +36,94 @@ public class ClassManager {
 			int maxStamina = statement.getInt();
 			int maxMana = statement.getInt();
 			int expGained = statement.getInt();
-			int goldGained =statement.getInt();
+			int goldGained = statement.getInt();
 			Shortcut[] spells = new Shortcut[49];
 			Spell[] spellUnlocked = new Spell[49];
 			Stuff[] stuff = new Stuff[20];
-			Joueur newClass = new Joueur(id, wear, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff);
-			Joueur iaClass = new Joueur(id, wear, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff);
+			Joueur newClass = new Joueur(id, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff);
+			Joueur iaClass = new Joueur(id, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff);
 			joueurList.put(id, newClass);
 			iaList.put(id, iaClass);
 			initTable(id);
 		}
+	}
+	
+	public static WeaponType[] getWeaponTypes(short type) {
+		int i = 0;
+		int count = 0;
+		while(i < 15) {
+			if((type & (1 << i)) != 0) {
+				count++;
+			}
+			i++;
+		}
+		WeaponType[] tempWeaponsType = new WeaponType[count];
+		count = 0;
+		if((type & (1 << 0)) != 0) {
+			tempWeaponsType[count] = WeaponType.DAGGER;
+			count++;
+		}
+		if((type & (1 << 1)) != 0) {
+			tempWeaponsType[count] = WeaponType.FISTWEAPON;
+			count++;
+		}
+		if((type & (1 << 2)) != 0) {
+			tempWeaponsType[count] = WeaponType.ONEHANDEDAXE;
+			count++;
+		}
+		if((type & (1 << 3)) != 0) {
+			tempWeaponsType[count] = WeaponType.TWOHANDEDAXE;
+			count++;
+		}
+		if((type & (1 << 4)) != 0) {
+			tempWeaponsType[count] = WeaponType.ONEHANDEDMACE;
+			count++;
+		}
+		if((type & (1 << 5)) != 0) {
+			tempWeaponsType[count] = WeaponType.TWOHANDEDMACE;
+			count++;
+		}
+		if((type & (1 << 6)) != 0) {
+			tempWeaponsType[count] = WeaponType.ONEHANDEDSWORD;
+			count++;
+		}
+		if((type & (1 << 7)) != 0) {
+			tempWeaponsType[count] = WeaponType.TWOHANDEDSWORD;
+			count++;
+		}
+		if((type & (1 << 8)) != 0) {
+			tempWeaponsType[count] = WeaponType.POLEARM;
+			count++;
+		}
+		if((type & (1 << 9)) != 0) {
+			tempWeaponsType[count] = WeaponType.STAFF;
+			count++;
+		}
+		if((type & (1 << 10)) != 0) {
+			tempWeaponsType[count] = WeaponType.BOW;
+			count++;
+		}
+		if((type & (1 << 11)) != 0) {
+			tempWeaponsType[count] = WeaponType.CROSSBOW;
+			count++;
+		}
+		if((type & (1 << 12)) != 0) {
+			tempWeaponsType[count] = WeaponType.GUN;
+			count++;
+		}
+		if((type & (1 << 13)) != 0) {
+			tempWeaponsType[count] = WeaponType.WAND;
+			count++;
+		}
+		if((type & (1 << 14)) != 0) {
+			tempWeaponsType[count] = WeaponType.THROWN;
+			count++;
+		}
+		i = 0;
+		while(i < count) {
+			i++;
+		}
+		return tempWeaponsType;
 	}
 	
 	public static Joueur getClone(String id) {

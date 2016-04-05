@@ -1,17 +1,18 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.ClassType;
-import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
+import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class StuffManager {
 
 	private static ArrayList<Stuff> stuffList = new ArrayList<Stuff>();
-	private static ArrayList<StuffShortcut> stuffShortcutList = new ArrayList<StuffShortcut>();
+	//private static ArrayList<StuffShortcut> stuffShortcutList = new ArrayList<StuffShortcut>();
 	private static int numberStuffLoaded;
 	
 	public static void loadStuffs() throws SQLException, CloneNotSupportedException {
@@ -36,11 +37,18 @@ public class StuffManager {
 			int strength = statement.getInt();
 			int sellPrice = statement.getInt();
 			Stuff newPiece = new Stuff(type, classeType, sprite_id, id, name, quality, level, wear, critical, strength, stamina, armor, mana, sellPrice);
-			StuffShortcut newShortcutPiece = new StuffShortcut(newPiece);
-			stuffShortcutList.add(newShortcutPiece);
+			//StuffShortcut newShortcutPiece = new StuffShortcut(newPiece);
+			//stuffShortcutList.add(newShortcutPiece);
 			stuffList.add(newPiece);
 			numberStuffLoaded++;
 		}
+	}
+	
+	public static boolean canEquipStuff(Stuff stuff) throws FileNotFoundException, SQLException {
+		if(Mideas.getLevel() >= stuff.getLevel() && DragManager.canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
+			return true;
+		}
+	return false;
 	}
 	
 	public static Stuff getStuff(int id) {
@@ -193,8 +201,8 @@ public class StuffManager {
 		return stuffList;
 	}
 	
-	public static ArrayList<StuffShortcut> getStuffShortcutList() {
+	/*public static ArrayList<StuffShortcut> getStuffShortcutList() {
 		return stuffShortcutList;
-	}
+	}*/
 	
 }

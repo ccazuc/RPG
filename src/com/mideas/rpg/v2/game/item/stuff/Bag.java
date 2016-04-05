@@ -143,6 +143,9 @@ public class Bag extends Item implements Cloneable {
 			else if(bag[i].getItemType() == ItemType.BAG) {
 				return (Bag)bag[i];
 			}
+			else if(bag[i].getItemType() == ItemType.WEAPON) {
+				return (Weapon)bag[i];
+			}
 		}
 		return null;
 	}

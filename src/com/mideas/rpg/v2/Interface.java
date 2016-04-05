@@ -163,32 +163,26 @@ public class Interface {
 			}
 		}
 		else {
-			if(Mideas.joueur1().getStamina() > 0 && Mideas.joueur2().getStamina() > 0) {
-				if(SpellBarFrame.mouseEvent()) {
-					return true;
-				}
-				if(DragSpellManager.mouseEvent()) {
-					return true;
-				}
-				if(ShortcutFrame.mouseEvent()) {
-					return true;
-				}
-				DragBagManager.openBag();
-				if(DragBagManager.mouseEvent()) {
-					return true;
-				}
- 			}
-			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
-				EndFightFrame.mouseEvent();
+			if(SpellBarFrame.mouseEvent()) {
+				return true;
+			}
+			if(DragSpellManager.mouseEvent()) {
+				return true;
+			}
+			if(ShortcutFrame.mouseEvent()) {
+				return true;
+			}
+			if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
+				ContainerFrame.mouseEvent();
+			}
+			DragBagManager.openBag();
+			if(DragBagManager.mouseEvent()) {
 				return true;
 			}
 			if(characterFrameActive) {
 				if(CharacterFrame.mouseEvent()) {
 					return true;
 				}
-			}
-			if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
-				ContainerFrame.mouseEvent();
 			}
 			if(shopFrameActive) {
 				if(ShopManager.mouseEvent()) {
@@ -232,6 +226,10 @@ public class Interface {
             if(DragManager.mouseEvent()) {
                 return true;
             }
+			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
+				EndFightFrame.mouseEvent();
+				return true;
+			}
 		}
 		return false;
 	}

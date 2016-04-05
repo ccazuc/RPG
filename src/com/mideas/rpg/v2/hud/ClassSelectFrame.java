@@ -466,7 +466,7 @@ public class ClassSelectFrame {
 	
 	private static boolean setNewClass(String string, Joueur joueur, boolean hover) throws FileNotFoundException, SQLException {
 		if(hover) {
-			if(Mideas.joueur1()!= null && Mideas.joueur1().getClasse().equals(string)){
+			if(Mideas.joueur1() != null && Mideas.joueur1().getClasse().equals(string)){
 				Interface.setIsChangeClassActive(true);
 				CharacterStuff.getBagItems();
 				return true;
@@ -475,6 +475,7 @@ public class ClassSelectFrame {
 				Mideas.joueur2().setStamina(Mideas.joueur2().getMaxStamina());
 			}
 			Mideas.setJoueur1(joueur);
+			Mideas.getExp();
 			CharacterStuff.getBagItems();
 			CharacterStuff.getEquippedItems();
 			Mideas.getGold();

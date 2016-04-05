@@ -23,6 +23,7 @@ import com.mideas.rpg.v2.game.item.stuff.Bag;
 import com.mideas.rpg.v2.game.item.stuff.BagManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
 import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.LogChat;
@@ -53,7 +54,7 @@ public class ShopManager {
 		}
 	}
 	
-	private static Item getItem(int id) {
+	public static Item getItem(int id) {
 		int i = 0;
 		while(i < StuffManager.getStuffList().size()) {
 			if(StuffManager.getStuffList().get(i).getId() == id) {
@@ -206,21 +207,13 @@ public class ShopManager {
 		return false;
 	}
 	
-	public static void buyItems(boolean slot_hover, Shop stuff) throws FileNotFoundException, SQLException {
-		if(Mouse.getEventButton() == 1 && slot_hover && stuff != null) {
+	public static void buyItems(boolean slot_hover, Shop item) throws FileNotFoundException, SQLException {
+		if(Mouse.getEventButton() == 1 && slot_hover && item != null) {
 			if(Mouse.getEventButtonState()) {
 			}
 			else {
-				if(Mideas.getCurrentGold() >= stuff.getSellPrice()) {
-					/*if(stuff.get) {
-						EndFightFrame.dropItem(stuff, 1);
-						LogChat.setStatusText3("Vous avez bien achetï¿½ "+stuff.getStuffName());
-						Mideas.setGold(-stuff.getSellPrice());
-					}*/
-					if(checkInventory(stuff)) {
-						Mideas.setGold(-stuff.getSellPrice());
-						LogChat.setStatusText3("Vous avez bien achetï¿½ "+StuffManager.getStuff(stuff.getId()).getStuffName());
-					}
+				if(Mideas.getCurrentGold() >= item.getSellPrice()) {
+					checkItem(item);
 				}
 				else {
 					LogChat.setStatusText3("Vous n'avez pas assez d'argent");
@@ -229,17 +222,60 @@ public class ShopManager {
 		}
 	}
 
-	private static boolean checkInventory(Shop item) throws FileNotFoundException, SQLException {
+	private static boolean checkItem(Shop item) throws FileNotFoundException, SQLException {
+		int i = 0;
+		if(StuffManager.exists(item.getId()) || WeaponManager.exists(item.getId())) {
+			while(i < Mideas.bag().getBag().length) {
+				if(Mideas.bag().getBag(i) == null) {
+					Mideas.bag().setBag(i, StuffManager.getClone(item.getId()));
+					LogChat.setStatusText3("Vous avez bien acheté "+StuffManager.getStuff(item.getId()).getStuffName());
+					Mideas.setGold(-item.getSellPrice());
+					CharacterStuff.setBagItems();
+					return true;
+				}
+				i++;
+			}
+		}
+		else if(PotionManager.exists(item.getId())) {
+			if(checkBagItem(item)) {
+				while(i < Mideas.bag().getBag().length) {
+					if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == item.getId()) {
+						Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+1);
+						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
+						Mideas.setGold(-item.getSellPrice());
+						CharacterStuff.setBagItems();
+						return true;
+					}
+					i++;
+				}
+			}
+			else {
+				while(i < Mideas.bag().getBag().length) {
+					if(Mideas.bag().getBag(i) == null) {
+						Potion temp = PotionManager.getClone(item.getId());
+						Mideas.bag().setBag(i, temp);
+						Mideas.joueur1().setNumberItem(temp, 1);
+						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
+						Mideas.setGold(-item.getSellPrice());
+						CharacterStuff.setBagItems();
+						return true;
+					}
+					i++;
+				}
+			}
+		}
+		LogChat.setStatusText3("Votre inventaire est pleins");
+		return false;
+	}
+	
+	private static boolean checkBagItem(Shop item) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == null) {
-				Mideas.bag().setBag(i, StuffManager.getClone(item.getId()));
-				CharacterStuff.setBagItems();
+			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == item.getId()) {
 				return true;
 			}
 			i++;
 		}
-		LogChat.setStatusText3("Votre inventaire est pleins");
 		return false;
 	}
 

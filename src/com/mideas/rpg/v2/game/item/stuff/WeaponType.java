@@ -1,0 +1,21 @@
+package com.mideas.rpg.v2.game.item.stuff;
+
+public enum WeaponType {
+
+	ONEHANDEDAXE,
+	TWOHANDEDAXE,
+	ONEHANDEDSWORD,
+	TWOHANDEDSWORD,
+	ONEHANDEDMACE,
+	TWOHANDEDMACE,
+	POLEARM,
+	STAFF,
+	DAGGER,
+	FISTWEAPON,
+	BOW,
+	CROSSBOW,
+	GUN,
+	THROWN,
+	WAND
+	
+}

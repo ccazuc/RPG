@@ -17,6 +17,7 @@ import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -520,8 +521,13 @@ public class ChatFrame {
 			}
 			else if(tempMessage.contains(".lookup item ")) {
 				String[] temp = tempMessage.split("item ");
-				int value = Integer.parseInt(temp[1]);	
-				messages.add(StuffManager.getStuff(value).getStuffName());
+				int value = Integer.parseInt(temp[1]);
+				if(ShopManager.getItem(value) != null) {
+					messages.add(ShopManager.getItem(value).getStuffName());
+				}
+				else {
+					messages.add("Item not found");
+				}
 			}
 			else if(tempMessage.contains(".lookup spell ")) {
 				String[] temp = tempMessage.split("spell ");
@@ -538,24 +544,55 @@ public class ChatFrame {
 			else if(tempMessage.contains(".damage joueur1 ")) {
 				String[] temp = tempMessage.split("joueur1 ");
 				int value = Integer.parseInt(temp[1]);
-				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()-value);
+				if(value < Math.pow(2, 32)) {
+					Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()-value);
+				}
+				else {
+					messages.add("Incorrect value");
+				}
 			}
 			else if(tempMessage.contains(".damage joueur2 ")) {
 				String[] temp = tempMessage.split("joueur2 ");
 				int value = Integer.parseInt(temp[1]);
-				Mideas.joueur2().setStamina(Mideas.joueur2().getStamina()-value);
+				if(value < Math.pow(2, 32)) {
+					Mideas.joueur2().setStamina(Mideas.joueur2().getStamina()-value);
+				}
+				else {
+					messages.add("Incorrect value");
+				}
 			}
 			else if(tempMessage.contains(".add stuff ")) {
 				String[] temp = tempMessage.split("stuff ");
-				int value = Integer.parseInt(temp[1]);
-				DragManager.checkFreeSlotBag(StuffManager.getClone(value));
-				CharacterStuff.setBagItems();
+				int value = 0;
+				if(temp[1].length() < 11) {
+					value = Integer.parseInt(temp[1]);
+				}
+				if(StuffManager.exists(value)) {
+					DragManager.checkFreeSlotBag(StuffManager.getClone(value));
+					CharacterStuff.setBagItems();
+				}
+				else if(WeaponManager.exists(value)) {
+					DragManager.checkFreeSlotBag(WeaponManager.getClone(value));
+					CharacterStuff.setBagItems();
+				}
+				else {
+					messages.add("Item not found");
+				}
 			}
 			else if(tempMessage.contains(".delete bag item ")) {
 				String[] temp = tempMessage.split("item ");
 				int value = Integer.parseInt(temp[1]);
-				DragManager.deleteItem(value);
-				CharacterStuff.setBagItems();
+				if(StuffManager.exists(value)) {
+					DragManager.deleteItem(value);
+					CharacterStuff.setBagItems();
+				}
+				else if(WeaponManager.exists(value)) {
+					DragManager.deleteItem(value);
+					CharacterStuff.setBagItems();
+				}
+				else {
+					messages.add("Item not found");
+				}
 			}
 			else if(tempMessage.equals(".clear chat")) {
 				messages.clear();
@@ -587,13 +624,37 @@ public class ChatFrame {
 			}
 			else if(tempMessage.contains(".modify gold ")) {
 				String[] temp = tempMessage.split("gold ");
-				int value = Integer.parseInt(temp[1]);	
-				Mideas.setGold(value);
+				int value = 0; 
+				if(temp[1].length() < 11) {
+					value = Integer.parseInt(temp[1]);
+				}
+				else {
+					messages.add("Incorrect value");
+					return true;
+				}
+				if(value < Math.pow(2, 32) && value >= 0) {
+					Mideas.setGold(value);
+				}
+				else {
+					messages.add("Incorrect value");
+				}
 			}
 			else if(tempMessage.contains(".modify exp ")) {
 				String[] temp = tempMessage.split("exp ");
-				int value = Integer.parseInt(temp[1]);	
-				Mideas.joueur1().setExp(0, value);
+				int value = 0; 
+				if(temp[1].length() < 11) {
+					value = Integer.parseInt(temp[1]);
+				}
+				else {
+					messages.add("Incorrect value");
+					return true;
+				}
+				if(value < Math.pow(2, 32) && value >= 0) {
+					Mideas.joueur1().setExp(0, value);
+				}
+				else {
+					messages.add("Incorrect value");
+				}	
 			}
 			else if(tempMessage.equals(".help")) {
 				messages.add(".kill [joueur]");

@@ -203,54 +203,56 @@ public class SpellBarFrame {
 	}
 	
 	public static boolean keyboardEvent() throws SQLException, FileNotFoundException {
-		if(Keyboard.getEventKey() == Keyboard.KEY_1) {
-			Mideas.joueur1().tick();
-			Mideas.setCurrentPlayer(false);
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_2) {
-			keyboardAttack(Mideas.joueur1().getSpells(0));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_3) {
-			keyboardAttack(Mideas.joueur1().getSpells(1));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_4) {
-			keyboardAttack(Mideas.joueur1().getSpells(2));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_5) {
-			keyboardAttack(Mideas.joueur1().getSpells(3));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_6) {
-			keyboardAttack(Mideas.joueur1().getSpells(4));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_7) {
-			keyboardAttack(Mideas.joueur1().getSpells(5));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_8) {
-			keyboardAttack(Mideas.joueur1().getSpells(6));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_9) {
-			keyboardAttack(Mideas.joueur1().getSpells(7));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_0) {
-			keyboardAttack(Mideas.joueur1().getSpells(8));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == 26) {
-			keyboardAttack(Mideas.joueur1().getSpells(9));
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_EQUALS) {
-			keyboardAttack(Mideas.joueur1().getSpells(10));
-			return true;
+		if(!ChatFrame.getChatActive()) {
+			if(Keyboard.getEventKey() == Keyboard.KEY_1) {
+				Mideas.joueur1().tick();
+				Mideas.setCurrentPlayer(false);
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_2) {
+				keyboardAttack(Mideas.joueur1().getSpells(0));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_3) {
+				keyboardAttack(Mideas.joueur1().getSpells(1));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_4) {
+				keyboardAttack(Mideas.joueur1().getSpells(2));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_5) {
+				keyboardAttack(Mideas.joueur1().getSpells(3));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_6) {
+				keyboardAttack(Mideas.joueur1().getSpells(4));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_7) {
+				keyboardAttack(Mideas.joueur1().getSpells(5));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_8) {
+				keyboardAttack(Mideas.joueur1().getSpells(6));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_9) {
+				keyboardAttack(Mideas.joueur1().getSpells(7));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_0) {
+				keyboardAttack(Mideas.joueur1().getSpells(8));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == 26) {
+				keyboardAttack(Mideas.joueur1().getSpells(9));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_EQUALS) {
+				keyboardAttack(Mideas.joueur1().getSpells(10));
+				return true;
+			}
 		}
 		return false;
 	}

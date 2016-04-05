@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			Weapon id generator
+		</title>
+	</head>
+	<body>
+		<input type="checkbox" onchange="change()" id="dg"><label for="dg">Dagger</label><br />
+		<input type="checkbox" onchange="change()" id="fp"><label for="fp">FistWeapon</label><br />
+		<input type="checkbox" onchange="change()" id="OHaxe"><label for="OHaxe">OneHandAxe</label><br />
+		<input type="checkbox" onchange="change()" id="THaxe"><label for="THaxe">TwoHandAxe</label><br />
+		<input type="checkbox" onchange="change()" id="OHmace"><label for="OHmace">OneHandMace</label><br />
+		<input type="checkbox" onchange="change()" id="THmace"><label for="THmace">TwoHandMace</label><br />
+		<input type="checkbox" onchange="change()" id="OHsw"><label for="OHsw">OneHandSword</label><br />
+		<input type="checkbox" onchange="change()" id="THsw"><label for="THsw">TwoHandSword</label><br />
+		<input type="checkbox" onchange="change()" id="pa"><label for="pa">PoleArme</label><br />
+		<input type="checkbox" onchange="change()" id="staff"><label for="staff">Staff</label><br />
+		<input type="checkbox" onchange="change()" id="bw"><label for="bw">Bow</label><br />
+		<input type="checkbox" onchange="change()" id="cb"><label for="cb">CrossBow</label><br />
+		<input type="checkbox" onchange="change()" id="gun"><label for="gun">Gun</label><br />
+		<input type="checkbox" onchange="change()" id="wand"><label for="wand">Wand</label><br />
+		<input type="checkbox" onchange="change()" id="tw"><label for="tw">Thrown</label><br />
+		<input type="text" id="result" value="0">
+		<script>
+			function a(id) {
+				return (document.getElementById(id).checked);
+			}
+			
+			function change() {
+				var result = 0;
+				if (a("dg"))
+					result += 1 << 0;
+				if (a("fp"))
+					result += 1 << 1;
+				if (a("OHaxe"))
+					result += 1 << 2;
+				if (a("THaxe"))
+					result += 1 << 3;
+				if (a("OHmace"))
+					result += 1 << 4;
+				if (a("THmace"))
+					result += 1 << 5;
+				if (a("OHsw"))
+					result += 1 << 6;
+				if (a("THsw"))
+					result += 1 << 7;
+				if (a("pa"))
+					result += 1 << 8;
+				if (a("staff"))
+					result += 1 << 9;
+				if (a("bw"))
+					result += 1 << 10;
+				if (a("cb"))
+					result += 1 << 11;
+				if (a("gun"))
+					result += 1 << 10;
+				if (a("wand"))
+					result += 1 << 12;
+				if (a("tw"))
+					result += 1 << 13;
+					document.getElementById("result").value = result;
+			}
+		</script>
+	</body>
+</html>
