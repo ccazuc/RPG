@@ -1,12 +1,10 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
-import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
 
 public class Weapon extends Item {
 
-	protected ClassType[] classType;
+	/*protected ClassType[] classType;
 	protected WeaponType weaponType;
 	protected WeaponSlot weaponSlot;
 	protected int critical;
@@ -65,7 +63,10 @@ public class Weapon extends Item {
 		if(weaponSlot == WeaponSlot.OFFHAND) {
 			return "Off Hand";
 		}
-		return "";
+		if(weaponSlot == WeaponSlot.RANGED) {
+			return "Ranged";
+		}
+ 		return "";
  	}
 	
 	public String convTypeToString() {
@@ -189,4 +190,15 @@ public class Weapon extends Item {
 		}
 		return false;
 	}
+	
+	public boolean canWear() {
+		int i = 0;
+		while(i < Mideas.joueur1().getWeaponType().length) {
+			if(Mideas.joueur1().getweaponType(i) == weaponType) {
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}*/
 }

@@ -1,15 +1,17 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class WeaponManager {
 	
-	private static ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
+	private static ArrayList<Stuff> weaponList = new ArrayList<Stuff>();
 	
 	public static void loadWeapons() throws SQLException, CloneNotSupportedException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, name, sprite_id, class, type, slot, quality, level, armor, stamina, mana, critical, strength, sellprice FROM weapon");
@@ -32,11 +34,11 @@ public class WeaponManager {
 			int critical = statement.getInt();
 			int strength = statement.getInt();
 			int sellPrice = statement.getInt();
-			Weapon newPiece = new Weapon(id, name, sprite_id, classeType, type, slot, quality, level, armor, stamina, mana, critical, strength, sellPrice);
+			Stuff newPiece = new Stuff(id, name, sprite_id, classeType, type, slot, quality, level, armor, stamina, mana, critical, strength, sellPrice);
 			weaponList.add(newPiece);
 		}
 	}
-	public static Weapon getWeapon(int id) {
+	public static Stuff getWeapon(int id) {
 		int i = 0;
 		while(i < weaponList.size()) {
 			if(weaponList.get(i).getId() == id) {
@@ -51,12 +53,23 @@ public class WeaponManager {
 		return getWeapon(id) != null;
 	}
 	
-	public static Weapon getClone(int id) {
-		Weapon temp = getWeapon(id);
+	public static Stuff getClone(int id) {
+		Stuff temp = getWeapon(id);
 		if(temp != null) {
-			return new Weapon(temp);
+			return new Stuff(temp, 0);
 		}
 		return null;
+	}
+	
+	public static boolean canEquipWeapon(Stuff weapon) throws FileNotFoundException, SQLException {
+		if(Mideas.getLevel() >= weapon.getLevel() && weapon.canWearWeapon() && weapon.canEquipTo(DragManager.convClassType())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static ArrayList<Stuff> getWeaponList() {
+		return weaponList;
 	}
 	
 	private static WeaponType getType(String type) {
@@ -114,6 +127,9 @@ public class WeaponManager {
 		}
 		if(slot.equals("MAINHAND")) {
 			return WeaponSlot.MAINHAND;
+		}
+		if(slot.equals("RANGED")) {
+			return WeaponSlot.RANGED;
 		}
 		return null;
 	}

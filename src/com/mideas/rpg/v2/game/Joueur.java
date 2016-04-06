@@ -290,7 +290,7 @@ public class Joueur {
 		if(tempItem == null) {
 			this.stuff[i] = null;
 		}
-		else if(tempItem.getItemType() == ItemType.STUFF) {
+		else if(tempItem.getItemType() == ItemType.STUFF || tempItem.getItemType() == ItemType.WEAPON) {
 			this.stuff[i] = (Stuff)tempItem;
 		}
 	}

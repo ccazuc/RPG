@@ -20,6 +20,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
+import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
@@ -36,6 +37,7 @@ import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
+import com.mideas.rpg.v2.utils.Draw;
 
 public class Mideas {
 	
@@ -45,7 +47,7 @@ public class Mideas {
 	private static JDO jdo;
 	private static Bag bag = new Bag();
 	private static Shop shop = new Shop();
-	private static String cursor;
+	//private static String cursor;
 	private static long last;
 	private static int count;
 	private static String fps;
@@ -116,17 +118,7 @@ public class Mideas {
 		TTF2.init();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		double time = System.currentTimeMillis();
-		//IconsManager.loadSprites();
-		Sprites.sprite();
-		Sprites.sprite2();
-		/*Sprites.sprite3();
-		Sprites.sprite4();
-		Sprites.sprite5();
-		Sprites.sprite6();
-		Sprites.sprite7();*/
-		Sprites.sprite8();
-		Sprites.sprite9();
-		Sprites.sprite10();
+		loadingScreen();
 		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		time = System.currentTimeMillis();
 		initSQL();
@@ -168,6 +160,7 @@ public class Mideas {
 	
 	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, InterruptedException, CloneNotSupportedException {
 		loop();
+		saveAllStats();
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
@@ -390,8 +383,8 @@ public class Mideas {
 		return exp;
 	}
 	
-	public static void setExp() throws FileNotFoundException, SQLException {
-		exp = currentExp+Mideas.joueur2.getExpGained();
+	public static void setExp(int exp) throws FileNotFoundException, SQLException {
+		exp = currentExp+exp;
 		currentExp = exp;
 		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET exp = ? WHERE class = ?");
 		statement.putInt(exp);
@@ -811,6 +804,47 @@ public class Mideas {
 		}
 	}
 	
+	private static void loadingScreen() throws IOException, LWJGLException {
+		Sprites.initBG();
+		context2D();
+		
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen_bar1, Display.getWidth()/2-Sprites.loading_screen_bar1.getImageWidth()/2, Display.getHeight()-100);
+		Display.update();
+		Display.sync(60);
+		
+		Sprites.sprite();
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen_bar2, Display.getWidth()/2-Sprites.loading_screen_bar2.getImageWidth()/2, Display.getHeight()-100);
+		Display.update();
+		Display.sync(60);
+		
+		Sprites.sprite2();
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen_bar3, Display.getWidth()/2-Sprites.loading_screen_bar3.getImageWidth()/2, Display.getHeight()-100);
+		Display.update();
+		Display.sync(60);
+		
+		Sprites.sprite8();
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen_bar4, Display.getWidth()/2-Sprites.loading_screen_bar4.getImageWidth()/2, Display.getHeight()-100);
+		Display.update();
+		Display.sync(60);
+		
+		Sprites.sprite9();
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen_bar5, Display.getWidth()/2-Sprites.loading_screen_bar5.getImageWidth()/2, Display.getHeight()-100);
+		Display.update();
+		Display.sync(60);
+		
+		Sprites.sprite10();
+	}
+	
 	public static Joueur joueur1() {
 		return joueur1;
 	}
@@ -886,6 +920,17 @@ public class Mideas {
 	    catch(LWJGLException e) {
 	        System.out.println("Unable to setup mode "+width+"x"+height+" fullscreen="+fullscreen + e);
 	    }
+	}
+	
+	private static void saveAllStats() throws SQLException, FileNotFoundException {
+		if(Mideas.joueur1() != null) {
+			CharacterStuff.setBagItems();
+			CharacterStuff.setEquippedBags();
+			CharacterStuff.setEquippedItems();
+			Mideas.setGold(0);
+			Mideas.setExp(0);
+		}
+		Mideas.setConfig();
 	}
 	
 	public static int getLevelAll(int exp) {

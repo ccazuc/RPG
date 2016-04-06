@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
@@ -8,6 +9,8 @@ public class Stuff extends Item {
 
 	protected StuffType type;
 	protected ClassType[] classType;
+	protected WeaponType weaponType;
+	protected WeaponSlot weaponSlot;
 	protected Wear wear;
 	protected int critical;
 	protected int strength;
@@ -41,6 +44,100 @@ public class Stuff extends Item {
 		this.stamina = stamina;
 		this.armor = armor;
 		this.mana = mana;
+	}
+
+	public Stuff(Stuff stuff, int i) {
+		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.quality, stuff.sellPrice, stuff.maxStack);
+		this.classType = stuff.classType;
+		this.weaponType = stuff.weaponType;
+		this.weaponSlot = stuff.weaponSlot;
+		this.critical = stuff.critical;
+		this.level = stuff.level;
+		this.strength = stuff.strength;
+		this.stamina = stuff.stamina;
+		this.armor = stuff.armor;
+		this.mana = stuff.mana;
+	}
+	
+	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
+		super(id, sprite_id, ItemType.WEAPON, name, quality, sellPrice, 1);
+		this.classType = classType;
+		this.weaponType = weaponType;
+		this.weaponSlot = weaponSlot;
+		this.critical = critical;
+		this.strength = strength;
+		this.level = level;
+		this.stamina = stamina;
+		this.armor = armor;
+		this.mana = mana;
+	}
+
+	public boolean canWearWeapon() {
+		int i = 0;
+		while(i < Mideas.joueur1().getWeaponType().length) {
+			if(Mideas.joueur1().getweaponType(i) == weaponType) {
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}
+	
+	public WeaponSlot getWeaponSlot() {
+		return weaponSlot;
+	}
+
+	public WeaponType getWeaponType() {
+		return weaponType;
+	}
+	
+	public String convTypeToString() {
+		if(weaponType == WeaponType.BOW) {
+			return "Bow";
+		}
+		if(weaponType == WeaponType.CROSSBOW) {
+			return "Crossbow";
+		}
+		if(weaponType == WeaponType.DAGGER) {
+			return "Dagger";
+		}
+		if(weaponType == WeaponType.FISTWEAPON) {
+			return "Fist weapon";
+		}
+		if(weaponType == WeaponType.GUN) {
+			return "Gun";
+		}
+		if(weaponType == WeaponType.ONEHANDEDAXE) {
+			return "One handed axe";
+		}
+		if(weaponType == WeaponType.ONEHANDEDMACE) {
+			return "One handed mace";
+		}
+		if(weaponType == WeaponType.ONEHANDEDSWORD) {
+			return "One handed sword";
+		}
+		if(weaponType == WeaponType.POLEARM) {
+			return "Polearm";
+		}
+		if(weaponType == WeaponType.STAFF) {
+			return "Staff";
+		}
+		if(weaponType == WeaponType.THROWN) {
+			return "Thrown";
+		}
+		if(weaponType == WeaponType.TWOHANDEDAXE) {
+			return "Two handed axe";
+		}
+		if(weaponType == WeaponType.TWOHANDEDMACE) {
+			return "Two handed mace";
+		}
+		if(weaponType == WeaponType.TWOHANDEDSWORD) {
+			return "Two handed sword";
+		}
+		if(weaponType == WeaponType.WAND) {
+			return "Wand";
+		}
+		return "";
 	}
 	
 	public int getCritical() {
@@ -198,6 +295,67 @@ public class Stuff extends Item {
 			i++;
 		}
 		return false;
+	}
+	public String convSlotToString() {
+		if(weaponSlot == WeaponSlot.MAINHAND) {
+			return "Main Hand";
+		}
+		if(weaponSlot == WeaponSlot.OFFHAND) {
+			return "Off Hand";
+		}
+		if(weaponSlot == WeaponSlot.RANGED) {
+			return "Ranged";
+		}
+ 		return "";
+ 	}
+	
+	public String convWeaponTypeToString() {
+		if(weaponType == WeaponType.BOW) {
+			return "Bow";
+		}
+		if(weaponType == WeaponType.CROSSBOW) {
+			return "Crossbow";
+		}
+		if(weaponType == WeaponType.DAGGER) {
+			return "Dagger";
+		}
+		if(weaponType == WeaponType.FISTWEAPON) {
+			return "Fist weapon";
+		}
+		if(weaponType == WeaponType.GUN) {
+			return "Gun";
+		}
+		if(weaponType == WeaponType.ONEHANDEDAXE) {
+			return "One handed axe";
+		}
+		if(weaponType == WeaponType.ONEHANDEDMACE) {
+			return "One handed mace";
+		}
+		if(weaponType == WeaponType.ONEHANDEDSWORD) {
+			return "One handed sword";
+		}
+		if(weaponType == WeaponType.POLEARM) {
+			return "Polearm";
+		}
+		if(weaponType == WeaponType.STAFF) {
+			return "Staff";
+		}
+		if(weaponType == WeaponType.THROWN) {
+			return "Thrown";
+		}
+		if(weaponType == WeaponType.TWOHANDEDAXE) {
+			return "Two handed axe";
+		}
+		if(weaponType == WeaponType.TWOHANDEDMACE) {
+			return "Two handed mace";
+		}
+		if(weaponType == WeaponType.TWOHANDEDSWORD) {
+			return "Two handed sword";
+		}
+		if(weaponType == WeaponType.WAND) {
+			return "Wand";
+		}
+		return "";
 	}
 	
 	public boolean isHead() {

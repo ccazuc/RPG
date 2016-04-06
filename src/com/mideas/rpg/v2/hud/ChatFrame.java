@@ -619,7 +619,7 @@ public class ChatFrame {
 				CharacterStuff.setEquippedBags();
 				CharacterStuff.setEquippedItems();
 				Mideas.setConfig();
-				Mideas.setExp();
+				Mideas.setExp(0);
 				Mideas.setGold(0);
 			}
 			else if(tempMessage.contains(".modify gold ")) {

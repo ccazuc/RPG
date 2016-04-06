@@ -78,7 +78,7 @@ public class EndFightFrame {
 					CharacterStuff.setEquippedBags();
 					CharacterStuff.setEquippedItems();
 					Mideas.setConfig();
-					Mideas.setExp();
+					Mideas.setExp(Mideas.joueur2().getExpGained());
 					Mideas.setGold(0);
 				}
 				else if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
@@ -308,7 +308,7 @@ public class EndFightFrame {
 	}
 	
 	public static void doEndFightEvent() throws SQLTimeoutException, FileNotFoundException, SQLException {
-		Mideas.setExp();
+		Mideas.setExp(Mideas.joueur2().getExpGained());
 		Mideas.getLevel();
 		Mideas.setGold(Mideas.joueur2().getGoldGained());
 		lootManager();

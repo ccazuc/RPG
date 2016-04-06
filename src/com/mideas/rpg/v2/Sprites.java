@@ -483,6 +483,22 @@ public class Sprites {
 	public static Texture escape_frame_open;
 	public static Texture shortcut_hover;
 	public static Texture bag_hover_tooltip;
+	public static Texture loading_screen_bar1;
+	public static Texture loading_screen_bar2;
+	public static Texture loading_screen_bar3;
+	public static Texture loading_screen_bar4;
+	public static Texture loading_screen_bar5;
+	public static Texture loading_screen_bar6;
+	
+	public static void initBG() throws IOException {
+		loading_screen = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/interface/loading_screen.jpg"));
+		loading_screen_bar1 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/loadingbar.png"));
+		loading_screen_bar2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/loadingscreen_1.png"));
+		loading_screen_bar3 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/loadingscreen_2.png"));
+		loading_screen_bar4 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/loadingscreen_3.png"));
+		loading_screen_bar5 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/loadingscreen_4.png"));
+		loading_screen_bar6 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/loadingscreen_5.png"));
+	}
 	
 	public static boolean sprite() throws IOException {
 		shortcut_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shortcut_hover.png"));
@@ -500,7 +516,6 @@ public class Sprites {
 		final_spellbar = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/final_spellbar.png"));
 		up_chat_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/up_chat_button.png"));
 		chat_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/chat_button.png"));
-		loading_screen = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/interface/loading_screen.jpg"));
 		craft_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/craft_frame.png"));
 		linen_cloth = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/craft/linen_cloth.jpg"));
 		bag_linen_cloth = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/items/bagcraft/bag_linen_cloth.jpg"));

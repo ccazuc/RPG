@@ -8,7 +8,6 @@ import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.BagManager;
-import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
@@ -757,20 +756,20 @@ public class CharacterStuff {
 				numberPieceLoaded++;
 			}
 			id = statement.getInt();
-			/*if(WeaponManager.exists(id) && WeaponManager.getWeapon(id).canEquipMainHand()) {
+			if(WeaponManager.exists(id) && WeaponManager.canEquipWeapon(WeaponManager.getWeapon(id))) {
 				Mideas.joueur1().setStuff(16, WeaponManager.getClone(id));
 				numberPieceLoaded++;
-			}*/
+			}
 			id = statement.getInt();
-			/*if(WeaponManager.exists(id) && WeaponManager.getWeapon(id).isOffHand()) {
+			if(WeaponManager.exists(id) && WeaponManager.canEquipWeapon(WeaponManager.getWeapon(id))) {
 				Mideas.joueur1().setStuff(17, WeaponManager.getClone(id));
 				numberPieceLoaded++;
-			}*/
+			}
 			id = statement.getInt();
-			/*if(WeaponManager.exists(id) && WeaponManager.getWeapon(id).isRanged()) {
+			if(WeaponManager.exists(id) && WeaponManager.canEquipWeapon(WeaponManager.getWeapon(id))) {
 				Mideas.joueur1().setStuff(18, WeaponManager.getClone(id));
 				numberPieceLoaded++;
-			}*/
+			}
 		}
 		else {
 			System.out.println("statement error (stuff load)");
