@@ -263,7 +263,7 @@ public class Joueur {
 	}
 
 	public Shortcut getSpells(int i) {
-		return spells[i];
+		return this.spells[i];
 	}
 	
 	public void setSpells(int i, Shortcut spell) {
@@ -348,7 +348,7 @@ public class Joueur {
 	}
 	
 	public int getNumberItem(Item item) {
-		if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
+		if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION && Mideas.bag().getNumberStack().containsKey(item)) {
 			return Mideas.bag().getNumberStack().get(item);
 		}
 		return 0;

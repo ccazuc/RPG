@@ -11,5 +11,6 @@ public interface Shortcut {
 	abstract boolean use(Shortcut shortcut) throws SQLException, FileNotFoundException;
 	abstract void setCd(int id, int cd);
 	abstract ShortcutType getShortcutType();
+	abstract int getId();
 	
 }

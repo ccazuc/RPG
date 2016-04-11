@@ -132,16 +132,16 @@ public class ClassSelectFrame {
 		warlockHover = isClassHover(46, -13);
 		monkHover = isClassHover(108, -13);
 		if(Mouse.getEventButtonState()) {
-			setNewClass("Guerrier", ClassManager.getClone("Guerrier"), warriorHover);
-			setNewClass("Paladin", ClassManager.getClone("Paladin"), paladinHover);
-			setNewClass("Hunter", ClassManager.getClone("Hunter"), hunterHover);
-			setNewClass("Rogue", ClassManager.getClone("Rogue"), rogueHover);
-			setNewClass("Priest", ClassManager.getClone("Priest"), priestHover);
-			setNewClass("DeathKnight", ClassManager.getClone("DeathKnight"), deathknightHover);
-			setNewClass("Shaman", ClassManager.getClone("Shaman"), shamanHover);
-			setNewClass("Mage", ClassManager.getClone("Mage"), mageHover);
-			setNewClass("Warlock", ClassManager.getClone("Warlock"), warlockHover);
-			setNewClass("Monk", ClassManager.getClone("Monk"), monkHover);
+			setNewClass("Guerrier", ClassManager.getPlayerClone("Guerrier"), warriorHover);
+			setNewClass("Paladin", ClassManager.getPlayerClone("Paladin"), paladinHover);
+			setNewClass("Hunter", ClassManager.getPlayerClone("Hunter"), hunterHover);
+			setNewClass("Rogue", ClassManager.getPlayerClone("Rogue"), rogueHover);
+			setNewClass("Priest", ClassManager.getPlayerClone("Priest"), priestHover);
+			setNewClass("DeathKnight", ClassManager.getPlayerClone("DeathKnight"), deathknightHover);
+			setNewClass("Shaman", ClassManager.getPlayerClone("Shaman"), shamanHover);
+			setNewClass("Mage", ClassManager.getPlayerClone("Mage"), mageHover);
+			setNewClass("Warlock", ClassManager.getPlayerClone("Warlock"), warlockHover);
+			setNewClass("Monk", ClassManager.getPlayerClone("Monk"), monkHover);
 		}
 		return false;
 	}

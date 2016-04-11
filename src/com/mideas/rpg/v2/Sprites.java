@@ -16,6 +16,7 @@ public class Sprites {
 	public static Texture hover;
 	public static Texture bag_hover2;
 	public static Texture close_bag_button;
+	public static Texture close_bag_button_hover;
 	public static Texture un_green_talent;
 	public static Texture deux_green_talent;
 	public static Texture trois_green_talent;
@@ -484,6 +485,9 @@ public class Sprites {
 	public static Texture shortcut_hover;
 	public static Texture bag_hover_tooltip;
 	public static Texture loading_screen_bar1;
+	public static Texture itemnumber_frame;
+	public static Texture itemnumber_hover_ok;
+	public static Texture itemnumber_hover_cancel;
 	public static Texture loading_screen_bar2;
 	public static Texture loading_screen_bar3;
 	public static Texture loading_screen_bar4;
@@ -501,8 +505,12 @@ public class Sprites {
 	}
 	
 	public static boolean sprite() throws IOException {
+		itemnumber_hover_ok = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_hover_ok.png"));
+		itemnumber_hover_cancel = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_hover_cancel.png"));
+		itemnumber_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_frame.png"));
 		shortcut_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shortcut_hover.png"));
 		close_bag_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_bag.png"));
+		close_bag_button_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_bag_hover.png"));
 		bag_hover_tooltip = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_hover_tooltip.png"));
 		elevator_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/elevator_button.png"));
 		bag_click_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_click_hover.png"));

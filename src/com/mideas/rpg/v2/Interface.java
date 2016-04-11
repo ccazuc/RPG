@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.ShopManager;
+import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
@@ -71,6 +72,7 @@ public class Interface {
 			}
 			else {
 				if(Mideas.joueur1() != null && !isGoldLoaded) {
+					SpellBarManager.loadSpellBar();
 					Mideas.getGold();
 					isGoldLoaded = true;
 				}

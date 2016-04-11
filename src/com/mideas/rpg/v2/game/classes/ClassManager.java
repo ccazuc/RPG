@@ -15,7 +15,7 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class ClassManager {
 
-	private static HashMap<String, Joueur> joueurList = new HashMap<String, Joueur>();
+	private static HashMap<String, Joueur> playerList = new HashMap<String, Joueur>();
 	private static HashMap<String, Joueur> iaList = new HashMap<String, Joueur>();
 	
 	public static void loadClasses() throws SQLException, CloneNotSupportedException {
@@ -38,11 +38,13 @@ public class ClassManager {
 			int expGained = statement.getInt();
 			int goldGained = statement.getInt();
 			Shortcut[] spells = new Shortcut[49];
+			Shortcut[] spellss = new Shortcut[49];
 			Spell[] spellUnlocked = new Spell[49];
+			Spell[] spellUnlockeds = new Spell[49];
 			Stuff[] stuff = new Stuff[20];
 			Joueur newClass = new Joueur(id, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff);
-			Joueur iaClass = new Joueur(id, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff);
-			joueurList.put(id, newClass);
+			Joueur iaClass = new Joueur(id, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellss, spellUnlockeds, stuff);
+			playerList.put(id, newClass);
 			iaList.put(id, iaClass);
 			initTable(id);
 		}
@@ -134,6 +136,14 @@ public class ClassManager {
 		return null;
 	}
 	
+	public static Joueur getPlayerClone(String id) {
+		Joueur temp = playerList.get(id);
+		if(temp != null) {
+			return new Joueur(temp);
+		}
+		return null;
+	}
+	
 	public static Joueur getPlayer(String id) {
 		return iaList.get(id);
 	}
@@ -164,8 +174,8 @@ public class ClassManager {
 	
 	private static void initTable(String id) {
 		if(id.equals("Guerrier")) {
-			joueurList.get("Guerrier").setSpellUnlocked(0, SpellManager.getBookSpell(102));
-			joueurList.get("Guerrier").setSpells(0, SpellManager.getShortcutSpell(102));
+			playerList.get("Guerrier").setSpellUnlocked(0, SpellManager.getBookSpell(102));
+			//joueurList.get("Guerrier").setSpells(0, SpellManager.getShortcutSpell(102));
 			iaList.get("Guerrier").setSpellUnlocked(0, SpellManager.getBookSpell(102));
 			iaList.get("Guerrier").setSpells(0, SpellManager.getShortcutSpell(102));
 		}

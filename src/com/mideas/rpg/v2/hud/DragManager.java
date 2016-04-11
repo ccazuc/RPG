@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -40,6 +41,7 @@ public class DragManager {
 	private static Item draggedItem;
 	private static int mouseX;
 	private static int mouseY;
+	private static boolean draggedItemSplit;
 	
 	public static void draw() {
 		hoverDelete = false;
@@ -78,75 +80,81 @@ public class DragManager {
 	}
 	
 	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
-		if(Mouse.getEventButton() == 0) {
-			if(Mouse.getEventButtonState()) {
-				if(checkInventoryClick() && draggedItem == null) {
-					leftClickInventoryDown = true;
-					mouseX = Mideas.mouseX();
-					mouseY = Mideas.mouseY();
-				}
-				if(checkBagClick() && draggedItem == null) {
-					leftClickBagDown = true;
-					mouseX = Mideas.mouseX();
-					mouseY = Mideas.mouseY();
+		if(!ContainerFrame.isHoverItemNumberFrame()) {
+			if(Keyboard.isKeyDown(42) && !Mouse.getEventButtonState() && (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)) {
+				int i = 0;
+				while(i < Mideas.bag().getBag().length) {
+					if(ContainerFrame.getContainerFrameSlotHover(i)) {
+						if(Mideas.bag().getBag(i) != null) {
+							if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION || Mideas.bag().getBag(i).getItemType() == ItemType.ITEM) {
+								if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) > 1) {
+									ContainerFrame.setItemNumberOpen(i, true);
+									leftClickBagDown = false;
+									return true;
+								}
+							}
+						}
+					}
+					i++;
 				}
 			}
-			else {
-				int i = 0;
-				if(draggedItem != null) {
-					if(draggedItem != null && !deleteItem && !isSpellBarHover() && !isHoverCharacterFrame() && !isHoverBagFrame()) {
-						deleteItem = true;
-						return true;
+			if(Mouse.getEventButton() == 0) {
+				if(Mouse.getEventButtonState()) {
+					if(checkInventoryClick() && draggedItem == null) {
+						leftClickInventoryDown = true;
+						mouseX = Mideas.mouseX();
+						mouseY = Mideas.mouseY();
 					}
-					if(Interface.getCharacterFrameStatus()) {
-						if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {				
-							if(!checkCharacterHover() && !deleteItem) {
-								if(checkCharacterItems(draggedItem)) {
-									draggedItem = null;
-									leftClickInventoryDown = false;
-									Arrays.fill(clickInventory, false);
-									return true;
+					if(checkBagClick() && draggedItem == null) {
+						leftClickBagDown = true;
+						mouseX = Mideas.mouseX();
+						mouseY = Mideas.mouseY();
+					}
+				}
+				else {
+					int i = 0;
+					if(draggedItem != null) {
+						if(draggedItem != null && !deleteItem && !isSpellBarHover() && !isHoverCharacterFrame() && !isHoverBagFrame()) {
+							deleteItem = true;
+							return true;
+						}
+						if(Interface.getCharacterFrameStatus()) {
+							if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {				
+								if(!checkCharacterHover() && !deleteItem) {
+									if(checkCharacterItems(draggedItem)) {
+										draggedItem = null;
+										leftClickInventoryDown = false;
+										Arrays.fill(clickInventory, false);
+										return true;
+									}
+								}
+							}
+						}
+						if(isHoverBagFrame()) {
+							if(!checkBagHover()) {
+								while(i < Mideas.bag().getBag().length) {
+									if(clickBagItem(i)) {
+										draggedItem = null;
+										leftClickBagDown = false;
+										Arrays.fill(clickBag, false);
+										return true;
+									}
+									i++;
 								}
 							}
 						}
 					}
-					if(isHoverBagFrame()) {
-						if(!checkBagHover()) {
-							while(i < Mideas.bag().getBag().length) {
-								if(clickBagItem(i)) {
-									draggedItem = null;
-									leftClickBagDown = false;
-									Arrays.fill(clickBag, false);
-									return true;
-								}
-								i++;
+					if(leftClickInventoryDown && draggedItem == null) {
+						while(i < CharacterFrame.getHoverCharacterFrame().length) {
+							if(clickInventoryItem(i)) {
+								leftClickInventoryDown = false;
+								Arrays.fill(clickInventory, false);
+								return true;
 							}
+							i++;
 						}
 					}
-				}
-				if(leftClickInventoryDown && draggedItem == null) {
-					while(i < CharacterFrame.getHoverCharacterFrame().length) {
-						if(clickInventoryItem(i)) {
-							leftClickInventoryDown = false;
-							Arrays.fill(clickInventory, false);
-							return true;
-						}
-						i++;
-					}
-				}
-				if(leftClickBagDown && draggedItem == null && !checkBagHover()) {
-					while(i < Mideas.bag().getBag().length) {
-						if(clickBagItem(i)) {
-							leftClickBagDown = false;
-							Arrays.fill(clickBag, false);
-							return true;
-						}
-						i++;
-					}
-				}
-				if(Interface.getContainerFrameStatus()) {
-					i = 0;
-					if(isHoverBagFrame()) {
+					if(leftClickBagDown && draggedItem == null && !checkBagHover()) {
 						while(i < Mideas.bag().getBag().length) {
 							if(clickBagItem(i)) {
 								leftClickBagDown = false;
@@ -156,94 +164,109 @@ public class DragManager {
 							i++;
 						}
 					}
-				}
-				if(Interface.getCharacterFrameStatus()) {
-					if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
+					if(Interface.getContainerFrameStatus()) {
 						i = 0;
-						while(i < Mideas.joueur1().getStuff().length) {
-							if(clickInventoryItem(i)) {
-								return true;
+						if(isHoverBagFrame()) {
+							while(i < Mideas.bag().getBag().length) {
+								if(clickBagItem(i)) {
+									leftClickBagDown = false;
+									Arrays.fill(clickBag, false);
+									return true;
+								}
+								i++;
 							}
-							i++;
 						}
 					}
-				}
-				leftClickInventoryDown = false;
-				leftClickBagDown = false;
-				Arrays.fill(clickBag, false);
-				Arrays.fill(clickInventory, false);
-			}
-		}
-		if(leftClickInventoryDown && draggedItem == null) {
-			if(Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseX)) >= 27 || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseY)) >= 27) {
-				setDraggedItemForCharacter();
-				Arrays.fill(clickInventory, false);
-			}
-		}
-		if(leftClickBagDown && draggedItem == null) {
-			if(Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseX)) >= 16 || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseY)) >= 16) {
-				setDraggedItemForBag();
-				Arrays.fill(clickBag, false);
-			}
-		}
-		if(Mouse.getEventButton() == 0) {
-			if(!Mouse.getEventButtonState()) {
-				if(hoverDelete && deleteItem) {
-					if(draggedItem.getItemType() == ItemType.ITEM || draggedItem.getItemType() == ItemType.POTION) {
-						Mideas.joueur1().setNumberItem(draggedItem, -1);
+					if(Interface.getCharacterFrameStatus()) {
+						if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
+							i = 0;
+							while(i < Mideas.joueur1().getStuff().length) {
+								if(clickInventoryItem(i)) {
+									return true;
+								}
+								i++;
+							}
+						}
 					}
-					if(checkCharacterItems(draggedItem)) {
-						calcStatsLess(draggedItem);
-					}
-					deleteItem(draggedItem);
-					draggedItem = null;
-					CharacterStuff.setEquippedItems();
-					CharacterStuff.setBagItems();
-					SpellBarFrame.setBagChange(true);
-					deleteItem = false;
+					leftClickInventoryDown = false;
+					leftClickBagDown = false;
+					Arrays.fill(clickBag, false);
+					Arrays.fill(clickInventory, false);
 				}
-				if(hoverSave && deleteItem) {
-					if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
-						checkFreeSlotBag(draggedItem);
+			}
+			if(leftClickInventoryDown && draggedItem == null) {
+				if(Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseX)) >= 27 || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseY)) >= 27) {
+					setDraggedItemForCharacter();
+					Arrays.fill(clickInventory, false);
+				}
+			}
+			if(leftClickBagDown && draggedItem == null) {
+				if(Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseX)) >= 16 || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseY)) >= 16) {
+					setDraggedItemForBag();
+					Arrays.fill(clickBag, false);
+				}
+			}
+			if(Mouse.getEventButton() == 0) {
+				if(!Mouse.getEventButtonState()) {
+					if(hoverDelete && deleteItem) {
+						if(draggedItem.getItemType() == ItemType.ITEM || draggedItem.getItemType() == ItemType.POTION) {
+							Mideas.joueur1().setNumberItem(draggedItem, -1);
+							SpellBarFrame.setItemChange(true);
+						}
+						if(checkCharacterItems(draggedItem)) {
+							calcStatsLess(draggedItem);
+						}
+						deleteItem(draggedItem);
+						draggedItem = null;
+						CharacterStuff.setEquippedItems();
+						CharacterStuff.setBagItems();
 						SpellBarFrame.setBagChange(true);
+						deleteItem = false;
 					}
-					draggedItem = null;
+					if(hoverSave && deleteItem) {
+						if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
+							checkFreeSlotBag(draggedItem);
+							SpellBarFrame.setBagChange(true);
+						}
+						draggedItem = null;
+						deleteItem = false;
+					}
+					if(deleteItem) {
+						draggedItem = null;
+					}
 					deleteItem = false;
 				}
-				if(deleteItem) {
-					draggedItem = null;
-				}
-				deleteItem = false;
 			}
-		}
-		if(Mouse.getEventButton() == 1) {
-			if(!Mouse.getEventButtonState()) {
-				int i = 0;
-				while(i < Mideas.bag().getBag().length) {
-					if(Mideas.bag().getBag(i) != null) {
-						if(ContainerFrame.getContainerFrameSlotHover(i)) {
-							if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
-								doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), i);
-								Arrays.fill(clickBag, false);
-								return true;
-							}
-							else if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF || Mideas.bag().getBag(i).getItemType() == ItemType.WEAPON) {
-								equipBagItem(i);
-								Arrays.fill(clickBag, false);
-								return true;
+			if(Mouse.getEventButton() == 1 && !Keyboard.isKeyDown(42)) {
+				if(!Mouse.getEventButtonState()) {
+					int i = 0;
+					while(i < Mideas.bag().getBag().length) {
+						if(Mideas.bag().getBag(i) != null) {
+							if(ContainerFrame.getContainerFrameSlotHover(i)) {
+								if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
+									doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), i);
+									SpellBarFrame.setItemChange(true);
+									Arrays.fill(clickBag, false);
+									return true;
+								}
+								else if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF || Mideas.bag().getBag(i).getItemType() == ItemType.WEAPON) {
+									equipBagItem(i);
+									Arrays.fill(clickBag, false);
+									return true;
+								}
 							}
 						}
+						i++;
 					}
-					i++;
+					Arrays.fill(clickBag, false);
 				}
-				Arrays.fill(clickBag, false);
-			}
-			else {
-				if(checkBagClick() && draggedItem == null) {
-					return true;
-				}
-				if(draggedItem != null) {
-					draggedItem = null;
+				else {
+					if(checkBagClick() && draggedItem == null) {
+						return true;
+					}
+					if(draggedItem != null) {
+						draggedItem = null;
+					}
 				}
 			}
 		}
@@ -355,99 +378,6 @@ public class DragManager {
 		}
 	}
 	
-	/*private static void dropBagItem(int i) throws FileNotFoundException, SQLException {
-		//System.out.println(Mideas.joueur1().getStuff(15));
-		//System.out.println(Mideas.joueur1().getStuff(14));
-		if(ContainerFrame.getContainerFrameSlotHover(i) && draggedItem != null) {
-			if(!draggedItem.equals(Mideas.bag().getBag(i))) {
-				Item tempItem = Mideas.bag().getBag(i);
-				if(setNullContainer(draggedItem, Mideas.bag().getBag(i))) {
-					Mideas.bag().setBag(i, draggedItem);
-					
-						System.out.println("b");
-				}
-					else {
-						draggedItem = null;
-					}
-			}
-				else {
-					Mideas.bag().setBag(i, draggedItem);
-					System.out.println("a");
-					setNullCharacter(draggedItem);
-					draggedItem = tempItem;
-				}
-				CharacterStuff.setEquippedItems();
-				CharacterStuff.setBagItems();
-			}
-			else {
-				draggedItem = null;
-			}
-		}
-	}*/
-	
-	
-	/*private static boolean dropBagItem(int i) throws FileNotFoundException, SQLException {
-	//System.out.println(Mideas.joueur1().getStuff(15));
-	//System.out.println(Mideas.joueur1().getStuff(14));
-		if(ContainerFrame.getContainerFrameSlotHover(i) && draggedItem != null) {
-			//if(!draggedItem.equals(Mideas.bag().getBag(i))) {
-			if(checkCharacterItems(draggedItem)) {                                          //if draggedItem comes from inventory       
-				if(Mideas.bag().getBag(i) == null) { 
-					Mideas.bag().setBag(i, draggedItem);
-					SpellBarFrame.setBagChange(true);
-					calcStatsLess(draggedItem);
-					setNullCharacter(draggedItem);
-					draggedItem = null;
-					CharacterStuff.setEquippedItems();
-					CharacterStuff.setBagItems();
-					return true;
-				}
-				else {
-					//if(checkFreeSlotBag(tempItem)) {
-						//calcStatsLess(draggedItem);
-						//setNullCharacter(draggedItem);
-						exchangeCharacterItem(i);
-						SpellBarFrame.setBagChange(true);
-						draggedItem = null;
-						CharacterStuff.setEquippedItems();
-						CharacterStuff.setBagItems();
-						return true;
-					//}
-					//else {
-						//tempItem = Mideas.bag().getBag(i);
-						//Mideas.bag().setBag(i, draggedItem);
-						//SpellBarFrame.setBagChange(true);
-						//draggedItem = tempItem;
-						//CharacterStuff.setEquippedItems();
-						//CharacterStuff.setBagItems();
-						//return true;
-					//}
-				}
-			}
-			else if(checkBagItems(draggedItem)) {                             //if draggedItem comes from bags
-				if(Mideas.bag().getBag(i) == null) {
-					setNullContainer(draggedItem);
-					Mideas.bag().setBag(i, draggedItem);
-					SpellBarFrame.setBagChange(true);
-					CharacterStuff.setEquippedItems();
-					CharacterStuff.setBagItems();
-					draggedItem = null;
-					return true;
-				}
-				else {
-					exchangeBagItems(draggedItem, Mideas.bag().getBag(i));
-					Mideas.bag().setBag(i, draggedItem);
-					SpellBarFrame.setBagChange(true);
-					draggedItem = null;
-					CharacterStuff.setEquippedItems();
-					CharacterStuff.setBagItems();
-					return true;
-				}
-			}
-		}
-		return false;
-	}*/
-	
 	private static boolean clickBagItem(int i) throws FileNotFoundException, SQLException {
 		if(ContainerFrame.getContainerFrameSlotHover(i)) {
 			if(draggedItem == null) {
@@ -487,9 +417,24 @@ public class DragManager {
 					Mideas.bag().setBag(i, draggedItem);
 					SpellBarFrame.setBagChange(true);
 					draggedItem = null;
-					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
 					return true;
+				}
+				else if(draggedItem.getItemType() == ItemType.POTION && draggedItem.getId() == Mideas.bag().getBag(i).getId()) {
+					if(draggedItem != Mideas.bag().getBag(i)) {
+						int number = Mideas.joueur1().getNumberItem(draggedItem)+Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i));
+						System.out.println(number);
+						setNullContainer(draggedItem);
+						Mideas.bag().getNumberStack().put(Mideas.bag().getBag(i), number);
+						draggedItem = null;
+						Mideas.bag().getNumberStack().remove(draggedItem);
+						CharacterStuff.setBagItems();
+						return true;
+					}
+					else {
+						draggedItem = null;
+						return true;
+					}
 				}
 				else {
 					Item tempItem = Mideas.bag().getBag(i);
@@ -497,7 +442,6 @@ public class DragManager {
 					Mideas.bag().setBag(i, draggedItem);
 					draggedItem = null;
 					SpellBarFrame.setBagChange(true);
-					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
 					return true;
 				}
@@ -507,18 +451,42 @@ public class DragManager {
 					Mideas.bag().setBag(i, draggedItem);
 					SpellBarFrame.setBagChange(true);
 					draggedItem = null;
-					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
 					return true;
 				}
 				else {
-					Item tempItem = Mideas.bag().getBag(i);
-					Mideas.bag().setBag(i, draggedItem);
-					SpellBarFrame.setBagChange(true);
-					draggedItem = tempItem;
-					CharacterStuff.setEquippedItems();
-					CharacterStuff.setBagItems();
-					return true;
+					if(draggedItem.getItemType() == ItemType.POTION && draggedItem.getId() == Mideas.bag().getBag(i).getId()) {
+						if(draggedItem != Mideas.bag().getBag(i)) {
+							int number = Mideas.joueur1().getNumberItem(draggedItem)+Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i));
+							setNullContainer(draggedItem);
+							Mideas.bag().getNumberStack().put(Mideas.bag().getBag(i), number);
+							draggedItem = null;
+							Mideas.bag().getNumberStack().remove(draggedItem);
+							CharacterStuff.setBagItems();
+							return true;
+						}
+						else {
+							draggedItem = null;
+							return true;
+						}
+					}
+					if(draggedItemSplit) {
+						if(draggedItem.getId() != Mideas.bag().getBag(i).getId()) {
+							Mideas.joueur1().setNumberItem(Mideas.bag().getBag(ContainerFrame.getLastSplit()), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(ContainerFrame.getLastSplit()))+Mideas.joueur1().getNumberItem(draggedItem));
+							draggedItem = null;
+							CharacterStuff.setBagItems();
+							draggedItemSplit = false;
+							return true;
+						}
+					}
+					else {
+						Item tempItem = Mideas.bag().getBag(i);
+						Mideas.bag().setBag(i, draggedItem);
+						SpellBarFrame.setBagChange(true);
+						draggedItem = tempItem;
+						CharacterStuff.setBagItems();
+						return true;
+					}
 				}
 			}
 		}
@@ -617,6 +585,9 @@ public class DragManager {
 							CharacterStuff.setBagItems();
 						}
 					}
+				}
+				else {
+					draggedItem = null;
 				}
 			}
 			else if(draggedItem.getItemType() == ItemType.STUFF){
@@ -858,6 +829,27 @@ public class DragManager {
 		return false;
 	}
 	
+	public static boolean checkFreeSlotBag(Potion potion) {
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == potion.getId()) {
+				Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+1);
+				return true;
+			}
+			i++;
+		}
+		i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(Mideas.bag().getBag(i) == null) {
+				Mideas.bag().setBag(i, potion);
+				Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), 1);
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}
+	
 	/*private static boolean exchangeBagItems(Item draggedItem, Item item) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
@@ -1040,5 +1032,9 @@ public class DragManager {
 			}
 		}
 		return false;
+	}
+	
+	public static void setDraggedItemSplit(boolean we) {
+		draggedItemSplit = we;
 	}
 }

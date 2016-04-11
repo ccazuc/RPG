@@ -1,7 +1,10 @@
 package com.mideas.rpg.v2.hud;
 
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
@@ -16,6 +19,7 @@ import com.mideas.rpg.v2.game.shortcut.ShortcutType;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -36,21 +40,18 @@ public class DragSpellManager {
 		}
 	}
 	
-	public static boolean mouseEvent() {
-		//if(isHoverSpellBarFrame()) {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+		if(isHoverSpellBarFrame()) {
 			Arrays.fill(hover, false);
-		//}
+		}
 		float x = -678+56.3f;
 		float xShift = 56.3f;
 		int y = -49;
 		int i = 0;
 		int j = 0;
-		//if(isHoverSpellBarFrame()) {
+		if(isHoverSpellBarFrame()) {
 			while(i < SpellBarFrame.getHoverSpellBar().length) {
 				isHoverSpellBar(x+j*xShift, y, i);
-				/*if(hover[i]) {
-					System.out.println(i);
-				}*/
 				j++;
 				i++;
 				if(i == 11) {
@@ -58,16 +59,16 @@ public class DragSpellManager {
 					j = -1;
 				}
 			}
-		//}
-		if(Mouse.getEventButton() == 1) {
-			if(Mouse.getEventButtonState()) {
-				//if(isHoverSpellBarFrame()) {
+		}
+		if(Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0 && Keyboard.isKeyDown(42)) { //caps key
+				if(isHoverSpellBarFrame()) {
 					i = 0;
 					while(i < SpellBarFrame.getHoverSpellBar().length) {
 						clickSpell(i);
 						i++;
 					}
-				//}
+				}
 				//hover spellbook
 				if(SpellBookFrame.getHoverBook(1) && Mideas.joueur1().getSpellUnlocked(0) != null) {
 					draggedBookSpell = SpellManager.getBookSpell(102);
@@ -88,16 +89,18 @@ public class DragSpellManager {
 		}
 		if(!Mouse.getEventButtonState()) {
 			if(DragManager.getDraggedItem() != null && Mouse.getEventButton() == 0) {
-				//if(isHoverSpellBarFrame()) {
+				if(isHoverSpellBarFrame()) {
 					i = 0;
 					while(i < SpellBarFrame.getHoverSpellBar().length) {
-						dropSpell(i);
+						if(dropSpell(i)) {
+							break;
+						}
 						i++;
 					}
-				//}
+				}
 			}
-			else if(Mouse.getEventButton() == 1) {
-				//if(isHoverSpellBarFrame()) {
+			else if(Mouse.getEventButton() == 0) {
+				if(isHoverSpellBarFrame()) {
 					i = 0;
 					while(i <= hover.length-1) {
 						if(dropSpell(i)) {
@@ -105,10 +108,10 @@ public class DragSpellManager {
 						}
 						i++;
 					}
-				//}
+				}
 			}
 			if(Mouse.getEventButton() == 1) {
-				if(draggedShortcut != null/* && !isHoverSpellBarFrame()*/) {
+				if(draggedShortcut != null && !isHoverSpellBarFrame()) {
 					deleteSpell(draggedShortcut);
 					draggedShortcut = null;
 				}
@@ -126,19 +129,19 @@ public class DragSpellManager {
 		}
 	}
 	
-	private static void deleteSpell(Shortcut draggedSpell) {
+	private static void deleteSpell(Shortcut draggedSpell) throws FileNotFoundException, SQLException {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(draggedSpell == Mideas.joueur1().getSpells(i)) {
 				Mideas.joueur1().setSpells(i, null);
+				SpellBarManager.setSpellBar();
 			}
 			i++;
 		}
 	}
 	
-	private static void clickSpell(int i) {
+	private static void clickSpell(int i) throws FileNotFoundException, SQLException {
 		if(hover[i]) {
-			System.out.println(i);
 			if(Mideas.joueur1().getSpells(i) != null) {
 				if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.SPELL) {
 					if(draggedShortcut != null) {
@@ -150,6 +153,7 @@ public class DragSpellManager {
 						draggedShortcut = Mideas.joueur1().getSpells(i);
 						Mideas.joueur1().setSpells(i, null);
 					}
+					SpellBarManager.setSpellBar();
 				}
 				else if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.STUFF) {
 					if(draggedShortcut != null) {
@@ -161,6 +165,7 @@ public class DragSpellManager {
 						draggedShortcut = Mideas.joueur1().getSpells(i);
 						Mideas.joueur1().setSpells(i, null);
 					}
+					SpellBarManager.setSpellBar();
 				}
 				else if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.POTION) {
 					if(draggedShortcut != null) {
@@ -172,30 +177,35 @@ public class DragSpellManager {
 						draggedShortcut = Mideas.joueur1().getSpells(i);
 						Mideas.joueur1().setSpells(i, null);
 					}
+					SpellBarManager.setSpellBar();
 				}
 			}
 			else if(Mideas.joueur1().getSpells(i) == null) {
 				if(draggedShortcut != null) {
 					Mideas.joueur1().setSpells(i, draggedShortcut);
 					draggedShortcut = null;
+					SpellBarManager.setSpellBar();
 				}
-				if(draggedShortcut != null) {
+				else if(draggedShortcut != null) {
 					Mideas.joueur1().setSpells(i, draggedShortcut);
 					draggedShortcut = null;
+					SpellBarManager.setSpellBar();
 				}
-				if(draggedShortcut != null) {
+				else if(draggedShortcut != null) {
 					Mideas.joueur1().setSpells(i, draggedShortcut);
 					draggedShortcut = null;
+					SpellBarManager.setSpellBar();
 				}
 			}
 		}
 	}
 	
-	private static boolean setNullSpell(Shortcut spell) {
+	private static boolean setNullSpell(Shortcut spell) throws FileNotFoundException, SQLException {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(spell == Mideas.joueur1().getSpells(i)) {
 				Mideas.joueur1().setSpells(i, null);
+				SpellBarManager.setSpellBar();
 				return true;
 			}
 			i++;
@@ -203,19 +213,21 @@ public class DragSpellManager {
 		return false;
 	}
 	
-	private static boolean dropSpell(int i) {
+	private static boolean dropSpell(int i) throws FileNotFoundException, SQLException {
 		if(draggedShortcut != null) {
 			if(hover[i]) {
 				if(Mideas.joueur1().getSpells(i) == null) {
 					setNullSpell(draggedShortcut);
 					Mideas.joueur1().setSpells(i, draggedShortcut);
 					draggedShortcut = null;
+					SpellBarManager.setSpellBar();
 					return true;
 				}
 				else {
 					Shortcut tempSpellShortcut = Mideas.joueur1().getSpells(i);
 					Mideas.joueur1().setSpells(i, draggedShortcut);
 					draggedShortcut = tempSpellShortcut;
+					SpellBarManager.setSpellBar();
 					return true;
 				}
 			}
@@ -224,13 +236,17 @@ public class DragSpellManager {
 			if(hover[i]) {
 				if(Mideas.joueur1().getSpells(i) == null) {
 					Mideas.joueur1().setSpells(i, new SpellShortcut(draggedBookSpell));
+					draggedBookSpell = null;
 					draggedShortcut = null;
+					SpellBarManager.setSpellBar();
 					return true;
 				}
 				else {
 					Shortcut tempSpell = Mideas.joueur1().getSpells(i);
 					Mideas.joueur1().setSpells(i, new SpellShortcut(draggedBookSpell));
 					draggedShortcut = tempSpell;
+					draggedBookSpell = null;
+					SpellBarManager.setSpellBar();
 					return true;
 				}
 			}
@@ -241,6 +257,7 @@ public class DragSpellManager {
 					if(Mideas.joueur1().getSpells(i) == null) {
 						Mideas.joueur1().setSpells(i, new StuffShortcut((Stuff)DragManager.getDraggedItem()));
 						DragManager.setDraggedItem(null);
+						SpellBarManager.setSpellBar();
 						return true;
 					}
 				}
@@ -248,6 +265,7 @@ public class DragSpellManager {
 					if(Mideas.joueur1().getSpells(i) == null) {
 						Mideas.joueur1().setSpells(i, new PotionShortcut((Potion)DragManager.getDraggedItem()));
 						DragManager.setDraggedItem(null);
+						SpellBarManager.setSpellBar();
 					}
 				}
 			}
@@ -263,10 +281,10 @@ public class DragSpellManager {
 		return draggedBookSpell;
 	}
 	
-	/*private static boolean isHoverSpellBarFrame() {
-		if(Mideas.mouseX() >= Display.getWidth()/2-809 && Mideas.mouseX() <= Display.getWidth()/2-809+Sprites.final_spellbar.getImageWidth() && Mideas.mouseY() >= Display.getHeight()-100 && Mideas.mouseY() <= Display.getHeight()) {
+	private static boolean isHoverSpellBarFrame() {
+		if(Mideas.mouseX() >= Display.getWidth()/2-809 && Mideas.mouseX() <= Display.getWidth()/2-809+Sprites.final_spellbar.getImageWidth() && Mideas.mouseY() >= Display.getHeight()-150 && Mideas.mouseY() <= Display.getHeight()) {
 			return true;
 		}
 		return false;
-	}*/
+	}
 }

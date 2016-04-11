@@ -27,22 +27,22 @@ public class SpellLevel {
 				spell1 = true;
 			}
 			if(!spell3 && Mideas.getLevel() >= 3) {
-				checkSpellSlot(SpellManager.getShortcutSpell(101));
+				//checkSpellSlot(SpellManager.getShortcutSpell(101));
 				Mideas.joueur1().setSpellUnlocked(1, new Charge());
 				spell3 = true;
 			}
 			if(!spell7 && Mideas.getLevel() >= 7) {
-				checkSpellSlot(SpellManager.getShortcutSpell(105));
+				//checkSpellSlot(SpellManager.getShortcutSpell(105));
 				Mideas.joueur1().setSpellUnlocked(2, new ThunderClap());
 				spell7 = true;
 			}	
 			if(!spell10 && Mideas.getLevel() >= 10) {
-				checkSpellSlot(SpellManager.getShortcutSpell(104));
+				//checkSpellSlot(SpellManager.getShortcutSpell(104));
 				Mideas.joueur1().setSpellUnlocked(3, new Rend());
 				spell10 = true;
 			}
 			if(!spell15 && Mideas.getLevel() >= 15) {
-				checkSpellSlot(SpellManager.getShortcutSpell(103));
+				//checkSpellSlot(SpellManager.getShortcutSpell(103));
 				Mideas.joueur1().setSpellUnlocked(4, new MortalStrike());
 				spell15 = true;
 			}	

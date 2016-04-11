@@ -35,6 +35,10 @@ public class SpellShortcut implements Shortcut {
 		SpellManager.setCd(id, cd);
 	}
 	
+	public int getId() {
+		return spell.getSpellId();
+	}
+	
 	public Spell getSpell() {
 		return spell;
 	}

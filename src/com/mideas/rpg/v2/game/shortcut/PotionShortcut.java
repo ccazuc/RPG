@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.newdawn.slick.opengl.Texture;
 
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
@@ -20,7 +21,15 @@ public class PotionShortcut implements Shortcut {
 	}
 	
 	public boolean use(Shortcut potion) throws SQLException, FileNotFoundException {
-		SpellBarFrame.doHealingPotion(((PotionShortcut)potion).getPotion());
+		//SpellBarFrame.doHealingPotion(((PotionShortcut)potion).getPotion());
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == ((PotionShortcut)potion).getId()) {
+				SpellBarFrame.doHealingPotion((Potion)Mideas.bag().getBag(i));
+				return true;
+			}
+			i++;
+		}
 		return true;
 	}
 	
@@ -29,6 +38,10 @@ public class PotionShortcut implements Shortcut {
 	}
 	
 	public void setCd(int id, int cd) {
+	}
+	
+	public int getId() {
+		return potion.getId();
 	}
 	
 	public Potion getPotion() {

@@ -37,6 +37,9 @@ public class StuffShortcut implements Shortcut {
 		return false;
 	}
 	
+	public int getId() {
+		return stuff.getId();
+	}
 	
 	public Texture getSprite() {
 		return IconsManager.getSprite47(stuff.getSpriteId());

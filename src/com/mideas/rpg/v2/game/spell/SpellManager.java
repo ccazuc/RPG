@@ -38,6 +38,10 @@ public class SpellManager {
 		}
 	}
 	
+	public static boolean exists(int id) {
+		return spellList.contains(getBookSpell(id));
+	}
+	
 	public static SpellType getSpellType(String type) {
 		if(type.equals("DAMAGE")) {
 			return SpellType.DAMAGE;

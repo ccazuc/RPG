@@ -742,7 +742,7 @@ public class Mideas {
 
 
 	public static void setJoueur1(Joueur joueur) {
-		joueur1 = joueur;
+		joueur1 = new Joueur(joueur);
 	}
 	
 	public static int getClassLine() {

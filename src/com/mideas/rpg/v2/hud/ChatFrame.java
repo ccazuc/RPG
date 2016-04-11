@@ -16,8 +16,10 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
+import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
+import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -575,6 +577,10 @@ public class ChatFrame {
 					DragManager.checkFreeSlotBag(WeaponManager.getClone(value));
 					CharacterStuff.setBagItems();
 				}
+				else if(PotionManager.exists(value)) {
+					DragManager.checkFreeSlotBag(PotionManager.getClone(value));
+					CharacterStuff.setBagItems();
+				}
 				else {
 					messages.add("Item not found");
 				}
@@ -612,6 +618,7 @@ public class ChatFrame {
 				CharacterStuff.getBagItems();
 				CharacterStuff.getEquippedItems();
 				ContainerFrame.setBagchange(true);
+				SpellBarManager.loadSpellBar();
 			}
 			else if(tempMessage.equals(".quit")) {
 				System.exit(1);
@@ -621,6 +628,7 @@ public class ChatFrame {
 				Mideas.setConfig();
 				Mideas.setExp(0);
 				Mideas.setGold(0);
+				SpellBarManager.setSpellBar();
 			}
 			else if(tempMessage.contains(".modify gold ")) {
 				String[] temp = tempMessage.split("gold ");

@@ -613,8 +613,15 @@ public class CharacterStuff {
 					statement.putInt(0);
 				}
 				else if(tempBag.getItemType() == ItemType.ITEM || tempBag.getItemType() == ItemType.POTION) {
-					statement.putInt(tempBag.getId());
-					statement.putInt(Mideas.bag().getNumberStack().get(tempBag));
+					if(Mideas.bag().getNumberStack().containsKey(tempBag)) {
+						statement.putInt(tempBag.getId());
+						statement.putInt(Mideas.bag().getNumberStack().get(tempBag));
+					}
+					else {
+						System.out.println("Error CharacterStuff/setBagItems");
+						statement.putInt(0);
+						statement.putInt(0);
+					}
 				}
 			}
 			else {
