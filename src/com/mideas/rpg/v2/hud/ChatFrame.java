@@ -129,7 +129,7 @@ public class ChatFrame {
 					while(x < getNumberLine(temp) && numberLineSent < messageShowHeight+1/*TTF2.font4.getWidth(draw) >= maxLength && numberLineSent < messageShowHeight+1*/) {
 						//length = getLength(draw, beg, maxLength-30);
 						draw = temp.substring(beg, getLength(temp, beg, maxLength-30));
-						beg = getLength(draw, beg, maxLength-30);
+						beg = getLength(temp, beg, maxLength-30);
 						//System.out.println(draw+" length : "+getLength(draw, maxLength-10)+" total length : "+draw.length()+" font : "+TTF2.font4.getWidth(temp)+" maxL : "+maxLength);
 						//TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), draw, Color.white);
 						//j++;
@@ -187,8 +187,8 @@ public class ChatFrame {
 			else if(Keyboard.getEventKey() == 14) { //delete
 				if(tempMessage.length() > 0) {
 					cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
-					String beg = tempMessage.substring(0, cursorPosition-1);
-					String end = tempMessage.substring(cursorPosition);
+					String beg = tempMessage.substring(0, cursorPosition-1+tempMessage.substring(0, tempLength).length());
+					String end = tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), tempMessage.length());
 					tempMessage = beg+end;
 					cursorPosition--;
 				}
@@ -214,25 +214,25 @@ public class ChatFrame {
 						cursorShift-= TTF2.font4.getWidth(tempMessage.substring(0, 1));
 					}
 					else {
-						cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition, cursorPosition+1));
+						cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), cursorPosition+1+tempMessage.substring(0, tempLength).length()));
 					}
 				}
 			}
 			else if(Keyboard.getEventKey() == 205) { //right arrow
-				if(cursorPosition < tempMessage.length()) {
+				if(cursorPosition+tempMessage.substring(0, tempLength).length() < tempMessage.length()) {
 					cursorPosition++;
 					if(cursorPosition == tempMessage.length()) {
-						cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1));
+						cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length()));
 					}
 					else {
-						cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1, cursorPosition));
+						cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length(), cursorPosition+tempMessage.substring(0, tempLength).length()));
 					}
 				}
 			}
 			else if(Keyboard.getEventKey() == 211) { //suppr
-				if(cursorPosition < tempMessage.length()) {
-					String beg = tempMessage.substring(0, cursorPosition);
-					String end = tempMessage.substring(cursorPosition+1);
+				if(cursorPosition+tempMessage.substring(0, tempLength).length() < tempMessage.length()) {
+					String beg = tempMessage.substring(0, cursorPosition+tempMessage.substring(0, tempLength).length());
+					String end = tempMessage.substring(cursorPosition+1+tempMessage.substring(0, tempLength).length(), tempMessage.length());
 					tempMessage = beg+end;
 				}
 			}
@@ -470,8 +470,8 @@ public class ChatFrame {
 			tempMessage+= add;
 		}
 		else {
-			String beg = tempMessage.substring(0, cursorPosition);
-			String end = tempMessage.substring(cursorPosition, tempMessage.length());
+			String beg = tempMessage.substring(0, cursorPosition+tempMessage.substring(0, tempLength).length());
+			String end = tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), tempMessage.length());
 			tempMessage = beg+add+end;
 		}
 		cursorShift+= TTF2.font4.getWidth(add);
@@ -482,8 +482,8 @@ public class ChatFrame {
 			tempMessage+= add;
 		}
 		else {
-			String beg = tempMessage.substring(0, cursorPosition);
-			String end = tempMessage.substring(cursorPosition, tempMessage.length());
+			String beg = tempMessage.substring(0, cursorPosition+tempMessage.substring(0, tempLength).length());
+			String end = tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), tempMessage.length());
 			tempMessage = beg+add+end;
 		}
 		cursorShift+= TTF2.font4.getWidth(add);

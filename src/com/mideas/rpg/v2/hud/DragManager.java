@@ -284,7 +284,7 @@ public class DragManager {
 		}
 	}
 	
-	private static void calcStatsLess(Item stuff) {
+	public static void calcStatsLess(Item stuff) {
 		if(stuff != null && (stuff.getItemType() == ItemType.STUFF || stuff.getItemType() == ItemType.WEAPON)) {
 			Mideas.joueur1().setStuffArmor(-((Stuff)stuff).getArmor());
 			Mideas.joueur1().setStuffStamina(-((Stuff)stuff).getStamina());
@@ -294,7 +294,7 @@ public class DragManager {
 		}
 	}
 	
-	private static void equipBagItem(int i) throws FileNotFoundException, SQLException {
+	private static boolean equipBagItem(int i) throws FileNotFoundException, SQLException {
 		if(ContainerFrame.getContainerFrameSlotHover(i)) {
 			if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
 				int j = 0;
@@ -307,7 +307,7 @@ public class DragManager {
 								setNullContainer(Mideas.bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								break;
+								return true;
 							}
 							else {
 								Item tempItem = Mideas.bag().getBag(i);
@@ -317,7 +317,7 @@ public class DragManager {
 								calcStats(Mideas.joueur1().getStuff(j));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								break;
+								return true;
 							}
 						}
 					}
@@ -335,7 +335,7 @@ public class DragManager {
 								setNullContainer(Mideas.bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								break;
+								return true;
 							}
 							else {
 								Item tempItem = Mideas.bag().getBag(i);
@@ -345,7 +345,7 @@ public class DragManager {
 								calcStats(Mideas.joueur1().getStuff(j));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								break;
+								return true;
 							}
 						}
 					}
@@ -353,6 +353,7 @@ public class DragManager {
 				}
 			}
 		}
+		return false;
 	}
 	
 	private static void doHealingPotion(Potion item, boolean hover, int i) throws FileNotFoundException, SQLException {
@@ -378,8 +379,21 @@ public class DragManager {
 		}
 	}
 	
+	
+	private static void equipItem(int i) throws FileNotFoundException, SQLException {
+		if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF && draggedItem.getItemType() == ItemType.STUFF) {
+			if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel() && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && ((Stuff)Mideas.bag().getBag(i)).getType() == ((Stuff)draggedItem).getType()) {
+				Stuff temp = (Stuff)Mideas.bag().getBag(i);
+				Mideas.bag().setBag(i, draggedItem);
+				calcStatsLess(draggedItem);
+				Mideas.joueur1().setStuff(i, temp);
+				calcStats(temp);
+			}
+		}
+	}
+	
 	private static boolean clickBagItem(int i) throws FileNotFoundException, SQLException {
-		if(ContainerFrame.getContainerFrameSlotHover(i)) {
+		if(ContainerFrame.getContainerFrameSlotHover(i) && !DragSpellManager.isHoverSpellBarFrame()) {
 			if(draggedItem == null) {
 				if(Mideas.bag().getBag(i) == null) {
 					return true;
@@ -401,13 +415,7 @@ public class DragManager {
 					return true;
 				}
 				else {
-					Item tempItem = Mideas.bag().getBag(i);
-					Mideas.bag().setBag(i, draggedItem);
-					SpellBarFrame.setBagChange(true);
-					setNullCharacter(draggedItem);
-					draggedItem = tempItem;
-					CharacterStuff.setEquippedItems();
-					CharacterStuff.setBagItems();
+					equipItem(i);
 					return true;
 				}
 			}
@@ -618,65 +626,6 @@ public class DragManager {
 		}
 		return false;
 	}
-	
-	/*private static boolean dropInventoryItem(int i) throws FileNotFoundException, SQLException {
-		if(CharacterFrame.getHoverCharacterFrame(i) && draggedItem != null) {
-			if(checkCharacterItems(draggedItem)) {
-				if(Mideas.joueur1().getStuff(i) == null) {
-					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
-						setNullCharacter(draggedItem);
-						calcStatsLess(draggedItem);
-						Mideas.joueur1().setStuff(i, draggedItem);
-						calcStats(draggedItem);
-						draggedItem = null;
-						CharacterStuff.setEquippedItems();
-						CharacterStuff.setBagItems();
-						return true;
-					}
-				}
-				else if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
-					Item tempItem = Mideas.joueur1().getStuff(i);
-					calcStatsLess(Mideas.joueur1().getStuff(i));
-					setNullCharacter(draggedItem);
-					Mideas.joueur1().setStuff(i, draggedItem);
-					calcStats(draggedItem);
-					draggedItem = tempItem;
-					CharacterStuff.setEquippedItems();
-					CharacterStuff.setBagItems();
-					return true;
-				}
-			}
-			else if(checkBagItems(draggedItem)) {
-				if(Mideas.joueur1().getStuff(i) == null) {
-					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
-						setNullContainer(draggedItem);
-						SpellBarFrame.setBagChange(true);
-						Mideas.joueur1().setStuff(i, draggedItem);
-						calcStats(draggedItem);
-						draggedItem = null;
-						CharacterStuff.setEquippedItems();
-						CharacterStuff.setBagItems();
-						return true;
-					}
-				}
-				else {
-					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType())) {
-						Item tempItem = Mideas.joueur1().getStuff(i);
-						calcStatsLess(Mideas.joueur1().getStuff(i));
-						setNullContainer(draggedItem);
-						SpellBarFrame.setBagChange(true);
-						Mideas.joueur1().setStuff(i, draggedItem);
-						calcStats(draggedItem);
-						draggedItem = tempItem;
-						CharacterStuff.setEquippedItems();
-						CharacterStuff.setBagItems();
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}*/
 	
 	private static boolean setDraggedItemForCharacter() {
 		int i = 0;
@@ -945,7 +894,7 @@ public class DragManager {
 	
 	public static boolean isHoverBagFrame() {
 		if(Interface.getContainerFrameStatus()) {
-			if(Mideas.mouseX() >= Display.getWidth()-450 && Mideas.mouseX() <= Display.getWidth()-9 && Mideas.mouseY() >= Display.getHeight()/2-700 && Mideas.mouseY() <= Display.getHeight()/2+387) {
+			if(Mideas.mouseX() >= Display.getWidth()-450 && Mideas.mouseX() <= Display.getWidth()-9) {
 				return true;
 			}
 		}
@@ -992,7 +941,7 @@ public class DragManager {
 		}
 	}*/
 	
-	private static int checkItemSlot(Item item) {
+	public static int checkItemSlot(Item item) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == item) {
@@ -1036,5 +985,9 @@ public class DragManager {
 	
 	public static void setDraggedItemSplit(boolean we) {
 		draggedItemSplit = we;
+	}
+	
+	public static WeaponSlot getWeaponSlot(int i) {
+		return weaponSlot[i];
 	}
 }

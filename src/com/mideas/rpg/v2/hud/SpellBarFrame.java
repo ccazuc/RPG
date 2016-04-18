@@ -66,7 +66,8 @@ public class SpellBarFrame {
 		}
 		int numberFreeSlotBag = 0;
 		if(bagChange) {
-			numberFreeSlotBag = checkNumberFreeSlotBag();
+			int temp = checkNumberFreeSlotBag();
+			numberFreeSlotBag = temp;
 			bagChange = false;
 		}
 		if(itemChange) {
@@ -77,6 +78,7 @@ public class SpellBarFrame {
 		float x = -678+56.3f;
 		int spellCount = 0;
 		int yShift = 0;
+		double time = System.currentTimeMillis();
 		while(spellCount < hoverSpellBar.length) {
 			if(DragSpellManager.getDraggedSpell() != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpellBook() != null) {
 				if(spellCount >= 11) {
@@ -116,6 +118,9 @@ public class SpellBarFrame {
 					Draw.drawQuad(Mideas.joueur1().getSpells(spellCount).getSprite(), Display.getWidth()/2+x, Display.getHeight()-49+yShift);
 					Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-1+x, Display.getHeight()-51+yShift);
 					StuffShortcut spell = (StuffShortcut)Mideas.joueur1().getSpells(spellCount);
+					if(isEquippedItem(Mideas.joueur1().getSpells(spellCount).getId())) {
+						Draw.drawQuad(Sprites.equipped_item_frame, Display.getWidth()/2+x, Display.getHeight()-50+yShift);
+					}
 					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+47+x && Mideas.mouseY() >= Display.getHeight()-49+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
 						Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x, Display.getHeight()-49+yShift);
 						hoveredSpell = spell;
@@ -399,5 +404,16 @@ public class SpellBarFrame {
 			i++;
 		}
 		return number;
+	}
+	
+	private static boolean isEquippedItem(int id) {
+		int i = 0;
+		while(i < Mideas.joueur1().getStuff().length) {
+			if(Mideas.joueur1().getStuff(i) != null && Mideas.joueur1().getStuff(i).getId() == id) {
+				return true;
+			}
+			i++;
+		}
+		return false;
 	}
 }

@@ -482,12 +482,15 @@ public class Sprites {
 	public static Texture spellbook_frame_open;
 	public static Texture character_frame_open;
 	public static Texture escape_frame_open;
+	public static Texture equipped_item_frame;
 	public static Texture shortcut_hover;
 	public static Texture bag_hover_tooltip;
 	public static Texture loading_screen_bar1;
 	public static Texture itemnumber_frame;
 	public static Texture itemnumber_hover_ok;
 	public static Texture itemnumber_hover_cancel;
+	public static Texture itemnumber_leftyellow_arrow;
+	public static Texture itemnumber_rightgray_arrow;
 	public static Texture loading_screen_bar2;
 	public static Texture loading_screen_bar3;
 	public static Texture loading_screen_bar4;
@@ -505,6 +508,9 @@ public class Sprites {
 	}
 	
 	public static boolean sprite() throws IOException {
+		itemnumber_leftyellow_arrow = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_leftyellow_arrow.png"));
+		itemnumber_rightgray_arrow = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_rightgray_arrow.png"));
+		equipped_item_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/equipped_item_frame.png"));
 		itemnumber_hover_ok = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_hover_ok.png"));
 		itemnumber_hover_cancel = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_hover_cancel.png"));
 		itemnumber_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_frame.png"));

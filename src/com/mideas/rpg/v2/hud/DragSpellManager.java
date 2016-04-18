@@ -110,7 +110,7 @@ public class DragSpellManager {
 					}
 				}
 			}
-			if(Mouse.getEventButton() == 1) {
+			if(Mouse.getEventButton() == 0) {
 				if(draggedShortcut != null && !isHoverSpellBarFrame()) {
 					deleteSpell(draggedShortcut);
 					draggedShortcut = null;
@@ -253,10 +253,18 @@ public class DragSpellManager {
 		}
 		else if(DragManager.getDraggedItem() != null) {
 			if(hover[i]) {
-				if(DragManager.getDraggedItem().getItemType() == ItemType.STUFF) {
+				if(DragManager.getDraggedItem().getItemType() == ItemType.STUFF || DragManager.getDraggedItem().getItemType() == ItemType.WEAPON) {
 					if(Mideas.joueur1().getSpells(i) == null) {
 						Mideas.joueur1().setSpells(i, new StuffShortcut((Stuff)DragManager.getDraggedItem()));
 						DragManager.setDraggedItem(null);
+						SpellBarManager.setSpellBar();
+						return true;
+					}
+					else {
+						Shortcut temp = Mideas.joueur1().getSpells(i);
+						Mideas.joueur1().setSpells(i, new StuffShortcut((Stuff)DragManager.getDraggedItem()));
+						DragManager.setDraggedItem(null);
+						draggedShortcut = temp;
 						SpellBarManager.setSpellBar();
 						return true;
 					}
@@ -266,6 +274,7 @@ public class DragSpellManager {
 						Mideas.joueur1().setSpells(i, new PotionShortcut((Potion)DragManager.getDraggedItem()));
 						DragManager.setDraggedItem(null);
 						SpellBarManager.setSpellBar();
+						return true;
 					}
 				}
 			}
@@ -281,8 +290,8 @@ public class DragSpellManager {
 		return draggedBookSpell;
 	}
 	
-	private static boolean isHoverSpellBarFrame() {
-		if(Mideas.mouseX() >= Display.getWidth()/2-809 && Mideas.mouseX() <= Display.getWidth()/2-809+Sprites.final_spellbar.getImageWidth() && Mideas.mouseY() >= Display.getHeight()-150 && Mideas.mouseY() <= Display.getHeight()) {
+	public static boolean isHoverSpellBarFrame() {
+		if(Mideas.mouseX() >= Display.getWidth()/2-809 && Mideas.mouseX() <= Display.getWidth()/2-809+Sprites.final_spellbar.getImageWidth()-50 && Mideas.mouseY() >= Display.getHeight()-150 && Mideas.mouseY() <= Display.getHeight()) {
 			return true;
 		}
 		return false;
