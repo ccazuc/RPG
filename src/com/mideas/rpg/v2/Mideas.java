@@ -164,8 +164,8 @@ public class Mideas {
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
-		//jdo = new MariaDB("sql7.freesqldatabase.com", "sql7113715", "sql7113715", "y17JcUeCEl");
+		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		//jdo = new MariaDB("sql7.freesqldatabase.com", "sql7115685", "sql7115685", "Gr8Dv4FyJR");
 	}
 	
 	public static JDO getJDO() {
