@@ -65,7 +65,7 @@ public class EscapeFrame {
 		else if(isHover(x, y+8*yShift+5)) {
 			hoverQuit = true;
 		}
-		else if(isHover(x, y+10*yShift+5)) {
+		else if(isHover(x, y+10*yShift)) {
 			hoverReturn = true;
 		}
 		if(Mouse.getEventButtonState()) {
@@ -86,6 +86,7 @@ public class EscapeFrame {
 				Interface.openAdminPanelFrame();
 			}
 			else if(hoverInterface) {
+				Interface.closeEscapeFrame();
 				
 			}
 		}
@@ -97,7 +98,7 @@ public class EscapeFrame {
 	}
 	
 	private static boolean isHover(int x, int y) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+122 && Mideas.mouseY() <= Display.getHeight()/2+y && Mideas.mouseY() >= Display.getHeight()/2+y-15) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+Sprites.button_hover.getImageWidth() && Mideas.mouseY() <= Display.getHeight()/2+y && Mideas.mouseY() >= Display.getHeight()/2+y-Sprites.button.getImageHeight()) {
 			return true;
 		}
 		return false;

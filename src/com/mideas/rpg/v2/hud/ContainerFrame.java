@@ -844,13 +844,14 @@ public class ContainerFrame {
 					drawWeapon(i, x, y);
 				}
 				else if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
-					
+					drawPotion(i, x, y);
 				}
 			}
 			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private static void drawHoverBag(int i, int x, int z, int x_hover, int y_hover) throws FileNotFoundException, SQLException {
 		if(slot_hover[i] && !isHoverItemNumberFrame()) {
 			if(Mideas.bag().getBag(i) != null) {
@@ -949,6 +950,32 @@ public class ContainerFrame {
 			}
 			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x_hover, Display.getHeight()+y_hover);
 		}
+	}
+	
+	private static void drawPotion(int i, int x, int z) throws FileNotFoundException, SQLException {
+		int y = -75;
+		int shift = 0;
+		int xShift = TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName());
+		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, 10+y, bgColor);
+		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, 11+y, borderColor);
+		y =  -65;
+		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1, 1, 1);
+		shift+= 25;
+		if(((Potion)Mideas.bag().getBag(i)).getPotionHeal() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionHeal()+" Hp", Color.green, Color.black, 1, 1, 1);
+			shift+= 20;
+		}
+		if(((Potion)Mideas.bag().getBag(i)).getPotionMana() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionMana()+" mana", Color.green, Color.black, 1, 1, 1);
+			shift+= 20;
+		}
+		if(Mideas.getLevel() >= ((Potion)Mideas.bag().getBag(i)).getLevel()) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Level "+((Potion)Mideas.bag().getBag(i)).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
+		}
+		else {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Level "+((Potion)Mideas.bag().getBag(i)).getLevel()+" required", Color.red, Color.black, 1, 1, 1);
+		}
+		calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-55, z+y+shift-5);
 	}
 	
 	private static void drawStuff(int i, int x, int z) throws FileNotFoundException, SQLException {
