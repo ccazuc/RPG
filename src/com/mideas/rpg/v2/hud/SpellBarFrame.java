@@ -36,6 +36,8 @@ public class SpellBarFrame {
 	private static Color borderColor = Color.decode("#494D4B");
 	private static HashMap<Integer, Integer> numberItem = new HashMap<Integer, Integer>();
 	private static boolean itemChange = true;
+	private static SpellShortcut tempSpell;
+	private static boolean isCastingSpell;
 	
 	public static boolean draw() throws FileNotFoundException, SQLException {
 		Arrays.fill(hoverSpellBar, false);
@@ -184,6 +186,11 @@ public class SpellBarFrame {
 			}
 			i++;
 		}
+		if(CastBar.draw() && isCastingSpell) {
+			tempSpell.use(tempSpell);
+			checkKeyboardCd(tempSpell);
+			Mideas.setCurrentPlayer(false);
+		}
 		return false;
 	}
 	
@@ -196,16 +203,22 @@ public class SpellBarFrame {
 				}
 				else if(hoveredSpell != null) {
 					if(hoveredSpell.getShortcutType() == ShortcutType.SPELL) {
-						if(SpellManager.getCd(((SpellShortcut)hoveredSpell).getSpell().getSpellId()) <= 0 && hoveredSpell.use(hoveredSpell)) {
-							checkClickCd();
+						if(SpellManager.getCd(((SpellShortcut)hoveredSpell).getSpell().getSpellId()) <= 0) {
+							if(((SpellShortcut)hoveredSpell).getSpell().getCastTime() > 0) {
+								CastBar.event(((SpellShortcut)hoveredSpell).getSpell().getCastTime(), ((SpellShortcut)hoveredSpell).getSpell().getName());
+								tempSpell = (SpellShortcut)hoveredSpell;
+								isCastingSpell = true;
+							}
+							else {
+								hoveredSpell.use(hoveredSpell);
+								checkKeyboardCd(hoveredSpell);
+								Mideas.setCurrentPlayer(false);
+							}
 						}
-						/*else if(SpellManager.getCd(((SpellShortcut)hoveredSpell).getSpell().getSpellId()) <= 0){
-							hoveredSpell.use(hoveredSpell);
-						}*/
 						else {
 							Mideas.joueur1().tick();
+							Mideas.setCurrentPlayer(false);
 						}
-						Mideas.setCurrentPlayer(false);
 					}
 					else if(hoveredSpell.getShortcutType() == ShortcutType.STUFF) {
 						((StuffShortcut)hoveredSpell).use(hoveredSpell);
@@ -278,16 +291,22 @@ public class SpellBarFrame {
 	
 	public static void keyboardAttack(Shortcut spell) throws SQLException, FileNotFoundException {
 		if(spell != null && spell.getShortcutType() == ShortcutType.SPELL) {
-			if((SpellManager.getCd(((SpellShortcut)spell).getSpell().getSpellId()) <= 0 && spell.use(spell))) {
-				checkKeyboardCd(spell);
-			}
-			else if(SpellManager.getCd(((SpellShortcut)spell).getSpell().getSpellId()) <= 0){
-				spell.use(spell);
+			if(SpellManager.getCd(((SpellShortcut)spell).getSpell().getSpellId()) <= 0) {
+				if(((SpellShortcut)spell).getSpell().getCastTime() > 0) {
+					CastBar.event(((SpellShortcut)spell).getSpell().getCastTime(), ((SpellShortcut)spell).getSpell().getName());
+					tempSpell = (SpellShortcut)spell;
+					isCastingSpell = true;
+				}
+				else {
+					spell.use(spell);
+					checkKeyboardCd(spell);
+					Mideas.setCurrentPlayer(false);
+				}
 			}
 			else {
 				Mideas.joueur1().tick();
+				Mideas.setCurrentPlayer(false);
 			}
-			Mideas.setCurrentPlayer(false);
 		}
 		else if(spell != null && spell.getShortcutType() == ShortcutType.POTION) {
 			spell.use(spell);
@@ -295,6 +314,14 @@ public class SpellBarFrame {
 		else if(spell != null && spell.getShortcutType() == ShortcutType.STUFF) {
 			spell.use(spell);
 		}
+	}
+	
+	public static void setIsCastingSpell(boolean we) {
+		isCastingSpell = we;
+	}
+	
+	public static boolean getIsCastingSpell() {
+		return isCastingSpell;
 	}
 	
 	private static void checkClickCd() {

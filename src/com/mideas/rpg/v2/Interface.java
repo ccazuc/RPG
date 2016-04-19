@@ -17,6 +17,7 @@ import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
+import com.mideas.rpg.v2.hud.CastBar;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
 import com.mideas.rpg.v2.hud.ChatFrame;
@@ -135,6 +136,7 @@ public class Interface {
 					if(chatFrameActive) {
 						ChatFrame.draw();
 					}
+					CastBar.draw();
 					DragManager.draw();
 					DragBagManager.draw();
 					PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
@@ -286,7 +288,10 @@ public class Interface {
 						return true;
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_W) {
-						ContainerFrame.setBagOpen(3, false);
+						CastBar.event(5, "Random");
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_X) {
+						CastBar.event(2, "Random");
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_T && !escapeFrameActive) {
 						closeCharacterFrame();

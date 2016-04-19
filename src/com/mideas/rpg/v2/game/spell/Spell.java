@@ -19,6 +19,7 @@ public class Spell {
 	private int defaultDamage;
 	private String sprite_id;
 	private int id;
+	private int castTime;
 	
 	public Spell(int baseDamage, int manaCost, int baseHeal) {
 		this(baseDamage, manaCost, 0, 0, baseHeal);
@@ -39,7 +40,7 @@ public class Spell {
 		this.id = id;
 	}
 	
-	public Spell(int id, String sprite_id, String name, SpellType type, int baseDamage, int manaCost, int baseHeal, int baseCd, int cd) {
+	public Spell(int id, String sprite_id, String name, SpellType type, int baseDamage, int manaCost, int baseHeal, int baseCd, int cd, int castTime) {
 		this.id = id;
 		this.sprite_id = sprite_id;
 		this.name = name;
@@ -48,6 +49,7 @@ public class Spell {
 		this.manaCost = manaCost;
 		this.baseHeal = baseHeal;
 		this.baseCd = baseCd;
+		this.castTime = castTime;
 	}
 	
 	public boolean cast(Joueur joueur2, Joueur joueur, Spell spell) {
@@ -115,6 +117,11 @@ public class Spell {
 	
 	public int getDefaultDamage() {
 		return defaultDamage;
+	}
+	
+	
+	public int getCastTime() {
+		return castTime;
 	}
 	
 	public int getHeal() {

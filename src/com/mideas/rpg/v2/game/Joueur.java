@@ -12,6 +12,7 @@ import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellType;
 import com.mideas.rpg.v2.hud.LogChat;
+import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class Joueur {
 	
@@ -100,11 +101,13 @@ public class Joueur {
 	public void tick() throws SQLException {
 		if(Mideas.getCurrentPlayer()) {
 			attack(Mideas.joueur2());
+			SpellBarFrame.setIsCastingSpell(false);
 		}
 	}
 	
 	public boolean cast(Spell spell) throws SQLException {
 		if(spell.getType() == SpellType.DAMAGE) {
+			SpellBarFrame.setIsCastingSpell(false);
 			if(!spell.hasMana()) {
 				attack(Mideas.joueur2());
 			}
@@ -115,6 +118,7 @@ public class Joueur {
 			}
 		}
 		else if(spell.getType() == SpellType.HEAL) {
+			SpellBarFrame.setIsCastingSpell(false);
 			if(!spell.hasMana()) {
 				attack(Mideas.joueur2());
 			}
@@ -137,6 +141,7 @@ public class Joueur {
 	
 	public void attack(Joueur joueur) throws SQLException {
 		double damage = Mideas.joueur1().getStrength()+Math.random()*100;
+		SpellBarFrame.setIsCastingSpell(false);
 		if(Math.random() < critical/100.) {
 			damage*= 2;
 		}

@@ -16,7 +16,7 @@ public class SpellManager {
 	private static int numberSpellLoaded;
 	
 	public static void loadSpells() throws SQLException, CloneNotSupportedException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, type, basedamage, manacost, baseheal, basecd, cd FROM spell");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, type, basedamage, manacost, baseheal, basecd, cd, cast_time FROM spell");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
@@ -29,7 +29,8 @@ public class SpellManager {
 			int baseHeal = statement.getInt();
 			int baseCd = statement.getInt();
 			int cd = statement.getInt();
-			Spell newSpell = new Spell(id, sprite_id, name, type, baseDamage, manaCost, baseHeal, baseCd, cd);
+			int time = statement.getInt();
+			Spell newSpell = new Spell(id, sprite_id, name, type, baseDamage, manaCost, baseHeal, baseCd, cd, time);
 			SpellShortcut newShortcutSpell = new SpellShortcut(newSpell);
 			spellList.add(newSpell);
 			spellShortcutList.add(newShortcutSpell);
