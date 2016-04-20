@@ -393,7 +393,6 @@ public class ContainerFrame {
 							yBagShift = -bagSize[4]+22;
 							resize = true;
 						}
-						//System.out.println("0 : "+isBagOpen[0]+" 1 : "+isBagOpen[1]+" 2 : "+isBagOpen[2]+" 3 : "+isBagOpen[3]+" resize : "+resize);
 						if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
 							z+= -bagSize[4];
 						}
@@ -511,7 +510,6 @@ public class ContainerFrame {
 			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 				int i = 0;
 				while(i < hoverButton.length) {
-					System.out.println(i+" button : "+hoverButton[i]);
 					if(hoverButton[i]) {
 						isBagOpen[i] = false;
 						Arrays.fill(buttonDown, false);
