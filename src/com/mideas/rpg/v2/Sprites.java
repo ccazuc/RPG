@@ -203,6 +203,7 @@ public class Sprites {
 	public static Texture border10;
 	public static Texture close_hover;
 	public static Texture close_shop_hover;
+	public static Texture close_bag_button_down;
 	public static Texture shop_hover;
 	public static Texture stuff_border;
 	/*public static Texture stuff_border2;
@@ -508,6 +509,7 @@ public class Sprites {
 	}
 	
 	public static boolean sprite() throws IOException {
+		close_bag_button_down = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_bag_down.png"));
 		itemnumber_leftyellow_arrow = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_leftyellow_arrow.png"));
 		itemnumber_rightgray_arrow = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_rightgray_arrow.png"));
 		equipped_item_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/equipped_item_frame.png"));

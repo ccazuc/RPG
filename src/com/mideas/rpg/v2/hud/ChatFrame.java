@@ -490,7 +490,7 @@ public class ChatFrame {
 	}
 	
 	private static boolean checkTempMessage() throws FileNotFoundException, SQLException, CloneNotSupportedException {
-		if(tempMessage.substring(0, 1).equals(".") && tempMessage.length() > 1 && !tempMessage.substring(1, 2).equals(".")) {
+		if(tempMessage.length() > 1 && tempMessage.substring(0, 1).equals(".") && !tempMessage.substring(1, 2).equals(".")) {
 			if(tempMessage.equals(".kill joueur2")) {
 				Mideas.joueur2().setStamina(0);
 			}
