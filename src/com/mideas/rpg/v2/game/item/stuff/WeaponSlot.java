@@ -4,6 +4,7 @@ public enum WeaponSlot {
 
 	MAINHAND,
 	OFFHAND,
+	BOTH,
 	RANGED
 	
 }

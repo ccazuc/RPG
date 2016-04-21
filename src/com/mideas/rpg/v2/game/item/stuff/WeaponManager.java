@@ -131,6 +131,9 @@ public class WeaponManager {
 		if(slot.equals("RANGED")) {
 			return WeaponSlot.RANGED;
 		}
+		if(slot.equals("BOTH")) {
+			return WeaponSlot.BOTH;
+		}
 		return null;
 	}
 }

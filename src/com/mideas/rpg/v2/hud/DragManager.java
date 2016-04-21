@@ -119,7 +119,7 @@ public class DragManager {
 							return true;
 						}
 						if(Interface.getCharacterFrameStatus()) {
-							if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {				
+							if(isHoverCharacterFrame()) {				
 								if(!checkCharacterHover() && !deleteItem) {
 									if(checkCharacterItems(draggedItem)) {
 										draggedItem = null;
@@ -885,7 +885,7 @@ public class DragManager {
 	
 	public static boolean isHoverCharacterFrame() {
 		if(Interface.getCharacterFrameStatus()) {
-			if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
+			if(Mideas.mouseX() >= Display.getWidth()/2-300+CharacterFrame.getMouseX() && Mideas.mouseX() <= Display.getWidth()/2+135+CharacterFrame.getMouseX() && Mideas.mouseY() >= Display.getHeight()/2-380+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2+146+CharacterFrame.getMouseY()) {
 				return true;
 			}
 		}

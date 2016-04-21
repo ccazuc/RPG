@@ -46,7 +46,7 @@ public class Stuff extends Item {
 		this.mana = mana;
 	}
 
-	public Stuff(Stuff stuff, int i) {
+	public Stuff(Stuff stuff, int i) { //weapon constructor
 		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.quality, stuff.sellPrice, stuff.maxStack);
 		this.classType = stuff.classType;
 		this.weaponType = stuff.weaponType;

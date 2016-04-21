@@ -6,6 +6,7 @@ public enum ItemType {
 	ITEM,
 	POTION,
 	BAG,
-	WEAPON
+	WEAPON,
+	GEM
 	
 }

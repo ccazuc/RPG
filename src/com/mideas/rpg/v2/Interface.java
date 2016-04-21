@@ -27,6 +27,7 @@ import com.mideas.rpg.v2.hud.CraftManager;
 import com.mideas.rpg.v2.hud.DragBagManager;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
+import com.mideas.rpg.v2.hud.DrawContainerHover;
 import com.mideas.rpg.v2.hud.EndFightFrame;
 import com.mideas.rpg.v2.hud.EscapeFrame;
 import com.mideas.rpg.v2.hud.GoldFrame;
@@ -97,15 +98,13 @@ public class Interface {
 				if(Mideas.joueur1() != null) {
 					if(Mideas.joueur2() != null) {
 						PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
+						PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
 						if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
 							EndFightFrame.draw();
 						}
 					}
 					SpellBarFrame.draw();
 					SpellLevel.addSpell();
-					if(characterFrameActive) {
-						CharacterFrame.draw();
-					}
 					if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 						containerFrameActive = true;
 						ContainerFrame.draw();
@@ -132,17 +131,22 @@ public class Interface {
 					if(BlackTemple.getBlackTempleStatus()) {
 						Dungeon.event();
 					}
-					LogChat.draw();
 					if(chatFrameActive) {
 						ChatFrame.draw();
 					}
+					Draw.drawQuad(Sprites.level, 50, 95);
+					TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), Color.decode("#F0CE0C"), Color.black, 1, 1, 1);
+					ShortcutFrame.draw();
+					if(characterFrameActive) {
+						CharacterFrame.draw();
+					}
+					if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
+						DrawContainerHover.draw();
+					}
+					LogChat.draw();
 					CastBar.draw();
 					DragManager.draw();
 					DragBagManager.draw();
-					PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
-					ShortcutFrame.draw();
-					Draw.drawQuad(Sprites.level, 50, 95);
-					TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), Color.decode("#F0CE0C"), Color.black, 1, 1, 1);
 					DragSpellManager.draw();
 				}
 			}
@@ -176,8 +180,14 @@ public class Interface {
 			if(ShortcutFrame.mouseEvent()) {
 				return true;
 			}
+			if(characterFrameActive) {
+				if(CharacterFrame.mouseEvent()) {
+					return true;
+				}
+			}
 			if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 				ContainerFrame.mouseEvent();
+				return true;
 			}
 			DragBagManager.openBag();
 			if(DragBagManager.mouseEvent()) {
@@ -259,6 +269,7 @@ public class Interface {
 							ContainerFrame.setBagOpen(2, false);
 							ContainerFrame.setBagOpen(3, false);
 							ContainerFrame.setBagOpen(4, false);
+							closeBagEvent();
 						}
 						else {
 							ContainerFrame.setBagOpen(0, true);
@@ -268,7 +279,6 @@ public class Interface {
 							ContainerFrame.setBagOpen(4, true);
 						}
 						containerFrameActive = !containerFrameActive;
-						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
 						return true;
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_B && !escapeFrameActive) {
@@ -278,12 +288,12 @@ public class Interface {
 							ContainerFrame.setBagOpen(2, false);
 							ContainerFrame.setBagOpen(3, false);
 							ContainerFrame.setBagOpen(4, false);
+							closeBagEvent();
 						}
 						else {
 							ContainerFrame.setBagOpen(0, true);
 						}
 						containerFrameActive = !containerFrameActive;
-						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
 						return true;
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_W) {
@@ -323,7 +333,7 @@ public class Interface {
 						closeTalentFrame();
 						closeSpellBookFrame();
 						closeAdminPanelFrame();
-						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+						closeBagEvent();
 						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
 						Arrays.fill(ShopFrame.getShopHover(), false);
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
@@ -353,7 +363,7 @@ public class Interface {
 						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
 						Arrays.fill(ShopFrame.getShopHover(), false);
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
-						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+						closeBagEvent();
 						ClassSelectFrame.setHoverFalse();
 						changeBackgroundFrameActive = !changeBackgroundFrameActive;
 						return true;
@@ -387,6 +397,10 @@ public class Interface {
 		return false;
 	}
 	
+	private static void closeBagEvent() {
+		Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+		ContainerFrame.setIsOneButtonDown(false);
+	}
 	public static void closeCharacterFrame() {
 		characterFrameActive = false;
 	}

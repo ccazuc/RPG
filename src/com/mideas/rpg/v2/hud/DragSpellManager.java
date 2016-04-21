@@ -110,7 +110,7 @@ public class DragSpellManager {
 					}
 				}
 			}
-			if(Mouse.getEventButton() == 0) {
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 				if(draggedShortcut != null && !isHoverSpellBarFrame()) {
 					deleteSpell(draggedShortcut);
 					draggedShortcut = null;

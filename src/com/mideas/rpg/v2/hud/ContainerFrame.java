@@ -9,8 +9,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
@@ -38,6 +38,7 @@ public class ContainerFrame {
 	private static boolean bagChange = true;
 	private static boolean[] hoverButton = new boolean[5];
 	private static boolean[] buttonDown = new boolean[5];
+	private static boolean isOneButtonDown;
 	private static int xItemNumber;
 	private static int yItemNumber;
 	private static int iItemNumber;
@@ -109,15 +110,14 @@ public class ContainerFrame {
 		int yBagIcon = -4;
 		int xCloseButton = -154;
 		int yCloseButton = -2;
+		Texture buttonTexture;
 		if(isBagOpen[0]) {
 			yBagShift = -bagSize[0]-150;
-			if(Mideas.mouseX() >= Display.getWidth()+xCloseButton && Mideas.mouseX() <= Display.getWidth()+xCloseButton+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift+8 && Mideas.mouseY() <= Display.getHeight()+bagShift+yBagShift+8+Sprites.close_bag_button.getImageHeight()) {
+			if(Mideas.mouseX() >= Display.getWidth()+xCloseButton && Mideas.mouseX() <= Display.getWidth()+xCloseButton+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift+yCloseButton+9.5f && Mideas.mouseY() <=  Display.getHeight()+bagShift+yBagShift+9.5f+yCloseButton+Sprites.close_bag_button.getImageHeight()) {
 				hoverButton[0] = true;
-				Draw.drawQuad(Sprites.close_bag_button_hover, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+8);
 			}
-			else {
-				Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+8);
-			}
+			buttonTexture = getButtonTexture(0);
+			Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton+9.5f);
 			Draw.drawQuad(Sprites.back_bag, Display.getWidth()-320, Display.getHeight()+yBagShift);
 			bagShift+= yBagShift;
 		}
@@ -132,20 +132,8 @@ public class ContainerFrame {
 				if(Mideas.mouseX() >= Display.getWidth()+xCloseButton && Mideas.mouseX() <= Display.getWidth()+xCloseButton+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift-2 && Mideas.mouseY() <=  Display.getHeight()+bagShift+yBagShift-2+Sprites.close_bag_button.getImageHeight()) {
 					hoverButton[1] = true;
 				}
-				if(buttonDown[1]) {
-					if(hoverButton[1]) {
-						//draw
-					}
-					else {
-						Draw.drawQuad(Sprites.close_bag_button_down, Display.getWidth()+xCloseButton-7, Display.getHeight()+bagShift+yBagShift+yCloseButton-9);
-					}
-				}
-				else if(hoverButton[1]) {
-					Draw.drawQuad(Sprites.close_bag_button_hover, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				}
-				else {
-					Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				}
+				buttonTexture = getButtonTexture(1);
+				Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(0)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(0).getId()), Display.getWidth()-320, Display.getHeight()+bagShift+yBagShift-10);
 				bagShift+= yBagShift;
@@ -163,20 +151,8 @@ public class ContainerFrame {
 				if(Mideas.mouseX() >= Display.getWidth()+xCloseButton && Mideas.mouseX() <= Display.getWidth()+xCloseButton+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift-2 && Mideas.mouseY() <= Display.getHeight()+bagShift+yBagShift-2+Sprites.close_bag_button.getImageHeight()) {
 					hoverButton[2] = true;
 				}
-				if(buttonDown[2]) {
-					if(hoverButton[2]) {
-						//draw
-					}
-					else {
-						Draw.drawQuad(Sprites.close_bag_button_down, Display.getWidth()+xCloseButton-7, Display.getHeight()+bagShift+yBagShift+yCloseButton-9);
-					}
-				}
-				else if(hoverButton[2]) {
-					Draw.drawQuad(Sprites.close_bag_button_hover, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				}
-				else {
-					Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				}
+				buttonTexture = getButtonTexture(2);
+				Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(1)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(1).getId()), Display.getWidth()-320+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 				bagShift+= yBagShift;
@@ -199,20 +175,8 @@ public class ContainerFrame {
 				if(Mideas.mouseX() >= Display.getWidth()+xCloseButton+xBagShift && Mideas.mouseX() <= Display.getWidth()+xCloseButton+xBagShift+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift-2 && Mideas.mouseY() <= Display.getHeight()+bagShift+yBagShift-2+Sprites.close_bag_button.getImageHeight()) {
 					hoverButton[3] = true;
 				}
-				if(buttonDown[3]) {
-					if(hoverButton[3]) {
-						//draw button down hover
-					}
-					else {
-						Draw.drawQuad(Sprites.close_bag_button_down, Display.getWidth()+xCloseButton-7+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton-9);
-					}
-				}
-				else if(hoverButton[3]) {
-					Draw.drawQuad(Sprites.close_bag_button_hover, Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				}
-				else {
-					Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				}
+				buttonTexture = getButtonTexture(3);
+				Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(2)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(2).getId()), Display.getWidth()-320+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 				bagShift+= yBagShift;
@@ -235,20 +199,8 @@ public class ContainerFrame {
 				if(Mideas.mouseX() >= Display.getWidth()+xCloseButton+xBagShift && Mideas.mouseX() <= Display.getWidth()+xCloseButton+xBagShift+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift-2 && Mideas.mouseY() <= Display.getHeight()+bagShift+yBagShift-2+Sprites.close_bag_button.getImageHeight()) {
 					hoverButton[4] = true;
 				}
-				if(buttonDown[4]) {
-					if(hoverButton[4]) {
-						//draw hover button down
-					}
-					else {
-						Draw.drawQuad(Sprites.close_bag_button_down, Display.getWidth()+xCloseButton-7+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton-9);
-					}
-				}
-				else if(hoverButton[4]) {
-					Draw.drawQuad(Sprites.close_bag_button_hover, Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				}
-				else {
-					Draw.drawQuad(Sprites.close_bag_button, Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				}
+				buttonTexture = getButtonTexture(4);
+				Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(3)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(3).getId()), Display.getWidth()-320+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 			}
@@ -494,9 +446,9 @@ public class ContainerFrame {
 		else if(itemNumberCancelButton) {
 			Draw.drawQuad(Sprites.itemnumber_hover_cancel, Display.getWidth()+xItemNumber+87, Display.getHeight()+yItemNumber+52.3f);
 		}
-		if(iHover >= 0) {
+		/*if(iHover >= 0) {
 			drawHoverBag(iHover, x_item, y_item);
-		}
+		}*/
 	}
 	
 	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
@@ -506,272 +458,279 @@ public class ContainerFrame {
 		itemNumberLeftArrow = false;
 		itemNumberRightArrow = false;
 		checkItemNumberMouseEvent();
-		if(!Mouse.getEventButtonState()) {
-			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-				int i = 0;
-				while(i < hoverButton.length) {
-					if(hoverButton[i]) {
-						isBagOpen[i] = false;
-						Arrays.fill(buttonDown, false);
+		if(!DragManager.isHoverCharacterFrame()) {
+			if(!Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0) {
+					int i = 0;
+					while(i < hoverButton.length) {
+						if(hoverButton[i] && buttonDown[i]) {
+							isBagOpen[i] = false;
+							Arrays.fill(buttonDown, false);
+							isOneButtonDown = false;
+							return true;
+						}
+						i++;
+					}
+					if(itemNumberOkButton) {
+						splitItem(iItemNumber);
 						return true;
 					}
-					i++;
-				}
-				Arrays.fill(buttonDown, false);
-			}
-			if(Mouse.getEventButton() == 0) {
-				if(itemNumberOkButton) {
-					splitItem(iItemNumber);
-				}
-				else if(itemNumberCancelButton) {
-					itemNumberOpen[iItemNumber] = false;
-					numberItem = 1;
-				}
-				else if(itemNumberLeftArrow) {
-					if(numberItem > 1) {
-						numberItem--;
+					else if(itemNumberCancelButton) {
+						itemNumberOpen[iItemNumber] = false;
+						numberItem = 1;
+						return true;
 					}
-				}
-				else if(itemNumberRightArrow) {
-					if(numberItem < Mideas.joueur1().getNumberItem(Mideas.bag().getBag(iItemNumber))) {
-						numberItem++;
-					}
-				}
-			}
-		}
-		else if(Mouse.getEventButtonState()) {
-			if(Mouse.getEventButton() == 0) {
-				int i = 0;
-				while(i < buttonDown.length) {
-					if(hoverButton[i]) {
-						buttonDown[i] = true;
-						break;
-					}
-					i++;
-				}
-			}
-		}
-		int x = -303;
-		int xShift = 41;
-		int yShift = 42;
-		int y = -50;
-		int i = 0;
-		int j = 0;
-		int k = 0;
-		int z = 0;
-		int xBagShift = 0;
-		boolean backPack = true;
-		boolean first = true;
-		boolean second = true;
-		boolean third = true;
-		boolean fourth = true;
-		boolean resize = false;
-		int size = 16;
-		while(i < Mideas.bag().getBag().length) {
-			if(backPack) {
-				if(isBagOpen[0]) {
-					z+= -bagSize[0]-50;
-				}
-				backPack = false;
-			}
-			if(i < 16) {
-				if(isBagOpen[0]) {
-					slotHover(x+j*xShift+xBagShift, y+k*yShift+z, i);
-				}
-			}
-			else if(i >= 16 && i < Mideas.bag().getEquippedBagSize(0)+16) {
-				if(isBagOpen[1]) { 
-					slotHover(x+j*xShift+xBagShift, y+k*yShift+z, i);
-				}
-			}
-			else if(i >= Mideas.bag().getEquippedBagSize(0)+16 && i < Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+16) {
-				if(isBagOpen[2]) { 
-					slotHover(x+j*xShift+xBagShift, y+k*yShift+z, i);
-				}
-			}
-			else if(i >= Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+16 && i < Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+Mideas.bag().getEquippedBagSize(2)+16) {
-				if(isBagOpen[3]) {
-					slotHover(x+j*xShift+xBagShift, k*yShift+z, i);
-				}
-			}
-			else if(i >= Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+Mideas.bag().getEquippedBagSize(2)+16 && i < Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+Mideas.bag().getEquippedBagSize(2)+Mideas.bag().getEquippedBagSize(3)+16) {
-				if(isBagOpen[4]) { 
-					slotHover(x+j*xShift+xBagShift, k*yShift+z, i);
-				}
-			}
-			i++;
-			j++;
-			if(j == 4) {
-				j = 0;
-			}
-			if(i != 0 && i%4 == 0) {
-				k++;
-			}
-			if(i == size && first) {
-				if(Mideas.bag().getEquippedBag(0) != null) {
-					if(isBagOpen[1]) {
-						if(isBagOpen[0]) {
-							z+= -bagSize[1]-10;
-						}
-						else {
-							z+= -bagSize[1]-52;
+					else if(itemNumberLeftArrow) {
+						if(numberItem > 1) {
+							numberItem--;
+							return true;
 						}
 					}
-					size+= Mideas.bag().getEquippedBagSize(0);
-				}
-				first = false;
-				j = 0;
-				k = 0;
-			}
-			if(i == size && second) {
-				if(Mideas.bag().getEquippedBag(1) != null) {
-					if(isBagOpen[2]) {
-						if(isBagOpen[0] && !isBagOpen[1]) {
-							z+= -bagSize[2]-10;
-						}
-						else if(!isBagOpen[0] && isBagOpen[1]) {
-							z+= -bagSize[2];
-						}
-						else if(isBagOpen[0] && isBagOpen[1]) {
-							z+= -bagSize[2];
-						}
-						else {
-							z+= -bagSize[2]-52;
+					else if(itemNumberRightArrow) {
+						if(numberItem < Mideas.joueur1().getNumberItem(Mideas.bag().getBag(iItemNumber))) {
+							numberItem++;
+							return true;
 						}
 					}
-					size+= Mideas.bag().getEquippedBagSize(1);
 				}
-				second = false;
-				j = 0;
-				k = 0;
+				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					if(isOneButtonDown) {
+						Arrays.fill(buttonDown, false);
+						isOneButtonDown = false;
+					}
+				}
 			}
-			if(i == size && third) {
-				if(Mideas.bag().getEquippedBag(2) != null) {
+			else if(Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					int i = 0;
+					while(i < buttonDown.length) {
+						if(hoverButton[i]) {
+							buttonDown[i] = true;
+							isOneButtonDown = true;
+							break;
+						}
+						i++;
+					}
+				}
+			}
+			int x = -303;
+			int xShift = 41;
+			int yShift = 42;
+			int y = -50;
+			int i = 0;
+			int j = 0;
+			int k = 0;
+			int z = 0;
+			int xBagShift = 0;
+			boolean backPack = true;
+			boolean first = true;
+			boolean second = true;
+			boolean third = true;
+			boolean fourth = true;
+			boolean resize = false;
+			int size = 16;
+			while(i < Mideas.bag().getBag().length) {
+				if(backPack) {
+					if(isBagOpen[0]) {
+						z+= -bagSize[0]-50;
+					}
+					backPack = false;
+				}
+				if(i < 16) {
+					if(isBagOpen[0]) {
+						slotHover(x+j*xShift+xBagShift, y+k*yShift+z, i);
+					}
+				}
+				else if(i >= 16 && i < Mideas.bag().getEquippedBagSize(0)+16) {
+					if(isBagOpen[1]) { 
+						slotHover(x+j*xShift+xBagShift, y+k*yShift+z, i);
+					}
+				}
+				else if(i >= Mideas.bag().getEquippedBagSize(0)+16 && i < Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+16) {
+					if(isBagOpen[2]) { 
+						slotHover(x+j*xShift+xBagShift, y+k*yShift+z, i);
+					}
+				}
+				else if(i >= Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+16 && i < Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+Mideas.bag().getEquippedBagSize(2)+16) {
 					if(isBagOpen[3]) {
-						if(z <= -650) {
-							z = 0;
-							xBagShift = -199;
-							resize = true;
-						}
-						if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
-							z+= -bagSize[3]-60;
-						}
-						else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
-							z+= -bagSize[3]-52;
-						}
-						else if(!isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize) {
-							z+= -bagSize[3]-50;
-						}
-						else if(!isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) {
-							z+= -bagSize[3]-102;
-						}
-						else if(!resize) {
-							z+= -bagSize[3]-52;
-						}
-						else if(resize) {
-							z+= -bagSize[3]-101;
-						}
+						slotHover(x+j*xShift+xBagShift, k*yShift+z, i);
 					}
-					size+= Mideas.bag().getEquippedBagSize(2);
 				}
-				third = false;
-				j = 0;
-				k = 0;
-			}
-			if(i == size && fourth) {
-				if(Mideas.bag().getEquippedBag(3) != null) {
-					if(isBagOpen[4]) {
-						if(z <= -650) { 
-							z = 0;
-							xBagShift = -199;
-							resize = true;
-						}
-						if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
-							z+= -bagSize[4];
-						}
-						else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize)  {
-							z+= -bagSize[3]-52;
-						}
-						else if(!isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !isBagOpen[3] && !resize) {
-							z+= -bagSize[4]-102;
-						}
-						else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
-							z+= -bagSize[4]-62;
-						}
-						else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
-							z+= -bagSize[4];
-						}
-						else if(isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3]) {
-							z+= -bagSize[4]-62;
-						}
-						else if(isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
-							z+= -bagSize[4]-62;
-						}
-						else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !isBagOpen[3] && !resize) {
-							z+= -bagSize[4]-62;
-						}
-						else if(isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && !isBagOpen[3] && !resize) {
-							z+= -bagSize[4]-52;
-						}
-						else if(isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
-							z+= -bagSize[4];
-						}
-						else if(isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && !isBagOpen[3] && resize) {
-							z+= -bagSize[4]-102;
-						}
-						else if(isBagOpen[1] && isBagOpen[2] && !resize) {
-							z+= -bagSize[4]-52;
-						}
-						else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
-							z+= -bagSize[4];
-						}
-						else if(isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && resize) {
-							z+= -bagSize[4];
-						}
-						else if(!isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
-							z+= -bagSize[4];
-						}
-						else if(isBagOpen[0] && !isBagOpen[1] && !resize) {
-							z+= -bagSize[4];
-						}
-						else if((isBagOpen[1] || isBagOpen[2]) && !resize)  {
-							z+= -bagSize[4]-52;
-						}
-						else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
-							z+= -bagSize[4]-60;
-						}
-						else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
-							z+= -bagSize[4]-52;
-						}
-						else if(isBagOpen[3] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
-							z+= -bagSize[4];
-						}
-						else if(isBagOpen[3] && isBagOpen[1] && isBagOpen[2] && !resize) {
-							z+= -bagSize[4]-28;
-						}
-						else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
-							z+= -bagSize[4]-52;
-						}
-						else if(!resize) {
-							z+= -bagSize[4]-28;
-						}
-						else if(resize) {
-							z+= -bagSize[4];
-						}
+				else if(i >= Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+Mideas.bag().getEquippedBagSize(2)+16 && i < Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+Mideas.bag().getEquippedBagSize(2)+Mideas.bag().getEquippedBagSize(3)+16) {
+					if(isBagOpen[4]) { 
+						slotHover(x+j*xShift+xBagShift, k*yShift+z, i);
 					}
-					size+= Mideas.bag().getEquippedBagSize(3);
 				}
-				fourth = false;
-				j = 0;
-				k = 0;
+				i++;
+				j++;
+				if(j == 4) {
+					j = 0;
+				}
+				if(i != 0 && i%4 == 0) {
+					k++;
+				}
+				if(i == size && first) {
+					if(Mideas.bag().getEquippedBag(0) != null) {
+						if(isBagOpen[1]) {
+							if(isBagOpen[0]) {
+								z+= -bagSize[1]-10;
+							}
+							else {
+								z+= -bagSize[1]-52;
+							}
+						}
+						size+= Mideas.bag().getEquippedBagSize(0);
+					}
+					first = false;
+					j = 0;
+					k = 0;
+				}
+				if(i == size && second) {
+					if(Mideas.bag().getEquippedBag(1) != null) {
+						if(isBagOpen[2]) {
+							if(isBagOpen[0] && !isBagOpen[1]) {
+								z+= -bagSize[2]-10;
+							}
+							else if(!isBagOpen[0] && isBagOpen[1]) {
+								z+= -bagSize[2];
+							}
+							else if(isBagOpen[0] && isBagOpen[1]) {
+								z+= -bagSize[2];
+							}
+							else {
+								z+= -bagSize[2]-52;
+							}
+						}
+						size+= Mideas.bag().getEquippedBagSize(1);
+					}
+					second = false;
+					j = 0;
+					k = 0;
+				}
+				if(i == size && third) {
+					if(Mideas.bag().getEquippedBag(2) != null) {
+						if(isBagOpen[3]) {
+							if(z <= -650) {
+								z = 0;
+								xBagShift = -199;
+								resize = true;
+							}
+							if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
+								z+= -bagSize[3]-60;
+							}
+							else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
+								z+= -bagSize[3]-52;
+							}
+							else if(!isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize) {
+								z+= -bagSize[3]-50;
+							}
+							else if(!isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2]) {
+								z+= -bagSize[3]-102;
+							}
+							else if(!resize) {
+								z+= -bagSize[3]-52;
+							}
+							else if(resize) {
+								z+= -bagSize[3]-101;
+							}
+						}
+						size+= Mideas.bag().getEquippedBagSize(2);
+					}
+					third = false;
+					j = 0;
+					k = 0;
+				}
+				if(i == size && fourth) {
+					if(Mideas.bag().getEquippedBag(3) != null) {
+						if(isBagOpen[4]) {
+							if(z <= -650) { 
+								z = 0;
+								xBagShift = -199;
+								resize = true;
+							}
+							if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
+								z+= -bagSize[4];
+							}
+							else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize)  {
+								z+= -bagSize[3]-52;
+							}
+							else if(!isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !isBagOpen[3] && !resize) {
+								z+= -bagSize[4]-102;
+							}
+							else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
+								z+= -bagSize[4]-62;
+							}
+							else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
+								z+= -bagSize[4];
+							}
+							else if(isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3]) {
+								z+= -bagSize[4]-62;
+							}
+							else if(isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
+								z+= -bagSize[4]-62;
+							}
+							else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !isBagOpen[3] && !resize) {
+								z+= -bagSize[4]-62;
+							}
+							else if(isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && !isBagOpen[3] && !resize) {
+								z+= -bagSize[4]-52;
+							}
+							else if(isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
+								z+= -bagSize[4];
+							}
+							else if(isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && !isBagOpen[3] && resize) {
+								z+= -bagSize[4]-102;
+							}
+							else if(isBagOpen[1] && isBagOpen[2] && !resize) {
+								z+= -bagSize[4]-52;
+							}
+							else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
+								z+= -bagSize[4];
+							}
+							else if(isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && resize) {
+								z+= -bagSize[4];
+							}
+							else if(!isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3] && !resize) {
+								z+= -bagSize[4];
+							}
+							else if(isBagOpen[0] && !isBagOpen[1] && !resize) {
+								z+= -bagSize[4];
+							}
+							else if((isBagOpen[1] || isBagOpen[2]) && !resize)  {
+								z+= -bagSize[4]-52;
+							}
+							else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
+								z+= -bagSize[4]-60;
+							}
+							else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
+								z+= -bagSize[4]-52;
+							}
+							else if(isBagOpen[3] && !isBagOpen[1] && !isBagOpen[2] && !resize) {
+								z+= -bagSize[4];
+							}
+							else if(isBagOpen[3] && isBagOpen[1] && isBagOpen[2] && !resize) {
+								z+= -bagSize[4]-28;
+							}
+							else if(isBagOpen[0] && (isBagOpen[1] || isBagOpen[2]) && !resize)  {
+								z+= -bagSize[4]-52;
+							}
+							else if(!resize) {
+								z+= -bagSize[4]-28;
+							}
+							else if(resize) {
+								z+= -bagSize[4];
+							}
+						}
+						size+= Mideas.bag().getEquippedBagSize(3);
+					}
+					fourth = false;
+					j = 0;
+					k = 0;
+				}
+				
 			}
-			
 		}
 		return false;
-	}
-	
-	public static void keyboardEvent() {
-		
 	}
 	
 	private static void slotHover(int x, int y, int i) {
@@ -789,6 +748,9 @@ public class ContainerFrame {
 				if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
 					Mideas.bag().setBag(i, null);
 				}
+			}
+			if(slot_hover[i]) {
+				Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
 			}
 		}
 	}
@@ -884,7 +846,7 @@ public class ContainerFrame {
 		}
 	}*/
 	
-	private static void drawHoverBag(int i, int x, int y) throws FileNotFoundException, SQLException {
+	public static void drawHoverBag(int i, int x, int y) throws FileNotFoundException, SQLException {
 		if(slot_hover[i] && !isHoverItemNumberFrame()) {
 			if(Mideas.bag().getBag(i) != null) {
 				if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
@@ -897,7 +859,7 @@ public class ContainerFrame {
 					drawPotion(i, x, y);
 				}
 			}
-			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
+			//Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
 		}
 	}
 	
@@ -1186,6 +1148,23 @@ public class ContainerFrame {
 		calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-55, z+y+shift-2);
 	}
 	
+	public static Texture getButtonTexture(int i) {
+		if(buttonDown[i]) {
+			if(hoverButton[i]) {
+				return Sprites.close_bag_button_down_hover;
+			}
+			else {
+				return Sprites.close_bag_button_down;
+			}
+		}
+		else if(hoverButton[i]) {
+			return Sprites.close_bag_button_hover;
+		}
+		else {
+			return Sprites.close_bag_button;
+		}
+	}
+	
 	public static int getNumberStats(Stuff stuff) {
 		int i = 0;
 		if(stuff.getArmor() > 0) {
@@ -1263,6 +1242,10 @@ public class ContainerFrame {
 		itemNumberOpen[i] = we;
 	}
 	
+	public static void setIsOneButtonDown(boolean we) {
+		isOneButtonDown = we;
+	}
+	
 	public static boolean isHoverItemNumberFrame() {
 		if(Mideas.mouseX() >= Display.getWidth()+xItemNumber && Mideas.mouseX() <= Display.getWidth()+xItemNumber+Sprites.itemnumber_frame.getImageWidth()+8 && Mideas.mouseY() >= Display.getHeight()+yItemNumber && Mideas.mouseY() <= Display.getHeight()+yItemNumber+Sprites.itemnumber_frame.getImageHeight()+4) {
 			return true;
@@ -1333,5 +1316,17 @@ public class ContainerFrame {
 	
 	public static int getLastSplit() {
 		return lastSplit;
+	}
+	
+	public static int getItemHover() {
+		return iHover;
+	}
+	
+	public static int getXItemHover() {
+		return x_item;
+	}
+	
+	public static int getYItemHover() {
+		return y_item;
 	}
 }

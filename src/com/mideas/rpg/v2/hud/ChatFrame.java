@@ -536,6 +536,16 @@ public class ChatFrame {
 				int value = Integer.parseInt(temp[1]);	
 				messages.add(SpellManager.getBookSpell(value).getName());
 			}
+			else if(tempMessage.contains(".set x ")) {
+				String[] temp = tempMessage.split("x ");
+				int value = Integer.parseInt(temp[1]);	
+				CharacterFrame.setMouseX(value);
+			}
+			else if(tempMessage.contains(".set y ")) {
+				String[] temp = tempMessage.split("y ");
+				int value = Integer.parseInt(temp[1]);	
+				CharacterFrame.setMouseY(value);
+			}
 			else if(tempMessage.contains(".set joueur2 ")) {
 				String[] temp = tempMessage.split("joueur2 ");
 				String joueur = temp[1];
@@ -612,6 +622,7 @@ public class ChatFrame {
 			else if(tempMessage.equals(".update")) {
 				Mideas.getGold();
 				Mideas.getExp();
+				Mideas.getConfig();
 				ShopManager.getShopList().clear();
 				ShopManager.loadStuffs();
 				CharacterStuff.getEquippedBags();

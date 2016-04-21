@@ -34,6 +34,7 @@ import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
+import com.mideas.rpg.v2.hud.CharacterFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
@@ -154,7 +155,7 @@ public class Mideas {
 			}
 			Interface.draw();
 			Display.update();
-			Display.sync(60);
+			Display.sync(120);
 		}
 	}
 	
@@ -617,6 +618,16 @@ public class Mideas {
 		statement.putString(ChangeBackGroundFrame.getCurrentBackground());
 		statement.putString("background");
 		statement.execute();
+
+		statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
+		statement.putString(Integer.toString(CharacterFrame.getMouseX()));
+		statement.putString("x_inventory_frame");
+		statement.execute();
+
+		statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
+		statement.putString(Integer.toString(CharacterFrame.getMouseY()));
+		statement.putString("y_inventory_frame");
+		statement.execute();
 		/*BufferedReader br = null;
 		try {
 			String content = "";
@@ -652,14 +663,30 @@ public class Mideas {
 	}
 
 	public static void getConfig() throws FileNotFoundException, SQLException {
-		String bg = "";
+		String temp = "";
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
 		statement.putString("background");
 		statement.execute();
 		if(statement.fetch()) {
-			bg = statement.getString();
+			temp = statement.getString();
 		}
-		ChangeBackGroundFrame.loadBG(bg);
+		ChangeBackGroundFrame.loadBG(temp);
+		
+		statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
+		statement.putString("x_inventory_frame");
+		statement.execute();
+		if(statement.fetch()) {
+			temp = statement.getString();
+		}
+		CharacterFrame.setMouseX(Integer.valueOf(temp));
+
+		statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
+		statement.putString("y_inventory_frame");
+		statement.execute();
+		if(statement.fetch()) {
+			temp = statement.getString();
+		}
+		CharacterFrame.setMouseY(Integer.valueOf(temp));
 		/*BufferedReader br = null;
 		try {
 			int i = 0;
