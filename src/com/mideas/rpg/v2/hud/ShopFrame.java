@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -110,7 +109,7 @@ public class ShopFrame { // UNUSED
 		calcCoin(Mideas.joueur1().getGold(), xRight, y+250);
  	}
 
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		setHoverShopFalse();
 		Arrays.fill(slot_hover, false);
 		int xLeft = -279;
@@ -229,7 +228,7 @@ public class ShopFrame { // UNUSED
 		return false;
 	}
 	
-	public static void buyItems(boolean slot_hover, Item stuff) throws FileNotFoundException, SQLException {
+	public static void buyItems(boolean slot_hover, Item stuff) throws SQLException {
 		if(Mouse.getEventButton() == 1 && slot_hover && stuff != null) {
 			if(Mouse.getEventButtonState()) {
 			}

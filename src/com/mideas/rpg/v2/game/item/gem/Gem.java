@@ -15,25 +15,21 @@ public class Gem extends Item {
 	public Gem(Gem gem) {
 		super(gem.id, gem.sprite_id, gem.itemType, gem.name, gem.quality, gem.sellPrice, 1);
 		this.strength = gem.strength;
+		this.critical = gem.critical;
 		this.stamina = gem.stamina;
 		this.armor = gem.armor;
-		this.critical = gem.critical;
-		this.mana = gem.mana;
 		this.color = gem.color;
+		this.mana = gem.mana;
 	}
 	
 	public Gem(int id, String sprite_id, String name, int quality, GemColor color, int strength, int stamina, int armor, int mana, int critical, int sellPrice) {
 		super(id, sprite_id, ItemType.GEM, name, quality, sellPrice, 1);
 		this.strength = strength;
-		this.stamina = stamina;
-		this.mana = mana;
-		this.armor = armor;
 		this.critical = critical;
+		this.stamina = stamina;
+		this.armor = armor;
 		this.color = color;
-	}
-	
-	public int getQuality() {
-		return this.quality;
+		this.mana = mana;
 	}
 	
 	public int getStrength() {

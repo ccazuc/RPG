@@ -7,6 +7,8 @@ public enum GemColor {
 	BLUE,
 	PURPLE,
 	ORANGE,
-	YELLOW
+	YELLOW,
+	META,
+	NONE
 	
 }

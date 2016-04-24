@@ -9,6 +9,8 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.mideas.rpg.v2.OpenGL;
+
 import static org.lwjgl.opengl.GL11.glVertex2d;
 import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glColor4f;
@@ -105,7 +107,7 @@ public final class Draw {
 		glTexCoord2f(xTo, yTo);
 		glVertex2f(x+width, y+height);
 		glTexCoord2f(xTo, yFrom);
-		glVertex2f(x+width, y);
+		OpenGL.glVertex2f(x+width, y);
 	}
 	
 	public final static void drawQuad(final Texture texture, final float x, final float y, final float alpha) {
@@ -221,5 +223,43 @@ public final class Draw {
 	public final static void drawPoint(final float x, final float y, final Color color) {
 		drawPoint(x, y, color, 1);
 	}
+	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height, final float texXOrg, final float texYOrg, final float texCoWidth, final float texCoHeight, final Color color) {
+		if(texture != null) {
+			texture.bind();
+			OpenGL.glBegin(OpenGL.GL_QUADS);
+			OpenGL.glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+			drawQuadPart(texture, x, y, width, height, texXOrg, texYOrg, texCoWidth, texCoHeight);
+			OpenGL.glEnd();
+		}
+	}
 	
+	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height, final float texXOrg, final float texYOrg, final float texCoWidth, final float texCoHeight, final float alpha) {
+		if(texture != null) {
+			texture.bind();
+			OpenGL.glBegin(OpenGL.GL_QUADS);
+			OpenGL.glColor4f(1, 1, 1, alpha);
+			drawQuadPart(texture, x, y, width, height, texXOrg, texYOrg, texCoWidth, texCoHeight);
+			OpenGL.glEnd();
+		}
+	}
+	
+	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height, final float texXOrg, final float texYOrg, final float texCoWidth, final float texCoHeight) {
+		drawQuad(texture, x, y, width, height, texXOrg, texYOrg, texCoWidth, texCoHeight, 1);
+	}
+	
+	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height, final Color color) {
+		drawQuad(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight(), color);
+	}
+	
+	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height, final float alpha) {
+		drawQuad(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight(), alpha);
+	}
+	
+	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height) {
+		drawQuad(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight(), 1);
+	}
+	
+	public final static void drawQuad(final Texture texture, final float x, final float y, final Color color) {
+		drawQuad(texture, x, y, texture.getWidth(), texture.getHeight(), 0, 0, texture.getWidth(), texture.getHeight(), color);
+	}
 }

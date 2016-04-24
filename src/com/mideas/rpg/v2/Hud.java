@@ -31,7 +31,7 @@ public class Hud {
 		Color bgColor = new Color(0, 0, 0,.35f);     
 		Color healthBar = Color.decode("#07D705");
 		Color manaBar = Color.decode("#0101D5");
-		Draw.drawQuad(Sprites.bg, Display.getWidth()/2-Sprites.bg.getImageWidth()/2, Display.getHeight()/2-Sprites.bg.getImageHeight()/2);  //bg
+		Draw.drawQuad(Sprites.bg, Display.getWidth()/2-Sprites.bg.getWidth()/2, Display.getHeight()/2-Sprites.bg.getHeight()/2);  //bg
 		expBar();
         Draw.drawQuad(Sprites.spellbar, Window.getWidth()/2-300, Window.getHeight()-120);                                                 //spellBar
 		Draw.drawQuad(Sprites.spell_attack, Window.getWidth()/2-139, Window.getHeight()-61);                                              //attack

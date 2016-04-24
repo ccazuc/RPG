@@ -3,7 +3,6 @@ package com.mideas.rpg.v2;
 import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.SQLException;
@@ -24,6 +23,7 @@ import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
+import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.stuff.Bag;
@@ -78,7 +78,7 @@ public class Mideas {
         GL11.glLoadIdentity();
 	}
 	
-	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException, CloneNotSupportedException {
+	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, CloneNotSupportedException {
 		//System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
 		//Display.setDisplayMode(new DisplayMode(1200, 800));
 		//Display.setDisplayMode(new DisplayMode(1200, 930));
@@ -123,14 +123,16 @@ public class Mideas {
 		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		time = System.currentTimeMillis();
 		initSQL();
+		GemManager.loadGems();
+		WeaponManager.loadWeapons();
+		PotionManager.loadPotions();
 		BagManager.loadBags();
 		BagManager.loadBagsSprites();
-		WeaponManager.loadWeapons();
 		StuffManager.loadStuffs();
-		PotionManager.loadPotions();
 		ShopManager.loadStuffs();
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();
+		GemManager.loadGemSprites();
 		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		getExpAll();
 		joueur2 = getRandomClass(2);
@@ -163,14 +165,15 @@ public class Mideas {
 		}
 	}
 	
-	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, InterruptedException, CloneNotSupportedException {
+	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, CloneNotSupportedException {
 		loop();
 		saveAllStats();
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
 		//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
+		jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
 	}
 	
 	public static JDO getJDO() {

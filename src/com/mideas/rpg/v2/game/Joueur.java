@@ -35,6 +35,9 @@ public class Joueur {
 	private int gold;
 	private int goldGained;
 	private int defaultArmor;
+	private int numberRedGem;
+	private int numberBlueGem;
+	private int numberYellowGem;
 	//private int tailorExp;
 	private String id;
 	public int x;
@@ -213,6 +216,30 @@ public class Joueur {
 	public void setStuffMana(int mana) {
 		this.maxMana+= mana;
 		this.mana+= mana;
+	}
+	
+	public void setNumberRedGem(int nb) {
+		this.numberRedGem = nb;
+	}
+	
+	public int getNumberRedGem() {
+		return this.numberRedGem;
+	}
+	
+	public void setNumberBlueGem(int nb) {
+		this.numberBlueGem = nb;
+	}
+	
+	public int getNumberBlueGem() {
+		return this.numberBlueGem;
+	}
+	
+	public void setNumberYellowGem(int nb) {
+		this.numberYellowGem = nb;
+	}
+	
+	public int getNumberYellowGem() {
+		return this.numberYellowGem;
 	}
 	
 	public String getClasse() {

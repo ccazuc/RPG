@@ -1,13 +1,10 @@
 package com.mideas.rpg.v2.game;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -18,6 +15,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Bag;
@@ -43,7 +41,7 @@ public class ShopManager {
 
 	private static ArrayList<Shop> shopList = new ArrayList<Shop>();
 	
-	public static void loadStuffs() throws SQLException, CloneNotSupportedException {
+	public static void loadStuffs() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, class, price FROM shop");
 		statement.execute();
 		while(statement.fetch()) {
@@ -84,10 +82,17 @@ public class ShopManager {
 			}
 			i++;
 		}
+		i = 0;
+		while(i < GemManager.getGemList().size()) {
+			if(GemManager.getGemList().get(i).getId() == id) {
+				return GemManager.getGemList().get(i);
+			}
+			i++;
+		}
 		return null;
 	}
 	
-	public static void draw() throws LWJGLException, IOException, SQLException {
+	public static void draw() {
 		int xLeft = -279;
 		int xRight = -114;
 		int y = -275;
@@ -162,7 +167,7 @@ public class ShopManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		Arrays.fill(slot_hover, false);
 		right_arrow = false;
 		left_arrow = false;
@@ -229,7 +234,7 @@ public class ShopManager {
 		return false;
 	}
 	
-	public static void buyItems(boolean slot_hover, Shop item) throws FileNotFoundException, SQLException {
+	public static void buyItems(boolean slot_hover, Shop item) throws SQLException {
 		if(Mouse.getEventButton() == 1 && slot_hover && item != null) {
 			if(Mouse.getEventButtonState()) {
 			}
@@ -244,7 +249,7 @@ public class ShopManager {
 		}
 	}
 	
-	private static boolean clickSellItem(int i) throws FileNotFoundException, SQLTimeoutException, SQLException {
+	private static boolean clickSellItem(int i) throws SQLTimeoutException, SQLException {
 		if(sellItem(Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), DragManager.getClickBag(i))) {
 			Mideas.bag().setBag(i, null);
 			return true;
@@ -252,7 +257,7 @@ public class ShopManager {
 		return false;
 	}
 	
-	private static boolean sellItem(Item item, boolean hover, boolean click_hover) throws FileNotFoundException, SQLTimeoutException, SQLException {
+	private static boolean sellItem(Item item, boolean hover, boolean click_hover) throws SQLTimeoutException, SQLException {
 		if(item != null && hover && click_hover && Interface.getShopFrameStatus()) {
 			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
 				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
@@ -267,7 +272,7 @@ public class ShopManager {
 		}
 		return false;
 	}
-	private static boolean checkItem(Shop item) throws FileNotFoundException, SQLException {
+	private static boolean checkItem(Shop item) throws SQLException {
 		int i = 0;
 		if(StuffManager.exists(item.getId()) || WeaponManager.exists(item.getId())) {
 			while(i < Mideas.bag().getBag().length) {
@@ -309,6 +314,18 @@ public class ShopManager {
 				}
 			}
 		}
+		else if(GemManager.exists(item.getId())) {
+			while(i < Mideas.bag().getBag().length) {
+				if(Mideas.bag().getBag(i) == null) {
+					Mideas.bag().setBag(i, GemManager.getClone(item.getId()));
+					LogChat.setStatusText3("Vous avez bien acheté "+GemManager.getGem(item.getId()).getStuffName());
+					Mideas.setGold(-item.getSellPrice());
+					CharacterStuff.setBagItems();
+					return true;
+				}
+				i++;
+			}
+		}
 		LogChat.setStatusText3("Votre inventaire est pleins");
 		return false;
 	}
@@ -331,7 +348,7 @@ public class ShopManager {
 		}
 	}
 	
-	private static void shopHover(int i, int x_item, int y_item, int x_hover, int y_hover) throws FileNotFoundException, SQLException {
+	private static void shopHover(int i, int x_item, int y_item, int x_hover, int y_hover) {
 		if(slot_hover[i]) {
 			if(i+10*page < shopList.size()) {
 				int shift = 40;
@@ -438,7 +455,7 @@ public class ShopManager {
 		}
 	}
 	
-	private static void drawLeftStuff(int i, int x_item, int y_item) throws FileNotFoundException, SQLException {
+	private static void drawLeftStuff(int i, int x_item, int y_item) {
 		Color temp = null;
 		Item item = getItem(shopList.get(i+10*page).getId());
 		int xShift = 280;
@@ -509,7 +526,7 @@ public class ShopManager {
 		}
 	}
 	
-	private static void drawRightStuff(int i, int x_item, int y_item) throws FileNotFoundException, SQLException {
+	private static void drawRightStuff(int i, int x_item, int y_item) {
 		Color temp = null;
 		Item item = getItem(shopList.get(i+10*page).getId());
 		int xShift = 280;

@@ -36,20 +36,20 @@ public class DragBagManager {
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 		}
 		if(deleteItem && draggedBag != null) {
-			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Display.getHeight()/2-80);
+			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getWidth()/2-105, Display.getHeight()/2-80);
 			if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-6 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
-				Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+				Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getWidth()/2-70, Display.getHeight()/2-43);
 				hoverDelete = true;
 			}
 			else {
-				Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+				Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getWidth()/2-70, Display.getHeight()/2-43);
 			}
 			if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
-				Draw.drawQuad(Sprites.button_hover2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
+				Draw.drawQuad(Sprites.button_hover2, Display.getWidth()/2-Sprites.button_hover.getWidth()/2+70, Display.getHeight()/2-43);
 				hoverSave = true;
 			}
 			else {
-				Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
+				Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getWidth()/2+70, Display.getHeight()/2-43);
 			}
 			if(Interface.getEscapeFrameStatus()) {
 				draggedBag = null;

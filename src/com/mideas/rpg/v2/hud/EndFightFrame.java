@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.Arrays;
@@ -25,7 +24,7 @@ public class EndFightFrame {
 
 	private static boolean endFightEvent;
 
-	public static void draw() throws FileNotFoundException, SQLException {
+	public static void draw() throws SQLException {
 		if(Interface.getAdminPanelFrameStatus()) {
 			Arrays.fill(AdminPanelFrame.getHover(), false);
 		}
@@ -41,18 +40,18 @@ public class EndFightFrame {
 		if(Interface.isSpellBookFrameActive()) {
 			Arrays.fill(SpellBookFrame.getHoverBook(), false);
 		}
-		Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Display.getHeight()/2-80);
+		Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getWidth()/2-105, Display.getHeight()/2-80);
 		if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
-			Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+			Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getWidth()/2-70, Display.getHeight()/2-43);
 		}
 		else {
-			Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
+			Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getWidth()/2-70, Display.getHeight()/2-43);
 		}
 		if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
-			Draw.drawQuad(Sprites.button_hover2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
+			Draw.drawQuad(Sprites.button_hover2, Display.getWidth()/2-Sprites.button_hover.getWidth()/2+70, Display.getHeight()/2-43);
 		}
 		else {
-			Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
+			Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getWidth()/2+70, Display.getHeight()/2-43);
 		}
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Retry")/2-69, Display.getHeight()/2-41, "Retry", Color.white, Color.black, 1, 1, 1);
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit")/2+69, Display.getHeight()/2-41, "Quit", Color.white, Color.black, 1, 1, 1);
@@ -69,7 +68,7 @@ public class EndFightFrame {
 		
 	}
 	
-	public static void mouseEvent() throws SQLException, FileNotFoundException {
+	public static void mouseEvent() throws SQLException {
 		if(Mouse.getEventButton() == 0) {
 			if(!Mouse.getEventButtonState()) {
 				if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
@@ -93,7 +92,7 @@ public class EndFightFrame {
 		}
 	}
 	
-	private static boolean dropRate(Item item) throws FileNotFoundException, SQLException {
+	private static boolean dropRate(Item item) throws SQLException {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
@@ -107,7 +106,7 @@ public class EndFightFrame {
 		return false;
 	}
 	
-	public static boolean dropItem(Item potion, int number) throws FileNotFoundException, SQLException {
+	public static boolean dropItem(Item potion, int number) throws SQLException {
 		if(potion.getItemType() == ItemType.ITEM || potion.getItemType() == ItemType.POTION) {
 			if(checkBagItems(potion)) {
 				int i = 0;
@@ -165,7 +164,7 @@ public class EndFightFrame {
 		return true;
 	}
 	
-	private static void lootGuerrier() throws FileNotFoundException, SQLException {
+	private static void lootGuerrier() throws SQLException {
 		float x = 0.05f;
 		drop(x, StuffManager.getClone(1001));
 		drop(x, StuffManager.getClone(2001));
@@ -188,7 +187,7 @@ public class EndFightFrame {
 		drop(.95f, BagManager.getClone(4));
 	}
 
-	private static void lootHunter() throws FileNotFoundException, SQLException {
+	private static void lootHunter() throws SQLException {
 		float x = 0.05f;
 		drop(x, StuffManager.getClone(1201));
 		drop(x, StuffManager.getClone(2001));
@@ -204,7 +203,7 @@ public class EndFightFrame {
 		drop(.95f, PotionManager.getClone(1));
 	}
 	
-	private static void lootPaladin() throws FileNotFoundException, SQLException {
+	private static void lootPaladin() throws SQLException {
 		float x = 0.05f;
 		drop(x, StuffManager.getClone(1501));
 		drop(x, StuffManager.getClone(2001));
@@ -219,7 +218,7 @@ public class EndFightFrame {
 		drop(.95f, PotionManager.getClone(1));
 	}
 
-	private static void lootMage() throws FileNotFoundException, SQLException {
+	private static void lootMage() throws SQLException {
 		float x = 0.05f;
 		drop(x, StuffManager.getClone(1301));
 		drop(x, StuffManager.getClone(2001));
@@ -234,11 +233,11 @@ public class EndFightFrame {
 		drop(.95f, PotionManager.getClone(1));
 	}
 	
-	private static void lootIllidan() throws FileNotFoundException, SQLException {
+	private static void lootIllidan() {
 		//drop(.03f, new WarglaiveOfAzzinoth());
 	}
 	
-	public static boolean lootManager() throws FileNotFoundException, SQLException {
+	public static boolean lootManager() throws SQLException {
 		if(Mideas.joueur2().getClasse().equals("DeathKnight")) {
 			lootGuerrier();
 			return true;
@@ -286,7 +285,7 @@ public class EndFightFrame {
 		return false;	
 	}
 	
-	private static void drop(float x, Item item) throws FileNotFoundException, SQLException {
+	private static void drop(float x, Item item) throws SQLException {
 		if(Math.random() <= x && item != null) {
 			if(item.getItemType() == ItemType.POTION || item.getItemType() == ItemType.ITEM) {
 				dropItem(item, 1);
@@ -307,7 +306,7 @@ public class EndFightFrame {
 		endFightEvent = we;
 	}
 	
-	public static void doEndFightEvent() throws SQLTimeoutException, FileNotFoundException, SQLException {
+	public static void doEndFightEvent() throws SQLTimeoutException, SQLException {
 		Mideas.setExp(Mideas.joueur2().getExpGained());
 		Mideas.getLevel();
 		Mideas.setGold(Mideas.joueur2().getGoldGained());

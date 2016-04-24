@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -36,7 +35,7 @@ public class ChangeBackGroundFrame {
 		drawBorder(xLeft+xShift, y+yShift, 5);
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		Arrays.fill(hover, false);
 		isHover(xLeft, y, 0);
 		isHover(xLeft, y+yShift, 1);
@@ -61,7 +60,7 @@ public class ChangeBackGroundFrame {
 		}
 	}
 	
-	private static void changeBackground(int i, Texture texture) throws FileNotFoundException, SQLException {
+	private static void changeBackground(int i, Texture texture) throws SQLException {
 		if(hover[i]) {
 			Sprites.current_bg = texture;
 			Mideas.setConfig();

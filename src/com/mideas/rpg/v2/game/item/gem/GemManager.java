@@ -2,13 +2,18 @@ package com.mideas.rpg.v2.game.item.gem;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class GemManager {
 
 	private static ArrayList<Gem> gemList = new ArrayList<Gem>();
+	private static HashMap<Integer, Texture> gemSprites = new HashMap<Integer, Texture>();
 	
 	public static void loadGems() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, color, sellprice, pa, intellect, stamina, defense, mp5, mana, critical, spell_critical, spell_damage, heal FROM gem");
@@ -35,7 +40,17 @@ public class GemManager {
 		}
 	}
 	
-	private static GemColor convColor(String color) {
+	public static Texture getGemSprite(int id) {
+		return gemSprites.get(id);
+	}
+	
+	public static void loadGemSprites() {
+		gemSprites.put(50001, Sprites.crimson_spinel);
+		gemSprites.put(50101, Sprites.pyrestone);
+		gemSprites.put(50201, Sprites.empyrean_sapphire);
+	}
+	
+	public static GemColor convColor(String color) {
 		if(color.equals("RED")) {
 			return GemColor.RED;
 		}
@@ -53,6 +68,9 @@ public class GemManager {
 		}
 		if(color.equals("ORANGE")) {
 			return GemColor.ORANGE;
+		}
+		if(color.equals("NONE")) {
+			return GemColor.NONE;
 		}
 		return null;
 	}
@@ -77,10 +95,10 @@ public class GemManager {
 	}
 	
 	public static boolean exists(int id) {
-		return gemList.contains(id);
+		return getGem(id) != null;
 	}
 	
-	public static ArrayList<Gem> getPotionList() {
+	public static ArrayList<Gem> getGemList() {
 		return gemList;
 	}
 }

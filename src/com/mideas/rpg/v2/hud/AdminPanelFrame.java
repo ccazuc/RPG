@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -45,7 +44,7 @@ public class AdminPanelFrame {
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+35, Display.getHeight()/2+y+3*yShift+2, "Update all", Color.white, Color.black, 1, 1, 1);
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException, CloneNotSupportedException {
+	public static boolean mouseEvent() throws SQLException {
 		Arrays.fill(hover, false);
 		isHover(0, xLeft, y);
 		isHover(1, xLeft, y+yShift);
@@ -92,7 +91,7 @@ public class AdminPanelFrame {
 	}
 	
 	private static void isHover(int i, int x, int y) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+Sprites.button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2+y && Mideas.mouseY() <= Display.getHeight()/2+y+Sprites.button.getImageHeight()) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+Sprites.button.getWidth() && Mideas.mouseY() >= Display.getHeight()/2+y && Mideas.mouseY() <= Display.getHeight()/2+y+Sprites.button.getHeight()) {
 			hover[i] = true;
 		}
 	}

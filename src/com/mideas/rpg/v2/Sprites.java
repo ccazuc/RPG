@@ -102,6 +102,10 @@ public class Sprites {
 	public static Texture bag_hover;
 	public static Texture bag_border1;
 	public static Texture bag_click_hover;
+	public static Texture gem_red;
+	public static Texture gem_blue;
+	public static Texture gem_yellow;
+	public static Texture gem_meta;
 	/*public static Texture bag_border2;
 	public static Texture bag_border3;
 	public static Texture bag_border4;
@@ -500,6 +504,9 @@ public class Sprites {
 	public static Texture loading_screen_bar4;
 	public static Texture loading_screen_bar5;
 	public static Texture loading_screen_bar6;
+	public static Texture crimson_spinel;
+	public static Texture empyrean_sapphire;
+	public static Texture pyrestone;
 	
 	public static void initBG() throws IOException {
 		loading_screen = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/interface/loading_screen.jpg"));
@@ -512,6 +519,13 @@ public class Sprites {
 	}
 	
 	public static boolean sprite() throws IOException {
+		pyrestone = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/gem/inv_jewelcrafting_pyrestone_02.jpg"));
+		empyrean_sapphire = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/gem/inv_jewelcrafting_empyreansapphire_02.jpg"));
+		crimson_spinel = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/gem/inv_jewelcrafting_crimsonspinel_02.jpg"));
+		gem_red = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/gem_red.png"));
+		gem_blue = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/gem_blue.png"));
+		gem_yellow = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/gem_yellow.png"));
+		gem_meta = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/gem_meta.png"));
 		close_bag_button_down = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_bag_down.png"));
 		close_bag_button_down_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_bag_down_hover.png"));
 		itemnumber_leftyellow_arrow = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_leftyellow_arrow.png"));

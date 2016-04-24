@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.hud;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -170,7 +169,7 @@ public class ChatFrame {
 		}
 	}
 	
-	public static void event() throws FileNotFoundException, SQLException, CloneNotSupportedException {
+	public static void event() throws SQLException {
 		if(chatActive) {
 			Keyboard.enableRepeatEvents(true);
 			if(Keyboard.getEventKey() == 1) { //escape
@@ -682,7 +681,7 @@ public class ChatFrame {
 		cursorShift+= TTF2.font4.getWidth(add);
 	}
 	
-	private static boolean checkTempMessage() throws FileNotFoundException, SQLException, CloneNotSupportedException {
+	private static boolean checkTempMessage() throws SQLException {
 		if(tempMessage.length() > 1 && tempMessage.substring(0, 1).equals(".") && !tempMessage.substring(1, 2).equals(".")) {
 			if(tempMessage.equals(".kill joueur2")) {
 				Mideas.joueur2().setStamina(0);

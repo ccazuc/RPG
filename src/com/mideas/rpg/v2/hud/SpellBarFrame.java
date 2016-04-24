@@ -41,7 +41,7 @@ public class SpellBarFrame {
 	private static float xHoveredSpell;
 	private static int yHoveredSpell;
 	
-	public static boolean draw() throws FileNotFoundException, SQLException {
+	public static boolean draw() throws SQLException {
 		Arrays.fill(hoverSpellBar, false);
 		hoverAttack = false;
 		hoveredSpell = null;
@@ -57,7 +57,7 @@ public class SpellBarFrame {
 			Draw.drawColorQuad(Display.getWidth()/2-678, Display.getHeight()-85, 1339*e, 13,  Color.decode("#680764"));
 		}
         Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-809, Display.getHeight()-100);
-		Draw.drawQuad(Sprites.spell_attack, Display.getWidth()/2-678, Display.getHeight()-49);
+		//Draw.drawQuad(Sprites.spell_attack, Display.getWidth()/2-678, Display.getHeight()-49);
 		Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-679, Display.getHeight()-51);  
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1, 1, 1);
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2-648, Display.getHeight()-49, "1", Color.white, Color.black, 1, 1, 1);

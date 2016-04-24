@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -291,7 +290,7 @@ public class DragSpellManager {
 	}
 	
 	public static boolean isHoverSpellBarFrame() {
-		if(Mideas.mouseX() >= Display.getWidth()/2-809 && Mideas.mouseX() <= Display.getWidth()/2-809+Sprites.final_spellbar.getImageWidth()-50 && Mideas.mouseY() >= Display.getHeight()-150 && Mideas.mouseY() <= Display.getHeight()) {
+		if(Mideas.mouseX() >= Display.getWidth()/2-809 && Mideas.mouseX() <= Display.getWidth()/2-809+Sprites.final_spellbar.getWidth()-50 && Mideas.mouseY() >= Display.getHeight()-150 && Mideas.mouseY() <= Display.getHeight()) {
 			return true;
 		}
 		return false;

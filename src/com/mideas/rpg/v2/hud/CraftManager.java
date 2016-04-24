@@ -38,7 +38,7 @@ public class CraftManager {
 			}
 		}
 		if(elevator_selected) {
-			if(Mideas.mouseY() >= Display.getHeight()/2-192 && Mideas.mouseY() <= Display.getHeight()/2-100) {
+			if(Mideas.mouseY() >= Display.getHeight()/2-190 && Mideas.mouseY() <= Display.getHeight()/2-100) {
 				y_elevator = Mideas.mouseY()-y_elevator_base+y_elevator_last;
 			}
 			if(!Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
@@ -49,10 +49,20 @@ public class CraftManager {
 	}
 	
 	private static void buttonMove(int button_shift, int mouse_x, int mouse_y) {
-		if(Mouse.getEventButton() == 0 && !Mouse.getEventButtonState() && y_elevator+button_shift >= 0 && y_elevator+button_shift <= 90) {
+		if(Mouse.getEventButton() == 0 && !Mouse.getEventButtonState()) {
 			if(Mideas.mouseX() >= Display.getWidth()/2+mouse_x && Mideas.mouseX() <= Display.getWidth()/2+mouse_x+23 && Mideas.mouseY() >= Display.getHeight()/2+mouse_y && Mideas.mouseY() <= Display.getHeight()/2+mouse_y+22) {
-				y_elevator+= button_shift;
-				y_elevator_last = y_elevator;
+				if(y_elevator+button_shift >= 0 && y_elevator+button_shift <= 90) {
+					y_elevator+= button_shift;
+					y_elevator_last = y_elevator;
+				}
+				else if(y_elevator+button_shift < 0) {
+					y_elevator = 0;
+					y_elevator_last = y_elevator;
+				}
+				else if(y_elevator+button_shift > 90) {
+					y_elevator = 90;
+					y_elevator_last = y_elevator;
+				}
 			}
 		}
 	}

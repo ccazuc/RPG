@@ -1,73 +1,104 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
+import org.newdawn.slick.opengl.Texture;
+
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.gem.GemBonusType;
+import com.mideas.rpg.v2.game.item.gem.Gem;
+import com.mideas.rpg.v2.game.item.gem.GemColor;
 
 public class Stuff extends Item {
 
-	protected StuffType type;
+	protected boolean gemBonusActivated;
+	protected GemBonusType gemBonusType;
 	protected ClassType[] classType;
 	protected WeaponType weaponType;
 	protected WeaponSlot weaponSlot;
-	protected Wear wear;
+	protected int gemBonusValue;
+	protected Gem equippedGem1;
+	protected Gem equippedGem2;
+	protected Gem equippedGem3;
+	protected GemColor color1;
+	protected GemColor color2;
+	protected GemColor color3;
+	protected StuffType type;
 	protected int critical;
 	protected int strength;
 	protected int stamina;
+	protected Wear wear;
 	protected int price;
 	protected int armor;
-	protected int mana;
 	protected int level;
+	protected int mana;
 
 	public Stuff(Stuff stuff) {
 		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.quality, stuff.sellPrice, stuff.maxStack);
-		this.type = stuff.type;
+		this.gemBonusValue = stuff.gemBonusValue;
+		this.gemBonusType = stuff.gemBonusType;
 		this.classType = stuff.classType;
-		this.wear = stuff.wear;
 		this.critical = stuff.critical;
-		this.level = stuff.level;
 		this.strength = stuff.strength;
 		this.stamina = stuff.stamina;
+		this.color1 = stuff.color1;
+		this.color2 = stuff.color2;
+		this.color3 = stuff.color3;
+		this.level = stuff.level;
 		this.armor = stuff.armor;
+		this.type = stuff.type;
+		this.wear = stuff.wear;
 		this.mana = stuff.mana;
 	}
 	
-	public Stuff(StuffType type, ClassType[] classType, String sprite_id, int id, String name, int quality, int level, Wear wear, int critical, int strength, int stamina, int armor, int mana, int sellPrice) {
+	public Stuff(StuffType type, ClassType[] classType, String sprite_id, int id, String name, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, Wear wear, int critical, int strength, int stamina, int armor, int mana, int sellPrice) {
 		super(id, sprite_id, ItemType.STUFF, name, quality, sellPrice, 1);
-		this.type = type;
-		this.wear = wear;
+		this.gemBonusValue = gemBonusValue;
+		this.gemBonusType = gemBonusType;
 		this.classType = classType;
 		this.critical = critical;
 		this.strength = strength;
-		this.level = level;
 		this.stamina = stamina;
+		this.color1 = color1;
+		this.color2 = color2;
+		this.color3 = color3;
+		this.level = level;
 		this.armor = armor;
+		this.type = type;
+		this.wear = wear;
 		this.mana = mana;
 	}
 
-	public Stuff(Stuff stuff, int i) { //weapon constructor
-		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.quality, stuff.sellPrice, stuff.maxStack);
-		this.classType = stuff.classType;
-		this.weaponType = stuff.weaponType;
-		this.weaponSlot = stuff.weaponSlot;
-		this.critical = stuff.critical;
-		this.level = stuff.level;
-		this.strength = stuff.strength;
-		this.stamina = stuff.stamina;
-		this.armor = stuff.armor;
-		this.mana = stuff.mana;
+	public Stuff(Stuff weapon, int i) { //weapon constructor
+		super(weapon.id, weapon.sprite_id, weapon.itemType, weapon.name, weapon.quality, weapon.sellPrice, weapon.maxStack);
+		this.weaponType = weapon.weaponType;
+		this.weaponSlot = weapon.weaponSlot;
+		this.classType = weapon.classType;
+		this.critical = weapon.critical;
+		this.strength = weapon.strength;
+		this.stamina = weapon.stamina;
+		this.color1 = weapon.color1;
+		this.color2 = weapon.color2;
+		this.color3 = weapon.color3;
+		this.level = weapon.level;
+		this.armor = weapon.armor;
+		this.mana = weapon.mana;
 	}
 	
-	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
+	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, GemColor color1, GemColor color2, GemColor color3, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
 		super(id, sprite_id, ItemType.WEAPON, name, quality, sellPrice, 1);
-		this.classType = classType;
 		this.weaponType = weaponType;
 		this.weaponSlot = weaponSlot;
+		this.classType = classType;
 		this.critical = critical;
 		this.strength = strength;
-		this.level = level;
 		this.stamina = stamina;
+		this.color1 = color1;
+		this.color2 = color2;
+		this.color3 = color3;
+		this.level = level;
 		this.armor = armor;
 		this.mana = mana;
 	}
@@ -83,12 +114,136 @@ public class Stuff extends Item {
 		return false;
 	}
 	
+	public boolean checkBonusTypeActivated() {
+		if(this.color1 != GemColor.NONE || this.color2 != GemColor.NONE || this.color3 != GemColor.NONE) {
+			if(this.equippedGem1 != null && isBonusActivated(this.equippedGem1.getColor(), this.color1)) {
+				if(this.color2 != GemColor.NONE) {
+					if(this.equippedGem2 != null && isBonusActivated(this.equippedGem2.getColor(), this.color2)) {
+						if(this.color3 != GemColor.NONE) {
+							if(this.equippedGem3 != null && isBonusActivated(this.equippedGem3.getColor(), this.color3)) {
+								this.gemBonusActivated = true;
+								return true;
+							}
+						}
+						else {
+							this.gemBonusActivated = true;
+							return true;
+						}
+					}
+				}
+				else {
+					this.gemBonusActivated = true;
+					return true;
+				}
+			}
+		}
+		this.gemBonusActivated = false;
+		return false;
+	}
+	
+	public boolean getGemBonusActivated() {
+		return this.gemBonusActivated;
+	}
+	
 	public WeaponSlot getWeaponSlot() {
 		return this.weaponSlot;
 	}
 
 	public WeaponType getWeaponType() {
 		return this.weaponType;
+	}
+	
+	public GemColor getGemSlot1() {
+		return this.color1;
+	}
+	
+	public GemColor getGemSlot2() {
+		return this.color2;
+	}
+	
+	public GemColor getGemSlot3() {
+		return this.color3;
+	}
+	
+	public GemBonusType getGemBonusType() {
+		return this.gemBonusType;
+	}
+	
+	public int getGemBonusValue() {
+		return this.gemBonusValue;
+	}
+	public void setEquippedGem1(Gem gem) {
+		this.equippedGem1 = gem;
+	}
+	
+	public void setEquippedGem2(Gem gem) {
+		this.equippedGem2 = gem;
+	}
+	
+	public void setEquippedGem3(Gem gem) {
+		this.equippedGem3 = gem;
+	}
+	
+	public Gem getEquippedGem1() {
+		return this.equippedGem1;
+	}
+	
+	public Gem getEquippedGem2() {
+		return this.equippedGem2;
+	}
+	
+	public Gem getEquippedGem3() {
+		return this.equippedGem3;
+	}
+	
+	public Texture getFreeSlotGemSprite1() {
+		return convColor(this.color1);
+	}
+	
+	public Texture getFreeSlotGemSprite2() {
+		return convColor(this.color2);
+	}
+	
+	public Texture getFreeSlotGemSprite3() {
+		return convColor(this.color3);
+	}
+	
+	public boolean isBonusActivated(GemColor gemColor, GemColor slotColor) {
+		if(gemColor == GemColor.BLUE && slotColor == GemColor.BLUE) {
+			return true;
+		}
+		if(gemColor == GemColor.YELLOW && slotColor == GemColor.YELLOW)  {
+			return true;
+		}
+		if(gemColor == GemColor.RED && slotColor == GemColor.RED) {
+			return true;
+		}
+		if(gemColor == GemColor.GREEN && (slotColor == GemColor.BLUE || slotColor == GemColor.YELLOW)) {
+			return true;
+		}
+		if(gemColor == GemColor.ORANGE && (slotColor == GemColor.RED || slotColor == GemColor.YELLOW)) {
+			return true;
+		}
+		if(gemColor == GemColor.PURPLE && (slotColor == GemColor.RED || slotColor == GemColor.BLUE)) {
+			return true;
+		}
+		return false;
+	}
+	
+ 	public Texture convColor(GemColor color) {
+		if(color == GemColor.BLUE) {
+			return Sprites.gem_blue;
+		}
+		if(color == GemColor.RED) {
+			return Sprites.gem_red;
+		}
+		if(color == GemColor.YELLOW) {
+			return Sprites.gem_yellow;
+		}
+		if(color == GemColor.META) {
+			return Sprites.gem_meta;
+		}
+		return null;
 	}
 	
 	public String convTypeToString() {
@@ -158,16 +313,6 @@ public class Stuff extends Item {
 	
 	public int getMana() {
 		return this.mana;
-	}
-	
-	@Override
-	public int getId() {
-		return this.id;
-	}
-
-	@Override
-	public String getSpriteId() {
-		return this.sprite_id;
 	}
 	
 	public int getLevel() {
@@ -296,6 +441,7 @@ public class Stuff extends Item {
 		}
 		return false;
 	}
+	
 	public String convSlotToString() {
 		if(this.weaponSlot == WeaponSlot.MAINHAND) {
 			return "Main Hand";
@@ -422,16 +568,7 @@ public class Stuff extends Item {
 		return item != null && item.getId() == this.id;
 	}
 	
-	public String getStuffName() {
-		return this.name;
-	}
-	
 	public int getPrice() {
 		return this.price;
-	}
-
-	@Override
-	public int getSellPrice() {
-		return this.sellPrice;
 	}
 }

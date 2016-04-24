@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import org.lwjgl.input.Mouse;
@@ -33,7 +32,7 @@ public class ClassSelectFrame {
 	private static float expClass;
 	private static Color bgExpBarColor = new Color(0, 0, 0,.65f);
 	
-	public static void draw() throws FileNotFoundException {
+	public static void draw() {
 		Color bgColor = new Color(0, 0, 0,.45f); 
 		Draw.drawColorQuad(Display.getWidth()/2-280, Display.getHeight()-330, 600, 550, bgColor);
 		int x = -140;
@@ -120,7 +119,7 @@ public class ClassSelectFrame {
 		isClassHoverExp(monkHover, Mideas.getExpAll(4), 104, -15, 80, y, 0);
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		setHoverFalse();
 		warriorHover = isClassHover(-140, -80);
 		paladinHover = isClassHover(-78, -80);
@@ -192,7 +191,7 @@ public class ClassSelectFrame {
 		return false;
 	}
 	
-	private static void isClassHoverExp(boolean classHover, float expClass, int x_sprite, int y_sprite, int x_exp_bar, int y_exp_bar, int y_exp_bar_border) throws FileNotFoundException {
+	private static void isClassHoverExp(boolean classHover, float expClass, int x_sprite, int y_sprite, int x_exp_bar, int y_exp_bar, int y_exp_bar_border) {
 		if(classHover) {
 			if(Mideas.getLevelAll((int)expClass) > 1 && Mideas.getLevelAll((int)expClass) < 70) {
 				expClass = (expClass-Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass)-1))/((float)Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass))-Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass)-1)); 
@@ -214,7 +213,7 @@ public class ClassSelectFrame {
 		}
 	}
 	
-	private static boolean setNewClass(String string, Joueur joueur, boolean hover) throws FileNotFoundException, SQLException {
+	private static boolean setNewClass(String string, Joueur joueur, boolean hover) throws SQLException {
 		if(hover) {
 			if(Mideas.joueur1() != null && Mideas.joueur1().getClasse().equals(string)){
 				Interface.setIsChangeClassActive(true);
@@ -239,7 +238,7 @@ public class ClassSelectFrame {
 		return false;
 	}
 	
-	private static void drawExpBar(int exp, int x, int y) throws FileNotFoundException {
+	private static void drawExpBar(int exp, int x, int y) {
 		if(Mideas.getLevelAll(exp) == 70) {
 			Draw.drawColorQuad(Display.getWidth()/2+x, Display.getHeight()+y, 220, 11, bgExpBarColor);
 			Draw.drawColorQuad(Display.getWidth()/2+x, Display.getHeight()+y, 220, 11, Color.decode("#680764"));

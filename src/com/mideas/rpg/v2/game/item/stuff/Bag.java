@@ -5,7 +5,6 @@ import java.util.HashMap;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
-import com.mideas.rpg.v2.game.item.potion.Potion;
 
 public class Bag extends Item implements Cloneable {
 	
@@ -22,18 +21,18 @@ public class Bag extends Item implements Cloneable {
 	
 	public Bag(Bag bag) {
 		super(bag.id, bag.sprite_id, bag.itemType, bag.name, bag.quality, bag.sellPrice, bag.maxStack);
-		this.id = bag.id;
 		this.sprite_id = bag.sprite_id;
 		this.name = bag.name;
 		this.size = bag.size;
+		this.id = bag.id;
 	}
 	
 	public Bag(int id, String sprite_id, String name, int quality, int size, int sellPrice) {
 		super(id, sprite_id, ItemType.BAG, name, quality, sellPrice, 1);
-		this.id = id;
 		this.sprite_id = sprite_id;
 		this.name = name;
 		this.size = size;
+		this.id = id;
 	}
 	
 	public Item[] getBag() {
@@ -48,6 +47,7 @@ public class Bag extends Item implements Cloneable {
 		return this.equippedBag[i];
 	}
 	
+	@Override
 	public String getSpriteId()  {
 		return this.sprite_id;
 	}
@@ -131,21 +131,7 @@ public class Bag extends Item implements Cloneable {
 	
 	public Item getBag(int i) {
 		if(i < this.bag.length && this.bag[i] != null) {
-			if(this.bag[i].getItemType() == ItemType.STUFF) {
 			return this.bag[i];
-			}
-			else if(this.bag[i].getItemType() == ItemType.POTION) {
-				return this.bag[i];
-			}
-			else if(this.bag[i].getItemType() == ItemType.ITEM) {
-				return this.bag[i];
-			}
-			else if(this.bag[i].getItemType() == ItemType.BAG) {
-				return this.bag[i];
-			}
-			else if(this.bag[i].getItemType() == ItemType.WEAPON) {
-				return this.bag[i];
-			}
 		}
 		return null;
 	}
@@ -163,6 +149,7 @@ public class Bag extends Item implements Cloneable {
 		}
 	}
 	
+	@Override
 	public int getId() {
 		return this.id;
 	}

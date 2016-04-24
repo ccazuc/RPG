@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -34,7 +32,7 @@ public class CharacterFrame {
 	private static int lastMouseX;
 	private static int lastMouseY;
 
-	public static void draw() throws FileNotFoundException, SQLException {
+	public static void draw() {
 		hover = 0;
 		Draw.drawQuad(Sprites.character_frame, Display.getWidth()/2-300+xMouseShift, Display.getHeight()/2-380+yMouseShift);
 		Draw.drawQuad(Sprites.character_frame_stats, Display.getWidth()/2-224+xMouseShift, Display.getHeight()/2-60+yMouseShift);
@@ -256,7 +254,7 @@ public class CharacterFrame {
 		}
 	}*/
 	
-	private static void characterItemHover(int i, float x_item, float y_item, float x_hover, float y_hover) throws FileNotFoundException, SQLException {
+	private static void characterItemHover(int i, float x_item, float y_item, float x_hover, float y_hover) {
 		if(hoverCharacterFrame[i]) {
 			if(Mideas.joueur1().getStuff(i) != null) {
 				int shift = 60;

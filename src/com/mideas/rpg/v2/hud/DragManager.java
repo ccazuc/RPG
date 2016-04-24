@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -79,7 +78,7 @@ public class DragManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		if(!ContainerFrame.isHoverItemNumberFrame()) {
 			if(Keyboard.isKeyDown(42) && !Mouse.getEventButtonState() && (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)) {
 				int i = 0;
@@ -294,7 +293,7 @@ public class DragManager {
 		}
 	}
 	
-	private static boolean equipBagItem(int i) throws FileNotFoundException, SQLException {
+	private static boolean equipBagItem(int i) throws SQLException {
 		if(ContainerFrame.getContainerFrameSlotHover(i)) {
 			if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
 				int j = 0;
@@ -356,7 +355,7 @@ public class DragManager {
 		return false;
 	}
 	
-	private static void doHealingPotion(Potion item, boolean hover, int i) throws FileNotFoundException, SQLException {
+	private static void doHealingPotion(Potion item, boolean hover, int i) throws SQLException {
 		if(hover && item != null && item.getItemType() == ItemType.POTION && Mideas.getLevel() >= item.getLevel()) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
@@ -380,7 +379,7 @@ public class DragManager {
 	}
 	
 	
-	private static void equipItem(int i) throws FileNotFoundException, SQLException {
+	private static void equipItem(int i) throws SQLException {
 		if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF && draggedItem.getItemType() == ItemType.STUFF) {
 			if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel() && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && ((Stuff)Mideas.bag().getBag(i)).getType() == ((Stuff)draggedItem).getType()) {
 				Stuff temp = (Stuff)Mideas.bag().getBag(i);
@@ -392,7 +391,7 @@ public class DragManager {
 		}
 	}
 	
-	private static boolean clickBagItem(int i) throws FileNotFoundException, SQLException {
+	private static boolean clickBagItem(int i) throws SQLException {
 		if(ContainerFrame.getContainerFrameSlotHover(i) && !DragSpellManager.isHoverSpellBarFrame()) {
 			if(draggedItem == null) {
 				if(Mideas.bag().getBag(i) == null) {
@@ -501,7 +500,7 @@ public class DragManager {
 		return false;
 	}
 	
-	private static boolean clickInventoryItem(int i) throws FileNotFoundException, SQLException {
+	private static boolean clickInventoryItem(int i) throws SQLException {
 		if(CharacterFrame.getHoverCharacterFrame(i)) {
 			if(draggedItem == null) {
 				if(Mideas.joueur1().getStuff(i) == null) {

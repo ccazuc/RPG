@@ -1,8 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
-
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
@@ -13,7 +10,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class GoldFrame {
 	
-	public static void draw() throws FileNotFoundException, SQLException {
+	public static void draw() {
 		if(ContainerFrame.getBagOpen(0)) {
 			int x = -195;
 			int y = -101;

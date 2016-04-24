@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -22,7 +20,7 @@ public class SpellBookFrame {
 	private static boolean[] hover_book = new boolean[7];
 	private static boolean hover_book_button;
 
-	public static void draw() throws FileNotFoundException, SQLException {
+	public static void draw() {
 		int x = 110;
 		int y = -290;
 		int yShift = 85;
@@ -70,7 +68,7 @@ public class SpellBookFrame {
 		return false;
 	}
 	
-	private static void drawSpell(Texture grey_texture, Texture texture, int level, int x, int y, String spellName) throws FileNotFoundException, SQLException {
+	private static void drawSpell(Texture grey_texture, Texture texture, int level, int x, int y, String spellName) {
 		if(Mideas.getLevel() < level) {
 			Draw.drawQuad(grey_texture, Display.getWidth()/2+x+20, Display.getHeight()/2+y+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg_grey, Display.getWidth()/2+x, Display.getHeight()/2+y);

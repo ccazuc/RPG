@@ -1,11 +1,12 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.item.gem.GemColor;
+import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
@@ -14,7 +15,7 @@ public class WeaponManager {
 	private static ArrayList<Stuff> weaponList = new ArrayList<Stuff>();
 	
 	public static void loadWeapons() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, name, sprite_id, class, type, slot, quality, level, armor, stamina, mana, critical, strength, sellprice FROM weapon");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, name, sprite_id, class, type, slot, quality, color1, color2, color3, level, armor, stamina, mana, critical, strength, sellprice FROM weapon");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
@@ -27,6 +28,12 @@ public class WeaponManager {
 			String tempSlot = statement.getString();
 			WeaponSlot slot = getSlot(tempSlot);
 			int quality = statement.getInt();
+			String tempColor = statement.getString();
+			GemColor color1 = GemManager.convColor(tempColor);
+			tempColor = statement.getString();
+			GemColor color2 = GemManager.convColor(tempColor);
+			tempColor = statement.getString();
+			GemColor color3 = GemManager.convColor(tempColor);
 			int level = statement.getInt();
 			int armor = statement.getInt();
 			int stamina = statement.getInt();
@@ -34,7 +41,7 @@ public class WeaponManager {
 			int critical = statement.getInt();
 			int strength = statement.getInt();
 			int sellPrice = statement.getInt();
-			Stuff newPiece = new Stuff(id, name, sprite_id, classeType, type, slot, quality, level, armor, stamina, mana, critical, strength, sellPrice);
+			Stuff newPiece = new Stuff(id, name, sprite_id, classeType, type, slot, quality, color1, color2, color3, level, armor, stamina, mana, critical, strength, sellPrice);
 			weaponList.add(newPiece);
 		}
 	}
@@ -61,7 +68,7 @@ public class WeaponManager {
 		return null;
 	}
 	
-	public static boolean canEquipWeapon(Stuff weapon) throws FileNotFoundException, SQLException {
+	public static boolean canEquipWeapon(Stuff weapon) {
 		if(Mideas.getLevel() >= weapon.getLevel() && weapon.canWearWeapon() && weapon.canEquipTo(DragManager.convClassType())) {
 			return true;
 		}

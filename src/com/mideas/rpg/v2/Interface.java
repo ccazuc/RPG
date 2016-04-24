@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -13,6 +12,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
@@ -39,6 +39,7 @@ import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.SpellLevel;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Draw2;
 
 public class Interface {
 	
@@ -62,7 +63,7 @@ public class Interface {
 	private static boolean craftFrameActive;
 	private static boolean chatFrameActive = true;
 
-	public static void draw() throws LWJGLException, IOException, SQLException {
+	public static void draw() throws IOException, SQLException {
 		Draw.drawQuad(Sprites.current_bg, Display.getWidth()/2-Sprites.current_bg.getImageWidth()/2, Display.getHeight()/2-Sprites.current_bg.getImageHeight()/2);
 		if(!isConfigLoaded) {
 			Mideas.getConfig();
@@ -159,7 +160,7 @@ public class Interface {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException, CloneNotSupportedException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		if(changeBackgroundFrameActive) {
 			if(ChangeBackGroundFrame.mouseEvent()) {
 				return true;
@@ -249,7 +250,7 @@ public class Interface {
 		return false;
 	}
 	
-	public static boolean keyboardEvent() throws IOException, SQLException, CloneNotSupportedException {
+	public static boolean keyboardEvent() throws IOException, SQLException {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
 				if(!ChatFrame.getChatActive()) {
