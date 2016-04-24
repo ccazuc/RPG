@@ -75,7 +75,7 @@ public class Stuff extends Item {
 	public boolean canWearWeapon() {
 		int i = 0;
 		while(i < Mideas.joueur1().getWeaponType().length) {
-			if(Mideas.joueur1().getweaponType(i) == weaponType) {
+			if(Mideas.joueur1().getweaponType(i) == this.weaponType) {
 				return true;
 			}
 			i++;
@@ -84,98 +84,98 @@ public class Stuff extends Item {
 	}
 	
 	public WeaponSlot getWeaponSlot() {
-		return weaponSlot;
+		return this.weaponSlot;
 	}
 
 	public WeaponType getWeaponType() {
-		return weaponType;
+		return this.weaponType;
 	}
 	
 	public String convTypeToString() {
-		if(weaponType == WeaponType.BOW) {
+		if(this.weaponType == WeaponType.BOW) {
 			return "Bow";
 		}
-		if(weaponType == WeaponType.CROSSBOW) {
+		if(this.weaponType == WeaponType.CROSSBOW) {
 			return "Crossbow";
 		}
-		if(weaponType == WeaponType.DAGGER) {
+		if(this.weaponType == WeaponType.DAGGER) {
 			return "Dagger";
 		}
-		if(weaponType == WeaponType.FISTWEAPON) {
+		if(this.weaponType == WeaponType.FISTWEAPON) {
 			return "Fist weapon";
 		}
-		if(weaponType == WeaponType.GUN) {
+		if(this.weaponType == WeaponType.GUN) {
 			return "Gun";
 		}
-		if(weaponType == WeaponType.ONEHANDEDAXE) {
+		if(this.weaponType == WeaponType.ONEHANDEDAXE) {
 			return "One handed axe";
 		}
-		if(weaponType == WeaponType.ONEHANDEDMACE) {
+		if(this.weaponType == WeaponType.ONEHANDEDMACE) {
 			return "One handed mace";
 		}
-		if(weaponType == WeaponType.ONEHANDEDSWORD) {
+		if(this.weaponType == WeaponType.ONEHANDEDSWORD) {
 			return "One handed sword";
 		}
-		if(weaponType == WeaponType.POLEARM) {
+		if(this.weaponType == WeaponType.POLEARM) {
 			return "Polearm";
 		}
-		if(weaponType == WeaponType.STAFF) {
+		if(this.weaponType == WeaponType.STAFF) {
 			return "Staff";
 		}
-		if(weaponType == WeaponType.THROWN) {
+		if(this.weaponType == WeaponType.THROWN) {
 			return "Thrown";
 		}
-		if(weaponType == WeaponType.TWOHANDEDAXE) {
+		if(this.weaponType == WeaponType.TWOHANDEDAXE) {
 			return "Two handed axe";
 		}
-		if(weaponType == WeaponType.TWOHANDEDMACE) {
+		if(this.weaponType == WeaponType.TWOHANDEDMACE) {
 			return "Two handed mace";
 		}
-		if(weaponType == WeaponType.TWOHANDEDSWORD) {
+		if(this.weaponType == WeaponType.TWOHANDEDSWORD) {
 			return "Two handed sword";
 		}
-		if(weaponType == WeaponType.WAND) {
+		if(this.weaponType == WeaponType.WAND) {
 			return "Wand";
 		}
 		return "";
 	}
 	
 	public int getCritical() {
-		return critical;
+		return this.critical;
 	}
 	
 	public int getStrength() {
-		return strength;
+		return this.strength;
 	}
 	
 	public int getStamina() {
-		return stamina;
+		return this.stamina;
 	}
 	
 	public int getArmor() {
-		return armor;
+		return this.armor;
 	}
 	
 	public int getMana() {
-		return mana;
+		return this.mana;
 	}
 	
 	@Override
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	@Override
 	public String getSpriteId() {
-		return sprite_id;
+		return this.sprite_id;
 	}
 	
 	public int getLevel() {
-		return level;
+		return this.level;
 	}
 	
 	public Wear getWear() {
-		return wear;
+		return this.wear;
 	}
 	
 	public StuffType getType() {
@@ -183,86 +183,86 @@ public class Stuff extends Item {
 	}
 	
 	public ClassType[] getClassType() {
-		return classType;
+		return this.classType;
 	}
 	
 	public ClassType getClassType(int i) {
-		return classType[i];
+		return this.classType[i];
 	}
 	
 	public String convStuffTypeToString() {
-		if(type == StuffType.HEAD) {
+		if(this.type == StuffType.HEAD) {
 			return "Head";
 		}
-		if(type == StuffType.NECKLACE) {
+		if(this.type == StuffType.NECKLACE) {
 			return "Necklace";
 		}
-		if(type == StuffType.SHOULDERS) {
+		if(this.type == StuffType.SHOULDERS) {
 			return "Shoulders";
 		}
-		if(type == StuffType.BACK) {
+		if(this.type == StuffType.BACK) {
 			return "Back";
 		}
-		if(type == StuffType.CHEST) {
+		if(this.type == StuffType.CHEST) {
 			return "Chest";
 		}
-		if(type == StuffType.WRISTS) {
+		if(this.type == StuffType.WRISTS) {
 			return "Wrists";
 		}
-		if(type == StuffType.GLOVES) {
+		if(this.type == StuffType.GLOVES) {
 			return "Gloves";
 		}
-		if(type == StuffType.BELT) {
+		if(this.type == StuffType.BELT) {
 			return "Belt";
 		}
-		if(type == StuffType.LEGGINGS) {
+		if(this.type == StuffType.LEGGINGS) {
 			return "Leggings";
 		}
-		if(type == StuffType.BOOTS) {
+		if(this.type == StuffType.BOOTS) {
 			return "Boots";
 		}
-		if(type == StuffType.RING) {
+		if(this.type == StuffType.RING) {
 			return "Ring";
 		}
-		if(type == StuffType.TRINKET) {
+		if(this.type == StuffType.TRINKET) {
 			return "Trinket";
 		}
-		if(type == StuffType.MAINHAND) {
+		if(this.type == StuffType.MAINHAND) {
 			return "MainHand";
 		}
-		if(type == StuffType.OFFHAND) {
+		if(this.type == StuffType.OFFHAND) {
 			return "OffHand";
 		}
 		return "Ranged";
 	}
 	
 	public String convClassTypeToString(int i) {
-		if(i < classType.length) {
-			if(classType[i] == ClassType.DEATHKNIGHT) {
+		if(i < this.classType.length) {
+			if(this.classType[i] == ClassType.DEATHKNIGHT) {
 				return "DeathKnight";
 			}
-			if(classType[i] == ClassType.GUERRIER) {
+			if(this.classType[i] == ClassType.GUERRIER) {
 				return "Warrior";
 			}
-			if(classType[i] == ClassType.HUNTER) {
+			if(this.classType[i] == ClassType.HUNTER) {
 				return "Hunter";
 			}
-			if(classType[i] == ClassType.MAGE) {
+			if(this.classType[i] == ClassType.MAGE) {
 				return "Mage";
 			}
-			if(classType[i] == ClassType.MONK) {
+			if(this.classType[i] == ClassType.MONK) {
 				return "MonK";
 			}
-			if(classType[i] == ClassType.PALADIN) {
+			if(this.classType[i] == ClassType.PALADIN) {
 				return "Paladin";
 			}
-			if(classType[i] == ClassType.PRIEST) {
+			if(this.classType[i] == ClassType.PRIEST) {
 				return "Priest";
 			}
-			if(classType[i] == ClassType.ROGUE) {
+			if(this.classType[i] == ClassType.ROGUE) {
 				return "Rogue";
 			}
-			if(classType[i] == ClassType.SHAMAN) {
+			if(this.classType[i] == ClassType.SHAMAN) {
 				return "Shaman";
 			}
 			return "Warlock";
@@ -271,16 +271,16 @@ public class Stuff extends Item {
 	}
 	
 	public String convWearToString() {
-		if(wear == Wear.CLOTH) {
+		if(this.wear == Wear.CLOTH) {
 			return "Cloth";
 		}
-		if(wear == Wear.LEATHER) {
+		if(this.wear == Wear.LEATHER) {
 			return "Leather";
 		}
-		if(wear == Wear.MAIL) {
+		if(this.wear == Wear.MAIL) {
 			return "Mail";
 		}
-		if(wear == Wear.PLATE) {
+		if(this.wear == Wear.PLATE) {
 			return "Plate";
 		}
 		return "";
@@ -288,8 +288,8 @@ public class Stuff extends Item {
 	
 	public boolean canEquipTo(ClassType type) {
 		int i = 0;
-		while(i < classType.length) {
-			if(type == classType[i]) {
+		while(i < this.classType.length) {
+			if(type == this.classType[i]) {
 				return true;
 			}
 			i++;
@@ -297,141 +297,141 @@ public class Stuff extends Item {
 		return false;
 	}
 	public String convSlotToString() {
-		if(weaponSlot == WeaponSlot.MAINHAND) {
+		if(this.weaponSlot == WeaponSlot.MAINHAND) {
 			return "Main Hand";
 		}
-		if(weaponSlot == WeaponSlot.OFFHAND) {
+		if(this.weaponSlot == WeaponSlot.OFFHAND) {
 			return "Off Hand";
 		}
-		if(weaponSlot == WeaponSlot.RANGED) {
+		if(this.weaponSlot == WeaponSlot.RANGED) {
 			return "Ranged";
 		}
  		return "";
  	}
 	
 	public String convWeaponTypeToString() {
-		if(weaponType == WeaponType.BOW) {
+		if(this.weaponType == WeaponType.BOW) {
 			return "Bow";
 		}
-		if(weaponType == WeaponType.CROSSBOW) {
+		if(this.weaponType == WeaponType.CROSSBOW) {
 			return "Crossbow";
 		}
-		if(weaponType == WeaponType.DAGGER) {
+		if(this.weaponType == WeaponType.DAGGER) {
 			return "Dagger";
 		}
-		if(weaponType == WeaponType.FISTWEAPON) {
+		if(this.weaponType == WeaponType.FISTWEAPON) {
 			return "Fist weapon";
 		}
-		if(weaponType == WeaponType.GUN) {
+		if(this.weaponType == WeaponType.GUN) {
 			return "Gun";
 		}
-		if(weaponType == WeaponType.ONEHANDEDAXE) {
+		if(this.weaponType == WeaponType.ONEHANDEDAXE) {
 			return "One handed axe";
 		}
-		if(weaponType == WeaponType.ONEHANDEDMACE) {
+		if(this.weaponType == WeaponType.ONEHANDEDMACE) {
 			return "One handed mace";
 		}
-		if(weaponType == WeaponType.ONEHANDEDSWORD) {
+		if(this.weaponType == WeaponType.ONEHANDEDSWORD) {
 			return "One handed sword";
 		}
-		if(weaponType == WeaponType.POLEARM) {
+		if(this.weaponType == WeaponType.POLEARM) {
 			return "Polearm";
 		}
-		if(weaponType == WeaponType.STAFF) {
+		if(this.weaponType == WeaponType.STAFF) {
 			return "Staff";
 		}
-		if(weaponType == WeaponType.THROWN) {
+		if(this.weaponType == WeaponType.THROWN) {
 			return "Thrown";
 		}
-		if(weaponType == WeaponType.TWOHANDEDAXE) {
+		if(this.weaponType == WeaponType.TWOHANDEDAXE) {
 			return "Two handed axe";
 		}
-		if(weaponType == WeaponType.TWOHANDEDMACE) {
+		if(this.weaponType == WeaponType.TWOHANDEDMACE) {
 			return "Two handed mace";
 		}
-		if(weaponType == WeaponType.TWOHANDEDSWORD) {
+		if(this.weaponType == WeaponType.TWOHANDEDSWORD) {
 			return "Two handed sword";
 		}
-		if(weaponType == WeaponType.WAND) {
+		if(this.weaponType == WeaponType.WAND) {
 			return "Wand";
 		}
 		return "";
 	}
 	
 	public boolean isHead() {
-		return type == StuffType.HEAD;
+		return this.type == StuffType.HEAD;
 	}
 	
 	public boolean isNecklace() {
-		return type == StuffType.NECKLACE;
+		return this.type == StuffType.NECKLACE;
 	}
 	
 	public boolean isShoulders() {
-		return type == StuffType.SHOULDERS;
+		return this.type == StuffType.SHOULDERS;
 	}
 	
 	public boolean isChest() {
-		return type == StuffType.CHEST;
+		return this.type == StuffType.CHEST;
 	}
 	
 	public boolean isBack() {
-		return type == StuffType.BACK;
+		return this.type == StuffType.BACK;
 	}
 	
 	public boolean isWrists() {
-		return type == StuffType.WRISTS;
+		return this.type == StuffType.WRISTS;
 	}
 	
 	public boolean isGloves() {
-		return type == StuffType.GLOVES;
+		return this.type == StuffType.GLOVES;
 	}
 	
 	public boolean isBelt() {
-		return type == StuffType.BELT;
+		return this.type == StuffType.BELT;
 	}
 	
 	public boolean isLeggings() {
-		return type == StuffType.LEGGINGS;
+		return this.type == StuffType.LEGGINGS;
 	}
 	
 	public boolean isBoots() {
-		return type == StuffType.BOOTS;
+		return this.type == StuffType.BOOTS;
 	}
 	
 	public boolean isRing() {
-		return type == StuffType.RING;
+		return this.type == StuffType.RING;
 	}
 	
 	public boolean isTrinket() {
-		return type == StuffType.TRINKET;
+		return this.type == StuffType.TRINKET;
 	}
 	
 	public boolean isMainHand() {
-		return type == StuffType.MAINHAND;
+		return this.type == StuffType.MAINHAND;
 	}
 	
 	public boolean isOffHand() {
-		return type == StuffType.OFFHAND;
+		return this.type == StuffType.OFFHAND;
 	}
 	
 	public boolean isRanged() {
-		return type == StuffType.RANGED;
+		return this.type == StuffType.RANGED;
 	}
 	
 	public boolean equals(Stuff item) {
-		return item != null && item.getId() == id;
+		return item != null && item.getId() == this.id;
 	}
 	
 	public String getStuffName() {
-		return name;
+		return this.name;
 	}
 	
 	public int getPrice() {
-		return price;
+		return this.price;
 	}
 
 	@Override
 	public int getSellPrice() {
-		return sellPrice;
+		return this.sellPrice;
 	}
 }

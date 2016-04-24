@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
@@ -12,8 +10,9 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class PlayerPortraitFrame {
 	
-	public static void draw(Joueur joueur, int x, int y) throws FileNotFoundException {
-		Color backgroundColor = new Color(0, 0, 0,.4f);
+	private static Color backgroundColor = new Color(0, 0, 0, .4f);
+	
+	public static void draw(Joueur joueur, int x, int y) {
 		Draw.drawColorQuad(x+70, y+15, 119, 18, backgroundColor);
 		drawHealthBar(joueur, x, y);
 		drawManaBar(joueur, x, y);
@@ -25,12 +24,12 @@ public class PlayerPortraitFrame {
 	}
 	
 	private static void drawHealthBar(Joueur joueur, int x, int y) {
-		Draw.drawColorQuad(x+70, y+35, 120, 13, new Color(0, 0, 0,.4f));
+		Draw.drawColorQuad(x+70, y+35, 120, 13, backgroundColor);
 		Draw.drawColorQuad(x+70, y+35, 120f*joueur.getStamina()/joueur.getMaxStamina(), 12, Color.decode("#07D705"));
 	}
 	
 	private static void drawManaBar(Joueur joueur, int x, int y) {
-		Draw.drawColorQuad(x+70, y+45, 119, 13,  new Color(0, 0, 0,.4f));
+		Draw.drawColorQuad(x+70, y+45, 119, 13,  backgroundColor);
 		Draw.drawColorQuad(x+70, y+45, 119f*joueur.getMana()/joueur.getMaxMana(), 12, Color.decode("#0101D5"));
 	}
 	

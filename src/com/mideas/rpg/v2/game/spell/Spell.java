@@ -80,19 +80,19 @@ public class Spell {
 	}
 	
 	public int getManaCost() {
-		return manaCost;
+		return this.manaCost;
 	}
 	
 	public boolean hasMana() {
-		return Mideas.joueur1().getMana() >= manaCost;
+		return Mideas.joueur1().getMana() >= this.manaCost;
 	}
 	
 	public String getSpriteId() {
-		return sprite_id;
+		return this.sprite_id;
 	}
 	
 	public SpellType getType() {
-		return type;
+		return this.type;
 	}
 	
 	public void doDamage(Joueur joueur2, Joueur joueur) {
@@ -108,24 +108,24 @@ public class Spell {
 	}
 	
 	public int getDamage() {
-		return (int)(Mideas.joueur1().getStrength()+baseDamage*(Math.random()*.1+.95));
+		return (int)(Mideas.joueur1().getStrength()+this.baseDamage*(Math.random()*.1+.95));
 	}
 	
 	public int getBaseDamage() {
-		return baseDamage;
+		return this.baseDamage;
 	}
 	
 	public int getDefaultDamage() {
-		return defaultDamage;
+		return this.defaultDamage;
 	}
 	
 	
 	public int getCastTime() {
-		return castTime;
+		return this.castTime;
 	}
 	
 	public int getHeal() {
-		return baseHeal;
+		return this.baseHeal;
 	}
 	
 	public void useMana(Joueur joueur, Spell spell) {
@@ -133,19 +133,19 @@ public class Spell {
 	}
 	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	public Texture getSprite() {
-		return IconsManager.getSprite47(sprite_id);
+		return IconsManager.getSprite47(this.sprite_id);
 	}
 	
 	
 	public void setDamage(Spell spell, int number) {
-		this.baseDamage = baseDamage+number;
+		this.baseDamage = this.baseDamage+number;
 	}
 	
 	public int getSpellBaseCd() {
-		return baseCd;
+		return this.baseCd;
 	}
 	
 	public int getSpellCd() {
@@ -169,7 +169,7 @@ public class Spell {
 	}
 	
 	public void setDamage(float number) {
-		this.baseDamage = (int)(baseDamage+number);
+		this.baseDamage = (int)(this.baseDamage+number);
 	}
 	
 	public int getSpellId() {

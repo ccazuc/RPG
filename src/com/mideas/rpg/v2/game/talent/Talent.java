@@ -42,7 +42,7 @@ public class Talent {
 		return y;
 	}
 	
-	public static void getTalent() throws FileNotFoundException {
+	public static void getTalent() {
 		BufferedReader br = null;
 		int i = 0;
 		int id;
@@ -124,7 +124,7 @@ public class Talent {
 		}
 	}
 	
-	public static void setTalent() throws FileNotFoundException {
+	public static void setTalent() {
 		try {
 			String content = "";
 			File file = new File(ClassSelectFrame.talentTxt());

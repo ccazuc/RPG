@@ -4,8 +4,6 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 
-import java.io.IOException;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -23,12 +21,12 @@ public final class Window {
 	
 	public static int MAX_FPS;
 	
-	public final static void init(final int width, final int height, final String title) throws LWJGLException, IOException {
+	public final static void init(final int width, final int height, final String title) throws LWJGLException {
 		createWindow(title, width, height);
 		updateGLContext();
 	}
 	
-	private final static void createWindow(final String title, final int width, final int height) throws LWJGLException, IOException {
+	private final static void createWindow(final String title, final int width, final int height) throws LWJGLException {
 		Display.setDisplayMode(new DisplayMode(width, height));
 		Display.setResizable(true);
 		Display.setTitle(title);

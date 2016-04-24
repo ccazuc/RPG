@@ -15,7 +15,7 @@ public class SpellManager {
 	private static ArrayList<SpellShortcut> spellShortcutList = new ArrayList<SpellShortcut>();
 	private static int numberSpellLoaded;
 	
-	public static void loadSpells() throws SQLException, CloneNotSupportedException {
+	public static void loadSpells() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, type, basedamage, manacost, baseheal, basecd, cd, cast_time FROM spell");
 		statement.execute();
 		while(statement.fetch()) {

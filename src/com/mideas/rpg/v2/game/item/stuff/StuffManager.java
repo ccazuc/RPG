@@ -15,7 +15,7 @@ public class StuffManager {
 	//private static ArrayList<StuffShortcut> stuffShortcutList = new ArrayList<StuffShortcut>();
 	private static int numberStuffLoaded;
 	
-	public static void loadStuffs() throws SQLException, CloneNotSupportedException {
+	public static void loadStuffs() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, type, name, class, wear, sprite_id, quality, level, armor, stamina, mana, critical, strength, sellprice FROM stuff");
 		statement.execute();
 		while(statement.fetch()) {

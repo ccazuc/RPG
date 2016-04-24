@@ -37,50 +37,50 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public Item[] getBag() {
-		return bag;
+		return this.bag;
 	}
 	
 	public Bag[] getEquippedBag() {
-		return equippedBag;
+		return this.equippedBag;
 	}
 	
 	public Bag getEquippedBag(int i) {
-		return equippedBag[i];
+		return this.equippedBag[i];
 	}
 	
 	public String getSpriteId()  {
-		return sprite_id;
+		return this.sprite_id;
 	}
 	
 	public int getSize() {
-		return size;
+		return this.size;
 	}
 	
 	public String getSpriteId(int i) {
-		if(i < equippedBag.length) {
-			return equippedBag[i].sprite_id;
+		if(i < this.equippedBag.length) {
+			return this.equippedBag[i].sprite_id;
 		}
 		return null;
 	}
 	
-	public void setEquippedBag(int i, Bag bag) throws CloneNotSupportedException {
-		if(i < equippedBag.length) {
+	public void setEquippedBag(int i, Bag bag) {
+		if(i < this.equippedBag.length) {
 			if(bag != null) {
 				int length = Mideas.bag().getBag().length;
-				Item[] tempBag = (Item[])this.bag.clone();
-				if(equippedBag[i] != null) {
-					int tempBagSize = equippedBag[i].size;
-					equippedBag[i] = bag;
-					if(tempBagSize >= equippedBag[i].size) {
-						this.bag = new Item[length+(tempBagSize-equippedBag[i].size)];
+				Item[] tempBag = this.bag.clone();
+				if(this.equippedBag[i] != null) {
+					int tempBagSize = this.equippedBag[i].size;
+					this.equippedBag[i] = bag;
+					if(tempBagSize >= this.equippedBag[i].size) {
+						this.bag = new Item[length+(tempBagSize-this.equippedBag[i].size)];
 					}
 					else {
-						this.bag = new Item[length+(equippedBag[i].size-tempBagSize)];
+						this.bag = new Item[length+(this.equippedBag[i].size-tempBagSize)];
 					}
 				}
 				else {
-					equippedBag[i] = bag;
-					this.bag = new Item[length+equippedBag[i].size];
+					this.equippedBag[i] = bag;
+					this.bag = new Item[length+this.equippedBag[i].size];
 				}
 				int j = 0;
 				while(j < tempBag.length && j < this.bag.length) {
@@ -89,14 +89,14 @@ public class Bag extends Item implements Cloneable {
 				}
 			}
 			else {
-				equippedBag[i] = bag;
+				this.equippedBag[i] = bag;
 			}
 		}
 	}
 	
 	public int getEquippedBagSize(int i) {
-		if(i < equippedBag.length && equippedBag[i] != null) {
-			return equippedBag[i].size;
+		if(i < this.equippedBag.length && this.equippedBag[i] != null) {
+			return this.equippedBag[i].size;
 		}
 		return 0;
 	}
@@ -130,40 +130,40 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public Item getBag(int i) {
-		if(i < bag.length && bag[i] != null) {
-			if(bag[i].getItemType() == ItemType.STUFF) {
-			return (Stuff)bag[i];
+		if(i < this.bag.length && this.bag[i] != null) {
+			if(this.bag[i].getItemType() == ItemType.STUFF) {
+			return this.bag[i];
 			}
-			else if(bag[i].getItemType() == ItemType.POTION) {
-				return (Potion)bag[i];
+			else if(this.bag[i].getItemType() == ItemType.POTION) {
+				return this.bag[i];
 			}
-			else if(bag[i].getItemType() == ItemType.ITEM) {
-				return (Item)bag[i];
+			else if(this.bag[i].getItemType() == ItemType.ITEM) {
+				return this.bag[i];
 			}
-			else if(bag[i].getItemType() == ItemType.BAG) {
-				return (Bag)bag[i];
+			else if(this.bag[i].getItemType() == ItemType.BAG) {
+				return this.bag[i];
 			}
-			else if(bag[i].getItemType() == ItemType.WEAPON) {
-				return (Stuff)bag[i];
+			else if(this.bag[i].getItemType() == ItemType.WEAPON) {
+				return this.bag[i];
 			}
 		}
 		return null;
 	}
 	
 	public void setBag(int i, Item stuff) {
-		if(i < bag.length) {
-			bag[i] = stuff;
+		if(i < this.bag.length) {
+			this.bag[i] = stuff;
 		}
 	}
 	
 	public void setBag(int i, Item stuff, int number) {
-		if(i < bag.length) {
-			bag[i] = stuff;
+		if(i < this.bag.length) {
+			this.bag[i] = stuff;
 			numberStack.put(stuff, number);
 		}
 	}
 	
 	public int getId() {
-		return id;
+		return this.id;
 	}
 }

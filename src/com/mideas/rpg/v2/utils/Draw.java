@@ -93,6 +93,21 @@ public final class Draw {
 		glVertex2f(x+width, y);
 	}
 	
+	public final static void drawQuadPart(final Texture texture, final float x, final float y, final float width, final float height, final float texXOrg, final float texYOrg, final float texCoWidth, final float texCoHeight) {
+		final float xFrom = texXOrg/texture.getWidth();
+		final float xTo = (texXOrg+texCoWidth)/texture.getWidth();
+		final float yFrom = texYOrg/texture.getHeight();
+		final float yTo = (texYOrg+texCoHeight)/texture.getHeight();
+		glTexCoord2f(xFrom, yFrom);
+		glVertex2f(x, y);
+		glTexCoord2f(xFrom, yTo);
+		glVertex2f(x, y+height);
+		glTexCoord2f(xTo, yTo);
+		glVertex2f(x+width, y+height);
+		glTexCoord2f(xTo, yFrom);
+		glVertex2f(x+width, y);
+	}
+	
 	public final static void drawQuad(final Texture texture, final float x, final float y, final float alpha) {
 		if(texture != null) {
 			glColor4f(1, 1, 1, alpha);

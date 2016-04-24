@@ -13,6 +13,8 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class SpellBookFrame {
@@ -27,13 +29,13 @@ public class SpellBookFrame {
 		Draw.drawQuad(Sprites.spellbook_page1, Display.getWidth()/2, Display.getHeight()/2-350);
 		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y);
-			Draw.drawQuad(Sprites.spell_book_heroic_strike, Display.getWidth()/2+x+20, Display.getHeight()/2+y+yShift+15);
+			Draw.drawQuad(IconsManager.getSprite42(SpellManager.getBookSpell(102).getSpriteId()), Display.getWidth()/2+x+20, Display.getHeight()/2+y+yShift+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y+yShift);
 			TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+yShift+15, "Heroic Strike", Color.decode("#D9D623"), Color.black, 1, 1, 1);
-			drawSpell(Sprites.spell_book_grey_charge, Sprites.spell_book_charge, 3, x, y+2*yShift, "Charge");
-			drawSpell(Sprites.spell_book_grey_thunder_clap, Sprites.spell_book_thunder_clap, 7, x, y+3*yShift, "Thunder Clap");
-			drawSpell(Sprites.spell_book_grey_rend, Sprites.spell_book_rend, 10, x, y+4*yShift, "Rend");
-			drawSpell(Sprites.spell_book_grey_mortal_strike, Sprites.spell_book_mortal_strike, 15, x, y+5*yShift, "Mortal Strike");
+			drawSpell(Sprites.spell_book_grey_charge, IconsManager.getSprite42(SpellManager.getBookSpell(101).getSpriteId()), 3, x, y+2*yShift, "Charge");
+			drawSpell(Sprites.spell_book_grey_thunder_clap, IconsManager.getSprite42(SpellManager.getBookSpell(105).getSpriteId()), 7, x, y+3*yShift, "Thunder Clap");
+			drawSpell(Sprites.spell_book_grey_rend, IconsManager.getSprite42(SpellManager.getBookSpell(104).getSpriteId()), 10, x, y+4*yShift, "Rend");
+			drawSpell(Sprites.spell_book_grey_mortal_strike, IconsManager.getSprite42(SpellManager.getBookSpell(103).getSpriteId()), 15, x, y+5*yShift, "Mortal Strike");
 			if(hover_book_button) {
 				Draw.drawQuad(Sprites.close_spell_book_hover, Display.getWidth()/2+593, Display.getHeight()/2-332);
 			}

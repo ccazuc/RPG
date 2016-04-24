@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import org.lwjgl.input.Mouse;
@@ -27,7 +26,7 @@ public class EscapeFrame {
 	private static int y;
 	private static int yShift;
 	
-	public static void draw() throws FileNotFoundException {
+	public static void draw() {
 		x = -10;
 		y = -245;
 		yShift = 20;
@@ -46,7 +45,7 @@ public class EscapeFrame {
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Return to Game")/2-10, Display.getHeight()/2-43, "Return to Game", Color.white, Color.black, 1, 1, 1);
  	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		setHoverFalse();
 		x = -70;
 		y = -225;

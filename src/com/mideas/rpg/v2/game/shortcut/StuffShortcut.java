@@ -24,27 +24,27 @@ public class StuffShortcut implements Shortcut {
 		this.type = ShortcutType.STUFF;
 	}
 	
+	@Override
 	public boolean use(Shortcut shortcut) throws FileNotFoundException, SQLException {
 		int i = 0;
 		if(DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
 			while(i < Mideas.joueur1().getStuff().length) {
-				if(stuff.getItemType() == ItemType.STUFF) {
-					if(stuff != null && stuff.getType() == DragManager.getStuffType(i) && stuff.canEquipTo(DragManager.convClassType()) && DragManager.canWear(stuff)) {
-						if(Mideas.getLevel() >= stuff.getLevel()) {
+				if(this.stuff.getItemType() == ItemType.STUFF) {
+					if(this.stuff != null && this.stuff.getType() == DragManager.getStuffType(i) && this.stuff.canEquipTo(DragManager.convClassType()) && DragManager.canWear(this.stuff)) {
+						if(Mideas.getLevel() >= this.stuff.getLevel()) {
 							if(Mideas.joueur1().getStuff(i) == null) {
-								Mideas.joueur1().setStuff(i, stuff);
+								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
 								DragManager.setNullContainer(Mideas.bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								break;
 							}
 							else {
 								Item tempItem = Mideas.joueur1().getStuff(i);
 								DragManager.calcStatsLess(tempItem);
-								Mideas.joueur1().setStuff(i, stuff);
+								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
-								Mideas.bag().setBag(DragManager.checkItemSlot(stuff), tempItem);
+								Mideas.bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
 								break;
@@ -52,23 +52,22 @@ public class StuffShortcut implements Shortcut {
 						}
 					}
 				}
-				else if(stuff.getItemType() == ItemType.WEAPON) {
-					if(stuff != null && stuff.getWeaponSlot() == DragManager.getWeaponSlot(i) && stuff.canEquipTo(DragManager.convClassType())) {
+				else if(this.stuff.getItemType() == ItemType.WEAPON) {
+					if(this.stuff != null && this.stuff.getWeaponSlot() == DragManager.getWeaponSlot(i) && this.stuff.canEquipTo(DragManager.convClassType())) {
 						if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(i) == null) {
-								Mideas.joueur1().setStuff(i, stuff);
+								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
 								DragManager.setNullContainer(Mideas.bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								break;
 							}
 							else {
 								Item tempItem = Mideas.joueur1().getStuff(i);
 								DragManager.calcStatsLess(tempItem);
-								Mideas.joueur1().setStuff(i, stuff);
+								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
-								Mideas.bag().setBag(DragManager.checkItemSlot(stuff), tempItem);
+								Mideas.bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
 								break;
@@ -82,22 +81,26 @@ public class StuffShortcut implements Shortcut {
 		return false;
 	}
 	
+	@Override
 	public int getId() {
-		return stuff.getId();
+		return this.stuff.getId();
 	}
 	
+	@Override
 	public Texture getSprite() {
-		return IconsManager.getSprite47(stuff.getSpriteId());
+		return IconsManager.getSprite47(this.stuff.getSpriteId());
 	}
 
+	@Override
 	public void setCd(int id, int cd) {
 	}
 	
 	public Stuff getStuff() {
-		return stuff;
+		return this.stuff;
 	}
 	
+	@Override
 	public ShortcutType getShortcutType() {
-		return type;
+		return this.type;
 	}
 }

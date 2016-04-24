@@ -282,9 +282,6 @@ public class GuerrierTalent {
 			if(number == 5) {
 				return false;
 			}
-			else {
-				return true;
-			}
 		}
 		return true;
 	}

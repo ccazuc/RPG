@@ -24,18 +24,18 @@ public class Potion extends Item {
 	}
 	
 	public int getPotionHeal() {
-		return doHeal;
+		return this.doHeal;
 	}
 	
 	public int getPotionMana() {
-		return doMana;
+		return this.doMana;
 	}
 	
 	public int getQuality() {
-		return quality;
+		return this.quality;
 	}
 	
 	public int getLevel() {
-		return level;
+		return this.level;
 	}
 }

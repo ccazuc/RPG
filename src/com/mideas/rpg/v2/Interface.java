@@ -62,7 +62,7 @@ public class Interface {
 	private static boolean craftFrameActive;
 	private static boolean chatFrameActive = true;
 
-	public static void draw() throws LWJGLException, IOException, SQLException, CloneNotSupportedException {
+	public static void draw() throws LWJGLException, IOException, SQLException {
 		Draw.drawQuad(Sprites.current_bg, Display.getWidth()/2-Sprites.current_bg.getImageWidth()/2, Display.getHeight()/2-Sprites.current_bg.getImageHeight()/2);
 		if(!isConfigLoaded) {
 			Mideas.getConfig();
@@ -99,7 +99,7 @@ public class Interface {
 					if(Mideas.joueur2() != null) {
 						PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
 						PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
-						if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
+						if((Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0) && !Dungeon.dungeonActive()) {
 							EndFightFrame.draw();
 						}
 					}
@@ -186,8 +186,9 @@ public class Interface {
 				}
 			}
 			if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
-				ContainerFrame.mouseEvent();
-				return true;
+				if(ContainerFrame.mouseEvent()) {
+					return true;
+				}
 			}
 			DragBagManager.openBag();
 			if(DragBagManager.mouseEvent()) {
@@ -248,7 +249,7 @@ public class Interface {
 		return false;
 	}
 	
-	public static boolean keyboardEvent() throws LWJGLException, IOException, SQLException, CloneNotSupportedException {
+	public static boolean keyboardEvent() throws IOException, SQLException, CloneNotSupportedException {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
 				if(!ChatFrame.getChatActive()) {

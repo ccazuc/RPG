@@ -31,8 +31,9 @@ public class ClassSelectFrame {
 	private static boolean monkHover;
 	private static boolean isBagEquipped;
 	private static float expClass;
+	private static Color bgExpBarColor = new Color(0, 0, 0,.65f);
 	
-	public static void draw() throws FileNotFoundException, SQLException {
+	public static void draw() throws FileNotFoundException {
 		Color bgColor = new Color(0, 0, 0,.45f); 
 		Draw.drawColorQuad(Display.getWidth()/2-280, Display.getHeight()-330, 600, 550, bgColor);
 		int x = -140;
@@ -132,127 +133,21 @@ public class ClassSelectFrame {
 		warlockHover = isClassHover(46, -13);
 		monkHover = isClassHover(108, -13);
 		if(Mouse.getEventButtonState()) {
-			setNewClass("Guerrier", ClassManager.getPlayerClone("Guerrier"), warriorHover);
-			setNewClass("Paladin", ClassManager.getPlayerClone("Paladin"), paladinHover);
-			setNewClass("Hunter", ClassManager.getPlayerClone("Hunter"), hunterHover);
-			setNewClass("Rogue", ClassManager.getPlayerClone("Rogue"), rogueHover);
-			setNewClass("Priest", ClassManager.getPlayerClone("Priest"), priestHover);
-			setNewClass("DeathKnight", ClassManager.getPlayerClone("DeathKnight"), deathknightHover);
-			setNewClass("Shaman", ClassManager.getPlayerClone("Shaman"), shamanHover);
-			setNewClass("Mage", ClassManager.getPlayerClone("Mage"), mageHover);
-			setNewClass("Warlock", ClassManager.getPlayerClone("Warlock"), warlockHover);
-			setNewClass("Monk", ClassManager.getPlayerClone("Monk"), monkHover);
+			if(Mouse.getEventButton() == 0) {
+				setNewClass("Guerrier", ClassManager.getPlayerClone("Guerrier"), warriorHover);
+				setNewClass("Paladin", ClassManager.getPlayerClone("Paladin"), paladinHover);
+				setNewClass("Hunter", ClassManager.getPlayerClone("Hunter"), hunterHover);
+				setNewClass("Rogue", ClassManager.getPlayerClone("Rogue"), rogueHover);
+				setNewClass("Priest", ClassManager.getPlayerClone("Priest"), priestHover);
+				setNewClass("DeathKnight", ClassManager.getPlayerClone("DeathKnight"), deathknightHover);
+				setNewClass("Shaman", ClassManager.getPlayerClone("Shaman"), shamanHover);
+				setNewClass("Mage", ClassManager.getPlayerClone("Mage"), mageHover);
+				setNewClass("Warlock", ClassManager.getPlayerClone("Warlock"), warlockHover);
+				setNewClass("Monk", ClassManager.getPlayerClone("Monk"), monkHover);
+			}
 		}
 		return false;
 	}
-
-	/*public static String classTxt() {
-		if(Mideas.joueur1() != null && !isStuffEquipped) {
-			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-				return "equippedItemsGuerrier.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
-				return "equippedItemsPaladin.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
-				return "equippedItemsHunter.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
-				return "equippedItemsRogue.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Priest")) {
-				return "equippedItemsPriest.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-				return "equippedItemsDeathKnight.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
-				return "equippedItemsShaman.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Mage")) {
-				return "equippedItemsMage.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
-				return "equippedItemsWarlock.txt";
-			}
-		return "equippedItemsMonk.txt";
-		}
-		isStuffEquipped = true;
-		return null;
-	
-	}*/
-	
-	/*public static String goldTxt() {
-		if(Mideas.joueur1() != null) {
-			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-				return "goldGuerrier.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
-				return "goldPaladin.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
-				return "goldHunter.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
-				return "goldRogue.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Priest")) {
-				return "goldPriest.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-				return "goldDeathKnight.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
-				return "goldShaman.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Mage")) {
-				return "goldMage.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
-				return "goldWarlock.txt";
-			}
-		return "equippedItemsMonk.txt";
-		}
-		return null;
-	
-	}*/
-	
-	/*public static String bagTxt() {
-		if(Mideas.joueur1() != null && !isBagEquipped) {
-			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-				return "bagGuerrier.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
-				return "bagPaladin.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
-				return "bagHunter.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
-				return "bagRogue.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Priest")) {
-				return "bagPriest.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-				return "bagDeathKnight.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
-				return "bagShaman.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Mage")) {
-				return "bagMage.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
-				return "bagWarlock.txt";
-			}
-			else {
-				return "bagMonk.txt";
-			}
-		}
-		isBagEquipped = true;
-		return null;
-	}*/
 	
 	public static String talentTxt() {
 		if(Mideas.joueur1() != null && !isBagEquipped) {
@@ -289,151 +184,6 @@ public class ClassSelectFrame {
 		}
 		return null;
 	}
-
-	/*public static String expTxt() {
-		if(!isExpSet) {
-			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-				return "expGuerrier.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
-				return "expPaladin.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
-				return "expHunter.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
-				return "expRogue.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Priest")) {
-				return "expPriest.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-				return "expDeathKnight.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
-				return "expShaman.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Mage")) {
-				return "expMage.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
-				return "expWarlock.txt";
-			}
-			else {
-				return "expMonk.txt";
-			}
-		}
-		isExpSet = true;
-		return null;	
-	}
-	
-	public static String shopPage1Txt() {
-		if(Mideas.joueur1() != null) {
-			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-				return "shopGuerrierPage1.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
-				return "shopPaladinPage1.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
-				return "shopHunterPage1.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
-				return "shopRoguePage1.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Priest")) {
-				return "shopPriestPage1.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-				return "shopDeathKnightPage1.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
-				return "shopShamanPage1.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Mage")) {
-				return "shopMagePage1.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
-				return "shopWarlockPage1.txt";
-			}
-			else {
-				return "shopMonkPage1.txt";
-			}
-		}
-		return null;
-	}
-	
-	public static String shopPage2Txt() {
-		if(Mideas.joueur1() != null) {
-			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-				return "shopGuerrierPage2.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
-				return "shopPaladinPage2.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
-				return "shopHunterPage2.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
-				return "shopRoguePage2.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Priest")) {
-				return "shopPriestPage2.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-				return "shopDeathKnightPage2.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
-				return "shopShamanPage2.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Mage")) {
-				return "shopMagePage2.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
-				return "shopWarlockPage2.txt";
-			}
-			else {
-				return "shopMonkPage2.txt";
-			}
-		}
-		return null;
-	}
-
-	public static String shopPage3Txt() {
-		if(Mideas.joueur1() != null) {
-			if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-				return "shopGuerrierPage3.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Paladin")) {
-				return "shopPaladinPage3.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Hunter")) {
-				return "shopHunterPage3.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Rogue")) {
-				return "shopRoguePage3.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Priest")) {
-				return "shopPriestPage3.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-				return "shopDeathKnightPage3.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Shaman")) {
-				return "shopShamanPage3.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Mage")) {
-				return "shopMagePage3.txt";
-			}
-			else if(Mideas.joueur1().getClasse().equals("Warlock")) {
-				return "shopWarlockPage3.txt";
-			}
-			else {
-				return "shopMonkPage3.txt";
-			}
-		}
-		return null;
-	}*/
 	
 	private static boolean isClassHover(int x, int y) {
 		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+56 && Mideas.mouseY() >= Display.getHeight()/2+y && Mideas.mouseY() <= Display.getHeight()/2+y+56){
@@ -445,13 +195,13 @@ public class ClassSelectFrame {
 	private static void isClassHoverExp(boolean classHover, float expClass, int x_sprite, int y_sprite, int x_exp_bar, int y_exp_bar, int y_exp_bar_border) throws FileNotFoundException {
 		if(classHover) {
 			if(Mideas.getLevelAll((int)expClass) > 1 && Mideas.getLevelAll((int)expClass) < 70) {
-				expClass = ((float)expClass-(float)Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass)-1))/((float)Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass))-Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass)-1)); 
+				expClass = (expClass-Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass)-1))/((float)Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass))-Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass)-1)); 
 			}
 			else if(Mideas.getLevelAll((int)expClass) == 70) {
 				expClass = 1;
 			}
 			else {
-				expClass = ((float)expClass/Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass))); 
+				expClass = (expClass/Mideas.getExpNeeded(Mideas.getLevelAll((int)expClass))); 
 			}
 			if(expClass == 0.0) {
 				Draw.drawColorQuad(Display.getWidth()/2+x_exp_bar, Display.getHeight()+y_exp_bar+y_exp_bar_border, 220, 11, Color.decode("#D418DE"));
@@ -490,7 +240,6 @@ public class ClassSelectFrame {
 	}
 	
 	private static void drawExpBar(int exp, int x, int y) throws FileNotFoundException {
-		Color bgExpBarColor = new Color(0, 0, 0,.65f); 
 		if(Mideas.getLevelAll(exp) == 70) {
 			Draw.drawColorQuad(Display.getWidth()/2+x, Display.getHeight()+y, 220, 11, bgExpBarColor);
 			Draw.drawColorQuad(Display.getWidth()/2+x, Display.getHeight()+y, 220, 11, Color.decode("#680764"));

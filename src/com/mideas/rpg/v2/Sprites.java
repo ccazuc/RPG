@@ -148,9 +148,10 @@ public class Sprites {
 	public static Texture back_bag4;
 	public static Texture icon_bag;
 	public static Texture large_spellbar;
-	public static Texture spell_ambush;
-	public static Texture spell_arcane_shot;
+	public static Texture spellbar;
 	public static Texture spell_attack;
+	/*public static Texture spell_ambush;
+	public static Texture spell_arcane_shot;
 	public static Texture spell_chain_lightning;
 	public static Texture spell_charge;
 	public static Texture spell_corruption;
@@ -178,10 +179,9 @@ public class Sprites {
 	public static Texture spell_steady_shot;
 	public static Texture spell_rend;
 	public static Texture spell_thunder_clap;
-	public static Texture spellbar;
 	public static Texture spell_tiger_palm;
 	public static Texture spell_tiger_strikes;
-	public static Texture spell_touch_of_death;
+	public static Texture spell_touch_of_death;*/
 	public static Texture spell_book_heroic_strike;
 	public static Texture spell_book_charge;
 	public static Texture spell_book_mortal_strike;
@@ -201,7 +201,9 @@ public class Sprites {
 	public static Texture border8;
 	public static Texture border9;
 	public static Texture border10;
-	public static Texture close_hover;
+	public static Texture close_button_inventory_hover;
+	public static Texture close_button_inventory_down;
+	public static Texture close_button_inventory_down_hover;
 	public static Texture close_shop_hover;
 	public static Texture close_bag_button_down;
 	public static Texture close_bag_button_down_hover;
@@ -1011,14 +1013,16 @@ public class Sprites {
 		cursor_buy = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/cursor_buy.png"));
 		alert = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/alert.png"));
 		alert_dungeon = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/alert_dungeon.png"));
-		close_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_hover.png"));
+		close_button_inventory_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_inventory_hover.png"));
+		close_button_inventory_down = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_inventory_down.png"));
+		close_button_inventory_down_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_inventory_down_hover.png"));
 		close_shop_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_shop_hover.png"));
 		return true;
 	}
 
 	public static boolean sprite10() throws IOException {
 		spellbar = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/spellbar.png"));
-		spell_attack = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/abilities/attack.jpg"));
+		/*spell_attack = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/abilities/attack.jpg"));
 		spell_ambush = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/abilities/ambush.jpg"));
 		spell_arcane_shot = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/abilities/arcane_shot.jpg"));
 		spell_chain_lightning = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/abilities/chain_lightning.jpg"));
@@ -1061,7 +1065,7 @@ public class Sprites {
 		spell_book_grey_charge = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/abilities/book_charge_grey.jpg"));
 		spell_book_grey_mortal_strike = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/abilities/book_mortal_strike_grey.jpg"));
 		spell_book_grey_thunder_clap = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/abilities/book_thunder_clap_grey.png"));
-		spell_book_grey_rend = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/abilities/book_rend_grey.jpg"));
+		spell_book_grey_rend = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/abilities/book_rend_grey.jpg"));*/
 		spriteLoaded = true;
 		return true;
 	}

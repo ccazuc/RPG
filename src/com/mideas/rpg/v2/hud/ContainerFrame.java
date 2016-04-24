@@ -1,11 +1,9 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -52,7 +50,7 @@ public class ContainerFrame {
 	private static int numberItem = 1;
 	private static int lastSplit;
  	
-	private static void drawBags(int i, int x_items, int y_items, int x_textt, int y_textt) throws FileNotFoundException, SQLException {
+	private static void drawBags(int i, int x_items, int y_items, int x_textt, int y_textt) {
 		drawBag(i, x_items, y_items);
 		if(slot_hover[i]) {
 			iHover = i;
@@ -66,7 +64,7 @@ public class ContainerFrame {
 		}
 		//drawHoverBag(i, x_text, y_text, x_item, y_item);
 	}
-	public static void draw() throws LWJGLException, IOException, SQLException {
+	public static void draw() {
 		Arrays.fill(hoverButton, false);
 		xItemNumber = 0;
 		yItemNumber = 0;
@@ -451,7 +449,7 @@ public class ContainerFrame {
 		}*/
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() {
 		Arrays.fill(slot_hover, false);
 		itemNumberOkButton = false;
 		itemNumberCancelButton = false;
@@ -497,6 +495,7 @@ public class ContainerFrame {
 					if(isOneButtonDown) {
 						Arrays.fill(buttonDown, false);
 						isOneButtonDown = false;
+						return true;
 					}
 				}
 			}
@@ -1254,7 +1253,7 @@ public class ContainerFrame {
 	}
 
 	
-	public static boolean calcCoinContainer(int cost, int x, int y) throws FileNotFoundException {
+	public static boolean calcCoinContainer(int cost, int x, int y) {
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
 			TTF2.coinContainer.drawStringShadow(Display.getWidth()+x-30-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
 			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-30-TTF2.coinContainer.getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y);

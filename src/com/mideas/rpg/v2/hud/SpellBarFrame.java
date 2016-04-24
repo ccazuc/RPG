@@ -82,7 +82,6 @@ public class SpellBarFrame {
 		float x = -678+56.3f;
 		int spellCount = 0;
 		int yShift = 0;
-		//double time = System.currentTimeMillis();
 		while(spellCount < hoverSpellBar.length) {
 			if(DragSpellManager.getDraggedSpell() != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpellBook() != null) {
 				if(spellCount >= 11) {
@@ -102,22 +101,12 @@ public class SpellBarFrame {
 						Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-1+x, Display.getHeight()-51+yShift);
 					}
 					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+47+x && Mideas.mouseY() >= Display.getHeight()-49+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
-						/*Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x, Display.getHeight()-49+yShift);
-						Draw.drawQuad(Sprites.tooltip, Display.getWidth()/2-74+x, Display.getHeight()-220+yShift);
-						TTF2.font4.drawString(Display.getWidth()/2-66+x, Display.getHeight()-210+yShift, ((SpellShortcut)spell).getSpell().getName(), Color.white);
-						TTF2.font4.drawString(Display.getWidth()/2-66+x, Display.getHeight()-188+yShift, ((SpellShortcut)spell).getSpell().getManaCost()+" Mana", Color.white);
-						if(((SpellShortcut)spell).getSpell().getType() == SpellType.HEAL) {
-							TTF2.font4.drawStringShadow(Display.getWidth()/2-66+x, Display.getHeight()-158+yShift, "Heals you for "+((SpellShortcut)spell).getSpell().getHeal(), Color.yellow, Color.black, 1, 1, 1);
-						}
-						else {
-							TTF2.font4.drawStringShadow(Display.getWidth()/2-66+x, Display.getHeight()-158+yShift, "Deals "+((SpellShortcut)spell).getSpell().getBaseDamage()+" damage to the enemy", Color.yellow, Color.black, 1, 1, 1);
-						}*/
 						hoveredSpell = spell;
 						xHoveredSpell = x;
 						yHoveredSpell = yShift;
 					}
-					if(SpellManager.getCd(((SpellShortcut)spell).getSpell().getSpellId()) > 0) {
-						TTF2.font5.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-27+yShift, String.valueOf(SpellManager.getCd(((SpellShortcut)spell).getSpell().getSpellId())), Color.white, Color.black, 1, 1, 1);
+					if(SpellManager.getCd(spell.getSpell().getSpellId()) > 0) {
+						TTF2.font5.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-27+yShift, String.valueOf(SpellManager.getCd(spell.getSpell().getSpellId())), Color.white, Color.black, 1, 1, 1);
 					}
 				}
 				else if(Mideas.joueur1().getSpells(spellCount).getShortcutType() == ShortcutType.STUFF) {
@@ -352,7 +341,7 @@ public class SpellBarFrame {
 		}
 	}
 
-	public static boolean doHealingPotion(Potion item) throws FileNotFoundException, SQLException {
+	public static boolean doHealingPotion(Potion item) throws SQLException {
 		if(item != null && item.getItemType() == ItemType.POTION) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");

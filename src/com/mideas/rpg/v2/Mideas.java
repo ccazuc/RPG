@@ -63,7 +63,7 @@ public class Mideas {
 	private static int currentExp;
 	private static int currentGold;
 	
-	public static void context2D() throws LWJGLException, IOException {
+	public static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
         GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);                
         GL11.glClearDepth(1);     
@@ -134,6 +134,7 @@ public class Mideas {
 		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		getExpAll();
 		joueur2 = getRandomClass(2);
+		System.gc();
 		while(!Display.isCloseRequested()) {
 			fpsUpdate();
 			context2D();
@@ -153,6 +154,9 @@ public class Mideas {
 					continue;
 				}
 			}
+			if(System.currentTimeMillis()%30000 < 10) {
+				System.gc();
+			}
 			Interface.draw();
 			Display.update();
 			Display.sync(120);
@@ -165,9 +169,8 @@ public class Mideas {
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
-		//jdo = new MariaDB("sql7.freesqldatabase.com", "sql7115685", "sql7115685", "Gr8Dv4FyJR");
-		jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
+		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
 	}
 	
 	public static JDO getJDO() {
@@ -270,7 +273,7 @@ public class Mideas {
 		return ClassManager.getClone("Warlock");
 	}
 
-	public static void getExpAll() throws FileNotFoundException, SQLException {
+	public static void getExpAll() throws SQLException {
 		int id;
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats");
 		statement.execute();
@@ -343,7 +346,7 @@ public class Mideas {
 		return currentExp;
 	}
 	
-	public static int getExp() throws FileNotFoundException, SQLException {
+	public static int getExp() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats WHERE class = ?");
 		statement.putString(Mideas.joueur1().getClasse());
 		statement.execute();
@@ -385,7 +388,7 @@ public class Mideas {
 		return exp;
 	}
 	
-	public static void setExp(int exp) throws FileNotFoundException, SQLException {
+	public static void setExp(int exp) throws SQLException {
 		exp = currentExp+exp;
 		currentExp = exp;
 		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET exp = ? WHERE class = ?");
@@ -478,7 +481,7 @@ public class Mideas {
 		}*/
 	}
 	
-	public static void setGold(int golds) throws FileNotFoundException, SQLTimeoutException, SQLException {
+	public static void setGold(int golds) throws SQLTimeoutException, SQLException {
 		gold = Mideas.getCurrentGold()+golds;
 		currentGold = gold;
 		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET gold = ? WHERE class = ?");
@@ -571,7 +574,7 @@ public class Mideas {
 		}*/
 	}
 	
-	public static int getGold() throws FileNotFoundException, SQLException {
+	public static int getGold() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT gold FROM stats WHERE class = ?");
 		statement.putString(Mideas.joueur1().getClasse());
 		statement.execute();
@@ -613,7 +616,7 @@ public class Mideas {
 		return gold;
 	}
 	
-	public static void setConfig() throws FileNotFoundException, SQLException {
+	public static void setConfig() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
 		statement.putString(ChangeBackGroundFrame.getCurrentBackground());
 		statement.putString("background");
@@ -662,7 +665,7 @@ public class Mideas {
 		}*/
 	}
 
-	public static void getConfig() throws FileNotFoundException, SQLException {
+	public static void getConfig() throws SQLException {
 		String temp = "";
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
 		statement.putString("background");
@@ -729,7 +732,7 @@ public class Mideas {
 		return currentGold;
 	}
 	
-	public static int calcGoldCoin() throws FileNotFoundException, SQLException {
+	public static int calcGoldCoin() {
 		gold = Mideas.getCurrentGold();
 		i = 0;
 		while(gold-10000 >= 0) {
@@ -739,7 +742,7 @@ public class Mideas {
 		return i;
 	}
 	
-	public static int calcSilverCoin() throws FileNotFoundException, SQLException {
+	public static int calcSilverCoin() {
 		gold = Mideas.getCurrentGold()-i*10000;
 		k = 0;
 		while(gold-100 >= 0) {
@@ -832,7 +835,7 @@ public class Mideas {
 		}
 	}
 	
-	private static void loadingScreen() throws IOException, LWJGLException {
+	private static void loadingScreen() throws IOException {
 		Sprites.initBG();
 		context2D();
 		
@@ -950,7 +953,7 @@ public class Mideas {
 	    }
 	}
 	
-	private static void saveAllStats() throws SQLException, FileNotFoundException {
+	private static void saveAllStats() throws SQLException {
 		if(Mideas.joueur1() != null) {
 			CharacterStuff.setBagItems();
 			CharacterStuff.setEquippedBags();
@@ -1248,11 +1251,11 @@ public class Mideas {
 		}
 	}
 	
-	public static int getLevel() throws FileNotFoundException, SQLException {
+	public static int getLevel() {
 		return getLevelAll(getCurrentExp());
 	}
 	
-	public static int getExpNeeded(int level) throws FileNotFoundException {
+	public static int getExpNeeded(int level) {
 		if(level == 1) {
 			expNeeded = 400;
 			return expNeeded;

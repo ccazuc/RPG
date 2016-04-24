@@ -142,7 +142,7 @@ public class Joueur {
 	public void attack(Joueur joueur) throws SQLException {
 		double damage = Mideas.joueur1().getStrength()+Math.random()*100;
 		SpellBarFrame.setIsCastingSpell(false);
-		if(Math.random() < critical/100.) {
+		if(Math.random() < this.critical/100.) {
 			damage*= 2;
 		}
 		joueur.setStamina(joueur.getStamina()-damage);
@@ -216,11 +216,11 @@ public class Joueur {
 	}
 	
 	public String getClasse() {
-		return id;
+		return this.id;
 	}
 	
 	public float getArmor() {
-		return armor;
+		return this.armor;
 	}
 	
 	public void setStamina(double d) {
@@ -228,23 +228,23 @@ public class Joueur {
 	}
 	
 	public int getMaxStamina() {
-		return maxStamina;
+		return this.maxStamina;
 	}
 	
 	public int getStamina() {
-		return stamina;
+		return this.stamina;
 	}
 	
 	public Wear getWear() {
-		return wear;
+		return this.wear;
 	}
 	
 	public int getCritical() {
-		return critical;
+		return this.critical;
 	}
 	
 	public int getStrength() {
-		return strength;
+		return this.strength;
 	}
 	
 	public void setMana(int mana) {
@@ -252,19 +252,19 @@ public class Joueur {
 	}
 	
 	public int getMana() {
-		return mana;
+		return this.mana;
 	}
 	
 	public int getMaxMana() {
-		return maxMana;
+		return this.maxMana;
 	}
 	
 	public int getX() {
-		return x;
+		return this.x;
 	}
 
 	public Shortcut[] getSpells() {
-		return spells;
+		return this.spells;
 	}
 
 	public Shortcut getSpells(int i) {
@@ -276,19 +276,19 @@ public class Joueur {
 	}
 	
 	public Spell[] getSpellUnlocked() {
-		return spellUnlocked;
+		return this.spellUnlocked;
 	}
 	
 	public Spell getSpellUnlocked(int i) {
-		return spellUnlocked[i];
+		return this.spellUnlocked[i];
 	}
 	
 	public Stuff[] getStuff() {
-		return stuff;
+		return this.stuff;
 	}
 	
 	public Stuff getStuff(int i) {
-		return stuff[i];
+		return this.stuff[i];
 	}
 	
 	public void setStuff(int i, Item tempItem) {
@@ -301,11 +301,11 @@ public class Joueur {
 	}
 	
 	public Shortcut getShortcut(int i) {
-		return shortcut[i];
+		return this.shortcut[i];
 	}
 	
 	public Shortcut[] getShortcut() {
-		return shortcut;
+		return this.shortcut;
 	}
 
 	public void setSpellUnlocked(int i, Spell spell) {
@@ -313,43 +313,43 @@ public class Joueur {
 	}
 	
 	public int getExp() {
-		return exp;
+		return this.exp;
 	}
 	
 	public int getBaseExp() {
-		return baseExp;
+		return this.baseExp;
 	}
 	
 	public int getExpGained() {
-		return expGained;
+		return this.expGained;
 	}
 	
 	public void setArmor(float number) {
-		this.armor = (Math.round(100*(armor+number))/100.f);
+		this.armor = (Math.round(100*(this.armor+number))/100.f);
 	}
 	
 	public int getDefaultArmor() {
-		return defaultArmor;
+		return this.defaultArmor;
 	}
 	
 	public int getGold() {
-		return gold;
+		return this.gold;
 	}
 	
 	public int getGoldGained() {
-		return goldGained;
+		return this.goldGained;
 	}
 	
 	public void setExp(int baseExp, int expGained ) {
-		exp = baseExp+expGained;
+		this.exp = baseExp+expGained;
 	}
 	
 	public void setMaxStamina(int stamina) {
-		maxStamina = stamina;
+		this.maxStamina = stamina;
 	}
 	
 	public void setMaxMana(int mana) {
-		maxMana = mana;
+		this.maxMana = mana;
 	}
 	
 	public int getNumberItem(Item item) {
@@ -366,12 +366,12 @@ public class Joueur {
 	}
 	
 	public WeaponType[] getWeaponType() {
-		return weaponType;
+		return this.weaponType;
 	}
 	
 	public WeaponType getweaponType(int i) {
-		if(i < weaponType.length) {
-			return weaponType[i];
+		if(i < this.weaponType.length) {
+			return this.weaponType[i];
 		}
 		return null;
 	}

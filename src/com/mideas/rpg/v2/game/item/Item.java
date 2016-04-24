@@ -23,30 +23,30 @@ public class Item implements Cloneable {
 	public Item() {}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 	
 	public String getSpriteId() {
-		return sprite_id;
+		return this.sprite_id;
 	}
 	
 	public boolean equals(Item item) {
-		return item != null && item.getId() == id;
+		return item != null && item.getId() == this.id;
 	}
 	
 	public String getStuffName() {
-		return name;
+		return this.name;
 	}
 	
 	public int getQuality() {
-		return quality;
+		return this.quality;
 	}
 	
 	public int getSellPrice() {
-		return sellPrice;
+		return this.sellPrice;
 	}
 	
 	public ItemType getItemType() {
-		return itemType;
+		return this.itemType;
 	}
 }

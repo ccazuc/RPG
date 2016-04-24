@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -62,7 +61,7 @@ public class DragBagManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException, CloneNotSupportedException {
+	public static boolean mouseEvent() throws SQLException {
 		//hover BagFrame
 		if(Mouse.getEventButton() == 0) {
 			if(Mouse.getEventButtonState()) {
@@ -223,7 +222,7 @@ public class DragBagManager {
 		return true;
 	}
 	
-	private static void deleteBag(Item item) throws CloneNotSupportedException {
+	private static void deleteBag(Item item) {
 		int i = 0;
 		while(i < Mideas.bag().getEquippedBag().length) {
 			if(Mideas.bag().getEquippedBag(i) == item) {

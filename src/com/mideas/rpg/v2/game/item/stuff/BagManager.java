@@ -15,7 +15,7 @@ public class BagManager {
 	private static ArrayList<Bag> containerList = new ArrayList<Bag>();
 	private static HashMap<Integer, Texture> bagsSprites = new HashMap<Integer, Texture>();
 	
-	public static void loadBags() throws SQLException, CloneNotSupportedException {
+	public static void loadBags() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, size, sellprice FROM container");
 		statement.execute();
 		while(statement.fetch()) {

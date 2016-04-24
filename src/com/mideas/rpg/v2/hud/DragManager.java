@@ -273,7 +273,7 @@ public class DragManager {
 		return false;
 	}
 	
-	public static void calcStats(Item stuff) throws FileNotFoundException, SQLException {
+	public static void calcStats(Item stuff) throws SQLException {
 		if(stuff != null && (stuff.getItemType() == ItemType.STUFF || stuff.getItemType() == ItemType.WEAPON)) {
 			CharacterStuff.setEquippedItems();
 			Mideas.joueur1().setStuffArmor(((Stuff)stuff).getArmor());
@@ -894,7 +894,7 @@ public class DragManager {
 	
 	public static boolean isHoverBagFrame() {
 		if(Interface.getContainerFrameStatus()) {
-			if(Mideas.mouseX() >= Display.getWidth()-450 && Mideas.mouseX() <= Display.getWidth()-9) {
+			if(Mideas.mouseX() >= Display.getWidth()-520 && Mideas.mouseX() <= Display.getWidth()-320+Sprites.back_bag.getImageWidth()) {
 				return true;
 			}
 		}

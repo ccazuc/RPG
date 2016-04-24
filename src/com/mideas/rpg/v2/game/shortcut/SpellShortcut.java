@@ -21,6 +21,7 @@ public class SpellShortcut implements Shortcut {
 	}
 	
 	
+	@Override
 	public boolean use(Shortcut spell) throws SQLException {
 		if(Mideas.joueur1().cast(((SpellShortcut)spell).getSpell())) {
 			SpellBarFrame.setIsCastingSpell(false);
@@ -29,23 +30,27 @@ public class SpellShortcut implements Shortcut {
 		return false;
 	}
 	
+	@Override
 	public Texture getSprite() {
-		return IconsManager.getSprite47(spell.getSpriteId());
+		return IconsManager.getSprite47(this.spell.getSpriteId());
 	}
 	
+	@Override
 	public void setCd(int id, int cd) {
 		SpellManager.setCd(id, cd);
 	}
 	
+	@Override
 	public int getId() {
-		return spell.getSpellId();
+		return this.spell.getSpellId();
 	}
 	
 	public Spell getSpell() {
-		return spell;
+		return this.spell;
 	}
 	
+	@Override
 	public ShortcutType getShortcutType() {
-		return type;
+		return this.type;
 	}
 }

@@ -7,12 +7,12 @@ public class Shop {
 	private Stuff[] stuff = new Stuff[11];
 	
 	public Stuff[] getstuff() {
-		return stuff;
+		return this.stuff;
 	}
 	
 	public Stuff getStuff(int i) {
-		if(i < stuff.length) {
-			return stuff[i];
+		if(i < this.stuff.length) {
+			return this.stuff[i];
 		}
 		return null;
 	}

@@ -13,7 +13,7 @@ public class WeaponManager {
 	
 	private static ArrayList<Stuff> weaponList = new ArrayList<Stuff>();
 	
-	public static void loadWeapons() throws SQLException, CloneNotSupportedException {
+	public static void loadWeapons() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, name, sprite_id, class, type, slot, quality, level, armor, stamina, mana, critical, strength, sellprice FROM weapon");
 		statement.execute();
 		while(statement.fetch()) {

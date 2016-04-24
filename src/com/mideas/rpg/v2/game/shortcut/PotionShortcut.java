@@ -20,6 +20,7 @@ public class PotionShortcut implements Shortcut {
 		this.type = ShortcutType.POTION;
 	}
 	
+	@Override
 	public boolean use(Shortcut potion) throws SQLException, FileNotFoundException {
 		//SpellBarFrame.doHealingPotion(((PotionShortcut)potion).getPotion());
 		int i = 0;
@@ -33,22 +34,26 @@ public class PotionShortcut implements Shortcut {
 		return true;
 	}
 	
+	@Override
 	public Texture getSprite() {
-		return IconsManager.getSprite47(potion.getSpriteId());
+		return IconsManager.getSprite47(this.potion.getSpriteId());
 	}
 	
+	@Override
 	public void setCd(int id, int cd) {
 	}
 	
+	@Override
 	public int getId() {
-		return potion.getId();
+		return this.potion.getId();
 	}
 	
 	public Potion getPotion() {
-		return potion;
+		return this.potion;
 	}
 	
+	@Override
 	public ShortcutType getShortcutType() {
-		return type;
+		return this.type;
 	}
 }

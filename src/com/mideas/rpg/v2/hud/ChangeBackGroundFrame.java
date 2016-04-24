@@ -75,7 +75,7 @@ public class ChangeBackGroundFrame {
 		}
 	}
 	
-	public static String getCurrentBackground() throws SQLException {
+	public static String getCurrentBackground() {
 		if(Sprites.current_bg.equals(Sprites.bg)) {
 			return "bg";
 		}

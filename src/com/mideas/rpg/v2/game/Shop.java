@@ -13,14 +13,14 @@ public class Shop {
 	}
 	
 	public int getId() {
-		return id;
+		return this.id;
 	}
 	
 	public ClassType getClassType(int i) {
-		return classType[i];
+		return this.classType[i];
 	}
 	
 	public int getSellPrice() {
-		return sellPrice;
+		return this.sellPrice;
 	}
 }

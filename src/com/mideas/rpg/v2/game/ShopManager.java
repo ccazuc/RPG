@@ -587,14 +587,14 @@ public class ShopManager {
 		}
 	}
 
-	private static void drawGoldCoin(int i, int x, int y) throws FileNotFoundException {
+	private static void drawGoldCoin(int i, int x, int y) {
 		if(i+10*page < shopList.size()) {
 			calcCoin(shopList.get(i+10*page).getSellPrice(), x+49, y+35);
 			Draw.drawQuad(Sprites.cursor, -100, -100);
 		}
 	}
 	
-	public static boolean calcCoin(int cost, int x, int y) throws FileNotFoundException {
+	public static boolean calcCoin(int cost, int x, int y) {
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
 			TTF2.coin.drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
 			Draw.drawQuad(Sprites.gold_coin, Display.getWidth()/2+x+1+TTF2.coin.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))), Display.getHeight()/2+y);

@@ -1,11 +1,9 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -18,7 +16,6 @@ import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
-import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -31,7 +28,7 @@ public class ShopFrame { // UNUSED
 	private static String shopPage = "shopPage1";
 	private static Color bgColor = new Color(0, 0, 0,.8f); 
 	
-	public static void draw() throws LWJGLException, IOException {
+	public static void draw() {
 		int xLeft = -279;
 		int xRight = -114;
 		int y = -275;
@@ -168,7 +165,7 @@ public class ShopFrame { // UNUSED
 		
 	}
 	
-	public static boolean calcCoin(int cost, int x, int y) throws FileNotFoundException {
+	public static boolean calcCoin(int cost, int x, int y) {
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
 			TTF2.coin.drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
 			Draw.drawQuad(Sprites.gold_coin, Display.getWidth()/2+x+1+TTF2.coin.getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))), Display.getHeight()/2+y);
@@ -217,7 +214,7 @@ public class ShopFrame { // UNUSED
 		return true;
 	}
 	
-	private static boolean dropRate(Item item) throws FileNotFoundException, SQLException {
+	private static boolean dropRate(Item item) throws SQLException {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
@@ -239,7 +236,7 @@ public class ShopFrame { // UNUSED
 			else {
 				if(Mideas.getCurrentGold() >= stuff.getSellPrice()) {
 					if(stuff.getItemType() == ItemType.POTION || stuff.getItemType() == ItemType.ITEM) {
-						EndFightFrame.dropItem((Potion)stuff, 1);
+						EndFightFrame.dropItem(stuff, 1);
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
 						Mideas.setGold(-stuff.getSellPrice());
 					}
@@ -261,7 +258,7 @@ public class ShopFrame { // UNUSED
 		}
 	}
 	
-	public static void shopItemsHover(boolean slot_hover, Stuff stuff, int x_bg, int y_bg, int x_string, int y_string, int x_name) throws FileNotFoundException {
+	public static void shopItemsHover(boolean slot_hover, Stuff stuff, int x_bg, int y_bg, int x_string, int y_string, int x_name) {
 		if(stuff != null) {
 			if(slot_hover) {
 				Draw.drawColorQuad(Display.getWidth()+x_string+x_bg, Display.getHeight()/2+y_bg, 150+TTF2.itemName.getWidth(stuff.getStuffName())/2, y_bg+TTF2.statsName.getLineHeight()*4, ShopFrame.bgColor);
@@ -290,7 +287,7 @@ public class ShopFrame { // UNUSED
 		}
 	}
 	
-	private static void drawGoldCoin(int i, int x, int y) throws FileNotFoundException {
+	private static void drawGoldCoin(int i, int x, int y) {
 		if(Mideas.shop().getStuff(i) != null) {
 			calcCoin(Mideas.shop().getStuff(i).getPrice(), x+49, y+35);
 			Draw.drawQuad(Sprites.cursor, -100, -100);

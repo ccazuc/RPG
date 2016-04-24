@@ -11,7 +11,7 @@ public class PotionManager {
 	private static ArrayList<Potion> potionList = new ArrayList<Potion>();
 	private static int numberPotionLoaded;
 	
-	public static void loadPotions() throws SQLException, CloneNotSupportedException {
+	public static void loadPotions() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, level, heal, mana, sellprice FROM potion");
 		statement.execute();
 		while(statement.fetch()) {

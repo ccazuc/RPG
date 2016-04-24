@@ -21,6 +21,7 @@ public class CharacterFrame {
 	
 	private static boolean[] hoverCharacterFrame = new boolean[20];
 	private static boolean hoverCloseButton;
+	private static boolean closeButtonDown;
 	private static Color bgColor = new Color(0, 0, 0, .6f); 
 	private static Color borderColor = Color.decode("#494D4B");
 	private static int hover;
@@ -94,7 +95,15 @@ public class CharacterFrame {
 		drawCharacterItems(Mideas.joueur1().getStuff(17), -101+xMouseShift, 85+yMouseShift);
 		drawCharacterItems(Mideas.joueur1().getStuff(18), -48+xMouseShift, 85+yMouseShift);*/
 		if(hoverCloseButton) {
-			Draw.drawQuad(Sprites.close_hover, Display.getWidth()/2+109+xMouseShift, Display.getHeight()/2-362+yMouseShift);
+			if(closeButtonDown) {
+				Draw.drawQuad(Sprites.close_button_inventory_down_hover, Display.getWidth()/2+109+xMouseShift, Display.getHeight()/2-362+yMouseShift);
+			}
+			else {
+				Draw.drawQuad(Sprites.close_button_inventory_hover, Display.getWidth()/2+109+xMouseShift, Display.getHeight()/2-362+yMouseShift);
+			}
+		}
+		else if(closeButtonDown) {
+			Draw.drawQuad(Sprites.close_button_inventory_down, Display.getWidth()/2+109+xMouseShift, Display.getHeight()/2-362+yMouseShift);
 		}
 		//int x_hoverLeft = -284;
 		//int x_hoverRight = 76;
@@ -153,18 +162,21 @@ public class CharacterFrame {
 			xMouseShift = Mideas.mouseX()-baseMouseX+lastMouseX;
 		}
 		if(Mouse.getEventButtonState()) {
-			if(Mouse.getEventButton() == 0) {
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 				if(hoverMove && !moving) {
 					moving = true;
 					baseMouseY = Mideas.mouseY();
 					baseMouseX = Mideas.mouseX();
 					return true;
 				}
+				if(hoverCloseButton) {
+					closeButtonDown = true;
+				}
 			}
 		}
 		if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0) {
-				if(hoverCloseButton) {
+				if(hoverCloseButton && closeButtonDown) {
 					Interface.closeCharacterFrame();
 				}
 				else if(moving) {
@@ -172,9 +184,13 @@ public class CharacterFrame {
 					lastMouseX = xMouseShift;
 					lastMouseY = yMouseShift;
 				}
+				closeButtonDown = false;
+			}
+			if(Mouse.getEventButton() == 1) {
+				closeButtonDown = false;
 			}
 		}
-		if(Mideas.mouseX() >= Display.getWidth()/2-300+xMouseShift && Mideas.mouseX() <= Display.getWidth()/2+135+xMouseShift && Mideas.mouseY() >= Display.getHeight()/2-380+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2+146+yMouseShift) {
+		if(DragManager.isHoverCharacterFrame()) {
 			isHover(xLeft, y+yMouseShift, 0);
 			isHover(xLeft, y+yShift+yMouseShift, 1);
 			isHover(xLeft, y+2*yShift+yMouseShift, 2);

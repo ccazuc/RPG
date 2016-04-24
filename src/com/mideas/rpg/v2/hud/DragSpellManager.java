@@ -40,7 +40,7 @@ public class DragSpellManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		if(isHoverSpellBarFrame()) {
 			Arrays.fill(hover, false);
 		}
@@ -129,7 +129,7 @@ public class DragSpellManager {
 		}
 	}
 	
-	private static void deleteSpell(Shortcut draggedSpell) throws FileNotFoundException, SQLException {
+	private static void deleteSpell(Shortcut draggedSpell) throws SQLException {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(draggedSpell == Mideas.joueur1().getSpells(i)) {
@@ -140,7 +140,7 @@ public class DragSpellManager {
 		}
 	}
 	
-	private static void clickSpell(int i) throws FileNotFoundException, SQLException {
+	private static void clickSpell(int i) throws SQLException {
 		if(hover[i]) {
 			if(Mideas.joueur1().getSpells(i) != null) {
 				if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.SPELL) {
@@ -200,7 +200,7 @@ public class DragSpellManager {
 		}
 	}
 	
-	private static boolean setNullSpell(Shortcut spell) throws FileNotFoundException, SQLException {
+	private static boolean setNullSpell(Shortcut spell) throws SQLException {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(spell == Mideas.joueur1().getSpells(i)) {
@@ -213,7 +213,7 @@ public class DragSpellManager {
 		return false;
 	}
 	
-	private static boolean dropSpell(int i) throws FileNotFoundException, SQLException {
+	private static boolean dropSpell(int i) throws SQLException {
 		if(draggedShortcut != null) {
 			if(hover[i]) {
 				if(Mideas.joueur1().getSpells(i) == null) {
