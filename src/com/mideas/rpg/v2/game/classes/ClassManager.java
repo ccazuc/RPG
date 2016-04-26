@@ -18,7 +18,7 @@ public class ClassManager {
 	private static HashMap<String, Joueur> playerList = new HashMap<String, Joueur>();
 	private static HashMap<String, Joueur> iaList = new HashMap<String, Joueur>();
 	
-	public static void loadClasses() throws SQLException, CloneNotSupportedException {
+	public static void loadClasses() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, wear, weapon_type, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana, exp_gained, gold_gained FROM player");
 		statement.execute();
 		while(statement.fetch()) {

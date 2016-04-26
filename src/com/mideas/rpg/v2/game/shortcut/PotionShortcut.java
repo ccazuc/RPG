@@ -36,7 +36,7 @@ public class PotionShortcut implements Shortcut {
 	
 	@Override
 	public Texture getSprite() {
-		return IconsManager.getSprite47(this.potion.getSpriteId());
+		return IconsManager.getSprite37(this.potion.getSpriteId());
 	}
 	
 	@Override

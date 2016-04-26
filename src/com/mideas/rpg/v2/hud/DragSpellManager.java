@@ -26,7 +26,7 @@ public class DragSpellManager {
 
 	private static Spell draggedBookSpell;
 	private static Shortcut draggedShortcut;
-	private static boolean[] hover = new boolean[35];
+	private static boolean[] hover = new boolean[36];
 	
 	public static void draw() {
 		if(draggedBookSpell != null) {
@@ -43,28 +43,30 @@ public class DragSpellManager {
 		if(isHoverSpellBarFrame()) {
 			Arrays.fill(hover, false);
 		}
-		float x = -678+56.3f;
-		float xShift = 56.3f;
-		int y = -49;
+		float xShift = 47.9f;
 		int i = 0;
-		int j = 0;
+		int j = 0;	
+		float x = -Sprites.final_spellbar.getImageWidth()/2+120f;
+		float y = -39.7f;
 		if(isHoverSpellBarFrame()) {
 			while(i < SpellBarFrame.getHoverSpellBar().length) {
 				isHoverSpellBar(x+j*xShift, y, i);
 				j++;
 				i++;
-				if(i == 11) {
-					y = -130;
-					j = -1;
+				if(i == 12) {
+					y+= -61;
+					j = 0;
 				}
 			}
 		}
-		if(Mouse.getEventButtonState()) {
+		if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0 && Keyboard.isKeyDown(42)) { //caps key
 				if(isHoverSpellBarFrame()) {
 					i = 0;
 					while(i < SpellBarFrame.getHoverSpellBar().length) {
-						clickSpell(i);
+						if(clickSpell(i)) {
+							return true;
+						}
 						i++;
 					}
 				}
@@ -84,10 +86,9 @@ public class DragSpellManager {
 				else if(SpellBookFrame.getHoverBook(5) && Mideas.joueur1().getSpellUnlocked(4) != null) {
 					draggedBookSpell = SpellManager.getBookSpell(103);
 				}
+				System.out.println(draggedBookSpell);
 			}
-		}
-		if(!Mouse.getEventButtonState()) {
-			if(DragManager.getDraggedItem() != null && Mouse.getEventButton() == 0) {
+			else if(DragManager.getDraggedItem() != null && Mouse.getEventButton() == 0) {
 				if(isHoverSpellBarFrame()) {
 					i = 0;
 					while(i < SpellBarFrame.getHoverSpellBar().length) {
@@ -109,7 +110,7 @@ public class DragSpellManager {
 					}
 				}
 			}
-			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+			else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 				if(draggedShortcut != null && !isHoverSpellBarFrame()) {
 					deleteSpell(draggedShortcut);
 					draggedShortcut = null;
@@ -123,7 +124,7 @@ public class DragSpellManager {
 	}
 	
 	private static void isHoverSpellBar(float x, float y, int i) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+47 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+47) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+35) {
 			hover[i] = true;
 		}
 	}
@@ -139,7 +140,7 @@ public class DragSpellManager {
 		}
 	}
 	
-	private static void clickSpell(int i) throws SQLException {
+	private static boolean clickSpell(int i) throws SQLException {
 		if(hover[i]) {
 			if(Mideas.joueur1().getSpells(i) != null) {
 				if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.SPELL) {
@@ -153,6 +154,7 @@ public class DragSpellManager {
 						Mideas.joueur1().setSpells(i, null);
 					}
 					SpellBarManager.setSpellBar();
+					return true;
 				}
 				else if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.STUFF) {
 					if(draggedShortcut != null) {
@@ -165,6 +167,7 @@ public class DragSpellManager {
 						Mideas.joueur1().setSpells(i, null);
 					}
 					SpellBarManager.setSpellBar();
+					return true;
 				}
 				else if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.POTION) {
 					if(draggedShortcut != null) {
@@ -177,6 +180,7 @@ public class DragSpellManager {
 						Mideas.joueur1().setSpells(i, null);
 					}
 					SpellBarManager.setSpellBar();
+					return true;
 				}
 			}
 			else if(Mideas.joueur1().getSpells(i) == null) {
@@ -194,9 +198,12 @@ public class DragSpellManager {
 					Mideas.joueur1().setSpells(i, draggedShortcut);
 					draggedShortcut = null;
 					SpellBarManager.setSpellBar();
+					return true;
 				}
 			}
 		}
+
+		return false;
 	}
 	
 	private static boolean setNullSpell(Shortcut spell) throws SQLException {
@@ -290,7 +297,7 @@ public class DragSpellManager {
 	}
 	
 	public static boolean isHoverSpellBarFrame() {
-		if(Mideas.mouseX() >= Display.getWidth()/2-809 && Mideas.mouseX() <= Display.getWidth()/2-809+Sprites.final_spellbar.getWidth()-50 && Mideas.mouseY() >= Display.getHeight()-150 && Mideas.mouseY() <= Display.getHeight()) {
+		if(Mideas.mouseX() >= Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseX() <= Display.getWidth()/2+Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseY() >= Display.getHeight()-Sprites.final_spellbar.getImageHeight()-30 && Mideas.mouseY() <= Display.getHeight()) {
 			return true;
 		}
 		return false;

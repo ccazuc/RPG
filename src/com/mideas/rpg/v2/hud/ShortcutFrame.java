@@ -12,18 +12,18 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class ShortcutFrame {
 	
-	private static boolean[] hover = new boolean[10];
-	private static int x = 51;
+	private static boolean[] hover = new boolean[9];
+	private static int x = 15;
 	private static int xShift = 33;
-	private static int y = -50;
+	private static int y = -43;
 	
 
 	public static void draw() {
 		if(Interface.isTalentFrameActive()) {
-			Draw.drawQuad(Sprites.talent_frame_open, Display.getWidth()/2+119, Display.getHeight()-50);
+			Draw.drawQuad(Sprites.talent_frame_open, Display.getWidth()/2+106, Display.getHeight()-41);
 		}
 		if(Interface.isSpellBookFrameActive()) {
-			Draw.drawQuad(Sprites.spellbook_frame_open, Display.getWidth()/2+84, Display.getHeight()-50);
+			Draw.drawQuad(Sprites.spellbook_frame_open, Display.getWidth()/2+76.5f, Display.getHeight()-41);
 		}
 		if(Interface.getEscapeFrameStatus()) {
 			Draw.drawQuad(Sprites.escape_frame_open, Display.getWidth()/2+319, Display.getHeight()-50);
@@ -33,7 +33,7 @@ public class ShortcutFrame {
 		}
 		if(Mideas.mouseX() >= Display.getWidth()/2+51 && Mideas.mouseX() <= Display.getWidth()/2+11*33+33 && Mideas.mouseY() >= Display.getHeight()-50 && Mideas.mouseY() <= Display.getHeight()-4) {
 			int i = 0;
-			float xShift = 33.6f;
+			float xShift = 30f;
 			while(i < hover.length) {
 				if(hover[i]) {
 					Draw.drawQuad(Sprites.shortcut_hover, Display.getWidth()/2+x+3+i*xShift, Display.getHeight()+y+4);
@@ -46,10 +46,9 @@ public class ShortcutFrame {
 	
 	public static boolean mouseEvent() {
 		Arrays.fill(hover, false);
-		x = 51;
-		xShift = 34;
-		y = -50;
+		xShift = 30;
 		int i = 0;
+		int y = -40;
 		while(i < hover.length) {
 			if(isHover(x+i*xShift, y)) {
 				hover[i] = true;
@@ -122,7 +121,7 @@ public class ShortcutFrame {
 	}
 	
 	private static boolean isHover(int x, int y) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+31 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+45) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+28 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+35) {
 			return true;
 		}
 		return false;

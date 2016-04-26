@@ -534,7 +534,7 @@ public class Sprites {
 		itemnumber_hover_ok = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_hover_ok.png"));
 		itemnumber_hover_cancel = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_hover_cancel.png"));
 		itemnumber_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/itemnumber_frame.png"));
-		shortcut_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shortcut_hover.png"));
+		shortcut_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shotcut_hover.png"));
 		close_bag_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_bag.png"));
 		close_bag_button_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/close_button_bag_hover.png"));
 		bag_hover_tooltip = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_hover_tooltip.png"));
@@ -547,7 +547,7 @@ public class Sprites {
 		escape_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-MainMenu-Down.png"));
 		spellbar_case = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/UI-Quickslot.png"));
 		spellbar_case2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/UI-Quickslot.png"));
-		final_spellbar = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/final_spellbar.png"));
+		final_spellbar = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/very_final_spellbar.png"));
 		up_chat_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/up_chat_button.png"));
 		chat_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/chat_button.png"));
 		craft_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/craft_frame.png"));
@@ -1006,7 +1006,7 @@ public class Sprites {
 		class_choose = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/class_choose.png"));
 		border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));
 		spell_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/spell_hover.png"));
-		spell_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/spell_border.png"));
+		spell_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/final_border.png"));
 		border2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));
 		border3 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));
 		border4 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));

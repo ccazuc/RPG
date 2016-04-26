@@ -31,7 +31,7 @@ public class SpellBarFrame {
 	private static Shortcut hoveredSpell;
 	private static boolean hoverAttack;
 	private static boolean bagChange = true;
-	private static boolean[] hoverSpellBar = new boolean[35];
+	private static boolean[] hoverSpellBar = new boolean[36];
 	private static Color bgColor = new Color(0, 0, 0, .6f); 
 	private static Color borderColor = Color.decode("#494D4B");
 	private static HashMap<Integer, Integer> numberItem = new HashMap<Integer, Integer>();
@@ -46,28 +46,18 @@ public class SpellBarFrame {
 		hoverAttack = false;
 		hoveredSpell = null;
 		if(Mideas.getLevel() >= 70) {
-			Draw.drawColorQuad(Display.getWidth()/2-678, Display.getHeight()-75, 1339, 13,  Color.decode("#680764"));
+			Draw.drawColorQuad(Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2+115, Display.getHeight()-Sprites.final_spellbar.getImageHeight()+23, 1155, 9,  Color.decode("#680764"));
 		}
 		else if(Mideas.getLevel() > 1) {
 			float e = ((float)Mideas.getCurrentExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
-			Draw.drawColorQuad(Display.getWidth()/2-678, Display.getHeight()-75, 1339*e, 13,  Color.decode("#680764"));
+			Draw.drawColorQuad(Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2+110, Display.getHeight()-Sprites.final_spellbar.getImageHeight()+20, 1155*e, 8,  Color.decode("#680764"));
 		}
 		else {
 			float e = ((float)Mideas.getCurrentExp()/Mideas.getExpNeeded(Mideas.getLevel()));
 			Draw.drawColorQuad(Display.getWidth()/2-678, Display.getHeight()-85, 1339*e, 13,  Color.decode("#680764"));
 		}
-        Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-809, Display.getHeight()-100);
-		//Draw.drawQuad(Sprites.spell_attack, Display.getWidth()/2-678, Display.getHeight()-49);
-		Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-679, Display.getHeight()-51);  
-		TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1, 1, 1);
-		TTF2.statsName.drawStringShadow(Display.getWidth()/2-648, Display.getHeight()-49, "1", Color.white, Color.black, 1, 1, 1);
-		if(Mideas.mouseX() >= Display.getWidth()/2-678 && Mideas.mouseX() <= Display.getWidth()/2-678+47 && Mideas.mouseY() >= Display.getHeight()-49 && Mideas.mouseY() <= Display.getHeight()-2) {
-			Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2-678, Display.getHeight()-49);	
-			Draw.drawQuad(Sprites.tooltip, Display.getWidth()/2-401, Display.getHeight()-280);
-			TTF2.spellName.drawStringShadow(Display.getWidth()/2-393, Display.getHeight()-270, "Attack", Color.white, Color.black, 1, 1, 1);
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-393, Display.getHeight()-248, "No mana cost", Color.white, Color.black, 1, 1, 1);
-			hoverAttack = true;
-		}
+		TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1);
+        Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2, Display.getHeight()-Sprites.final_spellbar.getImageHeight());
 		int numberFreeSlotBag = 0;
 		if(bagChange) {
 			int temp = checkNumberFreeSlotBag();
@@ -78,87 +68,88 @@ public class SpellBarFrame {
 			loadNumberItem();
 			itemChange = true;
 		}
-		TTF2.statsName.drawStringShadow(Display.getWidth()/2+650-TTF2.statsName.getWidth("("+Integer.toString(numberFreeSlotBag)+")")/2, Display.getHeight()-23, "("+Integer.toString(checkNumberFreeSlotBag())+")", Color.white, Color.black, 1, 1, 1);
-		float x = -678+56.3f;
+		TTF2.statsName.drawStringShadow(Display.getWidth()/2+550-TTF2.statsName.getWidth("("+Integer.toString(numberFreeSlotBag)+")")/2, Display.getHeight()-22, "("+Integer.toString(checkNumberFreeSlotBag())+")", Color.white, Color.black, 1, 1, 1);
+		float x = -Sprites.final_spellbar.getImageWidth()/2+120f;
 		int spellCount = 0;
 		int yShift = 0;
+		float y = -39.7f;
 		while(spellCount < hoverSpellBar.length) {
-			if(DragSpellManager.getDraggedSpell() != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpellBook() != null) {
-				if(spellCount >= 11) {
+			if(spellCount >= 12) {
+				if(DragSpellManager.getDraggedSpell() != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpellBook() != null || Mideas.joueur1().getSpells(spellCount) != null) {
 		        	if(spellCount%2 == 0) {
-		        		Draw.drawQuad(Sprites.spellbar_case, Display.getWidth()/2+x, Display.getHeight()-49+yShift);
+		        		Draw.drawQuad(Sprites.spellbar_case, Display.getWidth()/2+x-5, Display.getHeight()+y-4.5f+yShift);
 		        	}
 		        	else {
-		        		Draw.drawQuad(Sprites.spellbar_case2, Display.getWidth()/2+x, Display.getHeight()-49+yShift);
+		        		Draw.drawQuad(Sprites.spellbar_case2, Display.getWidth()/2+x-5, Display.getHeight()+y-4.5f+yShift);
 		        	}
 				}
 			}
-			if(Mideas.joueur1().getSpells(spellCount) != null) {
+ 			if(Mideas.joueur1().getSpells(spellCount) != null) {
 				if(Mideas.joueur1().getSpells(spellCount).getShortcutType() == ShortcutType.SPELL) {
 					SpellShortcut spell = (SpellShortcut)Mideas.joueur1().getSpells(spellCount);
 					if(!(DragSpellManager.getDraggedSpell() == spell)) {
-						Draw.drawQuad(spell.getSprite(), Display.getWidth()/2+x, Display.getHeight()-49+yShift);
-						Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-1+x, Display.getHeight()-51+yShift);
+						Draw.drawQuad(spell.getSprite(), Display.getWidth()/2+x, Display.getHeight()+y+yShift);
+						Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-2+x, Display.getHeight()+y-2+yShift);
 					}
-					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+47+x && Mideas.mouseY() >= Display.getHeight()-49+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
+					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+37+x && Mideas.mouseY() >= Display.getHeight()+y-2+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
 						hoveredSpell = spell;
 						xHoveredSpell = x;
 						yHoveredSpell = yShift;
 					}
 					if(SpellManager.getCd(spell.getSpell().getSpellId()) > 0) {
-						TTF2.font5.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-27+yShift, String.valueOf(SpellManager.getCd(spell.getSpell().getSpellId())), Color.white, Color.black, 1, 1, 1);
+						TTF2.font5.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()+y+8+yShift, String.valueOf(SpellManager.getCd(spell.getSpell().getSpellId())), Color.white, Color.black, 1, 1, 1);
 					}
 				}
 				else if(Mideas.joueur1().getSpells(spellCount).getShortcutType() == ShortcutType.STUFF) {
-					Draw.drawQuad(Mideas.joueur1().getSpells(spellCount).getSprite(), Display.getWidth()/2+x, Display.getHeight()-49+yShift);
-					Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-1+x, Display.getHeight()-51+yShift);
+					Draw.drawQuad(Mideas.joueur1().getSpells(spellCount).getSprite(), Display.getWidth()/2+x, Display.getHeight()+y+yShift);
+					Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-2+x, Display.getHeight()+y-2+yShift);
 					StuffShortcut spell = (StuffShortcut)Mideas.joueur1().getSpells(spellCount);
 					if(isEquippedItem(Mideas.joueur1().getSpells(spellCount).getId())) {
-						Draw.drawQuad(Sprites.equipped_item_frame, Display.getWidth()/2+x, Display.getHeight()-50+yShift);
+						//Draw.drawQuad(Sprites.equipped_item_frame, Display.getWidth()/2+x, Display.getHeight()+y-1+yShift);
 					}
-					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+47+x && Mideas.mouseY() >= Display.getHeight()-49+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
-						Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x, Display.getHeight()-49+yShift);
+					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+37+x && Mideas.mouseY() >= Display.getHeight()+y-2+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
 						hoveredSpell = spell;
 					}
 				}
 				else if(Mideas.joueur1().getSpells(spellCount).getShortcutType() == ShortcutType.POTION) {
-					Draw.drawQuad(Mideas.joueur1().getSpells(spellCount).getSprite(), Display.getWidth()/2+x, Display.getHeight()-49+yShift);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+45-TTF2.statsName.getWidth(String.valueOf(numberItem.get(((PotionShortcut)Mideas.joueur1().getSpells(spellCount)).getId()))), Display.getHeight()-22+yShift, String.valueOf(numberItem.get(((PotionShortcut)Mideas.joueur1().getSpells(spellCount)).getId())), Color.white, Color.black, 1, 1, 1);
-					Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-1+x, Display.getHeight()-51+yShift);
+					Draw.drawQuad(Mideas.joueur1().getSpells(spellCount).getSprite(), Display.getWidth()/2+x, Display.getHeight()+y+yShift);
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+37-TTF2.statsName.getWidth(String.valueOf(numberItem.get(((PotionShortcut)Mideas.joueur1().getSpells(spellCount)).getId()))), Display.getHeight()+y+16+yShift, String.valueOf(numberItem.get(((PotionShortcut)Mideas.joueur1().getSpells(spellCount)).getId())), Color.white, Color.black, 1, 1, 1);
+					Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-2+x, Display.getHeight()+y-2+yShift);
 					PotionShortcut spell = (PotionShortcut)Mideas.joueur1().getSpells(spellCount);
-					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+47+x && Mideas.mouseY() >= Display.getHeight()-49+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
-						Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x, Display.getHeight()-49+yShift);
+					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+37+x && Mideas.mouseY() >= Display.getHeight()+y-2+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
 						hoveredSpell = spell;
 					}
 				}
 				if(DragSpellManager.getDraggedSpell() != Mideas.joueur1().getSpells(spellCount)) {
-					if(spellCount+2 <= 9) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, String.valueOf(spellCount+2), Color.white, Color.black, 1, 1, 1);
+					if(spellCount+1 < 10) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()/2+30+x-TTF2.statsName.getWidth(String.valueOf(spellCount+1)), Display.getHeight()+y, String.valueOf(spellCount+1), Color.white, Color.black, 1, 1);
 					}
-					else if(spellCount+2 == 10) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, "0", Color.white, Color.black, 1, 1, 1);
+					else if(spellCount+1 == 10) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()/2+20+x, Display.getHeight()+y, "0", Color.white, Color.black, 1, 1);
 					}
-					else if(spellCount+2 == 11) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, ")", Color.white, Color.black, 1, 1, 1);
+					else if(spellCount+1 == 11) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()/2+20+x, Display.getHeight()+y, ")", Color.white, Color.black, 1, 1);
 					}
-					else if(spellCount+2 == 12) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+30+x, Display.getHeight()-49, "=", Color.white, Color.black, 1, 1, 1);
+					else if(spellCount+1 == 12) {
+						TTF2.statsName.drawStringShadow(Display.getWidth()/2+20+x, Display.getHeight()+y, "=", Color.white, Color.black, 1, 1);
 					}
 				}
 			}
-			if(Mideas.mouseX() >= Display.getWidth()/2-72+x && Mideas.mouseY() >= Display.getHeight()-61 && Mideas.mouseX() <= Display.getWidth()/2-16+x && Mideas.mouseY() <= Display.getHeight()-5) {
+			if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+37+x && Mideas.mouseY() >= Display.getHeight()+y-2+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
 				hoverSpellBar[spellCount] = true;
+				if(DragSpellManager.getDraggedSpell() != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpellBook() != null || Mideas.joueur1().getSpells(spellCount) != null) {
+					Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-2.5f, Display.getHeight()+y-1+yShift);
+				}
 			}
-			x+= 56.3;
+			x+= 47.9;
 			spellCount++;
-			if(spellCount == 11) {
-				x = -678;
-				yShift = -80;
+			if(spellCount == 12) {
+				x = -Sprites.final_spellbar.getImageWidth()/2+120f;
+				yShift = -61;
 			}
 		}
-		if(hoveredSpell != null) {	
+		if(hoveredSpell != null) {
 			if(hoveredSpell.getShortcutType() == ShortcutType.SPELL) {
-				Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+xHoveredSpell, Display.getHeight()-49+yHoveredSpell);
 				Draw.drawQuad(Sprites.tooltip, Display.getWidth()/2-74+xHoveredSpell, Display.getHeight()-220+yHoveredSpell);
 				TTF2.font4.drawString(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-210+yHoveredSpell, ((SpellShortcut)hoveredSpell).getSpell().getName(), Color.white);
 				TTF2.font4.drawString(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-188+yHoveredSpell, ((SpellShortcut)hoveredSpell).getSpell().getManaCost()+" Mana", Color.white);
@@ -166,32 +157,44 @@ public class SpellBarFrame {
 					TTF2.font4.drawStringShadow(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-158+yHoveredSpell, "Heals you for "+((SpellShortcut)hoveredSpell).getSpell().getHeal(), Color.yellow, Color.black, 1, 1, 1);
 				}
 				else {
-					TTF2.font4.drawStringShadow(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-158+yHoveredSpell, "Deals "+((SpellShortcut)hoveredSpell).getSpell().getBaseDamage()+" damage to the enemy", Color.yellow, Color.black, 1, 1, 1);
+					TTF2.font4.drawStringShadow(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-158+yHoveredSpell, "Deals "+(((SpellShortcut)hoveredSpell).getSpell().getBaseDamage()+Mideas.joueur1().getStrength())+" damage to the enemy", Color.yellow, Color.black, 1, 1, 1);
 				}
 			}
 		}
 		int i = 0;
+		float xBag = 491;
+		float xBagShift = -48.2f;
 		while(i < 4) {
 			if(Mideas.bag().getEquippedBag(i) != null) {
-				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(i)), Display.getWidth()/2+578-46*i, Display.getHeight()-40);
+				Draw.drawQuad(IconsManager.getSprite37(Mideas.bag().getSpriteId(i)), Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-40);
 				if(DragBagManager.getHoverBag(i)) {
-					Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+577-46*i, Display.getHeight()-41);
-					Draw.drawColorQuad(Display.getWidth()/2+577-46*i, Display.getHeight()-92, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), 50, bgColor);
-					Draw.drawColorQuadBorder(Display.getWidth()/2+577-46*i, Display.getHeight()-93, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), 52, borderColor);
-					TTF2.talent.drawStringShadow(Display.getWidth()/2+577-46*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-87, Mideas.bag().getEquippedBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
-					TTF2.talent.drawStringShadow(Display.getWidth()/2+577-46*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-67, "Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots", Color.white, Color.black, 1, 1, 1);
+					Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-41);
+					Draw.drawColorQuad(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-92, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), 50, bgColor);
+					Draw.drawColorQuadBorder(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-93, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), 52, borderColor);
+					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-87, Mideas.bag().getEquippedBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
+					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-67, "Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots", Color.white, Color.black, 1, 1, 1);
 				}
 				if(DragBagManager.getClickBag(i)) {
-					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+577-46*i, Display.getHeight()-41);
+					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-41);
 				}
 				if(ContainerFrame.getBagOpen(i+1)) {
-					Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()/2+575-46*i, Display.getHeight()-41);
+					Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-41);
+					Draw.drawQuad(Sprites.cursor, -5000, -5000);
 					i++;
 					continue;
 				}
 				Draw.drawQuad(Sprites.cursor, -100, -100);
 			}
 			i++;
+		}
+		if(DragBagManager.getClickBag(4)) {
+			Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+539.2f, Display.getHeight()-41);
+		}
+		if(ContainerFrame.getBagOpen(4)) {
+			Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()/2+539.2f, Display.getHeight()-41);
+		}
+		if(Mideas.mouseX() >= Display.getWidth()/2+539.2f && Mideas.mouseX() <= Display.getWidth()/2+539.2+48.2f && Mideas.mouseY() >= Display.getHeight()-40 && Mideas.mouseY() <= Display.getHeight()-3) {
+			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+537, Display.getHeight()-41);
 		}
 		if(CastBar.draw() && isCastingSpell) {
 			tempSpell.use(tempSpell);
@@ -203,7 +206,7 @@ public class SpellBarFrame {
 	
 	public static boolean mouseEvent() throws SQLException, FileNotFoundException {
 		if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-			if(!Mouse.getEventButtonState()) {
+			if(!Mouse.getEventButtonState() && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null && DragManager.getDraggedItem() == null) {
 				if(hoverAttack) {
 					Mideas.joueur1().tick();
 					Mideas.setCurrentPlayer(false);

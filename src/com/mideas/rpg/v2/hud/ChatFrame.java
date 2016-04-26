@@ -682,39 +682,40 @@ public class ChatFrame {
 	}
 	
 	private static boolean checkTempMessage() throws SQLException {
-		if(tempMessage.length() > 1 && tempMessage.substring(0, 1).equals(".") && !tempMessage.substring(1, 2).equals(".")) {
-			if(tempMessage.equals(".kill joueur2")) {
+		String message = tempMessage.trim().toLowerCase();
+		if(message.length() > 1 && message.substring(0, 1).equals(".") && !message.substring(1, 2).equals(".")) {
+			if(message.equals(".kill joueur2")) {
 				Mideas.joueur2().setStamina(0);
 			}
-			else if(tempMessage.equals(".kill joueur1")) {
+			else if(message.equals(".kill joueur1")) {
 				Mideas.joueur1().setStamina(0);
 			}
-			else if(tempMessage.startsWith(".modify hp joueur1 ")) {
-				String[] temp = tempMessage.split("joueur1 ");
+			else if(message.startsWith(".modify hp joueur1 ")) {
+				String[] temp = message.split("joueur1 ");
 				int value = Integer.parseInt(temp[1]);	
 				Mideas.joueur1().setStamina(value);
 				Mideas.joueur1().setMaxStamina(value);
 			}
-			else if(tempMessage.startsWith(".modify hp joueur2 ")) {
-				String[] temp = tempMessage.split("joueur2 ");
+			else if(message.startsWith(".modify hp joueur2 ")) {
+				String[] temp = message.split("joueur2 ");
 				int value = Integer.parseInt(temp[1]);	
 				Mideas.joueur2().setStamina(value);
 				Mideas.joueur2().setMaxStamina(value);
 			}
-			else if(tempMessage.startsWith(".modify mana joueur1 ")) {
-				String[] temp = tempMessage.split("joueur1 ");
+			else if(message.startsWith(".modify mana joueur1 ")) {
+				String[] temp = message.split("joueur1 ");
 				int value = Integer.parseInt(temp[1]);	
 				Mideas.joueur1().setMana(value);
 				Mideas.joueur1().setMaxMana(value);
 			}
-			else if(tempMessage.startsWith(".modify mana joueur2 ")) {
-				String[] temp = tempMessage.split("joueur2 ");
+			else if(message.startsWith(".modify mana joueur2 ")) {
+				String[] temp = message.split("joueur2 ");
 				int value = Integer.parseInt(temp[1]);	
 				Mideas.joueur2().setMana(value);
 				Mideas.joueur2().setMaxMana(value);
 			}
-			else if(tempMessage.startsWith(".lookup item ")) {
-				String[] temp = tempMessage.split("item ");
+			else if(message.startsWith(".lookup item ")) {
+				String[] temp = message.split("item ");
 				int value = Integer.parseInt(temp[1]);
 				if(ShopManager.getItem(value) != null) {
 					messages.add(new Message(ShopManager.getItem(value).getStuffName(), false, 0, 0, 0, Color.yellow));
@@ -723,30 +724,30 @@ public class ChatFrame {
 					messages.add(new Message("Item not found", false, 0, 0, 0, Color.yellow));
 				}
 			}
-			else if(tempMessage.startsWith(".lookup spell ")) {
-				String[] temp = tempMessage.split("spell ");
+			else if(message.startsWith(".lookup spell ")) {
+				String[] temp = message.split("spell ");
 				int value = Integer.parseInt(temp[1]);
 				messages.add(new Message(SpellManager.getBookSpell(value).getName(), false, 0, 0, 0, Color.yellow));
 			}
-			else if(tempMessage.startsWith(".set x ")) {
-				String[] temp = tempMessage.split("x ");
+			else if(message.startsWith(".set x ")) {
+				String[] temp = message.split("x ");
 				int value = Integer.parseInt(temp[1]);	
 				CharacterFrame.setMouseX(value);
 			}
-			else if(tempMessage.startsWith(".set y ")) {
-				String[] temp = tempMessage.split("y ");
+			else if(message.startsWith(".set y ")) {
+				String[] temp = message.split("y ");
 				int value = Integer.parseInt(temp[1]);	
 				CharacterFrame.setMouseY(value);
 			}
-			else if(tempMessage.startsWith(".set joueur2 ")) {
-				String[] temp = tempMessage.split("joueur2 ");
+			else if(message.startsWith(".set joueur2 ")) {
+				String[] temp = message.split("joueur2 ");
 				String joueur = temp[1];
 				if(ClassManager.exists(joueur.substring(1))) {
 					Mideas.setJoueur2(ClassManager.getClone((joueur.substring(1))));
 				}
 			}
-			else if(tempMessage.startsWith(".damage joueur1 ")) {
-				String[] temp = tempMessage.split("joueur1 ");
+			else if(message.startsWith(".damage joueur1 ")) {
+				String[] temp = message.split("joueur1 ");
 				int value = Integer.parseInt(temp[1]);
 				if(value < Math.pow(2, 32)) {
 					Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()-value);
@@ -755,8 +756,8 @@ public class ChatFrame {
 					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
 				}
 			}
-			else if(tempMessage.startsWith(".damage joueur2 ")) {
-				String[] temp = tempMessage.split("joueur2 ");
+			else if(message.startsWith(".damage joueur2 ")) {
+				String[] temp = message.split("joueur2 ");
 				int value = Integer.parseInt(temp[1]);
 				if(value < Math.pow(2, 32)) {
 					Mideas.joueur2().setStamina(Mideas.joueur2().getStamina()-value);
@@ -765,8 +766,8 @@ public class ChatFrame {
 					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
 				}
 			}
-			else if(tempMessage.startsWith(".add stuff ")) {
-				String[] temp = tempMessage.split("stuff ");
+			else if(message.startsWith(".add stuff ")) {
+				String[] temp = message.split("stuff ");
 				int value = 0;
 				if(temp[1].length() < 11) {
 					value = Integer.parseInt(temp[1]);
@@ -787,8 +788,8 @@ public class ChatFrame {
 					messages.add(new Message("Item not found", false, 0, 0, 0, Color.yellow));
 				}
 			}
-			else if(tempMessage.startsWith(".delete bag item ")) {
-				String[] temp = tempMessage.split("item ");
+			else if(message.startsWith(".delete bag item ")) {
+				String[] temp = message.split("item ");
 				int value = Integer.parseInt(temp[1]);
 				if(StuffManager.exists(value)) {
 					DragManager.deleteItem(value);
@@ -802,16 +803,16 @@ public class ChatFrame {
 					messages.add(new Message("Item not found", false, 0, 0, 0, Color.yellow));
 				}
 			}
-			else if(tempMessage.equals(".clear chat")) {
+			else if(message.equals(".clear chat")) {
 				messages.clear();
 			}
-			else if(tempMessage.equals(".set fullscreen true")) {
+			else if(message.equals(".set fullscreen true")) {
 				Mideas.setDisplayMode(1920, 1080, true);
 			}
-			else if(tempMessage.equals(".set fullscreen false")) {
+			else if(message.equals(".set fullscreen false")) {
 				Mideas.setDisplayMode(1700, 930, false);
 			}
-			else if(tempMessage.equals(".update")) {
+			else if(message.equals(".update")) {
 				Mideas.getGold();
 				Mideas.getExp();
 				Mideas.getConfig();
@@ -823,7 +824,7 @@ public class ChatFrame {
 				ContainerFrame.setBagchange(true);
 				SpellBarManager.loadSpellBar();
 			}
-			else if(tempMessage.equals(".quit")) {
+			else if(message.equals(".quit")) {
 				System.exit(1);
 				CharacterStuff.setBagItems();
 				CharacterStuff.setEquippedBags();
@@ -833,8 +834,8 @@ public class ChatFrame {
 				Mideas.setGold(0);
 				SpellBarManager.setSpellBar();
 			}
-			else if(tempMessage.startsWith(".modify gold ")) {
-				String[] temp = tempMessage.split("gold ");
+			else if(message.startsWith(".modify gold ")) {
+				String[] temp = message.split("gold ");
 				int value = 0; 
 				if(temp[1].length() < 11) {
 					value = Integer.parseInt(temp[1]);
@@ -850,8 +851,8 @@ public class ChatFrame {
 					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
 				}
 			}
-			else if(tempMessage.startsWith(".modify exp ")) {
-				String[] temp = tempMessage.split("exp ");
+			else if(message.startsWith(".modify exp ")) {
+				String[] temp = message.split("exp ");
 				int value = 0; 
 				if(temp[1].length() < 11) {
 					value = Integer.parseInt(temp[1]);
@@ -867,7 +868,7 @@ public class ChatFrame {
 					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
 				}	
 			}
-			else if(tempMessage.equals(".help")) {
+			else if(message.equals(".help")) {
 				messages.add(new Message(".kill [joueur]", false, 0, 0, 0, Color.yellow));
 				messages.add(new Message(".modify hp [joueur] [value]", false, 0, 0, 0, Color.yellow));
 				messages.add(new Message(".modify mana [joueur] [value]", false, 0, 0, 0, Color.yellow));
@@ -880,7 +881,7 @@ public class ChatFrame {
 				messages.add(new Message(".clear chat", false, 0, 0, 0, Color.yellow));
 				messages.add(new Message(".set fullscreen [boolean]", false, 0, 0, 0, Color.yellow));
 			}
-			else if(tempMessage.equals(".clear chat")) {
+			else if(message.equals(".clear chat")) {
 				messages.clear();
 				rawMessages.clear();
 			}

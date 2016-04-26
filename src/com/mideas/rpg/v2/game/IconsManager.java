@@ -14,6 +14,7 @@ public class IconsManager {
 	private static Map<String, Texture> sprites42 = new HashMap<String, Texture>();
 	private static Map<String, Texture> sprites35 = new HashMap<String, Texture>();
 	private static Map<String, Texture> sprites47 = new HashMap<String, Texture>();
+	private static Map<String, Texture> sprites37 = new HashMap<String, Texture>();
 	
 	/*public static void loadSprites() throws IOException {
 		File folder = new File("icons");
@@ -54,6 +55,17 @@ public class IconsManager {
 		return null;
 	}
 	
+	public static Texture getSprite37(String id) {
+		if(sprites37.containsKey(id)) {
+			return sprites37.get(id);
+		}
+		loadTexture37(id);
+		if(sprites37.containsKey("inv_misc_questionmark")) {
+			return sprites37.get("inv_misc_questionmark");
+		}
+		return null;
+	}
+	
 	public static Texture getSprite47(String id) {
 		if(sprites47.containsKey(id)) {
 			return sprites47.get(id);
@@ -86,6 +98,20 @@ public class IconsManager {
 			try {
 				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
 				sprites35.put(id, newTexture);
+			} 
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void loadTexture37(String id) {
+		File file = new File("bag_icons/"+id+".jpg");
+		if(file.exists()) {
+			Texture newTexture;
+			try {
+				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
+				sprites37.put(id, newTexture);
 			} 
 			catch(IOException e) {
 				e.printStackTrace();

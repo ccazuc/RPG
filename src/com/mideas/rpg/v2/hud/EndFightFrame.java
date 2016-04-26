@@ -40,18 +40,18 @@ public class EndFightFrame {
 		if(Interface.isSpellBookFrameActive()) {
 			Arrays.fill(SpellBookFrame.getHoverBook(), false);
 		}
-		Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getWidth()/2-105, Display.getHeight()/2-80);
+		Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Display.getHeight()/2-80);
 		if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
-			Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getWidth()/2-70, Display.getHeight()/2-43);
+			Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
 		}
 		else {
-			Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getWidth()/2-70, Display.getHeight()/2-43);
+			Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
 		}
 		if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
-			Draw.drawQuad(Sprites.button_hover2, Display.getWidth()/2-Sprites.button_hover.getWidth()/2+70, Display.getHeight()/2-43);
+			Draw.drawQuad(Sprites.button_hover2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
 		}
 		else {
-			Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getWidth()/2+70, Display.getHeight()/2-43);
+			Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
 		}
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Retry")/2-69, Display.getHeight()/2-41, "Retry", Color.white, Color.black, 1, 1, 1);
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit")/2+69, Display.getHeight()/2-41, "Quit", Color.white, Color.black, 1, 1, 1);

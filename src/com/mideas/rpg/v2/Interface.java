@@ -104,6 +104,7 @@ public class Interface {
 							EndFightFrame.draw();
 						}
 					}
+					CastBar.draw();
 					SpellBarFrame.draw();
 					SpellLevel.addSpell();
 					if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
@@ -145,7 +146,6 @@ public class Interface {
 						DrawContainerHover.draw();
 					}
 					LogChat.draw();
-					CastBar.draw();
 					DragManager.draw();
 					DragBagManager.draw();
 					DragSpellManager.draw();
@@ -172,10 +172,10 @@ public class Interface {
 			}
 		}
 		else {
-			if(SpellBarFrame.mouseEvent()) {
+			if(DragSpellManager.mouseEvent()) {
 				return true;
 			}
-			if(DragSpellManager.mouseEvent()) {
+			if(SpellBarFrame.mouseEvent()) {
 				return true;
 			}
 			if(ShortcutFrame.mouseEvent()) {

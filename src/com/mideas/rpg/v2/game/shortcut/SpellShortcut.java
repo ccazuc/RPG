@@ -32,7 +32,7 @@ public class SpellShortcut implements Shortcut {
 	
 	@Override
 	public Texture getSprite() {
-		return IconsManager.getSprite47(this.spell.getSpriteId());
+		return IconsManager.getSprite37(this.spell.getSpriteId());
 	}
 	
 	@Override

@@ -54,7 +54,7 @@ public class StuffShortcut implements Shortcut {
 				}
 				else if(this.stuff.getItemType() == ItemType.WEAPON) {
 					if(this.stuff != null && this.stuff.getWeaponSlot() == DragManager.getWeaponSlot(i) && this.stuff.canEquipTo(DragManager.convClassType())) {
-						if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
+						if(Mideas.getLevel() >= this.stuff.getLevel()) {
 							if(Mideas.joueur1().getStuff(i) == null) {
 								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
@@ -88,7 +88,7 @@ public class StuffShortcut implements Shortcut {
 	
 	@Override
 	public Texture getSprite() {
-		return IconsManager.getSprite47(this.stuff.getSpriteId());
+		return IconsManager.getSprite37(this.stuff.getSpriteId());
 	}
 
 	@Override
