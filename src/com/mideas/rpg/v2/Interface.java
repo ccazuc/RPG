@@ -11,8 +11,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
-import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.CharacterStuff; 
 import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
@@ -40,7 +39,6 @@ import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.SpellLevel;
 import com.mideas.rpg.v2.utils.Draw;
-import com.mideas.rpg.v2.utils.Draw2;
 
 public class Interface {
 	
