@@ -18,6 +18,47 @@ public class CharacterStuff {
 
 	private static int numberPieceLoaded;
 	private static int numberBagPieceLoaded;
+	private static String getBagRequest;
+	private static String setBagRequest;
+	
+	public static void initSQLRequest() {
+		int x = 1;
+		int i = 1;
+		StringBuilder builderSetBagItemsRequest = new StringBuilder();
+		while(i < 97) {
+			x = 1;
+			builderSetBagItemsRequest.append("slot"+Integer.toString(i)+" = ?, numberstack"+Integer.toString(i)+" = ?, ");
+			while(x <= 3) {
+				if(i == 96 && x == 3) {
+					builderSetBagItemsRequest.append("slot"+Integer.toString(i)+"_gem"+Integer.toString(x)+" = ? ");
+				}
+				else {
+					builderSetBagItemsRequest.append("slot"+Integer.toString(i)+"_gem"+Integer.toString(x)+" = ?, ");
+				}
+				x++;
+			}
+			i++;
+		}
+		setBagRequest = builderSetBagItemsRequest.toString();
+		x = 1;
+		i = 1;
+		StringBuilder builderGetBagItemsRequest = new StringBuilder();
+		while(i < 97) {
+			x = 1;
+			builderGetBagItemsRequest.append("slot"+Integer.toString(i)+", numberstack"+Integer.toString(i)+", ");
+			while(x <= 3) {
+				if(i == 96 && x == 3) {
+					builderGetBagItemsRequest.append("slot"+Integer.toString(i)+"_gem"+Integer.toString(x)+" ");
+				}
+				else {
+					builderGetBagItemsRequest.append("slot"+Integer.toString(i)+"_gem"+Integer.toString(x)+", ");
+				}
+				x++;
+			}
+			i++;
+		}
+		getBagRequest = builderGetBagItemsRequest.toString();
+	}
 	
 	public static void getBagItems() throws SQLException {
 		int i = 1;
@@ -29,7 +70,7 @@ public class CharacterStuff {
 		String request = "";
 		StringBuilder builder = new StringBuilder();
 		builder.append("SELECT ");
-		int x = 1;
+		/*int x = 1;
 		while(i < 97) {
 			x = 1;
 			builder.append("slot"+Integer.toString(i)+", numberstack"+Integer.toString(i)+", ");
@@ -43,7 +84,8 @@ public class CharacterStuff {
 				x++;
 			}
 			i++;
-		}
+		}*/
+		builder.append(getBagRequest);
 		builder.append("FROM bag WHERE class = ?");
 		request = builder.toString();
 		//System.out.println(request);
@@ -113,9 +155,9 @@ public class CharacterStuff {
 		String request = "";
 		StringBuilder builder = new StringBuilder();
 		builder.append("UPDATE bag SET ");
-		int x = 1;
+		//int x = 1;
 		int i = 1;
-		while(i < 97) {
+		/*while(i < 97) {
 			x = 1;
 			builder.append("slot"+Integer.toString(i)+" = ?, numberstack"+Integer.toString(i)+" = ?, ");
 			while(x <= 3) {
@@ -128,8 +170,9 @@ public class CharacterStuff {
 				x++;
 			}
 			i++;
-		}
+		}*/
 		i = 0;
+		builder.append(setBagRequest);
 		builder.append("WHERE class = ?");
 		request = builder.toString();
 		//System.out.println(request);
@@ -445,7 +488,6 @@ public class CharacterStuff {
 	}
 	
 	private static void setGems(Stuff stuff, int gem1Id, int gem2Id, int gem3Id) {
-		//System.out.println(stuff.getGemSlot1()+" "+stuff.getStuffName()+" "+gem1Id+" "+(stuff.getGemSlot1() != GemColor.NONE)+" "+GemManager.exists(gem1Id));
 		if(stuff.getGemSlot1() != GemColor.NONE && GemManager.exists(gem1Id)) {
 			stuff.setEquippedGem1(GemManager.getClone(gem1Id));
 		}

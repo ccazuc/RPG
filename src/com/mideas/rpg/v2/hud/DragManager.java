@@ -302,7 +302,7 @@ public class DragManager {
 			if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
 				int j = 0;
 				while(j < type.length) {
-					if(((Stuff)Mideas.bag().getBag(i)) != null && ((Stuff)Mideas.bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && canWear((Stuff)Mideas.bag().getBag(i))) {
+					if(((Stuff)Mideas.bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && canWear((Stuff)Mideas.bag().getBag(i))) {
 						if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(j) == null) {
 								Mideas.joueur1().setStuff(j, Mideas.bag().getBag(i));
@@ -362,17 +362,17 @@ public class DragManager {
 	private static void doHealingPotion(Potion item, boolean hover, int i) throws SQLException {
 		if(hover && item != null && item.getItemType() == ItemType.POTION && Mideas.getLevel() >= item.getLevel()) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
-				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
+				LogChat.setStatusText3("Vous vous Ãªtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
 			}
 			else if(Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()+item.getPotionHeal());
-				LogChat.setStatusText3("Vous vous êtes rendu "+item.getPotionHeal()+" hp");
+				LogChat.setStatusText3("Vous vous Ãªtes rendu "+item.getPotionHeal()+" hp");
 				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
 			}
 			else {
-				LogChat.setStatusText3("Vos HP étaient déjà au maximum");
+				LogChat.setStatusText3("Vos HP Ã©taient dÃ©jÃ  au maximum");
 			}
 			if(Mideas.joueur1().getNumberItem(item) <= 0) {
 				Mideas.bag().setBag(i, null);
@@ -695,6 +695,7 @@ public class DragManager {
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(Mideas.joueur1().getSpells(i) != null && Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.STUFF && ((StuffShortcut)Mideas.joueur1().getSpells(i)).getStuff() == draggedItem2) {
 				Mideas.joueur1().setSpells(i, null);
+				return true;
 			}
 			i++;
 		}
@@ -774,6 +775,7 @@ public class DragManager {
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
 				Mideas.bag().setBag(i, item);
+				SpellBarFrame.setBagChange(true);
 				return true;
 			}
 			i++;
@@ -801,30 +803,6 @@ public class DragManager {
 		}
 		return false;
 	}
-	
-	/*private static boolean exchangeBagItems(Item draggedItem, Item item) {
-		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(draggedItem == Mideas.bag().getBag(i)) {
-				Mideas.bag().setBag(i, item);
-				SpellBarFrame.setBagChange(true);
-				return true;
-			}
-			i++;
-		}
-		return false;
-	}*/
-	
-	/*private static boolean isCharacterHover() {
-		int i = 0;
-		while(i < CharacterFrame.getHoverCharacterFrame().length) {
-			if(CharacterFrame.getHoverCharacterFrame(i)) {
-				return true;
-			}
-			i++;
-		}
-		return false;
-	}*/
 	
 	public static boolean isSpellBarHover() {
 		int i = 0;
@@ -924,25 +902,6 @@ public class DragManager {
 		}
 		return false;
 	}
-	
-
-	
-	/*private static void exchangeCharacterItem(int i) {
-		Item tempItem = Mideas.bag().getBag(i);
-		if(tempItem.getItemType() == ItemType.STUFF) {
-			int j = 0;
-			while(j < Mideas.joueur1().getStuff().length) {
-				if(Mideas.joueur1().getStuff(j) == draggedItem) {
-					if(((Stuff)tempItem).getType() == ((Stuff)draggedItem).getType()) {
-						Mideas.joueur1().setStuff(j, tempItem);
-						Mideas.bag().setBag(i, draggedItem);
-					}
-					break;
-				}
-				j++;
-			}
-		}
-	}*/
 	
 	public static int checkItemSlot(Item item) {
 		int i = 0;

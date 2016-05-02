@@ -135,6 +135,7 @@ public class DragSpellManager {
 			if(draggedSpell == Mideas.joueur1().getSpells(i)) {
 				Mideas.joueur1().setSpells(i, null);
 				SpellBarManager.setSpellBar();
+				return;
 			}
 			i++;
 		}

@@ -126,6 +126,7 @@ public class Mideas {
 		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		time = System.currentTimeMillis();
 		initSQL();
+		CharacterStuff.initSQLRequest();
 		GemManager.loadGems();
 		WeaponManager.loadWeapons();
 		PotionManager.loadPotions();

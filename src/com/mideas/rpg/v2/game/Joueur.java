@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.game;
 
 import java.sql.SQLException;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.mideas.rpg.v2.Mideas;
@@ -45,25 +44,6 @@ public class Joueur {
 	public int x;
 	public static int y;
 	public static int z;
-	
-	/*public Joueur(int stamina, int strength, float armor, int defaultArmor, int defaultStuffArmor, int critical, int mana, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff, String classe, int id, int maxStamina, int maxMana, int isHealer, int expGained, int goldGained, int tailorExp) {
-		this.maxStamina = maxStamina;
-		this.expGained = expGained;
-		this.goldGained = goldGained;
-		this.isHealer = isHealer;
-		this.critical = critical;
-		//this.tailorExp = tailorExp;
-		this.stamina = stamina;
-		this.maxMana = maxMana;
-		this.strength = strength;
-		this.armor = armor;
-		this.mana = mana;
-		this.defaultArmor = defaultArmor;
-		this.spells = spells;
-		this.spellUnlocked = spellUnlocked;
-		this.stuff = stuff;
-		this.classe = classe;
-	}*/
 	
 	public Joueur(String id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
 		this.id = id;
@@ -118,7 +98,7 @@ public class Joueur {
 			}
 			else {
 				spell.cast(Mideas.joueur2(), Mideas.joueur1(), spell);
-				LogChat.setStatusText("Le joueur 1 a enlevée "+spell.getDamage()+" hp au "+Mideas.joueur2().getClasse()+", "+Mideas.joueur2().getStamina()+" hp restant");
+				LogChat.setStatusText("Le joueur 1 a enlevÃ©e "+spell.getDamage()+" hp au "+Mideas.joueur2().getClasse()+", "+Mideas.joueur2().getStamina()+" hp restant");
 				return true;
 			}
 		}
@@ -131,12 +111,12 @@ public class Joueur {
 				if(Mideas.joueur1().getStamina()+spell.getHeal() >= Mideas.joueur1().getMaxStamina()) {
 					int diff = Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina();
 					spell.healMax(Mideas.joueur1(), spell);
-					LogChat.setStatusText("Vous vous êtes rendu "+diff+" hp, vous avez maintenant "+Mideas.joueur1().getStamina()+" hp");	
+					LogChat.setStatusText("Vous vous Ãªtes rendu "+diff+" hp, vous avez maintenant "+Mideas.joueur1().getStamina()+" hp");	
 					return true;
 				}
 				else {
 					spell.heal(Mideas.joueur1(), spell);
-					LogChat.setStatusText("Vous vous êtes rendu "+spell.getHeal()+" hp, vous avez maintenant "+Mideas.joueur1().getStamina()+" hp");
+					LogChat.setStatusText("Vous vous Ãªtes rendu "+spell.getHeal()+" hp, vous avez maintenant "+Mideas.joueur1().getStamina()+" hp");
 					return true;
 				}
 			}
@@ -146,21 +126,20 @@ public class Joueur {
 	
 	public void attack(Joueur joueur) throws SQLException {
 		double damage = Mideas.joueur1().getStrength()*ThreadLocalRandom.current().nextDouble(.9, 1.1);
-		System.out.println(Mideas.joueur1().getStrength()+" "+damage);
 		SpellBarFrame.setIsCastingSpell(false);
 		if(Math.random() < this.critical/100.) {
 			damage*= 2;
 		}
 		joueur.setStamina(joueur.getStamina()-damage);
-		LogChat.setStatusText("Le joueur 1 a enlevé "+Math.round(damage)+" hp au "+joueur.getClasse()+", "+joueur.getStamina()+" hp restant"); //and "+Mideas.joueur2.getMana()+" mana left");
+		LogChat.setStatusText("Le joueur 1 a enlevÃ© "+Math.round(damage)+" hp au "+joueur.getClasse()+", "+joueur.getStamina()+" hp restant"); //and "+Mideas.joueur2.getMana()+" mana left");
 		if(Mideas.joueur1().getStamina() <= 0) {
-			LogChat.setStatusText("Le joueur 2 a gagné !");
+			LogChat.setStatusText("Le joueur 2 a gagnÃ© !");
 			LogChat.setStatusText2(""); 
 			y = 1;
 			return;
 		}
 		else if(Mideas.joueur2().getStamina() <= 0) {
-			LogChat.setStatusText("Le joueur 1 a gagné !");
+			LogChat.setStatusText("Le joueur 1 a gagnÃ© !");
 			LogChat.setStatusText2("");
 			z = 1;
 			return;
@@ -190,11 +169,11 @@ public class Joueur {
 			Spell cast = Spell.getRandomSpell();
 			if(rand > .2 && rand <= .4 && cast.hasMana()) {	
 				cast.cast(Mideas.joueur1(), Mideas.joueur2(), spell);
-				LogChat.setStatusText2("Le joueur 2 a enlevée "+cast.getDamage()+" hp au "+Mideas.joueur1().getClasse()+", "+Mideas.joueur1().getStamina()+" hp restant");
+				LogChat.setStatusText2("Le joueur 2 a enlevÃ©e "+cast.getDamage()+" hp au "+Mideas.joueur1().getClasse()+", "+Mideas.joueur1().getStamina()+" hp restant");
 			}
 			else {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()-damage);
-				LogChat.setStatusText2("Le joueur 2 a enlevée "+Math.round(damage)+" hp au "+Mideas.joueur1().getClasse()+", "+Mideas.joueur1().getStamina()+" hp restant");	
+				LogChat.setStatusText2("Le joueur 2 a enlevÃ©e "+Math.round(damage)+" hp au "+Mideas.joueur1().getClasse()+", "+Mideas.joueur1().getStamina()+" hp restant");	
 			}
 		}
 	}
@@ -254,7 +233,7 @@ public class Joueur {
 	}
 	
 	public void setStamina(double d) {
-		this.stamina = (int) Math.max(d, 0);
+		this.stamina = (int)Math.max(d, 0);
 	}
 	
 	public int getMaxStamina() {

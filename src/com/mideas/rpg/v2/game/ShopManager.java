@@ -116,36 +116,6 @@ public class ShopManager {
 				z = 165;
 			}
 		}
-		/*drawShopItem(0, xLeft, y);
-		drawShopItem(1, xLeft, y+yShift);
-		drawShopItem(2, xLeft, y+2*yShift);
-		drawShopItem(3, xLeft, y+3*yShift);
-		drawShopItem(4, xLeft, y+4*yShift);
-		drawShopItem(5, xRight, y);
-		drawShopItem(6, xRight, y+yShift);
-		drawShopItem(7, xRight, y+2*yShift);
-		drawShopItem(8, xRight, y+3*yShift);
-		drawShopItem(9, xRight, y+4*yShift);
-		shopHover(0, xLeft, y);
-		shopHover(1, xLeft, y+yShift);
-		shopHover(2, xLeft, y+2*yShift);
-		shopHover(3, xLeft, y+3*yShift);
-		shopHover(4, xLeft, y+4*yShift);
-		shopHover(5, xRight, y);
-		shopHover(6, xRight, y+yShift);
-		shopHover(7, xRight, y+2*yShift);
-		shopHover(8, xRight, y+3*yShift);
-		shopHover(9, xRight, y+4*yShift);
-		drawGoldCoin(0, xLeft, y);
-		drawGoldCoin(1, xLeft, y+yShift);
-		drawGoldCoin(2, xLeft, y+2*yShift);
-		drawGoldCoin(3, xLeft, y+3*yShift);
-		drawGoldCoin(4, xLeft, y+4*yShift);
-		drawGoldCoin(5, xRight, y);
-		drawGoldCoin(6, xRight, y+yShift);
-		drawGoldCoin(7, xRight, y+2*yShift);
-		drawGoldCoin(8, xRight, y+3*yShift);
-		drawGoldCoin(9, xRight, y+4*yShift);*/
 		calcCoin(Mideas.joueur1().getGold(), xRight, y+250);
 		if(hover_button) {
 			Draw.drawQuad(Sprites.close_shop_hover, Display.getWidth()/2+27, Display.getHeight()/2-337);
@@ -168,7 +138,9 @@ public class ShopManager {
 	}
 	
 	public static boolean mouseEvent() throws SQLException {
-		Arrays.fill(slot_hover, false);
+		if(isHoverShopFrame()) {
+			Arrays.fill(slot_hover, false);
+		}
 		right_arrow = false;
 		left_arrow = false;
 		hover_button = false;
@@ -191,15 +163,19 @@ public class ShopManager {
 			}
 			else if(page == 0 && right_arrow) {
 				page++;
+				return true;
 			}
 			else if(page == 1 && right_arrow) {
 				page++;
+				return true;
 			}
 			else if(page == 1 && left_arrow) {
 				page--;
+				return true;
 			}
 			else if(page == 2 && left_arrow) {
 				page--;
+				return true;
 			}	
 		}
 		isSlotHover(xLeft, y, 0, 41, 0);
@@ -219,7 +195,7 @@ public class ShopManager {
 					while(i < Mideas.bag().getBag().length) {
 						if(clickSellItem(i)) {
 							CharacterStuff.setBagItems();
-							break;
+							return true;
 						}
 						i++;
 					}
@@ -228,25 +204,25 @@ public class ShopManager {
 		}
 		int i = 0;
 		while(i < 10 && i+10*page < shopList.size()) {
-			buyItems(slot_hover[i], shopList.get(i+10*page));
+			if(buyItems(slot_hover[i], shopList.get(i+10*page))) {
+				return true;
+			}
 			i++;
 		}
 		return false;
 	}
 	
-	public static void buyItems(boolean slot_hover, Shop item) throws SQLException {
-		if(Mouse.getEventButton() == 1 && slot_hover && item != null) {
-			if(Mouse.getEventButtonState()) {
+	public static boolean buyItems(boolean slot_hover, Shop item) throws SQLException {
+		if(slot_hover && item != null) {
+			if(Mideas.getCurrentGold() >= item.getSellPrice()) {
+				checkItem(item);
 			}
 			else {
-				if(Mideas.getCurrentGold() >= item.getSellPrice()) {
-					checkItem(item);
-				}
-				else {
-					LogChat.setStatusText3("Vous n'avez pas assez d'argent");
-				}
+				LogChat.setStatusText3("Vous n'avez pas assez d'argent");
 			}
+			return true;
 		}
+		return false;
 	}
 	
 	private static boolean clickSellItem(int i) throws SQLTimeoutException, SQLException {
@@ -278,7 +254,7 @@ public class ShopManager {
 			while(i < Mideas.bag().getBag().length) {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, StuffManager.getClone(item.getId()));
-					LogChat.setStatusText3("Vous avez bien acheté "+StuffManager.getStuff(item.getId()).getStuffName());
+					LogChat.setStatusText3("Vous avez bien achetÃ© "+StuffManager.getStuff(item.getId()).getStuffName());
 					Mideas.setGold(-item.getSellPrice());
 					CharacterStuff.setBagItems();
 					return true;
@@ -291,7 +267,7 @@ public class ShopManager {
 				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == item.getId()) {
 						Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+1);
-						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
+						LogChat.setStatusText3("Vous avez bien achetÃ© "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.setGold(-item.getSellPrice());
 						CharacterStuff.setBagItems();
 						return true;
@@ -305,7 +281,7 @@ public class ShopManager {
 						Potion temp = PotionManager.getClone(item.getId());
 						Mideas.bag().setBag(i, temp);
 						Mideas.joueur1().setNumberItem(temp, 1);
-						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
+						LogChat.setStatusText3("Vous avez bien achetÃ© "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.setGold(-item.getSellPrice());
 						CharacterStuff.setBagItems();
 						return true;
@@ -318,7 +294,7 @@ public class ShopManager {
 			while(i < Mideas.bag().getBag().length) {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, GemManager.getClone(item.getId()));
-					LogChat.setStatusText3("Vous avez bien acheté "+GemManager.getGem(item.getId()).getStuffName());
+					LogChat.setStatusText3("Vous avez bien achetÃ© "+GemManager.getGem(item.getId()).getStuffName());
 					Mideas.setGold(-item.getSellPrice());
 					CharacterStuff.setBagItems();
 					return true;
@@ -360,68 +336,6 @@ public class ShopManager {
 					else {
 						drawRightStuff(i, x_item, y_item);
 					}
-					/*Color temp = null;
-					if(((Stuff)item).getClassType().length < 10) {
-						classes = "Classes: ";
-						int k = 0;
-						while(k < ((Stuff)item).getClassType().length) {
-							if(k == ((Stuff)item).getClassType().length-1) {
-								classes+= ((Stuff)item).convClassTypeToString(k);
-							}
-							else {
-								classes+= ((Stuff)item).convClassTypeToString(k)+", ";
-							}
-							k++;
-						}
-					}
-					if(TTF2.itemName.getWidth(item.getStuffName()) > 285 || TTF2.statsName.getWidth(classes) > 285) {
-						xShift = Math.max(TTF2.itemName.getWidth(item.getStuffName()), TTF2.statsName.getWidth(classes))-285;
-					}
-					Draw.drawColorQuad(Display.getWidth()/2+x_item+xShift, Display.getHeight()/2+y_item, 285, 70+TTF2.statsName.getLineHeight()*ContainerFrame.getNumberStats((Stuff)item), bgColor);
-					Draw.drawColorQuadBorder(Display.getWidth()/2+xShift-10+x_item, Display.getHeight()/2+y_item, 287, 70+TTF2.statsName.getLineHeight()*ContainerFrame.getNumberStats((Stuff)item), borderColor);
-					TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item+xShift, Display.getHeight()/2+y_item, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.black, 1, 1, 1);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item+xShift, Display.getHeight()/2+y_item+25, ((Stuff)item).convStuffTypeToString(), Color.white, Color.black, 1, 1, 1);
-					if(DragManager.canWear((Stuff)item)) {
-						temp = Color.white;
-					}
-					else {
-						temp = Color.red;
-					}
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+275+x_item-TTF2.font4.getWidth(((Stuff)item).convWearToString()), Display.getHeight()/2+y_item+20, ((Stuff)item).convWearToString(), temp, Color.black, 1, 1, 1);
-					if(((Stuff)item).getArmor() > 0) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+10+x_item, Display.getHeight()/2+y_item+shift, "Armor : "+((Stuff)item).getArmor(), Color.white, Color.black, 1, 1, 1);
-						shift+= 20;
-					}
-					if(((Stuff)item).getStrength() > 0) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+10+x_item, Display.getHeight()/2+y_item+shift, "+ "+((Stuff)item).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
-						shift+= 20;
-					}
-					if(((Stuff)item).getMana() > 0) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+10+x_item, Display.getHeight()/2+y_item+shift, "+ "+((Stuff)item).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
-						shift+= 20;
-					}
-					if(((Stuff)item).getStamina() > 0) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+10+x_item, Display.getHeight()/2+y_item+shift, "+ "+((Stuff)item).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
-						shift+= 20;
-					}
-					if(((Stuff)item).getCritical() > 0) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+10+x_item, Display.getHeight()/2+y_item+shift, "+ "+((Stuff)item).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
-						shift+= 20;
-					}
-					if(((Stuff)item).canEquipTo(DragManager.convClassType())) {
-						temp = Color.white;
-					}
-					else {
-						temp = Color.red;
-					}
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+10+x_item, Display.getHeight()/2+y_item+shift, classes, temp, Color.black, 1, 1, 1);
-					shift+= 20;
-					if(Mideas.getLevel() >= ((Stuff)item).getLevel()) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+10+x_item, Display.getHeight()/2+y_item+shift, "Level "+((Stuff)item).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
-					}
-					else {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+10+x_item, Display.getHeight()/2+y_item+shift, "Level "+((Stuff)item).getLevel()+" required", Color.red, Color.black, 1, 1, 1);
-					}*/
 				}
 				else if(item.getItemType() == ItemType.POTION) {
 					shift = 25;
@@ -658,6 +572,13 @@ public class ShopManager {
 			return true;
 		}
 		return true;
+	}
+	
+	public static boolean isHoverShopFrame() {
+		if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2-300+Sprites.shop_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-350 && Mideas.mouseY() <= Display.getHeight()/2-350+Sprites.shop_frame.getImageHeight()) {
+			return true;
+		}
+		return false;
 	}
 	
 	public static ArrayList<Shop> getShopList() {

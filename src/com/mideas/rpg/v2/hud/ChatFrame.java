@@ -62,6 +62,7 @@ public class ChatFrame {
 	private static Color selectedColor = new Color(1, 1, 1, .5f); 
 	private static int xDraw;
 	private static int xShift;
+	private static boolean showMessageTime = true;
 
 	public static void draw() {
 		messageShowHeight = 4+yResize/TTF2.font4.getLineHeight();
@@ -136,7 +137,7 @@ public class ChatFrame {
 				while(i <= x) {
 					//System.out.println("k : "+i+" draw : "+xDraw+" total : "+totalNumberLine+" display min : "+(Display.getHeight()-280-yResize)+" display max : "+(Display.getHeight()-150)+" msg temp : "+tempTable[i]);
 					if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-195 && tempTable[i] != null) {
-						if(messages.get(k).getDisplayHour() && i == 1) {
+						if(messages.get(k).getDisplayHour() && i == 1 && showMessageTime) {
 							TTF2.font4.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+tempTable[i], Color.white);
 						}
 						else {
@@ -150,7 +151,7 @@ public class ChatFrame {
 			else {
 				//System.out.println("k : "+k+" draw : "+xDraw+" total : "+totalNumberLine+" display min : "+(Display.getHeight()-280-yResize)+" display max : "+(Display.getHeight()-150));
 				if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-195) {
-					if(messages.get(k).getDisplayHour()) {
+					if(messages.get(k).getDisplayHour() && showMessageTime) {
 						TTF2.font4.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+messages.get(k).getMessage(), messages.get(k).getColor());
 					}
 					else {
@@ -884,6 +885,9 @@ public class ChatFrame {
 			else if(message.equals(".clear chat")) {
 				messages.clear();
 				rawMessages.clear();
+			}
+			else if(message.equals(".show time")) {
+				showMessageTime = !showMessageTime;
 			}
 			else {
 				messages.add(new Message("Unknown command", false, 0, 0, 0, Color.yellow));

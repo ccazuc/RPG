@@ -23,16 +23,6 @@ public class Spell {
 	private int id;
 	private int castTime;
 	
-	public Spell(int baseDamage, int manaCost, int baseHeal) {
-		this(baseDamage, manaCost, 0, 0, baseHeal);
-	}
-	
-	public Spell(int baseDamage, int manaCost, int stunRate, int stunDuration, int baseHeal) {
-		this.baseDamage = baseDamage;
-		this.manaCost = manaCost;
-		this.baseHeal = baseHeal;
-	}
-	
 	public Spell(int defaultDamage, int baseDamage, int manaCost, int stunRate, int stunDuration, int baseHeal, int baseCd, int cd, int id) {
 		this.defaultDamage = defaultDamage;
 		this.baseDamage = baseDamage;
@@ -165,7 +155,7 @@ public class Spell {
 	}
 
 	public static void checkKeyboardCd(Spell spell) {
-		if(spell != null && spell.getSpellId() == spell.getSpellId()) {
+		if(spell != null) {
 			spell.setSpellCd(spell.getSpellBaseCd());
 		}
 	}

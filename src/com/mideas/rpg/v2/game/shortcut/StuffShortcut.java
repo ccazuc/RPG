@@ -38,6 +38,7 @@ public class StuffShortcut implements Shortcut {
 								DragManager.setNullContainer(Mideas.bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
+								break;
 							}
 							else {
 								Item tempItem = Mideas.joueur1().getStuff(i);
@@ -61,6 +62,7 @@ public class StuffShortcut implements Shortcut {
 								DragManager.setNullContainer(Mideas.bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
+								break;
 							}
 							else {
 								Item tempItem = Mideas.joueur1().getStuff(i);

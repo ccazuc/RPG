@@ -22,7 +22,6 @@ public class PotionShortcut implements Shortcut {
 	
 	@Override
 	public boolean use(Shortcut potion) throws SQLException, FileNotFoundException {
-		//SpellBarFrame.doHealingPotion(((PotionShortcut)potion).getPotion());
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == ((PotionShortcut)potion).getId()) {
