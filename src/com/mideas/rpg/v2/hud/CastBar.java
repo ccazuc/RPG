@@ -17,13 +17,16 @@ public class CastBar {
 	private static int yDraw = 250;
 	
 	public static boolean draw() {
-		if(castTime > 0 && (System.currentTimeMillis()-startCastTimer)/castTime <= 1 && SpellBarFrame.getIsCastingSpell()) {
+		if(castTime > 0 && (System.currentTimeMillis()-startCastTimer)/castTime < 1 && SpellBarFrame.getIsCastingSpell()) {
 			Draw.drawColorQuad(Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw, (float)((System.currentTimeMillis()-startCastTimer)/castTime)*barWidth, barHeight, Color.yellow);
 			TTF2.statsName.drawStringShadow(Display.getWidth()/2+xDraw+barWidth/2-TTF2.statsName.getWidth(name)/2, Display.getHeight()/2+yDraw, name, Color.white, Color.black, 1, 1, 1);
 			Draw.drawColorQuadBorder(Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw, barWidth, barHeight, Color.black);
+			return false;
 		}
 		else if(castTime > 0) {
 			castTime = 0;
+			startCastTimer = 0;
+			name = "";
 			return true;
 		}
 		return false;

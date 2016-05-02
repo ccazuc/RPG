@@ -27,6 +27,7 @@ public class Sprites {
 	public static Texture left_second_line_talent;
 	public static Texture cinq_green_talent;
 	public static Texture spell_hover;
+	public static Texture spell_hover2;
 	public static Texture current_bg;
 	public static Texture bg;
 	public static Texture bc_bg;
@@ -102,6 +103,7 @@ public class Sprites {
 	public static Texture bag_hover;
 	public static Texture bag_border1;
 	public static Texture bag_click_hover;
+	public static Texture inventory_click_hover;
 	public static Texture gem_red;
 	public static Texture gem_blue;
 	public static Texture gem_yellow;
@@ -507,6 +509,7 @@ public class Sprites {
 	public static Texture crimson_spinel;
 	public static Texture empyrean_sapphire;
 	public static Texture pyrestone;
+	public static Texture gem_frame;
 	
 	public static void initBG() throws IOException {
 		loading_screen = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/interface/loading_screen.jpg"));
@@ -519,6 +522,7 @@ public class Sprites {
 	}
 	
 	public static boolean sprite() throws IOException {
+		gem_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/gem_frame.png"));
 		pyrestone = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/gem/inv_jewelcrafting_pyrestone_02.jpg"));
 		empyrean_sapphire = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/gem/inv_jewelcrafting_empyreansapphire_02.jpg"));
 		crimson_spinel = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream("sprite/gem/inv_jewelcrafting_crimsonspinel_02.jpg"));
@@ -540,6 +544,7 @@ public class Sprites {
 		bag_hover_tooltip = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_hover_tooltip.png"));
 		elevator_button = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/elevator_button.png"));
 		bag_click_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_click_hover.png"));
+		inventory_click_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/inventory_click_hover.png"));
 		spellbook_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-Spellbook-Down.png"));
 		bag_open_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/bag_open_border.png"));
 		talent_frame_open = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/buttons/buttons/UI-MicroButton-Talents-Down.png"));
@@ -999,13 +1004,14 @@ public class Sprites {
 		shop_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shop_hover.png"));
 		stuff_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_hover.png"));
 		stuff_hover2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/stuff_hover.png"));
-		character_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/characterFrame.png"));
+		character_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/characterFrame_final.png"));
 		character_frame2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/characterFrame.png"));
 		character_frame_stats = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/character_frame_stats.png"));
 		shop_frame = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/shop_frame.png"));
 		class_choose = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/class_choose.png"));
 		border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));
 		spell_hover = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/spell_hover.png"));
+		spell_hover2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/spell_hover.png"));
 		spell_border = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/final_border.png"));
 		border2 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));
 		border3 = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("sprite/interface/border.png"));

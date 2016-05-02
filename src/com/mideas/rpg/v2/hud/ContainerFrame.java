@@ -757,6 +757,9 @@ public class ContainerFrame {
 				Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
 			}
 		}
+		if(DragManager.getClickBag(i)) {
+			Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()+x-1, Display.getHeight()+y-1);
+		}
 	}
 	
 	private static void splitItem(int i) {
@@ -863,7 +866,7 @@ public class ContainerFrame {
 					drawPotion(i, x, y);
 				}
 			}
-			//Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
+			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y-1);
 		}
 	}
 	
@@ -1085,10 +1088,10 @@ public class ContainerFrame {
 		}
 		if(((Stuff)Mideas.bag().getBag(i)).getGemBonusType() != GemBonusType.NONE) {
 			if(((Stuff)Mideas.bag().getBag(i)).getGemBonusActivated()) {
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, "Socket bonus: + "+((Stuff)Mideas.bag().getBag(i)).getGemBonusValue()+" "+convGemBonusTypeToString(((Stuff)Mideas.bag().getBag(i)).getGemBonusType()), Color.white, Color.black, 1);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, "Socket bonus: +"+((Stuff)Mideas.bag().getBag(i)).getGemBonusValue()+" "+convGemBonusTypeToString(((Stuff)Mideas.bag().getBag(i)).getGemBonusType()), Color.green, Color.black, 1);
 			}
 			else {
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, "Socket Bonus: + "+((Stuff)Mideas.bag().getBag(i)).getGemBonusValue()+" "+convGemBonusTypeToString(((Stuff)Mideas.bag().getBag(i)).getGemBonusType()), Color.gray, Color.black, 1);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, "Socket Bonus: +"+((Stuff)Mideas.bag().getBag(i)).getGemBonusValue()+" "+convGemBonusTypeToString(((Stuff)Mideas.bag().getBag(i)).getGemBonusType()), Color.gray, Color.black, 1);
 			}
 			shift+= 20;
 		}
@@ -1312,32 +1315,32 @@ public class ContainerFrame {
 		return Color.white;
 	}
 	
-	private static String writeGemStats(Gem gem) {
+	public static String writeGemStats(Gem gem) {
 		boolean stats = false;
 		StringBuilder result = new StringBuilder();
 		if(gem.getArmor() > 0) {
-			result.append("+ "+gem.getArmor()+" armor");
+			result.append("+"+gem.getArmor()+" armor");
 			stats = true;
 		}
 		if(gem.getCritical() > 0) {
 			if(stats) {
 				result.append(" and ");
 			}
-			result.append("+ "+gem.getCritical()+" critical");
+			result.append("+"+gem.getCritical()+" critical");
 			stats = true;
 		}
 		if(gem.getStamina() > 0) {
 			if(stats) {
 				result.append(" and ");
 			}
-			result.append("+ "+gem.getStamina()+" stamina");
+			result.append("+"+gem.getStamina()+" stamina");
 			stats = true;
 		}
 		if(gem.getStrength() > 0) {
 			if(stats) {
 				result.append(" and ");
 			}
-			result.append("+ "+gem.getStrength()+" strength");
+			result.append("+"+gem.getStrength()+" strength");
 			stats = true;
 		}
 		return result.toString();

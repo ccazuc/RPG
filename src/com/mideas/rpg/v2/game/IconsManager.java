@@ -106,7 +106,7 @@ public class IconsManager {
 	}
 	
 	private static void loadTexture37(String id) {
-		File file = new File("bag_icons/"+id+".jpg");
+		File file = new File("Icons 37-35/"+id+".jpg");
 		if(file.exists()) {
 			Texture newTexture;
 			try {

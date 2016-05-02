@@ -80,7 +80,7 @@ public class DragManager {
 	
 	public static boolean mouseEvent() throws SQLException {
 		if(!ContainerFrame.isHoverItemNumberFrame()) {
-			if(Keyboard.isKeyDown(42) && !Mouse.getEventButtonState() && (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)) {
+			if(Keyboard.isKeyDown(42) && !Mouse.getEventButtonState() && (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)) { //split item
 				int i = 0;
 				while(i < Mideas.bag().getBag().length) {
 					if(ContainerFrame.getContainerFrameSlotHover(i)) {
@@ -89,6 +89,7 @@ public class DragManager {
 								if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) > 1) {
 									ContainerFrame.setItemNumberOpen(i, true);
 									leftClickBagDown = false;
+									Arrays.fill(clickBag, false);
 									return true;
 								}
 							}
@@ -97,8 +98,8 @@ public class DragManager {
 					i++;
 				}
 			}
-			if(Mouse.getEventButton() == 0) {
-				if(Mouse.getEventButtonState()) {
+			if(Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0) {
 					if(checkInventoryClick() && draggedItem == null) {
 						leftClickInventoryDown = true;
 						mouseX = Mideas.mouseX();
@@ -110,7 +111,9 @@ public class DragManager {
 						mouseY = Mideas.mouseY();
 					}
 				}
-				else {
+			}
+			else {
+				if(Mouse.getEventButton() == 0) {
 					int i = 0;
 					if(draggedItem != null) {
 						if(draggedItem != null && !deleteItem && !isSpellBarHover() && !isHoverCharacterFrame() && !isHoverBagFrame()) {
@@ -191,6 +194,7 @@ public class DragManager {
 					leftClickBagDown = false;
 					Arrays.fill(clickBag, false);
 					Arrays.fill(clickInventory, false);
+					deleteItem = false;
 				}
 			}
 			if(leftClickInventoryDown && draggedItem == null) {
@@ -884,7 +888,7 @@ public class DragManager {
 	
 	public static boolean isHoverCharacterFrame() {
 		if(Interface.getCharacterFrameStatus()) {
-			if(Mideas.mouseX() >= Display.getWidth()/2-300+CharacterFrame.getMouseX() && Mideas.mouseX() <= Display.getWidth()/2+135+CharacterFrame.getMouseX() && Mideas.mouseY() >= Display.getHeight()/2-380+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2+146+CharacterFrame.getMouseY()) {
+			if(Mideas.mouseX() >= Display.getWidth()/2-300+CharacterFrame.getMouseX() && Mideas.mouseX() <= Display.getWidth()/2-300+Sprites.character_frame.getImageWidth()+CharacterFrame.getMouseX() && Mideas.mouseY() >= Display.getHeight()/2-380+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2-380+Sprites.character_frame.getImageHeight()+CharacterFrame.getMouseY()) {
 				return true;
 			}
 		}
@@ -953,6 +957,10 @@ public class DragManager {
 	
 	public static boolean getClickBag(int i) {
 		return clickBag[i];
+	}
+	
+	public static boolean getClickInventory(int i) {
+		return clickInventory[i];
 	}
 	
 	public static boolean canWear(Stuff stuff) {

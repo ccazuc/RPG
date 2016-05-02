@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.game.spell;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Mideas;
@@ -96,7 +98,7 @@ public class Spell {
 	}
 	
 	public void doDamage(Joueur joueur2, Joueur joueur) {
-		joueur2.setStamina(joueur2.getStamina()-getDamage()-joueur.getStrength());
+		joueur2.setStamina(joueur2.getStamina()-(getDamage()+joueur.getStrength())*ThreadLocalRandom.current().nextDouble(.9, 1.1));
 	}
 	
 	public void doHeal(Joueur joueur) {

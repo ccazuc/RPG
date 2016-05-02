@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.hud.DragManager;
@@ -15,7 +16,7 @@ public class WeaponManager {
 	private static ArrayList<Stuff> weaponList = new ArrayList<Stuff>();
 	
 	public static void loadWeapons() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, name, sprite_id, class, type, slot, quality, color1, color2, color3, level, armor, stamina, mana, critical, strength, sellprice FROM weapon");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, name, sprite_id, class, type, slot, quality, color1, color2, color3, gem_bonus_type, gem_bonus_value, level, armor, stamina, mana, critical, strength, sellprice FROM weapon");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
@@ -34,6 +35,9 @@ public class WeaponManager {
 			GemColor color2 = GemManager.convColor(tempColor);
 			tempColor = statement.getString();
 			GemColor color3 = GemManager.convColor(tempColor);
+			String tempBonusType = statement.getString();
+			GemBonusType bonusType = StuffManager.convBonusType(tempBonusType);
+			int bonusValue = statement.getInt();
 			int level = statement.getInt();
 			int armor = statement.getInt();
 			int stamina = statement.getInt();
@@ -41,7 +45,7 @@ public class WeaponManager {
 			int critical = statement.getInt();
 			int strength = statement.getInt();
 			int sellPrice = statement.getInt();
-			Stuff newPiece = new Stuff(id, name, sprite_id, classeType, type, slot, quality, color1, color2, color3, level, armor, stamina, mana, critical, strength, sellPrice);
+			Stuff newPiece = new Stuff(id, name, sprite_id, classeType, type, slot, quality, color1, color2, color3, bonusType, bonusValue, level, armor, stamina, mana, critical, strength, sellPrice);
 			weaponList.add(newPiece);
 		}
 	}

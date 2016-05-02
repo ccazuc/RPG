@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.ClassManager;
+import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ClassSelectFrame {
@@ -227,6 +228,7 @@ public class ClassSelectFrame {
 			Mideas.getExp();
 			CharacterStuff.getBagItems();
 			CharacterStuff.getEquippedItems();
+			SpellBarManager.loadSpellBar();
 			Mideas.getGold();
 			Mideas.getExp();
 			SpellLevel.setSpellLevelFalse();

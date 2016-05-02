@@ -1,6 +1,8 @@
 package com.mideas.rpg.v2.game;
 
 import java.sql.SQLException;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
@@ -143,7 +145,8 @@ public class Joueur {
 	}
 	
 	public void attack(Joueur joueur) throws SQLException {
-		double damage = Mideas.joueur1().getStrength()+Math.random()*100;
+		double damage = Mideas.joueur1().getStrength()*ThreadLocalRandom.current().nextDouble(.9, 1.1);
+		System.out.println(Mideas.joueur1().getStrength()+" "+damage);
 		SpellBarFrame.setIsCastingSpell(false);
 		if(Math.random() < this.critical/100.) {
 			damage*= 2;
@@ -165,7 +168,7 @@ public class Joueur {
 	}
 	
 	public void attackUI(Spell spell) throws SQLException {
-		double damage = Mideas.joueur2().getStrength()+Math.random()*100;
+		double damage = Mideas.joueur2().getStrength()*ThreadLocalRandom.current().nextDouble(.9, 1.1);
 		float rand = (float)Math.random();
 		if(rand < Mideas.joueur2().getCritical()/100.) {
 			damage*= 2;

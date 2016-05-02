@@ -73,6 +73,8 @@ public class Stuff extends Item {
 
 	public Stuff(Stuff weapon, int i) { //weapon constructor
 		super(weapon.id, weapon.sprite_id, weapon.itemType, weapon.name, weapon.quality, weapon.sellPrice, weapon.maxStack);
+		this.gemBonusValue = weapon.gemBonusValue;
+		this.gemBonusType = weapon.gemBonusType;
 		this.weaponType = weapon.weaponType;
 		this.weaponSlot = weapon.weaponSlot;
 		this.classType = weapon.classType;
@@ -87,8 +89,10 @@ public class Stuff extends Item {
 		this.mana = weapon.mana;
 	}
 	
-	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, GemColor color1, GemColor color2, GemColor color3, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
+	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
 		super(id, sprite_id, ItemType.WEAPON, name, quality, sellPrice, 1);
+		this.gemBonusValue = gemBonusValue;
+		this.gemBonusType = gemBonusType;
 		this.weaponType = weaponType;
 		this.weaponSlot = weaponSlot;
 		this.classType = classType;
@@ -553,15 +557,15 @@ public class Stuff extends Item {
 	}
 	
 	public boolean isMainHand() {
-		return this.type == StuffType.MAINHAND;
+		return this.weaponSlot == WeaponSlot.MAINHAND;
 	}
 	
 	public boolean isOffHand() {
-		return this.type == StuffType.OFFHAND;
+		return this.weaponSlot == WeaponSlot.OFFHAND;
 	}
 	
 	public boolean isRanged() {
-		return this.type == StuffType.RANGED;
+		return this.weaponSlot == WeaponSlot.RANGED;
 	}
 	
 	public boolean equals(Stuff item) {

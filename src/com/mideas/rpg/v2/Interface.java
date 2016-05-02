@@ -32,6 +32,7 @@ import com.mideas.rpg.v2.hud.EndFightFrame;
 import com.mideas.rpg.v2.hud.EscapeFrame;
 import com.mideas.rpg.v2.hud.GoldFrame;
 import com.mideas.rpg.v2.hud.LogChat;
+import com.mideas.rpg.v2.hud.PerformanceBarFrame;
 import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
 import com.mideas.rpg.v2.hud.ShopFrame;
 import com.mideas.rpg.v2.hud.ShortcutFrame;
@@ -62,6 +63,12 @@ public class Interface {
 	private static boolean isChangeClassActive;
 	private static boolean craftFrameActive;
 	private static boolean chatFrameActive = true;
+	private static boolean cast;
+	private static double containerDrawTime;
+	private static double containerMouseEventTime;
+	private static double characterMouseEventTime;
+	private static double spellBarMouseEventTime;
+	private static double dragMouseEventTime;
 
 	public static void draw() throws IOException, SQLException {
 		Draw.drawQuad(Sprites.current_bg, Display.getWidth()/2-Sprites.current_bg.getImageWidth()/2, Display.getHeight()/2-Sprites.current_bg.getImageHeight()/2);
@@ -104,13 +111,17 @@ public class Interface {
 							EndFightFrame.draw();
 						}
 					}
-					CastBar.draw();
 					SpellBarFrame.draw();
+					cast = CastBar.draw();
 					SpellLevel.addSpell();
+					double time = System.nanoTime();
 					if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 						containerFrameActive = true;
 						ContainerFrame.draw();
 						GoldFrame.draw();
+					}
+					if(System.currentTimeMillis()%2000 < 10) {
+						containerDrawTime = System.nanoTime()-time;
 					}
 					if(shopFrameActive) {
 						ShopManager.draw();		
@@ -145,6 +156,7 @@ public class Interface {
 					if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 						DrawContainerHover.draw();
 					}
+					PerformanceBarFrame.draw();
 					LogChat.draw();
 					DragManager.draw();
 					DragBagManager.draw();
@@ -175,21 +187,39 @@ public class Interface {
 			if(DragSpellManager.mouseEvent()) {
 				return true;
 			}
+			double time = System.nanoTime();
 			if(SpellBarFrame.mouseEvent()) {
 				return true;
+			}
+			if(System.currentTimeMillis()%500 < 10) {
+				spellBarMouseEventTime = System.nanoTime()-time;
 			}
 			if(ShortcutFrame.mouseEvent()) {
 				return true;
 			}
+			time = System.nanoTime();
 			if(characterFrameActive) {
 				if(CharacterFrame.mouseEvent()) {
+					if(System.currentTimeMillis()%500 < 10) {
+						characterMouseEventTime = System.nanoTime()-time;
+					}
 					return true;
 				}
 			}
+			if(System.currentTimeMillis()%500 < 10) {
+				characterMouseEventTime = System.nanoTime()-time;
+			}
+			time = System.nanoTime();
 			if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 				if(ContainerFrame.mouseEvent()) {
+					if(System.currentTimeMillis()%500 < 10) {
+						containerMouseEventTime = System.nanoTime()-time;
+					}
 					return true;
 				}
+			}
+			if(System.currentTimeMillis()%500 < 10) {
+				containerMouseEventTime = System.nanoTime()-time;
 			}
 			DragBagManager.openBag();
 			if(DragBagManager.mouseEvent()) {
@@ -239,8 +269,18 @@ public class Interface {
 					return true;
 				}
 			}
+			time = System.nanoTime();
             if(DragManager.mouseEvent()) {
+    			if(System.currentTimeMillis()%500 < 10) {
+    				dragMouseEventTime = System.nanoTime()-time;
+    			}
                 return true;
+            }
+			if(System.currentTimeMillis()%500 < 10) {
+				dragMouseEventTime = System.nanoTime()-time;
+			}
+            if(PerformanceBarFrame.mouseEvent()) {
+            	return true;
             }
 			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
 				EndFightFrame.mouseEvent();
@@ -263,6 +303,9 @@ public class Interface {
 						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
 						characterFrameActive = !characterFrameActive;
 						return true;
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_W) {
+						PerformanceBarFrame.setPerformanceBarActive(!PerformanceBarFrame.getPerformanceBarActive());
 					}
 					else if(Keyboard.isKeyDown(42) && Keyboard.getEventKey() == Keyboard.KEY_B && !escapeFrameActive) {
 						if(containerFrameActive) {
@@ -399,6 +442,26 @@ public class Interface {
 		return false;
 	}
 	
+	public static double getContainerDrawTime() {
+		return containerDrawTime;
+	}
+	
+	public static double getContainerMouseEventTime() {
+		return containerMouseEventTime;
+	}
+	
+	public static double getCharacterMouseEventTime() {
+		return characterMouseEventTime;
+	}
+	
+	public static double getSpellBarMouseEventTime() {
+		return spellBarMouseEventTime;
+	}
+	
+	public static double getDragMouseEventTime() {
+		return dragMouseEventTime;
+	}
+	
 	private static void closeBagEvent() {
 		Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
 		ContainerFrame.setIsOneButtonDown(false);
@@ -524,5 +587,9 @@ public class Interface {
 	
 	public static void setTalentFrameStatus(boolean we) {
 		talentFrameActive = we;
+	}
+	
+	public static boolean getCast() {
+		return cast;
 	}
 }

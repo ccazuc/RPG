@@ -62,6 +62,9 @@ public class Mideas {
 	private static int[] expAll = new int[11];
 	private static int currentExp;
 	private static int currentGold;
+	private static long usedRAM;
+	private static double interfaceDrawTime;
+	private static double mouseEventTime;
 	
 	public static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -137,6 +140,7 @@ public class Mideas {
 		getExpAll();
 		joueur2 = getRandomClass(2);
 		System.gc();
+		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		while(!Display.isCloseRequested()) {
 			fpsUpdate();
 			context2D();
@@ -146,20 +150,26 @@ public class Mideas {
 				currentPlayer = true;
 				lessCd();
 			}
+			time = System.nanoTime();
 			while(Mouse.next()) {
 				if(Interface.mouseEvent()) {
 					continue;
 				}
+			}
+			if(System.currentTimeMillis()%500 < 10) {
+				mouseEventTime = (float)(System.nanoTime()-time);
 			}
 			while(Keyboard.next()) {
 				if(Interface.keyboardEvent()) {
 					continue;
 				}
 			}
-			if(System.currentTimeMillis()%30000 < 10) {
-				System.gc();
-			}
+			timeEvent();
+			time = System.nanoTime();
 			Interface.draw();
+			if(System.currentTimeMillis()%2000 < 10) {
+				interfaceDrawTime = System.nanoTime()-time;
+			}
 			Display.update();
 			Display.sync(120);
 		}
@@ -197,7 +207,25 @@ public class Mideas {
 		}
 	}
 	
-	/*public static Joueur getJoueur(String joueur) {
+	public static double getInterfaceDrawTime() {
+		return interfaceDrawTime;
+	}
+	
+	public static double getMouseEventTime() {
+		return mouseEventTime;
+	}
+	
+	private static void timeEvent() {
+		if(System.currentTimeMillis()%10000 < 10) {
+			System.gc();
+			usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+		}
+	}
+	
+	public static long getUsedRAM() {
+		return usedRAM;
+	}
+ 	/*public static Joueur getJoueur(String joueur) {
 		if(joueur.equals("Guerrier")) {
 			return ClassManager.getPlayer("Guerrier");
 		}
@@ -841,6 +869,11 @@ public class Mideas {
 	private static void loadingScreen() throws IOException {
 		Sprites.initBG();
 		context2D();
+       /* (new Thread(new ThreadSprites(0))).start();
+        (new Thread(new ThreadSprites(1))).start();
+        (new Thread(new ThreadSprites(2))).start();
+        (new Thread(new ThreadSprites(3))).start();
+        (new Thread(new ThreadSprites(4))).start();*/
 		
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);

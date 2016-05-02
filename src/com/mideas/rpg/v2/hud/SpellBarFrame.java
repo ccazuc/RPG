@@ -10,6 +10,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
@@ -29,7 +30,6 @@ import com.mideas.rpg.v2.utils.Draw;
 public class SpellBarFrame {
 	
 	private static Shortcut hoveredSpell;
-	private static boolean hoverAttack;
 	private static boolean bagChange = true;
 	private static boolean[] hoverSpellBar = new boolean[36];
 	private static Color bgColor = new Color(0, 0, 0, .6f); 
@@ -42,8 +42,9 @@ public class SpellBarFrame {
 	private static int yHoveredSpell;
 	
 	public static boolean draw() throws SQLException {
-		Arrays.fill(hoverSpellBar, false);
-		hoverAttack = false;
+		if(DragManager.isSpellBarHover()) {
+			Arrays.fill(hoverSpellBar, false);
+		}
 		hoveredSpell = null;
 		if(Mideas.getLevel() >= 70) {
 			Draw.drawColorQuad(Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2+115, Display.getHeight()-Sprites.final_spellbar.getImageHeight()+23, 1155, 9,  Color.decode("#680764"));
@@ -138,7 +139,7 @@ public class SpellBarFrame {
 			if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+37+x && Mideas.mouseY() >= Display.getHeight()+y-2+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
 				hoverSpellBar[spellCount] = true;
 				if(DragSpellManager.getDraggedSpell() != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpellBook() != null || Mideas.joueur1().getSpells(spellCount) != null) {
-					Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-2.5f, Display.getHeight()+y-1+yShift);
+					Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-2, Display.getHeight()+y-2+yShift);
 				}
 			}
 			x+= 47.9;
@@ -196,10 +197,11 @@ public class SpellBarFrame {
 		if(Mideas.mouseX() >= Display.getWidth()/2+539.2f && Mideas.mouseX() <= Display.getWidth()/2+539.2+48.2f && Mideas.mouseY() >= Display.getHeight()-40 && Mideas.mouseY() <= Display.getHeight()-3) {
 			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+537, Display.getHeight()-41);
 		}
-		if(CastBar.draw() && isCastingSpell) {
+		if(Interface.getCast() && isCastingSpell) {
 			tempSpell.use(tempSpell);
 			checkKeyboardCd(tempSpell);
 			Mideas.setCurrentPlayer(false);
+			isCastingSpell = false;
 		}
 		return false;
 	}
@@ -207,11 +209,7 @@ public class SpellBarFrame {
 	public static boolean mouseEvent() throws SQLException, FileNotFoundException {
 		if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 			if(!Mouse.getEventButtonState() && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null && DragManager.getDraggedItem() == null) {
-				if(hoverAttack) {
-					Mideas.joueur1().tick();
-					Mideas.setCurrentPlayer(false);
-				}
-				else if(hoveredSpell != null && DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
+				if(hoveredSpell != null && DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
 					if(hoveredSpell.getShortcutType() == ShortcutType.SPELL) {
 						if(SpellManager.getCd(((SpellShortcut)hoveredSpell).getSpell().getSpellId()) <= 0) {
 							if(((SpellShortcut)hoveredSpell).getSpell().getCastTime() > 0) {
@@ -247,52 +245,51 @@ public class SpellBarFrame {
 	public static boolean keyboardEvent() throws SQLException, FileNotFoundException {
 		if(!ChatFrame.getChatActive()) {
 			if(Keyboard.getEventKey() == Keyboard.KEY_1) {
-				Mideas.joueur1().tick();
-				Mideas.setCurrentPlayer(false);
-				return true;
-			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_2) {
 				keyboardAttack(Mideas.joueur1().getSpells(0));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_3) {
+			else if(Keyboard.getEventKey() == Keyboard.KEY_2) {
 				keyboardAttack(Mideas.joueur1().getSpells(1));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_4) {
+			else if(Keyboard.getEventKey() == Keyboard.KEY_3) {
 				keyboardAttack(Mideas.joueur1().getSpells(2));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_5) {
+			else if(Keyboard.getEventKey() == Keyboard.KEY_4) {
 				keyboardAttack(Mideas.joueur1().getSpells(3));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_6) {
+			else if(Keyboard.getEventKey() == Keyboard.KEY_5) {
 				keyboardAttack(Mideas.joueur1().getSpells(4));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_7) {
+			else if(Keyboard.getEventKey() == Keyboard.KEY_6) {
 				keyboardAttack(Mideas.joueur1().getSpells(5));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_8) {
+			else if(Keyboard.getEventKey() == Keyboard.KEY_7) {
 				keyboardAttack(Mideas.joueur1().getSpells(6));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_9) {
+			else if(Keyboard.getEventKey() == Keyboard.KEY_8) {
 				keyboardAttack(Mideas.joueur1().getSpells(7));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_0) {
+			else if(Keyboard.getEventKey() == Keyboard.KEY_9) {
 				keyboardAttack(Mideas.joueur1().getSpells(8));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == 26) {
+			else if(Keyboard.getEventKey() == Keyboard.KEY_0) {
 				keyboardAttack(Mideas.joueur1().getSpells(9));
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_EQUALS) {
+			else if(Keyboard.getEventKey() == 26) {
 				keyboardAttack(Mideas.joueur1().getSpells(10));
+				return true;
+			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_EQUALS) {
+				keyboardAttack(Mideas.joueur1().getSpells(11));
 				return true;
 			}
 		}
@@ -303,9 +300,9 @@ public class SpellBarFrame {
 		if(spell != null && spell.getShortcutType() == ShortcutType.SPELL) {
 			if(SpellManager.getCd(((SpellShortcut)spell).getSpell().getSpellId()) <= 0) {
 				if(((SpellShortcut)spell).getSpell().getCastTime() > 0) {
+					isCastingSpell = true;
 					CastBar.event(((SpellShortcut)spell).getSpell().getCastTime(), ((SpellShortcut)spell).getSpell().getName());
 					tempSpell = (SpellShortcut)spell;
-					isCastingSpell = true;
 				}
 				else {
 					spell.use(spell);
