@@ -14,7 +14,6 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 public class StuffManager {
 
 	private static ArrayList<Stuff> stuffList = new ArrayList<Stuff>();
-	//private static ArrayList<StuffShortcut> stuffShortcutList = new ArrayList<StuffShortcut>();
 	private static int numberStuffLoaded;
 	
 	public static void loadStuffs() throws SQLException {
@@ -48,8 +47,6 @@ public class StuffManager {
 			int strength = statement.getInt();
 			int sellPrice = statement.getInt();
 			Stuff newPiece = new Stuff(type, classeType, sprite_id, id, name, quality, color1, color2, color3, bonusType, bonusValue, level, wear, critical, strength, stamina, armor, mana, sellPrice);
-			//StuffShortcut newShortcutPiece = new StuffShortcut(newPiece);
-			//stuffShortcutList.add(newShortcutPiece);
 			stuffList.add(newPiece);
 			numberStuffLoaded++;
 		}
