@@ -331,7 +331,7 @@ public class SpellBarFrame {
 		return isCastingSpell;
 	}
 	
-	private static void checkClickCd() {
+	/*private static void checkClickCd() {
 		for(Shortcut spell : Mideas.joueur1().getSpells()) {
 			if(spell != null && spell.getShortcutType() == ShortcutType.SPELL) {
 				if(spell != null && ((SpellShortcut)hoveredSpell).getSpell().getSpellId() == ((SpellShortcut)spell).getSpell().getSpellId()) {
@@ -339,22 +339,22 @@ public class SpellBarFrame {
 				}
 			}
 		}
-	}
+	}*/
 
 	public static boolean doHealingPotion(Potion item) throws SQLException {
 		if(item != null && item.getItemType() == ItemType.POTION) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
-				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
+				LogChat.setStatusText3("Vous vous ï¿½tes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
 			}
 			else if(Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()+item.getPotionHeal());
-				LogChat.setStatusText3("Vous vous êtes rendu "+item.getPotionHeal()+" hp");
+				LogChat.setStatusText3("Vous vous ï¿½tes rendu "+item.getPotionHeal()+" hp");
 				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
 			}
 			else {
-				LogChat.setStatusText3("Vos HP étaient déjà au maximum");
+				LogChat.setStatusText3("Vos HP ï¿½taient dï¿½jï¿½ au maximum");
 			}
 			CharacterStuff.setBagItems();
 			if(Mideas.joueur1().getNumberItem(item) <= 0) {

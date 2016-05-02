@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
