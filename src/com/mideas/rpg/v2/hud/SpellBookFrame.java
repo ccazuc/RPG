@@ -5,7 +5,6 @@ import java.util.Arrays;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
@@ -14,6 +13,7 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Texture;
 
 public class SpellBookFrame {
 	

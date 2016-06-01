@@ -25,6 +25,14 @@ public class TTF2 {
 	public static TTF itemName;
 	public static TTF itemNumber;
 	public static TTF talent;
+	public static TTF chat;
+	public static TTF loginScreenAccount;
+	public static TTF loginScreenPassword;
+	public static TTF loginScreenTick;
+	public static TTF selectScreenName;
+	public static TTF selectScreenLevel;
+	public static TTF raceName;
+	public static TTF selectScreenDeleteCharacterConfirm;
 	
 	public static void init() throws FontFormatException, IOException {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
@@ -42,6 +50,12 @@ public class TTF2 {
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		awtFont = awtFont.deriveFont(16f);
 	    font4 = new TTF(awtFont, true);
+	    
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(14f);
+		awtFont = awtFont.deriveFont(Font.BOLD);
+	    chat = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
@@ -108,5 +122,45 @@ public class TTF2 {
 		awtFont = awtFont.deriveFont(12f);
 		awtFont = awtFont.deriveFont(Font.BOLD);
 		characterFrameStats = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(21f);
+		loginScreenAccount = new TTF(awtFont, true);
+
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(16f);
+		loginScreenPassword = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(30f);
+		awtFont = awtFont.deriveFont(Font.BOLD);
+		loginScreenTick = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(24f);
+		awtFont = awtFont.deriveFont(Font.BOLD);
+		selectScreenName = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(15f);
+		awtFont = awtFont.deriveFont(Font.BOLD);
+		selectScreenLevel = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(15f);
+		awtFont = awtFont.deriveFont(Font.BOLD);
+		raceName = new TTF(awtFont, true);
+
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(20f);
+		awtFont = awtFont.deriveFont(Font.BOLD);
+		selectScreenDeleteCharacterConfirm = new TTF(awtFont, true);
 	}
 }

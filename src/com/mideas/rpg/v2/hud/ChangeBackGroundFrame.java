@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
+import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;

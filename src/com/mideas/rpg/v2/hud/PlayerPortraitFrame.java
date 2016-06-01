@@ -1,7 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
+import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;

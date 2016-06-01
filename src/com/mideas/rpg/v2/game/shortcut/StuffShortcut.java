@@ -3,7 +3,7 @@ package com.mideas.rpg.v2.game.shortcut;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-import org.newdawn.slick.opengl.Texture;
+import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.CharacterStuff;

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
+import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -459,6 +459,9 @@ public class ContainerFrame {
 		itemNumberCancelButton = false;
 		itemNumberLeftArrow = false;
 		itemNumberRightArrow = false;
+		if(iHover != -1) {
+			slot_hover[iHover] = false;
+		}
 		checkItemNumberMouseEvent();
 		if(!DragManager.isHoverCharacterFrame()) {
 			if(!Mouse.getEventButtonState()) {

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.newdawn.slick.opengl.Texture;
+import com.mideas.rpg.v2.utils.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
@@ -82,7 +82,7 @@ public class IconsManager {
 		if(file.exists()) {
 			Texture newTexture;
 			try {
-				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
+				newTexture = new Texture(file.getAbsolutePath());
 				sprites42.put(id, newTexture);
 			} 
 			catch(IOException e) {
@@ -96,7 +96,7 @@ public class IconsManager {
 		if(file.exists()) {
 			Texture newTexture;
 			try {
-				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
+				newTexture = new Texture(file.getAbsolutePath());
 				sprites35.put(id, newTexture);
 			} 
 			catch(IOException e) {
@@ -110,7 +110,7 @@ public class IconsManager {
 		if(file.exists()) {
 			Texture newTexture;
 			try {
-				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
+				newTexture = new Texture(file.getAbsolutePath());
 				sprites37.put(id, newTexture);
 			} 
 			catch(IOException e) {
@@ -124,7 +124,7 @@ public class IconsManager {
 		if(file.exists()) {
 			Texture newTexture;
 			try {
-				newTexture = TextureLoader.getTexture("JPG", ResourceLoader.getResourceAsStream(file.getAbsolutePath()));
+				newTexture = new Texture(file.getAbsolutePath());
 				sprites47.put(id, newTexture);
 			} 
 			catch(IOException e) {

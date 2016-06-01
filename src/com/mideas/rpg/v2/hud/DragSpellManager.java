@@ -86,7 +86,6 @@ public class DragSpellManager {
 				else if(SpellBookFrame.getHoverBook(5) && Mideas.joueur1().getSpellUnlocked(4) != null) {
 					draggedBookSpell = SpellManager.getBookSpell(103);
 				}
-				System.out.println(draggedBookSpell);
 			}
 			else if(DragManager.getDraggedItem() != null && Mouse.getEventButton() == 0) {
 				if(isHoverSpellBarFrame()) {

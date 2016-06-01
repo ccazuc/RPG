@@ -65,35 +65,34 @@ public class ChatFrame {
 	private static boolean showMessageTime = true;
 
 	public static void draw() {
-		messageShowHeight = 4+yResize/TTF2.font4.getLineHeight();
+		messageShowHeight = 4+yResize/TTF2.chat.getLineHeight();
 		maxLength = 490+xResize;
 		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 130+yResize, bgColor);
 		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
 		if(chatActive) {
-			if(TTF2.font4.getWidth(tempMessage.substring(tempLength)) >= maxLength) {
+			if(TTF2.chat.getWidth(tempMessage.substring(tempLength)) >= maxLength) {
 				tempLength = tempMessage.length()-10;
 				cursorPosition = tempMessage.substring(tempLength).length();
-				cursorShift = TTF2.font4.getWidth(tempMessage.substring(tempLength));
+				cursorShift = TTF2.chat.getWidth(tempMessage.substring(tempLength));
 			}
 			if(tempLength != 0 && tempMessage.substring(tempLength).equals("")) {
 				tempLength-= getLength(tempMessage, 0, maxLength-130);
 				cursorPosition = tempMessage.substring(tempLength).length();
-				cursorShift = TTF2.font4.getWidth(tempMessage.substring(tempLength));
+				cursorShift = TTF2.chat.getWidth(tempMessage.substring(tempLength));
 			}
 			if(System.currentTimeMillis()%1000 < 500) {
-				TTF2.font4.drawString(37+cursorShift, Display.getHeight()-175, "|", Color.white);
-				//TTF2.font4.drawString(37+cursorShift+TTF2.font4.getWidth(tempMessage.substring(tempLength)), Display.getHeight()-175, "|", Color.white);
+				TTF2.chat.drawString(37+cursorShift, Display.getHeight()-175, "|", Color.white);
 			}
 		}
 		Draw.drawColorQuad(selectedStarts, Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
-		TTF2.font4.drawString(40, Display.getHeight()-175, tempMessage.substring(tempLength), Color.white);
+		TTF2.chat.drawString(40, Display.getHeight()-175, tempMessage.substring(tempLength), Color.white);
 		//int j = 0;
 		int k = 0;
 		String draw = "";
 		int beg = 0;
 		/*while(k > messages.size()-messageShowHeight-2 && numberLineSent < messageShowHeight+1 && k+shift < messages.size() && k+shift >= 0) {
 			beg = 0;
-			if(TTF2.font4.getWidth(messages.get(k+shift)) >= maxLength) {
+			if(TTF2.chat.getWidth(messages.get(k+shift)) >= maxLength) {
 				String temp = messages.get(k+shift);
 				draw = temp;
 				int x = 0;
@@ -106,7 +105,7 @@ public class ChatFrame {
 				int i = 0;
 				while(i < x && i < messageShowHeight+1) {
 					if(numberLineSent < messageShowHeight+1) {
-						TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), tempTable[x-i], Color.white);
+						TTF2.chat.drawString(40, Display.getHeight()-175-TTF2.chat.getLineHeight()*(j+1), tempTable[x-i], Color.white);
 						j++;
 						numberLineSent++;
 					}
@@ -114,54 +113,58 @@ public class ChatFrame {
 				}
 			}
 			else {
-				TTF2.font4.drawString(40, Display.getHeight()-175-TTF2.font4.getLineHeight()*(j+1), messages.get(k+shift), Color.white);
+				TTF2.chat.drawString(40, Display.getHeight()-175-TTF2.chat.getLineHeight()*(j+1), messages.get(k+shift), Color.white);
 				j++;
 				numberLineSent++;
 			}
 			k--;
 		}*/
-		xDraw = -totalNumberLine*TTF2.font4.getLineHeight()+Display.getHeight()-175+xShift;
+		xDraw = -totalNumberLine*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
 		while(k < messages.size()) {
 			beg = 0;
-			if(TTF2.font4.getWidth(messages.get(k).getMessage()) >= maxLength) {
+			if(TTF2.chat.getWidth(messages.get(k).getMessage()) >= maxLength) {
 				String temp = messages.get(k).getMessage();
 				draw = temp;
 				int x = 0;
 				while(x < getNumberLine(temp)) {
-					draw = temp.substring(beg, getLength(temp, beg, maxLength-30));
+					if(x == 0 && showMessageTime && messages.get(k).getDisplayHour()) {
+						draw = temp.substring(beg, getLength(temp, beg, maxLength-30-TTF2.chat.getWidth("["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] ")));
+					}
+					else {
+						draw = temp.substring(beg, getLength(temp, beg, maxLength-30));
+					}
 					beg = getLength(temp, beg, maxLength-30);
 					x++;
 					tempTable[x] = draw;
 				}
 				int i = 1;
 				while(i <= x) {
-					//System.out.println("k : "+i+" draw : "+xDraw+" total : "+totalNumberLine+" display min : "+(Display.getHeight()-280-yResize)+" display max : "+(Display.getHeight()-150)+" msg temp : "+tempTable[i]);
-					if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-195 && tempTable[i] != null) {
+					if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-185 && tempTable[i] != null) {
 						if(messages.get(k).getDisplayHour() && i == 1 && showMessageTime) {
-							TTF2.font4.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+tempTable[i], Color.white);
+							TTF2.chat.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+tempTable[i], Color.white);
 						}
 						else {
-							TTF2.font4.drawString(40, xDraw, tempTable[i], Color.white);
+							TTF2.chat.drawString(40, xDraw, tempTable[i], Color.white);
 						}
 					}
-					xDraw+= TTF2.font4.getLineHeight();
+					xDraw+= TTF2.chat.getLineHeight();
 					i++;
 				}
 			}
 			else {
 				//System.out.println("k : "+k+" draw : "+xDraw+" total : "+totalNumberLine+" display min : "+(Display.getHeight()-280-yResize)+" display max : "+(Display.getHeight()-150));
-				if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-195) {
+				if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-185) {
 					if(messages.get(k).getDisplayHour() && showMessageTime) {
-						TTF2.font4.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+messages.get(k).getMessage(), messages.get(k).getColor());
+						TTF2.chat.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+messages.get(k).getMessage(), messages.get(k).getColor());
 					}
 					else {
-						TTF2.font4.drawString(40, xDraw, messages.get(k).getMessage(), messages.get(k).getColor());
+						TTF2.chat.drawString(40, xDraw, messages.get(k).getMessage(), messages.get(k).getColor());
 					}
 				}
-				xDraw+= TTF2.font4.getLineHeight();
+				xDraw+= TTF2.chat.getLineHeight();
 			}
 			k++;
-			if(xDraw > Display.getHeight()-195) {
+			if(xDraw > Display.getHeight()-185) {
 				break;
 			}
 		}
@@ -371,14 +374,14 @@ public class ChatFrame {
 		int i = cursorPosition;
 		if(tempMessage.length() != 0 && i > 0) {
 			if(tempMessage.substring(cursorPosition-1).charAt(0) == ' ' || tempMessage.substring(cursorPosition-1).charAt(0) == ',') {
-				cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
+				cursorShift-= TTF2.chat.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
 				cursorPosition--;
 				i--;
 			}
 		}
 		while(i > 0) {
 			cursorPosition--;
-			cursorShift-= TTF2.font4.getWidth(tempMessage.substring(i-1, i).charAt(0));
+			cursorShift-= TTF2.chat.getWidth(tempMessage.substring(i-1, i).charAt(0));
 			i--;
 			if(i <= 0) {
 				return true;
@@ -395,21 +398,21 @@ public class ChatFrame {
 		if(i < tempMessage.length()) {
 			if(tempMessage.length() != 0) {
 				if(tempMessage.substring(cursorPosition+1).charAt(0) == ' ' || tempMessage.substring(cursorPosition+1).charAt(0) == ',') {
-					cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition+1).charAt(0));
+					cursorShift+= TTF2.chat.getWidth(tempMessage.substring(cursorPosition+1).charAt(0));
 					cursorPosition++;
 					i++;
 				}
 			}
 			while(i < tempMessage.length() && i >= 0) {
 				cursorPosition++;
-				cursorShift+= TTF2.font4.getWidth(tempMessage.substring(i, i+1).charAt(0));
+				cursorShift+= TTF2.chat.getWidth(tempMessage.substring(i, i+1).charAt(0));
 				i++;
 				if(i >= tempMessage.length()) {
 					return true;
 				}
 				if(tempMessage.substring(i, i+1).charAt(0) == ' ' || tempMessage.substring(i, i+1).charAt(0) == ',') {
 					cursorPosition++;
-					cursorShift+= TTF2.font4.getWidth(tempMessage.substring(i, i+1).charAt(0));
+					cursorShift+= TTF2.chat.getWidth(tempMessage.substring(i, i+1).charAt(0));
 					return true;
 				}
 			}
@@ -420,7 +423,7 @@ public class ChatFrame {
 	private static void leftArrow() {
 		if(cursorPosition > 0) {
 			cursorPosition--;
-			cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), cursorPosition+1+tempMessage.substring(0, tempLength).length()));
+			cursorShift-= TTF2.chat.getWidth(tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), cursorPosition+1+tempMessage.substring(0, tempLength).length()));
 		}
 	}
 	
@@ -428,10 +431,10 @@ public class ChatFrame {
 		if(cursorPosition+tempMessage.substring(0, tempLength).length() < tempMessage.length()) {
 			cursorPosition++;
 			if(cursorPosition == tempMessage.length()) {
-				cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length()));
+				cursorShift+= TTF2.chat.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length()));
 			}
 			else {
-				cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length(), cursorPosition+tempMessage.substring(0, tempLength).length()));
+				cursorShift+= TTF2.chat.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length(), cursorPosition+tempMessage.substring(0, tempLength).length()));
 			}
 		}
 	}
@@ -442,7 +445,7 @@ public class ChatFrame {
 				selectedStarts = 40+cursorShift;
 			}
 			leftArrow();
-			selectedQuadLength-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), cursorPosition+1+tempMessage.substring(0, tempLength).length()));
+			selectedQuadLength-= TTF2.chat.getWidth(tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), cursorPosition+1+tempMessage.substring(0, tempLength).length()));
 			selectedLength--;
 		}
  	}
@@ -454,8 +457,8 @@ public class ChatFrame {
 		}
 		if(tempMessage.length() != 0 && i > 0) {
 			if(tempMessage.substring(cursorPosition-1).charAt(0) == ' ' || tempMessage.substring(cursorPosition-1).charAt(0) == ',') {
-				cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
-				selectedQuadLength-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
+				cursorShift-= TTF2.chat.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
+				selectedQuadLength-= TTF2.chat.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
 				selectedLength--;
 				cursorPosition--;
 				i--;
@@ -463,8 +466,8 @@ public class ChatFrame {
 		}
 		while(i > 0) {
 			cursorPosition--;
-			cursorShift-= TTF2.font4.getWidth(tempMessage.substring(i-1, i).charAt(0));
-			selectedQuadLength-= TTF2.font4.getWidth(tempMessage.substring(i-1, i).charAt(0));
+			cursorShift-= TTF2.chat.getWidth(tempMessage.substring(i-1, i).charAt(0));
+			selectedQuadLength-= TTF2.chat.getWidth(tempMessage.substring(i-1, i).charAt(0));
 			selectedLength--;
 			i--;
 			if(i <= 0) {
@@ -485,8 +488,8 @@ public class ChatFrame {
 		if(i < tempMessage.length()) {
 			if(tempMessage.length() != 0 && cursorPosition+1 <= tempMessage.length() && cursorPosition+1 >= 0) {
 				if(tempMessage.substring(cursorPosition+1).charAt(0) == ' ' || tempMessage.substring(cursorPosition+1).charAt(0) == ',') {
-					cursorShift+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition+1).charAt(0));
-					selectedQuadLength+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition+1).charAt(0));
+					cursorShift+= TTF2.chat.getWidth(tempMessage.substring(cursorPosition+1).charAt(0));
+					selectedQuadLength+= TTF2.chat.getWidth(tempMessage.substring(cursorPosition+1).charAt(0));
 					selectedLength++;
 					cursorPosition++;
 					i++;
@@ -494,8 +497,8 @@ public class ChatFrame {
 			}
 			while(i < tempMessage.length() && i >= 0) {
 				cursorPosition++;
-				cursorShift+= TTF2.font4.getWidth(tempMessage.substring(i, i+1).charAt(0));
-				selectedQuadLength+= TTF2.font4.getWidth(tempMessage.substring(i, i+1).charAt(0));
+				cursorShift+= TTF2.chat.getWidth(tempMessage.substring(i, i+1).charAt(0));
+				selectedQuadLength+= TTF2.chat.getWidth(tempMessage.substring(i, i+1).charAt(0));
 				selectedLength++;
 				i++;
 				if(i >= tempMessage.length()) {
@@ -516,10 +519,10 @@ public class ChatFrame {
 			}
 			rightArrow();
 			if(cursorPosition == tempMessage.length()) {
-				selectedQuadLength+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length()));
+				selectedQuadLength+= TTF2.chat.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length()));
 			}
 			else {
-				selectedQuadLength+= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length(), cursorPosition+tempMessage.substring(0, tempLength).length()));
+				selectedQuadLength+= TTF2.chat.getWidth(tempMessage.substring(cursorPosition-1+tempMessage.substring(0, tempLength).length(), cursorPosition+tempMessage.substring(0, tempLength).length()));
 			}
 			selectedLength++;
 		}
@@ -530,7 +533,7 @@ public class ChatFrame {
 			tempMessage = rawMessages.get(numberMessageSent-numberUpArrow);
 			numberUpArrow++;
 			cursorPosition = tempMessage.length();
-			cursorShift = TTF2.font4.getWidth(tempMessage);
+			cursorShift = TTF2.chat.getWidth(tempMessage);
 		}
 	}
 
@@ -550,25 +553,25 @@ public class ChatFrame {
 	}
 	
 	private static void scrollUp() {
-    	if(xShift/TTF2.font4.getLineHeight() <= totalNumberLine-messageShowHeight-2) {
-    		xShift+= TTF2.font4.getLineHeight();
+    	if(xShift/TTF2.chat.getLineHeight() <= totalNumberLine-messageShowHeight-2) {
+    		xShift+= TTF2.chat.getLineHeight();
     	}
 	}
 	
 	private static void scrollDown() {
-    	if(xShift/TTF2.font4.getLineHeight() > 0) {
-    		xShift-= TTF2.font4.getLineHeight();
+    	if(xShift/TTF2.chat.getLineHeight() > 0) {
+    		xShift-= TTF2.chat.getLineHeight();
     	}
 	}
 	
 	private static int getNumberLine(String msg) {
-		return TTF2.font4.getWidth(msg)/maxLength+1;
+		return TTF2.chat.getWidth(msg)/maxLength+1;
 	}
 	
 	private static int getLength(String msg, int beg, int length) {
 		int i = beg;
 		String temp = "";
-		while(TTF2.font4.getWidth(temp) <= length && i < msg.length()) {
+		while(TTF2.chat.getWidth(temp) <= length && i < msg.length()) {
 			temp = msg.substring(beg, i);
 			i++;
 		}
@@ -598,7 +601,7 @@ public class ChatFrame {
 			if(tempMessage.substring(i-1, i).charAt(0) == ' ' || tempMessage.substring(i-1, i).charAt(0) == ',') {
 				tempMessage = tempMessage.substring(0, i);
 				cursorPosition = tempMessage.length();
-				cursorShift = TTF2.font4.getWidth(tempMessage);
+				cursorShift = TTF2.chat.getWidth(tempMessage);
 				return true;
 			}
 			i--;
@@ -622,7 +625,7 @@ public class ChatFrame {
 			else {
 				beg = tempMessage.substring(0, cursorPosition-selectedLength);
 				end = tempMessage.substring(cursorPosition, tempMessage.length());
-				cursorShift = TTF2.font4.getWidth(tempMessage.substring(0, cursorPosition-selectedLength));
+				cursorShift = TTF2.chat.getWidth(tempMessage.substring(0, cursorPosition-selectedLength));
 				cursorPosition = cursorPosition-selectedLength;
 			}
 			tempMessage = beg+end;
@@ -648,7 +651,7 @@ public class ChatFrame {
 				deleteSelected();
 			}
 			else if(cursorPosition > 0) {
-				cursorShift-= TTF2.font4.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
+				cursorShift-= TTF2.chat.getWidth(tempMessage.substring(cursorPosition-1).charAt(0));
 				String beg = tempMessage.substring(0, cursorPosition-1+tempMessage.substring(0, tempLength).length());
 				String end = tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), tempMessage.length());
 				tempMessage = beg+end;
@@ -666,7 +669,7 @@ public class ChatFrame {
 			String end = tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), tempMessage.length());
 			tempMessage = beg+add+end;
 		}
-		cursorShift+= TTF2.font4.getWidth(add);
+		cursorShift+= TTF2.chat.getWidth(add);
 	}
 	
 	private static void write(char add) {
@@ -679,7 +682,7 @@ public class ChatFrame {
 			String end = tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), tempMessage.length());
 			tempMessage = beg+add+end;
 		}
-		cursorShift+= TTF2.font4.getWidth(add);
+		cursorShift+= TTF2.chat.getWidth(add);
 	}
 	
 	private static boolean checkTempMessage() throws SQLException {
@@ -881,6 +884,7 @@ public class ChatFrame {
 				messages.add(new Message(".delete bag item [id]", false, 0, 0, 0, Color.yellow));
 				messages.add(new Message(".clear chat", false, 0, 0, 0, Color.yellow));
 				messages.add(new Message(".set fullscreen [boolean]", false, 0, 0, 0, Color.yellow));
+				messages.add(new Message(".show time", false, 0, 0, 0, Color.yellow));
 			}
 			else if(message.equals(".clear chat")) {
 				messages.clear();

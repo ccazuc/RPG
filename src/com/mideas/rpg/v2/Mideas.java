@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 
@@ -65,6 +66,11 @@ public class Mideas {
 	private static long usedRAM;
 	private static double interfaceDrawTime;
 	private static double mouseEventTime;
+	private static int accountId;
+	private static float displayXFactor = 1700/1920f;
+	private static float displayYFactor = 930/1018f;
+	private static int rank;
+	private static int characterId;
 	
 	public static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -81,7 +87,7 @@ public class Mideas {
         GL11.glLoadIdentity();
 	}
 	
-	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchAlgorithmException {
 		//System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
 		//Display.setDisplayMode(new DisplayMode(1200, 800));
 		//Display.setDisplayMode(new DisplayMode(1200, 930));
@@ -140,6 +146,7 @@ public class Mideas {
 		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		getExpAll();
 		joueur2 = getRandomClass(2);
+		//joueur1 = ClassManager.getPlayerClone("Guerrier");
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		while(!Display.isCloseRequested()) {
@@ -165,6 +172,9 @@ public class Mideas {
 					continue;
 				}
 			}
+			if(Display.wasResized()) {
+				updateDisplayFactor();
+			}
 			timeEvent();
 			time = System.nanoTime();
 			Interface.draw();
@@ -176,15 +186,15 @@ public class Mideas {
 		}
 	}
 	
-	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		loop();
 		saveAllStats();
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
 		//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
-		//jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
+		jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
 	}
 	
 	public static JDO getJDO() {
@@ -208,6 +218,11 @@ public class Mideas {
 		}
 	}
 	
+	private static void updateDisplayFactor() {
+		displayXFactor = Display.getWidth()/1920f;
+		displayYFactor = Display.getHeight()/1018f;
+	}
+	
 	public static double getInterfaceDrawTime() {
 		return interfaceDrawTime;
 	}
@@ -226,42 +241,6 @@ public class Mideas {
 	public static long getUsedRAM() {
 		return usedRAM;
 	}
- 	/*public static Joueur getJoueur(String joueur) {
-		if(joueur.equals("Guerrier")) {
-			return ClassManager.getPlayer("Guerrier");
-		}
-		if(joueur.equals("DeathKnight")) {
-			return ClassManager.getPlayer("DeathKnight");
-		}
-		if(joueur.equals("Hunter")) {
-			return ClassManager.getPlayer("Hunter");
-		}
-		if(joueur.equals("Mage")) {
-			return ClassManager.getPlayer("Mage");
-		}
-		if(joueur.equals("Monk")) {
-			return ClassManager.getPlayer("Monk");
-		}
-		if(joueur.equals("Paladin")) {
-			return ClassManager.getPlayer("Paladin");
-		}
-		if(joueur.equals("Priest")) {
-			return ClassManager.getPlayer("Priest");
-		}
-		if(joueur.equals("Rogue")) {
-			return ClassManager.getPlayer("Rogue");
-		}
-		if(joueur.equals("Shaman")) {
-			return ClassManager.getPlayer("Shaman");
-		}
-		if(joueur.equals("Warlock")) {
-			return ClassManager.getPlayer("Warlock");
-		}
-		if(joueur.equals("Illidan")) {
-			return ClassManager.getPlayer("Illidan");
-		}
-		return null;
-	}*/
 	
 	public static Joueur getRandomClass(int id) {
 		double rand = Math.random();
@@ -314,60 +293,6 @@ public class Mideas {
 			expAll[i] = id;
 			i++;
 		}
-		/*BufferedReader br = null;
-		try {
-			int j = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while((sCurrentLine = br.readLine()) != null) {
-				if(i == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(i == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(i == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(i == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(i == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(i == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(i == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(i == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(i == j) {
-					tempExp = sCurrentLine.split("=");
-				}
-				if(i == j) {
-				tempExp = sCurrentLine.split("=");
-				}
-				j++;
-			}
-			expAll[i] = Integer.parseInt(tempExp[1]);	
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null) {
-					br.close();
-				}
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}*/
 	}
 	
 	public static int getExpAll(int i) {
@@ -385,37 +310,6 @@ public class Mideas {
 		if(statement.fetch()) {
 			exp = statement.getInt();
 		}
-		/*BufferedReader br = null;
-		try {
-			int j = 0;
-			String sCurrentLine;
-			String tempExp[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while((sCurrentLine = br.readLine()) != null) {
-				int i = 0;
-				while(i < 10) {
-					if(Mideas.getClassLine() == j) {
-						tempExp = sCurrentLine.split("=");	
-					}
-					i++;
-				}
-				j++;
-			}
-			exp = Integer.parseInt(tempExp[1]);		
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null) {
-					br.close();
-				}
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}*/
 		currentExp = exp;
 		return exp;
 	}
@@ -427,90 +321,6 @@ public class Mideas {
 		statement.putInt(exp);
 		statement.putString(Mideas.joueur1().getClasse());
 		statement.execute();
-		/*BufferedReader br = null;
-		try {
-			String content = "";
-			String sCurrentLine;
-			int i = 0;
-			File file = new File("exp.txt");
-				if(!file.exists()) {
-					file.createNewFile();
-				}
-			br = new BufferedReader(new FileReader("exp.txt"));
-			while(i < 10) {
-				sCurrentLine = br.readLine();
-				if(joueur1.getClasse().equals("DeathKnight") && i == 0) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 0) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Guerrier") && i == 1) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-					
-				}
-				else if(i == 1) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Hunter") && i == 2) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 2) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Mage") && i == 3) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 3) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Monk") && i == 4) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 4) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Paladin") && i == 5) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 5) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Priest") && i == 6) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 6) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Rogue") && i == 7) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 7) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Shaman") && i == 8) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 8) {
-					content+= sCurrentLine+"\r\n";
-				}
-				if(joueur1.getClasse().equals("Warlock") && i == 9) {
-					content+= joueur1.getClasse()+"="+exp+"\r\n";
-				}
-				else if(i == 9) {
-					content+= sCurrentLine+"\r\n";
-				}
-				i++;
-			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
-			br.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 	
 	public static void setGold(int golds) throws SQLTimeoutException, SQLException {
@@ -519,91 +329,7 @@ public class Mideas {
 		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET gold = ? WHERE class = ?");
 		statement.putInt(gold);
 		statement.putString(Mideas.joueur1().getClasse());
-		statement.execute();
-		/*gold+= getGold();
-		BufferedReader br = null;
-		try {
-			String content = "";
-			String sCurrentLine;
-			int i = 0;
-			File file = new File("gold.txt");
-				if (!file.exists()) {
-					file.createNewFile();
-				}
-			br = new BufferedReader(new FileReader("gold.txt"));
-			while(i < 10) {
-				sCurrentLine = br.readLine();
-				if(joueur1.getClasse().equals("DeathKnight") && i == 0) {
-					content+= joueur1.getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 0) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				if(joueur1.getClasse().equals("Guerrier") && i == 1) {
-					content+= joueur1.getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 1){
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				if(joueur1.getClasse().equals("Hunter")&& i == 2) {
-					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 2) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				if(joueur1.getClasse().equals("Mage") && i == 3) {
-					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 3) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				if(joueur1.getClasse().equals("Monk") && i == 4) {
-					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 4) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				if(joueur1.getClasse().equals("Paladin") && i == 5) {
-					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 5) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				if(joueur1.getClasse().equals("Priest") && i == 6) {
-					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 6) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				if(joueur1.getClasse().equals("Rogue") && i == 7) {
-					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 7) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				if(joueur1.getClasse().equals("Shaman") && i == 8) {
-					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 8) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				if(joueur1.getClasse().equals("Warlock") && i == 9) {
-					content+= joueur1().getClasse()+"="+gold+System.lineSeparator();
-				}
-				else if(i == 9) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				i++;
-			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
-			br.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}*/
+		statement.execute();	
 	}
 	
 	public static int getGold() throws SQLException {
@@ -614,37 +340,6 @@ public class Mideas {
 			gold = statement.getInt();
 			currentGold = gold;
 		}
-		/*BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempGold[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("gold.txt"));
-			while((sCurrentLine = br.readLine()) != null) {
-				int j = 0;
-				while(j < 10) {
-					if(Mideas.getClassLine() == i) {
-						tempGold = sCurrentLine.split("=");	
-					}
-					j++;
-				}
-				i++;
-			}
-			gold = Integer.parseInt(tempGold[1]);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null) {
-					br.close();
-				}
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}*/
 		return gold;
 	}
 	
@@ -663,38 +358,6 @@ public class Mideas {
 		statement.putString(Integer.toString(CharacterFrame.getMouseY()));
 		statement.putString("y_inventory_frame");
 		statement.execute();
-		/*BufferedReader br = null;
-		try {
-			String content = "";
-			//String sCurrentLine;
-			int i = 0;
-			File file = new File("config.txt");
-				if (!file.exists()) {
-					file.createNewFile();
-				}
-			br = new BufferedReader(new FileReader("config.txt"));
-			while(i < 10) {
-				//sCurrentLine = br.readLine();
-				if(i == 0) {
-					content+= "bg="+ChangeBackGroundFrame.getCurrentBackground()+System.lineSeparator();
-				}
-				else if(i == 1){
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				else if(i == 2) {
-					content+= sCurrentLine+System.lineSeparator();
-				}
-				i++;
-			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
-			br.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 
 	public static void getConfig() throws SQLException {
@@ -722,42 +385,6 @@ public class Mideas {
 			temp = statement.getString();
 		}
 		CharacterFrame.setMouseY(Integer.valueOf(temp));
-		/*BufferedReader br = null;
-		try {
-			int i = 0;
-			String sCurrentLine;
-			String tempConfig[] = {"1","2","3"};
-			br = new BufferedReader(new FileReader("config.txt"));
-			while ((sCurrentLine = br.readLine()) != null) {
-				if(i == 0) {
-					tempConfig = sCurrentLine.split("=");
-					ChangeBackGroundFrame.loadBG(tempConfig[1]);
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				if(Mideas.getClassLine() == i) {
-					tempConfig = sCurrentLine.split("=");
-				}
-				i++;
-			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if (br != null) {
-					br.close();
-				}
-			}
-			catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}*/
 	}
 	
 	public static int getCurrentGold() {
@@ -803,6 +430,13 @@ public class Mideas {
 		return k;
 	}
 
+	public static void setAccountId(int id) {
+		accountId = id;
+	}
+	
+	public static int getAccountId() {
+		return accountId;
+	}
 
 	public static void setJoueur1(Joueur joueur) {
 		joueur1 = new Joueur(joueur);
@@ -870,42 +504,37 @@ public class Mideas {
 	private static void loadingScreen() throws IOException {
 		Sprites.initBG();
 		context2D();
-       /* (new Thread(new ThreadSprites(0))).start();
-        (new Thread(new ThreadSprites(1))).start();
-        (new Thread(new ThreadSprites(2))).start();
-        (new Thread(new ThreadSprites(3))).start();
-        (new Thread(new ThreadSprites(4))).start();*/
 		
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
 		Draw.drawQuad(Sprites.loading_screen_bar1, Display.getWidth()/2-Sprites.loading_screen_bar1.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
 		Draw.drawQuad(Sprites.loading_screen_bar2, Display.getWidth()/2-Sprites.loading_screen_bar2.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite2();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
 		Draw.drawQuad(Sprites.loading_screen_bar3, Display.getWidth()/2-Sprites.loading_screen_bar3.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite8();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
 		Draw.drawQuad(Sprites.loading_screen_bar4, Display.getWidth()/2-Sprites.loading_screen_bar4.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite9();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, Display.getWidth()/2-Sprites.loading_screen.getImageWidth()/2, Display.getHeight()/2-Sprites.loading_screen.getImageHeight()/2);
+		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
 		Draw.drawQuad(Sprites.loading_screen_bar5, Display.getWidth()/2-Sprites.loading_screen_bar5.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
@@ -949,6 +578,14 @@ public class Mideas {
 		return fps;
 	}
 	
+	public static int getRank() {
+		return rank;
+	}
+	
+	public static void setRank(int ranks) {
+		rank = ranks;
+	}
+	
 	public static void setDisplayMode(int width, int height, boolean fullscreen) {	 
 	    // return if requested DisplayMode is already set
 	    if((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen)) {
@@ -990,7 +627,7 @@ public class Mideas {
 	    }
 	}
 	
-	private static void saveAllStats() throws SQLException {
+	public static void saveAllStats() throws SQLException {
 		if(Mideas.joueur1() != null) {
 			CharacterStuff.setBagItems();
 			CharacterStuff.setEquippedBags();
@@ -1573,5 +1210,29 @@ public class Mideas {
 			expNeeded = 1;
 			return expNeeded;
 		}
+	}
+
+	public static float getDisplayXFactor() {
+		return displayXFactor;
+	}
+
+	public static void setDisplayXFactor(float displayXFactor) {
+		Mideas.displayXFactor = displayXFactor;
+	}
+
+	public static float getDisplayYFactor() {
+		return displayYFactor;
+	}
+
+	public static void setDisplayYFactor(float displayYFactor) {
+		Mideas.displayYFactor = displayYFactor;
+	}
+
+	public static int getCharacterId() {
+		return characterId;
+	}
+
+	public static void setCharacterId(int characterId) {
+		Mideas.characterId = characterId;
 	}
 }

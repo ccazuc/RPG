@@ -13,7 +13,7 @@ import com.mideas.rpg.v2.utils.Draw;
 public class ShortcutFrame {
 	
 	private static boolean[] hover = new boolean[9];
-	private static int x = 15;
+	private static int x = 45;
 	private static int xShift = 33;
 	private static int y = -43;
 	
@@ -33,7 +33,6 @@ public class ShortcutFrame {
 		}
 		if(Mideas.mouseX() >= Display.getWidth()/2+51 && Mideas.mouseX() <= Display.getWidth()/2+11*33+33 && Mideas.mouseY() >= Display.getHeight()-50 && Mideas.mouseY() <= Display.getHeight()-4) {
 			int i = 0;
-			float xShift = 30f;
 			while(i < hover.length) {
 				if(hover[i]) {
 					Draw.drawQuad(Sprites.shortcut_hover, Display.getWidth()/2+x+3+i*xShift, Display.getHeight()+y+4);
@@ -48,7 +47,6 @@ public class ShortcutFrame {
 		Arrays.fill(hover, false);
 		xShift = 30;
 		int i = 0;
-		int y = -40;
 		while(i < hover.length) {
 			if(isHover(x+i*xShift, y)) {
 				hover[i] = true;
@@ -121,7 +119,7 @@ public class ShortcutFrame {
 	}
 	
 	private static boolean isHover(int x, int y) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+28 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+35) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+Sprites.shortcut_hover.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+Sprites.shortcut_hover.getImageHeight()) {
 			return true;
 		}
 		return false;

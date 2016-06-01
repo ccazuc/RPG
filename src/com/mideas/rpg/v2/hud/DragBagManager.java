@@ -18,8 +18,8 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class DragBagManager {
 
-	private static boolean[] hoverBag = new boolean[4];
-	private static boolean [] clickBag = new boolean[4];
+	private static boolean[] hoverBag = new boolean[5];
+	private static boolean [] clickBag = new boolean[5];
 	private static boolean leftClickDown;
 	private static int mouseX;
 	private static int mouseY;

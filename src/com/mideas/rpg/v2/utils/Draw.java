@@ -7,7 +7,6 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.OpenGL;
 
@@ -80,9 +79,9 @@ public final class Draw {
 	
 	public final static void drawQuadPart(final Texture texture, final float x, final float y) {
 		final float xFrom = 0;
-		final float xTo = texture.getWidth();
+		final float xTo = 1;
 		final float yFrom = 0;
-		final float yTo = texture.getHeight();
+		final float yTo = 1;
 		int width = texture.getImageWidth();
 		int height = texture.getImageHeight();
 		glTexCoord2f(xFrom, yFrom);

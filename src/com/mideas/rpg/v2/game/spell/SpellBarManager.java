@@ -17,8 +17,8 @@ public class SpellBarManager {
 	public static void loadSpellBar() throws SQLException {
 		int i = 0;
 		int id;
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23, slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31, slot32, slot33, slot34, slot35, slot36 FROM spellbar WHERE class = ?");
-		statement.putString(Mideas.joueur1().getClasse());
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23, slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31, slot32, slot33, slot34, slot35, slot36 FROM spellbar WHERE character_id = ?");
+		statement.putInt(Mideas.getCharacterId());
 		statement.execute();
 		if(statement.fetch()) {
 			while(i < 36) {
@@ -41,7 +41,7 @@ public class SpellBarManager {
 	}
 	
 	public static void setSpellBar() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("UPDATE spellbar SET slot1 = ?, slot2 = ?, slot3 = ?, slot4 = ?, slot5 = ?, slot6 = ?, slot7 = ?, slot8 = ?, slot9 = ?, slot10 = ?, slot11 = ?, slot12 = ?, slot13 = ?, slot14 = ?, slot15 = ?, slot16 = ?, slot17 = ?, slot18 = ?, slot19 = ?, slot20 = ?, slot21 = ?, slot22 = ?, slot23 = ?, slot24 = ?, slot25 = ?, slot26 = ?, slot27 = ?, slot28 = ?, slot29 = ?, slot30 = ?, slot31 = ?, slot32 = ?, slot33 = ?, slot34 = ?, slot35 = ?, slot36 = ? WHERE class = ?");
+		JDOStatement statement = Mideas.getJDO().prepare("UPDATE spellbar SET slot1 = ?, slot2 = ?, slot3 = ?, slot4 = ?, slot5 = ?, slot6 = ?, slot7 = ?, slot8 = ?, slot9 = ?, slot10 = ?, slot11 = ?, slot12 = ?, slot13 = ?, slot14 = ?, slot15 = ?, slot16 = ?, slot17 = ?, slot18 = ?, slot19 = ?, slot20 = ?, slot21 = ?, slot22 = ?, slot23 = ?, slot24 = ?, slot25 = ?, slot26 = ?, slot27 = ?, slot28 = ?, slot29 = ?, slot30 = ?, slot31 = ?, slot32 = ?, slot33 = ?, slot34 = ?, slot35 = ?, slot36 = ? WHERE character_id = ?");
 		int i = 0;
 		while(i < 36) {
 			Shortcut tempSpell = Mideas.joueur1().getSpells(i);
@@ -52,7 +52,7 @@ public class SpellBarManager {
 			statement.putInt(id);
 			i++;
 		}
-		statement.putString(Mideas.joueur1().getClasse());
+		statement.putInt(Mideas.getCharacterId());
 		statement.execute();
 	}
 }

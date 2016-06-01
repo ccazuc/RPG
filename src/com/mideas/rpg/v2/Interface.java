@@ -2,6 +2,7 @@ package com.mideas.rpg.v2;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -31,8 +32,10 @@ import com.mideas.rpg.v2.hud.EndFightFrame;
 import com.mideas.rpg.v2.hud.EscapeFrame;
 import com.mideas.rpg.v2.hud.GoldFrame;
 import com.mideas.rpg.v2.hud.LogChat;
+import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
 import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
+import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.ShopFrame;
 import com.mideas.rpg.v2.hud.ShortcutFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
@@ -67,16 +70,23 @@ public class Interface {
 	private static double characterMouseEventTime;
 	private static double spellBarMouseEventTime;
 	private static double dragMouseEventTime;
+	private static boolean hasLoggedIn;
 
 	public static void draw() throws IOException, SQLException {
-		Draw.drawQuad(Sprites.current_bg, Display.getWidth()/2-Sprites.current_bg.getImageWidth()/2, Display.getHeight()/2-Sprites.current_bg.getImageHeight()/2);
+		Draw.drawQuad(Sprites.current_bg, 0, 0, Sprites.current_bg.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.current_bg.getImageHeight()*Mideas.getDisplayYFactor());
 		if(!isConfigLoaded) {
 			Mideas.getConfig();
 			isConfigLoaded = true;
+			Mideas.setDisplayXFactor(Display.getWidth()/1920f);
+			Mideas.setDisplayYFactor(Display.getHeight()/1018f);
 		}
 		if(!changeBackgroundFrameActive && !dungeonFrameActive) {
-			if(!isChangeClassActive) {
-				ClassSelectFrame.draw();
+			if(!hasLoggedIn) {
+				LoginScreen.draw();
+				return;
+			}
+			else if(Mideas.joueur1() == null) {
+				SelectScreen.draw();
 			}
 			else {
 				if(Mideas.joueur1() != null && !isGoldLoaded) {
@@ -170,14 +180,22 @@ public class Interface {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException, NoSuchAlgorithmException {
 		if(changeBackgroundFrameActive) {
 			if(ChangeBackGroundFrame.mouseEvent()) {
 				return true;
 			}
 		}
-		if(!isChangeClassActive) {
-			if(ClassSelectFrame.mouseEvent()) {
+		else if(!hasLoggedIn) {
+			if(LoginScreen.mouseEvent()) {
+				return true;
+			}
+		}
+		else if(Mideas.joueur1() == null) {
+			/*if(ClassSelectFrame.mouseEvent()) {
+				return true;
+			}*/
+			if(SelectScreen.mouseEvent()) {
 				return true;
 			}
 		}
@@ -288,10 +306,10 @@ public class Interface {
 		return false;
 	}
 	
-	public static boolean keyboardEvent() throws IOException, SQLException {
+	public static boolean keyboardEvent() throws IOException, SQLException, NoSuchAlgorithmException {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
-				if(!ChatFrame.getChatActive()) {
+				if(!ChatFrame.getChatActive() && hasLoggedIn && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
 						closeShopFrame();
 						closeSpellBookFrame();
@@ -425,10 +443,19 @@ public class Interface {
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_M) {
 						dungeonFrameActive = !dungeonFrameActive;
-					}	
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
+						ChatFrame.setChatActive(!ChatFrame.getChatActive());
+					}
 				}
-				if(chatFrameActive) {
+				else if(chatFrameActive && hasLoggedIn && Mideas.joueur1() != null) {
 					ChatFrame.event();
+				}
+				else if(!hasLoggedIn) {
+					LoginScreen.event();
+				}
+				else if(Mideas.joueur1() == null) {
+					SelectScreen.event();
 				}
 				if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur2().getStamina() > 0) {
 					if(SpellBarFrame.keyboardEvent()) {
@@ -589,5 +616,13 @@ public class Interface {
 	
 	public static boolean getCast() {
 		return cast;
+	}
+	
+	public static void setHasLoggedIn(boolean we) {
+		hasLoggedIn = we;
+	}
+	
+	public static boolean getHasLoggedIn() {
+		return hasLoggedIn;
 	}
 }
