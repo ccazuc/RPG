@@ -73,7 +73,7 @@ public class Interface {
 	private static boolean hasLoggedIn;
 
 	public static void draw() throws IOException, SQLException {
-		Draw.drawQuad(Sprites.current_bg, 0, 0, Sprites.current_bg.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.current_bg.getImageHeight()*Mideas.getDisplayYFactor());
+		Draw.drawQuadBG(Sprites.current_bg);
 		if(!isConfigLoaded) {
 			Mideas.getConfig();
 			isConfigLoaded = true;
@@ -298,7 +298,7 @@ public class Interface {
             if(PerformanceBarFrame.mouseEvent()) {
             	return true;
             }
-			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
+			if(Mideas.joueur1() != null && (Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive())) {
 				EndFightFrame.mouseEvent();
 				return true;
 			}
@@ -624,5 +624,32 @@ public class Interface {
 	
 	public static boolean getHasLoggedIn() {
 		return hasLoggedIn;
+	}
+	
+	public static void closeAllFrame() {
+		characterFrameActive = false;
+		containerFrameActive = false;
+		shopFrameActive = false;
+		isStuffEquipped = false;
+		isStatsCalc = false;
+		isGoldLoaded = false;
+		isExpLoaded = false;
+		escapeFrameActive = false;
+		talentFrameActive = false;
+		spellBookFrameActive = false;
+		changeBackgroundFrameActive = false;
+		adminPanelFrameActive = false;
+		interfaceFrameActive = false;
+		dungeonFrameActive = false;
+		isTalentLoaded = false;
+		isConfigLoaded = false;
+		isChangeClassActive = false;
+		craftFrameActive = false;
+		ContainerFrame.setBagOpen(0, false);
+		ContainerFrame.setBagOpen(1, false);
+		ContainerFrame.setBagOpen(2, false);
+		ContainerFrame.setBagOpen(3, false);
+		ContainerFrame.setBagOpen(4, false);
+		closeBagEvent();
 	}
 }

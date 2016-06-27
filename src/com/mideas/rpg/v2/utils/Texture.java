@@ -2,11 +2,9 @@ package com.mideas.rpg.v2.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.zip.GZIPInputStream;
 
 import javax.imageio.ImageIO;
 
@@ -18,28 +16,36 @@ public final class Texture {
 	private int height;
 	private int width;
 
-	public Texture(final File file) throws IOException {
-		final BufferedImage image = ImageIO.read(file);
-		final int width = image.getWidth();
-		final int height = image.getHeight();
-		final int[] pixels = new int[width*height];
-		final ByteBuffer buffer = ByteBuffer.allocateDirect(width*height*4).order(ByteOrder.nativeOrder());
-		image.getRGB(0, 0, width, height, pixels, 0, width);
-		int i = -1;
-		while(++i < pixels.length) {
-			buffer.put((byte)(pixels[i]>>16));
-			buffer.put((byte)(pixels[i]>>8));
-			buffer.put((byte) pixels[i]);
-			buffer.put((byte)(pixels[i]>>24));
+	public Texture(final File file) {
+		try {
+			BufferedImage image = ImageIO.read(file);
+			final int width = image.getWidth();
+			final int height = image.getHeight();
+			final int[] pixels = new int[width*height];
+			final ByteBuffer buffer = ByteBuffer.allocateDirect(width*height*4).order(ByteOrder.nativeOrder());
+			image.getRGB(0, 0, width, height, pixels, 0, width);
+			int i = -1;
+			while(++i < pixels.length) {
+				buffer.put((byte)(pixels[i]>>16));
+				buffer.put((byte)(pixels[i]>>8));
+				buffer.put((byte) pixels[i]);
+				buffer.put((byte)(pixels[i]>>24));
+			}
+			buffer.position(0);
+			this.textureID = OpenGL.glGenTextures();
+			OpenGL.glBindTexture(OpenGL.GL_TEXTURE_2D, this.textureID);
+			OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
+			OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
+			OpenGL.glTexImage2D(OpenGL.GL_TEXTURE_2D, 0, OpenGL.GL_RGBA8, width, height, 0, OpenGL.GL_RGBA, OpenGL.GL_UNSIGNED_BYTE, buffer);
+			this.height = height;
+			this.width = width;
 		}
-		buffer.position(0);
-		this.textureID = OpenGL.glGenTextures();
-		OpenGL.glBindTexture(OpenGL.GL_TEXTURE_2D, this.textureID);
-		OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
-		OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
-		OpenGL.glTexImage2D(OpenGL.GL_TEXTURE_2D, 0, OpenGL.GL_RGBA8, width, height, 0, OpenGL.GL_RGBA, OpenGL.GL_UNSIGNED_BYTE, buffer);
-		this.height = height;
-		this.width = width;
+		catch (IOException e) {
+			e.printStackTrace();
+			this.height = 0;
+			this.width = 0;
+			this.textureID = 0;
+		}
 	}
 
 	/*public Texture(final File file) throws IOException {

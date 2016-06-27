@@ -56,7 +56,7 @@ public class StuffManager {
 		if(Mideas.getLevel() >= stuff.getLevel() && DragManager.canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
 			return true;
 		}
-	return false;
+		return false;
 	}
 	
 	public static Stuff getStuff(int id) {

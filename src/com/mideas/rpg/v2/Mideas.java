@@ -40,6 +40,7 @@ import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Sha1;
 
 public class Mideas {
 	
@@ -193,8 +194,8 @@ public class Mideas {
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
-		//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
-		jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
+		jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
+		//jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
 	}
 	
 	public static JDO getJDO() {
@@ -506,36 +507,36 @@ public class Mideas {
 		context2D();
 		
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
-		Draw.drawQuad(Sprites.loading_screen_bar1, Display.getWidth()/2-Sprites.loading_screen_bar1.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadBG(Sprites.loading_screen);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar1, Display.getWidth()/2-Sprites.loading_screen_bar1.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
-		Draw.drawQuad(Sprites.loading_screen_bar2, Display.getWidth()/2-Sprites.loading_screen_bar2.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadBG(Sprites.loading_screen);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar2, Display.getWidth()/2-Sprites.loading_screen_bar2.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite2();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
-		Draw.drawQuad(Sprites.loading_screen_bar3, Display.getWidth()/2-Sprites.loading_screen_bar3.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadBG(Sprites.loading_screen);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar3, Display.getWidth()/2-Sprites.loading_screen_bar3.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite8();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
-		Draw.drawQuad(Sprites.loading_screen_bar4, Display.getWidth()/2-Sprites.loading_screen_bar4.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadBG(Sprites.loading_screen);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar4, Display.getWidth()/2-Sprites.loading_screen_bar4.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite9();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		Draw.drawQuad(Sprites.loading_screen, 0, 0, Sprites.loading_screen.getImageWidth()*displayXFactor, Sprites.loading_screen.getImageHeight()*displayYFactor);
-		Draw.drawQuad(Sprites.loading_screen_bar5, Display.getWidth()/2-Sprites.loading_screen_bar5.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadBG(Sprites.loading_screen);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar5, Display.getWidth()/2-Sprites.loading_screen_bar5.getImageWidth()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		

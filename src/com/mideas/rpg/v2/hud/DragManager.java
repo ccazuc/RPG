@@ -35,8 +35,6 @@ public class DragManager {
 	static boolean deleteItem;
 	private static boolean[] clickInventory = new boolean[20];
 	private static boolean[] clickBag = new boolean[97];
-	private static boolean hoverDelete;
-	private static boolean hoverSave;
 	private static boolean leftClickInventoryDown;
 	private static boolean leftClickBagDown;
 	static Item draggedItem;
@@ -75,8 +73,6 @@ public class DragManager {
 	};
 	
 	public static void draw() {
-		hoverDelete = false;
-		hoverSave = false;
 		if(Display.wasResized()) {
 			hoverDeleteYes.setX(Display.getWidth()/2-130*Mideas.getDisplayXFactor());
 			hoverDeleteYes.setY(Display.getHeight()/2-43*Mideas.getDisplayYFactor());

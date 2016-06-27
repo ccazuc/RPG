@@ -27,7 +27,9 @@ public class Button {
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private Color color = Color.decode("#FFC700");
+	private boolean hasClicked;
 	
+	@SuppressWarnings("null")
 	public Button(float x, float y, float x_size, float y_size, String text, float size) {
 		this.x = x;
 		this.y = y;
@@ -46,11 +48,11 @@ public class Button {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		awtFont = awtFont.deriveFont(size);
-		awtFont = awtFont.deriveFont(Font.BOLD);
+		awtFont = awtFont.deriveFont(size).deriveFont(Font.BOLD);
 		this.font = new TTF(awtFont, true);
 	}
 	
+	@SuppressWarnings("null")
 	public Button(int x, int y, String text) {
 		this.x = x;
 		this.y = y;
@@ -68,11 +70,11 @@ public class Button {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		awtFont = awtFont.deriveFont(15f);
-		awtFont = awtFont.deriveFont(Font.BOLD);
+		awtFont = awtFont.deriveFont(15f).deriveFont(Font.BOLD);
 		this.font = new TTF(awtFont, true);
 	}
 
+	@SuppressWarnings("null")
 	public Button(float x, float y, String text, float size) {
 		this.x = x;
 		this.y = y;
@@ -90,14 +92,13 @@ public class Button {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		awtFont = awtFont.deriveFont(size);
-		awtFont = awtFont.deriveFont(Font.BOLD);
+		awtFont = awtFont.deriveFont(size).deriveFont(Font.BOLD);
 		this.font = new TTF(awtFont, true);
 	}
 	
 	public void draw() {
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
-		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, 1, 1);
+		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size*Mideas.getDisplayXFactor()/2, this.y+-this.font.getLineHeight()/2+this.y_size*Mideas.getDisplayYFactor()/2, this.text, this.color, Color.black, 1, 1);
 	}
 	
 	public void event() throws SQLException, NoSuchAlgorithmException {
@@ -112,13 +113,14 @@ public class Button {
 					this.buttonDown = true;
 				}
 			}
-			else {
+			else if(this.buttonDown) {
 				if(Mouse.getEventButton() == 0) {
 					this.buttonDown = false;
 					this.buttonHover = false;
 					this.color = Color.decode("#FFC700");
 					this.texture = Sprites.button;
 					eventButtonClick();
+					this.hasClicked = true;
 					return;
 				}
 				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
@@ -130,6 +132,7 @@ public class Button {
 		else if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 				this.buttonDown = false;
+				this.hasClicked = false;
 			}
 		}
 		if(this.buttonDown) {
@@ -164,10 +167,15 @@ public class Button {
 		this.y_size = height;
 	}
 	
+	@SuppressWarnings({ "unused"})
 	public void eventButtonClick() throws SQLException, NoSuchAlgorithmException {}
 	
 	public boolean getButtonDown() {
 		return this.buttonDown;
+	}
+	
+	public boolean hasClicked() {
+		return this.hasClicked;
 	}
 	
 	public void reset() {

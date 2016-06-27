@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.lwjgl.input.Mouse;
@@ -11,6 +12,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 
 
@@ -25,11 +27,20 @@ public class EscapeFrame {
 	private static int x;
 	private static int y;
 	private static int yShift;
+	private static Button logoutButton = new Button(Display.getWidth()/2-99*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Logout", 16) {
+		@Override
+		public void eventButtonClick() throws SQLException, NoSuchAlgorithmException {
+			Mideas.setCharacterId(0);
+			Mideas.setJoueur1Null();
+			Interface.closeAllFrame();
+		}
+	};
 	
 	public static void draw() {
 		x = -10;
 		y = -245;
 		yShift = 20;
+		logoutButton.draw();
 		Draw.drawQuad(Sprites.escape_frame, Display.getWidth()/2-120, Display.getHeight()/2-300);
 		drawButton(hoverHelp, x, y);
 		drawButton(hoverAdminPanel, x, y+yShift);
@@ -45,8 +56,9 @@ public class EscapeFrame {
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Return to Game")/2-10, Display.getHeight()/2-43, "Return to Game", Color.white, Color.black, 1, 1, 1);
  	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
 		setHoverFalse();
+		logoutButton.event();
 		x = -70;
 		y = -225;
 		if(isHover(x, y)) {

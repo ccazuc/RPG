@@ -8,6 +8,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.OpenGL;
 
 import static org.lwjgl.opengl.GL11.glVertex2d;
@@ -122,7 +123,8 @@ public final class Draw {
 	
 	public final static void drawQuad(final Texture texture, final float x, final float y) {
 		if(texture != null) {
-			drawQuad(texture, x, y, 1);
+			//drawQuad(texture, x, y, 1);
+			drawQuad(texture, x, y, texture.getWidth()*Mideas.getDisplayXFactor(), texture.getHeight()*Mideas.getDisplayXFactor(), 0, 0, texture.getWidth(), texture.getHeight(), 1);
 		}
 	}
 	
@@ -256,6 +258,18 @@ public final class Draw {
 	
 	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height) {
 		drawQuad(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight(), 1);
+	}
+	
+	public final static void drawQuadCentered(final Texture texture, final float x, final float y, final float width, final float height) {
+		drawQuad(texture, x, y, width*Mideas.getDisplayXFactor(), height*Mideas.getDisplayYFactor(), 0, 0, texture.getWidth(), texture.getHeight(), 1);
+	}
+	
+	public final static void drawQuadCentered(final Texture texture, final float x, final float y) {
+		drawQuad(texture, x, y, texture.getWidth()*Mideas.getDisplayXFactor(), texture.getHeight()*Mideas.getDisplayYFactor(), 0, 0, texture.getWidth(), texture.getHeight(), 1);
+	}
+	
+	public final static void drawQuadBG(final Texture texture) {
+		drawQuad(texture, 0, 0, texture.getWidth()*Mideas.getDisplayXFactor(), texture.getHeight()*Mideas.getDisplayYFactor(), 0, 0, texture.getWidth(), texture.getHeight(), 1);
 	}
 	
 	public final static void drawQuad(final Texture texture, final float x, final float y, final Color color) {

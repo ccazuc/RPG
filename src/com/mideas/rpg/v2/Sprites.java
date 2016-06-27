@@ -229,6 +229,14 @@ public class Sprites {
 	public static Texture life_bar;
 	public static Texture big_alert;
 	public static Texture input_box;
+	public static Texture top_left_corner_alert;
+	public static Texture top_right_corner_alert;
+	public static Texture bot_left_corner_alert;
+	public static Texture bot_right_corner_alert;
+	public static Texture width_top_border_alert;
+	public static Texture width_bot_border_alert;
+	public static Texture height_left_border_alert;
+	public static Texture height_right_border_alert;
 	
 	public static void initBG() throws IOException {
 		loading_screen = new Texture("sprite/interface/loading_screen.jpg");
@@ -397,6 +405,15 @@ public class Sprites {
 
 		bag_border1 = new Texture("sprite/interface/bag_border.png");
 		shop_border = new Texture("sprite/interface/shop_border.png");
+		
+		bot_left_corner_alert = new Texture("sprite/interface/bot_left_corner_alert.png");
+		bot_right_corner_alert = new Texture("sprite/interface/bot_right_corner_alert.png");
+		top_left_corner_alert = new Texture("sprite/interface/top_left_corner_alert.png");
+		top_right_corner_alert = new Texture("sprite/interface/top_right_corner_alert.png");
+		width_top_border_alert = new Texture("sprite/interface/width_top_border_alert.png");
+		width_bot_border_alert = new Texture("sprite/interface/width_bot_border_alert.png");
+		height_left_border_alert = new Texture("sprite/interface/height_left_border_alert.png");
+		height_right_border_alert = new Texture("sprite/interface/height_right_border_alert.png");
 		return true;
 	}
 		
