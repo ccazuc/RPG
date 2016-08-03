@@ -26,6 +26,7 @@ import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.SpellType;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Texture;
 
 public class SpellBarFrame {
 	
@@ -88,8 +89,8 @@ public class SpellBarFrame {
 				if(Mideas.joueur1().getSpells(spellCount).getShortcutType() == ShortcutType.SPELL) {
 					SpellShortcut spell = (SpellShortcut)Mideas.joueur1().getSpells(spellCount);
 					if(!(DragSpellManager.getDraggedSpell() == spell)) {
-						System.out.println(spell.getSprite());
-						Draw.drawQuad(spell.getSprite(), Display.getWidth()/2+x*Mideas.getDisplayXFactor(), Display.getHeight()+(y+yShift)*Mideas.getDisplayYFactor(), spell.getSprite().getImageWidth()*Mideas.getDisplayXFactor(), spell.getSprite().getImageHeight()*Mideas.getDisplayXFactor());
+						Texture sprite = spell.getSprite();
+						Draw.drawQuad(sprite, Display.getWidth()/2+x*Mideas.getDisplayXFactor(), Display.getHeight()+(y+yShift)*Mideas.getDisplayYFactor(), sprite.getImageWidth()*Mideas.getDisplayXFactor(), sprite.getImageHeight()*Mideas.getDisplayXFactor());
 						Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-2+x, Display.getHeight()+y-2+yShift);
 					}
 					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+37+x && Mideas.mouseY() >= Display.getHeight()+y-2+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {

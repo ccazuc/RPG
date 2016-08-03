@@ -33,6 +33,7 @@ public class TTF2 {
 	public static TTF selectScreenLevel;
 	public static TTF raceName;
 	public static TTF selectScreenDeleteCharacterConfirm;
+	public static TTF alertFont;
 	
 	public static void init() throws FontFormatException, IOException {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
@@ -162,5 +163,11 @@ public class TTF2 {
 		awtFont = awtFont.deriveFont(20f);
 		awtFont = awtFont.deriveFont(Font.BOLD);
 		selectScreenDeleteCharacterConfirm = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(22f);
+		awtFont = awtFont.deriveFont(Font.BOLD);
+		alertFont = new TTF(awtFont, true);
 	}
 }

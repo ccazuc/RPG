@@ -98,7 +98,7 @@ public class Button {
 	
 	public void draw() {
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
-		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size*Mideas.getDisplayXFactor()/2, this.y+-this.font.getLineHeight()/2+this.y_size*Mideas.getDisplayYFactor()/2, this.text, this.color, Color.black, 1, 1);
+		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, 1, 1, 1);
 	}
 	
 	public void event() throws SQLException, NoSuchAlgorithmException {
@@ -160,11 +160,11 @@ public class Button {
 	}
 	
 	public void setButtonWidth(float width) {
-		this.x_size = width;
+		this.x_size = width*Mideas.getDisplayXFactor();
 	}
 	
 	public void setButtonHeight(float height) {
-		this.y_size = height;
+		this.y_size = height*Mideas.getDisplayXFactor();
 	}
 	
 	@SuppressWarnings({ "unused"})
@@ -178,9 +178,14 @@ public class Button {
 		return this.hasClicked;
 	}
 	
+	public boolean isHover() {
+		return this.buttonHover;
+	}
+	
 	public void reset() {
 		this.buttonDown = false;
 		this.buttonHover = false;
+		this.hasClicked = false;
 		this.texture = Sprites.button;
 		this.color = Color.decode("#FFC700");
 	}

@@ -40,7 +40,6 @@ import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
 import com.mideas.rpg.v2.utils.Draw;
-import com.mideas.rpg.v2.utils.Sha1;
 
 public class Mideas {
 	
@@ -193,8 +192,8 @@ public class Mideas {
 	}
 	
 	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
-		jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
+		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+		//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
 		//jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
 	}
 	

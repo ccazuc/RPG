@@ -36,6 +36,7 @@ public class ShopManager {
 	private static boolean right_arrow;
 	private static boolean hover_button;
 	private static int page;
+	private static int numberPage;
 	private static Color bgColor = new Color(0, 0, 0, .6f); 
 	private static Color borderColor = Color.decode("#494D4B");
 
@@ -44,13 +45,16 @@ public class ShopManager {
 	public static void loadStuffs() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, class, price FROM shop");
 		statement.execute();
+		double i = 0;
 		while(statement.fetch()) {
 			int id = statement.getInt();
 			short classeTemp = statement.getShort();
 			ClassType[] classeType = StuffManager.getClasses(classeTemp);
 			int sellPrice = statement.getInt();
 			shopList.add(new Shop(id, classeType, sellPrice));
+			i++;
 		}
+		numberPage = (int)Math.ceil(i/10);
 	}
 	
 	public static Item getItem(int id) {
@@ -161,19 +165,11 @@ public class ShopManager {
 				Interface.closeShopFrame();
 				return true;
 			}
-			else if(page == 0 && right_arrow) {
+			else if(right_arrow && page < numberPage-1) {
 				page++;
 				return true;
 			}
-			else if(page == 1 && right_arrow) {
-				page++;
-				return true;
-			}
-			else if(page == 1 && left_arrow) {
-				page--;
-				return true;
-			}
-			else if(page == 2 && left_arrow) {
+			else if(left_arrow && page > 0) {
 				page--;
 				return true;
 			}	

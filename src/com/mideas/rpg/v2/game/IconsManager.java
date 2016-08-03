@@ -38,6 +38,9 @@ public class IconsManager {
 			return sprites42.get(id);
 		}
 		loadTexture42(id);
+		if(sprites42.containsKey(id)) {
+			return sprites42.get(id);
+		}
 		if(sprites42.containsKey("inv_misc_questionmark")) {
 			return sprites42.get("inv_misc_questionmark");
 		}
@@ -49,6 +52,9 @@ public class IconsManager {
 			return sprites35.get(id);
 		}
 		loadTexture35(id);
+		if(sprites35.containsKey(id)) {
+			return sprites35.get(id);
+		}
 		if(sprites35.containsKey("inv_misc_questionmark")) {
 			return sprites35.get("inv_misc_questionmark");
 		}
@@ -60,6 +66,9 @@ public class IconsManager {
 			return sprites37.get(id);
 		}
 		loadTexture37(id);
+		if(sprites37.containsKey(id)) {
+			return sprites37.get(id);
+		}
 		if(sprites37.containsKey("inv_misc_questionmark")) {
 			return sprites37.get("inv_misc_questionmark");
 		}
@@ -71,6 +80,9 @@ public class IconsManager {
 			return sprites47.get(id);
 		}
 		loadTexture47(id);
+		if(sprites47.containsKey(id)) {
+			return sprites47.get(id);
+		}
 		if(sprites47.containsKey("inv_misc_questionmark")) {
 			return sprites47.get("inv_misc_questionmark");
 		}
@@ -80,10 +92,8 @@ public class IconsManager {
 	private static void loadTexture42(String id) {
 		File file = new File("inventory_icons/"+id+".jpg");
 		if(file.exists()) {
-			Texture newTexture;
 			try {
-				newTexture = new Texture(file.getAbsolutePath());
-				sprites42.put(id, newTexture);
+				sprites42.put(id, new Texture(file.getAbsolutePath()));
 			} 
 			catch(IOException e) {
 				e.printStackTrace();
@@ -94,10 +104,8 @@ public class IconsManager {
 	private static void loadTexture35(String id) {
 		File file = new File("bag_icons/"+id+".jpg");
 		if(file.exists()) {
-			Texture newTexture;
 			try {
-				newTexture = new Texture(file.getAbsolutePath());
-				sprites35.put(id, newTexture);
+				sprites35.put(id, new Texture(file.getAbsolutePath()));
 			} 
 			catch(IOException e) {
 				e.printStackTrace();
@@ -108,10 +116,8 @@ public class IconsManager {
 	private static void loadTexture37(String id) {
 		File file = new File("Icons 37-35/"+id+".jpg");
 		if(file.exists()) {
-			Texture newTexture;
 			try {
-				newTexture = new Texture(file.getAbsolutePath());
-				sprites37.put(id, newTexture);
+				sprites37.put(id, new Texture(file.getAbsolutePath()));
 			} 
 			catch(IOException e) {
 				e.printStackTrace();
@@ -122,10 +128,8 @@ public class IconsManager {
 	private static void loadTexture47(String id) {
 		File file = new File("new spellbar_icons/"+id+".jpg");
 		if(file.exists()) {
-			Texture newTexture;
 			try {
-				newTexture = new Texture(file.getAbsolutePath());
-				sprites47.put(id, newTexture);
+				sprites47.put(id, new Texture(file.getAbsolutePath()));
 			} 
 			catch(IOException e) {
 				e.printStackTrace();
