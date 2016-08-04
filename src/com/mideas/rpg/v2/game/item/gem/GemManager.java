@@ -16,7 +16,7 @@ public class GemManager {
 	private static HashMap<Integer, Texture> gemSprites = new HashMap<Integer, Texture>();
 	
 	public static void loadGems() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, color, sellprice, pa, intellect, stamina, defense, mp5, mana, critical, spell_critical, spell_damage, heal FROM gem");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, color, sellprice, pa, intellect, stamina, defense, mp5, mana, critical, spell_critical, spell_damage, heal FROM item_gem");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();

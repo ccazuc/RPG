@@ -5,6 +5,7 @@ import com.mideas.rpg.v2.game.item.Item;
 public class CraftableItem {
 
 	private int id;
+	private int level;
 	private Item item;
 	private Item ressource1;
 	private int ressource1Amount;
@@ -19,8 +20,9 @@ public class CraftableItem {
 	private Item ressource6;
 	private int ressource6Amount;
 	
-	public CraftableItem(int id, Item item, Item ressource1, int ressource1Amount, Item ressource2, int ressource2Amount, Item ressource3, int ressource3Amount, Item ressource4, int ressource4Amount, Item ressource5, int ressource5Amount, Item ressource6, int ressource6Amount) {
+	public CraftableItem(int id, int level, Item item, Item ressource1, int ressource1Amount, Item ressource2, int ressource2Amount, Item ressource3, int ressource3Amount, Item ressource4, int ressource4Amount, Item ressource5, int ressource5Amount, Item ressource6, int ressource6Amount) {
 		this.id = id;
+		this.level = level;
 		this.item = item;
 		this.ressource1 = ressource1;
 		this.ressource1Amount = ressource1Amount;
@@ -36,8 +38,30 @@ public class CraftableItem {
 		this.ressource6Amount = ressource6Amount;
 	}
 	
+	public CraftableItem(CraftableItem craftableItem) {
+		this.id = craftableItem.id;
+		this.level = craftableItem.level;
+		this.item = craftableItem.item;
+		this.ressource1 = craftableItem.ressource1;
+		this.ressource1Amount = craftableItem.ressource1Amount;
+		this.ressource2 = craftableItem.ressource2;
+		this.ressource2Amount = craftableItem.ressource2Amount;
+		this.ressource3 = craftableItem.ressource3;
+		this.ressource3Amount = craftableItem.ressource3Amount;
+		this.ressource4 = craftableItem.ressource4;
+		this.ressource4Amount = craftableItem.ressource4Amount;
+		this.ressource5 = craftableItem.ressource5;
+		this.ressource5Amount = craftableItem.ressource5Amount;
+		this.ressource6 = craftableItem.ressource6;
+		this.ressource6Amount = craftableItem.ressource6Amount;
+	}
+	
 	public int getId() {
 		return this.id;
+	}
+	
+	public int getLevel() {
+		return this.level;
 	}
 	
 	public Item getItem() {

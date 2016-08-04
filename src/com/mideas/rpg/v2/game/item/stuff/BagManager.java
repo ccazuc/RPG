@@ -16,7 +16,7 @@ public class BagManager {
 	private static HashMap<Integer, Texture> bagsSprites = new HashMap<Integer, Texture>();
 	
 	public static void loadBags() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, size, sellprice FROM container");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, size, sellprice FROM item_container");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();

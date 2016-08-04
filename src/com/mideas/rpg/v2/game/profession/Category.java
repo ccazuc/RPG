@@ -8,20 +8,39 @@ public class Category {
 	private ArrayList<CraftableItem> craftList = new ArrayList<CraftableItem>();
 	private int id;
 	private String name;
+	private boolean expand = true;
+	private boolean hoverButton;
+	private boolean buttonDown;
 	
 	public Category(int id, String name, CraftableItem item1, CraftableItem item2, CraftableItem item3, CraftableItem item4, CraftableItem item5, CraftableItem item6, CraftableItem item7, CraftableItem item8, CraftableItem item9, CraftableItem item10) {
 		this.name = name;
 		this.id = id;
-		this.craftList.add(item1);
-		this.craftList.add(item2);
-		this.craftList.add(item3);
-		this.craftList.add(item4);
-		this.craftList.add(item5);
-		this.craftList.add(item6);
-		this.craftList.add(item7);
-		this.craftList.add(item8);
-		this.craftList.add(item9);
-		this.craftList.add(item10);
+		this.addItem(item1);
+		this.addItem(item2);
+		this.addItem(item3);
+		this.addItem(item4);
+		this.addItem(item5);
+		this.addItem(item6);
+		this.addItem(item7);
+		this.addItem(item8);
+		this.addItem(item9);
+		this.addItem(item10);
+		this.orderList();
+	}
+	
+	public void orderList() {
+		int i = 0;
+		while(i < this.craftList.size()-1) {
+			if(this.craftList.get(i).getLevel() < this.craftList.get(i+1).getLevel()) {
+				CraftableItem temp = this.craftList.get(i);
+				this.craftList.set(i, this.craftList.get(i+1));
+				this.craftList.set(i+1, temp);
+				i = 0;
+			}
+			else {
+				i++;
+			}
+		}
 	}
 	
 	public ArrayList<CraftableItem> getCraftList() {
@@ -34,5 +53,19 @@ public class Category {
 	
 	public int getId() {
 		return this.id;
+	}
+	
+	public void setExpand(boolean expand) {
+		this.expand = expand;
+	}
+	
+	public boolean getExpand() {
+		return this.expand;
+	}
+	
+	public void addItem(CraftableItem item) {
+		if(item != null) {
+			this.craftList.add(item);
+		}
 	}
 }

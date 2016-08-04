@@ -17,7 +17,7 @@ public class StuffManager {
 	private static int numberStuffLoaded;
 	
 	public static void loadStuffs() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, type, name, class, wear, sprite_id, quality, gem_slot1, gem_slot2, gem_slot3, gem_bonus_type, gem_bonus_value, level, armor, stamina, mana, critical, strength, sellprice FROM stuff");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, type, name, class, wear, sprite_id, quality, gem_slot1, gem_slot2, gem_slot3, gem_bonus_type, gem_bonus_value, level, armor, stamina, mana, critical, strength, sellprice FROM item_stuff");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();

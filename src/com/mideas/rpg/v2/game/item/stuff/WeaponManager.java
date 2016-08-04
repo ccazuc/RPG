@@ -16,7 +16,7 @@ public class WeaponManager {
 	private static ArrayList<Stuff> weaponList = new ArrayList<Stuff>();
 	
 	public static void loadWeapons() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, name, sprite_id, class, type, slot, quality, color1, color2, color3, gem_bonus_type, gem_bonus_value, level, armor, stamina, mana, critical, strength, sellprice FROM weapon");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, name, sprite_id, class, type, slot, quality, color1, color2, color3, gem_bonus_type, gem_bonus_value, level, armor, stamina, mana, critical, strength, sellprice FROM item_weapon");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();

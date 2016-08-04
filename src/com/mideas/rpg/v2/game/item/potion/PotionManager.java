@@ -12,7 +12,7 @@ public class PotionManager {
 	private static int numberPotionLoaded;
 	
 	public static void loadPotions() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, level, heal, mana, sellprice FROM potion");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, level, heal, mana, sellprice FROM item_potion");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();

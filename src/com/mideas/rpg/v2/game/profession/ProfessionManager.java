@@ -17,28 +17,36 @@ public class ProfessionManager {
 	private static ArrayList<Category> categoryList = new ArrayList<Category>();
 	private static ArrayList<Profession> professionList = new ArrayList<Profession>();
 
-	public static void LoadAllCraft() throws SQLException {
-		
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, ressource1, ressource1Amount, ressource2, ressource2Amount, ressource3, ressource3Amount, ressource4, ressource4Amount, ressource5, ressource5Amount, ressource6, ressource6Amount FROM craft_item");
+	public static void LoadAllCraft() throws SQLException {	
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, level, item1, item2, item3, item4, item5, item6 FROM craft_item");
+		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
+			int level = statement.getInt();
 			Item item = getItem(id);
-			Item ressource1 = getItem(statement.getInt());
-			int ressource1Amount = statement.getInt();
-			Item ressource2 = getItem(statement.getInt());
-			int ressource2Amount = statement.getInt();
-			Item ressource3= getItem(statement.getInt());
-			int ressource3Amount = statement.getInt();
-			Item ressource4 = getItem(statement.getInt());
-			int ressource4Amount = statement.getInt();
-			Item ressource5= getItem(statement.getInt());
-			int ressource5Amount = statement.getInt();
-			Item ressource6= getItem(statement.getInt());
-			int ressource6Amount = statement.getInt();
-			craftableList.add(new CraftableItem(id, item, ressource1, ressource1Amount, ressource2, ressource2Amount, ressource3, ressource3Amount, ressource4, ressource4Amount, ressource5, ressource5Amount, ressource6, ressource6Amount));
+			String tempItem = statement.getString();
+			Item ressource1 = getItem(Integer.valueOf(tempItem.split(":")[0]));
+			int ressource1Amount = Integer.valueOf(tempItem.split(":")[1]);
+			tempItem = statement.getString();
+			Item ressource2 = getItem(Integer.valueOf(tempItem.split(":")[0]));
+			int ressource2Amount = Integer.valueOf(tempItem.split(":")[1]);
+			tempItem = statement.getString();
+			Item ressource3 = getItem(Integer.valueOf(tempItem.split(":")[0]));
+			int ressource3Amount = Integer.valueOf(tempItem.split(":")[1]);
+			tempItem = statement.getString();
+			Item ressource4 = getItem(Integer.valueOf(tempItem.split(":")[0]));
+			int ressource4Amount = Integer.valueOf(tempItem.split(":")[1]);
+			tempItem = statement.getString();
+			Item ressource5 = getItem(Integer.valueOf(tempItem.split(":")[0]));
+			int ressource5Amount = Integer.valueOf(tempItem.split(":")[1]);
+			tempItem = statement.getString();
+			Item ressource6 = getItem(Integer.valueOf(tempItem.split(":")[0]));
+			int ressource6Amount = Integer.valueOf(tempItem.split(":")[1]);
+			craftableList.add(new CraftableItem(id, level, item, ressource1, ressource1Amount, ressource2, ressource2Amount, ressource3, ressource3Amount, ressource4, ressource4Amount, ressource5, ressource5Amount, ressource6, ressource6Amount));
 		}
 		
 		statement = Mideas.getJDO().prepare("SELECT id, name, item1, item2, item3, item4, item5, item6, item7, item8, item9, item10 FROM craft_category");
+		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
 			String name = statement.getString();
@@ -55,8 +63,8 @@ public class ProfessionManager {
 			categoryList.add(new Category(id, name, item1, item2, item3, item4, item5, item6, item7, item8, item9, item10));
 		}
 		
-		
-		statement = Mideas.getJDO().prepare("SELECT profession_name, profession_id, category1, category2, category3, category4, category5, category6, category7, category8 FROM rpg");
+		statement = Mideas.getJDO().prepare("SELECT name, id, category1, category2, category3, category4, category5, category6, category7, category8 FROM craft_profession");
+		statement.execute();
 		while(statement.fetch()) {
 			String professionName = statement.getString();
 			int professionId = statement.getInt();
@@ -70,6 +78,23 @@ public class ProfessionManager {
 			Category category8 = getCategory(statement.getInt());
 			professionList.add(new Profession(professionId, professionName, category1, category2, category3, category4, category5, category6, category7, category8));
 		}
+		
+		/*int i = 0;
+		int j = 0;
+		int k = 0;
+		while(i < professionList.size()) {
+			j = 0;
+			while(j < professionList.get(i).getCategoryList().size()) {
+				k = 0;
+				while(k < professionList.get(i).getCategoryList().get(j).getCraftList().size()) {
+					System.out.println(professionList.get(i).getCategoryList().get(j).getCraftList().get(k).getItem().getStuffName()+" "+professionList.get(i).getCategoryList().get(j).getCraftList().get(k).getId());
+					k++;
+				}
+				System.out.println(professionList.get(i).getCategoryList().get(j).getName());
+				j++;
+			}
+			i++;
+		}*/
 	}
 	
 	private static Item getItem(int id) {
@@ -92,7 +117,7 @@ public class ProfessionManager {
 		int i = 0;
 		while(i < craftableList.size()) {
 			if(craftableList.get(i).getId() == id) {
-				return craftableList.get(i);
+				return new CraftableItem(craftableList.get(i));
 			}
 			i++;
 		}
@@ -119,5 +144,9 @@ public class ProfessionManager {
 			i++;
 		}
 		return null;
+	}
+	
+	public static ArrayList<Profession> getProfessionList() {
+		return professionList;
 	}
 }

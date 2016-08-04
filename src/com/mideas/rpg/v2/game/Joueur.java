@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.WeaponType;
 import com.mideas.rpg.v2.game.item.stuff.Wear;
+import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellType;
@@ -39,6 +40,8 @@ public class Joueur {
 	private int numberRedGem;
 	private int numberBlueGem;
 	private int numberYellowGem;
+	private Profession profession1;
+	private Profession profession2;
 	//private int tailorExp;
 	private String id;
 	public int x;
@@ -176,6 +179,14 @@ public class Joueur {
 				LogChat.setStatusText2("Le joueur 2 a enlevée "+Math.round(damage)+" hp au "+Mideas.joueur1().getClasse()+", "+Mideas.joueur1().getStamina()+" hp restant");	
 			}
 		}
+	}
+	
+	public void setProfession1(Profession profession) {
+		this.profession1 = profession;
+	}
+	
+	public void setProfession2(Profession profession) {
+		this.profession2 = profession;
 	}
 	
 	public void setStuffArmor(int armor) {

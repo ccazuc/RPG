@@ -31,6 +31,7 @@ import com.mideas.rpg.v2.game.item.stuff.Bag;
 import com.mideas.rpg.v2.game.item.stuff.BagManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
+import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
@@ -143,6 +144,7 @@ public class Mideas {
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();
 		GemManager.loadGemSprites();
+		ProfessionManager.LoadAllCraft();
 		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		getExpAll();
 		joueur2 = getRandomClass(2);
@@ -159,11 +161,11 @@ public class Mideas {
 				lessCd();
 			}
 			time = System.nanoTime();
-			while(Mouse.next()) {
+			/*while(Mouse.next()) {
 				if(Interface.mouseEvent()) {
 					continue;
 				}
-			}
+			}*/
 			if(System.currentTimeMillis()%500 < 10) {
 				mouseEventTime = (float)(System.nanoTime()-time);
 			}
@@ -180,6 +182,10 @@ public class Mideas {
 			Interface.draw();
 			if(System.currentTimeMillis()%2000 < 10) {
 				interfaceDrawTime = System.nanoTime()-time;
+			}
+			ProfessionManager.getProfessionList().get(0).draw(Display.getWidth()/2-530, Display.getHeight()/2-390);
+			while(Mouse.next()) {
+				ProfessionManager.getProfessionList().get(0).event(Display.getWidth()/2-530, Display.getHeight()/2-390);
 			}
 			Display.update();
 			Display.sync(120);

@@ -70,6 +70,7 @@ public class LoginScreen {
 		leaveButton.draw();
 		connectionButton.draw();
 		alert.draw();
+		Draw.drawColorQuad(0, 0, 1920, 1080, Color.blue);
 	}
 	
 	public static boolean mouseEvent() throws NoSuchAlgorithmException, SQLException {

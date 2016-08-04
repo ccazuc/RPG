@@ -362,7 +362,7 @@ public class SelectScreen {
 				i++;
 			}
 		}
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT character_id FROM `character` WHERE name = ?");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT character_id FROM `character` WHERE name = ?"); //check if character name is already taken
 		statement.putString(character.getText());
 		statement.execute();
 		if(statement.fetch()) {

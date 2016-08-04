@@ -250,7 +250,7 @@ public class ShopManager {
 			while(i < Mideas.bag().getBag().length) {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, StuffManager.getClone(item.getId()));
-					LogChat.setStatusText3("Vous avez bien achetÃ© "+StuffManager.getStuff(item.getId()).getStuffName());
+					LogChat.setStatusText3("Vous avez bien acheté "+StuffManager.getStuff(item.getId()).getStuffName());
 					Mideas.setGold(-item.getSellPrice());
 					CharacterStuff.setBagItems();
 					return true;
@@ -263,7 +263,7 @@ public class ShopManager {
 				while(i < Mideas.bag().getBag().length) {
 					if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == item.getId()) {
 						Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+1);
-						LogChat.setStatusText3("Vous avez bien achetÃ© "+PotionManager.getPotion(item.getId()).getStuffName());
+						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.setGold(-item.getSellPrice());
 						CharacterStuff.setBagItems();
 						return true;
@@ -277,7 +277,7 @@ public class ShopManager {
 						Potion temp = PotionManager.getClone(item.getId());
 						Mideas.bag().setBag(i, temp);
 						Mideas.joueur1().setNumberItem(temp, 1);
-						LogChat.setStatusText3("Vous avez bien achetÃ© "+PotionManager.getPotion(item.getId()).getStuffName());
+						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.setGold(-item.getSellPrice());
 						CharacterStuff.setBagItems();
 						return true;
@@ -290,7 +290,7 @@ public class ShopManager {
 			while(i < Mideas.bag().getBag().length) {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, GemManager.getClone(item.getId()));
-					LogChat.setStatusText3("Vous avez bien achetÃ© "+GemManager.getGem(item.getId()).getStuffName());
+					LogChat.setStatusText3("Vous avez bien acheté "+GemManager.getGem(item.getId()).getStuffName());
 					Mideas.setGold(-item.getSellPrice());
 					CharacterStuff.setBagItems();
 					return true;

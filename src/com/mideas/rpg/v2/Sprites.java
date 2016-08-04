@@ -237,6 +237,12 @@ public class Sprites {
 	public static Texture width_bot_border_alert;
 	public static Texture height_left_border_alert;
 	public static Texture height_right_border_alert;
+	public static Texture reduce_category_craft;
+	public static Texture expand_category_craft;
+	public static Texture craft_orange_selection;
+	public static Texture craft_yellow_selection;
+	public static Texture craft_green_selection;
+	public static Texture craft_grey_selection;
 	
 	public static void initBG() throws IOException {
 		loading_screen = new Texture("sprite/interface/loading_screen.jpg");
@@ -414,6 +420,12 @@ public class Sprites {
 		width_bot_border_alert = new Texture("sprite/interface/width_bot_border_alert.png");
 		height_left_border_alert = new Texture("sprite/interface/height_left_border_alert.png");
 		height_right_border_alert = new Texture("sprite/interface/height_right_border_alert.png");
+		reduce_category_craft = new Texture("sprite/interface/reduce_craft_category.png");
+		expand_category_craft = new Texture("sprite/interface/expand_craft_category.png");
+		craft_orange_selection = new Texture("sprite/interface/craft_orange_selection.png");
+		craft_yellow_selection = new Texture("sprite/interface/craft_yellow_selection.png");
+		craft_green_selection = new Texture("sprite/interface/craft_green_selection.png");
+		craft_grey_selection = new Texture("sprite/interface/craft_grey_selection.png");
 		return true;
 	}
 		
