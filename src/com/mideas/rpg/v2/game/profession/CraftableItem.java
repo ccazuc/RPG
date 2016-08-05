@@ -19,6 +19,8 @@ public class CraftableItem {
 	private int ressource5Amount;
 	private Item ressource6;
 	private int ressource6Amount;
+	private boolean mouseHover;
+	private boolean mouseDown;
 	
 	public CraftableItem(int id, int level, Item item, Item ressource1, int ressource1Amount, Item ressource2, int ressource2Amount, Item ressource3, int ressource3Amount, Item ressource4, int ressource4Amount, Item ressource5, int ressource5Amount, Item ressource6, int ressource6Amount) {
 		this.id = id;
@@ -58,6 +60,22 @@ public class CraftableItem {
 	
 	public int getId() {
 		return this.id;
+	}
+	
+	public boolean getMouseHover() {
+		return this.mouseHover;
+	}
+	
+	public void setMouseHover(boolean hover) {
+		this.mouseHover = hover;
+	}
+	
+	public boolean getMouseDown() {
+		return this.mouseDown;
+	}
+	
+	public void setMouseDown(boolean down) {
+		this.mouseDown = down;
 	}
 	
 	public int getLevel() {

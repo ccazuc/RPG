@@ -74,9 +74,7 @@ public final class TTF {
 	
 	private final void loadFontMetrics() {
 		final Graphics2D graphics = (Graphics2D)new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB).getGraphics();
-		if(this.antiAlias) {
-			graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		}
+		//graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		graphics.setFont(this.font);
 		this.fontMetrics = graphics.getFontMetrics();
 	}
@@ -85,9 +83,7 @@ public final class TTF {
 		try {
 			final BufferedImage imgTemp = new BufferedImage(this.textureWidth, this.textureHeight, BufferedImage.TYPE_INT_ARGB);
 			final Graphics2D graphics = (Graphics2D)imgTemp.getGraphics();
-		    if(this.antiAlias) {
-		    	graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		    }
+		   	//graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		    graphics.setFont(this.font);
 		    graphics.setColor(java.awt.Color.WHITE);
 			int positionX = 0;

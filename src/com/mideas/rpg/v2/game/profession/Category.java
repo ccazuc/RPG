@@ -9,8 +9,8 @@ public class Category {
 	private int id;
 	private String name;
 	private boolean expand = true;
-	private boolean hoverButton;
-	private boolean buttonDown;
+	private boolean mouseHover;
+	private boolean mouseDown;
 	
 	public Category(int id, String name, CraftableItem item1, CraftableItem item2, CraftableItem item3, CraftableItem item4, CraftableItem item5, CraftableItem item6, CraftableItem item7, CraftableItem item8, CraftableItem item9, CraftableItem item10) {
 		this.name = name;
@@ -45,6 +45,22 @@ public class Category {
 	
 	public ArrayList<CraftableItem> getCraftList() {
 		return this.craftList;
+	}
+	
+	public boolean getMouseDown() {
+		return this.mouseDown;
+	}
+	
+	public void setMouseDown(boolean down) {
+		this.mouseDown = down;
+	}
+	
+	public boolean getMouseHover() {
+		return this.mouseHover;
+	}
+	
+	public void setMouseHover(boolean hover) {
+		this.mouseHover = hover;
 	}
 	
 	public String getName() {
