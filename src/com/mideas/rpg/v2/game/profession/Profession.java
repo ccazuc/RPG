@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.game.profession;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
@@ -21,6 +22,11 @@ public class Profession {
 	private CraftableItem selectedItem;
 	private ScrollBar scrollBar;
 	private boolean init;
+	private boolean change = true;
+	private int numberLine;
+	private float y_offset;
+	//private final int MAX_HEIGHT = 105;
+	private final int MAX_HEIGHT = 140;
 	
 	public Profession(int id, String name, Category category1, Category category2, Category category3, Category category4, Category category5, Category category6, Category category7, Category category8) {
 		this.id = id;
@@ -55,20 +61,38 @@ public class Profession {
 	
 	public void draw(int x, int y) {
 		if(!this.init) {
-			this.scrollBar = new ScrollBar(x+800, y+100, 100);
+			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+94*Mideas.getDisplayYFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor());
 			this.init = true;
+		}
+		if(Display.wasResized()) {
+			this.scrollBar.update(x+358*Mideas.getDisplayXFactor(), y+94*Mideas.getDisplayYFactor(), 125*Mideas.getDisplayXFactor());
+		}
+		if(this.change) {
+			int i = 0;
+			this.numberLine = 0;
+			while(i < this.categoryList.size()) {
+				if(this.categoryList.get(i).getExpand()) {
+					this.numberLine+= this.categoryList.get(i).getCraftList().size();
+				}
+				this.numberLine+= 1;
+				i++;
+			}
+			this.change = false;
 		}
 		Draw.drawQuad(Sprites.craft_frame, x, y);
 		this.scrollBar.draw();
 		x+= 26;
 		y+= 99;
+		final int Y_TOP = y;
 		int i = 0;
 		int j = 0;
 		int yShift = 0;
 		int yShiftHeight = 17;
+		this.y_offset = yShiftHeight*(this.numberLine-8)*this.scrollBar.getScrollPercentage();
+		y-= this.y_offset;
 		while(i < this.categoryList.size()) {
 			j = 0;
-			if(yShift+yShiftHeight <= 140) {
+			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= this.MAX_HEIGHT) {
 				drawButton(this.categoryList.get(i), x, y+yShift);
 				if(this.categoryList.get(i).getMouseDown()) {
 					TTF2.craft.drawString(x+22, y+2+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
@@ -78,9 +102,10 @@ public class Profession {
 				}
 			}
 			yShift+= yShiftHeight;
+			//System.out.println(i+" j:"+j+" yShift:"+yShift+" y:"+y+" offset:"+this.y_offset+" scroll:"+this.scrollBar.getScrollPercentage());
 			if(this.categoryList.get(i).getExpand()) {
 				while(j < this.categoryList.get(i).getCraftList().size()) {
-					if(yShift+yShiftHeight <= 140) {
+					if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= this.MAX_HEIGHT) {
 						if(this.categoryList.get(i).getCraftList().get(j) == this.selectedItem) {
 							Draw.drawQuad(getColor(this.categoryList.get(i).getCraftList().get(j).getLevel()), x-5, y+yShift);
 							drawSelectedItem(this.selectedItem);
@@ -92,14 +117,14 @@ public class Profession {
 							TTF2.craft.drawString(x+27, y+yShift, "Poison mortel III", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
 						}
 					}
-					j++;
 					yShift+= yShiftHeight;
-					if(yShift >= 140) {
+					j++;
+					if(yShift+yShiftHeight-this.y_offset >= this.MAX_HEIGHT) {
 						break;
 					}
 				}
 			}
-			if(yShift >= 140) {
+			if(yShift+yShiftHeight-this.y_offset >= this.MAX_HEIGHT) {
 				break;
 			}
 			i++;
@@ -109,30 +134,33 @@ public class Profession {
 	public void event(int x, int y) {
 		this.scrollBar.event();
 		x+= 26;
-		y+= 98;
+		y+= 99;
+		final int Y_TOP = y;
 		int i = 0;
 		int j = 0;
 		int yShift = 0;
 		int yShiftHeight = 17;
+		y-= this.y_offset;
 		float borderHeight = Sprites.craft_orange_selection.getImageHeight()*Mideas.getDisplayXFactor()-2;
 		while(i < this.categoryList.size()) {
 			j = 0;
-			checkMouseEventCategory(x, y+1+yShift, Sprites.craft_orange_selection.getImageWidth()*Mideas.getDisplayXFactor(), borderHeight, this.categoryList.get(i));
-			/*if(click(x, y+1+yShift, Sprites.expand_category_craft.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.expand_category_craft.getImageHeight()*Mideas.getDisplayXFactor())) {
-				this.categoryList.get(i).setExpand(!this.categoryList.get(i).getExpand());
-			}*/
+			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= this.MAX_HEIGHT) {
+				checkMouseEventCategory(x, y+yShift, Sprites.craft_orange_selection.getImageWidth()*Mideas.getDisplayXFactor(), borderHeight, this.categoryList.get(i));
+			}
 			yShift+= yShiftHeight;
 			if(this.categoryList.get(i).getExpand()) {
 				while(j < this.categoryList.get(i).getCraftList().size()) {
-					checkMouseEventItem(x, y+yShift, Sprites.craft_orange_selection.getImageWidth()*Mideas.getDisplayXFactor(), borderHeight, this.categoryList.get(i).getCraftList().get(j));
+					if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= this.MAX_HEIGHT) {
+						checkMouseEventItem(x, y+1+yShift, Sprites.craft_orange_selection.getImageWidth()*Mideas.getDisplayXFactor(), borderHeight, this.categoryList.get(i).getCraftList().get(j));
+					}
 					j++;
 					yShift+= yShiftHeight;
-					if(yShift >= 140) {
+					if(yShift+yShiftHeight-this.y_offset >= this.MAX_HEIGHT) {
 						break;
 					}
 				}
 			}
-			if(yShift >= 140) {
+			if(yShift+yShiftHeight-this.y_offset >= this.MAX_HEIGHT) {
 				break;
 			}
 			i++;
@@ -190,6 +218,7 @@ public class Profession {
 				else if(category.getMouseDown()) {
 					category.setMouseDown(false);
 					category.setExpand(!category.getExpand());
+					this.change = true;
 				}
 			}
 			else if(Mouse.getEventButton() == 1) {
