@@ -218,7 +218,7 @@ public class ShopFrame { // UNUSED
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
 				Mideas.bag().setBag(i, item);
-				SpellBarFrame.setBagChange(true);
+				Mideas.bag().setBagChange(true);
 				CharacterStuff.setBagItems();
 				return true;
 			}

@@ -104,7 +104,7 @@ public class DragBagManager {
 						draggedBag = null;
 						CharacterStuff.setEquippedBags();
 						CharacterStuff.setBagItems();
-						SpellBarFrame.setBagChange(true);
+						Mideas.bag().setBagChange(true);
 						deleteItem = false;
 						ContainerFrame.setBagchange(true);
 					}

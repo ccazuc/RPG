@@ -169,6 +169,7 @@ public class Interface {
 					DragManager.draw();
 					DragBagManager.draw();
 					DragSpellManager.draw();
+					Mideas.bag().event();
 				}
 			}
 		}

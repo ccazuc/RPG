@@ -188,7 +188,7 @@ public class Mideas {
 				ProfessionManager.getProfessionList().get(0).event(Display.getWidth()/2-530, Display.getHeight()/2-390);
 			}
 			Display.update();
-			Display.sync(120);
+			//Display.sync(120);
 		}
 	}
 	

@@ -3,7 +3,6 @@ package com.mideas.rpg.v2;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
@@ -348,6 +347,10 @@ public final class TTF {
 	
 	public final void bind() {
 		OpenGL.glBindTexture(OpenGL.GL_TEXTURE_2D, this.fontTextureID);
+	}
+	
+	public float getSize() {
+		return this.font.getSize();
 	}
 	
 }

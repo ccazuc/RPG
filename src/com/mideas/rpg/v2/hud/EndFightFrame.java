@@ -61,8 +61,10 @@ public class EndFightFrame {
 		else if(Mideas.joueur2().getStamina() <= 0) {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 won", Color.white, Color.black, 1, 1, 1);
 			if(!endFightEvent) {
+				long time = System.nanoTime();
 				doEndFightEvent();
 				endFightEvent = true;
+				System.out.println(System.nanoTime()-time);
 			}
 		}
 		
@@ -293,7 +295,7 @@ public class EndFightFrame {
 			else {
 				dropRate(item);
 			}
-			SpellBarFrame.setBagChange(true);
+			Mideas.bag().setBagChange(true);
 			LogChat.setStatusText3("Vous avez obtenus "+item.getStuffName());
 		}
 	}

@@ -827,6 +827,7 @@ public class ChatFrame {
 				CharacterStuff.getEquippedItems();
 				ContainerFrame.setBagchange(true);
 				SpellBarManager.loadSpellBar();
+				Mideas.bag().setBagChange(true);
 			}
 			else if(message.equals(".quit")) {
 				System.exit(1);
