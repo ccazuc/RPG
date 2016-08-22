@@ -17,9 +17,14 @@ import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.utils.Draw;
 
+/**
+ * UNUSED
+ * @author Mideas
+ *
+ */
 public class ClassSelectFrame {
 	
-	private static boolean warriorHover;
+	/*private static boolean warriorHover;
 	private static boolean paladinHover;
 	private static boolean hunterHover;
 	private static boolean rogueHover;
@@ -289,6 +294,6 @@ public class ClassSelectFrame {
 		mageHover = false;
 		warlockHover = false;
 		monkHover = false;
-	}
+	}*/
 }
 	

@@ -43,7 +43,7 @@ public class Talent {
 	}
 	
 	public static void getTalent() {
-		BufferedReader br = null;
+		/*BufferedReader br = null;
 		int i = 0;
 		int id;
 		try {
@@ -74,7 +74,7 @@ public class Talent {
 				else if( i == 5) {
 					GuerrierTalent.improvedThunderClap = id;
 					GuerrierTalent.numberArmsTalent+= id;
-				}
+				}*/
 				/*else if( i == 6) {
 					Mideas.joueur1.setGloves(getGloves(id));
 				}
@@ -108,7 +108,7 @@ public class Talent {
 				else if( i == 16) {
 					Mideas.joueur1.setRanged(getRanged(id));
 				}*/
-				i++;
+				/*i++;
 			}
 		}
 		catch (IOException e) {
@@ -121,11 +121,11 @@ public class Talent {
 			catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
+		}*/
 	}
 	
 	public static void setTalent() {
-		try {
+		/*try {
 			String content = "";
 			File file = new File(ClassSelectFrame.talentTxt());
 				if (!file.exists()) {
@@ -171,7 +171,7 @@ public class Talent {
 					else {
 						content+= "0\r\n";
 					}
-				}
+				}*/
 				/*if(Mideas.joueur1.getShoulders() != null) {
 					content+= Mideas.joueur1().getShoulders().getId()+"\r\n";
 				}
@@ -262,11 +262,11 @@ public class Talent {
 				else {
 					content+= "0\r\n";
 				}*/
-				bw.write(content);
-				bw.close();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+				//bw.write(content);
+				//bw.close();
+		//}
+		//catch (IOException e) {
+			//e.printStackTrace();
+		//}
 	}
 }

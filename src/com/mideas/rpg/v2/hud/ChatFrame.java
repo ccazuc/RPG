@@ -19,6 +19,7 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
+import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
@@ -777,16 +778,16 @@ public class ChatFrame {
 					value = Integer.parseInt(temp[1]);
 				}
 				if(StuffManager.exists(value)) {
-					DragManager.checkFreeSlotBag(StuffManager.getClone(value));
-					CharacterStuff.setBagItems();
+					Mideas.joueur1().addItem(StuffManager.getClone(value), 1);
 				}
 				else if(WeaponManager.exists(value)) {
-					DragManager.checkFreeSlotBag(WeaponManager.getClone(value));
-					CharacterStuff.setBagItems();
+					Mideas.joueur1().addItem(WeaponManager.getClone(value), 1);
 				}
 				else if(PotionManager.exists(value)) {
-					DragManager.checkFreeSlotBag(PotionManager.getClone(value));
-					CharacterStuff.setBagItems();
+					Mideas.joueur1().addItem(PotionManager.getClone(value), 1);
+				}
+				else if(GemManager.exists(value)) {
+					Mideas.joueur1().addItem(GemManager.getClone(value), 1);
 				}
 				else {
 					messages.add(new Message("Item not found", false, 0, 0, 0, Color.yellow));
@@ -827,6 +828,7 @@ public class ChatFrame {
 				CharacterStuff.getEquippedItems();
 				ContainerFrame.setBagchange(true);
 				SpellBarManager.loadSpellBar();
+				Mideas.bag().setBagChange(true);
 			}
 			else if(message.equals(".quit")) {
 				System.exit(1);

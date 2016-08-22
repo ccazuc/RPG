@@ -1,5 +1,11 @@
 package com.mideas.rpg.v2.game.item;
 
+import com.mideas.rpg.v2.game.item.gem.GemManager;
+import com.mideas.rpg.v2.game.item.potion.PotionManager;
+import com.mideas.rpg.v2.game.item.stuff.BagManager;
+import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
+
 public class Item implements Cloneable {
 
 	protected ItemType itemType;
@@ -48,5 +54,24 @@ public class Item implements Cloneable {
 	
 	public ItemType getItemType() {
 		return this.itemType;
+	}
+	
+	public static Item getItem(int id) {
+		if(BagManager.exists(id)) {
+			return BagManager.getClone(id);
+		}
+		if(StuffManager.exists(id)) {
+			return StuffManager.getClone(id);
+		}
+		if(WeaponManager.exists(id)) {
+			return WeaponManager.getClone(id);
+		}
+		if(GemManager.exists(id)) {
+			return GemManager.getClone(id);
+		}
+		if(PotionManager.exists(id)) {
+			return PotionManager.getClone(id);
+		}
+		return null;
 	}
 }

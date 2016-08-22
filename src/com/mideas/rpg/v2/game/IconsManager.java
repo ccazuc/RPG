@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mideas.rpg.v2.utils.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
 
 public class IconsManager {
 

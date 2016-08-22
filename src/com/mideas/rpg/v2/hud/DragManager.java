@@ -33,6 +33,7 @@ public class DragManager {
 	private static StuffType[] type = new StuffType[]{StuffType.HEAD, StuffType.NECKLACE, StuffType.SHOULDERS, StuffType.BACK, StuffType.CHEST, StuffType.RAN, StuffType.RANDOM, StuffType.WRISTS, StuffType.GLOVES, StuffType.BELT, StuffType.LEGGINGS, StuffType.BOOTS, StuffType.RING, StuffType.RING, StuffType.TRINKET, StuffType.TRINKET, StuffType.MAINHAND, StuffType.OFFHAND, StuffType.RANGED, StuffType.RAN};
 	private static WeaponSlot[] weaponSlot = new WeaponSlot[]{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, WeaponSlot.MAINHAND, WeaponSlot.OFFHAND, WeaponSlot.RANGED};
 	static boolean deleteItem;
+	private static boolean init;
 	private static boolean[] clickInventory = new boolean[20];
 	private static boolean[] clickBag = new boolean[97];
 	private static boolean leftClickInventoryDown;
@@ -55,7 +56,7 @@ public class DragManager {
 			draggedItem = null;
 			CharacterStuff.setEquippedItems();
 			CharacterStuff.setBagItems();
-			SpellBarFrame.setBagChange(true);
+			Mideas.bag().setBagChange(true);
 			deleteItem = false;
 		}
 	};
@@ -65,7 +66,7 @@ public class DragManager {
 		public void eventButtonClick() throws SQLException {
 			if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
 				checkFreeSlotBag(draggedItem);
-				SpellBarFrame.setBagChange(true);
+				Mideas.bag().setBagChange(true);
 			}
 			draggedItem = null;
 			deleteItem = false;
@@ -73,15 +74,9 @@ public class DragManager {
 	};
 	
 	public static void draw() {
-		if(Display.wasResized()) {
-			hoverDeleteYes.setX(Display.getWidth()/2-130*Mideas.getDisplayXFactor());
-			hoverDeleteYes.setY(Display.getHeight()/2-43*Mideas.getDisplayYFactor());
-			hoverDeleteYes.setButtonWidth(Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor());
-			hoverDeleteYes.setButtonHeight(Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor());
-			hoverDeleteNo.setX(Display.getWidth()/2+7*Mideas.getDisplayXFactor());
-			hoverDeleteNo.setY(Display.getHeight()/2-43*Mideas.getDisplayYFactor());
-			hoverDeleteNo.setButtonWidth(Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor());
-			hoverDeleteNo.setButtonHeight(Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor());
+		if(!init) {
+			updateSize();
+			init = true;
 		}
 		if(draggedItem != null) {
 			Draw.drawQuad(IconsManager.getSprite42((draggedItem.getSpriteId())), Mideas.mouseX(), Mideas.mouseY());
@@ -92,29 +87,9 @@ public class DragManager {
 		}
 		if(deleteItem && draggedItem != null) {
 			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-172*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), Sprites.alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.alert.getImageHeight()*Mideas.getDisplayYFactor());
-			/*if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-6 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
-				Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
-				hoverDelete = true;
-			}
-			else {
-				Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-70, Display.getHeight()/2-43);
-			}
-			if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
-				Draw.drawQuad(Sprites.button_hover2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
-				hoverSave = true;
-			}
-			else {
-				Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
-			}
-			if(Interface.getEscapeFrameStatus()) {
-				draggedItem = null;
-				deleteItem = false;
-			}*/
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-(TTF2.font4.getWidth("Voulez vous supprimer "+draggedItem.getStuffName())*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-85*Mideas.getDisplayYFactor(), "Voulez vous supprimer "+draggedItem.getStuffName(), Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
 			hoverDeleteYes.draw();
 			hoverDeleteNo.draw();
-			//TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Oui")/2-69, Display.getHeight()/2-41, "Oui", Color.white, Color.black, 1, 1, 1);
-			//TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Non")/2+70, Display.getHeight()/2-40, "Non", Color.white, Color.black, 1, 1, 1);
 		}
 	}
 	
@@ -329,6 +304,7 @@ public class DragManager {
 								setNullContainer(Mideas.bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
+								Mideas.bag().setBagChange(true);
 								return true;
 							}
 							else {
@@ -357,6 +333,7 @@ public class DragManager {
 								setNullContainer(Mideas.bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
+								Mideas.bag().setBagChange(true);
 								return true;
 							}
 							else {
@@ -396,6 +373,7 @@ public class DragManager {
 			if(Mideas.joueur1().getNumberItem(item) <= 0) {
 				Mideas.bag().setBag(i, null);
 				Mideas.bag().getNumberStack().remove(item);
+				Mideas.bag().setBagChange(true);
 			}
 			CharacterStuff.setBagItems();
 		}
@@ -430,7 +408,7 @@ public class DragManager {
 					calcStatsLess(draggedItem);
 					setNullCharacter(draggedItem);
 					Mideas.bag().setBag(i, draggedItem);
-					SpellBarFrame.setBagChange(true);
+					Mideas.bag().setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
@@ -445,7 +423,6 @@ public class DragManager {
 				if(Mideas.bag().getBag(i) == null) {
 					setNullContainer(draggedItem);
 					Mideas.bag().setBag(i, draggedItem);
-					SpellBarFrame.setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setBagItems();
 					return true;
@@ -471,7 +448,6 @@ public class DragManager {
 					Mideas.bag().setBag(checkItemSlot(draggedItem), tempItem);
 					Mideas.bag().setBag(i, draggedItem);
 					draggedItem = null;
-					SpellBarFrame.setBagChange(true);
 					CharacterStuff.setBagItems();
 					return true;
 				}
@@ -479,7 +455,7 @@ public class DragManager {
 			else {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, draggedItem);
-					SpellBarFrame.setBagChange(true);
+					Mideas.bag().setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setBagItems();
 					return true;
@@ -512,7 +488,6 @@ public class DragManager {
 					else {
 						Item tempItem = Mideas.bag().getBag(i);
 						Mideas.bag().setBag(i, draggedItem);
-						SpellBarFrame.setBagChange(true);
 						draggedItem = tempItem;
 						CharacterStuff.setBagItems();
 						return true;
@@ -722,7 +697,7 @@ public class DragManager {
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) != null && draggedItem2 == Mideas.bag().getBag(i)) {
 				Mideas.bag().setBag(i, null);
-				SpellBarFrame.setBagChange(true);
+				Mideas.bag().setBagChange(true);
 				return true;
 			}
 			i++;
@@ -758,7 +733,7 @@ public class DragManager {
 					Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), 0);
 				}
 				Mideas.bag().setBag(i, null);
-				SpellBarFrame.setBagChange(true);
+				Mideas.bag().setBagChange(true);
 				return true;
 			}
 			i++;
@@ -781,7 +756,6 @@ public class DragManager {
 		while(i < Mideas.bag().getBag().length) {
 			if(item == Mideas.bag().getBag(i)) {
 				Mideas.bag().setBag(i, null);
-				SpellBarFrame.setBagChange(true);
 				return true;
 			}
 			i++;
@@ -794,7 +768,7 @@ public class DragManager {
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
 				Mideas.bag().setBag(i, item);
-				SpellBarFrame.setBagChange(true);
+				Mideas.bag().setBagChange(true);
 				return true;
 			}
 			i++;
@@ -974,5 +948,16 @@ public class DragManager {
 	
 	public static WeaponSlot getWeaponSlot(int i) {
 		return weaponSlot[i];
+	}
+	
+	public static void updateSize() {
+		hoverDeleteYes.setX(Display.getWidth()/2-130*Mideas.getDisplayXFactor());
+		hoverDeleteYes.setY(Display.getHeight()/2-43*Mideas.getDisplayYFactor());
+		hoverDeleteYes.setButtonWidth(Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor());
+		hoverDeleteYes.setButtonHeight(Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor());
+		hoverDeleteNo.setX(Display.getWidth()/2+7*Mideas.getDisplayXFactor());
+		hoverDeleteNo.setY(Display.getHeight()/2-43*Mideas.getDisplayYFactor());
+		hoverDeleteNo.setButtonWidth(Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor());
+		hoverDeleteNo.setButtonHeight(Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor());
 	}
 }

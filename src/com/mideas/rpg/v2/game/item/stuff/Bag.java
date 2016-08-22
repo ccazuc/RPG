@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class Bag extends Item implements Cloneable {
 	
@@ -14,8 +15,10 @@ public class Bag extends Item implements Cloneable {
 	private String sprite_id;
 	private String name;
 	private int size;
+	private boolean bagChange = true;
 	
 	private static HashMap<Item, Integer> numberStack = new HashMap<Item, Integer>();
+	private static HashMap<Integer, Integer> itemList = new HashMap<Integer, Integer>();
 	
 	public Bag() {}
 	
@@ -33,6 +36,14 @@ public class Bag extends Item implements Cloneable {
 		this.name = name;
 		this.size = size;
 		this.id = id;
+	}
+	
+	public void event() {
+		if(this.bagChange) {
+			updateBagItem();
+			SpellBarFrame.setNumberFreeSlot(checkNumberFreeSlotBag());
+			this.bagChange = false;
+		}
 	}
 	
 	public Item[] getBag() {
@@ -61,6 +72,18 @@ public class Bag extends Item implements Cloneable {
 			return this.equippedBag[i].sprite_id;
 		}
 		return null;
+	}
+	
+	private static int checkNumberFreeSlotBag() {
+		int i = 0;
+		int number = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(Mideas.bag().getBag(i) == null) {
+				number++;
+			}
+			i++;
+		}
+		return number;
 	}
 	
 	public void setEquippedBag(int i, Bag bag) {
@@ -101,8 +124,45 @@ public class Bag extends Item implements Cloneable {
 		return 0;
 	}
 	
+	public void updateBagItem() {
+		itemList.clear();
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(Mideas.bag().getBag(i) != null) {
+				if(itemList.containsKey(Mideas.bag().getBag(i).getId())) {
+					if(Mideas.bag().getBag(i).getItemType() ==  ItemType.ITEM) {
+						itemList.put(Mideas.bag().getBag(i).getId(), Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))+itemList.get(Mideas.bag().getBag(i).getId()));
+					}
+					else {
+						itemList.put(Mideas.bag().getBag(i).getId(), itemList.get(Mideas.bag().getBag(i).getId())+1);
+					}
+				}
+				else {
+					if(Mideas.bag().getBag(i).getItemType() ==  ItemType.ITEM) {
+						itemList.put(Mideas.bag().getBag(i).getId(), Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i)));
+					}
+					else {
+						itemList.put(Mideas.bag().getBag(i).getId(), 1);
+					}
+				}
+			}
+			i++;
+		}
+	}
+	
+	public int getNumberItemInBags(int id) {
+		if(itemList.containsKey(id)) {
+			return itemList.get(id);
+		}
+		return 0;
+	}
+	
 	public HashMap<Item, Integer> getNumberStack() {
 		return numberStack;
+	}
+	
+	public HashMap<Integer, Integer> getItemList() {
+		return itemList;
 	}
 	
 	public Item getEquals(Item item) {
@@ -152,5 +212,9 @@ public class Bag extends Item implements Cloneable {
 	@Override
 	public int getId() {
 		return this.id;
+	}
+	
+	public void setBagChange(boolean we) {
+		this.bagChange = we;
 	}
 }

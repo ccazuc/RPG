@@ -2,9 +2,6 @@ package com.mideas.rpg.v2;
 
 import java.io.IOException;
 
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
-
 import com.mideas.rpg.v2.utils.Texture;
 
 public class Sprites {
@@ -250,6 +247,10 @@ public class Sprites {
 	public static Texture scrollbar_down_arrow;
 	public static Texture scrollbar_grey_down_arrow;
 	public static Texture ascensor;
+	public static Texture profession_border;
+	public static Texture scrollbar;
+	public static Texture top_button;
+	public static Texture bot_button;
 	
 	public static void initBG() throws IOException {
 		loading_screen = new Texture("sprite/interface/loading_screen/loading_screen.jpg");
@@ -439,6 +440,10 @@ public class Sprites {
 		scrollbar_down_arrow = new Texture("sprite/interface/scrollBar/down_arrow.png");
 		scrollbar_grey_down_arrow = new Texture("sprite/interface/scrollBar/grey_down_arrow.png");
 		ascensor = new Texture("sprite/interface/scrollBar/ascensor.png");
+		scrollbar = new Texture("sprite/interface/scrollBar/scrollbar.png");
+		top_button = new Texture("sprite/interface/scrollBar/top_button.png");
+		bot_button = new Texture("sprite/interface/scrollBar/bot_button.png");
+		profession_border = new Texture("sprite/interface/profession/border.png");
 		return true;
 	}
 		

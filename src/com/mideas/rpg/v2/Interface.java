@@ -169,6 +169,7 @@ public class Interface {
 					DragManager.draw();
 					DragBagManager.draw();
 					DragSpellManager.draw();
+					Mideas.bag().event();
 				}
 			}
 		}
@@ -425,7 +426,7 @@ public class Interface {
 						Arrays.fill(ShopFrame.getShopHover(), false);
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
 						closeBagEvent();
-						ClassSelectFrame.setHoverFalse();
+						//ClassSelectFrame.setHoverFalse();
 						changeBackgroundFrameActive = !changeBackgroundFrameActive;
 						return true;
 					}
@@ -437,7 +438,7 @@ public class Interface {
 						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
 						Arrays.fill(ShopFrame.getShopHover(), false);
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
-						ClassSelectFrame.setHoverFalse();
+						//ClassSelectFrame.setHoverFalse();
 						craftFrameActive = !craftFrameActive;
 						return true;
 					}

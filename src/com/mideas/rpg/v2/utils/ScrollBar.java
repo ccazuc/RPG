@@ -7,8 +7,8 @@ import com.mideas.rpg.v2.Sprites;
 
 public class ScrollBar {
 
-	private final float Y_ASCENSOR_DOWN_SHIFT = -16;
-	private final float Y_ASCENSOR_UP_SHIFT = 17;
+	private final float Y_ASCENSOR_DOWN_SHIFT = -22;
+	private final float Y_ASCENSOR_UP_SHIFT = 22;
 	private float x;
 	private float y;
 	private float y_size;
@@ -17,25 +17,41 @@ public class ScrollBar {
 	private float y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
 	private float y_ascensor_onclick = this.Y_ASCENSOR_UP_SHIFT;
 	private float y_ascensor_lastclick = this.Y_ASCENSOR_UP_SHIFT;
+	private int mouseWheel;
 	private boolean down;
+	private boolean dragAndScroll;
 	
-	public ScrollBar(float x, float y, float y_size, float x_frame_size, float y_frame_size) {
+	public ScrollBar(float x, float y, float y_size, float x_frame_size, float y_frame_size, boolean dragAndScroll) {
 		this.x = x;
 		this.y = y;
 		this.y_size = y_size;
 		this.x_frame_size = x_frame_size;
 		this.y_frame_size = y_frame_size;
+		this.dragAndScroll = dragAndScroll;
 	}
 	
 	public void draw() {
+		Draw.drawQuad(Sprites.scrollbar, this.x-2, this.y+Sprites.top_button.getImageHeight()*Mideas.getDisplayXFactor(), Sprites.scrollbar.getImageWidth()*Mideas.getDisplayXFactor(), this.y_size+17-Sprites.top_button.getImageHeight()*Mideas.getDisplayXFactor()-Sprites.bot_button.getImageHeight()*Mideas.getDisplayXFactor());
+		Draw.drawQuad(Sprites.top_button, this.x-2, this.y);
+		Draw.drawQuad(Sprites.bot_button, this.x-2, this.y+19+this.y_size-Sprites.top_button.getImageHeight()*Mideas.getDisplayXFactor());
 		drawUpArrow();
 		drawDownArrow();
 		Draw.drawQuad(Sprites.ascensor, this.x+4, this.y+this.y_ascensor);
 	}
 	
 	public void event() {
+		this.mouseWheel = Mouse.getDWheel()/12;
 		mouseDragEvent();
-		mouseScroll();
+		if(this.down) {
+			if(this.dragAndScroll) {
+				mouseScroll();
+				return;
+			}
+			this.mouseWheel = 0;
+		}
+		else {
+			mouseScroll();
+		}
 	}
 	
 	private void mouseDragEvent() {
@@ -70,16 +86,15 @@ public class ScrollBar {
 	
 	private void mouseScroll() {
 		if(Mideas.mouseX() >= this.x-this.x_frame_size+25 && Mideas.mouseX() <= this.x+25 && Mideas.mouseY() >= this.y-25 && Mideas.mouseY() <= this.y+this.y_frame_size+25) {
-			int mouseWheel = Mouse.getDWheel()/12;
-			if(mouseWheel != 0 && this.y_ascensor-mouseWheel >= 17 && this.y_ascensor-mouseWheel < this.y_size-5) {
-				this.y_ascensor-= mouseWheel;
+			if(this.mouseWheel != 0 && this.y_ascensor-this.mouseWheel >= 17 && this.y_ascensor-this.mouseWheel < this.y_size-15) {
+				this.y_ascensor-= this.mouseWheel;
 				this.y_ascensor_lastclick = this.y_ascensor;
 			}
-			else if(mouseWheel != 0 && this.y_ascensor-mouseWheel < 17 && this.y_ascensor-mouseWheel <= this.y_size) {
+			else if(this.mouseWheel != 0 && this.y_ascensor-this.mouseWheel < 17 && this.y_ascensor-this.mouseWheel <= this.y_size) {
 				this.y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
 				this.y_ascensor_lastclick = this.y_ascensor;
 			}
-			else if(mouseWheel != 0 && this.y_ascensor-mouseWheel >= this.y_size-5 && this.y_ascensor-mouseWheel >= 17) {
+			else if(this.mouseWheel != 0 && this.y_ascensor-this.mouseWheel >= this.y_size-15 && this.y_ascensor-this.mouseWheel >= 17) {
 				this.y_ascensor = this.y_size+this.Y_ASCENSOR_DOWN_SHIFT*Mideas.getDisplayXFactor();
 				this.y_ascensor_lastclick = this.y_ascensor;
 			}
@@ -88,25 +103,28 @@ public class ScrollBar {
 	
 	private void drawUpArrow() {
 		if(this.y_ascensor == this.Y_ASCENSOR_UP_SHIFT) {
-			Draw.drawQuad(Sprites.scrollbar_grey_up_arrow, this.x+4, this.y+2);
+			Draw.drawQuad(Sprites.scrollbar_grey_up_arrow, this.x+5, this.y+5);
 		}
 		else {
-			Draw.drawQuad(Sprites.scrollbar_up_arrow, this.x+4, this.y+2);
+			Draw.drawQuad(Sprites.scrollbar_up_arrow, this.x+5, this.y+5);
 		}
 	}
 	
 	private void drawDownArrow() {
 		if(this.y_ascensor == this.y_size+this.Y_ASCENSOR_DOWN_SHIFT*Mideas.getDisplayXFactor()) {
-			Draw.drawQuad(Sprites.scrollbar_grey_down_arrow, this.x+4, this.y+this.y_size+2);
+			Draw.drawQuad(Sprites.scrollbar_grey_down_arrow, this.x+5, this.y+this.y_size);
 		}
 		else {
-			Draw.drawQuad(Sprites.scrollbar_down_arrow, this.x+4, this.y+this.y_size+2);
+			Draw.drawQuad(Sprites.scrollbar_down_arrow, this.x+5, this.y+this.y_size);
 		}
 	}
 	
 	public float getScrollPercentage() {
 		if(this.y_ascensor == this.Y_ASCENSOR_UP_SHIFT) {
 			return 0;
+		}
+		if(this.y_ascensor == this.y_size+this.Y_ASCENSOR_DOWN_SHIFT*Mideas.getDisplayXFactor()) {
+			return 1;
 		}
 		return (this.y_ascensor)/(this.y_size-Sprites.ascensor.getImageHeight());
 	}

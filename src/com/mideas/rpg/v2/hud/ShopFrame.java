@@ -218,7 +218,7 @@ public class ShopFrame { // UNUSED
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
 				Mideas.bag().setBag(i, item);
-				SpellBarFrame.setBagChange(true);
+				Mideas.bag().setBagChange(true);
 				CharacterStuff.setBagItems();
 				return true;
 			}
@@ -234,12 +234,16 @@ public class ShopFrame { // UNUSED
 			}
 			else {
 				if(Mideas.getCurrentGold() >= stuff.getSellPrice()) {
-					if(stuff.getItemType() == ItemType.POTION || stuff.getItemType() == ItemType.ITEM) {
-						EndFightFrame.dropItem(stuff, 1);
+					/*if(stuff.getItemType() == ItemType.POTION || stuff.getItemType() == ItemType.ITEM) {
+						Mideas.joueur1().addItem((stuff));
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
 						Mideas.setGold(-stuff.getSellPrice());
 					}
 					else if(dropRate(stuff)) {
+						Mideas.setGold(-stuff.getSellPrice());
+						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
+					}*/
+					if(Mideas.joueur1().addItem((stuff), 1)) {
 						Mideas.setGold(-stuff.getSellPrice());
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
 					}

@@ -37,6 +37,9 @@ import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
+import com.mideas.rpg.v2.hud.DragManager;
+import com.mideas.rpg.v2.hud.LoginScreen;
+import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
@@ -161,15 +164,16 @@ public class Mideas {
 				lessCd();
 			}
 			time = System.nanoTime();
-			/*while(Mouse.next()) {
+			while(Mouse.next()) {
 				if(Interface.mouseEvent()) {
 					continue;
 				}
-			}*/
+			}
 			if(System.currentTimeMillis()%500 < 10) {
 				mouseEventTime = (float)(System.nanoTime()-time);
 			}
 			while(Keyboard.next()) {
+				System.out.println(Keyboard.getEventCharacter());
 				if(Interface.keyboardEvent()) {
 					continue;
 				}
@@ -188,7 +192,7 @@ public class Mideas {
 				ProfessionManager.getProfessionList().get(0).event(Display.getWidth()/2-530, Display.getHeight()/2-390);
 			}
 			Display.update();
-			Display.sync(120);
+			//Display.sync(120);
 		}
 	}
 	
@@ -227,6 +231,9 @@ public class Mideas {
 	private static void updateDisplayFactor() {
 		displayXFactor = Display.getWidth()/1920f;
 		displayYFactor = Display.getHeight()/1018f;
+		LoginScreen.updateSize();
+		SelectScreen.updateSize();;
+		DragManager.updateSize();
 	}
 	
 	public static double getInterfaceDrawTime() {

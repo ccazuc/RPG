@@ -31,7 +31,6 @@ import com.mideas.rpg.v2.utils.Texture;
 public class SpellBarFrame {
 	
 	private static Shortcut hoveredSpell;
-	private static boolean bagChange = true;
 	private static boolean[] hoverSpellBar = new boolean[36];
 	private static Color bgColor = new Color(0, 0, 0, .6f); 
 	private static Color borderColor = Color.decode("#494D4B");
@@ -61,10 +60,6 @@ public class SpellBarFrame {
 		}
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1);
         Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor());
-		if(bagChange) {
-			numberFreeSlotBag = checkNumberFreeSlotBag();
-			bagChange = false;
-		}
 		if(itemChange) {
 			loadNumberItem();
 			itemChange = true;
@@ -378,22 +373,6 @@ public class SpellBarFrame {
 		}
 	}
 	
-	private static int checkNumberFreeSlotBag() {
-		int i = 0;
-		int number = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == null) {
-				number++;
-			}
-			i++;
-		}
-		return number;
-	}
-	
-	public static void setBagChange(boolean we) {
-		bagChange = we;
-	}
-	
 	public static void setItemChange(boolean we) {
 		itemChange = we;
 	}
@@ -450,5 +429,9 @@ public class SpellBarFrame {
 			i++;
 		}
 		return false;
+	}
+	
+	public static void setNumberFreeSlot(int number) {
+		numberFreeSlotBag = number;
 	}
 }

@@ -2,6 +2,7 @@ package com.mideas.rpg.v2.hud;
 
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -13,6 +14,8 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.Drop;
+import com.mideas.rpg.v2.game.DropManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
@@ -92,50 +95,7 @@ public class EndFightFrame {
 		}
 	}
 	
-	private static boolean dropRate(Item item) throws SQLException {
-		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == null) {
-				Mideas.bag().setBag(i, item);
-				CharacterStuff.setBagItems();
-				return true;
-			}
-			i++;
-		}
-		LogChat.setStatusText3("Votre inventaire est pleins");
-		return false;
-	}
-	
-	public static boolean dropItem(Item potion, int number) throws SQLException {
-		if(potion.getItemType() == ItemType.ITEM || potion.getItemType() == ItemType.POTION) {
-			if(checkBagItems(potion)) {
-				int i = 0;
-				while(i < Mideas.bag().getBag().length) {
-					if(Mideas.bag().getBag(i) == null) {
-						Mideas.bag().setBag(i, potion);
-						Mideas.joueur1().setNumberItem(potion, 1);
-						CharacterStuff.setBagItems();
-						return true;
-					}
-					i++;
-				}
-			}
-			else {
-				int i = 0;
-				while(i < Mideas.bag().getBag().length) {
-					if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(potion)) {
-						Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+1);
-						CharacterStuff.setBagItems();
-						return true;
-					}
-					i++;
-				}
-			}
-		}
-		return false;
-	}
-	
-	public static boolean checkBagItems(Item potion) {
+	/*public static boolean checkBagItems(Item potion) {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) != null && potion.getId() ==  Mideas.bag().getBag(i).getId()) {
@@ -144,27 +104,29 @@ public class EndFightFrame {
 			i++;
 		}
 		return true;
-	}
+	}*/
 	
-	public static boolean bagItems(Item item) {
+	private static void dropManager() throws SQLException {
+		if(!DropManager.exists(Mideas.joueur2().getId())) {
+			DropManager.loadDropTable(Mideas.joueur2().getId());
+		}
+		ArrayList<Drop> temp = DropManager.getList(Mideas.joueur2().getId());
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) != null && item.equals(Mideas.bag().getBag(i))) {
-				return false;
+		double random = Math.random();
+		while(i < temp.size()) {
+			if(random >= temp.get(i).getDropRate()) {
+				if(temp.get(i).getAmount() > 1) {
+					Mideas.joueur1().addItem(temp.get(i).getItem(), temp.get(i).getAmount());
+				}
+				else {
+					Mideas.joueur1().addItem(temp.get(i).getItem(), 1);
+				}
 			}
 			i++;
 		}
-		i = 0;
-		while(i < Mideas.joueur1().getStuff().length) {
-			if(Mideas.joueur1().getStuff(i) != null && item.equals(Mideas.joueur1().getStuff(i))) {
-				return false;
-			}
-			i++;
-		}
-		return true;
 	}
 	
-	private static void lootGuerrier() throws SQLException {
+	/*private static void lootGuerrier() throws SQLException {
 		float x = 0.05f;
 		drop(x, StuffManager.getClone(1001));
 		drop(x, StuffManager.getClone(2001));
@@ -287,16 +249,10 @@ public class EndFightFrame {
 	
 	private static void drop(float x, Item item) throws SQLException {
 		if(Math.random() <= x && item != null) {
-			if(item.getItemType() == ItemType.POTION || item.getItemType() == ItemType.ITEM) {
-				dropItem(item, 1);
-			}
-			else {
-				dropRate(item);
-			}
-			SpellBarFrame.setBagChange(true);
+			Mideas.joueur1().addItem(item);
 			LogChat.setStatusText3("Vous avez obtenus "+item.getStuffName());
 		}
-	}
+	}*/
 	
 	public static boolean getEndFightEventState() {
 		return endFightEvent;
@@ -310,7 +266,8 @@ public class EndFightFrame {
 		Mideas.setExp(Mideas.joueur2().getExpGained());
 		Mideas.getLevel();
 		Mideas.setGold(Mideas.joueur2().getGoldGained());
-		lootManager();
+		//lootManager();
+		dropManager();
 	}
 }
 

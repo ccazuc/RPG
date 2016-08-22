@@ -40,16 +40,18 @@ public class Joueur {
 	private int numberRedGem;
 	private int numberBlueGem;
 	private int numberYellowGem;
-	private Profession profession1;
-	private Profession profession2;
+	private Profession firstProfession;
+	private Profession secondProfession;
 	//private int tailorExp;
 	private String id;
+	private int tempId;
 	public int x;
 	public static int y;
 	public static int z;
 	
-	public Joueur(String id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
+	public Joueur(String id, int tempId, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
 		this.id = id;
+		this.tempId = tempId;
 		this.stamina = stamina;
 		this.mana = mana;
 		this.strength = strength;
@@ -181,12 +183,58 @@ public class Joueur {
 		}
 	}
 	
-	public void setProfession1(Profession profession) {
-		this.profession1 = profession;
+	public boolean addItem(Item item, int amount) throws SQLException {
+		int i = 0;
+		if(item.getItemType() == ItemType.BAG || item.getItemType() == ItemType.GEM || item.getItemType() == ItemType.STUFF || item.getItemType() == ItemType.WEAPON) {
+			while(i < Mideas.bag().getBag().length) {
+				if(Mideas.bag().getBag(i) == null) {
+					Mideas.bag().setBag(i, item);
+					Mideas.bag().setBagChange(true);
+					CharacterStuff.setBagItems();
+					return true;
+				}
+				i++;
+			}
+		}
+		else {
+			while(i < Mideas.bag().getBag().length) {
+				if(Mideas.bag().getBag(i).equals(item)) {
+					Mideas.bag().setBag(i, item, Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))+amount);
+					Mideas.bag().setBagChange(true);
+					CharacterStuff.setBagItems();
+					return true;
+				}
+				i++;
+			}
+			i = 0;
+			while(i < Mideas.bag().getBag().length) {
+				if(Mideas.bag().getBag(i) == null) {
+					Mideas.bag().setBag(i, item, amount);
+					Mideas.bag().setBagChange(true);
+					CharacterStuff.setBagItems();
+					return true;
+				}
+				i++;
+			}
+		}
+		LogChat.setStatusText3("Votre inventaire est pleins");
+		return false;
 	}
 	
-	public void setProfession2(Profession profession) {
-		this.profession2 = profession;
+	public void setFirstProfession(Profession profession) {
+		this.firstProfession = profession;
+	}
+	
+	public Profession getFirstProfession() {
+		return this.firstProfession;
+	}
+	
+	public Profession getSecondProfession() {
+		return this.secondProfession;
+	}
+	
+	public void setSecondProfession(Profession profession) {
+		this.secondProfession = profession;
 	}
 	
 	public void setStuffArmor(int armor) {
@@ -237,6 +285,10 @@ public class Joueur {
 	
 	public String getClasse() {
 		return this.id;
+	}
+	
+	public int getId() {
+		return this.tempId;
 	}
 	
 	public float getArmor() {

@@ -19,10 +19,11 @@ public class ClassManager {
 	private static HashMap<String, Joueur> iaList = new HashMap<String, Joueur>();
 	
 	public static void loadClasses() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, wear, weapon_type, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana, exp_gained, gold_gained FROM player");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, tempId, wear, weapon_type, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana, exp_gained, gold_gained FROM player");
 		statement.execute();
 		while(statement.fetch()) {
 			String id = statement.getString();
+			int tempId = statement.getInt();
 			String temp = statement.getString();
 			Wear wear = getWear(temp);
 			short tempType = statement.getShort();
@@ -42,8 +43,8 @@ public class ClassManager {
 			Spell[] spellUnlocked = new Spell[49];
 			Spell[] spellUnlockeds = new Spell[49];
 			Stuff[] stuff = new Stuff[20];
-			Joueur newClass = new Joueur(id, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff);
-			Joueur iaClass = new Joueur(id, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellss, spellUnlockeds, stuff);
+			Joueur newClass = new Joueur(id, tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff);
+			Joueur iaClass = new Joueur(id, tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellss, spellUnlockeds, stuff);
 			playerList.put(id, newClass);
 			iaList.put(id, iaClass);
 			initTable(id);

@@ -43,17 +43,8 @@ public class LoginScreen {
 	};
 	
 	public static void draw() {
-		if(Display.wasResized() || !init) {
-			leaveButton.setX(Display.getWidth()/2+753*Mideas.getDisplayXFactor());
-			leaveButton.setY(Display.getHeight()/2+428*Mideas.getDisplayYFactor());
-			leaveButton.setButtonWidth(185);
-			leaveButton.setButtonHeight(34);
-			connectionButton.setX(Display.getWidth()/2-105*Mideas.getDisplayXFactor());
-			connectionButton.setY(Display.getHeight()/2+185*Mideas.getDisplayYFactor());
-			connectionButton.setButtonWidth(210);
-			connectionButton.setButtonHeight(38);
-			alert.setX(-355*Mideas.getDisplayXFactor());
-			alert.setY(-60);
+		if(!init) {
+			updateSize();
 			init = true;
 		}
 		Draw.drawQuadBG(Sprites.login_screen);
@@ -70,7 +61,7 @@ public class LoginScreen {
 		leaveButton.draw();
 		connectionButton.draw();
 		alert.draw();
-		Draw.drawColorQuad(0, 0, 1920, 1080, Color.blue);
+		//Draw.drawColorQuad(0, 0, 1920, 1080, Color.blue);
 	}
 	
 	public static boolean mouseEvent() throws NoSuchAlgorithmException, SQLException {
@@ -152,5 +143,18 @@ public class LoginScreen {
 				passwordActive = false;
 			}
 		}
+	}
+	
+	public static void updateSize() {
+		leaveButton.setX(Display.getWidth()/2+753*Mideas.getDisplayXFactor());
+		leaveButton.setY(Display.getHeight()/2+428*Mideas.getDisplayYFactor());
+		leaveButton.setButtonWidth(185);
+		leaveButton.setButtonHeight(34);
+		connectionButton.setX(Display.getWidth()/2-105*Mideas.getDisplayXFactor());
+		connectionButton.setY(Display.getHeight()/2+185*Mideas.getDisplayYFactor());
+		connectionButton.setButtonWidth(210);
+		connectionButton.setButtonHeight(38);
+		alert.setX(-355*Mideas.getDisplayXFactor());
+		alert.setY(-60);
 	}
 }
