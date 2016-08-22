@@ -173,7 +173,6 @@ public class Mideas {
 				mouseEventTime = (float)(System.nanoTime()-time);
 			}
 			while(Keyboard.next()) {
-				System.out.println(Keyboard.getEventCharacter());
 				if(Interface.keyboardEvent()) {
 					continue;
 				}
