@@ -10,6 +10,10 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
+<<<<<<< HEAD
+=======
+import com.mideas.rpg.v2.game.item.Item;
+>>>>>>> 7a64f7fc6afff7fbc9b769d61bf914f3170f6e07
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.ScrollBar;
 import com.mideas.rpg.v2.utils.Texture;

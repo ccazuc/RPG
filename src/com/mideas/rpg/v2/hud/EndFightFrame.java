@@ -64,8 +64,10 @@ public class EndFightFrame {
 		else if(Mideas.joueur2().getStamina() <= 0) {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 won", Color.white, Color.black, 1, 1, 1);
 			if(!endFightEvent) {
+				long time = System.nanoTime();
 				doEndFightEvent();
 				endFightEvent = true;
+				System.out.println(System.nanoTime()-time);
 			}
 		}
 		
@@ -249,7 +251,17 @@ public class EndFightFrame {
 	
 	private static void drop(float x, Item item) throws SQLException {
 		if(Math.random() <= x && item != null) {
+<<<<<<< HEAD
 			Mideas.joueur1().addItem(item);
+=======
+			if(item.getItemType() == ItemType.POTION || item.getItemType() == ItemType.ITEM) {
+				dropItem(item, 1);
+			}
+			else {
+				dropRate(item);
+			}
+			Mideas.bag().setBagChange(true);
+>>>>>>> 7a64f7fc6afff7fbc9b769d61bf914f3170f6e07
 			LogChat.setStatusText3("Vous avez obtenus "+item.getStuffName());
 		}
 	}*/
