@@ -16,11 +16,6 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Drop;
 import com.mideas.rpg.v2.game.DropManager;
-import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
-import com.mideas.rpg.v2.game.item.potion.PotionManager;
-import com.mideas.rpg.v2.game.item.stuff.BagManager;
-import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class EndFightFrame {

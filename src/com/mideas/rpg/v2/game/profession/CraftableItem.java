@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.game.profession;
 
+import java.util.ArrayList;
+
 import com.mideas.rpg.v2.game.item.Item;
 
 public class CraftableItem {
@@ -7,7 +9,7 @@ public class CraftableItem {
 	private int id;
 	private int level;
 	private Item item;
-	private Item ressource1;
+	/*private Item ressource1;
 	private int ressource1Amount;
 	private Item ressource2;
 	private int ressource2Amount;
@@ -18,11 +20,13 @@ public class CraftableItem {
 	private Item ressource5;
 	private int ressource5Amount;
 	private Item ressource6;
-	private int ressource6Amount;
+	private int ressource6Amount;*/
 	private boolean mouseHover;
 	private boolean mouseDown;
+	private ArrayList<Item> itemList;
+	private ArrayList<Integer> numberList;
 	
-	public CraftableItem(int id, int level, Item item, Item ressource1, int ressource1Amount, Item ressource2, int ressource2Amount, Item ressource3, int ressource3Amount, Item ressource4, int ressource4Amount, Item ressource5, int ressource5Amount, Item ressource6, int ressource6Amount) {
+	/*public CraftableItem(int id, int level, Item item, Item ressource1, int ressource1Amount, Item ressource2, int ressource2Amount, Item ressource3, int ressource3Amount, Item ressource4, int ressource4Amount, Item ressource5, int ressource5Amount, Item ressource6, int ressource6Amount) {
 		this.id = id;
 		this.level = level;
 		this.item = item;
@@ -38,13 +42,23 @@ public class CraftableItem {
 		this.ressource5Amount = ressource5Amount;
 		this.ressource6 = ressource6;
 		this.ressource6Amount = ressource6Amount;
+	}*/
+	
+	public CraftableItem(int id, int level, Item item, ArrayList<Item> itemList, ArrayList<Integer> numberList) {	
+		this.id = id;
+		this.level = level;
+		this.item = item;
+		this.itemList = itemList;
+		this.numberList = numberList;
 	}
 	
 	public CraftableItem(CraftableItem craftableItem) {
 		this.id = craftableItem.id;
 		this.level = craftableItem.level;
 		this.item = craftableItem.item;
-		this.ressource1 = craftableItem.ressource1;
+		this.itemList = craftableItem.itemList;
+		this.numberList = craftableItem.numberList;
+		/*this.ressource1 = craftableItem.ressource1;
 		this.ressource1Amount = craftableItem.ressource1Amount;
 		this.ressource2 = craftableItem.ressource2;
 		this.ressource2Amount = craftableItem.ressource2Amount;
@@ -55,7 +69,19 @@ public class CraftableItem {
 		this.ressource5 = craftableItem.ressource5;
 		this.ressource5Amount = craftableItem.ressource5Amount;
 		this.ressource6 = craftableItem.ressource6;
-		this.ressource6Amount = craftableItem.ressource6Amount;
+		this.ressource6Amount = craftableItem.ressource6Amount;*/
+	}
+	
+	public Item getNeededItem(int number) {
+		return this.itemList.get(number);
+	}
+	
+	public int getNeededItemNumber(int number) {
+		return this.numberList.get(number);
+	}
+	
+	public ArrayList<Item> getNeededItemList() {
+		return this.itemList;
 	}
 	
 	public int getId() {
@@ -86,7 +112,7 @@ public class CraftableItem {
 		return this.item;
 	}
 	
-	public Item getRessource1() {
+	/*public Item getRessource1() {
 		return this.ressource1;
 	}
 	
@@ -132,5 +158,5 @@ public class CraftableItem {
 	
 	public int getRessource6Amount() {
 		return this.ressource6Amount;
-	}
+	}*/
 }

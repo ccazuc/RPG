@@ -11,10 +11,8 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -213,7 +211,7 @@ public class ShopFrame { // UNUSED
 		return true;
 	}
 	
-	private static boolean dropRate(Item item) throws SQLException {
+	/*private static boolean dropRate(Item item) throws SQLException {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) == null) {
@@ -226,7 +224,7 @@ public class ShopFrame { // UNUSED
 		}
 		LogChat.setStatusText3("Votre inventaire est pleins");
 		return false;
-	}
+	}*/
 	
 	public static void buyItems(boolean slot_hover, Item stuff) throws SQLException {
 		if(Mouse.getEventButton() == 1 && slot_hover && stuff != null) {

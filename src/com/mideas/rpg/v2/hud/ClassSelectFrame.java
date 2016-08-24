@@ -1,6 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
+/*import java.sql.SQLException;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -15,7 +15,7 @@ import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
-import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Draw;*/
 
 /**
  * UNUSED

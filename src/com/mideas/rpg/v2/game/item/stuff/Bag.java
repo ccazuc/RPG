@@ -165,6 +165,13 @@ public class Bag extends Item implements Cloneable {
 		return itemList;
 	}
 	
+	public int getItemNumber(Item item) {
+		if(itemList.containsKey(item.getId())) {
+			return itemList.get(item.getId());
+		}
+		return 0;
+	}
+	
 	public Item getEquals(Item item) {
 		int i = 0;
 		while(i < numberStack.size()) {

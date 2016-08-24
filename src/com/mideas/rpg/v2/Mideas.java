@@ -147,7 +147,6 @@ public class Mideas {
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();
 		GemManager.loadGemSprites();
-		ProfessionManager.LoadAllCraft();
 		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		getExpAll();
 		joueur2 = getRandomClass(2);
@@ -186,10 +185,10 @@ public class Mideas {
 			if(System.currentTimeMillis()%2000 < 10) {
 				interfaceDrawTime = System.nanoTime()-time;
 			}
-			ProfessionManager.getProfessionList().get(0).draw(Display.getWidth()/2-530, Display.getHeight()/2-390);
-			while(Mouse.next()) {
+			//ProfessionManager.getProfessionList().get(0).draw(Display.getWidth()/2-530, Display.getHeight()/2-390);
+			/*while(Mouse.next()) {
 				ProfessionManager.getProfessionList().get(0).event(Display.getWidth()/2-530, Display.getHeight()/2-390);
-			}
+			}*/
 			Display.update();
 			//Display.sync(120);
 		}

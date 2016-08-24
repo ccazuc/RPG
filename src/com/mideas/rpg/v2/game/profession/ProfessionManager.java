@@ -16,6 +16,18 @@ public class ProfessionManager {
 	private static ArrayList<CraftableItem> craftableList = new ArrayList<CraftableItem>();
 	private static ArrayList<Category> categoryList = new ArrayList<Category>();
 	private static ArrayList<Profession> professionList = new ArrayList<Profession>();
+	private static ArrayList<Integer> unlockedCraftList = new ArrayList<Integer>();
+	
+	private static void loadUnlockedCraft() throws SQLException {
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT craft_id FROM craft_unlocked WHERE character_id = ?");
+		System.out.println(Mideas.getCharacterId());
+		statement.putInt(Mideas.getCharacterId());
+		statement.execute();
+		while(statement.fetch()) {
+			int id = statement.getInt();
+			unlockedCraftList.add(id);
+		}
+	}
 
 	public static void LoadAllCraft() throws SQLException {	
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, level, item1, item2, item3, item4, item5, item6 FROM craft_item");
@@ -42,8 +54,48 @@ public class ProfessionManager {
 			tempItem = statement.getString();
 			Item ressource6 = getItem(Integer.valueOf(tempItem.split(":")[0]));
 			int ressource6Amount = Integer.valueOf(tempItem.split(":")[1]);
-			craftableList.add(new CraftableItem(id, level, item, ressource1, ressource1Amount, ressource2, ressource2Amount, ressource3, ressource3Amount, ressource4, ressource4Amount, ressource5, ressource5Amount, ressource6, ressource6Amount));
+			ArrayList<Item> itemList = new ArrayList<Item>();
+			if(ressource1 != null) {
+				itemList.add(ressource1);
+			}
+			if(ressource2 != null) {
+				itemList.add(ressource2);
+			}
+			if(ressource3 != null) {
+				itemList.add(ressource3);
+			}
+			if(ressource4 != null) {
+				itemList.add(ressource4);
+			}
+			if(ressource5 != null) {
+				itemList.add(ressource5);
+			}
+			if(ressource6 != null) {
+				itemList.add(ressource6);
+			}
+			ArrayList<Integer> numberList = new ArrayList<Integer>();
+			if(ressource1 != null) {
+				numberList.add(ressource1Amount);
+			}
+			if(ressource2 != null) {
+				numberList.add(ressource2Amount);
+			}
+			if(ressource3 != null) {
+				numberList.add(ressource3Amount);
+			}
+			if(ressource4 != null) {
+				numberList.add(ressource4Amount);
+			}
+			if(ressource5 != null) {
+				numberList.add(ressource5Amount);
+			}
+			if(ressource6 != null) {
+				numberList.add(ressource6Amount);
+			}
+			craftableList.add(new CraftableItem(id, level, item, itemList, numberList));
+			//craftableList.add(new CraftableItem(id, level, item, ressource1, ressource1Amount, ressource2, ressource2Amount, ressource3, ressource3Amount, ressource4, ressource4Amount, ressource5, ressource5Amount, ressource6, ressource6Amount));
 		}
+		loadUnlockedCraft();
 		
 		statement = Mideas.getJDO().prepare("SELECT id, name, item1, item2, item3, item4, item5, item6, item7, item8, item9, item10 FROM craft_category");
 		statement.execute();
@@ -114,12 +166,14 @@ public class ProfessionManager {
 	}
 	
 	private static CraftableItem getCraftableItem(int id) {
-		int i = 0;
-		while(i < craftableList.size()) {
-			if(craftableList.get(i).getId() == id) {
-				return new CraftableItem(craftableList.get(i));
+		if(craftExists(id)) {
+			int i = 0;
+			while(i < craftableList.size()) {
+				if(craftableList.get(i).getId() == id) {
+					return new CraftableItem(craftableList.get(i));
+				}
+				i++;
 			}
-			i++;
 		}
 		return null;
 	}
@@ -144,6 +198,17 @@ public class ProfessionManager {
 			i++;
 		}
 		return null;
+	}
+	
+	private static boolean craftExists(int id) {
+		int i = 0;
+		while(i < unlockedCraftList.size()) {
+			if(unlockedCraftList.get(i) == id) {
+				return true;
+			}
+			i++;
+		}
+		return false;
 	}
 	
 	public static ArrayList<Profession> getProfessionList() {

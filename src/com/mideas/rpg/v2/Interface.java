@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff; 
 import com.mideas.rpg.v2.game.ShopManager;
+import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
@@ -21,7 +22,6 @@ import com.mideas.rpg.v2.hud.CastBar;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
 import com.mideas.rpg.v2.hud.ChatFrame;
-import com.mideas.rpg.v2.hud.ClassSelectFrame;
 import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.CraftManager;
 import com.mideas.rpg.v2.hud.DragBagManager;
@@ -101,6 +101,8 @@ public class Interface {
 				if(Mideas.joueur1() != null && !isStuffEquipped) {
 					CharacterStuff.getEquippedBags();
 					CharacterStuff.getBagItems();
+					ProfessionManager.LoadAllCraft();
+					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
 					isStuffEquipped = true;
 				}
 				if(Mideas.joueur1() != null && !isStatsCalc) {
@@ -147,7 +149,7 @@ public class Interface {
 						SpellBookFrame.draw();
 					}
 					if(craftFrameActive) {
-						CraftManager.draw();
+						Mideas.joueur1().getFirstProfession().draw(Display.getWidth()/2, Display.getHeight()/2);
 					}
 					if(BlackTemple.getBlackTempleStatus()) {
 						Dungeon.event();
@@ -258,9 +260,9 @@ public class Interface {
 				}
 			}
 			if(craftFrameActive) {
-				if(CraftManager.mouseEvent()) {
-					return true;
-				}
+				Mideas.joueur1().getFirstProfession().event(Display.getWidth()/2, Display.getHeight()/2);
+					//return true;
+				//}
 			}
 			if(talentFrameActive) {
 				if(Talent.mouseEvent()) {

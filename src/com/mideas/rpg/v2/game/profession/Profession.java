@@ -10,10 +10,6 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
-<<<<<<< HEAD
-=======
-import com.mideas.rpg.v2.game.item.Item;
->>>>>>> 7a64f7fc6afff7fbc9b769d61bf914f3170f6e07
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.ScrollBar;
 import com.mideas.rpg.v2.utils.Texture;
@@ -30,7 +26,8 @@ public class Profession {
 	private boolean change = true;
 	private int numberLine;
 	private float y_offset;
-	private final int MAX_HEIGHT = 140;
+	private static final int MAX_HEIGHT = 140;
+	private static final Color BG_COLOR = new Color(0, 0, 0, .5f); 
 	
 	public Profession(int id, String name, Category category1, Category category2, Category category3, Category category4, Category category5, Category category6, Category category7, Category category8) {
 		this.id = id;
@@ -66,7 +63,9 @@ public class Profession {
 	public void draw(int x, int y) {
 		if(!this.init) {
 			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
-			this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
+			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
+				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
+			}
 			this.init = true;
 		}
 		if(Display.wasResized()) {
@@ -85,7 +84,9 @@ public class Profession {
 			this.change = false;
 		}
 		Draw.drawQuad(Sprites.craft_frame, x, y);
-		drawSelectedItem(x+28*Mideas.getDisplayXFactor(), y+253*Mideas.getDisplayXFactor());
+		if(this.selectedItem != null) {
+			drawSelectedItem(x+28*Mideas.getDisplayXFactor(), y+253*Mideas.getDisplayXFactor());
+		}
 		this.scrollBar.draw();
 		x+= 26*Mideas.getDisplayXFactor();
 		y+= 99*Mideas.getDisplayXFactor();
@@ -98,7 +99,7 @@ public class Profession {
 		y-= this.y_offset;
 		while(i < this.categoryList.size()) {
 			j = 0;
-			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= this.MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayXFactor() && this.categoryList.get(i).getCraftList().size() > 0) {
 				drawButton(this.categoryList.get(i), x, y+yShift);
 				if(this.categoryList.get(i).getMouseDown()) {
 					TTF2.craft.drawString(x+22, y+2+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
@@ -110,7 +111,7 @@ public class Profession {
 			yShift+= yShiftHeight;
 			if(this.categoryList.get(i).getExpand()) {
 				while(j < this.categoryList.get(i).getCraftList().size()) {
-					if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= this.MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+					if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
 						if(this.categoryList.get(i).getCraftList().get(j) == this.selectedItem) {
 							Draw.drawQuad(getColor(this.categoryList.get(i).getCraftList().get(j).getLevel()), x-5, y+yShift);
 						}
@@ -123,12 +124,12 @@ public class Profession {
 					}
 					yShift+= yShiftHeight;
 					j++;
-					if(yShift+yShiftHeight-this.y_offset >= this.MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+					if(yShift+yShiftHeight-this.y_offset >= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
 						break;
 					}
 				}
 			}
-			if(yShift+yShiftHeight-this.y_offset >= this.MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+			if(yShift+yShiftHeight-this.y_offset >= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
 				break;
 			}
 			i++;
@@ -148,23 +149,23 @@ public class Profession {
 		float borderHeight = Sprites.craft_orange_selection.getImageHeight()*Mideas.getDisplayXFactor()-2;
 		while(i < this.categoryList.size()) {
 			j = 0;
-			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= this.MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayXFactor() && this.categoryList.get(i).getCraftList().size() > 0) {
 				checkMouseEventCategory(x, y+yShift, Sprites.craft_orange_selection.getImageWidth()*Mideas.getDisplayXFactor(), borderHeight, this.categoryList.get(i));
 			}
 			yShift+= yShiftHeight;
 			if(this.categoryList.get(i).getExpand()) {
 				while(j < this.categoryList.get(i).getCraftList().size()) {
-					if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= this.MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+					if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
 						checkMouseEventItem(x, y+1+yShift, Sprites.craft_orange_selection.getImageWidth()*Mideas.getDisplayXFactor(), borderHeight, this.categoryList.get(i).getCraftList().get(j));
 					}
 					j++;
 					yShift+= yShiftHeight;
-					if(yShift+yShiftHeight-this.y_offset >= this.MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+					if(yShift+yShiftHeight-this.y_offset >= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
 						break;
 					}
 				}
 			}
-			if(yShift+yShiftHeight-this.y_offset >= this.MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+			if(yShift+yShiftHeight-this.y_offset >= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
 				break;
 			}
 			i++;
@@ -175,48 +176,20 @@ public class Profession {
 		Draw.drawQuad(IconsManager.getSprite37(this.selectedItem.getItem().getSpriteId()), x, y, 41*Mideas.getDisplayXFactor(), 39*Mideas.getDisplayXFactor());
 		Draw.drawQuad(Sprites.profession_border, x, y);
 		TTF2.craft.drawString(x+53*Mideas.getDisplayXFactor(), y+2, this.selectedItem.getItem().getStuffName(), Color.decode("#DDB500"));
+		drawComponent(x-4, y+61*Mideas.getDisplayXFactor(), 0);
 	}
 	
-	/*private void updateItemNumber() {
-		int i = 0;
-		int j = 0;
-		while(i < this.categoryList.size()) {
-			j = 0;
-			while(j < this.categoryList.get(i).getCraftList().size()) {
-				loadItemNumber(this.categoryList.get(i).getCraftList().get(j));
-				j++;
+	private void drawComponent(float x, float y, int number) {
+		if(number < this.selectedItem.getNeededItemList().size()) {
+			Draw.drawQuad(IconsManager.getSprite37(this.selectedItem.getNeededItem(number).getSpriteId()), x, y, 41*Mideas.getDisplayXFactor(), 39*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.profession_border, x, y);
+			if(Mideas.bag().getItemNumber(this.selectedItem.getNeededItem(number)) < this.selectedItem.getNeededItemNumber(number)) {
+				Draw.drawColorQuad(x, y, 42*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayXFactor(), BG_COLOR);
 			}
-			i++;
+			TTF2.craft.drawStringShadow(x+39-TTF2.craft.getWidth(Integer.toString(Mideas.bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number)), y+23, Integer.toString(Mideas.bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number), Color.white, Color.black, 1, 1);
+			TTF2.craft.drawStringShadow(x+45*Mideas.getDisplayXFactor(), y, this.selectedItem.getNeededItem(0).getStuffName(), Color.decode("#DDB500"), Color.black, 1, 1);
 		}
 	}
-	
-	private void loadItemNumber(CraftableItem item) {
-		item.setRessource1Earned(itemNumber(item.getRessource1()));
-		item.setRessource2Earned(itemNumber(item.getRessource2()));
-		item.setRessource3Earned(itemNumber(item.getRessource3()));
-		item.setRessource4Earned(itemNumber(item.getRessource4()));
-		item.setRessource5Earned(itemNumber(item.getRessource5()));
-		item.setRessource6Earned(itemNumber(item.getRessource6()));
-	}
-	
-	private int itemNumber(Item item) {
-		if(item != null) {
-			int i = 0;
-			int number = 0;
-			while(i < Mideas.bag().getBag().length) {
-				if(item.equals(Mideas.bag().getBag(i))) {
-					if(Mideas.bag().getNumberStack().containsKey(Mideas.bag().getBag(i))) {
-						number+= Mideas.bag().getNumberStack().get(Mideas.bag().getBag(i));
-					}
-					else {
-						number++;
-					}
-				}
-			}
-			return number;
-		}
-		return -1;
-	}*/
 	
 	private void checkMouseEventItem(float x, float y, float x_size, float y_size, CraftableItem item) {
 		if(Mideas.mouseX() >= x && Mideas.mouseX() <= x+x_size && Mideas.mouseY() >= y && Mideas.mouseY() <= y+y_size) {
