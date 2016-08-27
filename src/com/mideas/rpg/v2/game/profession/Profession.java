@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.game.profession;
 
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
@@ -10,6 +12,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.ScrollBar;
 import com.mideas.rpg.v2.utils.Texture;
@@ -28,6 +31,21 @@ public class Profession {
 	private float y_offset;
 	private static final int MAX_HEIGHT = 140;
 	private static final Color BG_COLOR = new Color(0, 0, 0, .5f); 
+
+	private Button craftButton = new Button(0, 0, 185, 34, "Create", 10) {
+		@Override
+		public void eventButtonClick() throws SQLException {
+			System.out.println('a');
+		}
+		
+		@Override
+		public boolean activateCondition() {
+			if(Profession.this.selectedItem != null) {
+				return canCraft(Profession.this.selectedItem);
+			}
+			return false;
+		}
+	};
 	
 	public Profession(int id, String name, Category category1, Category category2, Category category3, Category category4, Category category5, Category category6, Category category7, Category category8) {
 		this.id = id;
@@ -66,10 +84,18 @@ public class Profession {
 			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
 				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
 			}
+			this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
+			this.craftButton.setY(y+440*Mideas.getDisplayXFactor());
+			this.craftButton.setButtonWidth(87);
+			this.craftButton.setButtonHeight(23);
 			this.init = true;
 		}
 		if(Display.wasResized()) {
 			this.scrollBar.update(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor());
+			this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
+			this.craftButton.setY(y+440*Mideas.getDisplayXFactor());
+			this.craftButton.setButtonWidth(87);
+			this.craftButton.setButtonHeight(23);
 		}
 		if(this.change) {
 			int i = 0;
@@ -88,6 +114,7 @@ public class Profession {
 			drawSelectedItem(x+28*Mideas.getDisplayXFactor(), y+253*Mideas.getDisplayXFactor());
 		}
 		this.scrollBar.draw();
+		this.craftButton.draw();
 		x+= 26*Mideas.getDisplayXFactor();
 		y+= 99*Mideas.getDisplayXFactor();
 		final int Y_TOP = y;
@@ -136,8 +163,20 @@ public class Profession {
 		}
 	}
 	
-	public void event(int x, int y) {
+	public void event(int x, int y) throws NoSuchAlgorithmException, SQLException {
+		if(!this.init) {
+			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
+			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
+				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
+			}
+			this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
+			this.craftButton.setY(y+440*Mideas.getDisplayXFactor());
+			this.craftButton.setButtonWidth(87);
+			this.craftButton.setButtonHeight(23);
+			this.init = true;
+		}
 		this.scrollBar.event();
+		this.craftButton.event();
 		x+= 26*Mideas.getDisplayXFactor();
 		y+= 99*Mideas.getDisplayXFactor();
 		final int Y_TOP = y;
@@ -266,6 +305,17 @@ public class Profession {
 				}
 			}
 		}
+	}
+	
+	boolean canCraft(CraftableItem item) {
+		int i = 0;
+		while(i < item.getNeededItemList().size()) {
+			if(Mideas.bag().getItemNumber(item.getNeededItem(i)) < item.getNeededItemNumber(i)) {
+				return false;
+			}
+			i++;
+		}
+		return true;
 	}
 	
 	private Color getColorCategory(Category category) {

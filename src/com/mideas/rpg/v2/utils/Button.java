@@ -102,57 +102,67 @@ public class Button {
 	}
 	
 	public void event() throws SQLException, NoSuchAlgorithmException {
-		this.color = Color.decode("#FFC700");
-		this.buttonHover = false;
-		if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
-			this.buttonHover = true;
-		}
-		if(this.buttonHover) {
-			if(Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					this.buttonDown = true;
-				}
+		if(activateCondition()) {
+			this.color = Color.decode("#FFC700");
+			this.buttonHover = false;
+			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+				this.buttonHover = true;
 			}
-			else if(this.buttonDown) {
-				if(Mouse.getEventButton() == 0) {
-					this.buttonDown = false;
-					this.buttonHover = false;
-					this.color = Color.decode("#FFC700");
-					this.texture = Sprites.button;
-					eventButtonClick();
-					this.hasClicked = true;
-					return;
-				}
-				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					this.buttonDown = false;
-				}
-			}
-			this.color = Color.white;
-		}
-		else if(!Mouse.getEventButtonState()) {
-			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-				this.buttonDown = false;
-				this.hasClicked = false;
-			}
-		}
-		if(this.buttonDown) {
 			if(this.buttonHover) {
-				this.texture = Sprites.button_down_hover;
+				if(Mouse.getEventButtonState()) {
+					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+						this.buttonDown = true;
+					}
+				}
+				else if(this.buttonDown) {
+					if(Mouse.getEventButton() == 0) {
+						this.buttonDown = false;
+						this.buttonHover = false;
+						this.color = Color.decode("#FFC700");
+						this.texture = Sprites.button;
+						eventButtonClick();
+						this.hasClicked = true;
+						return;
+					}
+					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+						this.buttonDown = false;
+					}
+				}
+				this.color = Color.white;
+			}
+			else if(!Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					this.buttonDown = false;
+					this.hasClicked = false;
+				}
+			}
+			if(this.buttonDown) {
+				if(this.buttonHover) {
+					this.texture = Sprites.button_down_hover;
+				}
+				else {
+					this.texture = Sprites.button_down;
+				}
+			}
+			else if(this.buttonHover) {
+				this.texture = Sprites.button_hover;
 			}
 			else {
-				this.texture = Sprites.button_down;
+				this.texture = Sprites.button;
 			}
 		}
-		else if(this.buttonHover) {
-			this.texture = Sprites.button_hover;
-		}
 		else {
-			this.texture = Sprites.button;
+			this.texture = Sprites.button_disabled;
+			this.color = Color.decode("#808080");
 		}
 	}
 	
 	public void setX(float x) {
 		this.x = x;
+	}
+	
+	public boolean activateCondition() {
+		return true;
 	}
 	
 	public void setY(float y) {

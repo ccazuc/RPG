@@ -33,6 +33,7 @@ public class LoginScreen {
 			System.exit(0);
 		}
 	};
+	
 	private static Button connectionButton = new Button(Display.getWidth()/2-113*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210, 35, "Connection", 16) {
 		@Override
 		public void eventButtonClick() throws SQLException, NoSuchAlgorithmException {

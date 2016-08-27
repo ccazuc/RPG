@@ -28,6 +28,16 @@ public class ProfessionManager {
 			unlockedCraftList.add(id);
 		}
 	}
+	
+	public static void addUnlockedCraft(int id) throws SQLException {
+		if(!unlockedCraftList.contains(id)) {
+			unlockedCraftList.add(id);
+			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO craft_unlocked (character_id, craft_id) VALUES (?, ?)");
+			statement.putInt(Mideas.getCharacterId());
+			statement.putInt(id);
+			statement.execute();
+		}
+	}
 
 	public static void LoadAllCraft() throws SQLException {	
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, level, item1, item2, item3, item4, item5, item6 FROM craft_item");

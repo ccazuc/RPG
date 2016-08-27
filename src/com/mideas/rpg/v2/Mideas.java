@@ -31,7 +31,6 @@ import com.mideas.rpg.v2.game.item.stuff.Bag;
 import com.mideas.rpg.v2.game.item.stuff.BagManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
-import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;

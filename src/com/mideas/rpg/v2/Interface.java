@@ -23,7 +23,6 @@ import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
 import com.mideas.rpg.v2.hud.ChatFrame;
 import com.mideas.rpg.v2.hud.ContainerFrame;
-import com.mideas.rpg.v2.hud.CraftManager;
 import com.mideas.rpg.v2.hud.DragBagManager;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
@@ -88,91 +87,89 @@ public class Interface {
 			else if(Mideas.joueur1() == null) {
 				SelectScreen.draw();
 			}
-			else {
-				if(Mideas.joueur1() != null && !isGoldLoaded) {
+			else if(Mideas.joueur1() != null) {
+				if(!isGoldLoaded) {
 					SpellBarManager.loadSpellBar();
 					Mideas.getGold();
 					isGoldLoaded = true;
 				}
-				if(Mideas.joueur1() != null && !isExpLoaded) {
+				if(!isExpLoaded) {
 					Mideas.getExp();
 					isExpLoaded = true;
 				}
-				if(Mideas.joueur1() != null && !isStuffEquipped) {
+				if(!isStuffEquipped) {
 					CharacterStuff.getEquippedBags();
 					CharacterStuff.getBagItems();
 					ProfessionManager.LoadAllCraft();
 					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
 					isStuffEquipped = true;
 				}
-				if(Mideas.joueur1() != null && !isStatsCalc) {
+				if(!isStatsCalc) {
 					CharacterStuff.calcStuffStats();
 					isStatsCalc = true;
 				}	
-				if(Mideas.joueur1() != null && !isTalentLoaded) {
+				if(!isTalentLoaded) {
 					Talent.getTalent();
 					isTalentLoaded = true;
 				}
-				if(Mideas.joueur1() != null) {
-					if(Mideas.joueur2() != null) {
-						PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
-						PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
-						if((Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0) && !Dungeon.dungeonActive()) {
-							EndFightFrame.draw();
-						}
+				if(Mideas.joueur2() != null) {
+					PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
+					PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
+					if((Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0) && !Dungeon.dungeonActive()) {
+						EndFightFrame.draw();
 					}
-					SpellBarFrame.draw();
-					cast = CastBar.draw();
-					SpellLevel.addSpell();
-					double time = System.nanoTime();
-					if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
-						containerFrameActive = true;
-						ContainerFrame.draw();
-						GoldFrame.draw();
-					}
-					if(System.currentTimeMillis()%2000 < 10) {
-						containerDrawTime = System.nanoTime()-time;
-					}
-					if(shopFrameActive) {
-						ShopManager.draw();		
-					}
-					if(escapeFrameActive) {
-						EscapeFrame.draw();
-					}
-					if(talentFrameActive) {
-						Talent.draw();
-					}
-					if(adminPanelFrameActive) {
-						AdminPanelFrame.draw();
-					}
-					if(spellBookFrameActive) {
-						SpellBookFrame.draw();
-					}
-					if(craftFrameActive) {
-						Mideas.joueur1().getFirstProfession().draw(Display.getWidth()/2, Display.getHeight()/2);
-					}
-					if(BlackTemple.getBlackTempleStatus()) {
-						Dungeon.event();
-					}
-					if(chatFrameActive) {
-						ChatFrame.draw();
-					}
-					Draw.drawQuad(Sprites.level, 50, 95);
-					TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), Color.decode("#F0CE0C"), Color.black, 1, 1, 1);
-					ShortcutFrame.draw();
-					if(characterFrameActive) {
-						CharacterFrame.draw();
-					}
-					if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
-						DrawContainerHover.draw();
-					}
-					PerformanceBarFrame.draw();
-					LogChat.draw();
-					DragManager.draw();
-					DragBagManager.draw();
-					DragSpellManager.draw();
-					Mideas.bag().event();
 				}
+				SpellBarFrame.draw();
+				cast = CastBar.draw();
+				SpellLevel.addSpell();
+				double time = System.nanoTime();
+				if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
+					containerFrameActive = true;
+					ContainerFrame.draw();
+					GoldFrame.draw();
+				}
+				if(System.currentTimeMillis()%2000 < 10) {
+					containerDrawTime = System.nanoTime()-time;
+				}
+				if(shopFrameActive) {
+					ShopManager.draw();		
+				}
+				if(escapeFrameActive) {
+					EscapeFrame.draw();
+				}
+				if(talentFrameActive) {
+					Talent.draw();
+				}
+				if(adminPanelFrameActive) {
+					AdminPanelFrame.draw();
+				}
+				if(spellBookFrameActive) {
+					SpellBookFrame.draw();
+				}
+				if(craftFrameActive) {
+					Mideas.joueur1().getFirstProfession().draw(Display.getWidth()/2, Display.getHeight()/2);
+				}
+				if(BlackTemple.getBlackTempleStatus()) {
+					Dungeon.event();
+				}
+				if(chatFrameActive) {
+					ChatFrame.draw();
+				}
+				Draw.drawQuad(Sprites.level, 50, 95);
+				TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), Color.decode("#F0CE0C"), Color.black, 1, 1, 1);
+				ShortcutFrame.draw();
+				if(characterFrameActive) {
+					CharacterFrame.draw();
+				}
+				if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
+					DrawContainerHover.draw();
+				}
+				PerformanceBarFrame.draw();
+				LogChat.draw();
+				DragManager.draw();
+				DragBagManager.draw();
+				DragSpellManager.draw();
+				Mideas.bag().event();
 			}
 		}
 		if(changeBackgroundFrameActive) {
@@ -441,6 +438,7 @@ public class Interface {
 						Arrays.fill(ShopFrame.getShopHover(), false);
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
 						//ClassSelectFrame.setHoverFalse();
+						Mideas.joueur1().getFirstProfession().event(Display.getWidth()/2, Display.getHeight()/2);
 						craftFrameActive = !craftFrameActive;
 						return true;
 					}

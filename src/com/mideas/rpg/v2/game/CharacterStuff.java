@@ -157,6 +157,7 @@ public class CharacterStuff {
 					statement.putInt(0);
 				}
 				else if(tempBag.getItemType() == ItemType.STUFF || tempBag.getItemType() == ItemType.WEAPON) {
+					System.out.println(tempBag.getId());
 					statement.putInt(tempBag.getId());
 					statement.putInt(0);
 					if(((Stuff)tempBag).getEquippedGem1() == null) {

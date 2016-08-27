@@ -88,6 +88,7 @@ public class Sprites {
 	public static Texture button_down;
 	public static Texture button_hover;
 	public static Texture button_hover2;
+	public static Texture button_disabled;
 	public static Texture tooltip;
 	public static Texture cursor;
 	public static Texture cursor_buy;
@@ -444,6 +445,7 @@ public class Sprites {
 		top_button = new Texture("sprite/interface/scrollBar/top_button.png");
 		bot_button = new Texture("sprite/interface/scrollBar/bot_button.png");
 		profession_border = new Texture("sprite/interface/profession/border.png");
+		button_disabled = new Texture("sprite/interface/button_disabled.png");
 		return true;
 	}
 		
