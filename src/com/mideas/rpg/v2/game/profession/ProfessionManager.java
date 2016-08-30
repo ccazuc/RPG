@@ -40,11 +40,12 @@ public class ProfessionManager {
 	}
 
 	public static void LoadAllCraft() throws SQLException {	
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, level, item1, item2, item3, item4, item5, item6 FROM craft_item");
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, level, craft_time, item1, item2, item3, item4, item5, item6 FROM craft_item");
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
 			int level = statement.getInt();
+			int craftTime = statement.getInt();
 			Item item = getItem(id);
 			String tempItem = statement.getString();
 			Item ressource1 = getItem(Integer.valueOf(tempItem.split(":")[0]));
@@ -102,7 +103,7 @@ public class ProfessionManager {
 			if(ressource6 != null) {
 				numberList.add(ressource6Amount);
 			}
-			craftableList.add(new CraftableItem(id, level, item, itemList, numberList));
+			craftableList.add(new CraftableItem(id, level, craftTime, item, itemList, numberList));
 			//craftableList.add(new CraftableItem(id, level, item, ressource1, ressource1Amount, ressource2, ressource2Amount, ressource3, ressource3Amount, ressource4, ressource4Amount, ressource5, ressource5Amount, ressource6, ressource6Amount));
 		}
 		loadUnlockedCraft();

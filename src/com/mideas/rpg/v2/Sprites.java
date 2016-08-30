@@ -319,7 +319,7 @@ public class Sprites {
 		spellbook_page1 = new Texture("sprite/interface/spell/spellbook.png");
 		spellbook_spell_bg = new Texture("sprite/interface/spell/spellbook_spell_bg.png");
 		spellbook_spell_bg_grey = new Texture("sprite/interface/spell/spellbook_spell_bg_grey.png");
-		escape_frame = new Texture("sprite/interface/escape_frame.png");
+		escape_frame = new Texture("sprite/interface/optionFrame.png");
 		level = new Texture("sprite/interface/level.png");
 		un_green_talent = new Texture("sprite/interface/talent/1_green_talent.png");
 		deux_green_talent = new Texture("sprite/interface/talent/2_green_talent.png");

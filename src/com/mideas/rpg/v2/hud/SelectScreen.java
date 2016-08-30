@@ -289,10 +289,11 @@ public class SelectScreen {
 		float x = Display.getWidth()/2-875*Mideas.getDisplayXFactor();
 		float y = Display.getHeight()/2-340*Mideas.getDisplayYFactor();
 		while(i < 10) {
-			if(Mideas.mouseX() >= x && Mideas.mouseX() <= x+63*Mideas.getDisplayXFactor() && Mideas.mouseY() >= y && Mideas.mouseY() <= y+60*Mideas.getDisplayYFactor()) {
+			if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+63*Mideas.getDisplayXFactor() && Mideas.mouseY() >= y && Mideas.mouseY() <= y+60*Mideas.getDisplayYFactor()) {
 				hoveredRace = race[i];
 				x_hover_race = x;
 				y_hover_race = y;
+				Mideas.setHover(false);
 				break;
 			}
 			i++;
@@ -309,10 +310,11 @@ public class SelectScreen {
 		float x = Display.getWidth()/2-868*Mideas.getDisplayXFactor();
 		float y = Display.getHeight()/2+99*Mideas.getDisplayYFactor();
 		while(i < selectedRace.getClasse().length) {
-			if(Mideas.mouseX() >= x && Mideas.mouseX() <= x+58*Mideas.getDisplayXFactor() && Mideas.mouseY() >= y && Mideas.mouseY() <= y+57*Mideas.getDisplayYFactor()) {
+			if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+58*Mideas.getDisplayXFactor() && Mideas.mouseY() >= y && Mideas.mouseY() <= y+57*Mideas.getDisplayYFactor()) {
 				hoveredClasse = selectedRace.getClasse()[i];
 				x_hover_classe = x;
 				y_hover_classe = y;
+				Mideas.setHover(false);
 				break;
 			}
 			i++;
@@ -431,11 +433,11 @@ public class SelectScreen {
 	}
 	
 	public static void updateSize() {
-		newCharacterButton.update(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor(), 278, 36);
+		newCharacterButton.update(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor(), 278*Mideas.getDisplayXFactor(), 36);
 		acceptCharacterButton.update(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195*Mideas.getDisplayXFactor(), 34);
 		returnCharacterButton.update(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150*Mideas.getDisplayXFactor(), 34);
 		returnButton.update(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayXFactor());
-		enterGameButton.update(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50);
+		enterGameButton.update(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250*Mideas.getDisplayXFactor(), 50);
 		deleteCharacterButton.update(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202*Mideas.getDisplayXFactor(), 28);
 	}
 }

@@ -143,8 +143,9 @@ public class DragBagManager {
 		if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 			if(!Mouse.getEventButtonState()) {
 				i = 0;
-				if(Mideas.mouseX() >= Display.getWidth()/2+539 && Mideas.mouseX() <= Display.getWidth()/2+539+40 && Mideas.mouseY() >= Display.getHeight()-40 && Mideas.mouseY() <= Display.getHeight()-3) {
+				if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+539 && Mideas.mouseX() <= Display.getWidth()/2+539+40 && Mideas.mouseY() >= Display.getHeight()-40 && Mideas.mouseY() <= Display.getHeight()-3) {
 					ContainerFrame.setBagOpen(0, !ContainerFrame.getBagOpen(0));
+					Mideas.setHover(false);
 				}
 				while(i < hoverBag.length) {
 					if(hoverBag[i]) {
@@ -158,8 +159,9 @@ public class DragBagManager {
 	}
 	
 	private static void bagHover(int i, float x) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37 && Mideas.mouseY() >= Display.getHeight()-40 && Mideas.mouseY() <= Display.getHeight()-3) {
+		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37 && Mideas.mouseY() >= Display.getHeight()-40 && Mideas.mouseY() <= Display.getHeight()-3) {
 			hoverBag[i] = true;
+			Mideas.setHover(false);
 		}
 	}
 	

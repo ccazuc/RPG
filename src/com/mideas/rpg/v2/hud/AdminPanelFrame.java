@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -12,19 +13,57 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.ShopManager;
+import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class AdminPanelFrame {
 
-	private static boolean[] hover = new boolean[15];
-	private static int xLeft = -325;
+	private static int LEFT_ANCHOR = Display.getWidth()/2-325;
 	private static int xRight = 190;
 	private static int y = -250;
 	private static int yShift = 25;
+	private static boolean init;
+	private static Button sexMaxStaminaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y, 130, 30, "Fully heals you", 12) {
+		@Override
+		public void eventButtonClick() throws SQLException {
+			Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
+		}
+	};
+	
+	private static Button sexMaxManaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+40, 130, 30, "Restore your mana", 12) {
+		@Override
+		public void eventButtonClick() throws SQLException {
+			Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
+		}
+	};
+	
+	private static Button killPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+80, 130, 30, "Kill you", 12) {
+		@Override
+		public void eventButtonClick() throws SQLException {
+			Mideas.joueur1().setStamina(0);
+		}
+	};
+	
+	private static Button clearBag = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130, 30, "Clear your bag", 12) {
+		@Override
+		public void eventButtonClick() throws SQLException {
+			Arrays.fill(Mideas.bag().getBag(), null);
+			CharacterStuff.setBagItems();
+			Mideas.bag().setBagChange(true);
+		}
+	};
 	
 	public static void draw() {
-		Draw.drawQuad(Sprites.admin_panel, Display.getWidth()/2+xLeft-75, Display.getHeight()/2+y-100);
-		drawHover(0, xLeft, y);
+		if(Display.wasResized() || init) {
+			LEFT_ANCHOR = Display.getWidth()/2-325;
+			sexMaxStaminaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+			sexMaxManaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+40, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+			killPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+80, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+			clearBag.update(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+			init = true;
+		}
+		Draw.drawQuad(Sprites.admin_panel, LEFT_ANCHOR-75, Display.getHeight()/2+y-100);
+		/*drawHover(0, xLeft, y);
 		drawHover(1, xLeft, y+yShift);
 		drawHover(2, xLeft, y+2*yShift);
 		drawHover(3, xLeft, y+3*yShift);
@@ -41,72 +80,19 @@ public class AdminPanelFrame {
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+30, Display.getHeight()/2+y+2, "set max HP", Color.white, Color.black, 1, 1, 1);
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+22, Display.getHeight()/2+y+yShift+2, "set max mana", Color.white, Color.black, 1, 1, 1);
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+55, Display.getHeight()/2+y+2*yShift+2, "kill", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+35, Display.getHeight()/2+y+3*yShift+2, "Update all", Color.white, Color.black, 1, 1, 1);
+		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+35, Display.getHeight()/2+y+3*yShift+2, "Update all", Color.white, Color.black, 1, 1, 1);*/
+		TTF2.coinContainer.drawStringShadow(LEFT_ANCHOR+25, Display.getHeight()/2+y-40, "Joueur1", Color.white, Color.black, 1, 1, 1);
+		sexMaxStaminaPlayer1.draw();
+		sexMaxManaPlayer1.draw();
+		killPlayer1.draw();
+		clearBag.draw();
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
-		Arrays.fill(hover, false);
-		isHover(0, xLeft, y);
-		isHover(1, xLeft, y+yShift);
-		isHover(2, xLeft, y+2*yShift);
-		isHover(3, xLeft, y+3*yShift);
-		isHover(4, xRight, y);
-		isHover(5, xRight, y+yShift);
-		isHover(6, xRight, y+2*yShift);
-		isHover(7, xRight, y+3*yShift);
-		if(Mouse.getEventButtonState()) {
-			if(hover[0]) {
-				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
-			}
-			else if(hover[1]) {
-				Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
-			}
-			else if(hover[2]) {
-				Mideas.joueur1().setStamina(0);
-			}
-			else if(hover[3]) {
-				Arrays.fill(Mideas.bag().getBag(), null);
-				CharacterStuff.setBagItems();
-			}
-			else if(hover[4]) {
-				Mideas.joueur2().setStamina(Mideas.joueur2().getMaxStamina());
-			}
-			else if(hover[5]) {
-				Mideas.joueur2().setMana(Mideas.joueur2().getMaxMana());
-			}
-			else if(hover[6]) {
-				LogChat.setStatusText2("Killed by god");
-				Mideas.joueur2().setStamina(0);
-			}
-			else if(hover[7]) {
-				Mideas.getGold();
-				Mideas.getExp();
-				ShopManager.getShopList().clear();
-				ShopManager.loadStuffs();
-				CharacterStuff.getBagItems();
-				CharacterStuff.getEquippedItems();
-			}
-		}
+	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
+		sexMaxStaminaPlayer1.event();
+		sexMaxManaPlayer1.event();
+		killPlayer1.event();
+		clearBag.event();
 		return false;
-	}
-	
-	private static void isHover(int i, int x, int y) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+Sprites.button.getWidth() && Mideas.mouseY() >= Display.getHeight()/2+y && Mideas.mouseY() <= Display.getHeight()/2+y+Sprites.button.getHeight()) {
-			hover[i] = true;
-		}
-	}
-	
-	private static void drawHover(int i, int x, int y) {
-		if(hover[i]) {
-			Draw.drawQuad(Sprites.button_hover, Display.getWidth()/2+x, Display.getHeight()/2+y);
-		}
-		else {
-			Draw.drawQuad(Sprites.button, Display.getWidth()/2+x, Display.getHeight()/2+y);
-		}
-		Draw.drawQuad(Sprites.cursor, -200, -200);
-	}
-	
-	public static boolean[] getHover() {
-		return hover;
 	}
 }

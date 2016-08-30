@@ -242,7 +242,7 @@ public class ShopFrame { // UNUSED
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
 					}*/
 					if(Mideas.joueur1().addItem((stuff), 1)) {
-						Mideas.setGold(-stuff.getSellPrice());
+						Mideas.setGold(Mideas.getGold()-stuff.getSellPrice());
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
 					}
 				}

@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff; 
@@ -21,7 +22,6 @@ import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.CastBar;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
-import com.mideas.rpg.v2.hud.ChatFrame;
 import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.DragBagManager;
 import com.mideas.rpg.v2.hud.DragManager;
@@ -90,11 +90,11 @@ public class Interface {
 			else if(Mideas.joueur1() != null) {
 				if(!isGoldLoaded) {
 					SpellBarManager.loadSpellBar();
-					Mideas.getGold();
+					Mideas.loadGold();
 					isGoldLoaded = true;
 				}
 				if(!isExpLoaded) {
-					Mideas.getExp();
+					Mideas.loadExp();
 					isExpLoaded = true;
 				}
 				if(!isStuffEquipped) {
@@ -120,7 +120,8 @@ public class Interface {
 					}
 				}
 				SpellBarFrame.draw();
-				cast = CastBar.draw();
+				//cast = CastBar.draw();
+				CastBar.event();
 				SpellLevel.addSpell();
 				double time = System.nanoTime();
 				if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {

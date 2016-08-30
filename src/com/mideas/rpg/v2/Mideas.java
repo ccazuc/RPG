@@ -74,6 +74,7 @@ public class Mideas {
 	private static float displayYFactor = 930/1018f;
 	private static int rank;
 	private static int characterId;
+	private static boolean isHover;
 	
 	public static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -153,6 +154,7 @@ public class Mideas {
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		while(!Display.isCloseRequested()) {
+			isHover = true;
 			fpsUpdate();
 			context2D();
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -223,6 +225,14 @@ public class Mideas {
 			fps = String.valueOf(count);
 			count = 0;
 		}
+	}
+	
+	public static boolean getHover() {
+		return isHover;
+	}
+	
+	public static void setHover(boolean we) {
+		isHover = we;
 	}
 	
 	private static void updateDisplayFactor() {
@@ -313,9 +323,9 @@ public class Mideas {
 		return currentExp;
 	}
 	
-	public static int getExp() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats WHERE class = ?");
-		statement.putString(Mideas.joueur1().getClasse());
+	public static int loadExp() throws SQLException {
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats WHERE character_id = ?");
+		statement.putInt(Mideas.getCharacterId());
 		statement.execute();
 		if(statement.fetch()) {
 			exp = statement.getInt();
@@ -324,32 +334,39 @@ public class Mideas {
 		return exp;
 	}
 	
+	public static int getExp() {
+		return exp;
+	}
+	
 	public static void setExp(int exp) throws SQLException {
-		exp = currentExp+exp;
 		currentExp = exp;
-		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET exp = ? WHERE class = ?");
+		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET exp = ? WHERE character_id = ?");
 		statement.putInt(exp);
-		statement.putString(Mideas.joueur1().getClasse());
+		statement.putInt(Mideas.getCharacterId());
 		statement.execute();
 	}
 	
 	public static void setGold(int golds) throws SQLTimeoutException, SQLException {
-		gold = Mideas.getCurrentGold()+golds;
-		currentGold = gold;
-		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET gold = ? WHERE class = ?");
+		gold = golds;
+		currentGold = golds;
+		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET gold = ? WHERE character_id = ?");
 		statement.putInt(gold);
-		statement.putString(Mideas.joueur1().getClasse());
+		statement.putInt(Mideas.getCharacterId());
 		statement.execute();	
 	}
 	
-	public static int getGold() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT gold FROM stats WHERE class = ?");
-		statement.putString(Mideas.joueur1().getClasse());
+	public static int loadGold() throws SQLException {
+		JDOStatement statement = Mideas.getJDO().prepare("SELECT gold FROM stats WHERE character_id = ?");
+		statement.putInt(Mideas.getCharacterId());
 		statement.execute();
 		if(statement.fetch()) {
 			gold = statement.getInt();
 			currentGold = gold;
 		}
+		return gold;
+	}
+	
+	public static int getGold() {
 		return gold;
 	}
 	
@@ -642,7 +659,7 @@ public class Mideas {
 			CharacterStuff.setBagItems();
 			CharacterStuff.setEquippedBags();
 			CharacterStuff.setEquippedItems();
-			Mideas.setGold(0);
+			Mideas.setGold(Mideas.getGold());
 			Mideas.setExp(0);
 		}
 		Mideas.setConfig();

@@ -74,4 +74,23 @@ public class Item implements Cloneable {
 		}
 		return null;
 	}
+	
+	public static boolean exists(int id) {
+		if(BagManager.exists(id)) {
+			return true;
+		}
+		if(StuffManager.exists(id)) {
+			return true;
+		}
+		if(WeaponManager.exists(id)) {
+			return true;
+		}
+		if(GemManager.exists(id)) {
+			return true;
+		}
+		if(PotionManager.exists(id)) {
+			return true;
+		}
+		return false;
+	}
 }

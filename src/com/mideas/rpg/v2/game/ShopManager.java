@@ -151,18 +151,22 @@ public class ShopManager {
 		int xLeft = -279;
 		int xRight = -114;
 		int y = -275;
-		if(Mideas.mouseX() >= Display.getWidth()/2+xRight+126 && Mideas.mouseX() <= Display.getWidth()/2+xRight+151 && Mideas.mouseY() >= Display.getHeight()/2+y+266 && Mideas.mouseY() <= Display.getHeight()/2+y+292) {
+		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+xRight+126 && Mideas.mouseX() <= Display.getWidth()/2+xRight+151 && Mideas.mouseY() >= Display.getHeight()/2+y+266 && Mideas.mouseY() <= Display.getHeight()/2+y+292) {
 			right_arrow = true;
+			Mideas.setHover(false);
 		}
-		else if(Mideas.mouseX() >= Display.getWidth()/2+xRight-161 && Mideas.mouseX() <= Display.getWidth()/2+xRight-136 && Mideas.mouseY() >= Display.getHeight()/2+y+266 && Mideas.mouseY() <= Display.getHeight()/2+y+292) {
+		else if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+xRight-161 && Mideas.mouseX() <= Display.getWidth()/2+xRight-136 && Mideas.mouseY() >= Display.getHeight()/2+y+266 && Mideas.mouseY() <= Display.getHeight()/2+y+292) {
 			left_arrow = true;
+			Mideas.setHover(false);
 		}
-		if(Mideas.mouseX() >= Display.getWidth()/2+27 && Mideas.mouseX() <= Display.getWidth()/2+46 && Mideas.mouseY() >= Display.getHeight()/2-337 && Mideas.mouseY() <= Display.getHeight()/2-319) {
+		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+27 && Mideas.mouseX() <= Display.getWidth()/2+46 && Mideas.mouseY() >= Display.getHeight()/2-337 && Mideas.mouseY() <= Display.getHeight()/2-319) {
 			hover_button = true;
+			Mideas.setHover(false);
 		}
 		if(Mouse.getEventButtonState()) {
-			if(Mideas.mouseX() >= Display.getWidth()/2+27 && Mideas.mouseX() <= Display.getWidth()/2+46 && Mideas.mouseY() >= Display.getHeight()/2-337 && Mideas.mouseY() <= Display.getHeight()/2-319) {
+			if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+27 && Mideas.mouseX() <= Display.getWidth()/2+46 && Mideas.mouseY() >= Display.getHeight()/2-337 && Mideas.mouseY() <= Display.getHeight()/2-319) {
 				Interface.closeShopFrame();
+				Mideas.setHover(false);
 				return true;
 			}
 			else if(right_arrow && page < numberPage-1) {
@@ -233,11 +237,11 @@ public class ShopManager {
 		if(item != null && hover && click_hover && Interface.getShopFrameStatus()) {
 			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
 				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
-				Mideas.setGold(item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
+				Mideas.setGold(Mideas.getGold()+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
 				Mideas.joueur1().setNumberItem(item, 0);
 			}
 			else {
-				Mideas.setGold(item.getSellPrice());
+				Mideas.setGold(Mideas.getGold()+item.getSellPrice());
 				LogChat.setStatusText3("Vous avez vendu "+item.getStuffName()+" pour "+item.getSellPrice());
 			}
 			return true;
@@ -251,7 +255,7 @@ public class ShopManager {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, StuffManager.getClone(item.getId()));
 					LogChat.setStatusText3("Vous avez bien acheté "+StuffManager.getStuff(item.getId()).getStuffName());
-					Mideas.setGold(-item.getSellPrice());
+					Mideas.setGold(Mideas.getGold()-item.getSellPrice());
 					CharacterStuff.setBagItems();
 					return true;
 				}
@@ -264,7 +268,7 @@ public class ShopManager {
 					if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == item.getId()) {
 						Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+1);
 						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
-						Mideas.setGold(-item.getSellPrice());
+						Mideas.setGold(Mideas.getGold()-item.getSellPrice());
 						CharacterStuff.setBagItems();
 						return true;
 					}
@@ -278,7 +282,7 @@ public class ShopManager {
 						Mideas.bag().setBag(i, temp);
 						Mideas.joueur1().setNumberItem(temp, 1);
 						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
-						Mideas.setGold(-item.getSellPrice());
+						Mideas.setGold(Mideas.getGold()-item.getSellPrice());
 						CharacterStuff.setBagItems();
 						return true;
 					}
@@ -291,7 +295,7 @@ public class ShopManager {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, GemManager.getClone(item.getId()));
 					LogChat.setStatusText3("Vous avez bien acheté "+GemManager.getGem(item.getId()).getStuffName());
-					Mideas.setGold(-item.getSellPrice());
+					Mideas.setGold(Mideas.getGold()-item.getSellPrice());
 					CharacterStuff.setBagItems();
 					return true;
 				}
@@ -509,8 +513,9 @@ public class ShopManager {
 	}
 	
 	public static void isSlotHover(int x, int y, int i, int j, int k) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+42 && Mideas.mouseY() >= Display.getHeight()/2+y+i && Mideas.mouseY() <= Display.getHeight()/2+y+j) {
+		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+42 && Mideas.mouseY() >= Display.getHeight()/2+y+i && Mideas.mouseY() <= Display.getHeight()/2+y+j) {
 			slot_hover[k] = true;
+			Mideas.setHover(false);
 		}
 	}
 

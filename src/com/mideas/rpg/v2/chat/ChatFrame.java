@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.hud;
+package com.mideas.rpg.v2.chat;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -25,6 +25,9 @@ import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
+import com.mideas.rpg.v2.hud.CharacterFrame;
+import com.mideas.rpg.v2.hud.ContainerFrame;
+import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ChatFrame {
@@ -254,7 +257,7 @@ public class ChatFrame {
 			if(chatActive) {
 				if(!tempMessage.equals("")) {
 					rawMessages.add(tempMessage);
-					if(!checkTempMessage()) {
+					if(!ChatCommandManager.chatCommandManager(tempMessage)) {
 						addMessage();
 					}
 					totalNumberLine = getTotalNumberLine();
@@ -367,7 +370,7 @@ public class ChatFrame {
 		String temp = tempMessage;
 		if(!temp.equals("") && temp != null) {
 			long time = System.currentTimeMillis();
-			messages.add(new Message(temp, true, getMessageHour(time), getMessageMinute(time), getMessageSecond(time), Color.white));
+			messages.add(new Message(temp, true, Color.white));
 		}
 	}
 	
@@ -723,16 +726,16 @@ public class ChatFrame {
 				String[] temp = message.split("item ");
 				int value = Integer.parseInt(temp[1]);
 				if(ShopManager.getItem(value) != null) {
-					messages.add(new Message(ShopManager.getItem(value).getStuffName(), false, 0, 0, 0, Color.yellow));
+					messages.add(new Message(ShopManager.getItem(value).getStuffName(), false, Color.yellow));
 				}
 				else {
-					messages.add(new Message("Item not found", false, 0, 0, 0, Color.yellow));
+					messages.add(new Message("Item not found", false, Color.yellow));
 				}
 			}
 			else if(message.startsWith(".lookup spell ")) {
 				String[] temp = message.split("spell ");
 				int value = Integer.parseInt(temp[1]);
-				messages.add(new Message(SpellManager.getBookSpell(value).getName(), false, 0, 0, 0, Color.yellow));
+				messages.add(new Message(SpellManager.getBookSpell(value).getName(), false, Color.yellow));
 			}
 			else if(message.startsWith(".set x ")) {
 				String[] temp = message.split("x ");
@@ -758,7 +761,7 @@ public class ChatFrame {
 					Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()-value);
 				}
 				else {
-					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
+					messages.add(new Message("Incorrect value", false, Color.yellow));
 				}
 			}
 			else if(message.startsWith(".damage joueur2 ")) {
@@ -768,7 +771,7 @@ public class ChatFrame {
 					Mideas.joueur2().setStamina(Mideas.joueur2().getStamina()-value);
 				}
 				else {
-					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
+					messages.add(new Message("Incorrect value", false, Color.yellow));
 				}
 			}
 			else if(message.startsWith(".add stuff ")) {
@@ -790,7 +793,7 @@ public class ChatFrame {
 					Mideas.joueur1().addItem(GemManager.getClone(value), 1);
 				}
 				else {
-					messages.add(new Message("Item not found", false, 0, 0, 0, Color.yellow));
+					messages.add(new Message("Item not found", false, Color.yellow));
 				}
 			}
 			else if(message.startsWith(".delete bag item ")) {
@@ -805,7 +808,7 @@ public class ChatFrame {
 					CharacterStuff.setBagItems();
 				}
 				else {
-					messages.add(new Message("Item not found", false, 0, 0, 0, Color.yellow));
+					messages.add(new Message("Item not found", false, Color.yellow));
 				}
 			}
 			else if(message.equals(".clear chat")) {
@@ -837,7 +840,7 @@ public class ChatFrame {
 				CharacterStuff.setEquippedItems();
 				Mideas.setConfig();
 				Mideas.setExp(0);
-				Mideas.setGold(0);
+				Mideas.setGold(Mideas.getGold());
 				SpellBarManager.setSpellBar();
 			}
 			else if(message.startsWith(".modify gold ")) {
@@ -847,14 +850,14 @@ public class ChatFrame {
 					value = Integer.parseInt(temp[1]);
 				}
 				else {
-					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
+					messages.add(new Message("Incorrect value", false, Color.yellow));
 					return true;
 				}
 				if(value < Math.pow(2, 32) && value >= 0) {
 					Mideas.setGold(value);
 				}
 				else {
-					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
+					messages.add(new Message("Incorrect value", false, Color.yellow));
 				}
 			}
 			else if(message.startsWith(".modify exp ")) {
@@ -864,29 +867,29 @@ public class ChatFrame {
 					value = Integer.parseInt(temp[1]);
 				}
 				else {
-					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
+					messages.add(new Message("Incorrect value", false, Color.yellow));
 					return true;
 				}
 				if(value < Math.pow(2, 32) && value >= 0) {
 					Mideas.joueur1().setExp(0, value);
 				}
 				else {
-					messages.add(new Message("Incorrect value", false, 0, 0, 0, Color.yellow));
+					messages.add(new Message("Incorrect value", false, Color.yellow));
 				}	
 			}
 			else if(message.equals(".help")) {
-				messages.add(new Message(".kill [joueur]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".modify hp [joueur] [value]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".modify mana [joueur] [value]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".lookup item [id]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".lookup spell [id]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".set joueur2 [joueur]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".damage [joueur] [value]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".add stuff [id]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".delete bag item [id]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".clear chat", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".set fullscreen [boolean]", false, 0, 0, 0, Color.yellow));
-				messages.add(new Message(".show time", false, 0, 0, 0, Color.yellow));
+				messages.add(new Message(".kill [joueur]", false, Color.yellow));
+				messages.add(new Message(".modify hp [joueur] [value]", false, Color.yellow));
+				messages.add(new Message(".modify mana [joueur] [value]", false, Color.yellow));
+				messages.add(new Message(".lookup item [id]", false, Color.yellow));
+				messages.add(new Message(".lookup spell [id]", false, Color.yellow));
+				messages.add(new Message(".set joueur2 [joueur]", false, Color.yellow));
+				messages.add(new Message(".damage [joueur] [value]", false, Color.yellow));
+				messages.add(new Message(".add stuff [id]", false, Color.yellow));
+				messages.add(new Message(".delete bag item [id]", false, Color.yellow));
+				messages.add(new Message(".clear chat", false, Color.yellow));
+				messages.add(new Message(".set fullscreen [boolean]", false, Color.yellow));
+				messages.add(new Message(".show time", false, Color.yellow));
 			}
 			else if(message.equals(".clear chat")) {
 				messages.clear();
@@ -896,35 +899,23 @@ public class ChatFrame {
 				showMessageTime = !showMessageTime;
 			}
 			else {
-				messages.add(new Message("Unknown command", false, 0, 0, 0, Color.yellow));
+				messages.add(new Message("Unknown command", false, Color.yellow));
 			}
 			return true;
 		}
 		return false;
 	}
 	
-	private static int getMessageHour(long time) {
-		int hour;
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(time);
-		hour = (byte)calendar.get(Calendar.HOUR_OF_DAY);
-		return hour;
+	public static void addMessage(Message message) {
+		messages.add(message);
 	}
 	
-	private static int getMessageMinute(long time) {
-		int minute;
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(time);
-		minute = (byte)calendar.get(Calendar.MINUTE);
-		return minute;
+	public static ArrayList<Message> getMessageList() {
+		return messages;
 	}
 	
-	private static int getMessageSecond(long time) {
-		int second;
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(time);
-		second = (byte)calendar.get(Calendar.SECOND);
-		return second;
+	public static ArrayList<String> getRawMessageList() {
+		return rawMessages;
 	}
 	
 	private static String convMessageFormat(long time) {

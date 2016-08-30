@@ -12,6 +12,8 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.hud.Cast;
+import com.mideas.rpg.v2.hud.CastBar;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.ScrollBar;
@@ -23,7 +25,7 @@ public class Profession {
 	private String name;
 	private int id;
 	private int playerLevel = 370;
-	private CraftableItem selectedItem;
+	CraftableItem selectedItem;
 	private ScrollBar scrollBar;
 	private boolean init;
 	private boolean change = true;
@@ -35,7 +37,12 @@ public class Profession {
 	private Button craftButton = new Button(0, 0, 185, 34, "Create", 10) {
 		@Override
 		public void eventButtonClick() throws SQLException {
-			System.out.println('a');
+			CastBar.addCast(new Cast(Profession.this.selectedItem.getCraftLength(), Profession.this.selectedItem.getItem().getStuffName()) {
+				@Override
+				public void endCastEvent() {
+					
+				}
+			});
 		}
 		
 		@Override

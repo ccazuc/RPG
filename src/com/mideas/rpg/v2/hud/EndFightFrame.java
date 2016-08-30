@@ -24,7 +24,7 @@ public class EndFightFrame {
 
 	public static void draw() throws SQLException {
 		if(Interface.getAdminPanelFrameStatus()) {
-			Arrays.fill(AdminPanelFrame.getHover(), false);
+			Interface.closeAdminPanelFrame();
 		}
 		if(Interface.getCharacterFrameStatus()) {
 			Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
@@ -76,7 +76,7 @@ public class EndFightFrame {
 					CharacterStuff.setEquippedItems();
 					Mideas.setConfig();
 					Mideas.setExp(Mideas.joueur2().getExpGained());
-					Mideas.setGold(0);
+					Mideas.setGold(Mideas.getGold());
 				}
 				else if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
 					Mideas.setJoueur2(Mideas.getRandomClass(2));

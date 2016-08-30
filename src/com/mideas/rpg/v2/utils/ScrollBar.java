@@ -55,7 +55,7 @@ public class ScrollBar {
 	}
 	
 	private void mouseDragEvent() {
-		if(Mideas.mouseX() >= this.x+4 && Mideas.mouseX() <= this.x+24) {
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x+4 && Mideas.mouseX() <= this.x+24) {
 			if(Mideas.mouseY() >= this.y+this.y_ascensor && Mideas.mouseY() <= this.y+this.y_ascensor+16) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					if(Mouse.getEventButtonState()) {
@@ -64,6 +64,7 @@ public class ScrollBar {
 					}
 				}
 			}
+			Mideas.setHover(false);
 		}
 		if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 			if(!Mouse.getEventButtonState()) {

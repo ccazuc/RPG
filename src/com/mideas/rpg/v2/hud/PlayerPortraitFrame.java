@@ -2,7 +2,7 @@ package com.mideas.rpg.v2.hud;
 
 import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.utils.Texture;
-
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.Joueur;
@@ -24,13 +24,13 @@ public class PlayerPortraitFrame {
 	}
 	
 	private static void drawHealthBar(Joueur joueur, int x, int y) {
-		Draw.drawColorQuad(x+70, y+35, 120, 13, backgroundColor);
-		Draw.drawColorQuad(x+70, y+35, 120f*joueur.getStamina()/joueur.getMaxStamina(), 12, Color.decode("#07D705"));
+		Draw.drawColorQuad(x+70, y+35, 120*Mideas.getDisplayXFactor(), 13, backgroundColor);
+		Draw.drawColorQuad(x+70, y+35, 120f*Mideas.getDisplayXFactor()*joueur.getStamina()/joueur.getMaxStamina(), 12, Color.decode("#07D705"));
 	}
 	
 	private static void drawManaBar(Joueur joueur, int x, int y) {
-		Draw.drawColorQuad(x+70, y+45, 119, 13,  backgroundColor);
-		Draw.drawColorQuad(x+70, y+45, 119f*joueur.getMana()/joueur.getMaxMana(), 12, Color.decode("#0101D5"));
+		Draw.drawColorQuad(x+70, y+45, 119*Mideas.getDisplayXFactor(), 13,  backgroundColor);
+		Draw.drawColorQuad(x+70, y+45, 119f*Mideas.getDisplayXFactor()*joueur.getMana()/joueur.getMaxMana(), 12, Color.decode("#0101D5"));
 	}
 	
 	private static void drawHealthText(Joueur joueur, int x, int y) {

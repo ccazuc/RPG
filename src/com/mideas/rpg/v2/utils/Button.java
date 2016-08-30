@@ -105,8 +105,9 @@ public class Button {
 		if(activateCondition()) {
 			this.color = Color.decode("#FFC700");
 			this.buttonHover = false;
-			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 				this.buttonHover = true;
+				Mideas.setHover(false);
 			}
 			if(this.buttonHover) {
 				if(Mouse.getEventButtonState()) {
@@ -117,9 +118,8 @@ public class Button {
 				else if(this.buttonDown) {
 					if(Mouse.getEventButton() == 0) {
 						this.buttonDown = false;
-						this.buttonHover = false;
-						this.color = Color.decode("#FFC700");
-						this.texture = Sprites.button;
+						this.color = Color.white;
+						this.texture = Sprites.button_hover;
 						eventButtonClick();
 						this.hasClicked = true;
 						return;

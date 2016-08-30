@@ -198,7 +198,7 @@ public class Joueur {
 		}
 		else {
 			while(i < Mideas.bag().getBag().length) {
-				if(Mideas.bag().getBag(i).equals(item)) {
+				if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(item)) {
 					Mideas.bag().setBag(i, item, Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))+amount);
 					Mideas.bag().setBagChange(true);
 					CharacterStuff.setBagItems();

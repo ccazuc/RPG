@@ -740,8 +740,9 @@ public class ContainerFrame {
 	}
 	
 	private static void slotHover(int x, int y, int i) {
-		if(Mideas.mouseX() >= Display.getWidth()+x-3 && Mideas.mouseX() <= Display.getWidth()+x+37 && Mideas.mouseY() >= Display.getHeight()+y-3 && Mideas.mouseY() <= Display.getHeight()+y+38) {
+		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+x-3 && Mideas.mouseX() <= Display.getWidth()+x+37 && Mideas.mouseY() >= Display.getHeight()+y-3 && Mideas.mouseY() <= Display.getHeight()+y+38) {
 			slot_hover[i] = true;
+			Mideas.setHover(false);
 		}
 	}
 	
@@ -783,17 +784,21 @@ public class ContainerFrame {
 	}
 	
 	private static void checkItemNumberMouseEvent() {
-		if(Mideas.mouseX() >= Display.getWidth()+xItemNumber+10 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+10+Sprites.itemnumber_hover_ok.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+yItemNumber+55 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+55+Sprites.itemnumber_hover_ok.getImageHeight()) {
+		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+xItemNumber+10 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+10+Sprites.itemnumber_hover_ok.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+yItemNumber+55 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+55+Sprites.itemnumber_hover_ok.getImageHeight()) {
 			itemNumberOkButton = true;
+			Mideas.setHover(false);
 		}
-		else if(Mideas.mouseX() >= Display.getWidth()+xItemNumber+88 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+88+Sprites.itemnumber_hover_cancel.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+yItemNumber+55 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+55+Sprites.itemnumber_hover_cancel.getImageHeight()) {
+		else if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+xItemNumber+88 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+88+Sprites.itemnumber_hover_cancel.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+yItemNumber+55 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+55+Sprites.itemnumber_hover_cancel.getImageHeight()) {
 			itemNumberCancelButton = true;
+			Mideas.setHover(false);
 		}
-		else if(Mideas.mouseX() >= Display.getWidth()+xItemNumber+6 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+18 && Mideas.mouseY() >= Display.getHeight()+yItemNumber+20 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+35) {
+		else if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+xItemNumber+6 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+18 && Mideas.mouseY() >= Display.getHeight()+yItemNumber+20 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+35) {
 			itemNumberLeftArrow = true;
+			Mideas.setHover(false);
 		}
-		else if(Mideas.mouseX() >= Display.getWidth()+xItemNumber+145 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+157 && Mideas.mouseY() >= Display.getHeight()+yItemNumber+20 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+35) {
+		else if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+xItemNumber+145 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+157 && Mideas.mouseY() >= Display.getHeight()+yItemNumber+20 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+35) {
 			itemNumberRightArrow = true;
+			Mideas.setHover(false);
 		}
 	}
 	

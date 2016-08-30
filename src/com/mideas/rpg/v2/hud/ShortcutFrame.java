@@ -68,7 +68,6 @@ public class ShortcutFrame {
 					Arrays.fill(SpellBookFrame.getHoverBook(), false);
 					Arrays.fill(ShopFrame.getShopHover(), false);
 					ShopFrame.setHoverShopFalse();
-					EscapeFrame.setHoverFalse();
 					return true;
 				}
 				else if(hover[1]) {																		//spellbook
@@ -81,7 +80,6 @@ public class ShortcutFrame {
 					Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
 					Arrays.fill(ShopFrame.getShopHover(), false);
 					Arrays.fill(SpellBookFrame.getHoverBook(), false);
-					EscapeFrame.setHoverFalse();
 					return true;
 				}
 				else if(hover[6]) {																		//escape menu
@@ -97,7 +95,6 @@ public class ShortcutFrame {
 					Arrays.fill(ShopFrame.getShopHover(), false);
 					Arrays.fill(SpellBookFrame.getHoverBook(), false);
 					ShopFrame.setHoverShopFalse();
-					EscapeFrame.setHoverFalse();
 					return true;
 				}
 				else if(hover[0]) {																		//character menu
@@ -110,7 +107,6 @@ public class ShortcutFrame {
 					Arrays.fill(ShopFrame.getShopHover(), false);
 					Arrays.fill(SpellBookFrame.getHoverBook(), false);
 					Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-					EscapeFrame.setHoverFalse();
 					return true;
 				}
 			}
@@ -119,7 +115,8 @@ public class ShortcutFrame {
 	}
 	
 	private static boolean isHover(int x, int y) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+Sprites.shortcut_hover.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+Sprites.shortcut_hover.getImageHeight()) {
+		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+Sprites.shortcut_hover.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+Sprites.shortcut_hover.getImageHeight()) {
+			Mideas.setHover(false);
 			return true;
 		}
 		return false;
