@@ -13,16 +13,16 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.enumlist.ItemType;
+import com.mideas.rpg.v2.enumlist.StuffType;
+import com.mideas.rpg.v2.enumlist.WeaponSlot;
+import com.mideas.rpg.v2.enumlist.Wear;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
-import com.mideas.rpg.v2.game.item.stuff.StuffType;
-import com.mideas.rpg.v2.game.item.stuff.WeaponSlot;
-import com.mideas.rpg.v2.game.item.stuff.Wear;
 import com.mideas.rpg.v2.game.shortcut.ShortcutType;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.utils.Button;
@@ -38,14 +38,18 @@ public class DragManager {
 	private static boolean[] clickBag = new boolean[97];
 	private static boolean leftClickInventoryDown;
 	private static boolean leftClickBagDown;
+	private static boolean rightClickInventoryDown;
+	private static boolean rightClickBagDown;
 	static Item draggedItem;
+	private static int bagClickedSlot;
+	private static int inventoryClickedSlot;
 	private static int mouseX;
 	private static int mouseY;
 	private static boolean draggedItemSplit;
 	private static Button hoverDeleteYes = new Button(Display.getWidth()/2-130*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor(), "Yes", 14) {
 		@Override
 		public void eventButtonClick() throws SQLException {
-			if(draggedItem.getItemType() == ItemType.ITEM || draggedItem.getItemType() == ItemType.POTION) {
+			if(draggedItem.isStackable()) {
 				Mideas.joueur1().setNumberItem(draggedItem, -1);
 				SpellBarFrame.setItemChange(true);
 			}
@@ -81,7 +85,7 @@ public class DragManager {
 		if(draggedItem != null) {
 			Draw.drawQuad(IconsManager.getSprite42((draggedItem.getSpriteId())), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
-			if(draggedItem.getItemType() == ItemType.ITEM || draggedItem.getItemType() == ItemType.POTION) {
+			if(draggedItem.isStackable()) {
 				TTF2.itemNumber.drawStringShadow(Mideas.mouseX()+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(draggedItem))), Mideas.mouseY()+20, String.valueOf(Mideas.joueur1().getNumberItem(draggedItem)), Color.white, Color.black, 1, 1, 1);
 			}
 		}
@@ -100,7 +104,7 @@ public class DragManager {
 				while(i < Mideas.bag().getBag().length) {
 					if(ContainerFrame.getContainerFrameSlotHover(i)) {
 						if(Mideas.bag().getBag(i) != null) {
-							if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION || Mideas.bag().getBag(i).getItemType() == ItemType.ITEM) {
+							if(Mideas.bag().getBag(i).isStackable()) {
 								if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) > 1) {
 									ContainerFrame.setItemNumberOpen(i, true);
 									leftClickBagDown = false;
@@ -126,6 +130,18 @@ public class DragManager {
 						mouseY = Mideas.mouseY();
 					}
 				}
+				else if(Mouse.getEventButton() == 1) {
+					if(checkInventoryClick() && draggedItem == null) {
+						rightClickInventoryDown = true;
+						mouseX = Mideas.mouseX();
+						mouseY = Mideas.mouseY();
+					}
+					if(checkBagClick() && draggedItem == null) {
+						rightClickBagDown = true;
+						mouseX = Mideas.mouseX();
+						mouseY = Mideas.mouseY();
+					}
+				}
 			}
 			else {
 				if(Mouse.getEventButton() == 0) {
@@ -141,7 +157,7 @@ public class DragManager {
 									if(checkCharacterItems(draggedItem)) {
 										draggedItem = null;
 										leftClickInventoryDown = false;
-										Arrays.fill(clickInventory, false);
+										clickInventory[inventoryClickedSlot] = false;
 										return true;
 									}
 								}
@@ -153,7 +169,7 @@ public class DragManager {
 									if(clickBagItem(i)) {
 										draggedItem = null;
 										leftClickBagDown = false;
-										Arrays.fill(clickBag, false);
+										clickInventory[inventoryClickedSlot] = false;
 										return true;
 									}
 									i++;
@@ -165,7 +181,7 @@ public class DragManager {
 						while(i < CharacterFrame.getHoverCharacterFrame().length) {
 							if(clickInventoryItem(i)) {
 								leftClickInventoryDown = false;
-								Arrays.fill(clickInventory, false);
+								clickInventory[inventoryClickedSlot] = false;
 								return true;
 							}
 							i++;
@@ -175,7 +191,7 @@ public class DragManager {
 						while(i < Mideas.bag().getBag().length) {
 							if(clickBagItem(i)) {
 								leftClickBagDown = false;
-								Arrays.fill(clickBag, false);
+								clickBag[bagClickedSlot] = false;
 								return true;
 							}
 							i++;
@@ -187,7 +203,7 @@ public class DragManager {
 							while(i < Mideas.bag().getBag().length) {
 								if(clickBagItem(i)) {
 									leftClickBagDown = false;
-									Arrays.fill(clickBag, false);
+									clickBag[bagClickedSlot] = false;
 									return true;
 								}
 								i++;
@@ -207,20 +223,22 @@ public class DragManager {
 					}
 					leftClickInventoryDown = false;
 					leftClickBagDown = false;
-					Arrays.fill(clickBag, false);
-					Arrays.fill(clickInventory, false);
+					clickBag[bagClickedSlot] = false;
+					clickInventory[inventoryClickedSlot] = false;
 				}
 			}
-			if(leftClickInventoryDown && draggedItem == null) {
-				if(Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseX)) >= 27 || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseY)) >= 27) {
-					setDraggedItemForCharacter();
-					Arrays.fill(clickInventory, false);
-				}
-			}
-			if(leftClickBagDown && draggedItem == null) {
-				if(Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseX)) >= 16 || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseY)) >= 16) {
+			if(draggedItem == null && Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseX)) >= 15 || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseY)) >= 15) {
+				if(leftClickBagDown) {
 					setDraggedItemForBag();
-					Arrays.fill(clickBag, false);
+					clickBag[bagClickedSlot] = false;
+				}
+				if(leftClickInventoryDown) {
+					setDraggedItemForCharacter();
+					clickInventory[inventoryClickedSlot] = false;
+				}
+				if(rightClickBagDown || rightClickInventoryDown) {
+					clickInventory[inventoryClickedSlot] = false;
+					clickBag[bagClickedSlot] = false;
 				}
 			}
 			if(Mouse.getEventButton() == 0) {
@@ -239,12 +257,12 @@ public class DragManager {
 								if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
 									doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), i);
 									SpellBarFrame.setItemChange(true);
-									Arrays.fill(clickBag, false);
+									clickBag[bagClickedSlot] = false;
 									return true;
 								}
 								else if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF || Mideas.bag().getBag(i).getItemType() == ItemType.WEAPON) {
 									equipBagItem(i);
-									Arrays.fill(clickBag, false);
+									clickBag[bagClickedSlot] = false;
 									return true;
 								}
 							}
@@ -252,6 +270,7 @@ public class DragManager {
 						i++;
 					}
 					Arrays.fill(clickBag, false);
+					clickBag[bagClickedSlot] = false;
 				}
 				else {
 					if(checkBagClick() && draggedItem == null) {
@@ -653,6 +672,7 @@ public class DragManager {
 		while(i < clickBag.length) {
 			if(ContainerFrame.getContainerFrameSlotHover(i) == true && draggedItem == null) {
 				clickBag[i] = true;
+				bagClickedSlot = i;
 				return true;
 			}
 			i++;
@@ -665,6 +685,7 @@ public class DragManager {
 		while(i < clickInventory.length) {
 			if(CharacterFrame.getHoverCharacterFrame(i) == true && draggedItem == null) {
 				clickInventory[i] = true;
+				inventoryClickedSlot = i;
 				return true;
 			}
 			i++;
@@ -729,7 +750,7 @@ public class DragManager {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == id) {
-				if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION || (Mideas.bag().getBag(i).getItemType() == ItemType.ITEM)) {
+				if(Mideas.bag().getBag(i).isStackable()) {
 					Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), 0);
 				}
 				Mideas.bag().setBag(i, null);

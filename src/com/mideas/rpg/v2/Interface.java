@@ -148,7 +148,7 @@ public class Interface {
 					SpellBookFrame.draw();
 				}
 				if(craftFrameActive) {
-					Mideas.joueur1().getFirstProfession().draw(Display.getWidth()/2, Display.getHeight()/2);
+					Mideas.joueur1().getFirstProfession().draw(Display.getWidth()/2-200, Display.getHeight()/2-300);
 				}
 				if(BlackTemple.getBlackTempleStatus()) {
 					Dungeon.event();
@@ -258,7 +258,7 @@ public class Interface {
 				}
 			}
 			if(craftFrameActive) {
-				Mideas.joueur1().getFirstProfession().event(Display.getWidth()/2, Display.getHeight()/2);
+				Mideas.joueur1().getFirstProfession().event(Display.getWidth()/2-200, Display.getHeight()/2-300);
 					//return true;
 				//}
 			}

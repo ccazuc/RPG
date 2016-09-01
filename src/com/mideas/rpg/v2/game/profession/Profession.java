@@ -40,7 +40,27 @@ public class Profession {
 			CastBar.addCast(new Cast(Profession.this.selectedItem.getCraftLength(), Profession.this.selectedItem.getItem().getStuffName()) {
 				@Override
 				public void endCastEvent() {
-					
+					int i = 0;
+					while(i < Profession.this.selectedItem.getNeededItemList().size()) {
+						try {
+							if(Mideas.bag().getNumberItemInBags(Profession.this.selectedItem.getNeededItem(i).getId()) >= Profession.this.selectedItem.getNeededItemNumber(i)) {
+								Mideas.joueur1().deleteItem(Profession.this.selectedItem.getNeededItem(i), Profession.this.selectedItem.getNeededItemNumber(i));
+							}
+							else {
+								return;
+							}
+						} 
+						catch (SQLException e) {
+							e.printStackTrace();
+						}
+						i++;
+					}
+					try {
+						Mideas.joueur1().addItem(Profession.this.selectedItem.getItem(), 1);
+					} 
+					catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 		}
@@ -143,7 +163,7 @@ public class Profession {
 				}
 			}
 			yShift+= yShiftHeight;
-			if(this.categoryList.get(i).getExpand()) {
+			if(this.categoryList.get(i).getExpand() && this.categoryList.get(i).getCraftList().size() >= 1) {
 				while(j < this.categoryList.get(i).getCraftList().size()) {
 					if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
 						if(this.categoryList.get(i).getCraftList().get(j) == this.selectedItem) {

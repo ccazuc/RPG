@@ -3,8 +3,8 @@ package com.mideas.rpg.v2.game.item.stuff;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.enumlist.ItemType;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class Bag extends Item implements Cloneable {
@@ -130,7 +130,7 @@ public class Bag extends Item implements Cloneable {
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) != null) {
 				if(itemList.containsKey(Mideas.bag().getBag(i).getId())) {
-					if(Mideas.bag().getBag(i).getItemType() ==  ItemType.ITEM || Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
+					if(Mideas.bag().getBag(i).isStackable()) {
 						itemList.put(Mideas.bag().getBag(i).getId(), Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))+itemList.get(Mideas.bag().getBag(i).getId()));
 					}
 					else {
@@ -138,7 +138,7 @@ public class Bag extends Item implements Cloneable {
 					}
 				}
 				else {
-					if(Mideas.bag().getBag(i).getItemType() ==  ItemType.ITEM || Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
+					if(Mideas.bag().getBag(i).isStackable()) {
 						itemList.put(Mideas.bag().getBag(i).getId(), Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i)));
 					}
 					else {
@@ -197,22 +197,28 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public Item getBag(int i) {
-		if(i < this.bag.length && this.bag[i] != null) {
+		if(i >= 0 && i < this.bag.length && this.bag[i] != null) {
 			return this.bag[i];
 		}
 		return null;
 	}
 	
 	public void setBag(int i, Item stuff) {
-		if(i < this.bag.length) {
+		if(i >= 0 && i < this.bag.length) {
 			this.bag[i] = stuff;
 		}
 	}
 	
 	public void setBag(int i, Item stuff, int number) {
-		if(i < this.bag.length) {
-			this.bag[i] = stuff;
-			numberStack.put(stuff, number);
+		if(i >= 0 && i < this.bag.length) {
+			if(number <= 0) {
+				this.bag[i] = null;
+				numberStack.remove(stuff);
+			}
+			else {
+				this.bag[i] = stuff;
+				numberStack.put(stuff, number);
+			}
 		}
 	}
 	

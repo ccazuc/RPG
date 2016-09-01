@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -13,10 +15,11 @@ public class CastBar {
 	private static double startCastTimer;
 	private static float castTime;
 	private static String name;
-	private static float barWidth = 250;
+	private static float barWidth = 190;
 	private static int barHeight = 20;
 	private static float xDraw = -barWidth/2;
 	private static int yDraw = 250;
+	private static Color bgColor = new Color(0, 0, 0, .35f); 
 	
 	public static boolean draw() {
 		if(castTime > 0 && (System.currentTimeMillis()-startCastTimer)/castTime < 1 && SpellBarFrame.getIsCastingSpell()) {
@@ -56,9 +59,12 @@ public class CastBar {
 			startCAstTimer = System.currentTimeMillis();
 		}
 		if(currentCast != null && isCasting && (System.currentTimeMillis()-startCAstTimer)/currentCast.getLength() < 1) {
-			Draw.drawColorQuad(Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw, (float)((System.currentTimeMillis()-startCAstTimer)/currentCast.getLength())*barWidth, barHeight, Color.yellow);
+			/*Draw.drawColorQuad(Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw, (float)((System.currentTimeMillis()-startCAstTimer)/currentCast.getLength())*barWidth, barHeight, Color.yellow);
 			TTF2.statsName.drawStringShadow(Display.getWidth()/2+xDraw+barWidth/2-TTF2.statsName.getWidth(currentCast.getName())/2, Display.getHeight()/2+yDraw, currentCast.getName(), Color.white, Color.black, 1, 1, 1);
-			Draw.drawColorQuadBorder(Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw, barWidth, barHeight, Color.black);
+			Draw.drawColorQuadBorder(Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw, barWidth, barHeight, Color.black);*/
+			Draw.drawColorQuad(Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw, 190, 12, bgColor);
+			Draw.drawQuad(Sprites.cast_bar_progression, Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw, (float)((System.currentTimeMillis()-startCAstTimer)/currentCast.getLength())*190, 12*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.cast_bar, Display.getWidth()/2+xDraw-11, Display.getHeight()/2+yDraw-15, Sprites.cast_bar.getImageWidth()*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayXFactor());
 		}
 		else if(currentCast != null && isCasting) {
 			currentCast.endCastEvent();

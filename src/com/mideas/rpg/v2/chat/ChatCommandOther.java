@@ -74,7 +74,28 @@ public class ChatCommandOther {
 								number = Integer.valueOf(datas[2]);
 							}
 						}
-						Mideas.joueur1().addItem(Item.getItem(Integer.valueOf(datas[1])), number);
+						if(Item.getItem(Integer.valueOf(datas[1])).isStackable()) {
+							Mideas.joueur1().addItem(Item.getItem(Integer.valueOf(datas[1])), number);
+						}
+						else {
+							
+						}
+					}
+					else {
+						ChatFrame.addMessage(new Message("That item doesn't exist", false, Color.yellow));
+					}
+				}
+			}
+			else if(datas[0].equals(".deleteitem")) {
+				if(datas.length >= 2) {
+					int number = 1;
+					if(Item.exists(Integer.valueOf(datas[1]))) {
+						if(datas.length >= 3) {
+							if(Integer.valueOf(datas[2]) >= 1 && Integer.valueOf(datas[2]) <= 255) {
+								number = Integer.valueOf(datas[2]);
+							}
+						}
+						Mideas.joueur1().deleteItem(Item.getItem(Integer.valueOf(datas[1])), number);
 					}
 					else {
 						ChatFrame.addMessage(new Message("That item doesn't exist", false, Color.yellow));

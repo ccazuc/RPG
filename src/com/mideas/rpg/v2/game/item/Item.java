@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.game.item;
 
+import com.mideas.rpg.v2.enumlist.ItemType;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.BagManager;
@@ -42,6 +43,10 @@ public class Item implements Cloneable {
 	
 	public String getStuffName() {
 		return this.name;
+	}
+	
+	public boolean isStackable() {
+		return this.itemType == ItemType.ITEM || this.itemType == ItemType.POTION;
 	}
 	
 	public int getQuality() {

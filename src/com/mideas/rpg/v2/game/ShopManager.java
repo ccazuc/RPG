@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.game;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.enumlist.ItemType;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
@@ -141,7 +142,7 @@ public class ShopManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
 		if(isHoverShopFrame()) {
 			Arrays.fill(slot_hover, false);
 		}
@@ -225,7 +226,7 @@ public class ShopManager {
 		return false;
 	}
 	
-	private static boolean clickSellItem(int i) throws SQLTimeoutException, SQLException {
+	private static boolean clickSellItem(int i) throws SQLTimeoutException, SQLException, NoSuchAlgorithmException {
 		if(sellItem(Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), DragManager.getClickBag(i))) {
 			Mideas.bag().setBag(i, null);
 			return true;
@@ -233,7 +234,7 @@ public class ShopManager {
 		return false;
 	}
 	
-	private static boolean sellItem(Item item, boolean hover, boolean click_hover) throws SQLTimeoutException, SQLException {
+	private static boolean sellItem(Item item, boolean hover, boolean click_hover) throws SQLTimeoutException, SQLException, NoSuchAlgorithmException {
 		if(item != null && hover && click_hover && Interface.getShopFrameStatus()) {
 			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
 				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
@@ -244,6 +245,7 @@ public class ShopManager {
 				Mideas.setGold(Mideas.getGold()+item.getSellPrice());
 				LogChat.setStatusText3("Vous avez vendu "+item.getStuffName()+" pour "+item.getSellPrice());
 			}
+			DragManager.mouseEvent();
 			return true;
 		}
 		return false;

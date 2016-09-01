@@ -97,6 +97,14 @@ public class Button {
 	}
 	
 	public void draw() {
+		if(!activateCondition()) {
+			this.texture = Sprites.button_disabled;
+			this.color = Color.decode("#808080");
+		}
+		else if(!this.buttonDown && !this.buttonHover) {
+			this.texture = Sprites.button;
+			this.color = Color.decode("#FFC700");
+		}
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
 		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, 1, 1, 1);
 	}

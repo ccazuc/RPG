@@ -252,6 +252,8 @@ public class Sprites {
 	public static Texture scrollbar;
 	public static Texture top_button;
 	public static Texture bot_button;
+	public static Texture cast_bar;
+	public static Texture cast_bar_progression;
 	
 	public static void initBG() throws IOException {
 		loading_screen = new Texture("sprite/interface/loading_screen/loading_screen.jpg");
@@ -446,6 +448,8 @@ public class Sprites {
 		bot_button = new Texture("sprite/interface/scrollBar/bot_button.png");
 		profession_border = new Texture("sprite/interface/profession/border.png");
 		button_disabled = new Texture("sprite/interface/button_disabled.png");
+		cast_bar = new Texture("sprite/interface/cast_bar.png");
+		cast_bar_progression = new Texture("sprite/interface/cast_bar_progression.png");
 		return true;
 	}
 		

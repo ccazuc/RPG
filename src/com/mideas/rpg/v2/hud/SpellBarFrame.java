@@ -15,9 +15,9 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.enumlist.ItemType;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
@@ -394,7 +394,7 @@ public class SpellBarFrame {
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) != null) { 
-				if(Mideas.bag().getBag(i).getItemType() == ItemType.ITEM || Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
+				if(Mideas.bag().getBag(i).isStackable()) {
 					numberItem.put(Mideas.bag().getBag(i).getId(), getNumberItem(Mideas.bag().getBag(i).getId()));
 				}
 			}

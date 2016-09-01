@@ -4,11 +4,11 @@ import java.sql.SQLException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.enumlist.ItemType;
+import com.mideas.rpg.v2.enumlist.WeaponType;
+import com.mideas.rpg.v2.enumlist.Wear;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
-import com.mideas.rpg.v2.game.item.stuff.WeaponType;
-import com.mideas.rpg.v2.game.item.stuff.Wear;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -185,7 +185,7 @@ public class Joueur {
 	
 	public boolean addItem(Item item, int amount) throws SQLException {
 		int i = 0;
-		if(item.getItemType() == ItemType.BAG || item.getItemType() == ItemType.GEM || item.getItemType() == ItemType.STUFF || item.getItemType() == ItemType.WEAPON) {
+		if(!item.isStackable()) {
 			while(i < Mideas.bag().getBag().length) {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, item);
@@ -219,6 +219,33 @@ public class Joueur {
 		}
 		LogChat.setStatusText3("Votre inventaire est pleins");
 		return false;
+	}
+	
+	public void deleteItem(Item item, int amount) throws SQLException {
+		int i = 0;
+		if(!item.isStackable()) {
+			while(i < Mideas.bag().getBag().length && amount > 0) {
+				if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(item)) {
+					Mideas.bag().setBag(i, null);
+					Mideas.bag().setBagChange(true);
+					CharacterStuff.setBagItems();
+					amount--;
+				}
+				i++;
+			}
+		}
+		else {
+			while(i < Mideas.bag().getBag().length && amount > 0) {
+				if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(item)) {
+					int temp = amount;
+					amount = amount-Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i));
+					Mideas.bag().setBag(i, Mideas.bag().getBag(i), Math.max(0, Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))-temp));
+					Mideas.bag().setBagChange(true);
+					CharacterStuff.setBagItems();
+				}
+				i++;
+			}
+		}
 	}
 	
 	public void setFirstProfession(Profession profession) {
@@ -425,15 +452,15 @@ public class Joueur {
 	}
 	
 	public int getNumberItem(Item item) {
-		if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION && Mideas.bag().getNumberStack().containsKey(item)) {
+		if(item.isStackable() && Mideas.bag().getNumberStack().containsKey(item)) {
 			return Mideas.bag().getNumberStack().get(item);
 		}
 		return 0;
 	}
 	
-	public void setNumberItem(Item potion, int number) {
-		if(potion.getItemType() == ItemType.ITEM || potion.getItemType() == ItemType.POTION) {
-			Mideas.bag().getNumberStack().put(potion, number);
+	public void setNumberItem(Item item, int number) {
+		if(item.isStackable()) {
+			Mideas.bag().getNumberStack().put(item, number);
 		}
 	}
 	

@@ -4,10 +4,14 @@ import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.enumlist.GemBonusType;
+import com.mideas.rpg.v2.enumlist.ItemType;
+import com.mideas.rpg.v2.enumlist.StuffType;
+import com.mideas.rpg.v2.enumlist.WeaponSlot;
+import com.mideas.rpg.v2.enumlist.WeaponType;
+import com.mideas.rpg.v2.enumlist.Wear;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
-import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 
