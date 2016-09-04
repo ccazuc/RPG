@@ -747,7 +747,7 @@ public class ContainerFrame {
 	}
 	
 	private static void drawBag(int i, int x, int y) {
-		if(Mideas.bag().getBag(i) != null && !(Mideas.bag().getBag(i) == DragManager.getDraggedItem())) {
+		if(Mideas.bag().getBag(i) != null) {
 			Draw.drawQuad(IconsManager.getSprite37((Mideas.bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()+y);
 			Draw.drawQuad(Sprites.bag_border1, Display.getWidth()+x-3, Display.getHeight()+y-2);
 			if((Mideas.bag().getBag(i).isStackable())) {
@@ -758,6 +758,9 @@ public class ContainerFrame {
 			}
 			if(slot_hover[i]) {
 				Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
+			}
+			if(Mideas.bag().getBag(i) == DragManager.getDraggedItem()) {
+				Draw.drawColorQuad(Display.getWidth()+x, Display.getHeight()+y, 37, 35, new Color(0, 0, 0, .5f));
 			}
 		}
 		if(DragManager.getClickBag(i)) {

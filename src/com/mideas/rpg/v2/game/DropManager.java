@@ -21,6 +21,7 @@ public class DropManager {
 		ArrayList<Drop> temp = new ArrayList<Drop>();
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT item_id, amount, droprate FROM drop WHERE mob_id = ?");
 		statement.putInt(id);
+		statement.execute();
 		while(statement.fetch()) {
 			int itemId = statement.getInt();
 			int amount = statement.getInt();

@@ -34,6 +34,7 @@ import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
+import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
 import com.mideas.rpg.v2.hud.DragManager;
@@ -180,9 +181,9 @@ public class Mideas {
 			if(Display.wasResized()) {
 				updateDisplayFactor();
 			}
+			Interface.draw();
 			timeEvent();
 			time = System.nanoTime();
-			Interface.draw();
 			if(System.currentTimeMillis()%2000 < 10) {
 				interfaceDrawTime = System.nanoTime()-time;
 			}
@@ -191,7 +192,7 @@ public class Mideas {
 				ProfessionManager.getProfessionList().get(0).event(Display.getWidth()/2-530, Display.getHeight()/2-390);
 			}*/
 			Display.update();
-			//Display.sync(120);
+			Display.sync(120);
 		}
 	}
 	
@@ -239,8 +240,12 @@ public class Mideas {
 		displayXFactor = Display.getWidth()/1920f;
 		displayYFactor = Display.getHeight()/1018f;
 		LoginScreen.updateSize();
-		SelectScreen.updateSize();;
+		SelectScreen.updateSize();
 		DragManager.updateSize();
+		AdminPanelFrame.updateSize();
+		if(joueur1 != null && joueur1.getFirstProfession() != null) {
+			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
+		}
 	}
 	
 	public static double getInterfaceDrawTime() {

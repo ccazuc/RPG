@@ -19,9 +19,7 @@ import com.mideas.rpg.v2.utils.Draw;
 public class AdminPanelFrame {
 
 	private static int LEFT_ANCHOR = Display.getWidth()/2-325;
-	private static int xRight = 190;
 	private static int y = -250;
-	private static int yShift = 25;
 	private static boolean init;
 	private static Button sexMaxStaminaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y, 130, 30, "Fully heals you", 12) {
 		@Override
@@ -54,33 +52,11 @@ public class AdminPanelFrame {
 	};
 	
 	public static void draw() {
-		if(Display.wasResized() || init) {
-			LEFT_ANCHOR = Display.getWidth()/2-325;
-			sexMaxStaminaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
-			sexMaxManaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+40, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
-			killPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+80, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
-			clearBag.update(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+		if(!init) {
+			updateSize();
 			init = true;
 		}
 		Draw.drawQuad(Sprites.admin_panel, LEFT_ANCHOR-75, Display.getHeight()/2+y-100);
-		/*drawHover(0, xLeft, y);
-		drawHover(1, xLeft, y+yShift);
-		drawHover(2, xLeft, y+2*yShift);
-		drawHover(3, xLeft, y+3*yShift);
-		drawHover(4, xRight, y);
-		drawHover(5, xRight, y+yShift);
-		drawHover(6, xRight, y+2*yShift);
-		drawHover(7, xRight, y+3*yShift);
-		TTF2.coinContainer.drawStringShadow(Display.getWidth()/2+xLeft+25, Display.getHeight()/2+y-40, "Joueur1", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xLeft+30, Display.getHeight()/2+y+2, "set max HP", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xLeft+22, Display.getHeight()/2+y+yShift+2, "set max mana", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xLeft+55, Display.getHeight()/2+y+2*yShift+2, "kill", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xLeft+30, Display.getHeight()/2+y+3*yShift+2, "clear bag", Color.white, Color.black, 1, 1, 1);
-		TTF2.coinContainer.drawStringShadow(Display.getWidth()/2+xRight+25, Display.getHeight()/2+y-40, "Joueur2", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+30, Display.getHeight()/2+y+2, "set max HP", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+22, Display.getHeight()/2+y+yShift+2, "set max mana", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+55, Display.getHeight()/2+y+2*yShift+2, "kill", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2+xRight+35, Display.getHeight()/2+y+3*yShift+2, "Update all", Color.white, Color.black, 1, 1, 1);*/
 		TTF2.coinContainer.drawStringShadow(LEFT_ANCHOR+25, Display.getHeight()/2+y-40, "Joueur1", Color.white, Color.black, 1, 1, 1);
 		sexMaxStaminaPlayer1.draw();
 		sexMaxManaPlayer1.draw();
@@ -94,5 +70,13 @@ public class AdminPanelFrame {
 		killPlayer1.event();
 		clearBag.event();
 		return false;
+	}
+	
+	public static void updateSize() {
+		LEFT_ANCHOR = Display.getWidth()/2-325;
+		sexMaxStaminaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+		sexMaxManaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+40, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+		killPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+80, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+		clearBag.update(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
 	}
 }

@@ -91,7 +91,7 @@ public class DragManager {
 		}
 		if(deleteItem && draggedItem != null) {
 			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-172*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), Sprites.alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.alert.getImageHeight()*Mideas.getDisplayYFactor());
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-(TTF2.font4.getWidth("Voulez vous supprimer "+draggedItem.getStuffName())*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-85*Mideas.getDisplayYFactor(), "Voulez vous supprimer "+draggedItem.getStuffName(), Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
+			TTF2.font4.drawStringShadow(Display.getWidth()/2-(TTF2.font4.getWidth("Voulez vous supprimer "+draggedItem.getStuffName())*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-72*Mideas.getDisplayYFactor(), "Voulez vous supprimer "+draggedItem.getStuffName(), Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
 			hoverDeleteYes.draw();
 			hoverDeleteNo.draw();
 		}

@@ -36,7 +36,11 @@ public class ScrollBar {
 		Draw.drawQuad(Sprites.bot_button, this.x-2, this.y+19+this.y_size-Sprites.top_button.getImageHeight()*Mideas.getDisplayXFactor());
 		drawUpArrow();
 		drawDownArrow();
-		Draw.drawQuad(Sprites.ascensor, this.x+4, this.y+this.y_ascensor);
+		Draw.drawQuad(Sprites.ascensor, this.x+5, this.y+this.y_ascensor);
+	}
+	
+	public float getX() {
+		return this.x;
 	}
 	
 	public void event() {
@@ -73,10 +77,10 @@ public class ScrollBar {
 			}
 		}
 		if(this.down) {
-			if(Mideas.mouseY() >= this.y+this.Y_ASCENSOR_UP_SHIFT+7 && Mideas.mouseY() <= this.y+this.y_size+7+this.Y_ASCENSOR_DOWN_SHIFT*Mideas.getDisplayXFactor()) {
+			if(Mideas.mouseY() >= this.y+this.Y_ASCENSOR_UP_SHIFT+11 && Mideas.mouseY() <= this.y+this.y_size+7+this.Y_ASCENSOR_DOWN_SHIFT*Mideas.getDisplayXFactor()) {
 				this.y_ascensor = Mideas.mouseY()-this.y_ascensor_onclick+this.y_ascensor_lastclick;
 			}
-			else if(Mideas.mouseY() <= this.y+this.Y_ASCENSOR_UP_SHIFT+7) {
+			else if(Mideas.mouseY() <= this.y+this.Y_ASCENSOR_UP_SHIFT+11) {
 				this.y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
 			}
 			else if(Mideas.mouseY() >= this.y+this.y_size+this.Y_ASCENSOR_DOWN_SHIFT*Mideas.getDisplayXFactor()) {

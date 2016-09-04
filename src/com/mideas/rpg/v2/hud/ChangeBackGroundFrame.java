@@ -71,7 +71,7 @@ public class ChangeBackGroundFrame {
 	
 	private static void drawBorder(int x, int y, int i) {
 		if(hover[i]) {
-			Draw.drawColorQuadBorder(x-3, y-3, 356, 225, Color.black, 3);
+			Draw.drawColorQuadBorder(x-3, y-3, 356*Mideas.getDisplayXFactor(), 225*Mideas.getDisplayXFactor(), Color.black, 3);
 		}
 	}
 	

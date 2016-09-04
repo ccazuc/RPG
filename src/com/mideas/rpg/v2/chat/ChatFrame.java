@@ -145,10 +145,10 @@ public class ChatFrame {
 				while(i <= x) {
 					if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-185 && tempTable[i] != null) {
 						if(messages.get(k).getDisplayHour() && i == 1 && showMessageTime) {
-							TTF2.chat.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+tempTable[i], Color.white);
+							TTF2.chat.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+tempTable[i], messages.get(k).getColor());
 						}
 						else {
-							TTF2.chat.drawString(40, xDraw, tempTable[i], Color.white);
+							TTF2.chat.drawString(40, xDraw, tempTable[i], messages.get(k).getColor());
 						}
 					}
 					xDraw+= TTF2.chat.getLineHeight();
@@ -156,7 +156,6 @@ public class ChatFrame {
 				}
 			}
 			else {
-				//System.out.println("k : "+k+" draw : "+xDraw+" total : "+totalNumberLine+" display min : "+(Display.getHeight()-280-yResize)+" display max : "+(Display.getHeight()-150));
 				if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-185) {
 					if(messages.get(k).getDisplayHour() && showMessageTime) {
 						TTF2.chat.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+messages.get(k).getMessage(), messages.get(k).getColor());
@@ -369,7 +368,6 @@ public class ChatFrame {
 	private static void addMessage() {
 		String temp = tempMessage;
 		if(!temp.equals("") && temp != null) {
-			long time = System.currentTimeMillis();
 			messages.add(new Message(temp, true, Color.white));
 		}
 	}

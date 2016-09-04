@@ -74,12 +74,7 @@ public class ChatCommandOther {
 								number = Integer.valueOf(datas[2]);
 							}
 						}
-						if(Item.getItem(Integer.valueOf(datas[1])).isStackable()) {
-							Mideas.joueur1().addItem(Item.getItem(Integer.valueOf(datas[1])), number);
-						}
-						else {
-							
-						}
+						Mideas.joueur1().addItem(Item.getItem(Integer.valueOf(datas[1])), number);
 					}
 					else {
 						ChatFrame.addMessage(new Message("That item doesn't exist", false, Color.yellow));
@@ -101,6 +96,13 @@ public class ChatCommandOther {
 						ChatFrame.addMessage(new Message("That item doesn't exist", false, Color.yellow));
 					}
 				}
+			}
+			else if(datas[0].equals(".help")) {
+				ChatFrame.addMessage(new Message(".[joueur1, joueur2] [set, get] [stamina, mana, gold, experience] [value]", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".lookspell [spell_id]", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".itemnumber [item_id]", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".additem [item_id] [amount]", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".deleteitem [item_id] [amount]", false, Color.yellow));
 			}
 			else {
 				ChatCommandManager.UnknwownCommand();

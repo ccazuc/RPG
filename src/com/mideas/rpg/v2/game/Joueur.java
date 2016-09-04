@@ -186,15 +186,15 @@ public class Joueur {
 	public boolean addItem(Item item, int amount) throws SQLException {
 		int i = 0;
 		if(!item.isStackable()) {
-			while(i < Mideas.bag().getBag().length) {
+			while(i < Mideas.bag().getBag().length && amount > 0) {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, item);
 					Mideas.bag().setBagChange(true);
-					CharacterStuff.setBagItems();
-					return true;
+					amount --;
 				}
 				i++;
 			}
+			CharacterStuff.setBagItems();
 		}
 		else {
 			while(i < Mideas.bag().getBag().length) {

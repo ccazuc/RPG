@@ -107,22 +107,13 @@ public class Profession {
 	
 	public void draw(int x, int y) {
 		if(!this.init) {
-			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
+			if(this.scrollBar == null ) {
+				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
+			}
 			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
 				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
 			}
-			this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
-			this.craftButton.setY(y+440*Mideas.getDisplayXFactor());
-			this.craftButton.setButtonWidth(87);
-			this.craftButton.setButtonHeight(23);
 			this.init = true;
-		}
-		if(Display.wasResized()) {
-			this.scrollBar.update(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor());
-			this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
-			this.craftButton.setY(y+440*Mideas.getDisplayXFactor());
-			this.craftButton.setButtonWidth(87);
-			this.craftButton.setButtonHeight(23);
 		}
 		if(this.change) {
 			int i = 0;
@@ -140,7 +131,6 @@ public class Profession {
 		if(this.selectedItem != null) {
 			drawSelectedItem(x+28*Mideas.getDisplayXFactor(), y+253*Mideas.getDisplayXFactor());
 		}
-		this.scrollBar.draw();
 		this.craftButton.draw();
 		x+= 26*Mideas.getDisplayXFactor();
 		y+= 99*Mideas.getDisplayXFactor();
@@ -149,7 +139,13 @@ public class Profession {
 		int j = 0;
 		int yShift = 0;
 		float yShiftHeight = 17*Mideas.getDisplayXFactor();
-		this.y_offset = yShiftHeight*(this.numberLine-8)*this.scrollBar.getScrollPercentage();
+		if(this.numberLine > 8) {
+			this.scrollBar.draw();
+			this.y_offset = yShiftHeight*(this.numberLine-8)*this.scrollBar.getScrollPercentage();
+		}
+		else {
+			this.y_offset = 0;
+		}
 		y-= this.y_offset;
 		while(i < this.categoryList.size()) {
 			j = 0;
@@ -192,17 +188,17 @@ public class Profession {
 	
 	public void event(int x, int y) throws NoSuchAlgorithmException, SQLException {
 		if(!this.init) {
-			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
+			if(this.scrollBar == null ) {
+				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
+			}
 			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
 				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
 			}
-			this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
-			this.craftButton.setY(y+440*Mideas.getDisplayXFactor());
-			this.craftButton.setButtonWidth(87);
-			this.craftButton.setButtonHeight(23);
 			this.init = true;
 		}
-		this.scrollBar.event();
+		if(this.numberLine > 8) {
+			this.scrollBar.event();
+		}
 		this.craftButton.event();
 		x+= 26*Mideas.getDisplayXFactor();
 		y+= 99*Mideas.getDisplayXFactor();
@@ -351,6 +347,19 @@ public class Profession {
 		}
 		return Color.decode("#DDB500");
 		
+	}
+	
+	public void updateSize(float x, float y) {
+		if(this.scrollBar != null) {
+			this.scrollBar.update(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor());
+		}
+		else {
+			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
+		}
+		this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
+		this.craftButton.setY(y+440*Mideas.getDisplayXFactor());
+		this.craftButton.setButtonWidth(87);
+		this.craftButton.setButtonHeight(23);
 	}
 	
 	private Texture getColor(int itemLevel) {
