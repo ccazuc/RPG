@@ -760,7 +760,7 @@ public class ContainerFrame {
 				Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
 			}
 			if(Mideas.bag().getBag(i) == DragManager.getDraggedItem()) {
-				Draw.drawColorQuad(Display.getWidth()+x, Display.getHeight()+y, 37, 35, new Color(0, 0, 0, .5f));
+				Draw.drawColorQuad(Display.getWidth()+x, Display.getHeight()+y, 37, 35, bgColor);
 			}
 		}
 		if(DragManager.getClickBag(i)) {

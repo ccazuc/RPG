@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.util.Arrays;
-
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -37,6 +35,7 @@ public class CharacterFrame {
 	private static int lastMouseX;
 	private static int lastMouseY;
 	private static boolean gemFrameOpen;
+	private static int hoveredSlot;
 
 	public static void draw() {
 		hover = 0;
@@ -125,9 +124,7 @@ public class CharacterFrame {
 		hoverMove = false;
 		hoverCloseButton = false;
 		hoverCloseGemFrameButton = false;
-		if(DragManager.isHoverCharacterFrame()) {
-			Arrays.fill(hoverCharacterFrame, false);
-		}
+		hoverCharacterFrame[hoveredSlot] = false;
 		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+70+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2+70+Sprites.close_button_inventory_down.getImageWidth()+xMouseShift+gemFrame && Mideas.mouseY() >= Display.getHeight()/2-366+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-366+Sprites.close_button_inventory_down.getImageHeight()+yMouseShift) {
 			hoverCloseButton = true;
 			Mideas.setHover(false);
@@ -345,9 +342,10 @@ public class CharacterFrame {
 	private static void drawCharacterItems(int i, float x, float y) {
 		Stuff stuff = Mideas.joueur1().getStuff(i);
 		if(stuff != null) {
-			if(!(stuff == DragManager.getDraggedItem())) {
-				Draw.drawQuad(IconsManager.getSprite37((stuff.getSpriteId())), Display.getWidth()/2+x, Display.getHeight()/2+y);
-				Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2+x-2, Display.getHeight()/2+y-2);
+			Draw.drawQuad(IconsManager.getSprite37((stuff.getSpriteId())), Display.getWidth()/2+x, Display.getHeight()/2+y);
+			Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2+x-2, Display.getHeight()/2+y-2);
+			if(stuff == DragManager.getDraggedItem()) {
+				Draw.drawColorQuad(Display.getWidth()/2+x, Display.getHeight()/2+y, 37, 35, bgColor);
 			}
 			if(DragManager.getDraggedItem() != null && !hoverCharacterFrame[i] && DragManager.getDraggedItem().getItemType() == ItemType.STUFF && ((Stuff)DragManager.getDraggedItem()).getType() == stuff.getType()) {
 				if(hover%2 == 0) {
@@ -370,6 +368,7 @@ public class CharacterFrame {
 	private static void isHover(int i, float x, float y) {
 		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37 && Mideas.mouseY() >= Display.getHeight()/2+y && Mideas.mouseY() <= Display.getHeight()/2+y+38) {
 			hoverCharacterFrame[i] = true;
+			hoveredSlot = i;
 		}
 	}
 	

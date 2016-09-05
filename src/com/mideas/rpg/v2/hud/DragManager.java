@@ -61,6 +61,7 @@ public class DragManager {
 			CharacterStuff.setEquippedItems();
 			CharacterStuff.setBagItems();
 			Mideas.bag().setBagChange(true);
+			this.setHoverFalse();
 			deleteItem = false;
 		}
 	};
@@ -72,6 +73,7 @@ public class DragManager {
 				checkFreeSlotBag(draggedItem);
 				Mideas.bag().setBagChange(true);
 			}
+			this.setHoverFalse();
 			draggedItem = null;
 			deleteItem = false;
 		}
@@ -158,7 +160,7 @@ public class DragManager {
 										draggedItem = null;
 										leftClickInventoryDown = false;
 										clickInventory[inventoryClickedSlot] = false;
-										return true;
+										//return true;
 									}
 								}
 							}
@@ -211,7 +213,7 @@ public class DragManager {
 						}
 					}
 					if(Interface.getCharacterFrameStatus()) {
-						if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
+						//if(Mideas.mouseX() >= Display.getWidth()/2-300 && Mideas.mouseX() <= Display.getWidth()/2+135 && Mideas.mouseY() >= Display.getHeight()/2-380 && Mideas.mouseY() <= Display.getHeight()/2+146) {
 							i = 0;
 							while(i < Mideas.joueur1().getStuff().length) {
 								if(clickInventoryItem(i)) {
@@ -219,7 +221,7 @@ public class DragManager {
 								}
 								i++;
 							}
-						}
+						//}
 					}
 					leftClickInventoryDown = false;
 					leftClickBagDown = false;
@@ -269,7 +271,6 @@ public class DragManager {
 						}
 						i++;
 					}
-					Arrays.fill(clickBag, false);
 					clickBag[bagClickedSlot] = false;
 				}
 				else {
@@ -710,7 +711,7 @@ public class DragManager {
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(Mideas.joueur1().getSpells(i) != null && Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.STUFF && ((StuffShortcut)Mideas.joueur1().getSpells(i)).getStuff() == draggedItem2) {
 				Mideas.joueur1().setSpells(i, null);
-				return true;
+				break;
 			}
 			i++;
 		}
@@ -968,7 +969,10 @@ public class DragManager {
 	}
 	
 	public static WeaponSlot getWeaponSlot(int i) {
-		return weaponSlot[i];
+		if(i < weaponSlot.length) {
+			return weaponSlot[i];
+		}
+		return null;
 	}
 	
 	public static void updateSize() {

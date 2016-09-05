@@ -5,10 +5,10 @@ import com.mideas.rpg.v2.game.item.Item;
 public class Drop {
 
 	private Item item;
-	private int dropRate;
+	private float dropRate;
 	private int amount;
 	
-	public Drop(Item item, int dropRate, int amount) {
+	public Drop(Item item, float dropRate, int amount) {
 		this.item = item;
 		this.dropRate = dropRate;
 		this.amount = amount;
@@ -18,7 +18,7 @@ public class Drop {
 		return this.item;
 	}
 	
-	public int getDropRate() {
+	public float getDropRate() {
 		return this.dropRate;
 	}
 	

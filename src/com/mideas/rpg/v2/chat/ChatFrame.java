@@ -687,7 +687,7 @@ public class ChatFrame {
 		cursorShift+= TTF2.chat.getWidth(add);
 	}
 	
-	private static boolean checkTempMessage() throws SQLException {
+	/*private static boolean checkTempMessage() throws SQLException {
 		String message = tempMessage.trim().toLowerCase();
 		if(message.length() > 1 && message.substring(0, 1).equals(".") && !message.substring(1, 2).equals(".")) {
 			if(message.equals(".kill joueur2")) {
@@ -902,7 +902,7 @@ public class ChatFrame {
 			return true;
 		}
 		return false;
-	}
+	}*/
 	
 	public static void addMessage(Message message) {
 		messages.add(message);

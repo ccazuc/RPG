@@ -177,6 +177,10 @@ public class Button {
 		this.y = y;
 	}
 	
+	public void setHoverFalse() {
+		this.buttonHover = false;
+	}
+	
 	public void setButtonWidth(float width) {
 		this.x_size = width*Mideas.getDisplayXFactor();
 	}

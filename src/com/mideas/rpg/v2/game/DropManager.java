@@ -13,22 +13,19 @@ public class DropManager {
 	private static HashMap<Integer, ArrayList<Drop>> dropList = new HashMap<Integer, ArrayList<Drop>>();
 	
 	public static void loadDropTable(int id) throws SQLException {
-		/*JDOStatement statement = Mideas.getJDO().prepare("SELECT COUNT(mob_id) FROM drop WHERE mob_id = ?");
-		statement.putInt(id);
-		statement.execute();
-		int number = statement.getInt();
-		Item[] temp = new Item[number];*/
-		ArrayList<Drop> temp = new ArrayList<Drop>();
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT item_id, amount, droprate FROM drop WHERE mob_id = ?");
-		statement.putInt(id);
-		statement.execute();
-		while(statement.fetch()) {
-			int itemId = statement.getInt();
-			int amount = statement.getInt();
-			int dropRate = statement.getInt();
-			temp.add(new Drop(Item.getItem(itemId), dropRate, amount));
+		if(!dropList.containsKey(id)) {
+			ArrayList<Drop> temp = new ArrayList<Drop>();
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT item_id, amount, drop_rate FROM `drop` WHERE mob_id = ?");
+			statement.putInt(id);
+			statement.execute();
+			while(statement.fetch()) {
+				int itemId = statement.getInt();
+				int amount = statement.getInt();
+				float dropRate = statement.getFloat();
+				temp.add(new Drop(Item.getItem(itemId), dropRate, amount));
+			}
+			dropList.put(id, temp);
 		}
-		dropList.put(id, temp);
 	}
 	
 	public static HashMap<Integer, ArrayList<Drop>> getDropList() {

@@ -102,9 +102,7 @@ public class EndFightFrame {
 	}*/
 	
 	private static void dropManager() throws SQLException {
-		if(!DropManager.exists(Mideas.joueur2().getId())) {
-			DropManager.loadDropTable(Mideas.joueur2().getId());
-		}
+		DropManager.loadDropTable(Mideas.joueur2().getId());
 		ArrayList<Drop> temp = DropManager.getList(Mideas.joueur2().getId());
 		int i = 0;
 		double random = Math.random();

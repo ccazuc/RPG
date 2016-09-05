@@ -9,6 +9,8 @@ import com.mideas.rpg.v2.enumlist.WeaponType;
 import com.mideas.rpg.v2.enumlist.Wear;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -221,6 +223,34 @@ public class Joueur {
 		return false;
 	}
 	
+	public void addMultipleUnstackableItem(int id, int number) throws SQLException {
+		int i = 0;
+		ItemType type;
+		if(WeaponManager.exists(id) || StuffManager.exists(id)) {
+			if(WeaponManager.exists(id)) {
+				type = ItemType.WEAPON;
+			}
+			else {
+				type = ItemType.STUFF;
+			}
+			while(i < Mideas.bag().getBag().length && number > 0) {
+				if(Mideas.bag().getBag(i) == null) {
+					if(type == ItemType.WEAPON) {
+						Mideas.bag().setBag(i, WeaponManager.getClone(id));
+					}
+					else {
+						Mideas.bag().setBag(i, StuffManager.getClone(id));
+					}
+					Mideas.bag().setBagChange(true);
+					number--;
+				}
+				
+				i++;
+			}
+			CharacterStuff.setBagItems();
+		}
+	}
+	
 	public void deleteItem(Item item, int amount) throws SQLException {
 		int i = 0;
 		if(!item.isStackable()) {
@@ -228,11 +258,11 @@ public class Joueur {
 				if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(item)) {
 					Mideas.bag().setBag(i, null);
 					Mideas.bag().setBagChange(true);
-					CharacterStuff.setBagItems();
 					amount--;
 				}
 				i++;
 			}
+			CharacterStuff.setBagItems();
 		}
 		else {
 			while(i < Mideas.bag().getBag().length && amount > 0) {
@@ -241,10 +271,10 @@ public class Joueur {
 					amount = amount-Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i));
 					Mideas.bag().setBag(i, Mideas.bag().getBag(i), Math.max(0, Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))-temp));
 					Mideas.bag().setBagChange(true);
-					CharacterStuff.setBagItems();
 				}
 				i++;
 			}
+			CharacterStuff.setBagItems();
 		}
 	}
 	

@@ -65,7 +65,6 @@ public class Mideas {
 	private static int i;
 	private static int k;
 	private static int[] expAll = new int[11];
-	private static int currentExp;
 	private static int currentGold;
 	private static long usedRAM;
 	private static double interfaceDrawTime;
@@ -108,8 +107,8 @@ public class Mideas {
 		Display.setIcon(icon_array);
 		Display.create();
 		Display.setResizable(true);
-		Display.setDisplayMode(new DisplayMode(1700, 930));
-		//setDisplayMode(1920, 1080, true);
+		//Display.setDisplayMode(new DisplayMode(1700, 930));
+		setDisplayMode(1920, 1080, false);
         cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
 		final int cursor_width = cursor_image.getWidth();
 		final int cursor_height = cursor_image.getHeight();
@@ -151,7 +150,6 @@ public class Mideas {
 		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		getExpAll();
 		joueur2 = getRandomClass(2);
-		//joueur1 = ClassManager.getPlayerClone("Guerrier");
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		while(!Display.isCloseRequested()) {
@@ -181,18 +179,15 @@ public class Mideas {
 			if(Display.wasResized()) {
 				updateDisplayFactor();
 			}
-			Interface.draw();
-			timeEvent();
 			time = System.nanoTime();
-			if(System.currentTimeMillis()%2000 < 10) {
+			Interface.draw();
+			if(System.currentTimeMillis()%500 < 10) {
+				usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 				interfaceDrawTime = System.nanoTime()-time;
 			}
-			//ProfessionManager.getProfessionList().get(0).draw(Display.getWidth()/2-530, Display.getHeight()/2-390);
-			/*while(Mouse.next()) {
-				ProfessionManager.getProfessionList().get(0).event(Display.getWidth()/2-530, Display.getHeight()/2-390);
-			}*/
+			timeEvent();
 			Display.update();
-			Display.sync(120);
+			Display.sync(240);
 		}
 	}
 	
@@ -259,7 +254,6 @@ public class Mideas {
 	private static void timeEvent() {
 		if(System.currentTimeMillis()%10000 < 10) {
 			System.gc();
-			usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		}
 	}
 	
@@ -325,7 +319,7 @@ public class Mideas {
 	}
 	
 	public static int getCurrentExp() {
-		return currentExp;
+		return exp;
 	}
 	
 	public static int loadExp() throws SQLException {
@@ -335,7 +329,6 @@ public class Mideas {
 		if(statement.fetch()) {
 			exp = statement.getInt();
 		}
-		currentExp = exp;
 		return exp;
 	}
 	
@@ -343,10 +336,10 @@ public class Mideas {
 		return exp;
 	}
 	
-	public static void setExp(int exp) throws SQLException {
-		currentExp = exp;
+	public static void setExp(int exps) throws SQLException {
+		exp = exps;
 		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET exp = ? WHERE character_id = ?");
-		statement.putInt(exp);
+		statement.putInt(exps);
 		statement.putInt(Mideas.getCharacterId());
 		statement.execute();
 	}
@@ -665,7 +658,7 @@ public class Mideas {
 			CharacterStuff.setEquippedBags();
 			CharacterStuff.setEquippedItems();
 			Mideas.setGold(Mideas.getGold());
-			Mideas.setExp(0);
+			Mideas.setExp(Mideas.getExp());
 		}
 		Mideas.setConfig();
 	}
