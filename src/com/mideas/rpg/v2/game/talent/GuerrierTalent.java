@@ -165,7 +165,7 @@ public class GuerrierTalent {
 						numberArmsTalent++;
 						numberFirstArms++;
 						numberTalent++;
-						((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().setDamage(((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().getDefaultDamage()*0.05f);
+						//((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().setDamage(((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().getDefaultDamage()*0.05f);
 						Talent.setTalent();
 					}
 					else if(hoverLeft2 && deflectionTalent < 5) {
@@ -209,7 +209,7 @@ public class GuerrierTalent {
 					numberArmsTalent--;
 					numberFirstArms--;
 					numberTalent--;
-					((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().setDamage(-((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().getDefaultDamage()*0.05f);
+					//((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().setDamage(-((SpellShortcut)Mideas.joueur1().getSpells(0)).getSpell().getDefaultDamage()*0.05f);
 					Talent.setTalent();
 				}
 				else if(hoverLeft2 && deflectionTalent > 0 && checkLine(numberFirstArms, improvedCharge, ironWill, improvedThunderClap)) {

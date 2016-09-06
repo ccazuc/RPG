@@ -7,8 +7,8 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
@@ -33,7 +33,7 @@ public class ChatCommandOther {
 						int id = Integer.valueOf(datas[1]);
 						Spell spell = SpellManager.getShortcutSpell(id).getSpell();
 						ChatFrame.addMessage(new Message(spell.getName()+": ", false, Color.yellow));
-						ChatFrame.addMessage(new Message(spell.getBaseDamage()+" damage", false, Color.yellow));
+						ChatFrame.addMessage(new Message(spell.getDefaultDamage()+" damage", false, Color.yellow));
 						ChatFrame.addMessage(new Message(spell.getManaCost()+" mana", false, Color.yellow));
 					}
 					else {

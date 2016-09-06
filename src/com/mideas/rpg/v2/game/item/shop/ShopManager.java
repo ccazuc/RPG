@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.game;
+package com.mideas.rpg.v2.game.item.shop;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -15,15 +15,19 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.enumlist.ItemType;
+import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.Shop;
+import com.mideas.rpg.v2.game.bag.Bag;
+import com.mideas.rpg.v2.game.bag.BagManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
-import com.mideas.rpg.v2.game.item.stuff.Bag;
-import com.mideas.rpg.v2.game.item.stuff.BagManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
+import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.LogChat;

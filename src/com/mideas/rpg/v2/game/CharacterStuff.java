@@ -4,14 +4,14 @@ import java.sql.SQLException;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.enumlist.ItemType;
+import com.mideas.rpg.v2.game.bag.BagManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
-import com.mideas.rpg.v2.game.item.stuff.BagManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
+import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class CharacterStuff {

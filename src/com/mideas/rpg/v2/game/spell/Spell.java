@@ -11,37 +11,71 @@ import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 
 public class Spell {
 	
-	protected Texture sprite;
-	private SpellType type;
-	protected String name = "";
-	private int baseDamage;
-	private int manaCost;
-	private int baseHeal;
-	private int baseCd;
-	private int defaultDamage;
-	private String sprite_id;
 	private int id;
+	private String sprite_id;
+	private SpellType type;
+	protected String name;
+	private int damage;
+	private int defaultDamage;
+	private int manaCost;
+	private int heal;
+	private int defaultHeal;
+	private int cd;
 	private int castTime;
+	private float stunRate;
+	private int stunDuration;
 	
-	public Spell(int defaultDamage, int baseDamage, int manaCost, int stunRate, int stunDuration, int baseHeal, int baseCd, int cd, int id) {
-		this.defaultDamage = defaultDamage;
-		this.baseDamage = baseDamage;
+	public Spell(int id, String sprite_id, String name, SpellType type, int damage, int manaCost, float stunRate, int stunDuration, int cd, int castTime) { //Damage spells
+		this.sprite_id = sprite_id;
+		this.name = name;
+		this.type = type;
+		this.damage = damage;
 		this.manaCost = manaCost;
-		this.baseHeal = baseHeal;
-		this.baseCd = baseCd;
+		this.stunRate = stunRate;
+		this.stunDuration = stunDuration;
+		this.cd = cd;
+		this.castTime = castTime;
 		this.id = id;
 	}
 	
-	public Spell(int id, String sprite_id, String name, SpellType type, int baseDamage, int manaCost, int baseHeal, int baseCd, int cd, int castTime) {
+	public Spell(int id, String sprite_id, String name, SpellType type, int manaCost, int heal, int cd, int castTime) { //Heal spells
 		this.id = id;
 		this.sprite_id = sprite_id;
 		this.name = name;
 		this.type = type;
-		this.baseDamage = baseDamage;
+		this.heal = heal;
+		this.cd = cd;
 		this.manaCost = manaCost;
-		this.baseHeal = baseHeal;
-		this.baseCd = baseCd;
 		this.castTime = castTime;
+	}
+
+	public Spell(int id, String sprite_id, String name, SpellType type, int damage, int manaCost, float stunRate, int stunDuration, int cd, int heal, int castTime) { //Damage and heal spells
+		this.sprite_id = sprite_id;
+		this.name = name;
+		this.type = type;
+		this.damage = damage;
+		this.manaCost = manaCost;
+		this.stunRate = stunRate;
+		this.stunDuration = stunDuration;
+		this.cd = cd;
+		this.castTime = castTime;
+		this.id = id;
+		this.heal = heal;
+	}
+	
+	public void action() {
+		if(this.type == SpellType.DAMAGE) {
+			
+		}
+		else if(this.type == SpellType.HEAL) {
+			
+		}
+		else if(this.type == SpellType.HEALANDDAMAGE) {
+			
+		}
+		else if(this.type == SpellType.OTHER) {
+			
+		}
 	}
 	
 	public boolean cast(Joueur joueur2, Joueur joueur, Spell spell) {
@@ -100,11 +134,11 @@ public class Spell {
 	}
 	
 	public int getDamage() {
-		return (int)(Mideas.joueur1().getStrength()+this.baseDamage*(Math.random()*.1+.95));
+		return (int)(Mideas.joueur1().getStrength()+this.defaultDamage*(Math.random()*.1+.95));
 	}
 	
-	public int getBaseDamage() {
-		return this.baseDamage;
+	public int getDefaultamage() {
+		return this.defaultDamage;
 	}
 	
 	public int getDefaultDamage() {
@@ -117,7 +151,7 @@ public class Spell {
 	}
 	
 	public int getHeal() {
-		return this.baseHeal;
+		return this.heal;
 	}
 	
 	public void useMana(Joueur joueur, Spell spell) {
@@ -131,13 +165,8 @@ public class Spell {
 		return IconsManager.getSprite47(this.sprite_id);
 	}
 	
-	
-	public void setDamage(Spell spell, int number) {
-		this.baseDamage = this.baseDamage+number;
-	}
-	
 	public int getSpellBaseCd() {
-		return this.baseCd;
+		return this.cd;
 	}
 	
 	public int getSpellCd() {
@@ -158,10 +187,6 @@ public class Spell {
 		if(spell != null) {
 			spell.setSpellCd(spell.getSpellBaseCd());
 		}
-	}
-	
-	public void setDamage(float number) {
-		this.baseDamage = (int)(this.baseDamage+number);
 	}
 	
 	public int getSpellId() {

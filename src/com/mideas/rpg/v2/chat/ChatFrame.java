@@ -17,12 +17,12 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.ShopManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
+import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
+import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.CharacterFrame;
@@ -103,9 +103,9 @@ public class ChatFrame {
 				if(yDraw >= Display.getHeight()-280-TTF2.chat.getLineHeight()*4-yResize && yDraw <= Display.getHeight()-185) {
 					int j = 0;
 					while(j < messages.get(k).getMessage().length()) {
-						//if(yDraw >= Display.getHeight()-280-yResize) {
+						if(yDraw >= Display.getHeight()-280-yResize) {
 							TTF2.chat.drawChar(xDraw, yDraw, messages.get(k).getMessage().charAt(j), messages.get(k).getColor());
-						//}
+						}
 						xDraw+= TTF2.chat.getWidth(messages.get(k).getMessage().charAt(j));
 						j++;
 						if(xDraw-40 > maxLength-10 && j < messages.get(k).getMessage().length()) {

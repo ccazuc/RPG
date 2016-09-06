@@ -8,7 +8,7 @@ import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
+import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class ProfessionManager {

@@ -13,8 +13,8 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
-import com.mideas.rpg.v2.game.CharacterStuff; 
-import com.mideas.rpg.v2.game.ShopManager;
+import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
@@ -445,12 +445,14 @@ public class Interface {
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_M) {
 						dungeonFrameActive = !dungeonFrameActive;
+						return true;
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 						ChatFrame.setChatActive(!ChatFrame.getChatActive());
+						return true;
 					}
 				}
-				else if(chatFrameActive && hasLoggedIn && Mideas.joueur1() != null) {
+				if(hasLoggedIn && Mideas.joueur1() != null) {
 					ChatFrame.event();
 				}
 				else if(!hasLoggedIn) {

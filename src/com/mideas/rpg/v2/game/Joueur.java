@@ -10,7 +10,7 @@ import com.mideas.rpg.v2.enumlist.Wear;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
+import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;

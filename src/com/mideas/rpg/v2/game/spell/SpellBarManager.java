@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.stuff.WeaponManager;
+import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;

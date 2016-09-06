@@ -13,13 +13,13 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.enumlist.GemBonusType;
 import com.mideas.rpg.v2.enumlist.ItemType;
 import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.bag.BagManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
-import com.mideas.rpg.v2.game.item.stuff.BagManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -27,8 +27,11 @@ public class ContainerFrame {
 	
 	private static boolean[] slot_hover = new boolean[97];
 	private static boolean[] itemNumberOpen = new boolean[97];
-	private static Color bgColor = new Color(0, 0, 0, .6f); 
-	private static Color borderColor = Color.decode("#494D4B");
+	private static final Color bgColor = new Color(0, 0, 0, .6f); 
+	private static final Color borderColor = Color.decode("#494D4B");
+	private static final Color BLUE = Color.decode("#0268CC");
+	private static final Color PURPLE = Color.decode("#822CB7");
+	private static final Color LEGENDARY = Color.decode("#FF800D");
 	private static int x;
 	private static int xShift;
 	private static int y;
@@ -64,7 +67,6 @@ public class ContainerFrame {
 			xItemNumber = x_items;
 			yItemNumber = y_items;
 		}
-		//drawHoverBag(i, x_text, y_text, x_item, y_item);
 	}
 	public static void draw() {
 		Arrays.fill(hoverButton, false);
@@ -1199,13 +1201,13 @@ public class ContainerFrame {
 			return Color.green;
 		}
 		if(item.getQuality() == 3) {
-			return Color.decode("#0268CC");
+			return BLUE;
 		}
 		if(item.getQuality() == 4) {
-			return Color.decode("#822CB7");
+			return PURPLE;
 		}
 		if(item.getQuality() == 5) {
-			return Color.decode("#FF800D");
+			return LEGENDARY;
 		}
 		return Color.white;
 	}

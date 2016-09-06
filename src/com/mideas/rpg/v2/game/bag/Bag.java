@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.game.item.stuff;
+package com.mideas.rpg.v2.game.bag;
 
 import java.util.HashMap;
 
