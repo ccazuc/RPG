@@ -25,6 +25,7 @@ public class Alert {
 	private float x_size_button;
 	private float y_size_button;
 	private Color bgColor = new Color(0, 0, 0, .6f);
+	private static final Color YELLOW = Color.decode("#FFC700"); 
 	private boolean isActive;
 	private int diff;
 	
@@ -54,9 +55,10 @@ public class Alert {
 			this.formatedText = new String[(int)Math.ceil(lineNumber)];
 			while(i < this.text.length()) {
 				if(TTF2.alertFont.getWidth(this.text.substring(j, i)) < this.x_size_alert*Mideas.getDisplayXFactor()-30) {
+					
 				}
 				else {
-					if(this.text.substring(i, i+1).charAt(0) != ' ') {
+					if(this.text.charAt(i) != ' ') {
 						i = checkSpace(this.text, i);
 						this.formatedText[k] = this.text.substring(j, i);
 						j = i;
@@ -101,11 +103,11 @@ public class Alert {
 			int i = 0;
 			int y_shift = 0;
 			if(this.formatedText.length == 1) {
-				TTF2.alertFont.drawStringShadow(this.x+this.x_size_alert*xFac/2-TTF2.alertFont.getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], Color.decode("#FFC700"), Color.black, 3, 2, 2);
+				TTF2.alertFont.drawStringShadow(this.x+this.x_size_alert*xFac/2-TTF2.alertFont.getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], YELLOW, Color.black, 3, 2, 2);
 			}
 			else {
 				while(i < this.formatedText.length) {
-					TTF2.alertFont.drawStringShadow(this.x*xFac+10, (int)(this.y*yFac+14+y_shift), this.formatedText[i], Color.decode("#FFC700"), Color.black, 2, 2, 1);
+					TTF2.alertFont.drawStringShadow(this.x*xFac+10, (int)(this.y*yFac+14+y_shift), this.formatedText[i], YELLOW, Color.black, 2, 2, 1);
 					y_shift+= TTF2.alertFont.getLineHeight()+3;
 					i++;
 				}

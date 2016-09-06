@@ -33,6 +33,7 @@ import com.mideas.rpg.v2.utils.Draw;
 public class ChatFrame {
 	
 	private static boolean chatActive;
+	private static final int MAXIMUM_MESSAGES = 100;
 	private static ArrayList<Message> messages = new ArrayList<Message>();
 	private static ArrayList<String> rawMessages = new ArrayList<String>();
 	private static int numberMessageSent;
@@ -64,6 +65,7 @@ public class ChatFrame {
 	private static int maxLength = 490;
 	private static Color bgColor = new Color(0, 0, 0, .35f); 
 	private static Color selectedColor = new Color(1, 1, 1, .5f); 
+	private static int yDraw; 
 	private static int xDraw;
 	private static int xShift;
 	private static boolean showMessageTime = true;
@@ -88,88 +90,35 @@ public class ChatFrame {
 				TTF2.chat.drawString(37+cursorShift, Display.getHeight()-175, "|", Color.white);
 			}
 		}
+		if(messages.size() > MAXIMUM_MESSAGES) {
+			messages.remove(0);
+		}
 		Draw.drawColorQuad(selectedStarts, Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
 		TTF2.chat.drawString(40, Display.getHeight()-175, tempMessage.substring(tempLength), Color.white);
-		//int j = 0;
 		int k = 0;
-		String draw = "";
-		int beg = 0;
-		/*while(k > messages.size()-messageShowHeight-2 && numberLineSent < messageShowHeight+1 && k+shift < messages.size() && k+shift >= 0) {
-			beg = 0;
-			if(TTF2.chat.getWidth(messages.get(k+shift)) >= maxLength) {
-				String temp = messages.get(k+shift);
-				draw = temp;
-				int x = 0;
-				while(x < getNumberLine(temp) && numberLineSent < messageShowHeight+1) {
-					draw = temp.substring(beg, getLength(temp, beg, maxLength-30));
-					beg = getLength(temp, beg, maxLength-30);
-					x++;
-					tempTable[x] = draw;
-				}
-				int i = 0;
-				while(i < x && i < messageShowHeight+1) {
-					if(numberLineSent < messageShowHeight+1) {
-						TTF2.chat.drawString(40, Display.getHeight()-175-TTF2.chat.getLineHeight()*(j+1), tempTable[x-i], Color.white);
-						j++;
-						numberLineSent++;
-					}
-					i++;
-				}
-			}
-			else {
-				TTF2.chat.drawString(40, Display.getHeight()-175-TTF2.chat.getLineHeight()*(j+1), messages.get(k+shift), Color.white);
-				j++;
-				numberLineSent++;
-			}
-			k--;
-		}*/
-		xDraw = -totalNumberLine*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
+		yDraw = -totalNumberLine*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
+		xDraw = 40;
 		while(k < messages.size()) {
-			beg = 0;
-			if(TTF2.chat.getWidth(messages.get(k).getMessage()) >= maxLength) {
-				String temp = messages.get(k).getMessage();
-				draw = temp;
-				int x = 0;
-				while(x < getNumberLine(temp)) {
-					if(x == 0 && showMessageTime && messages.get(k).getDisplayHour()) {
-						draw = temp.substring(beg, getLength(temp, beg, maxLength-30-TTF2.chat.getWidth("["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] ")));
-					}
-					else {
-						draw = temp.substring(beg, getLength(temp, beg, maxLength-30));
-					}
-					beg = getLength(temp, beg, maxLength-30);
-					x++;
-					tempTable[x] = draw;
-				}
-				int i = 1;
-				while(i <= x) {
-					if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-185 && tempTable[i] != null) {
-						if(messages.get(k).getDisplayHour() && i == 1 && showMessageTime) {
-							TTF2.chat.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+tempTable[i], messages.get(k).getColor());
-						}
-						else {
-							TTF2.chat.drawString(40, xDraw, tempTable[i], messages.get(k).getColor());
+			xDraw = 40;
+				if(yDraw >= Display.getHeight()-280-TTF2.chat.getLineHeight()*4-yResize && yDraw <= Display.getHeight()-185) {
+					int j = 0;
+					while(j < messages.get(k).getMessage().length()) {
+						//if(yDraw >= Display.getHeight()-280-yResize) {
+							TTF2.chat.drawChar(xDraw, yDraw, messages.get(k).getMessage().charAt(j), messages.get(k).getColor());
+						//}
+						xDraw+= TTF2.chat.getWidth(messages.get(k).getMessage().charAt(j));
+						j++;
+						if(xDraw-40 > maxLength-10 && j < messages.get(k).getMessage().length()) {
+							yDraw+= TTF2.chat.getLineHeight();
+							xDraw = 40;
 						}
 					}
-					xDraw+= TTF2.chat.getLineHeight();
-					i++;
 				}
-			}
-			else {
-				if(xDraw >= Display.getHeight()-280-yResize && xDraw <= Display.getHeight()-185) {
-					if(messages.get(k).getDisplayHour() && showMessageTime) {
-						TTF2.chat.drawString(40, xDraw, "["+convMessageFormat(messages.get(k).getHour())+":"+convMessageFormat(messages.get(k).getMinute())+":"+convMessageFormat(messages.get(k).getSecond())+"] "+messages.get(k).getMessage(), messages.get(k).getColor());
-					}
-					else {
-						TTF2.chat.drawString(40, xDraw, messages.get(k).getMessage(), messages.get(k).getColor());
-					}
-				}
-				xDraw+= TTF2.chat.getLineHeight();
-			}
 			k++;
-			if(xDraw > Display.getHeight()-185) {
-				break;
+			if(yDraw > Display.getHeight()-185 || !(k < messages.size())) {
+				//break;
 			}
+			yDraw+= TTF2.chat.getLineHeight();
 		}
 		if(topArrow) {
 			Draw.drawQuad(Sprites.up_chat_button, 3, Display.getHeight()-236);
@@ -246,10 +195,12 @@ public class ChatFrame {
 				resetSelectedPosition();
 			}
 			else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT) { //write
-				char tempChar = Keyboard.getEventCharacter();
-				write(tempChar);
-				cursorPosition++;
-				resetSelectedPosition();
+				if(tempMessage.length() < 150) {
+					char tempChar = Keyboard.getEventCharacter();
+					write(tempChar);
+					cursorPosition++;
+					resetSelectedPosition();
+				}
 			}
 		}
         if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) { //enter
@@ -567,7 +518,19 @@ public class ChatFrame {
 	}
 	
 	private static int getNumberLine(String msg) {
-		return TTF2.chat.getWidth(msg)/maxLength+1;
+		int i = 0;
+		int x = 0;
+		int number = 1;
+		while(i < msg.length()) {
+			x+= TTF2.chat.getWidth(msg.charAt(i));
+			if(x > maxLength) {
+				x = 0;
+				number++;
+			}
+			i++;
+		}
+		return number;
+		//return TTF2.chat.getWidth(msg)/maxLength;
 	}
 	
 	private static int getLength(String msg, int beg, int length) {

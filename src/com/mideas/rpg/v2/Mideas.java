@@ -181,7 +181,7 @@ public class Mideas {
 			}
 			time = System.nanoTime();
 			Interface.draw();
-			if(System.currentTimeMillis()%500 < 10) {
+			if(System.currentTimeMillis()%1000 < 10) {
 				usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 				interfaceDrawTime = System.nanoTime()-time;
 			}

@@ -28,6 +28,8 @@ public class Button {
 	private boolean buttonHover;
 	private Color color = Color.decode("#FFC700");
 	private boolean hasClicked;
+	private static final Color GREY = Color.decode("#808080");
+	private static final Color YELLOW = Color.decode("#FFC700");
 	
 	@SuppressWarnings("null")
 	public Button(float x, float y, float x_size, float y_size, String text, float size) {
@@ -99,11 +101,11 @@ public class Button {
 	public void draw() {
 		if(!activateCondition()) {
 			this.texture = Sprites.button_disabled;
-			this.color = Color.decode("#808080");
+			this.color = GREY;
 		}
 		else if(!this.buttonDown && !this.buttonHover) {
 			this.texture = Sprites.button;
-			this.color = Color.decode("#FFC700");
+			this.color = YELLOW;
 		}
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
 		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, 1, 1, 1);
@@ -111,7 +113,7 @@ public class Button {
 	
 	public void event() throws SQLException, NoSuchAlgorithmException {
 		if(activateCondition()) {
-			this.color = Color.decode("#FFC700");
+			this.color = YELLOW;
 			this.buttonHover = false;
 			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 				this.buttonHover = true;
@@ -161,7 +163,7 @@ public class Button {
 		}
 		else {
 			this.texture = Sprites.button_disabled;
-			this.color = Color.decode("#808080");
+			this.color = GREY;
 		}
 	}
 	
@@ -209,7 +211,7 @@ public class Button {
 		this.buttonHover = false;
 		this.hasClicked = false;
 		this.texture = Sprites.button;
-		this.color = Color.decode("#FFC700");
+		this.color = YELLOW;
 	}
 	
 	public void update(float x, float y, float x_size, float y_size) {
