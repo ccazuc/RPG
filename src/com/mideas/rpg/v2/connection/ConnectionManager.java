@@ -6,6 +6,7 @@ import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.command.Command;
+import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.hud.LoginScreen;
@@ -22,6 +23,7 @@ public class ConnectionManager {
 	private static void initPacket() {
 		commandList.put((int)PacketID.LOGIN, new CommandLogin());
 		commandList.put((int)PacketID.SELECT_SCREEN_LOAD_CHARACTERS, new CommandSelectScreenLoadCharacters());
+		commandList.put((int)PacketID.CREATE_CHARACTER, new CommandCreateCharacter());
 	}
 	
 	public static final boolean connect() {
@@ -75,8 +77,7 @@ public class ConnectionManager {
 		if(socket.isConnected()) {
 			byte packetId = -1;
 			try {
-				connection.read();
-				if(connection.hasRemaining()) {
+				if(connection.read() == 1) {
 					packetId = connection.readByte();
 				}
 			} 

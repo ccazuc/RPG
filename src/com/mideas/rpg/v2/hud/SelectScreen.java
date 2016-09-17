@@ -13,14 +13,15 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
-import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.classes.SelectScreenPlayer;
 import com.mideas.rpg.v2.game.race.Classe;
 import com.mideas.rpg.v2.game.race.Race;
 import com.mideas.rpg.v2.jdo.JDOStatement;
+import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
@@ -29,7 +30,7 @@ public class SelectScreen {
 
 	static boolean creatingCharacter;
 	static boolean deletingCharacter;
-	private static boolean characterLoaded;
+	static boolean characterLoaded;
 	private static SelectScreenPlayer[] characterList = new SelectScreenPlayer[10];
 	private static boolean[] selectedCharacter = new boolean[10];
 	private static int selectedCharacterIndex = 0;
@@ -51,6 +52,7 @@ public class SelectScreen {
 	private static Color bgColor = new Color(0, 0, 0, .35f);
 	private static Input character = new Input(TTF2.loginScreenAccount, 12);
 	private static Input deleteCharacter = new Input(TTF2.loginScreenAccount, 8);
+	private static Alert alert = new Alert("", Display.getWidth()/2-360*Mideas.getDisplayXFactor(), -20, 700, 130, 230, 38, Display.getHeight()+30, 20, "Ok");
 	private static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293, 278*Mideas.getDisplayXFactor(), 36, "Create new character", 16) {
 		@Override
 		public void eventButtonClick() {
@@ -60,7 +62,7 @@ public class SelectScreen {
 	static Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195, 34, "Accept", 16) {
 		@Override
 		public void eventButtonClick() throws SQLException {
-			createCharacter();
+			SelectScreen.createCharacter();
 			returnCharacterButton.reset();
 		}
 	};	
@@ -79,6 +81,7 @@ public class SelectScreen {
 			Mideas.setAccountId(0);
 			LoginScreen.mouseEvent();
 			CommandLogout.write();
+			//SelectScreen.characterLoaded = false;
 		}
 	};
 	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50, "Enter game", 19) {
@@ -94,11 +97,14 @@ public class SelectScreen {
 		}
 	};
 	
+	private static boolean blabla;
 	public static void draw() {
-		if(!characterLoaded) {
+		if(!blabla) {
+			System.out.println('a');
 			loadCharacter();
 			selectedCharacter[0] = true;
 			characterLoaded = true;
+			blabla = true;
 		}
 		if(Display.wasResized() || !init) {
 			updateSize();
@@ -128,6 +134,7 @@ public class SelectScreen {
 		}
 		else {
 			Draw.drawQuadBG(Sprites.create_character_background);
+			alert.draw();
 			TTF2.loginScreenAccount.drawStringShadow(Display.getWidth()/2-77*Mideas.getDisplayXFactor(), Display.getHeight()/2+405*Mideas.getDisplayYFactor(), character.getText(), Color.white, Color.black, 1, 1, 2);
 			acceptCharacterButton.draw();
 			returnCharacterButton.draw();
@@ -177,6 +184,7 @@ public class SelectScreen {
 			deleteCharacterButton.event();
 		}
 		else {
+			alert.event();
 			acceptCharacterButton.event();
 			returnCharacterButton.event();
 			hoveredRace = null;
@@ -330,8 +338,8 @@ public class SelectScreen {
 		}	
 	}
 	
-	static void createCharacter() throws SQLException {
-		if(checkCharacterName()) {
+	static void createCharacter() {
+		/*if(checkCharacterName()) {
 			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO `character` (account_id, name, level, class, race) VALUES (?, ?, 1, ?, ?)");
 			statement.putInt(Mideas.getAccountId());
 			statement.putString(character.getText().substring(0, 1).toUpperCase()+character.getText().substring(1).toLowerCase());
@@ -344,10 +352,39 @@ public class SelectScreen {
 			selectedCharacterIndex = totalCharacter;
 			character.resetText();
 			loadCharacter();
-		}
+		}*/
+		CommandCreateCharacter.write(character.getText());
 	}
 	
-	private static boolean checkCharacterName() throws SQLException {
+	public static String getSelectedRace() {
+		return selectedRace.toString();
+	}
+	
+	public static String getSelectedClasse() {
+		return selectedClasse.toString();
+	}
+	
+	public static void setCreatingCharacter(boolean we) {
+		creatingCharacter = we;
+	}
+	
+	public static void setSelectedCharacter(int i, boolean we) {
+		selectedCharacter[i] = we;
+	}
+	
+	public static int getSelectedCharacterIndex() {
+		return selectedCharacterIndex;
+	}
+	
+	public static void setSelectedCharacterIndex(int we) {
+		selectedCharacterIndex = we;
+	}
+	
+	public static int getTotalCharacter() {
+		return totalCharacter;
+	}
+	
+	/*private static boolean checkCharacterName() throws SQLException {
 		int i = 0;
 		if(!character.getText().equals("") && character.getText().length() <= 10) {
 			while(i < character.getText().length()) {
@@ -373,14 +410,16 @@ public class SelectScreen {
 			}
 		}
 		return true;
-	}
+	}*/
 	
 	public static void loadCharacter() {
 		CommandSelectScreenLoadCharacters.write();
 	}
 	
 	public static void setCharacterList(SelectScreenPlayer player, int i) {
-		characterList[i] = player;
+		if(i < characterList.length) {
+			characterList[i] = player;
+		}
 	}
 	
 	private static void drawCharacter(int i, float y) {
@@ -438,5 +477,15 @@ public class SelectScreen {
 		returnButton.update(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayXFactor());
 		enterGameButton.update(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250*Mideas.getDisplayXFactor(), 50);
 		deleteCharacterButton.update(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202*Mideas.getDisplayXFactor(), 28);
+		alert.setX(-355*Mideas.getDisplayXFactor());
+		alert.setY(-60);
+	}
+	
+	public static Alert getAlert() {
+		return alert;
+	}
+	
+	public static Input getCharacterInput() {
+		return character;
 	}
 }

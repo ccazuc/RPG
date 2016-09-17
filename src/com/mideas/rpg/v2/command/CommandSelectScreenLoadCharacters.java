@@ -11,6 +11,7 @@ public class CommandSelectScreenLoadCharacters extends Command {
 	
 	@Override
 	public void read() {
+		System.out.println("read select");
 		if(ConnectionManager.getConnection().hasRemaining()) {
 			int i = 0;
 			while(ConnectionManager.getConnection().hasRemaining()) {
@@ -20,6 +21,7 @@ public class CommandSelectScreenLoadCharacters extends Command {
 				String classe = ConnectionManager.getConnection().readString();
 				String race = ConnectionManager.getConnection().readString();
 				SelectScreen.setCharacterList(new SelectScreenPlayer(id, name, level, classe, race), i);
+				//System.out.println(i+" "+name);
 				i++;
 			}
 			SelectScreen.setTotalCharacter(i);
@@ -28,6 +30,7 @@ public class CommandSelectScreenLoadCharacters extends Command {
 	
 	public static void write() {
 		if(ConnectionManager.isConnected()) {
+			System.out.println("write select");
 			ConnectionManager.getConnection().writeByte(SELECT_SCREEN_LOAD_CHARACTERS);
 			ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
 			ConnectionManager.getConnection().send();
