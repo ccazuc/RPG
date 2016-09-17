@@ -14,13 +14,13 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
+import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.classes.SelectScreenPlayer;
 import com.mideas.rpg.v2.game.race.Classe;
 import com.mideas.rpg.v2.game.race.Race;
-import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
@@ -28,6 +28,7 @@ import com.mideas.rpg.v2.utils.Input;
 
 public class SelectScreen {
 
+	private static final Color YELLOW = Color.decode("#FFC700");
 	static boolean creatingCharacter;
 	static boolean deletingCharacter;
 	static boolean characterLoaded;
@@ -51,7 +52,7 @@ public class SelectScreen {
 	private static float y_selected_classe = Display.getHeight()/2+99*Mideas.getDisplayYFactor();
 	private static Color bgColor = new Color(0, 0, 0, .35f);
 	private static Input character = new Input(TTF2.loginScreenAccount, 12);
-	private static Input deleteCharacter = new Input(TTF2.loginScreenAccount, 8);
+	static Input deleteCharacter = new Input(TTF2.loginScreenAccount, 8);
 	private static Alert alert = new Alert("", Display.getWidth()/2-360*Mideas.getDisplayXFactor(), -20, 700, 130, 230, 38, Display.getHeight()+30, 20, "Ok");
 	private static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293, 278*Mideas.getDisplayXFactor(), 36, "Create new character", 16) {
 		@Override
@@ -81,7 +82,7 @@ public class SelectScreen {
 			Mideas.setAccountId(0);
 			LoginScreen.mouseEvent();
 			CommandLogout.write();
-			//SelectScreen.characterLoaded = false;
+			SelectScreen.characterLoaded = false;
 		}
 	};
 	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50, "Enter game", 19) {
@@ -94,19 +95,37 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
 			deletingCharacter = true;
+			this.reset();
 		}
 	};
-	
-	private static boolean blabla;
+	private static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32, "OK", 20) {
+		@Override
+		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
+			deleteCharacter();
+		}
+		
+		@Override
+		public boolean activateCondition() {
+			if(deleteCharacter.getText().trim().toLowerCase().equals("effacer")) {
+				return true;
+			}
+			return false;
+		}
+	};
+	private static Button cancelDeleteCharacterButton = new Button(Display.getWidth()/2-250*Mideas.getDisplayXFactor(), Display.getHeight()/2+45*Mideas.getDisplayYFactor(), 240, 32, "Annuler", 20) {
+		@Override
+		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
+			deletingCharacter = false;
+		}
+	};
+
 	public static void draw() {
-		if(!blabla) {
-			System.out.println('a');
+		if(!characterLoaded) {
 			loadCharacter();
 			selectedCharacter[0] = true;
 			characterLoaded = true;
-			blabla = true;
 		}
-		if(Display.wasResized() || !init) {
+		if(!init) {
 			updateSize();
 			init = true;
 		}
@@ -114,11 +133,16 @@ public class SelectScreen {
 			Draw.drawQuadBG(Sprites.select_screen_background);
 			if(deletingCharacter) {
 				Draw.drawQuad(Sprites.big_alert, Display.getWidth()/2-350*Mideas.getDisplayXFactor(), Display.getHeight()/2-120*Mideas.getDisplayYFactor(), Sprites.big_alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.big_alert.getImageHeight()*Mideas.getDisplayYFactor());
-				TTF2.selectScreenDeleteCharacterConfirm.drawStringShadow(Display.getWidth()/2-TTF2.selectScreenDeleteCharacterConfirm.getWidth("Do you want to delete")/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-105*Mideas.getDisplayYFactor(), "Do you want to delete", Color.decode("#FFC700"), Color.black, 2, 1);
-				TTF2.selectScreenDeleteCharacterConfirm.drawStringShadow(Display.getWidth()/2-TTF2.selectScreenDeleteCharacterConfirm.getWidth(characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel())/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel(), Color.white, Color.black, 2, 1);
-				TTF2.raceName.drawStringShadow(Display.getWidth()/2-TTF2.raceName.getWidth("Type \"DELETE\" to confirm.")*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-30*Mideas.getDisplayYFactor(), "Type \"DELETE\" to confirm." , Color.decode("#FFC700"), Color.black, 2, 1);
-				Draw.drawQuad(Sprites.input_box, Display.getWidth()/2-Sprites.input_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2+20*Mideas.getDisplayYFactor(), Sprites.input_box.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.input_box.getImageHeight()*Mideas.getDisplayYFactor());
-				TTF2.loginScreenAccount.drawStringShadow(Display.getWidth()/2-80*Mideas.getDisplayXFactor(), Display.getHeight()/2+23*Mideas.getDisplayYFactor(), deleteCharacter.getText(), Color.white, Color.black, 1, 1, 1);
+				TTF2.selectScreenDeleteCharacterConfirm.drawStringShadow(Display.getWidth()/2-TTF2.selectScreenDeleteCharacterConfirm.getWidth("Voulez-vous effacer")/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-105*Mideas.getDisplayYFactor(), "Voulez-vous effacer", YELLOW, Color.black, 3, 2, 2);
+				TTF2.selectScreenDeleteCharacterConfirm.drawStringShadow(Display.getWidth()/2-TTF2.selectScreenDeleteCharacterConfirm.getWidth(characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel())/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel(), Color.white, Color.black, 2, 4, 2);
+				TTF2.raceName.drawStringShadow(Display.getWidth()/2-TTF2.raceName.getWidth("Tapez \"EFFACER\" dans le champ pour confirmer.")*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-30*Mideas.getDisplayYFactor(), "Tapez \"EFFACER\" dans le champ pour confirmer." , YELLOW, Color.black, 2, 1, 1);
+				Draw.drawQuad(Sprites.input_box, Display.getWidth()/2-Sprites.input_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-2*Mideas.getDisplayYFactor(), Sprites.input_box.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.input_box.getImageHeight()*Mideas.getDisplayYFactor());
+				TTF2.loginScreenAccount.drawStringShadow(Display.getWidth()/2-92*Mideas.getDisplayXFactor(), Display.getHeight()/2+5*Mideas.getDisplayYFactor(), deleteCharacter.getText(), Color.white, Color.black, 1, 1, 1);
+				if(System.currentTimeMillis()%1000 < 500) {
+					TTF2.selectScreenName.drawString(Display.getWidth()/2-96*Mideas.getDisplayXFactor()+deleteCharacter.getCursorShift(), Display.getHeight()/2+0*Mideas.getDisplayYFactor(), "|", Color.white);
+				}
+				confirmDeleteCharacterButton.draw();
+				cancelDeleteCharacterButton.draw();
 			}
 			int i = 0;
 			float y = 110*Mideas.getDisplayYFactor();
@@ -161,7 +185,7 @@ public class SelectScreen {
 			}
 			if(selectedRace != null) {
 				Draw.drawQuad(Sprites.select_screen_hover, x_selected_race+3, y_selected_race+2, Sprites.select_screen_hover.getImageWidth(), Sprites.select_screen_hover.getImageHeight());
-				TTF2.raceName.drawStringShadow(x_selected_race+30*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedRace.getName())/2, y_selected_race+40*Mideas.getDisplayYFactor(), selectedRace.getName(), Color.decode("#FFC700"), Color.black, 1, 1, 1);
+				TTF2.raceName.drawStringShadow(x_selected_race+30*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedRace.getName())/2, y_selected_race+40*Mideas.getDisplayYFactor(), selectedRace.getName(), YELLOW, Color.black, 1, 1, 1);
 			}
 			if(hoveredClasse != null && hoveredClasse != selectedClasse) {
 				Draw.drawQuad(Sprites.select_screen_hover, x_hover_classe-1, y_hover_classe-1, Sprites.select_screen_hover.getImageWidth(), Sprites.select_screen_hover.getImageHeight());
@@ -171,17 +195,23 @@ public class SelectScreen {
 			}
 			if(selectedClasse != null) {
 				Draw.drawQuad(Sprites.select_screen_hover, x_selected_classe-1, y_selected_classe-1, Sprites.select_screen_hover.getImageWidth(), Sprites.select_screen_hover.getImageHeight());
-				TTF2.raceName.drawStringShadow(x_selected_classe+30*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedClasse.getName())/2, y_selected_classe+40*Mideas.getDisplayYFactor(), selectedClasse.getName(), Color.decode("#FFC700"), Color.black, 1, 1, 1);
+				TTF2.raceName.drawStringShadow(x_selected_classe+30*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedClasse.getName())/2, y_selected_classe+40*Mideas.getDisplayYFactor(), selectedClasse.getName(), YELLOW, Color.black, 2, 1, 1);
 			}
 		}
 	}
  
 	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
 		if(!creatingCharacter) {
-			newCharacterButton.event();
-			returnButton.event();
-			enterGameButton.event();
-			deleteCharacterButton.event();
+			if(deletingCharacter) {
+				confirmDeleteCharacterButton.event();
+				cancelDeleteCharacterButton.event();
+			}
+			else {
+				newCharacterButton.event();
+				returnButton.event();
+				enterGameButton.event();
+				deleteCharacterButton.event();
+			}
 		}
 		else {
 			alert.event();
@@ -212,7 +242,7 @@ public class SelectScreen {
 		return true;
 	}
 	
-	public static void event() throws SQLException {
+	public static void event() {
 		if(creatingCharacter) {
 			character.event();
 			if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
@@ -255,18 +285,18 @@ public class SelectScreen {
 		setPlayer();
 	}
 	
-	private static void deleteCharacter() throws SQLException {
-		if(deleteCharacter.getText().toLowerCase().equals("delete")) {
-			JDOStatement statement = Mideas.getJDO().prepare("DELETE FROM `character` WHERE character_id = ?");
-			statement.putInt(characterList[selectedCharacterIndex].getId());
-			statement.execute();
-			deletingCharacter = false;
-			Arrays.fill(characterList, null);
-			selectedCharacterIndex = 0;
-			selectedCharacter[0] = true;
-			deleteCharacter.resetText();
-			loadCharacter();
+	static void deleteCharacter() {
+		if(deleteCharacter.getText().trim().toLowerCase().equals("effacer")) {
+			CommandDeleteCharacter.write(characterList[selectedCharacterIndex].getId());
 		}
+	}
+	
+	public static void characterDeleted() {
+		deletingCharacter = false;
+		Arrays.fill(characterList, null);
+		selectedCharacterIndex = 0;
+		selectedCharacter[0] = true;
+		deleteCharacter.resetText();
 	}
 	
 	private static void setPlayer() {
@@ -339,20 +369,6 @@ public class SelectScreen {
 	}
 	
 	static void createCharacter() {
-		/*if(checkCharacterName()) {
-			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO `character` (account_id, name, level, class, race) VALUES (?, ?, 1, ?, ?)");
-			statement.putInt(Mideas.getAccountId());
-			statement.putString(character.getText().substring(0, 1).toUpperCase()+character.getText().substring(1).toLowerCase());
-			statement.putString(selectedClasse.toString());
-			statement.putString(selectedRace.toString());
-			statement.execute();
-			creatingCharacter = false;
-			selectedCharacter[selectedCharacterIndex] = false;
-			selectedCharacter[totalCharacter] = true;
-			selectedCharacterIndex = totalCharacter;
-			character.resetText();
-			loadCharacter();
-		}*/
 		CommandCreateCharacter.write(character.getText());
 	}
 	
@@ -383,34 +399,6 @@ public class SelectScreen {
 	public static int getTotalCharacter() {
 		return totalCharacter;
 	}
-	
-	/*private static boolean checkCharacterName() throws SQLException {
-		int i = 0;
-		if(!character.getText().equals("") && character.getText().length() <= 10) {
-			while(i < character.getText().length()) {
-				char temp = character.getText().charAt(i);
-				if(!((temp >= 'A' && temp <= 'Z') || (temp >= 'a' && temp <= 'z'))) {
-					return false;
-				}
-				if(i < character.getText().length()-3) {
-					if(character.getText().charAt(i) == character.getText().charAt(i+1) && character.getText().charAt(i+1) == character.getText().charAt(i+2)) {
-						return false;
-					}
-				}
-				i++;
-			}
-		}
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT character_id FROM `character` WHERE name = ?"); //check if character name is already taken
-		statement.putString(character.getText());
-		statement.execute();
-		if(statement.fetch()) {
-		int id = statement.getInt();
-			if(id != 0) {
-				return false;
-			}
-		}
-		return true;
-	}*/
 	
 	public static void loadCharacter() {
 		CommandSelectScreenLoadCharacters.write();
@@ -479,6 +467,8 @@ public class SelectScreen {
 		deleteCharacterButton.update(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202*Mideas.getDisplayXFactor(), 28);
 		alert.setX(-355*Mideas.getDisplayXFactor());
 		alert.setY(-60);
+		confirmDeleteCharacterButton.update(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32);
+		cancelDeleteCharacterButton.update(Display.getWidth()/2+23*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32);
 	}
 	
 	public static Alert getAlert() {

@@ -15,7 +15,6 @@ public class CommandCreateCharacter extends Command {
 	
 	@Override
 	public void read() {
-		System.out.println("created");
 		byte packetId = ConnectionManager.getConnection().readByte();
 		if(packetId == CHARACTER_CREATED) {
 			CommandSelectScreenLoadCharacters.write();
@@ -37,7 +36,6 @@ public class CommandCreateCharacter extends Command {
 	
 	public static void write(String name) {
 		if(ConnectionManager.isConnected()) {
-			System.out.println("write create");
 			ConnectionManager.getConnection().writeByte(CREATE_CHARACTER);
 			ConnectionManager.getConnection().writeString(name);
 			ConnectionManager.getConnection().writeInt(Mideas.getAccountId());

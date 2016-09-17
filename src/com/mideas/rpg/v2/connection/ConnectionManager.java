@@ -7,9 +7,11 @@ import java.util.HashMap;
 
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
+import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.hud.LoginScreen;
+import static com.mideas.rpg.v2.connection.PacketID.*;
 
 public class ConnectionManager {
 
@@ -21,9 +23,10 @@ public class ConnectionManager {
 	private static boolean init;
 	
 	private static void initPacket() {
-		commandList.put((int)PacketID.LOGIN, new CommandLogin());
-		commandList.put((int)PacketID.SELECT_SCREEN_LOAD_CHARACTERS, new CommandSelectScreenLoadCharacters());
-		commandList.put((int)PacketID.CREATE_CHARACTER, new CommandCreateCharacter());
+		commandList.put((int)LOGIN, new CommandLogin());
+		commandList.put((int)SELECT_SCREEN_LOAD_CHARACTERS, new CommandSelectScreenLoadCharacters());
+		commandList.put((int)CREATE_CHARACTER, new CommandCreateCharacter());
+		commandList.put((int)DELETE_CHARACTER, new CommandDeleteCharacter());
 	}
 	
 	public static final boolean connect() {
@@ -87,7 +90,7 @@ public class ConnectionManager {
 				return;
 			}
 			if(connection != null) {
-				if(commandList.containsKey((int)packetId)) {
+				if(packetId != -1 && commandList.containsKey((int)packetId)) {
 					commandList.get((int)packetId).read();
 				}
 			}
