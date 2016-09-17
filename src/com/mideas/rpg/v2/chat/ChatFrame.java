@@ -116,7 +116,7 @@ public class ChatFrame {
 				}
 			k++;
 			if(yDraw > Display.getHeight()-185 || !(k < messages.size())) {
-				//break;
+				break;
 			}
 			yDraw+= TTF2.chat.getLineHeight();
 		}

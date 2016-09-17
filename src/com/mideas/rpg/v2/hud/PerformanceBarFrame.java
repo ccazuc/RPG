@@ -15,7 +15,7 @@ public class PerformanceBarFrame {
 	private static Color bgColor = new Color(0, 0, 0, .7f);
 
 	public static void draw() {
-		if(hoverPerformanceBar || true) {
+		if(hoverPerformanceBar) {
 			Draw.drawColorQuad(Display.getWidth()-400, Display.getHeight()-460, 270, 350, bgColor);
 			Draw.drawColorQuadBorder(Display.getWidth()-400, Display.getHeight()-460, 270, 350, Color.white);
 			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-450, "used RAM : "+Long.toString(Mideas.getUsedRAM()/(1024L*1024L))+" Mo", Color.white, Color.black, 1);
@@ -24,7 +24,7 @@ public class PerformanceBarFrame {
 			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-390, "interface : "+(Mideas.getInterfaceDrawTime()/1000)+" 탎", Color.white, Color.black, 1);
 			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-370, "Container : "+(Interface.getContainerDrawTime()/1000)+" 탎", Color.white, Color.black, 1);
 		}
-		if(topPerformanceBarActive || true) {
+		if(topPerformanceBarActive) {
 			Draw.drawColorQuad(0, 0, Display.getWidth(), 15, Color.gray);
 			TTF2.font2.drawStringShadow(1, 0, "total : "+(Mideas.getMouseEventTime()/1000)+" 탎", Color.white, Color.black, 1);
 			TTF2.font2.drawStringShadow(121, 0, "container : "+(Interface.getContainerMouseEventTime()/1000)+" 탎", Color.white, Color.black, 1);

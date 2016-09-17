@@ -63,20 +63,7 @@ public class Spell {
 		this.heal = heal;
 	}
 	
-	public void action() {
-		if(this.type == SpellType.DAMAGE) {
-			
-		}
-		else if(this.type == SpellType.HEAL) {
-			
-		}
-		else if(this.type == SpellType.HEALANDDAMAGE) {
-			
-		}
-		else if(this.type == SpellType.OTHER) {
-			
-		}
-	}
+	public void action(Joueur caster, Joueur target) {}
 	
 	public boolean cast(Joueur joueur2, Joueur joueur, Spell spell) {
 		if(hasMana()) {
@@ -105,6 +92,26 @@ public class Spell {
 		return false;
 	}
 	
+	public void doDamage(Joueur caster, Joueur target) {
+		if(caster.getMana() >= this.manaCost) {
+			//if(!caster.isStun()) {
+				if(caster.getStamina() > 0 && target.getStamina() > 0) {
+					target.setStamina(Math.max(target.getStamina()-getDamage(), 0));
+				}
+			//}
+		}
+	}
+	
+	public void doHeal(Joueur caster, Joueur target) {
+		if(caster.getMana() >= this.manaCost) {
+			//if(!caster.isStun()) {
+			if(caster.getStamina() > 0 && target.getStamina() > 0) {
+				target.setStamina(Math.min(target.getStamina()+getHeal(), target.getMaxStamina()));
+			}
+			//}
+		}
+	}
+	
 	public int getManaCost() {
 		return this.manaCost;
 	}
@@ -121,10 +128,6 @@ public class Spell {
 		return this.type;
 	}
 	
-	public void doDamage(Joueur joueur2, Joueur joueur) {
-		joueur2.setStamina(joueur2.getStamina()-(getDamage()+joueur.getStrength())*ThreadLocalRandom.current().nextDouble(.9, 1.1));
-	}
-	
 	public void doHeal(Joueur joueur) {
 		joueur.setStamina(joueur.getStamina()+getHeal());
 	}
@@ -135,6 +138,10 @@ public class Spell {
 	
 	public int getDamage() {
 		return (int)(Mideas.joueur1().getStrength()+this.defaultDamage*(Math.random()*.1+.95));
+	}
+	
+	public int getHeal() {
+		return (int)(this.heal*(1+Math.random()));
 	}
 	
 	public int getDefaultamage() {
@@ -148,10 +155,6 @@ public class Spell {
 	
 	public int getCastTime() {
 		return this.castTime;
-	}
-	
-	public int getHeal() {
-		return this.heal;
 	}
 	
 	public void useMana(Joueur joueur, Spell spell) {
@@ -204,7 +207,7 @@ public class Spell {
 		else if(Mideas.joueur2().getSpells(2) != null) {
 			return ((SpellShortcut)Mideas.joueur2().getSpells(2)).getSpell();
 		}
-		return ((SpellShortcut)Mideas.joueur2().getSpells(0)).getSpell();
+		return null;
 	}
 }
 

@@ -13,6 +13,9 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.command.CommandLogout;
+import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.classes.SelectScreenPlayer;
 import com.mideas.rpg.v2.game.race.Classe;
@@ -71,10 +74,11 @@ public class SelectScreen {
 	private static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122, 27, "Return", 16) {
 		@Override
 		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
-			LoginScreen.mouseEvent();
 			Interface.setHasLoggedIn(false);
 			Mideas.setJoueur1Null();
 			Mideas.setAccountId(0);
+			LoginScreen.mouseEvent();
+			CommandLogout.write();
 		}
 	};
 	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50, "Enter game", 19) {
@@ -90,7 +94,7 @@ public class SelectScreen {
 		}
 	};
 	
-	public static void draw() throws SQLException {
+	public static void draw() {
 		if(!characterLoaded) {
 			loadCharacter();
 			selectedCharacter[0] = true;
@@ -371,21 +375,12 @@ public class SelectScreen {
 		return true;
 	}
 	
-	public static void loadCharacter() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT character_id, name, level, class, race FROM `character` WHERE account_id = ?");
-		statement.putInt(Mideas.getAccountId());
-		statement.execute();
-		int i = 0;
-		while(statement.fetch()) {
-			int id = statement.getInt();
-			String name = statement.getString();
-			int level = statement.getInt();
-			String classe = statement.getString();
-			String race = statement.getString();
-			characterList[i] = new SelectScreenPlayer(id, name, level, classe, race);
-			i++;
-		}
-		totalCharacter = i;
+	public static void loadCharacter() {
+		CommandSelectScreenLoadCharacters.write();
+	}
+	
+	public static void setCharacterList(SelectScreenPlayer player, int i) {
+		characterList[i] = player;
 	}
 	
 	private static void drawCharacter(int i, float y) {
@@ -430,6 +425,10 @@ public class SelectScreen {
 			return "Shaman";
 		}
 		return null;
+	}
+	
+	public static void setTotalCharacter(int i) {
+		totalCharacter = i;
 	}
 	
 	public static void updateSize() {

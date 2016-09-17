@@ -4,7 +4,9 @@ import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
@@ -20,6 +22,9 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
+import com.mideas.rpg.v2.command.CommandLogout;
+import com.mideas.rpg.v2.connection.Connection;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.bag.Bag;
@@ -75,6 +80,10 @@ public class Mideas {
 	private static int rank;
 	private static int characterId;
 	private static boolean isHover;
+	private static Connection connection;
+	private static SocketChannel socket;
+	private final static int PORT = 5720;
+	private final static String ADRESS = "127.0.0.1";
 	
 	public static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -108,7 +117,7 @@ public class Mideas {
 		Display.create();
 		Display.setResizable(true);
 		Display.setDisplayMode(new DisplayMode(1700, 930));
-		//setDisplayMode(1920, 1080, false);
+		setDisplayMode(1920, 1080, false);
         cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
 		final int cursor_width = cursor_image.getWidth();
 		final int cursor_height = cursor_image.getHeight();
@@ -152,43 +161,57 @@ public class Mideas {
 		joueur2 = getRandomClass(2);
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
-		while(!Display.isCloseRequested()) {
-			isHover = true;
-			fpsUpdate();
-			context2D();
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-			if(joueur1 != null && !currentPlayer && joueur2.getStamina() > 0) {
-				joueur2.attackUI(Spell.getRandomSpell());
-				currentPlayer = true;
-				lessCd();
-			}
-			time = System.nanoTime();
-			while(Mouse.next()) {
-				if(Interface.mouseEvent()) {
-					continue;
+		try {
+			while(!Display.isCloseRequested()) {
+				isHover = true;
+				fpsUpdate();
+				context2D();
+				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+				if(ConnectionManager.isConnected()) {
+					ConnectionManager.read();
 				}
-			}
-			if(System.currentTimeMillis()%500 < 10) {
-				mouseEventTime = (float)(System.nanoTime()-time);
-			}
-			while(Keyboard.next()) {
-				if(Interface.keyboardEvent()) {
-					continue;
+				if(joueur1 != null && !currentPlayer && joueur2.getStamina() > 0) {
+					joueur2.attackUI(Spell.getRandomSpell());
+					currentPlayer = true;
+					lessCd();
 				}
+				time = System.nanoTime();
+				while(Mouse.next()) {
+					if(Interface.mouseEvent()) {
+						continue;
+					}
+				}
+				if(System.currentTimeMillis()%500 < 10) {
+					mouseEventTime = (float)(System.nanoTime()-time);
+				}
+				while(Keyboard.next()) {
+					if(Interface.keyboardEvent()) {
+						continue;
+					}
+				}
+				if(Display.wasResized()) {
+					updateDisplayFactor();
+				}
+				time = System.nanoTime();
+				try {
+					Interface.draw();
+				}
+				catch(RuntimeException e) {
+				}
+				if(System.currentTimeMillis()%1000 < 10) {
+					usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+					interfaceDrawTime = System.nanoTime()-time;
+				}
+				timeEvent();
+				Display.update();
+				Display.sync(240);
 			}
-			if(Display.wasResized()) {
-				updateDisplayFactor();
-			}
-			time = System.nanoTime();
-			Interface.draw();
-			if(System.currentTimeMillis()%1000 < 10) {
-				usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
-				interfaceDrawTime = System.nanoTime()-time;
-			}
-			timeEvent();
-			Display.update();
-			Display.sync(240);
 		}
+		catch(IllegalStateException e) {
+		}
+		CommandLogout.write();
+		ConnectionManager.close();
+		
 	}
 	
 	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, NoSuchAlgorithmException {
@@ -231,6 +254,19 @@ public class Mideas {
 		isHover = we;
 	}
 	
+	public static SocketChannel getSocket() {
+		return socket;
+	}
+	
+	public static void connectToServer() throws IOException {
+		socket = SocketChannel.open();
+		socket.socket().connect(new InetSocketAddress(ADRESS, PORT), 5000);
+	}
+	
+	public static Connection getConnection() {
+		return connection;
+	}
+	
 	private static void updateDisplayFactor() {
 		displayXFactor = Display.getWidth()/1920f;
 		displayYFactor = Display.getHeight()/1018f;
@@ -241,6 +277,10 @@ public class Mideas {
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
 			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
 		}
+	}
+	
+	public static void setConnection(Connection connections) {
+		connection = connections;
 	}
 	
 	public static double getInterfaceDrawTime() {
@@ -532,35 +572,35 @@ public class Mideas {
 		
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar1, Display.getWidth()/2-Sprites.loading_screen_bar1.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar1, Display.getWidth()/2-Sprites.loading_screen_bar1.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar2, Display.getWidth()/2-Sprites.loading_screen_bar2.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar2, Display.getWidth()/2-Sprites.loading_screen_bar2.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite2();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar3, Display.getWidth()/2-Sprites.loading_screen_bar3.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar3, Display.getWidth()/2-Sprites.loading_screen_bar3.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite8();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar4, Display.getWidth()/2-Sprites.loading_screen_bar4.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar4, Display.getWidth()/2-Sprites.loading_screen_bar4.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite9();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar5, Display.getWidth()/2-Sprites.loading_screen_bar5.getImageWidth()/2, Display.getHeight()-100);
+		Draw.drawQuadCentered(Sprites.loading_screen_bar5, Display.getWidth()/2-Sprites.loading_screen_bar5.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
 		Display.update();
 		Display.sync(60);
 		

@@ -30,7 +30,7 @@ public class LoginScreen {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			Mideas.saveAllStats();
-			System.exit(0);
+			Display.destroy();
 		}
 	};
 	
@@ -88,7 +88,7 @@ public class LoginScreen {
 		return false;
 	}
 	
-	public static void event() throws SQLException, NoSuchAlgorithmException {
+	public static void event() throws NoSuchAlgorithmException {
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 			if(alert.isActive()) {
 				alert.setInactive();
@@ -129,7 +129,7 @@ public class LoginScreen {
 		return password;
 	}
 	
-	static void connectionEvent() throws NoSuchAlgorithmException, SQLException {
+	static void connectionEvent() throws NoSuchAlgorithmException {
 		if(account.getText().equals("")) {
 			alert.setText("Veuillez saisir votre nom de compte.");
 			alert.setActive();
@@ -140,12 +140,16 @@ public class LoginScreen {
 		}
 		else {
 			if(LoginManager.checkLogin(account.getText(), password.getText())) {
-				account.resetText();
-				password.resetText();
-				accountActive = true;
-				passwordActive = false;
+				loginSuccess();
 			}
 		}
+	}
+	
+	public static void loginSuccess() {
+		account.resetText();
+		password.resetText();
+		accountActive = true;
+		passwordActive = false;
 	}
 	
 	public static void updateSize() {

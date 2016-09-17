@@ -108,7 +108,7 @@ public class Button {
 			this.color = YELLOW;
 		}
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
-		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, 1, 1, 1);
+		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, 2, 1, 1);
 	}
 	
 	public void event() throws SQLException, NoSuchAlgorithmException {
@@ -117,7 +117,6 @@ public class Button {
 			this.buttonHover = false;
 			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 				this.buttonHover = true;
-				Mideas.setHover(false);
 			}
 			if(this.buttonHover) {
 				if(Mouse.getEventButtonState()) {

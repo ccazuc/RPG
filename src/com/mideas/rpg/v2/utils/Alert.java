@@ -132,10 +132,12 @@ public class Alert {
 	
 	public void setX(float x) {
 		this.x = Display.getWidth()/2+(int)x;
+		this.button.setX(this.x+this.x_size_alert/2-this.x_size_button/2);
 	}
 	
 	public void setY(float y) {
 		this.y = Display.getHeight()/2+(int)y;
+		this.button.setY(this.y+TTF2.alertFont.getLineHeight()+this.diff/2-this.y_size_button/2);
 	}
 	
 	public void setText(String text) {
