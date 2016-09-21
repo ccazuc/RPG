@@ -13,5 +13,4 @@ public class LoginManager {
 		CommandLogin.write(account, Sha1.hash(password));
 		return false;
 	}
-	
 }
