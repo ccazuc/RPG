@@ -2,13 +2,14 @@ package com.mideas.rpg.v2.game.item.potion;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class PotionManager {
 	
-	private static ArrayList<Potion> potionList = new ArrayList<Potion>();
+	private static HashMap<Integer, Potion> potionList = new HashMap<Integer, Potion>();
 	private static int numberPotionLoaded;
 	
 	public static void loadPotions() throws SQLException {
@@ -23,18 +24,14 @@ public class PotionManager {
 			int mana = statement.getInt();
 			int sellPrice = statement.getInt();
 			Potion newPotion = new Potion(id, sprite_id, name, level, heal, mana, sellPrice);
-			potionList.add(newPotion);
+			potionList.put(id, newPotion);
 			numberPotionLoaded++;
 		}
 	}
 	
 	public static Potion getPotion(int id) {
-		int i = 0;
-		while(i < potionList.size()) {
-			if(potionList.get(i).getId() == id) {
-				return potionList.get(i);
-			}
-			i++;
+		if(potionList.containsKey(id)) {
+			return potionList.get(id);
 		}
 		return null;
 	}
@@ -48,11 +45,7 @@ public class PotionManager {
 	}
 	
 	public static boolean exists(int id) {
-		return getPotion(id) != null;
-	}
-	
-	public static ArrayList<Potion> getPotionList() {
-		return potionList;
+		return potionList.containsKey(id);
 	}
 	
 	public static int getNumberPotionLoaded() {

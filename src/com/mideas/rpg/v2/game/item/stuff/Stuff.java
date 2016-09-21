@@ -40,8 +40,10 @@ public class Stuff extends Item {
 	protected boolean isLoaded;
 	
 	public Stuff(int id) { //stuff created when waiting for the server to respond
+		super(id, "", ItemType.STUFF, "", 0, 0, 1);
 		this.id = id;
 		this.sprite_id = "";
+		this.isLoaded = false;
 	}
 
 	public Stuff(Stuff stuff) {
@@ -158,7 +160,7 @@ public class Stuff extends Item {
 		return this.isLoaded;
 	}
 	
-	public void setLoaded(boolean we) {
+	public void setLoadeds(boolean we) {
 		this.isLoaded = we;
 	}
 	

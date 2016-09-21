@@ -188,18 +188,16 @@ public class Joueur {
 	
 	public void loadStuff() {
 		int i = 0;
-		Interface.setStuffFullyLoaded(true);
+		//Interface.setStuffFullyLoaded(true);
 		while(i < Mideas.joueur1().getStuff().length) {
-			if(!Mideas.joueur1().getStuff(i).getIsLoaded()) {
+			if(Mideas.joueur1().getStuff(i) != null && !Mideas.joueur1().getStuff(i).getIsLoaded()) {
 				if(StuffManager.exists(Mideas.joueur1().getStuff(i).getId())) {
 					Mideas.joueur1().setStuff(i, StuffManager.getClone(Mideas.joueur1().getStuff(i).getId()));
-					Mideas.joueur1().getStuff(i).setLoaded(true);
 					i++;
 					continue;
 				}
 				else if(WeaponManager.exists(Mideas.joueur1().getStuff(i).getId())) {
 					Mideas.joueur1().setStuff(i, WeaponManager.getClone(Mideas.joueur1().getStuff(i).getId()));
-					Mideas.joueur1().getStuff(i).setLoaded(true);
 					i++;
 					continue;
 				}

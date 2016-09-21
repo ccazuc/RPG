@@ -73,7 +73,7 @@ public class StuffManager {
 	}
 	
 	public static boolean exists(int id) {
-		return getStuff(id) != null;
+		return stuffList.containsKey(id);
 	}
 	
 	public static Stuff getClone(int id) {
@@ -205,10 +205,6 @@ public class StuffManager {
 	
 	public static int getNumberStuffLoaded() {
 		return numberStuffLoaded;
-	}
-	
-	public static HashMap<Integer, Stuff> getStuffList() {
-		return stuffList;
 	}
 	
 	public static GemBonusType convBonusType(String bonus) {

@@ -12,7 +12,7 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class BagManager {
 	
-	private static ArrayList<Bag> containerList = new ArrayList<Bag>();
+	private static HashMap<Integer, Bag> containerList = new HashMap<Integer, Bag>();
 	private static HashMap<Integer, Texture> bagsSprites = new HashMap<Integer, Texture>();
 	
 	public static void loadBags() throws SQLException {
@@ -26,7 +26,7 @@ public class BagManager {
 			int size = statement.getInt();
 			int sellPrice = statement.getInt();
 			Bag newPiece = new Bag(id, sprite_id, name, quality, size, sellPrice);
-			containerList.add(newPiece);
+			containerList.put(id, newPiece);
 		}
 	}
 	
@@ -40,23 +40,15 @@ public class BagManager {
 		return bagsSprites;
 	}
 	
-	public static ArrayList<Bag> getContainerList() {
-		return containerList;
-	}
-	
 	public static Bag getContainer(int id) {
-		int i = 0;
-		while(i < containerList.size()) {
-			if(containerList.get(i).getId() == id) {
-				return containerList.get(i);
-			}
-			i++;
+		if(containerList.containsKey(id)) {
+			return containerList.get(id);
 		}
 		return null;
 	}
 	
 	public static boolean exists(int id) {
-		return getContainer(id) != null;
+		return containerList.containsKey(id);
 	}
 	
 	public static Bag getClone(int id) {

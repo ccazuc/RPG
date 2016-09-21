@@ -48,11 +48,11 @@ public class CommandLoadEquippedItems extends Command {
 		int gem1Id = ConnectionManager.getConnection().readInt();
 		int gem2Id = ConnectionManager.getConnection().readInt();
 		int gem3Id = ConnectionManager.getConnection().readInt();
-		if(!StuffManager.exists(id)) {
+		if(!StuffManager.exists(id) && id != 0) {
 			CommandStuff.write(id);
 			Mideas.joueur1().setStuff(index, new Stuff(id));
 		}
-		else {
+		else if(id != 0) {
 			Mideas.joueur1().setStuff(index, StuffManager.getClone(id));
 			Mideas.joueur1().getStuff(index).setEquippedGem1(GemManager.getClone(gem1Id));
 			Mideas.joueur1().getStuff(index).setEquippedGem2(GemManager.getClone(gem2Id));
@@ -62,11 +62,11 @@ public class CommandLoadEquippedItems extends Command {
 	
 	private static void loadItem(int index) {
 		int id = ConnectionManager.getConnection().readInt();
-		if(!StuffManager.exists(id)) {
+		if(!StuffManager.exists(id) && id != 0) {
 			CommandStuff.write(id);
 			Mideas.joueur1().setStuff(index, new Stuff(id));
 		}
-		else {
+		else if(id != 0) {
 			Mideas.joueur1().setStuff(index, StuffManager.getClone(id));
 		}
 		
@@ -77,11 +77,11 @@ public class CommandLoadEquippedItems extends Command {
 		int gem1Id = ConnectionManager.getConnection().readInt();
 		int gem2Id = ConnectionManager.getConnection().readInt();
 		int gem3Id = ConnectionManager.getConnection().readInt();
-		if(!WeaponManager.exists(id)) {
+		if(!WeaponManager.exists(id) && id != 0) {
 			CommandStuff.write(id);
 			Mideas.joueur1().setStuff(index, new Stuff(id));
 		}
-		else {
+		else if(id != 0) {
 			Mideas.joueur1().setStuff(index, WeaponManager.getClone(id));
 			Mideas.joueur1().getStuff(index).setEquippedGem1(GemManager.getClone(gem1Id));
 			Mideas.joueur1().getStuff(index).setEquippedGem2(GemManager.getClone(gem2Id));

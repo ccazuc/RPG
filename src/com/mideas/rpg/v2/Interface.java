@@ -115,7 +115,7 @@ public class Interface {
 					isTalentLoaded = true;
 				}
 				if(!isStuffFullyLoaded) {
-					//Mideas.joueur1().loadStuff();
+					Mideas.joueur1().loadStuff();
 				}
 				if(Mideas.joueur2() != null) {
 					PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);

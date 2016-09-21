@@ -63,40 +63,20 @@ public class ShopManager {
 	}
 	
 	public static Item getItem(int id) {
-		int i = 0;
-		while(i < StuffManager.getStuffList().size()) {
-			if(StuffManager.getStuffList().get(i).getId() == id) {
-				return StuffManager.getStuffList().get(i);
-			}
-			i++;
+		if(StuffManager.exists(id)) {
+			return StuffManager.getStuff(id);
 		}
-		i = 0;
-		while(i < PotionManager.getPotionList().size()) {
-			if(PotionManager.getPotionList().get(i).getId() == id) {
-				return PotionManager.getPotionList().get(i);
-			}
-			i++;
+		if(PotionManager.exists(id)) {
+			return PotionManager.getPotion(id);
 		}
-		i = 0;
-		while(i < BagManager.getContainerList().size()) {
-			if(BagManager.getContainerList().get(i).getId() == id) {
-				return BagManager.getContainerList().get(i);
-			}
-			i++;
+		if(BagManager.exists(id)) {
+			return BagManager.getContainer(id);
 		}
-		i = 0;
-		while(i < WeaponManager.getWeaponList().size()) {
-			if(WeaponManager.getWeaponList().get(i).getId() == id) {
-				return WeaponManager.getWeaponList().get(i);
-			}
-			i++;
+		if(WeaponManager.exists(id)) {
+			return WeaponManager.getWeapon(id);
 		}
-		i = 0;
-		while(i < GemManager.getGemList().size()) {
-			if(GemManager.getGemList().get(i).getId() == id) {
-				return GemManager.getGemList().get(i);
-			}
-			i++;
+		if(GemManager.exists(id)) {
+			return GemManager.getGem(id);
 		}
 		return null;
 	}

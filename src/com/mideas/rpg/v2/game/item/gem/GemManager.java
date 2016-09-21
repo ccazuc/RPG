@@ -12,7 +12,7 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class GemManager {
 
-	private static ArrayList<Gem> gemList = new ArrayList<Gem>();
+	private static HashMap<Integer, Gem> gemList = new HashMap<Integer, Gem>();
 	private static HashMap<Integer, Texture> gemSprites = new HashMap<Integer, Texture>();
 	
 	public static void loadGems() throws SQLException {
@@ -36,7 +36,7 @@ public class GemManager {
 			int spell_critical = statement.getInt();
 			int spell_damage = statement.getInt();
 			int heal = statement.getInt();
-			gemList.add(new Gem(id, sprite_id, name, quality, color, pa, stamina, defense, mana, critical, sellPrice));
+			gemList.put(id, new Gem(id, sprite_id, name, quality, color, pa, stamina, defense, mana, critical, sellPrice));
 		}
 	}
 	
@@ -76,12 +76,8 @@ public class GemManager {
 	}
 	
 	public static Gem getGem(int id) {
-		int i = 0;
-		while(i < gemList.size()) {
-			if(gemList.get(i).getId() == id) {
-				return gemList.get(i);
-			}
-			i++;
+		if(gemList.containsKey(id)) {
+			return gemList.get(id);
 		}
 		return null;
 	}
@@ -95,10 +91,6 @@ public class GemManager {
 	}
 	
 	public static boolean exists(int id) {
-		return getGem(id) != null;
-	}
-	
-	public static ArrayList<Gem> getGemList() {
-		return gemList;
+		return gemList.containsKey(id);
 	}
 }

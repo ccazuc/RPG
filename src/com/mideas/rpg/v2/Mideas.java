@@ -150,7 +150,7 @@ public class Mideas {
 		PotionManager.loadPotions();
 		BagManager.loadBags();
 		BagManager.loadBagsSprites();
-		StuffManager.loadStuffs();
+		//StuffManager.loadStuffs();
 		ShopManager.loadStuffs();
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();
