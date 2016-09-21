@@ -83,7 +83,7 @@ public class Mideas {
 	private static Connection connection;
 	private static SocketChannel socket;
 	private final static int PORT = 5720;
-	private final static String ADRESS = "127.0.0.1";
+	private final static String IP = "127.0.0.1";
 	
 	public static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -117,7 +117,6 @@ public class Mideas {
 		Display.create();
 		Display.setResizable(true);
 		Display.setDisplayMode(new DisplayMode(1700, 930));
-		setDisplayMode(1920, 1080, false);
         cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
 		final int cursor_width = cursor_image.getWidth();
 		final int cursor_height = cursor_image.getHeight();
@@ -260,7 +259,7 @@ public class Mideas {
 	
 	public static void connectToServer() throws IOException {
 		socket = SocketChannel.open();
-		socket.socket().connect(new InetSocketAddress(ADRESS, PORT), 5000);
+		socket.socket().connect(new InetSocketAddress(IP, PORT), 5000);
 	}
 	
 	public static Connection getConnection() {

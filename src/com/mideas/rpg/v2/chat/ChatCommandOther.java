@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
@@ -60,10 +61,11 @@ public class ChatCommandOther {
 				ShopManager.loadStuffs();
 				CharacterStuff.getEquippedBags();
 				CharacterStuff.getBagItems();
-				CharacterStuff.getEquippedItems();
+				//CharacterStuff.getEquippedItems();
 				ContainerFrame.setBagchange(true);
 				SpellBarManager.loadSpellBar();
 				Mideas.bag().setBagChange(true);
+				CommandLoadCharacter.write(1);
 			}
 			else if(datas[0].equals(".additem")) {
 				if(datas.length >= 2) {

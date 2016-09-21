@@ -1,7 +1,7 @@
 package com.mideas.rpg.v2.game.item.gem;
 
-import com.mideas.rpg.v2.enumlist.ItemType;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
 
 public class Gem extends Item {
 	

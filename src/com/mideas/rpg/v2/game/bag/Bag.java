@@ -3,8 +3,8 @@ package com.mideas.rpg.v2.game.bag;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.enumlist.ItemType;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class Bag extends Item implements Cloneable {

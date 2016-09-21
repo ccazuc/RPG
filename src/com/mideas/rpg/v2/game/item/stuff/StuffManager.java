@@ -2,12 +2,12 @@ package com.mideas.rpg.v2.game.item.stuff;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.enumlist.GemBonusType;
-import com.mideas.rpg.v2.enumlist.StuffType;
-import com.mideas.rpg.v2.enumlist.Wear;
 import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.classes.Wear;
+import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.hud.DragManager;
@@ -15,7 +15,7 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class StuffManager {
 
-	private static ArrayList<Stuff> stuffList = new ArrayList<Stuff>();
+	private static HashMap<Integer, Stuff> stuffList = new HashMap<Integer, Stuff>();
 	private static int numberStuffLoaded;
 	
 	public static void loadStuffs() throws SQLException {
@@ -49,7 +49,7 @@ public class StuffManager {
 			int strength = statement.getInt();
 			int sellPrice = statement.getInt();
 			Stuff newPiece = new Stuff(type, classeType, sprite_id, id, name, quality, color1, color2, color3, bonusType, bonusValue, level, wear, critical, strength, stamina, armor, mana, sellPrice);
-			stuffList.add(newPiece);
+			stuffList.put(id, newPiece);
 			numberStuffLoaded++;
 		}
 	}
@@ -62,14 +62,14 @@ public class StuffManager {
 	}
 	
 	public static Stuff getStuff(int id) {
-		int i = 0;
-		while(i < stuffList.size()) {
-			if(stuffList.get(i).getId() == id) {
-				return stuffList.get(i);
-			}
-			i++;
+		if(stuffList.containsKey(id)) {
+			return stuffList.get(id);
 		}
 		return null;
+	}
+	
+	public static void storeNewPiece(Stuff stuff) {
+		stuffList.put(stuff.getId(), stuff);
 	}
 	
 	public static boolean exists(int id) {
@@ -207,7 +207,7 @@ public class StuffManager {
 		return numberStuffLoaded;
 	}
 	
-	public static ArrayList<Stuff> getStuffList() {
+	public static HashMap<Integer, Stuff> getStuffList() {
 		return stuffList;
 	}
 	

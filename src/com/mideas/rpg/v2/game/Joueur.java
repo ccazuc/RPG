@@ -3,14 +3,15 @@ package com.mideas.rpg.v2.game;
 import java.sql.SQLException;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.enumlist.ItemType;
-import com.mideas.rpg.v2.enumlist.WeaponType;
-import com.mideas.rpg.v2.enumlist.Wear;
+import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
+import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -183,6 +184,29 @@ public class Joueur {
 				LogChat.setStatusText2("Le joueur 2 a enlevée "+Math.round(damage)+" hp au "+Mideas.joueur1().getClasse()+", "+Mideas.joueur1().getStamina()+" hp restant");	
 			}
 		}*/
+	}
+	
+	public void loadStuff() {
+		int i = 0;
+		Interface.setStuffFullyLoaded(true);
+		while(i < Mideas.joueur1().getStuff().length) {
+			if(!Mideas.joueur1().getStuff(i).getIsLoaded()) {
+				if(StuffManager.exists(Mideas.joueur1().getStuff(i).getId())) {
+					Mideas.joueur1().setStuff(i, StuffManager.getClone(Mideas.joueur1().getStuff(i).getId()));
+					Mideas.joueur1().getStuff(i).setLoaded(true);
+					i++;
+					continue;
+				}
+				else if(WeaponManager.exists(Mideas.joueur1().getStuff(i).getId())) {
+					Mideas.joueur1().setStuff(i, WeaponManager.getClone(Mideas.joueur1().getStuff(i).getId()));
+					Mideas.joueur1().getStuff(i).setLoaded(true);
+					i++;
+					continue;
+				}
+				Interface.setStuffFullyLoaded(false);
+			}
+			i++;
+		}
 	}
 	
 	public boolean addItem(Item item, int amount) throws SQLException {

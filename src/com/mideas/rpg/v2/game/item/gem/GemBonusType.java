@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.enumlist;
+package com.mideas.rpg.v2.game.item.gem;
 
 public enum GemBonusType {
 

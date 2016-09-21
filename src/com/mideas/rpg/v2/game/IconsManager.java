@@ -84,6 +84,10 @@ public class IconsManager {
 		if(sprites47.containsKey("inv_misc_questionmark")) {
 			return sprites47.get("inv_misc_questionmark");
 		}
+		loadTexture47("inv_misc_questionmark");
+		if(sprites47.containsKey("inv_misc_questionmark")) {
+			return sprites47.get("inv_misc_questionmark");
+		}
 		return null;
 	}
 	

@@ -8,8 +8,10 @@ import java.util.HashMap;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
+import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
 import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
+import com.mideas.rpg.v2.command.CommandStuff;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import static com.mideas.rpg.v2.connection.PacketID.*;
 
@@ -27,6 +29,8 @@ public class ConnectionManager {
 		commandList.put((int)SELECT_SCREEN_LOAD_CHARACTERS, new CommandSelectScreenLoadCharacters());
 		commandList.put((int)CREATE_CHARACTER, new CommandCreateCharacter());
 		commandList.put((int)DELETE_CHARACTER, new CommandDeleteCharacter());
+		commandList.put((int)LOAD_EQUIPPED_ITEMS, new CommandLoadEquippedItems());
+		commandList.put((int)STUFF, new CommandStuff());
 	}
 	
 	public static final boolean connect() {
@@ -95,5 +99,9 @@ public class ConnectionManager {
 				}
 			}
 		}
+	}
+	
+	public static HashMap<Integer, Command> getCommandList() {
+		return commandList;
 	}
 }

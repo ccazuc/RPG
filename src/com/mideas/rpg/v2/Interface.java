@@ -15,6 +15,7 @@ import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
@@ -70,6 +71,7 @@ public class Interface {
 	private static double spellBarMouseEventTime;
 	private static double dragMouseEventTime;
 	private static boolean hasLoggedIn;
+	private static boolean isStuffFullyLoaded;
 
 	public static void draw() throws IOException, SQLException {
 		Draw.drawQuadBG(Sprites.current_bg);
@@ -111,6 +113,9 @@ public class Interface {
 				if(!isTalentLoaded) {
 					Talent.getTalent();
 					isTalentLoaded = true;
+				}
+				if(!isStuffFullyLoaded) {
+					//Mideas.joueur1().loadStuff();
 				}
 				if(Mideas.joueur2() != null) {
 					PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
@@ -469,6 +474,10 @@ public class Interface {
 			}
 		}
 		return false;
+	}
+	
+	public static void setStuffFullyLoaded(boolean we) {
+		isStuffFullyLoaded = we;
 	}
 	
 	public static double getContainerDrawTime() {

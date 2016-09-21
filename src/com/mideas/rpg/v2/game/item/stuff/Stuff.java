@@ -4,16 +4,15 @@ import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.enumlist.GemBonusType;
-import com.mideas.rpg.v2.enumlist.ItemType;
-import com.mideas.rpg.v2.enumlist.StuffType;
-import com.mideas.rpg.v2.enumlist.WeaponSlot;
-import com.mideas.rpg.v2.enumlist.WeaponType;
-import com.mideas.rpg.v2.enumlist.Wear;
 import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.gem.Gem;
+import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
+import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
+import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 
 public class Stuff extends Item {
 
@@ -38,6 +37,12 @@ public class Stuff extends Item {
 	protected int armor;
 	protected int level;
 	protected int mana;
+	protected boolean isLoaded;
+	
+	public Stuff(int id) { //stuff created when waiting for the server to respond
+		this.id = id;
+		this.sprite_id = "";
+	}
 
 	public Stuff(Stuff stuff) {
 		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.quality, stuff.sellPrice, stuff.maxStack);
@@ -147,6 +152,14 @@ public class Stuff extends Item {
 		}
 		this.gemBonusActivated = false;
 		return false;
+	}
+	
+	public boolean getIsLoaded() {
+		return this.isLoaded;
+	}
+	
+	public void setLoaded(boolean we) {
+		this.isLoaded = we;
 	}
 	
 	public boolean getGemBonusActivated() {

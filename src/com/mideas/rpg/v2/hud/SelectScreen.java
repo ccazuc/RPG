@@ -15,6 +15,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
+import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.game.classes.ClassManager;
@@ -283,6 +284,7 @@ public class SelectScreen {
 	static void loadCharacterInfo() {
 		Mideas.setCharacterId(characterList[selectedCharacterIndex].getId());
 		setPlayer();
+		CommandLoadCharacter.write(characterList[selectedCharacterIndex].getId());
 	}
 	
 	static void deleteCharacter() {

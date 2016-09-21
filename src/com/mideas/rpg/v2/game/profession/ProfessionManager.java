@@ -20,7 +20,6 @@ public class ProfessionManager {
 	
 	private static void loadUnlockedCraft() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT craft_id FROM craft_unlocked WHERE character_id = ?");
-		System.out.println(Mideas.getCharacterId());
 		statement.putInt(Mideas.getCharacterId());
 		statement.execute();
 		while(statement.fetch()) {

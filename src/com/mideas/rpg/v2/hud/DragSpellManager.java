@@ -9,7 +9,7 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.enumlist.ItemType;
+import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
