@@ -153,7 +153,7 @@ public class Joueur {
 		}
 	}
 	
-	public void attackUI(Spell spell) throws SQLException {
+	public void attackUI(Spell spell) {
 		/*double damage = Mideas.joueur2().getStrength()*ThreadLocalRandom.current().nextDouble(.9, 1.1);
 		float rand = (float)Math.random();
 		if(rand < Mideas.joueur2().getCritical()/100.) {

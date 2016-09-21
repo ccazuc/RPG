@@ -23,9 +23,6 @@ public class BlackTemple extends Dungeon {
 	private static Joueur[] joueur = new Joueur[5];
 	private static boolean isBlackTempleLoaded;
 	private static int maxRoom;
-	//private static boolean isGold;
-	//private static boolean expGiven;
-	//private static boolean gold;
 	private static int i;
 
 	public static void draw() {
@@ -81,7 +78,7 @@ public class BlackTemple extends Dungeon {
 		return false;
 	}
 	
-	public static void endFight(int x) throws FileNotFoundException, SQLException {
+	public static void endFight(int x) throws SQLException {
 		maxRoom = x;
 		if(!EndFightFrame.getEndFightEventState()) {
 			EndFightFrame.doEndFightEvent();

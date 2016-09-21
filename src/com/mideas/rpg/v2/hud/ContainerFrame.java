@@ -11,7 +11,6 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.enumlist.GemBonusType;
-import com.mideas.rpg.v2.enumlist.ItemType;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.bag.BagManager;
 import com.mideas.rpg.v2.game.item.Item;
@@ -772,13 +771,13 @@ public class ContainerFrame {
 	
 	private static void splitItem(int i) {
 		if(Mideas.bag().getBag(i) != null) {
-			if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
+			if(Mideas.bag().getBag(i).isPotion()) {
 				Potion temp = PotionManager.getClone(Mideas.bag().getBag(i).getId());
 				Mideas.joueur1().setNumberItem(temp, numberItem);
 				DragManager.setDraggedItem(temp);
 				Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))-numberItem);
 			}
-			else if(Mideas.bag().getBag(i).getItemType() == ItemType.ITEM) {
+			else if(Mideas.bag().getBag(i).isItem()) {
 				
 			}
 			itemNumberOpen[i] = false;
@@ -868,13 +867,13 @@ public class ContainerFrame {
 	public static void drawHoverBag(int i, int x, int y) {
 		if(slot_hover[i] && !isHoverItemNumberFrame()) {
 			if(Mideas.bag().getBag(i) != null) {
-				if(Mideas.bag().getBag(i).getItemType() == ItemType.STUFF) {
+				if(Mideas.bag().getBag(i).isStuff()) {
 					drawStuff(i, x, y);
 				}
-				else if(Mideas.bag().getBag(i).getItemType() == ItemType.WEAPON) {
+				else if(Mideas.bag().getBag(i).isWeapon()) {
 					drawWeapon(i, x, y);
 				}
-				else if(Mideas.bag().getBag(i).getItemType() == ItemType.POTION) {
+				else if(Mideas.bag().getBag(i).isPotion()) {
 					drawPotion(i, x, y);
 				}
 			}

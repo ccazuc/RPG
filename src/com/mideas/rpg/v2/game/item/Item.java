@@ -61,6 +61,30 @@ public class Item implements Cloneable {
 		return this.itemType;
 	}
 	
+	public boolean isStuff() {
+		return this.itemType == ItemType.STUFF;
+	}
+	
+	public boolean isWeapon() {
+		return this.itemType == ItemType.WEAPON;
+	}
+	
+	public boolean isItem() {
+		return this.itemType == ItemType.ITEM;
+	}
+	
+	public boolean isPotion() {
+		return this.itemType == ItemType.POTION;
+	}
+	
+	public boolean isGem() {
+		return this.itemType == ItemType.GEM;
+	}
+	
+	public boolean isBag() {
+		return this.itemType == ItemType.BAG;
+	}
+	
 	public static Item getItem(int id) {
 		if(BagManager.exists(id)) {
 			return BagManager.getClone(id);
