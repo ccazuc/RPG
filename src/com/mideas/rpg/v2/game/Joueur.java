@@ -5,9 +5,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.game.bag.BagManager;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
@@ -188,16 +190,18 @@ public class Joueur {
 	
 	public void loadStuff() {
 		int i = 0;
-		//Interface.setStuffFullyLoaded(true);
+		Interface.setStuffFullyLoaded(true);
 		while(i < Mideas.joueur1().getStuff().length) {
 			if(Mideas.joueur1().getStuff(i) != null && !Mideas.joueur1().getStuff(i).getIsLoaded()) {
 				if(StuffManager.exists(Mideas.joueur1().getStuff(i).getId())) {
 					Mideas.joueur1().setStuff(i, StuffManager.getClone(Mideas.joueur1().getStuff(i).getId()));
+					Mideas.joueur1().getStuff(i).setLoadeds(true);
 					i++;
 					continue;
 				}
 				else if(WeaponManager.exists(Mideas.joueur1().getStuff(i).getId())) {
 					Mideas.joueur1().setStuff(i, WeaponManager.getClone(Mideas.joueur1().getStuff(i).getId()));
+					Mideas.joueur1().getStuff(i).setLoadeds(true);
 					i++;
 					continue;
 				}
@@ -248,25 +252,36 @@ public class Joueur {
 	public void addMultipleUnstackableItem(int id, int number) throws SQLException {
 		int i = 0;
 		ItemType type;
-		if(WeaponManager.exists(id) || StuffManager.exists(id)) {
+		if(WeaponManager.exists(id) || StuffManager.exists(id) || GemManager.exists(id) || BagManager.exists(id)) {
 			if(WeaponManager.exists(id)) {
 				type = ItemType.WEAPON;
 			}
-			else {
+			else if(StuffManager.exists(id)) {
 				type = ItemType.STUFF;
+			}
+			else if(GemManager.exists(id)) {
+				type = ItemType.GEM;
+			}
+			else {
+				type = ItemType.BAG;
 			}
 			while(i < Mideas.bag().getBag().length && number > 0) {
 				if(Mideas.bag().getBag(i) == null) {
 					if(type == ItemType.WEAPON) {
 						Mideas.bag().setBag(i, WeaponManager.getClone(id));
 					}
-					else {
+					else if(type == ItemType.STUFF) {
 						Mideas.bag().setBag(i, StuffManager.getClone(id));
+					}
+					else if(type == ItemType.GEM) {
+						Mideas.bag().setBag(i, GemManager.getClone(id));
+					}
+					else {
+						Mideas.bag().setBag(i, BagManager.getClone(id));
 					}
 					Mideas.bag().setBagChange(true);
 					number--;
 				}
-				
 				i++;
 			}
 			CharacterStuff.setBagItems();

@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.game.item.gem;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.utils.Texture;
@@ -48,6 +47,12 @@ public class GemManager {
 		gemSprites.put(50001, Sprites.crimson_spinel);
 		gemSprites.put(50101, Sprites.pyrestone);
 		gemSprites.put(50201, Sprites.empyrean_sapphire);
+	}
+	
+	public static void storeNewPiece(Gem gem) {
+		if(gem != null) {
+			gemList.put(gem.getId(), gem);
+		}
 	}
 	
 	public static GemColor convColor(String color) {

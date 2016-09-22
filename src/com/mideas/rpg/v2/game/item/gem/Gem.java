@@ -11,6 +11,12 @@ public class Gem extends Item {
 	protected int armor;
 	protected int critical;
 	protected GemColor color;
+	protected boolean isLoaded;
+	
+	public Gem(int id) {
+		super(id, "", ItemType.GEM, "", 0, 0, 1);
+		this.id = id;
+	}
 
 	public Gem(Gem gem) {
 		super(gem.id, gem.sprite_id, gem.itemType, gem.name, gem.quality, gem.sellPrice, 1);
@@ -20,6 +26,7 @@ public class Gem extends Item {
 		this.armor = gem.armor;
 		this.color = gem.color;
 		this.mana = gem.mana;
+		this.isLoaded = true;
 	}
 	
 	public Gem(int id, String sprite_id, String name, int quality, GemColor color, int strength, int stamina, int armor, int mana, int critical, int sellPrice) {
@@ -30,6 +37,15 @@ public class Gem extends Item {
 		this.armor = armor;
 		this.color = color;
 		this.mana = mana;
+		this.isLoaded = true;
+	}
+	
+	public boolean getIsLoaded() {
+		return this.isLoaded;
+	}
+	
+	public void setIsLoaded(boolean we) {
+		this.isLoaded = we;
 	}
 	
 	public int getStrength() {

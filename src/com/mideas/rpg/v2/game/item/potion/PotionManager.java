@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.game.item.potion;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
@@ -26,6 +25,12 @@ public class PotionManager {
 			Potion newPotion = new Potion(id, sprite_id, name, level, heal, mana, sellPrice);
 			potionList.put(id, newPotion);
 			numberPotionLoaded++;
+		}
+	}
+	
+	public static void storeNewPiece(Potion potion) {
+		if(potion != null) {
+			potionList.put(potion.getId(), potion);
 		}
 	}
 	

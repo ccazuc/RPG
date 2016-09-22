@@ -11,7 +11,9 @@ import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
 import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
-import com.mideas.rpg.v2.command.CommandStuff;
+import com.mideas.rpg.v2.command.item.CommandGem;
+import com.mideas.rpg.v2.command.item.CommandStuff;
+import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import static com.mideas.rpg.v2.connection.PacketID.*;
 
@@ -31,6 +33,8 @@ public class ConnectionManager {
 		commandList.put((int)DELETE_CHARACTER, new CommandDeleteCharacter());
 		commandList.put((int)LOAD_EQUIPPED_ITEMS, new CommandLoadEquippedItems());
 		commandList.put((int)STUFF, new CommandStuff());
+		commandList.put((int)WEAPON, new CommandWeapon());
+		commandList.put((int)GEM, new CommandGem());
 	}
 	
 	public static final boolean connect() {

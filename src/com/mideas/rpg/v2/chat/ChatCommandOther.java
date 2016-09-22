@@ -66,6 +66,7 @@ public class ChatCommandOther {
 				SpellBarManager.loadSpellBar();
 				Mideas.bag().setBagChange(true);
 				CommandLoadCharacter.write(1);
+				Interface.setStuffFullyLoaded(false);
 			}
 			else if(datas[0].equals(".additem")) {
 				if(datas.length >= 2) {

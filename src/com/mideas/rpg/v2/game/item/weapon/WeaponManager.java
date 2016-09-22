@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.game.item.weapon;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
@@ -76,6 +75,12 @@ public class WeaponManager {
 			return true;
 		}
 		return false;
+	}
+	
+	public static void storeNewPiece(Stuff weapon) {
+		if(weapon != null) {
+			weaponList.put(weapon.getId(), weapon);
+		}
 	}
 	
 	private static WeaponType getType(String type) {

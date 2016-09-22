@@ -43,7 +43,6 @@ public class Stuff extends Item {
 		super(id, "", ItemType.STUFF, "", 0, 0, 1);
 		this.id = id;
 		this.sprite_id = "";
-		this.isLoaded = false;
 	}
 
 	public Stuff(Stuff stuff) {
@@ -62,6 +61,7 @@ public class Stuff extends Item {
 		this.type = stuff.type;
 		this.wear = stuff.wear;
 		this.mana = stuff.mana;
+		this.isLoaded = true;
 	}
 	
 	public Stuff(StuffType type, ClassType[] classType, String sprite_id, int id, String name, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, Wear wear, int critical, int strength, int stamina, int armor, int mana, int sellPrice) {
@@ -80,6 +80,7 @@ public class Stuff extends Item {
 		this.type = type;
 		this.wear = wear;
 		this.mana = mana;
+		this.isLoaded = true;
 	}
 
 	public Stuff(Stuff weapon, int i) { //weapon constructor
@@ -98,6 +99,7 @@ public class Stuff extends Item {
 		this.level = weapon.level;
 		this.armor = weapon.armor;
 		this.mana = weapon.mana;
+		this.isLoaded = true;
 	}
 	
 	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
@@ -116,6 +118,7 @@ public class Stuff extends Item {
 		this.level = level;
 		this.armor = armor;
 		this.mana = mana;
+		this.isLoaded = true;
 	}
 
 	public boolean canWearWeapon() {

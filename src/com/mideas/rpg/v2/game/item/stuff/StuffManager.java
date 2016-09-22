@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
@@ -69,7 +68,9 @@ public class StuffManager {
 	}
 	
 	public static void storeNewPiece(Stuff stuff) {
-		stuffList.put(stuff.getId(), stuff);
+		if(stuff != null) {
+			stuffList.put(stuff.getId(), stuff);
+		}
 	}
 	
 	public static boolean exists(int id) {

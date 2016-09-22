@@ -146,7 +146,7 @@ public class Mideas {
 		initSQL();
 		CharacterStuff.initSQLRequest();
 		GemManager.loadGems();
-		WeaponManager.loadWeapons();
+		//WeaponManager.loadWeapons();
 		PotionManager.loadPotions();
 		BagManager.loadBags();
 		BagManager.loadBagsSprites();

@@ -1,7 +1,12 @@
 package com.mideas.rpg.v2.command;
 
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.command.item.CommandGem;
+import com.mideas.rpg.v2.command.item.CommandStuff;
+import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
@@ -41,6 +46,7 @@ public class CommandLoadEquippedItems extends Command {
 		loadWeapon(16);
 		loadWeapon(17);
 		loadWeapon(18);
+		Interface.setStuffFullyLoaded(false);
 	}
 	
 	private static void loadStuff(int index) {
@@ -48,15 +54,33 @@ public class CommandLoadEquippedItems extends Command {
 		int gem1Id = ConnectionManager.getConnection().readInt();
 		int gem2Id = ConnectionManager.getConnection().readInt();
 		int gem3Id = ConnectionManager.getConnection().readInt();
-		if(!StuffManager.exists(id) && id != 0) {
-			CommandStuff.write(id);
+		if(id != 0 && !StuffManager.exists(id)) {
 			Mideas.joueur1().setStuff(index, new Stuff(id));
+			CommandStuff.write(id);
 		}
 		else if(id != 0) {
 			Mideas.joueur1().setStuff(index, StuffManager.getClone(id));
+		}
+		if(gem1Id != 0 && GemManager.exists(gem1Id)) {
 			Mideas.joueur1().getStuff(index).setEquippedGem1(GemManager.getClone(gem1Id));
-			Mideas.joueur1().getStuff(index).setEquippedGem2(GemManager.getClone(gem2Id));
-			Mideas.joueur1().getStuff(index).setEquippedGem3(GemManager.getClone(gem3Id));
+		}
+		else if(gem1Id != 0) {
+			CommandGem.write(gem1Id);
+			Mideas.joueur1().getStuff(index).setEquippedGem1(new Gem(gem1Id));
+		}
+		if(gem2Id != 0 && GemManager.exists(gem2Id)) {
+			Mideas.joueur1().getStuff(index).setEquippedGem1(GemManager.getClone(gem2Id));
+		}
+		else if(gem2Id != 0) {
+			CommandGem.write(gem2Id);
+			Mideas.joueur1().getStuff(index).setEquippedGem2(new Gem(gem2Id));
+		}
+		if(gem3Id != 0 && GemManager.exists(gem3Id)) {
+			Mideas.joueur1().getStuff(index).setEquippedGem1(GemManager.getClone(gem3Id));
+		}
+		else if(gem2Id != 0) {
+			CommandGem.write(gem3Id);
+			Mideas.joueur1().getStuff(index).setEquippedGem2(new Gem(gem3Id));
 		}
 	}
 	
@@ -78,14 +102,32 @@ public class CommandLoadEquippedItems extends Command {
 		int gem2Id = ConnectionManager.getConnection().readInt();
 		int gem3Id = ConnectionManager.getConnection().readInt();
 		if(!WeaponManager.exists(id) && id != 0) {
-			CommandStuff.write(id);
+			CommandWeapon.write(id);
 			Mideas.joueur1().setStuff(index, new Stuff(id));
 		}
 		else if(id != 0) {
 			Mideas.joueur1().setStuff(index, WeaponManager.getClone(id));
+		}
+		if(gem1Id != 0 && GemManager.exists(gem1Id)) {
 			Mideas.joueur1().getStuff(index).setEquippedGem1(GemManager.getClone(gem1Id));
-			Mideas.joueur1().getStuff(index).setEquippedGem2(GemManager.getClone(gem2Id));
-			Mideas.joueur1().getStuff(index).setEquippedGem3(GemManager.getClone(gem3Id));
+		}
+		else if(gem1Id != 0) {
+			CommandGem.write(gem1Id);
+			Mideas.joueur1().getStuff(index).setEquippedGem1(new Gem(gem1Id));
+		}
+		if(gem2Id != 0 && GemManager.exists(gem2Id)) {
+			Mideas.joueur1().getStuff(index).setEquippedGem1(GemManager.getClone(gem2Id));
+		}
+		else if(gem2Id != 0) {
+			CommandGem.write(gem2Id);
+			Mideas.joueur1().getStuff(index).setEquippedGem2(new Gem(gem2Id));
+		}
+		if(gem3Id != 0 && GemManager.exists(gem3Id)) {
+			Mideas.joueur1().getStuff(index).setEquippedGem1(GemManager.getClone(gem3Id));
+		}
+		else if(gem2Id != 0) {
+			CommandGem.write(gem3Id);
+			Mideas.joueur1().getStuff(index).setEquippedGem2(new Gem(gem3Id));
 		}
 	}
 }
