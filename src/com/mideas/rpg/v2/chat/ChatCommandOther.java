@@ -60,7 +60,7 @@ public class ChatCommandOther {
 				ShopManager.getShopList().clear();
 				ShopManager.loadStuffs();
 				CharacterStuff.getEquippedBags();
-				CharacterStuff.getBagItems();
+				//CharacterStuff.getBagItems();
 				//CharacterStuff.getEquippedItems();
 				ContainerFrame.setBagchange(true);
 				SpellBarManager.loadSpellBar();

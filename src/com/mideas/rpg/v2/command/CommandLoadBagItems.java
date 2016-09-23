@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.command;
 
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
@@ -19,6 +20,7 @@ public class CommandLoadBagItems extends Command {
 
 	@Override
 	public void read() {
+		System.out.println("load bag");
 		int i = 0;
 		int amount = ConnectionManager.getConnection().readInt();
 		while(i < amount) {
@@ -26,6 +28,7 @@ public class CommandLoadBagItems extends Command {
 			i++;
 		}
 		Mideas.bag().setBagChange(true);
+		Interface.setBagFullyLoaded(false);
 	}
 	
 	private static void loadItem(int index) {

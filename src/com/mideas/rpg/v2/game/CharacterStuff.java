@@ -289,7 +289,7 @@ public class CharacterStuff {
 		statement.execute();
 	}
 	
-	public static void getEquippedItems() throws SQLException {
+	/*public static void getEquippedItems() throws SQLException {
 		int id;
 		int gem1Id;
 		int gem2Id;
@@ -453,7 +453,7 @@ public class CharacterStuff {
 		else {
 			System.out.println("statement error (stuff load)");
 		}
-	}
+	}*/
 	
 	private static void setGems(Stuff stuff, int gem1Id, int gem2Id, int gem3Id) {
 		if(stuff.getGemSlot1() != GemColor.NONE && GemManager.exists(gem1Id)) {

@@ -37,7 +37,6 @@ public class Stuff extends Item {
 	protected int armor;
 	protected int level;
 	protected int mana;
-	protected boolean isLoaded;
 	
 	public Stuff(int id) { //stuff created when waiting for the server to respond
 		super(id, "", ItemType.STUFF, "", 0, 0, 1);
@@ -157,14 +156,6 @@ public class Stuff extends Item {
 		}
 		this.gemBonusActivated = false;
 		return false;
-	}
-	
-	public boolean getIsLoaded() {
-		return this.isLoaded;
-	}
-	
-	public void setLoadeds(boolean we) {
-		this.isLoaded = we;
 	}
 	
 	public boolean getGemBonusActivated() {

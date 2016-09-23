@@ -5,9 +5,13 @@ import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 
+import com.mideas.rpg.v2.Interface;
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
+import com.mideas.rpg.v2.command.CommandLoadBagItems;
+import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
 import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
@@ -32,6 +36,8 @@ public class ConnectionManager {
 		commandList.put((int)CREATE_CHARACTER, new CommandCreateCharacter());
 		commandList.put((int)DELETE_CHARACTER, new CommandDeleteCharacter());
 		commandList.put((int)LOAD_EQUIPPED_ITEMS, new CommandLoadEquippedItems());
+		commandList.put((int)LOAD_BAG_ITEMS, new CommandLoadBagItems());
+		commandList.put((int)LOAD_CHARACTER, new CommandLoadCharacter());
 		commandList.put((int)STUFF, new CommandStuff());
 		commandList.put((int)WEAPON, new CommandWeapon());
 		commandList.put((int)GEM, new CommandGem());
@@ -88,13 +94,19 @@ public class ConnectionManager {
 		if(socket.isConnected()) {
 			byte packetId = -1;
 			try {
-				if(connection.read() == 1) {
+				if(connection.read() == 1 && connection.hasRemaining()) {
 					packetId = connection.readByte();
+					System.out.println(packetId);
 				}
 			} 
 			catch (IOException e) {
 				e.printStackTrace();
 				connection.close();
+				Interface.setHasLoggedIn(false);
+				Mideas.setJoueur1Null();
+				Mideas.setAccountId(0);
+				LoginScreen.getAlert().setActive();
+				LoginScreen.getAlert().setText("Vous avez été déconnecté.");
 				return;
 			}
 			if(connection != null) {

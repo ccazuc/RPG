@@ -29,6 +29,7 @@ public class CommandLoadEquippedItems extends Command {
 			}
 			i++;
 		}*/
+		System.out.println("loadEquippedItems");
 		loadStuff(0);
 		loadStuff(1);
 		loadStuff(2);

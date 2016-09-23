@@ -15,6 +15,7 @@ public class Item implements Cloneable {
 	protected String name;
 	protected int quality;
 	protected int id;
+	protected boolean isLoaded;
 	
 	public Item(int id, String sprite_id, ItemType itemType, String name, int quality, int sellPrice, int maxStack) {
 		this.sellPrice = sellPrice;
@@ -30,6 +31,14 @@ public class Item implements Cloneable {
 
 	public int getId() {
 		return this.id;
+	}
+	
+	public void setIsLoaded(boolean we) {
+		this.isLoaded = we;
+	}
+	
+	public boolean getIsLoaded() {
+		return this.isLoaded;
 	}
 	
 	public String getSpriteId() {

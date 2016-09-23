@@ -71,6 +71,7 @@ public class Interface {
 	private static double dragMouseEventTime;
 	private static boolean hasLoggedIn;
 	private static boolean isStuffFullyLoaded;
+	private static boolean isBagFullyLoaded;
 
 	public static void draw() throws IOException, SQLException {
 		Draw.drawQuadBG(Sprites.current_bg);
@@ -100,7 +101,7 @@ public class Interface {
 				}
 				if(!isStuffEquipped) {
 					CharacterStuff.getEquippedBags();
-					CharacterStuff.getBagItems();
+					//CharacterStuff.getBagItems();
 					ProfessionManager.LoadAllCraft();
 					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
 					isStuffEquipped = true;
@@ -115,6 +116,9 @@ public class Interface {
 				}
 				if(!isStuffFullyLoaded) {
 					Mideas.joueur1().loadStuff();
+				}
+				if(!isBagFullyLoaded) {
+					Mideas.joueur1().loadBag();
 				}
 				if(Mideas.joueur2() != null) {
 					PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
@@ -477,6 +481,10 @@ public class Interface {
 	
 	public static void setStuffFullyLoaded(boolean we) {
 		isStuffFullyLoaded = we;
+	}
+	
+	public static void setBagFullyLoaded(boolean we) {
+		isBagFullyLoaded = we;
 	}
 	
 	public static double getContainerDrawTime() {
