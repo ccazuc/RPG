@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
@@ -19,6 +20,7 @@ import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellType;
+import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 
@@ -197,12 +199,14 @@ public class Joueur {
 				if(StuffManager.exists(Mideas.joueur1().getStuff(i).getId())) {
 					Mideas.joueur1().setStuff(i, StuffManager.getClone(Mideas.joueur1().getStuff(i).getId()));
 					Mideas.joueur1().getStuff(i).setIsLoaded(true);
+					ConnectionManager.getItemRequested().remove(Mideas.joueur1().getStuff(i).getId());
 					i++;
 					continue;
 				}
 				else if(WeaponManager.exists(Mideas.joueur1().getStuff(i).getId())) {
 					Mideas.joueur1().setStuff(i, WeaponManager.getClone(Mideas.joueur1().getStuff(i).getId()));
 					Mideas.joueur1().getStuff(i).setIsLoaded(true);
+					ConnectionManager.getItemRequested().remove(Mideas.joueur1().getStuff(i).getId());
 					i++;
 					continue;
 				}
@@ -220,30 +224,38 @@ public class Joueur {
 				if(StuffManager.exists(Mideas.bag().getBag(i).getId())) {
 					Mideas.bag().setBag(i, StuffManager.getClone(Mideas.bag().getBag(i).getId()));
 					Mideas.bag().getBag(i).setIsLoaded(true);
+					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
 					i++;
 					continue;
 				}
 				else if(WeaponManager.exists(Mideas.bag().getBag(i).getId())) {
 					Mideas.bag().setBag(i, WeaponManager.getClone(Mideas.bag().getBag(i).getId()));
+					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
 					Mideas.bag().getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
 				else if(GemManager.exists(Mideas.bag().getBag(i).getId())) {
 					Mideas.bag().setBag(i, GemManager.getClone(Mideas.bag().getBag(i).getId()));
+					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
 					Mideas.bag().getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
 				else if(BagManager.exists(Mideas.bag().getBag(i).getId())) {
 					Mideas.bag().setBag(i, BagManager.getClone(Mideas.bag().getBag(i).getId()));
+					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
 					Mideas.bag().getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
 				else if(PotionManager.exists(Mideas.bag().getBag(i).getId())) {
+					int number = Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i));
+					Mideas.bag().getNumberStack().remove(Mideas.bag().getBag(i));
 					Mideas.bag().setBag(i, PotionManager.getClone(Mideas.bag().getBag(i).getId()));
+					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
 					Mideas.bag().getBag(i).setIsLoaded(true);
+					Mideas.bag().getNumberStack().put(Mideas.bag().getBag(i), number);
 					i++;
 					continue;
 				}
@@ -355,6 +367,40 @@ public class Joueur {
 			}
 			CharacterStuff.setBagItems();
 		}
+	}
+	
+	public boolean canWear(Stuff stuff) {
+		if(stuff != null) {
+			if(this.wear == Wear.PLATE) {
+				return true;
+			}
+			if(this.wear == Wear.MAIL) {
+				if(stuff.getWear() == Wear.PLATE) {
+					return false;
+				}
+				return true;
+			}
+			if(this.wear == Wear.LEATHER) {
+				if(stuff.getWear() == Wear.PLATE || stuff.getWear() == Wear.MAIL) {
+					return false;
+				}
+				return true;
+			}
+			if(this.wear == Wear.CLOTH) {
+				if(stuff.getWear() == Wear.CLOTH || stuff.getWear() == Wear.NONE) {
+					return true;
+				}
+				return false;
+			}
+		}
+		return false;
+	}
+
+	public boolean canEquipStuff(Stuff stuff) {
+		if(Mideas.getLevel() >= stuff.getLevel() && canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
+			return true;
+		}
+		return false;
 	}
 	
 	public void setFirstProfession(Profession profession) {

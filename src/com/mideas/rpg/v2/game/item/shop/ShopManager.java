@@ -377,7 +377,7 @@ public class ShopManager {
 		Draw.drawColorQuadBorder(Display.getWidth()/2+x_item-14, Display.getHeight()/2+30+y_item, -7-xShift, 75+TTF2.statsName.getLineHeight()*ContainerFrame.getNumberStats((Stuff)item), borderColor);
 		TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item-10-xShift, Display.getHeight()/2+y_item+33, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.black, 1, 1, 1);
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item-10-xShift, Display.getHeight()/2+y_item+55, ((Stuff)item).convStuffTypeToString(), Color.white, Color.black, 1, 1, 1);
-		if(DragManager.canWear((Stuff)item)) {
+		if(Mideas.joueur1().canWear((Stuff)item)) {
 			temp = Color.white;
 		}
 		else {
@@ -449,7 +449,7 @@ public class ShopManager {
 		x_item+= 10;
 		TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+33, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.black, 1, 1, 1);
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+55, ((Stuff)item).convStuffTypeToString(), Color.white, Color.black, 1, 1, 1);
-		if(DragManager.canWear((Stuff)item)) {
+		if(Mideas.joueur1().canWear((Stuff)item)) {
 			temp = Color.white;
 		}
 		else {

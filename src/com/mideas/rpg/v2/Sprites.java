@@ -267,8 +267,7 @@ public class Sprites {
 		bgList[0] = easternKingdom;
 		bgList[1] = outland2;
 		bgList[2] = outland;
-		Random rand = new Random();
-		loading_screen = new Texture(bgList[rand.nextInt((bgList.length-1)+1)]);
+		loading_screen = new Texture(bgList[new Random().nextInt((bgList.length-1)+1)]);
 		loading_screen_bar = new Texture("sprite/interface/loading_screen/Loading-BarBorder.png");
 		loading_screen_bar_progress = new Texture("sprite/interface/loading_screen/Loading-BarFill.png");
 	}
@@ -334,29 +333,7 @@ public class Sprites {
 		un_green_talent = new Texture("sprite/interface/talent/1_green_talent.png");
 		deux_green_talent = new Texture("sprite/interface/talent/2_green_talent.png");
 		trois_green_talent = new Texture("sprite/interface/talent/3_green_talent.png");
-		quatre_green_talent = new Texture("sprite/interface/talent/4_green_talent.png");
-		trois_yellow_square_talent = new Texture("sprite/interface/talent/yellow_3-3_talent.png");
-		deux_yellow_square_talent = new Texture("sprite/interface/talent/yellow_2-2_talent.png");
-		cinq_yellow_square_talent = new Texture("sprite/interface/talent/yellow_5-5_talent.png");
-		left_second_line_talent = new Texture("sprite/interface/talent/left_second_line_talent.png");
-		left_colored_arrow = new Texture("sprite/interface/left_colored_arrow.png");
-		right_colored_arrow = new Texture("sprite/interface/right_colored_arrow.png");
-		right_uncolored_arrow = new Texture("sprite/interface/right_uncolored_arrow.png");
-		gold_coin = new Texture("sprite/interface/gold_coin.png");
 		gold_coin_container = new Texture("sprite/interface/gold_coin_container.png");
-		large_spellbar = new Texture("sprite/interface/large_spellbar.png");
-		silver_coin = new Texture("sprite/interface/silver_coin.png");
-		silver_coin_container = new Texture("sprite/interface/silver_coin_container.png");
-		copper_coin = new Texture("sprite/interface/copper_coin.png");
-		copper_coin_container = new Texture("sprite/interface/copper_coin_container.png");
-		right_arrow_hover = new Texture("sprite/interface/right_arrow_hover.jpg");
-		left_arrow_hover = new Texture("sprite/interface/left_arrow_hover.jpg");
-		warrior_talent_tree = new Texture("sprite/interface/talent/warrior_talent_tree.png");
-		playerUI = new Texture("sprite/interface/UI-Player-Portrait.png");
-		playerUI2 = new Texture("sprite/interface/UI-Player-Portrait.png");
-		illidan = new Texture("sprite/classes/illidan.png");
-		priest = new Texture("sprite/classes/priest.png");
-		priest2 = new Texture("sprite/classes/priest.png");
 		return true;
 	}
 	
@@ -417,6 +394,19 @@ public class Sprites {
 		select_screen_druid = new Texture("sprite/selectScreen/druid.png");
 		select_screen_hunter = new Texture("sprite/selectScreen/hunter.png");
 		select_screen_hover = new Texture("sprite/selectScreen/hover.png");
+		large_spellbar = new Texture("sprite/interface/large_spellbar.png");
+		silver_coin = new Texture("sprite/interface/silver_coin.png");
+		silver_coin_container = new Texture("sprite/interface/silver_coin_container.png");
+		copper_coin = new Texture("sprite/interface/copper_coin.png");
+		copper_coin_container = new Texture("sprite/interface/copper_coin_container.png");
+		right_arrow_hover = new Texture("sprite/interface/right_arrow_hover.jpg");
+		left_arrow_hover = new Texture("sprite/interface/left_arrow_hover.jpg");
+		warrior_talent_tree = new Texture("sprite/interface/talent/warrior_talent_tree.png");
+		playerUI = new Texture("sprite/interface/UI-Player-Portrait.png");
+		playerUI2 = new Texture("sprite/interface/UI-Player-Portrait.png");
+		illidan = new Texture("sprite/classes/illidan.png");
+		priest = new Texture("sprite/classes/priest.png");
+		priest2 = new Texture("sprite/classes/priest.png");
 		
 		stuff_border = new Texture("sprite/interface/stuff_border.png");
 		return true;
@@ -458,6 +448,15 @@ public class Sprites {
 		button_disabled = new Texture("sprite/interface/button_disabled.png");
 		cast_bar = new Texture("sprite/interface/cast_bar.png");
 		cast_bar_progression = new Texture("sprite/interface/cast_bar_progression.png");
+		quatre_green_talent = new Texture("sprite/interface/talent/4_green_talent.png");
+		trois_yellow_square_talent = new Texture("sprite/interface/talent/yellow_3-3_talent.png");
+		deux_yellow_square_talent = new Texture("sprite/interface/talent/yellow_2-2_talent.png");
+		cinq_yellow_square_talent = new Texture("sprite/interface/talent/yellow_5-5_talent.png");
+		left_second_line_talent = new Texture("sprite/interface/talent/left_second_line_talent.png");
+		left_colored_arrow = new Texture("sprite/interface/left_colored_arrow.png");
+		right_colored_arrow = new Texture("sprite/interface/right_colored_arrow.png");
+		right_uncolored_arrow = new Texture("sprite/interface/right_uncolored_arrow.png");
+		gold_coin = new Texture("sprite/interface/gold_coin.png");
 		return true;
 	}
 		

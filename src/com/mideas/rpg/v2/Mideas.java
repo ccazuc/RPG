@@ -144,7 +144,7 @@ public class Mideas {
 		CharacterStuff.initSQLRequest();
 		GemManager.loadGems();
 		//WeaponManager.loadWeapons();
-		PotionManager.loadPotions();
+		//PotionManager.loadPotions();
 		BagManager.loadBags();
 		BagManager.loadBagsSprites();
 		//StuffManager.loadStuffs();
@@ -539,7 +539,7 @@ public class Mideas {
 		first:
 		while(i < Mideas.joueur1.getSpells().length) {
 			j = 0;
-			while(j < i) { //check if the spells i appears more than once between 0 and i
+			while(j < i) { //check if the spells i appears more than once between 0 and i because j < i
 				if(Mideas.joueur1.getSpells(i) != null && Mideas.joueur1.getSpells(j) != null && Mideas.joueur1.getSpells(i) instanceof SpellShortcut && Mideas.joueur1.getSpells(j) instanceof SpellShortcut && ((SpellShortcut)Mideas.joueur1.getSpells(i)).getSpell().equal(((SpellShortcut)Mideas.joueur1.getSpells(j)).getSpell())) {
 					i++;
 					continue first;
@@ -592,6 +592,7 @@ public class Mideas {
 		Display.sync(60);
 		
 		Sprites.sprite9();
+		Sprites.sprite10();
 		context2D();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
@@ -599,8 +600,6 @@ public class Mideas {
 		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
-		
-		Sprites.sprite10();
 	}
 	
 	public static Joueur joueur1() {

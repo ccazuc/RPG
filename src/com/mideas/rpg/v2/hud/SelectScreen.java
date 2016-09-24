@@ -33,7 +33,7 @@ public class SelectScreen {
 	static boolean creatingCharacter;
 	static boolean deletingCharacter;
 	static boolean characterLoaded;
-	private static SelectScreenPlayer[] characterList = new SelectScreenPlayer[10];
+	static SelectScreenPlayer[] characterList = new SelectScreenPlayer[10];
 	private static boolean[] selectedCharacter = new boolean[10];
 	private static int selectedCharacterIndex = 0;
 	private static int hoveredCharacter = 0;
@@ -97,6 +97,7 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
 			loadCharacterInfo();
+			Arrays.fill(characterList, null);
 		}
 	};
 	private static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202, 28, "Delete character", 16) {

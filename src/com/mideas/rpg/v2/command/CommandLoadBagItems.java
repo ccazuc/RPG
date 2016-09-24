@@ -20,7 +20,7 @@ public class CommandLoadBagItems extends Command {
 
 	@Override
 	public void read() {
-		System.out.println("load bag");
+		System.out.println("Bag items loaded (CommandLoadBagItems)");
 		int i = 0;
 		int amount = ConnectionManager.getConnection().readInt();
 		while(i < amount) {
@@ -40,7 +40,6 @@ public class CommandLoadBagItems extends Command {
 		int gem3Id = ConnectionManager.getConnection().readInt();
 		ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
 		if(id != 0) {
-			System.out.println("id: "+id+" type: "+type);
 		}
 		if(type == ItemType.STUFF) {
 			loadStuff(index, id, gem1Id, gem2Id, gem3Id);
@@ -136,7 +135,6 @@ public class CommandLoadBagItems extends Command {
 	}
 	
 	private static void loadPotion(int index, int id, int number) {
-		System.out.println(number);
 		if(id != 0 && PotionManager.exists(id)) {
 			Mideas.bag().setBag(index, PotionManager.getClone(id), number);
 			Mideas.bag().getNumberStack().put(Mideas.bag().getBag(index), number);

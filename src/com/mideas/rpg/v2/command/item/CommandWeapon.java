@@ -44,8 +44,11 @@ public class CommandWeapon extends Command {
 	}
 
 	public static void write(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.WEAPON);
-		ConnectionManager.getConnection().writeInt(id);
-		ConnectionManager.getConnection().send();
+		if(!ConnectionManager.getItemRequested().containsKey(id)) {
+			ConnectionManager.getConnection().writeByte(PacketID.WEAPON);
+			ConnectionManager.getConnection().writeInt(id);
+			ConnectionManager.getConnection().send();
+			ConnectionManager.getItemRequested().put(id, new Stuff(id));
+		}
 	}
 }

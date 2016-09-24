@@ -26,8 +26,11 @@ public class CommandGem extends Command {
 	}
 
 	public static void write(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.GEM);
-		ConnectionManager.getConnection().writeInt(id);
-		ConnectionManager.getConnection().send();
+		if(!ConnectionManager.getItemRequested().containsKey(id)) {
+			ConnectionManager.getConnection().writeByte(PacketID.GEM);
+			ConnectionManager.getConnection().writeInt(id);
+			ConnectionManager.getConnection().send();
+			ConnectionManager.getItemRequested().put(id, new Gem(id));
+		}
 	}
 }

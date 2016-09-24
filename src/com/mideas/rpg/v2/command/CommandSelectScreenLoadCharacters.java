@@ -20,7 +20,6 @@ public class CommandSelectScreenLoadCharacters extends Command {
 				String classe = ConnectionManager.getConnection().readString();
 				String race = ConnectionManager.getConnection().readString();
 				SelectScreen.setCharacterList(new SelectScreenPlayer(id, name, level, classe, race), i);
-				//System.out.println(i+" "+name);
 				i++;
 			}
 			SelectScreen.setTotalCharacter(i);

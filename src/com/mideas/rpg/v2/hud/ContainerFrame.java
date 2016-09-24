@@ -751,7 +751,6 @@ public class ContainerFrame {
 			Draw.drawQuad(IconsManager.getSprite37((Mideas.bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()+y);
 			Draw.drawQuad(Sprites.bag_border1, Display.getWidth()+x-3, Display.getHeight()+y-2);
 			if((Mideas.bag().getBag(i).isStackable())) {
-				System.out.println(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i)));
 				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.font4.getWidth(Integer.toString(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i)))), Display.getHeight()+y+20, Integer.toString(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))), Color.white, Color.black, 1, 1, 1);
 				if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
 					Mideas.bag().setBag(i, null);
@@ -929,7 +928,7 @@ public class ContainerFrame {
 		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
 		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1);
 		TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+23, ((Stuff)Mideas.bag().getBag(i)).convStuffTypeToString(), Color.white, Color.black, 1);
-		if(DragManager.canWear((Stuff)Mideas.bag().getBag(i))) {
+		if(Mideas.joueur1().canWear((Stuff)Mideas.bag().getBag(i))) {
 			temp = Color.white;
 		}
 		else {
@@ -1045,7 +1044,7 @@ public class ContainerFrame {
 		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
 		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
 		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1, 1, 1);
-		if(DragManager.canWear((Stuff)Mideas.bag().getBag(i))) {
+		if(Mideas.joueur1().canWear((Stuff)Mideas.bag().getBag(i))) {
 			temp = Color.white;
 		}
 		else {

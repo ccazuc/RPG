@@ -5,6 +5,7 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.classes.Wear;
+import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
@@ -44,8 +45,11 @@ public class CommandStuff extends Command {
 	}
 	
 	public static void write(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.STUFF);
-		ConnectionManager.getConnection().writeInt(id);
-		ConnectionManager.getConnection().send();
+		if(!ConnectionManager.getItemRequested().containsKey(id)) {
+			ConnectionManager.getConnection().writeByte(PacketID.STUFF);
+			ConnectionManager.getConnection().writeInt(id);
+			ConnectionManager.getConnection().send();
+			ConnectionManager.getItemRequested().put(id, new Stuff(id));
+		}
 	}
 }

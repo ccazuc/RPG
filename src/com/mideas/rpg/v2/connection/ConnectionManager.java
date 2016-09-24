@@ -16,8 +16,10 @@ import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
 import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.command.item.CommandGem;
+import com.mideas.rpg.v2.command.item.CommandPotion;
 import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
+import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import static com.mideas.rpg.v2.connection.PacketID.*;
 
@@ -26,6 +28,7 @@ public class ConnectionManager {
 	private static Connection connection;
 	private static SocketChannel socket;
 	private static HashMap<Integer, Command> commandList = new HashMap<Integer, Command>();
+	private static HashMap<Integer, Item> itemRequested = new HashMap<Integer, Item>();
 	private static final String IP = "127.0.0.1";
 	private static final int PORT = 5720;
 	private static boolean init;
@@ -41,6 +44,7 @@ public class ConnectionManager {
 		commandList.put((int)STUFF, new CommandStuff());
 		commandList.put((int)WEAPON, new CommandWeapon());
 		commandList.put((int)GEM, new CommandGem());
+		commandList.put((int)POTION, new CommandPotion());
 	}
 	
 	public static final boolean connect() {
@@ -92,11 +96,9 @@ public class ConnectionManager {
 	
 	public static void read() {
 		if(socket.isConnected()) {
-			byte packetId = -1;
 			try {
-				connection.read();
-				if(connection.hasRemaining()) {
-					packetId = connection.readByte();
+				if(connection.read() == 1) {
+					readPacket();
 				}
 			} 
 			catch (IOException e) {
@@ -109,15 +111,26 @@ public class ConnectionManager {
 				LoginScreen.getAlert().setText("Vous avez été déconnecté.");
 				return;
 			}
-			if(connection != null) {
-				if(packetId != -1 && commandList.containsKey((int)packetId)) {
-					commandList.get((int)packetId).read();
-				}
+		}
+	}
+	
+	private static void readPacket() {
+		while(connection.hasRemaining()) {
+			byte packetId = connection.readByte();
+			if(commandList.containsKey((int)packetId)) {
+				commandList.get((int)packetId).read();
+			}
+			else {
+				System.out.println("Unknown packet: "+(int)packetId);
 			}
 		}
 	}
 	
 	public static HashMap<Integer, Command> getCommandList() {
 		return commandList;
+	}
+	
+	public static HashMap<Integer, Item> getItemRequested() {
+		return itemRequested;
 	}
 }

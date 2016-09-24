@@ -315,7 +315,7 @@ public class DragManager {
 			if(Mideas.bag().getBag(i).isStuff()) {
 				int j = 0;
 				while(j < type.length) {
-					if(((Stuff)Mideas.bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && canWear((Stuff)Mideas.bag().getBag(i))) {
+					if(((Stuff)Mideas.bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && Mideas.joueur1().canWear((Stuff)Mideas.bag().getBag(i))) {
 						if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(j) == null) {
 								Mideas.joueur1().setStuff(j, Mideas.bag().getBag(i));
@@ -530,7 +530,7 @@ public class DragManager {
 			}
 			else if(checkCharacterItems(draggedItem)) {
 				if(draggedItem.isStuff()) {
-					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && canWear((Stuff)draggedItem)) {        //draggeditem same stuff type of slot hover
+					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && Mideas.joueur1().canWear((Stuff)draggedItem)) {        //draggeditem same stuff type of slot hover
 						if(Mideas.joueur1().getStuff(i) == null) {
 							setNullCharacter(draggedItem);
 							calcStatsLess(draggedItem);
@@ -572,7 +572,7 @@ public class DragManager {
 			}
 			else if(checkBagItems(draggedItem)) {
 				if(draggedItem.isStuff()) {
-					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && canWear((Stuff)draggedItem)) {
+					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && Mideas.joueur1().canWear((Stuff)draggedItem)) {
 						if(Mideas.joueur1().getStuff(i) == null) {
 							Mideas.joueur1().setStuff(i, draggedItem);
 							calcStats(draggedItem);
@@ -615,7 +615,7 @@ public class DragManager {
 				}
 			}
 			else if(draggedItem.isStuff()){
-				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && canWear((Stuff)draggedItem)) {
+				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && Mideas.joueur1().canWear((Stuff)draggedItem)) {
 					if(Mideas.joueur1().getStuff(i) == null) {
 						Mideas.joueur1().setStuff(i, draggedItem);
 						calcStats(draggedItem);
@@ -934,33 +934,6 @@ public class DragManager {
 	
 	public static boolean getClickInventory(int i) {
 		return clickInventory[i];
-	}
-	
-	public static boolean canWear(Stuff stuff) {
-		if(stuff != null) {
-			if(Mideas.joueur1().getWear() == Wear.PLATE) {
-				return true;
-			}
-			if(Mideas.joueur1().getWear() == Wear.MAIL) {
-				if(stuff.getWear() == Wear.PLATE) {
-					return false;
-				}
-				return true;
-			}
-			if(Mideas.joueur1().getWear() == Wear.LEATHER) {
-				if(stuff.getWear() == Wear.PLATE || stuff.getWear() == Wear.MAIL) {
-					return false;
-				}
-				return true;
-			}
-			if(Mideas.joueur1().getWear() == Wear.CLOTH) {
-				if(stuff.getWear() == Wear.CLOTH || stuff.getWear() == Wear.NONE) {
-					return true;
-				}
-				return false;
-			}
-		}
-		return false;
 	}
 	
 	public static void setDraggedItemSplit(boolean we) {

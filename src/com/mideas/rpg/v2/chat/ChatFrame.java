@@ -318,7 +318,7 @@ public class ChatFrame {
 	
 	private static void addMessage() {
 		String temp = tempMessage;
-		if(!temp.equals("") && temp != null) {
+		if(temp != null && !temp.equals("")) {
 			messages.add(new Message(temp, true, Color.white));
 		}
 	}

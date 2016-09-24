@@ -54,7 +54,7 @@ public class StuffManager {
 	}
 	
 	public static boolean canEquipStuff(Stuff stuff) {
-		if(Mideas.getLevel() >= stuff.getLevel() && DragManager.canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
+		if(Mideas.getLevel() >= stuff.getLevel() && Mideas.joueur1().canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
 			return true;
 		}
 		return false;

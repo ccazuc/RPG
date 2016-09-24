@@ -245,7 +245,7 @@ public class CharacterFrame {
 			Draw.drawColorQuadBorder(Display.getWidth()/2+x-1, Display.getHeight()/2+z-2+yAnchor, 6+xShift, y, borderColor);
 			TTF2.itemName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+yAnchor, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.black, 1);
 			TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+23+yAnchor, item.convStuffTypeToString(), Color.white, Color.black, 1);
-			if(DragManager.canWear(item)) {
+			if(Mideas.joueur1().canWear(item)) {
 				temp = Color.white;
 			}
 			else {
