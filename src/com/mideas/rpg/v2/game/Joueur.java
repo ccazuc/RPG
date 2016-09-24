@@ -5,10 +5,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.game.bag.BagManager;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.bag.BagManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
@@ -218,36 +218,36 @@ public class Joueur {
 		while(i < Mideas.bag().getBag().length) {
 			if(Mideas.bag().getBag(i) != null && !Mideas.bag().getBag(i).getIsLoaded()) {
 				if(StuffManager.exists(Mideas.bag().getBag(i).getId())) {
-					Mideas.joueur1().setStuff(i, StuffManager.getClone(Mideas.joueur1().getStuff(i).getId()));
-					Mideas.joueur1().getStuff(i).setIsLoaded(true);
+					Mideas.bag().setBag(i, StuffManager.getClone(Mideas.bag().getBag(i).getId()));
+					Mideas.bag().getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
 				else if(WeaponManager.exists(Mideas.bag().getBag(i).getId())) {
-					Mideas.joueur1().setStuff(i, WeaponManager.getClone(Mideas.joueur1().getStuff(i).getId()));
-					Mideas.joueur1().getStuff(i).setIsLoaded(true);
+					Mideas.bag().setBag(i, WeaponManager.getClone(Mideas.bag().getBag(i).getId()));
+					Mideas.bag().getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
 				else if(GemManager.exists(Mideas.bag().getBag(i).getId())) {
-					Mideas.joueur1().setStuff(i, GemManager.getClone(Mideas.joueur1().getStuff(i).getId()));
-					Mideas.joueur1().getStuff(i).setIsLoaded(true);
+					Mideas.bag().setBag(i, GemManager.getClone(Mideas.bag().getBag(i).getId()));
+					Mideas.bag().getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
 				else if(BagManager.exists(Mideas.bag().getBag(i).getId())) {
-					Mideas.joueur1().setStuff(i, BagManager.getClone(Mideas.joueur1().getStuff(i).getId()));
-					Mideas.joueur1().getStuff(i).setIsLoaded(true);
+					Mideas.bag().setBag(i, BagManager.getClone(Mideas.bag().getBag(i).getId()));
+					Mideas.bag().getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
 				else if(PotionManager.exists(Mideas.bag().getBag(i).getId())) {
-					Mideas.joueur1().setStuff(i, PotionManager.getClone(Mideas.joueur1().getStuff(i).getId()));
-					Mideas.joueur1().getStuff(i).setIsLoaded(true);
+					Mideas.bag().setBag(i, PotionManager.getClone(Mideas.bag().getBag(i).getId()));
+					Mideas.bag().getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
-				Interface.setStuffFullyLoaded(false);
+				Interface.setBagFullyLoaded(false);
 			}
 			i++;
 		}

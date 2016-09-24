@@ -27,15 +27,13 @@ import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.game.bag.Bag;
-import com.mideas.rpg.v2.game.bag.BagManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
+import com.mideas.rpg.v2.game.item.bag.Bag;
+import com.mideas.rpg.v2.game.item.bag.BagManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
-import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
@@ -79,7 +77,6 @@ public class Mideas {
 	private static float displayYFactor = 930/1018f;
 	private static int rank;
 	private static int characterId;
-	private static boolean isHover;
 	private static Connection connection;
 	private static SocketChannel socket;
 	private final static int PORT = 5720;
@@ -155,14 +152,13 @@ public class Mideas {
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();
 		GemManager.loadGemSprites();
-		System.out.println(StuffManager.getNumberStuffLoaded()+" pieces of stuff loaded, "+PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
+		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		getExpAll();
 		joueur2 = getRandomClass(2);
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		try {
 			while(!Display.isCloseRequested()) {
-				isHover = true;
 				fpsUpdate();
 				context2D();
 				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -243,14 +239,6 @@ public class Mideas {
 			fps = String.valueOf(count);
 			count = 0;
 		}
-	}
-	
-	public static boolean getHover() {
-		return isHover;
-	}
-	
-	public static void setHover(boolean we) {
-		isHover = we;
 	}
 	
 	public static SocketChannel getSocket() {
@@ -568,38 +556,47 @@ public class Mideas {
 	private static void loadingScreen() throws IOException {
 		Sprites.initBG();
 		context2D();
+		int barWidth = (int)(850*Mideas.getDisplayXFactor());
 		
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar1, Display.getWidth()/2-Sprites.loading_screen_bar1.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
+		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite();
+		context2D();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar2, Display.getWidth()/2-Sprites.loading_screen_bar2.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
+		Draw.drawQuad(Sprites.loading_screen_bar_progress, Display.getWidth()/2-barWidth/2+45, Display.getHeight()/2+350*Mideas.getDisplayYFactor()+7, 400, 20);
+		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite2();
+		context2D();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar3, Display.getWidth()/2-Sprites.loading_screen_bar3.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
+		Draw.drawQuad(Sprites.loading_screen_bar_progress, Display.getWidth()/2-barWidth/2+45, Display.getHeight()/2+350*Mideas.getDisplayYFactor()+7, 500, 20);
+		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite8();
+		context2D();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar4, Display.getWidth()/2-Sprites.loading_screen_bar4.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
+		Draw.drawQuad(Sprites.loading_screen_bar_progress, Display.getWidth()/2-barWidth/2+45, Display.getHeight()/2+350*Mideas.getDisplayYFactor()+7, 600, 20);
+		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
 		
 		Sprites.sprite9();
+		context2D();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
-		Draw.drawQuadCentered(Sprites.loading_screen_bar5, Display.getWidth()/2-Sprites.loading_screen_bar5.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()-100);
+		Draw.drawQuad(Sprites.loading_screen_bar_progress, Display.getWidth()/2-barWidth/2+45, Display.getHeight()/2+350*Mideas.getDisplayYFactor()+7, barWidth-90, 20);
+		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
 		

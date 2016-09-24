@@ -115,7 +115,7 @@ public class Button {
 		if(activateCondition()) {
 			this.color = YELLOW;
 			this.buttonHover = false;
-			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 				this.buttonHover = true;
 			}
 			if(this.buttonHover) {

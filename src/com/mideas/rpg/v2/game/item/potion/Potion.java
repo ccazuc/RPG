@@ -8,7 +8,6 @@ public class Potion extends Item {
 	protected int doHeal;
 	protected int doMana;
 	protected int level;
-	protected boolean isLoaded;
 	
 	public Potion(int id) {
 		super(id, "", ItemType.POTION, "", 1, 0, 1);
@@ -16,7 +15,7 @@ public class Potion extends Item {
 	}
 
 	public Potion(Potion potion) {
-		super(potion.id, potion.sprite_id, potion.itemType, potion.name, 1, potion.sellPrice, potion.maxStack);
+		super(potion.id, potion.sprite_id, ItemType.POTION, potion.name, 1, potion.sellPrice, potion.maxStack);
 		this.doHeal = potion.doHeal;
 		this.doMana = potion.doMana;
 		this.isLoaded = true;
@@ -28,14 +27,6 @@ public class Potion extends Item {
 		this.doMana = doMana;
 		this.level = level;
 		this.isLoaded = true;
-	}
-	
-	public boolean getIsLoaded() {
-		return this.isLoaded;
-	}
-	
-	public void setIsLoaded(boolean we) {
-		this.isLoaded = we;
 	}
 	
 	public int getPotionHeal() {

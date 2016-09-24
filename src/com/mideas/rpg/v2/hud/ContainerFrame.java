@@ -11,8 +11,8 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
-import com.mideas.rpg.v2.game.bag.BagManager;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.bag.BagManager;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
@@ -741,9 +741,8 @@ public class ContainerFrame {
 	}
 	
 	private static void slotHover(int x, int y, int i) {
-		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+x-3 && Mideas.mouseX() <= Display.getWidth()+x+37 && Mideas.mouseY() >= Display.getHeight()+y-3 && Mideas.mouseY() <= Display.getHeight()+y+38) {
+		if(Mideas.mouseX() >= Display.getWidth()+x-3 && Mideas.mouseX() <= Display.getWidth()+x+37 && Mideas.mouseY() >= Display.getHeight()+y-3 && Mideas.mouseY() <= Display.getHeight()+y+38) {
 			slot_hover[i] = true;
-			Mideas.setHover(false);
 		}
 	}
 	
@@ -752,6 +751,7 @@ public class ContainerFrame {
 			Draw.drawQuad(IconsManager.getSprite37((Mideas.bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()+y);
 			Draw.drawQuad(Sprites.bag_border1, Display.getWidth()+x-3, Display.getHeight()+y-2);
 			if((Mideas.bag().getBag(i).isStackable())) {
+				System.out.println(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i)));
 				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.font4.getWidth(Integer.toString(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i)))), Display.getHeight()+y+20, Integer.toString(Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))), Color.white, Color.black, 1, 1, 1);
 				if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) <= 0) {
 					Mideas.bag().setBag(i, null);
@@ -788,21 +788,17 @@ public class ContainerFrame {
 	}
 	
 	private static void checkItemNumberMouseEvent() {
-		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+xItemNumber+10 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+10+Sprites.itemnumber_hover_ok.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+yItemNumber+55 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+55+Sprites.itemnumber_hover_ok.getImageHeight()) {
+		if(Mideas.mouseX() >= Display.getWidth()+xItemNumber+10 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+10+Sprites.itemnumber_hover_ok.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+yItemNumber+55 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+55+Sprites.itemnumber_hover_ok.getImageHeight()) {
 			itemNumberOkButton = true;
-			Mideas.setHover(false);
 		}
-		else if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+xItemNumber+88 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+88+Sprites.itemnumber_hover_cancel.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+yItemNumber+55 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+55+Sprites.itemnumber_hover_cancel.getImageHeight()) {
+		else if(Mideas.mouseX() >= Display.getWidth()+xItemNumber+88 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+88+Sprites.itemnumber_hover_cancel.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+yItemNumber+55 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+55+Sprites.itemnumber_hover_cancel.getImageHeight()) {
 			itemNumberCancelButton = true;
-			Mideas.setHover(false);
 		}
-		else if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+xItemNumber+6 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+18 && Mideas.mouseY() >= Display.getHeight()+yItemNumber+20 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+35) {
+		else if(Mideas.mouseX() >= Display.getWidth()+xItemNumber+6 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+18 && Mideas.mouseY() >= Display.getHeight()+yItemNumber+20 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+35) {
 			itemNumberLeftArrow = true;
-			Mideas.setHover(false);
 		}
-		else if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()+xItemNumber+145 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+157 && Mideas.mouseY() >= Display.getHeight()+yItemNumber+20 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+35) {
+		else if(Mideas.mouseX() >= Display.getWidth()+xItemNumber+145 && Mideas.mouseX() <= Display.getWidth()+xItemNumber+157 && Mideas.mouseY() >= Display.getHeight()+yItemNumber+20 && Mideas.mouseY() <= Display.getHeight()+yItemNumber+35) {
 			itemNumberRightArrow = true;
-			Mideas.setHover(false);
 		}
 	}
 	

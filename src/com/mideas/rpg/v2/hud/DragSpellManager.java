@@ -123,9 +123,8 @@ public class DragSpellManager {
 	}
 	
 	private static void isHoverSpellBar(float x, float y, int i) {
-		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+35) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+35) {
 			hover[i] = true;
-			Mideas.setHover(false);
 		}
 	}
 	

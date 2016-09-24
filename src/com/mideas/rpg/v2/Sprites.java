@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2;
 
 import java.io.IOException;
+import java.util.Random;
 
 import com.mideas.rpg.v2.utils.Texture;
 
@@ -254,15 +255,22 @@ public class Sprites {
 	public static Texture bot_button;
 	public static Texture cast_bar;
 	public static Texture cast_bar_progression;
+	public static Texture loading_screen_bar;
+	public static Texture loading_screen_bar_progress;
+	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
+	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
+	private static String outland = "sprite/interface/loading_screen/LoadScreenOutlandWide.png";
+	
+	private static String[] bgList = new String[3];
 	
 	public static void initBG() throws IOException {
-		loading_screen = new Texture("sprite/interface/loading_screen/loading_screen.jpg");
-		loading_screen_bar1 = new Texture("sprite/interface/loading_screen/loadingbar.png");
-		loading_screen_bar2 = new Texture("sprite/interface/loading_screen/loadingscreen_1.png");
-		loading_screen_bar3 = new Texture("sprite/interface/loading_screen/loadingscreen_2.png");
-		loading_screen_bar4 = new Texture("sprite/interface/loading_screen/loadingscreen_3.png");
-		loading_screen_bar5 = new Texture("sprite/interface/loading_screen/loadingscreen_4.png");
-		loading_screen_bar6 = new Texture("sprite/interface/loading_screen/loadingscreen_5.png");
+		bgList[0] = easternKingdom;
+		bgList[1] = outland2;
+		bgList[2] = outland;
+		Random rand = new Random();
+		loading_screen = new Texture(bgList[rand.nextInt((bgList.length-1)+1)]);
+		loading_screen_bar = new Texture("sprite/interface/loading_screen/Loading-BarBorder.png");
+		loading_screen_bar_progress = new Texture("sprite/interface/loading_screen/Loading-BarFill.png");
 	}
 	
 	public static boolean sprite() throws IOException {

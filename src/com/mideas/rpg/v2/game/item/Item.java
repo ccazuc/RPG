@@ -1,6 +1,6 @@
 package com.mideas.rpg.v2.game.item;
 
-import com.mideas.rpg.v2.game.bag.BagManager;
+import com.mideas.rpg.v2.game.item.bag.BagManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;

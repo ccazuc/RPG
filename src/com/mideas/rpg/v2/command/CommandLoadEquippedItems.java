@@ -6,6 +6,7 @@ import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
@@ -29,7 +30,6 @@ public class CommandLoadEquippedItems extends Command {
 			}
 			i++;
 		}*/
-		System.out.println("loadEquippedItems");
 		loadStuff(0);
 		loadStuff(1);
 		loadStuff(2);
@@ -48,6 +48,13 @@ public class CommandLoadEquippedItems extends Command {
 		loadWeapon(17);
 		loadWeapon(18);
 		Interface.setStuffFullyLoaded(false);
+		Mideas.joueur1().loadStuff();
+		if(ConnectionManager.getConnection().hasRemaining()) {
+			byte id = ConnectionManager.getConnection().readByte();
+			if(id == PacketID.LOAD_BAG_ITEMS) {
+				ConnectionManager.getCommandList().get((int)PacketID.LOAD_BAG_ITEMS).read();
+			}
+		}
 	}
 	
 	private static void loadStuff(int index) {

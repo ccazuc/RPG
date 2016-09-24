@@ -29,6 +29,7 @@ public class CommandLoadBagItems extends Command {
 		}
 		Mideas.bag().setBagChange(true);
 		Interface.setBagFullyLoaded(false);
+		Mideas.joueur1().loadBag();
 	}
 	
 	private static void loadItem(int index) {
@@ -38,6 +39,9 @@ public class CommandLoadBagItems extends Command {
 		int gem2Id = ConnectionManager.getConnection().readInt();
 		int gem3Id = ConnectionManager.getConnection().readInt();
 		ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
+		if(id != 0) {
+			System.out.println("id: "+id+" type: "+type);
+		}
 		if(type == ItemType.STUFF) {
 			loadStuff(index, id, gem1Id, gem2Id, gem3Id);
 		}
@@ -132,11 +136,14 @@ public class CommandLoadBagItems extends Command {
 	}
 	
 	private static void loadPotion(int index, int id, int number) {
+		System.out.println(number);
 		if(id != 0 && PotionManager.exists(id)) {
 			Mideas.bag().setBag(index, PotionManager.getClone(id), number);
+			Mideas.bag().getNumberStack().put(Mideas.bag().getBag(index), number);
 		}
 		else if(id != 0) {
 			Mideas.bag().setBag(index, new Potion(id));
+			Mideas.bag().getNumberStack().put(Mideas.bag().getBag(index), number);
 			CommandPotion.write(id);
 		}
 	}

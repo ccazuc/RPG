@@ -36,6 +36,7 @@ public class SelectScreen {
 	private static SelectScreenPlayer[] characterList = new SelectScreenPlayer[10];
 	private static boolean[] selectedCharacter = new boolean[10];
 	private static int selectedCharacterIndex = 0;
+	private static int hoveredCharacter = 0;
 	private static int totalCharacter;
 	private static boolean init;
 	private static float x_hover_race;
@@ -47,10 +48,10 @@ public class SelectScreen {
 	private static Classe hoveredClasse;
 	private static Race selectedRace = Race.UNDEAD;
 	private static Classe selectedClasse = Race.HUMAN.getClasse()[0];
-	private static float x_selected_race = Display.getWidth()/2-742*Mideas.getDisplayXFactor();
-	private static float y_selected_race = Display.getHeight()/2-340*Mideas.getDisplayYFactor()+66*Mideas.getDisplayYFactor();
-	private static float x_selected_classe = Display.getWidth()/2-868*Mideas.getDisplayXFactor();
-	private static float y_selected_classe = Display.getHeight()/2+99*Mideas.getDisplayYFactor();
+	private static float x_selected_race = -742;
+	private static float y_selected_race = -340+66;
+	private static float x_selected_classe = -868;
+	private static float y_selected_classe = 99;
 	private static Color bgColor = new Color(0, 0, 0, .35f);
 	private static Input character = new Input(TTF2.loginScreenAccount, 12);
 	static Input deleteCharacter = new Input(TTF2.loginScreenAccount, 8);
@@ -73,6 +74,12 @@ public class SelectScreen {
 		public void eventButtonClick() throws SQLException {
 			creatingCharacter = false;
 			acceptCharacterButton.reset();
+			try {
+				SelectScreen.mouseEvent();
+			} 
+			catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
 		}
 	};
 	private static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122, 27, "Return", 16) {
@@ -147,7 +154,7 @@ public class SelectScreen {
 			}
 			int i = 0;
 			float y = 110*Mideas.getDisplayYFactor();
-			while(i < characterList.length) {
+			while(i < totalCharacter) {
 				drawCharacter(i, y);
 				i++;
 				y+= 75*Mideas.getDisplayYFactor();
@@ -179,24 +186,24 @@ public class SelectScreen {
 				TTF2.loginScreenTick.drawString(Display.getWidth()/2-84*Mideas.getDisplayXFactor()+character.getCursorShift(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), "|", Color.white);
 			}
 			if(hoveredRace != null && hoveredRace != selectedRace) {
-				Draw.drawQuad(Sprites.select_screen_hover, x_hover_race+3, y_hover_race+2, Sprites.select_screen_hover.getImageWidth(), Sprites.select_screen_hover.getImageHeight());
-				Draw.drawColorQuad(x_hover_race+63*Mideas.getDisplayXFactor(), y_hover_race-35, TTF2.raceName.getWidth(hoveredRace.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), bgColor);
-				Draw.drawColorQuadBorder(x_hover_race+63*Mideas.getDisplayXFactor(), y_hover_race-35, TTF2.raceName.getWidth(hoveredRace.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), Color.gray);
-				TTF2.raceName.drawStringShadow(x_hover_race+73, y_hover_race-29, hoveredRace.getName(), Color.white, Color.black, 1, 1, 1);
+				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+x_hover_race*Mideas.getDisplayXFactor()+3, Display.getHeight()/2+y_hover_race*Mideas.getDisplayYFactor()+2, Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
+				Draw.drawColorQuad(Display.getWidth()/2+(x_hover_race+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_race-35)*Mideas.getDisplayYFactor(), TTF2.raceName.getWidth(hoveredRace.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), bgColor);
+				Draw.drawColorQuadBorder(Display.getWidth()/2+(x_hover_race+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_race-35)*Mideas.getDisplayYFactor(), TTF2.raceName.getWidth(hoveredRace.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), Color.gray);
+				TTF2.raceName.drawStringShadow(Display.getWidth()/2+(x_hover_race+73)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_race-29)*Mideas.getDisplayYFactor(), hoveredRace.getName(), Color.white, Color.black, 1, 1, 1);
 			}
 			if(selectedRace != null) {
-				Draw.drawQuad(Sprites.select_screen_hover, x_selected_race+3, y_selected_race+2, Sprites.select_screen_hover.getImageWidth(), Sprites.select_screen_hover.getImageHeight());
-				TTF2.raceName.drawStringShadow(x_selected_race+30*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedRace.getName())/2, y_selected_race+40*Mideas.getDisplayYFactor(), selectedRace.getName(), YELLOW, Color.black, 1, 1, 1);
+				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+(x_selected_race+3)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_selected_race+2)*Mideas.getDisplayYFactor(), Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
+				TTF2.raceName.drawStringShadow(Display.getWidth()/2+(x_selected_race+30)*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedRace.getName())/2, Display.getHeight()/2+(y_selected_race+40)*Mideas.getDisplayYFactor(), selectedRace.getName(), YELLOW, Color.black, 1, 1, 1);
 			}
 			if(hoveredClasse != null && hoveredClasse != selectedClasse) {
-				Draw.drawQuad(Sprites.select_screen_hover, x_hover_classe-1, y_hover_classe-1, Sprites.select_screen_hover.getImageWidth(), Sprites.select_screen_hover.getImageHeight());
-				Draw.drawColorQuad(x_hover_classe+63*Mideas.getDisplayXFactor(), y_hover_classe-35, TTF2.raceName.getWidth(hoveredClasse.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), bgColor);
-				Draw.drawColorQuadBorder(x_hover_classe+63*Mideas.getDisplayXFactor(), y_hover_classe-35, TTF2.raceName.getWidth(hoveredClasse.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), Color.gray);
-				TTF2.raceName.drawStringShadow(x_hover_classe+73, y_hover_classe-29, hoveredClasse.getName(), Color.white, Color.black, 1, 1, 1);
+				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+(x_hover_classe-1)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-1)*Mideas.getDisplayYFactor(), Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
+				Draw.drawColorQuad(Display.getWidth()/2+(x_hover_classe+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-35)*Mideas.getDisplayYFactor(), TTF2.raceName.getWidth(hoveredClasse.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), bgColor);
+				Draw.drawColorQuadBorder(Display.getWidth()/2+(x_hover_classe+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-35)*Mideas.getDisplayYFactor(), TTF2.raceName.getWidth(hoveredClasse.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), Color.gray);
+				TTF2.raceName.drawStringShadow(Display.getWidth()/2+(x_hover_classe+73)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-29)*Mideas.getDisplayYFactor(), hoveredClasse.getName(), Color.white, Color.black, 1, 1, 1);
 			}
 			if(selectedClasse != null) {
-				Draw.drawQuad(Sprites.select_screen_hover, x_selected_classe-1, y_selected_classe-1, Sprites.select_screen_hover.getImageWidth(), Sprites.select_screen_hover.getImageHeight());
-				TTF2.raceName.drawStringShadow(x_selected_classe+30*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedClasse.getName())/2, y_selected_classe+40*Mideas.getDisplayYFactor(), selectedClasse.getName(), YELLOW, Color.black, 2, 1, 1);
+				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+(x_selected_classe-1)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_selected_classe-1)*Mideas.getDisplayYFactor(), Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
+				TTF2.raceName.drawStringShadow(Display.getWidth()/2+(x_selected_classe+30)*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedClasse.getName())/2, Display.getHeight()/2+(y_selected_classe+40)*Mideas.getDisplayYFactor(), selectedClasse.getName(), YELLOW, Color.black, 2, 1, 1);
 			}
 		}
 	}
@@ -212,6 +219,14 @@ public class SelectScreen {
 				returnButton.event();
 				enterGameButton.event();
 				deleteCharacterButton.event();
+				selectCharacter();
+				if(!Mouse.getEventButtonState()) {
+					if(Mouse.getEventButton() == 0 && hoveredCharacter != -1) {
+						selectedCharacter[selectedCharacterIndex] = false;
+						selectedCharacterIndex = hoveredCharacter;
+						selectedCharacter[selectedCharacterIndex] = true;
+					}
+				}
 			}
 		}
 		else {
@@ -229,8 +244,8 @@ public class SelectScreen {
 						x_selected_race = x_hover_race;
 						y_selected_race = y_hover_race;
 						selectedClasse = selectedRace.getClasse()[0];
-						x_selected_classe = Display.getWidth()/2-868*Mideas.getDisplayXFactor();
-						y_selected_classe = Display.getHeight()/2+99*Mideas.getDisplayYFactor();
+						x_selected_classe = -868;
+						y_selected_classe = 99;
 					}
 					else if(hoveredClasse != null) {
 						selectedClasse = hoveredClasse;
@@ -330,44 +345,55 @@ public class SelectScreen {
 	
 	private static void selectRace() {
 		int i = 0;
-		float x = Display.getWidth()/2-875*Mideas.getDisplayXFactor();
-		float y = Display.getHeight()/2-340*Mideas.getDisplayYFactor();
+		float x = -875;
+		float y = -338;
 		while(i < 10) {
-			if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+63*Mideas.getDisplayXFactor() && Mideas.mouseY() >= y && Mideas.mouseY() <= y+60*Mideas.getDisplayYFactor()) {
+			if(Mideas.mouseX() >= Display.getWidth()/2+x*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+(x+63)*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2+y*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()/2+(y+60)*Mideas.getDisplayYFactor()) {
 				hoveredRace = race[i];
 				x_hover_race = x;
 				y_hover_race = y;
-				Mideas.setHover(false);
 				break;
 			}
 			i++;
-			y+= 66*Mideas.getDisplayYFactor();
+			y+= 66;
 			if(i == 5) {
-				y = Display.getHeight()/2-340*Mideas.getDisplayYFactor();
-				x = Display.getWidth()/2-742*Mideas.getDisplayXFactor();
+				y = -338;
+				x = -742;
 			}
 		}
 	}
 	
 	private static void selectClasse() {
 		int i = 0;
-		float x = Display.getWidth()/2-868*Mideas.getDisplayXFactor();
-		float y = Display.getHeight()/2+99*Mideas.getDisplayYFactor();
+		float x = -868;
+		float y = 99;
 		while(i < selectedRace.getClasse().length) {
-			if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+58*Mideas.getDisplayXFactor() && Mideas.mouseY() >= y && Mideas.mouseY() <= y+57*Mideas.getDisplayYFactor()) {
+			if(Mideas.mouseX() >= Display.getWidth()/2+x*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+(x+58)*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2+y*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()/2+(y+57)*Mideas.getDisplayYFactor()) {
 				hoveredClasse = selectedRace.getClasse()[i];
 				x_hover_classe = x;
 				y_hover_classe = y;
-				Mideas.setHover(false);
 				break;
 			}
 			i++;
 			x+= 61;
 			if(i == 3) {
-				x = Display.getWidth()/2-868*Mideas.getDisplayXFactor();
-				y+= 56;
+				x = -868;
+				y+= 60;
 			}
 		}	
+	}
+	
+	private static void selectCharacter() {
+		int i = 0;
+		float y = 110*Mideas.getDisplayYFactor();
+		hoveredCharacter = -1;
+		while(i < totalCharacter) {
+			if(Mideas.mouseX() >= Display.getWidth()/2+605*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+605*Mideas.getDisplayXFactor()+Sprites.selected_character.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= y && Mideas.mouseY() <= y+Sprites.selected_character.getImageHeight()*Mideas.getDisplayXFactor()) {
+				hoveredCharacter = i;
+			}
+			y+= 72*Mideas.getDisplayYFactor();
+			i++;
+		}
 	}
 	
 	static void createCharacter() {
@@ -414,10 +440,10 @@ public class SelectScreen {
 	
 	private static void drawCharacter(int i, float y) {
 		if(characterList[i] != null) {
-			if(selectedCharacter[i]) {
-				Draw.drawQuad(Sprites.selected_character, Display.getWidth()/2+600*Mideas.getDisplayXFactor(), y-15, Sprites.selected_character.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.selected_character.getImageHeight()*Mideas.getDisplayYFactor());
+			if(selectedCharacter[i] || hoveredCharacter == i) {
+				Draw.drawQuad(Sprites.selected_character, Display.getWidth()/2+605*Mideas.getDisplayXFactor(), y-10, Sprites.selected_character.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.selected_character.getImageHeight()*Mideas.getDisplayYFactor());
 			}
-			TTF2.selectScreenName.drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y, characterList[i].getName(), Color.decode("#FFC700"), Color.black, 2, 1, 2);
+			TTF2.selectScreenName.drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y, characterList[i].getName(), YELLOW, Color.black, 2, 1, 2);
 			TTF2.selectScreenLevel.drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y+27, convClasseToString(characterList[i].getClasse())+" level "+characterList[i].getLevel(), Color.white, Color.black, 1, 1, 2);
 		}
 	}

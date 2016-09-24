@@ -55,9 +55,8 @@ public class ChangeBackGroundFrame {
 	}
 	
 	private static void isHover(int x, int y, int i) {
-		if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+350 && Mideas.mouseY() >= y && Mideas.mouseY() <= y+219) {
+		if(Mideas.mouseX() >= x && Mideas.mouseX() <= x+350 && Mideas.mouseY() >= y && Mideas.mouseY() <= y+219) {
 			hover[i] = true;
-			Mideas.setHover(false);
 		}
 	}
 	

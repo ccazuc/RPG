@@ -94,9 +94,9 @@ public class ConnectionManager {
 		if(socket.isConnected()) {
 			byte packetId = -1;
 			try {
-				if(connection.read() == 1 && connection.hasRemaining()) {
+				connection.read();
+				if(connection.hasRemaining()) {
 					packetId = connection.readByte();
-					System.out.println(packetId);
 				}
 			} 
 			catch (IOException e) {

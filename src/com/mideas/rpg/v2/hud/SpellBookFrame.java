@@ -62,9 +62,8 @@ public class SpellBookFrame {
 	}
 	
 	private static boolean isHoverBook(int x, int y, int yShift, int i) {
-		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+x+20 && Mideas.mouseX() <= Display.getWidth()/2+x+20+44 && Mideas.mouseY() >= Display.getHeight()/2+y+yShift+15 && Mideas.mouseY() <= Display.getHeight()/2+y+yShift+15+44) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x+20 && Mideas.mouseX() <= Display.getWidth()/2+x+20+44 && Mideas.mouseY() >= Display.getHeight()/2+y+yShift+15 && Mideas.mouseY() <= Display.getHeight()/2+y+yShift+15+44) {
 			hover_book[i] = true;
-			Mideas.setHover(false);
 		}
 		return false;
 	}

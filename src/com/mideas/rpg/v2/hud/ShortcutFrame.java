@@ -115,8 +115,7 @@ public class ShortcutFrame {
 	}
 	
 	private static boolean isHover(int x, int y) {
-		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+Sprites.shortcut_hover.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+Sprites.shortcut_hover.getImageHeight()) {
-			Mideas.setHover(false);
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+Sprites.shortcut_hover.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+Sprites.shortcut_hover.getImageHeight()) {
 			return true;
 		}
 		return false;

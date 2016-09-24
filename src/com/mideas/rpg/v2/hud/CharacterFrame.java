@@ -125,17 +125,14 @@ public class CharacterFrame {
 		hoverCloseButton = false;
 		hoverCloseGemFrameButton = false;
 		hoverCharacterFrame[hoveredSlot] = false;
-		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2+70+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2+70+Sprites.close_button_inventory_down.getImageWidth()+xMouseShift+gemFrame && Mideas.mouseY() >= Display.getHeight()/2-366+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-366+Sprites.close_button_inventory_down.getImageHeight()+yMouseShift) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+70+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2+70+Sprites.close_button_inventory_down.getImageWidth()+xMouseShift+gemFrame && Mideas.mouseY() >= Display.getHeight()/2-366+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-366+Sprites.close_button_inventory_down.getImageHeight()+yMouseShift) {
 			hoverCloseButton = true;
-			Mideas.setHover(false);
 		}
-		else if(Mideas.getHover() && gemFrameOpen && Mideas.mouseX() >= Display.getWidth()/2+70+xMouseShift && Mideas.mouseX() <= Display.getWidth()/2+70+Sprites.close_button_inventory_down.getImageWidth()+xMouseShift && Mideas.mouseY() >= Display.getHeight()/2-366+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-366+Sprites.close_button_inventory_down.getImageHeight()+yMouseShift) {
+		else if(gemFrameOpen && Mideas.mouseX() >= Display.getWidth()/2+70+xMouseShift && Mideas.mouseX() <= Display.getWidth()/2+70+Sprites.close_button_inventory_down.getImageWidth()+xMouseShift && Mideas.mouseY() >= Display.getHeight()/2-366+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-366+Sprites.close_button_inventory_down.getImageHeight()+yMouseShift) {
 			hoverCloseGemFrameButton = true;
-			Mideas.setHover(false);
 		}
-		else if(Mideas.getHover() && Mideas.mouseX()>= Display.getWidth()/2-300+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-368+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-368+yMouseShift+8) {
+		else if(Mideas.mouseX()>= Display.getWidth()/2-300+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-368+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-368+yMouseShift+8) {
 			hoverMove = true;
-			Mideas.setHover(false);
 		}
 		if(moving) {
 			yMouseShift = Mideas.mouseY()-baseMouseY+lastMouseY;

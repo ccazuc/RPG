@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.command;
 import static com.mideas.rpg.v2.connection.PacketID.CREATE_CHARACTER;
 import static com.mideas.rpg.v2.connection.PacketID.ERROR_NAME_ALPHABET;
 import static com.mideas.rpg.v2.connection.PacketID.ERROR_NAME_ALREADY_TAKEN;
+import static com.mideas.rpg.v2.connection.PacketID.ERROR_NAME_LENGTH;
 
 import com.mideas.rpg.v2.Mideas;
 
@@ -32,16 +33,26 @@ public class CommandCreateCharacter extends Command {
 			SelectScreen.getAlert().setActive();
 			SelectScreen.getAlert().setText("Ce nom est déjà utilisé");
 		}
+		else if(packetId == ERROR_NAME_LENGTH) {
+			SelectScreen.getAlert().setActive();
+			SelectScreen.getAlert().setText("Votre nom doit contenir entre 2 et 10 caractères.");
+		}
 	}
 	
 	public static void write(String name) {
-		if(ConnectionManager.isConnected()) {
-			ConnectionManager.getConnection().writeByte(CREATE_CHARACTER);
-			ConnectionManager.getConnection().writeString(name);
-			ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
-			ConnectionManager.getConnection().writeString(SelectScreen.getSelectedClasse());
-			ConnectionManager.getConnection().writeString(SelectScreen.getSelectedRace());
-			ConnectionManager.getConnection().send();
+		if(name.length() >= 2 && name.length() <= 10) {
+			if(ConnectionManager.isConnected()) {
+				ConnectionManager.getConnection().writeByte(CREATE_CHARACTER);
+				ConnectionManager.getConnection().writeString(name);
+				ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
+				ConnectionManager.getConnection().writeString(SelectScreen.getSelectedClasse());
+				ConnectionManager.getConnection().writeString(SelectScreen.getSelectedRace());
+				ConnectionManager.getConnection().send();
+			}
+		}
+		else {
+			SelectScreen.getAlert().setActive();
+			SelectScreen.getAlert().setText("Votre nom doit contenir entre 2 et 10 caractères.");
 		}
 	}
 }
