@@ -17,6 +17,7 @@ import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.profession.Profession;
+import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellType;
@@ -75,6 +76,7 @@ public class Joueur {
 		this.weaponType = weaponType;
 		this.stuff = stuff;
 		this.wear = wear;
+		this.firstProfession = ProfessionManager.getProfession(0);
 	}
 	
 	public Joueur(Joueur joueur) {

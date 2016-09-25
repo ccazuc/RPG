@@ -103,7 +103,7 @@ public class ConnectionManager {
 			} 
 			catch (IOException e) {
 				e.printStackTrace();
-				connection.close();
+				close();
 				Interface.setHasLoggedIn(false);
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);

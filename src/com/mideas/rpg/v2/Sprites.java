@@ -255,6 +255,7 @@ public class Sprites {
 	public static Texture bot_button;
 	public static Texture cast_bar;
 	public static Texture cast_bar_progression;
+	public static Texture cast_bar_glow;
 	public static Texture loading_screen_bar;
 	public static Texture loading_screen_bar_progress;
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
@@ -446,8 +447,9 @@ public class Sprites {
 		bot_button = new Texture("sprite/interface/scrollBar/bot_button.png");
 		profession_border = new Texture("sprite/interface/profession/border.png");
 		button_disabled = new Texture("sprite/interface/button_disabled.png");
-		cast_bar = new Texture("sprite/interface/cast_bar.png");
-		cast_bar_progression = new Texture("sprite/interface/cast_bar_progression.png");
+		cast_bar = new Texture("sprite/interface/cast/cast_bar.png");
+		cast_bar_progression = new Texture("sprite/interface/cast/cast_bar_progression.png");
+		cast_bar_glow = new Texture("sprite/interface/cast/cast_bar_glow.png");
 		quatre_green_talent = new Texture("sprite/interface/talent/4_green_talent.png");
 		trois_yellow_square_talent = new Texture("sprite/interface/talent/yellow_3-3_talent.png");
 		deux_yellow_square_talent = new Texture("sprite/interface/talent/yellow_2-2_talent.png");

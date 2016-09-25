@@ -12,7 +12,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class ShortcutFrame {
 	
-	private static boolean[] hover = new boolean[9];
+	private static boolean[] hover = new boolean[8];
 	private static int x = 45;
 	private static int xShift = 33;
 	private static int y = -43;

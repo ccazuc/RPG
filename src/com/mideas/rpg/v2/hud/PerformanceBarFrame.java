@@ -5,6 +5,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -12,12 +13,10 @@ public class PerformanceBarFrame {
 	
 	private static boolean hoverPerformanceBar;
 	private static boolean topPerformanceBarActive = true;
-	private static Color bgColor = new Color(0, 0, 0, .7f);
 
 	public static void draw() {
 		if(hoverPerformanceBar) {
-			Draw.drawColorQuad(Display.getWidth()-400, Display.getHeight()-460, 270, 350, bgColor);
-			Draw.drawColorQuadBorder(Display.getWidth()-400, Display.getHeight()-460, 270, 350, Color.white);
+			Draw.drawQuad(Sprites.tooltip, Display.getWidth()-400, Display.getHeight()-460, 270, 350);
 			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-450, "used RAM : "+Long.toString(Mideas.getUsedRAM()/(1024L*1024L))+" Mo", Color.white, Color.black, 1);
 			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-430, "Fps : "+Mideas.getFps(), Color.white, Color.black, 1);
 			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-410, "Draw time :", Color.white, Color.black, 1);

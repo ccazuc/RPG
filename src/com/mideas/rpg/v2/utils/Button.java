@@ -23,7 +23,7 @@ public class Button {
 	private float y_size = Sprites.button.getImageHeight();
 	private Texture texture = Sprites.button;
 	private String text;
-	private TTF font;
+	protected TTF font;
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private Color color = Color.decode("#FFC700");

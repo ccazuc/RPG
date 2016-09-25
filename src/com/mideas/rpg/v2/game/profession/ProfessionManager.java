@@ -106,7 +106,6 @@ public class ProfessionManager {
 			//craftableList.add(new CraftableItem(id, level, item, ressource1, ressource1Amount, ressource2, ressource2Amount, ressource3, ressource3Amount, ressource4, ressource4Amount, ressource5, ressource5Amount, ressource6, ressource6Amount));
 		}
 		loadUnlockedCraft();
-		
 		statement = Mideas.getJDO().prepare("SELECT id, name, item1, item2, item3, item4, item5, item6, item7, item8, item9, item10 FROM craft_category");
 		statement.execute();
 		while(statement.fetch()) {
@@ -124,7 +123,6 @@ public class ProfessionManager {
 			CraftableItem item10 = getCraftableItem(statement.getInt());
 			categoryList.add(new Category(id, name, item1, item2, item3, item4, item5, item6, item7, item8, item9, item10));
 		}
-		
 		statement = Mideas.getJDO().prepare("SELECT name, id, category1, category2, category3, category4, category5, category6, category7, category8 FROM craft_profession");
 		statement.execute();
 		while(statement.fetch()) {
@@ -140,7 +138,6 @@ public class ProfessionManager {
 			Category category8 = getCategory(statement.getInt());
 			professionList.add(new Profession(professionId, professionName, category1, category2, category3, category4, category5, category6, category7, category8));
 		}
-		
 		/*int i = 0;
 		int j = 0;
 		int k = 0;

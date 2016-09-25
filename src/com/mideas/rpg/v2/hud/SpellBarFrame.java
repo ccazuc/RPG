@@ -26,14 +26,15 @@ import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.SpellType;
+import com.mideas.rpg.v2.hud.Cast;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Texture;
 
 public class SpellBarFrame {
 	
-	private static Shortcut hoveredSpell;
+	static Shortcut hoveredSpell;
 	private static boolean[] hoverSpellBar = new boolean[36];
-	private static Color bgColor = new Color(0, 0, 0, .6f); 
+	private static Color bgColor = new Color(0, 0, 0, .6f);
 	private static Color borderColor = Color.decode("#494D4B");
 	private static HashMap<Integer, Integer> numberItem = new HashMap<Integer, Integer>();
 	private static boolean itemChange = true;
@@ -49,15 +50,15 @@ public class SpellBarFrame {
 		}
 		hoveredSpell = null;
 		if(Mideas.getLevel() >= 70) {
-			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2+110, Display.getHeight()-Sprites.final_spellbar.getImageHeight()+24, 1155, 8,  Color.decode("#680764"));
+			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2+110, Display.getHeight()-Sprites.final_spellbar.getImageHeight()+24, 1155, 8);
 		}
 		else if(Mideas.getLevel() > 1) {
 			float e = ((float)Mideas.getCurrentExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
-			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2+115, Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayXFactor()+23*Mideas.getDisplayXFactor(), 1155*e, 9,  Color.decode("#680764"));
+			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2+115, Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayXFactor()+23*Mideas.getDisplayXFactor(), 1155*e, 9);
 		}
 		else {
 			float e = ((float)Mideas.getCurrentExp()/Mideas.getExpNeeded(Mideas.getLevel()));
-			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2+110, Display.getHeight()-Sprites.final_spellbar.getImageHeight()+24, 1155*e, 8,  Color.decode("#680764"));
+			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2+110, Display.getHeight()-Sprites.final_spellbar.getImageHeight()+24, 1155*e, 8);
 		}
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1);
         Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor());
@@ -103,7 +104,7 @@ public class SpellBarFrame {
 					Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-2+x, Display.getHeight()+y-2+yShift);
 					StuffShortcut spell = (StuffShortcut)Mideas.joueur1().getSpells(spellCount);
 					if(isEquippedItem(Mideas.joueur1().getSpells(spellCount).getId())) {
-						//Draw.drawQuad(Sprites.equipped_item_frame, Display.getWidth()/2+x, Display.getHeight()+y-1+yShift);
+						Draw.drawQuad(Sprites.equipped_item_frame, Display.getWidth()/2+x, Display.getHeight()+y-1+yShift);
 					}
 					if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+37+x && Mideas.mouseY() >= Display.getHeight()+y-2+yShift  && Mideas.mouseY() <= Display.getHeight()-2+yShift) {
 						hoveredSpell = spell;
@@ -208,11 +209,15 @@ public class SpellBarFrame {
 			if(!Mouse.getEventButtonState() && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null && DragManager.getDraggedItem() == null) {
 				if(hoveredSpell != null && DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
 					if(hoveredSpell.getShortcutType() == ShortcutType.SPELL) {
-						if(SpellManager.getCd(((SpellShortcut)hoveredSpell).getSpell().getSpellId()) <= 0) {
+						if(SpellManager.getCd(((SpellShortcut)hoveredSpell).getSpell().getSpellId()) <= 0 && !CastBar.isCasting()) {
 							if(((SpellShortcut)hoveredSpell).getSpell().getCastTime() > 0) {
-								CastBar.event(((SpellShortcut)hoveredSpell).getSpell().getCastTime(), ((SpellShortcut)hoveredSpell).getSpell().getName());
-								tempSpell = (SpellShortcut)hoveredSpell;
 								isCastingSpell = true;
+								CastBar.addCast(new Cast(((SpellShortcut)hoveredSpell).getSpell().getCastTime(), ((SpellShortcut)hoveredSpell).getSpell().getName()) {
+									@Override
+									public void endCastEvent() {
+										((SpellShortcut)hoveredSpell).getSpell().action(Mideas.joueur1(), Mideas.joueur2());
+									}
+								});
 							}
 							else {
 								hoveredSpell.use(hoveredSpell);
@@ -295,11 +300,15 @@ public class SpellBarFrame {
 	
 	public static void keyboardAttack(Shortcut spell) throws SQLException, FileNotFoundException {
 		if(spell != null && spell.getShortcutType() == ShortcutType.SPELL) {
-			if(SpellManager.getCd(((SpellShortcut)spell).getSpell().getSpellId()) <= 0) {
+			if(SpellManager.getCd(((SpellShortcut)spell).getSpell().getSpellId()) <= 0 && !CastBar.isCasting()) {
 				if(((SpellShortcut)spell).getSpell().getCastTime() > 0) {
 					isCastingSpell = true;
-					CastBar.event(((SpellShortcut)spell).getSpell().getCastTime(), ((SpellShortcut)spell).getSpell().getName());
-					tempSpell = (SpellShortcut)spell;
+					CastBar.addCast(new Cast(((SpellShortcut)spell).getSpell().getCastTime(), ((SpellShortcut)spell).getSpell().getName()) {
+						@Override
+						public void endCastEvent() {
+							((SpellShortcut)spell).getSpell().action(Mideas.joueur1(), Mideas.joueur2());
+						}
+					});
 				}
 				else {
 					spell.use(spell);

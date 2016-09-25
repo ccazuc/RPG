@@ -366,12 +366,6 @@ public class Interface {
 						containerFrameActive = !containerFrameActive;
 						return true;
 					}
-					else if(Keyboard.getEventKey() == Keyboard.KEY_W) {
-						CastBar.event(5, "Random");
-					}
-					else if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						CastBar.event(2, "Random");
-					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_T && !escapeFrameActive) {
 						closeCharacterFrame();
 						closeSpellBookFrame();

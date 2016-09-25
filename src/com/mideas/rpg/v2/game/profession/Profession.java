@@ -32,6 +32,11 @@ public class Profession {
 	private float y_offset;
 	private static final int MAX_HEIGHT = 140;
 	private static final Color BG_COLOR = new Color(0, 0, 0, .5f); 
+	private static final Color YELLOW = Color.decode("#DDB500");
+	private static final Color ORANGE = Color.decode("#A8542A");
+	private static final Color YELLOW_CRAFT = Color.decode("#B9B700");
+	private static final Color GREEN = Color.decode("#2D852D");
+	private static final Color GREY = Color.decode("#585758");
 
 	private Button craftButton = new Button(0, 0, 185, 34, "Create", 10) {
 		@Override
@@ -107,7 +112,7 @@ public class Profession {
 	public void draw(int x, int y) {
 		if(!this.init) {
 			if(this.scrollBar == null ) {
-				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
+				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 17*Mideas.getDisplayXFactor());
 			}
 			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
 				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
@@ -188,7 +193,7 @@ public class Profession {
 	public void event(int x, int y) throws NoSuchAlgorithmException, SQLException {
 		if(!this.init) {
 			if(this.scrollBar == null ) {
-				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
+				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 17*Mideas.getDisplayXFactor());
 			}
 			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
 				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
@@ -236,7 +241,7 @@ public class Profession {
 	private void drawSelectedItem(float x, float y) {
 		Draw.drawQuad(IconsManager.getSprite37(this.selectedItem.getItem().getSpriteId()), x, y, 41*Mideas.getDisplayXFactor(), 39*Mideas.getDisplayXFactor());
 		Draw.drawQuad(Sprites.profession_border, x, y);
-		TTF2.craft.drawString(x+53*Mideas.getDisplayXFactor(), y+2, this.selectedItem.getItem().getStuffName(), Color.decode("#DDB500"));
+		TTF2.craft.drawString(x+53*Mideas.getDisplayXFactor(), y+2, this.selectedItem.getItem().getStuffName(), YELLOW);
 		drawComponent(x-4, y+61*Mideas.getDisplayXFactor(), 0);
 	}
 	
@@ -248,7 +253,7 @@ public class Profession {
 				Draw.drawColorQuad(x, y, 42*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayXFactor(), BG_COLOR);
 			}
 			TTF2.craft.drawStringShadow(x+39-TTF2.craft.getWidth(Integer.toString(Mideas.bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number)), y+23, Integer.toString(Mideas.bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number), Color.white, Color.black, 1, 1);
-			TTF2.craft.drawStringShadow(x+45*Mideas.getDisplayXFactor(), y, this.selectedItem.getNeededItem(0).getStuffName(), Color.decode("#DDB500"), Color.black, 1, 1);
+			TTF2.craft.drawStringShadow(x+45*Mideas.getDisplayXFactor(), y, this.selectedItem.getNeededItem(0).getStuffName(), YELLOW, Color.black, 1, 1);
 		}
 	}
 	
@@ -344,7 +349,7 @@ public class Profession {
 		if(category.getMouseHover()) {
 			return Color.white;
 		}
-		return Color.decode("#DDB500");
+		return YELLOW;
 		
 	}
 	
@@ -353,7 +358,7 @@ public class Profession {
 			this.scrollBar.update(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor());
 		}
 		else {
-			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false);
+			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 16*Mideas.getDisplayXFactor());
 		}
 		this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
 		this.craftButton.setY(y+440*Mideas.getDisplayXFactor());
@@ -383,16 +388,16 @@ public class Profession {
 			return Color.white;
 		}
 		if(this.playerLevel-itemLevel < 15) {
-			return Color.decode("#A8542A");
+			return ORANGE;
 		}
 		if(this.playerLevel-itemLevel < 30) {
-			return Color.decode("#B9B700");
+			return YELLOW_CRAFT;
 		}
 		if(this.playerLevel-itemLevel < 45) {
-			return Color.decode("#2D852D");
+			return GREEN;
 		}
 		if(this.playerLevel-itemLevel > 45) {
-			return Color.decode("#585758");
+			return GREY;
 		}
 		return null;
 	}

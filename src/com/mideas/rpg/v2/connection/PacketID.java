@@ -26,4 +26,5 @@ public class PacketID {
 	public static final byte POTION = 22;
 	public static final byte SEND_EQUIPPED_ITEMS = 23;
 	public static final byte SEND_BAG_ITEMS = 24;
+	public static final byte PING = 25;
 }
