@@ -72,6 +72,7 @@ public class Interface {
 	private static boolean hasLoggedIn;
 	private static boolean isStuffFullyLoaded;
 	private static boolean isBagFullyLoaded;
+	private final static Color YELLOW = Color.decode("#F0CE0C");
 
 	public static void draw() throws IOException, SQLException {
 		Draw.drawQuadBG(Sprites.current_bg);
@@ -165,7 +166,7 @@ public class Interface {
 					ChatFrame.draw();
 				}
 				Draw.drawQuad(Sprites.level, 50, 95);
-				TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), Color.decode("#F0CE0C"), Color.black, 1, 1, 1);
+				TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), YELLOW, Color.black, 1, 1, 1);
 				ShortcutFrame.draw();
 				if(characterFrameActive) {
 					CharacterFrame.draw();

@@ -63,8 +63,9 @@ public class SpellManager {
 					spellCdList.put(id, 0);
 					spellList.add(new Spell(id, sprite_id, name, spellType, damage, manaCost, stunRate, stunDuration, cd, castTime) {
 						@Override
-						public void action(Joueur target, Joueur caster) {
-							this.doDamage(target, caster);
+						public void action(Joueur caster, Joueur target) {
+							this.doDamage(caster, target);
+							caster.setMana(Math.max(0, caster.getMana()-manaCost));
 						}
 					});
 				}

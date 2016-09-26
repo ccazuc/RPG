@@ -31,7 +31,7 @@ public class StuffShortcut implements Shortcut {
 		if(DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
 			while(i < Mideas.joueur1().getStuff().length) {
 				if(this.stuff.getItemType() == ItemType.STUFF) {
-					if(this.stuff != null && this.stuff.getType() == StuffType.values()[i] && this.stuff.canEquipTo(DragManager.convClassType()) && Mideas.joueur1().canWear(this.stuff)) {
+					if(this.stuff != null && this.stuff.getType() == DragManager.getStuffType(i) && this.stuff.canEquipTo(DragManager.convClassType()) && Mideas.joueur1().canWear(this.stuff)) {
 						if(Mideas.getLevel() >= this.stuff.getLevel()) {
 							if(Mideas.joueur1().getStuff(i) == null) {
 								Mideas.joueur1().setStuff(i, this.stuff);

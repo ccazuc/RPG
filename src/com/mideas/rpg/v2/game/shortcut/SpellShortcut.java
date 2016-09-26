@@ -23,11 +23,8 @@ public class SpellShortcut implements Shortcut {
 	
 	@Override
 	public boolean use(Shortcut spell) throws SQLException {
-		if(Mideas.joueur1().cast(((SpellShortcut)spell).getSpell())) {
-			SpellBarFrame.setIsCastingSpell(false);
-			return true;
-		}
-		return false;
+		(((SpellShortcut)spell).getSpell()).action(Mideas.joueur1(), Mideas.joueur2());
+		return true;
 	}
 	
 	@Override

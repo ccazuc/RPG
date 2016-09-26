@@ -35,6 +35,7 @@ public class TTF2 {
 	public static TTF selectScreenDeleteCharacterConfirm;
 	public static TTF alertFont;
 	public static TTF craft;
+	public static TTF checkBox;
 	
 	public static void init() throws FontFormatException, IOException {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
@@ -86,7 +87,6 @@ public class TTF2 {
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream); 
 		awtFont = awtFont.deriveFont(15f);
-		awtFont = awtFont.deriveFont(Font.BOLD);
 		statsName= new TTF(awtFont, true);
 		
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
@@ -97,7 +97,6 @@ public class TTF2 {
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-		awtFont = awtFont.deriveFont(Font.BOLD);
 		awtFont = awtFont.deriveFont(11f);
 	    coin = new TTF(awtFont, true);
 	    
@@ -176,5 +175,11 @@ public class TTF2 {
 		awtFont = awtFont.deriveFont(13f);
 		awtFont = awtFont.deriveFont(Font.BOLD);
 		craft = new TTF(awtFont, true);
+
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(13f);
+		checkBox = new TTF(awtFont, true);
 	}
 }

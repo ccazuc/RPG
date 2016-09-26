@@ -115,7 +115,7 @@ public class ConnectionManager {
 	}
 	
 	private static void readPacket() {
-		while(connection.hasRemaining()) {
+		while(connection != null && connection.hasRemaining()) {
 			byte packetId = connection.readByte();
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();

@@ -49,7 +49,7 @@ public class DragManager {
 		public void eventButtonClick() throws SQLException {
 			if(draggedItem.isStackable()) {
 				Mideas.joueur1().setNumberItem(draggedItem, -1);
-				SpellBarFrame.setItemChange(true);
+				Mideas.bag().setBagChange(true);
 			}
 			if(checkCharacterItems(draggedItem)) {
 				calcStatsLess(draggedItem);
@@ -256,7 +256,6 @@ public class DragManager {
 							if(ContainerFrame.getContainerFrameSlotHover(i)) {
 								if(Mideas.bag().getBag(i).isPotion()) {
 									doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), i);
-									SpellBarFrame.setItemChange(true);
 									clickBag[bagClickedSlot] = false;
 									return true;
 								}
@@ -379,11 +378,13 @@ public class DragManager {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
+				Mideas.bag().setBagChange(true);
 			}
 			else if(Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()+item.getPotionHeal());
 				LogChat.setStatusText3("Vous vous êtes rendu "+item.getPotionHeal()+" hp");
 				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
+				Mideas.bag().setBagChange(true);
 			}
 			else {
 				LogChat.setStatusText3("Vos HP étaient déjà au maximum");

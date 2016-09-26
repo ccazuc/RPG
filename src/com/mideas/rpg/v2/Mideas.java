@@ -555,7 +555,7 @@ public class Mideas {
 		}
 	}
 	
-	private static void loadingScreen() throws IOException {
+	public static void loadingScreen() throws IOException {
 		Sprites.initBG();
 		context2D();
 		int barWidth = (int)(850*Mideas.getDisplayXFactor());

@@ -28,6 +28,7 @@ public class Spell {
 		this.name = name;
 		this.type = type;
 		this.damage = damage;
+		this.defaultDamage = damage;
 		this.manaCost = manaCost;
 		this.stunRate = stunRate;
 		this.stunDuration = stunDuration;

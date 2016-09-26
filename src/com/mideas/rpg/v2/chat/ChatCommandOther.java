@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.chat;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import org.newdawn.slick.Color;
@@ -67,6 +68,14 @@ public class ChatCommandOther {
 				Mideas.bag().setBagChange(true);
 				CommandLoadCharacter.write(1);
 				Interface.setStuffFullyLoaded(false);
+			}
+			else if(datas[0].equals(".reloadui")) {
+				try {
+					Mideas.loadingScreen();
+				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			else if(datas[0].equals(".additem")) {
 				if(datas.length >= 2) {

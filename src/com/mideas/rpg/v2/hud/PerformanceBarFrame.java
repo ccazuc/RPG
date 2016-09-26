@@ -35,7 +35,7 @@ public class PerformanceBarFrame {
 	
 	public static boolean mouseEvent() {
 		hoverPerformanceBar = false;
-		if(Mideas.mouseX()>= Display.getWidth()/2+300 && Mideas.mouseX() <= Display.getWidth()/2+325 && Mideas.mouseY() >= Display.getHeight()-45) {
+		if(Mideas.mouseX()>= Display.getWidth()/2+300*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+325*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()-45*Mideas.getDisplayYFactor()) {
 			hoverPerformanceBar = true;
 		}
 		return false;

@@ -226,6 +226,7 @@ public class Sprites {
 	public static Texture select_screen_hover;
 	public static Texture exp_bar;
 	public static Texture life_bar;
+	public static Texture mana_bar;
 	public static Texture big_alert;
 	public static Texture input_box;
 	public static Texture top_left_corner_alert;
@@ -258,6 +259,11 @@ public class Sprites {
 	public static Texture cast_bar_glow;
 	public static Texture loading_screen_bar;
 	public static Texture loading_screen_bar_progress;
+	public static Texture check_box;
+	public static Texture check_box_hover;
+	public static Texture check_box_down;
+	public static Texture check_box_down_hover;
+	public static Texture check_box_enable;
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
 	private static String outland = "sprite/interface/loading_screen/LoadScreenOutlandWide.png";
@@ -459,6 +465,11 @@ public class Sprites {
 		right_colored_arrow = new Texture("sprite/interface/right_colored_arrow.png");
 		right_uncolored_arrow = new Texture("sprite/interface/right_uncolored_arrow.png");
 		gold_coin = new Texture("sprite/interface/gold_coin.png");
+		check_box = new Texture("sprite/interface/checkBox/check_box.png");
+		check_box_hover = new Texture("sprite/interface/checkBox/check_box_hover.png");
+		check_box_down = new Texture("sprite/interface/checkBox/check_box_down2.png");
+		check_box_down_hover = new Texture("sprite/interface/checkBox/check_box_down_hover.png");
+		check_box_enable = new Texture("sprite/interface/checkBox/check_box_enable.png");
 		return true;
 	}
 		
@@ -517,6 +528,7 @@ public class Sprites {
 		close_shop_hover = new Texture("sprite/interface/buttons/close_shop_hover.png");
 		exp_bar = new Texture("sprite/interface/exp_bar.png");
 		life_bar = new Texture("sprite/interface/life_bar.png");
+		mana_bar = new Texture("sprite/interface/mana_bar.png");
 		big_alert = new Texture("sprite/interface/big_alert.png");
 		input_box = new Texture("sprite/interface/input_box.png");
 		return true;

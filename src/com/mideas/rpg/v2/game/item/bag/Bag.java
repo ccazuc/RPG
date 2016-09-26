@@ -16,6 +16,7 @@ public class Bag extends Item implements Cloneable {
 	private String name;
 	private int size;
 	private boolean bagChange = true;
+	private int numberFreeSlotBag;
 	
 	private static HashMap<Item, Integer> numberStack = new HashMap<Item, Integer>();
 	private static HashMap<Integer, Integer> itemList = new HashMap<Integer, Integer>();
@@ -41,7 +42,6 @@ public class Bag extends Item implements Cloneable {
 	public void event() {
 		if(this.bagChange) {
 			updateBagItem();
-			SpellBarFrame.setNumberFreeSlot(checkNumberFreeSlotBag());
 			this.bagChange = false;
 		}
 	}
@@ -65,6 +65,10 @@ public class Bag extends Item implements Cloneable {
 	
 	public int getSize() {
 		return this.size;
+	}
+	
+	public int getNumberFreeSlotBag() {
+		return this.numberFreeSlotBag;
 	}
 	
 	public String getSpriteId(int i) {
@@ -125,6 +129,7 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public void updateBagItem() {
+		this.numberFreeSlotBag = 0;
 		itemList.clear();
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
@@ -145,6 +150,9 @@ public class Bag extends Item implements Cloneable {
 						itemList.put(Mideas.bag().getBag(i).getId(), 1);
 					}
 				}
+			}
+			else {
+				this.numberFreeSlotBag++;
 			}
 			i++;
 		}

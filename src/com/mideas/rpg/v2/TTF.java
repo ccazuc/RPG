@@ -115,13 +115,13 @@ public final class TTF {
 		final float renderWidth = texWidth/this.textureWidth;
 		final float renderHeight = texHeight/this.textureHeight;
 		OpenGL.glTexCoord2f(textureSrcX, textureSrcY);
-		OpenGL.glVertex2f(x, y);
+		OpenGL.glVertex2f((int)x, (int)y);
 		OpenGL.glTexCoord2f(textureSrcX, textureSrcY+renderHeight);
-		OpenGL.glVertex2f(x, y+height);
+		OpenGL.glVertex2f((int)x, (int)(y+height));
 		OpenGL.glTexCoord2f(textureSrcX+renderWidth, textureSrcY+renderHeight);
-		OpenGL.glVertex2f(x+width, y+height);
+		OpenGL.glVertex2f((int)x+width, (int)(y+height));
 		OpenGL.glTexCoord2f(textureSrcX+renderWidth, textureSrcY);
-		OpenGL.glVertex2f(x+width, y);
+		OpenGL.glVertex2f((int)(x+width), (int)y);
 	}
 	
 	public final int getWidth(final String text) {
@@ -171,7 +171,7 @@ public final class TTF {
 		bind();
 		OpenGL.glBegin(OpenGL.GL_QUADS);
 		OpenGL.glColor4f(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getAlpha()*opacity/255f);
-		drawCharPart(x, y, character, scaleX, scaleY);
+		drawCharPart((int)x, (int)y, character, scaleX, scaleY);
 		OpenGL.glEnd();
 	}
 	

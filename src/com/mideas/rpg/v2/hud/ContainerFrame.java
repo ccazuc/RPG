@@ -207,9 +207,9 @@ public class ContainerFrame {
 			}
 		}
 		x = -303;
-		xShift = 42;
+		xShift = (int)(42*Mideas.getDisplayXFactor());
 		y = -50;
-		yShift = 41;
+		yShift = (int)(41*Mideas.getDisplayYFactor());
 		boolean backPack = true;
 		boolean first = true;
 		boolean second = true;

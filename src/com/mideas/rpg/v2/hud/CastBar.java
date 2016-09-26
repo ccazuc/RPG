@@ -7,7 +7,6 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class CastBar {
@@ -28,10 +27,10 @@ public class CastBar {
 			startCastTimer = System.currentTimeMillis();
 		}
 		if(currentCast != null && isCasting && (System.currentTimeMillis()-startCastTimer)/currentCast.getLength() < 1) {
-			Draw.drawColorQuad(Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw, BAR_WIDTH, 12, bgColor);
-			Draw.drawQuad(Sprites.cast_bar_progression, Display.getWidth()/2+xDraw, Display.getHeight()/2+yDraw-1, (float)((System.currentTimeMillis()-startCastTimer)/currentCast.getLength())*BAR_WIDTH, 12*Mideas.getDisplayXFactor());
-			Draw.drawQuad(Sprites.cast_bar_glow, Display.getWidth()/2+xDraw+(float)((System.currentTimeMillis()-startCastTimer)/currentCast.getLength())*BAR_WIDTH-17, Display.getHeight()/2+yDraw-Sprites.cast_bar_glow.getImageHeight()*Mideas.getDisplayXFactor()+22*Mideas.getDisplayXFactor());
-			Draw.drawQuad(Sprites.cast_bar, Display.getWidth()/2+xDraw-11, Display.getHeight()/2+yDraw-15, Sprites.cast_bar.getImageWidth()*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayXFactor());
+			Draw.drawColorQuad(Display.getWidth()/2+xDraw*Mideas.getDisplayXFactor(), Display.getHeight()/2+yDraw*Mideas.getDisplayYFactor(), BAR_WIDTH*Mideas.getDisplayXFactor(), 12*Mideas.getDisplayXFactor(), bgColor);
+			Draw.drawQuad(Sprites.cast_bar_progression, Display.getWidth()/2+xDraw*Mideas.getDisplayXFactor(), Display.getHeight()/2+yDraw*Mideas.getDisplayYFactor()-1, (float)((System.currentTimeMillis()-startCastTimer)/currentCast.getLength())*BAR_WIDTH*Mideas.getDisplayXFactor(), 12*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.cast_bar_glow, Display.getWidth()/2+xDraw*Mideas.getDisplayXFactor()+(float)((System.currentTimeMillis()-startCastTimer)/currentCast.getLength())*BAR_WIDTH*Mideas.getDisplayXFactor()-17*Mideas.getDisplayXFactor(), Display.getHeight()/2+yDraw*Mideas.getDisplayYFactor()-Sprites.cast_bar_glow.getImageHeight()*Mideas.getDisplayXFactor()+22*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.cast_bar, Display.getWidth()/2+(xDraw-11)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(yDraw-15)*Mideas.getDisplayYFactor(), Sprites.cast_bar.getImageWidth()*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayXFactor());
 		}
 		else if(currentCast != null && isCasting) {
 			currentCast.endCastEvent();

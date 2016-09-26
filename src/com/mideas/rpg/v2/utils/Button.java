@@ -170,9 +170,7 @@ public class Button {
 		this.x = x;
 	}
 	
-	public boolean activateCondition() {
-		return true;
-	}
+	protected boolean activateCondition() {return true;}
 	
 	public void setY(float y) {
 		this.y = y;
@@ -190,8 +188,8 @@ public class Button {
 		this.y_size = height*Mideas.getDisplayXFactor();
 	}
 	
-	@SuppressWarnings({ "unused"})
-	public void eventButtonClick() throws SQLException, NoSuchAlgorithmException {}
+	@SuppressWarnings("unused")
+	protected void eventButtonClick() throws NoSuchAlgorithmException, SQLException {}
 	
 	public boolean getButtonDown() {
 		return this.buttonDown;
