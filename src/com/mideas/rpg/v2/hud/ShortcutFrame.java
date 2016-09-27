@@ -18,7 +18,6 @@ public class ShortcutFrame {
 	private static int x = 45;
 	private static int xShift = 30;
 	private static int y = -43;
-	
 
 	public static void draw() {
 		if(Interface.isTalentFrameActive()) {

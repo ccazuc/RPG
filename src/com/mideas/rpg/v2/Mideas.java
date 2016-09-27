@@ -42,6 +42,7 @@ import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
+import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.SelectScreen;
@@ -263,6 +264,7 @@ public class Mideas {
 		SelectScreen.updateSize();
 		DragManager.updateSize();
 		AdminPanelFrame.updateSize();
+		ContainerFrame.updateBagFrameSize();
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
 			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
 		}

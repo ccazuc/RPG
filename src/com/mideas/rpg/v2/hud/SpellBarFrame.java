@@ -151,23 +151,24 @@ public class SpellBarFrame {
 			}
 		}
 		int i = 0;
-		float xBag = 491;
-		float xBagShift = -48.2f;
+		float xBag = 489*Mideas.getDisplayXFactor();
+		float xBagShift = -48.2f*Mideas.getDisplayXFactor();
+		float yBag = -40*Mideas.getDisplayYFactor();
 		while(i < 4) {
 			if(Mideas.bag().getEquippedBag(i) != null) {
-				Draw.drawQuad(IconsManager.getSprite37(Mideas.bag().getSpriteId(i)), Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-40);
+				Draw.drawQuad(IconsManager.getSprite37(Mideas.bag().getSpriteId(i)), Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
 				if(DragBagManager.getHoverBag(i)) {
-					Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-41);
+					Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
 					Draw.drawColorQuad(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-92, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), 50, bgColor);
 					Draw.drawColorQuadBorder(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-93, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), 52, borderColor);
 					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-87, Mideas.bag().getEquippedBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
 					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-67, "Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots", Color.white, Color.black, 1, 1, 1);
 				}
 				if(DragBagManager.getClickBag(i)) {
-					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-41);
+					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
 				}
 				if(ContainerFrame.getBagOpen(i+1)) {
-					Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-41);
+					Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
 					Draw.drawQuad(Sprites.cursor, -5000, -5000);
 					i++;
 					continue;
