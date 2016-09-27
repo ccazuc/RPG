@@ -185,10 +185,10 @@ public class Sprites {
 	public static Texture final_spellbar;
 	public static Texture spellbar_case;
 	public static Texture spellbar_case2;
-	public static Texture talent_frame_open;
-	public static Texture spellbook_frame_open;
-	public static Texture character_frame_open;
-	public static Texture escape_frame_open;
+	//public static Texture talent_frame_open;
+	//public static Texture spellbook_frame_open;
+	//public static Texture character_frame_open;
+	//public static Texture escape_frame_open;
 	public static Texture equipped_item_frame;
 	public static Texture shortcut_hover;
 	public static Texture bag_hover_tooltip;
@@ -264,6 +264,8 @@ public class Sprites {
 	public static Texture check_box_down;
 	public static Texture check_box_down_hover;
 	public static Texture check_box_enable;
+	public static Texture interface_option_frame;
+	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
 	private static String outland = "sprite/interface/loading_screen/LoadScreenOutlandWide.png";
@@ -303,11 +305,19 @@ public class Sprites {
 		elevator_button = new Texture("sprite/interface/elevator_button.png");
 		bag_click_hover = new Texture("sprite/interface/bag_click_hover.png");
 		inventory_click_hover = new Texture("sprite/interface/inventory_click_hover.png");
-		spellbook_frame_open = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-Spellbook-Down.png");
+		//spellbook_frame_open = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-Spellbook-Down.png");
 		bag_open_border = new Texture("sprite/interface/bag_open_border.png");
-		talent_frame_open = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-Talents-Down.png");
-		character_frame_open = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-CharacterNightElf-Down.png");
-		escape_frame_open = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-MainMenu-Down.png");
+		shortcut[0] = new Texture("sprite/interface/shortcut/character_frame_open.png");
+		shortcut[1] = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-Spellbook-Down.png");
+		shortcut[2] = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-Talents-Down.png");
+		//shortcut[3] = quest_open
+		//shortcut[4] = social_open
+		//shortcut[5] = lfg_open
+		shortcut[6] = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-MainMenu-Down.png");
+		//shortcut[7] = request_open
+		//talent_frame_open = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-Talents-Down.png");
+		//character_frame_open = new Texture("sprite/interface/shortcut/character_frame_open.png");
+		//escape_frame_open = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-MainMenu-Down.png");
 		spellbar_case = new Texture("sprite/interface/UI-Quickslot.png");
 		spellbar_case2 = new Texture("sprite/interface/UI-Quickslot.png");
 		final_spellbar = new Texture("sprite/interface/very_final_spellbar.png");
@@ -470,6 +480,7 @@ public class Sprites {
 		check_box_down = new Texture("sprite/interface/checkBox/check_box_down2.png");
 		check_box_down_hover = new Texture("sprite/interface/checkBox/check_box_down_hover.png");
 		check_box_enable = new Texture("sprite/interface/checkBox/check_box_enable.png");
+		interface_option_frame = new Texture("sprite/interface/interface_option_frame.png");
 		return true;
 	}
 		

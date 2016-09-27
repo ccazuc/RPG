@@ -180,6 +180,7 @@ public class Interface {
 				DragBagManager.draw();
 				DragSpellManager.draw();
 				Mideas.bag().event();
+				Draw.drawQuad(Sprites.interface_option_frame, Display.getWidth()/2-200, Display.getHeight()/2-200);
 			}
 		}
 		if(changeBackgroundFrameActive) {

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
-import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class Bag extends Item implements Cloneable {
 	
@@ -76,18 +75,6 @@ public class Bag extends Item implements Cloneable {
 			return this.equippedBag[i].sprite_id;
 		}
 		return null;
-	}
-	
-	private static int checkNumberFreeSlotBag() {
-		int i = 0;
-		int number = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == null) {
-				number++;
-			}
-			i++;
-		}
-		return number;
 	}
 	
 	public void setEquippedBag(int i, Bag bag) {

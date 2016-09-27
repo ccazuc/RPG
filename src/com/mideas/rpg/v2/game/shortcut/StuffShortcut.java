@@ -11,7 +11,6 @@ import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
-import com.mideas.rpg.v2.game.item.stuff.StuffType;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
 

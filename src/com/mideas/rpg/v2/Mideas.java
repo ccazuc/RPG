@@ -496,45 +496,6 @@ public class Mideas {
 		joueur1 = new Joueur(joueur);
 	}
 	
-	public static int getClassLine() {
-		if(joueur1 != null) {
-			if(joueur1.getClasse().equals("DeathKnight")) {
-				return 0;
-			}
-			if(joueur1.getClasse().equals("Guerrier")) {
-				return 1;
-			}
-			if(joueur1.getClasse().equals("Hunter")) {
-				return 2;
-			}
-			if(joueur1.getClasse().equals("Mage")) {
-				return 3;
-			}
-			if(joueur1.getClasse().equals("Monk")) {
-				return 4;
-			}
-			if(joueur1.getClasse().equals("Paladin")) {
-				return 5;
-			}
-			if(joueur1.getClasse().equals("Priest")) {
-				return 6;
-			}
-			if(joueur1.getClasse().equals("Rogue")) {
-				return 7;
-			}
-			if(joueur1.getClasse().equals("Shaman")) {
-				return 8;
-			}
-			if(joueur1.getClasse().equals("Warlock")) {
-				return 9;
-			}
-			else {
-				return 10;
-			}
-		}
-		return 10;
-	}
-	
 	private static void lessCd() {
 		int i = 0;
 		int j = 0;

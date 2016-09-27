@@ -8,7 +8,6 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
-import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class SpellShortcut implements Shortcut {
 	
