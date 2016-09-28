@@ -104,7 +104,7 @@ public class ShortcutFrame {
 						Interface.closeTalentFrame();
 						Interface.closeSpellBookFrame();
 						Interface.closeAdminPanelFrame();
-						Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+						ContainerFrame.setHoverFalse();
 						CharacterFrame.setHoverFalse();
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
 						return true;

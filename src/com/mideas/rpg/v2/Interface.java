@@ -511,7 +511,7 @@ public class Interface {
 	}
 	
 	private static void closeBagEvent() {
-		Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+		ContainerFrame.setHoverFalse();
 		ContainerFrame.setIsOneButtonDown(false);
 	}
 	public static void closeCharacterFrame() {

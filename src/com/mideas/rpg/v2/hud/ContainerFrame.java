@@ -24,8 +24,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class ContainerFrame {
 	
-	private static boolean[] slot_hover = new boolean[97];
-	private static boolean[] itemNumberOpen = new boolean[97];
+	private static int hoveredSlot = -1;
 	private static final Color bgColor = new Color(0, 0, 0, .6f); 
 	private static final Color borderColor = Color.decode("#494D4B");
 	private static final Color BLUE = Color.decode("#0268CC");
@@ -43,7 +42,7 @@ public class ContainerFrame {
 	private static boolean isOneButtonDown;
 	private static int xItemNumber;
 	private static int yItemNumber;
-	private static int iItemNumber;
+	private static int iItemNumber = -1;
 	private static boolean itemNumberOkButton;
 	private static boolean itemNumberCancelButton;
 	private static boolean itemNumberLeftArrow;
@@ -56,12 +55,12 @@ public class ContainerFrame {
  	
 	private static void drawBags(int i, int x_items, int y_items, int x_textt, int y_textt) {
 		drawBag(i, x_items, y_items);
-		if(slot_hover[i]) {
+		if(hoveredSlot == i) {
 			iHover = i;
 			x_item = x_items;
 			y_item = y_items;
 		}
-		if(itemNumberOpen[i]) {
+		if(iItemNumber == i) {
 			iItemNumber = i;
 			xItemNumber = x_items;
 			yItemNumber = y_items;
@@ -422,15 +421,12 @@ public class ContainerFrame {
 	
 	public static boolean mouseEvent() {
 		if(DragManager.isHoverBagFrame()) {
-			Arrays.fill(slot_hover, false);
+			hoveredSlot = -1;
 		}
 		itemNumberOkButton = false;
 		itemNumberCancelButton = false;
 		itemNumberLeftArrow = false;
 		itemNumberRightArrow = false;
-		if(iHover != -1) {
-			slot_hover[iHover] = false;
-		}
 		checkItemNumberMouseEvent();
 		if(!DragManager.isHoverCharacterFrame()) {
 			if(!Mouse.getEventButtonState()) {
@@ -450,7 +446,7 @@ public class ContainerFrame {
 						return true;
 					}
 					else if(itemNumberCancelButton) {
-						itemNumberOpen[iItemNumber] = false;
+						iItemNumber = -1;
 						numberItem = 1;
 						return true;
 					}
@@ -710,7 +706,7 @@ public class ContainerFrame {
 	
 	private static void slotHover(int x, int y, int i) {
 		if(Mideas.mouseX() >= Display.getWidth()+x-3 && Mideas.mouseX() <= Display.getWidth()+x+37 && Mideas.mouseY() >= Display.getHeight()+y-3 && Mideas.mouseY() <= Display.getHeight()+y+38) {
-			slot_hover[i] = true;
+			hoveredSlot = i;
 		}
 	}
 	
@@ -724,7 +720,7 @@ public class ContainerFrame {
 					Mideas.bag().setBag(i, null);
 				}
 			}
-			if(slot_hover[i]) {
+			if(hoveredSlot == i) {
 				Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
 			}
 			if(Mideas.bag().getBag(i) == DragManager.getDraggedItem()) {
@@ -747,7 +743,7 @@ public class ContainerFrame {
 			else if(Mideas.bag().getBag(i).isItem()) {
 				
 			}
-			itemNumberOpen[i] = false;
+			iItemNumber = -1;
 			numberItem = 1;
 			lastSplit = i;
 			DragManager.setDraggedItemSplit(true);
@@ -828,7 +824,7 @@ public class ContainerFrame {
 	}*/
 	
 	public static void drawHoverBag(int i, int x, int y) {
-		if(slot_hover[i] && !isHoverItemNumberFrame()) {
+		if(hoveredSlot == i && !isHoverItemNumberFrame()) {
 			if(Mideas.bag().getBag(i) != null) {
 				if(Mideas.bag().getBag(i).isStuff()) {
 					drawStuff(i, x, y);
@@ -1233,8 +1229,8 @@ public class ContainerFrame {
 		bagChange = we;
 	}
 	
-	public static void setItemNumberOpen(int i, boolean we) {
-		itemNumberOpen[i] = we;
+	public static void setItemNumberOpen(int i) {
+		iItemNumber = i;
 	}
 	
 	public static void setIsOneButtonDown(boolean we) {
@@ -1332,14 +1328,11 @@ public class ContainerFrame {
 	}
 	
 	public static boolean getContainerFrameSlotHover(int i) {
-		if(i < slot_hover.length) {
-			return slot_hover[i];
-		}
-		return false;
+		return hoveredSlot == i;
 	}
 	
-	public static boolean[] getContainerFrameSlotHover() {
-		return slot_hover;
+	public static void setHoverFalse() {
+		hoveredSlot = -1;
 	}
 	
 	public static int getLastSplit() {

@@ -28,7 +28,7 @@ public class EndFightFrame {
 			CharacterFrame.setHoverFalse();
 		}
 		if(Interface.getContainerFrameStatus()) {
-			Arrays.fill(ContainerFrame.getContainerFrameSlotHover(), false);
+			ContainerFrame.setHoverFalse();
 		}
 		if(Interface.isSpellBookFrameActive()) {
 			Arrays.fill(SpellBookFrame.getHoverBook(), false);
