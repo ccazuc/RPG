@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.command.CommandLoadBagItems;
 import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
 import com.mideas.rpg.v2.command.CommandLogin;
+import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
@@ -41,6 +42,7 @@ public class ConnectionManager {
 		commandList.put((int)LOAD_EQUIPPED_ITEMS, new CommandLoadEquippedItems());
 		commandList.put((int)LOAD_BAG_ITEMS, new CommandLoadBagItems());
 		commandList.put((int)LOAD_CHARACTER, new CommandLoadCharacter());
+		commandList.put((int)PING, new CommandPing());
 		commandList.put((int)STUFF, new CommandStuff());
 		commandList.put((int)WEAPON, new CommandWeapon());
 		commandList.put((int)GEM, new CommandGem());

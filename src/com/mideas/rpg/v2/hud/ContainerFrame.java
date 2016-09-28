@@ -891,7 +891,7 @@ public class ContainerFrame {
 		//if(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName()) > 237 || TTF2.statsName.getWidth(classe) > 237) {
 		xShift = Math.max(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName()), TTF2.statsName.getWidth(classe))+15;
 		//}
-		int y = -75-TTF2.statsName.getLineHeight()*getNumberStats((Stuff)Mideas.bag().getBag(i));
+		int y = -80-TTF2.statsName.getLineHeight()*getNumberStats((Stuff)Mideas.bag().getBag(i));
 		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
 		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
 		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1);

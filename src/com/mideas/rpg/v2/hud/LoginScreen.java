@@ -26,7 +26,7 @@ public class LoginScreen {
 	private static Alert alert = new Alert("", Display.getWidth()/2-360*Mideas.getDisplayXFactor(), -20, 700, 130, 230, 38, Display.getHeight()+30, 20, "Ok");
 	//private static boolean alertActive;
 	private static boolean init;
-	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave", 16) {
+	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave", 16, 2) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			Mideas.saveAllStats();
@@ -34,7 +34,7 @@ public class LoginScreen {
 		}
 	};
 	
-	private static Button connectionButton = new Button(Display.getWidth()/2-113*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210, 35, "Connection", 16) {
+	private static Button connectionButton = new Button(Display.getWidth()/2-113*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210, 35, "Connection", 16, 2) {
 		@Override
 		public void eventButtonClick() throws SQLException, NoSuchAlgorithmException {
 			connectionEvent();

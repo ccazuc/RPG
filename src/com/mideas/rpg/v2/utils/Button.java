@@ -23,6 +23,7 @@ public class Button {
 	private float y_size = Sprites.button.getImageHeight();
 	private Texture texture = Sprites.button;
 	private String text;
+	private int shadow_size;
 	protected TTF font;
 	private boolean buttonDown;
 	private boolean buttonHover;
@@ -32,12 +33,13 @@ public class Button {
 	private static final Color YELLOW = Color.decode("#FFC700");
 	
 	@SuppressWarnings("null")
-	public Button(float x, float y, float x_size, float y_size, String text, float size) {
+	public Button(float x, float y, float x_size, float y_size, String text, float size, int shadow_size) {
 		this.x = x;
 		this.y = y;
 		this.x_size = x_size;
 		this.y_size = y_size;
 		this.text = text;
+		this.shadow_size = shadow_size;
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		Font awtFont = null;
 		try {
@@ -50,7 +52,7 @@ public class Button {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		awtFont = awtFont.deriveFont(size).deriveFont(Font.BOLD);
+		awtFont = awtFont.deriveFont(size);
 		this.font = new TTF(awtFont, true);
 	}
 	
@@ -72,7 +74,7 @@ public class Button {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		awtFont = awtFont.deriveFont(15f).deriveFont(Font.BOLD);
+		awtFont = awtFont.deriveFont(15f);
 		this.font = new TTF(awtFont, true);
 	}
 
@@ -94,7 +96,7 @@ public class Button {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		awtFont = awtFont.deriveFont(size).deriveFont(Font.BOLD);
+		awtFont = awtFont.deriveFont(size);
 		this.font = new TTF(awtFont, true);
 	}
 	
@@ -108,7 +110,7 @@ public class Button {
 			this.color = YELLOW;
 		}
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
-		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, 2, 1, 1);
+		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, this.shadow_size, 1, 1);
 	}
 	
 	public void event() throws SQLException, NoSuchAlgorithmException {

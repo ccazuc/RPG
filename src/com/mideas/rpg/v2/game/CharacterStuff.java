@@ -136,6 +136,7 @@ public class CharacterStuff {
 	}
 	
 	public static void setBagItems() throws SQLException {
+		long timer = System.currentTimeMillis();
 		String request = "";
 		StringBuilder builder = new StringBuilder();
 		builder.append("UPDATE bag SET ");
@@ -146,6 +147,8 @@ public class CharacterStuff {
 		request = builder.toString();
 		//JDOStatement statement = Mideas.getJDO().prepare("UPDATE bag SET slot1 = ?, numberStack1 = ?, slot2 = ?, numberStack2 = ?, slot3 = ?, numberStack3 = ?, slot4 = ?, numberStack4 = ?, slot5 = ?, numberStack5 = ?, slot6 = ?, numberStack6 = ?, slot7 = ?, numberStack7 = ?, slot8 = ?, numberStack8 = ?, slot9 = ?, numberStack9 = ?, slot10 = ?, numberStack10 = ?, slot11 = ?, numberStack11 = ?, slot12 = ?, numberStack12 = ?, slot13 = ?, numberStack13 = ?, slot14 = ?, numberStack14 = ?, slot15 = ?, numberStack15 = ?, slot16 = ?, numberStack16 = ?, slot17 = ?, numberStack17 = ?, slot18 = ?, numberStack18 = ?, slot19 = ?, numberStack19 = ?, slot20 = ?, numberStack20 = ?, slot21 = ?, numberStack21 = ?, slot22 = ?, numberStack22 = ?, slot23 = ?, numberStack23 = ?, slot24 = ?, numberStack24 = ?, slot25 = ?, numberStack25 = ?, slot26 = ?, numberStack26 = ?, slot27 = ?, numberStack27 = ?, slot28 = ?, numberStack28 = ?, slot29 = ?, numberStack29 = ?, slot30 = ?, numberStack30 = ?, slot31 = ?, numberStack31 = ?, slot32 = ?, numberStack32 = ?, slot33 = ?, numberstack33 = ?, slot34 = ?, numberstack34 = ?, slot35 = ?, numberstack35 = ?, slot36 = ?, numberstack36 = ?, slot37 = ?, numberstack37 = ?, slot38 = ?, numberstack38 = ?, slot39 = ?, numberstack39 = ?, slot40 = ?, numberstack40 = ?, slot41 = ?, numberstack41 = ?, slot42 = ?, numberstack42 = ?, slot43 = ?, numberstack43 = ?, slot44 = ?, numberstack44 = ?, slot45 = ?, numberstack45 = ?, slot46 = ?, numberstack46 = ?, slot47 = ?, numberstack47 = ?, slot48 = ?, numberstack48 = ?, slot49 = ?, numberstack49 = ?, slot50 = ?, numberstack50 = ?, slot51 = ?, numberstack51 = ?, slot52 = ?, numberstack52 = ?, slot53 = ?, numberstack53 = ?, slot54 = ?, numberstack54 = ?, slot55 = ?, numberstack55 = ?, slot56 = ?, numberstack56 = ?, slot57 = ?, numberstack57 = ?, slot58 = ?, numberstack58 = ?, slot59 = ?, numberstack59 = ?, slot60 = ?, numberstack60 = ?, slot61 = ?, numberstack61 = ?, slot62 = ?, numberstack62 = ?, slot63 = ?, numberstack63 = ?, slot64 = ?, numberstack64 = ?, slot65 = ?, numberstack65 = ?, slot66 = ?, numberstack66 = ?, slot67 = ?, numberstack67 = ?, slot68 = ?, numberstack68 = ?, slot69 = ?, numberstack69 = ?, slot70 = ?, numberstack70 = ?, slot71 = ?, numberstack71 = ?, slot72 = ?, numberstack72 = ?, slot73 = ?, numberstack73 = ?, slot74 = ?, numberstack74 = ?, slot75 = ?, numberstack75 = ?, slot76 = ?, numberstack76 = ?, slot77 = ?, numberstack77 = ?, slot78 = ?, numberstack78 = ?, slot79 = ?, numberstack79 = ?, slot80 = ?, numberstack80 = ?, slot81 = ?, numberstack81 = ?, slot82 = ?, numberstack82 = ?, slot83 = ?, numberstack83 = ?, slot84 = ?, numberstack84 = ?, slot85 = ?, numberstack85 = ?, slot86 = ?, numberstack86 = ?, slot87 = ?, numberstack87 = ?, slot88 = ?, numberstack88 = ?, slot89 = ?, numberstack89 = ?, slot90 = ?, numberstack90 = ?, slot91 = ?, numberstack91 = ?, slot92 = ?, numberstack92 = ?, slot93 = ?, numberstack93 = ?, slot94 = ?, numberstack94 = ?, slot95 = ?, numberstack95 = ?, slot96 = ?, numberstack96 = ? WHERE class = ?");
 		JDOStatement statement = Mideas.getJDO().prepare(request);
+		System.out.println(System.currentTimeMillis()-timer+" bag sql prepare");
+		timer = System.currentTimeMillis();
 		while(i < 96) {
 			if(i < Mideas.bag().getBag().length) {
 				Item tempBag = Mideas.bag().getBag(i);
@@ -213,7 +216,10 @@ public class CharacterStuff {
 			i++;
 		}
 		statement.putInt(Mideas.getCharacterId());
+		long times = System.currentTimeMillis();
 		statement.execute();
+		System.out.println(System.currentTimeMillis()-times+" execute");
+		System.out.println(System.currentTimeMillis()-timer+" total request");
 	}
 	
 	public static void getEquippedBags() throws SQLException {
@@ -455,7 +461,7 @@ public class CharacterStuff {
 		}
 	}*/
 	
-	private static void setGems(Stuff stuff, int gem1Id, int gem2Id, int gem3Id) {
+	/*private static void setGems(Stuff stuff, int gem1Id, int gem2Id, int gem3Id) {
 		if(stuff.getGemSlot1() != GemColor.NONE && GemManager.exists(gem1Id)) {
 			stuff.setEquippedGem1(GemManager.getClone(gem1Id));
 		}
@@ -465,7 +471,7 @@ public class CharacterStuff {
 		if(stuff.getGemSlot3() != GemColor.NONE && GemManager.exists(gem3Id)) {
 			stuff.setEquippedGem1(GemManager.getClone(gem3Id));
 		}
-	}
+	}*/
 
 	public static void calcStuffStats() {
 		if(Mideas.joueur1() != null) {

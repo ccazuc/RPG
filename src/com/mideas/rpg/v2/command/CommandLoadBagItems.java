@@ -27,9 +27,9 @@ public class CommandLoadBagItems extends Command {
 			loadItem(i);
 			i++;
 		}
-		Mideas.bag().setBagChange(true);
 		Interface.setBagFullyLoaded(false);
 		Mideas.joueur1().loadBag();
+		Mideas.bag().setBagChange(true);
 	}
 	
 	private static void loadItem(int index) {

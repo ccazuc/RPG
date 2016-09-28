@@ -265,6 +265,14 @@ public class Joueur {
 			}
 			i++;
 		}
+		if(Interface.getBagFullyLoaded()) {
+			if(Mideas.joueur1().getFirstProfession() != null) {
+				Mideas.joueur1().getFirstProfession().updateNumberPossibleCraft();
+			}
+			else if(Mideas.joueur1().getSecondProfession() != null) {
+				Mideas.joueur1().getSecondProfession().updateNumberPossibleCraft();
+			}
+		}
 	}
 	
 	public boolean addItem(Item item, int amount) throws SQLException {
@@ -345,6 +353,7 @@ public class Joueur {
 	}
 	
 	public void deleteItem(Item item, int amount) throws SQLException {
+		long time = System.currentTimeMillis();
 		int i = 0;
 		if(!item.isStackable()) {
 			while(i < Mideas.bag().getBag().length && amount > 0) {
@@ -360,8 +369,9 @@ public class Joueur {
 		else {
 			while(i < Mideas.bag().getBag().length && amount > 0) {
 				if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(item)) {
+					long timer = System.currentTimeMillis();
 					int temp = amount;
-					amount = amount-Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i));
+					amount-= Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i));
 					Mideas.bag().setBag(i, Mideas.bag().getBag(i), Math.max(0, Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))-temp));
 					Mideas.bag().setBagChange(true);
 				}
@@ -369,6 +379,7 @@ public class Joueur {
 			}
 			CharacterStuff.setBagItems();
 		}
+		System.out.println(System.currentTimeMillis()-time+" total");
 	}
 	
 	public boolean canWear(Stuff stuff) {

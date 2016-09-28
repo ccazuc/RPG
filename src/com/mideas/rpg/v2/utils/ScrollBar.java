@@ -226,7 +226,6 @@ public class ScrollBar {
 	
 	private void mouseScroll() {
 		if(Mideas.mouseX() >= this.x-this.x_frame_size+25 && Mideas.mouseX() <= this.x+25 && Mideas.mouseY() >= this.y-25 && Mideas.mouseY() <= this.y+this.y_frame_size+25) {
-			System.out.println((this.y_ascensor+this.scroll_tick_size+15)+" "+(this.y_ascensor-this.scroll_tick_size)+" "+this.y_size);
 			if(this.mouseWheel != 0 ) {
 				System.out.println(this.mouseWheel);
 				if(this.mouseWheel > 0 && this.y_ascensor-this.scroll_tick_size > 23) {

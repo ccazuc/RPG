@@ -19,9 +19,10 @@ public class PerformanceBarFrame {
 			Draw.drawQuad(Sprites.tooltip, Display.getWidth()-400, Display.getHeight()-460, 270, 350);
 			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-450, "used RAM : "+Long.toString(Mideas.getUsedRAM()/(1024L*1024L))+" Mo", Color.white, Color.black, 1);
 			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-430, "Fps : "+Mideas.getFps(), Color.white, Color.black, 1);
-			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-410, "Draw time :", Color.white, Color.black, 1);
-			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-390, "interface : "+(Mideas.getInterfaceDrawTime()/1000)+" 탎", Color.white, Color.black, 1);
-			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-370, "Container : "+(Interface.getContainerDrawTime()/1000)+" 탎", Color.white, Color.black, 1);
+			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-410, "Ping : "+Mideas.getPing(), Color.white, Color.black, 1);
+			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-390, "Draw time :", Color.white, Color.black, 1);
+			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-370, "interface : "+(Mideas.getInterfaceDrawTime()/1000)+" 탎", Color.white, Color.black, 1);
+			TTF2.statsName.drawStringShadow(Display.getWidth()-390, Display.getHeight()-350, "Container : "+(Interface.getContainerDrawTime()/1000)+" 탎", Color.white, Color.black, 1);
 		}
 		if(topPerformanceBarActive) {
 			Draw.drawColorQuad(0, 0, Display.getWidth(), 15, Color.gray);

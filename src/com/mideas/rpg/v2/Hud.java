@@ -10,7 +10,12 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.utils.Draw;
 
-public class Hud {
+public class Hud { 
+	////////////
+	//        //
+	// UNUSED //
+	//		  //
+	////////////
 	
 	private static String statusText = "";
 	private static String statusText2 = "";
@@ -365,7 +370,7 @@ public class Hud {
 	}
 	
 	public static void expBar() throws FileNotFoundException, SQLException {
-		e = ((float)Mideas.getCurrentExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
+		e = ((float)Mideas.getExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
 		Draw.drawColorQuad(Window.getWidth()/2-140, Window.getHeight()-80, 270*e, 11,  Color.decode("#680764"));
 	}
 }

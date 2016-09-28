@@ -18,17 +18,17 @@ public class EscapeFrame {
 	private static float BUTTON_HEIGHT_ANCHOR = -263*Mideas.getDisplayXFactor();
 	private static float BUTTON_HEIGHT_SHIFT = 23*Mideas.getDisplayXFactor();
 	private static boolean init;
-	private static Button videoButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Video", 13) {
+	private static Button videoButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Video", 13, 1) {
 	};
-	private static Button soundButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Sound", 13) {
+	private static Button soundButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Sound", 13, 1) {
 	};
-	private static Button interfaceButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Interface", 13) {
+	private static Button interfaceButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Interface", 13, 1) {
 	};
-	private static Button keybindButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Keybind", 13) {
+	private static Button keybindButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Keybind", 13, 1) {
 	};
-	private static Button macrosButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Macros", 13) {
+	private static Button macrosButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Macros", 13, 1) {
 	};
-	private static Button logoutButton = new Button(Display.getWidth()/2-99*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Logout", 13) {
+	private static Button logoutButton = new Button(Display.getWidth()/2-99*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Logout", 13, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException, NoSuchAlgorithmException {
 			Mideas.setCharacterId(0);
@@ -36,14 +36,14 @@ public class EscapeFrame {
 			Interface.closeAllFrame();
 		}
 	};
-	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave game", 13) {
+	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave game", 13, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			Mideas.saveAllStats();
 			System.exit(0);
 		}
 	};
-	private static Button returnButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Return game", 13) {
+	private static Button returnButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Return game", 13, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			Interface.closeEscapeFrame();

@@ -23,6 +23,7 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.command.CommandLogout;
+import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
@@ -53,6 +54,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class Mideas {
 	
+	private static int ping;
 	private static boolean currentPlayer;
 	private static Joueur joueur1;
 	private static Joueur joueur2;
@@ -68,10 +70,10 @@ public class Mideas {
 	private static int level;
 	private static int expNeeded;
 	private static int gold;
+	private static int gold_calc;
 	private static int i;
 	private static int k;
 	private static int[] expAll = new int[11];
-	private static int currentGold;
 	private static long usedRAM;
 	private static double interfaceDrawTime;
 	private static double mouseEventTime;
@@ -147,7 +149,7 @@ public class Mideas {
 		CharacterStuff.initSQLRequest();
 		GemManager.loadGems();
 		WeaponManager.loadWeapons();
-		//PotionManager.loadPotions();
+		PotionManager.loadPotions();
 		BagManager.loadBags();
 		BagManager.loadBagsSprites();
 		StuffManager.loadStuffs();
@@ -162,8 +164,8 @@ public class Mideas {
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		try {
 			while(!Display.isCloseRequested()) {
-				fpsUpdate();
 				context2D();
+				fpsUpdate();
 				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 				if(ConnectionManager.isConnected()) {
 					ConnectionManager.read();
@@ -179,7 +181,7 @@ public class Mideas {
 						continue;
 					}
 				}
-				if(System.currentTimeMillis()%500 < 10) {
+				if(System.currentTimeMillis()%500 < 2) {
 					mouseEventTime = (float)(System.nanoTime()-time);
 				}
 				while(Keyboard.next()) {
@@ -199,6 +201,9 @@ public class Mideas {
 				if(System.currentTimeMillis()%1000 < 10) {
 					usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 					interfaceDrawTime = System.nanoTime()-time;
+				}
+				if(System.currentTimeMillis()%5000 < 2 && ConnectionManager.isConnected()) {
+					CommandPing.write();
 				}
 				timeEvent();
 				Display.update();
@@ -242,6 +247,14 @@ public class Mideas {
 			fps = String.valueOf(count);
 			count = 0;
 		}
+	}
+	
+	public static void setPing(int pings) {
+		ping = pings;
+	}
+	
+	public static int getPing() {
+		return ping;
 	}
 	
 	public static SocketChannel getSocket() {
@@ -345,12 +358,16 @@ public class Mideas {
 		}
 	}
 	
-	public static int getExpAll(int i) {
-		return expAll[i];
+	public static void mTime(long time, String text) {
+		System.out.println(System.currentTimeMillis()-time+"ms "+text);
 	}
 	
-	public static int getCurrentExp() {
-		return exp;
+	public static void nTime(long time, String text) {
+		System.out.println((System.nanoTime()-time)+"ns "+text);
+	}
+	
+	public static int getExpAll(int i) {
+		return expAll[i];
 	}
 	
 	public static int loadExp() throws SQLException {
@@ -377,7 +394,6 @@ public class Mideas {
 	
 	public static void setGold(int golds) throws SQLTimeoutException, SQLException {
 		gold = golds;
-		currentGold = golds;
 		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET gold = ? WHERE character_id = ?");
 		statement.putInt(gold);
 		statement.putInt(Mideas.getCharacterId());
@@ -390,7 +406,6 @@ public class Mideas {
 		statement.execute();
 		if(statement.fetch()) {
 			gold = statement.getInt();
-			currentGold = gold;
 		}
 		return gold;
 	}
@@ -443,25 +458,21 @@ public class Mideas {
 		CharacterFrame.setMouseY(Integer.valueOf(temp));
 	}
 	
-	public static int getCurrentGold() {
-		return currentGold;
-	}
-	
 	public static int calcGoldCoin() {
-		gold = Mideas.getCurrentGold();
+		gold_calc = Mideas.getGold();
 		i = 0;
-		while(gold-10000 >= 0) {
-			gold-= 10000;
+		while(gold_calc-10000 >= 0) {
+			gold_calc-= 10000;
 			i++;
 		}
 		return i;
 	}
 	
 	public static int calcSilverCoin() {
-		gold = Mideas.getCurrentGold()-i*10000;
+		gold_calc = Mideas.getGold()-i*10000;
 		k = 0;
-		while(gold-100 >= 0) {
-			gold-= 100;
+		while(gold_calc-100 >= 0) {
+			gold_calc-= 100;
 			k++;
 		}
 		return k;
@@ -951,7 +962,7 @@ public class Mideas {
 	}
 	
 	public static int getLevel() {
-		return getLevelAll(getCurrentExp());
+		return getLevelAll(getExp());
 	}
 	
 	public static int getExpNeeded(int level) {

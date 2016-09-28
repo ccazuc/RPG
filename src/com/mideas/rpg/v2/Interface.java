@@ -35,8 +35,8 @@ import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
 import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
-import com.mideas.rpg.v2.hud.ShopFrame;
 import com.mideas.rpg.v2.hud.ShortcutFrame;
+import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.SpellLevel;
@@ -50,7 +50,6 @@ public class Interface {
 	private static boolean isStuffEquipped;
 	private static boolean isStatsCalc;
 	private static boolean isGoldLoaded;
-	private static boolean isExpLoaded;
 	private static boolean escapeFrameActive;
 	private static boolean talentFrameActive;
 	private static boolean spellBookFrameActive;
@@ -72,6 +71,7 @@ public class Interface {
 	private static boolean hasLoggedIn;
 	private static boolean isStuffFullyLoaded;
 	private static boolean isBagFullyLoaded;
+	private static boolean socketingFrameActive;
 	private final static Color YELLOW = Color.decode("#F0CE0C");
 
 	public static void draw() throws IOException, SQLException {
@@ -94,11 +94,8 @@ public class Interface {
 				if(!isGoldLoaded) {
 					SpellBarManager.loadSpellBar();
 					Mideas.loadGold();
-					isGoldLoaded = true;
-				}
-				if(!isExpLoaded) {
 					Mideas.loadExp();
-					isExpLoaded = true;
+					isGoldLoaded = true;
 				}
 				if(!isStuffEquipped) {
 					CharacterStuff.getEquippedBags();
@@ -164,6 +161,9 @@ public class Interface {
 				}
 				if(chatFrameActive) {
 					ChatFrame.draw();
+				}
+				if(socketingFrameActive) {
+					SocketingFrame.draw();
 				}
 				Draw.drawQuad(Sprites.level, 50, 95);
 				TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), YELLOW, Color.black, 1, 1, 1);
@@ -257,6 +257,11 @@ public class Interface {
 					return true;
 				}
 			}
+			if(socketingFrameActive) {
+				if(SocketingFrame.mouseEvent()) {
+					return true;
+				}
+			}
 			if(shopFrameActive) {
 				if(ShopManager.mouseEvent()) {
 					return true;
@@ -320,14 +325,14 @@ public class Interface {
 	public static boolean keyboardEvent() throws IOException, SQLException, NoSuchAlgorithmException {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
+				//System.out.println(Keyboard.getEventKey());
 				if(!ChatFrame.getChatActive() && hasLoggedIn && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
 						closeShopFrame();
 						closeSpellBookFrame();
 						closeAdminPanelFrame();
-						Arrays.fill(ShopFrame.getShopHover(), false);
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
-						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+						CharacterFrame.setHoverFalse();
 						characterFrameActive = !characterFrameActive;
 						return true;
 					}
@@ -372,10 +377,8 @@ public class Interface {
 						closeCharacterFrame();
 						closeSpellBookFrame();
 						closeAdminPanelFrame();
-						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
+						CharacterFrame.setHoverFalse();
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
-						Arrays.fill(ShopFrame.getShopHover(), false);
-						ShopFrame.setHoverShopFalse();
 						shopFrameActive = !shopFrameActive;
 						return true;
 					}
@@ -384,11 +387,8 @@ public class Interface {
 						closeShopFrame();
 						closeSpellBookFrame();
 						closeAdminPanelFrame();
-						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-						Arrays.fill(ShopFrame.getShopHover(), false);
+						CharacterFrame.setHoverFalse();
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
-						Arrays.fill(ShopFrame.getShopHover(), false);
-						ShopFrame.setHoverShopFalse();
 						talentFrameActive = !talentFrameActive;
 						return true;
 					}
@@ -400,10 +400,8 @@ public class Interface {
 						closeSpellBookFrame();
 						closeAdminPanelFrame();
 						closeBagEvent();
-						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-						Arrays.fill(ShopFrame.getShopHover(), false);
+						CharacterFrame.setHoverFalse();
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
-						ShopFrame.setHoverShopFalse();
 						escapeFrameActive = !escapeFrameActive;
 						return true;
 					}
@@ -412,8 +410,7 @@ public class Interface {
 						closeShopFrame();
 						closeCharacterFrame();
 						closeAdminPanelFrame();
-						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-						Arrays.fill(ShopFrame.getShopHover(), false);
+						CharacterFrame.setHoverFalse();
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
 						spellBookFrameActive = !spellBookFrameActive;
 						return true;
@@ -426,8 +423,7 @@ public class Interface {
 						closeContainerFrame();
 						closeEscapeFrame();
 						closeAdminPanelFrame();
-						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-						Arrays.fill(ShopFrame.getShopHover(), false);
+						CharacterFrame.setHoverFalse();
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
 						closeBagEvent();
 						//ClassSelectFrame.setHoverFalse();
@@ -439,8 +435,7 @@ public class Interface {
 						closeShopFrame();
 						closeCharacterFrame();
 						closeSpellBookFrame();
-						Arrays.fill(CharacterFrame.getHoverCharacterFrame(), false);
-						Arrays.fill(ShopFrame.getShopHover(), false);
+						CharacterFrame.setHoverFalse();
 						Arrays.fill(SpellBookFrame.getHoverBook(), false);
 						//ClassSelectFrame.setHoverFalse();
 						Mideas.joueur1().getFirstProfession().event(Display.getWidth()/2, Display.getHeight()/2);
@@ -475,12 +470,24 @@ public class Interface {
 		return false;
 	}
 	
+	public static boolean isSocketingFrameActive() {
+		return socketingFrameActive;
+	}
+	
+	public static void setSocketingFrameStatus(boolean we) {
+		socketingFrameActive = we;
+	}
+	
 	public static void setStuffFullyLoaded(boolean we) {
 		isStuffFullyLoaded = we;
 	}
 	
 	public static void setBagFullyLoaded(boolean we) {
 		isBagFullyLoaded = we;
+	}
+	
+	public static boolean getBagFullyLoaded() {
+		return isBagFullyLoaded;
 	}
 	
 	public static double getContainerDrawTime() {
@@ -649,7 +656,6 @@ public class Interface {
 		isStuffEquipped = false;
 		isStatsCalc = false;
 		isGoldLoaded = false;
-		isExpLoaded = false;
 		escapeFrameActive = false;
 		talentFrameActive = false;
 		spellBookFrameActive = false;

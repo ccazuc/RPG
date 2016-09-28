@@ -57,20 +57,20 @@ public class SelectScreen {
 	private static Input character = new Input(TTF2.loginScreenAccount, 12);
 	static Input deleteCharacter = new Input(TTF2.loginScreenAccount, 8);
 	private static Alert alert = new Alert("", Display.getWidth()/2-360*Mideas.getDisplayXFactor(), -20, 700, 130, 230, 38, Display.getHeight()+30, 20, "Ok");
-	private static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293, 278*Mideas.getDisplayXFactor(), 36, "Create new character", 16) {
+	private static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293, 278*Mideas.getDisplayXFactor(), 36, "Create new character", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			creatingCharacter = true;
 		}
 	};	
-	static Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195, 34, "Accept", 16) {
+	static Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195, 34, "Accept", 16, 2) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			SelectScreen.createCharacter();
 			returnCharacterButton.reset();
 		}
 	};	
-	static Button returnCharacterButton = new Button(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150, 34, "Return", 16) {
+	static Button returnCharacterButton = new Button(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150, 34, "Return", 16, 2) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			creatingCharacter = false;
@@ -83,7 +83,7 @@ public class SelectScreen {
 			}
 		}
 	};
-	private static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122, 27, "Return", 16) {
+	private static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122, 27, "Return", 16, 2) {
 		@Override
 		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
 			Interface.setHasLoggedIn(false);
@@ -94,21 +94,21 @@ public class SelectScreen {
 			SelectScreen.characterLoaded = false;
 		}
 	};
-	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50, "Enter game", 19) {
+	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50, "Enter game", 19, 2) {
 		@Override
 		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
 			loadCharacterInfo();
 			Arrays.fill(characterList, null);
 		}
 	};
-	private static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202, 28, "Delete character", 16) {
+	private static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202, 28, "Delete character", 16, 2) {
 		@Override
 		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
 			deletingCharacter = true;
 			this.reset();
 		}
 	};
-	private static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32, "OK", 20) {
+	private static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32, "OK", 20, 2) {
 		@Override
 		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
 			deleteCharacter();
@@ -122,7 +122,7 @@ public class SelectScreen {
 			return false;
 		}
 	};
-	private static Button cancelDeleteCharacterButton = new Button(Display.getWidth()/2-250*Mideas.getDisplayXFactor(), Display.getHeight()/2+45*Mideas.getDisplayYFactor(), 240, 32, "Annuler", 20) {
+	private static Button cancelDeleteCharacterButton = new Button(Display.getWidth()/2-250*Mideas.getDisplayXFactor(), Display.getHeight()/2+45*Mideas.getDisplayYFactor(), 240, 32, "Annuler", 20, 2) {
 		@Override
 		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
 			deletingCharacter = false;
@@ -314,9 +314,11 @@ public class SelectScreen {
 	}
 	
 	static void loadCharacterInfo() {
-		Mideas.setCharacterId(characterList[selectedCharacterIndex].getId());
-		setPlayer();
-		CommandLoadCharacter.write(characterList[selectedCharacterIndex].getId());
+		if(characterList[selectedCharacterIndex] != null) {
+			Mideas.setCharacterId(characterList[selectedCharacterIndex].getId());
+			setPlayer();
+			CommandLoadCharacter.write(characterList[selectedCharacterIndex].getId());
+		}
 	}
 	
 	static void deleteCharacter() {

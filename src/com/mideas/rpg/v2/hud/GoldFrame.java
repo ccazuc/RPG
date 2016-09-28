@@ -16,7 +16,7 @@ public class GoldFrame {
 			int y = -174;
 			int gold = Mideas.calcGoldCoin();
 			int silver = Mideas.calcSilverCoin();
-			int copper = Mideas.getCurrentGold()-Mideas.calcGoldCoin()*10000-Mideas.calcSilverCoin()*100;
+			int copper = Mideas.getGold()-Mideas.calcGoldCoin()*10000-Mideas.calcSilverCoin()*100;
 			Draw.drawQuad(Sprites.copper_coin, Display.getWidth()+x, Display.getHeight()+y);
 			x-= TTF2.coin.getWidth(String.valueOf(copper))+2;
 			TTF2.coin.drawStringShadow(Display.getWidth()+x, Display.getHeight()+y+1, String.valueOf(copper), Color.white, Color.black, 1, 1, 1);

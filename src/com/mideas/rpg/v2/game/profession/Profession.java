@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.game.profession;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
@@ -37,8 +38,9 @@ public class Profession {
 	private static final Color YELLOW_CRAFT = Color.decode("#B9B700");
 	private static final Color GREEN = Color.decode("#2D852D");
 	private static final Color GREY = Color.decode("#585758");
+	static HashMap<Integer, Integer> possibleCraftList = new HashMap<Integer, Integer>();
 
-	private Button craftButton = new Button(0, 0, 185, 34, "Create", 10) {
+	private Button craftButton = new Button(0, 0, 185, 34, "Create", 14, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			CastBar.addCast(new Cast(Profession.this.selectedItem.getCraftLength(), Profession.this.selectedItem.getItem().getStuffName()) {
@@ -72,7 +74,7 @@ public class Profession {
 		@Override
 		public boolean activateCondition() {
 			if(Profession.this.selectedItem != null) {
-				return canCraft(Profession.this.selectedItem);
+				return Profession.possibleCraftList.get(Profession.this.selectedItem.getId()) > 0;
 			}
 			return false;
 		}
@@ -117,6 +119,7 @@ public class Profession {
 			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
 				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
 			}
+			updateSize(x, y);
 			this.init = true;
 		}
 		if(this.change) {
@@ -142,6 +145,7 @@ public class Profession {
 		int i = 0;
 		int j = 0;
 		int yShift = 0;
+		int number = 0;
 		float yShiftHeight = 17*Mideas.getDisplayXFactor();
 		if(this.numberLine > 8) {
 			this.scrollBar.draw();
@@ -171,9 +175,11 @@ public class Profession {
 						}
 						if(this.categoryList.get(i).getCraftList().get(j).getMouseDown()) {
 							TTF2.craft.drawString(x+29, y+2+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							TTF2.craft.drawString(x+35+TTF2.craft.getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+2+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
 						}
 						else {
 							TTF2.craft.drawString(x+27, y+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							TTF2.craft.drawString(x+33+TTF2.craft.getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
 						}
 					}
 					yShift+= yShiftHeight;
@@ -198,6 +204,7 @@ public class Profession {
 			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
 				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
 			}
+			updateSize(x, y);
 			this.init = true;
 		}
 		if(this.numberLine > 8) {
@@ -334,15 +341,32 @@ public class Profession {
 		}
 	}
 	
-	boolean canCraft(CraftableItem item) {
+	public void updateNumberPossibleCraft() {
 		int i = 0;
-		while(i < item.getNeededItemList().size()) {
-			if(Mideas.bag().getItemNumber(item.getNeededItem(i)) < item.getNeededItemNumber(i)) {
-				return false;
+		int j = 0;
+		int k = 0;
+		int amount = 0;
+		boolean init = false;
+		while(i < this.categoryList.size()) {
+			j = 0;
+			while(j < this.categoryList.get(i).getCraftList().size()) {
+				k = 0;
+				if(!possibleCraftList.containsKey(this.categoryList.get(i).getCraftList().get(j))) {
+					while(k < this.categoryList.get(i).getCraftList().get(j).getNeededItemList().size()) {
+						if(!init) {
+							amount = Mideas.bag().getNumberItemInBags(this.categoryList.get(i).getCraftList().get(j).getNeededItem(k).getId())/ this.categoryList.get(i).getCraftList().get(j).getNeededItemNumber(k);
+						}
+						else if(Mideas.bag().getNumberItemInBags(this.categoryList.get(i).getCraftList().get(j).getNeededItem(k).getId())/ this.categoryList.get(i).getCraftList().get(j).getNeededItemNumber(k) < amount) {
+							amount = Mideas.bag().getNumberItemInBags(this.categoryList.get(i).getCraftList().get(j).getNeededItem(k).getId())/ this.categoryList.get(i).getCraftList().get(j).getNeededItemNumber(k);
+						}
+						k++;
+					}
+					possibleCraftList.put(this.categoryList.get(i).getCraftList().get(j).getId(), amount);
+				}
+				j++;
 			}
 			i++;
-		}
-		return true;
+ 		}
 	}
 	
 	private Color getColorCategory(Category category) {

@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -9,7 +10,6 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
@@ -18,13 +18,11 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class CharacterFrame {
 	
-	private static boolean[] hoverCharacterFrame = new boolean[20];
 	private static boolean hoverCloseButton;
-	private static boolean hoverCloseGemFrameButton;
 	private static boolean closeButtonDown;
 	private static Color bgColor = new Color(0, 0, 0, .6f); 
 	private static Color borderColor = Color.decode("#494D4B");
-	private static int hover;
+	private static int hover = -1;
 	private static int gemFrame;
 	private static int xMouseShift;
 	private static int yMouseShift;
@@ -34,15 +32,9 @@ public class CharacterFrame {
 	private static int baseMouseY;
 	private static int lastMouseX;
 	private static int lastMouseY;
-	private static boolean gemFrameOpen;
-	private static int hoveredSlot;
 
 	public static void draw() {
-		hover = 0;
 		Draw.drawQuad(Sprites.character_frame, Display.getWidth()/2-300+xMouseShift+gemFrame, Display.getHeight()/2-380+yMouseShift);
-		if(gemFrameOpen) {
-			Draw.drawQuad(Sprites.gem_frame, Display.getWidth()/2-300+xMouseShift, Display.getHeight()/2-380+yMouseShift);
-		}
 		/*Draw.drawQuad(Sprites.character_frame_stats, Display.getWidth()/2-224+xMouseShift+gemFrame, Display.getHeight()/2-60+yMouseShift);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2-27+yMouseShift, "Strength:", Color.yellow, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getStrength())), Display.getHeight()/2-27+yMouseShift, String.valueOf(Mideas.joueur1().getStrength()), Color.white, Color.black, 1, 1, 1);
@@ -121,15 +113,11 @@ public class CharacterFrame {
 	}
 
 	public static boolean mouseEvent() {
+		hover = -1;
 		hoverMove = false;
 		hoverCloseButton = false;
-		hoverCloseGemFrameButton = false;
-		hoverCharacterFrame[hoveredSlot] = false;
 		if(Mideas.mouseX() >= Display.getWidth()/2+70+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2+70+Sprites.close_button_inventory_down.getImageWidth()+xMouseShift+gemFrame && Mideas.mouseY() >= Display.getHeight()/2-366+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-366+Sprites.close_button_inventory_down.getImageHeight()+yMouseShift) {
 			hoverCloseButton = true;
-		}
-		else if(gemFrameOpen && Mideas.mouseX() >= Display.getWidth()/2+70+xMouseShift && Mideas.mouseX() <= Display.getWidth()/2+70+Sprites.close_button_inventory_down.getImageWidth()+xMouseShift && Mideas.mouseY() >= Display.getHeight()/2-366+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-366+Sprites.close_button_inventory_down.getImageHeight()+yMouseShift) {
-			hoverCloseGemFrameButton = true;
 		}
 		else if(Mideas.mouseX()>= Display.getWidth()/2-300+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-368+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-368+yMouseShift+8) {
 			hoverMove = true;
@@ -155,10 +143,6 @@ public class CharacterFrame {
 			if(Mouse.getEventButton() == 0) {
 				if(hoverCloseButton && closeButtonDown) {
 					Interface.closeCharacterFrame();
-				}
-				else if(hoverCloseGemFrameButton) {
-					gemFrameOpen = false;
-					gemFrame = 0;
 				}
 				else if(moving) {
 					moving = false;
@@ -200,14 +184,11 @@ public class CharacterFrame {
 			}
 			i = 0;
 			if(!Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 1) {
-					while(i < Mideas.joueur1().getStuff().length) {
-						if(hoverCharacterFrame[i] && Mideas.joueur1().getStuff(i) != null && Mideas.joueur1().getStuff(i).getGemSlot1() != GemColor.NONE) {
-							gemFrameOpen = true;
-							gemFrame = Sprites.gem_frame.getImageWidth();
-							break;
-						}
-						i++;
+				if(Mouse.getEventButton() == 1 && Keyboard.isKeyDown(42)) {
+					if(hover != -1 && Mideas.joueur1().getStuff(hover).getGemSlot1() != GemColor.NONE) {
+						SocketingFrame.setStuff(Mideas.joueur1().getStuff(hover));
+						Interface.setSocketingFrameStatus(true);
+						gemFrame = 15+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
 					}
 				}
 			}
@@ -222,7 +203,7 @@ public class CharacterFrame {
 		int yAnchor = 0;
 		String classe = "";
 		Stuff item = Mideas.joueur1().getStuff(i);
-		if(item != null && hoverCharacterFrame[i]) {
+		if(item != null && hover == i) {
 			if(item.getClassType().length < 10) {
 				classe = "Classes: ";
 				int k = 0;
@@ -344,28 +325,26 @@ public class CharacterFrame {
 			if(stuff == DragManager.getDraggedItem()) {
 				Draw.drawColorQuad(Display.getWidth()/2+x, Display.getHeight()/2+y, 37, 35, bgColor);
 			}
-			if(DragManager.getDraggedItem() != null && !hoverCharacterFrame[i] && DragManager.getDraggedItem().getItemType() == ItemType.STUFF && ((Stuff)DragManager.getDraggedItem()).getType() == stuff.getType()) {
-				if(hover%2 == 0) {
+			if(DragManager.getDraggedItem() != null && hover != i && DragManager.getDraggedItem().isStuff() && ((Stuff)DragManager.getDraggedItem()).getType() == stuff.getType()) {
+				//if(hover%2 == 0) {
 					Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
-				}
-				else {
+				//}
+				//else {
 					Draw.drawQuad(Sprites.spell_hover2, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
-				}
+				//}
 			}
 		}
-		if(hoverCharacterFrame[i]) {
+		if(hover == i) {
 			Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-2, Display.getHeight()/2+y-2);
 		}
 		if(DragManager.getClickInventory(i) && DragManager.getDraggedItem() == null) {
 			Draw.drawQuad(Sprites.inventory_click_hover, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
 		}
-		hover++;
 	}
 	
 	private static void isHover(int i, float x, float y) {
 		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37 && Mideas.mouseY() >= Display.getHeight()/2+y && Mideas.mouseY() <= Display.getHeight()/2+y+38) {
-			hoverCharacterFrame[i] = true;
-			hoveredSlot = i;
+			hover = i;
 		}
 	}
 	
@@ -387,14 +366,15 @@ public class CharacterFrame {
 		return yMouseShift;
 	}
 	
-	public static boolean getHoverCharacterFrame(int i) {
-		if(i < hoverCharacterFrame.length) {
-			return hoverCharacterFrame[i];
-		}
-		return false;
+	public static void setGemFrame(int gemFrames) {
+		gemFrame = gemFrames;
 	}
 	
-	public static boolean[] getHoverCharacterFrame() {
-		return hoverCharacterFrame;
+	public static boolean getHoverCharacterFrame(int i) {
+		return hover == i;
+	}
+	
+	public static void setHoverFalse() {
+		hover = -1;
 	}
 }

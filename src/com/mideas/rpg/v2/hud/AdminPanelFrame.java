@@ -19,28 +19,28 @@ public class AdminPanelFrame {
 	private static int LEFT_ANCHOR = Display.getWidth()/2-325;
 	private static int y = -250;
 	private static boolean init;
-	private static Button sexMaxStaminaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y, 130, 30, "Fully heals you", 12) {
+	private static Button sexMaxStaminaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y, 130, 30, "Fully heals you", 12, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 		}
 	};
 	
-	private static Button sexMaxManaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+40, 130, 30, "Restore your mana", 12) {
+	private static Button sexMaxManaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+40, 130, 30, "Restore your mana", 12, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
 		}
 	};
 	
-	private static Button killPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+80, 130, 30, "Kill you", 12) {
+	private static Button killPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+80, 130, 30, "Kill you", 12, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			Mideas.joueur1().setStamina(0);
 		}
 	};
 	
-	private static Button clearBag = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130, 30, "Clear your bag", 12) {
+	private static Button clearBag = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130, 30, "Clear your bag", 12, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			Arrays.fill(Mideas.bag().getBag(), null);

@@ -36,7 +36,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class ShopManager {
 	
-	private static boolean[] slot_hover = new boolean[12];
+	private static int slot_hover = -1;
 	private static boolean left_arrow;
 	private static boolean right_arrow;
 	private static boolean hover_button;
@@ -82,11 +82,12 @@ public class ShopManager {
 	}
 	
 	public static void draw() {
-		int xLeft = -279;
-		int xRight = -114;
-		int y = -275;
-		int yShift = 52;
-		Draw.drawQuad(Sprites.shop_frame, Display.getWidth()/2-300, Display.getHeight()/2-350);
+		int xLeft = (int)(-279*Mideas.getDisplayXFactor());
+		int xRight = (int)(-114*Mideas.getDisplayXFactor());
+		int y = (int)(-275*Mideas.getDisplayYFactor());
+		int y_arrow = (int)(267*Mideas.getDisplayXFactor());
+		int yShift = (int)(52*Mideas.getDisplayXFactor());
+		Draw.drawQuad(Sprites.shop_frame, Display.getWidth()/2-300*Mideas.getDisplayXFactor(), Display.getHeight()/2-350*Mideas.getDisplayYFactor());
 		int i = 0;
 		int j = 0;
 		int x = xLeft;
@@ -110,25 +111,25 @@ public class ShopManager {
 			Draw.drawQuad(Sprites.close_shop_hover, Display.getWidth()/2+27, Display.getHeight()/2-337);
 		}
 		if(page != 0) {
-			Draw.drawQuad(Sprites.left_colored_arrow, Display.getWidth()/2+xLeft+3, Display.getHeight()/2+y+268);
+			Draw.drawQuad(Sprites.left_colored_arrow, Display.getWidth()/2+xLeft+3, Display.getHeight()/2+y+y_arrow);
 		}
-		if(page != 2) {
-			Draw.drawQuad(Sprites.right_colored_arrow, Display.getWidth()/2+xRight+125, Display.getHeight()/2+y+268);
+		if(page != numberPage-1) {
+			Draw.drawQuad(Sprites.right_colored_arrow, Display.getWidth()/2+xRight+125*Mideas.getDisplayXFactor(), Display.getHeight()/2+y+y_arrow);
 		}
-		if(right_arrow && page != 2) {
-			Draw.drawQuad(Sprites.right_arrow_hover, Display.getWidth()/2+xRight+125, Display.getHeight()/2+y+268);
+		if(right_arrow && page != numberPage-1) {
+			Draw.drawQuad(Sprites.right_arrow_hover, Display.getWidth()/2+xRight+125*Mideas.getDisplayXFactor(), Display.getHeight()/2+y+y_arrow);
 		}
 		if(left_arrow && page != 0) {
-			Draw.drawQuad(Sprites.left_arrow_hover, Display.getWidth()/2+xLeft+3, Display.getHeight()/2+y+268);
+			Draw.drawQuad(Sprites.left_arrow_hover, Display.getWidth()/2+xLeft+3, Display.getHeight()/2+y+y_arrow);
 		}
-		if(page == 2) {
-			Draw.drawQuad(Sprites.right_uncolored_arrow, Display.getWidth()/2+xRight+125, Display.getHeight()/2+y+268);
+		if(page == numberPage-1) {
+			Draw.drawQuad(Sprites.right_uncolored_arrow, Display.getWidth()/2+xRight+125*Mideas.getDisplayXFactor(), Display.getHeight()/2+y+y_arrow);
 		}
 	}
 	
 	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
 		if(isHoverShopFrame()) {
-			Arrays.fill(slot_hover, false);
+			slot_hover = -1;
 		}
 		right_arrow = false;
 		left_arrow = false;
@@ -169,13 +170,23 @@ public class ShopManager {
 		isSlotHover(xRight, y, 104, 145, 7);
 		isSlotHover(xRight, y, 156, 197, 8);
 		isSlotHover(xRight, y, 208, 249, 9);
-		if(Mouse.getEventButton() == 1) {
-			if(!Mouse.getEventButtonState()) {
+		if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 1) {
+				int i = 0;
 				if(DragManager.isHoverBagFrame()) {
-					int i = 0;
 					while(i < Mideas.bag().getBag().length) {
-						if(clickSellItem(i)) {
-							CharacterStuff.setBagItems();
+						if(sellItem(i)) {
+							break;
+						}
+						i++;
+					}
+				}
+			}
+			else if(Mouse.getEventButton() == 0) {
+				if(isHoverShopFrame()) {
+					int i = 0;
+					while(i < 10 && i+10*page < shopList.size()) {
+						if(buyItems(i, shopList.get(i+10*page))) {
 							return true;
 						}
 						i++;
@@ -183,19 +194,12 @@ public class ShopManager {
 				}
 			}
 		}
-		int i = 0;
-		while(i < 10 && i+10*page < shopList.size()) {
-			if(buyItems(slot_hover[i], shopList.get(i+10*page))) {
-				return true;
-			}
-			i++;
-		}
 		return false;
 	}
 	
-	public static boolean buyItems(boolean slot_hover, Shop item) throws SQLException {
-		if(slot_hover && item != null) {
-			if(Mideas.getCurrentGold() >= item.getSellPrice()) {
+	public static boolean buyItems(int i, Shop item) throws SQLException {
+		if(slot_hover == i && item != null) {
+			if(Mideas.getGold() >= item.getSellPrice()) {
 				checkItem(item);
 			}
 			else {
@@ -206,17 +210,12 @@ public class ShopManager {
 		return false;
 	}
 	
-	private static boolean clickSellItem(int i) throws SQLTimeoutException, SQLException, NoSuchAlgorithmException {
-		if(sellItem(Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), DragManager.getClickBag(i))) {
-			Mideas.bag().setBag(i, null);
-			return true;
-		}
-		return false;
-	}
-	
-	private static boolean sellItem(Item item, boolean hover, boolean click_hover) throws SQLTimeoutException, SQLException, NoSuchAlgorithmException {
+	private static boolean sellItem(int i) throws SQLTimeoutException, SQLException, NoSuchAlgorithmException {
+		Item item = Mideas.bag().getBag(i);
+		boolean hover = ContainerFrame.getContainerFrameSlotHover(i);
+		boolean click_hover = DragManager.getClickBag(i);
 		if(item != null && hover && click_hover && Interface.getShopFrameStatus()) {
-			if(item.getItemType() == ItemType.ITEM || item.getItemType() == ItemType.POTION) {
+			if(item.isStackable()) {
 				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
 				Mideas.setGold(Mideas.getGold()+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
 				Mideas.joueur1().setNumberItem(item, 0);
@@ -225,6 +224,7 @@ public class ShopManager {
 				Mideas.setGold(Mideas.getGold()+item.getSellPrice());
 				LogChat.setStatusText3("Vous avez vendu "+item.getStuffName()+" pour "+item.getSellPrice());
 			}
+			CharacterStuff.setBagItems();
 			DragManager.mouseEvent();
 			return true;
 		}
@@ -307,7 +307,7 @@ public class ShopManager {
 	}
 	
 	private static void shopHover(int i, int x_item, int y_item, int x_hover, int y_hover) {
-		if(slot_hover[i]) {
+		if(slot_hover == i) {
 			if(i+10*page < shopList.size()) {
 				int shift = 40;
 				Item item = getItem(shopList.get(i+10*page).getId());
@@ -496,7 +496,7 @@ public class ShopManager {
 	
 	public static void isSlotHover(int x, int y, int i, int j, int k) {
 		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+42 && Mideas.mouseY() >= Display.getHeight()/2+y+i && Mideas.mouseY() <= Display.getHeight()/2+y+j) {
-			slot_hover[k] = true;
+			slot_hover = k;
 		}
 	}
 

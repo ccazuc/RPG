@@ -33,18 +33,17 @@ public class DragManager {
 	static boolean deleteItem;
 	private static boolean init;
 	private static boolean[] clickInventory = new boolean[20];
-	private static boolean[] clickBag = new boolean[97];
 	private static boolean leftClickInventoryDown;
 	private static boolean leftClickBagDown;
 	private static boolean rightClickInventoryDown;
 	private static boolean rightClickBagDown;
 	static Item draggedItem;
-	private static int bagClickedSlot;
+	private static int bagClickedSlot = -1;
 	private static int inventoryClickedSlot;
 	private static int mouseX;
 	private static int mouseY;
 	private static boolean draggedItemSplit;
-	private static Button hoverDeleteYes = new Button(Display.getWidth()/2-130*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor(), "Yes", 14) {
+	private static Button hoverDeleteYes = new Button(Display.getWidth()/2-130*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor(), "Yes", 14, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			if(draggedItem.isStackable()) {
@@ -64,7 +63,7 @@ public class DragManager {
 		}
 	};
 
-	private static Button hoverDeleteNo = new Button(Display.getWidth()/2+7*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor(), "No", 14) {
+	private static Button hoverDeleteNo = new Button(Display.getWidth()/2+7*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor(), "No", 14, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
@@ -108,7 +107,7 @@ public class DragManager {
 								if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) > 1) {
 									ContainerFrame.setItemNumberOpen(i, true);
 									leftClickBagDown = false;
-									Arrays.fill(clickBag, false);
+									bagClickedSlot = -1;
 									return true;
 								}
 							}
@@ -143,7 +142,7 @@ public class DragManager {
 					}
 				}
 			}
-			else {
+			else { //if(!Mouse.getEventButtonState())
 				if(Mouse.getEventButton() == 0) {
 					int i = 0;
 					if(draggedItem != null) {
@@ -178,7 +177,7 @@ public class DragManager {
 						}
 					}
 					if(leftClickInventoryDown && draggedItem == null) {
-						while(i < CharacterFrame.getHoverCharacterFrame().length) {
+						while(i < Mideas.joueur1().getStuff().length) {
 							if(clickInventoryItem(i)) {
 								leftClickInventoryDown = false;
 								clickInventory[inventoryClickedSlot] = false;
@@ -191,7 +190,7 @@ public class DragManager {
 						while(i < Mideas.bag().getBag().length) {
 							if(clickBagItem(i)) {
 								leftClickBagDown = false;
-								clickBag[bagClickedSlot] = false;
+								bagClickedSlot = -1;
 								return true;
 							}
 							i++;
@@ -203,7 +202,7 @@ public class DragManager {
 							while(i < Mideas.bag().getBag().length) {
 								if(clickBagItem(i)) {
 									leftClickBagDown = false;
-									clickBag[bagClickedSlot] = false;
+									bagClickedSlot = -1;
 									return true;
 								}
 								i++;
@@ -223,14 +222,14 @@ public class DragManager {
 					}
 					leftClickInventoryDown = false;
 					leftClickBagDown = false;
-					clickBag[bagClickedSlot] = false;
+					bagClickedSlot = -1;
 					clickInventory[inventoryClickedSlot] = false;
 				}
 			}
 			if(draggedItem == null && Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseX)) >= 15 || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseY)) >= 15) {
 				if(leftClickBagDown) {
 					setDraggedItemForBag();
-					clickBag[bagClickedSlot] = false;
+					bagClickedSlot = -1;
 				}
 				if(leftClickInventoryDown) {
 					setDraggedItemForCharacter();
@@ -238,7 +237,7 @@ public class DragManager {
 				}
 				if(rightClickBagDown || rightClickInventoryDown) {
 					clickInventory[inventoryClickedSlot] = false;
-					clickBag[bagClickedSlot] = false;
+					bagClickedSlot = -1;
 				}
 			}
 			if(Mouse.getEventButton() == 0) {
@@ -253,22 +252,22 @@ public class DragManager {
 					int i = 0;
 					while(i < Mideas.bag().getBag().length) {
 						if(Mideas.bag().getBag(i) != null) {
-							if(ContainerFrame.getContainerFrameSlotHover(i)) {
+							if(ContainerFrame.getContainerFrameSlotHover(i) && bagClickedSlot == i) {
 								if(Mideas.bag().getBag(i).isPotion()) {
 									doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), i);
-									clickBag[bagClickedSlot] = false;
+									bagClickedSlot = -1;
 									return true;
 								}
 								else if(Mideas.bag().getBag(i).isStuff() || Mideas.bag().getBag(i).isWeapon()) {
 									equipBagItem(i);
-									clickBag[bagClickedSlot] = false;
+									bagClickedSlot = -1;
 									return true;
 								}
 							}
 						}
 						i++;
 					}
-					clickBag[bagClickedSlot] = false;
+					bagClickedSlot = -1;
 				}
 				else {
 					if(checkBagClick() && draggedItem == null) {
@@ -657,8 +656,8 @@ public class DragManager {
 	
 	private static boolean setDraggedItemForBag() {
 		int i = 0;
-		while(i < clickBag.length) {
-			if(clickBag[i] == true) {
+		while(i < Mideas.bag().getBag().length) {
+			if(bagClickedSlot == i) {
 				draggedItem = Mideas.bag().getBag(i);
 				return true;
 			}
@@ -669,9 +668,8 @@ public class DragManager {
 	
 	private static boolean checkBagClick() {
 		int i = 0;
-		while(i < clickBag.length) {
+		while(i < Mideas.bag().getBag().length) {
 			if(ContainerFrame.getContainerFrameSlotHover(i) == true && draggedItem == null) {
-				clickBag[i] = true;
 				bagClickedSlot = i;
 				return true;
 			}
@@ -899,7 +897,7 @@ public class DragManager {
 	private static boolean checkBagHover() {
 		int i = 0;
 		while(i < ContainerFrame.getContainerFrameSlotHover().length) {
-			if(clickBag[i] == true && clickBag[i] == ContainerFrame.getContainerFrameSlotHover(i)) {
+			if(bagClickedSlot == i&& true == ContainerFrame.getContainerFrameSlotHover(i)) {
 				return true;
 			}
 			i++;
@@ -908,7 +906,7 @@ public class DragManager {
 	}
 	private static boolean checkCharacterHover() {
 		int i = 0;
-		while(i < CharacterFrame.getHoverCharacterFrame().length) {
+		while(i < Mideas.joueur1().getStuff().length) {
 			if(clickInventory[i] == true && clickInventory[i] == CharacterFrame.getHoverCharacterFrame(i)) {
 				return true;
 			}
@@ -929,7 +927,7 @@ public class DragManager {
 	}
 	
 	public static boolean getClickBag(int i) {
-		return clickBag[i];
+		return bagClickedSlot == i;
 	}
 	
 	public static boolean getClickInventory(int i) {

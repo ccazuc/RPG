@@ -41,6 +41,14 @@ public class Bag extends Item implements Cloneable {
 	public void event() {
 		if(this.bagChange) {
 			updateBagItem();
+			if(Mideas.joueur1() != null) {
+				if(Mideas.joueur1().getFirstProfession() != null) {
+					Mideas.joueur1().getFirstProfession().updateNumberPossibleCraft();
+				}
+				else if(Mideas.joueur1().getSecondProfession() != null) {
+					Mideas.joueur1().getSecondProfession().updateNumberPossibleCraft();
+				}
+			}
 			this.bagChange = false;
 		}
 	}

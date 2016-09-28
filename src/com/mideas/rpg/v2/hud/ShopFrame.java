@@ -1,6 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
+/*import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -14,11 +14,11 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
-import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Draw;*/
 
 public class ShopFrame { // UNUSED
 	
-	private static boolean button_hover;
+	/*private static boolean button_hover;
 	private static boolean[] slot_hover = new boolean[12];
 	private static boolean left_arrow;
 	private static boolean right_arrow;
@@ -44,11 +44,6 @@ public class ShopFrame { // UNUSED
 		if(button_hover) {
 			Draw.drawQuad(Sprites.close_shop_hover, Display.getWidth()/2+27, Display.getHeight()/2-337);
 		}
-		//slotHover(slot_hover1, xLeft, y);
-		/*if(slot_hover1) {
-			Draw.drawQuad(Sprites.shop_hover, Display.getWidth()/2+xLeft, Display.getHeight()/2+y);
-			Mideas.cursorFrame("sprite/interface/cursor_buy.png");
-		}*/
 		shopHover(1, xLeft, y+yShift);
 		shopHover(2, xLeft, y+2*yShift);
 		shopHover(3, xLeft, y+3*yShift);
@@ -58,9 +53,6 @@ public class ShopFrame { // UNUSED
 		shopHover(7, xRight, y+2*yShift);
 		shopHover(8, xRight, y+3*yShift);
 		shopHover(9, xRight, y+4*yShift);
-		//else if(!Mideas.getCursor().equals("sprite/interface/cursor.png") && !Interface.getContainerFrameStatus()) {
-			//Mideas.cursorFrame("sprite/interface/cursor.png");
-		//}
 		if(!shopPage.equals("shopPage1")) {
 			Draw.drawQuad(Sprites.left_colored_arrow, Display.getWidth()/2+xLeft+3, Display.getHeight()/2+y+268);
 		}
@@ -76,18 +68,6 @@ public class ShopFrame { // UNUSED
 		if(shopPage.equals("shopPage3")) {
 			Draw.drawQuad(Sprites.right_uncolored_arrow, Display.getWidth()/2+xRight+125, Display.getHeight()/2+y+268);
 		}
-		/*if(Mideas.shop.stuff1 != null) {
-			calcCoin(Mideas.shop.stuff1.getPrice(), xLeft+49, y+35);
-			if(slot_hover1) {
-				Draw.drawColorQuad(Display.getWidth()+xLeft-300, Display.getHeight()/2-80, 150+TTF.itemName.getWidth(Mideas.shop.stuff1.getStuffName())/2, 80+TTF.statsName.getHeight()*4, bgColor);
-				TTF.itemName.drawStringShadow(Display.getWidth()+xLeft-180-TTF.itemName.getWidth(Mideas.shop.stuff1.getStuffName())/2, Display.getHeight()/2+y-20, Mideas.shop.stuff1.getStuffName());
-				TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y, "+"+Mideas.shop.stuff1.getArmor()+" Armor");
-				TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y+20, "+"+Mideas.shop.stuff1.getStamina()+" Stamina");
-				TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y+40, "+"+Mideas.shop.stuff1.getMana()+" Mana");
-				TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y+60, "+"+Mideas.shop.stuff1.getStrengh()+" Strengh");
-				TTF.statsName.drawStringShadow(Display.getWidth()+xLeft-295, Display.getHeight()/2+y+80, "+"+Mideas.shop.stuff1.getCritical()+" Critical");
-			}
-		}*/
 		drawGoldCoin(0, xLeft, y);
 		drawGoldCoin(1, xLeft, y+yShift);
 		drawGoldCoin(2, xLeft, y+2*yShift);
@@ -211,36 +191,12 @@ public class ShopFrame { // UNUSED
 		return true;
 	}
 	
-	/*private static boolean dropRate(Item item) throws SQLException {
-		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == null) {
-				Mideas.bag().setBag(i, item);
-				Mideas.bag().setBagChange(true);
-				CharacterStuff.setBagItems();
-				return true;
-			}
-			i++;
-		}
-		LogChat.setStatusText3("Votre inventaire est pleins");
-		return false;
-	}*/
-	
 	public static void buyItems(boolean slot_hover, Item stuff) throws SQLException {
 		if(Mouse.getEventButton() == 1 && slot_hover && stuff != null) {
 			if(Mouse.getEventButtonState()) {
 			}
 			else {
 				if(Mideas.getCurrentGold() >= stuff.getSellPrice()) {
-					/*if(stuff.getItemType() == ItemType.POTION || stuff.getItemType() == ItemType.ITEM) {
-						Mideas.joueur1().addItem((stuff));
-						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
-						Mideas.setGold(-stuff.getSellPrice());
-					}
-					else if(dropRate(stuff)) {
-						Mideas.setGold(-stuff.getSellPrice());
-						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
-					}*/
 					if(Mideas.joueur1().addItem((stuff), 1)) {
 						Mideas.setGold(Mideas.getGold()-stuff.getSellPrice());
 						LogChat.setStatusText3("Vous avez bien acheté "+stuff.getStuffName());
@@ -319,5 +275,5 @@ public class ShopFrame { // UNUSED
 		button_hover = false;
 		right_arrow = false;
 		left_arrow = false;
-	}
+	}*/
 }

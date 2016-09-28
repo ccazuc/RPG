@@ -261,6 +261,7 @@ public class Sprites {
 	public static Texture check_box_down_hover;
 	public static Texture check_box_enable;
 	public static Texture interface_option_frame;
+	public static Texture socketing_frame;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -303,12 +304,12 @@ public class Sprites {
 		inventory_click_hover = new Texture("sprite/interface/inventory_click_hover.png");
 		bag_open_border = new Texture("sprite/interface/bag_open_border.png");
 		shortcut[0] = new Texture("sprite/interface/shortcut/character_frame_open.png");
-		shortcut[1] = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-Spellbook-Down.png");
-		shortcut[2] = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-Talents-Down.png");
+		shortcut[1] = new Texture("sprite/interface/shortcut/book_frame_open.png");
+		shortcut[2] = new Texture("sprite/interface/shortcut/talent_frame_open.png");
 		//shortcut[3] = quest_open
 		//shortcut[4] = social_open
 		//shortcut[5] = lfg_open
-		shortcut[6] = new Texture("sprite/interface/buttons/buttons/UI-MicroButton-MainMenu-Down.png");
+		shortcut[6] = new Texture("sprite/interface/shortcut/escape_frame_open.png");
 		//shortcut[7] = request_open
 		spellbar_case = new Texture("sprite/interface/UI-Quickslot.png");
 		spellbar_case2 = new Texture("sprite/interface/UI-Quickslot.png");
@@ -473,6 +474,7 @@ public class Sprites {
 		check_box_down_hover = new Texture("sprite/interface/checkBox/check_box_down_hover.png");
 		check_box_enable = new Texture("sprite/interface/checkBox/check_box_enable.png");
 		interface_option_frame = new Texture("sprite/interface/interface_option_frame.png");
+		socketing_frame = new Texture("sprite/interface/socketing_frame.png");
 		return true;
 	}
 		
