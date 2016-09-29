@@ -38,6 +38,8 @@ public class SpellBarFrame {
 	private static float xHoveredSpell;
 	private static int yHoveredSpell;
 	
+	private static String numberFreeSlotBag;
+	
 	public static boolean draw() {
 		if(DragManager.isSpellBarHover()) {
 			Arrays.fill(hoverSpellBar, false);
@@ -56,7 +58,7 @@ public class SpellBarFrame {
 		}
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1);
         Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor());
-		TTF2.statsName.drawStringShadow(Display.getWidth()/2+557*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth("("+Mideas.bag().getNumberFreeSlotBag()+")")/2, Display.getHeight()-22, "("+Mideas.bag().getNumberFreeSlotBag()+")", Color.white, Color.black, 1, 1, 1);
+		TTF2.statsName.drawStringShadow(Display.getWidth()/2+557*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(numberFreeSlotBag)/2, Display.getHeight()-22, numberFreeSlotBag, Color.white, Color.black, 1, 1, 1);
 		float x = -Sprites.final_spellbar.getImageWidth()/2+120f;
 		int spellCount = 0;
 		int yShift = 0;

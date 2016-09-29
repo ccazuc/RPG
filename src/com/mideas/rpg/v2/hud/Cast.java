@@ -10,9 +10,7 @@ public class Cast {
 		this.name = name;
 	}
 	
-	public void endCastEvent() {
-		
-	}
+	public void endCastEvent() {}
 	
 	public int getLength() {
 		return this.length;

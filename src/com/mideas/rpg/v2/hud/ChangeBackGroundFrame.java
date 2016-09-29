@@ -19,6 +19,12 @@ public class ChangeBackGroundFrame {
 	private static int xShift = 400;
 	private static int y = 50;
 	private static int yShift = 230;
+	private static String bg = "bg";
+	private static String bc_bg = "bc_bg";
+	private static String doge_bg = "doge_bg";
+	private static String illidan_bg = "illidan_bg";
+	private static String sunwell1_bg = "sunwell1_bg";
+	private static String sunwell2_bg = "sunwell2_bg";
 
 	public static void draw() {
 		Draw.drawQuad(Sprites.resized_base_bg, xLeft, y);
@@ -76,22 +82,22 @@ public class ChangeBackGroundFrame {
 	
 	public static String getCurrentBackground() {
 		if(Sprites.current_bg.equals(Sprites.bg)) {
-			return "bg";
+			return bg;
 		}
 		else if(Sprites.current_bg.equals(Sprites.bc_bg)) {
-			return "bc_bg";
+			return bc_bg;
 		}
 		else if(Sprites.current_bg.equals(Sprites.doge_bg)) {
-			return "doge_bg";
+			return doge_bg;
 		}
 		else if(Sprites.current_bg.equals(Sprites.illidan_bg)) {
-			return "illidan_bg";
+			return illidan_bg;
 		}
 		else if(Sprites.current_bg.equals(Sprites.sunwell1_bg)) {
-			return "sunwell1_bg";
+			return sunwell1_bg;
 		}
 		else if(Sprites.current_bg.equals(Sprites.sunwell2_bg)) {
-			return "sunwell2_bg";
+			return sunwell2_bg;
 		}
 		else {
 			return null;
@@ -99,22 +105,22 @@ public class ChangeBackGroundFrame {
 	}
 	
 	public static void loadBG(String string) {
-		if(string.equals("bg")) {
+		if(string.equals(bg)) {
 			Sprites.current_bg = Sprites.bg;
 		}
-		else if(string.equals("bc_bg")) {
+		else if(string.equals(bc_bg)) {
 			Sprites.current_bg = Sprites.bc_bg;
 		}
-		else if(string.equals("doge_bg")) {
+		else if(string.equals(doge_bg)) {
 			Sprites.current_bg = Sprites.doge_bg;
 		}
-		else if(string.equals("illidan_bg")) {
+		else if(string.equals(illidan_bg)) {
 			Sprites.current_bg = Sprites.illidan_bg;
 		}
-		else if(string.equals("sunwell1_bg")) {
+		else if(string.equals(sunwell1_bg)) {
 			Sprites.current_bg = Sprites.sunwell1_bg;
 		}
-		else if(string.equals("sunwell_2bg")) {
+		else if(string.equals(sunwell2_bg)) {
 			Sprites.current_bg = Sprites.sunwell2_bg;
 		}
 	}

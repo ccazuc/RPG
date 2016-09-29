@@ -31,6 +31,18 @@ public class CrossButton {
 		this.y = y;
 	}
 	
+	public void draw(float x, float y) {
+		this.x = x;
+		this.y = y;
+		if(!this.buttonDown && !this.buttonHover) {
+			this.texture = Sprites.cross_button;
+		}
+		else if(this.buttonDown && !this.buttonHover) {
+			this.texture = Sprites.cross_button_down;
+		}
+		Draw.drawQuad(this.texture, x, y, this.x_size, this.y_size);
+	}
+	
 	public void draw() {
 		if(!this.buttonDown && !this.buttonHover) {
 			this.texture = Sprites.cross_button;

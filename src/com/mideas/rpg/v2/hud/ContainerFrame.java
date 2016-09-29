@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -20,6 +22,7 @@ import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ContainerFrame {
@@ -34,12 +37,9 @@ public class ContainerFrame {
 	private static int xShift;
 	private static int y;
 	private static int yShift;
-	private static boolean[] isBagOpen = new boolean[5];
+	static boolean[] isBagOpen = new boolean[5];
 	private static int[] bagSize = new int[5];
 	private static boolean bagChange = true;
-	private static boolean[] hoverButton = new boolean[5];
-	private static boolean[] buttonDown = new boolean[5];
-	private static boolean isOneButtonDown;
 	private static int xItemNumber;
 	private static int yItemNumber;
 	private static int iItemNumber = -1;
@@ -52,6 +52,45 @@ public class ContainerFrame {
 	private static int y_item;
 	private static int numberItem = 1;
 	private static int lastSplit;
+	private static CrossButton backpackButton = new CrossButton(0, 0) {
+		@Override
+		protected void eventButtonClick() {
+			isBagOpen[0] = false;
+			this.reset();
+		}
+	};
+
+	private static CrossButton firstBagButton = new CrossButton(0, 0) {
+		@Override
+		protected void eventButtonClick() {
+			isBagOpen[1] = false;
+			this.reset();
+		}
+	};
+
+	private static CrossButton secondBagButton = new CrossButton(0, 0) {
+		@Override
+		protected void eventButtonClick() {
+			isBagOpen[2] = false;
+			this.reset();
+		}
+	};
+
+	private static CrossButton thirdBagButton = new CrossButton(0, 0) {
+		@Override
+		protected void eventButtonClick() {
+			isBagOpen[3] = false;
+			this.reset();
+		}
+	};
+
+	private static CrossButton fourthBagButton = new CrossButton(0, 0) {
+		@Override
+		protected void eventButtonClick() {
+			isBagOpen[4] = false;
+			this.reset();
+		}
+	};
  	
 	private static void drawBags(int i, int x_items, int y_items, int x_textt, int y_textt) {
 		drawBag(i, x_items, y_items);
@@ -67,7 +106,6 @@ public class ContainerFrame {
 		}
 	}
 	public static void draw() {
-		Arrays.fill(hoverButton, false);
 		xItemNumber = 0;
 		yItemNumber = 0;
 		iHover = -1;
@@ -81,14 +119,9 @@ public class ContainerFrame {
 		int yBagIcon = -4;
 		int xCloseButton = -154;
 		int yCloseButton = -2;
-		Texture buttonTexture;
 		if(isBagOpen[0]) {
 			yBagShift = (int)(-bagSize[0]-150*Mideas.getDisplayYFactor());
-			if(Mideas.mouseX() >= Display.getWidth()+xCloseButton && Mideas.mouseX() <= Display.getWidth()+xCloseButton+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift+yCloseButton+9.5f && Mideas.mouseY() <=  Display.getHeight()+bagShift+yBagShift+9.5f+yCloseButton+Sprites.close_bag_button.getImageHeight()) {
-				hoverButton[0] = true;
-			}
-			buttonTexture = getButtonTexture(0);
-			Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton+9.5f);
+			backpackButton.draw(Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton+9.5f);
 			Draw.drawQuad(Sprites.back_bag, Display.getWidth()-320*Mideas.getDisplayXFactor(), Display.getHeight()+yBagShift);
 			bagShift+= yBagShift;
 		}
@@ -100,11 +133,7 @@ public class ContainerFrame {
 				else {
 					yBagShift = -bagSize[1]-142;
 				}
-				if(Mideas.mouseX() >= Display.getWidth()+xCloseButton && Mideas.mouseX() <= Display.getWidth()+xCloseButton+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift-2 && Mideas.mouseY() <=  Display.getHeight()+bagShift+yBagShift-2+Sprites.close_bag_button.getImageHeight()) {
-					hoverButton[1] = true;
-				}
-				buttonTexture = getButtonTexture(1);
-				Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
+				firstBagButton.draw(Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(0)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(0).getId()), Display.getWidth()-320*Mideas.getDisplayXFactor(), Display.getHeight()+bagShift+yBagShift-10);
 				bagShift+= yBagShift;
@@ -119,11 +148,7 @@ public class ContainerFrame {
 				else {
 					yBagShift = -bagSize[2]-142;
 				}
-				if(Mideas.mouseX() >= Display.getWidth()+xCloseButton && Mideas.mouseX() <= Display.getWidth()+xCloseButton+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift-2 && Mideas.mouseY() <= Display.getHeight()+bagShift+yBagShift-2+Sprites.close_bag_button.getImageHeight()) {
-					hoverButton[2] = true;
-				}
-				buttonTexture = getButtonTexture(2);
-				Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
+				secondBagButton.draw(Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(1)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(1).getId()), Display.getWidth()-(320+xBagShift)*Mideas.getDisplayXFactor(), Display.getHeight()+bagShift+yBagShift-10);
 				bagShift+= yBagShift;
@@ -143,11 +168,7 @@ public class ContainerFrame {
 					xBagShift = (int)(-200*Mideas.getDisplayXFactor());
 					yBagShift = -bagSize[3]-142;
 				}
-				if(Mideas.mouseX() >= Display.getWidth()+xCloseButton+xBagShift && Mideas.mouseX() <= Display.getWidth()+xCloseButton+xBagShift+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift-2 && Mideas.mouseY() <= Display.getHeight()+bagShift+yBagShift-2+Sprites.close_bag_button.getImageHeight()) {
-					hoverButton[3] = true;
-				}
-				buttonTexture = getButtonTexture(3);
-				Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
+				thirdBagButton.draw(Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(2)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(2).getId()), Display.getWidth()-320*Mideas.getDisplayXFactor()+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 				bagShift+= yBagShift;
@@ -167,11 +188,7 @@ public class ContainerFrame {
 					xBagShift = (int)(-200*Mideas.getDisplayXFactor());
 					yBagShift = -bagSize[4]-142;
 				}
-				if(Mideas.mouseX() >= Display.getWidth()+xCloseButton+xBagShift && Mideas.mouseX() <= Display.getWidth()+xCloseButton+xBagShift+Sprites.close_bag_button.getImageWidth() && Mideas.mouseY() >= Display.getHeight()+bagShift+yBagShift-2 && Mideas.mouseY() <= Display.getHeight()+bagShift+yBagShift-2+Sprites.close_bag_button.getImageHeight()) {
-					hoverButton[4] = true;
-				}
-				buttonTexture = getButtonTexture(4);
-				Draw.drawQuad(buttonTexture, Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
+				fourthBagButton.draw(Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.bag().getSpriteId(3)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(BagManager.getBagsSprites().get(Mideas.bag().getEquippedBag(3).getId()), Display.getWidth()-320*Mideas.getDisplayXFactor()+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 			}
@@ -419,7 +436,7 @@ public class ContainerFrame {
 		}
 	}
 	
-	public static boolean mouseEvent() {
+	public static boolean mouseEvent() throws NoSuchAlgorithmException, SQLException {
 		if(DragManager.isHoverBagFrame()) {
 			hoveredSlot = -1;
 		}
@@ -431,16 +448,6 @@ public class ContainerFrame {
 		if(!DragManager.isHoverCharacterFrame()) {
 			if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0) {
-					int i = 0;
-					while(i < hoverButton.length) {
-						if(hoverButton[i] && buttonDown[i]) {
-							isBagOpen[i] = false;
-							Arrays.fill(buttonDown, false);
-							isOneButtonDown = false;
-							return true;
-						}
-						i++;
-					}
 					if(itemNumberOkButton) {
 						splitItem(iItemNumber);
 						return true;
@@ -461,26 +468,6 @@ public class ContainerFrame {
 							numberItem++;
 							return true;
 						}
-					}
-				}
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					if(isOneButtonDown) {
-						Arrays.fill(buttonDown, false);
-						isOneButtonDown = false;
-						return true;
-					}
-				}
-			}
-			else if(Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					int i = 0;
-					while(i < buttonDown.length) {
-						if(hoverButton[i]) {
-							buttonDown[i] = true;
-							isOneButtonDown = true;
-							break;
-						}
-						i++;
 					}
 				}
 			}
@@ -510,26 +497,31 @@ public class ContainerFrame {
 				if(i < 16) {
 					if(isBagOpen[0]) {
 						slotHover(x+j*xShift+xBagShift, y+k*yShift+z, i);
+						backpackButton.event();
 					}
 				}
 				else if(i >= 16 && i < Mideas.bag().getEquippedBagSize(0)+16) {
 					if(isBagOpen[1]) { 
 						slotHover(x+j*xShift+xBagShift, y+k*yShift+z, i);
+						firstBagButton.event();
 					}
 				}
 				else if(i >= Mideas.bag().getEquippedBagSize(0)+16 && i < Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+16) {
 					if(isBagOpen[2]) { 
 						slotHover(x+j*xShift+xBagShift, y+k*yShift+z, i);
+						secondBagButton.event();
 					}
 				}
 				else if(i >= Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+16 && i < Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+Mideas.bag().getEquippedBagSize(2)+16) {
 					if(isBagOpen[3]) {
 						slotHover(x+j*xShift+xBagShift, k*yShift+z, i);
+						thirdBagButton.event();
 					}
 				}
 				else if(i >= Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+Mideas.bag().getEquippedBagSize(2)+16 && i < Mideas.bag().getEquippedBagSize(0)+Mideas.bag().getEquippedBagSize(1)+Mideas.bag().getEquippedBagSize(2)+Mideas.bag().getEquippedBagSize(3)+16) {
 					if(isBagOpen[4]) { 
 						slotHover(x+j*xShift+xBagShift, k*yShift+z, i);
+						fourthBagButton.event();
 					}
 				}
 				i++;
@@ -1055,23 +1047,6 @@ public class ContainerFrame {
 		calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-55, z+y+shift-2);
 	}
 	
-	public static Texture getButtonTexture(int i) {
-		if(buttonDown[i]) {
-			if(hoverButton[i]) {
-				return Sprites.close_bag_button_down_hover;
-			}
-			else {
-				return Sprites.close_bag_button_down;
-			}
-		}
-		else if(hoverButton[i]) {
-			return Sprites.close_bag_button_hover;
-		}
-		else {
-			return Sprites.close_bag_button;
-		}
-	}
-	
 	public static int getNumberStats(Stuff stuff) {
 		int i = 0;
 		if(stuff.getArmor() > 0) {
@@ -1231,10 +1206,6 @@ public class ContainerFrame {
 	
 	public static void setItemNumberOpen(int i) {
 		iItemNumber = i;
-	}
-	
-	public static void setIsOneButtonDown(boolean we) {
-		isOneButtonDown = we;
 	}
 	
 	public static boolean isHoverItemNumberFrame() {

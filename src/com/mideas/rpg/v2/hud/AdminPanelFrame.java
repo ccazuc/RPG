@@ -19,6 +19,7 @@ public class AdminPanelFrame {
 	private static int LEFT_ANCHOR = Display.getWidth()/2-325;
 	private static int y = -250;
 	private static boolean init;
+	private static String joueur1 = "joueur1";
 	private static Button sexMaxStaminaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y, 130, 30, "Fully heals you", 12, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
@@ -55,7 +56,7 @@ public class AdminPanelFrame {
 			init = true;
 		}
 		Draw.drawQuad(Sprites.admin_panel, LEFT_ANCHOR-75, Display.getHeight()/2+y-100);
-		TTF2.coinContainer.drawStringShadow(LEFT_ANCHOR+25, Display.getHeight()/2+y-40, "Joueur1", Color.white, Color.black, 1, 1, 1);
+		TTF2.coinContainer.drawStringShadow(LEFT_ANCHOR+25, Display.getHeight()/2+y-40, joueur1, Color.white, Color.black, 1, 1, 1);
 		sexMaxStaminaPlayer1.draw();
 		sexMaxManaPlayer1.draw();
 		killPlayer1.draw();

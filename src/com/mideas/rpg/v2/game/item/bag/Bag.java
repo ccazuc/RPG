@@ -19,6 +19,7 @@ public class Bag extends Item implements Cloneable {
 	
 	private static HashMap<Item, Integer> numberStack = new HashMap<Item, Integer>();
 	private static HashMap<Integer, Integer> itemList = new HashMap<Integer, Integer>();
+	private static HashMap<Integer, String> itemListString = new HashMap<Integer, String>();
 	
 	public Bag() {}
 	
@@ -158,6 +159,13 @@ public class Bag extends Item implements Cloneable {
 			return itemList.get(id);
 		}
 		return 0;
+	}
+	
+	public String getNumberItemInBagsString(int id) {
+		if(itemListString.containsKey(id)) {
+			return itemListString.get(id);
+		}
+		return "0";
 	}
 	
 	public HashMap<Item, Integer> getNumberStack() {

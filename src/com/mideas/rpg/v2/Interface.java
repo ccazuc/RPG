@@ -512,7 +512,6 @@ public class Interface {
 	
 	private static void closeBagEvent() {
 		ContainerFrame.setHoverFalse();
-		ContainerFrame.setIsOneButtonDown(false);
 	}
 	public static void closeCharacterFrame() {
 		characterFrameActive = false;
