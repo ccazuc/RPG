@@ -353,7 +353,6 @@ public class Joueur {
 	}
 	
 	public void deleteItem(Item item, int amount) throws SQLException {
-		long time = System.currentTimeMillis();
 		int i = 0;
 		if(!item.isStackable()) {
 			while(i < Mideas.bag().getBag().length && amount > 0) {
@@ -369,7 +368,6 @@ public class Joueur {
 		else {
 			while(i < Mideas.bag().getBag().length && amount > 0) {
 				if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(item)) {
-					long timer = System.currentTimeMillis();
 					int temp = amount;
 					amount-= Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i));
 					Mideas.bag().setBag(i, Mideas.bag().getBag(i), Math.max(0, Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))-temp));
@@ -379,7 +377,6 @@ public class Joueur {
 			}
 			CharacterStuff.setBagItems();
 		}
-		System.out.println(System.currentTimeMillis()-time+" total");
 	}
 	
 	public boolean canWear(Stuff stuff) {

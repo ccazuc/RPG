@@ -1,5 +1,8 @@
 package com.mideas.rpg.v2.hud;
 
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -14,12 +17,11 @@ import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class CharacterFrame {
-	
-	private static boolean hoverCloseButton;
-	private static boolean closeButtonDown;
+
 	private static Color bgColor = new Color(0, 0, 0, .6f); 
 	private static Color borderColor = Color.decode("#494D4B");
 	private static int hover = -1;
@@ -32,9 +34,18 @@ public class CharacterFrame {
 	private static int baseMouseY;
 	private static int lastMouseX;
 	private static int lastMouseY;
+	private final static int X_CLOSE_FRAME_BUTTON = 69;
+	private final static int Y_CLOSE_FRAME_BUTTON = -366;
+	private static CrossButton closeFrameButton = new CrossButton(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON+gemFrame)*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift) {
+		@Override
+		protected void eventButtonClick() {
+			Interface.closeCharacterFrame();
+		}
+	};
 
 	public static void draw() {
-		Draw.drawQuad(Sprites.character_frame, Display.getWidth()/2-300+xMouseShift+gemFrame, Display.getHeight()/2-380+yMouseShift);
+		Draw.drawQuad(Sprites.character_frame, Display.getWidth()/2+(-300+gemFrame)*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-380*Mideas.getDisplayYFactor()+yMouseShift);
+		closeFrameButton.draw();
 		/*Draw.drawQuad(Sprites.character_frame_stats, Display.getWidth()/2-224+xMouseShift+gemFrame, Display.getHeight()/2-60+yMouseShift);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2-27+yMouseShift, "Strength:", Color.yellow, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getStrength())), Display.getHeight()/2-27+yMouseShift, String.valueOf(Mideas.joueur1().getStrength()), Color.white, Color.black, 1, 1, 1);
@@ -72,17 +83,6 @@ public class CharacterFrame {
 				j = 0;
 			}
 		}
-		if(hoverCloseButton) {
-			if(closeButtonDown) {
-				Draw.drawQuad(Sprites.close_button_inventory_down_hover, Display.getWidth()/2+70+xMouseShift+gemFrame, Display.getHeight()/2-366+yMouseShift);
-			}
-			else {
-				Draw.drawQuad(Sprites.close_button_inventory_hover, Display.getWidth()/2+70+xMouseShift+gemFrame, Display.getHeight()/2-366+yMouseShift);
-			}
-		}
-		else if(closeButtonDown) {
-			Draw.drawQuad(Sprites.close_button_inventory_down, Display.getWidth()/2+70+xMouseShift+gemFrame, Display.getHeight()/2-366+yMouseShift);
-		}
 		if(DragManager.isHoverCharacterFrame()) {
 			i = 0;
 			int x_hover = -236+xMouseShift+gemFrame;
@@ -112,20 +112,18 @@ public class CharacterFrame {
 		}
 	}
 
-	public static boolean mouseEvent() {
+	public static boolean mouseEvent() throws NoSuchAlgorithmException, SQLException {
 		hover = -1;
 		hoverMove = false;
-		hoverCloseButton = false;
-		if(Mideas.mouseX() >= Display.getWidth()/2+70+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2+70+Sprites.close_button_inventory_down.getImageWidth()+xMouseShift+gemFrame && Mideas.mouseY() >= Display.getHeight()/2-366+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-366+Sprites.close_button_inventory_down.getImageHeight()+yMouseShift) {
-			hoverCloseButton = true;
-		}
-		else if(Mideas.mouseX()>= Display.getWidth()/2-300+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-368+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-368+yMouseShift+8) {
+		if(Mideas.mouseX()>= Display.getWidth()/2-300+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-368+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-368+yMouseShift+8) {
 			hoverMove = true;
 		}
 		if(moving) {
 			yMouseShift = Mideas.mouseY()-baseMouseY+lastMouseY;
 			xMouseShift = Mideas.mouseX()-baseMouseX+lastMouseX;
+			updateButton();
 		}
+		closeFrameButton.event();
 		if(Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0) {
 				if(hoverMove && !moving) {
@@ -134,25 +132,15 @@ public class CharacterFrame {
 					baseMouseX = Mideas.mouseX();
 					return true;
 				}
-				if(hoverCloseButton) {
-					closeButtonDown = true;
-				}
 			}
 		}
 		if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0) {
-				if(hoverCloseButton && closeButtonDown) {
-					Interface.closeCharacterFrame();
-				}
-				else if(moving) {
+				if(moving) {
 					moving = false;
 					lastMouseX = xMouseShift;
 					lastMouseY = yMouseShift;
 				}
-				closeButtonDown = false;
-			}
-			if(Mouse.getEventButton() == 1) {
-				closeButtonDown = false;
 			}
 		}
 		if(DragManager.isHoverCharacterFrame()) {
@@ -189,6 +177,7 @@ public class CharacterFrame {
 						SocketingFrame.setStuff(Mideas.joueur1().getStuff(hover));
 						Interface.setSocketingFrameStatus(true);
 						gemFrame = 15+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
+						updateButton();
 					}
 				}
 			}
@@ -351,6 +340,7 @@ public class CharacterFrame {
 	public static void setMouseX(int x) {
 		xMouseShift = x;
 		lastMouseX = x;
+		updateButton();
 	}
 	
 	public static int getMouseX() {
@@ -360,6 +350,7 @@ public class CharacterFrame {
 	public static void setMouseY(int y) {
 		yMouseShift = y;
 		lastMouseY = y;
+		updateButton();
 	}
 	
 	public static int getMouseY() {
@@ -376,5 +367,13 @@ public class CharacterFrame {
 	
 	public static void setHoverFalse() {
 		hover = -1;
+	}
+	
+	public static void updateButton() {
+		closeFrameButton.update(Display.getWidth()/2+X_CLOSE_FRAME_BUTTON*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift);
+	}
+	
+	public static void updateSize() {
+		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON+gemFrame)*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
 	}
 }

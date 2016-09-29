@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
+import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 
@@ -60,7 +61,6 @@ public class LoginScreen {
 		leaveButton.draw();
 		connectionButton.draw();
 		alert.draw();
-		//Draw.drawColorQuad(0, 0, 1920, 1080, Color.blue);
 	}
 	
 	public static boolean mouseEvent() throws NoSuchAlgorithmException, SQLException {

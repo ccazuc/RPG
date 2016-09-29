@@ -21,6 +21,7 @@ public class Stuff extends Item {
 	protected ClassType[] classType;
 	protected WeaponType weaponType;
 	protected WeaponSlot weaponSlot;
+	protected int numberGemSlot;
 	protected int gemBonusValue;
 	protected Gem equippedGem1;
 	protected Gem equippedGem2;
@@ -61,6 +62,7 @@ public class Stuff extends Item {
 		this.wear = stuff.wear;
 		this.mana = stuff.mana;
 		this.isLoaded = true;
+		checkNumberGemSlot();
 	}
 	
 	public Stuff(StuffType type, ClassType[] classType, String sprite_id, int id, String name, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, Wear wear, int critical, int strength, int stamina, int armor, int mana, int sellPrice) {
@@ -80,6 +82,7 @@ public class Stuff extends Item {
 		this.wear = wear;
 		this.mana = mana;
 		this.isLoaded = true;
+		checkNumberGemSlot();
 	}
 
 	public Stuff(Stuff weapon, int i) { //weapon constructor
@@ -99,6 +102,7 @@ public class Stuff extends Item {
 		this.armor = weapon.armor;
 		this.mana = weapon.mana;
 		this.isLoaded = true;
+		checkNumberGemSlot();
 	}
 	
 	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
@@ -118,6 +122,7 @@ public class Stuff extends Item {
 		this.armor = armor;
 		this.mana = mana;
 		this.isLoaded = true;
+		checkNumberGemSlot();
 	}
 
 	public boolean canWearWeapon() {
@@ -156,6 +161,22 @@ public class Stuff extends Item {
 		}
 		this.gemBonusActivated = false;
 		return false;
+	}
+	
+	private void checkNumberGemSlot() {
+		if(this.color1 != GemColor.NONE) {
+			this.numberGemSlot++;
+		}
+		if(this.color2 != GemColor.NONE) {
+			this.numberGemSlot++;
+		}
+		if(this.color3 != GemColor.NONE) {
+			this.numberGemSlot++;
+		}
+	}
+	
+	public int gemNumberGemSlot() {
+		return this.numberGemSlot;
 	}
 	
 	public boolean getGemBonusActivated() {

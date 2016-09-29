@@ -262,6 +262,10 @@ public class Sprites {
 	public static Texture check_box_enable;
 	public static Texture interface_option_frame;
 	public static Texture socketing_frame;
+	public static Texture cross_button;
+	public static Texture cross_button_hover;
+	public static Texture cross_button_down;
+	public static Texture cross_button_hover_down;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -475,6 +479,10 @@ public class Sprites {
 		check_box_enable = new Texture("sprite/interface/checkBox/check_box_enable.png");
 		interface_option_frame = new Texture("sprite/interface/interface_option_frame.png");
 		socketing_frame = new Texture("sprite/interface/socketing_frame.png");
+		cross_button = new Texture("sprite/interface/cross_button/cross_button.png");
+		cross_button_down = new Texture("sprite/interface/cross_button/cross_button_down.png");
+		cross_button_hover = new Texture("sprite/interface/cross_button/cross_button_hover.png");
+		cross_button_hover_down = new Texture("sprite/interface/cross_button/cross_button_hover_down.png");
 		return true;
 	}
 		

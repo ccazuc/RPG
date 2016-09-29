@@ -278,6 +278,7 @@ public class Mideas {
 		DragManager.updateSize();
 		AdminPanelFrame.updateSize();
 		ContainerFrame.updateBagFrameSize();
+		CharacterFrame.updateSize();
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
 			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
 		}
