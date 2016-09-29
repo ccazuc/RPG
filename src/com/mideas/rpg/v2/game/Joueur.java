@@ -51,6 +51,8 @@ public class Joueur {
 	private int numberYellowGem;
 	private Profession firstProfession;
 	private Profession secondProfession;
+	private boolean hasHpChanged = true;
+	private boolean hasManaChanged = true;
 	//private int tailorExp;
 	private String id;
 	private int tempId;
@@ -440,6 +442,7 @@ public class Joueur {
 	public void setStuffStamina(int stamina) {
 		this.maxStamina+= stamina;
 		this.stamina+= stamina;
+		this.hasHpChanged = true;
 	}
 	
 	public void setStuffCritical(int critical) {
@@ -449,6 +452,23 @@ public class Joueur {
 	public void setStuffMana(int mana) {
 		this.maxMana+= mana;
 		this.mana+= mana;
+		this.hasManaChanged = true;
+	}
+	
+	public boolean getHasHpChanged() {
+		return this.hasHpChanged;
+	}
+	
+	public void setHasHpChanged(boolean we) {
+		this.hasHpChanged = we;
+	}
+	
+	public boolean getHasManaChanged() {
+		return this.hasManaChanged;
+	}
+	
+	public void setHasManaChanged(boolean we) {
+		this.hasManaChanged = we;
 	}
 	
 	public void setNumberRedGem(int nb) {
@@ -489,6 +509,7 @@ public class Joueur {
 	
 	public void setStamina(double d) {
 		this.stamina = (int)Math.max(d, 0);
+		this.hasHpChanged = true;
 	}
 	
 	public int getMaxStamina() {
@@ -513,6 +534,7 @@ public class Joueur {
 	
 	public void setMana(int mana) {
 		this.mana = Math.max(mana, 0);
+		this.hasManaChanged = true;
 	}
 	
 	public int getMana() {

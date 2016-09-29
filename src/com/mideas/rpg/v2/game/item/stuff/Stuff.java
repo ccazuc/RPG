@@ -13,14 +13,23 @@ import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
+import com.mideas.rpg.v2.hud.ContainerFrame;
 
 public class Stuff extends Item {
 
 	protected boolean gemBonusActivated;
 	protected GemBonusType gemBonusType;
+	private String socketBonusString;
 	protected ClassType[] classType;
 	protected WeaponType weaponType;
 	protected WeaponSlot weaponSlot;
+	private String classRequirement;
+	private String sellPriceString;
+	private String strengthString;
+	private String criticalString;
+	private String staminaString;
+	private String armorString;
+	private String levelString;
 	protected int numberGemSlot;
 	protected int gemBonusValue;
 	protected Gem equippedGem1;
@@ -29,6 +38,10 @@ public class Stuff extends Item {
 	protected GemColor color1;
 	protected GemColor color2;
 	protected GemColor color3;
+	private String gem1String;
+	private String gem2String;
+	private String gem3String;
+	private String manaString;
 	protected StuffType type;
 	protected int critical;
 	protected int strength;
@@ -39,16 +52,91 @@ public class Stuff extends Item {
 	protected int level;
 	protected int mana;
 	
+	private final static String head = "Head";
+	private final static String necklace = "Necklace";
+	private final static String shoulders = "Shoulders";
+	private final static String back = "Back";
+	private final static String chest = "Chest";
+	private final static String wrists = "Wrists";
+	private final static String gloves = "Gloves";
+	private final static String belt = "Belt";
+	private final static String leggings = "Leggings";
+	private final static String boots = "Boots";
+	private final static String ring = "Ring";
+	private final static String trinket = "Trinket";
+	private final static String mainHand = "MainHand";
+	private final static String offHand = "OffHand";
+	private final static String ranged = "Ranged";
+	
+	private final static String bow = "Bow";
+	private final static String crossbow = "Crossbow";
+	private final static String dagger = "Dagger";
+	private final static String fistWeapon = "Fist Weapon";
+	private final static String gun = "Gun";
+	private final static String oneHandedAxe = "One Handed Axe";
+	private final static String oneHandedMace = "One Handed Mace";
+	private final static String oneHandedSword = "One Handed Sword";
+	private final static String polearm = "Polearm";
+	private final static String staff = "Staff";
+	private final static String thrown = "Thrown";
+	private final static String twoHandedAxe = "Two Handed Axe";
+	private final static String twoHandedMace = "Two Handed Mace";
+	private final static String twoHandedSword = "Two Handed Sword";
+	private final static String wand = "Wand";
+	
+	private final static String cloth = "Cloth";
+	private final static String leather = "Leather";
+	private final static String mail = "Mail";
+	private final static String plate = "Plate";
+
+	private final static String deathKnight = "DeathKnight";
+	private final static String warrior = "Warrior";
+	private final static String hunter = "Hunter";
+	private final static String mage = "Mage";
+	private final static String monk = "Monk";
+	private final static String paladin = "Paladin";
+	private final static String priest = "Priest";
+	private final static String rogue = "Rogue";
+	private final static String shaman = "Shaman";
+	private final static String warlock = "Warlock";
+	
+	private final static String socketBonus = "Socket Bonues: +";
+	private final static String socket = " Socket";
+	private final static String classes = "Classes: ";
+	private final static String comma = ", ";
+	private final static String plus = "+";
+	private final static String empty = "";
+	private final static String levels = "Level ";
+	private final static String required = " required";
+	
+	private final static String armorStrings = "Armor : ";
+	private final static String criticalStrings = " Critical";
+	private final static String manaStrings = " Mana";
+	private final static String staminaStrings = " Stamina";
+	private final static String strengthStrings = " Strength";
+	
 	public Stuff(int id) { //stuff created when waiting for the server to respond
-		super(id, "", ItemType.STUFF, "", 0, 0, 1);
+		super(id, empty, ItemType.STUFF, empty, 0, 0, 1);
 		this.id = id;
-		this.sprite_id = "";
+		this.sprite_id = empty;
 	}
 
 	public Stuff(Stuff stuff) {
 		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.quality, stuff.sellPrice, stuff.maxStack);
+		this.socketBonusString = stuff.socketBonusString;
+		this.classRequirement = stuff.classRequirement;
+		this.criticalString = stuff.criticalString;
+		this.strengthString = stuff.strengthString;
+		this.staminaString = stuff.staminaString;
 		this.gemBonusValue = stuff.gemBonusValue;
+		this.numberGemSlot = stuff.numberGemSlot;
 		this.gemBonusType = stuff.gemBonusType;
+		this.armorString = stuff.armorString;
+		this.levelString = stuff.levelString;
+		this.gem1String = stuff.gem1String;
+		this.gem2String = stuff.gem2String;
+		this.gem3String = stuff.gem3String;
+		this.manaString = stuff.manaString;
 		this.classType = stuff.classType;
 		this.critical = stuff.critical;
 		this.strength = stuff.strength;
@@ -62,7 +150,6 @@ public class Stuff extends Item {
 		this.wear = stuff.wear;
 		this.mana = stuff.mana;
 		this.isLoaded = true;
-		checkNumberGemSlot();
 	}
 	
 	public Stuff(StuffType type, ClassType[] classType, String sprite_id, int id, String name, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, Wear wear, int critical, int strength, int stamina, int armor, int mana, int sellPrice) {
@@ -82,13 +169,25 @@ public class Stuff extends Item {
 		this.wear = wear;
 		this.mana = mana;
 		this.isLoaded = true;
-		checkNumberGemSlot();
+		buildAllString();
 	}
 
 	public Stuff(Stuff weapon, int i) { //weapon constructor
 		super(weapon.id, weapon.sprite_id, weapon.itemType, weapon.name, weapon.quality, weapon.sellPrice, weapon.maxStack);
+		this.socketBonusString = weapon.socketBonusString;
+		this.classRequirement = weapon.classRequirement;
+		this.strengthString = weapon.strengthString;
+		this.criticalString = weapon.criticalString;
 		this.gemBonusValue = weapon.gemBonusValue;
+		this.numberGemSlot = weapon.numberGemSlot;
+		this.staminaString = weapon.staminaString;
 		this.gemBonusType = weapon.gemBonusType;
+		this.levelString = weapon.levelString;
+		this.armorString = weapon.armorString;
+		this.manaString = weapon.manaString;
+		this.gem1String = weapon.gem1String;
+		this.gem2String = weapon.gem2String;
+		this.gem3String = weapon.gem3String;
 		this.weaponType = weapon.weaponType;
 		this.weaponSlot = weapon.weaponSlot;
 		this.classType = weapon.classType;
@@ -102,7 +201,6 @@ public class Stuff extends Item {
 		this.armor = weapon.armor;
 		this.mana = weapon.mana;
 		this.isLoaded = true;
-		checkNumberGemSlot();
 	}
 	
 	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
@@ -122,7 +220,22 @@ public class Stuff extends Item {
 		this.armor = armor;
 		this.mana = mana;
 		this.isLoaded = true;
+		buildAllString();
+	}
+	
+	private void buildAllString() {
 		checkNumberGemSlot();
+		buildGem1String();
+		buildGem2String();
+		buildGem3String();
+		buildClassRequirementString();
+		buildSocketBonusString();
+		buildArmorString();
+		buildStaminaString();
+		buildManaString();
+		buildStrengthString();
+		buildCriticalString();
+		buildLevelString();
 	}
 
 	public boolean canWearWeapon() {
@@ -163,6 +276,112 @@ public class Stuff extends Item {
 		return false;
 	}
 	
+	private void buildClassRequirementString() {
+		if(this.classType.length < 10) {
+			StringBuilder builder = new StringBuilder();
+			builder.append(classes);
+			int k = 0;
+			while(k < this.classType.length) {
+				if(k == this.classType.length-1) {
+					builder.append(convClassTypeToString(k));
+				}
+				else {
+					builder.append(convClassTypeToString(k)+comma);
+				}
+				k++;
+			}
+			this.classRequirement = builder.toString();
+		}
+	}
+	
+	private void buildArmorString() {
+		this.armorString = armorStrings+this.armor;
+	}
+	
+	private void buildStaminaString() {
+		this.staminaString = plus+this.stamina+staminaStrings;
+	}
+	
+	private void buildManaString() {
+		this.manaString = plus+this.mana+manaStrings;
+	}
+	
+	private void buildCriticalString() {
+		this.criticalString = plus+this.critical+criticalStrings;
+	}
+	
+	private void buildStrengthString() {
+		this.strengthString = plus+this.strength+strengthStrings;
+	}
+	
+	private void buildSellPriceString() {
+		
+	}
+	
+	private void buildLevelString() {
+		this.levelString = levels+this.level+required;
+	}
+	
+	private void buildSocketBonusString() {
+		if(this.gemBonusType != GemBonusType.NONE) {
+			this.socketBonusString = socketBonus+this.gemBonusValue+" "+Gem.convGemBonusTypeToString(this.gemBonusType);
+		}
+	}
+	
+	private void buildGem1String() {
+		if(this.color1 != GemColor.NONE) {
+			this.gem1String = Gem.convGemColorToString(this.color1)+socket;
+		}
+	}
+	
+	private void buildGem2String() {
+		if(this.color2 != GemColor.NONE) {
+			this.gem2String = Gem.convGemColorToString(this.color2)+socket;
+		}
+	}
+	
+	private void buildGem3String() {
+		if(this.color3 != GemColor.NONE) {
+			this.gem3String = Gem.convGemColorToString(this.color3)+socket;
+		}
+	}
+	
+	public String getLevelString() {
+		return this.levelString;
+	}
+	
+	public String getStaminaString() {
+		return this.staminaString;
+	}
+	
+	public String getManaString() {
+		return this.manaString;
+	}
+	
+	public String getCriticalString() {
+		return this.criticalString;
+	}
+	
+	public String getArmorString() {
+		return this.armorString;
+	}
+	
+	public String getStrengthString() {
+		return this.strengthString;
+	}
+	
+	public String getGem1String() {
+		return this.gem1String;
+	}
+	
+	public String getGem2String() {
+		return this.gem2String;
+	}
+	
+	public String getGem3String() {
+		return this.gem3String;
+	}
+	
 	private void checkNumberGemSlot() {
 		if(this.color1 != GemColor.NONE) {
 			this.numberGemSlot++;
@@ -173,6 +392,14 @@ public class Stuff extends Item {
 		if(this.color3 != GemColor.NONE) {
 			this.numberGemSlot++;
 		}
+	}
+	
+	public String getSocketBonusString() {
+		return this.socketBonusString;
+	}
+	
+	public String getClassRequirements() {
+		return this.classRequirement;
 	}
 	
 	public int gemNumberGemSlot() {
@@ -286,51 +513,48 @@ public class Stuff extends Item {
 	
 	public String convTypeToString() {
 		if(this.weaponType == WeaponType.BOW) {
-			return "Bow";
+			return bow;
 		}
 		if(this.weaponType == WeaponType.CROSSBOW) {
-			return "Crossbow";
+			return crossbow;
 		}
 		if(this.weaponType == WeaponType.DAGGER) {
-			return "Dagger";
+			return dagger;
 		}
 		if(this.weaponType == WeaponType.FISTWEAPON) {
-			return "Fist weapon";
+			return fistWeapon;
 		}
 		if(this.weaponType == WeaponType.GUN) {
-			return "Gun";
+			return gun;
 		}
 		if(this.weaponType == WeaponType.ONEHANDEDAXE) {
-			return "One handed axe";
+			return oneHandedAxe;
 		}
 		if(this.weaponType == WeaponType.ONEHANDEDMACE) {
-			return "One handed mace";
+			return oneHandedMace;
 		}
 		if(this.weaponType == WeaponType.ONEHANDEDSWORD) {
-			return "One handed sword";
+			return oneHandedSword;
 		}
 		if(this.weaponType == WeaponType.POLEARM) {
-			return "Polearm";
+			return polearm;
 		}
 		if(this.weaponType == WeaponType.STAFF) {
-			return "Staff";
+			return staff;
 		}
 		if(this.weaponType == WeaponType.THROWN) {
-			return "Thrown";
+			return thrown;
 		}
 		if(this.weaponType == WeaponType.TWOHANDEDAXE) {
-			return "Two handed axe";
+			return twoHandedAxe;
 		}
 		if(this.weaponType == WeaponType.TWOHANDEDMACE) {
-			return "Two handed mace";
+			return twoHandedMace;
 		}
 		if(this.weaponType == WeaponType.TWOHANDEDSWORD) {
-			return "Two handed sword";
+			return twoHandedSword;
 		}
-		if(this.weaponType == WeaponType.WAND) {
-			return "Wand";
-		}
-		return "";
+		return wand;
 	}
 	
 	public int getCritical() {
@@ -375,98 +599,95 @@ public class Stuff extends Item {
 	
 	public String convStuffTypeToString() {
 		if(this.type == StuffType.HEAD) {
-			return "Head";
+			return head;
 		}
 		if(this.type == StuffType.NECKLACE) {
-			return "Necklace";
+			return necklace;
 		}
 		if(this.type == StuffType.SHOULDERS) {
-			return "Shoulders";
+			return shoulders;
 		}
 		if(this.type == StuffType.BACK) {
-			return "Back";
+			return back;
 		}
 		if(this.type == StuffType.CHEST) {
-			return "Chest";
+			return chest;
 		}
 		if(this.type == StuffType.WRISTS) {
-			return "Wrists";
+			return wrists;
 		}
 		if(this.type == StuffType.GLOVES) {
-			return "Gloves";
+			return gloves;
 		}
 		if(this.type == StuffType.BELT) {
-			return "Belt";
+			return belt;
 		}
 		if(this.type == StuffType.LEGGINGS) {
-			return "Leggings";
+			return leggings;
 		}
 		if(this.type == StuffType.BOOTS) {
-			return "Boots";
+			return boots;
 		}
 		if(this.type == StuffType.RING) {
-			return "Ring";
+			return ring;
 		}
 		if(this.type == StuffType.TRINKET) {
-			return "Trinket";
+			return trinket;
 		}
 		if(this.type == StuffType.MAINHAND) {
-			return "MainHand";
+			return mainHand;
 		}
 		if(this.type == StuffType.OFFHAND) {
-			return "OffHand";
+			return offHand;
 		}
-		return "Ranged";
+		return ranged;
 	}
 	
 	public String convClassTypeToString(int i) {
 		if(i < this.classType.length) {
 			if(this.classType[i] == ClassType.DEATHKNIGHT) {
-				return "DeathKnight";
+				return deathKnight;
 			}
 			if(this.classType[i] == ClassType.GUERRIER) {
-				return "Warrior";
+				return warrior;
 			}
 			if(this.classType[i] == ClassType.HUNTER) {
-				return "Hunter";
+				return hunter;
 			}
 			if(this.classType[i] == ClassType.MAGE) {
-				return "Mage";
+				return mage;
 			}
 			if(this.classType[i] == ClassType.MONK) {
-				return "MonK";
+				return monk;
 			}
 			if(this.classType[i] == ClassType.PALADIN) {
-				return "Paladin";
+				return paladin;
 			}
 			if(this.classType[i] == ClassType.PRIEST) {
-				return "Priest";
+				return priest;
 			}
 			if(this.classType[i] == ClassType.ROGUE) {
-				return "Rogue";
+				return rogue;
 			}
 			if(this.classType[i] == ClassType.SHAMAN) {
-				return "Shaman";
+				return shaman;
 			}
-			return "Warlock";
+			return warlock;
 		}
 		return null;
 	}
 	
 	public String convWearToString() {
 		if(this.wear == Wear.CLOTH) {
-			return "Cloth";
+			return cloth;
 		}
 		if(this.wear == Wear.LEATHER) {
-			return "Leather";
+			return leather;
 		}
 		if(this.wear == Wear.MAIL) {
-			return "Mail";
+			return mail;
 		}
-		if(this.wear == Wear.PLATE) {
-			return "Plate";
-		}
-		return "";
+		return plate;
 	}
 	
 	public boolean canEquipTo(ClassType type) {
@@ -482,65 +703,13 @@ public class Stuff extends Item {
 	
 	public String convSlotToString() {
 		if(this.weaponSlot == WeaponSlot.MAINHAND) {
-			return "Main Hand";
+			return mainHand;
 		}
 		if(this.weaponSlot == WeaponSlot.OFFHAND) {
-			return "Off Hand";
+			return offHand;
 		}
-		if(this.weaponSlot == WeaponSlot.RANGED) {
-			return "Ranged";
-		}
- 		return "";
+		return ranged;
  	}
-	
-	public String convWeaponTypeToString() {
-		if(this.weaponType == WeaponType.BOW) {
-			return "Bow";
-		}
-		if(this.weaponType == WeaponType.CROSSBOW) {
-			return "Crossbow";
-		}
-		if(this.weaponType == WeaponType.DAGGER) {
-			return "Dagger";
-		}
-		if(this.weaponType == WeaponType.FISTWEAPON) {
-			return "Fist weapon";
-		}
-		if(this.weaponType == WeaponType.GUN) {
-			return "Gun";
-		}
-		if(this.weaponType == WeaponType.ONEHANDEDAXE) {
-			return "One handed axe";
-		}
-		if(this.weaponType == WeaponType.ONEHANDEDMACE) {
-			return "One handed mace";
-		}
-		if(this.weaponType == WeaponType.ONEHANDEDSWORD) {
-			return "One handed sword";
-		}
-		if(this.weaponType == WeaponType.POLEARM) {
-			return "Polearm";
-		}
-		if(this.weaponType == WeaponType.STAFF) {
-			return "Staff";
-		}
-		if(this.weaponType == WeaponType.THROWN) {
-			return "Thrown";
-		}
-		if(this.weaponType == WeaponType.TWOHANDEDAXE) {
-			return "Two handed axe";
-		}
-		if(this.weaponType == WeaponType.TWOHANDEDMACE) {
-			return "Two handed mace";
-		}
-		if(this.weaponType == WeaponType.TWOHANDEDSWORD) {
-			return "Two handed sword";
-		}
-		if(this.weaponType == WeaponType.WAND) {
-			return "Wand";
-		}
-		return "";
-	}
 	
 	public boolean isHead() {
 		return this.type == StuffType.HEAD;

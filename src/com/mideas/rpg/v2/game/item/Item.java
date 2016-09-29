@@ -16,6 +16,9 @@ public class Item implements Cloneable {
 	protected int quality;
 	protected int id;
 	protected boolean isLoaded;
+	protected String deleteConfirm;
+	
+	private final static String delete = "Voulez vous supprimer ";
 	
 	public Item(int id, String sprite_id, ItemType itemType, String name, int quality, int sellPrice, int maxStack) {
 		this.sellPrice = sellPrice;
@@ -25,10 +28,23 @@ public class Item implements Cloneable {
 		this.quality = quality;
 		this.name = name;
 		this.id = id;
+		buildAllString();
 	}
 	
 	public Item() {}
 
+	private void buildAllString() {
+		buildDeleteConfirm();
+	}
+	
+	private void buildDeleteConfirm() {
+		this.deleteConfirm = delete+this.name;
+	}
+	
+	public String getDeleteConfirm() {
+		return this.deleteConfirm;
+	}
+	
 	public int getId() {
 		return this.id;
 	}

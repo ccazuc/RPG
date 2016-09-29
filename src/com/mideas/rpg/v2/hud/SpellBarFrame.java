@@ -38,7 +38,7 @@ public class SpellBarFrame {
 	private static float xHoveredSpell;
 	private static int yHoveredSpell;
 	
-	private static String numberFreeSlotBag;
+	private static String numberFreeSlotBag = "";
 	
 	public static boolean draw() {
 		if(DragManager.isSpellBarHover()) {
@@ -104,7 +104,7 @@ public class SpellBarFrame {
 				}
 				else if(Mideas.joueur1().getSpells(spellCount).getShortcutType() == ShortcutType.POTION) {
 					Draw.drawQuad(Mideas.joueur1().getSpells(spellCount).getSprite(), Display.getWidth()/2+x*Mideas.getDisplayXFactor(), Display.getHeight()+(y+yShift)*Mideas.getDisplayYFactor());
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+(x+37)*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(String.valueOf(Mideas.bag().getNumberItemInBags(((PotionShortcut)Mideas.joueur1().getSpells(spellCount)).getId()))), Display.getHeight()+(y+16+yShift)*Mideas.getDisplayYFactor(), String.valueOf(Mideas.bag().getNumberItemInBags(((PotionShortcut)Mideas.joueur1().getSpells(spellCount)).getId())), Color.white, Color.black, 1, 1, 1);
+					//TTF2.statsName.drawStringShadow(Display.getWidth()/2+(x+37)*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(String.valueOf(Mideas.bag().getNumberItemInBags(((PotionShortcut)Mideas.joueur1().getSpells(spellCount)).getId()))), Display.getHeight()+(y+16+yShift)*Mideas.getDisplayYFactor(), String.valueOf(Mideas.bag().getNumberItemInBags(((PotionShortcut)Mideas.joueur1().getSpells(spellCount)).getId())), Color.white, Color.black, 1, 1, 1);
 					Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2-2+x*Mideas.getDisplayXFactor(), Display.getHeight()+(y-2+yShift)*Mideas.getDisplayYFactor());
 					PotionShortcut spell = (PotionShortcut)Mideas.joueur1().getSpells(spellCount);
 					if(Mideas.mouseX() >= Display.getWidth()/2+x*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+37+x*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()+(y-2+yShift)*Mideas.getDisplayYFactor()  && Mideas.mouseY() <= Display.getHeight()+(-2+yShift)*Mideas.getDisplayXFactor()) {
@@ -113,7 +113,7 @@ public class SpellBarFrame {
 				}
 				if(DragSpellManager.getDraggedSpell() != Mideas.joueur1().getSpells(spellCount)) {
 					if(spellCount+1 < 10) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+(30+x)*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(String.valueOf(spellCount+1)), Display.getHeight()+y, String.valueOf(spellCount+1), Color.white, Color.black, 1, 1);
+						//TTF2.statsName.drawStringShadow(Display.getWidth()/2+(30+x)*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(String.valueOf(spellCount+1)), Display.getHeight()+y, String.valueOf(spellCount+1), Color.white, Color.black, 1, 1);
 					}
 					else if(spellCount+1 == 10) {
 						TTF2.statsName.drawStringShadow(Display.getWidth()/2+(20+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y, "0", Color.white, Color.black, 1, 1);
@@ -143,12 +143,12 @@ public class SpellBarFrame {
 			if(hoveredSpell.getShortcutType() == ShortcutType.SPELL) {
 				Draw.drawQuad(Sprites.tooltip, Display.getWidth()/2-74+xHoveredSpell, Display.getHeight()-220+yHoveredSpell);
 				TTF2.font4.drawString(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-210+yHoveredSpell, ((SpellShortcut)hoveredSpell).getSpell().getName(), Color.white);
-				TTF2.font4.drawString(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-188+yHoveredSpell, ((SpellShortcut)hoveredSpell).getSpell().getManaCost()+" Mana", Color.white);
+				//TTF2.font4.drawString(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-188+yHoveredSpell, ((SpellShortcut)hoveredSpell).getSpell().getManaCost()+" Mana", Color.white);
 				if(((SpellShortcut)hoveredSpell).getSpell().getType() == SpellType.HEAL) {
-					TTF2.font4.drawStringShadow(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-158+yHoveredSpell, "Heals you for "+((SpellShortcut)hoveredSpell).getSpell().getHeal(), Color.yellow, Color.black, 1, 1, 1);
+					//TTF2.font4.drawStringShadow(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-158+yHoveredSpell, "Heals you for "+((SpellShortcut)hoveredSpell).getSpell().getHeal(), Color.yellow, Color.black, 1, 1, 1);
 				}
 				else {
-					TTF2.font4.drawStringShadow(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-158+yHoveredSpell, "Deals "+(((SpellShortcut)hoveredSpell).getSpell().getDefaultDamage()+Mideas.joueur1().getStrength())+" damage to the enemy", Color.yellow, Color.black, 1, 1, 1);
+					//TTF2.font4.drawStringShadow(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-158+yHoveredSpell, "Deals "+(((SpellShortcut)hoveredSpell).getSpell().getDefaultDamage()+Mideas.joueur1().getStrength())+" damage to the enemy", Color.yellow, Color.black, 1, 1, 1);
 				}
 			}
 		}
@@ -380,5 +380,9 @@ public class SpellBarFrame {
 			i++;
 		}
 		return false;
+	}
+	
+	public static void setNumberFreeSlotBag(int number) {
+		numberFreeSlotBag = Integer.toString(number);
 	}
 }

@@ -126,7 +126,6 @@ public class Interface {
 					}
 				}
 				SpellBarFrame.draw();
-				//cast = CastBar.draw();
 				CastBar.event();
 				SpellLevel.addSpell();
 				double time = System.nanoTime();

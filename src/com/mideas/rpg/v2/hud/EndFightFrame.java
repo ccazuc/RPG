@@ -19,6 +19,11 @@ import com.mideas.rpg.v2.utils.Draw;
 public class EndFightFrame {
 
 	private static boolean endFightEvent;
+	
+	private final static String retry = "Retry";
+	private final static String quit = "Quit";
+	private final static String player1Won = "Player 1 won";
+	private final static String player2Won = "Playe 2 won";
 
 	public static void draw() throws SQLException {
 		if(Interface.getAdminPanelFrameStatus()) {
@@ -46,13 +51,13 @@ public class EndFightFrame {
 		else {
 			Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
 		}
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Retry")/2-69, Display.getHeight()/2-41, "Retry", Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Quit")/2+69, Display.getHeight()/2-41, "Quit", Color.white, Color.black, 1, 1, 1);
+		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth(retry)/2-69, Display.getHeight()/2-41, retry, Color.white, Color.black, 1, 1, 1);
+		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth(quit)/2+69, Display.getHeight()/2-41, quit, Color.white, Color.black, 1, 1, 1);
 		if(Mideas.joueur1().getStamina() <= 0) {
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 2 won", Color.white, Color.black, 1, 1, 1);
+			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player2Won, Color.white, Color.black, 1, 1, 1);
 		}
 		else if(Mideas.joueur2().getStamina() <= 0) {
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, "Player 1 won", Color.white, Color.black, 1, 1, 1);
+			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player1Won, Color.white, Color.black, 1, 1, 1);
 			if(!endFightEvent) {
 				doEndFightEvent();
 				endFightEvent = true;

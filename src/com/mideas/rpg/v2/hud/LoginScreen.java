@@ -41,6 +41,12 @@ public class LoginScreen {
 			connectionEvent();
 		}
 	};
+
+	private final static String noAccountName = "Veuillez saisir votre nom de compte.";
+	private final static String noPassword = "Veuillez saisir votre mot de passe.";
+	private final static String bar = "|";
+	private final static String star = "*";
+	private final static String empty = "";
 	
 	public static void draw() {
 		if(!init) {
@@ -52,7 +58,7 @@ public class LoginScreen {
 		TTF2.loginScreenPassword.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), drawPassword(password.getText().length()), Color.white);
 		if(System.currentTimeMillis()%1000 < 500) {
 			if(accountActive) {
-				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), "|", Color.white);
+				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.white);
 			}
 			else {
 				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+TTF2.loginScreenPassword.getWidth(drawPassword(password.getText().length())), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), "|", Color.white);
@@ -109,9 +115,9 @@ public class LoginScreen {
 	
 	private static String drawPassword(int length) {
 		int i = 0;
-		String pw = "";
+		String pw = empty;
 		while(i < length) {
-			pw+= "*";
+			pw+= star;
 			i++;
 		}
 		return pw;
@@ -126,12 +132,12 @@ public class LoginScreen {
 	}
 	
 	static void connectionEvent() throws NoSuchAlgorithmException {
-		if(account.getText().equals("")) {
-			alert.setText("Veuillez saisir votre nom de compte.");
+		if(account.getText().equals(empty)) {
+			alert.setText(noAccountName);
 			alert.setActive();
 		}
-		else if(password.getText().equals("")) {
-			alert.setText("Veuillez saisir votre mot de passe.");
+		else if(password.getText().equals(empty)) {
+			alert.setText(noPassword);
 			alert.setActive();
 		}
 		else {

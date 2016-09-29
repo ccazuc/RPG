@@ -27,6 +27,8 @@ public class DragBagManager {
 	private static boolean hoverDelete;
 	private static boolean hoverSave;
 	private static Item draggedBag;
+	private static String yes = "Yes";
+	private static String no = "No";
 	
 	public static void draw() {
 		hoverDelete = false;
@@ -56,8 +58,8 @@ public class DragBagManager {
 				deleteItem = false;
 			}
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-TTF2.font4.getWidth("Voulez vous supprimer "+draggedBag.getStuffName())/2, Display.getHeight()/2-65, "Voulez vous supprimer "+draggedBag.getStuffName(), Color.white, Color.black, 1, 1, 1);
-			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Oui")/2-69, Display.getHeight()/2-41, "Oui", Color.white, Color.black, 1, 1, 1);
-			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth("Non")/2+70, Display.getHeight()/2-40, "Non", Color.white, Color.black, 1, 1, 1);
+			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth(yes)/2-69, Display.getHeight()/2-41, yes, Color.white, Color.black, 1, 1, 1);
+			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth(no)/2+70, Display.getHeight()/2-40, no, Color.white, Color.black, 1, 1, 1);
 		}
 	}
 	
@@ -110,10 +112,6 @@ public class DragBagManager {
 					}
 				}
 				if(hoverSave && deleteItem) {
-				//	if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
-				//		checkFreeSlotBag(draggedItem);
-					//	SpellBarFrame.setBagChange(true);
-					//}
 					draggedBag = null;
 					deleteItem = false;
 				}

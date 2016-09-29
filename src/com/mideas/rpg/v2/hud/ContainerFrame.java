@@ -833,216 +833,187 @@ public class ContainerFrame {
 	}
 	
 	private static void drawPotion(int i, int x, int z) {
+		Potion potion = (Potion)Mideas.bag().getBag(i);
 		int y = -75;
 		int shift = 0;
-		int xShift = TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName());
+		int xShift = TTF2.itemName.getWidth(potion.getStuffName());
 		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, 10+y, bgColor);
 		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, 11+y, borderColor);
 		y =  -65;
-		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1, 1, 1);
+		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, potion.getStuffName(), getItemNameColor(potion), Color.black, 1, 1, 1);
 		shift+= 25;
-		if(((Potion)Mideas.bag().getBag(i)).getPotionHeal() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionHeal()+" Hp", Color.green, Color.black, 1, 1, 1);
+		if(potion.getPotionHeal() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, potion.getDoHealString(), Color.green, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(((Potion)Mideas.bag().getBag(i)).getPotionMana() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, "Restores "+((Potion)Mideas.bag().getBag(i)).getPotionMana()+" mana", Color.green, Color.black, 1, 1, 1);
+		if(potion.getPotionMana() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, potion.getDoManaString(), Color.green, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(Mideas.getLevel() >= ((Potion)Mideas.bag().getBag(i)).getLevel()) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Level "+((Potion)Mideas.bag().getBag(i)).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
+		if(Mideas.getLevel() >= potion.getLevel()) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, potion.getLevelString(), Color.white, Color.black, 1, 1, 1);
 		}
 		else {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Level "+((Potion)Mideas.bag().getBag(i)).getLevel()+" required", Color.red, Color.black, 1, 1, 1);
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, potion.getLevelString(), Color.red, Color.black, 1, 1, 1);
 		}
 		calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-55, z+y+shift-5);
 	}
 	
 	private static void drawStuff(int i, int x, int z) {
 		Color temp = null;
+		Stuff item = (Stuff)Mideas.bag().getBag(i);
 		int xShift = 237;
 		int shift = 45;
-		String classe = "";
-		if(((Stuff)Mideas.bag().getBag(i)).getClassType().length < 10) {
-			classe = "Classes: ";
-			int k = 0;
-			while(k < ((Stuff)Mideas.bag().getBag(i)).getClassType().length) {
-				if(k == ((Stuff)Mideas.bag().getBag(i)).getClassType().length-1) {
-					classe+= ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k);
-				}
-				else {
-					classe+= ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k)+", ";
-				}
-				k++;
-			}
-		}
-		//if(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName()) > 237 || TTF2.statsName.getWidth(classe) > 237) {
-		xShift = Math.max(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName()), TTF2.statsName.getWidth(classe))+15;
-		//}
-		int y = -80-TTF2.statsName.getLineHeight()*getNumberStats((Stuff)Mideas.bag().getBag(i));
+		xShift = Math.max(TTF2.itemName.getWidth(item.getStuffName()), TTF2.statsName.getWidth(item.getClassRequirements())+15);
+		int y = -80-TTF2.statsName.getLineHeight()*getNumberStats(item);
 		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
 		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
-		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1);
-		TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+23, ((Stuff)Mideas.bag().getBag(i)).convStuffTypeToString(), Color.white, Color.black, 1);
-		if(Mideas.joueur1().canWear((Stuff)Mideas.bag().getBag(i))) {
+		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, item.getStuffName(), getItemNameColor(item), Color.black, 1);
+		TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+23, item.convStuffTypeToString(), Color.white, Color.black, 1);
+		if(Mideas.joueur1().canWear(item)) {
 			temp = Color.white;
 		}
 		else {
 			temp = Color.red;
 		}
-		TTF2.statsName.drawStringShadow(Display.getWidth()+x-20-TTF2.font4.getWidth(((Stuff)Mideas.bag().getBag(i)).convWearToString()), Display.getHeight()+y+23+z, ((Stuff)Mideas.bag().getBag(i)).convWearToString(), temp, Color.black, 1);
-		if(((Stuff)Mideas.bag().getBag(i)).getArmor() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Armor : "+((Stuff)Mideas.bag().getBag(i)).getArmor(), Color.white, Color.black, 1);
+		TTF2.statsName.drawStringShadow(Display.getWidth()+x-20-TTF2.font4.getWidth(item.convWearToString()), Display.getHeight()+y+23+z, item.convWearToString(), temp, Color.black, 1);
+		if(item.getArmor() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getArmorString(), Color.white, Color.black, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getStrength() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1);
+		if(item.getStrength() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStrengthString(), Color.white, Color.black, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getMana() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1);
+		if(item.getMana() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getManaString(), Color.white, Color.black, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getStamina() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1);
+		if(item.getStamina() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStaminaString(), Color.white, Color.black, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getCritical() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1);
+		if(item.getCritical() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getCriticalString(), Color.white, Color.black, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getGemSlot1() != GemColor.NONE) {
-			if(((Stuff)Mideas.bag().getBag(i)).getEquippedGem1() != null) {
-				Draw.drawQuad(GemManager.getGemSprite(((Stuff)Mideas.bag().getBag(i)).getEquippedGem1().getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, writeGemStats(((Stuff)Mideas.bag().getBag(i)).getEquippedGem1()), Color.white, Color.black, 1);
+		if(item.getGemSlot1() != GemColor.NONE) {
+			if(item.getEquippedGem1() != null) {
+				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem1().getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem1().getGemStatsString(), Color.white, Color.black, 1);
 			}
 			else {
-				Draw.drawQuad(((Stuff)Mideas.bag().getBag(i)).getFreeSlotGemSprite1(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, convGemColorToString(((Stuff)Mideas.bag().getBag(i)).getGemSlot1())+" Socket", Color.gray, Color.black, 1);
+				Draw.drawQuad(item.getFreeSlotGemSprite1(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getGem1String(), Color.gray, Color.black, 1);
 			}
 			Draw.drawQuad(Sprites.cursor, -5000, -5000);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getGemSlot2() != GemColor.NONE) {
-			if(((Stuff)Mideas.bag().getBag(i)).getEquippedGem2() != null) {
-				Draw.drawQuad(GemManager.getGemSprite(((Stuff)Mideas.bag().getBag(i)).getEquippedGem2().getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, writeGemStats(((Stuff)Mideas.bag().getBag(i)).getEquippedGem2()), Color.white, Color.black, 1);
+		if(item.getGemSlot2() != GemColor.NONE) {
+			if(item.getEquippedGem2() != null) {
+				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem2().getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem2().getGemStatsString(), Color.white, Color.black, 1);
 			}
 			else {
-				Draw.drawQuad(((Stuff)Mideas.bag().getBag(i)).getFreeSlotGemSprite2(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, convGemColorToString(((Stuff)Mideas.bag().getBag(i)).getGemSlot2())+" Socket", Color.gray, Color.black, 1);
+				Draw.drawQuad(item.getFreeSlotGemSprite2(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getGem2String(), Color.gray, Color.black, 1);
 			}
 			Draw.drawQuad(Sprites.cursor, -5000, -5000);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getGemSlot3() != GemColor.NONE) {
-			if(((Stuff)Mideas.bag().getBag(i)).getEquippedGem3() != null) {
-				Draw.drawQuad(GemManager.getGemSprite(((Stuff)Mideas.bag().getBag(i)).getEquippedGem3().getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, writeGemStats(((Stuff)Mideas.bag().getBag(i)).getEquippedGem3()), Color.white, Color.black, 1);
+		if(item.getGemSlot3() != GemColor.NONE) {
+			if(item.getEquippedGem3() != null) {
+				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem3().getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem3().getGemStatsString(), Color.white, Color.black, 1);
 			}
 			else {
-				Draw.drawQuad(((Stuff)Mideas.bag().getBag(i)).getFreeSlotGemSprite3(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, convGemColorToString(((Stuff)Mideas.bag().getBag(i)).getGemSlot3())+" Socket", Color.gray, Color.black, 1);
+				Draw.drawQuad(item.getFreeSlotGemSprite3(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getGem3String(), Color.gray, Color.black, 1);
 			}
 			Draw.drawQuad(Sprites.cursor, -5000, -5000);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getGemBonusType() != GemBonusType.NONE) {
-			if(((Stuff)Mideas.bag().getBag(i)).getGemBonusActivated()) {
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, "Socket bonus: +"+((Stuff)Mideas.bag().getBag(i)).getGemBonusValue()+" "+convGemBonusTypeToString(((Stuff)Mideas.bag().getBag(i)).getGemBonusType()), Color.green, Color.black, 1);
+		if(item.getGemBonusType() != GemBonusType.NONE) {
+			if(item.getGemBonusActivated()) {
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, item.getSocketBonusString(), Color.green, Color.black, 1);
 			}
 			else {
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, "Socket Bonus: +"+((Stuff)Mideas.bag().getBag(i)).getGemBonusValue()+" "+convGemBonusTypeToString(((Stuff)Mideas.bag().getBag(i)).getGemBonusType()), Color.gray, Color.black, 1);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, item.getSocketBonusString(), Color.gray, Color.black, 1);
 			}
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).canEquipTo(DragManager.convClassType())) {
+		if(item.canEquipTo(DragManager.convClassType())) {
 			temp = Color.white;
 		}
 		else {
 			temp = Color.red;
 		}
-		if(!classe.equals("")) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, classe, temp, Color.black, 1);
+		if(item.getClassRequirements() != null) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getClassRequirements(), temp, Color.black, 1);
 			shift+= 20;
 		}
-		if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Level "+((Stuff)Mideas.bag().getBag(i)).getLevel()+" required", Color.white, Color.black, 1);
+		if(Mideas.getLevel() >= item.getLevel()) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Color.white, Color.black, 1);
 		}
 		else {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Level "+((Stuff)Mideas.bag().getBag(i)).getLevel()+" required", Color.red, Color.black, 1);
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Color.red, Color.black, 1);
 		}
-		calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-55, z+y+shift-5);
+		calcCoinContainer(item.getSellPrice(), x-55, z+y+shift-5);
 	}
 	
 	private static void drawWeapon(int i, int x, int z) {
 		Color temp = null;
+		Stuff item = (Stuff)Mideas.bag().getBag(i);
 		int xShift = 0;
 		int shift = 45;
-		String classe = "";
-		int y = -75-TTF2.statsName.getLineHeight()*getNumberStats((Stuff)Mideas.bag().getBag(i));
-		if(((Stuff)Mideas.bag().getBag(i)).getClassType().length < 10) {
-			classe = "Classes: ";
-			int k = 0;
-			while(k < ((Stuff)Mideas.bag().getBag(i)).getClassType().length) {
-				if(k == ((Stuff)Mideas.bag().getBag(i)).getClassType().length-1) {
-					classe+= ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k);
-				}
-				else {
-					classe+= ((Stuff)Mideas.bag().getBag(i)).convClassTypeToString(k)+", ";
-				}
-				k++;
-			}
-		}
-		//if(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName()) > 285 || TTF2.statsName.getWidth(classe) > 285) {
-			xShift = Math.max(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())-275, TTF2.statsName.getWidth(classe))+15;
-		//}
+		int y = -75-TTF2.statsName.getLineHeight()*getNumberStats(item);
+			xShift = Math.max(TTF2.itemName.getWidth(Mideas.bag().getBag(i).getStuffName())-275, TTF2.statsName.getWidth(item.getClassRequirements()))+15;
 		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
 		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
-		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(Mideas.bag().getBag(i)), Color.black, 1, 1, 1);
-		if(Mideas.joueur1().canWear((Stuff)Mideas.bag().getBag(i))) {
+		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.bag().getBag(i).getStuffName(), getItemNameColor(item), Color.black, 1, 1, 1);
+		if(Mideas.joueur1().canWear(item)) {
 			temp = Color.white;
 		}
 		else {
 			temp = Color.red;
 		}
-		TTF2.statsName.drawStringShadow(Display.getWidth()+x-25-TTF2.font4.getWidth(((Stuff)Mideas.bag().getBag(i)).convTypeToString()), Display.getHeight()+y+25+z, ((Stuff)Mideas.bag().getBag(i)).convTypeToString(), temp, Color.black, 1, 1, 1);
-		TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+25+z, ((Stuff)Mideas.bag().getBag(i)).convSlotToString(), Color.white, Color.black, 1, 1, 1);
-		if(((Stuff)Mideas.bag().getBag(i)).getArmor() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Armor : "+((Stuff)Mideas.bag().getBag(i)).getArmor(), Color.white, Color.black, 1, 1, 1);
+		TTF2.statsName.drawStringShadow(Display.getWidth()+x-25-TTF2.font4.getWidth(item.convTypeToString()), Display.getHeight()+y+25+z, item.convTypeToString(), temp, Color.black, 1, 1, 1);
+		TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+25+z, item.convSlotToString(), Color.white, Color.black, 1, 1, 1);
+		if(item.getArmor() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getArmorString(), Color.white, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getStrength() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
+		if(item.getStrength() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStrengthString(), Color.white, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getMana() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+		if(item.getMana() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getManaString(), Color.white, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getStamina() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
+		if(item.getStamina() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStaminaString(), Color.white, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).getCritical() > 0) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "+"+((Stuff)Mideas.bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
+		if(item.getCritical() > 0) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getCriticalString(), Color.white, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(((Stuff)Mideas.bag().getBag(i)).canEquipTo(DragManager.convClassType())) {
+		if(item.canEquipTo(DragManager.convClassType())) {
 			temp = Color.white;
 		}
 		else {
 			temp = Color.red;
 		}
-		if(!classe.equals("")) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, classe, temp, Color.black, 1, 1, 1);
+		if(item.getClassRequirements() != null) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getClassRequirements(), temp, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Level "+((Stuff)Mideas.bag().getBag(i)).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
+		if(Mideas.getLevel() >= item.getLevel()) {
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Color.white, Color.black, 1, 1, 1);
 		}
 		else {
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, "Level "+((Stuff)Mideas.bag().getBag(i)).getLevel()+" required", Color.red, Color.black, 1, 1, 1);
+			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z,item.getLevelString(), Color.red, Color.black, 1, 1, 1);
 		}
 		calcCoinContainer(Mideas.bag().getBag(i).getSellPrice(), x-55, z+y+shift-2);
 	}
@@ -1079,50 +1050,6 @@ public class ContainerFrame {
 		return i;
 	}
 	
-	public static String convGemColorToString(GemColor color) {
-		if(color == GemColor.BLUE) {
-			return "Blue";
-		}
-		if(color == GemColor.GREEN) {
-			return "Green";
-		}
-		if(color == GemColor.META) {
-			return "Meta";
-		}
-		if(color == GemColor.ORANGE) {
-			return "Orange";
-		}
-		if(color == GemColor.PURPLE) {
-			return "Purple";
-		}
-		if(color == GemColor.RED) {
-			return "Red";
-		}
-		if(color == GemColor.YELLOW) {
-			return "Yellow";
-		}
-		return null;
-	}
-	
-	public static String convGemBonusTypeToString(GemBonusType bonus) {
-		if(bonus == GemBonusType.ARMOR) {
-			return "Armor";
-		}
-		if(bonus == GemBonusType.CRITICAL) {
-			return "Critical";
-		}
-		if(bonus == GemBonusType.MANA) {
-			return "Mana";
-		}
-		if(bonus == GemBonusType.STAMINA) {
-			return "Stamina";
-		}
-		if(bonus == GemBonusType.STRENGTH) {
-			return "Strength";
-		}
-		return null;
-	}
-	
 	public static Color getItemNameColor(Item item) {
 		if(item.getQuality() == 0) {
 			return Color.gray;
@@ -1143,37 +1070,6 @@ public class ContainerFrame {
 			return LEGENDARY;
 		}
 		return Color.white;
-	}
-	
-	public static String writeGemStats(Gem gem) {
-		boolean stats = false;
-		StringBuilder result = new StringBuilder();
-		if(gem.getArmor() > 0) {
-			result.append("+"+gem.getArmor()+" armor");
-			stats = true;
-		}
-		if(gem.getCritical() > 0) {
-			if(stats) {
-				result.append(" and ");
-			}
-			result.append("+"+gem.getCritical()+" critical");
-			stats = true;
-		}
-		if(gem.getStamina() > 0) {
-			if(stats) {
-				result.append(" and ");
-			}
-			result.append("+"+gem.getStamina()+" stamina");
-			stats = true;
-		}
-		if(gem.getStrength() > 0) {
-			if(stats) {
-				result.append(" and ");
-			}
-			result.append("+"+gem.getStrength()+" strength");
-			stats = true;
-		}
-		return result.toString();
 	}
 	
 	public static int getSlotItem(Item item) {
