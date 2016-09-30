@@ -18,7 +18,7 @@ import com.mideas.rpg.v2.hud.ContainerFrame;
 
 public class ChatCommandOther {
 
-	public static void chatCommandOther(String[] datas) throws SQLException {
+	public static void chatCommandOther(String[] datas) throws SQLException, NumberFormatException {
 		if(datas.length >= 1) {
 			if(datas[0].equals(".quit")) {
 				Mideas.saveAllStats();

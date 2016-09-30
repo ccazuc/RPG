@@ -1,13 +1,10 @@
 package com.mideas.rpg.v2.hud;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
-import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -15,7 +12,6 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.bag.BagManager;
-import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
@@ -436,7 +432,7 @@ public class ContainerFrame {
 		}
 	}
 	
-	public static boolean mouseEvent() throws NoSuchAlgorithmException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		if(DragManager.isHoverBagFrame()) {
 			hoveredSlot = -1;
 		}

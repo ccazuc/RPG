@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 
@@ -102,7 +101,7 @@ public class Mideas {
         GL11.glLoadIdentity();
 	}
 	
-	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchAlgorithmException {
+	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		//System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
 		//Display.setDisplayMode(new DisplayMode(1200, 800));
 		//Display.setDisplayMode(new DisplayMode(1200, 930));
@@ -217,7 +216,7 @@ public class Mideas {
 		
 	}
 	
-	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		loop();
 		saveAllStats();
 	}
@@ -432,7 +431,7 @@ public class Mideas {
 		statement.execute();
 	}
 
-	public static void getConfig() throws SQLException {
+	public static void getConfig() throws SQLException, NumberFormatException {
 		String temp = "";
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
 		statement.putString("background");

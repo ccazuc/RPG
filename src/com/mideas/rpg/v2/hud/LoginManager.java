@@ -8,9 +8,14 @@ import com.mideas.rpg.v2.utils.Sha1;
 
 public class LoginManager {
 
-	public static boolean checkLogin(String account, String password) throws NoSuchAlgorithmException {	
+	public static boolean checkLogin(String account, String password) {	
 		ConnectionManager.connect();
-		CommandLogin.write(account, Sha1.hash(password));
+		try {
+			CommandLogin.write(account, Sha1.hash(password));
+		} 
+		catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 }

@@ -49,7 +49,7 @@ public class DragSpellManager {
 		float x = -Sprites.final_spellbar.getImageWidth()/2+120f;
 		float y = -39.7f;
 		if(isHoverSpellBarFrame()) {
-			while(i < SpellBarFrame.getHoverSpellBar().length) {
+			while(i < Mideas.joueur1().getSpells().length) {
 				isHoverSpellBar(x+j*xShift, y, i);
 				j++;
 				i++;
@@ -63,7 +63,7 @@ public class DragSpellManager {
 			if(Mouse.getEventButton() == 0 && Keyboard.isKeyDown(42)) { //caps key
 				if(isHoverSpellBarFrame()) {
 					i = 0;
-					while(i < SpellBarFrame.getHoverSpellBar().length) {
+					while(i < Mideas.joueur1().getSpells().length) {
 						if(clickSpell(i)) {
 							return true;
 						}
@@ -90,7 +90,7 @@ public class DragSpellManager {
 			else if(DragManager.getDraggedItem() != null && Mouse.getEventButton() == 0) {
 				if(isHoverSpellBarFrame()) {
 					i = 0;
-					while(i < SpellBarFrame.getHoverSpellBar().length) {
+					while(i < Mideas.joueur1().getSpells().length) {
 						if(dropSpell(i)) {
 							break;
 						}

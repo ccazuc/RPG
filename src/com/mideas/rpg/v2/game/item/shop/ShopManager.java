@@ -1,10 +1,8 @@
 package com.mideas.rpg.v2.game.item.shop;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -127,7 +125,7 @@ public class ShopManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
+	public static boolean mouseEvent() throws SQLException {
 		if(isHoverShopFrame()) {
 			slot_hover = -1;
 		}
@@ -210,7 +208,7 @@ public class ShopManager {
 		return false;
 	}
 	
-	private static boolean sellItem(int i) throws SQLTimeoutException, SQLException, NoSuchAlgorithmException {
+	private static boolean sellItem(int i) throws SQLTimeoutException, SQLException {
 		Item item = Mideas.bag().getBag(i);
 		boolean hover = ContainerFrame.getContainerFrameSlotHover(i);
 		boolean click_hover = DragManager.getClickBag(i);

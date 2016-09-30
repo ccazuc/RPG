@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.game.profession;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,7 +144,6 @@ public class Profession {
 		int i = 0;
 		int j = 0;
 		int yShift = 0;
-		int number = 0;
 		float yShiftHeight = 17*Mideas.getDisplayXFactor();
 		if(this.numberLine > 8) {
 			this.scrollBar.draw();
@@ -196,7 +194,7 @@ public class Profession {
 		}
 	}
 	
-	public void event(int x, int y) throws NoSuchAlgorithmException, SQLException {
+	public void event(int x, int y) throws SQLException {
 		if(!this.init) {
 			if(this.scrollBar == null ) {
 				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 17*Mideas.getDisplayXFactor());

@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.lwjgl.opengl.Display;
@@ -30,7 +29,7 @@ public class EscapeFrame {
 	};
 	private static Button logoutButton = new Button(Display.getWidth()/2-99*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Logout", 13, 1) {
 		@Override
-		public void eventButtonClick() throws SQLException, NoSuchAlgorithmException {
+		public void eventButtonClick() throws SQLException {
 			Mideas.setCharacterId(0);
 			Mideas.setJoueur1Null();
 			Interface.closeAllFrame();
@@ -76,7 +75,7 @@ public class EscapeFrame {
 		returnButton.draw();
  	}
 	
-	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
+	public static boolean mouseEvent() throws SQLException {
 		videoButton.event();
 		soundButton.event();
 		interfaceButton.event();

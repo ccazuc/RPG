@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.lwjgl.input.Keyboard;
@@ -94,7 +93,7 @@ public class DragManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
+	public static boolean mouseEvent() throws SQLException {
 		if(!ContainerFrame.isHoverItemNumberFrame()) {
 			if(Keyboard.isKeyDown(42) && !Mouse.getEventButtonState() && (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)) { //split item
 				int i = 0;
@@ -819,7 +818,7 @@ public class DragManager {
 	
 	public static boolean isSpellBarHover() {
 		int i = 0;
-		while(i < SpellBarFrame.getHoverSpellBar().length) {
+		while(i < Mideas.joueur1().getSpells().length) {
 			if(SpellBarFrame.getHoverSpellBar(i)) {
 				return true;
 			}

@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.utils;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.lwjgl.opengl.Display;
@@ -116,7 +115,7 @@ public class Alert {
 		}
 	}
 	
-	public void event() throws NoSuchAlgorithmException, SQLException {
+	public void event() throws SQLException {
 		if(this.isActive) {
 			this.button.event();
 			if(this.button.hasClicked()) {

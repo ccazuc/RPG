@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.lwjgl.input.Mouse;
@@ -113,7 +112,7 @@ public class Button {
 		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, this.shadow_size, 1, 1);
 	}
 	
-	public void event() throws SQLException, NoSuchAlgorithmException {
+	public void event() throws SQLException {
 		if(activateCondition()) {
 			this.color = YELLOW;
 			this.buttonHover = false;
@@ -191,7 +190,7 @@ public class Button {
 	}
 	
 	@SuppressWarnings("unused")
-	protected void eventButtonClick() throws NoSuchAlgorithmException, SQLException {}
+	protected void eventButtonClick() throws SQLException {}
 	
 	public boolean getButtonDown() {
 		return this.buttonDown;

@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.lwjgl.input.Keyboard;
@@ -14,7 +13,6 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
-import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 
@@ -37,7 +35,7 @@ public class LoginScreen {
 	
 	private static Button connectionButton = new Button(Display.getWidth()/2-113*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210, 35, "Connection", 16, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException, NoSuchAlgorithmException {
+		public void eventButtonClick() throws SQLException {
 			connectionEvent();
 		}
 	};
@@ -69,7 +67,7 @@ public class LoginScreen {
 		alert.draw();
 	}
 	
-	public static boolean mouseEvent() throws NoSuchAlgorithmException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		if(!Interface.getHasLoggedIn()) {
 			alert.event();
 			if(!alert.isActive()) {
@@ -90,7 +88,7 @@ public class LoginScreen {
 		return false;
 	}
 	
-	public static void event() throws NoSuchAlgorithmException {
+	public static void event() {
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 			if(alert.isActive()) {
 				alert.setInactive();
@@ -131,7 +129,7 @@ public class LoginScreen {
 		return password;
 	}
 	
-	static void connectionEvent() throws NoSuchAlgorithmException {
+	static void connectionEvent() {
 		if(account.getText().equals(empty)) {
 			alert.setText(noAccountName);
 			alert.setActive();

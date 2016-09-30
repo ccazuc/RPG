@@ -31,9 +31,7 @@ public final class TTF {
 		public int textureY;
 		public int width;
 		
-		public Char() {
-			
-		}
+		public Char() {}
 		
 	}
 	

@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -75,17 +74,12 @@ public class SelectScreen {
 		public void eventButtonClick() throws SQLException {
 			creatingCharacter = false;
 			acceptCharacterButton.reset();
-			try {
-				SelectScreen.mouseEvent();
-			} 
-			catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
+			SelectScreen.mouseEvent();
 		}
 	};
 	private static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122, 27, "Return", 16, 2) {
 		@Override
-		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
+		public void eventButtonClick() throws SQLException {
 			Interface.setHasLoggedIn(false);
 			Mideas.setJoueur1Null();
 			Mideas.setAccountId(0);
@@ -96,21 +90,21 @@ public class SelectScreen {
 	};
 	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50, "Enter game", 19, 2) {
 		@Override
-		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
+		public void eventButtonClick() throws SQLException {
 			loadCharacterInfo();
 			Arrays.fill(characterList, null);
 		}
 	};
 	private static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202, 28, "Delete character", 16, 2) {
 		@Override
-		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
+		public void eventButtonClick() throws SQLException {
 			deletingCharacter = true;
 			this.reset();
 		}
 	};
 	private static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32, "OK", 20, 2) {
 		@Override
-		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
+		public void eventButtonClick() throws SQLException {
 			deleteCharacter();
 		}
 		
@@ -124,7 +118,7 @@ public class SelectScreen {
 	};
 	private static Button cancelDeleteCharacterButton = new Button(Display.getWidth()/2-250*Mideas.getDisplayXFactor(), Display.getHeight()/2+45*Mideas.getDisplayYFactor(), 240, 32, "Annuler", 20, 2) {
 		@Override
-		public void eventButtonClick() throws NoSuchAlgorithmException, SQLException {
+		public void eventButtonClick() throws SQLException {
 			deletingCharacter = false;
 		}
 	};
@@ -224,7 +218,7 @@ public class SelectScreen {
 		}
 	}
  
-	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
+	public static boolean mouseEvent() throws SQLException {
 		if(!creatingCharacter) {
 			if(deletingCharacter) {
 				confirmDeleteCharacterButton.event();

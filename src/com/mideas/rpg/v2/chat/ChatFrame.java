@@ -5,7 +5,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -16,18 +15,6 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.classes.ClassManager;
-import com.mideas.rpg.v2.game.item.gem.GemManager;
-import com.mideas.rpg.v2.game.item.potion.PotionManager;
-import com.mideas.rpg.v2.game.item.shop.ShopManager;
-import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
-import com.mideas.rpg.v2.game.spell.SpellBarManager;
-import com.mideas.rpg.v2.game.spell.SpellManager;
-import com.mideas.rpg.v2.hud.CharacterFrame;
-import com.mideas.rpg.v2.hud.ContainerFrame;
-import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ChatFrame {
@@ -38,7 +25,6 @@ public class ChatFrame {
 	private static ArrayList<String> rawMessages = new ArrayList<String>();
 	private static int numberMessageSent;
 	private static String tempMessage = "";
-	private static String[] tempTable = new String[30];
 	private static int i;
 	private static int numberUpArrow = 1;
 	private static int cursorPosition;
@@ -125,7 +111,7 @@ public class ChatFrame {
 		}
 	}
 	
-	public static void event() throws SQLException {
+	public static void event() throws SQLException, NumberFormatException {
 		if(chatActive) {
 			Keyboard.enableRepeatEvents(true);
 			if(Keyboard.getEventKey() == 1) { //escape

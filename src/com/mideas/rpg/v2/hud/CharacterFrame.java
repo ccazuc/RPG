@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.lwjgl.input.Keyboard;
@@ -112,7 +111,7 @@ public class CharacterFrame {
 		}
 	}
 
-	public static boolean mouseEvent() throws NoSuchAlgorithmException, SQLException {
+	public static boolean mouseEvent() throws SQLException {
 		hover = -1;
 		hoverMove = false;
 		if(Mideas.mouseX()>= Display.getWidth()/2-300+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-368+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-368+yMouseShift+8) {
@@ -323,7 +322,7 @@ public class CharacterFrame {
 		}
 	}
 	
-	public static void setMouseX(int x) {
+	public static void setMouseX(int x) throws SQLException {
 		xMouseShift = x;
 		lastMouseX = x;
 		updateButton();
@@ -333,7 +332,7 @@ public class CharacterFrame {
 		return xMouseShift;
 	}
 	
-	public static void setMouseY(int y) {
+	public static void setMouseY(int y) throws SQLException {
 		yMouseShift = y;
 		lastMouseY = y;
 		updateButton();
@@ -355,8 +354,9 @@ public class CharacterFrame {
 		hover = -1;
 	}
 	
-	public static void updateButton() {
+	public static void updateButton() throws SQLException {
 		closeFrameButton.update(Display.getWidth()/2+X_CLOSE_FRAME_BUTTON*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift);
+		closeFrameButton.event();
 	}
 	
 	public static void updateSize() {

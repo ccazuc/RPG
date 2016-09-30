@@ -2,7 +2,6 @@ package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -31,18 +30,18 @@ import com.mideas.rpg.v2.utils.Texture;
 public class SpellBarFrame {
 	
 	static Shortcut hoveredSpell;
-	private static boolean[] hoverSpellBar = new boolean[36];
 	private static Color bgColor = new Color(0, 0, 0, .6f);
 	private static Color borderColor = Color.decode("#494D4B");
 	private static boolean isCastingSpell;
 	private static float xHoveredSpell;
 	private static int yHoveredSpell;
+	private static int hoveredSlot = -1;
 	
 	private static String numberFreeSlotBag = "";
 	
 	public static boolean draw() {
 		if(DragManager.isSpellBarHover()) {
-			Arrays.fill(hoverSpellBar, false);
+			hoveredSlot = -1;
 		}
 		hoveredSpell = null;
 		if(Mideas.getLevel() >= 70) {
@@ -63,7 +62,7 @@ public class SpellBarFrame {
 		int spellCount = 0;
 		int yShift = 0;
 		float y = -39.7f;
-		while(spellCount < hoverSpellBar.length) {
+		while(spellCount < Mideas.joueur1().getSpells().length) {
 			if(spellCount >= 12) {
 				if(DragSpellManager.getDraggedSpell() != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpellBook() != null || Mideas.joueur1().getSpells(spellCount) != null) {
 		        	if(spellCount%2 == 0) {
@@ -127,7 +126,7 @@ public class SpellBarFrame {
 				}
 			}
 			if(Mideas.mouseX() >= Display.getWidth()/2+x*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+37+x*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()+(y-2+yShift)*Mideas.getDisplayYFactor()  && Mideas.mouseY() <= Display.getHeight()+(-2+yShift)*Mideas.getDisplayXFactor()) {
-				hoverSpellBar[spellCount] = true;
+				hoveredSlot = spellCount;
 				if(DragSpellManager.getDraggedSpell() != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpellBook() != null || Mideas.joueur1().getSpells(spellCount) != null) {
 					Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+(x-2)*Mideas.getDisplayXFactor(), Display.getHeight()+(y-2+yShift)*Mideas.getDisplayYFactor());
 				}
@@ -364,11 +363,7 @@ public class SpellBarFrame {
 	}
 	
 	public static boolean getHoverSpellBar(int i) {
-		return hoverSpellBar[i];
-	}
-	
-	public static boolean[] getHoverSpellBar() {
-		return hoverSpellBar;
+		return hoveredSlot == i;
 	}
 	
 	private static boolean isEquippedItem(int id) {

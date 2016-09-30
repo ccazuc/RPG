@@ -7,7 +7,6 @@ import static com.mideas.rpg.v2.connection.PacketID.LOGIN;
 import static com.mideas.rpg.v2.connection.PacketID.LOGIN_ACCEPT;
 import static com.mideas.rpg.v2.connection.PacketID.LOGIN_WRONG;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import com.mideas.rpg.v2.Interface;
@@ -31,9 +30,6 @@ public class CommandLogin extends Command {
 			Mideas.setRank(rank);
 			try {
 				SelectScreen.mouseEvent();
-			} 
-			catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
 			} 
 			catch (SQLException e) {
 				e.printStackTrace();

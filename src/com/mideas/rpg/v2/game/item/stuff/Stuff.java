@@ -13,16 +13,15 @@ import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
-import com.mideas.rpg.v2.hud.ContainerFrame;
 
 public class Stuff extends Item {
 
-	protected boolean gemBonusActivated;
-	protected GemBonusType gemBonusType;
+	private boolean gemBonusActivated;
+	private GemBonusType gemBonusType;
 	private String socketBonusString;
-	protected ClassType[] classType;
-	protected WeaponType weaponType;
-	protected WeaponSlot weaponSlot;
+	private ClassType[] classType;
+	private WeaponType weaponType;
+	private WeaponSlot weaponSlot;
 	private String classRequirement;
 	private String sellPriceString;
 	private String strengthString;
@@ -30,27 +29,27 @@ public class Stuff extends Item {
 	private String staminaString;
 	private String armorString;
 	private String levelString;
-	protected int numberGemSlot;
-	protected int gemBonusValue;
-	protected Gem equippedGem1;
-	protected Gem equippedGem2;
-	protected Gem equippedGem3;
-	protected GemColor color1;
-	protected GemColor color2;
-	protected GemColor color3;
+	private int numberGemSlot;
+	private int gemBonusValue;
+	private Gem equippedGem1;
+	private Gem equippedGem2;
+	private Gem equippedGem3;
+	private GemColor color1;
+	private GemColor color2;
+	private GemColor color3;
 	private String gem1String;
 	private String gem2String;
 	private String gem3String;
 	private String manaString;
-	protected StuffType type;
-	protected int critical;
-	protected int strength;
-	protected int stamina;
-	protected Wear wear;
-	protected int price;
-	protected int armor;
-	protected int level;
-	protected int mana;
+	private StuffType type;
+	private int critical;
+	private int strength;
+	private int stamina;
+	private Wear wear;
+	private int price;
+	private int armor;
+	private int level;
+	private int mana;
 	
 	private final static String head = "Head";
 	private final static String necklace = "Necklace";
@@ -292,6 +291,10 @@ public class Stuff extends Item {
 			}
 			this.classRequirement = builder.toString();
 		}
+	}
+	
+	public int getNumberGemSlot() {
+		return this.numberGemSlot;
 	}
 	
 	private void buildArmorString() {

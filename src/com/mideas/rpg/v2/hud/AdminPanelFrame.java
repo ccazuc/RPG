@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -63,7 +62,7 @@ public class AdminPanelFrame {
 		clearBag.draw();
 	}
 	
-	public static boolean mouseEvent() throws SQLException, NoSuchAlgorithmException {
+	public static boolean mouseEvent() throws SQLException {
 		sexMaxStaminaPlayer1.event();
 		sexMaxManaPlayer1.event();
 		killPlayer1.event();

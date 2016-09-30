@@ -2,7 +2,6 @@ package com.mideas.rpg.v2;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -74,7 +73,7 @@ public class Interface {
 	private static boolean socketingFrameActive;
 	private final static Color YELLOW = Color.decode("#F0CE0C");
 
-	public static void draw() throws IOException, SQLException {
+	public static void draw() throws IOException, SQLException, NumberFormatException {
 		Draw.drawQuadBG(Sprites.current_bg);
 		if(!isConfigLoaded) {
 			Mideas.getConfig();
@@ -190,7 +189,7 @@ public class Interface {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException, NoSuchAlgorithmException {
+	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
 		if(changeBackgroundFrameActive) {
 			if(ChangeBackGroundFrame.mouseEvent()) {
 				return true;
@@ -321,7 +320,7 @@ public class Interface {
 		return false;
 	}
 	
-	public static boolean keyboardEvent() throws IOException, SQLException, NoSuchAlgorithmException {
+	public static boolean keyboardEvent() throws IOException, SQLException {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
 				//System.out.println(Keyboard.getEventKey());
