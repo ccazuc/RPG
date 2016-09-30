@@ -1102,14 +1102,8 @@ public class ContainerFrame {
 	
 	public static void setItemNumberOpen(int i) {
 		iItemNumber = i;
-<<<<<<< HEAD
-=======
 	}
 	
-	public static void setIsOneButtonDown(boolean we) {
-		isOneButtonDown = we;
->>>>>>> bb1622e16ab96b91f2d8bc34a39a4bcefa9520ad
-	}
 	
 	public static boolean isHoverItemNumberFrame() {
 		if(Mideas.mouseX() >= Display.getWidth()+xItemNumber && Mideas.mouseX() <= Display.getWidth()+xItemNumber+Sprites.itemnumber_frame.getImageWidth()+8 && Mideas.mouseY() >= Display.getHeight()+yItemNumber && Mideas.mouseY() <= Display.getHeight()+yItemNumber+Sprites.itemnumber_frame.getImageHeight()+4) {
