@@ -26,7 +26,7 @@ public class DragSpellManager {
 
 	private static Spell draggedBookSpell;
 	private static Shortcut draggedShortcut;
-	private static boolean[] hover = new boolean[36];
+	private static boolean[] hover = new boolean[49];
 	
 	public static void draw() {
 		if(draggedBookSpell != null) {

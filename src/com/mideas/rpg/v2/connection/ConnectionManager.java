@@ -73,6 +73,7 @@ public class ConnectionManager {
 			e.printStackTrace();
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Impossible de se connecter.");
+			close();
 		}
 		return false;
 	}

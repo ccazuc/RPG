@@ -7,15 +7,32 @@ import com.mideas.rpg.v2.connection.PacketID;
 public class CommandPing extends Command {
 	
 	private static long timer;
+	private static boolean pingSent;
 	
 	@Override
 	public void read() {
 		Mideas.setPing((int)(System.currentTimeMillis()-timer));
+		ConnectionManager.getConnection().writeByte(PacketID.PING_CONFIRMED);
+		ConnectionManager.getConnection().send();
+		pingSent = false;
 	}
 	
 	public static void write() {
 		ConnectionManager.getConnection().writeByte(PacketID.PING);
 		ConnectionManager.getConnection().send();
 		timer = System.currentTimeMillis();
+		pingSent = true;
+	}
+	
+	public static long getTimer() {
+		return timer;
+	}
+	
+	public static boolean getPingStatus() {
+		return pingSent;
+	}
+	
+	public static void setPingStatus(boolean we) {
+		pingSent = we;
 	}
 }

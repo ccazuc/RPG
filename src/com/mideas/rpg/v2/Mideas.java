@@ -85,6 +85,7 @@ public class Mideas {
 	private static SocketChannel socket;
 	private final static int PORT = 5720;
 	private final static String IP = "127.0.0.1";
+	private final static int TIMEOUT_TIMER = 10000;
 	
 	public static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -101,7 +102,7 @@ public class Mideas {
         GL11.glLoadIdentity();
 	}
 	
-	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, IllegalAccessException, ClassNotFoundException {
 		//System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
 		//Display.setDisplayMode(new DisplayMode(1200, 800));
 		//Display.setDisplayMode(new DisplayMode(1200, 930));
@@ -216,12 +217,12 @@ public class Mideas {
 		
 	}
 	
-	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException, SQLException {
 		loop();
 		saveAllStats();
 	}
 	
-	public static void initSQL() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public static void initSQL() throws IllegalAccessException, ClassNotFoundException, SQLException {
 		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
 		//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
 		//jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
@@ -298,6 +299,15 @@ public class Mideas {
 	private static void timeEvent() {
 		if(System.currentTimeMillis()%10000 < 10) {
 			System.gc();
+		}
+		if(CommandPing.getPingStatus() && System.currentTimeMillis()-CommandPing.getTimer() > TIMEOUT_TIMER) {
+			CommandPing.setPingStatus(false);
+			Interface.setHasLoggedIn(false);
+			Mideas.setJoueur1Null();
+			Mideas.setAccountId(0);
+			LoginScreen.getAlert().setActive();
+			LoginScreen.getAlert().setText("Vous avez été déconnecté.");
+			ConnectionManager.close();
 		}
 	}
 	

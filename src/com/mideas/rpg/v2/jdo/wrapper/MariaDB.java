@@ -41,8 +41,13 @@ public class MariaDB extends JDO {
 	 * @throws ClassNotFoundException if the class cannot be located
 	 * @throws SQLException if the class cannot be located
 	 */
-	public MariaDB(final String host, final int port, final String database, final String user, final String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-    	Class.forName("org.mariadb.jdbc.Driver").newInstance(); 
+	public MariaDB(final String host, final int port, final String database, final String user, final String password) throws IllegalAccessException, ClassNotFoundException, SQLException {
+    	try {
+			Class.forName("org.mariadb.jdbc.Driver").newInstance();
+		} 
+    	catch (InstantiationException e) {
+			e.printStackTrace();
+		} 
 		this.connection = DriverManager.getConnection("jdbc:mariadb://"+host+":"+port+"/"+database+"?useConfigs=maxPerformance", user, password);
 	}
 	

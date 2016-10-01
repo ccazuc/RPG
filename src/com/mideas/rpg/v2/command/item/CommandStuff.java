@@ -5,7 +5,6 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.classes.Wear;
-import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;

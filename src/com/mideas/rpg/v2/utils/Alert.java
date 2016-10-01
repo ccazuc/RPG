@@ -39,7 +39,7 @@ public class Alert {
 		this.x_size_button = x_size_button;
 		this.y_size_button = y_size_button;
 		this.diff = (int)(y_size_alert-10-TTF2.alertFont.getLineHeight());
-		this.button = new Button(this.x+x_size_alert/2-x_size_button/2, this.y+TTF2.alertFont.getLineHeight()+this.diff/2-y_size_button/2, x_size_button, y_size_button, button_text, font_size, 1);
+		this.button = new Button(this.x+x_size_alert/2-x_size_button/2, this.y+TTF2.alertFont.getLineHeight()+this.diff/2-y_size_button/2, x_size_button, y_size_button, button_text, font_size, 2);
 	}
 	
 	public void draw() {
