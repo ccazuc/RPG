@@ -266,6 +266,15 @@ public class Sprites {
 	public static Texture cross_button_hover;
 	public static Texture cross_button_down;
 	public static Texture cross_button_hover_down;
+	public static Texture empty_blue_cross;
+	public static Texture empty_red_cross;
+	public static Texture empty_yellow_cross;
+	public static Texture filled_blue_cross;
+	public static Texture filled_red_cross;
+	public static Texture filled_yellow_cross;
+	public static Texture red_socket_background;
+	public static Texture blue_socket_background;
+	public static Texture yellow_socket_background;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -483,6 +492,15 @@ public class Sprites {
 		cross_button_down = new Texture("sprite/interface/cross_button/cross_button_down.png");
 		cross_button_hover = new Texture("sprite/interface/cross_button/cross_button_hover.png");
 		cross_button_hover_down = new Texture("sprite/interface/cross_button/cross_button_hover_down.png");
+		empty_blue_cross = new Texture("sprite/interface/gem/empty_blue_cross.png");
+		empty_red_cross = new Texture("sprite/interface/gem/empty_red_cross.png");
+		empty_yellow_cross = new Texture("sprite/interface/gem/empty_yellow_cross.png");
+		filled_yellow_cross = new Texture("sprite/interface/gem/filled_yellow_cross.png");
+		filled_red_cross = new Texture("sprite/interface/gem/filled_red_cross.png");
+		filled_blue_cross = new Texture("sprite/interface/gem/filled_blue_cross.png");
+		red_socket_background = new Texture("sprite/interface/gem/red_socket_background.png");
+		blue_socket_background = new Texture("sprite/interface/gem/blue_socket_background.png");
+		yellow_socket_background = new Texture("sprite/interface/gem/yellow_socket_background.png");
 		return true;
 	}
 		

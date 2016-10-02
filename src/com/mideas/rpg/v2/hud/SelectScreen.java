@@ -122,19 +122,6 @@ public class SelectScreen {
 			deletingCharacter = false;
 		}
 	};
-	
-	static boolean test;
-	private static CheckBox tests = new CheckBox(Display.getWidth()/2, Display.getHeight()/2, "Test", "Test") {
-		@Override
-		public boolean get() {
-			return test;
-		}
-		
-		@Override
-		public void set() {
-			test = !test;
-		}
-	};
 
 	public static void draw() {
 		if(!characterLoaded) {
@@ -172,7 +159,6 @@ public class SelectScreen {
 			returnButton.draw();
 			enterGameButton.draw();
 			deleteCharacterButton.draw();
-			tests.draw();
 		}
 		else {
 			Draw.drawQuadBG(Sprites.create_character_background);
@@ -229,7 +215,6 @@ public class SelectScreen {
 				returnButton.event();
 				enterGameButton.event();
 				deleteCharacterButton.event();
-				tests.event();
 				selectCharacter();
 				if(!Mouse.getEventButtonState()) {
 					if(Mouse.getEventButton() == 0 && hoveredCharacter != -1) {

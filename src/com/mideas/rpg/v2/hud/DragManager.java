@@ -143,7 +143,7 @@ public class DragManager {
 				if(Mouse.getEventButton() == 0) {
 					int i = 0;
 					if(draggedItem != null) {
-						if(draggedItem != null && !deleteItem && !isSpellBarHover() && !isHoverCharacterFrame() && !isHoverBagFrame()) {
+						if(draggedItem != null && !deleteItem && !isSpellBarHover() && !isHoverCharacterFrame() && !isHoverBagFrame() && !isHoverSocketingFrame()) {
 							deleteItem = true;
 							return true;
 						}
@@ -878,7 +878,7 @@ public class DragManager {
 	
 	public static boolean isHoverCharacterFrame() {
 		if(Interface.getCharacterFrameStatus()) {
-			if(Mideas.mouseX() >= Display.getWidth()/2-300+CharacterFrame.getMouseX() && Mideas.mouseX() <= Display.getWidth()/2-300+Sprites.character_frame.getImageWidth()+CharacterFrame.getMouseX() && Mideas.mouseY() >= Display.getHeight()/2-380+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2-380+Sprites.character_frame.getImageHeight()+CharacterFrame.getMouseY()) {
+			if(Mideas.mouseX() >= Display.getWidth()/2-300+CharacterFrame.getMouseX()+CharacterFrame.getGemFrameSize() && Mideas.mouseX() <= Display.getWidth()/2-300+CharacterFrame.getGemFrameSize()+Sprites.character_frame.getImageWidth()+CharacterFrame.getMouseX() && Mideas.mouseY() >= Display.getHeight()/2-380+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2-380+Sprites.character_frame.getImageHeight()+CharacterFrame.getMouseY()) {
 				return true;
 			}
 		}
@@ -888,6 +888,15 @@ public class DragManager {
 	public static boolean isHoverBagFrame() {
 		if(Interface.getContainerFrameStatus()) {
 			if(Mideas.mouseX() >= Display.getWidth()-520 && Mideas.mouseX() <= Display.getWidth()-320+Sprites.back_bag.getImageWidth()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean isHoverSocketingFrame() {
+		if(Interface.isSocketingFrameActive()) {
+			if(Mideas.mouseX() >= Display.getWidth()/2-300+CharacterFrame.getMouseX() && Mideas.mouseX() <= Display.getWidth()/2-300+CharacterFrame.getMouseX()+Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2-380+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2-380+CharacterFrame.getMouseY()+Sprites.socketing_frame.getImageHeight()*Mideas.getDisplayXFactor()) {
 				return true;
 			}
 		}

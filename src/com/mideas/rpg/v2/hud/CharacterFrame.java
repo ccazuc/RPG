@@ -43,7 +43,7 @@ public class CharacterFrame {
 	};
 
 	public static void draw() {
-		Draw.drawQuad(Sprites.character_frame, Display.getWidth()/2+(-300+gemFrame)*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-380*Mideas.getDisplayYFactor()+yMouseShift);
+		Draw.drawQuad(Sprites.character_frame, Display.getWidth()/2-300*Mideas.getDisplayXFactor()+gemFrame+xMouseShift, Display.getHeight()/2-380*Mideas.getDisplayYFactor()+yMouseShift);
 		closeFrameButton.draw();
 		/*Draw.drawQuad(Sprites.character_frame_stats, Display.getWidth()/2-224+xMouseShift+gemFrame, Display.getHeight()/2-60+yMouseShift);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2-27+yMouseShift, "Strength:", Color.yellow, Color.black, 1, 1, 1);
@@ -56,13 +56,13 @@ public class CharacterFrame {
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getCritical())+"%"), Display.getHeight()/2+9+yMouseShift, String.valueOf(Mideas.joueur1().getCritical())+"%", Color.white, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2+21+yMouseShift, "Mana:", Color.yellow, Color.black, 1, 1, 1);
 		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getMana())), Display.getHeight()/2+21+yMouseShift, String.valueOf(Mideas.joueur1().getMana()), Color.white, Color.black, 1, 1, 1);*/
-		int xStuff = -280+xMouseShift+gemFrame;
+		int xStuff = (int)(-280*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
 		int i = 0;
 		int j = 0;
 		int z = 0;
-		int yStuff = -302+yMouseShift;
-		float yShift = 43.8f;
-		float xShift = 47.5f;
+		int yStuff = (int)(-302*Mideas.getDisplayYFactor()+yMouseShift);
+		float yShift = 43.8f*Mideas.getDisplayXFactor();
+		float xShift = 47.5f*Mideas.getDisplayXFactor();
 		while(i < Mideas.joueur1().getStuff().length) {
 			drawCharacterItems(i, xStuff+z*xShift, yStuff+j*yShift);
 			i++;
@@ -73,19 +73,19 @@ public class CharacterFrame {
 				z++;
 			}
 			if(i == 8) {
-				xStuff = 43+xMouseShift+gemFrame;
+				xStuff = (int)(43*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
 				j = 0;
 			}
 			else if(i == 16) {
-				xStuff = -166+xMouseShift+gemFrame;
-				yStuff = 31+yMouseShift;
+				xStuff = (int)(-166*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
+				yStuff = (int)(31*Mideas.getDisplayXFactor()+yMouseShift);
 				j = 0;
 			}
 		}
-		if(DragManager.isHoverCharacterFrame()) {
+		if(DragManager.isHoverCharacterFrame() && hover != -1) {
 			i = 0;
-			int x_hover = -236+xMouseShift+gemFrame;
-			int y_hover = -300+yMouseShift;
+			int x_hover = (int)(-236*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
+			int y_hover = (int)(-300*Mideas.getDisplayYFactor()+yMouseShift);
 			z = 0;
 			j = 0;
 			while(i < Mideas.joueur1().getStuff().length) {
@@ -96,16 +96,16 @@ public class CharacterFrame {
 				}
 				else {
 					j = 0;
-					x_hover = -205+xMouseShift+gemFrame;
-					y_hover = 80+yMouseShift;
+					x_hover = (int)(-205*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
+					y_hover = (int)(80*Mideas.getDisplayXFactor()+yMouseShift);
 					z++;
 				}
 				if(i == 8) {
 					j = 0;
-					x_hover = 87+xMouseShift+gemFrame;
+					x_hover = (int)(87*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
 				}
 				else if(i == 17) {
-					yShift = 51;
+					yShift = 51*Mideas.getDisplayXFactor();
 				}
 			}
 		}
@@ -114,7 +114,7 @@ public class CharacterFrame {
 	public static boolean mouseEvent() throws SQLException {
 		hover = -1;
 		hoverMove = false;
-		if(Mideas.mouseX()>= Display.getWidth()/2-300+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-368+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-368+yMouseShift+8) {
+		if(Mideas.mouseX()>= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-375*Mideas.getDisplayYFactor()+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-375*Mideas.getDisplayYFactor()+yMouseShift+25) {
 			hoverMove = true;
 		}
 		if(moving) {
@@ -143,13 +143,13 @@ public class CharacterFrame {
 			}
 		}
 		if(DragManager.isHoverCharacterFrame()) {
-			int xStuff = -280+xMouseShift+gemFrame;
+			int xStuff = (int)(-280*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
 			int i = 0;
 			int j = 0;
 			int z = 0;
-			int yStuff = -302+yMouseShift;
-			float yShift = 43.8f;
-			float xShift = 47.5f;
+			int yStuff = (int)(-302*Mideas.getDisplayYFactor()+yMouseShift);
+			float yShift = 43.8f*Mideas.getDisplayXFactor();
+			float xShift = 47.5f*Mideas.getDisplayXFactor();
 			while(i < Mideas.joueur1().getStuff().length) {
 				isHover(i, xStuff+z*xShift, yStuff+j*yShift);
 				i++;
@@ -160,12 +160,12 @@ public class CharacterFrame {
 					z++;
 				}
 				if(i == 8) {
-					xStuff = 43+xMouseShift+gemFrame;
+					xStuff = (int)(43*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
 					j = 0;
 				}
 				else if(i == 16) {
-					xStuff = -166+xMouseShift+gemFrame;
-					yStuff = 31+yMouseShift;
+					xStuff = (int)(-166*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
+					yStuff = (int)(31*Mideas.getDisplayXFactor()+yMouseShift);
 					j = 0;
 				}
 			}
@@ -175,7 +175,7 @@ public class CharacterFrame {
 					if(hover != -1 && Mideas.joueur1().getStuff(hover).getGemSlot1() != GemColor.NONE) {
 						SocketingFrame.setStuff(Mideas.joueur1().getStuff(hover));
 						Interface.setSocketingFrameStatus(true);
-						gemFrame = 15+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
+						gemFrame = 50+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
 						updateButton();
 					}
 				}
@@ -354,12 +354,24 @@ public class CharacterFrame {
 		hover = -1;
 	}
 	
+	public static int getGemFrameSize() {
+		return gemFrame;
+	}
+	
 	public static void updateButton() throws SQLException {
-		closeFrameButton.update(Display.getWidth()/2+X_CLOSE_FRAME_BUTTON*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift);
+		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON+gemFrame)*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
 		closeFrameButton.event();
+		SocketingFrame.getCrossButton().update(Display.getWidth()/2+67*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift);
+		SocketingFrame.getButton().update(Display.getWidth()/2+150*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), Display.getHeight()/2+50*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY(), 220, 23);
 	}
 	
 	public static void updateSize() {
+		if(gemFrame != 0) {
+			gemFrame = 50+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
+		}
 		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON+gemFrame)*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
+		SocketingFrame.getCrossButton().update(Display.getWidth()/2+67*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift);
+		SocketingFrame.getButton().update(Display.getWidth()/2+150*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), Display.getHeight()/2+50*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY(), 220, 23);
+		
 	}
 }
