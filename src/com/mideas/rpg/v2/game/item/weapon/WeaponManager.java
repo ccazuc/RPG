@@ -71,7 +71,7 @@ public class WeaponManager {
 	}
 	
 	public static boolean canEquipWeapon(Stuff weapon) {
-		if(Mideas.getLevel() >= weapon.getLevel() && weapon.canWearWeapon() && weapon.canEquipTo(DragManager.convClassType())) {
+		if(Mideas.joueur1().getLevel() >= weapon.getLevel() && weapon.canWearWeapon() && weapon.canEquipTo(DragManager.convClassType())) {
 			return true;
 		}
 		return false;

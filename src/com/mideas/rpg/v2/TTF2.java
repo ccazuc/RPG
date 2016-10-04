@@ -56,8 +56,7 @@ public class TTF2 {
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-		awtFont = awtFont.deriveFont(14f);
-		awtFont = awtFont.deriveFont(Font.BOLD);
+		awtFont = awtFont.deriveFont(16f);
 	    chat = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");

@@ -70,13 +70,13 @@ public class EndFightFrame {
 		if(Mouse.getEventButton() == 0) {
 			if(!Mouse.getEventButtonState()) {
 				if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
-					System.exit(1);
 					CharacterStuff.setBagItems();
 					CharacterStuff.setEquippedBags();
 					CharacterStuff.setEquippedItems();
 					Mideas.setConfig();
-					Mideas.setExp(Mideas.joueur2().getExpGained());
-					Mideas.setGold(Mideas.getGold());
+					Mideas.joueur1().setExp(Mideas.joueur1().getExp());
+					Mideas.joueur1().setGold(Mideas.joueur1().getGold());	
+					System.exit(1);
 				}
 				else if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
 					Mideas.setJoueur2(Mideas.getRandomClass(2));
@@ -116,9 +116,8 @@ public class EndFightFrame {
 	}
 	
 	public static void doEndFightEvent() throws SQLTimeoutException, SQLException {
-		Mideas.setExp(Mideas.getExp()+Mideas.joueur2().getExpGained());
-		Mideas.getLevel();
-		Mideas.setGold(Mideas.getGold()+Mideas.joueur2().getGoldGained());
+		Mideas.joueur1().setExp(Mideas.joueur1().getExp()+Mideas.joueur2().getExpGained());
+		Mideas.joueur1().setGold(Mideas.joueur1().getGold()+Mideas.joueur2().getGoldGained());
 		dropManager();
 	}
 }

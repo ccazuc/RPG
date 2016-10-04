@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.game.item;
 
+import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.bag.BagManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
@@ -67,6 +69,11 @@ public class Item implements Cloneable {
 	
 	public String getStuffName() {
 		return this.name;
+	}
+	
+	public static void requestItem(int id) {
+		ConnectionManager.getConnection().writeByte(PacketID.REQUEST_ITEM);
+		ConnectionManager.getConnection().writeInt(id);
 	}
 	
 	public boolean isStackable() {

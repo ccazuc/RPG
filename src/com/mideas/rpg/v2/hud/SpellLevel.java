@@ -13,23 +13,23 @@ public class SpellLevel {
 
 	public static void addSpell() {
 		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
-			if(!spell1 && Mideas.getLevel() >= 1) {
+			if(!spell1 && Mideas.joueur1().getLevel() >= 1) {
 				Mideas.joueur1().setSpellUnlocked(0, SpellManager.getBookSpell(102));
 				spell1 = true;
 			}
-			if(!spell3 && Mideas.getLevel() >= 3) {
+			if(!spell3 && Mideas.joueur1().getLevel() >= 3) {
 				Mideas.joueur1().setSpellUnlocked(1, SpellManager.getBookSpell(101));
 				spell3 = true;
 			}
-			if(!spell7 && Mideas.getLevel() >= 7) {
+			if(!spell7 && Mideas.joueur1().getLevel() >= 7) {
 				Mideas.joueur1().setSpellUnlocked(2, SpellManager.getBookSpell(105));
 				spell7 = true;
 			}	
-			if(!spell10 && Mideas.getLevel() >= 10) {
+			if(!spell10 && Mideas.joueur1().getLevel() >= 10) {
 				Mideas.joueur1().setSpellUnlocked(3, SpellManager.getBookSpell(104));
 				spell10 = true;
 			}
-			if(!spell15 && Mideas.getLevel() >= 15) {
+			if(!spell15 && Mideas.joueur1().getLevel() >= 15) {
 				Mideas.joueur1().setSpellUnlocked(4, SpellManager.getBookSpell(103));
 				spell15 = true;
 			}	

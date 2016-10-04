@@ -311,7 +311,7 @@ public class DragManager {
 				int j = 0;
 				while(j < type.length) {
 					if(((Stuff)Mideas.bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && Mideas.joueur1().canWear((Stuff)Mideas.bag().getBag(i))) {
-						if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
+						if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(j) == null) {
 								Mideas.joueur1().setStuff(j, Mideas.bag().getBag(i));
 								calcStats(Mideas.joueur1().getStuff(j));
@@ -340,7 +340,7 @@ public class DragManager {
 				int j = 0;
 				while(j < type.length) {
 					if(((Stuff)Mideas.bag().getBag(i)) != null && ((Stuff)Mideas.bag().getBag(i)).getWeaponSlot() == weaponSlot[j] && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType())) {
-						if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
+						if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(j) == null) {
 								Mideas.joueur1().setStuff(j, Mideas.bag().getBag(i));
 								calcStats(Mideas.joueur1().getStuff(j));
@@ -370,7 +370,7 @@ public class DragManager {
 	}
 	
 	private static void doHealingPotion(Potion item, boolean hover, int i) throws SQLException {
-		if(hover && item != null && item.isPotion() && Mideas.getLevel() >= item.getLevel()) {
+		if(hover && item != null && item.isPotion() && Mideas.joueur1().getLevel() >= item.getLevel()) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
@@ -398,7 +398,7 @@ public class DragManager {
 	
 	private static void equipItem(int i) throws SQLException {
 		if(Mideas.bag().getBag(i).isStuff() && draggedItem.isStuff()) {
-			if(Mideas.getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel() && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && ((Stuff)Mideas.bag().getBag(i)).getType() == ((Stuff)draggedItem).getType()) {
+			if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel() && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && ((Stuff)Mideas.bag().getBag(i)).getType() == ((Stuff)draggedItem).getType()) {
 				Stuff temp = (Stuff)Mideas.bag().getBag(i);
 				Mideas.bag().setBag(i, draggedItem);
 				calcStatsLess(draggedItem);
@@ -527,7 +527,7 @@ public class DragManager {
 			}
 			else if(checkCharacterItems(draggedItem)) {
 				if(draggedItem.isStuff()) {
-					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && Mideas.joueur1().canWear((Stuff)draggedItem)) {        //draggeditem same stuff type of slot hover
+					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.joueur1().getLevel() >= ((Stuff)draggedItem).getLevel() && Mideas.joueur1().canWear((Stuff)draggedItem)) {        //draggeditem same stuff type of slot hover
 						if(Mideas.joueur1().getStuff(i) == null) {
 							setNullCharacter(draggedItem);
 							calcStatsLess(draggedItem);
@@ -555,7 +555,7 @@ public class DragManager {
 					}
 				}
 				else if(draggedItem.isWeapon()) {
-					if((((Stuff)draggedItem).getWeaponSlot() == weaponSlot[i]) && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && ((Stuff)draggedItem).canWearWeapon()) {
+					if((((Stuff)draggedItem).getWeaponSlot() == weaponSlot[i]) && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.joueur1().getLevel() >= ((Stuff)draggedItem).getLevel() && ((Stuff)draggedItem).canWearWeapon()) {
 						if(Mideas.joueur1().getStuff(i) == null) {
 							setNullCharacter(draggedItem);
 							calcStatsLess(draggedItem);
@@ -569,7 +569,7 @@ public class DragManager {
 			}
 			else if(checkBagItems(draggedItem)) {
 				if(draggedItem.isStuff()) {
-					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && Mideas.joueur1().canWear((Stuff)draggedItem)) {
+					if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.joueur1().getLevel() >= ((Stuff)draggedItem).getLevel() && Mideas.joueur1().canWear((Stuff)draggedItem)) {
 						if(Mideas.joueur1().getStuff(i) == null) {
 							Mideas.joueur1().setStuff(i, draggedItem);
 							calcStats(draggedItem);
@@ -596,7 +596,7 @@ public class DragManager {
 					}
 				}
 				else if(draggedItem.isWeapon()) {
-					if((((Stuff)draggedItem).getWeaponSlot() == weaponSlot[i]) && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && ((Stuff)draggedItem).canWearWeapon()) {
+					if((((Stuff)draggedItem).getWeaponSlot() == weaponSlot[i]) && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.joueur1().getLevel() >= ((Stuff)draggedItem).getLevel() && ((Stuff)draggedItem).canWearWeapon()) {
 						if(Mideas.joueur1().getStuff(i) == null) {
 							Mideas.joueur1().setStuff(i, draggedItem);
 							calcStats(draggedItem);
@@ -612,7 +612,7 @@ public class DragManager {
 				}
 			}
 			else if(draggedItem.isStuff()){
-				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.getLevel() >= ((Stuff)draggedItem).getLevel() && Mideas.joueur1().canWear((Stuff)draggedItem)) {
+				if(((Stuff)draggedItem).getType() == type[i] && ((Stuff)draggedItem).canEquipTo(convClassType()) && Mideas.joueur1().getLevel() >= ((Stuff)draggedItem).getLevel() && Mideas.joueur1().canWear((Stuff)draggedItem)) {
 					if(Mideas.joueur1().getStuff(i) == null) {
 						Mideas.joueur1().setStuff(i, draggedItem);
 						calcStats(draggedItem);
@@ -844,17 +844,14 @@ public class DragManager {
 		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
 			return ClassType.GUERRIER;
 		}
-		if(Mideas.joueur1().getClasse().equals("DeathKnight")) {
-			return ClassType.DEATHKNIGHT;
-		}
 		if(Mideas.joueur1().getClasse().equals("Hunter")) {
 			return ClassType.HUNTER;
 		}
 		if(Mideas.joueur1().getClasse().equals("Mage")) {
 			return ClassType.MAGE;
 		}
-		if(Mideas.joueur1().getClasse().equals("MonK")) {
-			return ClassType.MONK;
+		if(Mideas.joueur1().getClasse().equals("Druid")) {
+			return ClassType.DRUID;
 		}
 		if(Mideas.joueur1().getClasse().equals("Paladin")) {
 			return ClassType.PALADIN;

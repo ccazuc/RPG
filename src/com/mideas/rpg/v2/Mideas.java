@@ -8,7 +8,6 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.sql.SQLException;
-import java.sql.SQLTimeoutException;
 
 import javax.imageio.ImageIO;
 
@@ -66,14 +65,10 @@ public class Mideas {
 	private static int count;
 	private static String fps;
 	private static BufferedImage cursor_image;
-	private static int exp;
-	private static int level;
 	private static int expNeeded;
-	private static int gold;
 	private static int gold_calc;
 	private static int i;
 	private static int k;
-	private static int[] expAll = new int[11];
 	private static long usedRAM;
 	private static double interfaceDrawTime;
 	private static double mouseEventTime;
@@ -159,7 +154,6 @@ public class Mideas {
 		ClassManager.loadClasses();
 		GemManager.loadGemSprites();
 		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
-		getExpAll();
 		joueur2 = getRandomClass(2);
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
@@ -319,55 +313,40 @@ public class Mideas {
 	
 	public static Joueur getRandomClass(int id) {
 		double rand = Math.random();
-		rand = 1/10f;
-		if(rand <= 1/10f) {
+		rand = 1/9f;
+		if(rand <= 1/9f) {
 			return ClassManager.getClone("Guerrier");
 		}
-		if(rand <= 2/10f) {
+		else if(rand <= 2/9f) {
 			System.out.println("Le joueur "+id+" est un Priest !");
 			return ClassManager.getClone("Priest");
 		}
-		if(rand <= 3/10f){
+		else if(rand <= 3/9f){
 			System.out.println("Le joueur "+id+" est un Mage !");
 			return ClassManager.getClone("Mage");
 		}
-		if(rand <= 4/10f) {
-			System.out.println("Le joueur "+id+" est un DeathKnight !");
-			return ClassManager.getClone("DeathKnight");
-		}
-		if(rand <= 5/10f) {
+		else if(rand <= 4/9f) {
 			System.out.println("Le joueur "+id+" est un Hunter !");
 			return ClassManager.getClone("Hunter");
 		}
-		if(rand <= 6/10f) {
-			System.out.println("Le joueur "+id+" est un Monk !");
-			return ClassManager.getClone("Monk");
-		}
-		if(rand <= 7/10f) {
+		else if(rand <= 5/9f) {
 			System.out.println("Le joueur "+id+" est un Paladin !");
 			return ClassManager.getClone("Paladin");
 		}
-		if(rand <= 8/10f) {
+		else if(rand <= 6/9f) {
 			System.out.println("Le joueur "+id+" est un Rogue !");
 			return ClassManager.getClone("Rogue");
 		}
-		if(rand <= 9/10f) {
+		else if(rand <= 7/9f) {
 			System.out.println("Le joueur "+id+" est un Shaman !");
 			return ClassManager.getClone("Shaman");
 		}
+		else if(rand <= 8/9f) {
+			System.out.println("Le joueur "+id+" est un Druide !");
+			return ClassManager.getClone("Druid");
+		}
 		System.out.println("Le joueur "+id+" est un Warlock !");
 		return ClassManager.getClone("Warlock");
-	}
-
-	public static void getExpAll() throws SQLException {
-		int id;
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats");
-		statement.execute();
-		while(statement.fetch()) {
-			id = statement.getInt();
-			expAll[i] = id;
-			i++;
-		}
 	}
 	
 	public static void mTime(long time, String text) {
@@ -376,54 +355,6 @@ public class Mideas {
 	
 	public static void nTime(long time, String text) {
 		System.out.println((System.nanoTime()-time)+"ns "+text);
-	}
-	
-	public static int getExpAll(int i) {
-		return expAll[i];
-	}
-	
-	public static int loadExp() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT exp FROM stats WHERE character_id = ?");
-		statement.putInt(Mideas.getCharacterId());
-		statement.execute();
-		if(statement.fetch()) {
-			exp = statement.getInt();
-		}
-		return exp;
-	}
-	
-	public static int getExp() {
-		return exp;
-	}
-	
-	public static void setExp(int exps) throws SQLException {
-		exp = exps;
-		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET exp = ? WHERE character_id = ?");
-		statement.putInt(exps);
-		statement.putInt(Mideas.getCharacterId());
-		statement.execute();
-	}
-	
-	public static void setGold(int golds) throws SQLTimeoutException, SQLException {
-		gold = golds;
-		JDOStatement statement = Mideas.getJDO().prepare("UPDATE stats SET gold = ? WHERE character_id = ?");
-		statement.putInt(gold);
-		statement.putInt(Mideas.getCharacterId());
-		statement.execute();	
-	}
-	
-	public static int loadGold() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT gold FROM stats WHERE character_id = ?");
-		statement.putInt(Mideas.getCharacterId());
-		statement.execute();
-		if(statement.fetch()) {
-			gold = statement.getInt();
-		}
-		return gold;
-	}
-	
-	public static int getGold() {
-		return gold;
 	}
 	
 	public static void setConfig() throws SQLException {
@@ -471,7 +402,7 @@ public class Mideas {
 	}
 	
 	public static int calcGoldCoin() {
-		gold_calc = Mideas.getGold();
+		gold_calc = Mideas.joueur1.getGold();
 		i = 0;
 		while(gold_calc-10000 >= 0) {
 			gold_calc-= 10000;
@@ -481,7 +412,7 @@ public class Mideas {
 	}
 	
 	public static int calcSilverCoin() {
-		gold_calc = Mideas.getGold()-i*10000;
+		gold_calc = Mideas.joueur1().getGold()-i*10000;
 		k = 0;
 		while(gold_calc-100 >= 0) {
 			gold_calc-= 100;
@@ -680,301 +611,221 @@ public class Mideas {
 			CharacterStuff.setBagItems();
 			CharacterStuff.setEquippedBags();
 			CharacterStuff.setEquippedItems();
-			Mideas.setGold(Mideas.getGold());
-			Mideas.setExp(Mideas.getExp());
+			Mideas.joueur1().setGold(Mideas.joueur1().getGold());
+			Mideas.joueur1().setExp(Mideas.joueur1().getExp());
 		}
 		Mideas.setConfig();
 	}
 	
-	public static int getLevelAll(int exp) {
+	public static int getLevel(int exp) {
 		if(exp <= 400) {
-			level = 1;
-			return level;
+			return 1;
 		}
 		else if(exp <= 900) {
-			level = 2;
-			return level;
+			return 2;
 		}
 		else if(exp <= 1400) {
-			level = 3;
-			return level;
+			return 3;
 		}
 		else if(exp <= 2100) {
-			level = 4;
-			return level;
+			return 4;
 		}
 		else if(exp <= 2800) {
-			level = 5;
-			return level;
+			return 5;
 		}
 		else if(exp <= 3600) {
-			level = 6;
-			return level;
+			return 6;
 		}
 		else if(exp <= 4500) {
-			level = 7;
-			return level;
+			return 7;
 		}
 		else if(exp <= 5400) {
-			level = 8;
-			return level;
+			return 8;
 		}
 		else if(exp <= 6500) {
-			level = 9;
-			return level;
+			return 9;
 		}
 		else if(exp <= 7600) {
-			level = 10;
-			return level;
+			return 10;
 		}
 		else if(exp <= 8700) {
-			level = 11;
-			return level;
+			return 11;
 		}
 		else if(exp <= 9800) {
-			level = 12;
-			return level;
+			return 12;
 		}
 		else if(exp <= 11000) {
-			level = 13;
-			return level;
+			return 13;
 		}
 		else if(exp <= 12300) {
-			level = 14;
-			return level;
+			return 14;
 		}
 		else if(exp <= 13600) {
-			level = 15;
-			return level;
+			return 15;
 		}
 		else if(exp <= 15000) {
-			level = 16;
-			return level;
+			return 16;
 		}
 		else if(exp <= 16400) {
-			level = 17;
-			return level;
+			return 17;
 		}
 		else if(exp <= 17800) {
-			level = 18;
-			return level;
+			return 18;
 		}
 		else if(exp <= 19300) {
-			level = 19;
-			return level;
+			return 19;
 		}
 		else if(exp <= 20800) {
-			level = 20;
-			return level;
+			return 20;
 		}
 		else if(exp <= 22400) {
-			level = 21;
-			return level;
+			return 21;
 		}
 		else if(exp <= 24000) {
-			level = 22;
-			return level;
+			return 22;
 		}
 		else if(exp <= 25500) {
-			level = 23;
-			return level;
+			return 23;
 		}
 		else if(exp <= 27200) {
-			level = 24;
-			return level;
+			return 24;
 		}
 		else if(exp <= 28900) {
-			level = 25;
-			return level;
+			return 25;
 		}
 		else if(exp <= 30500) {
-			level = 26;
-			return level;
+			return 26;
 		}
 		else if(exp <= 32200) {
-			level = 27;
-			return level;
+			return 27;
 		}
 		else if(exp <= 33900) {
-			level = 28;
-			return level;
+			return 28;
 		}
 		else if(exp <= 36300) {
-			level = 29;
-			return level;
+			return 29;
 		}
 		else if(exp <= 38800) {
-			level = 30;
-			return level;
+			return 30;
 		}
 		else if(exp <= 41600) {
-			level = 31;
-			return level;
+			return 31;
 		}
 		else if(exp <= 44600) {
-			level = 32;
-			return level;
+			return 32;
 		}
 		else if(exp <= 48000) {
-			level = 33;
-			return level;
+			return 33;
 		}
 		else if(exp <= 51400) {
-			level = 34;
-			return level;
+			return 34;
 		}
 		else if(exp <= 55000) {
-			level = 35;
-			return level;
+			return 35;
 		}
 		else if(exp <= 58700) {
-			level = 36;
-			return level;
+			return 36;
 		}
 		else if(exp <= 62400) {
-			level = 37;
-			return level;
+			return 37;
 		}
 		else if(exp <= 66200) {
-			level = 38;
-			return level;
+			return 38;
 		}
 		else if(exp <= 70200) {
-			level = 39;
-			return level;
+			return 39;
 		}
 		else if(exp <= 74300) {
-			level = 40;
-			return level;
+			return 40;
 		}
 		else if(exp <= 78500) {
-			level = 41;
-			return level;
+			return 41;
 		}
 		else if(exp <= 82800) {
-			level = 42;
-			return level;
+			return 42;
 		}
 		else if(exp <= 87100) {
-			level = 43;
-			return level;
+			return 43;
 		}
 		else if(exp <= 91600) {
-			level = 44;
-			return level;
+			return 44;
 		}
 		else if(exp <= 96300) {
-			level = 45;
-			return level;
+			return 45;
 		}
 		else if(exp <= 101000) {
-			level = 46;
-			return level;
+			return 46;
 		}
 		else if(exp <= 105800) {
-			level = 47;
-			return level;
+			return 47;
 		}
 		else if(exp <= 110700) {
-			level = 48;
-			return level;
+			return 48;
 		}
 		else if(exp <= 115700) {
-			level = 49;
-			return level;
+			return 49;
 		}
 		else if(exp <= 120900) {
-			level = 50;
-			return level;
+			return 50;
 		}
 		else if(exp <= 126100) {
-			level = 51;
-			return level;
+			return 51;
 		}
 		else if(exp <= 131500) {
-			level = 52;
-			return level;
+			return 52;
 		}
 		else if(exp <= 137000) {
-			level = 53;
-			return level;
+			return 53;
 		}
 		else if(exp <= 142500) {
-			level = 54;
-			return level;
+			return 54;
 		}
 		else if(exp <= 148200) {
-			level = 55;
-			return level;
+			return 55;
 		}
 		else if(exp <= 154000) {
-			level = 56;
-			return level;
+			return 56;
 		}
 		else if(exp <= 159900) {
-			level = 57;
-			return level;
+			return 57;
 		}
 		else if(exp <= 165800) {
-			level = 58;
-			return level;
+			return 58;
 		}
 		else if(exp <= 172000) {
-			level = 59;
-			return level;
+			return 59;
 		}
 		else if(exp <= 290000) {
-			level = 60;
-			return level;
+			return 60;
 		}
 		else if(exp <= 317000) {
-			level = 61;
-			return level;
+			return 61;
 		}
 		else if(exp <= 349000) {
-			level = 62;
-			return level;
+			return 62;
 		}
 		else if(exp <= 386000) {
-			level = 63;
-			return level;
+			return 63;
 		}
 		else if(exp <= 428000) {
-			level = 64;
-			return level;
+			return 64;
 		}
 		else if(exp <= 475000) {
-			level = 65;
-			return level;
+			return 65;
 		}
 		else if(exp <= 527000) {
-			level = 66;
-			return level;
+			return 66;
 		}
 		else if(exp <= 585000) {
-			level = 67;
-			return level;
+			return 67;
 		}
 		else if(exp <= 648000) {
-			level = 68;
-			return level;
+			return 68;
 		}
 		else if(exp <= 717000) {
-			level = 69;
-			return level;
+			return 69;
 		}
-		else if(exp <= 1523800) {
-			level = 70;
-			return level;
-		}
-		else {
-			level = 70;
-			return level;
-		}
-	}
-	
-	public static int getLevel() {
-		return getLevelAll(getExp());
+		return 70;
 	}
 	
 	public static int getExpNeeded(int level) {

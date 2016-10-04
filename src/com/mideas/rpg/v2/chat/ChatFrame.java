@@ -12,6 +12,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
@@ -54,7 +55,16 @@ public class ChatFrame {
 	private static int yDraw; 
 	private static int xDraw;
 	private static int xShift;
-	private static boolean showMessageTime = true;
+	
+	private static String warrior = "Warrior";
+	private static String paladin = "Paladin";
+	private static String hunter = "Hunter";
+	private static String priest = "Priest";
+	private static String mage = "Mage";
+	private static String warlock = "Warlock";
+	private static String rogue = "Rogue";
+	private static String shaman = "Shaman";
+	private static String druid = "Druid";
 
 	public static void draw() {
 		messageShowHeight = 4+yResize/TTF2.chat.getLineHeight();
@@ -196,7 +206,6 @@ public class ChatFrame {
 					if(!ChatCommandManager.chatCommandManager(tempMessage)) {
 						addMessage();
 					}
-					totalNumberLine = getTotalNumberLine();
 					numberMessageSent++;
 					cursorPosition = 0;
 					cursorShift = 0;
@@ -306,6 +315,7 @@ public class ChatFrame {
 		String temp = tempMessage;
 		if(temp != null && !temp.equals("")) {
 			messages.add(new Message(temp, true, Color.white));
+			totalNumberLine = getTotalNumberLine();
 		}
 	}
 	
@@ -516,7 +526,6 @@ public class ChatFrame {
 			i++;
 		}
 		return number;
-		//return TTF2.chat.getWidth(msg)/maxLength;
 	}
 	
 	private static int getLength(String msg, int beg, int length) {
@@ -636,225 +645,9 @@ public class ChatFrame {
 		cursorShift+= TTF2.chat.getWidth(add);
 	}
 	
-	/*private static boolean checkTempMessage() throws SQLException {
-		String message = tempMessage.trim().toLowerCase();
-		if(message.length() > 1 && message.substring(0, 1).equals(".") && !message.substring(1, 2).equals(".")) {
-			if(message.equals(".kill joueur2")) {
-				Mideas.joueur2().setStamina(0);
-			}
-			else if(message.equals(".kill joueur1")) {
-				Mideas.joueur1().setStamina(0);
-			}
-			else if(message.startsWith(".modify hp joueur1 ")) {
-				String[] temp = message.split("joueur1 ");
-				int value = Integer.parseInt(temp[1]);	
-				Mideas.joueur1().setStamina(value);
-				Mideas.joueur1().setMaxStamina(value);
-			}
-			else if(message.startsWith(".modify hp joueur2 ")) {
-				String[] temp = message.split("joueur2 ");
-				int value = Integer.parseInt(temp[1]);	
-				Mideas.joueur2().setStamina(value);
-				Mideas.joueur2().setMaxStamina(value);
-			}
-			else if(message.startsWith(".modify mana joueur1 ")) {
-				String[] temp = message.split("joueur1 ");
-				int value = Integer.parseInt(temp[1]);	
-				Mideas.joueur1().setMana(value);
-				Mideas.joueur1().setMaxMana(value);
-			}
-			else if(message.startsWith(".modify mana joueur2 ")) {
-				String[] temp = message.split("joueur2 ");
-				int value = Integer.parseInt(temp[1]);	
-				Mideas.joueur2().setMana(value);
-				Mideas.joueur2().setMaxMana(value);
-			}
-			else if(message.startsWith(".lookup item ")) {
-				String[] temp = message.split("item ");
-				int value = Integer.parseInt(temp[1]);
-				if(ShopManager.getItem(value) != null) {
-					messages.add(new Message(ShopManager.getItem(value).getStuffName(), false, Color.yellow));
-				}
-				else {
-					messages.add(new Message("Item not found", false, Color.yellow));
-				}
-			}
-			else if(message.startsWith(".lookup spell ")) {
-				String[] temp = message.split("spell ");
-				int value = Integer.parseInt(temp[1]);
-				messages.add(new Message(SpellManager.getBookSpell(value).getName(), false, Color.yellow));
-			}
-			else if(message.startsWith(".set x ")) {
-				String[] temp = message.split("x ");
-				int value = Integer.parseInt(temp[1]);	
-				CharacterFrame.setMouseX(value);
-			}
-			else if(message.startsWith(".set y ")) {
-				String[] temp = message.split("y ");
-				int value = Integer.parseInt(temp[1]);	
-				CharacterFrame.setMouseY(value);
-			}
-			else if(message.startsWith(".set joueur2 ")) {
-				String[] temp = message.split("joueur2 ");
-				String joueur = temp[1];
-				if(ClassManager.exists(joueur.substring(1))) {
-					Mideas.setJoueur2(ClassManager.getClone((joueur.substring(1))));
-				}
-			}
-			else if(message.startsWith(".damage joueur1 ")) {
-				String[] temp = message.split("joueur1 ");
-				int value = Integer.parseInt(temp[1]);
-				if(value < Math.pow(2, 32)) {
-					Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()-value);
-				}
-				else {
-					messages.add(new Message("Incorrect value", false, Color.yellow));
-				}
-			}
-			else if(message.startsWith(".damage joueur2 ")) {
-				String[] temp = message.split("joueur2 ");
-				int value = Integer.parseInt(temp[1]);
-				if(value < Math.pow(2, 32)) {
-					Mideas.joueur2().setStamina(Mideas.joueur2().getStamina()-value);
-				}
-				else {
-					messages.add(new Message("Incorrect value", false, Color.yellow));
-				}
-			}
-			else if(message.startsWith(".add stuff ")) {
-				String[] temp = message.split("stuff ");
-				int value = 0;
-				if(temp[1].length() < 11) {
-					value = Integer.parseInt(temp[1]);
-				}
-				if(StuffManager.exists(value)) {
-					Mideas.joueur1().addItem(StuffManager.getClone(value), 1);
-				}
-				else if(WeaponManager.exists(value)) {
-					Mideas.joueur1().addItem(WeaponManager.getClone(value), 1);
-				}
-				else if(PotionManager.exists(value)) {
-					Mideas.joueur1().addItem(PotionManager.getClone(value), 1);
-				}
-				else if(GemManager.exists(value)) {
-					Mideas.joueur1().addItem(GemManager.getClone(value), 1);
-				}
-				else {
-					messages.add(new Message("Item not found", false, Color.yellow));
-				}
-			}
-			else if(message.startsWith(".delete bag item ")) {
-				String[] temp = message.split("item ");
-				int value = Integer.parseInt(temp[1]);
-				if(StuffManager.exists(value)) {
-					DragManager.deleteItem(value);
-					CharacterStuff.setBagItems();
-				}
-				else if(WeaponManager.exists(value)) {
-					DragManager.deleteItem(value);
-					CharacterStuff.setBagItems();
-				}
-				else {
-					messages.add(new Message("Item not found", false, Color.yellow));
-				}
-			}
-			else if(message.equals(".clear chat")) {
-				messages.clear();
-			}
-			else if(message.equals(".set fullscreen true")) {
-				Mideas.setDisplayMode(1920, 1080, true);
-			}
-			else if(message.equals(".set fullscreen false")) {
-				Mideas.setDisplayMode(1700, 930, false);
-			}
-			else if(message.equals(".update")) {
-				Mideas.getGold();
-				Mideas.getExp();
-				Mideas.getConfig();
-				ShopManager.getShopList().clear();
-				ShopManager.loadStuffs();
-				CharacterStuff.getEquippedBags();
-				CharacterStuff.getBagItems();
-				CharacterStuff.getEquippedItems();
-				ContainerFrame.setBagchange(true);
-				SpellBarManager.loadSpellBar();
-				Mideas.bag().setBagChange(true);
-			}
-			else if(message.equals(".quit")) {
-				System.exit(1);
-				CharacterStuff.setBagItems();
-				CharacterStuff.setEquippedBags();
-				CharacterStuff.setEquippedItems();
-				Mideas.setConfig();
-				Mideas.setExp(0);
-				Mideas.setGold(Mideas.getGold());
-				SpellBarManager.setSpellBar();
-			}
-			else if(message.startsWith(".modify gold ")) {
-				String[] temp = message.split("gold ");
-				int value = 0; 
-				if(temp[1].length() < 11) {
-					value = Integer.parseInt(temp[1]);
-				}
-				else {
-					messages.add(new Message("Incorrect value", false, Color.yellow));
-					return true;
-				}
-				if(value < Math.pow(2, 32) && value >= 0) {
-					Mideas.setGold(value);
-				}
-				else {
-					messages.add(new Message("Incorrect value", false, Color.yellow));
-				}
-			}
-			else if(message.startsWith(".modify exp ")) {
-				String[] temp = message.split("exp ");
-				int value = 0; 
-				if(temp[1].length() < 11) {
-					value = Integer.parseInt(temp[1]);
-				}
-				else {
-					messages.add(new Message("Incorrect value", false, Color.yellow));
-					return true;
-				}
-				if(value < Math.pow(2, 32) && value >= 0) {
-					Mideas.joueur1().setExp(0, value);
-				}
-				else {
-					messages.add(new Message("Incorrect value", false, Color.yellow));
-				}	
-			}
-			else if(message.equals(".help")) {
-				messages.add(new Message(".kill [joueur]", false, Color.yellow));
-				messages.add(new Message(".modify hp [joueur] [value]", false, Color.yellow));
-				messages.add(new Message(".modify mana [joueur] [value]", false, Color.yellow));
-				messages.add(new Message(".lookup item [id]", false, Color.yellow));
-				messages.add(new Message(".lookup spell [id]", false, Color.yellow));
-				messages.add(new Message(".set joueur2 [joueur]", false, Color.yellow));
-				messages.add(new Message(".damage [joueur] [value]", false, Color.yellow));
-				messages.add(new Message(".add stuff [id]", false, Color.yellow));
-				messages.add(new Message(".delete bag item [id]", false, Color.yellow));
-				messages.add(new Message(".clear chat", false, Color.yellow));
-				messages.add(new Message(".set fullscreen [boolean]", false, Color.yellow));
-				messages.add(new Message(".show time", false, Color.yellow));
-			}
-			else if(message.equals(".clear chat")) {
-				messages.clear();
-				rawMessages.clear();
-			}
-			else if(message.equals(".show time")) {
-				showMessageTime = !showMessageTime;
-			}
-			else {
-				messages.add(new Message("Unknown command", false, Color.yellow));
-			}
-			return true;
-		}
-		return false;
-	}*/
-	
 	public static void addMessage(Message message) {
 		messages.add(message);
+		totalNumberLine = getTotalNumberLine();
 	}
 	
 	public static ArrayList<Message> getMessageList() {
@@ -865,11 +658,35 @@ public class ChatFrame {
 		return rawMessages;
 	}
 	
-	private static String convMessageFormat(long time) {
-		if(time < 10) {
-			return "0"+Long.toString(time);
+	public static Color convClassColor(String classe) {
+		if(classe.equals(druid)) {
+			return ClassColor.DRUID_COLOR;
 		}
-		return Long.toString(time);
+		if(classe.equals(hunter)) {
+			return ClassColor.HUNTER_COLOR;
+		}
+		if(classe.equals(mage)) {
+			return ClassColor.MAGE_COLOR;
+ 		}
+		if(classe.equals(paladin)) {
+			return ClassColor.PALADIN_COLOR;
+		}
+		if(classe.equals(priest)) {
+			return ClassColor.PRIEST_COLOR;
+		}
+		if(classe.equals(rogue)) {
+			return ClassColor.ROGUE_COLOR;
+		}
+		if(classe.equals(shaman)) {
+			return ClassColor.SHAMAN_COLOR;
+		}
+		if(classe.equals(warlock)) {
+			return ClassColor.WARLOCK_COLOR;
+		}
+		if(classe.equals(warrior)) {
+			return ClassColor.WARRIOR_COLOR;
+		}
+		return Color.white;
 	}
 	
 	private static void resetSelectedPosition() {

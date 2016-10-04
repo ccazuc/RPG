@@ -7,7 +7,9 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.command.CommandAddItem;
 import com.mideas.rpg.v2.command.CommandLoadCharacter;
+import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
@@ -55,8 +57,8 @@ public class ChatCommandOther {
 				}
 			}
 			else if(datas[0].equals(".update")) {
-				Mideas.getGold();
-				Mideas.getExp();
+				Mideas.joueur1().getGold();
+				Mideas.joueur1().getExp();
 				Mideas.getConfig();
 				ShopManager.getShopList().clear();
 				ShopManager.loadStuffs();
@@ -80,10 +82,9 @@ public class ChatCommandOther {
 			else if(datas[0].equals(".additem")) {
 				if(datas.length >= 2) {
 					int number = 1;
-					if(Item.exists(Integer.valueOf(datas[1]))) {
+					//if(Item.exists(Integer.valueOf(datas[1]))) {
 						if(datas.length >= 3) {
-							if(Integer.valueOf(datas[2]) >= 1 && Integer.valueOf(datas[2]) <= 255) {
-								number = Integer.valueOf(datas[2]);
+							/*if(Integer.valueOf(datas[2]) >= 1 && Integer.valueOf(datas[2]) <= 255) {
 								if(Item.getItem(Integer.valueOf(datas[1])).isStackable()) {
 									Mideas.joueur1().addItem(Item.getItem(Integer.valueOf(datas[1])), number);
 								}
@@ -91,15 +92,17 @@ public class ChatCommandOther {
 									int id = Integer.valueOf(datas[1]);
 									Mideas.joueur1().addMultipleUnstackableItem(id, Integer.valueOf(datas[2]));
 								}
-							}
+							}*/
+							number = Integer.valueOf(datas[2]);
 						}
 						else {
-							Mideas.joueur1().addItem(Item.getItem(Integer.valueOf(datas[1])), number);
+							//Mideas.joueur1().addItem(Item.getItem(Integer.valueOf(datas[1])), number);
 						}
-					}
+						CommandAddItem.write(Integer.valueOf(datas[1]), number);
+					/*}
 					else {
 						ChatFrame.addMessage(new Message("That item doesn't exist", false, Color.yellow));
-					}
+					}*/
 				}
 			}
 			else if(datas[0].equals(".deleteitem")) {
@@ -118,12 +121,20 @@ public class ChatCommandOther {
 					}
 				}
 			}
+			else if(datas[0].equals(".who")) {
+				CommandListPlayer.write();
+			}
 			else if(datas[0].equals(".help")) {
 				ChatFrame.addMessage(new Message(".[joueur1, joueur2] [set, get] [stamina, mana, gold, experience] [value]", false, Color.yellow));
 				ChatFrame.addMessage(new Message(".lookspell [spell_id]", false, Color.yellow));
 				ChatFrame.addMessage(new Message(".itemnumber [item_id]", false, Color.yellow));
 				ChatFrame.addMessage(new Message(".additem [item_id] [amount]", false, Color.yellow));
 				ChatFrame.addMessage(new Message(".deleteitem [item_id] [amount]", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".reloadui Reload the UI", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".update Reload game's datas", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".quit Exit the game", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".logout Logout your character", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".who List the online players", false, Color.yellow));
 			}
 			else {
 				ChatCommandManager.UnknwownCommand();

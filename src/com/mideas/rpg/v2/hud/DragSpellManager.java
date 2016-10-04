@@ -9,7 +9,6 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
@@ -259,7 +258,7 @@ public class DragSpellManager {
 		}
 		else if(DragManager.getDraggedItem() != null) {
 			if(hover[i]) {
-				if(DragManager.getDraggedItem().getItemType() == ItemType.STUFF || DragManager.getDraggedItem().getItemType() == ItemType.WEAPON) {
+				if(DragManager.getDraggedItem().isStuff() || DragManager.getDraggedItem().isWeapon()) {
 					if(Mideas.joueur1().getSpells(i) == null) {
 						Mideas.joueur1().setSpells(i, new StuffShortcut((Stuff)DragManager.getDraggedItem()));
 						DragManager.setDraggedItem(null);
@@ -275,7 +274,7 @@ public class DragSpellManager {
 						return true;
 					}
 				}
-				else if(DragManager.getDraggedItem().getItemType() == ItemType.POTION) {
+				else if(DragManager.getDraggedItem().isPotion()) {
 					if(Mideas.joueur1().getSpells(i) == null) {
 						Mideas.joueur1().setSpells(i, new PotionShortcut((Potion)DragManager.getDraggedItem()));
 						DragManager.setDraggedItem(null);

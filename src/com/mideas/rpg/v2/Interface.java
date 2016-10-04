@@ -70,7 +70,7 @@ public class Interface {
 	private static boolean hasLoggedIn;
 	private static boolean isStuffFullyLoaded;
 	private static boolean isBagFullyLoaded;
-	private static boolean isSpellbarFullyLoaded;
+	private static boolean isSpellbarFullyLoaded = true;
 	private static boolean socketingFrameActive;
 	private final static Color YELLOW = Color.decode("#F0CE0C");
 
@@ -93,8 +93,6 @@ public class Interface {
 			else if(Mideas.joueur1() != null) {
 				if(!isGoldLoaded) {
 					SpellBarManager.loadSpellBar();
-					Mideas.loadGold();
-					Mideas.loadExp();
 					isGoldLoaded = true;
 				}
 				if(!isStuffEquipped) {
@@ -117,6 +115,9 @@ public class Interface {
 				}
 				if(!isBagFullyLoaded) {
 					Mideas.joueur1().loadBag();
+				}
+				if(!isSpellbarFullyLoaded) {
+					Mideas.joueur1().loadSpellbar();
 				}
 				if(Mideas.joueur2() != null) {
 					PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
@@ -165,7 +166,7 @@ public class Interface {
 					SocketingFrame.draw();
 				}
 				Draw.drawQuad(Sprites.level, 50, 95);
-				TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.getLevel()))/2, 105, String.valueOf(Mideas.getLevel()), YELLOW, Color.black, 1, 1, 1);
+				TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.joueur1().getLevel()))/2, 105, String.valueOf(Mideas.joueur1().getLevel()), YELLOW, Color.black, 1, 1, 1);
 				ShortcutFrame.draw();
 				if(characterFrameActive) {
 					CharacterFrame.draw();
@@ -209,7 +210,7 @@ public class Interface {
 				return true;
 			}
 		}
-		else {
+		else if(Mideas.joueur1() != null) {
 			if(DragSpellManager.mouseEvent()) {
 				return true;
 			}
@@ -313,7 +314,7 @@ public class Interface {
             if(PerformanceBarFrame.mouseEvent()) {
             	return true;
             }
-			if(Mideas.joueur1() != null && (Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive())) {
+			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
 				EndFightFrame.mouseEvent();
 				return true;
 			}

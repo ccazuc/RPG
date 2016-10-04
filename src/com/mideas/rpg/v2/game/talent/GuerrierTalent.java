@@ -159,7 +159,7 @@ public class GuerrierTalent {
 		}
 		if(Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0) {
-				if(numberTalent < Mideas.getLevel()+1) {
+				if(numberTalent < Mideas.joueur1().getLevel()+1) {
 					if(hoverLeft1 && heroicStrikeTalent < 3) {
 						heroicStrikeTalent++;
 						numberArmsTalent++;

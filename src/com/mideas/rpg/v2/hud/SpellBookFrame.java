@@ -71,7 +71,7 @@ public class SpellBookFrame {
 	}
 	
 	private static void drawSpell(Texture grey_texture, Texture texture, int level, int x, int y, String spellName) {
-		if(Mideas.getLevel() < level) {
+		if(Mideas.joueur1().getLevel() < level) {
 			Draw.drawQuad(grey_texture, Display.getWidth()/2+x+20, Display.getHeight()/2+y+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg_grey, Display.getWidth()/2+x, Display.getHeight()/2+y);
 			TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+15, spellName, BROWN, Color.black, 1, 1, 1);

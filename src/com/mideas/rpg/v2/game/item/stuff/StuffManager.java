@@ -54,7 +54,7 @@ public class StuffManager {
 	}
 	
 	public static boolean canEquipStuff(Stuff stuff) {
-		if(Mideas.getLevel() >= stuff.getLevel() && Mideas.joueur1().canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
+		if(Mideas.joueur1().getLevel() >= stuff.getLevel() && Mideas.joueur1().canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
 			return true;
 		}
 		return false;
@@ -96,10 +96,6 @@ public class StuffManager {
 		}
 		ClassType[] tempClasses = new ClassType[count];
 		count = 0;
-		if((type & (1 << 0)) != 0) {
-			tempClasses[count] = ClassType.DEATHKNIGHT;
-			count++;
-		}
 		if((type & (1 << 1)) != 0) {
 			tempClasses[count] = ClassType.GUERRIER;
 			count++;
@@ -110,10 +106,6 @@ public class StuffManager {
 		}
 		if((type & (1 << 3)) != 0) {
 			tempClasses[count] = ClassType.MAGE;
-			count++;
-		}
-		if((type & (1 << 4)) != 0) {
-			tempClasses[count] = ClassType.MONK;
 			count++;
 		}
 		if((type & (1 << 5)) != 0) {

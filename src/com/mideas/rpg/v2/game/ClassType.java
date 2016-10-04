@@ -2,24 +2,23 @@ package com.mideas.rpg.v2.game;
 
 public enum ClassType {
 
-	DEATHKNIGHT(0),
-	GUERRIER(1),
-	HUNTER(2),
-	MAGE(3),
-	MONK(4),
-	PALADIN(5),
-	PRIEST(6),
-	ROGUE(7),
-	SHAMAN(8),
-	WARLOCK(9);
+	DRUID((char)0),
+	GUERRIER((char)1),
+	HUNTER((char)2),
+	MAGE((char)3),
+	PALADIN((char)4),
+	PRIEST((char)5),
+	ROGUE((char)6),
+	SHAMAN((char)7),
+	WARLOCK((char)8);
 	
-	private int value;
+	private char value;
 	
-	private ClassType(int value) {
+	private ClassType(char value) {
 		this.value = value;
 	}
 	
-	public int getValue() {
+	public char getValue() {
 		return this.value;
 	}
 }

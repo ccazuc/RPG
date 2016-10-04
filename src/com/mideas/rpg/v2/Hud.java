@@ -1,8 +1,6 @@
 package com.mideas.rpg.v2;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -28,7 +26,7 @@ public class Hud {
 	static int selectedSpell;
 	static Spell hoveredSpell;
 	
-	public static void render() throws IOException, SQLException {  
+	public static void render() throws IOException {  
 		if(sprite) {
 			Sprites.sprite();
 			sprite = false;
@@ -78,7 +76,7 @@ public class Hud {
 		TTF2.hpAndMana.drawStringShadow(Window.getWidth()-134-TTF2.font.getWidth(Mideas.joueur2().getMana()+" / "+Mideas.joueur2().getMaxMana())/2+48, 67, Mideas.joueur2().getMana()+" / "+Mideas.joueur2().getMaxMana(), Color.white, Color.black, 1, 1, 1); 
 		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getMana()+"")/2-14, 67, Mideas.joueur1().getMana()+" / "+Mideas.joueur1().getMaxMana(), Color.white, Color.black, 1, 1, 1);   
 		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getStamina()+"")/2-14, 56, Mideas.joueur1().getStamina()+" / "+Mideas.joueur1().getMaxStamina(), Color.white, Color.black, 1, 1, 1);  
-		TTF2.font2.drawString(Window.getWidth()-100, 300,"level "+Mideas.getLevel(), Color.black);
+		TTF2.font2.drawString(Window.getWidth()-100, 300,"level "+Mideas.joueur1().getLevel(), Color.black);
 		hoveredSpell = null;
 		/*int i = 0;
 		if(Mideas.currentPlayer) {
@@ -369,8 +367,8 @@ public class Hud {
 		return false;
 	}
 	
-	public static void expBar() throws FileNotFoundException, SQLException {
-		e = ((float)Mideas.getExp()-(float)Mideas.getExpNeeded(Mideas.getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.getLevel())-Mideas.getExpNeeded(Mideas.getLevel()-1));
+	public static void expBar() {
+		e = ((float)Mideas.joueur1().getExp()-(float)Mideas.getExpNeeded(Mideas.joueur1().getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.joueur1().getLevel())-Mideas.getExpNeeded(Mideas.joueur1().getLevel()-1));
 		Draw.drawColorQuad(Window.getWidth()/2-140, Window.getHeight()-80, 270*e, 11,  Color.decode("#680764"));
 	}
 }

@@ -284,7 +284,7 @@ public class CharacterFrame {
 				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getClassRequirements(), temp, Color.black, 1);
 				shift+= 20;
 			}
-			if(Mideas.getLevel() >= item.getLevel()) {
+			if(Mideas.joueur1().getLevel() >= item.getLevel()) {
 				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getLevelString(), Color.white, Color.black, 1);
 			}
 			else {

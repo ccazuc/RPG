@@ -3,6 +3,9 @@ package com.mideas.rpg.v2.game;
 import java.sql.SQLException;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.newdawn.slick.Color;
+
+import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
@@ -43,6 +46,7 @@ public class Joueur {
 	private int strength;
 	private float armor;
 	private Wear wear;
+	private int level = 1;
 	private int mana;
 	private int exp;
 	private int gold;
@@ -61,6 +65,16 @@ public class Joueur {
 	public int x;
 	public static int y;
 	public static int z;
+
+	private final static String warrior = "Warrior";
+	private final static String hunter = "Hunter";
+	private final static String mage = "Mage";
+	private final static String paladin = "Paladin";
+	private final static String priest = "Priest";
+	private final static String rogue = "Rogue";
+	private final static String shaman = "Shaman";
+	private final static String warlock = "Warlock";
+	private final static String druid = "Druid";
 	
 	public Joueur(String id, int tempId, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
 		this.id = id;
@@ -307,6 +321,7 @@ public class Joueur {
 				}
 				Interface.setSpellbarFullyLoaded(false);
 			}
+			i++;
 		}
 	}
 	
@@ -442,7 +457,7 @@ public class Joueur {
 	}
 
 	public boolean canEquipStuff(Stuff stuff) {
-		if(Mideas.getLevel() >= stuff.getLevel() && canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
+		if(Mideas.joueur1().getLevel() >= stuff.getLevel() && canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
 			return true;
 		}
 		return false;
@@ -635,6 +650,10 @@ public class Joueur {
 		return this.exp;
 	}
 	
+	public int getLevel() {
+		return this.level;
+	}
+	
 	public int getBaseExp() {
 		return this.baseExp;
 	}
@@ -655,12 +674,21 @@ public class Joueur {
 		return this.gold;
 	}
 	
+	public void setGold(int gold) {
+		this.gold = gold;
+	}
+	
 	public int getGoldGained() {
 		return this.goldGained;
 	}
 	
 	public void setExp(int baseExp, int expGained ) {
 		this.exp = baseExp+expGained;
+	}
+	
+	public void setExp(int exp) {
+		this.exp = exp;
+		this.level = Mideas.getLevel(this.exp);
 	}
 	
 	public void setMaxStamina(int stamina) {
@@ -691,6 +719,69 @@ public class Joueur {
 	public WeaponType getweaponType(int i) {
 		if(i < this.weaponType.length) {
 			return this.weaponType[i];
+		}
+		return null;
+	}
+	
+	public static String convClassTypeToString(ClassType type) {
+		if(type == ClassType.DRUID) {
+			return druid;
+		}
+		if(type == ClassType.GUERRIER) {
+			return warrior;
+		}
+		if(type == ClassType.HUNTER) {
+			return hunter;
+		}
+		if(type == ClassType.MAGE) {
+			return mage;
+		}
+		if(type == ClassType.PALADIN) {
+			return paladin;
+		}
+		if(type == ClassType.PRIEST) {
+			return priest;
+		}
+		if(type == ClassType.ROGUE) {
+			return rogue;
+		}
+		if(type == ClassType.SHAMAN) {
+			return shaman;
+		}
+		if(type == ClassType.WARLOCK) {
+			return warlock;
+		}
+		return null;
+	}
+
+	
+	public static Color convClassTypeToColor(ClassType type) {
+		if(type == ClassType.DRUID) {
+			return ClassColor.DRUID_COLOR;
+		}
+		if(type == ClassType.GUERRIER) {
+			return ClassColor.WARRIOR_COLOR;
+		}
+		if(type == ClassType.HUNTER) {
+			return ClassColor.HUNTER_COLOR;
+		}
+		if(type == ClassType.MAGE) {
+			return ClassColor.MAGE_COLOR;
+		}
+		if(type == ClassType.PALADIN) {
+			return ClassColor.PALADIN_COLOR;
+		}
+		if(type == ClassType.PRIEST) {
+			return ClassColor.PRIEST_COLOR;
+		}
+		if(type == ClassType.ROGUE) {
+			return ClassColor.ROGUE_COLOR;
+		}
+		if(type == ClassType.SHAMAN) {
+			return ClassColor.SHAMAN_COLOR;
+		}
+		if(type == ClassType.WARLOCK) {
+			return ClassColor.WARLOCK_COLOR;
 		}
 		return null;
 	}

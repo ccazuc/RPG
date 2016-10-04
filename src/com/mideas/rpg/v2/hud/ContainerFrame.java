@@ -844,7 +844,7 @@ public class ContainerFrame {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, potion.getDoManaString(), Color.green, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(Mideas.getLevel() >= potion.getLevel()) {
+		if(Mideas.joueur1().getLevel() >= potion.getLevel()) {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, potion.getLevelString(), Color.white, Color.black, 1, 1, 1);
 		}
 		else {
@@ -946,7 +946,7 @@ public class ContainerFrame {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getClassRequirements(), temp, Color.black, 1);
 			shift+= 20;
 		}
-		if(Mideas.getLevel() >= item.getLevel()) {
+		if(Mideas.joueur1().getLevel() >= item.getLevel()) {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Color.white, Color.black, 1);
 		}
 		else {
@@ -1003,7 +1003,7 @@ public class ContainerFrame {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getClassRequirements(), temp, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(Mideas.getLevel() >= item.getLevel()) {
+		if(Mideas.joueur1().getLevel() >= item.getLevel()) {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Color.white, Color.black, 1, 1, 1);
 		}
 		else {

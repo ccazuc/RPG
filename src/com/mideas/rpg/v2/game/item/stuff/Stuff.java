@@ -88,16 +88,15 @@ public class Stuff extends Item {
 	private final static String mail = "Mail";
 	private final static String plate = "Plate";
 
-	private final static String deathKnight = "DeathKnight";
 	private final static String warrior = "Warrior";
 	private final static String hunter = "Hunter";
 	private final static String mage = "Mage";
-	private final static String monk = "Monk";
 	private final static String paladin = "Paladin";
 	private final static String priest = "Priest";
 	private final static String rogue = "Rogue";
 	private final static String shaman = "Shaman";
 	private final static String warlock = "Warlock";
+	private final static String druid = "Warlock";
 	
 	private final static String socketBonus = "Socket Bonues: +";
 	private final static String socket = " Socket";
@@ -651,9 +650,6 @@ public class Stuff extends Item {
 	
 	public String convClassTypeToString(int i) {
 		if(i < this.classType.length) {
-			if(this.classType[i] == ClassType.DEATHKNIGHT) {
-				return deathKnight;
-			}
 			if(this.classType[i] == ClassType.GUERRIER) {
 				return warrior;
 			}
@@ -662,9 +658,6 @@ public class Stuff extends Item {
 			}
 			if(this.classType[i] == ClassType.MAGE) {
 				return mage;
-			}
-			if(this.classType[i] == ClassType.MONK) {
-				return monk;
 			}
 			if(this.classType[i] == ClassType.PALADIN) {
 				return paladin;
@@ -677,6 +670,9 @@ public class Stuff extends Item {
 			}
 			if(this.classType[i] == ClassType.SHAMAN) {
 				return shaman;
+			}
+			if(this.classType[i] == ClassType.DRUID) {
+				return druid;
 			}
 			return warlock;
 		}

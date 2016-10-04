@@ -197,7 +197,7 @@ public class ShopManager {
 	
 	public static boolean buyItems(int i, Shop item) throws SQLException {
 		if(slot_hover == i && item != null) {
-			if(Mideas.getGold() >= item.getSellPrice()) {
+			if(Mideas.joueur1().getGold() >= item.getSellPrice()) {
 				checkItem(item);
 			}
 			else {
@@ -215,11 +215,11 @@ public class ShopManager {
 		if(item != null && hover && click_hover && Interface.getShopFrameStatus()) {
 			if(item.isStackable()) {
 				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
-				Mideas.setGold(Mideas.getGold()+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
+				Mideas.joueur1().setGold(Mideas.joueur1().getGold()+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
 				Mideas.joueur1().setNumberItem(item, 0);
 			}
 			else {
-				Mideas.setGold(Mideas.getGold()+item.getSellPrice());
+				Mideas.joueur1().setGold(Mideas.joueur1().getGold()+item.getSellPrice());
 				LogChat.setStatusText3("Vous avez vendu "+item.getStuffName()+" pour "+item.getSellPrice());
 			}
 			CharacterStuff.setBagItems();
@@ -235,7 +235,7 @@ public class ShopManager {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, StuffManager.getClone(item.getId()));
 					LogChat.setStatusText3("Vous avez bien acheté "+StuffManager.getStuff(item.getId()).getStuffName());
-					Mideas.setGold(Mideas.getGold()-item.getSellPrice());
+					Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
 					CharacterStuff.setBagItems();
 					return true;
 				}
@@ -248,7 +248,7 @@ public class ShopManager {
 					if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == item.getId()) {
 						Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+1);
 						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
-						Mideas.setGold(Mideas.getGold()-item.getSellPrice());
+						Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
 						CharacterStuff.setBagItems();
 						return true;
 					}
@@ -262,7 +262,7 @@ public class ShopManager {
 						Mideas.bag().setBag(i, temp);
 						Mideas.joueur1().setNumberItem(temp, 1);
 						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
-						Mideas.setGold(Mideas.getGold()-item.getSellPrice());
+						Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
 						CharacterStuff.setBagItems();
 						return true;
 					}
@@ -275,7 +275,7 @@ public class ShopManager {
 				if(Mideas.bag().getBag(i) == null) {
 					Mideas.bag().setBag(i, GemManager.getClone(item.getId()));
 					LogChat.setStatusText3("Vous avez bien acheté "+GemManager.getGem(item.getId()).getStuffName());
-					Mideas.setGold(Mideas.getGold()-item.getSellPrice());
+					Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
 					CharacterStuff.setBagItems();
 					return true;
 				}
@@ -331,7 +331,7 @@ public class ShopManager {
 						TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+shift, "Restores "+((Potion)item).getPotionMana()+" Mana", Color.green, Color.black, 1, 1, 1);
 						shift+= 20;
 					}
-					if(Mideas.getLevel() >= ((Potion)item).getLevel()) {
+					if(Mideas.joueur1().getLevel() >= ((Potion)item).getLevel()) {
 						TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+shift, "Level "+((Potion)item).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
 					}
 					else {
@@ -412,7 +412,7 @@ public class ShopManager {
 			TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item-10-xShift, Display.getHeight()/2+y_item+shift, classe, temp, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(Mideas.getLevel() >= ((Stuff)item).getLevel()) {
+		if(Mideas.joueur1().getLevel() >= ((Stuff)item).getLevel()) {
 			TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item-10-xShift, Display.getHeight()/2+y_item+shift, "Level "+((Stuff)item).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
 		}
 		else {
@@ -484,7 +484,7 @@ public class ShopManager {
 			TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+shift, classe, temp, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(Mideas.getLevel() >= ((Stuff)item).getLevel()) {
+		if(Mideas.joueur1().getLevel() >= ((Stuff)item).getLevel()) {
 			TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+shift, "Level "+((Stuff)item).getLevel()+" required", Color.white, Color.black, 1, 1, 1);
 		}
 		else {
