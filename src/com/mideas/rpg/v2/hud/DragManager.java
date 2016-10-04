@@ -84,6 +84,7 @@ public class DragManager {
 			if(draggedItem.isStackable()) {
 				TTF2.itemNumber.drawStringShadow(Mideas.mouseX()+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(draggedItem))), Mideas.mouseY()+20, String.valueOf(Mideas.joueur1().getNumberItem(draggedItem)), Color.white, Color.black, 1, 1, 1);
 			}
+			System.out.println(draggedItem.getStuffName());
 		}
 		if(deleteItem && draggedItem != null) {
 			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-172*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), Sprites.alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.alert.getImageHeight()*Mideas.getDisplayYFactor());
@@ -732,6 +733,18 @@ public class DragManager {
 		return false;
 	}
 	
+	public static boolean deleteBagItem(Item item) {
+		int i = 0;
+		while(i < Mideas.bag().getBag().length) {
+			if(Mideas.bag().getBag(i) == item) {
+				Mideas.bag().setBag(i, null);
+				return true;
+			}
+			i++;
+		}
+		return false;
+	}
+	
 	static boolean checkCharacterItems(Item item) {
 		int i = 0;
 		while(i < Mideas.joueur1().getStuff().length) {
@@ -952,6 +965,14 @@ public class DragManager {
 			return weaponSlot[i];
 		}
 		return null;
+	}
+	
+	public static void resetInventoryClickedSlot() {
+		inventoryClickedSlot = -1;
+	}
+	
+	public static void resetBagClickedSlot() {
+		bagClickedSlot = -1;
 	}
 	
 	public static void updateSize() {

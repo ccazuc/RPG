@@ -442,14 +442,17 @@ public class Stuff extends Item {
 	}
 	public void setEquippedGem1(Gem gem) {
 		this.equippedGem1 = gem;
+		checkBonusTypeActivated();
 	}
 	
 	public void setEquippedGem2(Gem gem) {
 		this.equippedGem2 = gem;
+		checkBonusTypeActivated();
 	}
 	
 	public void setEquippedGem3(Gem gem) {
 		this.equippedGem3 = gem;
+		checkBonusTypeActivated();
 	}
 	
 	public Gem getEquippedGem1() {

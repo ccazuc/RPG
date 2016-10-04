@@ -70,6 +70,7 @@ public class Interface {
 	private static boolean hasLoggedIn;
 	private static boolean isStuffFullyLoaded;
 	private static boolean isBagFullyLoaded;
+	private static boolean isSpellbarFullyLoaded;
 	private static boolean socketingFrameActive;
 	private final static Color YELLOW = Color.decode("#F0CE0C");
 
@@ -474,6 +475,14 @@ public class Interface {
 	
 	public static void setSocketingFrameStatus(boolean we) {
 		socketingFrameActive = we;
+	}
+	
+	public static void setSpellbarFullyLoaded(boolean we) {
+		isSpellbarFullyLoaded = we;
+	}
+	
+	public static boolean getSpellbarFullyLoaded() {
+		return isSpellbarFullyLoaded;
 	}
 	
 	public static void setStuffFullyLoaded(boolean we) {

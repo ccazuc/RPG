@@ -13,6 +13,7 @@ public class SpellShortcut implements Shortcut {
 	
 	private Spell spell;
 	private ShortcutType type;
+	private boolean isLoaded;
 	
 	public SpellShortcut(Spell spell) {
 		this.spell = spell;
@@ -29,6 +30,16 @@ public class SpellShortcut implements Shortcut {
 	@Override
 	public Texture getSprite() {
 		return IconsManager.getSprite37(this.spell.getSpriteId());
+	}
+	
+	@Override
+	public boolean getIsLoaded() {
+		return this.isLoaded;
+	}
+	
+	@Override
+	public void setIsLoaded(boolean we) {
+		this.isLoaded = we;
 	}
 	
 	@Override

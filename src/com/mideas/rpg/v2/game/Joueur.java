@@ -18,7 +18,9 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
+import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
+import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellType;
 import com.mideas.rpg.v2.hud.DragManager;
@@ -273,6 +275,37 @@ public class Joueur {
 			}
 			else if(Mideas.joueur1().getSecondProfession() != null) {
 				Mideas.joueur1().getSecondProfession().updateNumberPossibleCraft();
+			}
+		}
+	}
+	
+	public void loadSpellbar() {
+		int i = 0;
+		Interface.setSpellbarFullyLoaded(true);
+		while(i < Mideas.joueur1().getSpells().length) {
+			if(Mideas.joueur1().getSpells(i) != null && !Mideas.joueur1().getSpells(i).getIsLoaded()) {
+				if(StuffManager.exists(Mideas.joueur1().getSpells(i).getId())) {
+					Mideas.joueur1().setSpells(i, new StuffShortcut(StuffManager.getClone(Mideas.joueur1().getSpells(i).getId())));
+					ConnectionManager.getItemRequested().remove(Mideas.joueur1().getSpells(i).getId());
+					Mideas.joueur1().getSpells(i).setIsLoaded(true);
+					i++;
+					continue;
+				}
+				else if(WeaponManager.exists(Mideas.joueur1().getSpells(i).getId())) {
+					Mideas.joueur1().setSpells(i, new StuffShortcut(WeaponManager.getClone(Mideas.joueur1().getSpells(i).getId())));
+					ConnectionManager.getItemRequested().remove(Mideas.joueur1().getSpells(i).getId());
+					Mideas.joueur1().getSpells(i).setIsLoaded(true);
+					i++;
+					continue;
+				}
+				else if(PotionManager.exists(Mideas.joueur1().getSpells(i).getId())) {
+					Mideas.joueur1().setSpells(i, new PotionShortcut(PotionManager.getClone(Mideas.joueur1().getSpells(i).getId())));
+					ConnectionManager.getItemRequested().remove(Mideas.joueur1().getSpells(i).getId());
+					Mideas.joueur1().getSpells(i).setIsLoaded(true);
+					i++;
+					continue;
+				}
+				Interface.setSpellbarFullyLoaded(false);
 			}
 		}
 	}

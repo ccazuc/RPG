@@ -433,9 +433,7 @@ public class ContainerFrame {
 	}
 	
 	public static boolean mouseEvent() throws SQLException {
-		if(DragManager.isHoverBagFrame()) {
-			hoveredSlot = -1;
-		}
+		hoveredSlot = -1;
 		itemNumberOkButton = false;
 		itemNumberCancelButton = false;
 		itemNumberLeftArrow = false;

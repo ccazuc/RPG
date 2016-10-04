@@ -28,4 +28,5 @@ public class PacketID {
 	public static final byte SEND_BAG_ITEMS = 24;
 	public static final byte PING = 25;
 	public static final byte PING_CONFIRMED = 26;
+	public static final byte SEND_SINGLE_BAG_ITEM = 27;
 }

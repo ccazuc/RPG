@@ -14,6 +14,7 @@ public class PotionShortcut implements Shortcut {
 	
 	private Potion potion;
 	private ShortcutType type;
+	private boolean isLoaded;
 	
 	public PotionShortcut(Potion potion) {
 		this.potion = potion;
@@ -36,6 +37,16 @@ public class PotionShortcut implements Shortcut {
 	@Override
 	public Texture getSprite() {
 		return IconsManager.getSprite37(this.potion.getSpriteId());
+	}
+	
+	@Override
+	public boolean getIsLoaded() {
+		return this.isLoaded;
+	}
+	
+	@Override
+	public void setIsLoaded(boolean we) {
+		this.isLoaded = we;
 	}
 	
 	@Override

@@ -30,7 +30,7 @@ public class SocketingFrame {
 	private static int mouseY;
 	private static float yFrame = -380*Mideas.getDisplayYFactor();
 	private static float xFrame = -306*Mideas.getDisplayXFactor();
-	private static CrossButton closeSocketingFrame = new CrossButton(Display.getWidth()/2+67+CharacterFrame.getMouseX(), Display.getHeight()/2-365+CharacterFrame.getMouseY()) {
+	private static CrossButton closeSocketingFrame = new CrossButton(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), Display.getHeight()/2-365*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY(), Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), (Sprites.cross_button.getImageHeight()+2)*Mideas.getDisplayXFactor()) {
 		@Override
 		protected void eventButtonClick() throws SQLException {
 			Interface.setSocketingFrameStatus(false);
@@ -39,10 +39,29 @@ public class SocketingFrame {
 			stuff = null;
 		}
 	};
-	private static Button putGem = new Button(Display.getWidth()/2+150+CharacterFrame.getMouseX(), Display.getHeight()/2+50+CharacterFrame.getMouseY(), 200, 23, "Sertir les gemmes", 15, 1) {
+	private static Button putGem = new Button(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), 620*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayXFactor(), "Sertir les gemmes", 15, 1) {
 		@Override
 		protected boolean activateCondition() {
 			return tempGem1 != null || tempGem2 != null || tempGem3 != null;
+		}
+		
+		@Override
+		protected void eventButtonClick() {
+			if(tempGem1 != null) {
+				stuff.setEquippedGem1(tempGem1);
+				DragManager.deleteBagItem(tempGem1);
+				tempGem1 = null;
+			}
+			if(tempGem2 != null) {
+				stuff.setEquippedGem1(tempGem2);
+				DragManager.deleteBagItem(tempGem2);
+				tempGem2 = null;
+			}
+			if(tempGem3 != null) {
+				stuff.setEquippedGem1(tempGem3);
+				DragManager.deleteBagItem(tempGem3);
+				tempGem3 = null;
+			}
 		}
 	};
 	
@@ -55,7 +74,7 @@ public class SocketingFrame {
 	
 	public static boolean mouseEvent() throws SQLException {
 		hoveredGem = -1;
-		gemHover();
+		gemsHover();
 		closeSocketingFrame.event();
 		putGem.event();
 		if(Mouse.getEventButtonState()) {
@@ -104,27 +123,29 @@ public class SocketingFrame {
 		return false;
 	}
 	
-	private static void gemHover() {
+	private static void gemsHover() {
 		if(stuff.getNumberGemSlot() == 1) {
-			gem1Hover();
+			gemHover(-127*Mideas.getDisplayXFactor(), 8, 1);
 		}
 		else if(stuff.getNumberGemSlot() == 2) {
-			gem2Hover();
+			
 		}
 		else if(stuff.getNumberGemSlot() == 3) {
-			gem3Hover();
+			
 		}
 	}
 	
 	private static void drawGems() {
+		float x;
+		float y;
 		if(stuff.getNumberGemSlot() == 1) {
-			drawGem1();
+			x = -127*Mideas.getDisplayXFactor();
+			y = 8;
+			drawGem(stuff.getEquippedGem1(), stuff.getGemSlot1(), tempGem1, Display.getWidth()/2+x+CharacterFrame.getMouseX(), Display.getHeight()/2+y+CharacterFrame.getMouseY());
 		}
 		else if(stuff.getNumberGemSlot() == 2) {
-			drawGem2();
 		}
 		else if(stuff.getNumberGemSlot() == 3) {
-			drawGem3();
 		}
 	}
 	
@@ -157,65 +178,31 @@ public class SocketingFrame {
 		}
 	}
 	
-	private static void gem1Hover() {
-		int x = -120;
-		int y = 8;
+	private static void gemHover(float x, float y, int index) {
 		if(Mideas.mouseX() >= Display.getWidth()/2+x+CharacterFrame.getMouseX() && Mideas.mouseX() <= Display.getWidth()/2+x+CharacterFrame.getMouseX()+Sprites.red_socket_background.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2+y+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2+y+CharacterFrame.getMouseY()+Sprites.red_socket_background.getImageHeight()*Mideas.getDisplayXFactor()) {
-			hoveredGem = 1;
+			hoveredGem = index;
 		}
 	}
 	
-	private static void gem2Hover() {
-		
-	}
-	
-	private static void gem3Hover() {
-		
-	}
-	
-	private static void drawGem1() {
-		float x = -127*Mideas.getDisplayXFactor();
-		float y = 8;
-		Draw.drawQuad(getBackgroundSprite(stuff.getGemSlot1()), Display.getWidth()/2+x+CharacterFrame.getMouseX(), Display.getHeight()/2+y+CharacterFrame.getMouseY());
+	private static void drawGem(Gem gem, GemColor slotColor, Gem tempGem, float x, float y) {
+		Draw.drawQuad(getBackgroundSprite(slotColor), x, y);
 		if(tempGem1 != null) {
-			Draw.drawQuad(IconsManager.getSprite37(tempGem1.getSpriteId()), Display.getWidth()/2+x+4+CharacterFrame.getMouseX(), Display.getHeight()/2+y+4+CharacterFrame.getMouseY(), (Sprites.red_socket_background.getImageWidth()-8)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-7)*Mideas.getDisplayXFactor());
-			Draw.drawQuad(getEmptyCrossSprite(tempGem1.getColor()), Display.getWidth()/2+x-7+CharacterFrame.getMouseX(), Display.getHeight()/2+y-5+CharacterFrame.getMouseY());
-			Draw.drawQuad(Sprites.border, Display.getWidth()/2+x+2+CharacterFrame.getMouseX(), Display.getHeight()/2+y+1+CharacterFrame.getMouseY(), (Sprites.red_socket_background.getImageWidth()-3)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-2)*Mideas.getDisplayXFactor());
+			Draw.drawQuad(IconsManager.getSprite37(tempGem.getSpriteId()), x+4, y+4, (Sprites.red_socket_background.getImageWidth()-8)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-7)*Mideas.getDisplayXFactor());
+			Draw.drawQuad(getEmptyCrossSprite(tempGem.getColor()), x-7, y-5);
+			Draw.drawQuad(Sprites.border, x+2, y+1, (Sprites.red_socket_background.getImageWidth()-3)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-2)*Mideas.getDisplayXFactor());
 		}
 		else if(stuff.getEquippedGem1() == null) {
-			Draw.drawQuad(getEmptyCrossSprite(stuff.getGemSlot1()), Display.getWidth()/2+x-7+CharacterFrame.getMouseX(), Display.getHeight()/2+y-5+CharacterFrame.getMouseY());
+			Draw.drawQuad(getEmptyCrossSprite(slotColor), x-7, y-5);
 		}
 		else {
-			Draw.drawQuad(IconsManager.getSprite37(stuff.getEquippedGem1().getSpriteId()), Display.getWidth()/2+x+CharacterFrame.getMouseX(), Display.getHeight()/2+y+CharacterFrame.getMouseY());
-			Draw.drawQuad(getFilledCrossSprite(stuff.getGemSlot1()), Display.getWidth()/2+x+CharacterFrame.getMouseX(), Display.getHeight()/2+y+CharacterFrame.getMouseY());
+			Draw.drawQuad(IconsManager.getSprite37(gem.getSpriteId()), x+4, y+4, (Sprites.red_socket_background.getImageWidth()-8)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-7)*Mideas.getDisplayXFactor());
+			Draw.drawQuad(getFilledCrossSprite(gem.getColor()), x+1, y-3);
 		}
 		if(hoveredGem == 1) {
-			Draw.drawQuad(Sprites.hover, Display.getWidth()/2+x+2+CharacterFrame.getMouseX(), Display.getHeight()/2+y+2+CharacterFrame.getMouseY(), (Sprites.red_socket_background.getImageWidth()-4)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-4)*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.hover, x+2, y+2, (Sprites.red_socket_background.getImageWidth()-4)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-4)*Mideas.getDisplayXFactor());
 		}
 		if(rightButtonDown == 1 || leftButtonDown == 1) {
-			Draw.drawQuad(Sprites.inventory_click_hover, Display.getWidth()/2+x+2+CharacterFrame.getMouseX(), Display.getHeight()/2+y+2+CharacterFrame.getMouseY(), (Sprites.red_socket_background.getImageWidth()-4)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-4)*Mideas.getDisplayXFactor());
-		}
-	}
-	
-	private static void drawGem2() {
-		Draw.drawQuad(getBackgroundSprite(stuff.getGemSlot2()), Display.getWidth()/2-220+CharacterFrame.getMouseX(), Display.getHeight()/2-50+CharacterFrame.getMouseY());
-		if(stuff.getEquippedGem2() == null) {
-			Draw.drawQuad(getEmptyCrossSprite(stuff.getGemSlot2()), Display.getWidth()/2-220+CharacterFrame.getMouseX(), Display.getHeight()/2-50+CharacterFrame.getMouseY());
-		}
-		else {
-			Draw.drawQuad(IconsManager.getSprite37(stuff.getEquippedGem2().getSpriteId()), Display.getWidth()/2-220+CharacterFrame.getMouseX(), Display.getHeight()/2-50+CharacterFrame.getMouseY());
-			Draw.drawQuad(getFilledCrossSprite(stuff.getGemSlot2()), Display.getWidth()/2-220+CharacterFrame.getMouseX(), Display.getHeight()/2-50+CharacterFrame.getMouseY());
-		}
-	}
-	
-	private static void drawGem3() {
-		Draw.drawQuad(getBackgroundSprite(stuff.getGemSlot3()), Display.getWidth()/2-220+CharacterFrame.getMouseX(), Display.getHeight()/2-50+CharacterFrame.getMouseY());
-		if(stuff.getEquippedGem3() == null) {
-			Draw.drawQuad(getEmptyCrossSprite(stuff.getGemSlot3()), Display.getWidth()/2-220+CharacterFrame.getMouseX(), Display.getHeight()/2-50+CharacterFrame.getMouseY());
-		}
-		else {
-			Draw.drawQuad(IconsManager.getSprite37(stuff.getEquippedGem3().getSpriteId()), Display.getWidth()/2-220+CharacterFrame.getMouseX(), Display.getHeight()/2-50+CharacterFrame.getMouseY());
-			Draw.drawQuad(getFilledCrossSprite(stuff.getGemSlot3()), Display.getWidth()/2-220+CharacterFrame.getMouseX(), Display.getHeight()/2-50+CharacterFrame.getMouseY());
+			Draw.drawQuad(Sprites.inventory_click_hover, x+2, y+2, (Sprites.red_socket_background.getImageWidth()-4)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-4)*Mideas.getDisplayXFactor());
 		}
 	}
 	
@@ -225,14 +212,35 @@ public class SocketingFrame {
 	}
 	
 	private static void setDraggedItem(int mouse)  {
-		if(mouse == 1 && tempGem1 != null) {
-			DragManager.setDraggedItem(tempGem1);
+		if(mouse == 1) {
+			if(tempGem1 != null) {
+				DragManager.setDraggedItem(tempGem1);
+				tempGem1 = null;
+			}
+			else {
+				leftButtonDown = -1;
+				rightButtonDown = -1;
+			}
 		}
-		else if(mouse == 2 && tempGem1 != null) {
-			DragManager.setDraggedItem(tempGem2);
+		else if(mouse == 2) {
+			if(tempGem2 != null) {
+				DragManager.setDraggedItem(tempGem2);
+				tempGem2 = null;
+			}
+			else {
+				leftButtonDown = -1;
+				rightButtonDown = -1;
+			}
 		}
-		else if(mouse == 3 && tempGem1 != null) {
-			DragManager.setDraggedItem(tempGem3);
+		else if(mouse == 3) {
+			if(tempGem3 != null) {
+				DragManager.setDraggedItem(tempGem3);
+				tempGem3 = null;
+			}
+			else {
+				leftButtonDown = -1;
+				rightButtonDown = -1;
+			}
 		}
 	}
 	

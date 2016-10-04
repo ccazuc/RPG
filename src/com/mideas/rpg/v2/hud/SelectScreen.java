@@ -23,7 +23,6 @@ import com.mideas.rpg.v2.game.race.Classe;
 import com.mideas.rpg.v2.game.race.Race;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
-import com.mideas.rpg.v2.utils.CheckBox;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 

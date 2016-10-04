@@ -18,6 +18,7 @@ public class StuffShortcut implements Shortcut {
 
 	private Stuff stuff;
 	private ShortcutType type;
+	private boolean isLoaded;
 
 	public StuffShortcut(Stuff stuff) {
 		this.stuff = stuff;
@@ -91,6 +92,16 @@ public class StuffShortcut implements Shortcut {
 	@Override
 	public Texture getSprite() {
 		return IconsManager.getSprite37(this.stuff.getSpriteId());
+	}
+	
+	@Override
+	public boolean getIsLoaded() {
+		return this.isLoaded;
+	}
+	
+	@Override
+	public void setIsLoaded(boolean we) {
+		this.isLoaded = we;
 	}
 
 	@Override

@@ -12,5 +12,6 @@ public interface Shortcut {
 	abstract void setCd(int id, int cd);
 	abstract ShortcutType getShortcutType();
 	abstract int getId();
-	
+	abstract boolean getIsLoaded();	
+	abstract void setIsLoaded(boolean we);	
 }

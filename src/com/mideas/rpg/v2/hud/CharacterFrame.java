@@ -35,7 +35,7 @@ public class CharacterFrame {
 	private static int lastMouseY;
 	private final static int X_CLOSE_FRAME_BUTTON = 69;
 	private final static int Y_CLOSE_FRAME_BUTTON = -366;
-	private static CrossButton closeFrameButton = new CrossButton(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON+gemFrame)*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift) {
+	private static CrossButton closeFrameButton = new CrossButton(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor()) {
 		@Override
 		protected void eventButtonClick() {
 			Interface.closeCharacterFrame();
@@ -177,6 +177,8 @@ public class CharacterFrame {
 						Interface.setSocketingFrameStatus(true);
 						gemFrame = 50+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
 						updateButton();
+						DragManager.resetInventoryClickedSlot();
+						hover = -1;
 					}
 				}
 			}
@@ -229,8 +231,8 @@ public class CharacterFrame {
 			}
 			if(item.getGemSlot1() != GemColor.NONE) {
 				if(item.getEquippedGem1() != null) {
-					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem1().getId()), Display.getWidth()/2+x-2-xShift, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+15, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem1().getGemStatsString(), Color.white, Color.black, 1);
+					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem1().getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem1().getGemStatsString(), Color.white, Color.black, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite1(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
@@ -242,7 +244,7 @@ public class CharacterFrame {
 			if(item.getGemSlot2() != GemColor.NONE) {
 				if(item.getEquippedGem2() != null) {
 					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem2().getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+15, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem2().getGemStatsString(), Color.white, Color.black, 1);
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem2().getGemStatsString(), Color.white, Color.black, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite2(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
@@ -254,7 +256,7 @@ public class CharacterFrame {
 			if(item.getGemSlot3() != GemColor.NONE) {
 				if(item.getEquippedGem3() != null) {
 					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem3().getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+15, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem3().getGemStatsString(), Color.white, Color.black, 1);
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem3().getGemStatsString(), Color.white, Color.black, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite3(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
@@ -359,19 +361,18 @@ public class CharacterFrame {
 	}
 	
 	public static void updateButton() throws SQLException {
-		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON+gemFrame)*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
+		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
 		closeFrameButton.event();
-		SocketingFrame.getCrossButton().update(Display.getWidth()/2+67*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift);
-		SocketingFrame.getButton().update(Display.getWidth()/2+150*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), Display.getHeight()/2+50*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY(), 220, 23);
+		SocketingFrame.getCrossButton().update(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), (Sprites.cross_button.getImageHeight()+2)*Mideas.getDisplayXFactor());
+		SocketingFrame.getButton().update(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), 620*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayXFactor());
 	}
 	
 	public static void updateSize() {
 		if(gemFrame != 0) {
 			gemFrame = 50+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
 		}
-		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON+gemFrame)*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
-		SocketingFrame.getCrossButton().update(Display.getWidth()/2+67*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift);
-		SocketingFrame.getButton().update(Display.getWidth()/2+150*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), Display.getHeight()/2+50*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY(), 220, 23);
-		
+		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
+		SocketingFrame.getCrossButton().update(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), (Sprites.cross_button.getImageHeight()+2)*Mideas.getDisplayXFactor());
+		SocketingFrame.getButton().update(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), 620*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayXFactor());
 	}
 }

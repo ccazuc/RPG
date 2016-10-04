@@ -40,21 +40,21 @@ public class CommandLoadBagItems extends Command {
 		int gem3Id = ConnectionManager.getConnection().readInt();
 		ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
 		if(id != 0) {
-		}
-		if(type == ItemType.STUFF) {
-			loadStuff(index, id, gem1Id, gem2Id, gem3Id);
-		}
-		else if(type == ItemType.WEAPON) {
-			loadWeapon(index, id, gem1Id, gem2Id, gem3Id);
-		}
-		else if(type == ItemType.GEM) {
-			loadGem(index, id);
-		}
-		else if(type == ItemType.BAG) {
-			loadBag(index, id);
-		}
-		else if(type == ItemType.POTION) {
-			loadPotion(index, id, number);
+			if(type == ItemType.STUFF) {
+				loadStuff(index, id, gem1Id, gem2Id, gem3Id);
+			}
+			else if(type == ItemType.WEAPON) {
+				loadWeapon(index, id, gem1Id, gem2Id, gem3Id);
+			}
+			else if(type == ItemType.GEM) {
+				loadGem(index, id);
+			}
+			else if(type == ItemType.BAG) {
+				loadBag(index, id);
+			}
+			else if(type == ItemType.POTION) {
+				loadPotion(index, id, number);
+			}
 		}
 	}
 	
