@@ -27,9 +27,10 @@ public class Button {
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private Color color = Color.decode("#FFC700");
+	private Color hoveredColor = Color.white;
+	private Color baseColor = Color.decode("#FFC700");
 	private boolean hasClicked;
 	private static final Color GREY = Color.decode("#808080");
-	private static final Color YELLOW = Color.decode("#FFC700");
 	
 	@SuppressWarnings("null")
 	public Button(float x, float y, float x_size, float y_size, String text, float size, int shadow_size) {
@@ -39,6 +40,32 @@ public class Button {
 		this.y_size = y_size;
 		this.text = text;
 		this.shadow_size = shadow_size;
+		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		Font awtFont = null;
+		try {
+			try {
+				awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			} 
+			catch (FontFormatException e) {
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		awtFont = awtFont.deriveFont(size);
+		this.font = new TTF(awtFont, true);
+	}
+
+	@SuppressWarnings("null")
+	public Button(float x, float y, float x_size, float y_size, String text, float size, int shadow_size, Color baseColor, Color hoveredColor) {
+		this.x = x;
+		this.y = y;
+		this.x_size = x_size;
+		this.y_size = y_size;
+		this.text = text;
+		this.shadow_size = shadow_size;
+		this.baseColor = baseColor;
+		this.hoveredColor = hoveredColor;
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		Font awtFont = null;
 		try {
@@ -106,7 +133,7 @@ public class Button {
 		}
 		else if(!this.buttonDown && !this.buttonHover) {
 			this.texture = Sprites.button;
-			this.color = YELLOW;
+			this.color = this.baseColor;
 		}
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
 		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, this.shadow_size, 1, 1);
@@ -114,7 +141,7 @@ public class Button {
 	
 	public void event() throws SQLException {
 		if(activateCondition()) {
-			this.color = YELLOW;
+			this.color = this.baseColor;
 			this.buttonHover = false;
 			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 				this.buttonHover = true;
@@ -128,7 +155,7 @@ public class Button {
 				else if(this.buttonDown) {
 					if(Mouse.getEventButton() == 0) {
 						this.buttonDown = false;
-						this.color = Color.white;
+						this.color = this.hoveredColor;
 						this.texture = Sprites.button_hover;
 						eventButtonClick();
 						this.hasClicked = true;
@@ -138,7 +165,7 @@ public class Button {
 						this.buttonDown = false;
 					}
 				}
-				this.color = Color.white;
+				this.color = this.hoveredColor;
 			}
 			else if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
@@ -209,7 +236,7 @@ public class Button {
 		this.buttonHover = false;
 		this.hasClicked = false;
 		this.texture = Sprites.button;
-		this.color = YELLOW;
+		this.color = this.baseColor;
 	}
 	
 	public void update(float x, float y, float x_size, float y_size) {

@@ -43,6 +43,7 @@ import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
 import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.DragManager;
+import com.mideas.rpg.v2.hud.EscapeFrame;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.SocketingFrame;
@@ -53,7 +54,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class Mideas {
 	
-	private static int ping;
+	private static double ping;
 	private static boolean currentPlayer;
 	private static Joueur joueur1;
 	private static Joueur joueur2;
@@ -244,11 +245,11 @@ public class Mideas {
 		}
 	}
 	
-	public static void setPing(int pings) {
+	public static void setPing(double pings) {
 		ping = pings;
 	}
 	
-	public static int getPing() {
+	public static double getPing() {
 		return ping;
 	}
 	
@@ -275,6 +276,7 @@ public class Mideas {
 		ContainerFrame.updateBagFrameSize();
 		CharacterFrame.updateSize();
 		SocketingFrame.updateSize();
+		EscapeFrame.updateSize();
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
 			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
 		}

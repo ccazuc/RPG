@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
@@ -14,7 +13,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class ChangeBackGroundFrame {
 	
-	private static boolean[] hover = new boolean[6];
+	private static int hoveredSlot = -1;
 	private static int xLeft = 100;
 	private static int xShift = 400;
 	private static int y = 50;
@@ -42,7 +41,7 @@ public class ChangeBackGroundFrame {
 	}
 	
 	public static boolean mouseEvent() throws SQLException {
-		Arrays.fill(hover, false);
+		hoveredSlot = -1;
 		isHover(xLeft, y, 0);
 		isHover(xLeft, y+yShift, 1);
 		isHover(xLeft, y+2*yShift, 2);
@@ -62,12 +61,12 @@ public class ChangeBackGroundFrame {
 	
 	private static void isHover(int x, int y, int i) {
 		if(Mideas.mouseX() >= x && Mideas.mouseX() <= x+350 && Mideas.mouseY() >= y && Mideas.mouseY() <= y+219) {
-			hover[i] = true;
+			hoveredSlot = i;
 		}
 	}
 	
 	private static void changeBackground(int i, Texture texture) throws SQLException {
-		if(hover[i]) {
+		if(hoveredSlot == i) {
 			Sprites.current_bg = texture;
 			Mideas.setConfig();
 			Interface.closeChangeBackgroundFrame();
@@ -75,7 +74,7 @@ public class ChangeBackGroundFrame {
 	}
 	
 	private static void drawBorder(int x, int y, int i) {
-		if(hover[i]) {
+		if(hoveredSlot == i) {
 			Draw.drawColorQuadBorder(x-3, y-3, 356*Mideas.getDisplayXFactor(), 225*Mideas.getDisplayXFactor(), Color.black, 3);
 		}
 	}

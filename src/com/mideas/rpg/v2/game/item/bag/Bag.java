@@ -10,13 +10,13 @@ import com.mideas.rpg.v2.hud.SpellBarFrame;
 public class Bag extends Item implements Cloneable {
 	
 	private Item[] bag = new Item[16];
-	private Bag[] equippedBag = new Bag[4];
+	private Container[] equippedBag = new Container[4];
 	private int id;
 	private String sprite_id;
 	private String name;
 	private int size;
-	private boolean bagChange = true;
-	private int numberFreeSlotBag;
+	private static boolean bagChange = true;
+	private static int numberFreeSlotBag;
 	
 	private static HashMap<Item, Integer> numberStack = new HashMap<Item, Integer>();
 	private static HashMap<Integer, Integer> itemList = new HashMap<Integer, Integer>();
@@ -33,7 +33,7 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public Bag(int id, String sprite_id, String name, int quality, int size, int sellPrice) {
-		super(id, sprite_id, ItemType.BAG, name, quality, sellPrice, 1);
+		super(id, sprite_id, ItemType.CONTAINER, name, quality, sellPrice, 1);
 		this.sprite_id = sprite_id;
 		this.name = name;
 		this.size = size;
@@ -41,7 +41,7 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public void event() {
-		if(this.bagChange) {
+		if(bagChange) {
 			updateBagItem();
 			if(Mideas.joueur1() != null) {
 				if(Mideas.joueur1().getFirstProfession() != null) {
@@ -51,20 +51,20 @@ public class Bag extends Item implements Cloneable {
 					Mideas.joueur1().getSecondProfession().updateNumberPossibleCraft();
 				}
 			}
-			this.bagChange = false;
+			bagChange = false;
 		}
-		SpellBarFrame.setNumberFreeSlotBag(this.numberFreeSlotBag);
+		SpellBarFrame.setNumberFreeSlotBag(numberFreeSlotBag);
 	}
 	
 	public Item[] getBag() {
 		return this.bag;
 	}
 	
-	public Bag[] getEquippedBag() {
+	public Container[] getEquippedBag() {
 		return this.equippedBag;
 	}
 	
-	public Bag getEquippedBag(int i) {
+	public Container getEquippedBag(int i) {
 		return this.equippedBag[i];
 	}
 	
@@ -78,34 +78,34 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public int getNumberFreeSlotBag() {
-		return this.numberFreeSlotBag;
+		return numberFreeSlotBag;
 	}
 	
 	public String getSpriteId(int i) {
 		if(i < this.equippedBag.length) {
-			return this.equippedBag[i].sprite_id;
+			return this.equippedBag[i].getSpriteId();
 		}
 		return null;
 	}
 	
-	public void setEquippedBag(int i, Bag bag) {
+	public void setEquippedBag(int i, Container bag) {
 		if(i < this.equippedBag.length) {
 			if(bag != null) {
 				int length = Mideas.bag().getBag().length;
 				Item[] tempBag = this.bag.clone();
 				if(this.equippedBag[i] != null) {
-					int tempBagSize = this.equippedBag[i].size;
+					int tempBagSize = this.equippedBag[i].getSize();
 					this.equippedBag[i] = bag;
-					if(tempBagSize >= this.equippedBag[i].size) {
-						this.bag = new Item[length+(tempBagSize-this.equippedBag[i].size)];
+					if(tempBagSize >= this.equippedBag[i].getSize()) {
+						this.bag = new Item[length+(tempBagSize-this.equippedBag[i].getSize())];
 					}
 					else {
-						this.bag = new Item[length+(this.equippedBag[i].size-tempBagSize)];
+						this.bag = new Item[length+(this.equippedBag[i].getSize()-tempBagSize)];
 					}
 				}
 				else {
 					this.equippedBag[i] = bag;
-					this.bag = new Item[length+this.equippedBag[i].size];
+					this.bag = new Item[length+this.equippedBag[i].getSize()];
 				}
 				int j = 0;
 				while(j < tempBag.length && j < this.bag.length) {
@@ -121,13 +121,13 @@ public class Bag extends Item implements Cloneable {
 	
 	public int getEquippedBagSize(int i) {
 		if(i < this.equippedBag.length && this.equippedBag[i] != null) {
-			return this.equippedBag[i].size;
+			return this.equippedBag[i].getSize();
 		}
 		return 0;
 	}
 	
 	public void updateBagItem() {
-		this.numberFreeSlotBag = 0;
+		numberFreeSlotBag = 0;
 		itemList.clear();
 		int i = 0;
 		while(i < Mideas.bag().getBag().length) {
@@ -150,7 +150,7 @@ public class Bag extends Item implements Cloneable {
 				}
 			}
 			else {
-				this.numberFreeSlotBag++;
+				numberFreeSlotBag++;
 			}
 			i++;
 		}
@@ -241,6 +241,6 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public void setBagChange(boolean we) {
-		this.bagChange = we;
+		bagChange = we;
 	}
 }

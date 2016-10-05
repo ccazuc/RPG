@@ -377,7 +377,7 @@ public class Joueur {
 				type = ItemType.GEM;
 			}
 			else {
-				type = ItemType.BAG;
+				type = ItemType.CONTAINER;
 			}
 			while(i < Mideas.bag().getBag().length && number > 0) {
 				if(Mideas.bag().getBag(i) == null) {

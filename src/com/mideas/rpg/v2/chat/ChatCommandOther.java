@@ -2,6 +2,7 @@ package com.mideas.rpg.v2.chat;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 import org.newdawn.slick.Color;
 
@@ -81,28 +82,22 @@ public class ChatCommandOther {
 			}
 			else if(datas[0].equals(".additem")) {
 				if(datas.length >= 2) {
-					int number = 1;
-					//if(Item.exists(Integer.valueOf(datas[1]))) {
+					if(Pattern.matches("-?[0-9]+", datas[1])) {
+						int number = 1;
+						//if(Item.exists(Integer.valueOf(datas[1]))) {
 						if(datas.length >= 3) {
-							/*if(Integer.valueOf(datas[2]) >= 1 && Integer.valueOf(datas[2]) <= 255) {
-								if(Item.getItem(Integer.valueOf(datas[1])).isStackable()) {
-									Mideas.joueur1().addItem(Item.getItem(Integer.valueOf(datas[1])), number);
-								}
-								else {
-									int id = Integer.valueOf(datas[1]);
-									Mideas.joueur1().addMultipleUnstackableItem(id, Integer.valueOf(datas[2]));
-								}
-							}*/
-							number = Integer.valueOf(datas[2]);
-						}
-						else {
-							//Mideas.joueur1().addItem(Item.getItem(Integer.valueOf(datas[1])), number);
+							if(Pattern.matches("-?[0-9]+", datas[2])) {
+								number = Integer.valueOf(datas[2]);
+							}
+							else {
+								ChatFrame.addMessage(new Message("Incorrect value for [amount]", false, Color.yellow));
+							}
 						}
 						CommandAddItem.write(Integer.valueOf(datas[1]), number);
-					/*}
+					}
 					else {
-						ChatFrame.addMessage(new Message("That item doesn't exist", false, Color.yellow));
-					}*/
+						ChatFrame.addMessage(new Message("Incorrect value for [id]", false, Color.yellow));
+					}
 				}
 			}
 			else if(datas[0].equals(".deleteitem")) {

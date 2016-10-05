@@ -17,7 +17,7 @@ public class CommandSendSingleBagItem extends Command {
 		if(item != null) {
 			ConnectionManager.getConnection().writeByte(PacketID.SEND_SINGLE_BAG_ITEM);
 			ConnectionManager.getConnection().writeInt(slot);
-			if(item.isBag() || item.isGem()) {
+			if(item.isContainer() || item.isGem()) {
 				ConnectionManager.getConnection().writeInt(item.getId());
 			}
 			else if(item.isStuff() || item.isWeapon()) {

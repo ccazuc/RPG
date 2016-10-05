@@ -11,7 +11,7 @@ public class CommandPing extends Command {
 	
 	@Override
 	public void read() {
-		Mideas.setPing((int)(System.currentTimeMillis()-timer));
+		Mideas.setPing((System.currentTimeMillis()-timer));
 		ConnectionManager.getConnection().writeByte(PacketID.PING_CONFIRMED);
 		ConnectionManager.getConnection().send();
 		pingSent = false;

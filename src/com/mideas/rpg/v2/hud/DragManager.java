@@ -84,7 +84,6 @@ public class DragManager {
 			if(draggedItem.isStackable()) {
 				TTF2.itemNumber.drawStringShadow(Mideas.mouseX()+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(draggedItem))), Mideas.mouseY()+20, String.valueOf(Mideas.joueur1().getNumberItem(draggedItem)), Color.white, Color.black, 1, 1, 1);
 			}
-			System.out.println(draggedItem.getStuffName());
 		}
 		if(deleteItem && draggedItem != null) {
 			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-172*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), Sprites.alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.alert.getImageHeight()*Mideas.getDisplayYFactor());

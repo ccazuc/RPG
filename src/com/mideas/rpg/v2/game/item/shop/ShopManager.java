@@ -338,7 +338,7 @@ public class ShopManager {
 						TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+shift, "Level "+((Potion)item).getLevel()+" required", Color.red, Color.black, 1, 1, 1);
 					}
 				}
-				else if(item.getItemType() == ItemType.BAG) {
+				else if(item.isContainer()) {
 					Draw.drawColorQuad(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, 285, 40+TTF2.statsName.getLineHeight(), bgColor);
 					Draw.drawColorQuadBorder(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, 287, 40+TTF2.statsName.getLineHeight(), borderColor);
 					TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.black, 1, 1, 1);

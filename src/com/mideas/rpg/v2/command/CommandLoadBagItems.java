@@ -49,7 +49,7 @@ public class CommandLoadBagItems extends Command {
 			else if(type == ItemType.GEM) {
 				loadGem(index, id);
 			}
-			else if(type == ItemType.BAG) {
+			else if(type == ItemType.CONTAINER) {
 				loadBag(index, id);
 			}
 			else if(type == ItemType.POTION) {
