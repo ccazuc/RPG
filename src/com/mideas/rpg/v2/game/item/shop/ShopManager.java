@@ -18,7 +18,7 @@ import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.Shop;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
-import com.mideas.rpg.v2.game.item.bag.Bag;
+import com.mideas.rpg.v2.game.item.bag.Container;
 import com.mideas.rpg.v2.game.item.bag.BagManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
@@ -342,7 +342,7 @@ public class ShopManager {
 					Draw.drawColorQuad(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, 285, 40+TTF2.statsName.getLineHeight(), bgColor);
 					Draw.drawColorQuadBorder(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, 287, 40+TTF2.statsName.getLineHeight(), borderColor);
 					TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.black, 1, 1, 1);
-					TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+20, "Container "+((Bag)item).getSize()+" slots", Color.white, Color.black, 1, 1, 1);
+					TTF2.itemName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+20, "Container "+((Container)item).getSize()+" slots", Color.white, Color.black, 1, 1, 1);
 				}
 			}
 			Draw.drawQuad(Sprites.shop_hover, Display.getWidth()/2+x_hover, Display.getHeight()/2+y_hover);

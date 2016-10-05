@@ -4,17 +4,12 @@ import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class Bag extends Item implements Cloneable {
 	
 	private Item[] bag = new Item[16];
 	private Container[] equippedBag = new Container[4];
-	private int id;
-	private String sprite_id;
-	private String name;
-	private int size;
 	private static boolean bagChange = true;
 	private static int numberFreeSlotBag;
 	
@@ -23,22 +18,6 @@ public class Bag extends Item implements Cloneable {
 	private static HashMap<Integer, String> itemListString = new HashMap<Integer, String>();
 	
 	public Bag() {}
-	
-	public Bag(Bag bag) {
-		super(bag.id, bag.sprite_id, bag.itemType, bag.name, bag.quality, bag.sellPrice, bag.maxStack);
-		this.sprite_id = bag.sprite_id;
-		this.name = bag.name;
-		this.size = bag.size;
-		this.id = bag.id;
-	}
-	
-	public Bag(int id, String sprite_id, String name, int quality, int size, int sellPrice) {
-		super(id, sprite_id, ItemType.CONTAINER, name, quality, sellPrice, 1);
-		this.sprite_id = sprite_id;
-		this.name = name;
-		this.size = size;
-		this.id = id;
-	}
 	
 	public void event() {
 		if(bagChange) {
@@ -66,15 +45,6 @@ public class Bag extends Item implements Cloneable {
 	
 	public Container getEquippedBag(int i) {
 		return this.equippedBag[i];
-	}
-	
-	@Override
-	public String getSpriteId()  {
-		return this.sprite_id;
-	}
-	
-	public int getSize() {
-		return this.size;
 	}
 	
 	public int getNumberFreeSlotBag() {

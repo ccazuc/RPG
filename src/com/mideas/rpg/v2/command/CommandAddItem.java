@@ -54,14 +54,12 @@ public class CommandAddItem extends Command {
 		ConnectionManager.getConnection().writeByte(PacketID.ADD_ITEM);
 		if(Item.exists(id)) {
 			ConnectionManager.getConnection().writeByte(PacketID.KNOWN_ITEM);
-			ConnectionManager.getConnection().writeInt(id);
-			ConnectionManager.getConnection().writeInt(number);
 		}
 		else {
 			ConnectionManager.getConnection().writeByte(PacketID.UNKNOWN_ITEM);
-			ConnectionManager.getConnection().writeInt(id);
-			ConnectionManager.getConnection().writeInt(number);
 		}
+		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().writeInt(number);
 		ConnectionManager.getConnection().send();
 	}
 }
