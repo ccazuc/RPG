@@ -116,6 +116,7 @@ public class Mideas {
 		Display.create();
 		Display.setResizable(true);
 		Display.setDisplayMode(new DisplayMode(1700, 930));
+		Display.setVSyncEnabled(true);
         cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
 		final int cursor_width = cursor_image.getWidth();
 		final int cursor_height = cursor_image.getHeight();
@@ -203,7 +204,7 @@ public class Mideas {
 				}
 				timeEvent();
 				Display.update();
-				Display.sync(240);
+				//Display.sync(240);
 			}
 		}
 		catch(IllegalStateException e) {

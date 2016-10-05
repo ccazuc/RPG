@@ -10,14 +10,7 @@ public class CommandPotion extends Command {
 	
 	@Override
 	public void read() {
-		int id = ConnectionManager.getConnection().readInt();
-		String spriteId = ConnectionManager.getConnection().readString();
-		String name = ConnectionManager.getConnection().readString();
-		int level = ConnectionManager.getConnection().readInt();
-		int potionHeal = ConnectionManager.getConnection().readInt();
-		int potionMana = ConnectionManager.getConnection().readInt();
-		int sellPrice = ConnectionManager.getConnection().readInt();
-		PotionManager.storeNewPiece(new Potion(id, spriteId, name, level, potionHeal, potionMana, sellPrice));
+		PotionManager.storeNewPiece(ConnectionManager.getConnection().readPotion());
 	}
 
 	public static void write(int id) {

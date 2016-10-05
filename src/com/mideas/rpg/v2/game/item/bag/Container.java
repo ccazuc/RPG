@@ -18,7 +18,7 @@ public class Container extends Item {
 		this.id = bag.id;
 	}
 	
-	public Container(int id, String sprite_id, String name, int quality, int size, int sellPrice) {
+	public Container(int id,  String name, String sprite_id, int quality, int size, int sellPrice) {
 		super(id, sprite_id, ItemType.CONTAINER, name, quality, sellPrice, 1);
 		this.sprite_id = sprite_id;
 		this.name = name;

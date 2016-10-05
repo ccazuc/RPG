@@ -5,6 +5,18 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 
+import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.classes.Wear;
+import com.mideas.rpg.v2.game.item.bag.Container;
+import com.mideas.rpg.v2.game.item.gem.Gem;
+import com.mideas.rpg.v2.game.item.gem.GemBonusType;
+import com.mideas.rpg.v2.game.item.gem.GemColor;
+import com.mideas.rpg.v2.game.item.potion.Potion;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.StuffType;
+import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
+import com.mideas.rpg.v2.game.item.weapon.WeaponType;
+
 public class Buffer {
 
 	private ByteBuffer buffer;	
@@ -51,6 +63,37 @@ public class Buffer {
 	
 	protected final boolean hasRemaining() {
 		return this.buffer.hasRemaining();
+	}
+	
+	protected final Gem readGem() {
+		return new Gem(readInt(), readString(), readString(), readInt(), GemColor.values()[ConnectionManager.getConnection().readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+	}
+	
+	protected final Container readContainer() {
+		return new Container(readInt(), readString(), readString(), readInt(), readInt(), readInt());
+	}
+	
+	protected final Stuff readStuff() {
+		return new Stuff(StuffType.values()[readChar()], readClassType(), readString(), readInt(), readString(), readInt(), GemColor.values()[readChar()], GemColor.values()[readChar()], GemColor.values()[readChar()], GemBonusType.values()[readChar()], readInt(), readInt(), Wear.values()[readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+	}
+	
+	protected final Stuff readWeapon() {
+		return new Stuff(readInt(), readString(), readString(), readClassType(), WeaponType.values()[readChar()], WeaponSlot.values()[readChar()], readInt(), GemColor.values()[readChar()], GemColor.values()[readChar()], GemColor.values()[readChar()], GemBonusType.values()[readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+	}
+	
+	protected final Potion readPotion() {
+		return new Potion(readInt(), readString(), readString(), readInt(), readInt(), readInt(), readInt());
+	}
+	
+	protected final ClassType[] readClassType() {
+		int i = 0;
+		int number = ConnectionManager.getConnection().readInt();
+		ClassType[] classType = new ClassType[number];
+		while(i < classType.length) {
+			classType[i] = ClassType.values()[ConnectionManager.getConnection().readChar()];
+			i++;
+		}
+		return classType;
 	}
 
 	protected final void writeString(final String s) {

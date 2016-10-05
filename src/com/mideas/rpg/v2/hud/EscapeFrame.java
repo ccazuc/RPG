@@ -17,6 +17,7 @@ public class EscapeFrame {
 	private static float BUTTON_WIDTH_ANCHOR = -90*Mideas.getDisplayXFactor();
 	private static float BUTTON_HEIGHT_ANCHOR = -263*Mideas.getDisplayXFactor();
 	private static float BUTTON_HEIGHT_SHIFT = 23*Mideas.getDisplayXFactor();
+	private static float BUTTON_HEIGHT = 21*Mideas.getDisplayXFactor();
 	private static boolean init;
 	private static Button videoButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Video", 13, 1, Color.white, Color.white) {
 	};
@@ -83,16 +84,17 @@ public class EscapeFrame {
 	}
 	
 	public static void updateSize() {
-		BUTTON_WIDTH_ANCHOR = -90*Mideas.getDisplayXFactor();
-		BUTTON_HEIGHT_ANCHOR = -150*Mideas.getDisplayXFactor();
-		BUTTON_HEIGHT_SHIFT = 23*Mideas.getDisplayXFactor();
-		videoButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR, 160*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayXFactor());
-		soundButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayXFactor());
-		interfaceButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+2*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayXFactor());
-		keybindButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+3*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayXFactor());
-		macrosButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+4*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayXFactor());
-		logoutButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+5*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayXFactor());
-		leaveButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+6*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayXFactor());
-		returnButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+7*BUTTON_HEIGHT_SHIFT+23*Mideas.getDisplayXFactor(), 160*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayXFactor());
+		BUTTON_WIDTH_ANCHOR = -80*Mideas.getDisplayXFactor();
+		BUTTON_HEIGHT_ANCHOR = -102*Mideas.getDisplayXFactor();
+		BUTTON_HEIGHT_SHIFT = 24*Mideas.getDisplayXFactor();
+		BUTTON_HEIGHT = 23*Mideas.getDisplayXFactor();
+		videoButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR, 160*Mideas.getDisplayXFactor(), BUTTON_HEIGHT);
+		soundButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), BUTTON_HEIGHT);
+		interfaceButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+2*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), BUTTON_HEIGHT);
+		keybindButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+3*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), BUTTON_HEIGHT);
+		macrosButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+4*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), BUTTON_HEIGHT);
+		logoutButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+5*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), BUTTON_HEIGHT);
+		leaveButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+6*BUTTON_HEIGHT_SHIFT, 160*Mideas.getDisplayXFactor(), BUTTON_HEIGHT);
+		returnButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+7*BUTTON_HEIGHT_SHIFT+23*Mideas.getDisplayXFactor(), 160*Mideas.getDisplayXFactor(), BUTTON_HEIGHT);
 	}
 }

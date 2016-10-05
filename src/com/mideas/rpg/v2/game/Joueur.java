@@ -326,6 +326,21 @@ public class Joueur {
 	}
 	
 	public boolean addItem(Item item, int amount) throws SQLException {
+		if(amount == 1) {
+			return addSingleItem(item, amount);
+		}
+		else if(amount > 1) {
+			if(item.isStackable()) {
+				return addSingleItem(item, amount);
+			}
+			else {
+				return addMultipleUnstackableItem(item.getId(), amount);
+			}
+		}
+		return false;
+	}
+	
+	private boolean addSingleItem(Item item, int amount) throws SQLException {
 		int i = 0;
 		if(!item.isStackable()) {
 			while(i < Mideas.bag().getBag().length && amount > 0) {
@@ -363,8 +378,9 @@ public class Joueur {
 		return false;
 	}
 	
-	public void addMultipleUnstackableItem(int id, int number) throws SQLException {
+	private boolean addMultipleUnstackableItem(int id, int number) throws SQLException {
 		int i = 0;
+		boolean returns = false;
 		ItemType type;
 		if(WeaponManager.exists(id) || StuffManager.exists(id) || GemManager.exists(id) || BagManager.exists(id)) {
 			if(WeaponManager.exists(id)) {
@@ -395,11 +411,13 @@ public class Joueur {
 					}
 					Mideas.bag().setBagChange(true);
 					number--;
+					returns = true;
 				}
 				i++;
 			}
 			CharacterStuff.setBagItems();
 		}
+		return returns;
 	}
 	
 	public void deleteItem(Item item, int amount) throws SQLException {

@@ -24,7 +24,7 @@ public class BagManager {
 			int quality = statement.getInt();
 			int size = statement.getInt();
 			int sellPrice = statement.getInt();
-			Container newPiece = new Container(id, sprite_id, name, quality, size, sellPrice);
+			Container newPiece = new Container(id, name, sprite_id, quality, size, sellPrice);
 			containerList.put(id, newPiece);
 		}
 	}
