@@ -7,7 +7,6 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
-import com.mideas.rpg.v2.game.item.bag.Container;
 
 public class CommandAddItem extends Command {
 
@@ -26,9 +25,27 @@ public class CommandAddItem extends Command {
 			}
 		}
 		else if(packetID == PacketID.UNKNOWN_ITEM) {
-			ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
-			if(type == ItemType.CONTAINER) {
-				Container temp = ConnectionManager.getConnection().readContainer();
+			try {
+				int number = ConnectionManager.getConnection().readInt();
+				ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
+				if(type == ItemType.CONTAINER) {
+					Mideas.joueur1().addItem(ConnectionManager.getConnection().readContainer(), number);
+				}
+				else if(type == ItemType.GEM) {
+					Mideas.joueur1().addItem(ConnectionManager.getConnection().readGem(), number);
+				}
+				else if(type == ItemType.STUFF) {
+					Mideas.joueur1().addItem(ConnectionManager.getConnection().readStuff(), number);
+				}
+				else if(type == ItemType.WEAPON) {
+					Mideas.joueur1().addItem(ConnectionManager.getConnection().readWeapon(), number);
+				}
+				else if(type == ItemType.POTION) {
+					Mideas.joueur1().addItem(ConnectionManager.getConnection().readPotion(), number);
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -45,5 +62,6 @@ public class CommandAddItem extends Command {
 			ConnectionManager.getConnection().writeInt(id);
 			ConnectionManager.getConnection().writeInt(number);
 		}
+		ConnectionManager.getConnection().send();
 	}
 }
