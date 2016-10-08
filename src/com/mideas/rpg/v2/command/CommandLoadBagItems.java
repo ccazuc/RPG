@@ -21,10 +21,17 @@ public class CommandLoadBagItems extends Command {
 	@Override
 	public void read() {
 		System.out.println("Bag items loaded (CommandLoadBagItems)");
-		int i = 0;
+		/*int i = 0;
 		int amount = ConnectionManager.getConnection().readInt();
 		while(i < amount) {
 			loadItem(i);
+			i++;
+		}*/
+		
+		int i = 0;
+		int amount = ConnectionManager.getConnection().readInt();
+		while(i < amount) {
+			loadItem();
 			i++;
 		}
 		Interface.setBagFullyLoaded(false);
@@ -32,29 +39,35 @@ public class CommandLoadBagItems extends Command {
 		Mideas.bag().setBagChange(true);
 	}
 	
-	private static void loadItem(int index) {
+	private static void loadItem() {
+		int number;
+		int gem1Id;
+		int gem2Id;
+		int gem3Id;
+		int slot = ConnectionManager.getConnection().readInt();
 		int id = ConnectionManager.getConnection().readInt();
-		int number = ConnectionManager.getConnection().readInt();
-		int gem1Id = ConnectionManager.getConnection().readInt();
-		int gem2Id = ConnectionManager.getConnection().readInt();
-		int gem3Id = ConnectionManager.getConnection().readInt();
 		ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
-		if(id != 0) {
-			if(type == ItemType.STUFF) {
-				loadStuff(index, id, gem1Id, gem2Id, gem3Id);
-			}
-			else if(type == ItemType.WEAPON) {
-				loadWeapon(index, id, gem1Id, gem2Id, gem3Id);
-			}
-			else if(type == ItemType.GEM) {
-				loadGem(index, id);
-			}
-			else if(type == ItemType.CONTAINER) {
-				loadBag(index, id);
-			}
-			else if(type == ItemType.POTION) {
-				loadPotion(index, id, number);
-			}
+		if(type == ItemType.STUFF) {
+			gem1Id = ConnectionManager.getConnection().readInt();
+			gem2Id = ConnectionManager.getConnection().readInt();
+			gem3Id = ConnectionManager.getConnection().readInt();
+			loadStuff(slot, id, gem1Id, gem2Id, gem3Id);
+		}
+		else if(type == ItemType.WEAPON) {
+			gem1Id = ConnectionManager.getConnection().readInt();
+			gem2Id = ConnectionManager.getConnection().readInt();
+			gem3Id = ConnectionManager.getConnection().readInt();
+			loadWeapon(slot, id, gem1Id, gem2Id, gem3Id);
+		}
+		else if(type == ItemType.GEM) {
+			loadGem(slot, id);
+		}
+		else if(type == ItemType.CONTAINER) {
+			loadContainer(slot, id);
+		}
+		else if(type == ItemType.POTION) {
+			number = ConnectionManager.getConnection().readInt();
+			loadPotion(slot, id, number);
 		}
 	}
 	
@@ -130,7 +143,7 @@ public class CommandLoadBagItems extends Command {
 		}
 	}
 	
-	private static void loadBag(int index, int id) {
+	private static void loadContainer(int index, int id) {
 		
 	}
 	

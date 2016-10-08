@@ -74,7 +74,8 @@ public class Buffer {
 	}
 	
 	protected final Stuff readStuff() {
-		return new Stuff(StuffType.values()[readChar()], readClassType(), readString(), readInt(), readString(), readInt(), GemColor.values()[readChar()], GemColor.values()[readChar()], GemColor.values()[readChar()], GemBonusType.values()[readChar()], readInt(), readInt(), Wear.values()[readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		StuffType type = StuffType.values()[readChar()];
+		return new Stuff(type, readClassType(), readString(), readInt(), readString(), readInt(), GemColor.values()[readChar()], GemColor.values()[readChar()], GemColor.values()[readChar()], GemBonusType.values()[readChar()], readInt(), readInt(), Wear.values()[readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	protected final Stuff readWeapon() {
