@@ -36,7 +36,7 @@ public class StuffShortcut implements Shortcut {
 							if(Mideas.joueur1().getStuff(i) == null) {
 								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
-								DragManager.setNullContainer(Mideas.bag().getBag(i));
+								DragManager.setNullContainer(Mideas.joueur1().bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
 								break;
@@ -46,7 +46,7 @@ public class StuffShortcut implements Shortcut {
 								DragManager.calcStatsLess(tempItem);
 								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
-								Mideas.bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
+								Mideas.joueur1().bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
 								break;
@@ -60,7 +60,7 @@ public class StuffShortcut implements Shortcut {
 							if(Mideas.joueur1().getStuff(i) == null) {
 								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
-								DragManager.setNullContainer(Mideas.bag().getBag(i));
+								DragManager.setNullContainer(Mideas.joueur1().bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
 								break;
@@ -70,7 +70,7 @@ public class StuffShortcut implements Shortcut {
 								DragManager.calcStatsLess(tempItem);
 								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
-								Mideas.bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
+								Mideas.joueur1().bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
 								break;

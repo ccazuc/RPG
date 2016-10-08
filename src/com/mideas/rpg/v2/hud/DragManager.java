@@ -45,7 +45,7 @@ public class DragManager {
 		public void eventButtonClick() throws SQLException {
 			if(draggedItem.isStackable()) {
 				Mideas.joueur1().setNumberItem(draggedItem, -1);
-				Mideas.bag().setBagChange(true);
+				Mideas.joueur1().bag().setBagChange(true);
 			}
 			if(checkCharacterItems(draggedItem)) {
 				calcStatsLess(draggedItem);
@@ -54,7 +54,7 @@ public class DragManager {
 			draggedItem = null;
 			CharacterStuff.setEquippedItems();
 			CharacterStuff.setBagItems();
-			Mideas.bag().setBagChange(true);
+			Mideas.joueur1().bag().setBagChange(true);
 			this.setHoverFalse();
 			deleteItem = false;
 		}
@@ -65,7 +65,7 @@ public class DragManager {
 		public void eventButtonClick() throws SQLException {
 			if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
 				checkFreeSlotBag(draggedItem);
-				Mideas.bag().setBagChange(true);
+				Mideas.joueur1().bag().setBagChange(true);
 			}
 			this.setHoverFalse();
 			draggedItem = null;
@@ -97,11 +97,11 @@ public class DragManager {
 		if(!ContainerFrame.isHoverItemNumberFrame()) {
 			if(Keyboard.isKeyDown(42) && !Mouse.getEventButtonState() && (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)) { //split item
 				int i = 0;
-				while(i < Mideas.bag().getBag().length) {
+				while(i < Mideas.joueur1().bag().getBag().length) {
 					if(ContainerFrame.getContainerFrameSlotHover(i)) {
-						if(Mideas.bag().getBag(i) != null) {
-							if(Mideas.bag().getBag(i).isStackable()) {
-								if(Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i)) > 1) {
+						if(Mideas.joueur1().bag().getBag(i) != null) {
+							if(Mideas.joueur1().bag().getBag(i).isStackable()) {
+								if(Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i)) > 1) {
 									ContainerFrame.setItemNumberOpen(i);
 									leftClickBagDown = false;
 									bagClickedSlot = -1;
@@ -161,7 +161,7 @@ public class DragManager {
 						}
 						if(isHoverBagFrame()) {
 							if(!checkBagHover()) {
-								while(i < Mideas.bag().getBag().length) {
+								while(i < Mideas.joueur1().bag().getBag().length) {
 									if(clickBagItem(i)) {
 										draggedItem = null;
 										leftClickBagDown = false;
@@ -184,7 +184,7 @@ public class DragManager {
 						}
 					}
 					if(leftClickBagDown && draggedItem == null && !checkBagHover()) {
-						while(i < Mideas.bag().getBag().length) {
+						while(i < Mideas.joueur1().bag().getBag().length) {
 							if(clickBagItem(i)) {
 								leftClickBagDown = false;
 								bagClickedSlot = -1;
@@ -196,7 +196,7 @@ public class DragManager {
 					if(Interface.getContainerFrameStatus()) {
 						i = 0;
 						if(isHoverBagFrame()) {
-							while(i < Mideas.bag().getBag().length) {
+							while(i < Mideas.joueur1().bag().getBag().length) {
 								if(clickBagItem(i)) {
 									leftClickBagDown = false;
 									bagClickedSlot = -1;
@@ -247,15 +247,15 @@ public class DragManager {
 			if(Mouse.getEventButton() == 1 && !Keyboard.isKeyDown(42)) {
 				if(!Mouse.getEventButtonState()) {
 					int i = 0;
-					while(i < Mideas.bag().getBag().length) {
-						if(Mideas.bag().getBag(i) != null) {
+					while(i < Mideas.joueur1().bag().getBag().length) {
+						if(Mideas.joueur1().bag().getBag(i) != null) {
 							if(ContainerFrame.getContainerFrameSlotHover(i) && bagClickedSlot == i) {
-								if(Mideas.bag().getBag(i).isPotion()) {
-									doHealingPotion((Potion)Mideas.bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), i);
+								if(Mideas.joueur1().bag().getBag(i).isPotion()) {
+									doHealingPotion((Potion)Mideas.joueur1().bag().getBag(i), ContainerFrame.getContainerFrameSlotHover(i), i);
 									bagClickedSlot = -1;
 									return true;
 								}
-								else if(Mideas.bag().getBag(i).isStuff() || Mideas.bag().getBag(i).isWeapon()) {
+								else if(Mideas.joueur1().bag().getBag(i).isStuff() || Mideas.joueur1().bag().getBag(i).isWeapon()) {
 									equipBagItem(i);
 									bagClickedSlot = -1;
 									return true;
@@ -306,23 +306,23 @@ public class DragManager {
 	
 	private static boolean equipBagItem(int i) throws SQLException {
 		if(ContainerFrame.getContainerFrameSlotHover(i)) {
-			if(Mideas.bag().getBag(i).isStuff()) {
+			if(Mideas.joueur1().bag().getBag(i).isStuff()) {
 				int j = 0;
 				while(j < type.length) {
-					if(((Stuff)Mideas.bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && Mideas.joueur1().canWear((Stuff)Mideas.bag().getBag(i))) {
-						if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
+					if(((Stuff)Mideas.joueur1().bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(convClassType()) && Mideas.joueur1().canWear((Stuff)Mideas.joueur1().bag().getBag(i))) {
+						if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.joueur1().bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(j) == null) {
-								Mideas.joueur1().setStuff(j, Mideas.bag().getBag(i));
+								Mideas.joueur1().setStuff(j, Mideas.joueur1().bag().getBag(i));
 								calcStats(Mideas.joueur1().getStuff(j));
-								setNullContainer(Mideas.bag().getBag(i));
+								setNullContainer(Mideas.joueur1().bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								Mideas.bag().setBagChange(true);
+								Mideas.joueur1().bag().setBagChange(true);
 								return true;
 							}
 							else {
-								Item tempItem = Mideas.bag().getBag(i);
-								Mideas.bag().setBag(i, Mideas.joueur1().getStuff(j));
+								Item tempItem = Mideas.joueur1().bag().getBag(i);
+								Mideas.joueur1().bag().setBag(i, Mideas.joueur1().getStuff(j));
 								calcStatsLess(Mideas.joueur1().getStuff(j));
 								Mideas.joueur1().setStuff(j, tempItem);
 								calcStats(Mideas.joueur1().getStuff(j));
@@ -335,23 +335,23 @@ public class DragManager {
 					j++;
 				}
 			}
-			else if(Mideas.bag().getBag(i).isWeapon()) {
+			else if(Mideas.joueur1().bag().getBag(i).isWeapon()) {
 				int j = 0;
 				while(j < type.length) {
-					if(((Stuff)Mideas.bag().getBag(i)) != null && ((Stuff)Mideas.bag().getBag(i)).getWeaponSlot() == weaponSlot[j] && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType())) {
-						if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel()) {
+					if(((Stuff)Mideas.joueur1().bag().getBag(i)) != null && ((Stuff)Mideas.joueur1().bag().getBag(i)).getWeaponSlot() == weaponSlot[j] && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(convClassType())) {
+						if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.joueur1().bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(j) == null) {
-								Mideas.joueur1().setStuff(j, Mideas.bag().getBag(i));
+								Mideas.joueur1().setStuff(j, Mideas.joueur1().bag().getBag(i));
 								calcStats(Mideas.joueur1().getStuff(j));
-								setNullContainer(Mideas.bag().getBag(i));
+								setNullContainer(Mideas.joueur1().bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								Mideas.bag().setBagChange(true);
+								Mideas.joueur1().bag().setBagChange(true);
 								return true;
 							}
 							else {
-								Item tempItem = Mideas.bag().getBag(i);
-								Mideas.bag().setBag(i, Mideas.joueur1().getStuff(j));
+								Item tempItem = Mideas.joueur1().bag().getBag(i);
+								Mideas.joueur1().bag().setBag(i, Mideas.joueur1().getStuff(j));
 								calcStatsLess(Mideas.joueur1().getStuff(j));
 								Mideas.joueur1().setStuff(j, tempItem);
 								calcStats(Mideas.joueur1().getStuff(j));
@@ -373,22 +373,22 @@ public class DragManager {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
-				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
-				Mideas.bag().setBagChange(true);
+				Mideas.joueur1().setNumberItem(item, Mideas.joueur1().bag().getNumberBagItem(item)-1);
+				Mideas.joueur1().bag().setBagChange(true);
 			}
 			else if(Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()+item.getPotionHeal());
 				LogChat.setStatusText3("Vous vous êtes rendu "+item.getPotionHeal()+" hp");
-				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
-				Mideas.bag().setBagChange(true);
+				Mideas.joueur1().setNumberItem(item, Mideas.joueur1().bag().getNumberBagItem(item)-1);
+				Mideas.joueur1().bag().setBagChange(true);
 			}
 			else {
 				LogChat.setStatusText3("Vos HP étaient déjà au maximum");
 			}
 			if(Mideas.joueur1().getNumberItem(item) <= 0) {
-				Mideas.bag().setBag(i, null);
-				Mideas.bag().getNumberStack().remove(item);
-				Mideas.bag().setBagChange(true);
+				Mideas.joueur1().bag().setBag(i, null);
+				Mideas.joueur1().bag().getNumberStack().remove(item);
+				Mideas.joueur1().bag().setBagChange(true);
 			}
 			CharacterStuff.setBagItems();
 		}
@@ -396,10 +396,10 @@ public class DragManager {
 	
 	
 	private static void equipItem(int i) throws SQLException {
-		if(Mideas.bag().getBag(i).isStuff() && draggedItem.isStuff()) {
-			if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.bag().getBag(i)).getLevel() && ((Stuff)Mideas.bag().getBag(i)).canEquipTo(convClassType()) && ((Stuff)Mideas.bag().getBag(i)).getType() == ((Stuff)draggedItem).getType()) {
-				Stuff temp = (Stuff)Mideas.bag().getBag(i);
-				Mideas.bag().setBag(i, draggedItem);
+		if(Mideas.joueur1().bag().getBag(i).isStuff() && draggedItem.isStuff()) {
+			if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.joueur1().bag().getBag(i)).getLevel() && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(convClassType()) && ((Stuff)Mideas.joueur1().bag().getBag(i)).getType() == ((Stuff)draggedItem).getType()) {
+				Stuff temp = (Stuff)Mideas.joueur1().bag().getBag(i);
+				Mideas.joueur1().bag().setBag(i, draggedItem);
 				calcStatsLess(draggedItem);
 				Mideas.joueur1().setStuff(i, temp);
 				calcStats(temp);
@@ -410,20 +410,20 @@ public class DragManager {
 	private static boolean clickBagItem(int i) throws SQLException {
 		if(ContainerFrame.getContainerFrameSlotHover(i) && !DragSpellManager.isHoverSpellBarFrame()) {
 			if(draggedItem == null) {
-				if(Mideas.bag().getBag(i) == null) {
+				if(Mideas.joueur1().bag().getBag(i) == null) {
 					return true;
 				}
 				else {
-					draggedItem = Mideas.bag().getBag(i);
+					draggedItem = Mideas.joueur1().bag().getBag(i);
 					return true;
 				}
 			}
 			else if(checkCharacterItems(draggedItem)) {        
-				if(Mideas.bag().getBag(i) == null) {
+				if(Mideas.joueur1().bag().getBag(i) == null) {
 					calcStatsLess(draggedItem);
 					setNullCharacter(draggedItem);
-					Mideas.bag().setBag(i, draggedItem);
-					Mideas.bag().setBagChange(true);
+					Mideas.joueur1().bag().setBag(i, draggedItem);
+					Mideas.joueur1().bag().setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
@@ -435,21 +435,21 @@ public class DragManager {
 				}
 			}
 			else if(checkBagItems(draggedItem)) {
-				if(Mideas.bag().getBag(i) == null) {
+				if(Mideas.joueur1().bag().getBag(i) == null) {
 					setNullContainer(draggedItem);
-					Mideas.bag().setBag(i, draggedItem);
+					Mideas.joueur1().bag().setBag(i, draggedItem);
 					draggedItem = null;
 					CharacterStuff.setBagItems();
 					return true;
 				}
-				else if(draggedItem.isPotion() && draggedItem.getId() == Mideas.bag().getBag(i).getId()) {
-					if(draggedItem != Mideas.bag().getBag(i)) {
-						int number = Mideas.joueur1().getNumberItem(draggedItem)+Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i));
+				else if(draggedItem.isPotion() && draggedItem.getId() == Mideas.joueur1().bag().getBag(i).getId()) {
+					if(draggedItem != Mideas.joueur1().bag().getBag(i)) {
+						int number = Mideas.joueur1().getNumberItem(draggedItem)+Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i));
 						System.out.println(number);
 						setNullContainer(draggedItem);
-						Mideas.bag().getNumberStack().put(Mideas.bag().getBag(i), number);
+						Mideas.joueur1().bag().getNumberStack().put(Mideas.joueur1().bag().getBag(i), number);
 						draggedItem = null;
-						Mideas.bag().getNumberStack().remove(draggedItem);
+						Mideas.joueur1().bag().getNumberStack().remove(draggedItem);
 						CharacterStuff.setBagItems();
 						return true;
 					}
@@ -459,30 +459,30 @@ public class DragManager {
 					}
 				}
 				else {
-					Item tempItem = Mideas.bag().getBag(i);
-					Mideas.bag().setBag(checkItemSlot(draggedItem), tempItem);
-					Mideas.bag().setBag(i, draggedItem);
+					Item tempItem = Mideas.joueur1().bag().getBag(i);
+					Mideas.joueur1().bag().setBag(checkItemSlot(draggedItem), tempItem);
+					Mideas.joueur1().bag().setBag(i, draggedItem);
 					draggedItem = null;
 					CharacterStuff.setBagItems();
 					return true;
 				}
 			}
 			else {
-				if(Mideas.bag().getBag(i) == null) {
-					Mideas.bag().setBag(i, draggedItem);
-					Mideas.bag().setBagChange(true);
+				if(Mideas.joueur1().bag().getBag(i) == null) {
+					Mideas.joueur1().bag().setBag(i, draggedItem);
+					Mideas.joueur1().bag().setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setBagItems();
 					return true;
 				}
 				else {
-					if(draggedItem.isPotion() && draggedItem.getId() == Mideas.bag().getBag(i).getId()) {
-						if(draggedItem != Mideas.bag().getBag(i)) {
-							int number = Mideas.joueur1().getNumberItem(draggedItem)+Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i));
+					if(draggedItem.isPotion() && draggedItem.getId() == Mideas.joueur1().bag().getBag(i).getId()) {
+						if(draggedItem != Mideas.joueur1().bag().getBag(i)) {
+							int number = Mideas.joueur1().getNumberItem(draggedItem)+Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i));
 							setNullContainer(draggedItem);
-							Mideas.bag().getNumberStack().put(Mideas.bag().getBag(i), number);
+							Mideas.joueur1().bag().getNumberStack().put(Mideas.joueur1().bag().getBag(i), number);
 							draggedItem = null;
-							Mideas.bag().getNumberStack().remove(draggedItem);
+							Mideas.joueur1().bag().getNumberStack().remove(draggedItem);
 							CharacterStuff.setBagItems();
 							return true;
 						}
@@ -492,8 +492,8 @@ public class DragManager {
 						}
 					}
 					if(draggedItemSplit) {
-						if(draggedItem.getId() != Mideas.bag().getBag(i).getId()) {
-							Mideas.joueur1().setNumberItem(Mideas.bag().getBag(ContainerFrame.getLastSplit()), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(ContainerFrame.getLastSplit()))+Mideas.joueur1().getNumberItem(draggedItem));
+						if(draggedItem.getId() != Mideas.joueur1().bag().getBag(i).getId()) {
+							Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()), Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()))+Mideas.joueur1().getNumberItem(draggedItem));
 							draggedItem = null;
 							CharacterStuff.setBagItems();
 							draggedItemSplit = false;
@@ -501,8 +501,8 @@ public class DragManager {
 						}
 					}
 					else {
-						Item tempItem = Mideas.bag().getBag(i);
-						Mideas.bag().setBag(i, draggedItem);
+						Item tempItem = Mideas.joueur1().bag().getBag(i);
+						Mideas.joueur1().bag().setBag(i, draggedItem);
 						draggedItem = tempItem;
 						CharacterStuff.setBagItems();
 						return true;
@@ -654,11 +654,11 @@ public class DragManager {
 	}
 	
 	private static boolean setDraggedItemForBag() {
-		if(bagClickedSlot >= 0 && bagClickedSlot < Mideas.bag().getBag().length) {
+		if(bagClickedSlot >= 0 && bagClickedSlot < Mideas.joueur1().bag().getBag().length) {
 			int i = 0;
-			while(i < Mideas.bag().getBag().length) {
+			while(i < Mideas.joueur1().bag().getBag().length) {
 				if(bagClickedSlot == i) {
-					draggedItem = Mideas.bag().getBag(i);
+					draggedItem = Mideas.joueur1().bag().getBag(i);
 					return true;
 				}
 				i++;
@@ -669,7 +669,7 @@ public class DragManager {
 	
 	private static boolean checkBagClick() {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
+		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(ContainerFrame.getContainerFrameSlotHover(i) == true && draggedItem == null) {
 				bagClickedSlot = i;
 				return true;
@@ -713,10 +713,10 @@ public class DragManager {
 			i++;
 		}
 		i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) != null && draggedItem2 == Mideas.bag().getBag(i)) {
-				Mideas.bag().setBag(i, null);
-				Mideas.bag().setBagChange(true);
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) != null && draggedItem2 == Mideas.joueur1().bag().getBag(i)) {
+				Mideas.joueur1().bag().setBag(i, null);
+				Mideas.joueur1().bag().setBagChange(true);
 				return true;
 			}
 			i++;
@@ -734,9 +734,9 @@ public class DragManager {
 	
 	public static boolean deleteBagItem(Item item) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == item) {
-				Mideas.bag().setBag(i, null);
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) == item) {
+				Mideas.joueur1().bag().setBag(i, null);
 				return true;
 			}
 			i++;
@@ -758,13 +758,13 @@ public class DragManager {
 	
 	public static boolean deleteItem(int id) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == id) {
-				if(Mideas.bag().getBag(i).isStackable()) {
-					Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), 0);
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == id) {
+				if(Mideas.joueur1().bag().getBag(i).isStackable()) {
+					Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(i), 0);
 				}
-				Mideas.bag().setBag(i, null);
-				Mideas.bag().setBagChange(true);
+				Mideas.joueur1().bag().setBag(i, null);
+				Mideas.joueur1().bag().setBagChange(true);
 				return true;
 			}
 			i++;
@@ -774,8 +774,8 @@ public class DragManager {
 	
 	static boolean checkBagItems(Item item) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == item) {
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) == item) {
 				return true;
 			}
 			i++;
@@ -784,9 +784,9 @@ public class DragManager {
 	}
 	public static boolean setNullContainer(Item item) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(item == Mideas.bag().getBag(i)) {
-				Mideas.bag().setBag(i, null);
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(item == Mideas.joueur1().bag().getBag(i)) {
+				Mideas.joueur1().bag().setBag(i, null);
 				return true;
 			}
 			i++;
@@ -796,10 +796,10 @@ public class DragManager {
 	
 	public static boolean checkFreeSlotBag(Item item) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == null) {
-				Mideas.bag().setBag(i, item);
-				Mideas.bag().setBagChange(true);
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) == null) {
+				Mideas.joueur1().bag().setBag(i, item);
+				Mideas.joueur1().bag().setBagChange(true);
 				return true;
 			}
 			i++;
@@ -809,18 +809,18 @@ public class DragManager {
 	
 	public static boolean checkFreeSlotBag(Potion potion) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == potion.getId()) {
-				Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+1);
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == potion.getId()) {
+				Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i))+1);
 				return true;
 			}
 			i++;
 		}
 		i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == null) {
-				Mideas.bag().setBag(i, potion);
-				Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), 1);
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) == null) {
+				Mideas.joueur1().bag().setBag(i, potion);
+				Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(i), 1);
 				return true;
 			}
 			i++;
@@ -914,7 +914,7 @@ public class DragManager {
 	
 	private static boolean checkBagHover() {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
+		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(bagClickedSlot == i && true == ContainerFrame.getContainerFrameSlotHover(i)) {
 				return true;
 			}
@@ -935,8 +935,8 @@ public class DragManager {
 	
 	public static int checkItemSlot(Item item) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) == item) {
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) == item) {
 				return i;
 			}
 			i++;

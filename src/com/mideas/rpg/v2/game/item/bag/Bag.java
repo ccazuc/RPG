@@ -61,7 +61,7 @@ public class Bag extends Item implements Cloneable {
 	public void setEquippedBag(int i, Container bag) {
 		if(i < this.equippedBag.length) {
 			if(bag != null) {
-				int length = Mideas.bag().getBag().length;
+				int length = Mideas.joueur1().bag().getBag().length;
 				Item[] tempBag = this.bag.clone();
 				if(this.equippedBag[i] != null) {
 					int tempBagSize = this.equippedBag[i].getSize();
@@ -100,22 +100,22 @@ public class Bag extends Item implements Cloneable {
 		numberFreeSlotBag = 0;
 		itemList.clear();
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) != null) {
-				if(itemList.containsKey(Mideas.bag().getBag(i).getId())) {
-					if(Mideas.bag().getBag(i).isStackable()) {
-						itemList.put(Mideas.bag().getBag(i).getId(), Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))+itemList.get(Mideas.bag().getBag(i).getId()));
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) != null) {
+				if(itemList.containsKey(Mideas.joueur1().bag().getBag(i).getId())) {
+					if(Mideas.joueur1().bag().getBag(i).isStackable()) {
+						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), Mideas.joueur1().bag().getNumberBagItem(Mideas.joueur1().bag().getBag(i))+itemList.get(Mideas.joueur1().bag().getBag(i).getId()));
 					}
 					else {
-						itemList.put(Mideas.bag().getBag(i).getId(), itemList.get(Mideas.bag().getBag(i).getId())+1);
+						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), itemList.get(Mideas.joueur1().bag().getBag(i).getId())+1);
 					}
 				}
 				else {
-					if(Mideas.bag().getBag(i).isStackable()) {
-						itemList.put(Mideas.bag().getBag(i).getId(), Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i)));
+					if(Mideas.joueur1().bag().getBag(i).isStackable()) {
+						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), Mideas.joueur1().bag().getNumberBagItem(Mideas.joueur1().bag().getBag(i)));
 					}
 					else {
-						itemList.put(Mideas.bag().getBag(i).getId(), 1);
+						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), 1);
 					}
 				}
 			}

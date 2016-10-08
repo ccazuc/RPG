@@ -80,7 +80,7 @@ public class DragBagManager {
 						return true;
 					}
 					int i = 0;
-					while(i < Mideas.bag().getEquippedBag().length) {
+					while(i < Mideas.joueur1().bag().getEquippedBag().length) {
 						if(clickBag(i)) {
 							return true;
 						}
@@ -106,7 +106,7 @@ public class DragBagManager {
 						draggedBag = null;
 						CharacterStuff.setEquippedBags();
 						CharacterStuff.setBagItems();
-						Mideas.bag().setBagChange(true);
+						Mideas.joueur1().bag().setBagChange(true);
 						deleteItem = false;
 						ContainerFrame.setBagchange(true);
 					}
@@ -163,7 +163,7 @@ public class DragBagManager {
 	
 	private static boolean clickBag(int i) {
 		if(hoverBag[i]) {
-			if(Mideas.bag().getEquippedBag(i) != null) {
+			if(Mideas.joueur1().bag().getEquippedBag(i) != null) {
 				
 			}
 		}
@@ -186,7 +186,7 @@ public class DragBagManager {
 		int i = 0;
 		while(i < clickBag.length) {
 			if(clickBag[i] == true) {
-				draggedBag = Mideas.bag().getEquippedBag(i);
+				draggedBag = Mideas.joueur1().bag().getEquippedBag(i);
 				return true;
 			}
 			i++;
@@ -197,8 +197,8 @@ public class DragBagManager {
 	private static boolean checkEmptyBag() {
 		int i = 0;
 		int position = -1;
-		while(i < Mideas.bag().getEquippedBag().length) {
-			if(draggedBag == Mideas.bag().getEquippedBag(i)) {
+		while(i < Mideas.joueur1().bag().getEquippedBag().length) {
+			if(draggedBag == Mideas.joueur1().bag().getEquippedBag(i)) {
 				position = i;
 				break;
 			}
@@ -207,12 +207,12 @@ public class DragBagManager {
 		int size = 0;
 		i = 0;
 		while(i < position) {
-			size+= Mideas.bag().getEquippedBagSize(i);
+			size+= Mideas.joueur1().bag().getEquippedBagSize(i);
 			i++;
 		}
 		i = size+16;
-		while(i < size+Mideas.bag().getEquippedBagSize(position)+16) {
-			if(Mideas.bag().getBag(i) != null) {
+		while(i < size+Mideas.joueur1().bag().getEquippedBagSize(position)+16) {
+			if(Mideas.joueur1().bag().getBag(i) != null) {
 				return false;
 			}
 			i++;
@@ -222,9 +222,9 @@ public class DragBagManager {
 	
 	private static void deleteBag(Item item) {
 		int i = 0;
-		while(i < Mideas.bag().getEquippedBag().length) {
-			if(Mideas.bag().getEquippedBag(i) == item) {
-				Mideas.bag().setEquippedBag(i, null);
+		while(i < Mideas.joueur1().bag().getEquippedBag().length) {
+			if(Mideas.joueur1().bag().getEquippedBag(i) == item) {
+				Mideas.joueur1().bag().setEquippedBag(i, null);
 				return;
 			}
 			i++;

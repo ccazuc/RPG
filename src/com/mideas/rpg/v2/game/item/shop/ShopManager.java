@@ -172,7 +172,7 @@ public class ShopManager {
 			if(Mouse.getEventButton() == 1) {
 				int i = 0;
 				if(DragManager.isHoverBagFrame()) {
-					while(i < Mideas.bag().getBag().length) {
+					while(i < Mideas.joueur1().bag().getBag().length) {
 						if(sellItem(i)) {
 							break;
 						}
@@ -209,7 +209,7 @@ public class ShopManager {
 	}
 	
 	private static boolean sellItem(int i) throws SQLTimeoutException, SQLException {
-		Item item = Mideas.bag().getBag(i);
+		Item item = Mideas.joueur1().bag().getBag(i);
 		boolean hover = ContainerFrame.getContainerFrameSlotHover(i);
 		boolean click_hover = DragManager.getClickBag(i);
 		if(item != null && hover && click_hover && Interface.getShopFrameStatus()) {
@@ -231,9 +231,9 @@ public class ShopManager {
 	private static boolean checkItem(Shop item) throws SQLException {
 		int i = 0;
 		if(StuffManager.exists(item.getId()) || WeaponManager.exists(item.getId())) {
-			while(i < Mideas.bag().getBag().length) {
-				if(Mideas.bag().getBag(i) == null) {
-					Mideas.bag().setBag(i, StuffManager.getClone(item.getId()));
+			while(i < Mideas.joueur1().bag().getBag().length) {
+				if(Mideas.joueur1().bag().getBag(i) == null) {
+					Mideas.joueur1().bag().setBag(i, StuffManager.getClone(item.getId()));
 					LogChat.setStatusText3("Vous avez bien acheté "+StuffManager.getStuff(item.getId()).getStuffName());
 					Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
 					CharacterStuff.setBagItems();
@@ -244,9 +244,9 @@ public class ShopManager {
 		}
 		else if(PotionManager.exists(item.getId())) {
 			if(checkBagItem(item)) {
-				while(i < Mideas.bag().getBag().length) {
-					if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == item.getId()) {
-						Mideas.joueur1().setNumberItem(Mideas.bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.bag().getBag(i))+1);
+				while(i < Mideas.joueur1().bag().getBag().length) {
+					if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == item.getId()) {
+						Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i))+1);
 						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
 						CharacterStuff.setBagItems();
@@ -256,10 +256,10 @@ public class ShopManager {
 				}
 			}
 			else {
-				while(i < Mideas.bag().getBag().length) {
-					if(Mideas.bag().getBag(i) == null) {
+				while(i < Mideas.joueur1().bag().getBag().length) {
+					if(Mideas.joueur1().bag().getBag(i) == null) {
 						Potion temp = PotionManager.getClone(item.getId());
-						Mideas.bag().setBag(i, temp);
+						Mideas.joueur1().bag().setBag(i, temp);
 						Mideas.joueur1().setNumberItem(temp, 1);
 						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
@@ -271,9 +271,9 @@ public class ShopManager {
 			}
 		}
 		else if(GemManager.exists(item.getId())) {
-			while(i < Mideas.bag().getBag().length) {
-				if(Mideas.bag().getBag(i) == null) {
-					Mideas.bag().setBag(i, GemManager.getClone(item.getId()));
+			while(i < Mideas.joueur1().bag().getBag().length) {
+				if(Mideas.joueur1().bag().getBag(i) == null) {
+					Mideas.joueur1().bag().setBag(i, GemManager.getClone(item.getId()));
 					LogChat.setStatusText3("Vous avez bien acheté "+GemManager.getGem(item.getId()).getStuffName());
 					Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
 					CharacterStuff.setBagItems();
@@ -288,8 +288,8 @@ public class ShopManager {
 	
 	private static boolean checkBagItem(Shop item) {
 		int i = 0;
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).getId() == item.getId()) {
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == item.getId()) {
 				return true;
 			}
 			i++;

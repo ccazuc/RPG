@@ -156,14 +156,14 @@ public class SpellBarFrame {
 		float xBagShift = -48.2f*Mideas.getDisplayXFactor();
 		float yBag = -40*Mideas.getDisplayYFactor();
 		while(i < 4) {
-			if(Mideas.bag().getEquippedBag(i) != null) {
-				Draw.drawQuad(IconsManager.getSprite37(Mideas.bag().getSpriteId(i)), Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
+			if(Mideas.joueur1().bag().getEquippedBag(i) != null) {
+				Draw.drawQuad(IconsManager.getSprite37(Mideas.joueur1().bag().getSpriteId(i)), Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
 				if(DragBagManager.getHoverBag(i)) {
 					Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
-					Draw.drawColorQuad(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-92, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), 50, bgColor);
-					Draw.drawColorQuadBorder(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-93, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), 52, borderColor);
-					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-87, Mideas.bag().getEquippedBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
-					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-67, "Container "+Integer.toString(Mideas.bag().getEquippedBagSize(i))+" slots", Color.white, Color.black, 1, 1, 1);
+					Draw.drawColorQuad(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-92, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots"), 50, bgColor);
+					Draw.drawColorQuadBorder(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-93, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots"), 52, borderColor);
+					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-87, Mideas.joueur1().bag().getEquippedBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
+					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-67, "Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots", Color.white, Color.black, 1, 1, 1);
 				}
 				if(DragBagManager.getClickBag(i)) {
 					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
@@ -220,7 +220,7 @@ public class SpellBarFrame {
 						((StuffShortcut)hoveredSpell).use(hoveredSpell);
 					}
 					else if(hoveredSpell.getShortcutType() == ShortcutType.POTION) {
-						if(Mideas.bag().getNumberItemInBags(hoveredSpell.getId()) > 0) {
+						if(Mideas.joueur1().bag().getNumberItemInBags(hoveredSpell.getId()) > 0) {
 							((PotionShortcut)hoveredSpell).use(hoveredSpell);
 						}
 					}
@@ -330,12 +330,12 @@ public class SpellBarFrame {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous �tes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
-				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
+				Mideas.joueur1().setNumberItem(item, Mideas.joueur1().bag().getNumberBagItem(item)-1);
 			}
 			else if(Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()+item.getPotionHeal());
 				LogChat.setStatusText3("Vous vous �tes rendu "+item.getPotionHeal()+" hp");
-				Mideas.joueur1().setNumberItem(item, Mideas.bag().getNumberBagItem(item)-1);
+				Mideas.joueur1().setNumberItem(item, Mideas.joueur1().bag().getNumberBagItem(item)-1);
 			}
 			else {
 				LogChat.setStatusText3("Vos HP �taient d�j� au maximum");

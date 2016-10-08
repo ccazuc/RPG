@@ -8,6 +8,7 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
@@ -59,7 +60,6 @@ public class Mideas {
 	private static Joueur joueur1;
 	private static Joueur joueur2;
 	private static JDO jdo;
-	private static Bag bag = new Bag();
 	private static Shop shop = new Shop();
 	//private static String cursor;
 	private static long last;
@@ -83,6 +83,7 @@ public class Mideas {
 	private final static int PORT = 5720;
 	private final static String IP = "127.0.0.1";
 	private final static int TIMEOUT_TIMER = 10000;
+	private final static Pattern isInteger = Pattern.compile("-?[0-9]+");
 	
 	public static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -285,6 +286,10 @@ public class Mideas {
 	
 	public static void setConnection(Connection connections) {
 		connection = connections;
+	}
+	
+	public static boolean isInteger(String string) {
+		return isInteger.matcher(string).matches();
 	}
 	
 	public static double getInterfaceDrawTime() {
@@ -540,10 +545,6 @@ public class Mideas {
 		joueur1 = null;
 	}
 	
-	public static Bag bag() {
-		return bag;
-	}
-	
 	public static Shop shop() {
 		return shop;
 	}
@@ -567,6 +568,8 @@ public class Mideas {
 	public static void setRank(int ranks) {
 		rank = ranks;
 	}
+	
+	
 	
 	public static void setDisplayMode(int width, int height, boolean fullscreen) {	 
 	    // return if requested DisplayMode is already set

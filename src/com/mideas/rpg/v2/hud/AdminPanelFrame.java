@@ -43,9 +43,9 @@ public class AdminPanelFrame {
 	private static Button clearBag = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130, 30, "Clear your bag", 12, 1) {
 		@Override
 		public void eventButtonClick() throws SQLException {
-			Arrays.fill(Mideas.bag().getBag(), null);
+			Arrays.fill(Mideas.joueur1().bag().getBag(), null);
 			CharacterStuff.setBagItems();
-			Mideas.bag().setBagChange(true);
+			Mideas.joueur1().bag().setBagChange(true);
 		}
 	};
 	

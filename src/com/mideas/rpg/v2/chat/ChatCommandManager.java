@@ -19,6 +19,9 @@ public class ChatCommandManager {
 				else if(datas[0].equals(".joueur2")) {
 					ChatCommandPlayer.chatCommandPlayer(Mideas.joueur2(), datas);
 				}
+				else if(datas[0].equals(".get")) {
+					ChatCommandGet.chatCommandGet(datas);
+				}
 				else {
 					ChatCommandOther.chatCommandOther(datas);
 				}

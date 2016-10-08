@@ -82,10 +82,10 @@ public class CharacterStuff {
 				gem1Id = statement.getInt();
 				gem2Id = statement.getInt();
 				gem3Id = statement.getInt();
-				if(i < Mideas.bag().getBag().length) {
+				if(i < Mideas.joueur1().bag().getBag().length) {
 					if(StuffManager.exists(id)) {
-						Mideas.bag().setBag(i, StuffManager.getClone(id));
-						Stuff temp = (Stuff)Mideas.bag().getBag(i);
+						Mideas.joueur1().bag().setBag(i, StuffManager.getClone(id));
+						Stuff temp = (Stuff)Mideas.joueur1().bag().getBag(i);
 						if(GemManager.exists(gem1Id) && temp.getGemSlot1() != GemColor.NONE) {
 							temp.setEquippedGem1(GemManager.getClone(gem1Id));
 						}
@@ -95,18 +95,18 @@ public class CharacterStuff {
 						if(GemManager.exists(gem3Id) && temp.getGemSlot3() != GemColor.NONE) {
 							temp.setEquippedGem3(GemManager.getClone(gem3Id));
 						}
-						Mideas.bag().setBag(i, temp);
-						((Stuff)Mideas.bag().getBag(i)).checkBonusTypeActivated();
+						Mideas.joueur1().bag().setBag(i, temp);
+						((Stuff)Mideas.joueur1().bag().getBag(i)).checkBonusTypeActivated();
 						numberBagPieceLoaded++;
 					}
 					else if(PotionManager.exists(id)) {
-						Mideas.bag().setBag(i, PotionManager.getClone(id));
-						Mideas.bag().getNumberStack().put(Mideas.bag().getBag(i), number);
+						Mideas.joueur1().bag().setBag(i, PotionManager.getClone(id));
+						Mideas.joueur1().bag().getNumberStack().put(Mideas.joueur1().bag().getBag(i), number);
 						numberBagPieceLoaded++;
 					}
 					else if(WeaponManager.exists(id)) {
-						Mideas.bag().setBag(i, WeaponManager.getClone(id));
-						Stuff temp = (Stuff)Mideas.bag().getBag(i);
+						Mideas.joueur1().bag().setBag(i, WeaponManager.getClone(id));
+						Stuff temp = (Stuff)Mideas.joueur1().bag().getBag(i);
 						if(GemManager.exists(gem1Id)) {
 							temp.setEquippedGem1(GemManager.getClone(gem1Id));
 						}
@@ -116,15 +116,15 @@ public class CharacterStuff {
 						if(GemManager.exists(gem3Id)) {
 							temp.setEquippedGem3(GemManager.getClone(gem3Id));
 						}
-						Mideas.bag().setBag(i, temp);
+						Mideas.joueur1().bag().setBag(i, temp);
 						numberBagPieceLoaded++;
 					}
 					else if(GemManager.exists(id)) {
-						Mideas.bag().setBag(i, GemManager.getClone(id));
+						Mideas.joueur1().bag().setBag(i, GemManager.getClone(id));
 						numberBagPieceLoaded++;
 					}
 					else {
-						Mideas.bag().setBag(i, null);
+						Mideas.joueur1().bag().setBag(i, null);
 					}
 				}
 				i++;
@@ -141,8 +141,8 @@ public class CharacterStuff {
 		System.out.println(System.currentTimeMillis()-timer+" bag sql prepare");
 		timer = System.currentTimeMillis();
 		while(i < 96) {
-			if(i < Mideas.bag().getBag().length) {
-				Item tempBag = Mideas.bag().getBag(i);
+			if(i < Mideas.joueur1().bag().getBag().length) {
+				Item tempBag = Mideas.joueur1().bag().getBag(i);
 				if(tempBag == null) {
 					statement.putInt(0);
 					statement.putInt(0);
@@ -180,9 +180,9 @@ public class CharacterStuff {
 					statement.putInt(0);
 				}
 				else if(tempBag.isItem() || tempBag.isPotion()) {
-					if(Mideas.bag().getNumberStack().containsKey(tempBag)) {
+					if(Mideas.joueur1().bag().getNumberStack().containsKey(tempBag)) {
 						statement.putInt(tempBag.getId());
-						statement.putInt(Mideas.bag().getNumberStack().get(tempBag));
+						statement.putInt(Mideas.joueur1().bag().getNumberStack().get(tempBag));
 						statement.putInt(0);
 						statement.putInt(0);
 						statement.putInt(0);
@@ -220,13 +220,13 @@ public class CharacterStuff {
 		int i = 0;
 		int id;
 		if(statement.fetch()) {
-			while(i < Mideas.bag().getEquippedBag().length) {
+			while(i < Mideas.joueur1().bag().getEquippedBag().length) {
 				id = statement.getInt();
 				if(BagManager.exists(id)) {
-					Mideas.bag().setEquippedBag(i, BagManager.getClone(id));
+					Mideas.joueur1().bag().setEquippedBag(i, BagManager.getClone(id));
 				}
 				else {
-					Mideas.bag().setEquippedBag(i, null);
+					Mideas.joueur1().bag().setEquippedBag(i, null);
 				}
 				i++;
 			}
@@ -236,12 +236,12 @@ public class CharacterStuff {
 	public static void setEquippedBags() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("UPDATE character_containers SET slot1 = ?, slot2 = ?, slot3 = ?, slot4 = ? WHERE character_id = ?");
 		int i = 0;
-		while(i < Mideas.bag().getEquippedBag().length) {
-			if(Mideas.bag().getEquippedBag(i) == null) {
+		while(i < Mideas.joueur1().bag().getEquippedBag().length) {
+			if(Mideas.joueur1().bag().getEquippedBag(i) == null) {
 				statement.putInt(0);
 			}
 			else {
-				statement.putInt(Mideas.bag().getEquippedBag(i).getId());
+				statement.putInt(Mideas.joueur1().bag().getEquippedBag(i).getId());
 			}
 			i++;
 		}

@@ -12,6 +12,7 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.bag.Bag;
 import com.mideas.rpg.v2.game.item.bag.BagManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
@@ -35,6 +36,7 @@ public class Joueur {
 	private Shortcut[] spells;
 	private Spell[] spellUnlocked;
 	private Stuff[] stuff;
+	private Bag bag = new Bag();
 	private WeaponType[] weaponType;
 	private Shortcut[] shortcut;
 	private int maxStamina;
@@ -239,43 +241,43 @@ public class Joueur {
 	public void loadBag() {
 		int i = 0;
 		Interface.setBagFullyLoaded(true);
-		while(i < Mideas.bag().getBag().length) {
-			if(Mideas.bag().getBag(i) != null && !Mideas.bag().getBag(i).getIsLoaded()) {
-				if(StuffManager.exists(Mideas.bag().getBag(i).getId())) {
-					Mideas.bag().setBag(i, StuffManager.getClone(Mideas.bag().getBag(i).getId()));
-					Mideas.bag().getBag(i).setIsLoaded(true);
-					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
+		while(i < this.bag.getBag().length) {
+			if(this.bag.getBag(i) != null && !this.bag.getBag(i).getIsLoaded()) {
+				if(StuffManager.exists(this.bag.getBag(i).getId())) {
+					this.bag.setBag(i, StuffManager.getClone(this.bag.getBag(i).getId()));
+					this.bag.getBag(i).setIsLoaded(true);
+					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
 					i++;
 					continue;
 				}
-				else if(WeaponManager.exists(Mideas.bag().getBag(i).getId())) {
-					Mideas.bag().setBag(i, WeaponManager.getClone(Mideas.bag().getBag(i).getId()));
-					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
-					Mideas.bag().getBag(i).setIsLoaded(true);
+				else if(WeaponManager.exists(this.bag.getBag(i).getId())) {
+					this.bag.setBag(i, WeaponManager.getClone(this.bag.getBag(i).getId()));
+					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
+					this.bag.getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
-				else if(GemManager.exists(Mideas.bag().getBag(i).getId())) {
-					Mideas.bag().setBag(i, GemManager.getClone(Mideas.bag().getBag(i).getId()));
-					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
-					Mideas.bag().getBag(i).setIsLoaded(true);
+				else if(GemManager.exists(this.bag.getBag(i).getId())) {
+					this.bag.setBag(i, GemManager.getClone(this.bag.getBag(i).getId()));
+					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
+					this.bag.getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
-				else if(BagManager.exists(Mideas.bag().getBag(i).getId())) {
-					Mideas.bag().setBag(i, BagManager.getClone(Mideas.bag().getBag(i).getId()));
-					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
-					Mideas.bag().getBag(i).setIsLoaded(true);
+				else if(BagManager.exists(this.bag.getBag(i).getId())) {
+					this.bag.setBag(i, BagManager.getClone(this.bag.getBag(i).getId()));
+					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
+					this.bag.getBag(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
-				else if(PotionManager.exists(Mideas.bag().getBag(i).getId())) {
-					int number = Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i));
-					Mideas.bag().getNumberStack().remove(Mideas.bag().getBag(i));
-					Mideas.bag().setBag(i, PotionManager.getClone(Mideas.bag().getBag(i).getId()));
-					ConnectionManager.getItemRequested().remove(Mideas.bag().getBag(i).getId());
-					Mideas.bag().getBag(i).setIsLoaded(true);
-					Mideas.bag().getNumberStack().put(Mideas.bag().getBag(i), number);
+				else if(PotionManager.exists(this.bag.getBag(i).getId())) {
+					int number = this.bag.getNumberBagItem(this.bag.getBag(i));
+					this.bag.getNumberStack().remove(this.bag.getBag(i));
+					this.bag.setBag(i, PotionManager.getClone(this.bag.getBag(i).getId()));
+					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
+					this.bag.getBag(i).setIsLoaded(true);
+					this.bag.getNumberStack().put(this.bag.getBag(i), number);
 					i++;
 					continue;
 				}
@@ -343,10 +345,10 @@ public class Joueur {
 	private boolean addSingleItem(Item item, int amount) throws SQLException {
 		int i = 0;
 		if(!item.isStackable()) {
-			while(i < Mideas.bag().getBag().length && amount > 0) {
-				if(Mideas.bag().getBag(i) == null) {
-					Mideas.bag().setBag(i, item);
-					Mideas.bag().setBagChange(true);
+			while(i < this.bag.getBag().length && amount > 0) {
+				if(this.bag.getBag(i) == null) {
+					this.bag.setBag(i, item);
+					this.bag.setBagChange(true);
 					amount --;
 				}
 				i++;
@@ -354,20 +356,20 @@ public class Joueur {
 			CharacterStuff.setBagItems();
 		}
 		else {
-			while(i < Mideas.bag().getBag().length) {
-				if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(item)) {
-					Mideas.bag().setBag(i, item, Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))+amount);
-					Mideas.bag().setBagChange(true);
+			while(i < this.bag.getBag().length) {
+				if(this.bag.getBag(i) != null && this.bag.getBag(i).equals(item)) {
+					this.bag.setBag(i, item, this.bag.getNumberBagItem(this.bag.getBag(i))+amount);
+					this.bag.setBagChange(true);
 					CharacterStuff.setBagItems();
 					return true;
 				}
 				i++;
 			}
 			i = 0;
-			while(i < Mideas.bag().getBag().length) {
-				if(Mideas.bag().getBag(i) == null) {
-					Mideas.bag().setBag(i, item, amount);
-					Mideas.bag().setBagChange(true);
+			while(i < this.bag.getBag().length) {
+				if(this.bag.getBag(i) == null) {
+					this.bag.setBag(i, item, amount);
+					this.bag.setBagChange(true);
 					CharacterStuff.setBagItems();
 					return true;
 				}
@@ -395,21 +397,21 @@ public class Joueur {
 			else {
 				type = ItemType.CONTAINER;
 			}
-			while(i < Mideas.bag().getBag().length && number > 0) {
-				if(Mideas.bag().getBag(i) == null) {
+			while(i < this.bag.getBag().length && number > 0) {
+				if(this.bag.getBag(i) == null) {
 					if(type == ItemType.WEAPON) {
-						Mideas.bag().setBag(i, WeaponManager.getClone(id));
+						this.bag.setBag(i, WeaponManager.getClone(id));
 					}
 					else if(type == ItemType.STUFF) {
-						Mideas.bag().setBag(i, StuffManager.getClone(id));
+						this.bag.setBag(i, StuffManager.getClone(id));
 					}
 					else if(type == ItemType.GEM) {
-						Mideas.bag().setBag(i, GemManager.getClone(id));
+						this.bag.setBag(i, GemManager.getClone(id));
 					}
 					else {
-						Mideas.bag().setBag(i, BagManager.getClone(id));
+						this.bag.setBag(i, BagManager.getClone(id));
 					}
-					Mideas.bag().setBagChange(true);
+					this.bag.setBagChange(true);
 					number--;
 					returns = true;
 				}
@@ -423,10 +425,10 @@ public class Joueur {
 	public void deleteItem(Item item, int amount) throws SQLException {
 		int i = 0;
 		if(!item.isStackable()) {
-			while(i < Mideas.bag().getBag().length && amount > 0) {
-				if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(item)) {
-					Mideas.bag().setBag(i, null);
-					Mideas.bag().setBagChange(true);
+			while(i < this.bag.getBag().length && amount > 0) {
+				if(this.bag.getBag(i) != null && this.bag.getBag(i).equals(item)) {
+					this.bag.setBag(i, null);
+					this.bag.setBagChange(true);
 					amount--;
 				}
 				i++;
@@ -434,12 +436,12 @@ public class Joueur {
 			CharacterStuff.setBagItems();
 		}
 		else {
-			while(i < Mideas.bag().getBag().length && amount > 0) {
-				if(Mideas.bag().getBag(i) != null && Mideas.bag().getBag(i).equals(item)) {
+			while(i < this.bag.getBag().length && amount > 0) {
+				if(this.bag.getBag(i) != null && this.bag.getBag(i).equals(item)) {
 					int temp = amount;
-					amount-= Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i));
-					Mideas.bag().setBag(i, Mideas.bag().getBag(i), Math.max(0, Mideas.bag().getNumberBagItem(Mideas.bag().getBag(i))-temp));
-					Mideas.bag().setBagChange(true);
+					amount-= this.bag.getNumberBagItem(this.bag.getBag(i));
+					this.bag.setBag(i, this.bag.getBag(i), Math.max(0, this.bag.getNumberBagItem(this.bag.getBag(i))-temp));
+					this.bag.setBagChange(true);
 				}
 				i++;
 			}
@@ -652,6 +654,10 @@ public class Joueur {
 		}
 	}
 	
+	public Bag bag() {
+		return this.bag;
+	}
+	
 	public Shortcut getShortcut(int i) {
 		return this.shortcut[i];
 	}
@@ -718,15 +724,15 @@ public class Joueur {
 	}
 	
 	public int getNumberItem(Item item) {
-		if(item.isStackable() && Mideas.bag().getNumberStack().containsKey(item)) {
-			return Mideas.bag().getNumberStack().get(item);
+		if(item.isStackable() && this.bag.getNumberStack().containsKey(item)) {
+			return this.bag.getNumberStack().get(item);
 		}
 		return 0;
 	}
 	
 	public void setNumberItem(Item item, int number) {
 		if(item.isStackable()) {
-			Mideas.bag().getNumberStack().put(item, number);
+			this.bag.getNumberStack().put(item, number);
 		}
 	}
 	

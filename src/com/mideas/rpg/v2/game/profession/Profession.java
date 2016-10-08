@@ -48,7 +48,7 @@ public class Profession {
 					int i = 0;
 					while(i < Profession.this.selectedItem.getNeededItemList().size()) {
 						try {
-							if(Mideas.bag().getNumberItemInBags(Profession.this.selectedItem.getNeededItem(i).getId()) >= Profession.this.selectedItem.getNeededItemNumber(i)) {
+							if(Mideas.joueur1().bag().getNumberItemInBags(Profession.this.selectedItem.getNeededItem(i).getId()) >= Profession.this.selectedItem.getNeededItemNumber(i)) {
 								Mideas.joueur1().deleteItem(Profession.this.selectedItem.getNeededItem(i), Profession.this.selectedItem.getNeededItemNumber(i));
 							}
 							else {
@@ -254,10 +254,10 @@ public class Profession {
 		if(number < this.selectedItem.getNeededItemList().size()) {
 			Draw.drawQuad(IconsManager.getSprite37(this.selectedItem.getNeededItem(number).getSpriteId()), x, y, 41*Mideas.getDisplayXFactor(), 39*Mideas.getDisplayXFactor());
 			Draw.drawQuad(Sprites.profession_border, x, y);
-			if(Mideas.bag().getItemNumber(this.selectedItem.getNeededItem(number)) < this.selectedItem.getNeededItemNumber(number)) {
+			if(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)) < this.selectedItem.getNeededItemNumber(number)) {
 				Draw.drawColorQuad(x, y, 42*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayXFactor(), BG_COLOR);
 			}
-			TTF2.craft.drawStringShadow(x+39-TTF2.craft.getWidth(Integer.toString(Mideas.bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number)), y+23, Integer.toString(Mideas.bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number), Color.white, Color.black, 1, 1);
+			TTF2.craft.drawStringShadow(x+39-TTF2.craft.getWidth(Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number)), y+23, Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number), Color.white, Color.black, 1, 1);
 			TTF2.craft.drawStringShadow(x+45*Mideas.getDisplayXFactor(), y, this.selectedItem.getNeededItem(0).getStuffName(), YELLOW, Color.black, 1, 1);
 		}
 	}
@@ -352,10 +352,10 @@ public class Profession {
 				if(!possibleCraftList.containsKey(this.categoryList.get(i).getCraftList().get(j))) {
 					while(k < this.categoryList.get(i).getCraftList().get(j).getNeededItemList().size()) {
 						if(!init) {
-							amount = Mideas.bag().getNumberItemInBags(this.categoryList.get(i).getCraftList().get(j).getNeededItem(k).getId())/ this.categoryList.get(i).getCraftList().get(j).getNeededItemNumber(k);
+							amount = Mideas.joueur1().bag().getNumberItemInBags(this.categoryList.get(i).getCraftList().get(j).getNeededItem(k).getId())/ this.categoryList.get(i).getCraftList().get(j).getNeededItemNumber(k);
 						}
-						else if(Mideas.bag().getNumberItemInBags(this.categoryList.get(i).getCraftList().get(j).getNeededItem(k).getId())/ this.categoryList.get(i).getCraftList().get(j).getNeededItemNumber(k) < amount) {
-							amount = Mideas.bag().getNumberItemInBags(this.categoryList.get(i).getCraftList().get(j).getNeededItem(k).getId())/ this.categoryList.get(i).getCraftList().get(j).getNeededItemNumber(k);
+						else if(Mideas.joueur1().bag().getNumberItemInBags(this.categoryList.get(i).getCraftList().get(j).getNeededItem(k).getId())/ this.categoryList.get(i).getCraftList().get(j).getNeededItemNumber(k) < amount) {
+							amount = Mideas.joueur1().bag().getNumberItemInBags(this.categoryList.get(i).getCraftList().get(j).getNeededItem(k).getId())/ this.categoryList.get(i).getCraftList().get(j).getNeededItemNumber(k);
 						}
 						k++;
 					}

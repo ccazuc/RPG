@@ -28,7 +28,7 @@ public class CommandSendSingleBagItem extends Command {
 			}
 			else if(item.isItem() || item.isPotion()) {
 				ConnectionManager.getConnection().writeInt(item.getId());
-				ConnectionManager.getConnection().writeInt(Mideas.bag().getNumberBagItem(item));
+				ConnectionManager.getConnection().writeInt(Mideas.joueur1().bag().getNumberBagItem(item));
 			}
 		}
 	}

@@ -2,7 +2,6 @@ package com.mideas.rpg.v2.chat;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.regex.Pattern;
 
 import org.newdawn.slick.Color;
 
@@ -10,7 +9,9 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.CommandAddItem;
 import com.mideas.rpg.v2.command.CommandLoadCharacter;
+import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
@@ -25,6 +26,8 @@ public class ChatCommandOther {
 		if(datas.length >= 1) {
 			if(datas[0].equals(".quit")) {
 				Mideas.saveAllStats();
+				CommandLogout.write();
+				ConnectionManager.close();
 				System.exit(0);
 			}
 			else if(datas[0].equals(".logout")) {
@@ -50,7 +53,7 @@ public class ChatCommandOther {
 				if(datas.length >= 2) {
 					if(Item.exists(Integer.valueOf(datas[1]))) {
 						int id = Integer.valueOf(datas[1]);
-						ChatFrame.addMessage(new Message("You have "+Mideas.bag().getNumberItemInBags(id)+" "+Item.getItem(id).getStuffName()+" in your bags.", false, Color.yellow));
+						ChatFrame.addMessage(new Message("You have "+Mideas.joueur1().bag().getNumberItemInBags(id)+" "+Item.getItem(id).getStuffName()+" in your bags.", false, Color.yellow));
 					}
 					else {
 						ChatFrame.addMessage(new Message("That item doesn't exist.", false, Color.yellow));
@@ -68,7 +71,7 @@ public class ChatCommandOther {
 				//CharacterStuff.getEquippedItems();
 				ContainerFrame.setBagchange(true);
 				SpellBarManager.loadSpellBar();
-				Mideas.bag().setBagChange(true);
+				Mideas.joueur1().bag().setBagChange(true);
 				CommandLoadCharacter.write(1);
 				Interface.setStuffFullyLoaded(false);
 			}
@@ -82,11 +85,10 @@ public class ChatCommandOther {
 			}
 			else if(datas[0].equals(".additem")) {
 				if(datas.length >= 2) {
-					if(Pattern.matches("-?[0-9]+", datas[1])) {
+					if(Mideas.isInteger(datas[1])) {
 						int number = 1;
-						//if(Item.exists(Integer.valueOf(datas[1]))) {
 						if(datas.length >= 3) {
-							if(Pattern.matches("-?[0-9]+", datas[2])) {
+							if(Mideas.isInteger(datas[2])) {
 								number = Integer.valueOf(datas[2]);
 							}
 							else {
