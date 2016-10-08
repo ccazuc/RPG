@@ -319,6 +319,11 @@ public class ChatFrame {
 		}
 	}
 	
+	public static void clearChat() {
+		messages.clear();
+		rawMessages.clear();
+	}
+	
 	private static boolean CTRLleftArrow() {
 		int i = cursorPosition;
 		if(tempMessage.length() != 0 && i > 0) {

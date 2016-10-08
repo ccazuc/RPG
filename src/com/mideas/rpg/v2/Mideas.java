@@ -28,7 +28,6 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.ClassManager;
-import com.mideas.rpg.v2.game.item.bag.Bag;
 import com.mideas.rpg.v2.game.item.bag.BagManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;

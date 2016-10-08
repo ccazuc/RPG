@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
@@ -18,7 +19,9 @@ import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.command.CommandSendSingleBagItem;
+import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
+import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
 import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
 import com.mideas.rpg.v2.command.item.CommandStuff;
@@ -53,6 +56,8 @@ public class ConnectionManager {
 		commandList.put((int)SEND_SINGLE_BAG_ITEM, new CommandSendSingleBagItem());
 		commandList.put((int)CHAT_LIST_PLAYER, new CommandListPlayer());
 		commandList.put((int)LOAD_STATS, new CommandLoadStats());
+		commandList.put((int)CHAT_GET, new CommandGet());
+		commandList.put((int)CHAT_NOT_ALLOWED, new CommandNotAllowed());
 	}
 	
 	public static final boolean connect() {
@@ -116,6 +121,7 @@ public class ConnectionManager {
 				Interface.setHasLoggedIn(false);
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);
+				ChatFrame.clearChat();
 				LoginScreen.getAlert().setActive();
 				LoginScreen.getAlert().setText("Vous avez été déconnecté.");
 				return;

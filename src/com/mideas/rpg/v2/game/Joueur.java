@@ -571,6 +571,10 @@ public class Joueur {
 		return this.tempId;
 	}
 	
+	public void setId(int id) {
+		this.tempId = id;
+	}
+	
 	public float getArmor() {
 		return this.armor;
 	}

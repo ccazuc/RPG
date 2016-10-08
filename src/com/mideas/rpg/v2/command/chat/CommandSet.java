@@ -20,7 +20,7 @@ public class CommandSet extends Command {
 			ConnectionManager.getConnection().send();
 		}
 		else {
-			ChatFrame.addMessage(new Message("You don't have the right to do this", false, Color.yellow));
+			ChatFrame.addMessage(new Message("You don't have the right to do this.", false, Color.yellow));
 		}
 	}
 }

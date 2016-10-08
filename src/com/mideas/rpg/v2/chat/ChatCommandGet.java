@@ -12,6 +12,11 @@ public class ChatCommandGet {
 					CommandGet.write(PacketID.CHAT_GET_ID, datas[2]);
 				}
 			}
+			if(datas[1].equals("ip")) {
+				if(datas.length >= 3) {
+					CommandGet.write(PacketID.CHAT_GET_IP, Integer.valueOf(datas[2]));
+				}
+			}
 		}
 	}
 }
