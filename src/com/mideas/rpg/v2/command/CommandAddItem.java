@@ -17,6 +17,7 @@ public class CommandAddItem extends Command {
 			int id = ConnectionManager.getConnection().readInt();
 			int number = ConnectionManager.getConnection().readInt();
 			Item item = Item.getItem(id);
+			System.out.println(id+" "+number+" "+item.getStuffName());
 			try {
 				Mideas.joueur1().addItem(item, number);
 			}
@@ -50,15 +51,11 @@ public class CommandAddItem extends Command {
 		}
 	}
 	
-	public static void write(int id, int number) {
+	public static void write(int character_id, int item_id, int number) {
+		System.out.println("write "+character_id+" "+number+" "+item_id);
 		ConnectionManager.getConnection().writeByte(PacketID.ADD_ITEM);
-		if(Item.exists(id)) {
-			ConnectionManager.getConnection().writeByte(PacketID.KNOWN_ITEM);
-		}
-		else {
-			ConnectionManager.getConnection().writeByte(PacketID.UNKNOWN_ITEM);
-		}
-		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().writeInt(character_id);
+		ConnectionManager.getConnection().writeInt(item_id);
 		ConnectionManager.getConnection().writeInt(number);
 		ConnectionManager.getConnection().send();
 	}

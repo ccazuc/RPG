@@ -84,22 +84,40 @@ public class ChatCommandOther {
 				}
 			}
 			else if(datas[0].equals(".additem")) {
-				if(datas.length >= 2) {
-					if(Mideas.isInteger(datas[1])) {
-						int number = 1;
-						if(datas.length >= 3) {
-							if(Mideas.isInteger(datas[2])) {
-								number = Integer.valueOf(datas[2]);
+				if(Mideas.getRank() >= 1) {
+					if(datas.length >= 2) {
+						if(Mideas.isInteger(datas[1])) {
+							int number = 1;
+							int character_id = Mideas.joueur1().getId();
+							int item_id = Integer.valueOf(datas[1]);
+							if(datas.length >= 3) {
+								if(Mideas.isInteger(datas[2])) {
+									number = Integer.valueOf(datas[2]);
+									if(datas.length >= 4) {
+										if(Mideas.isInteger(datas[3])) {
+											character_id = Integer.valueOf(datas[3]);
+										}
+										else {
+											ChatFrame.addMessage(new Message("Invalid value for [character_id]", false, Color.yellow));
+											return;
+										}
+									}
+								}
+								else {
+									ChatFrame.addMessage(new Message("Invalid value for [amount]", false, Color.yellow));
+									return;
+								}
 							}
-							else {
-								ChatFrame.addMessage(new Message("Incorrect value for [amount]", false, Color.yellow));
-							}
+							CommandAddItem.write(character_id, item_id, number);
 						}
-						CommandAddItem.write(Integer.valueOf(datas[1]), number);
+						else {
+							ChatFrame.addMessage(new Message("Invalid value for [item_id]", false, Color.yellow));
+							return;
+						}
 					}
-					else {
-						ChatFrame.addMessage(new Message("Incorrect value for [id]", false, Color.yellow));
-					}
+				}
+				else {
+					ChatFrame.addMessage(new Message("You don't have the right to do this.", false, Color.yellow));
 				}
 			}
 			else if(datas[0].equals(".deleteitem")) {
@@ -125,7 +143,7 @@ public class ChatCommandOther {
 				ChatFrame.addMessage(new Message(".[joueur1, joueur2] [set, get] [stamina, mana, gold, experience] [value]", false, Color.yellow));
 				ChatFrame.addMessage(new Message(".lookspell [spell_id]", false, Color.yellow));
 				ChatFrame.addMessage(new Message(".itemnumber [item_id]", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".additem [item_id] [amount]", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".additem [item_id] [amount] [character_id]", false, Color.yellow));
 				ChatFrame.addMessage(new Message(".deleteitem [item_id] [amount]", false, Color.yellow));
 				ChatFrame.addMessage(new Message(".reloadui Reload the UI", false, Color.yellow));
 				ChatFrame.addMessage(new Message(".update Reload game's datas", false, Color.yellow));

@@ -35,6 +35,7 @@ public class EscapeFrame {
 			Mideas.setCharacterId(0);
 			Mideas.setJoueur1Null();
 			Interface.closeAllFrame();
+			Interface.setCharacterLoaded(false);
 		}
 	};
 	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave game", 13, 1, Color.white, Color.white) {
@@ -68,14 +69,14 @@ public class EscapeFrame {
  	}
 	
 	public static boolean mouseEvent() throws SQLException {
-		videoButton.event();
-		soundButton.event();
-		interfaceButton.event();
-		keybindButton.event();
-		macrosButton.event();
-		logoutButton.event();
-		leaveButton.event();
-		returnButton.event();
+		if(videoButton.event()) return true;
+		if(soundButton.event()) return true;
+		if(interfaceButton.event()) return true;
+		if(keybindButton.event()) return true;
+		if(macrosButton.event()) return true;
+		if(logoutButton.event()) return true;
+		if(leaveButton.event()) return true;
+		if(returnButton.event()) return true;
 		return false;
 	}
 	

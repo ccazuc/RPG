@@ -46,9 +46,7 @@ public class Interface {
 	private static boolean characterFrameActive;
 	private static boolean containerFrameActive;
 	private static boolean shopFrameActive;
-	private static boolean isStuffEquipped;
-	private static boolean isStatsCalc;
-	private static boolean isGoldLoaded;
+	private static boolean isCharacterLoaded;
 	private static boolean escapeFrameActive;
 	private static boolean talentFrameActive;
 	private static boolean spellBookFrameActive;
@@ -56,9 +54,7 @@ public class Interface {
 	private static boolean adminPanelFrameActive;
 	private static boolean interfaceFrameActive;
 	private static boolean dungeonFrameActive;
-	private static boolean isTalentLoaded;
 	private static boolean isConfigLoaded;
-	private static boolean isChangeClassActive;
 	private static boolean craftFrameActive;
 	private static boolean chatFrameActive = true;
 	private static boolean cast;
@@ -91,24 +87,14 @@ public class Interface {
 				SelectScreen.draw();
 			}
 			else if(Mideas.joueur1() != null) {
-				if(!isGoldLoaded) {
+				if(!isCharacterLoaded) {
 					SpellBarManager.loadSpellBar();
-					isGoldLoaded = true;
-				}
-				if(!isStuffEquipped) {
 					CharacterStuff.getEquippedBags();
 					//CharacterStuff.getBagItems();
 					ProfessionManager.LoadAllCraft();
 					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
-					isStuffEquipped = true;
-				}
-				if(!isStatsCalc) {
-					CharacterStuff.calcStuffStats();
-					isStatsCalc = true;
-				}	
-				if(!isTalentLoaded) {
 					Talent.getTalent();
-					isTalentLoaded = true;
+					isCharacterLoaded = true;
 				}
 				if(!isStuffFullyLoaded) {
 					Mideas.joueur1().loadStuff();
@@ -117,7 +103,7 @@ public class Interface {
 					Mideas.joueur1().loadBag();
 				}
 				if(!isSpellbarFullyLoaded) {
-					Mideas.joueur1().loadSpellbar();
+					//Mideas.joueur1().loadSpellbar();
 				}
 				if(Mideas.joueur2() != null) {
 					PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
@@ -470,6 +456,10 @@ public class Interface {
 		return false;
 	}
 	
+	public static void setCharacterLoaded(boolean we) {
+		isCharacterLoaded = we;
+	}
+	
 	public static boolean isSocketingFrameActive() {
 		return socketingFrameActive;
 	}
@@ -611,22 +601,6 @@ public class Interface {
  	public static boolean getInterfaceFrameStatus() {
  		return interfaceFrameActive;
  	}
-
- 	public static void setIsStatsCalc(boolean we) {
- 		isStatsCalc = we;
- 	}
-	
-	public static void setIsStuffEquipped(boolean we) {
-		isStuffEquipped = we;
-	}
-	
-	public static boolean getIsChangeClassActive() {
-		return isChangeClassActive;
-	}
-	
-	public static void setIsChangeClassActive(boolean we) {
-		isChangeClassActive = we;
-	}
 	
 	public static boolean getCraftFrameStatus() {
 		return craftFrameActive;
@@ -660,9 +634,6 @@ public class Interface {
 		characterFrameActive = false;
 		containerFrameActive = false;
 		shopFrameActive = false;
-		isStuffEquipped = false;
-		isStatsCalc = false;
-		isGoldLoaded = false;
 		escapeFrameActive = false;
 		talentFrameActive = false;
 		spellBookFrameActive = false;
@@ -670,9 +641,6 @@ public class Interface {
 		adminPanelFrameActive = false;
 		interfaceFrameActive = false;
 		dungeonFrameActive = false;
-		isTalentLoaded = false;
-		isConfigLoaded = false;
-		isChangeClassActive = false;
 		craftFrameActive = false;
 		ContainerFrame.setBagOpen(0, false);
 		ContainerFrame.setBagOpen(1, false);

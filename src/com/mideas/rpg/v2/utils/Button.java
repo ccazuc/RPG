@@ -139,7 +139,7 @@ public class Button {
 		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, this.shadow_size, 1, 1);
 	}
 	
-	public void event() throws SQLException {
+	public boolean event() throws SQLException {
 		if(activateCondition()) {
 			this.color = this.baseColor;
 			this.buttonHover = false;
@@ -159,7 +159,7 @@ public class Button {
 						this.texture = Sprites.button_hover;
 						eventButtonClick();
 						this.hasClicked = true;
-						return;
+						return true;
 					}
 					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 						this.buttonDown = false;
@@ -192,6 +192,7 @@ public class Button {
 			this.texture = Sprites.button_disabled;
 			this.color = GREY;
 		}
+		return false;
 	}
 	
 	public void setX(float x) {

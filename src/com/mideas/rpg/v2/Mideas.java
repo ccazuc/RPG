@@ -55,6 +55,7 @@ import com.mideas.rpg.v2.utils.Draw;
 public class Mideas {
 	
 	private static double ping;
+	private final static int PING_FREQUENCE = 5000;
 	private static boolean currentPlayer;
 	private static Joueur joueur1;
 	private static Joueur joueur2;
@@ -199,7 +200,7 @@ public class Mideas {
 					usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 					interfaceDrawTime = System.nanoTime()-time;
 				}
-				if(System.currentTimeMillis()%5000 < 2 && ConnectionManager.isConnected()) {
+				if(System.currentTimeMillis()%PING_FREQUENCE < 2 && ConnectionManager.isConnected()) {
 					CommandPing.write();
 				}
 				timeEvent();
@@ -274,7 +275,9 @@ public class Mideas {
 		SelectScreen.updateSize();
 		DragManager.updateSize();
 		AdminPanelFrame.updateSize();
-		ContainerFrame.updateBagFrameSize();
+		if(joueur1 != null) {
+			ContainerFrame.updateBagFrameSize();
+		}
 		CharacterFrame.updateSize();
 		SocketingFrame.updateSize();
 		EscapeFrame.updateSize();

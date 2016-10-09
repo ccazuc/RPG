@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.Command;
+import com.mideas.rpg.v2.command.CommandAddItem;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandLoadBagItems;
@@ -52,6 +53,7 @@ public class ConnectionManager {
 		commandList.put((int)STUFF, new CommandStuff());
 		commandList.put((int)WEAPON, new CommandWeapon());
 		commandList.put((int)GEM, new CommandGem());
+		commandList.put((int)ADD_ITEM, new CommandAddItem());
 		commandList.put((int)POTION, new CommandPotion());
 		commandList.put((int)SEND_SINGLE_BAG_ITEM, new CommandSendSingleBagItem());
 		commandList.put((int)CHAT_LIST_PLAYER, new CommandListPlayer());
@@ -84,6 +86,8 @@ public class ConnectionManager {
 			e.printStackTrace();
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Impossible de se connecter.");
+			Interface.setCharacterLoaded(false);
+			Interface.closeAllFrame();
 			close();
 		}
 		return false;

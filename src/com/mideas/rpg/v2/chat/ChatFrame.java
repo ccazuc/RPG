@@ -322,6 +322,14 @@ public class ChatFrame {
 	public static void clearChat() {
 		messages.clear();
 		rawMessages.clear();
+		numberMessageSent = 0;
+		cursorPosition = 0;
+		totalNumberLine = 0;
+		selectedLength = 0;
+		selectedQuadLength = 0;
+		selectedStarts = 0;
+		tempLength = 0;
+		cursorShift = 0;
 	}
 	
 	private static boolean CTRLleftArrow() {
