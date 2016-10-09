@@ -29,6 +29,10 @@ public class Stuff extends Item {
 	private String staminaString;
 	private String armorString;
 	private String levelString;
+	private String gem1String;
+	private String gem2String;
+	private String gem3String;
+	private String manaString;
 	private int numberGemSlot;
 	private int gemBonusValue;
 	private Gem equippedGem1;
@@ -37,10 +41,6 @@ public class Stuff extends Item {
 	private GemColor color1;
 	private GemColor color2;
 	private GemColor color3;
-	private String gem1String;
-	private String gem2String;
-	private String gem3String;
-	private String manaString;
 	private StuffType type;
 	private int critical;
 	private int strength;
