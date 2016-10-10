@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
+import com.mideas.rpg.v2.hud.RedAlertFrame;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class SpellManager {
@@ -64,8 +65,13 @@ public class SpellManager {
 					spellList.add(new Spell(id, sprite_id, name, spellType, damage, manaCost, stunRate, stunDuration, cd, castTime) {
 						@Override
 						public void action(Joueur caster, Joueur target) {
-							this.doDamage(caster, target);
-							caster.setMana(Math.max(0, caster.getMana()-manaCost));
+							if(caster.getMana() >= this.getManaCost()) {
+								this.doDamage(caster, target);
+								caster.setMana(Math.max(0, caster.getMana()-manaCost));
+							}
+							else {
+								RedAlertFrame.addNewAlert("Not enough mana.");
+							}
 						}
 					});
 				}

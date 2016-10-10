@@ -56,7 +56,7 @@ public class EndFightFrame {
 		if(Mideas.joueur1().getStamina() <= 0) {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player2Won, Color.white, Color.black, 1, 1, 1);
 		}
-		else if(Mideas.joueur2().getStamina() <= 0) {
+		else if(Mideas.target().getStamina() <= 0) {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player1Won, Color.white, Color.black, 1, 1, 1);
 			if(!endFightEvent) {
 				doEndFightEvent();
@@ -79,7 +79,6 @@ public class EndFightFrame {
 					System.exit(1);
 				}
 				else if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
-					Mideas.setJoueur2(Mideas.getRandomClass(2));
 					Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 					Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
 					LogChat.setStatusText("");
@@ -91,7 +90,7 @@ public class EndFightFrame {
 	}
 	
 	private static void dropManager() throws SQLException {
-		DropManager.loadDropTable(Mideas.joueur2().getId());
+		/*DropManager.loadDropTable(Mideas.target().getId());
 		int i = 0;
 		double random = Math.random();
 		while(i < DropManager.getList(Mideas.joueur2().getId()).size()) {
@@ -104,7 +103,7 @@ public class EndFightFrame {
 				}
 			}
 			i++;
-		}
+		}*/
 	}
 	
 	public static boolean getEndFightEventState() {
@@ -116,8 +115,8 @@ public class EndFightFrame {
 	}
 	
 	public static void doEndFightEvent() throws SQLTimeoutException, SQLException {
-		Mideas.joueur1().setExp(Mideas.joueur1().getExp()+Mideas.joueur2().getExpGained());
-		Mideas.joueur1().setGold(Mideas.joueur1().getGold()+Mideas.joueur2().getGoldGained());
+		//Mideas.joueur1().setExp(Mideas.joueur1().getExp()+Mideas.joueur2().getExpGained());
+		//Mideas.joueur1().setGold(Mideas.joueur1().getGold()+Mideas.joueur2().getGoldGained());
 		dropManager();
 	}
 }

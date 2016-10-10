@@ -56,7 +56,6 @@ public class Dungeon {
 	}
 	
 	public static void closeDungeon() throws SQLException {
-		Mideas.setJoueur2(Mideas.getRandomClass(2));
 		Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 		Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
 		LogChat.setStatusText("");

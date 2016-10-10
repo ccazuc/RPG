@@ -43,7 +43,7 @@ public class BlackTemple extends Dungeon {
 		BlackTemple.draw();
 		if(!BlackTemple.getIsBlackTempleLoaded()) {
 			BlackTemple.fightOrder();
-			Mideas.setJoueur2(BlackTemple.getJoueur(i));
+			//Mideas.setJoueur2(BlackTemple.getJoueur(i));
 			BlackTemple.setIsBlackTempleLoaded(true);
 		}
 		if(Mideas.joueur1().getStamina() <= 0) {
@@ -52,9 +52,9 @@ public class BlackTemple extends Dungeon {
 			BlackTemple.setIsBlackTempleLoaded(false);
 			BlackTemple.setBlackTempleStatus(false);
 		}
-		else if(Mideas.joueur2().getStamina() <= 0) {
+		/*else if(Mideas.joueur2().getStamina() <= 0) {
 			endFight(4);
-		}
+		}*/
 	}
 	
 	public static void fightOrder() {
@@ -94,7 +94,7 @@ public class BlackTemple extends Dungeon {
 						closeDungeon();
 					}
 					else {
-						Mideas.setJoueur2(BlackTemple.getJoueur(i));
+						//Mideas.setJoueur2(BlackTemple.getJoueur(i));
 					}
 				}
 			}

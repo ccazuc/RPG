@@ -201,7 +201,7 @@ public class SpellBarFrame {
 								CastBar.addCast(new Cast(((SpellShortcut)hoveredSpell).getSpell().getCastTime(), ((SpellShortcut)hoveredSpell).getSpell().getName()) {
 									@Override
 									public void endCastEvent() {
-										((SpellShortcut)hoveredSpell).getSpell().action(Mideas.joueur1(), Mideas.joueur2());
+										((SpellShortcut)hoveredSpell).getSpell().action(Mideas.joueur1(), Mideas.target());
 									}
 								});
 							}
@@ -292,13 +292,13 @@ public class SpellBarFrame {
 					CastBar.addCast(new Cast(((SpellShortcut)spell).getSpell().getCastTime(), ((SpellShortcut)spell).getSpell().getName()) {
 						@Override
 						public void endCastEvent() {
-							((SpellShortcut)spell).getSpell().action(Mideas.joueur1(), Mideas.joueur2());
+							((SpellShortcut)spell).getSpell().action(Mideas.joueur1(), Mideas.target());
 							checkKeyboardCd(spell);
 						}
 					});
 				}
 				else {
-					((SpellShortcut)spell).getSpell().action(Mideas.joueur1(), Mideas.joueur2());
+					((SpellShortcut)spell).getSpell().action(Mideas.joueur1(), Mideas.target());
 					checkKeyboardCd(spell);
 					Mideas.setCurrentPlayer(false);
 				}

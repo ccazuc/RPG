@@ -120,7 +120,7 @@ public class Joueur {
 	
 	public void tick() throws SQLException {
 		if(Mideas.getCurrentPlayer()) {
-			attack(Mideas.joueur2());
+			attack(Mideas.target());
 			SpellBarFrame.setIsCastingSpell(false);
 		}
 	}
@@ -129,18 +129,18 @@ public class Joueur {
 		if(spell.getType() == SpellType.DAMAGE) {
 			SpellBarFrame.setIsCastingSpell(false);
 			if(!spell.hasMana()) {
-				attack(Mideas.joueur2());
+				attack(Mideas.target());
 			}
 			else {
-				spell.cast(Mideas.joueur2(), Mideas.joueur1(), spell);
-				LogChat.setStatusText("Le joueur 1 a enlevée "+spell.getDamage()+" hp au "+Mideas.joueur2().getClasse()+", "+Mideas.joueur2().getStamina()+" hp restant");
+				spell.cast(Mideas.target(), Mideas.joueur1(), spell);
+				LogChat.setStatusText("Le joueur 1 a enlevée "+spell.getDamage()+" hp au "+Mideas.target().getClasse()+", "+Mideas.target().getStamina()+" hp restant");
 				return true;
 			}
 		}
 		else if(spell.getType() == SpellType.HEAL) {
 			SpellBarFrame.setIsCastingSpell(false);
 			if(!spell.hasMana()) {
-				attack(Mideas.joueur2());
+				attack(Mideas.target());
 			}
 			else {
 				if(Mideas.joueur1().getStamina()+spell.getHeal() >= Mideas.joueur1().getMaxStamina()) {
@@ -173,7 +173,7 @@ public class Joueur {
 			y = 1;
 			return;
 		}
-		else if(Mideas.joueur2().getStamina() <= 0) {
+		else if(Mideas.target().getStamina() <= 0) {
 			LogChat.setStatusText("Le joueur 1 a gagné !");
 			LogChat.setStatusText2("");
 			z = 1;

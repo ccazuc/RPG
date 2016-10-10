@@ -33,6 +33,7 @@ import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
 import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
+import com.mideas.rpg.v2.hud.RedAlertFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.ShortcutFrame;
 import com.mideas.rpg.v2.hud.SocketingFrame;
@@ -105,13 +106,14 @@ public class Interface {
 				if(!isSpellbarFullyLoaded) {
 					//Mideas.joueur1().loadSpellbar();
 				}
-				if(Mideas.joueur2() != null) {
-					PlayerPortraitFrame.draw(Mideas.joueur2(), Window.getWidth()-243, 50);
+				if(Mideas.target() != null) {
+					PlayerPortraitFrame.draw(Mideas.target(), Window.getWidth()-243, 50);
 					PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
-					if((Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0) && !Dungeon.dungeonActive()) {
+					if((Mideas.joueur1().getStamina() <= 0 || Mideas.target().getStamina() <= 0) && !Dungeon.dungeonActive()) {
 						EndFightFrame.draw();
 					}
 				}
+				RedAlertFrame.draw();
 				SpellBarFrame.draw();
 				CastBar.event();
 				SpellLevel.addSpell();
@@ -300,7 +302,7 @@ public class Interface {
             if(PerformanceBarFrame.mouseEvent()) {
             	return true;
             }
-			if(Mideas.joueur1().getStamina() <= 0 || Mideas.joueur2().getStamina() <= 0 && !Dungeon.dungeonActive()) {
+			if(Mideas.joueur1().getStamina() <= 0 || (Mideas.target() != null && Mideas.target().getStamina() <= 0) && !Dungeon.dungeonActive()) {
 				EndFightFrame.mouseEvent();
 				return true;
 			}
@@ -313,6 +315,10 @@ public class Interface {
 			if(Keyboard.getEventKeyState()) {
 				//System.out.println(Keyboard.getEventKey());
 				if(!ChatFrame.getChatActive() && hasLoggedIn && Mideas.joueur1() != null) {
+					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
+						RedAlertFrame.addNewAlert("Ceci est un test.");
+						return true;
+					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
 						closeShopFrame();
 						closeSpellBookFrame();
@@ -446,7 +452,7 @@ public class Interface {
 				else if(Mideas.joueur1() == null) {
 					SelectScreen.event();
 				}
-				if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur2().getStamina() > 0) {
+				if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.target() != null && Mideas.target().getStamina() > 0) {
 					if(SpellBarFrame.keyboardEvent()) {
 						return true;
 					}

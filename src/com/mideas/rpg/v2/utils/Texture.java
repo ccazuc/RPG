@@ -77,7 +77,7 @@ public final class Texture {
 		this.width = width;
 	}*/
 
-	public Texture(String string) throws IOException {
+	public Texture(String string) {
 		this(new File(string));
 	}
 

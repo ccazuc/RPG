@@ -58,7 +58,7 @@ public class Mideas {
 	private final static int PING_FREQUENCE = 5000;
 	private static boolean currentPlayer;
 	private static Joueur joueur1;
-	private static Joueur joueur2;
+	private static Joueur target;
 	private static JDO jdo;
 	private static Shop shop = new Shop();
 	//private static String cursor;
@@ -157,7 +157,6 @@ public class Mideas {
 		ClassManager.loadClasses();
 		GemManager.loadGemSprites();
 		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
-		joueur2 = getRandomClass(2);
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		try {
@@ -167,11 +166,6 @@ public class Mideas {
 				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 				if(ConnectionManager.isConnected()) {
 					ConnectionManager.read();
-				}
-				if(joueur1 != null && !currentPlayer && joueur2.getStamina() > 0) {
-					joueur2.attackUI(Spell.getRandomSpell());
-					currentPlayer = true;
-					lessCd();
 				}
 				time = System.nanoTime();
 				while(Mouse.next()) {
@@ -535,12 +529,8 @@ public class Mideas {
 		return joueur1;
 	}
 	
-	public static Joueur joueur2() {
-		return joueur2;
-	}
-	
-	public static void setJoueur2(Joueur joueur) {
-		joueur2 = joueur;
+	public static Joueur target() {
+		return target;
 	}
 	
 	public static void setJoueur1Null() {

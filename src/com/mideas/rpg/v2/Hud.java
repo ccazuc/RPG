@@ -55,7 +55,7 @@ public class Hud {
 		TTF2.font.drawStringShadow(40, Window.getHeight()-190, statusText2, Color.black, Color.white, 1, 1, 1);                                                                     
 		 
 		TTF2.playerName.drawString(155-TTF2.font.getWidth(Mideas.joueur1().getClasse())/2, 38, Mideas.joueur1().getClasse(), Color.orange);                                              //leftPlayerName
-		TTF2.playerName.drawString(Window.getWidth()-91-TTF2.font.getWidth(Mideas.joueur1().getClasse())/2, 38,  Mideas.joueur2().getClasse(), Color.orange);                          //fps
+		TTF2.playerName.drawString(Window.getWidth()-91-TTF2.font.getWidth(Mideas.joueur1().getClasse())/2, 38,  Mideas.target().getClasse(), Color.orange);                          //fps
 		
 		/*if(Mideas.x >= Window.getWidth()/2-139 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()/2-83 && Mideas.y <= Window.getHeight()-5) {
 			Draw.drawQuad(Sprites.hover, Window.getWidth()/2-142, Window.getHeight()-63);	
@@ -66,14 +66,14 @@ public class Hud {
 		if(Mideas.joueur1().getStamina() <= 0) {
 			Draw.drawColorQuad(90, 58, 120, 10, Color.red);
 		}
-		else if(Mideas.joueur2().getStamina() <= 0) {
+		else if(Mideas.target().getStamina() <= 0) {
 			Draw.drawColorQuad(Window.getWidth()-154, 58, 120, 10,  Color.red);
 		}
 		Draw.drawColorQuad(30, Window.getHeight()-240, 490, 100, bgColor);                                  
 		Draw.drawQuad(Sprites.playerUI, 20, 23);
 		Draw.drawQuad(Sprites.playerUI2, Window.getWidth()-224, 23); 
-		TTF2.hpAndMana.drawStringShadow(Window.getWidth()-134-TTF2.font.getWidth(Mideas.joueur2().getStamina()+" / "+Mideas.joueur2().getMaxStamina())/2+48, 56, Mideas.joueur2().getStamina()+" / "+Mideas.joueur2().getMaxStamina(), Color.white, Color.black, 1, 1, 1);   
-		TTF2.hpAndMana.drawStringShadow(Window.getWidth()-134-TTF2.font.getWidth(Mideas.joueur2().getMana()+" / "+Mideas.joueur2().getMaxMana())/2+48, 67, Mideas.joueur2().getMana()+" / "+Mideas.joueur2().getMaxMana(), Color.white, Color.black, 1, 1, 1); 
+		TTF2.hpAndMana.drawStringShadow(Window.getWidth()-134-TTF2.font.getWidth(Mideas.target().getStamina()+" / "+Mideas.target().getMaxStamina())/2+48, 56, Mideas.target().getStamina()+" / "+Mideas.target().getMaxStamina(), Color.white, Color.black, 1, 1, 1);   
+		TTF2.hpAndMana.drawStringShadow(Window.getWidth()-134-TTF2.font.getWidth(Mideas.target().getMana()+" / "+Mideas.target().getMaxMana())/2+48, 67, Mideas.target().getMana()+" / "+Mideas.target().getMaxMana(), Color.white, Color.black, 1, 1, 1); 
 		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getMana()+"")/2-14, 67, Mideas.joueur1().getMana()+" / "+Mideas.joueur1().getMaxMana(), Color.white, Color.black, 1, 1, 1);   
 		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getStamina()+"")/2-14, 56, Mideas.joueur1().getStamina()+" / "+Mideas.joueur1().getMaxStamina(), Color.white, Color.black, 1, 1, 1);  
 		TTF2.font2.drawString(Window.getWidth()-100, 300,"level "+Mideas.joueur1().getLevel(), Color.black);
@@ -185,31 +185,31 @@ public class Hud {
 		}
 		
 		
-		if(Mideas.joueur2().getClasse() == "Priest") {
+		if(Mideas.target().getClasse() == "Priest") {
 			Draw.drawQuad(Sprites.priest2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.joueur2().getClasse() == "Mage") {
+		else if(Mideas.target().getClasse() == "Mage") {
 			Draw.drawQuad(Sprites.mage2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.joueur2().getClasse() == "DeathKnight") {
+		else if(Mideas.target().getClasse() == "DeathKnight") {
 			Draw.drawQuad(Sprites.deathknight2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.joueur2().getClasse() == "Guerrier") {
+		else if(Mideas.target().getClasse() == "Guerrier") {
 			Draw.drawQuad(Sprites.war2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.joueur2().getClasse() == "Hunter") {
+		else if(Mideas.target().getClasse() == "Hunter") {
 			Draw.drawQuad(Sprites.hunter2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.joueur2().getClasse() == "Monk") {
+		else if(Mideas.target().getClasse() == "Monk") {
 			Draw.drawQuad(Sprites.monk2, Window.getWidth()-213, 31);
 		}	
-		else if(Mideas.joueur2().getClasse() == "Paladin") {
+		else if(Mideas.target().getClasse() == "Paladin") {
 			Draw.drawQuad(Sprites.paladin2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.joueur2().getClasse() == "Rogue") {
+		else if(Mideas.target().getClasse() == "Rogue") {
 			Draw.drawQuad(Sprites.rogue2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.joueur2().getClasse() == "Shaman") {
+		else if(Mideas.target().getClasse() == "Shaman") {
 			Draw.drawQuad(Sprites.shaman2, Window.getWidth()-213, 31);
 		}
 		else {
@@ -258,35 +258,35 @@ public class Hud {
 		}
 		
 
-		if(Mideas.joueur2().getClasse().equals("Guerrier")) {
-			y = Mideas.joueur2().getStamina()/(float)Guerrier.MAX_HEALTH;
+		if(Mideas.target().getClasse().equals("Guerrier")) {
+			y = Mideas.target().getStamina()/(float)Guerrier.MAX_HEALTH;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Mage")) {
-			y = Mideas.joueur2().getStamina()/(float)Mage.MAX_HEALTH;
+		else if(Mideas.target().getClasse().equals("Mage")) {
+			y = Mideas.target().getStamina()/(float)Mage.MAX_HEALTH;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Priest")) {
-			y = Mideas.joueur2().getStamina()/(float)Priest.MAX_HEALTH;
+		else if(Mideas.target().getClasse().equals("Priest")) {
+			y = Mideas.target().getStamina()/(float)Priest.MAX_HEALTH;
 		}
-		else if(Mideas.joueur2().getClasse().equals("DeathKnight")) {
-			y = Mideas.joueur2().getStamina()/(float)DeathKnight.MAX_HEALTH;
+		else if(Mideas.target().getClasse().equals("DeathKnight")) {
+			y = Mideas.target().getStamina()/(float)DeathKnight.MAX_HEALTH;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Hunter")) {
-			y = Mideas.joueur2().getStamina()/(float)Hunter.MAX_HEALTH;
+		else if(Mideas.target().getClasse().equals("Hunter")) {
+			y = Mideas.target().getStamina()/(float)Hunter.MAX_HEALTH;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Monk")) {
-			y = Mideas.joueur2().getStamina()/(float)Monk.MAX_HEALTH;
+		else if(Mideas.target().getClasse().equals("Monk")) {
+			y = Mideas.target().getStamina()/(float)Monk.MAX_HEALTH;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Paladin")) {
-			y = Mideas.joueur2().getStamina()/(float)Paladin.MAX_HEALTH;
+		else if(Mideas.target().getClasse().equals("Paladin")) {
+			y = Mideas.target().getStamina()/(float)Paladin.MAX_HEALTH;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Rogue")) {
-			y = Mideas.joueur2().getStamina()/(float)Rogue.MAX_HEALTH;
+		else if(Mideas.target().getClasse().equals("Rogue")) {
+			y = Mideas.target().getStamina()/(float)Rogue.MAX_HEALTH;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Shaman")) {
-			y = Mideas.joueur2().getStamina()/(float)Shaman.MAX_HEALTH;
+		else if(Mideas.target().getClasse().equals("Shaman")) {
+			y = Mideas.target().getStamina()/(float)Shaman.MAX_HEALTH;
 		}
 		else {
-			y = Mideas.joueur2().getStamina()/(float)Warlock.MAX_HEALTH;
+			y = Mideas.target().getStamina()/(float)Warlock.MAX_HEALTH;
 		}*/
 	}
 	
@@ -323,35 +323,35 @@ public class Hud {
 		}
 		
 
-		if(Mideas.joueur2().getClasse().equals("Guerrier")) {
-			b = Mideas.joueur2().getMana()/(float)Guerrier.MAX_MANA+0.015f;
+		if(Mideas.target().getClasse().equals("Guerrier")) {
+			b = Mideas.target().getMana()/(float)Guerrier.MAX_MANA+0.015f;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Mage")) {
-			b = Mideas.joueur2().getMana()/(float)Mage.MAX_MANA+0.015f;
+		else if(Mideas.target().getClasse().equals("Mage")) {
+			b = Mideas.target().getMana()/(float)Mage.MAX_MANA+0.015f;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Priest")) {
-			b = Mideas.joueur2().getMana()/(float)Priest.MAX_MANA+0.015f;
+		else if(Mideas.target().getClasse().equals("Priest")) {
+			b = Mideas.target().getMana()/(float)Priest.MAX_MANA+0.015f;
 		}
-		else if(Mideas.joueur2().getClasse().equals("DeathKnight")) {
-			b = Mideas.joueur2().getMana()/(float)DeathKnight.MAX_MANA+0.015f;
+		else if(Mideas.target().getClasse().equals("DeathKnight")) {
+			b = Mideas.target().getMana()/(float)DeathKnight.MAX_MANA+0.015f;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Hunter")) {
-			b = Mideas.joueur2().getMana()/(float)Hunter.MAX_MANA+0.015f;
+		else if(Mideas.target().getClasse().equals("Hunter")) {
+			b = Mideas.target().getMana()/(float)Hunter.MAX_MANA+0.015f;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Monk")) {
-			b = Mideas.joueur2().getMana()/(float)Monk.MAX_MANA+0.015f;
+		else if(Mideas.target().getClasse().equals("Monk")) {
+			b = Mideas.target().getMana()/(float)Monk.MAX_MANA+0.015f;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Paladin")) {
-			b = Mideas.joueur2().getMana()/(float)Paladin.MAX_MANA+0.015f;
+		else if(Mideas.target().getClasse().equals("Paladin")) {
+			b = Mideas.target().getMana()/(float)Paladin.MAX_MANA+0.015f;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Rogue")) {
-			b = Mideas.joueur2().getMana()/(float)Rogue.MAX_MANA+0.025f;
+		else if(Mideas.target().getClasse().equals("Rogue")) {
+			b = Mideas.target().getMana()/(float)Rogue.MAX_MANA+0.025f;
 		}
-		else if(Mideas.joueur2().getClasse().equals("Shaman")) {
-			b = Mideas.joueur2().getMana()/(float)Shaman.MAX_MANA+0.015f;
+		else if(Mideas.target().getClasse().equals("Shaman")) {
+			b = Mideas.target().getMana()/(float)Shaman.MAX_MANA+0.015f;
 		}
 		else {
-			b = Mideas.joueur2().getMana()/(float)Warlock.MAX_MANA+0.015f;
+			b = Mideas.target().getMana()/(float)Warlock.MAX_MANA+0.015f;
 		}*/
 	}
 	
@@ -360,7 +360,7 @@ public class Hud {
 			Draw.drawColorQuad(90, 58, 120, 10, Color.red);
 			return true;
 		}
-		else if(Mideas.joueur2().getStamina() <= 0) {
+		else if(Mideas.target().getStamina() <= 0) {
 			Draw.drawColorQuad(Window.getWidth()-154, 58, 120, 10,  Color.red);
 			return true;
 		}

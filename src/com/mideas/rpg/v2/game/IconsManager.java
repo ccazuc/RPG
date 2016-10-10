@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.game;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,48 +93,28 @@ public class IconsManager {
 	private static void loadTexture42(String id) {
 		File file = new File("inventory_icons/"+id+".jpg");
 		if(file.exists()) {
-			try {
-				sprites42.put(id, new Texture(file.getAbsolutePath()));
-			} 
-			catch(IOException e) {
-				e.printStackTrace();
-			}
+			sprites42.put(id, new Texture(file.getAbsolutePath()));
 		}
 	}
 	
 	private static void loadTexture35(String id) {
 		File file = new File("bag_icons/"+id+".jpg");
 		if(file.exists()) {
-			try {
-				sprites35.put(id, new Texture(file.getAbsolutePath()));
-			} 
-			catch(IOException e) {
-				e.printStackTrace();
-			}
+			sprites35.put(id, new Texture(file.getAbsolutePath()));
 		}
 	}
 	
 	private static void loadTexture37(String id) {
 		File file = new File("Icons 37-35/"+id+".jpg");
 		if(file.exists()) {
-			try {
-				sprites37.put(id, new Texture(file.getAbsolutePath()));
-			} 
-			catch(IOException e) {
-				e.printStackTrace();
-			}
+			sprites37.put(id, new Texture(file.getAbsolutePath()));
 		}
 	}
 	
 	private static void loadTexture47(String id) {
 		File file = new File("new spellbar_icons/"+id+".jpg");
 		if(file.exists()) {
-			try {
-				sprites47.put(id, new Texture(file.getAbsolutePath()));
-			} 
-			catch(IOException e) {
-				e.printStackTrace();
-			}
+			sprites47.put(id, new Texture(file.getAbsolutePath()));
 		}
 	}
 }

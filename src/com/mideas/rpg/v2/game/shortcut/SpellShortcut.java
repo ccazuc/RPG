@@ -23,7 +23,7 @@ public class SpellShortcut implements Shortcut {
 	
 	@Override
 	public boolean use(Shortcut spell) throws SQLException {
-		(((SpellShortcut)spell).getSpell()).action(Mideas.joueur1(), Mideas.joueur2());
+		(((SpellShortcut)spell).getSpell()).action(Mideas.joueur1(), Mideas.target());
 		return true;
 	}
 	

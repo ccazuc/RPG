@@ -194,19 +194,5 @@ public class Spell {
 	public int getSpellId() {
 		return this.id;
 	}
-	
-	public static Spell getRandomSpell() {
-		float rand = (float) Math.random();
-		if(rand <= 1/3f && Mideas.joueur2().getSpells(0) != null) {
-			return ((SpellShortcut)Mideas.joueur2().getSpells(0)).getSpell();
-		}
-		else if(rand <= 2/3f && Mideas.joueur2().getSpells(1) != null) {
-			return ((SpellShortcut)Mideas.joueur2().getSpells(1)).getSpell();
-		}
-		else if(Mideas.joueur2().getSpells(2) != null) {
-			return ((SpellShortcut)Mideas.joueur2().getSpells(2)).getSpell();
-		}
-		return null;
-	}
 }
 
