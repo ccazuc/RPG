@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import com.mideas.rpg.v2.utils.Texture;
 
-import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.command.CommandSpellCast;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
@@ -23,7 +23,8 @@ public class SpellShortcut implements Shortcut {
 	
 	@Override
 	public boolean use(Shortcut spell) throws SQLException {
-		(((SpellShortcut)spell).getSpell()).action(Mideas.joueur1(), Mideas.target());
+		//(((SpellShortcut)spell).getSpell()).action(Mideas.joueur1(), Mideas.target());
+		CommandSpellCast.write(((SpellShortcut)spell).getSpell());
 		return true;
 	}
 	

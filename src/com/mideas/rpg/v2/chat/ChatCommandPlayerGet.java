@@ -2,11 +2,11 @@ package com.mideas.rpg.v2.chat;
 
 import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.Joueur;
+import com.mideas.rpg.v2.game.Unit;
 
 public class ChatCommandPlayerGet {
 
-	public static void chatCommandPlayerGet(Joueur joueur, String[] datas) {
+	public static void chatCommandPlayerGet(Unit joueur, String[] datas) {
 		if(datas.length >= 3) {
 			if(datas[2].equals("stamina")) {
 				CommandGet.write(PacketID.CHAT_GET_STAMINA, joueur.getId());

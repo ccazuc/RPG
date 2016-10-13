@@ -42,8 +42,8 @@ public class ClassManager {
 			Spell[] spellUnlocked = new Spell[49];
 			Spell[] spellUnlockeds = new Spell[49];
 			Stuff[] stuff = new Stuff[19];
-			playerList.put(id, new Joueur(id, tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff));
-			iaList.put(id, new Joueur(id, tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellss, spellUnlockeds, stuff));
+			playerList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff));
+			iaList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellss, spellUnlockeds, stuff));
 			initTable(id);
 		}
 	}

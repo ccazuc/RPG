@@ -10,6 +10,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
@@ -274,7 +275,7 @@ public class CharacterFrame {
 				}
 				shift+= 20;
 			}
-			if(item.canEquipTo(DragManager.convClassType())) {
+			if(item.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
 				temp = Color.white;
 			}
 			else {

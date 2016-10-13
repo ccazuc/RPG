@@ -10,6 +10,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.bag.BagManager;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
@@ -936,7 +937,7 @@ public class ContainerFrame {
 			}
 			shift+= 20;
 		}
-		if(item.canEquipTo(DragManager.convClassType())) {
+		if(item.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
 			temp = Color.white;
 		}
 		else {
@@ -993,7 +994,7 @@ public class ContainerFrame {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getCriticalString(), Color.white, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(item.canEquipTo(DragManager.convClassType())) {
+		if(item.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
 			temp = Color.white;
 		}
 		else {

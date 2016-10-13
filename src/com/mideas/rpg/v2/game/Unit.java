@@ -2,28 +2,68 @@ package com.mideas.rpg.v2.game;
 
 public class Unit {
 
-	private int level;
-	private String name;
-	private int maxStamina;
-	private int stamina;
-	private int maxMana;
-	private int mana;
+	protected boolean hasManaChanged = true;
+	protected boolean hasHpChanged = true;
+	protected int level;
+	protected String name;
+	protected String classString = "";
+	protected int maxStamina;
+	protected int stamina;
+	protected int maxMana;
+	protected int mana;
+	protected int id;
+	protected String healthText = "";
+	protected String manaText = "";
 	
-	public Unit(int stamina, int maxStamina, int mana, int maxMana, int level, String name) {
+	public Unit(int id, int stamina, int maxStamina, int mana, int maxMana, int level, String name) {
 		this.stamina = stamina;
 		this.maxStamina = maxStamina;
 		this.mana = mana;
+		this.id = id;
 		this.maxMana = maxMana;
 		this.level = level;
 		this.name = name;
+	}
+	
+	public String getHealthText() {
+		return this.healthText;
+	}
+	
+	public void setHealthText(String text) {
+		this.healthText = text;
+	}
+	
+	public String getManaText() {
+		return this.manaText;
+	}
+	
+	public void setManaText(String text) {
+		this.manaText = text;
+	}
+	
+	public boolean getHasHpChanged() {
+		return this.hasHpChanged;
+	}
+	
+	public void setHasHpChanged(boolean we) {
+		this.hasHpChanged = we;
+	}
+	
+	public boolean getHasManaChanged() {
+		return this.hasManaChanged;
+	}
+	
+	public void setHasManaChanged(boolean we) {
+		this.hasManaChanged = we;
 	}
 	
 	public int getStamina() {
 		return this.stamina;
 	}
 	
-	public void setStamina(int stamina) {
-		this.stamina = stamina;
+	public void setStamina(double d) {
+		this.stamina = (int)Math.max(d, 0);
+		this.hasHpChanged = true;
 	}
 	
 	public int getMaxStamina() {
@@ -39,7 +79,8 @@ public class Unit {
 	}
 	
 	public void setMana(int mana) {
-		this.mana = mana;
+		this.mana = Math.max(mana, 0);
+		this.hasManaChanged = true;
 	}
 	
 	public int getMaxMana() {
@@ -56,6 +97,10 @@ public class Unit {
 	
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 	
 	public String getName() {

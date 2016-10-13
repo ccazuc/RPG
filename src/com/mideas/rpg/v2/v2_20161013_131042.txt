@@ -1,0 +1,4 @@
+WARNING - 13:10:42: First conversion pass
+WARNING - 13:10:47: Second pass : generating package usages
+WARNING - 13:10:47: Saving .uml resource: 20161013_131047
+WARNING - 13:10:48: Finished saving .uml resource: 20161013_131048

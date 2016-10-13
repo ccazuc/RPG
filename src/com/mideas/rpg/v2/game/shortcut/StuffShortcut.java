@@ -8,6 +8,7 @@ import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
@@ -31,7 +32,7 @@ public class StuffShortcut implements Shortcut {
 		if(DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
 			while(i < Mideas.joueur1().getStuff().length) {
 				if(this.stuff.getItemType() == ItemType.STUFF) {
-					if(this.stuff != null && this.stuff.getType() == DragManager.getStuffType(i) && this.stuff.canEquipTo(DragManager.convClassType()) && Mideas.joueur1().canWear(this.stuff)) {
+					if(this.stuff != null && this.stuff.getType() == DragManager.getStuffType(i) && this.stuff.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString())) && Mideas.joueur1().canWear(this.stuff)) {
 						if(Mideas.joueur1().getLevel() >= this.stuff.getLevel()) {
 							if(Mideas.joueur1().getStuff(i) == null) {
 								Mideas.joueur1().setStuff(i, this.stuff);
@@ -55,7 +56,7 @@ public class StuffShortcut implements Shortcut {
 					}
 				}
 				else if(this.stuff.getItemType() == ItemType.WEAPON) {
-					if(this.stuff != null && this.stuff.getWeaponSlot() == DragManager.getWeaponSlot(i) && this.stuff.canEquipTo(DragManager.convClassType())) {
+					if(this.stuff != null && this.stuff.getWeaponSlot() == DragManager.getWeaponSlot(i) && this.stuff.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
 						if(Mideas.joueur1().getLevel() >= this.stuff.getLevel()) {
 							if(Mideas.joueur1().getStuff(i) == null) {
 								Mideas.joueur1().setStuff(i, this.stuff);

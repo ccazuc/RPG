@@ -12,6 +12,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.command.CommandSpellCast;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.ItemType;
@@ -201,7 +202,8 @@ public class SpellBarFrame {
 								CastBar.addCast(new Cast(((SpellShortcut)hoveredSpell).getSpell().getCastTime(), ((SpellShortcut)hoveredSpell).getSpell().getName()) {
 									@Override
 									public void endCastEvent() {
-										((SpellShortcut)hoveredSpell).getSpell().action(Mideas.joueur1(), Mideas.target());
+										//((SpellShortcut)hoveredSpell).getSpell().action(Mideas.joueur1(), Mideas.target());
+										CommandSpellCast.write(((SpellShortcut)hoveredSpell).getSpell());
 									}
 								});
 							}
@@ -212,7 +214,7 @@ public class SpellBarFrame {
 							}
 						}
 						else {
-							Mideas.joueur1().tick();
+							//Mideas.joueur1().tick();
 							Mideas.setCurrentPlayer(false);
 						}
 					}
@@ -292,19 +294,21 @@ public class SpellBarFrame {
 					CastBar.addCast(new Cast(((SpellShortcut)spell).getSpell().getCastTime(), ((SpellShortcut)spell).getSpell().getName()) {
 						@Override
 						public void endCastEvent() {
-							((SpellShortcut)spell).getSpell().action(Mideas.joueur1(), Mideas.target());
+							//((SpellShortcut)spell).getSpell().action(Mideas.joueur1(), Mideas.target());
+							CommandSpellCast.write(((SpellShortcut)spell).getSpell());
 							checkKeyboardCd(spell);
 						}
 					});
 				}
 				else {
-					((SpellShortcut)spell).getSpell().action(Mideas.joueur1(), Mideas.target());
+					//((SpellShortcut)spell).getSpell().action(Mideas.joueur1(), Mideas.target());
+					//CommandSpellCast.write(((SpellShortcut)spell).getSpell());
 					checkKeyboardCd(spell);
 					Mideas.setCurrentPlayer(false);
 				}
 			}
 			else if(!CastBar.isCasting()) {
-				Mideas.joueur1().tick();
+				//Mideas.joueur1().tick();
 				Mideas.setCurrentPlayer(false);
 			}
 		}

@@ -27,7 +27,7 @@ public class SpellBookFrame {
 		int y = -290;
 		int yShift = 85;
 		Draw.drawQuad(Sprites.spellbook_page1, Display.getWidth()/2, Display.getHeight()/2-350);
-		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
+		if(Mideas.joueur1().getClasseString().equals("Guerrier")) {
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y);
 			Draw.drawQuad(IconsManager.getSprite42(SpellManager.getBookSpell(102).getSpriteId()), Display.getWidth()/2+x+20, Display.getHeight()/2+y+yShift+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y+yShift);

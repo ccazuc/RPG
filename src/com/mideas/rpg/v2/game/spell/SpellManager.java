@@ -62,7 +62,8 @@ public class SpellManager {
 					int stunDuration = statements.getInt();
 					float stunRate = statements.getFloat();
 					spellCdList.put(id, 0);
-					spellList.add(new Spell(id, sprite_id, name, spellType, damage, manaCost, stunRate, stunDuration, cd, castTime) {
+					spellList.add(new Spell(id, sprite_id, name, spellType, damage, manaCost, stunRate, stunDuration, cd, castTime));
+					/*spellList.add(new Spell(id, sprite_id, name, spellType, damage, manaCost, stunRate, stunDuration, cd, castTime) {
 						@Override
 						public void action(Joueur caster, Joueur target) {
 							if(caster.getMana() >= this.getManaCost()) {
@@ -73,7 +74,7 @@ public class SpellManager {
 								RedAlertFrame.addNewAlert("Not enough mana.");
 							}
 						}
-					});
+					});*/
 				}
 			}
 			else if(type.equals("HEAL")) {
@@ -89,12 +90,13 @@ public class SpellManager {
 					int cd = statements.getInt();
 					int castTime = statements.getInt();
 					spellCdList.put(id, 0);
-					spellList.add(new Spell(id, sprite_id, name, spellType, manaCost, heal, cd, castTime) {
+					spellList.add(new Spell(id, sprite_id, name, spellType, manaCost, heal, cd, castTime));
+					/*spellList.add(new Spell(id, sprite_id, name, spellType, manaCost, heal, cd, castTime) {
 						@Override
 						public void action(Joueur target, Joueur caster) {
 							this.doHeal(target, caster);
 						}
-					});
+					});*/
 				}
 			}
 			else if(type.equals("HEALANDDAMAGE")) {

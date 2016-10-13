@@ -36,7 +36,6 @@ import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
-import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
@@ -58,7 +57,6 @@ public class Mideas {
 	private final static int PING_FREQUENCE = 5000;
 	private static boolean currentPlayer;
 	private static Joueur joueur1;
-	private static Joueur target;
 	private static JDO jdo;
 	private static Shop shop = new Shop();
 	//private static String cursor;
@@ -527,10 +525,6 @@ public class Mideas {
 	
 	public static Joueur joueur1() {
 		return joueur1;
-	}
-	
-	public static Joueur target() {
-		return target;
 	}
 	
 	public static void setJoueur1Null() {

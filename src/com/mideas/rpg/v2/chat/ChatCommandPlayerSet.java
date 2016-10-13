@@ -5,11 +5,11 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.chat.CommandSet;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.Joueur;
+import com.mideas.rpg.v2.game.Unit;
 
 public class ChatCommandPlayerSet {
 
-	public static void chatCommandPlayerSet(Joueur joueur, String[] datas) {
+	public static void chatCommandPlayerSet(Unit joueur, String[] datas) {
 		if(datas.length >= 3) {
 			if(datas[2].equals("stamina")) {
 				if(datas.length >= 4) {

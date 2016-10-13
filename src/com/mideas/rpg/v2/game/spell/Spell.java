@@ -62,8 +62,6 @@ public class Spell {
 		this.heal = heal;
 	}
 	
-	public void action(Joueur caster, Joueur target) {}
-	
 	public boolean cast(Joueur joueur2, Joueur joueur, Spell spell) {
 		if(hasMana()) {
 			doDamage(joueur2, joueur);

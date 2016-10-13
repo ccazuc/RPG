@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
-import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class StuffManager {
@@ -54,7 +54,7 @@ public class StuffManager {
 	}
 	
 	public static boolean canEquipStuff(Stuff stuff) {
-		if(Mideas.joueur1().getLevel() >= stuff.getLevel() && Mideas.joueur1().canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
+		if(Mideas.joueur1().getLevel() >= stuff.getLevel() && Mideas.joueur1().canWear(stuff) && stuff.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
 			return true;
 		}
 		return false;

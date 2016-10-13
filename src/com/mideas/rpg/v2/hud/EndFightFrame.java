@@ -13,7 +13,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.DropManager;
+import com.mideas.rpg.v2.game.Unit;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class EndFightFrame {
@@ -56,7 +56,7 @@ public class EndFightFrame {
 		if(Mideas.joueur1().getStamina() <= 0) {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player2Won, Color.white, Color.black, 1, 1, 1);
 		}
-		else if(Mideas.target().getStamina() <= 0) {
+		else if(Mideas.joueur1().getTarget().getStamina() <= 0) {
 			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player1Won, Color.white, Color.black, 1, 1, 1);
 			if(!endFightEvent) {
 				doEndFightEvent();
@@ -84,12 +84,13 @@ public class EndFightFrame {
 					LogChat.setStatusText("");
 					LogChat.setStatusText2("");
 					endFightEvent = false;
+					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, ""));
 				}
 			}
 		}
 	}
 	
-	private static void dropManager() throws SQLException {
+	private static void dropManager() {
 		/*DropManager.loadDropTable(Mideas.target().getId());
 		int i = 0;
 		double random = Math.random();
@@ -114,7 +115,7 @@ public class EndFightFrame {
 		endFightEvent = we;
 	}
 	
-	public static void doEndFightEvent() throws SQLTimeoutException, SQLException {
+	public static void doEndFightEvent() {
 		//Mideas.joueur1().setExp(Mideas.joueur1().getExp()+Mideas.joueur2().getExpGained());
 		//Mideas.joueur1().setGold(Mideas.joueur1().getGold()+Mideas.joueur2().getGoldGained());
 		dropManager();

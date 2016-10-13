@@ -20,6 +20,7 @@ import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.command.CommandSendSingleBagItem;
+import com.mideas.rpg.v2.command.CommandUpdateStats;
 import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
@@ -60,6 +61,7 @@ public class ConnectionManager {
 		commandList.put((int)LOAD_STATS, new CommandLoadStats());
 		commandList.put((int)CHAT_GET, new CommandGet());
 		commandList.put((int)CHAT_NOT_ALLOWED, new CommandNotAllowed());
+		commandList.put((int)UPDATE_STATS, new CommandUpdateStats());
 	}
 	
 	public static final boolean connect() {

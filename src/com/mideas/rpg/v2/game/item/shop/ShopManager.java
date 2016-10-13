@@ -15,6 +15,7 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.Shop;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
@@ -402,7 +403,7 @@ public class ShopManager {
 			TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item-10-xShift, Display.getHeight()/2+y_item+shift, "+ "+((Stuff)item).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(((Stuff)item).canEquipTo(DragManager.convClassType())) {
+		if(((Stuff)item).canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
 			temp = Color.white;
 		}
 		else {
@@ -474,7 +475,7 @@ public class ShopManager {
 			TTF2.statsName.drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+shift, "+ "+((Stuff)item).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(((Stuff)item).canEquipTo(DragManager.convClassType())) {
+		if(((Stuff)item).canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
 			temp = Color.white;
 		}
 		else {

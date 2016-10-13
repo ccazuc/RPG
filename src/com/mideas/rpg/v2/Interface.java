@@ -13,6 +13,7 @@ import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.Unit;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
@@ -95,6 +96,7 @@ public class Interface {
 					ProfessionManager.LoadAllCraft();
 					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
 					Talent.getTalent();
+					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, ""));
 					isCharacterLoaded = true;
 				}
 				if(!isStuffFullyLoaded) {
@@ -106,10 +108,10 @@ public class Interface {
 				if(!isSpellbarFullyLoaded) {
 					//Mideas.joueur1().loadSpellbar();
 				}
-				if(Mideas.target() != null) {
-					PlayerPortraitFrame.draw(Mideas.target(), Window.getWidth()-243, 50);
+				if(Mideas.joueur1().getTarget() != null) {
+					PlayerPortraitFrame.draw(Mideas.joueur1().getTarget(), Window.getWidth()-243, 50);
 					PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
-					if((Mideas.joueur1().getStamina() <= 0 || Mideas.target().getStamina() <= 0) && !Dungeon.dungeonActive()) {
+					if((Mideas.joueur1().getStamina() <= 0 || Mideas.joueur1().getTarget().getStamina() <= 0) && !Dungeon.dungeonActive()) {
 						EndFightFrame.draw();
 					}
 				}
@@ -302,7 +304,7 @@ public class Interface {
             if(PerformanceBarFrame.mouseEvent()) {
             	return true;
             }
-			if(Mideas.joueur1().getStamina() <= 0 || (Mideas.target() != null && Mideas.target().getStamina() <= 0) && !Dungeon.dungeonActive()) {
+			if(Mideas.joueur1().getStamina() <= 0 || (Mideas.joueur1().getTarget() != null && Mideas.joueur1().getTarget().getStamina() <= 0) && !Dungeon.dungeonActive()) {
 				EndFightFrame.mouseEvent();
 				return true;
 			}
@@ -452,7 +454,7 @@ public class Interface {
 				else if(Mideas.joueur1() == null) {
 					SelectScreen.event();
 				}
-				if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.target() != null && Mideas.target().getStamina() > 0) {
+				if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur1().getTarget() != null && Mideas.joueur1().getTarget().getStamina() > 0) {
 					if(SpellBarFrame.keyboardEvent()) {
 						return true;
 					}

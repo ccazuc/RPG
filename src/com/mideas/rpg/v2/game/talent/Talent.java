@@ -1,19 +1,12 @@
 package com.mideas.rpg.v2.game.talent;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.SQLException;
 
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.hud.ClassSelectFrame;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class Talent {
@@ -21,14 +14,14 @@ public class Talent {
 	private static int y = -400;
 
 	public static void draw() {
-		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
+		if(Mideas.joueur1().getClasseString().equals("Guerrier")) {
 			Draw.drawQuad(Sprites.warrior_talent_tree, Display.getWidth()/2+getX(), Display.getHeight()/2+y);
 			GuerrierTalent.draw();
 		}
 	}
 	
 	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
-		if(Mideas.joueur1().getClasse().equals("Guerrier")) {
+		if(Mideas.joueur1().getClasseString().equals("Guerrier")) {
 			GuerrierTalent.mouseEvent();
 		}
 		return false;

@@ -54,8 +54,8 @@ public class Hud {
 		TTF2.font.drawStringShadow(40, Window.getHeight()-230, statusText, Color.black, Color.white, 1, 1, 1);
 		TTF2.font.drawStringShadow(40, Window.getHeight()-190, statusText2, Color.black, Color.white, 1, 1, 1);                                                                     
 		 
-		TTF2.playerName.drawString(155-TTF2.font.getWidth(Mideas.joueur1().getClasse())/2, 38, Mideas.joueur1().getClasse(), Color.orange);                                              //leftPlayerName
-		TTF2.playerName.drawString(Window.getWidth()-91-TTF2.font.getWidth(Mideas.joueur1().getClasse())/2, 38,  Mideas.target().getClasse(), Color.orange);                          //fps
+		TTF2.playerName.drawString(155-TTF2.font.getWidth(Mideas.joueur1().getClasseString())/2, 38, Mideas.joueur1().getClasseString(), Color.orange);                                              //leftPlayerName
+		//TTF2.playerName.drawString(Window.getWidth()-91-TTF2.font.getWidth(Mideas.joueur1().getClasseString())/2, 38,  Mideas.target().getClasseString(), Color.orange);                          //fps
 		
 		/*if(Mideas.x >= Window.getWidth()/2-139 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()/2-83 && Mideas.y <= Window.getHeight()-5) {
 			Draw.drawQuad(Sprites.hover, Window.getWidth()/2-142, Window.getHeight()-63);	
@@ -63,7 +63,7 @@ public class Hud {
 			TTF2.spellName.drawString(Window.getWidth()/2-133, Window.getHeight()-210, "Attack", Color.white);
 			TTF2.font4.drawString(Window.getWidth()/2-133, Window.getHeight()-188, "No mana cost", Color.white);
 		}*/
-		if(Mideas.joueur1().getStamina() <= 0) {
+		/*if(Mideas.joueur1().getStamina() <= 0) {
 			Draw.drawColorQuad(90, 58, 120, 10, Color.red);
 		}
 		else if(Mideas.target().getStamina() <= 0) {
@@ -77,7 +77,7 @@ public class Hud {
 		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getMana()+"")/2-14, 67, Mideas.joueur1().getMana()+" / "+Mideas.joueur1().getMaxMana(), Color.white, Color.black, 1, 1, 1);   
 		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getStamina()+"")/2-14, 56, Mideas.joueur1().getStamina()+" / "+Mideas.joueur1().getMaxStamina(), Color.white, Color.black, 1, 1, 1);  
 		TTF2.font2.drawString(Window.getWidth()-100, 300,"level "+Mideas.joueur1().getLevel(), Color.black);
-		hoveredSpell = null;
+		hoveredSpell = null;*/
 		/*int i = 0;
 		if(Mideas.currentPlayer) {
 			for(Spell spell : Mideas.joueur1().getSpells()) {
@@ -153,31 +153,31 @@ public class Hud {
 				i++;
 			}
 		}*/
-		if(Mideas.joueur1().getClasse() == "Priest") {
+		if(Mideas.joueur1().getClasseString() == "Priest") {
 			Draw.drawQuad(Sprites.priest, 31, 31);
 		}
-		else if(Mideas.joueur1().getClasse() == "Mage") {
+		else if(Mideas.joueur1().getClasseString() == "Mage") {
 			Draw.drawQuad(Sprites.mage, 31, 31);
 		}
-		else if(Mideas.joueur1().getClasse() == "DeathKnight") {
+		else if(Mideas.joueur1().getClasseString() == "DeathKnight") {
 			Draw.drawQuad(Sprites.deathknight, 31, 31);
 		}
-		else if(Mideas.joueur1().getClasse() == "Guerrier") {
+		else if(Mideas.joueur1().getClasseString() == "Guerrier") {
 			Draw.drawQuad(Sprites.war, 31, 31);
 		}
-		else if(Mideas.joueur1().getClasse() == "Hunter") {
+		else if(Mideas.joueur1().getClasseString() == "Hunter") {
 			Draw.drawQuad(Sprites.hunter, 31, 31);
 		}
-		else if(Mideas.joueur1().getClasse() == "Monk") {
+		else if(Mideas.joueur1().getClasseString() == "Monk") {
 			Draw.drawQuad(Sprites.monk, 31, 31);
 		}	
-		else if(Mideas.joueur1().getClasse() == "Paladin") {
+		else if(Mideas.joueur1().getClasseString() == "Paladin") {
 			Draw.drawQuad(Sprites.paladin, 31, 31);
 		}
-		else if(Mideas.joueur1().getClasse() == "Rogue") {
+		else if(Mideas.joueur1().getClasseString() == "Rogue") {
 			Draw.drawQuad(Sprites.rogue, 31, 31);
 		}
-		else if(Mideas.joueur1().getClasse() == "Shaman") {
+		else if(Mideas.joueur1().getClasseString() == "Shaman") {
 			Draw.drawQuad(Sprites.shaman, 31, 31);
 		}
 		else {
@@ -185,36 +185,36 @@ public class Hud {
 		}
 		
 		
-		if(Mideas.target().getClasse() == "Priest") {
+		/*if(Mideas.target().getClasseString() == "Priest") {
 			Draw.drawQuad(Sprites.priest2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.target().getClasse() == "Mage") {
+		else if(Mideas.target().getClasseString() == "Mage") {
 			Draw.drawQuad(Sprites.mage2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.target().getClasse() == "DeathKnight") {
+		else if(Mideas.target().getClasseString() == "DeathKnight") {
 			Draw.drawQuad(Sprites.deathknight2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.target().getClasse() == "Guerrier") {
+		else if(Mideas.target().getClasseString() == "Guerrier") {
 			Draw.drawQuad(Sprites.war2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.target().getClasse() == "Hunter") {
+		else if(Mideas.target().getClasseString() == "Hunter") {
 			Draw.drawQuad(Sprites.hunter2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.target().getClasse() == "Monk") {
+		else if(Mideas.target().getClasseString() == "Monk") {
 			Draw.drawQuad(Sprites.monk2, Window.getWidth()-213, 31);
 		}	
-		else if(Mideas.target().getClasse() == "Paladin") {
+		else if(Mideas.target().getClasseString() == "Paladin") {
 			Draw.drawQuad(Sprites.paladin2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.target().getClasse() == "Rogue") {
+		else if(Mideas.target().getClasseString() == "Rogue") {
 			Draw.drawQuad(Sprites.rogue2, Window.getWidth()-213, 31);
 		}
-		else if(Mideas.target().getClasse() == "Shaman") {
+		else if(Mideas.target().getClasseString() == "Shaman") {
 			Draw.drawQuad(Sprites.shaman2, Window.getWidth()-213, 31);
 		}
 		else {
 			Draw.drawQuad(Sprites.warlock2, Window.getWidth()-213, 31);
-		}
+		}*/
 	}
 	
 	/*public static void setStatusText(String text) {
@@ -360,10 +360,10 @@ public class Hud {
 			Draw.drawColorQuad(90, 58, 120, 10, Color.red);
 			return true;
 		}
-		else if(Mideas.target().getStamina() <= 0) {
+		/*else if(Mideas.target().getStamina() <= 0) {
 			Draw.drawColorQuad(Window.getWidth()-154, 58, 120, 10,  Color.red);
 			return true;
-		}
+		}*/
 		return false;
 	}
 	

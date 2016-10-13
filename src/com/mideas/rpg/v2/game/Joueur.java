@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.game;
 
 import java.sql.SQLException;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.newdawn.slick.Color;
 
@@ -26,44 +25,35 @@ import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
-import com.mideas.rpg.v2.game.spell.SpellType;
-import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.LogChat;
-import com.mideas.rpg.v2.hud.SpellBarFrame;
 
-public class Joueur {
-	
-	private Shortcut[] spells;
-	private Spell[] spellUnlocked;
-	private Stuff[] stuff;
-	private Bag bag = new Bag();
+public class Joueur extends Unit {
+
+	private Profession secondProfession;
+	private Profession firstProfession;
 	private WeaponType[] weaponType;
+	private Spell[] spellUnlocked;
+	private int numberYellowGem;
+	private Bag bag = new Bag();
+	private ClassType classType;
 	private Shortcut[] shortcut;
-	private int maxStamina;
-	private int expGained;
-	private int critical;
-	public int stamina;
-	private int maxMana;
-	private int baseExp;
-	private int strength;
-	private float armor;
-	private Wear wear;
-	private int level = 1;
-	private int mana;
-	private int exp;
-	private int gold;
-	private int goldGained;
+	private Shortcut[] spells;
+	private int numberBlueGem;
 	private int defaultArmor;
 	private int numberRedGem;
-	private int numberBlueGem;
-	private int numberYellowGem;
-	private Profession firstProfession;
-	private Profession secondProfession;
-	private boolean hasHpChanged = true;
-	private boolean hasManaChanged = true;
-	//private int tailorExp;
-	private String id;
-	private int tempId;
+	private int goldGained;
+	private Stuff[] stuff;
+	private int expGained;
+	private int critical;
+	private int strength;
+	private Unit target;
+	private int baseExp;
+	private float armor;
+	private Wear wear;
+	private int gold;
+	private int mana;
+	private int exp;
+	private int id;
 	public int x;
 	public static int y;
 	public static int z;
@@ -78,9 +68,10 @@ public class Joueur {
 	private final static String warlock = "Warlock";
 	private final static String druid = "Druid";
 	
-	public Joueur(String id, int tempId, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
+	public Joueur(ClassType classType, int id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
+		super(id, stamina, maxStamina, mana, maxMana, 1, "");
 		this.id = id;
-		this.tempId = tempId;
+		this.classType = classType;
 		this.stamina = stamina;
 		this.mana = mana;
 		this.strength = strength;
@@ -97,10 +88,12 @@ public class Joueur {
 		this.stuff = stuff;
 		this.wear = wear;
 		this.firstProfession = ProfessionManager.getProfession(0);
+		//this.classString = convClassTypeToString(this.classType);
+		this.level = 1;
 	}
 	
 	public Joueur(Joueur joueur) {
-		this.id = joueur.id;
+		super(joueur.id, joueur.stamina, joueur.maxStamina, joueur.mana, joueur.maxMana, joueur.level, joueur.name);
 		this.weaponType = joueur.weaponType;
 		this.stamina = joueur.stamina;
 		this.mana = joueur.mana;
@@ -116,11 +109,13 @@ public class Joueur {
 		this.spellUnlocked = joueur.spellUnlocked;
 		this.stuff = joueur.stuff;
 		this.wear = joueur.wear;
+		//this.classString = joueur.classString;
+		this.level = joueur.level;
 	}
 	
-	public void tick() throws SQLException {
+	/*public void tick() throws SQLException {
 		if(Mideas.getCurrentPlayer()) {
-			attack(Mideas.target());
+			attack(this.target);
 			SpellBarFrame.setIsCastingSpell(false);
 		}
 	}
@@ -133,7 +128,7 @@ public class Joueur {
 			}
 			else {
 				spell.cast(Mideas.target(), Mideas.joueur1(), spell);
-				LogChat.setStatusText("Le joueur 1 a enlevée "+spell.getDamage()+" hp au "+Mideas.target().getClasse()+", "+Mideas.target().getStamina()+" hp restant");
+				//LogChat.setStatusText("Le joueur 1 a enlevée "+spell.getDamage()+" hp au "+Mideas.target().getClasse()+", "+Mideas.target().getStamina()+" hp restant");
 				return true;
 			}
 		}
@@ -157,16 +152,16 @@ public class Joueur {
 			}
 		}
 		return false;
-	}
+	}*/
 	
-	public void attack(Joueur joueur) throws SQLException {
+	/*public void attack(Joueur joueur) throws SQLException {
 		double damage = Mideas.joueur1().getStrength()*ThreadLocalRandom.current().nextDouble(.9, 1.1);
 		SpellBarFrame.setIsCastingSpell(false);
 		if(Math.random() < this.critical/100.) {
 			damage*= 2;
 		}
 		joueur.setStamina(joueur.getStamina()-damage);
-		LogChat.setStatusText("Le joueur 1 a enlevé "+Math.round(damage)+" hp au "+joueur.getClasse()+", "+joueur.getStamina()+" hp restant"); //and "+Mideas.joueur2.getMana()+" mana left");
+		//LogChat.setStatusText("Le joueur 1 a enlevé "+Math.round(damage)+" hp au "+joueur.getClasse()+", "+joueur.getStamina()+" hp restant"); //and "+Mideas.joueur2.getMana()+" mana left");
 		if(Mideas.joueur1().getStamina() <= 0) {
 			LogChat.setStatusText("Le joueur 2 a gagné !");
 			LogChat.setStatusText2(""); 
@@ -179,7 +174,7 @@ public class Joueur {
 			z = 1;
 			return;
 		}
-	}
+	}*/
 	
 	public void attackUI(Spell spell) {
 		/*double damage = Mideas.joueur2().getStrength()*ThreadLocalRandom.current().nextDouble(.9, 1.1);
@@ -293,6 +288,14 @@ public class Joueur {
 				Mideas.joueur1().getSecondProfession().updateNumberPossibleCraft();
 			}
 		}
+	}
+	
+	public Unit getTarget() {
+		return this.target;
+	}
+	
+	public void setTarget(Unit target) {
+		this.target = target;
 	}
 	
 	public void loadSpellbar() {
@@ -477,7 +480,7 @@ public class Joueur {
 	}
 
 	public boolean canEquipStuff(Stuff stuff) {
-		if(Mideas.joueur1().getLevel() >= stuff.getLevel() && canWear(stuff) && stuff.canEquipTo(DragManager.convClassType())) {
+		if(Mideas.joueur1().getLevel() >= stuff.getLevel() && canWear(stuff) && stuff.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
 			return true;
 		}
 		return false;
@@ -523,22 +526,6 @@ public class Joueur {
 		this.hasManaChanged = true;
 	}
 	
-	public boolean getHasHpChanged() {
-		return this.hasHpChanged;
-	}
-	
-	public void setHasHpChanged(boolean we) {
-		this.hasHpChanged = we;
-	}
-	
-	public boolean getHasManaChanged() {
-		return this.hasManaChanged;
-	}
-	
-	public void setHasManaChanged(boolean we) {
-		this.hasManaChanged = we;
-	}
-	
 	public void setNumberRedGem(int nb) {
 		this.numberRedGem = nb;
 	}
@@ -563,33 +550,20 @@ public class Joueur {
 		return this.numberYellowGem;
 	}
 	
-	public String getClasse() {
-		return this.id;
+	public ClassType getClassType() {
+		return this.classType;
 	}
 	
-	public int getId() {
-		return this.tempId;
+	public String getClasseString() {
+		return this.classString;
 	}
 	
 	public void setId(int id) {
-		this.tempId = id;
+		this.id = id;
 	}
 	
 	public float getArmor() {
 		return this.armor;
-	}
-	
-	public void setStamina(double d) {
-		this.stamina = (int)Math.max(d, 0);
-		this.hasHpChanged = true;
-	}
-	
-	public int getMaxStamina() {
-		return this.maxStamina;
-	}
-	
-	public int getStamina() {
-		return this.stamina;
 	}
 	
 	public Wear getWear() {
@@ -602,19 +576,6 @@ public class Joueur {
 	
 	public int getStrength() {
 		return this.strength;
-	}
-	
-	public void setMana(int mana) {
-		this.mana = Math.max(mana, 0);
-		this.hasManaChanged = true;
-	}
-	
-	public int getMana() {
-		return this.mana;
-	}
-	
-	public int getMaxMana() {
-		return this.maxMana;
 	}
 	
 	public int getX() {
@@ -678,10 +639,6 @@ public class Joueur {
 		return this.exp;
 	}
 	
-	public int getLevel() {
-		return this.level;
-	}
-	
 	public int getBaseExp() {
 		return this.baseExp;
 	}
@@ -717,14 +674,6 @@ public class Joueur {
 	public void setExp(int exp) {
 		this.exp = exp;
 		this.level = Mideas.getLevel(this.exp);
-	}
-	
-	public void setMaxStamina(int stamina) {
-		this.maxStamina = stamina;
-	}
-	
-	public void setMaxMana(int mana) {
-		this.maxMana = mana;
 	}
 	
 	public int getNumberItem(Item item) {
@@ -810,6 +759,37 @@ public class Joueur {
 		}
 		if(type == ClassType.WARLOCK) {
 			return ClassColor.WARLOCK_COLOR;
+		}
+		return null;
+	}
+	
+	public static ClassType convStringToClassType(String classType) {
+		if(classType.equals(warrior)) {
+			return ClassType.GUERRIER;
+		}
+		if(classType.equals(druid)) {
+			return ClassType.DRUID;
+		}
+		if(classType.equals(hunter)) {
+			return ClassType.HUNTER;
+		}
+		if(classType.equals(mage)) {
+			return ClassType.MAGE;
+		}
+		if(classType.equals(paladin)) {
+			return ClassType.PALADIN;
+		}
+		if(classType.equals(priest)) {
+			return ClassType.PRIEST;
+		}
+		if(classType.equals(rogue)) {
+			return ClassType.ROGUE;
+		}
+		if(classType.equals(shaman)) {
+			return ClassType.SHAMAN;
+		}
+		if(classType.equals(warlock)) {
+			return ClassType.WARLOCK;
 		}
 		return null;
 	}
