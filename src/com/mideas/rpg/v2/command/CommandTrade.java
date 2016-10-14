@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Interface;
-import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.Item;
@@ -14,11 +13,8 @@ public class CommandTrade extends Command {
 	@Override
 	public void read() {
 		byte packetId = ConnectionManager.getConnection().readByte();
-		if(packetId == PacketID.TRADE_NEW) {
-			int character_id = ConnectionManager.getConnection().readInt();
-			String name = ConnectionManager.getConnection().readString();
-			TradeFrame.setCharacterId(character_id);
-			TradeFrame.setName(name);
+		System.out.println(packetId);
+		if(packetId == PacketID.TRADE_NEW_CONFIRM) {
 			Interface.setTradeFrameStatus(true);
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM) {
@@ -39,13 +35,32 @@ public class CommandTrade extends Command {
 				TradeFrame.addItem(ConnectionManager.getConnection().readItem(), slot);
 			}
 		}
+		else if(packetId == PacketID.TRADE_REQUEST) {
+			//check if windows are open etc
+			String name = ConnectionManager.getConnection().readString();
+			TradeFrame.setName(name);
+			ConnectionManager.getConnection().writeByte(PacketID.TRADE);
+			ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW_CONFIRM);
+			ConnectionManager.getConnection().send();
+			Interface.setTradeFrameStatus(true);
+			System.out.println("Trade request");
+		}
+	}
+	
+	public static void writeAddItem(int id, int slot) {
+		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
+		ConnectionManager.getConnection().writeByte(PacketID.TRADE_ADD_ITEM);
+		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().writeInt(slot);
+		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeNewTrade(int character_id) {
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
-		ConnectionManager.getConnection().writeInt(Mideas.joueur1().getId());
+		ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW);
 		ConnectionManager.getConnection().writeInt(character_id);
 		ConnectionManager.getConnection().send();
+		System.out.println(character_id);
 	}
 	
 	public static void writeAccept() {

@@ -10,6 +10,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
@@ -41,6 +42,7 @@ import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.SpellLevel;
+import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class Interface {
@@ -156,6 +158,9 @@ public class Interface {
 				if(socketingFrameActive) {
 					SocketingFrame.draw();
 				}
+				if(tradeFrameActive) {
+					TradeFrame.draw();
+				}
 				Draw.drawQuad(Sprites.level, 50, 95);
 				TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.joueur1().getLevel()))/2, 105, String.valueOf(Mideas.joueur1().getLevel()), YELLOW, Color.black, 1, 1, 1);
 				ShortcutFrame.draw();
@@ -248,6 +253,11 @@ public class Interface {
 					return true;
 				}
 			}
+			if(tradeFrameActive) {
+				if(TradeFrame.mouseEvent()) {
+					return true;
+				}
+			}
 			if(socketingFrameActive) {
 				if(SocketingFrame.mouseEvent()) {
 					return true;
@@ -319,7 +329,8 @@ public class Interface {
 				//System.out.println(Keyboard.getEventKey());
 				if(!ChatFrame.getChatActive() && hasLoggedIn && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						RedAlertFrame.addNewAlert("Ceci est un test.");
+						//RedAlertFrame.addNewAlert("Ceci est un test.");
+						CommandTrade.writeNewTrade(3);
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {

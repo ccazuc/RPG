@@ -1,18 +1,18 @@
 package com.mideas.rpg.v2.hud;
 
-import java.util.ArrayList;
+import org.lwjgl.opengl.Display;
 
+import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.utils.Draw;
 
 public class TradeFrame {
 
-	private static int characterId;
 	private static String name = "";
 	private static Item[] itemList = new Item[6];
 	
 	public static void draw() {
-		//draw trade frame
-		
+		Draw.drawQuad(Sprites.trade_frame, Display.getWidth()/2, Display.getHeight()/2);
 	}
 	
 	public static boolean mouseEvent() {
@@ -21,10 +21,6 @@ public class TradeFrame {
 	
 	public static void setName(String names) {
 		name = names;
-	}
-	
-	public static void setCharacterId(int id) {
-		characterId = id;
 	}
 	
 	public static void addItem(int id, int slot) {

@@ -65,4 +65,6 @@ public class PacketID {
 	public static final byte TRADE_NEW = 61;
 	public static final byte TRADE_ADD_ITEM = 62;
 	public static final byte TRADE_ACCEPT = 63;
+	public static final byte TRADE_NEW_CONFIRM = 64;
+	public static final byte TRADE_REQUEST = 65;
 }

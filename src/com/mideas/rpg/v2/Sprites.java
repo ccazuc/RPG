@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2;
 
-import java.io.IOException;
 import java.util.Random;
 
 import com.mideas.rpg.v2.utils.Texture;
@@ -275,6 +274,7 @@ public class Sprites {
 	public static Texture red_socket_background;
 	public static Texture blue_socket_background;
 	public static Texture yellow_socket_background;
+	public static Texture trade_frame;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -282,7 +282,7 @@ public class Sprites {
 	
 	private static String[] bgList = new String[3];
 	
-	public static void initBG() throws IOException {
+	public static void initBG() {
 		bgList[0] = easternKingdom;
 		bgList[1] = outland2;
 		bgList[2] = outland;
@@ -291,7 +291,7 @@ public class Sprites {
 		loading_screen_bar_progress = new Texture("sprite/interface/loading_screen/Loading-BarFill.png");
 	}
 	
-	public static boolean sprite() throws IOException {
+	public static boolean sprite() {
 		gem_frame = new Texture("sprite/interface/gem/gem_frame.png");
 		pyrestone = new Texture("sprite/gem/inv_jewelcrafting_pyrestone_02.jpg");
 		empyrean_sapphire = new Texture("sprite/gem/inv_jewelcrafting_empyreansapphire_02.jpg");
@@ -360,7 +360,7 @@ public class Sprites {
 		return true;
 	}
 	
-	public static boolean sprite2() throws IOException {
+	public static boolean sprite2() {
 		select_screen_background = new Texture("sprite/selectScreen/select_screen_background.png");
 		enter_game_colored = new Texture("sprite/selectScreen/enter_game_colored.png");
 		create_new_character_hover = new Texture("sprite/selectScreen/create_new_character_hover.png");
@@ -435,7 +435,7 @@ public class Sprites {
 		return true;
 	}
 		
-	public static boolean sprite8() throws IOException {
+	public static boolean sprite8() {
 		bag_super_healing_potion = new Texture("sprite/items/bagpotion/bag_super_healing_potion.jpg");
 		shop_super_healing_potion = new Texture("sprite/items/shoppotion/shop_super_healing_potion.jpg");
 		super_healing_potion = new Texture("sprite/items/potion/super_healing_potion.jpg");
@@ -504,7 +504,7 @@ public class Sprites {
 		return true;
 	}
 		
-	public static boolean sprite9() throws IOException {
+	public static boolean sprite9() {
 		selected_character = new Texture("sprite/interface/character_selected.png");
 		login_screen = new Texture("sprite/interface/loginscreen.png");
 		bag4 = new Texture("sprite/interface/bag/4.png");
@@ -562,10 +562,11 @@ public class Sprites {
 		mana_bar = new Texture("sprite/interface/mana_bar.png");
 		big_alert = new Texture("sprite/interface/big_alert.png");
 		input_box = new Texture("sprite/interface/input_box.png");
+		trade_frame = new Texture("sprite/interface/trade/trade_frame.png");
 		return true;
 	}
 
-	public static boolean sprite10() throws IOException {
+	public static boolean sprite10() {
 		spellbar = new Texture("sprite/interface/spellbar.png");
 		spriteLoaded = true;
 		return true;
