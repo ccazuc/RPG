@@ -21,6 +21,7 @@ import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.IntegerInput;
 
 public class ContainerFrame {
 	
@@ -39,7 +40,7 @@ public class ContainerFrame {
 	private static boolean bagChange = true;
 	private static int xItemNumber;
 	private static int yItemNumber;
-	private static int iItemNumber = -1;
+	static int iItemNumber = -1;
 	private static boolean itemNumberOkButton;
 	private static boolean itemNumberCancelButton;
 	private static boolean itemNumberLeftArrow;
@@ -86,6 +87,16 @@ public class ContainerFrame {
 		protected void eventButtonClick() {
 			isBagOpen[4] = false;
 			this.reset();
+		}
+	};
+	
+	private static IntegerInput itemNumber = new IntegerInput(TTF2.itemNumber, 3) {
+		@Override
+		public int maximumValue() {
+			if(iItemNumber != -1) {
+				return Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(iItemNumber));
+			}
+			return 1;
 		}
 	};
  	
@@ -193,7 +204,7 @@ public class ContainerFrame {
 		x = (int)(-303*Mideas.getDisplayXFactor());
 		xShift = (int)(42*Mideas.getDisplayXFactor());
 		y = (int)(-50*Mideas.getDisplayYFactor());
-		yShift = (int)(42*Mideas.getDisplayYFactor());
+		yShift = (int)(41*Mideas.getDisplayYFactor());
 		boolean backPack = true;
 		boolean first = true;
 		boolean second = true;
@@ -423,6 +434,7 @@ public class ContainerFrame {
 		resize = false;
 		xBagShift = 0;
 		if(xItemNumber != 0) { //draw itemNumber frame
+			itemNumber.event();
 			drawItemNumber(xItemNumber, yItemNumber);
 		}
 		if(itemNumberOkButton) {
@@ -454,13 +466,13 @@ public class ContainerFrame {
 					}
 					else if(itemNumberLeftArrow) {
 						if(numberItem > 1) {
-							numberItem--;
+							itemNumber.setText(numberItem--);
 							return true;
 						}
 					}
 					else if(itemNumberRightArrow) {
 						if(numberItem < Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(iItemNumber))) {
-							numberItem++;
+							itemNumber.setText(numberItem++);
 							return true;
 						}
 					}
@@ -700,7 +712,6 @@ public class ContainerFrame {
 	private static void drawBag(int i, int x, int y) {
 		if(Mideas.joueur1().bag().getBag(i) != null) {
 			Draw.drawQuad(IconsManager.getSprite37((Mideas.joueur1().bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()+y);
-			Draw.drawQuad(Sprites.bag_border1, Display.getWidth()+x-3, Display.getHeight()+y-2);
 			if((Mideas.joueur1().bag().getBag(i).isStackable())) {
 				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.font4.getWidth(Integer.toString(Mideas.joueur1().bag().getNumberBagItem(Mideas.joueur1().bag().getBag(i)))), Display.getHeight()+y+20, Integer.toString(Mideas.joueur1().bag().getNumberBagItem(Mideas.joueur1().bag().getBag(i))), Color.white, Color.black, 1, 1, 1);
 				if(Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i)) <= 0) {
@@ -714,6 +725,7 @@ public class ContainerFrame {
 				Draw.drawColorQuad(Display.getWidth()+x, Display.getHeight()+y, 37, 35, bgColor);
 			}
 		}
+		Draw.drawQuad(Sprites.bag_border1, Display.getWidth()+x-3, Display.getHeight()+y-2);
 		if(DragManager.getClickBag(i)) {
 			Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()+x-1, Display.getHeight()+y-1);
 		}
@@ -753,6 +765,12 @@ public class ContainerFrame {
 	}
 	
 	private static void drawItemNumber(int x, int y) {
+		if(Mideas.isInteger(itemNumber.getText())) {
+			numberItem = Integer.valueOf(itemNumber.getText());
+		}
+		else {
+			numberItem = 1;
+		}
 		Draw.drawQuad(Sprites.itemnumber_frame, Display.getWidth()+x+30-Sprites.itemnumber_frame.getImageWidth(), Display.getHeight()+y-5-Sprites.itemnumber_frame.getImageHeight());
 		TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+153-Sprites.itemnumber_frame.getImageWidth()-TTF2.itemNumber.getWidth(Integer.toString(numberItem)), Display.getHeight()+y+15-Sprites.itemnumber_frame.getImageHeight(), Integer.toString(numberItem), Color.white, Color.black, 1, 1, 1);
 		xItemNumber = x+30-Sprites.itemnumber_frame.getImageWidth();

@@ -15,7 +15,6 @@ import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
-import com.mideas.rpg.v2.utils.IntegerInput;
 
 public class LoginScreen {
 
@@ -40,13 +39,6 @@ public class LoginScreen {
 			connectionEvent();
 		}
 	};
-	
-	private static IntegerInput test = new IntegerInput(TTF2.loginScreenAccount, 10) {
-		@Override
-		public int maximumValue() {
-			return 800;
-		}
-	};
 
 	private final static String noAccountName = "Veuillez saisir votre nom de compte.";
 	private final static String noPassword = "Veuillez saisir votre mot de passe.";
@@ -60,12 +52,11 @@ public class LoginScreen {
 			init = true;
 		}
 		Draw.drawQuadBG(Sprites.login_screen);
-		//TTF2.loginScreenAccount.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.white);
-		TTF2.loginScreenAccount.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), test.getText(), Color.white);
+		TTF2.loginScreenAccount.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.white);
 		TTF2.loginScreenPassword.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), drawPassword(password.getText().length()), Color.white);
 		if(System.currentTimeMillis()%1000 < 500) {
 			if(accountActive) {
-				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+test.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.white);
+				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.white);
 			}
 			else {
 				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+password.getCursorShift(), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), bar, Color.white);
@@ -113,12 +104,11 @@ public class LoginScreen {
 			}
 		}
 		if(accountActive) {
-			//account.event();
+			account.event();
 		}
 		else if(passwordActive) {
 			password.event();
 		}
-		test.event();
 	}
 	
 	private static String drawPassword(int length) {

@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.connection;
 import java.io.IOException;
 import java.nio.channels.SocketChannel;
 
+import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.bag.Container;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.potion.Potion;
@@ -52,6 +53,10 @@ public class Connection {
 	
 	public final boolean hasRemaining() {
 		return this.rBuffer.hasRemaining();
+	}
+	
+	public final Item readItem() {
+		return this.rBuffer.readItem();
 	}
 	
 	public final Container readContainer() {

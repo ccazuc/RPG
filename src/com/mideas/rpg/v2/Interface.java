@@ -56,6 +56,7 @@ public class Interface {
 	private static boolean adminPanelFrameActive;
 	private static boolean interfaceFrameActive;
 	private static boolean dungeonFrameActive;
+	private static boolean tradeFrameActive;
 	private static boolean isConfigLoaded;
 	private static boolean craftFrameActive;
 	private static boolean chatFrameActive = true;
@@ -462,6 +463,14 @@ public class Interface {
 			}
 		}
 		return false;
+	}
+	
+	public static void setTradeFrameStatus(boolean we) {
+		tradeFrameActive = we;
+	}
+	
+	public static boolean isTradeFrameActive() {
+		return tradeFrameActive;
 	}
 	
 	public static void setCharacterLoaded(boolean we) {

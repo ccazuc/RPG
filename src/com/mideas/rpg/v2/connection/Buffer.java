@@ -7,6 +7,8 @@ import java.nio.channels.SocketChannel;
 
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.classes.Wear;
+import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.bag.Container;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
@@ -63,6 +65,30 @@ public class Buffer {
 	
 	protected final boolean hasRemaining() {
 		return this.buffer.hasRemaining();
+	}
+	
+	protected final Item readItem() {
+		ItemType type = ItemType.values()[readChar()];
+		if(type == ItemType.CONTAINER) {
+			return readContainer();
+		}
+		if(type == ItemType.GEM) {
+			return readGem();
+		}
+		if(type == ItemType.ITEM) {
+			//return readItem();
+		}
+		if(type == ItemType.POTION) {
+			return readPotion();
+		}
+		if(type == ItemType.STUFF) {
+			return readStuff();
+		}
+		if(type == ItemType.WEAPON) {
+			return readWeapon();
+		}
+		System.out.println("rBuffer.readItem: Unknown ItemType value.");
+		return null;
 	}
 	
 	protected final Gem readGem() {

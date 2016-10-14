@@ -7,7 +7,6 @@ import com.mideas.rpg.v2.TTF;
 
 public class IntegerInput {
 
-	private int value;
 	private String text = "";
 	private int cursorPosition;
 	private int cursorShift;
@@ -70,7 +69,7 @@ public class IntegerInput {
 	}
 	
 	public void setText(char c) {
-		this.text = new StringBuilder(c).toString();
+		this.text = String.valueOf(c);
 		checkLength();
 		this.cursorPosition = this.text.length();
 	}
