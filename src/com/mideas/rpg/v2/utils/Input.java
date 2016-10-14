@@ -31,7 +31,8 @@ public class Input {
 		this.maxLength = maxLength;
 	}
 	
-	public void event() {Keyboard.enableRepeatEvents(true);
+	public void event() {
+		Keyboard.enableRepeatEvents(true);
 		if(Keyboard.getEventKey() == 1) { //escape
 			resetSelectedPosition();
 		}

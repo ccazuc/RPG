@@ -286,6 +286,9 @@ public class Mideas {
 		return isInteger.matcher(string).matches();
 	}
 	
+	public static boolean isInteger(char c) {
+		return c >= '0' && c <= '9';
+	}
 	public static double getInterfaceDrawTime() {
 		return interfaceDrawTime;
 	}
