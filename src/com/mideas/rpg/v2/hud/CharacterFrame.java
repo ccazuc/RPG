@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -112,7 +110,7 @@ public class CharacterFrame {
 		}
 	}
 
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		hover = -1;
 		hoverMove = false;
 		if(Mideas.mouseX()>= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-375*Mideas.getDisplayYFactor()+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-375*Mideas.getDisplayYFactor()+yMouseShift+25) {
@@ -299,7 +297,7 @@ public class CharacterFrame {
 		if(stuff != null) {
 			Draw.drawQuad(IconsManager.getSprite37((stuff.getSpriteId())), Display.getWidth()/2+x, Display.getHeight()/2+y);
 			Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2+x-2, Display.getHeight()/2+y-2);
-			if(stuff == DragManager.getDraggedItem()) {
+			if(stuff == DragManager.getDraggedItem() || !stuff.isSelectable()) {
 				Draw.drawColorQuad(Display.getWidth()/2+x, Display.getHeight()/2+y, 37, 35, bgColor);
 			}
 			if(DragManager.getDraggedItem() != null && hover != i && DragManager.getDraggedItem().isStuff() && ((Stuff)DragManager.getDraggedItem()).getType() == stuff.getType()) {
@@ -307,7 +305,7 @@ public class CharacterFrame {
 					Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
 				//}
 				//else {
-					Draw.drawQuad(Sprites.spell_hover2, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
+					//Draw.drawQuad(Sprites.spell_hover2, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
 				//}
 			}
 		}
@@ -325,7 +323,7 @@ public class CharacterFrame {
 		}
 	}
 	
-	public static void setMouseX(int x) throws SQLException {
+	public static void setMouseX(int x) {
 		xMouseShift = x;
 		lastMouseX = x;
 		updateButton();
@@ -335,7 +333,7 @@ public class CharacterFrame {
 		return xMouseShift;
 	}
 	
-	public static void setMouseY(int y) throws SQLException {
+	public static void setMouseY(int y) {
 		yMouseShift = y;
 		lastMouseY = y;
 		updateButton();
@@ -361,7 +359,7 @@ public class CharacterFrame {
 		return gemFrame;
 	}
 	
-	public static void updateButton() throws SQLException {
+	public static void updateButton() {
 		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
 		closeFrameButton.event();
 		SocketingFrame.getCrossButton().update(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), (Sprites.cross_button.getImageHeight()+2)*Mideas.getDisplayXFactor());

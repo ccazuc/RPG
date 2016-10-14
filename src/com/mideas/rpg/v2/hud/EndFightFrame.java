@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
 import java.sql.SQLException;
-import java.sql.SQLTimeoutException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -25,7 +24,7 @@ public class EndFightFrame {
 	private final static String player1Won = "Player 1 won";
 	private final static String player2Won = "Playe 2 won";
 
-	public static void draw() throws SQLException {
+	public static void draw() {
 		if(Interface.getAdminPanelFrameStatus()) {
 			Interface.closeAdminPanelFrame();
 		}

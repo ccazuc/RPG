@@ -19,6 +19,7 @@ public class Item implements Cloneable {
 	protected int id;
 	protected boolean isLoaded;
 	protected String deleteConfirm;
+	protected boolean isSelectable = true;
 	
 	private final static String delete = "Voulez vous supprimer ";
 	
@@ -37,6 +38,14 @@ public class Item implements Cloneable {
 
 	private void buildAllString() {
 		buildDeleteConfirm();
+	}
+	
+	public boolean isSelectable() {
+		return this.isSelectable;
+	}
+	
+	public void setIsSelectable(boolean we) {
+		this.isSelectable = we;
 	}
 	
 	private void buildDeleteConfirm() {

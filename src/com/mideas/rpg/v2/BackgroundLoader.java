@@ -5,7 +5,6 @@ import org.lwjgl.opengl.Drawable;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.GLSync;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -49,45 +48,20 @@ abstract class BackgroundLoader {
 		BackgroundLoader.this.lock.lock();
 		BackgroundLoader.this.texID = glGenTextures();
 		if(this.i == 0) {
-			try {
-				Sprites.sprite();
-				Sprites.initBG();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			Sprites.sprite();
+			Sprites.initBG();
 		}
 		else if(this.i == 1) {
-			try {
-				Sprites.sprite2();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+			Sprites.sprite2();
+		}	
 		else if(this.i == 2) {
-			try {
-				Sprites.sprite8();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			Sprites.sprite8();
 		}
 		else if(this.i == 3) {
-			try {
-				Sprites.sprite9();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			Sprites.sprite9();
 		}
 		else if(this.i == 4) {
-			try {
-				Sprites.sprite10();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			Sprites.sprite10();
 		}
 		// OpenGL commands from different contexts may be executed in any order. So we need a way to synchronize
 		final boolean useFences = GLContext.getCapabilities().OpenGL32;

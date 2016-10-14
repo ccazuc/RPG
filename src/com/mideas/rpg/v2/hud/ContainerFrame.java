@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
-
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -445,7 +443,7 @@ public class ContainerFrame {
 		}
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		hoveredSlot = -1;
 		itemNumberOkButton = false;
 		itemNumberCancelButton = false;
@@ -721,7 +719,7 @@ public class ContainerFrame {
 			if(hoveredSlot == i) {
 				Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y);
 			}
-			if(Mideas.joueur1().bag().getBag(i) == DragManager.getDraggedItem()) {
+			if(Mideas.joueur1().bag().getBag(i) == DragManager.getDraggedItem() || !Mideas.joueur1().bag().getBag(i).isSelectable()) {
 				Draw.drawColorQuad(Display.getWidth()+x, Display.getHeight()+y, 37, 35, bgColor);
 			}
 		}

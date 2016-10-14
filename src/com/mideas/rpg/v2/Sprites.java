@@ -275,6 +275,8 @@ public class Sprites {
 	public static Texture blue_socket_background;
 	public static Texture yellow_socket_background;
 	public static Texture trade_frame;
+	public static Texture click_down;
+	public static Texture trade_accepted;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -430,7 +432,7 @@ public class Sprites {
 		illidan = new Texture("sprite/classes/illidan.png");
 		priest = new Texture("sprite/classes/priest.png");
 		priest2 = new Texture("sprite/classes/priest.png");
-		
+		trade_accepted = new Texture("sprite/interface/trade/trade_accepted.png");
 		stuff_border = new Texture("sprite/interface/stuff_border.png");
 		return true;
 	}
@@ -501,6 +503,7 @@ public class Sprites {
 		red_socket_background = new Texture("sprite/interface/gem/red_socket_background.png");
 		blue_socket_background = new Texture("sprite/interface/gem/blue_socket_background.png");
 		yellow_socket_background = new Texture("sprite/interface/gem/yellow_socket_background.png");
+		click_down = new Texture("sprite/interface/click_down.png");
 		return true;
 	}
 		

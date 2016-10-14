@@ -1,7 +1,4 @@
-
 package com.mideas.rpg.v2;
-
-import java.io.IOException;
 
 public class ThreadSprites implements Runnable {
 
@@ -13,45 +10,20 @@ public class ThreadSprites implements Runnable {
 	
 	public void run() {
 		if(this.i == 0) {
-			try {
-				Sprites.sprite();
-				Sprites.initBG();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			Sprites.sprite();
+			Sprites.initBG();
 		}
 		else if(this.i == 1) {
-			try {
-				Sprites.sprite2();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			Sprites.sprite2();
 		}
 		else if(this.i == 2) {
-			try {
-				Sprites.sprite8();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			Sprites.sprite8();
 		}
 		else if(this.i == 3) {
-			try {
-				Sprites.sprite9();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			Sprites.sprite9();
 		}
 		else if(this.i == 4) {
-			try {
-				Sprites.sprite10();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+			Sprites.sprite10();
 		}
 	}
 

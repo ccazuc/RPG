@@ -13,7 +13,6 @@ public class CommandTrade extends Command {
 	@Override
 	public void read() {
 		byte packetId = ConnectionManager.getConnection().readByte();
-		System.out.println(packetId);
 		if(packetId == PacketID.TRADE_NEW_CONFIRM) {
 			Interface.setTradeFrameStatus(true);
 		}
@@ -43,15 +42,47 @@ public class CommandTrade extends Command {
 			ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW_CONFIRM);
 			ConnectionManager.getConnection().send();
 			Interface.setTradeFrameStatus(true);
-			System.out.println("Trade request");
+		}
+		else if(packetId == PacketID.TRADE_ACCEPT) {
+			TradeFrame.setTraceAcceptedOther(true);
+		}
+		else if(packetId == PacketID.TRADE_UNACCEPT) {
+			TradeFrame.setTraceAcceptedOther(false);
 		}
 	}
 	
-	public static void writeAddItem(int id, int slot) {
+	public static void writeAddItem(Item item, int slot) {
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE_ADD_ITEM);
-		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().writeInt(item.getId());
 		ConnectionManager.getConnection().writeInt(slot);
+		if(item.isStuff() || item.isWeapon()) {
+			Stuff stuff = (Stuff)item;
+			if(stuff.getEquippedGem1() != null || stuff.getEquippedGem2() != null || stuff.getEquippedGem3() != null) {
+				ConnectionManager.getConnection().writeBoolean(true);
+				if(stuff.getEquippedGem1() != null) {
+					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem1().getId());
+				}
+				else {
+					ConnectionManager.getConnection().writeInt(0);
+				}
+				if(stuff.getEquippedGem2() != null) {
+					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem2().getId());
+				}
+				else {
+					ConnectionManager.getConnection().writeInt(0);
+				}
+				if(stuff.getEquippedGem3() != null) {
+					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem3().getId());
+				}
+				else {
+					ConnectionManager.getConnection().writeInt(0);
+				}
+			}
+			else {
+				ConnectionManager.getConnection().writeBoolean(false);
+			}
+		}
 		ConnectionManager.getConnection().send();
 	}
 	
@@ -60,12 +91,17 @@ public class CommandTrade extends Command {
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW);
 		ConnectionManager.getConnection().writeInt(character_id);
 		ConnectionManager.getConnection().send();
-		System.out.println(character_id);
 	}
 	
 	public static void writeAccept() {
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE_ACCEPT);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void writeCloseTrade() {
+		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
+		ConnectionManager.getConnection().writeByte(PacketID.TRADE_CLOSE);
 		ConnectionManager.getConnection().send();
 	}
 }

@@ -143,7 +143,7 @@ public class DragManager {
 				if(Mouse.getEventButton() == 0) {
 					int i = 0;
 					if(draggedItem != null) {
-						if(draggedItem != null && !deleteItem && !isSpellBarHover() && !isHoverCharacterFrame() && !isHoverBagFrame() && !isHoverSocketingFrame()) {
+						if(draggedItem != null && !deleteItem && !isSpellBarHover() && !isHoverCharacterFrame() && !isHoverBagFrame() && !isHoverSocketingFrame() && !isHoverTradeFrame()) {
 							deleteItem = true;
 							return true;
 						}
@@ -271,6 +271,7 @@ public class DragManager {
 						return true;
 					}
 					if(draggedItem != null) {
+						draggedItem.setIsSelectable(true);
 						draggedItem = null;
 					}
 				}
@@ -413,7 +414,7 @@ public class DragManager {
 				if(Mideas.joueur1().bag().getBag(i) == null) {
 					return true;
 				}
-				else {
+				else if(Mideas.joueur1().bag().getBag(i).isSelectable()) {
 					draggedItem = Mideas.joueur1().bag().getBag(i);
 					return true;
 				}
@@ -438,6 +439,7 @@ public class DragManager {
 				if(Mideas.joueur1().bag().getBag(i) == null) {
 					setNullContainer(draggedItem);
 					Mideas.joueur1().bag().setBag(i, draggedItem);
+					Mideas.joueur1().bag().getBag(i).setIsSelectable(true);
 					draggedItem = null;
 					CharacterStuff.setBagItems();
 					return true;
@@ -445,7 +447,6 @@ public class DragManager {
 				else if(draggedItem.isPotion() && draggedItem.getId() == Mideas.joueur1().bag().getBag(i).getId()) {
 					if(draggedItem != Mideas.joueur1().bag().getBag(i)) {
 						int number = Mideas.joueur1().getNumberItem(draggedItem)+Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i));
-						System.out.println(number);
 						setNullContainer(draggedItem);
 						Mideas.joueur1().bag().getNumberStack().put(Mideas.joueur1().bag().getBag(i), number);
 						draggedItem = null;
@@ -457,6 +458,11 @@ public class DragManager {
 						draggedItem = null;
 						return true;
 					}
+				}
+				else if(draggedItem == Mideas.joueur1().bag().getBag(i)) {
+					Mideas.joueur1().bag().getBag(i).setIsSelectable(true);
+					draggedItem = null;
+					return true;
 				}
 				else {
 					Item tempItem = Mideas.joueur1().bag().getBag(i);
@@ -519,7 +525,7 @@ public class DragManager {
 				if(Mideas.joueur1().getStuff(i) == null) {
 					return true;
 				}
-				else {
+				else if(Mideas.joueur1().getStuff(i).isSelectable()) {
 					draggedItem = Mideas.joueur1().getStuff(i);
 					return true;
 				}
@@ -536,7 +542,7 @@ public class DragManager {
 							CharacterStuff.setBagItems();
 							return true;
 						}
-						else {
+						else if(Mideas.joueur1().getStuff(i).isSelectable()) {
 							Item tempItem = Mideas.joueur1().getStuff(i);
 							setNullCharacter(draggedItem);
 							calcStatsLess(draggedItem);
@@ -578,7 +584,7 @@ public class DragManager {
 							CharacterStuff.setBagItems();
 							return true;
 						}
-						else {
+						else if(Mideas.joueur1().getStuff(i).isSelectable()) {
 							Stuff temp = Mideas.joueur1().getStuff(i);
 							calcStatsLess(Mideas.joueur1().getStuff(i));
 							Mideas.joueur1().setStuff(i, draggedItem);
@@ -643,7 +649,7 @@ public class DragManager {
 		if(inventoryClickedSlot >= 0 && inventoryClickedSlot < Mideas.joueur1().getStuff().length) {
 			int i = 0;
 			while(i < Mideas.joueur1().getStuff().length) {
-				if(inventoryClickedSlot == i) {
+				if(inventoryClickedSlot == i && Mideas.joueur1().getStuff(i).isSelectable()) {
 					draggedItem = Mideas.joueur1().getStuff(i);
 					return true;
 				}
@@ -657,7 +663,7 @@ public class DragManager {
 		if(bagClickedSlot >= 0 && bagClickedSlot < Mideas.joueur1().bag().getBag().length) {
 			int i = 0;
 			while(i < Mideas.joueur1().bag().getBag().length) {
-				if(bagClickedSlot == i) {
+				if(bagClickedSlot == i && Mideas.joueur1().bag().getBag(i).isSelectable()) {
 					draggedItem = Mideas.joueur1().bag().getBag(i);
 					return true;
 				}
@@ -754,6 +760,17 @@ public class DragManager {
 		}
 		return false;
 		
+	}
+	
+	public static Item getBagItem(Item item) {
+		int i = 0;
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) == item) {
+				return Mideas.joueur1().bag().getBag(i);
+			}
+			i++;
+		}
+		return null;
 	}
 	
 	public static boolean deleteItem(int id) {
@@ -875,6 +892,15 @@ public class DragManager {
 	public static boolean isHoverSocketingFrame() {
 		if(Interface.isSocketingFrameActive()) {
 			if(Mideas.mouseX() >= Display.getWidth()/2-300+CharacterFrame.getMouseX() && Mideas.mouseX() <= Display.getWidth()/2-300+CharacterFrame.getMouseX()+Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2-380+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2-380+CharacterFrame.getMouseY()+Sprites.socketing_frame.getImageHeight()*Mideas.getDisplayXFactor()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean isHoverTradeFrame() {
+		if(Interface.isTradeFrameActive()) {
+			if(Mideas.mouseX() >= TradeFrame.getXFrame() && Mideas.mouseX() <= TradeFrame.getXFrame()+Sprites.trade_frame.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= TradeFrame.getYFrame() && Mideas.mouseY() <= TradeFrame.getYFrame()+Sprites.trade_frame.getImageHeight()*Mideas.getDisplayXFactor()) {
 				return true;
 			}
 		}

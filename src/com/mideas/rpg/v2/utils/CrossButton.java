@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.utils;
 
-import java.sql.SQLException;
-
 import org.lwjgl.input.Mouse;
 
 import com.mideas.rpg.v2.Mideas;
@@ -52,7 +50,7 @@ public class CrossButton {
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
 	}
 	
-	public void event() throws SQLException {
+	public void event() {
 		this.buttonHover = false;
 		if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 			this.texture = Sprites.cross_button_hover;
@@ -104,15 +102,14 @@ public class CrossButton {
 	}
 	
 	public void setButtonWidth(float width) {
-		this.x_size = width*Mideas.getDisplayXFactor();
+		this.x_size = width;
 	}
 	
 	public void setButtonHeight(float height) {
-		this.y_size = height*Mideas.getDisplayXFactor();
+		this.y_size = height;
 	}
 	
-	@SuppressWarnings("unused")
-	protected void eventButtonClick() throws SQLException {}
+	protected void eventButtonClick() {}
 	
 	public boolean getButtonDown() {
 		return this.buttonDown;
