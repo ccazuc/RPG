@@ -21,12 +21,12 @@ public class Potion extends Item {
 	private final static String empty = "";
 	
 	public Potion(int id) {
-		super(id, empty, ItemType.POTION, empty, 1, 0, 1);
+		super(id, empty, ItemType.POTION, empty, 1, 0, 1, 1);
 		this.id = id;
 	}
 
 	public Potion(Potion potion) {
-		super(potion.id, potion.sprite_id, ItemType.POTION, potion.name, 1, potion.sellPrice, potion.maxStack);
+		super(potion.id, potion.sprite_id, ItemType.POTION, potion.name, 1, potion.sellPrice, potion.maxStack, potion.amount);
 		this.doHealString = potion.doHealString;
 		this.doManaString = potion.doManaString;
 		this.levelString = potion.levelString;
@@ -35,8 +35,8 @@ public class Potion extends Item {
 		this.isLoaded = true;
 	}
 	
-	public Potion(int id, String sprite_id, String name, int level, int doHeal, int doMana, int sellPrice) {
-		super(id, sprite_id, ItemType.POTION, name, 1, sellPrice, 200);
+	public Potion(int id, String sprite_id, String name, int level, int doHeal, int doMana, int sellPrice, int amount) {
+		super(id, sprite_id, ItemType.POTION, name, 1, sellPrice, 200, amount);
 		this.doHeal = doHeal;
 		this.doMana = doMana;
 		this.level = level;

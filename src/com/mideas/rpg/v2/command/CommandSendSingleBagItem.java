@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.command;
 
-import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.Item;
@@ -28,7 +27,7 @@ public class CommandSendSingleBagItem extends Command {
 			}
 			else if(item.isItem() || item.isPotion()) {
 				ConnectionManager.getConnection().writeInt(item.getId());
-				ConnectionManager.getConnection().writeInt(Mideas.joueur1().bag().getNumberBagItem(item));
+				ConnectionManager.getConnection().writeInt(item.getAmount());
 			}
 		}
 	}

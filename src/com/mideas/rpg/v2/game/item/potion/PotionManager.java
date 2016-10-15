@@ -22,7 +22,7 @@ public class PotionManager {
 			int heal = statement.getInt();
 			int mana = statement.getInt();
 			int sellPrice = statement.getInt();
-			Potion newPotion = new Potion(id, sprite_id, name, level, heal, mana, sellPrice);
+			Potion newPotion = new Potion(id, sprite_id, name, level, heal, mana, sellPrice, 1);
 			potionList.put(id, newPotion);
 			numberPotionLoaded++;
 		}

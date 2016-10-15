@@ -150,11 +150,11 @@ public class CommandLoadBagItems extends Command {
 	private static void loadPotion(int index, int id, int number) {
 		if(id != 0 && PotionManager.exists(id)) {
 			Mideas.joueur1().bag().setBag(index, PotionManager.getClone(id), number);
-			Mideas.joueur1().bag().getNumberStack().put(Mideas.joueur1().bag().getBag(index), number);
+			Mideas.joueur1().bag().getBag(index).setAmount(number);
 		}
 		else if(id != 0) {
 			Mideas.joueur1().bag().setBag(index, new Potion(id));
-			Mideas.joueur1().bag().getNumberStack().put(Mideas.joueur1().bag().getBag(index), number);
+			Mideas.joueur1().bag().getBag(index).setAmount(number);
 			CommandPotion.write(id);
 		}
 	}

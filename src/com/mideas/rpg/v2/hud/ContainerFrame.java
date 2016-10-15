@@ -92,7 +92,7 @@ public class ContainerFrame {
 		@Override
 		public int maximumValue() {
 			if(iItemNumber != -1) {
-				return Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(iItemNumber));
+				return Mideas.joueur1().bag().getBag(iItemNumber).getAmount();
 			}
 			return 1;
 		}
@@ -464,13 +464,13 @@ public class ContainerFrame {
 					}
 					else if(itemNumberLeftArrow) {
 						if(numberItem > 1) {
-							itemNumber.setText(numberItem--);
+							itemNumber.setText(numberItem-1);
 							return true;
 						}
 					}
 					else if(itemNumberRightArrow) {
-						if(numberItem < Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(iItemNumber))) {
-							itemNumber.setText(numberItem++);
+						if(numberItem < Mideas.joueur1().bag().getBag(iItemNumber).getAmount()) {
+							itemNumber.setText(numberItem+1);
 							return true;
 						}
 					}
@@ -711,8 +711,8 @@ public class ContainerFrame {
 		if(Mideas.joueur1().bag().getBag(i) != null) {
 			Draw.drawQuad(IconsManager.getSprite37((Mideas.joueur1().bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()+y);
 			if((Mideas.joueur1().bag().getBag(i).isStackable())) {
-				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.font4.getWidth(Integer.toString(Mideas.joueur1().bag().getNumberBagItem(Mideas.joueur1().bag().getBag(i)))), Display.getHeight()+y+20, Integer.toString(Mideas.joueur1().bag().getNumberBagItem(Mideas.joueur1().bag().getBag(i))), Color.white, Color.black, 1, 1, 1);
-				if(Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i)) <= 0) {
+				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.font4.getWidth(Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount())), Display.getHeight()+y+20, Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount()), Color.white, Color.black, 1, 1, 1);
+				if(Mideas.joueur1().bag().getBag(i).getAmount() <= 0) {
 					Mideas.joueur1().bag().setBag(i, null);
 				}
 			}
@@ -733,9 +733,9 @@ public class ContainerFrame {
 		if(Mideas.joueur1().bag().getBag(i) != null) {
 			if(Mideas.joueur1().bag().getBag(i).isPotion()) {
 				Potion temp = PotionManager.getClone(Mideas.joueur1().bag().getBag(i).getId());
-				Mideas.joueur1().setNumberItem(temp, numberItem);
+				temp.setAmount(numberItem);
 				DragManager.setDraggedItem(temp);
-				Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i))-numberItem);
+				Mideas.joueur1().bag().getBag(i).setAmount(Mideas.joueur1().bag().getBag(i).getAmount()-numberItem);
 			}
 			else if(Mideas.joueur1().bag().getBag(i).isItem()) {
 				
@@ -776,7 +776,7 @@ public class ContainerFrame {
 		if(numberItem > 1) {
 			Draw.drawQuad(Sprites.itemnumber_leftyellow_arrow, Display.getWidth()+xItemNumber+9, Display.getHeight()+yItemNumber+19);
 		}
-		if(numberItem == Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(iItemNumber))) {
+		if(numberItem == Mideas.joueur1().bag().getBag(iItemNumber).getAmount()) {
 			Draw.drawQuad(Sprites.itemnumber_rightgray_arrow, Display.getWidth()+xItemNumber+149, Display.getHeight()+yItemNumber+19);
 		}
 	}

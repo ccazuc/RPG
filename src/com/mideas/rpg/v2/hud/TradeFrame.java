@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.hud;
 
+import java.util.Arrays;
+
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
@@ -28,8 +30,8 @@ public class TradeFrame {
 	private static float y_click_down;
 	private static float x_click_down_draw;
 	private static float y_click_down_draw;
-	static boolean tradeAcceptedSelf = true;
-	static boolean tradeAcceptedOther = true;
+	static boolean tradeAcceptedSelf;
+	static boolean tradeAcceptedOther;
 	private static String name = "";
 	static Item[] itemList = new Item[14];
 	private static int hoveredSlot = -1;
@@ -68,6 +70,7 @@ public class TradeFrame {
 		float x = X_FRAME+25*Mideas.getDisplayXFactor();
 		float y = 0;
 		int i = 0;
+		int j = 0;
 		if(tradeAcceptedSelf) {
 			Draw.drawQuad(Sprites.trade_accepted, X_FRAME+20*Mideas.getDisplayXFactor(), Y_FRAME+108*Mideas.getDisplayXFactor(), 180*Mideas.getDisplayXFactor(), 355*Mideas.getDisplayXFactor());
 			Draw.drawQuad(Sprites.cursor, -100, -100);
@@ -77,15 +80,17 @@ public class TradeFrame {
 		}
 		while(i < itemList.length) {
 			if(itemList[i] != null) {
-				Draw.drawQuad(IconsManager.getSprite37(itemList[i].getSpriteId()), x+3, Y_FRAME+Y_HOVER_TOP+i*Y_SHIFT+y+3, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayXFactor());
+				Draw.drawQuad(IconsManager.getSprite37(itemList[i].getSpriteId()), x+3, Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+3, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayXFactor());
 			}
 			i++;
+			j++;
 			if(i == 6 || i == 13) {
 				y = 25*Mideas.getDisplayXFactor();
 			}
 			else if(i == 7) {
 				x = X_FRAME+218*Mideas.getDisplayXFactor();
 				y = 0;
+				j = 0;
 			}
 		}
 		if(hoveredSlot != -1) {
@@ -160,12 +165,14 @@ public class TradeFrame {
 	}
 	
 	private static void clickEvent() {
-		if(DragManager.getDraggedItem() != null) {
+		if(hoveredSlot >= 0 && hoveredSlot <= 6 && DragManager.getDraggedItem() != null) {
 			if(DragManager.checkBagItems(DragManager.getDraggedItem())) {
 				if(itemList[hoveredSlot] == null) {
 					itemList[hoveredSlot] = DragManager.getDraggedItem();
 					itemList[hoveredSlot].setIsSelectable(false);
 					DragManager.setDraggedItem(null);
+					tradeAcceptedSelf = false;
+					CommandTrade.writeAddItem(itemList[hoveredSlot], hoveredSlot, itemList[hoveredSlot].getAmount());
 				}
 				else {
 					
@@ -188,6 +195,7 @@ public class TradeFrame {
 	private static void setDraggedItem(int i) {
 		DragManager.setDraggedItem(itemList[i]);
 		itemList[i] = null;
+		CommandTrade.writeRemovedItem(i);
 	}
 	
 	private static void isHover(int i, float x, float y) {
@@ -209,7 +217,7 @@ public class TradeFrame {
 	}
 	
 	public static void addItem(Item item, int slot) {
-		if(item != null && slot < itemList.length) {
+		if(slot < itemList.length) {
 			itemList[slot] = item;
 		}
 	}
@@ -231,6 +239,16 @@ public class TradeFrame {
 	
 	public static void setTraceAcceptedOther(boolean we) {
 		tradeAcceptedOther = we;
+	}
+	
+	public static void reset() {
+		tradeAcceptedSelf = false;
+		tradeAcceptedOther = false;
+		name = "";
+		Arrays.fill(itemList, null);
+		hoveredSlot = -1;
+		leftClickDown = -1;
+		rightClickDown = -1;
 	}
 	
 	public static void updateSize() {

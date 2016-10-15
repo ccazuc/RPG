@@ -100,8 +100,7 @@ public class Buffer {
 	}
 	
 	protected final Stuff readStuff() {
-		StuffType type = StuffType.values()[readChar()];
-		return new Stuff(type, readClassType(), readString(), readInt(), readString(), readInt(), GemColor.values()[readChar()], GemColor.values()[readChar()], GemColor.values()[readChar()], GemBonusType.values()[readChar()], readInt(), readInt(), Wear.values()[readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Stuff(StuffType.values()[readChar()], readClassType(), readString(), readInt(), readString(), readInt(), GemColor.values()[readChar()], GemColor.values()[readChar()], GemColor.values()[readChar()], GemBonusType.values()[readChar()], readInt(), readInt(), Wear.values()[readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	protected final Stuff readWeapon() {
@@ -109,7 +108,7 @@ public class Buffer {
 	}
 	
 	protected final Potion readPotion() {
-		return new Potion(readInt(), readString(), readString(), readInt(), readInt(), readInt(), readInt());
+		return new Potion(readInt(), readString(), readString(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	protected final ClassType[] readClassType() {

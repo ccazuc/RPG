@@ -44,7 +44,6 @@ public class DragManager {
 		@Override
 		public void eventButtonClick() throws SQLException {
 			if(draggedItem.isStackable()) {
-				Mideas.joueur1().setNumberItem(draggedItem, -1);
 				Mideas.joueur1().bag().setBagChange(true);
 			}
 			if(checkCharacterItems(draggedItem)) {
@@ -82,7 +81,7 @@ public class DragManager {
 			Draw.drawQuad(IconsManager.getSprite42((draggedItem.getSpriteId())), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 			if(draggedItem.isStackable()) {
-				TTF2.itemNumber.drawStringShadow(Mideas.mouseX()+35-TTF2.itemNumber.getWidth(String.valueOf(Mideas.joueur1().getNumberItem(draggedItem))), Mideas.mouseY()+20, String.valueOf(Mideas.joueur1().getNumberItem(draggedItem)), Color.white, Color.black, 1, 1, 1);
+				TTF2.itemNumber.drawStringShadow(Mideas.mouseX()+35-TTF2.itemNumber.getWidth(String.valueOf(draggedItem.getAmount())), Mideas.mouseY()+20, String.valueOf(draggedItem.getAmount()), Color.white, Color.black, 1, 1, 1);
 			}
 		}
 		if(deleteItem && draggedItem != null) {
@@ -101,7 +100,7 @@ public class DragManager {
 					if(ContainerFrame.getContainerFrameSlotHover(i)) {
 						if(Mideas.joueur1().bag().getBag(i) != null) {
 							if(Mideas.joueur1().bag().getBag(i).isStackable()) {
-								if(Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i)) > 1) {
+								if(Mideas.joueur1().bag().getBag(i).getAmount() > 1) {
 									ContainerFrame.setItemNumberOpen(i);
 									leftClickBagDown = false;
 									bagClickedSlot = -1;
@@ -374,21 +373,20 @@ public class DragManager {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
-				Mideas.joueur1().setNumberItem(item, Mideas.joueur1().bag().getNumberBagItem(item)-1);
+				item.setAmount(item.getAmount()-1);
 				Mideas.joueur1().bag().setBagChange(true);
 			}
 			else if(Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()+item.getPotionHeal());
 				LogChat.setStatusText3("Vous vous êtes rendu "+item.getPotionHeal()+" hp");
-				Mideas.joueur1().setNumberItem(item, Mideas.joueur1().bag().getNumberBagItem(item)-1);
+				item.setAmount(item.getAmount()-1);
 				Mideas.joueur1().bag().setBagChange(true);
 			}
 			else {
 				LogChat.setStatusText3("Vos HP étaient déjà au maximum");
 			}
-			if(Mideas.joueur1().getNumberItem(item) <= 0) {
+			if(item.getAmount() <= 0) {
 				Mideas.joueur1().bag().setBag(i, null);
-				Mideas.joueur1().bag().getNumberStack().remove(item);
 				Mideas.joueur1().bag().setBagChange(true);
 			}
 			CharacterStuff.setBagItems();
@@ -446,11 +444,10 @@ public class DragManager {
 				}
 				else if(draggedItem.isPotion() && draggedItem.getId() == Mideas.joueur1().bag().getBag(i).getId()) {
 					if(draggedItem != Mideas.joueur1().bag().getBag(i)) {
-						int number = Mideas.joueur1().getNumberItem(draggedItem)+Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i));
+						int number = draggedItem.getAmount()+Mideas.joueur1().bag().getBag(i).getAmount();
 						setNullContainer(draggedItem);
-						Mideas.joueur1().bag().getNumberStack().put(Mideas.joueur1().bag().getBag(i), number);
+						Mideas.joueur1().bag().getBag(i).setAmount(number);
 						draggedItem = null;
-						Mideas.joueur1().bag().getNumberStack().remove(draggedItem);
 						CharacterStuff.setBagItems();
 						return true;
 					}
@@ -484,11 +481,10 @@ public class DragManager {
 				else {
 					if(draggedItem.isPotion() && draggedItem.getId() == Mideas.joueur1().bag().getBag(i).getId()) {
 						if(draggedItem != Mideas.joueur1().bag().getBag(i)) {
-							int number = Mideas.joueur1().getNumberItem(draggedItem)+Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i));
+							int number = draggedItem.getAmount()+Mideas.joueur1().bag().getBag(i).getAmount();
 							setNullContainer(draggedItem);
-							Mideas.joueur1().bag().getNumberStack().put(Mideas.joueur1().bag().getBag(i), number);
+							Mideas.joueur1().bag().getBag(i).setAmount(number);
 							draggedItem = null;
-							Mideas.joueur1().bag().getNumberStack().remove(draggedItem);
 							CharacterStuff.setBagItems();
 							return true;
 						}
@@ -499,7 +495,7 @@ public class DragManager {
 					}
 					if(draggedItemSplit) {
 						if(draggedItem.getId() != Mideas.joueur1().bag().getBag(i).getId()) {
-							Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()), Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()))+Mideas.joueur1().getNumberItem(draggedItem));
+							Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()).setAmount(Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()).getAmount()+draggedItem.getAmount());
 							draggedItem = null;
 							CharacterStuff.setBagItems();
 							draggedItemSplit = false;
@@ -777,9 +773,6 @@ public class DragManager {
 		int i = 0;
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == id) {
-				if(Mideas.joueur1().bag().getBag(i).isStackable()) {
-					Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(i), 0);
-				}
 				Mideas.joueur1().bag().setBag(i, null);
 				Mideas.joueur1().bag().setBagChange(true);
 				return true;
@@ -828,7 +821,7 @@ public class DragManager {
 		int i = 0;
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == potion.getId()) {
-				Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i))+1);
+				Mideas.joueur1().bag().getBag(i).setAmount(Mideas.joueur1().bag().getBag(i).getAmount()+1);
 				return true;
 			}
 			i++;
@@ -836,8 +829,7 @@ public class DragManager {
 		i = 0;
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(Mideas.joueur1().bag().getBag(i) == null) {
-				Mideas.joueur1().bag().setBag(i, potion);
-				Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(i), 1);
+				Mideas.joueur1().bag().setBag(i, potion, potion.getAmount());
 				return true;
 			}
 			i++;

@@ -100,8 +100,7 @@ public class CharacterStuff {
 						numberBagPieceLoaded++;
 					}
 					else if(PotionManager.exists(id)) {
-						Mideas.joueur1().bag().setBag(i, PotionManager.getClone(id));
-						Mideas.joueur1().bag().getNumberStack().put(Mideas.joueur1().bag().getBag(i), number);
+						Mideas.joueur1().bag().setBag(i, PotionManager.getClone(id), number);
 						numberBagPieceLoaded++;
 					}
 					else if(WeaponManager.exists(id)) {
@@ -180,21 +179,11 @@ public class CharacterStuff {
 					statement.putInt(0);
 				}
 				else if(tempBag.isItem() || tempBag.isPotion()) {
-					if(Mideas.joueur1().bag().getNumberStack().containsKey(tempBag)) {
-						statement.putInt(tempBag.getId());
-						statement.putInt(Mideas.joueur1().bag().getNumberStack().get(tempBag));
-						statement.putInt(0);
-						statement.putInt(0);
-						statement.putInt(0);
-					}
-					else {
-						System.out.println("Error CharacterStuff:setBagItems");
-						statement.putInt(0);
-						statement.putInt(0);
-						statement.putInt(0);
-						statement.putInt(0);
-						statement.putInt(0);
-					}
+					statement.putInt(tempBag.getId());
+					statement.putInt(tempBag.getAmount());
+					statement.putInt(0);
+					statement.putInt(0);
+					statement.putInt(0);
 				}
 			}
 			else {

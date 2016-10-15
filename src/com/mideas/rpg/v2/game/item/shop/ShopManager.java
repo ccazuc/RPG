@@ -215,9 +215,9 @@ public class ShopManager {
 		boolean click_hover = DragManager.getClickBag(i);
 		if(item != null && hover && click_hover && Interface.getShopFrameStatus()) {
 			if(item.isStackable()) {
-				LogChat.setStatusText3("Vous avez vendu "+Mideas.joueur1().getNumberItem(item)+" "+item.getStuffName()+" pour "+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
-				Mideas.joueur1().setGold(Mideas.joueur1().getGold()+item.getSellPrice()*Mideas.joueur1().getNumberItem(item));
-				Mideas.joueur1().setNumberItem(item, 0);
+				LogChat.setStatusText3("Vous avez vendu "+item.getAmount()+" "+item.getStuffName()+" pour "+item.getSellPrice()*item.getAmount());
+				Mideas.joueur1().setGold(Mideas.joueur1().getGold()+item.getSellPrice()*item.getAmount());
+				Mideas.joueur1().bag().setBag(i, null);
 			}
 			else {
 				Mideas.joueur1().setGold(Mideas.joueur1().getGold()+item.getSellPrice());
@@ -247,7 +247,7 @@ public class ShopManager {
 			if(checkBagItem(item)) {
 				while(i < Mideas.joueur1().bag().getBag().length) {
 					if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == item.getId()) {
-						Mideas.joueur1().setNumberItem(Mideas.joueur1().bag().getBag(i), Mideas.joueur1().getNumberItem(Mideas.joueur1().bag().getBag(i))+1);
+						Mideas.joueur1().bag().getBag(i).setAmount(Mideas.joueur1().bag().getBag(i).getAmount()+1);
 						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
 						CharacterStuff.setBagItems();
@@ -261,7 +261,7 @@ public class ShopManager {
 					if(Mideas.joueur1().bag().getBag(i) == null) {
 						Potion temp = PotionManager.getClone(item.getId());
 						Mideas.joueur1().bag().setBag(i, temp);
-						Mideas.joueur1().setNumberItem(temp, 1);
+						temp.setAmount(1);
 						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
 						CharacterStuff.setBagItems();

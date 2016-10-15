@@ -15,23 +15,33 @@ public class CommandTrade extends Command {
 		byte packetId = ConnectionManager.getConnection().readByte();
 		if(packetId == PacketID.TRADE_NEW_CONFIRM) {
 			Interface.setTradeFrameStatus(true);
+			//System.out.println("trade confirmed");
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM) {
 			byte itemState = ConnectionManager.getConnection().readByte();
-			int slot = ConnectionManager.getConnection().readInt();
 			if(itemState == PacketID.KNOWN_ITEM) {
 				int id = ConnectionManager.getConnection().readInt();
+				int slot = ConnectionManager.getConnection().readInt();
 				if(Item.exists(id)) {
-					TradeFrame.addItem(id, slot);
+					TradeFrame.addItem(id, slot+7);
 				}
 				if(ConnectionManager.getConnection().readBoolean()) {
-					((Stuff)TradeFrame.getItem(slot)).setEquippedGem1(GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot)).setEquippedGem2(GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot)).setEquippedGem3(GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem1(GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem2(GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem3(GemManager.getClone(ConnectionManager.getConnection().readInt()));
 				}
+				//System.out.println("added item");
 			}
 			else if(itemState == PacketID.UNKNOWN_ITEM) {
-				TradeFrame.addItem(ConnectionManager.getConnection().readItem(), slot);
+				Item item = ConnectionManager.getConnection().readItem();
+				int slot = ConnectionManager.getConnection().readInt();
+				TradeFrame.addItem(item, slot+7);
+				if(ConnectionManager.getConnection().readBoolean()) {
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem1(GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem2(GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem3(GemManager.getClone(ConnectionManager.getConnection().readInt()));
+				}
+				//TradeFrame.addItem(id, slot);
 			}
 		}
 		else if(packetId == PacketID.TRADE_REQUEST) {
@@ -49,13 +59,22 @@ public class CommandTrade extends Command {
 		else if(packetId == PacketID.TRADE_UNACCEPT) {
 			TradeFrame.setTraceAcceptedOther(false);
 		}
+		else if(packetId == PacketID.TRADE_REMOVE_ITEM) {
+			int slot = ConnectionManager.getConnection().readInt();
+			TradeFrame.addItem(null, slot+7);
+		}
+		else if(packetId == PacketID.TRADE_CLOSE) {
+			TradeFrame.reset();
+			Interface.setTradeFrameStatus(false);
+		}
 	}
 	
-	public static void writeAddItem(Item item, int slot) {
+	public static void writeAddItem(Item item, int slot, int amount) {
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE_ADD_ITEM);
 		ConnectionManager.getConnection().writeInt(item.getId());
 		ConnectionManager.getConnection().writeInt(slot);
+		ConnectionManager.getConnection().writeInt(amount);
 		if(item.isStuff() || item.isWeapon()) {
 			Stuff stuff = (Stuff)item;
 			if(stuff.getEquippedGem1() != null || stuff.getEquippedGem2() != null || stuff.getEquippedGem3() != null) {
@@ -83,6 +102,9 @@ public class CommandTrade extends Command {
 				ConnectionManager.getConnection().writeBoolean(false);
 			}
 		}
+		else {
+			ConnectionManager.getConnection().writeBoolean(false);
+		}
 		ConnectionManager.getConnection().send();
 	}
 	
@@ -96,6 +118,13 @@ public class CommandTrade extends Command {
 	public static void writeAccept() {
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE_ACCEPT);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void writeRemovedItem(int i) {
+		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
+		ConnectionManager.getConnection().writeByte(PacketID.TRADE_REMOVE_ITEM);
+		ConnectionManager.getConnection().writeInt(i);
 		ConnectionManager.getConnection().send();
 	}
 	

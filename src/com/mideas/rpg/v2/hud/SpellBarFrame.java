@@ -334,18 +334,18 @@ public class SpellBarFrame {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous �tes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
-				Mideas.joueur1().setNumberItem(item, Mideas.joueur1().bag().getNumberBagItem(item)-1);
+				item.setAmount(item.getAmount()-1);
 			}
 			else if(Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()+item.getPotionHeal());
 				LogChat.setStatusText3("Vous vous �tes rendu "+item.getPotionHeal()+" hp");
-				Mideas.joueur1().setNumberItem(item, Mideas.joueur1().bag().getNumberBagItem(item)-1);
+				item.setAmount(item.getAmount()-1);
 			}
 			else {
 				LogChat.setStatusText3("Vos HP �taient d�j� au maximum");
 			}
 			CharacterStuff.setBagItems();
-			if(Mideas.joueur1().getNumberItem(item) <= 0) {
+			if(item.getAmount() <= 0) {
 				CharacterStuff.setBagItems();
 				return true;
 			}

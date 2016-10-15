@@ -58,7 +58,7 @@ public class Interface {
 	private static boolean adminPanelFrameActive;
 	private static boolean interfaceFrameActive;
 	private static boolean dungeonFrameActive;
-	private static boolean tradeFrameActive = true;
+	private static boolean tradeFrameActive;
 	private static boolean isConfigLoaded;
 	private static boolean craftFrameActive;
 	private static boolean chatFrameActive = true;

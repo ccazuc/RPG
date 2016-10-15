@@ -114,13 +114,13 @@ public class Stuff extends Item {
 	private final static String strengthStrings = " Strength";
 	
 	public Stuff(int id) { //stuff created when waiting for the server to respond
-		super(id, empty, ItemType.STUFF, empty, 0, 0, 1);
+		super(id, empty, ItemType.STUFF, empty, 0, 0, 1, 1);
 		this.id = id;
 		this.sprite_id = empty;
 	}
 
 	public Stuff(Stuff stuff) {
-		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.quality, stuff.sellPrice, stuff.maxStack);
+		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.quality, stuff.sellPrice, 1, 1);
 		this.socketBonusString = stuff.socketBonusString;
 		this.classRequirement = stuff.classRequirement;
 		this.criticalString = stuff.criticalString;
@@ -151,7 +151,7 @@ public class Stuff extends Item {
 	}
 	
 	public Stuff(StuffType type, ClassType[] classType, String sprite_id, int id, String name, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, Wear wear, int critical, int strength, int stamina, int armor, int mana, int sellPrice) {
-		super(id, sprite_id, ItemType.STUFF, name, quality, sellPrice, 1);
+		super(id, sprite_id, ItemType.STUFF, name, quality, sellPrice, 1, 1);
 		this.gemBonusValue = gemBonusValue;
 		this.gemBonusType = gemBonusType;
 		this.classType = classType;
@@ -171,7 +171,7 @@ public class Stuff extends Item {
 	}
 
 	public Stuff(Stuff weapon, int i) { //weapon constructor
-		super(weapon.id, weapon.sprite_id, weapon.itemType, weapon.name, weapon.quality, weapon.sellPrice, weapon.maxStack);
+		super(weapon.id, weapon.sprite_id, weapon.itemType, weapon.name, weapon.quality, weapon.sellPrice, 1, 1);
 		this.socketBonusString = weapon.socketBonusString;
 		this.classRequirement = weapon.classRequirement;
 		this.strengthString = weapon.strengthString;
@@ -202,7 +202,7 @@ public class Stuff extends Item {
 	}
 	
 	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
-		super(id, sprite_id, ItemType.WEAPON, name, quality, sellPrice, 1);
+		super(id, sprite_id, ItemType.WEAPON, name, quality, sellPrice, 1, 1);
 		this.gemBonusValue = gemBonusValue;
 		this.gemBonusType = gemBonusType;
 		this.weaponType = weaponType;

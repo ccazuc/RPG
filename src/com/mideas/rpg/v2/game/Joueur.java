@@ -267,12 +267,10 @@ public class Joueur extends Unit {
 					continue;
 				}
 				else if(PotionManager.exists(this.bag.getBag(i).getId())) {
-					int number = this.bag.getNumberBagItem(this.bag.getBag(i));
-					this.bag.getNumberStack().remove(this.bag.getBag(i));
-					this.bag.setBag(i, PotionManager.getClone(this.bag.getBag(i).getId()));
+					int number = this.bag.getBag(i).getAmount();
+					this.bag.setBag(i, PotionManager.getClone(this.bag.getBag(i).getId()), number);
 					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
 					this.bag.getBag(i).setIsLoaded(true);
-					this.bag.getNumberStack().put(this.bag.getBag(i), number);
 					i++;
 					continue;
 				}
@@ -361,7 +359,7 @@ public class Joueur extends Unit {
 		else {
 			while(i < this.bag.getBag().length) {
 				if(this.bag.getBag(i) != null && this.bag.getBag(i).equals(item)) {
-					this.bag.setBag(i, item, this.bag.getNumberBagItem(this.bag.getBag(i))+amount);
+					this.bag.setBag(i, item, this.bag.getBag(i).getAmount()+amount);
 					this.bag.setBagChange(true);
 					CharacterStuff.setBagItems();
 					return true;
@@ -442,8 +440,8 @@ public class Joueur extends Unit {
 			while(i < this.bag.getBag().length && amount > 0) {
 				if(this.bag.getBag(i) != null && this.bag.getBag(i).equals(item)) {
 					int temp = amount;
-					amount-= this.bag.getNumberBagItem(this.bag.getBag(i));
-					this.bag.setBag(i, this.bag.getBag(i), Math.max(0, this.bag.getNumberBagItem(this.bag.getBag(i))-temp));
+					amount-= this.bag.getBag(i).getAmount();
+					this.bag.setBag(i, this.bag.getBag(i), Math.max(0, this.bag.getBag(i).getAmount()-temp));
 					this.bag.setBagChange(true);
 				}
 				i++;
@@ -674,19 +672,6 @@ public class Joueur extends Unit {
 	public void setExp(int exp) {
 		this.exp = exp;
 		this.level = Mideas.getLevel(this.exp);
-	}
-	
-	public int getNumberItem(Item item) {
-		if(item.isStackable() && this.bag.getNumberStack().containsKey(item)) {
-			return this.bag.getNumberStack().get(item);
-		}
-		return 0;
-	}
-	
-	public void setNumberItem(Item item, int number) {
-		if(item.isStackable()) {
-			this.bag.getNumberStack().put(item, number);
-		}
 	}
 	
 	public WeaponType[] getWeaponType() {

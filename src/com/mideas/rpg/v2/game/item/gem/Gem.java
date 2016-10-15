@@ -39,12 +39,12 @@ public class Gem extends Item {
 	private final static String and = " and ";
 	
 	public Gem(int id) {
-		super(id, empty, ItemType.GEM, empty, 0, 0, 1);
+		super(id, empty, ItemType.GEM, empty, 0, 0, 1, 1);
 		this.id = id;
 	}
 
 	public Gem(Gem gem) {
-		super(gem.id, gem.sprite_id, gem.itemType, gem.name, gem.quality, gem.sellPrice, 1);
+		super(gem.id, gem.sprite_id, gem.itemType, gem.name, gem.quality, gem.sellPrice, 1, 1);
 		this.gemStatsString = gem.gemStatsString;
 		this.strength = gem.strength;
 		this.critical = gem.critical;
@@ -56,7 +56,7 @@ public class Gem extends Item {
 	}
 	
 	public Gem(int id, String sprite_id, String name, int quality, GemColor color, int strength, int stamina, int armor, int mana, int critical, int sellPrice) {
-		super(id, sprite_id, ItemType.GEM, name, quality, sellPrice, 1);
+		super(id, sprite_id, ItemType.GEM, name, quality, sellPrice, 1, 1);
 		this.strength = strength;
 		this.critical = critical;
 		this.stamina = stamina;

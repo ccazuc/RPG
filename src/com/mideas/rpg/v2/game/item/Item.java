@@ -20,10 +20,11 @@ public class Item implements Cloneable {
 	protected boolean isLoaded;
 	protected String deleteConfirm;
 	protected boolean isSelectable = true;
+	protected int amount;
 	
 	private final static String delete = "Voulez vous supprimer ";
 	
-	public Item(int id, String sprite_id, ItemType itemType, String name, int quality, int sellPrice, int maxStack) {
+	public Item(int id, String sprite_id, ItemType itemType, String name, int quality, int sellPrice, int maxStack, int amount) {
 		this.sellPrice = sellPrice;
 		this.sprite_id = sprite_id;
 		this.maxStack = maxStack;
@@ -31,6 +32,7 @@ public class Item implements Cloneable {
 		this.quality = quality;
 		this.name = name;
 		this.id = id;
+		this.amount = amount;
 		buildAllString();
 	}
 	
@@ -38,6 +40,14 @@ public class Item implements Cloneable {
 
 	private void buildAllString() {
 		buildDeleteConfirm();
+	}
+	
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	
+	public int getAmount() {
+		return this.amount;
 	}
 	
 	public boolean isSelectable() {

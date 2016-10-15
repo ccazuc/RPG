@@ -13,7 +13,6 @@ public class Bag extends Item implements Cloneable {
 	private static boolean bagChange = true;
 	private static int numberFreeSlotBag;
 	
-	private static HashMap<Item, Integer> numberStack = new HashMap<Item, Integer>();
 	private static HashMap<Integer, Integer> itemList = new HashMap<Integer, Integer>();
 	private static HashMap<Integer, String> itemListString = new HashMap<Integer, String>();
 	
@@ -104,7 +103,7 @@ public class Bag extends Item implements Cloneable {
 			if(Mideas.joueur1().bag().getBag(i) != null) {
 				if(itemList.containsKey(Mideas.joueur1().bag().getBag(i).getId())) {
 					if(Mideas.joueur1().bag().getBag(i).isStackable()) {
-						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), Mideas.joueur1().bag().getNumberBagItem(Mideas.joueur1().bag().getBag(i))+itemList.get(Mideas.joueur1().bag().getBag(i).getId()));
+						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), Mideas.joueur1().bag().getBag(i).getAmount()+itemList.get(Mideas.joueur1().bag().getBag(i).getId()));
 					}
 					else {
 						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), itemList.get(Mideas.joueur1().bag().getBag(i).getId())+1);
@@ -112,7 +111,7 @@ public class Bag extends Item implements Cloneable {
 				}
 				else {
 					if(Mideas.joueur1().bag().getBag(i).isStackable()) {
-						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), Mideas.joueur1().bag().getNumberBagItem(Mideas.joueur1().bag().getBag(i)));
+						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), Mideas.joueur1().bag().getBag(i).getAmount());
 					}
 					else {
 						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), 1);
@@ -140,10 +139,6 @@ public class Bag extends Item implements Cloneable {
 		return "0";
 	}
 	
-	public HashMap<Item, Integer> getNumberStack() {
-		return numberStack;
-	}
-	
 	public HashMap<Integer, Integer> getItemList() {
 		return itemList;
 	}
@@ -153,30 +148,6 @@ public class Bag extends Item implements Cloneable {
 			return itemList.get(item.getId());
 		}
 		return 0;
-	}
-	
-	public Item getEquals(Item item) {
-		int i = 0;
-		while(i < numberStack.size()) {
-			if(numberStack.get(i) != null && numberStack.get(i).equals(item)) {
-				return getKey(item);
-			}
-			i++;
-		}
-		return null;
-	}
-	
-	public static Item getKey(Item item){
-	    for(Item key : numberStack.keySet()) {
-	       if(key.getId() == item.getId()) {
-	        	return key;
-	        }
-	    }
-	    return null;
-	}
-	
-	public int getNumberBagItem(Item item) {
-		return numberStack.get(item);
 	}
 	
 	public Item getBag(int i) {
@@ -196,11 +167,10 @@ public class Bag extends Item implements Cloneable {
 		if(i >= 0 && i < this.bag.length) {
 			if(number <= 0) {
 				this.bag[i] = null;
-				numberStack.remove(stuff);
 			}
 			else {
 				this.bag[i] = stuff;
-				numberStack.put(stuff, number);
+				this.bag[i].setAmount(number);
 			}
 		}
 	}
