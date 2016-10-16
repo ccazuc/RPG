@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
-
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
@@ -31,7 +29,7 @@ public class EscapeFrame {
 	};
 	private static Button logoutButton = new Button(Display.getWidth()/2-99*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Logout", 13, 1, Color.white, Color.white) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			Mideas.setCharacterId(0);
 			Mideas.setJoueur1Null();
 			Interface.closeAllFrame();
@@ -40,14 +38,14 @@ public class EscapeFrame {
 	};
 	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave game", 13, 1, Color.white, Color.white) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			Mideas.saveAllStats();
 			System.exit(0);
 		}
 	};
 	private static Button returnButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Return game", 13, 1, Color.white, Color.white) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			Interface.closeEscapeFrame();
 		}
 	};
@@ -68,7 +66,7 @@ public class EscapeFrame {
 		returnButton.draw();
  	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		if(videoButton.event()) return true;
 		if(soundButton.event()) return true;
 		if(interfaceButton.event()) return true;

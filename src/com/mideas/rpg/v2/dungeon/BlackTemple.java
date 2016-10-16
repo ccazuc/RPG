@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.dungeon;
 
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -39,7 +38,7 @@ public class BlackTemple extends Dungeon {
 		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-192, 37, Integer.toString(i)+"/"+Integer.toString(maxRoom), Color.white, Color.black, 1);
 	}
 	
-	public static void event() throws FileNotFoundException, SQLException {
+	public static void event() throws FileNotFoundException {
 		BlackTemple.draw();
 		if(!BlackTemple.getIsBlackTempleLoaded()) {
 			BlackTemple.fightOrder();
@@ -78,7 +77,7 @@ public class BlackTemple extends Dungeon {
 		return false;
 	}
 	
-	public static void endFight(int x) throws SQLException {
+	public static void endFight(int x) {
 		maxRoom = x;
 		if(!EndFightFrame.getEndFightEventState()) {
 			EndFightFrame.doEndFightEvent();

@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.command;
 
-import java.sql.SQLException;
-
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
@@ -17,36 +15,25 @@ public class CommandAddItem extends Command {
 			int id = ConnectionManager.getConnection().readInt();
 			int number = ConnectionManager.getConnection().readInt();
 			Item item = Item.getItem(id);
-			System.out.println(id+" "+number+" "+item.getStuffName());
-			try {
-				Mideas.joueur1().addItem(item, number);
-			}
-			catch(SQLException e) {
-				e.printStackTrace();
-			}
+			Mideas.joueur1().addItem(item, number);
 		}
 		else if(packetID == PacketID.UNKNOWN_ITEM) {
-			try {
-				int number = ConnectionManager.getConnection().readInt();
-				ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
-				if(type == ItemType.CONTAINER) {
-					Mideas.joueur1().addItem(ConnectionManager.getConnection().readContainer(), number);
-				}
-				else if(type == ItemType.GEM) {
-					Mideas.joueur1().addItem(ConnectionManager.getConnection().readGem(), number);
-				}
-				else if(type == ItemType.STUFF) {
-					Mideas.joueur1().addItem(ConnectionManager.getConnection().readStuff(), number);
-				}
-				else if(type == ItemType.WEAPON) {
-					Mideas.joueur1().addItem(ConnectionManager.getConnection().readWeapon(), number);
-				}
-				else if(type == ItemType.POTION) {
-					Mideas.joueur1().addItem(ConnectionManager.getConnection().readPotion(), number);
-				}
+			int number = ConnectionManager.getConnection().readInt();
+			ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
+			if(type == ItemType.CONTAINER) {
+				Mideas.joueur1().addItem(ConnectionManager.getConnection().readContainer(), number);
 			}
-			catch(SQLException e) {
-				e.printStackTrace();
+			else if(type == ItemType.GEM) {
+				Mideas.joueur1().addItem(ConnectionManager.getConnection().readGem(), number);
+			}
+			else if(type == ItemType.STUFF) {
+				Mideas.joueur1().addItem(ConnectionManager.getConnection().readStuff(), number);
+			}
+			else if(type == ItemType.WEAPON) {
+				Mideas.joueur1().addItem(ConnectionManager.getConnection().readWeapon(), number);
+			}
+			else if(type == ItemType.POTION) {
+				Mideas.joueur1().addItem(ConnectionManager.getConnection().readPotion(), number);
 			}
 		}
 	}

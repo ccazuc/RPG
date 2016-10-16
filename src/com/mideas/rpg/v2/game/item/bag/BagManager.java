@@ -14,18 +14,23 @@ public class BagManager {
 	private static HashMap<Integer, Container> containerList = new HashMap<Integer, Container>();
 	private static HashMap<Integer, Texture> bagsSprites = new HashMap<Integer, Texture>();
 	
-	public static void loadBags() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, size, sellprice FROM item_container");
-		statement.execute();
-		while(statement.fetch()) {
-			int id = statement.getInt();
-			String sprite_id = statement.getString();
-			String name = statement.getString();
-			int quality = statement.getInt();
-			int size = statement.getInt();
-			int sellPrice = statement.getInt();
-			Container newPiece = new Container(id, name, sprite_id, quality, size, sellPrice);
-			containerList.put(id, newPiece);
+	public static void loadBags() {
+		try {
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, size, sellprice FROM item_container");
+			statement.execute();
+			while(statement.fetch()) {
+				int id = statement.getInt();
+				String sprite_id = statement.getString();
+				String name = statement.getString();
+				int quality = statement.getInt();
+				int size = statement.getInt();
+				int sellPrice = statement.getInt();
+				Container newPiece = new Container(id, name, sprite_id, quality, size, sellPrice);
+				containerList.put(id, newPiece);
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	

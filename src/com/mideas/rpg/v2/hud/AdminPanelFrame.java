@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.opengl.Display;
@@ -21,28 +20,28 @@ public class AdminPanelFrame {
 	private static String joueur1 = "joueur1";
 	private static Button sexMaxStaminaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y, 130, 30, "Fully heals you", 12, 1) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 		}
 	};
 	
 	private static Button sexMaxManaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+40, 130, 30, "Restore your mana", 12, 1) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
 		}
 	};
 	
 	private static Button killPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+80, 130, 30, "Kill you", 12, 1) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			Mideas.joueur1().setStamina(0);
 		}
 	};
 	
 	private static Button clearBag = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130, 30, "Clear your bag", 12, 1) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			Arrays.fill(Mideas.joueur1().bag().getBag(), null);
 			CharacterStuff.setBagItems();
 			Mideas.joueur1().bag().setBagChange(true);
@@ -62,7 +61,7 @@ public class AdminPanelFrame {
 		clearBag.draw();
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		sexMaxStaminaPlayer1.event();
 		sexMaxManaPlayer1.event();
 		killPlayer1.event();

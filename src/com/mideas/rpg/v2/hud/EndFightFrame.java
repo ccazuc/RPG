@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -65,7 +64,7 @@ public class EndFightFrame {
 		
 	}
 	
-	public static void mouseEvent() throws SQLException {
+	public static void mouseEvent() {
 		if(Mouse.getEventButton() == 0) {
 			if(!Mouse.getEventButtonState()) {
 				if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {

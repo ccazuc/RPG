@@ -1,8 +1,5 @@
 package com.mideas.rpg.v2.chat;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Interface;
@@ -22,7 +19,7 @@ import com.mideas.rpg.v2.hud.ContainerFrame;
 
 public class ChatCommandOther {
 
-	public static void chatCommandOther(String[] datas) throws SQLException, NumberFormatException {
+	public static void chatCommandOther(String[] datas) {
 		if(datas.length >= 1) {
 			if(datas[0].equals(".quit")) {
 				Mideas.saveAllStats();
@@ -63,8 +60,8 @@ public class ChatCommandOther {
 			else if(datas[0].equals(".update")) {
 				Mideas.joueur1().getGold();
 				Mideas.joueur1().getExp();
-				Mideas.getConfig();
 				ShopManager.getShopList().clear();
+				Mideas.getConfig();
 				ShopManager.loadStuffs();
 				CharacterStuff.getEquippedBags();
 				//CharacterStuff.getBagItems();
@@ -76,12 +73,7 @@ public class ChatCommandOther {
 				Interface.setStuffFullyLoaded(false);
 			}
 			else if(datas[0].equals(".reloadui")) {
-				try {
-					Mideas.loadingScreen();
-				} 
-				catch (IOException e) {
-					e.printStackTrace();
-				}
+				Mideas.loadingScreen();
 			}
 			else if(datas[0].equals(".additem")) {
 				if(Mideas.getRank() >= 1) {

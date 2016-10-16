@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -42,7 +40,7 @@ public class DragManager {
 	private static boolean draggedItemSplit;
 	private static Button hoverDeleteYes = new Button(Display.getWidth()/2-130*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor(), "Yes", 14, 1) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			if(draggedItem.isStackable()) {
 				Mideas.joueur1().bag().setBagChange(true);
 			}
@@ -61,7 +59,7 @@ public class DragManager {
 
 	private static Button hoverDeleteNo = new Button(Display.getWidth()/2+7*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor(), "No", 14, 1) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
 				checkFreeSlotBag(draggedItem);
 				Mideas.joueur1().bag().setBagChange(true);
@@ -92,7 +90,7 @@ public class DragManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		if(!ContainerFrame.isHoverItemNumberFrame()) {
 			if(Keyboard.isKeyDown(42) && !Mouse.getEventButtonState() && (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)) { //split item
 				int i = 0;
@@ -283,7 +281,7 @@ public class DragManager {
 		return false;
 	}
 	
-	public static void calcStats(Item stuff) throws SQLException {
+	public static void calcStats(Item stuff) {
 		if(stuff != null && (stuff.isStuff() || stuff.isWeapon())) {
 			CharacterStuff.setEquippedItems();
 			Mideas.joueur1().setStuffArmor(((Stuff)stuff).getArmor());
@@ -304,7 +302,7 @@ public class DragManager {
 		}
 	}
 	
-	private static boolean equipBagItem(int i) throws SQLException {
+	private static boolean equipBagItem(int i) {
 		if(ContainerFrame.getContainerFrameSlotHover(i)) {
 			if(Mideas.joueur1().bag().getBag(i).isStuff()) {
 				int j = 0;
@@ -368,7 +366,7 @@ public class DragManager {
 		return false;
 	}
 	
-	private static void doHealingPotion(Potion item, boolean hover, int i) throws SQLException {
+	private static void doHealingPotion(Potion item, boolean hover, int i) {
 		if(hover && item != null && item.isPotion() && Mideas.joueur1().getLevel() >= item.getLevel()) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
@@ -394,7 +392,7 @@ public class DragManager {
 	}
 	
 	
-	private static void equipItem(int i) throws SQLException {
+	private static void equipItem(int i) {
 		if(Mideas.joueur1().bag().getBag(i).isStuff() && draggedItem.isStuff()) {
 			if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.joueur1().bag().getBag(i)).getLevel() && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString())) && ((Stuff)Mideas.joueur1().bag().getBag(i)).getType() == ((Stuff)draggedItem).getType()) {
 				Stuff temp = (Stuff)Mideas.joueur1().bag().getBag(i);
@@ -406,7 +404,7 @@ public class DragManager {
 		}
 	}
 	
-	private static boolean clickBagItem(int i) throws SQLException {
+	private static boolean clickBagItem(int i) {
 		if(ContainerFrame.getContainerFrameSlotHover(i) && !DragSpellManager.isHoverSpellBarFrame()) {
 			if(draggedItem == null) {
 				if(Mideas.joueur1().bag().getBag(i) == null) {
@@ -515,7 +513,7 @@ public class DragManager {
 		return false;
 	}
 	
-	private static boolean clickInventoryItem(int i) throws SQLException {
+	private static boolean clickInventoryItem(int i) {
 		if(CharacterFrame.getHoverCharacterFrame(i)) {
 			if(draggedItem == null) {
 				if(Mideas.joueur1().getStuff(i) == null) {

@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.chat;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.lwjgl.Sys;
@@ -121,7 +120,7 @@ public class ChatFrame {
 		}
 	}
 	
-	public static void event() throws SQLException, NumberFormatException {
+	public static void event() throws NumberFormatException {
 		if(chatActive) {
 			Keyboard.enableRepeatEvents(true);
 			if(Keyboard.getEventKey() == 1) { //escape

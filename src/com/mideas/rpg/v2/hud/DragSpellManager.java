@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Keyboard;
@@ -38,7 +37,7 @@ public class DragSpellManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		if(isHoverSpellBarFrame()) {
 			Arrays.fill(hover, false);
 		}
@@ -127,7 +126,7 @@ public class DragSpellManager {
 		}
 	}
 	
-	private static void deleteSpell(Shortcut draggedSpell) throws SQLException {
+	private static void deleteSpell(Shortcut draggedSpell) {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(draggedSpell == Mideas.joueur1().getSpells(i)) {
@@ -139,7 +138,7 @@ public class DragSpellManager {
 		}
 	}
 	
-	private static boolean clickSpell(int i) throws SQLException {
+	private static boolean clickSpell(int i) {
 		if(hover[i]) {
 			if(Mideas.joueur1().getSpells(i) != null) {
 				if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.SPELL) {
@@ -205,7 +204,7 @@ public class DragSpellManager {
 		return false;
 	}
 	
-	private static boolean setNullSpell(Shortcut spell) throws SQLException {
+	private static boolean setNullSpell(Shortcut spell) {
 		int i = 0;
 		while(i < Mideas.joueur1().getSpells().length) {
 			if(spell == Mideas.joueur1().getSpells(i)) {
@@ -218,7 +217,7 @@ public class DragSpellManager {
 		return false;
 	}
 	
-	private static boolean dropSpell(int i) throws SQLException {
+	private static boolean dropSpell(int i) {
 		if(draggedShortcut != null) {
 			if(hover[i]) {
 				if(Mideas.joueur1().getSpells(i) == null) {

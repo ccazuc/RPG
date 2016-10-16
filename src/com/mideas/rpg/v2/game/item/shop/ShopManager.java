@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.game.item.shop;
 
 import java.sql.SQLException;
-import java.sql.SQLTimeoutException;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
@@ -46,19 +45,24 @@ public class ShopManager {
 
 	private static ArrayList<Shop> shopList = new ArrayList<Shop>();
 	
-	public static void loadStuffs() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, class, price FROM shop");
-		statement.execute();
-		double i = 0;
-		while(statement.fetch()) {
-			int id = statement.getInt();
-			short classeTemp = statement.getShort();
-			ClassType[] classeType = StuffManager.getClasses(classeTemp);
-			int sellPrice = statement.getInt();
-			shopList.add(new Shop(id, classeType, sellPrice));
-			i++;
+	public static void loadStuffs() {
+		try {
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, class, price FROM shop");
+			statement.execute();
+			double i = 0;
+			while(statement.fetch()) {
+				int id = statement.getInt();
+				short classeTemp = statement.getShort();
+				ClassType[] classeType = StuffManager.getClasses(classeTemp);
+				int sellPrice = statement.getInt();
+				shopList.add(new Shop(id, classeType, sellPrice));
+				i++;
+			}
+			numberPage = (int)Math.ceil(i/10);
 		}
-		numberPage = (int)Math.ceil(i/10);
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static Item getItem(int id) {
@@ -126,7 +130,7 @@ public class ShopManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		if(isHoverShopFrame()) {
 			slot_hover = -1;
 		}
@@ -196,7 +200,7 @@ public class ShopManager {
 		return false;
 	}
 	
-	public static boolean buyItems(int i, Shop item) throws SQLException {
+	public static boolean buyItems(int i, Shop item) {
 		if(slot_hover == i && item != null) {
 			if(Mideas.joueur1().getGold() >= item.getSellPrice()) {
 				checkItem(item);
@@ -209,7 +213,7 @@ public class ShopManager {
 		return false;
 	}
 	
-	private static boolean sellItem(int i) throws SQLTimeoutException, SQLException {
+	private static boolean sellItem(int i) {
 		Item item = Mideas.joueur1().bag().getBag(i);
 		boolean hover = ContainerFrame.getContainerFrameSlotHover(i);
 		boolean click_hover = DragManager.getClickBag(i);
@@ -229,7 +233,7 @@ public class ShopManager {
 		}
 		return false;
 	}
-	private static boolean checkItem(Shop item) throws SQLException {
+	private static boolean checkItem(Shop item) {
 		int i = 0;
 		if(StuffManager.exists(item.getId()) || WeaponManager.exists(item.getId())) {
 			while(i < Mideas.joueur1().bag().getBag().length) {

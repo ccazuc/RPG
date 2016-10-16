@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.dungeon;
 
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -25,7 +24,7 @@ public class Dungeon {
 		Draw.drawQuad(Sprites.resized_bc_bg, 100, 50);
 	}
 	
-	public static void event() throws FileNotFoundException, SQLException {
+	public static void event() throws FileNotFoundException {
 		if(BlackTemple.getBlackTempleStatus()) {
 			BlackTemple.event();
 		}
@@ -55,7 +54,7 @@ public class Dungeon {
 		}
 	}
 	
-	public static void closeDungeon() throws SQLException {
+	public static void closeDungeon() {
 		Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 		Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
 		LogChat.setStatusText("");

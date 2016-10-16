@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Keyboard;
@@ -63,14 +62,14 @@ public class SelectScreen {
 	};	
 	static Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195, 34, "Accept", 16, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			SelectScreen.createCharacter();
 			returnCharacterButton.reset();
 		}
 	};	
 	static Button returnCharacterButton = new Button(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150, 34, "Return", 16, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			creatingCharacter = false;
 			acceptCharacterButton.reset();
 			SelectScreen.mouseEvent();
@@ -78,7 +77,7 @@ public class SelectScreen {
 	};
 	private static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122, 27, "Return", 16, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			Interface.setHasLoggedIn(false);
 			Mideas.setJoueur1Null();
 			Mideas.setAccountId(0);
@@ -89,21 +88,21 @@ public class SelectScreen {
 	};
 	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50, "Enter game", 19, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			loadCharacterInfo();
 			Arrays.fill(characterList, null);
 		}
 	};
 	private static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202, 28, "Delete character", 16, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			deletingCharacter = true;
 			this.reset();
 		}
 	};
 	private static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32, "OK", 20, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			deleteCharacter();
 		}
 		
@@ -117,7 +116,7 @@ public class SelectScreen {
 	};
 	private static Button cancelDeleteCharacterButton = new Button(Display.getWidth()/2-250*Mideas.getDisplayXFactor(), Display.getHeight()/2+45*Mideas.getDisplayYFactor(), 240, 32, "Annuler", 20, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			deletingCharacter = false;
 		}
 	};
@@ -203,7 +202,7 @@ public class SelectScreen {
 		}
 	}
  
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		if(!creatingCharacter) {
 			if(deletingCharacter) {
 				confirmDeleteCharacterButton.event();

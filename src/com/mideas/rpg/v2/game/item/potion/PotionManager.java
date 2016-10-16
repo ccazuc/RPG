@@ -11,20 +11,25 @@ public class PotionManager {
 	private static HashMap<Integer, Potion> potionList = new HashMap<Integer, Potion>();
 	private static int numberPotionLoaded;
 	
-	public static void loadPotions() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, level, heal, mana, sellprice FROM item_potion");
-		statement.execute();
-		while(statement.fetch()) {
-			int id = statement.getInt();
-			String sprite_id = statement.getString();
-			String name = statement.getString();
-			int level = statement.getInt();
-			int heal = statement.getInt();
-			int mana = statement.getInt();
-			int sellPrice = statement.getInt();
-			Potion newPotion = new Potion(id, sprite_id, name, level, heal, mana, sellPrice, 1);
-			potionList.put(id, newPotion);
-			numberPotionLoaded++;
+	public static void loadPotions() {
+		try {
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, level, heal, mana, sellprice FROM item_potion");
+			statement.execute();
+			while(statement.fetch()) {
+				int id = statement.getInt();
+				String sprite_id = statement.getString();
+				String name = statement.getString();
+				int level = statement.getInt();
+				int heal = statement.getInt();
+				int mana = statement.getInt();
+				int sellPrice = statement.getInt();
+				Potion newPotion = new Potion(id, sprite_id, name, level, heal, mana, sellPrice, 1);
+				potionList.put(id, newPotion);
+				numberPotionLoaded++;
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	

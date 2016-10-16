@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.util.ResourceLoader;
@@ -133,7 +132,7 @@ public class Button {
 		this.font.drawStringShadow(this.x-this.font.getWidth(this.text)/2+this.x_size/2, this.y+-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, this.shadow_size, 1, 1);
 	}
 	
-	public boolean event() throws SQLException {
+	public boolean event() {
 		if(activateCondition()) {
 			this.color = this.baseColor;
 			this.buttonHover = false;
@@ -211,8 +210,7 @@ public class Button {
 		this.y_size = height*Mideas.getDisplayXFactor();
 	}
 	
-	@SuppressWarnings("unused")
-	protected void eventButtonClick() throws SQLException {}
+	protected void eventButtonClick() {}
 	
 	public boolean getButtonDown() {
 		return this.buttonDown;

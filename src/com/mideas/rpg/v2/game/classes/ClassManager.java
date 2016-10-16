@@ -17,34 +17,39 @@ public class ClassManager {
 	private static HashMap<String, Joueur> playerList = new HashMap<String, Joueur>();
 	private static HashMap<String, Joueur> iaList = new HashMap<String, Joueur>();
 	
-	public static void loadClasses() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, tempId, wear, weapon_type, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana, exp_gained, gold_gained FROM player");
-		statement.execute();
-		while(statement.fetch()) {
-			String id = statement.getString();
-			int tempId = statement.getInt();
-			String temp = statement.getString();
-			Wear wear = getWear(temp);
-			short tempType = statement.getShort();
-			WeaponType[] type = getWeaponTypes(tempType);
-			int stamina = statement.getInt();
-			int mana = statement.getInt();
-			int strength = statement.getInt();
-			int armor = statement.getInt();
-			int defaultArmor = statement.getInt();
-			int critical = statement.getInt();
-			int maxStamina = statement.getInt();
-			int maxMana = statement.getInt();
-			int expGained = statement.getInt();
-			int goldGained = statement.getInt();
-			Shortcut[] spells = new Shortcut[49];
-			Shortcut[] spellss = new Shortcut[49];
-			Spell[] spellUnlocked = new Spell[49];
-			Spell[] spellUnlockeds = new Spell[49];
-			Stuff[] stuff = new Stuff[19];
-			playerList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff));
-			iaList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellss, spellUnlockeds, stuff));
-			initTable(id);
+	public static void loadClasses() {
+		try {
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, tempId, wear, weapon_type, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana, exp_gained, gold_gained FROM player");
+			statement.execute();
+			while(statement.fetch()) {
+				String id = statement.getString();
+				int tempId = statement.getInt();
+				String temp = statement.getString();
+				Wear wear = getWear(temp);
+				short tempType = statement.getShort();
+				WeaponType[] type = getWeaponTypes(tempType);
+				int stamina = statement.getInt();
+				int mana = statement.getInt();
+				int strength = statement.getInt();
+				int armor = statement.getInt();
+				int defaultArmor = statement.getInt();
+				int critical = statement.getInt();
+				int maxStamina = statement.getInt();
+				int maxMana = statement.getInt();
+				int expGained = statement.getInt();
+				int goldGained = statement.getInt();
+				Shortcut[] spells = new Shortcut[49];
+				Shortcut[] spellss = new Shortcut[49];
+				Spell[] spellUnlocked = new Spell[49];
+				Spell[] spellUnlockeds = new Spell[49];
+				Stuff[] stuff = new Stuff[19];
+				playerList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff));
+				iaList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellss, spellUnlockeds, stuff));
+				initTable(id);
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	

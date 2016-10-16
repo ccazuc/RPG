@@ -36,27 +36,42 @@ public class LogChat {
 		TTF2.font4.drawStringShadow(x, Display.getHeight()+y, statusText3, Color.white, Color.black, 1, 1, 1);
 	}
 	
-	public static void setStatusText(String text) throws SQLException {
-		statusText = text;
-		JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
-		statement.putLong(System.nanoTime());
-		statement.putString(statusText);
-		statement.execute();
+	public static void setStatusText(String text) {
+		try {
+			statusText = text;
+			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
+			statement.putLong(System.nanoTime());
+			statement.putString(statusText);
+			statement.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public static void setStatusText2(String text) throws SQLException {
-		statusText2 = text;
-		JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
-		statement.putLong(System.nanoTime());
-		statement.putString(statusText2);
-		statement.execute();
+	public static void setStatusText2(String text) {
+		try {
+			statusText2 = text;
+			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
+			statement.putLong(System.nanoTime());
+			statement.putString(statusText2);
+			statement.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public static void setStatusText3(String text) throws SQLException {
-		statusText3 = text;
-		JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
-		statement.putLong(System.nanoTime());
-		statement.putString(statusText3);
-		statement.execute();
+	public static void setStatusText3(String text) {
+		try {
+			statusText3 = text;
+			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
+			statement.putLong(System.nanoTime());
+			statement.putString(statusText3);
+			statement.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

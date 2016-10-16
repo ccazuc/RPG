@@ -19,6 +19,7 @@ public class CommandTrade extends Command {
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM) {
 			byte itemState = ConnectionManager.getConnection().readByte();
+			System.out.println("state: "+itemState);
 			if(itemState == PacketID.KNOWN_ITEM) {
 				int id = ConnectionManager.getConnection().readInt();
 				int slot = ConnectionManager.getConnection().readInt();
@@ -48,10 +49,11 @@ public class CommandTrade extends Command {
 			//check if windows are open etc
 			String name = ConnectionManager.getConnection().readString();
 			TradeFrame.setName(name);
-			ConnectionManager.getConnection().writeByte(PacketID.TRADE);
+			TradeFrame.requestPending(true);
+			/*ConnectionManager.getConnection().writeByte(PacketID.TRADE);
 			ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW_CONFIRM);
 			ConnectionManager.getConnection().send();
-			Interface.setTradeFrameStatus(true);
+			Interface.setTradeFrameStatus(true);*/
 		}
 		else if(packetId == PacketID.TRADE_ACCEPT) {
 			TradeFrame.setTraceAcceptedOther(true);
@@ -131,6 +133,12 @@ public class CommandTrade extends Command {
 	public static void writeCloseTrade() {
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE_CLOSE);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void writeConfirm() {
+		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
+		ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW_CONFIRM);
 		ConnectionManager.getConnection().send();
 	}
 }

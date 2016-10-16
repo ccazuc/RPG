@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.game.profession;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -41,31 +40,21 @@ public class Profession {
 
 	private Button craftButton = new Button(0, 0, 185, 34, "Create", 14, 1) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			CastBar.addCast(new Cast(Profession.this.selectedItem.getCraftLength(), Profession.this.selectedItem.getItem().getStuffName()) {
 				@Override
 				public void endCastEvent() {
 					int i = 0;
 					while(i < Profession.this.selectedItem.getNeededItemList().size()) {
-						try {
-							if(Mideas.joueur1().bag().getNumberItemInBags(Profession.this.selectedItem.getNeededItem(i).getId()) >= Profession.this.selectedItem.getNeededItemNumber(i)) {
-								Mideas.joueur1().deleteItem(Profession.this.selectedItem.getNeededItem(i), Profession.this.selectedItem.getNeededItemNumber(i));
-							}
-							else {
-								return;
-							}
-						} 
-						catch (SQLException e) {
-							e.printStackTrace();
+						if(Mideas.joueur1().bag().getNumberItemInBags(Profession.this.selectedItem.getNeededItem(i).getId()) >= Profession.this.selectedItem.getNeededItemNumber(i)) {
+							Mideas.joueur1().deleteItem(Profession.this.selectedItem.getNeededItem(i), Profession.this.selectedItem.getNeededItemNumber(i));
+						}
+						else {
+							return;
 						}
 						i++;
 					}
-					try {
-						Mideas.joueur1().addItem(Profession.this.selectedItem.getItem(), 1);
-					} 
-					catch (SQLException e) {
-						e.printStackTrace();
-					}
+					Mideas.joueur1().addItem(Profession.this.selectedItem.getItem(), 1);
 				}
 			});
 		}
@@ -194,7 +183,7 @@ public class Profession {
 		}
 	}
 	
-	public void event(int x, int y) throws SQLException {
+	public void event(int x, int y) {
 		if(!this.init) {
 			if(this.scrollBar == null ) {
 				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 17*Mideas.getDisplayXFactor());

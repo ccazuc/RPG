@@ -14,28 +14,33 @@ public class GemManager {
 	private static HashMap<Integer, Gem> gemList = new HashMap<Integer, Gem>();
 	private static HashMap<Integer, Texture> gemSprites = new HashMap<Integer, Texture>();
 	
-	public static void loadGems() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, color, sellprice, pa, intellect, stamina, defense, mp5, mana, critical, spell_critical, spell_damage, heal FROM item_gem");
-		statement.execute();
-		while(statement.fetch()) {
-			int id = statement.getInt();
-			String sprite_id = statement.getString();
-			String name = statement.getString();
-			int quality = statement.getInt();
-			String tempColor = statement.getString();
-			GemColor color = convColor(tempColor);
-			int sellPrice = statement.getInt();
-			int pa = statement.getInt();
-			int intellect = statement.getInt();
-			int stamina = statement.getInt();
-			int defense = statement.getInt();
-			int mp5 = statement.getInt();
-			int mana = statement.getInt();
-			int critical = statement.getInt();
-			int spell_critical = statement.getInt();
-			int spell_damage = statement.getInt();
-			int heal = statement.getInt();
-			gemList.put(id, new Gem(id, sprite_id, name, quality, color, pa, stamina, defense, mana, critical, sellPrice));
+	public static void loadGems() {
+		try {
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, color, sellprice, pa, intellect, stamina, defense, mp5, mana, critical, spell_critical, spell_damage, heal FROM item_gem");
+			statement.execute();
+			while(statement.fetch()) {
+				int id = statement.getInt();
+				String sprite_id = statement.getString();
+				String name = statement.getString();
+				int quality = statement.getInt();
+				String tempColor = statement.getString();
+				GemColor color = convColor(tempColor);
+				int sellPrice = statement.getInt();
+				int pa = statement.getInt();
+				int intellect = statement.getInt();
+				int stamina = statement.getInt();
+				int defense = statement.getInt();
+				int mp5 = statement.getInt();
+				int mana = statement.getInt();
+				int critical = statement.getInt();
+				int spell_critical = statement.getInt();
+				int spell_damage = statement.getInt();
+				int heal = statement.getInt();
+				gemList.put(id, new Gem(id, sprite_id, name, quality, color, pa, stamina, defense, mana, critical, sellPrice));
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	

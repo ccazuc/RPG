@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
-
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
@@ -72,7 +70,7 @@ public class SocketingFrame {
 		drawGems();
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		hoveredGem = -1;
 		gemsHover();
 		closeSocketingFrame.event();

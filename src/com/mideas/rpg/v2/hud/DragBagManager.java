@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
@@ -63,7 +62,7 @@ public class DragBagManager {
 		}
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		//hover BagFrame
 		if(Mouse.getEventButton() == 0) {
 			if(Mouse.getEventButtonState()) {

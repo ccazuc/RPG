@@ -4,10 +4,12 @@ import java.util.Arrays;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
@@ -35,6 +37,24 @@ public class TradeFrame {
 	private static String name = "";
 	static Item[] itemList = new Item[14];
 	private static int hoveredSlot = -1;
+	static boolean requestPending;
+	private static long requestReceivedTimer;
+	private static long requestMaximumTimer = 20000;
+	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180, 25, "Accept", 15, 2) {
+		@Override
+		public void eventButtonClick() {
+			CommandTrade.writeConfirm();
+			requestPending = false;
+			Interface.setTradeFrameStatus(true);
+		}
+	};
+	private static Button declineRequest = new Button(Display.getWidth()/2+20*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180, 25, "Decline", 15, 2) {
+		@Override
+		public void eventButtonClick() {
+			CommandTrade.writeCloseTrade();
+			requestPending = false;
+		}
+	};
 	private static CrossButton closeFrame = new CrossButton(Display.getWidth()/2-272*Mideas.getDisplayXFactor(), Display.getHeight()/2-285*Mideas.getDisplayYFactor()) {
 		@Override
 		public void eventButtonClick() {
@@ -164,6 +184,24 @@ public class TradeFrame {
 		return false;
 	}
 	
+	public static void event() {
+		if(requestPending) {
+			if(System.currentTimeMillis()-requestReceivedTimer <= requestMaximumTimer) {
+				Draw.drawQuad(Sprites.alert, Display.getWidth()/2-250*Mideas.getDisplayXFactor(), Display.getHeight()/2-250*Mideas.getDisplayYFactor(), 500*Mideas.getDisplayXFactor(), 110*Mideas.getDisplayYFactor());
+				TTF2.font4.drawStringShadow(Display.getWidth()/2-(TTF2.font4.getWidth("Do you want to accept "+name+"'s trade ? "+(int)(20-(System.currentTimeMillis()-requestReceivedTimer)/1000)+" seconds left")*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-230*Mideas.getDisplayYFactor(), "Do you want to accept "+name+"'s trade ? "+(int)(20-(System.currentTimeMillis()-requestReceivedTimer)/1000)+" seconds left", Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
+				acceptRequest.event();
+				declineRequest.event();
+				acceptRequest.draw();
+				declineRequest.draw();
+			}
+			else {
+				requestPending = false;
+				CommandTrade.writeCloseTrade();
+				requestReceivedTimer = 0;
+			}
+		}
+	}
+	
 	private static void clickEvent() {
 		if(hoveredSlot >= 0 && hoveredSlot <= 6 && DragManager.getDraggedItem() != null) {
 			if(DragManager.checkBagItems(DragManager.getDraggedItem())) {
@@ -239,6 +277,11 @@ public class TradeFrame {
 	
 	public static void setTraceAcceptedOther(boolean we) {
 		tradeAcceptedOther = we;
+	}
+	
+	public static void requestPending(boolean we) {
+		requestPending = we;
+		requestReceivedTimer = System.currentTimeMillis();
 	}
 	
 	public static void reset() {

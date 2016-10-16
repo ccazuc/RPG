@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.utils;
 
-import java.sql.SQLException;
-
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
@@ -115,7 +113,7 @@ public class Alert {
 		}
 	}
 	
-	public void event() throws SQLException {
+	public void event() {
 		if(this.isActive) {
 			this.button.event();
 			if(this.button.hasClicked()) {

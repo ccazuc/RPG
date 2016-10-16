@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.game;
 
-import java.sql.SQLException;
-
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.ClassColor;
@@ -328,7 +326,7 @@ public class Joueur extends Unit {
 		}
 	}
 	
-	public boolean addItem(Item item, int amount) throws SQLException {
+	public boolean addItem(Item item, int amount) {
 		if(amount == 1) {
 			return addSingleItem(item, amount);
 		}
@@ -343,7 +341,7 @@ public class Joueur extends Unit {
 		return false;
 	}
 	
-	private boolean addSingleItem(Item item, int amount) throws SQLException {
+	private boolean addSingleItem(Item item, int amount) {
 		int i = 0;
 		if(!item.isStackable()) {
 			while(i < this.bag.getBag().length && amount > 0) {
@@ -381,7 +379,7 @@ public class Joueur extends Unit {
 		return false;
 	}
 	
-	private boolean addMultipleUnstackableItem(int id, int number) throws SQLException {
+	private boolean addMultipleUnstackableItem(int id, int number) {
 		int i = 0;
 		boolean returns = false;
 		ItemType type;
@@ -423,7 +421,7 @@ public class Joueur extends Unit {
 		return returns;
 	}
 	
-	public void deleteItem(Item item, int amount) throws SQLException {
+	public void deleteItem(Item item, int amount) {
 		int i = 0;
 		if(!item.isStackable()) {
 			while(i < this.bag.getBag().length && amount > 0) {

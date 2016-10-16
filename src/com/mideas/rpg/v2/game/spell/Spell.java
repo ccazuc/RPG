@@ -5,7 +5,6 @@ import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 
 public class Spell {
 	

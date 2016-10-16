@@ -99,7 +99,7 @@ public class Mideas {
         GL11.glLoadIdentity();
 	}
 	
-	private static void loop() throws FontFormatException, IOException, LWJGLException, SQLException, IllegalAccessException, ClassNotFoundException {
+	private static void loop() throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException {
 		//System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
 		//Display.setDisplayMode(new DisplayMode(1200, 800));
 		//Display.setDisplayMode(new DisplayMode(1200, 930));
@@ -208,15 +208,20 @@ public class Mideas {
 		
 	}
 	
-	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException {
 		loop();
 		saveAllStats();
 	}
 	
-	public static void initSQL() throws IllegalAccessException, ClassNotFoundException, SQLException {
-		jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
-		//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
-		//jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
+	public static void initSQL() throws IllegalAccessException, ClassNotFoundException {
+		try {
+			jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+			//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
+			//jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static JDO getJDO() {
@@ -364,48 +369,58 @@ public class Mideas {
 		System.out.println((System.nanoTime()-time)+"ns "+text);
 	}
 	
-	public static void setConfig() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
-		statement.putString(ChangeBackGroundFrame.getCurrentBackground());
-		statement.putString("background");
-		statement.execute();
-
-		statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
-		statement.putString(Integer.toString(CharacterFrame.getMouseX()));
-		statement.putString("x_inventory_frame");
-		statement.execute();
-
-		statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
-		statement.putString(Integer.toString(CharacterFrame.getMouseY()));
-		statement.putString("y_inventory_frame");
-		statement.execute();
+	public static void setConfig() {
+		try {
+			JDOStatement statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
+			statement.putString(ChangeBackGroundFrame.getCurrentBackground());
+			statement.putString("background");
+			statement.execute();
+	
+			statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
+			statement.putString(Integer.toString(CharacterFrame.getMouseX()));
+			statement.putString("x_inventory_frame");
+			statement.execute();
+	
+			statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
+			statement.putString(Integer.toString(CharacterFrame.getMouseY()));
+			statement.putString("y_inventory_frame");
+			statement.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public static void getConfig() throws SQLException, NumberFormatException {
-		String temp = "";
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
-		statement.putString("background");
-		statement.execute();
-		if(statement.fetch()) {
-			temp = statement.getString();
+	public static void getConfig() throws NumberFormatException {
+		try {
+			String temp = "";
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
+			statement.putString("background");
+			statement.execute();
+			if(statement.fetch()) {
+				temp = statement.getString();
+			}
+			ChangeBackGroundFrame.loadBG(temp);
+			
+			statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
+			statement.putString("x_inventory_frame");
+			statement.execute();
+			if(statement.fetch()) {
+				temp = statement.getString();
+			}
+			CharacterFrame.setMouseX(Integer.valueOf(temp));
+	
+			statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
+			statement.putString("y_inventory_frame");
+			statement.execute();
+			if(statement.fetch()) {
+				temp = statement.getString();
+			}
+			CharacterFrame.setMouseY(Integer.valueOf(temp));
 		}
-		ChangeBackGroundFrame.loadBG(temp);
-		
-		statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
-		statement.putString("x_inventory_frame");
-		statement.execute();
-		if(statement.fetch()) {
-			temp = statement.getString();
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
-		CharacterFrame.setMouseX(Integer.valueOf(temp));
-
-		statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
-		statement.putString("y_inventory_frame");
-		statement.execute();
-		if(statement.fetch()) {
-			temp = statement.getString();
-		}
-		CharacterFrame.setMouseY(Integer.valueOf(temp));
 	}
 	
 	public static int calcGoldCoin() {
@@ -479,7 +494,7 @@ public class Mideas {
 		}
 	}
 	
-	public static void loadingScreen() throws IOException {
+	public static void loadingScreen() {
 		Sprites.initBG();
 		context2D();
 		int barWidth = (int)(850*Mideas.getDisplayXFactor());
@@ -603,7 +618,7 @@ public class Mideas {
 	    }
 	}
 	
-	public static void saveAllStats() throws SQLException {
+	public static void saveAllStats() {
 		if(Mideas.joueur1() != null) {
 			CharacterStuff.setBagItems();
 			CharacterStuff.setEquippedBags();

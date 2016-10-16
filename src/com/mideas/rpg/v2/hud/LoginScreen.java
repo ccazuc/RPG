@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -27,7 +25,7 @@ public class LoginScreen {
 	private static boolean init;
 	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave", 16, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			Mideas.saveAllStats();
 			Display.destroy();
 		}
@@ -35,7 +33,7 @@ public class LoginScreen {
 	
 	private static Button connectionButton = new Button(Display.getWidth()/2-113*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210, 35, "Connection", 16, 2) {
 		@Override
-		public void eventButtonClick() throws SQLException {
+		public void eventButtonClick() {
 			connectionEvent();
 		}
 	};
@@ -67,7 +65,7 @@ public class LoginScreen {
 		alert.draw();
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		if(!Interface.getHasLoggedIn()) {
 			alert.event();
 			if(!alert.isActive()) {

@@ -17,39 +17,44 @@ public class StuffManager {
 	private static HashMap<Integer, Stuff> stuffList = new HashMap<Integer, Stuff>();
 	private static int numberStuffLoaded;
 	
-	public static void loadStuffs() throws SQLException {
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT id, type, name, class, wear, sprite_id, quality, gem_slot1, gem_slot2, gem_slot3, gem_bonus_type, gem_bonus_value, level, armor, stamina, mana, critical, strength, sellprice FROM item_stuff");
-		statement.execute();
-		while(statement.fetch()) {
-			int id = statement.getInt();
-			String tempType = statement.getString();
-			StuffType type = getType(tempType);
-			String name = statement.getString();
-			short classeTemp = statement.getShort();
-			ClassType[] classeType = getClasses(classeTemp);
-			String tempWear = statement.getString();
-			Wear wear = getWear(tempWear);
-			String sprite_id = statement.getString();
-			int quality = statement.getInt();
-			String tempColor = statement.getString();
-			GemColor color1 = GemManager.convColor(tempColor);
-			tempColor = statement.getString();
-			GemColor color2 = GemManager.convColor(tempColor);
-			tempColor = statement.getString();
-			GemColor color3 = GemManager.convColor(tempColor);
-			String tempBonusType = statement.getString();
-			GemBonusType bonusType = convBonusType(tempBonusType);
-			int bonusValue = statement.getInt();
-			int level = statement.getInt();
-			int armor = statement.getInt();
-			int stamina = statement.getInt();
-			int mana = statement.getInt();
-			int critical = statement.getInt();
-			int strength = statement.getInt();
-			int sellPrice = statement.getInt();
-			Stuff newPiece = new Stuff(type, classeType, sprite_id, id, name, quality, color1, color2, color3, bonusType, bonusValue, level, wear, critical, strength, stamina, armor, mana, sellPrice);
-			stuffList.put(id, newPiece);
-			numberStuffLoaded++;
+	public static void loadStuffs() {
+		try {
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, type, name, class, wear, sprite_id, quality, gem_slot1, gem_slot2, gem_slot3, gem_bonus_type, gem_bonus_value, level, armor, stamina, mana, critical, strength, sellprice FROM item_stuff");
+			statement.execute();
+			while(statement.fetch()) {
+				int id = statement.getInt();
+				String tempType = statement.getString();
+				StuffType type = getType(tempType);
+				String name = statement.getString();
+				short classeTemp = statement.getShort();
+				ClassType[] classeType = getClasses(classeTemp);
+				String tempWear = statement.getString();
+				Wear wear = getWear(tempWear);
+				String sprite_id = statement.getString();
+				int quality = statement.getInt();
+				String tempColor = statement.getString();
+				GemColor color1 = GemManager.convColor(tempColor);
+				tempColor = statement.getString();
+				GemColor color2 = GemManager.convColor(tempColor);
+				tempColor = statement.getString();
+				GemColor color3 = GemManager.convColor(tempColor);
+				String tempBonusType = statement.getString();
+				GemBonusType bonusType = convBonusType(tempBonusType);
+				int bonusValue = statement.getInt();
+				int level = statement.getInt();
+				int armor = statement.getInt();
+				int stamina = statement.getInt();
+				int mana = statement.getInt();
+				int critical = statement.getInt();
+				int strength = statement.getInt();
+				int sellPrice = statement.getInt();
+				Stuff newPiece = new Stuff(type, classeType, sprite_id, id, name, quality, color1, color2, color3, bonusType, bonusValue, level, wear, critical, strength, stamina, armor, mana, sellPrice);
+				stuffList.put(id, newPiece);
+				numberStuffLoaded++;
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	

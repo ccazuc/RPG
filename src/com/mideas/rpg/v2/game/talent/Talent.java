@@ -1,8 +1,5 @@
 package com.mideas.rpg.v2.game.talent;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
-
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
@@ -20,7 +17,7 @@ public class Talent {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() {
 		if(Mideas.joueur1().getClasseString().equals("Guerrier")) {
 			GuerrierTalent.mouseEvent();
 		}

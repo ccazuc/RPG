@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.sql.SQLException;
-
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.utils.Texture;
@@ -40,7 +38,7 @@ public class ChangeBackGroundFrame {
 		drawBorder(xLeft+xShift, y+yShift, 5);
 	}
 	
-	public static boolean mouseEvent() throws SQLException {
+	public static boolean mouseEvent() {
 		hoveredSlot = -1;
 		isHover(xLeft, y, 0);
 		isHover(xLeft, y+yShift, 1);
@@ -65,7 +63,7 @@ public class ChangeBackGroundFrame {
 		}
 	}
 	
-	private static void changeBackground(int i, Texture texture) throws SQLException {
+	private static void changeBackground(int i, Texture texture) {
 		if(hoveredSlot == i) {
 			Sprites.current_bg = texture;
 			Mideas.setConfig();

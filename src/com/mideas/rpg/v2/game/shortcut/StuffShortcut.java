@@ -1,8 +1,5 @@
 package com.mideas.rpg.v2.game.shortcut;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
-
 import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Mideas;
@@ -27,7 +24,7 @@ public class StuffShortcut implements Shortcut {
 	}
 	
 	@Override
-	public boolean use(Shortcut shortcut) throws FileNotFoundException, SQLException {
+	public boolean use(Shortcut shortcut) {
 		int i = 0;
 		if(DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
 			while(i < Mideas.joueur1().getStuff().length) {

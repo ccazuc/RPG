@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -191,7 +190,7 @@ public class SpellBarFrame {
 		return false;
 	}
 	
-	public static boolean mouseEvent() throws SQLException, FileNotFoundException {
+	public static boolean mouseEvent() throws FileNotFoundException {
 		if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 			if(!Mouse.getEventButtonState() && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null && DragManager.getDraggedItem() == null) {
 				if(hoveredSpell != null && DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
@@ -232,7 +231,7 @@ public class SpellBarFrame {
 		return false;
 	}
 	
-	public static boolean keyboardEvent() throws SQLException, FileNotFoundException {
+	public static boolean keyboardEvent() throws FileNotFoundException {
 		if(!ChatFrame.getChatActive()) {
 			if(Keyboard.getEventKey() == Keyboard.KEY_1) {
 				keyboardAttack(Mideas.joueur1().getSpells(0));
@@ -286,7 +285,7 @@ public class SpellBarFrame {
 		return false;
 	}
 	
-	public static void keyboardAttack(Shortcut spell) throws SQLException, FileNotFoundException {
+	public static void keyboardAttack(Shortcut spell) throws FileNotFoundException {
 		if(spell != null && spell.getShortcutType() == ShortcutType.SPELL) {
 			if(!CastBar.isCasting() && SpellManager.getCd(((SpellShortcut)spell).getSpell().getSpellId()) <= 0 && Mideas.joueur1().getMana() >= ((SpellShortcut)spell).getSpell().getManaCost()) {
 				if(((SpellShortcut)spell).getSpell().getCastTime() > 0) {
@@ -329,7 +328,7 @@ public class SpellBarFrame {
 	}
 	
 
-	public static boolean doHealingPotion(Potion item) throws SQLException {
+	public static boolean doHealingPotion(Potion item) {
 		if(item != null && item.getItemType() == ItemType.POTION) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous �tes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");

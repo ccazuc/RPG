@@ -1,8 +1,5 @@
 package com.mideas.rpg.v2.game.talent;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
-
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
@@ -11,7 +8,6 @@ import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class GuerrierTalent {
@@ -128,7 +124,7 @@ public class GuerrierTalent {
 		TTF2.itemName.drawStringShadow(Display.getWidth()/2+Talent.getX()+250, Display.getHeight()/2+160, String.valueOf(numberArmsTalent), Color.white, Color.black, 1, 1, 1);
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException, SQLException {
+	public static boolean mouseEvent() {
 		hoverLeft1 = false;
 		hoverLeft2 = false;
 		hoverLeft3 = false;

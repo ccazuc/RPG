@@ -7,8 +7,6 @@ import static com.mideas.rpg.v2.connection.PacketID.LOGIN;
 import static com.mideas.rpg.v2.connection.PacketID.LOGIN_ACCEPT;
 import static com.mideas.rpg.v2.connection.PacketID.LOGIN_WRONG;
 
-import java.sql.SQLException;
-
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
@@ -28,12 +26,7 @@ public class CommandLogin extends Command {
 			Interface.setHasLoggedIn(true);
 			Mideas.setAccountId(id);
 			Mideas.setRank(rank);
-			try {
-				SelectScreen.mouseEvent();
-			} 
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+			SelectScreen.mouseEvent();
 			LoginScreen.loginSuccess();
 		}
 		else if(packetId == ACCOUNT_BANNED_TEMP) {
