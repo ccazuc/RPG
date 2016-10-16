@@ -19,7 +19,7 @@ import com.mideas.rpg.v2.game.Shop;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.bag.Container;
-import com.mideas.rpg.v2.game.item.bag.BagManager;
+import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
@@ -72,8 +72,8 @@ public class ShopManager {
 		if(PotionManager.exists(id)) {
 			return PotionManager.getPotion(id);
 		}
-		if(BagManager.exists(id)) {
-			return BagManager.getContainer(id);
+		if(ContainerManager.exists(id)) {
+			return ContainerManager.getContainer(id);
 		}
 		if(WeaponManager.exists(id)) {
 			return WeaponManager.getWeapon(id);

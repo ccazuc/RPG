@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Interface;
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.Item;
@@ -19,13 +20,13 @@ public class CommandTrade extends Command {
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM) {
 			byte itemState = ConnectionManager.getConnection().readByte();
-			System.out.println("state: "+itemState);
+			//System.out.println("state: "+itemState);
 			if(itemState == PacketID.KNOWN_ITEM) {
 				int id = ConnectionManager.getConnection().readInt();
 				int slot = ConnectionManager.getConnection().readInt();
-				if(Item.exists(id)) {
-					TradeFrame.addItem(id, slot+7);
-				}
+				int amount = ConnectionManager.getConnection().readInt();
+				TradeFrame.addItem(id, slot+7);
+				TradeFrame.getItem(slot+7).setAmount(amount);
 				if(ConnectionManager.getConnection().readBoolean()) {
 					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem1(GemManager.getClone(ConnectionManager.getConnection().readInt()));
 					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem2(GemManager.getClone(ConnectionManager.getConnection().readInt()));
@@ -36,7 +37,9 @@ public class CommandTrade extends Command {
 			else if(itemState == PacketID.UNKNOWN_ITEM) {
 				Item item = ConnectionManager.getConnection().readItem();
 				int slot = ConnectionManager.getConnection().readInt();
+				int amount = ConnectionManager.getConnection().readInt();
 				TradeFrame.addItem(item, slot+7);
+				TradeFrame.getItem(slot+7).setAmount(amount);
 				if(ConnectionManager.getConnection().readBoolean()) {
 					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem1(GemManager.getClone(ConnectionManager.getConnection().readInt()));
 					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem2(GemManager.getClone(ConnectionManager.getConnection().readInt()));
@@ -68,6 +71,32 @@ public class CommandTrade extends Command {
 		else if(packetId == PacketID.TRADE_CLOSE) {
 			TradeFrame.reset();
 			Interface.setTradeFrameStatus(false);
+		}
+		else if(packetId == PacketID.TRADE_ADD_ITEM_ERROR) {
+			int slot = ConnectionManager.getConnection().readInt();
+			TradeFrame.addItem(null, slot);
+		}
+		else if(packetId == PacketID.TRADE_SEND_ALL_ITEMS) {
+			int i = 0;
+			byte packetID;
+			int id;
+			int amount;
+			Item item;
+			while(i < 6) {
+				packetID = ConnectionManager.getConnection().readByte();
+				if(packetID == PacketID.KNOWN_ITEM) {
+					id = ConnectionManager.getConnection().readInt();
+					amount = ConnectionManager.getConnection().readInt();
+					if(Item.exists(id)) {
+						Mideas.joueur1().addItem(Item.getItem(id), amount);
+					}
+				}
+				else if(packetID == PacketID.UNKNOWN_ITEM) {
+					item = ConnectionManager.getConnection().readItem();
+					amount = ConnectionManager.getConnection().readInt();
+					Mideas.joueur1().addItem(item, amount);
+				}
+			}
 		}
 	}
 	

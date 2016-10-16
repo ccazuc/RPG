@@ -40,7 +40,7 @@ public class TradeFrame {
 	static boolean requestPending;
 	private static long requestReceivedTimer;
 	private static long requestMaximumTimer = 20000;
-	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180, 25, "Accept", 15, 2) {
+	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Accept", 15, 2) {
 		@Override
 		public void eventButtonClick() {
 			CommandTrade.writeConfirm();
@@ -48,7 +48,7 @@ public class TradeFrame {
 			Interface.setTradeFrameStatus(true);
 		}
 	};
-	private static Button declineRequest = new Button(Display.getWidth()/2+20*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180, 25, "Decline", 15, 2) {
+	private static Button declineRequest = new Button(Display.getWidth()/2+20*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Decline", 15, 2) {
 		@Override
 		public void eventButtonClick() {
 			CommandTrade.writeCloseTrade();
@@ -101,6 +101,9 @@ public class TradeFrame {
 		while(i < itemList.length) {
 			if(itemList[i] != null) {
 				Draw.drawQuad(IconsManager.getSprite37(itemList[i].getSpriteId()), x+3, Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+3, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayXFactor());
+				if(itemList[i].getAmount() > 1) {
+					TTF2.alertFont.drawStringShadow(x+20*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+25*Mideas.getDisplayYFactor(), itemList[i].getAmountString(), Color.white, Color.black, 1, 1, 1);
+				}
 			}
 			i++;
 			j++;
@@ -120,6 +123,7 @@ public class TradeFrame {
 			Draw.drawQuad(Sprites.click_down, x_click_down_draw, y_click_down_draw, 42*Mideas.getDisplayXFactor(), 42*Mideas.getDisplayXFactor());
 		}
 		closeFrame.draw();
+		acceptTrade.draw();
 	}
 	
 	public static boolean mouseEvent() {
@@ -127,6 +131,7 @@ public class TradeFrame {
 		float x = X_FRAME+25*Mideas.getDisplayXFactor();
 		float y = 0;
 		closeFrame.event();
+		acceptTrade.event();
 		int i = 0;
 		int j = 0;
 		while(i < itemList.length) {
@@ -301,5 +306,7 @@ public class TradeFrame {
 		Y_HOVER_TOP = 110*Mideas.getDisplayXFactor();
 		Y_HOVER_SIZE = 45*Mideas.getDisplayXFactor();
 		Y_SHIFT = 47*Mideas.getDisplayXFactor();
+		declineRequest.update(Display.getWidth()/2+20*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor());
+		acceptRequest.update(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor());
 	}
 }

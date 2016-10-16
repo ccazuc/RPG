@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.bag.BagManager;
+import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
@@ -217,8 +217,8 @@ public class CharacterStuff {
 			if(statement.fetch()) {
 				while(i < Mideas.joueur1().bag().getEquippedBag().length) {
 					id = statement.getInt();
-					if(BagManager.exists(id)) {
-						Mideas.joueur1().bag().setEquippedBag(i, BagManager.getClone(id));
+					if(ContainerManager.exists(id)) {
+						Mideas.joueur1().bag().setEquippedBag(i, ContainerManager.getClone(id));
 					}
 					else {
 						Mideas.joueur1().bag().setEquippedBag(i, null);

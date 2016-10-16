@@ -10,7 +10,7 @@ import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.bag.Bag;
-import com.mideas.rpg.v2.game.item.bag.BagManager;
+import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
@@ -257,8 +257,8 @@ public class Joueur extends Unit {
 					i++;
 					continue;
 				}
-				else if(BagManager.exists(this.bag.getBag(i).getId())) {
-					this.bag.setBag(i, BagManager.getClone(this.bag.getBag(i).getId()));
+				else if(ContainerManager.exists(this.bag.getBag(i).getId())) {
+					this.bag.setBag(i, ContainerManager.getClone(this.bag.getBag(i).getId()));
 					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
 					this.bag.getBag(i).setIsLoaded(true);
 					i++;
@@ -383,7 +383,7 @@ public class Joueur extends Unit {
 		int i = 0;
 		boolean returns = false;
 		ItemType type;
-		if(WeaponManager.exists(id) || StuffManager.exists(id) || GemManager.exists(id) || BagManager.exists(id)) {
+		if(WeaponManager.exists(id) || StuffManager.exists(id) || GemManager.exists(id) || ContainerManager.exists(id)) {
 			if(WeaponManager.exists(id)) {
 				type = ItemType.WEAPON;
 			}
@@ -408,7 +408,7 @@ public class Joueur extends Unit {
 						this.bag.setBag(i, GemManager.getClone(id));
 					}
 					else {
-						this.bag.setBag(i, BagManager.getClone(id));
+						this.bag.setBag(i, ContainerManager.getClone(id));
 					}
 					this.bag.setBagChange(true);
 					number--;

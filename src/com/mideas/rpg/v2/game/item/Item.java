@@ -2,7 +2,7 @@ package com.mideas.rpg.v2.game.item;
 
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.item.bag.BagManager;
+import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
@@ -21,6 +21,7 @@ public class Item implements Cloneable {
 	protected String deleteConfirm;
 	protected boolean isSelectable = true;
 	protected int amount;
+	protected String amountString;
 	
 	private final static String delete = "Voulez vous supprimer ";
 	
@@ -44,10 +45,15 @@ public class Item implements Cloneable {
 	
 	public void setAmount(int amount) {
 		this.amount = amount;
+		this.amountString = Integer.toString(amount);
 	}
 	
 	public int getAmount() {
 		return this.amount;
+	}
+	
+	public String getAmountString() {
+		return this.amountString;
 	}
 	
 	public boolean isSelectable() {
@@ -136,8 +142,8 @@ public class Item implements Cloneable {
 	}
 	
 	public static Item getItem(int id) {
-		if(BagManager.exists(id)) {
-			return BagManager.getClone(id);
+		if(ContainerManager.exists(id)) {
+			return ContainerManager.getClone(id);
 		}
 		if(StuffManager.exists(id)) {
 			return StuffManager.getClone(id);
@@ -155,7 +161,7 @@ public class Item implements Cloneable {
 	}
 	
 	public static boolean exists(int id) {
-		if(BagManager.exists(id)) {
+		if(ContainerManager.exists(id)) {
 			return true;
 		}
 		if(StuffManager.exists(id)) {
