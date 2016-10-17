@@ -21,6 +21,7 @@ public class CommandLogin extends Command {
 	public void read() {
 		byte packetId = ConnectionManager.getConnection().readByte();
 		if(packetId == LOGIN_ACCEPT) {
+			ConnectionManager.connectWorldServer();
 			int id = ConnectionManager.getConnection().readInt();
 			int rank = ConnectionManager.getConnection().readInt();
 			Interface.setHasLoggedIn(true);

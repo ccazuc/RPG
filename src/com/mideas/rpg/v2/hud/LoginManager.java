@@ -9,7 +9,7 @@ import com.mideas.rpg.v2.utils.Sha1;
 public class LoginManager {
 
 	public static boolean checkLogin(String account, String password) {	
-		ConnectionManager.connect();
+		ConnectionManager.connectAuthServer();
 		try {
 			CommandLogin.write(account, Sha1.hash(password));
 		} 

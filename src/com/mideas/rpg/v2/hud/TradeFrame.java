@@ -96,7 +96,7 @@ public class TradeFrame {
 			if(itemList[i] != null) {
 				Draw.drawQuad(IconsManager.getSprite37(itemList[i].getSpriteId()), x+3, Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+3, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayXFactor());
 				if(itemList[i].getAmount() > 1) {
-					TTF2.alertFont.drawStringShadow(x+20*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+25*Mideas.getDisplayYFactor(), itemList[i].getAmountString(), Color.white, Color.black, 1, 1, 1);
+					TTF2.itemNumber.drawStringShadow(x+20*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+25*Mideas.getDisplayYFactor(), itemList[i].getAmountString(), Color.white, Color.black, 1, 1, 1);
 				}
 			}
 			i++;

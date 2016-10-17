@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.game;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.ClassColor;
@@ -27,6 +29,8 @@ import com.mideas.rpg.v2.hud.LogChat;
 
 public class Joueur extends Unit {
 
+	public final static int MAXIMUM_AMOUNT_FRIENDS = 20; 
+	private ArrayList<Friend> friendList;
 	private Profession secondProfession;
 	private Profession firstProfession;
 	private WeaponType[] weaponType;
@@ -88,6 +92,7 @@ public class Joueur extends Unit {
 		this.firstProfession = ProfessionManager.getProfession(0);
 		//this.classString = convClassTypeToString(this.classType);
 		this.level = 1;
+		this.friendList = new ArrayList<Friend>();
 	}
 	
 	public Joueur(Joueur joueur) {
@@ -109,6 +114,7 @@ public class Joueur extends Unit {
 		this.wear = joueur.wear;
 		//this.classString = joueur.classString;
 		this.level = joueur.level;
+		this.friendList = joueur.friendList;
 	}
 	
 	/*public void tick() throws SQLException {
@@ -284,14 +290,6 @@ public class Joueur extends Unit {
 				Mideas.joueur1().getSecondProfession().updateNumberPossibleCraft();
 			}
 		}
-	}
-	
-	public Unit getTarget() {
-		return this.target;
-	}
-	
-	public void setTarget(Unit target) {
-		this.target = target;
 	}
 	
 	public void loadSpellbar() {
@@ -480,6 +478,35 @@ public class Joueur extends Unit {
 			return true;
 		}
 		return false;
+	}
+	
+	public void addFriend(Friend friend) {
+		if(this.friendList.size() < MAXIMUM_AMOUNT_FRIENDS) {
+			this.friendList.add(friend);
+		}
+	}
+	
+	public ArrayList<Friend> getFriendList() {
+		return this.friendList;
+	}
+	
+	public void removeFriend(Friend friend) {
+		int i = 0;
+		while(i < this.friendList.size()) {
+			if(this.friendList.get(i) == friend) {
+				this.friendList.remove(i);
+				return;
+			}
+			i++;
+		}
+	}
+	
+	public Unit getTarget() {
+		return this.target;
+	}
+	
+	public void setTarget(Unit target) {
+		this.target = target;
 	}
 	
 	public void setFirstProfession(Profession profession) {

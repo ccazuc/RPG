@@ -12,6 +12,7 @@ import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.command.CommandAddItem;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
+import com.mideas.rpg.v2.command.CommandFriend;
 import com.mideas.rpg.v2.command.CommandLoadBagItems;
 import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
@@ -35,12 +36,14 @@ import static com.mideas.rpg.v2.connection.PacketID.*;
 
 public class ConnectionManager {
 
-	private static Connection connection;
+	private static Connection worldServerconnection;
+	private static Connection authServerConnection;
+	private static SocketChannel authSocket;
 	private static SocketChannel socket;
 	private static HashMap<Integer, Command> commandList = new HashMap<Integer, Command>();
 	private static HashMap<Integer, Item> itemRequested = new HashMap<Integer, Item>();
 	private static final String IP = "127.0.0.1";
-	private static final int PORT = 5720;
+	private static final int PORT = 5721;
 	private static boolean init;
 	
 	private static void initPacket() {
@@ -64,9 +67,36 @@ public class ConnectionManager {
 		commandList.put((int)CHAT_NOT_ALLOWED, new CommandNotAllowed());
 		commandList.put((int)UPDATE_STATS, new CommandUpdateStats());
 		commandList.put((int)TRADE, new CommandTrade());
+		commandList.put((int)FRIEND, new CommandFriend());
 	}
-	
-	public static final boolean connect() {
+
+	public static final boolean connectAuthServer() {
+		try {
+			authSocket = SocketChannel.open();
+			authSocket.socket().connect(new InetSocketAddress(IP, PORT), 5000);
+			if(authSocket.isConnected()) {
+				authSocket.socket().setTcpNoDelay(true);
+				authSocket.configureBlocking(false);
+				if(authServerConnection == null) {
+					authServerConnection = new Connection(authSocket);
+				}
+				else {
+					authServerConnection.setSocket(socket);
+				}
+				return true;
+			}
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+			LoginScreen.getAlert().setActive();
+			LoginScreen.getAlert().setText("Impossible de se connecter.");
+			Interface.setCharacterLoaded(false);
+			Interface.closeAllFrame();
+			close();
+		}
+		return false;
+	}
+	public static final boolean connectWorldServer() {
 		if(!init) {
 			initPacket();
 			init = true;
@@ -77,11 +107,11 @@ public class ConnectionManager {
 			if(socket.isConnected()) {
 				socket.socket().setTcpNoDelay(true);
 				socket.configureBlocking(false);
-				if(connection == null) {
-					connection = new Connection(socket);
+				if(worldServerconnection == null) {
+					worldServerconnection = new Connection(socket);
 				}
 				else {
-					connection.setSocket(socket);
+					worldServerconnection.setSocket(socket);
 				}
 				return true;
 			}
@@ -98,7 +128,7 @@ public class ConnectionManager {
 	}
 	
 	public static Connection getConnection() {
-		return connection;
+		return worldServerconnection;
 	}
 	
 	public static boolean isConnected() {
@@ -109,17 +139,17 @@ public class ConnectionManager {
 	}
 	
  	public static void close() {
- 		if(connection != null) {
- 			connection.close();
+ 		if(worldServerconnection != null) {
+ 			worldServerconnection.close();
  		}
 		socket = null;
-		connection = null;
+		worldServerconnection = null;
 	}
 	
 	public static void read() {
 		if(socket.isConnected()) {
 			try {
-				if(connection.read() == 1) {
+				if(worldServerconnection.read() == 1) {
 					readPacket();
 				}
 			} 
@@ -138,8 +168,8 @@ public class ConnectionManager {
 	}
 	
 	private static void readPacket() {
-		while(connection != null && connection.hasRemaining()) {
-			byte packetId = connection.readByte();
+		while(worldServerconnection != null && worldServerconnection.hasRemaining()) {
+			byte packetId = worldServerconnection.readByte();
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();
 			}
