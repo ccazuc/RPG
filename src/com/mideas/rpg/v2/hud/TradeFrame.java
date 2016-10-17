@@ -60,13 +60,7 @@ public class TradeFrame {
 		public void eventButtonClick() {
 			Interface.setTradeFrameStatus(false);
 			CommandTrade.writeCloseTrade();
-			int i = 0;
-			while(i < itemList.length) {
-				if(itemList[i] != null) {
-					itemList[i].setIsSelectable(true);
-				}
-				i++;
-			}
+			setAllItemSelectable();
 			tradeAcceptedSelf = false;
 			tradeAcceptedOther = false;
 		}
@@ -215,6 +209,7 @@ public class TradeFrame {
 					itemList[hoveredSlot].setIsSelectable(false);
 					DragManager.setDraggedItem(null);
 					tradeAcceptedSelf = false;
+					tradeAcceptedOther = false;
 					CommandTrade.writeAddItem(itemList[hoveredSlot], hoveredSlot, itemList[hoveredSlot].getAmount());
 				}
 				else {
@@ -239,6 +234,8 @@ public class TradeFrame {
 		DragManager.setDraggedItem(itemList[i]);
 		itemList[i] = null;
 		CommandTrade.writeRemovedItem(i);
+		tradeAcceptedSelf = false;
+		tradeAcceptedOther = false;
 	}
 	
 	private static void isHover(int i, float x, float y) {
@@ -272,6 +269,16 @@ public class TradeFrame {
 		return null;
 	}
 	
+	public static void setAllItemSelectable() {
+		int i = 0;
+		while(i < itemList.length) {
+			if(itemList[i] != null) {
+				itemList[i].setIsSelectable(true);
+			}
+			i++;
+		}
+	}
+	
 	public static float getXFrame() {
 		return X_FRAME;
 	}
@@ -284,9 +291,23 @@ public class TradeFrame {
 		tradeAcceptedOther = we;
 	}
 	
+	public static void setTraceAcceptedSelf(boolean we) {
+		tradeAcceptedSelf = we;
+	}
+	
 	public static void requestPending(boolean we) {
 		requestPending = we;
 		requestReceivedTimer = System.currentTimeMillis();
+	}
+	
+	public static void removedTradedItems() {
+		int i = 0;
+		while(i < itemList.length-1) {
+			if(itemList[i] != null) {
+				Mideas.joueur1().bag().setBag(Mideas.joueur1().bag().getBagSlot(itemList[i]), null);
+			}
+			i++;
+		}
 	}
 	
 	public static void reset() {

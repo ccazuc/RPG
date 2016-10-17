@@ -47,6 +47,8 @@ public class CommandTrade extends Command {
 				}
 				//TradeFrame.addItem(id, slot);
 			}
+			TradeFrame.setTraceAcceptedOther(false);
+			TradeFrame.setTraceAcceptedSelf(false);
 		}
 		else if(packetId == PacketID.TRADE_REQUEST) {
 			//check if windows are open etc
@@ -67,16 +69,21 @@ public class CommandTrade extends Command {
 		else if(packetId == PacketID.TRADE_REMOVE_ITEM) {
 			int slot = ConnectionManager.getConnection().readInt();
 			TradeFrame.addItem(null, slot+7);
+			TradeFrame.setTraceAcceptedOther(false);
+			TradeFrame.setTraceAcceptedSelf(false);
 		}
 		else if(packetId == PacketID.TRADE_CLOSE) {
 			TradeFrame.reset();
 			Interface.setTradeFrameStatus(false);
+			TradeFrame.setAllItemSelectable();
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM_ERROR) {
 			int slot = ConnectionManager.getConnection().readInt();
+			TradeFrame.getItem(slot).setIsSelectable(true);
 			TradeFrame.addItem(null, slot);
 		}
 		else if(packetId == PacketID.TRADE_SEND_ALL_ITEMS) {
+			TradeFrame.removedTradedItems();
 			int i = 0;
 			byte packetID;
 			int id;
@@ -96,6 +103,7 @@ public class CommandTrade extends Command {
 					amount = ConnectionManager.getConnection().readInt();
 					Mideas.joueur1().addItem(item, amount);
 				}
+				i++;
 			}
 		}
 	}

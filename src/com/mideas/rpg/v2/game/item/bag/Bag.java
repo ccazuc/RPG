@@ -99,22 +99,22 @@ public class Bag extends Item implements Cloneable {
 		numberFreeSlotBag = 0;
 		itemList.clear();
 		int i = 0;
-		while(i < Mideas.joueur1().bag().getBag().length) {
-			if(Mideas.joueur1().bag().getBag(i) != null) {
-				if(itemList.containsKey(Mideas.joueur1().bag().getBag(i).getId())) {
-					if(Mideas.joueur1().bag().getBag(i).isStackable()) {
-						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), Mideas.joueur1().bag().getBag(i).getAmount()+itemList.get(Mideas.joueur1().bag().getBag(i).getId()));
+		while(i < this.bag.length) {
+			if(this.bag[i] != null) {
+				if(itemList.containsKey(this.bag[i].getId())) {
+					if(this.bag[i].isStackable()) {
+						itemList.put(this.bag[i].getId(), this.bag[i].getAmount()+itemList.get(this.bag[i].getId()));
 					}
 					else {
-						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), itemList.get(Mideas.joueur1().bag().getBag(i).getId())+1);
+						itemList.put(this.bag[i].getId(), itemList.get(this.bag[i].getId())+1);
 					}
 				}
 				else {
-					if(Mideas.joueur1().bag().getBag(i).isStackable()) {
-						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), Mideas.joueur1().bag().getBag(i).getAmount());
+					if(this.bag[i].isStackable()) {
+						itemList.put(this.bag[i].getId(), this.bag[i].getAmount());
 					}
 					else {
-						itemList.put(Mideas.joueur1().bag().getBag(i).getId(), 1);
+						itemList.put(this.bag[i].getId(), 1);
 					}
 				}
 			}
@@ -130,6 +130,19 @@ public class Bag extends Item implements Cloneable {
 			return itemList.get(id);
 		}
 		return 0;
+	}
+	
+	public int getBagSlot(Item item) {
+		if(itemList.containsKey(item.getId())) {
+			int i = 0;
+			while(i < this.bag.length) {
+				if(this.bag[i] == item) {
+					return i;
+				}
+				i++;
+			}
+		}
+		return -1;
 	}
 	
 	public String getNumberItemInBagsString(int id) {
