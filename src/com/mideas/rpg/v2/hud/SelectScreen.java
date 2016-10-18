@@ -78,7 +78,7 @@ public class SelectScreen {
 	private static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122, 27, "Return", 16, 2) {
 		@Override
 		public void eventButtonClick() {
-			Interface.setHasLoggedIn(false);
+			Interface.setHasLoggedInToAuth(false);
 			Mideas.setJoueur1Null();
 			Mideas.setAccountId(0);
 			LoginScreen.mouseEvent();

@@ -18,8 +18,10 @@ import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
 import com.mideas.rpg.v2.command.CommandLoadStats;
 import com.mideas.rpg.v2.command.CommandLogin;
+import com.mideas.rpg.v2.command.CommandLoginRealm;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
+import com.mideas.rpg.v2.command.CommandSendRealmList;
 import com.mideas.rpg.v2.command.CommandSendSingleBagItem;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.command.CommandUpdateStats;
@@ -44,7 +46,6 @@ public class ConnectionManager {
 	private static HashMap<Integer, Item> itemRequested = new HashMap<Integer, Item>();
 	private static final String IP = "127.0.0.1";
 	private static final int AUTH_PORT = 5725;
-	private static final int WORLD_PORT = 5720;
 	private static boolean init;
 	
 	private static void initPacket() {
@@ -69,6 +70,8 @@ public class ConnectionManager {
 		commandList.put((int)UPDATE_STATS, new CommandUpdateStats());
 		commandList.put((int)TRADE, new CommandTrade());
 		commandList.put((int)FRIEND, new CommandFriend());
+		commandList.put((int)SEND_REALM_LIST, new CommandSendRealmList());
+		commandList.put((int)LOGIN_REALM, new CommandLoginRealm());
 	}
 
 	public static final boolean connectAuthServer() {
@@ -102,10 +105,10 @@ public class ConnectionManager {
 		return false;
 	}
 	
-	public static final boolean connectWorldServer() {
+	public static final boolean connectWorldServer(int port) {
 		try {
 			socket = SocketChannel.open();
-			socket.socket().connect(new InetSocketAddress(IP, WORLD_PORT), 5000);
+			socket.socket().connect(new InetSocketAddress(IP, port), 5000);
 			if(socket.isConnected()) {
 				socket.socket().setTcpNoDelay(true);
 				socket.configureBlocking(false);
@@ -177,7 +180,7 @@ public class ConnectionManager {
 			catch (IOException e) {
 				e.printStackTrace();
 				close();
-				Interface.setHasLoggedIn(false);
+				Interface.setHasLoggedInToAuth(false);
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);
 				ChatFrame.clearChat();
@@ -198,7 +201,7 @@ public class ConnectionManager {
 			catch (IOException e) {
 				e.printStackTrace();
 				close();
-				Interface.setHasLoggedIn(false);
+				Interface.setHasLoggedInToAuth(false);
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);
 				ChatFrame.clearChat();

@@ -313,7 +313,7 @@ public class Mideas {
 		}
 		if(CommandPing.getPingStatus() && System.currentTimeMillis()-CommandPing.getTimer() > TIMEOUT_TIMER) {
 			CommandPing.setPingStatus(false);
-			Interface.setHasLoggedIn(false);
+			Interface.setHasLoggedInToAuth(false);
 			Mideas.setJoueur1Null();
 			Mideas.setAccountId(0);
 			LoginScreen.getAlert().setActive();

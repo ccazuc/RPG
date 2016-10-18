@@ -34,6 +34,7 @@ import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
 import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
+import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.RedAlertFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.ShortcutFrame;
@@ -67,11 +68,12 @@ public class Interface {
 	private static double characterMouseEventTime;
 	private static double spellBarMouseEventTime;
 	private static double dragMouseEventTime;
-	private static boolean hasLoggedIn;
+	private static boolean hasLoggedInToAuth;
 	private static boolean isStuffFullyLoaded;
 	private static boolean isBagFullyLoaded;
 	private static boolean isSpellbarFullyLoaded = true;
 	private static boolean socketingFrameActive;
+	private static boolean isConnectedToWorldServer;
 	private final static Color YELLOW = Color.decode("#F0CE0C");
 
 	public static void draw() throws IOException, NumberFormatException {
@@ -83,9 +85,12 @@ public class Interface {
 			Mideas.setDisplayYFactor(Display.getHeight()/1018f);
 		}
 		if(!changeBackgroundFrameActive && !dungeonFrameActive) {
-			if(!hasLoggedIn) {
+			if(!hasLoggedInToAuth) {
 				LoginScreen.draw();
 				return;
+			}
+			else if(!isConnectedToWorldServer) {
+				RealmListFrame.draw();
 			}
 			else if(Mideas.joueur1() == null) {
 				SelectScreen.draw();
@@ -193,8 +198,13 @@ public class Interface {
 				return true;
 			}
 		}
-		else if(!hasLoggedIn) {
+		else if(!hasLoggedInToAuth) {
 			if(LoginScreen.mouseEvent()) {
+				return true;
+			}
+		}
+		else if(!isConnectedToWorldServer) {
+			if(RealmListFrame.mouseEvent()) {
 				return true;
 			}
 		}
@@ -327,7 +337,7 @@ public class Interface {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
 				//System.out.println(Keyboard.getEventKey());
-				if(!ChatFrame.getChatActive() && hasLoggedIn && Mideas.joueur1() != null) {
+				if(!ChatFrame.getChatActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
 						//RedAlertFrame.addNewAlert("Ceci est un test.");
 						CommandTrade.writeNewTrade(3);
@@ -457,11 +467,14 @@ public class Interface {
 						return true;
 					}
 				}
-				if(hasLoggedIn && Mideas.joueur1() != null) {
+				if(hasLoggedInToAuth && Mideas.joueur1() != null) {
 					ChatFrame.event();
 				}
-				else if(!hasLoggedIn) {
+				else if(!hasLoggedInToAuth) {
 					LoginScreen.event();
+				}
+				else if(!isConnectedToWorldServer) {
+					
 				}
 				else if(Mideas.joueur1() == null) {
 					SelectScreen.event();
@@ -474,6 +487,10 @@ public class Interface {
 			}
 		}
 		return false;
+	}
+	
+	public static void setIsConnectedToWorldServer(boolean we) {
+		isConnectedToWorldServer = we;
 	}
 	
 	public static void setTradeFrameStatus(boolean we) {
@@ -650,12 +667,12 @@ public class Interface {
 		return cast;
 	}
 	
-	public static void setHasLoggedIn(boolean we) {
-		hasLoggedIn = we;
+	public static void setHasLoggedInToAuth(boolean we) {
+		hasLoggedInToAuth = we;
 	}
 	
 	public static boolean getHasLoggedIn() {
-		return hasLoggedIn;
+		return hasLoggedInToAuth;
 	}
 	
 	public static void closeAllFrame() {
