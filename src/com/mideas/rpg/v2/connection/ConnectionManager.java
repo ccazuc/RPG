@@ -36,14 +36,15 @@ import static com.mideas.rpg.v2.connection.PacketID.*;
 
 public class ConnectionManager {
 
-	private static Connection worldServerconnection;
+	private static Connection worldServerConnection;
 	private static Connection authServerConnection;
 	private static SocketChannel authSocket;
 	private static SocketChannel socket;
 	private static HashMap<Integer, Command> commandList = new HashMap<Integer, Command>();
 	private static HashMap<Integer, Item> itemRequested = new HashMap<Integer, Item>();
 	private static final String IP = "127.0.0.1";
-	private static final int PORT = 5721;
+	private static final int AUTH_PORT = 5725;
+	private static final int WORLD_PORT = 5720;
 	private static boolean init;
 	
 	private static void initPacket() {
@@ -71,9 +72,13 @@ public class ConnectionManager {
 	}
 
 	public static final boolean connectAuthServer() {
+		if(!init) {
+			initPacket();
+			init = true;
+		}
 		try {
 			authSocket = SocketChannel.open();
-			authSocket.socket().connect(new InetSocketAddress(IP, PORT), 5000);
+			authSocket.socket().connect(new InetSocketAddress(IP, AUTH_PORT), 5000);
 			if(authSocket.isConnected()) {
 				authSocket.socket().setTcpNoDelay(true);
 				authSocket.configureBlocking(false);
@@ -96,22 +101,19 @@ public class ConnectionManager {
 		}
 		return false;
 	}
+	
 	public static final boolean connectWorldServer() {
-		if(!init) {
-			initPacket();
-			init = true;
-		}
 		try {
 			socket = SocketChannel.open();
-			socket.socket().connect(new InetSocketAddress(IP, PORT), 5000);
+			socket.socket().connect(new InetSocketAddress(IP, WORLD_PORT), 5000);
 			if(socket.isConnected()) {
 				socket.socket().setTcpNoDelay(true);
 				socket.configureBlocking(false);
-				if(worldServerconnection == null) {
-					worldServerconnection = new Connection(socket);
+				if(worldServerConnection == null) {
+					worldServerConnection = new Connection(socket);
 				}
 				else {
-					worldServerconnection.setSocket(socket);
+					worldServerConnection.setSocket(socket);
 				}
 				return true;
 			}
@@ -128,7 +130,11 @@ public class ConnectionManager {
 	}
 	
 	public static Connection getConnection() {
-		return worldServerconnection;
+		return worldServerConnection;
+	}
+	
+	public static Connection getAuthConnection() {
+		return authServerConnection;
 	}
 	
 	public static boolean isConnected() {
@@ -138,18 +144,33 @@ public class ConnectionManager {
 		return false;
 	}
 	
+	public static boolean isAuthServerConnected() {
+		if(authSocket != null) {
+			return authSocket.isConnected();
+		}
+		return false;
+	}
+	
  	public static void close() {
- 		if(worldServerconnection != null) {
- 			worldServerconnection.close();
+ 		if(worldServerConnection != null) {
+ 			worldServerConnection.close();
  		}
 		socket = null;
-		worldServerconnection = null;
+		worldServerConnection = null;
+	}
+	
+ 	public static void closeAuth() {
+ 		if(authServerConnection != null) {
+ 			authServerConnection.close();
+ 		}
+		authSocket = null;
+		authServerConnection = null;
 	}
 	
 	public static void read() {
 		if(socket.isConnected()) {
 			try {
-				if(worldServerconnection.read() == 1) {
+				if(worldServerConnection.read() == 1) {
 					readPacket();
 				}
 			} 
@@ -167,14 +188,47 @@ public class ConnectionManager {
 		}
 	}
 	
-	private static void readPacket() {
-		while(worldServerconnection != null && worldServerconnection.hasRemaining()) {
-			byte packetId = worldServerconnection.readByte();
+	public static void readAuthServer() {
+		if(authSocket.isConnected()) {
+			try {
+				if(authServerConnection.read() == 1) {
+					readAuthPacket();
+				}
+			} 
+			catch (IOException e) {
+				e.printStackTrace();
+				close();
+				Interface.setHasLoggedIn(false);
+				Mideas.setJoueur1Null();
+				Mideas.setAccountId(0);
+				ChatFrame.clearChat();
+				LoginScreen.getAlert().setActive();
+				LoginScreen.getAlert().setText("Vous avez été déconnecté.");
+				return;
+			}
+		}
+	}
+	
+	private static void readAuthPacket() {
+		while(authServerConnection != null && authServerConnection.hasRemaining()) {
+			byte packetId = authServerConnection.readByte();
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();
 			}
 			else {
-				System.out.println("Unknown packet: "+(int)packetId);
+				System.out.println("Unknown Auth packet: "+(int)packetId);
+			}
+		}
+	}
+	
+	private static void readPacket() {
+		while(worldServerConnection != null && worldServerConnection.hasRemaining()) {
+			byte packetId = worldServerConnection.readByte();
+			if(commandList.containsKey((int)packetId)) {
+				commandList.get((int)packetId).read();
+			}
+			else {
+				System.out.println("Unknown World packet: "+(int)packetId);
 			}
 		}
 	}

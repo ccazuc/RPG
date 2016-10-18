@@ -166,6 +166,9 @@ public class Mideas {
 				if(ConnectionManager.isConnected()) {
 					ConnectionManager.read();
 				}
+				if(ConnectionManager.isAuthServerConnected()) {
+					ConnectionManager.readAuthServer();
+				}
 				time = System.nanoTime();
 				while(Mouse.next()) {
 					if(Interface.mouseEvent()) {

@@ -19,45 +19,51 @@ public class CommandLogin extends Command {
 
 	@Override
 	public void read() {
-		byte packetId = ConnectionManager.getConnection().readByte();
+		byte packetId = ConnectionManager.getAuthConnection().readByte();
 		if(packetId == LOGIN_ACCEPT) {
+			System.out.println('a');
+			int id = ConnectionManager.getAuthConnection().readInt();
+			//int rank = ConnectionManager.getAuthConnection().readInt();
+			double key = ConnectionManager.getAuthConnection().readDouble();
 			ConnectionManager.connectWorldServer();
-			int id = ConnectionManager.getConnection().readInt();
-			int rank = ConnectionManager.getConnection().readInt();
 			Interface.setHasLoggedIn(true);
 			Mideas.setAccountId(id);
-			Mideas.setRank(rank);
+			//Mideas.setRank(rank);
 			SelectScreen.mouseEvent();
 			LoginScreen.loginSuccess();
 		}
 		else if(packetId == ACCOUNT_BANNED_TEMP) {
+			System.out.println('b');
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Vous avez été bannis de façon temporaire.");
-			ConnectionManager.close();
+			ConnectionManager.closeAuth();
 		}
 		else if(packetId == ACCOUNT_BANNED_PERM) {
+			System.out.println('c');
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Vous avez été bannis de façon permanente.");
-			ConnectionManager.close();
+			ConnectionManager.closeAuth();
 		}
 		else if(packetId == LOGIN_WRONG) {
+			System.out.println('d');
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Identifiants incorrectes.");
-			ConnectionManager.close();
+			ConnectionManager.closeAuth();
 		}
 		else if(packetId == ALREADY_LOGGED) {
+			System.out.println('d');
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Ce compte est déjà connecté.");
-			ConnectionManager.close();
+			ConnectionManager.closeAuth();
 		}
 	}
 	
 	public static void write(String account, String password) {
-		if(ConnectionManager.isConnected()) {
-			ConnectionManager.getConnection().writeByte(LOGIN);
-			ConnectionManager.getConnection().writeString(account);
-			ConnectionManager.getConnection().writeString(password);
-			ConnectionManager.getConnection().send();
+		if(ConnectionManager.isAuthServerConnected()) {
+			ConnectionManager.getAuthConnection().writeByte(LOGIN);
+			ConnectionManager.getAuthConnection().writeString(account);
+			ConnectionManager.getAuthConnection().writeString(password);
+			ConnectionManager.getAuthConnection().send();
 		}
 	}
 }
