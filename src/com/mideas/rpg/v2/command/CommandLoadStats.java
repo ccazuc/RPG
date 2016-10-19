@@ -9,5 +9,7 @@ public class CommandLoadStats extends Command {
 	public void read() {
 		Mideas.joueur1().setExp(ConnectionManager.getConnection().readInt());
 		Mideas.joueur1().setGold(ConnectionManager.getConnection().readInt());
+		Mideas.setRank(ConnectionManager.getConnection().readInt());
+		System.out.println(Mideas.getRank());
 	}
 }

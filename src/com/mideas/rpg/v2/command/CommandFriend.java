@@ -3,9 +3,9 @@ package com.mideas.rpg.v2.command;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
+import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Friend;
 import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.game.race.Classe;
 import com.mideas.rpg.v2.game.race.Race;
 
 public class CommandFriend extends Command {
@@ -17,7 +17,7 @@ public class CommandFriend extends Command {
 			
 		}
 		else if(packetId == PacketID.FRIEND_ADD) {
-			Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readString(), ConnectionManager.getConnection().readInt(), Race.values()[ConnectionManager.getConnection().readChar()], Classe.values()[ConnectionManager.getConnection().readChar()]));
+			Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readString(), ConnectionManager.getConnection().readInt(), Race.values()[ConnectionManager.getConnection().readChar()], ClassType.values()[ConnectionManager.getConnection().readChar()], ConnectionManager.getConnection().readBoolean()));
 		}
 	}
 	

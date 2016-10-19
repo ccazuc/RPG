@@ -44,6 +44,7 @@ import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.EscapeFrame;
 import com.mideas.rpg.v2.hud.LoginScreen;
+import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
@@ -84,7 +85,7 @@ public class Mideas {
 	private final static int TIMEOUT_TIMER = 10000;
 	private final static Pattern isInteger = Pattern.compile("-?[0-9]+");
 	
-	public static void context2D() {
+	private static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
         GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);                
         GL11.glClearDepth(1);     
@@ -283,6 +284,7 @@ public class Mideas {
 		SocketingFrame.updateSize();
 		EscapeFrame.updateSize();
 		TradeFrame.updateSize();
+		RealmListFrame.updateSize();
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
 			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
 		}

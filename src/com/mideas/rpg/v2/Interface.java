@@ -38,6 +38,7 @@ import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.RedAlertFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.ShortcutFrame;
+import com.mideas.rpg.v2.hud.SocialFrame;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
@@ -74,6 +75,7 @@ public class Interface {
 	private static boolean isSpellbarFullyLoaded = true;
 	private static boolean socketingFrameActive;
 	private static boolean isConnectedToWorldServer;
+	private static boolean socialFrameActive;
 	private final static Color YELLOW = Color.decode("#F0CE0C");
 
 	public static void draw() throws IOException, NumberFormatException {
@@ -135,6 +137,9 @@ public class Interface {
 				}
 				if(System.currentTimeMillis()%2000 < 10) {
 					containerDrawTime = System.nanoTime()-time;
+				}
+				if(socialFrameActive) {
+					SocialFrame.draw();
 				}
 				if(shopFrameActive) {
 					ShopManager.draw();		
@@ -254,6 +259,11 @@ public class Interface {
 			if(System.currentTimeMillis()%500 < 10) {
 				containerMouseEventTime = System.nanoTime()-time;
 			}
+			if(socialFrameActive) {
+				if(SocialFrame.mouseEvent()) {
+					return true;
+				}
+			}
 			DragBagManager.openBag();
 			if(DragBagManager.mouseEvent()) {
 				return true;
@@ -354,6 +364,9 @@ public class Interface {
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_W) {
 						PerformanceBarFrame.setPerformanceBarActive(!PerformanceBarFrame.getPerformanceBarActive());
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_O) {
+						socialFrameActive = !socialFrameActive;
 					}
 					else if(Keyboard.isKeyDown(42) && Keyboard.getEventKey() == Keyboard.KEY_B && !escapeFrameActive) {
 						if(containerFrameActive) {
@@ -474,7 +487,7 @@ public class Interface {
 					LoginScreen.event();
 				}
 				else if(!isConnectedToWorldServer) {
-					
+					RealmListFrame.event();
 				}
 				else if(Mideas.joueur1() == null) {
 					SelectScreen.event();

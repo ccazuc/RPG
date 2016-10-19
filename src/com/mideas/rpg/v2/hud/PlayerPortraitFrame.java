@@ -75,7 +75,7 @@ public class PlayerPortraitFrame {
 	}
 	
 	private static void drawPortait(Unit joueur, int x, int y) {
-		/*Texture portrait = null;
+		Texture portrait = null;
 		if(joueur.getClasseString().equals(priest)) {
 			portrait = Sprites.priest;
 		}
@@ -109,6 +109,6 @@ public class PlayerPortraitFrame {
 		else if(joueur.getClasseString().equals(illidan)) {
 			portrait = Sprites.illidan;
 		}
-		Draw.drawQuad(portrait, x+11, y+8);*/
+		Draw.drawQuad(portrait, x+11, y+8);
 	}
 }

@@ -200,7 +200,7 @@ public class ConnectionManager {
 			} 
 			catch (IOException e) {
 				e.printStackTrace();
-				close();
+				closeAuth();
 				Interface.setHasLoggedInToAuth(false);
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);

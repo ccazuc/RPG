@@ -36,6 +36,9 @@ public class TTF2 {
 	public static TTF alertFont;
 	public static TTF craft;
 	public static TTF checkBox;
+	public static TTF realmList;
+	public static TTF friendName;
+	public static TTF friendInfos;
 	
 	public static void init() throws FontFormatException, IOException {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
@@ -175,10 +178,24 @@ public class TTF2 {
 		awtFont = awtFont.deriveFont(Font.BOLD);
 		craft = new TTF(awtFont, true);
 
-		
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		awtFont = awtFont.deriveFont(13f);
 		checkBox = new TTF(awtFont, true);
+
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(18f);
+		realmList = new TTF(awtFont, true);
+
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(15f);
+		friendName = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		awtFont = awtFont.deriveFont(12f);
+		friendInfos = new TTF(awtFont, true);
 	}
 }

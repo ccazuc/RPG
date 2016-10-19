@@ -58,6 +58,7 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			creatingCharacter = true;
+			this.reset();
 		}
 	};	
 	static Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195, 34, "Accept", 16, 2) {
@@ -65,6 +66,7 @@ public class SelectScreen {
 		public void eventButtonClick() {
 			SelectScreen.createCharacter();
 			returnCharacterButton.reset();
+			this.reset();
 		}
 	};	
 	static Button returnCharacterButton = new Button(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150, 34, "Return", 16, 2) {
@@ -79,11 +81,13 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			Interface.setHasLoggedInToAuth(false);
+			Interface.setIsConnectedToWorldServer(false);
 			Mideas.setJoueur1Null();
 			Mideas.setAccountId(0);
 			LoginScreen.mouseEvent();
 			CommandLogout.write();
 			SelectScreen.characterLoaded = false;
+			this.reset();
 		}
 	};
 	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50, "Enter game", 19, 2) {
@@ -91,6 +95,8 @@ public class SelectScreen {
 		public void eventButtonClick() {
 			loadCharacterInfo();
 			Arrays.fill(characterList, null);
+			characterLoaded = false;
+			this.reset();
 		}
 	};
 	private static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202, 28, "Delete character", 16, 2) {

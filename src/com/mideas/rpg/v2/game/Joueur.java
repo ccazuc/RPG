@@ -21,6 +21,7 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
+import com.mideas.rpg.v2.game.race.Race;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
@@ -93,6 +94,8 @@ public class Joueur extends Unit {
 		//this.classString = convClassTypeToString(this.classType);
 		this.level = 1;
 		this.friendList = new ArrayList<Friend>();
+		this.friendList.add(new Friend("Jean-42", 70, Race.ORC, ClassType.GUERRIER, true));
+		this.friendList.add(new Friend("Jean-bas-level", 70, Race.ORC, ClassType.GUERRIER, false));
 	}
 	
 	public Joueur(Joueur joueur) {
@@ -575,10 +578,6 @@ public class Joueur extends Unit {
 	
 	public ClassType getClassType() {
 		return this.classType;
-	}
-	
-	public String getClasseString() {
-		return this.classString;
 	}
 	
 	public void setId(int id) {

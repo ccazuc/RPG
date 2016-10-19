@@ -15,5 +15,10 @@ public class CommandLogout extends Command {
 			ConnectionManager.getConnection().send();
 			ConnectionManager.close();
 		}
+		if(ConnectionManager.isAuthServerConnected()) {
+			ConnectionManager.getAuthConnection().writeByte(LOGOUT);
+			ConnectionManager.getAuthConnection().send();
+			ConnectionManager.closeAuth();
+		}
 	}
 }

@@ -37,6 +37,10 @@ public class Unit {
 		return this.manaText;
 	}
 	
+	public String getClasseString() {
+		return this.classString;
+	}
+	
 	public void setManaText(String text) {
 		this.manaText = text;
 	}

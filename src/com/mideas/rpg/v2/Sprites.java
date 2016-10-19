@@ -277,6 +277,13 @@ public class Sprites {
 	public static Texture trade_frame;
 	public static Texture click_down;
 	public static Texture trade_accepted;
+	public static Texture realm_list_background;
+	public static Texture realm_list_box;
+	public static Texture selected_realm;
+	public static Texture friend_frame;
+	public static Texture friend_border;
+	public static Texture friend_note_online;
+	public static Texture friend_note_offline;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -434,6 +441,9 @@ public class Sprites {
 		priest2 = new Texture("sprite/classes/priest.png");
 		trade_accepted = new Texture("sprite/interface/trade/trade_accepted.png");
 		stuff_border = new Texture("sprite/interface/stuff_border.png");
+		realm_list_background = new Texture("sprite/interface/realm_list/realm_list_background.png");
+		realm_list_box = new Texture("sprite/interface/realm_list/realm_list_box.png");
+		selected_realm = new Texture("sprite/interface/realm_list/selected_realm.png");
 		return true;
 	}
 		
@@ -566,6 +576,10 @@ public class Sprites {
 		big_alert = new Texture("sprite/interface/big_alert.png");
 		input_box = new Texture("sprite/interface/input_box.png");
 		trade_frame = new Texture("sprite/interface/trade/trade_frame.png");
+		friend_frame = new Texture("sprite/interface/social/friend_frame.png");
+		friend_border = new Texture("sprite/interface/social/friend_border.png");
+		friend_note_online = new Texture("sprite/interface/social/friend_note_online.png");
+		friend_note_offline = new Texture("sprite/interface/social/friend_note_offline.png");
 		return true;
 	}
 
