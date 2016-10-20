@@ -1,6 +1,10 @@
 package com.mideas.rpg.v2.command;
 
+import org.newdawn.slick.Color;
+
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.ClassType;
@@ -17,7 +21,18 @@ public class CommandFriend extends Command {
 			
 		}
 		else if(packetId == PacketID.FRIEND_ADD) {
-			Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readString(), ConnectionManager.getConnection().readInt(), Race.values()[ConnectionManager.getConnection().readChar()], ClassType.values()[ConnectionManager.getConnection().readChar()], ConnectionManager.getConnection().readBoolean()));
+			Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readInt(), ConnectionManager.getConnection().readString(), ConnectionManager.getConnection().readInt(), Race.values()[ConnectionManager.getConnection().readChar()], ClassType.values()[ConnectionManager.getConnection().readChar()], ConnectionManager.getConnection().readBoolean()));
+		}
+		else if(packetId == PacketID.FRIEND_OFFLINE) {
+			String name = ConnectionManager.getConnection().readString();
+			int i = 0;
+			while(i < Mideas.joueur1().getFriendList().size()) {
+				if(Mideas.joueur1().getFriendList().get(i).equals(name)) {
+					Mideas.joueur1().getFriendList().get(i).setOnlineStatus(false);
+					ChatFrame.addMessage(new Message(name+" vient de se déconnecter.", false, Color.yellow));
+				}
+				i++;
+			}
 		}
 	}
 	
@@ -36,5 +51,13 @@ public class CommandFriend extends Command {
 		else {
 			//friendlist full
 		}
+	}
+	
+	public static void removeFriend(int id) {
+		ConnectionManager.getConnection().writeByte(PacketID.FRIEND);
+		ConnectionManager.getConnection().writeByte(PacketID.FRIEND_REMOVE);
+		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().send();
+		
 	}
 }

@@ -46,6 +46,7 @@ import com.mideas.rpg.v2.hud.EscapeFrame;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
+import com.mideas.rpg.v2.hud.SocialFrame;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.jdo.JDO;
@@ -285,6 +286,7 @@ public class Mideas {
 		EscapeFrame.updateSize();
 		TradeFrame.updateSize();
 		RealmListFrame.updateSize();
+		SocialFrame.updateSize();
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
 			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
 		}

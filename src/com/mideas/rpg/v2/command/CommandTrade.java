@@ -28,9 +28,9 @@ public class CommandTrade extends Command {
 				TradeFrame.addItem(id, slot+7);
 				TradeFrame.getItem(slot+7).setAmount(amount);
 				if(ConnectionManager.getConnection().readBoolean()) {
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem1(GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem2(GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem3(GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(1, GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(2, GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(3, GemManager.getClone(ConnectionManager.getConnection().readInt()));
 				}
 				//System.out.println("added item");
 			}
@@ -41,9 +41,9 @@ public class CommandTrade extends Command {
 				TradeFrame.addItem(item, slot+7);
 				TradeFrame.getItem(slot+7).setAmount(amount);
 				if(ConnectionManager.getConnection().readBoolean()) {
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem1(GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem2(GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem3(GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(1, GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(2, GemManager.getClone(ConnectionManager.getConnection().readInt()));
+					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(3, GemManager.getClone(ConnectionManager.getConnection().readInt()));
 				}
 				//TradeFrame.addItem(id, slot);
 			}
@@ -116,26 +116,29 @@ public class CommandTrade extends Command {
 		ConnectionManager.getConnection().writeInt(amount);
 		if(item.isStuff() || item.isWeapon()) {
 			Stuff stuff = (Stuff)item;
-			if(stuff.getEquippedGem1() != null || stuff.getEquippedGem2() != null || stuff.getEquippedGem3() != null) {
+			if(stuff.getEquippedGem(1) != null || stuff.getEquippedGem(2) != null || stuff.getEquippedGem(3) != null) {
 				ConnectionManager.getConnection().writeBoolean(true);
-				if(stuff.getEquippedGem1() != null) {
-					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem1().getId());
+				/*if(stuff.getEquippedGem(1) != null) {
+					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem(1).getId());
 				}
 				else {
 					ConnectionManager.getConnection().writeInt(0);
 				}
-				if(stuff.getEquippedGem2() != null) {
-					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem2().getId());
+				if(stuff.getEquippedGem(2) != null) {
+					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem(2).getId());
 				}
 				else {
 					ConnectionManager.getConnection().writeInt(0);
 				}
-				if(stuff.getEquippedGem3() != null) {
-					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem3().getId());
+				if(stuff.getEquippedGem(3) != null) {
+					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem(3).getId());
 				}
 				else {
 					ConnectionManager.getConnection().writeInt(0);
-				}
+				}*/
+				sendGem(stuff, 1);
+				sendGem(stuff, 2);
+				sendGem(stuff, 3);
 			}
 			else {
 				ConnectionManager.getConnection().writeBoolean(false);
@@ -145,6 +148,15 @@ public class CommandTrade extends Command {
 			ConnectionManager.getConnection().writeBoolean(false);
 		}
 		ConnectionManager.getConnection().send();
+	}
+	
+	private static void sendGem(Stuff stuff, int slot) {
+		if(stuff.getEquippedGem(slot) != null) {
+			ConnectionManager.getConnection().writeInt(stuff.getEquippedGem(slot).getId());
+		}
+		else {
+			ConnectionManager.getConnection().writeInt(0);
+		}
 	}
 	
 	public static void writeNewTrade(int character_id) {

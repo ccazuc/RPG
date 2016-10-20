@@ -46,17 +46,17 @@ public class SocketingFrame {
 		@Override
 		protected void eventButtonClick() {
 			if(tempGem1 != null) {
-				stuff.setEquippedGem1(tempGem1);
+				stuff.setEquippedGem(1, tempGem1);
 				DragManager.deleteBagItem(tempGem1);
 				tempGem1 = null;
 			}
 			if(tempGem2 != null) {
-				stuff.setEquippedGem1(tempGem2);
+				stuff.setEquippedGem(2, tempGem2);
 				DragManager.deleteBagItem(tempGem2);
 				tempGem2 = null;
 			}
 			if(tempGem3 != null) {
-				stuff.setEquippedGem1(tempGem3);
+				stuff.setEquippedGem(3, tempGem3);
 				DragManager.deleteBagItem(tempGem3);
 				tempGem3 = null;
 			}
@@ -139,7 +139,7 @@ public class SocketingFrame {
 		if(stuff.getNumberGemSlot() == 1) {
 			x = -127*Mideas.getDisplayXFactor();
 			y = 8;
-			drawGem(stuff.getEquippedGem1(), stuff.getGemSlot1(), tempGem1, Display.getWidth()/2+x+CharacterFrame.getMouseX(), Display.getHeight()/2+y+CharacterFrame.getMouseY());
+			drawGem(stuff.getEquippedGem(1), stuff.getGemSlot1(), tempGem1, Display.getWidth()/2+x+CharacterFrame.getMouseX(), Display.getHeight()/2+y+CharacterFrame.getMouseY());
 		}
 		else if(stuff.getNumberGemSlot() == 2) {
 		}
@@ -189,7 +189,7 @@ public class SocketingFrame {
 			Draw.drawQuad(getEmptyCrossSprite(tempGem.getColor()), x-7, y-5);
 			Draw.drawQuad(Sprites.border, x+2, y+1, (Sprites.red_socket_background.getImageWidth()-3)*Mideas.getDisplayXFactor(), (Sprites.red_socket_background.getImageHeight()-2)*Mideas.getDisplayXFactor());
 		}
-		else if(stuff.getEquippedGem1() == null) {
+		else if(stuff.getEquippedGem(1) == null) {
 			Draw.drawQuad(getEmptyCrossSprite(slotColor), x-7, y-5);
 		}
 		else {

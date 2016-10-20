@@ -20,7 +20,6 @@ import com.mideas.rpg.v2.utils.Draw;
 public class ChatFrame {
 	
 	private static boolean chatActive;
-	private static final int MAXIMUM_MESSAGES = 100;
 	private static ArrayList<Message> messages = new ArrayList<Message>();
 	private static ArrayList<String> rawMessages = new ArrayList<String>();
 	private static int numberMessageSent;
@@ -54,6 +53,9 @@ public class ChatFrame {
 	private static int yDraw; 
 	private static int xDraw;
 	private static int xShift;
+	private static int numberLineLastMessages;
+	private final static int NUMBER_LAST_MESSAGE_TAKEN = 100;
+	private static final int MAXIMUM_MESSAGES = 100;
 	
 	private static String warrior = "Warrior";
 	private static String paladin = "Paladin";
@@ -86,16 +88,22 @@ public class ChatFrame {
 			}
 		}
 		if(messages.size() > MAXIMUM_MESSAGES) {
-			messages.remove(0);
+			while(messages.size() >= MAXIMUM_MESSAGES) {
+				messages.remove(0);
+			}
+			totalNumberLine = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
+			System.out.println(numberLineLastMessages);
 		}
 		Draw.drawColorQuad(selectedStarts, Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
 		TTF2.chat.drawString(40, Display.getHeight()-175, tempMessage.substring(tempLength), Color.white);
 		int k = 0;
 		yDraw = -totalNumberLine*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
+		//yDraw = -numberLineLastMessages*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
+		//System.out.println(numberLineLastMessages);
 		xDraw = 40;
 		while(k < messages.size()) {
 			xDraw = 40;
-				if(yDraw >= Display.getHeight()-280-TTF2.chat.getLineHeight()*4-yResize && yDraw <= Display.getHeight()-185) {
+				if(yDraw <= Display.getHeight()-185) {
 					int j = 0;
 					while(j < messages.get(k).getMessage().length()) {
 						if(yDraw >= Display.getHeight()-280-yResize) {
@@ -118,6 +126,21 @@ public class ChatFrame {
 		if(topArrow) {
 			Draw.drawQuad(Sprites.up_chat_button, 3, Display.getHeight()-236);
 		}
+	}
+	
+	private static int getNumberLine(String msg) {
+		int i = 0;
+		int x = 0;
+		int number = 1;
+		while(i < msg.length()) {
+			x+= TTF2.chat.getWidth(msg.charAt(i));
+			if(x > maxLength) {
+				x = 0;
+				number++;
+			}
+			i++;
+		}
+		return number;
 	}
 	
 	public static void event() throws NumberFormatException {
@@ -258,6 +281,7 @@ public class ChatFrame {
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
 				totalNumberLine = getTotalNumberLine();
+				numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 			}
 		}
 		else if(heightResizing) {
@@ -269,6 +293,7 @@ public class ChatFrame {
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
 				totalNumberLine = getTotalNumberLine();
+				numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 			}
 		}
 		if(Mouse.getEventButton() == 0) {
@@ -310,12 +335,49 @@ public class ChatFrame {
 		return false;
 	}
 	
+	private static int getLength(String msg, int beg, int length) {
+		int i = beg;
+		String temp = "";
+		while(TTF2.chat.getWidth(temp) <= length && i < msg.length()) {
+			temp = msg.substring(beg, i);
+			i++;
+		}
+		return i;
+	}
+	
+	private static int getTotalNumberLine() {
+		int i = 0;
+		int number = 0;
+		while(i < messages.size()) {
+			number+= getNumberLine(messages.get(i).getMessage());
+			i++;
+		}
+		return number;
+	}
+	
 	private static void addMessage() {
 		String temp = tempMessage;
 		if(temp != null && !temp.equals("")) {
 			messages.add(new Message(temp, true, Color.white));
 			totalNumberLine = getTotalNumberLine();
+			numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 		}
+	}
+	
+	public static void addMessage(Message message) {
+		messages.add(message);
+		totalNumberLine = getTotalNumberLine();
+		numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
+	}
+	
+	private static int getNumberLineLast(int number) {
+		int i = messages.size()-1;
+		int height = 0;
+		while(i > messages.size()-number && i >= 0) {
+			height+= getNumberLine(messages.get(i).getMessage());
+			i--;
+		}
+		return height;
 	}
 	
 	public static void clearChat() {
@@ -525,41 +587,6 @@ public class ChatFrame {
     	}
 	}
 	
-	private static int getNumberLine(String msg) {
-		int i = 0;
-		int x = 0;
-		int number = 1;
-		while(i < msg.length()) {
-			x+= TTF2.chat.getWidth(msg.charAt(i));
-			if(x > maxLength) {
-				x = 0;
-				number++;
-			}
-			i++;
-		}
-		return number;
-	}
-	
-	private static int getLength(String msg, int beg, int length) {
-		int i = beg;
-		String temp = "";
-		while(TTF2.chat.getWidth(temp) <= length && i < msg.length()) {
-			temp = msg.substring(beg, i);
-			i++;
-		}
-		return i;
-	}
-	
-	private static int getTotalNumberLine() {
-		int i = 0;
-		int number = 0;
-		while(i < messages.size()) {
-			number+= getNumberLine(messages.get(i).getMessage());
-			i++;
-		}
-		return number;
-	}
-	
 	private static boolean CTRLDelete() {
 		int i = cursorPosition;
 		String temp = tempMessage.substring(cursorPosition);
@@ -655,11 +682,6 @@ public class ChatFrame {
 			tempMessage = beg+add+end;
 		}
 		cursorShift+= TTF2.chat.getWidth(add);
-	}
-	
-	public static void addMessage(Message message) {
-		messages.add(message);
-		totalNumberLine = getTotalNumberLine();
 	}
 	
 	public static ArrayList<Message> getMessageList() {

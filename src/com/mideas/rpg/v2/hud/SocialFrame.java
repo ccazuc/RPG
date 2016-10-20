@@ -1,12 +1,15 @@
 package com.mideas.rpg.v2.hud;
 
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.command.CommandFriend;
 import com.mideas.rpg.v2.game.Friend;
 import com.mideas.rpg.v2.game.SocialFrameMenu;
+import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class SocialFrame {
@@ -14,9 +17,51 @@ public class SocialFrame {
 	private static SocialFrameMenu selectedMenu = SocialFrameMenu.FRIEND_FRAME;
 	private final static Color YELLOW = Color.decode("#FFC700");
 	private final static Color GREY = Color.decode("#999999");
-	private static Friend selectedFriend;
+	static Friend selectedFriend;
 	private static Friend hoveredFriend;
 	private static boolean friendInit;
+	static boolean addingFriend;
+	final static int BUTTON_LENGTH = 145;
+	private static Button deleteFriendButton = new Button(27*Mideas.getDisplayXFactor(), Display.getHeight()/2+79*Mideas.getDisplayYFactor(), BUTTON_LENGTH*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Delete", 13, 1) {
+		@Override
+		public void eventButtonClick() {
+			Mideas.joueur1().getFriendList().remove(selectedFriend);
+			CommandFriend.removeFriend(selectedFriend.getCharacterId());
+		}
+		
+		@Override
+		public boolean activateCondition() {
+			return selectedFriend != null;
+		}
+	};
+	private static Button addFriendButton = new Button(27*Mideas.getDisplayXFactor(), Display.getHeight()/2+52*Mideas.getDisplayYFactor(), BUTTON_LENGTH*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Add friend", 13, 1) {
+		@Override
+		public void eventButtonClick() {
+			addingFriend = true;
+		}
+	};
+	private static Button sendMessageFriendButton = new Button(251*Mideas.getDisplayXFactor(), Display.getHeight()/2+52*Mideas.getDisplayYFactor(), BUTTON_LENGTH*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Send message", 13, 1) {
+		@Override
+		public void eventButtonClick() {
+			//trigger whisper
+		}
+		
+		@Override
+		public boolean activateCondition() {
+			return selectedFriend != null && selectedFriend.isOnline();
+		}
+	};
+	private static Button invInParty = new Button(251*Mideas.getDisplayXFactor(), Display.getHeight()/2+79*Mideas.getDisplayYFactor(), BUTTON_LENGTH*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Inv. in party", 13, 1) {
+		@Override
+		public void eventButtonClick() {
+			//trigger whisper
+		}
+		
+		@Override
+		public boolean activateCondition() {
+			return selectedFriend != null && selectedFriend.isOnline();
+		}
+	};
 	
 	public static void draw() {
 		if(selectedMenu == SocialFrameMenu.FRIEND_FRAME) {
@@ -37,13 +82,27 @@ public class SocialFrame {
 	}
 	
 	public static boolean mouseEvent() {
-		
+		if(selectedMenu == SocialFrameMenu.FRIEND_FRAME) {
+			return mouseEventFriendFrame();
+		}
+		else if(selectedMenu == SocialFrameMenu.WHO_FRAME) {
+			return mouseEventWhoFrame();
+		}
+		else if(selectedMenu == SocialFrameMenu.GUILD_FRAME) {
+			return mouseEventGuildFrame();
+		}
+		else if(selectedMenu == SocialFrameMenu.DISCUSSION_FRAME) {
+			return mouseEventDiscussionFrame();
+		}
+		else if(selectedMenu == SocialFrameMenu.RAID_FRAME) {
+			return mouseEventRaidFrame();
+		}
 		return false;
 	}
 	
 	private static void drawFriendFrame() {
 		if(!friendInit && Mideas.joueur1().getFriendList().size() > 0) {
-			selectedFriend = Mideas.joueur1().getFriendList().get(0);
+			selectedFriend = Mideas.joueur1().getFriendList().get(1);
 			//hoveredFriend = Mideas.joueur1().getFriendList().get(1);
 			friendInit = true;
 		}
@@ -72,6 +131,10 @@ public class SocialFrame {
 			i++;
 			y+= yShift;
 		}
+		deleteFriendButton.draw();
+		addFriendButton.draw();
+		sendMessageFriendButton.draw();
+		invInParty.draw();
 	}
 	
 	private static void drawWhoFrame() {
@@ -87,6 +150,38 @@ public class SocialFrame {
 	}
 	
 	private static void drawRaidFrame() {
+		
+	}
+	
+	private static boolean mouseEventFriendFrame() {
+		deleteFriendButton.event();
+		addFriendButton.event();
+		sendMessageFriendButton.event();
+		invInParty.event();
+		return false;
+	}
+	
+	private static boolean mouseEventWhoFrame() {
+		
+		return false;
+	}
+	
+	private static boolean mouseEventGuildFrame() {
+		
+		return false;
+	}
+	
+	private static boolean mouseEventDiscussionFrame() {
+		
+		return false;
+	}
+	
+	private static boolean mouseEventRaidFrame() {
+		
+		return false;
+	}
+	
+	public static void updateSize() {
 		
 	}
 }

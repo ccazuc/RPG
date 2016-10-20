@@ -21,9 +21,9 @@ public class CommandSendSingleBagItem extends Command {
 			}
 			else if(item.isStuff() || item.isWeapon()) {
 				ConnectionManager.getConnection().writeInt(item.getId());
-				writeGem(((Stuff)item).getEquippedGem1());
-				writeGem(((Stuff)item).getEquippedGem2());
-				writeGem(((Stuff)item).getEquippedGem3());
+				writeGem(((Stuff)item).getEquippedGem(1));
+				writeGem(((Stuff)item).getEquippedGem(2));
+				writeGem(((Stuff)item).getEquippedGem(3));
 			}
 			else if(item.isItem() || item.isPotion()) {
 				ConnectionManager.getConnection().writeInt(item.getId());

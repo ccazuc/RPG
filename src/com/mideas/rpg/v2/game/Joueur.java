@@ -61,7 +61,7 @@ public class Joueur extends Unit {
 	public static int y;
 	public static int z;
 
-	private final static String warrior = "Warrior";
+	private final static String warrior = "Guerrier";
 	private final static String hunter = "Hunter";
 	private final static String mage = "Mage";
 	private final static String paladin = "Paladin";
@@ -94,8 +94,8 @@ public class Joueur extends Unit {
 		//this.classString = convClassTypeToString(this.classType);
 		this.level = 1;
 		this.friendList = new ArrayList<Friend>();
-		this.friendList.add(new Friend("Jean-42", 70, Race.ORC, ClassType.GUERRIER, true));
-		this.friendList.add(new Friend("Jean-bas-level", 70, Race.ORC, ClassType.GUERRIER, false));
+		this.friendList.add(new Friend(3, "Jean-42", 70, Race.ORC, ClassType.GUERRIER, true));
+		this.friendList.add(new Friend(2, "Jean-bas-level", 70, Race.ORC, ClassType.GUERRIER, false));
 	}
 	
 	public Joueur(Joueur joueur) {
@@ -104,6 +104,7 @@ public class Joueur extends Unit {
 		this.stamina = joueur.stamina;
 		this.mana = joueur.mana;
 		this.strength = joueur.strength;
+		this.classType = joueur.classType;
 		this.armor = joueur.armor;
 		this.defaultArmor = joueur.defaultArmor;
 		this.critical = joueur.critical;

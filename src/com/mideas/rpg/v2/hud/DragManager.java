@@ -307,7 +307,7 @@ public class DragManager {
 			if(Mideas.joueur1().bag().getBag(i).isStuff()) {
 				int j = 0;
 				while(j < type.length) {
-					if(((Stuff)Mideas.joueur1().bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString())) && Mideas.joueur1().canWear((Stuff)Mideas.joueur1().bag().getBag(i))) {
+					if(((Stuff)Mideas.joueur1().bag().getBag(i)).getType() == type[j] && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(Mideas.joueur1().getClassType()) && Mideas.joueur1().canWear((Stuff)Mideas.joueur1().bag().getBag(i))) {
 						if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.joueur1().bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(j) == null) {
 								Mideas.joueur1().setStuff(j, Mideas.joueur1().bag().getBag(i));
@@ -336,7 +336,7 @@ public class DragManager {
 			else if(Mideas.joueur1().bag().getBag(i).isWeapon()) {
 				int j = 0;
 				while(j < type.length) {
-					if(((Stuff)Mideas.joueur1().bag().getBag(i)) != null && ((Stuff)Mideas.joueur1().bag().getBag(i)).getWeaponSlot() == weaponSlot[j] && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
+					if(((Stuff)Mideas.joueur1().bag().getBag(i)) != null && ((Stuff)Mideas.joueur1().bag().getBag(i)).getWeaponSlot() == weaponSlot[j] && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(Mideas.joueur1().getClassType())) {
 						if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.joueur1().bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(j) == null) {
 								Mideas.joueur1().setStuff(j, Mideas.joueur1().bag().getBag(i));

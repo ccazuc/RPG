@@ -7,6 +7,7 @@ public class Friend {
 	private String name;
 	private int level;
 	private Race race;
+	private int characterId;
 	private ClassType classe;
 	private boolean isOnline;
 	private String infosText;
@@ -15,7 +16,8 @@ public class Friend {
 	private final static String space = " - ";
 	//private Area zone;
 	
-	public Friend(String name, int level, Race race, ClassType classe, boolean isOnline) {
+	public Friend(int character_id, String name, int level, Race race, ClassType classe, boolean isOnline) {
+		this.characterId = character_id;
 		this.isOnline = isOnline;
 		this.classe = classe;
 		this.level = level;
@@ -23,6 +25,10 @@ public class Friend {
 		this.race = race;
 		this.infosText = Joueur.convClassTypeToString(this.classe)+levelText+this.level;
 		this.areaText = space+"Area";
+	}
+	
+	public int getCharacterId() {
+		return this.characterId;
 	}
 	
 	public String getInfosText() {

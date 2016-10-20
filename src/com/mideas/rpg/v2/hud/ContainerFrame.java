@@ -8,7 +8,6 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
-import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
@@ -908,10 +907,13 @@ public class ContainerFrame {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getCriticalString(), Color.white, Color.black, 1);
 			shift+= 20;
 		}
+		
+		//TODO: draw gem with a function in a loop
+		
 		if(item.getGemSlot1() != GemColor.NONE) {
-			if(item.getEquippedGem1() != null) {
-				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem1().getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem1().getGemStatsString(), Color.white, Color.black, 1);
+			if(item.getEquippedGem(1) != null) {
+				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(1).getGemStatsString(), Color.white, Color.black, 1);
 			}
 			else {
 				Draw.drawQuad(item.getFreeSlotGemSprite1(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
@@ -921,9 +923,9 @@ public class ContainerFrame {
 			shift+= 20;
 		}
 		if(item.getGemSlot2() != GemColor.NONE) {
-			if(item.getEquippedGem2() != null) {
-				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem2().getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem2().getGemStatsString(), Color.white, Color.black, 1);
+			if(item.getEquippedGem(2) != null) {
+				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(2).getGemStatsString(), Color.white, Color.black, 1);
 			}
 			else {
 				Draw.drawQuad(item.getFreeSlotGemSprite2(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
@@ -933,9 +935,9 @@ public class ContainerFrame {
 			shift+= 20;
 		}
 		if(item.getGemSlot3() != GemColor.NONE) {
-			if(item.getEquippedGem3() != null) {
-				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem3().getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem3().getGemStatsString(), Color.white, Color.black, 1);
+			if(item.getEquippedGem(3) != null) {
+				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(3).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(3).getGemStatsString(), Color.white, Color.black, 1);
 			}
 			else {
 				Draw.drawQuad(item.getFreeSlotGemSprite3(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
@@ -953,7 +955,7 @@ public class ContainerFrame {
 			}
 			shift+= 20;
 		}
-		if(item.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
+		if(item.canEquipTo(Mideas.joueur1().getClassType())) {
 			temp = Color.white;
 		}
 		else {
@@ -1010,7 +1012,7 @@ public class ContainerFrame {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getCriticalString(), Color.white, Color.black, 1, 1, 1);
 			shift+= 20;
 		}
-		if(item.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
+		if(item.canEquipTo(Mideas.joueur1().getClassType())) {
 			temp = Color.white;
 		}
 		else {

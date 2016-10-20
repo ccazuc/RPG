@@ -87,13 +87,13 @@ public class CharacterStuff {
 						Mideas.joueur1().bag().setBag(i, StuffManager.getClone(id));
 						Stuff temp = (Stuff)Mideas.joueur1().bag().getBag(i);
 						if(GemManager.exists(gem1Id) && temp.getGemSlot1() != GemColor.NONE) {
-							temp.setEquippedGem1(GemManager.getClone(gem1Id));
+							temp.setEquippedGem(1, GemManager.getClone(gem1Id));
 						}
 						if(GemManager.exists(gem2Id) && temp.getGemSlot2() != GemColor.NONE) {
-							temp.setEquippedGem2(GemManager.getClone(gem2Id));
+							temp.setEquippedGem(2, GemManager.getClone(gem2Id));
 						}
 						if(GemManager.exists(gem3Id) && temp.getGemSlot3() != GemColor.NONE) {
-							temp.setEquippedGem3(GemManager.getClone(gem3Id));
+							temp.setEquippedGem(3, GemManager.getClone(gem3Id));
 						}
 						Mideas.joueur1().bag().setBag(i, temp);
 						((Stuff)Mideas.joueur1().bag().getBag(i)).checkBonusTypeActivated();
@@ -107,13 +107,13 @@ public class CharacterStuff {
 						Mideas.joueur1().bag().setBag(i, WeaponManager.getClone(id));
 						Stuff temp = (Stuff)Mideas.joueur1().bag().getBag(i);
 						if(GemManager.exists(gem1Id)) {
-							temp.setEquippedGem1(GemManager.getClone(gem1Id));
+							temp.setEquippedGem(1, GemManager.getClone(gem1Id));
 						}
 						if(GemManager.exists(gem2Id)) {
-							temp.setEquippedGem2(GemManager.getClone(gem2Id));
+							temp.setEquippedGem(2, GemManager.getClone(gem2Id));
 						}
 						if(GemManager.exists(gem3Id)) {
-							temp.setEquippedGem3(GemManager.getClone(gem3Id));
+							temp.setEquippedGem(3, GemManager.getClone(gem3Id));
 						}
 						Mideas.joueur1().bag().setBag(i, temp);
 						numberBagPieceLoaded++;
@@ -153,23 +153,23 @@ public class CharacterStuff {
 					else if(tempBag.isStuff() || tempBag.isWeapon()) {
 						statement.putInt(tempBag.getId());
 						statement.putInt(0);
-						if(((Stuff)tempBag).getEquippedGem1() == null) {
+						if(((Stuff)tempBag).getEquippedGem(1) == null) {
 							statement.putInt(0);
 						}
 						else {
-							statement.putInt((((Stuff)tempBag).getEquippedGem1().getId()));
+							statement.putInt((((Stuff)tempBag).getEquippedGem(1).getId()));
 						}
-						if(((Stuff)tempBag).getEquippedGem2() == null) {
+						if(((Stuff)tempBag).getEquippedGem(2) == null) {
 							statement.putInt(0);
 						}
 						else {
-							statement.putInt((((Stuff)tempBag).getEquippedGem2().getId()));
+							statement.putInt((((Stuff)tempBag).getEquippedGem(2).getId()));
 						}
-						if(((Stuff)tempBag).getEquippedGem3() == null) {
+						if(((Stuff)tempBag).getEquippedGem(3) == null) {
 							statement.putInt(0);
 						}
 						else {
-							statement.putInt((((Stuff)tempBag).getEquippedGem3().getId()));
+							statement.putInt((((Stuff)tempBag).getEquippedGem(3).getId()));
 						}
 					}
 					else if(tempBag.isContainer() || tempBag.isGem()) {
@@ -266,24 +266,27 @@ public class CharacterStuff {
 				}
 				else {
 					statement.putInt(Mideas.joueur1().getStuff(i).getId());
-					if(Mideas.joueur1().getStuff(i).getEquippedGem1() != null) {
-						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem1().getId());
+					putGem(statement, i, 1);
+					putGem(statement, i, 2);
+					putGem(statement, i, 3);
+					/*if(Mideas.joueur1().getStuff(i).getEquippedGem(1) != null) {
+						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem(1).getId());
 					}
 					else {
 						statement.putInt(0);
 					}
-					if(Mideas.joueur1().getStuff(i).getEquippedGem2() != null) {
-						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem2().getId());
+					if(Mideas.joueur1().getStuff(i).getEquippedGem(2) != null) {
+						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem(2).getId());
 					}
 					else {
 						statement.putInt(0);
 					}	
-					if(Mideas.joueur1().getStuff(i).getEquippedGem3() != null) {
-						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem3().getId());
+					if(Mideas.joueur1().getStuff(i).getEquippedGem(3) != null) {
+						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem(3).getId());
 					}
 					else {
 						statement.putInt(0);
-					}
+					}*/
 				}
 				i++;
 			}
@@ -292,6 +295,15 @@ public class CharacterStuff {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private static void putGem(JDOStatement statement, int stuffSlot, int gemSlot) throws SQLException {	
+		if(Mideas.joueur1().getStuff(stuffSlot).getEquippedGem(gemSlot) != null) {
+			statement.putInt(Mideas.joueur1().getStuff(stuffSlot).getEquippedGem(gemSlot).getId());
+		}
+		else {
+			statement.putInt(0);
 		}
 	}
 	

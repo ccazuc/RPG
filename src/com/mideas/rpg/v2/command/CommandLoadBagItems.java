@@ -79,27 +79,30 @@ public class CommandLoadBagItems extends Command {
 			Mideas.joueur1().bag().setBag(index, new Stuff(id));
 			CommandStuff.write(id);
 		}
-		if(gem1Id != 0 && GemManager.exists(gem1Id)) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem1(GemManager.getClone(gem1Id));
+		equipGem(index, 1, gem1Id);
+		equipGem(index, 2, gem2Id);
+		equipGem(index, 3, gem3Id);
+		/*if(gem1Id != 0 && GemManager.exists(gem1Id)) {
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(1, GemManager.getClone(gem1Id));
 		}
 		else if(gem1Id != 0) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem1(new Gem(gem1Id));
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(1, new Gem(gem1Id));
 			CommandGem.write(gem1Id);
 		}
 		if(gem2Id != 0 && GemManager.exists(gem2Id)) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem1(GemManager.getClone(gem2Id));
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(2, GemManager.getClone(gem2Id));
 		}
 		else if(gem2Id != 0) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem2(new Gem(gem2Id));
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(2, new Gem(gem2Id));
 			CommandGem.write(gem2Id);
 		}
 		if(gem3Id != 0 && GemManager.exists(gem3Id)) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem1(GemManager.getClone(gem3Id));
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(3, GemManager.getClone(gem3Id));
 		}
-		else if(gem2Id != 0) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem2(new Gem(gem3Id));
+		else if(gem3Id != 0) {
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(3, new Gem(gem3Id));
 			CommandGem.write(gem3Id);
-		}
+		}*/
  	}
 	
 	private static void loadWeapon(int index, int id, int gem1Id, int gem2Id, int gem3Id) {
@@ -110,28 +113,41 @@ public class CommandLoadBagItems extends Command {
 			Mideas.joueur1().bag().setBag(index, new Stuff(id));
 			CommandWeapon.write(id);
 		}
-		if(gem1Id != 0 && GemManager.exists(gem1Id)) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem1(GemManager.getClone(gem1Id));
+		equipGem(index, 1, gem1Id);
+		equipGem(index, 2, gem2Id);
+		equipGem(index, 3, gem3Id);
+		/*if(gem1Id != 0 && GemManager.exists(gem1Id)) {
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(1, GemManager.getClone(gem1Id));
 		}
 		else if(gem1Id != 0) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem1(new Gem(gem1Id));
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(1, new Gem(gem1Id));
 			CommandGem.write(gem1Id);
 		}
 		if(gem2Id != 0 && GemManager.exists(gem2Id)) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem1(GemManager.getClone(gem2Id));
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(2, GemManager.getClone(gem2Id));
 		}
 		else if(gem2Id != 0) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem2(new Gem(gem2Id));
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(2, new Gem(gem2Id));
 			CommandGem.write(gem2Id);
 		}
 		if(gem3Id != 0 && GemManager.exists(gem3Id)) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem1(GemManager.getClone(gem3Id));
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(3, GemManager.getClone(gem3Id));
 		}
-		else if(gem2Id != 0) {
-			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem2(new Gem(gem3Id));
+		else if(gem3Id != 0) {
+			((Stuff)Mideas.joueur1().bag().getBag(index)).setEquippedGem(3, new Gem(gem3Id));
 			CommandGem.write(gem3Id);
-		}
+		}*/
  	}
+	
+	private static void equipGem(int bagSlot, int gemSlot, int id) {
+		if(id != 0 && GemManager.exists(id)) {
+			((Stuff)Mideas.joueur1().bag().getBag(bagSlot)).setEquippedGem(gemSlot, GemManager.getClone(id));
+		}
+		else if(id != 0) {
+			((Stuff)Mideas.joueur1().bag().getBag(bagSlot)).setEquippedGem(3, new Gem(id));
+			CommandGem.write(id);
+		}
+	}
 	
 	private static void loadGem(int index, int id) {
 		if(id != 0 && GemManager.exists(id)) {
