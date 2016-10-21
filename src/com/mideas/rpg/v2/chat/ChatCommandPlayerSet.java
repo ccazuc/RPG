@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.chat;
 
-import org.newdawn.slick.Color;
-
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.chat.CommandSet;
 import com.mideas.rpg.v2.connection.PacketID;
@@ -20,7 +18,7 @@ public class ChatCommandPlayerSet {
 							return;
 						}
 					}
-					ChatFrame.addMessage(new Message("Incorrect value for [stamina]", false, Color.yellow));
+					ChatFrame.addMessage(new Message("Incorrect value for [stamina]", false, MessageType.SELF));
 				}
 			}
 			else if(datas[2].equals("mana")) {
@@ -32,7 +30,7 @@ public class ChatCommandPlayerSet {
 							return;
 						}
 					}
-					ChatFrame.addMessage(new Message("Incorrect value for [mana]", false, Color.yellow));
+					ChatFrame.addMessage(new Message("Incorrect value for [mana]", false, MessageType.SELF));
 				}
 			}
 			else if(datas[2].equals("gold")) {
@@ -44,7 +42,7 @@ public class ChatCommandPlayerSet {
 							return;
 						}
 					}
-					ChatFrame.addMessage(new Message("Incorrect value for [gold]", false, Color.yellow));
+					ChatFrame.addMessage(new Message("Incorrect value for [gold]", false, MessageType.SELF));
 				}
 			}
 			else if(datas[2].equals("experience")) {
@@ -56,7 +54,7 @@ public class ChatCommandPlayerSet {
 							return;
 						}
 					}
-					ChatFrame.addMessage(new Message("Incorrect value for [experience]", false, Color.yellow));
+					ChatFrame.addMessage(new Message("Incorrect value for [experience]", false, MessageType.SELF));
 				}
 			}
 		}

@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import org.newdawn.slick.Color;
 
+
 public class Message {
 
 	private String message;
@@ -12,8 +13,22 @@ public class Message {
 	private int minute;
 	private int second;
 	private Color color;
+	private String author;
+	private String authorText = "";
+	private MessageType type;
 	
-	public Message(String message, boolean displayHour, Color color) {
+	public Message(String message, boolean displayHour, MessageType type) {
+		long time = System.currentTimeMillis();
+		this.message = message;
+		this.hour = getMessageHour(time);
+		this.minute = getMessageMinute(time);
+		this.second = getMessageSecond(time);
+		this.color = type.getColor();
+		this.displayHour = displayHour;
+		this.type = type;
+	}
+	
+	public Message(String message, boolean displayHour, MessageType type, Color color) {
 		long time = System.currentTimeMillis();
 		this.message = message;
 		this.hour = getMessageHour(time);
@@ -21,6 +36,58 @@ public class Message {
 		this.second = getMessageSecond(time);
 		this.color = color;
 		this.displayHour = displayHour;
+		this.type = type;
+	}
+	
+	public Message(String message, String author, boolean displayHour, MessageType type) {
+		long time = System.currentTimeMillis();
+		this.message = message;
+		this.hour = getMessageHour(time);
+		this.minute = getMessageMinute(time);
+		this.second = getMessageSecond(time);
+		this.color = type.getColor();
+		this.type = type;
+		this.displayHour = displayHour;
+		this.author = author;
+		if(type == MessageType.SAY || type == MessageType.YELL) {
+			this.authorText = "["+author+"]"+type.getChatDisplay();
+		}
+		else if(type == MessageType.WHISPER) {
+			this.authorText = "To "+author+" : ";
+		}
+		else {
+			this.authorText = type.getChatDisplay()+"["+author+"] : ";
+		}
+	}
+	
+	public Message(String message, String author, boolean displayHour, MessageType type, boolean isTarget) {
+		long time = System.currentTimeMillis();
+		this.message = message;
+		this.hour = getMessageHour(time);
+		this.minute = getMessageMinute(time);
+		this.second = getMessageSecond(time);
+		this.color = type.getColor();
+		this.type = type;
+		this.displayHour = displayHour;
+		this.author = author;
+		if(isTarget) {
+			this.authorText = "["+this.author+"] whisper : ";
+		}
+		else {
+			this.authorText = "To ["+this.author+"] : ";
+		}
+	}
+	
+	public MessageType getType() {
+		return this.type;
+	}
+	
+	public String getAuthorText() {
+		return this.authorText;
+	}
+	
+	public String getAuthor() {
+		return this.author;
 	}
 	
 	public boolean getDisplayHour() {

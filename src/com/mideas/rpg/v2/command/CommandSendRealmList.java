@@ -16,6 +16,5 @@ public class CommandSendRealmList extends Command {
 		}
 		RealmListFrame.sortRealmList();
 		System.out.println("SENDREALMLIST:REALMLISTRECEIVED");
-		System.out.println(ConnectionManager.getAuthConnection().hasRemaining());
 	}
 }

@@ -1,10 +1,9 @@
 package com.mideas.rpg.v2.command.chat;
 
-import org.newdawn.slick.Color;
-
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
@@ -20,7 +19,7 @@ public class CommandSet extends Command {
 			ConnectionManager.getConnection().send();
 		}
 		else {
-			ChatFrame.addMessage(new Message("You don't have the right to do this.", false, Color.yellow));
+			ChatFrame.addMessage(new Message("You don't have the right to do this.", false, MessageType.SELF));
 		}
 	}
 }

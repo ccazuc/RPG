@@ -83,6 +83,7 @@ public class CommandTrade extends Command {
 			TradeFrame.addItem(null, slot);
 		}
 		else if(packetId == PacketID.TRADE_SEND_ALL_ITEMS) {
+			System.out.println("TRADE: TRADE_SEND_ALL_ITEMS");
 			TradeFrame.removedTradedItems();
 			int i = 0;
 			byte packetID;
@@ -92,6 +93,7 @@ public class CommandTrade extends Command {
 			while(i < 6) {
 				packetID = ConnectionManager.getConnection().readByte();
 				if(packetID == PacketID.KNOWN_ITEM) {
+					System.out.println("Added known item");
 					id = ConnectionManager.getConnection().readInt();
 					amount = ConnectionManager.getConnection().readInt();
 					if(Item.exists(id)) {
@@ -99,7 +101,9 @@ public class CommandTrade extends Command {
 					}
 				}
 				else if(packetID == PacketID.UNKNOWN_ITEM) {
+					System.out.println("Added unknown item");
 					item = ConnectionManager.getConnection().readItem();
+					System.out.println(item.getStuffName());
 					amount = ConnectionManager.getConnection().readInt();
 					Mideas.joueur1().addItem(item, amount);
 				}
@@ -159,10 +163,10 @@ public class CommandTrade extends Command {
 		}
 	}
 	
-	public static void writeNewTrade(int character_id) {
+	public static void requestNewTrade(String name) {
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
 		ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW);
-		ConnectionManager.getConnection().writeInt(character_id);
+		ConnectionManager.getConnection().writeString(name);
 		ConnectionManager.getConnection().send();
 	}
 	

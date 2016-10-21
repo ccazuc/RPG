@@ -88,7 +88,9 @@ public class RealmListFrame {
 			}
 			i++;
 		}
-		selectedRealm = realmList.get(0);
+		if(realmList.size() > 0) {
+			selectedRealm = realmList.get(0);
+		}
 	}
 	
 	public static void updateSize() {

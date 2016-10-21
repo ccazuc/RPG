@@ -1,12 +1,11 @@
 package com.mideas.rpg.v2.chat;
 
-import org.newdawn.slick.Color;
-
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.CommandAddItem;
 import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLogout;
+import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
@@ -37,12 +36,12 @@ public class ChatCommandOther {
 					if(SpellManager.exists(Integer.valueOf(datas[1])) && Integer.valueOf(datas[1]) != -1) {
 						int id = Integer.valueOf(datas[1]);
 						Spell spell = SpellManager.getShortcutSpell(id).getSpell();
-						ChatFrame.addMessage(new Message(spell.getName()+": ", false, Color.yellow));
-						ChatFrame.addMessage(new Message(spell.getDefaultDamage()+" damage", false, Color.yellow));
-						ChatFrame.addMessage(new Message(spell.getManaCost()+" mana", false, Color.yellow));
+						ChatFrame.addMessage(new Message(spell.getName()+": ", false, MessageType.SELF));
+						ChatFrame.addMessage(new Message(spell.getDefaultDamage()+" damage", false, MessageType.SELF));
+						ChatFrame.addMessage(new Message(spell.getManaCost()+" mana", false, MessageType.SELF));
 					}
 					else {
-						ChatFrame.addMessage(new Message("That spell doesn't exist.", false, Color.yellow));
+						ChatFrame.addMessage(new Message("That spell doesn't exist.", false, MessageType.SELF));
 					}
 				}
 			}
@@ -50,10 +49,10 @@ public class ChatCommandOther {
 				if(datas.length >= 2) {
 					if(Item.exists(Integer.valueOf(datas[1]))) {
 						int id = Integer.valueOf(datas[1]);
-						ChatFrame.addMessage(new Message("You have "+Mideas.joueur1().bag().getNumberItemInBags(id)+" "+Item.getItem(id).getStuffName()+" in your bags.", false, Color.yellow));
+						ChatFrame.addMessage(new Message("You have "+Mideas.joueur1().bag().getNumberItemInBags(id)+" "+Item.getItem(id).getStuffName()+" in your bags.", false, MessageType.SELF));
 					}
 					else {
-						ChatFrame.addMessage(new Message("That item doesn't exist.", false, Color.yellow));
+						ChatFrame.addMessage(new Message("That item doesn't exist.", false, MessageType.SELF));
 					}
 				}
 			}
@@ -90,26 +89,26 @@ public class ChatCommandOther {
 											character_id = Integer.valueOf(datas[3]);
 										}
 										else {
-											ChatFrame.addMessage(new Message("Invalid value for [character_id]", false, Color.yellow));
+											ChatFrame.addMessage(new Message("Invalid value for [character_id]", false, MessageType.SELF));
 											return;
 										}
 									}
 								}
 								else {
-									ChatFrame.addMessage(new Message("Invalid value for [amount]", false, Color.yellow));
+									ChatFrame.addMessage(new Message("Invalid value for [amount]", false, MessageType.SELF));
 									return;
 								}
 							}
 							CommandAddItem.write(character_id, item_id, number);
 						}
 						else {
-							ChatFrame.addMessage(new Message("Invalid value for [item_id]", false, Color.yellow));
+							ChatFrame.addMessage(new Message("Invalid value for [item_id]", false, MessageType.SELF));
 							return;
 						}
 					}
 				}
 				else {
-					ChatFrame.addMessage(new Message("You don't have the right to do this.", false, Color.yellow));
+					ChatFrame.addMessage(new Message("You don't have the right to do this.", false, MessageType.SELF));
 				}
 			}
 			else if(datas[0].equals(".deleteitem")) {
@@ -124,24 +123,29 @@ public class ChatCommandOther {
 						Mideas.joueur1().deleteItem(Item.getItem(Integer.valueOf(datas[1])), number);
 					}
 					else {
-						ChatFrame.addMessage(new Message("That item doesn't exist", false, Color.yellow));
+						ChatFrame.addMessage(new Message("That item doesn't exist", false, MessageType.SELF));
 					}
 				}
 			}
 			else if(datas[0].equals(".who")) {
 				CommandListPlayer.write();
 			}
+			else if(datas[0].equals(".trade")) {
+				if(datas.length >= 2) {
+					CommandTrade.requestNewTrade(datas[1]);
+				}
+			}
 			else if(datas[0].equals(".help")) {
-				ChatFrame.addMessage(new Message(".[joueur1, joueur2] [set, get] [stamina, mana, gold, experience] [value]", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".lookspell [spell_id]", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".itemnumber [item_id]", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".additem [item_id] [amount] [character_id]", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".deleteitem [item_id] [amount]", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".reloadui Reload the UI", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".update Reload game's datas", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".quit Exit the game", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".logout Logout your character", false, Color.yellow));
-				ChatFrame.addMessage(new Message(".who List the online players", false, Color.yellow));
+				ChatFrame.addMessage(new Message(".[joueur1, joueur2] [set, get] [stamina, mana, gold, experience] [value]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(".lookspell [spell_id]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(".itemnumber [item_id]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(".additem [item_id] [amount] [character_id]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(".deleteitem [item_id] [amount]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(".reloadui Reload the UI", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(".update Reload game's datas", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(".quit Exit the game", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(".logout Logout your character", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(".who List the online players", false, MessageType.SELF));
 			}
 			else {
 				ChatCommandManager.UnknwownCommand();

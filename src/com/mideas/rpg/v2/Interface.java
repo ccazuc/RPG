@@ -350,7 +350,7 @@ public class Interface {
 				if(!ChatFrame.getChatActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
 						//RedAlertFrame.addNewAlert("Ceci est un test.");
-						CommandTrade.writeNewTrade(3);
+						CommandTrade.requestNewTrade("Midetest");
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {

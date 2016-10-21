@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.chat;
 
-import org.newdawn.slick.Color;
-
 import com.mideas.rpg.v2.Mideas;
 
 public class ChatCommandManager {
@@ -30,6 +28,6 @@ public class ChatCommandManager {
 	}
 	
 	public static void UnknwownCommand() {
-		ChatFrame.addMessage(new Message("Unknown command. Type .help for help.", false, Color.yellow));
+		ChatFrame.addMessage(new Message("Unknown command. Type .help for help.", false, MessageType.SELF));
 	}
 }

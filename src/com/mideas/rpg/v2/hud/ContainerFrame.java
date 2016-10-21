@@ -119,11 +119,11 @@ public class ContainerFrame {
 		}
 		int xBagShift = 0;
 		int bagShift = 0;
-		int yBagShift = 0;
-		int xBagIcon = (int)(-313*Mideas.getDisplayYFactor());
+		float yBagShift = 0;
+		int xBagIcon = (int)(-313*Mideas.getDisplayXFactor());
 		int yBagIcon = -4;
-		int xCloseButton = -154;
-		int yCloseButton = -2;
+		float xCloseButton = -155*Mideas.getDisplayXFactor();
+		float yCloseButton = -2;
 		if(isBagOpen[0]) {
 			yBagShift = (int)(-bagSize[0]-150*Mideas.getDisplayYFactor());
 			backpackButton.draw(Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton+9.5f);
@@ -136,11 +136,11 @@ public class ContainerFrame {
 					yBagShift = -bagSize[1];
 				}
 				else {
-					yBagShift = -bagSize[1]-142;
+					yBagShift = -bagSize[1]-142*Mideas.getDisplayYFactor();
 				}
 				firstBagButton.draw(Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.joueur1().bag().getSpriteId(0)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
-				Draw.drawQuad(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(0).getId()), Display.getWidth()-320*Mideas.getDisplayXFactor(), Display.getHeight()+bagShift+yBagShift-10);
+				Draw.drawQuad(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(0).getId()), Display.getWidth()-320*Mideas.getDisplayXFactor(), Display.getHeight()+bagShift+yBagShift-10*Mideas.getDisplayYFactor());
 				bagShift+= yBagShift;
 				yBagShift = 0;
 			}
@@ -151,7 +151,7 @@ public class ContainerFrame {
 					yBagShift = -bagSize[2];
 				}
 				else {
-					yBagShift = -bagSize[2]-142;
+					yBagShift = -bagSize[2]-142*Mideas.getDisplayYFactor();
 				}
 				secondBagButton.draw(Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.joueur1().bag().getSpriteId(1)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
@@ -710,7 +710,7 @@ public class ContainerFrame {
 		if(Mideas.joueur1().bag().getBag(i) != null) {
 			Draw.drawQuad(IconsManager.getSprite37((Mideas.joueur1().bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()+y);
 			if((Mideas.joueur1().bag().getBag(i).isStackable())) {
-				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35-TTF2.font4.getWidth(Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount())), Display.getHeight()+y+20, Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount()), Color.white, Color.black, 1, 1, 1);
+				TTF2.itemNumber.drawStringShadow(Display.getWidth()+x+35*Mideas.getDisplayXFactor()-TTF2.font4.getWidth(Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount())), Display.getHeight()+y+20*Mideas.getDisplayYFactor(), Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount()), Color.white, Color.black, 1, 1, 1);
 				if(Mideas.joueur1().bag().getBag(i).getAmount() <= 0) {
 					Mideas.joueur1().bag().setBag(i, null);
 				}
@@ -980,7 +980,7 @@ public class ContainerFrame {
 		int xShift = 0;
 		int shift = 45;
 		int y = -75-TTF2.statsName.getLineHeight()*getNumberStats(item);
-			xShift = Math.max(TTF2.itemName.getWidth(Mideas.joueur1().bag().getBag(i).getStuffName())-275, TTF2.statsName.getWidth(item.getClassRequirements()))+15;
+		xShift = Math.max(TTF2.font4.getWidth(item.convTypeToString()+item.convSlotToString())+10, Math.max(TTF2.itemName.getWidth(item.getStuffName()), TTF2.statsName.getWidth(item.getClassRequirements())+15));
 		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
 		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
 		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.joueur1().bag().getBag(i).getStuffName(), getItemNameColor(item), Color.black, 1, 1, 1);
@@ -990,8 +990,8 @@ public class ContainerFrame {
 		else {
 			temp = Color.red;
 		}
-		TTF2.statsName.drawStringShadow(Display.getWidth()+x-25-TTF2.font4.getWidth(item.convTypeToString()), Display.getHeight()+y+25+z, item.convTypeToString(), temp, Color.black, 1, 1, 1);
-		TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+25+z, item.convSlotToString(), Color.white, Color.black, 1, 1, 1);
+		TTF2.statsName.drawStringShadow(Display.getWidth()+x-TTF2.font4.getWidth(item.convTypeToString()), Display.getHeight()+y+25+z, item.convTypeToString(), temp, Color.black, 1, 1, 1);
+		TTF2.statsName.drawStringShadow(Display.getWidth()+x-xShift, Display.getHeight()+y+25+z, item.convSlotToString(), Color.white, Color.black, 1, 1, 1);
 		if(item.getArmor() > 0) {
 			TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getArmorString(), Color.white, Color.black, 1, 1, 1);
 			shift+= 20;

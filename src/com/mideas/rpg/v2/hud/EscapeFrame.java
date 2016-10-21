@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandLogoutCharacter;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
@@ -41,6 +42,7 @@ public class EscapeFrame {
 	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave game", 13, 1, Color.white, Color.white) {
 		@Override
 		public void eventButtonClick() {
+			CommandLogout.write();
 			Mideas.saveAllStats();
 			System.exit(0);
 		}

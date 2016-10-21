@@ -21,7 +21,7 @@ public class TradeFrame {
 
 	private static float X_FRAME = Display.getWidth()/2-650*Mideas.getDisplayXFactor();
 	private static float Y_FRAME = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
-	private static float Y_SHIFT = 47*Mideas.getDisplayXFactor();
+	private static float Y_SHIFT = 47*Mideas.getDisplayYFactor();
 	private static float Y_HOVER_TOP = 105*Mideas.getDisplayYFactor();
 	private static float Y_HOVER_SIZE = 45*Mideas.getDisplayXFactor();
 	private static float x_hover;
@@ -40,6 +40,7 @@ public class TradeFrame {
 	static boolean requestPending;
 	private static long requestReceivedTimer;
 	private static long requestMaximumTimer = 20000;
+	private final static Color YELLOW = Color.decode("#FFC700");
 	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Accept", 15, 2) {
 		@Override
 		public void eventButtonClick() {
@@ -80,7 +81,7 @@ public class TradeFrame {
 	
 	public static void draw() {
 		Draw.drawQuad(Sprites.trade_frame, X_FRAME, Y_FRAME);
-		//draw name
+		TTF2.itemNumber.drawStringShadow(X_FRAME+150*Mideas.getDisplayXFactor(), Y_FRAME+15*Mideas.getDisplayYFactor(), Mideas.joueur1().getName(), YELLOW, Color.black, 1, 0, 0);
 		float x = X_FRAME+25*Mideas.getDisplayXFactor();
 		float y = 0;
 		int i = 0;
@@ -94,7 +95,7 @@ public class TradeFrame {
 		}
 		while(i < itemList.length) {
 			if(itemList[i] != null) {
-				Draw.drawQuad(IconsManager.getSprite37(itemList[i].getSpriteId()), x+3, Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+3, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayXFactor());
+				Draw.drawQuad(IconsManager.getSprite37(itemList[i].getSpriteId()), x+3, Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+3, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
 				if(itemList[i].getAmount() > 1) {
 					TTF2.itemNumber.drawStringShadow(x+20*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+25*Mideas.getDisplayYFactor(), itemList[i].getAmountString(), Color.white, Color.black, 1, 1, 1);
 				}
@@ -323,10 +324,10 @@ public class TradeFrame {
 	public static void updateSize() {
 		closeFrame.update(Display.getWidth()/2-272*Mideas.getDisplayXFactor(), Display.getHeight()/2-285*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
 		X_FRAME = Display.getWidth()/2-650*Mideas.getDisplayXFactor();
-		Y_FRAME = Display.getHeight()/2-300*Mideas.getDisplayXFactor();
+		Y_FRAME = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
 		Y_HOVER_TOP = 110*Mideas.getDisplayXFactor();
-		Y_HOVER_SIZE = 45*Mideas.getDisplayXFactor();
-		Y_SHIFT = 47*Mideas.getDisplayXFactor();
+		Y_HOVER_SIZE = 45*Mideas.getDisplayYFactor();
+		Y_SHIFT = 47*Mideas.getDisplayYFactor();
 		declineRequest.update(Display.getWidth()/2+20*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor());
 		acceptRequest.update(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor());
 	}

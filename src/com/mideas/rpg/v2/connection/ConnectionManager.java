@@ -28,6 +28,8 @@ import com.mideas.rpg.v2.command.CommandUpdateStats;
 import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
+import com.mideas.rpg.v2.command.chat.CommandPlayerNotFound;
+import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
 import com.mideas.rpg.v2.command.item.CommandStuff;
@@ -72,6 +74,8 @@ public class ConnectionManager {
 		commandList.put((int)FRIEND, new CommandFriend());
 		commandList.put((int)SEND_REALM_LIST, new CommandSendRealmList());
 		commandList.put((int)LOGIN_REALM, new CommandLoginRealm());
+		commandList.put((int)PLAYER_NOT_FOUND, new CommandPlayerNotFound());
+		commandList.put((int)SEND_MESSAGE, new CommandSendMessage());
 	}
 
 	public static final boolean connectAuthServer() {
@@ -180,6 +184,7 @@ public class ConnectionManager {
 			catch (IOException e) {
 				e.printStackTrace();
 				close();
+				closeAuth();
 				Interface.setHasLoggedInToAuth(false);
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);

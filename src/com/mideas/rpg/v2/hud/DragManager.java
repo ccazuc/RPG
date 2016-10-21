@@ -657,7 +657,7 @@ public class DragManager {
 		if(bagClickedSlot >= 0 && bagClickedSlot < Mideas.joueur1().bag().getBag().length) {
 			int i = 0;
 			while(i < Mideas.joueur1().bag().getBag().length) {
-				if(bagClickedSlot == i && Mideas.joueur1().bag().getBag(i).isSelectable()) {
+				if(bagClickedSlot == i && Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).isSelectable()) {
 					draggedItem = Mideas.joueur1().bag().getBag(i);
 					return true;
 				}

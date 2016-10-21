@@ -15,47 +15,52 @@ import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ChatFrame {
 	
-	private static boolean chatActive;
-	private static ArrayList<Message> messages = new ArrayList<Message>();
 	private static ArrayList<String> rawMessages = new ArrayList<String>();
-	private static int numberMessageSent;
-	private static String tempMessage = "";
-	private static int i;
-	private static int numberUpArrow = 1;
-	private static int cursorPosition;
-	private static int totalNumberLine;
-	private static boolean topArrow;
-	private static boolean bottomArrow;
-	private static boolean toBottomArrow;
-	private static boolean hoverHeightResize;
-	private static boolean heightResizing;
-	private static int selectedLength;
-	private static int selectedQuadLength;
-	private static int selectedStarts;
-	private static int defaultHeight = Display.getHeight()-285;
-	private static int yResize;
-	private static boolean hoverWidthResize;
-	private static boolean widthResizing;
-	private static boolean hoverAllResize;
-	private static boolean allResizing;
-	private static int defaultWidth = 540;
-	private static int xResize;
-	private static int messageShowHeight = 4;
-	private static int tempLength;
-	private static int cursorShift;
-	private static int maxLength = 490;
-	private static Color bgColor = new Color(0, 0, 0, .35f); 
+	private static ArrayList<Message> messages = new ArrayList<Message>();
 	private static Color selectedColor = new Color(1, 1, 1, .5f); 
+	private static int defaultHeight = Display.getHeight()-285;
+	private static MessageType selectedType = MessageType.SAY;
+	private final static int NUMBER_LAST_MESSAGE_TAKEN = 100;
+	private static Color bgColor = new Color(0, 0, 0, .35f);
+	private final static int MAXIMUM_MESSAGES = 100;
+	private final static int MAXIMUM_LENGTH = 255;
+	private static int numberLineLastMessages;
+	private static String currentWhisper = "";
+	private static int messageShowHeight = 4;
+	private static boolean hoverHeightResize;
+	private static boolean hoverWidthResize;
+	private static String tempMessage = "";
+	private static boolean heightResizing;
+	private static boolean hoverAllResize;
+	private static String previousWhisper;
+	private static int selectedQuadLength;
+	private static int defaultWidth = 540;
+	private static int numberMessageSent;
+	private static boolean widthResizing;
+	private static int numberUpArrow = 1;
+	private static boolean toBottomArrow;
+	private static boolean allResizing;
+	private static boolean bottomArrow;
+	private static int totalNumberLine;
+	private static int maxLength = 490; 
+	private static int cursorPosition;
+	private static boolean chatActive;
+	private static int selectedLength;
+	private static int selectedStarts;
+	private static boolean topArrow;
+	private static int cursorShift;
+	private static int tempLength;
+	private static int yResize;
+	private static int xResize;
+	private static int xShift;
 	private static int yDraw; 
 	private static int xDraw;
-	private static int xShift;
-	private static int numberLineLastMessages;
-	private final static int NUMBER_LAST_MESSAGE_TAKEN = 100;
-	private static final int MAXIMUM_MESSAGES = 100;
+	private static int i;
 	
 	private static String warrior = "Warrior";
 	private static String paladin = "Paladin";
@@ -84,7 +89,7 @@ public class ChatFrame {
 				cursorShift = TTF2.chat.getWidth(tempMessage.substring(tempLength));
 			}
 			if(System.currentTimeMillis()%1000 < 500) {
-				TTF2.chat.drawString(37+cursorShift, Display.getHeight()-175, "|", Color.white);
+				TTF2.chat.drawString(39+cursorShift+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, "|", selectedType.getColor());
 			}
 		}
 		if(messages.size() > MAXIMUM_MESSAGES) {
@@ -92,10 +97,10 @@ public class ChatFrame {
 				messages.remove(0);
 			}
 			totalNumberLine = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
-			System.out.println(numberLineLastMessages);
 		}
 		Draw.drawColorQuad(selectedStarts, Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
-		TTF2.chat.drawString(40, Display.getHeight()-175, tempMessage.substring(tempLength), Color.white);
+		TTF2.chat.drawString(40, Display.getHeight()-175, selectedType.getDefaultText()+currentWhisper, selectedType.getColor());
+		TTF2.chat.drawString(40+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, tempMessage.substring(tempLength), selectedType.getColor());
 		int k = 0;
 		yDraw = -totalNumberLine*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
 		//yDraw = -numberLineLastMessages*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
@@ -105,8 +110,16 @@ public class ChatFrame {
 			xDraw = 40;
 				if(yDraw <= Display.getHeight()-185) {
 					int j = 0;
+					if(messages.get(k).getAuthor() != null) {
+							if(yDraw >= Display.getHeight()-280-yResize) {
+								TTF2.chat.drawString(xDraw+1, yDraw, messages.get(k).getAuthorText(), Color.black);
+								TTF2.chat.drawString(xDraw, yDraw, messages.get(k).getAuthorText(), messages.get(k).getColor());
+							}
+						xDraw+= TTF2.chat.getWidth(messages.get(k).getAuthorText());
+					}
 					while(j < messages.get(k).getMessage().length()) {
 						if(yDraw >= Display.getHeight()-280-yResize) {
+							TTF2.chat.drawChar(xDraw+1, yDraw, messages.get(k).getMessage().charAt(j), Color.black);
 							TTF2.chat.drawChar(xDraw, yDraw, messages.get(k).getMessage().charAt(j), messages.get(k).getColor());
 						}
 						xDraw+= TTF2.chat.getWidth(messages.get(k).getMessage().charAt(j));
@@ -128,13 +141,14 @@ public class ChatFrame {
 		}
 	}
 	
-	private static int getNumberLine(String msg) {
+	private static int getNumberLine(Message msg) {
 		int i = 0;
 		int x = 0;
 		int number = 1;
-		while(i < msg.length()) {
-			x+= TTF2.chat.getWidth(msg.charAt(i));
-			if(x > maxLength) {
+		x+= TTF2.chat.getWidth(msg.getAuthorText());
+		while(i < msg.getMessage().length()) {
+			x+= TTF2.chat.getWidth(msg.getMessage().charAt(i));
+			if(x > maxLength-5) {
 				x = 0;
 				number++;
 			}
@@ -213,11 +227,19 @@ public class ChatFrame {
 				resetSelectedPosition();
 			}
 			else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT) { //write
-				if(tempMessage.length() < 150) {
+				if(tempMessage.length() < MAXIMUM_LENGTH) {
 					char tempChar = Keyboard.getEventCharacter();
-					write(tempChar);
-					cursorPosition++;
-					resetSelectedPosition();
+					if(checkNewMessageType(tempChar)) {
+						cursorPosition = 0;
+						cursorShift = 0;
+						tempMessage =  "";
+						tempLength = 0;
+					}
+					else {
+						write(tempChar);
+						cursorPosition++;
+						resetSelectedPosition();
+					}
 				}
 			}
 		}
@@ -226,16 +248,22 @@ public class ChatFrame {
 				if(!tempMessage.equals("")) {
 					rawMessages.add(tempMessage);
 					if(!ChatCommandManager.chatCommandManager(tempMessage)) {
-						addMessage();
+						//addMessage();
+						if(selectedType == MessageType.WHISPER) {
+							CommandSendMessage.writeWhisper(tempMessage, currentWhisper.substring(0, currentWhisper.length()-3));
+						}
+						else {
+							CommandSendMessage.write(tempMessage, selectedType);
+						}
 					}
+					numberUpArrow = 1;
 					numberMessageSent++;
 					cursorPosition = 0;
 					cursorShift = 0;
+					i++;
 				}
 				tempMessage =  "";
 				tempLength = 0;
-				numberUpArrow = 1;
-				i++;
 				resetSelectedPosition();
 			}
 			chatActive = !chatActive;
@@ -335,6 +363,42 @@ public class ChatFrame {
 		return false;
 	}
 	
+	private static boolean checkNewMessageType(char c) {
+		if(tempMessage.length() >= 2 && tempMessage.startsWith("/")) {
+			if(tempMessage.startsWith("/s")) {
+				selectedType = MessageType.SAY;
+				currentWhisper = "";
+				return true;
+			}
+			else if(tempMessage.startsWith("/p")) {
+				selectedType = MessageType.PARTY;
+				currentWhisper = "";
+				return true;
+			}
+			else if(tempMessage.startsWith("/g")) {
+				selectedType = MessageType.GUILD;
+				currentWhisper = "";
+				return true;
+			}
+			else if(tempMessage.startsWith("/y")) {
+				selectedType = MessageType.YELL;
+				currentWhisper = "";
+				return true;
+			}
+			else if(tempMessage.startsWith("/r") && previousWhisper != null) {
+				currentWhisper = previousWhisper+" : ";
+				selectedType = MessageType.WHISPER;
+				return true;
+			}
+			else if(tempMessage.startsWith("/w ") && tempMessage.length() >= 4 && tempMessage.charAt(3) != ' ' && c == ' ') {
+				currentWhisper = tempMessage.substring(3)+" : ";
+				selectedType = MessageType.WHISPER;
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private static int getLength(String msg, int beg, int length) {
 		int i = beg;
 		String temp = "";
@@ -349,20 +413,20 @@ public class ChatFrame {
 		int i = 0;
 		int number = 0;
 		while(i < messages.size()) {
-			number+= getNumberLine(messages.get(i).getMessage());
+			number+= getNumberLine(messages.get(i));
 			i++;
 		}
 		return number;
 	}
 	
-	private static void addMessage() {
+	/*private static void addMessage() {
 		String temp = tempMessage;
 		if(temp != null && !temp.equals("")) {
 			messages.add(new Message(temp, true, Color.white));
 			totalNumberLine = getTotalNumberLine();
 			numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 		}
-	}
+	}*/
 	
 	public static void addMessage(Message message) {
 		messages.add(message);
@@ -374,7 +438,7 @@ public class ChatFrame {
 		int i = messages.size()-1;
 		int height = 0;
 		while(i > messages.size()-number && i >= 0) {
-			height+= getNumberLine(messages.get(i).getMessage());
+			height+= getNumberLine(messages.get(i));
 			i--;
 		}
 		return height;
@@ -735,5 +799,9 @@ public class ChatFrame {
 	
 	public static void setChatActive(boolean we) {
 		chatActive = we;
+	}
+	
+	public static void setPreviousWhisper(String name) {
+		previousWhisper = name;
 	}
 }

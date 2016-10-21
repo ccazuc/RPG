@@ -229,6 +229,42 @@ public class Mideas {
 		}
 	}
 	
+	private static void timeEvent() {
+		if(System.currentTimeMillis()%10000 < 10) {
+			System.gc();
+		}
+		if(CommandPing.getPingStatus() && System.currentTimeMillis()-CommandPing.getTimer() > TIMEOUT_TIMER) {
+			CommandPing.setPingStatus(false);
+			Interface.setHasLoggedInToAuth(false);
+			Mideas.setJoueur1Null();
+			Mideas.setAccountId(0);
+			LoginScreen.getAlert().setActive();
+			LoginScreen.getAlert().setText("Vous avez été déconnecté.");
+			ConnectionManager.close();
+		}
+	}
+	
+	private static void updateDisplayFactor() {
+		displayXFactor = Display.getWidth()/1920f;
+		displayYFactor = Display.getHeight()/1018f;
+		LoginScreen.updateSize();
+		SelectScreen.updateSize();
+		DragManager.updateSize();
+		AdminPanelFrame.updateSize();
+		if(joueur1 != null) {
+			ContainerFrame.updateBagFrameSize();
+		}
+		CharacterFrame.updateSize();
+		SocketingFrame.updateSize();
+		EscapeFrame.updateSize();
+		TradeFrame.updateSize();
+		RealmListFrame.updateSize();
+		SocialFrame.updateSize();
+		if(joueur1 != null && joueur1.getFirstProfession() != null) {
+			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
+		}
+	}
+	
 	public static JDO getJDO() {
 		return jdo;
 	}
@@ -271,27 +307,6 @@ public class Mideas {
 		return connection;
 	}
 	
-	private static void updateDisplayFactor() {
-		displayXFactor = Display.getWidth()/1920f;
-		displayYFactor = Display.getHeight()/1018f;
-		LoginScreen.updateSize();
-		SelectScreen.updateSize();
-		DragManager.updateSize();
-		AdminPanelFrame.updateSize();
-		if(joueur1 != null) {
-			ContainerFrame.updateBagFrameSize();
-		}
-		CharacterFrame.updateSize();
-		SocketingFrame.updateSize();
-		EscapeFrame.updateSize();
-		TradeFrame.updateSize();
-		RealmListFrame.updateSize();
-		SocialFrame.updateSize();
-		if(joueur1 != null && joueur1.getFirstProfession() != null) {
-			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
-		}
-	}
-	
 	public static void setConnection(Connection connections) {
 		connection = connections;
 	}
@@ -309,21 +324,6 @@ public class Mideas {
 	
 	public static double getMouseEventTime() {
 		return mouseEventTime;
-	}
-	
-	private static void timeEvent() {
-		if(System.currentTimeMillis()%10000 < 10) {
-			System.gc();
-		}
-		if(CommandPing.getPingStatus() && System.currentTimeMillis()-CommandPing.getTimer() > TIMEOUT_TIMER) {
-			CommandPing.setPingStatus(false);
-			Interface.setHasLoggedInToAuth(false);
-			Mideas.setJoueur1Null();
-			Mideas.setAccountId(0);
-			LoginScreen.getAlert().setActive();
-			LoginScreen.getAlert().setText("Vous avez été déconnecté.");
-			ConnectionManager.close();
-		}
 	}
 	
 	public static long getUsedRAM() {

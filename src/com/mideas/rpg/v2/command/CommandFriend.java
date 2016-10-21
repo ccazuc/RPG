@@ -1,10 +1,9 @@
 package com.mideas.rpg.v2.command;
 
-import org.newdawn.slick.Color;
-
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.ClassType;
@@ -29,7 +28,7 @@ public class CommandFriend extends Command {
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).equals(name)) {
 					Mideas.joueur1().getFriendList().get(i).setOnlineStatus(false);
-					ChatFrame.addMessage(new Message(name+" vient de se déconnecter.", false, Color.yellow));
+					ChatFrame.addMessage(new Message(name+" vient de se déconnecter.", false, MessageType.SELF));
 				}
 				i++;
 			}

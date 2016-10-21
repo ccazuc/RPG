@@ -581,10 +581,6 @@ public class Joueur extends Unit {
 		return this.classType;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	public float getArmor() {
 		return this.armor;
 	}

@@ -298,7 +298,6 @@ public class SelectScreen {
 	
 	static void loadCharacterInfo() {
 		if(characterList[selectedCharacterIndex] != null) {
-			Mideas.setCharacterId(characterList[selectedCharacterIndex].getId());
 			setPlayer();
 			Mideas.joueur1().setId(characterList[selectedCharacterIndex].getId());
 			CommandLoadCharacter.write(characterList[selectedCharacterIndex].getId());

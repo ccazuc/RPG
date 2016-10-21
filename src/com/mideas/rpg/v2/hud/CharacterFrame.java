@@ -268,7 +268,7 @@ public class CharacterFrame {
 			}
 			if(item.getGemBonusType() != GemBonusType.NONE) {
 				if(item.getGemBonusActivated()) {
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getSocketBonusString(), Color.white, Color.black, 1);
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getSocketBonusString(), Color.green, Color.black, 1);
 				}
 				else {
 					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z-3+yAnchor, item.getSocketBonusString(), Color.gray, Color.black, 1);
