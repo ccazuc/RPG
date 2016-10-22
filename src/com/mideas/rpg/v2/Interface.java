@@ -6,13 +6,13 @@ import java.util.Arrays;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Unit;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
@@ -32,6 +32,7 @@ import com.mideas.rpg.v2.hud.EscapeFrame;
 import com.mideas.rpg.v2.hud.GoldFrame;
 import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.LoginScreen;
+import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
 import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
 import com.mideas.rpg.v2.hud.RealmListFrame;
@@ -76,7 +77,6 @@ public class Interface {
 	private static boolean socketingFrameActive;
 	private static boolean isConnectedToWorldServer;
 	private static boolean socialFrameActive;
-	private final static Color YELLOW = Color.decode("#F0CE0C");
 
 	public static void draw() throws IOException, NumberFormatException {
 		Draw.drawQuadBG(Sprites.current_bg);
@@ -105,7 +105,7 @@ public class Interface {
 					ProfessionManager.LoadAllCraft();
 					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
 					Talent.getTalent();
-					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, ""));
+					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC, false));
 					isCharacterLoaded = true;
 				}
 				if(!isStuffFullyLoaded) {
@@ -124,6 +124,7 @@ public class Interface {
 						EndFightFrame.draw();
 					}
 				}
+				PartyFrame.draw();
 				TradeFrame.event();
 				RedAlertFrame.draw();
 				SpellBarFrame.draw();
@@ -171,8 +172,6 @@ public class Interface {
 				if(tradeFrameActive) {
 					TradeFrame.draw();
 				}
-				Draw.drawQuad(Sprites.level, 50, 95);
-				TTF2.hpAndMana.drawStringShadow(66-TTF2.hpAndMana.getWidth(String.valueOf(Mideas.joueur1().getLevel()))/2, 105, String.valueOf(Mideas.joueur1().getLevel()), YELLOW, Color.black, 1, 1, 1);
 				ShortcutFrame.draw();
 				if(characterFrameActive) {
 					CharacterFrame.draw();
@@ -266,6 +265,9 @@ public class Interface {
 			}
 			DragBagManager.openBag();
 			if(DragBagManager.mouseEvent()) {
+				return true;
+			}
+			if(PartyFrame.mouseEvent()) {
 				return true;
 			}
 			if(characterFrameActive) {

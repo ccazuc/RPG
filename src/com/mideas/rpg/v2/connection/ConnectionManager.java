@@ -19,6 +19,7 @@ import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
 import com.mideas.rpg.v2.command.CommandLoadStats;
 import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandLoginRealm;
+import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.command.CommandSendRealmList;
@@ -76,6 +77,7 @@ public class ConnectionManager {
 		commandList.put((int)LOGIN_REALM, new CommandLoginRealm());
 		commandList.put((int)PLAYER_NOT_FOUND, new CommandPlayerNotFound());
 		commandList.put((int)SEND_MESSAGE, new CommandSendMessage());
+		commandList.put((int)PARTY, new CommandParty());
 	}
 
 	public static final boolean connectAuthServer() {

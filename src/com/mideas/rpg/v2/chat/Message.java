@@ -17,7 +17,7 @@ public class Message {
 	private String authorText = "";
 	private MessageType type;
 	
-	public Message(String message, boolean displayHour, MessageType type) {
+	public Message(String message, boolean displayHour, MessageType type) { //used for self message
 		long time = System.currentTimeMillis();
 		this.message = message;
 		this.hour = getMessageHour(time);
@@ -28,7 +28,7 @@ public class Message {
 		this.type = type;
 	}
 	
-	public Message(String message, boolean displayHour, MessageType type, Color color) {
+	public Message(String message, boolean displayHour, MessageType type, Color color) { //used for self message with different color
 		long time = System.currentTimeMillis();
 		this.message = message;
 		this.hour = getMessageHour(time);
@@ -39,7 +39,7 @@ public class Message {
 		this.type = type;
 	}
 	
-	public Message(String message, String author, boolean displayHour, MessageType type) {
+	public Message(String message, String author, boolean displayHour, MessageType type) { //used for all except self and whisper
 		long time = System.currentTimeMillis();
 		this.message = message;
 		this.hour = getMessageHour(time);
@@ -52,15 +52,12 @@ public class Message {
 		if(type == MessageType.SAY || type == MessageType.YELL) {
 			this.authorText = "["+author+"]"+type.getChatDisplay();
 		}
-		else if(type == MessageType.WHISPER) {
-			this.authorText = "To "+author+" : ";
-		}
 		else {
 			this.authorText = type.getChatDisplay()+"["+author+"] : ";
 		}
 	}
 	
-	public Message(String message, String author, boolean displayHour, MessageType type, boolean isTarget) {
+	public Message(String message, String author, boolean displayHour, MessageType type, boolean isTarget) { //used for whispers
 		long time = System.currentTimeMillis();
 		this.message = message;
 		this.hour = getMessageHour(time);

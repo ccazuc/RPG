@@ -11,6 +11,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Unit;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -82,7 +83,7 @@ public class EndFightFrame {
 					LogChat.setStatusText("");
 					LogChat.setStatusText2("");
 					endFightEvent = false;
-					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, ""));
+					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC, false));
 				}
 			}
 		}

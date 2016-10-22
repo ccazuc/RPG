@@ -14,8 +14,10 @@ public class Unit {
 	protected int id;
 	protected String healthText = "";
 	protected String manaText = "";
+	protected ClassType classType;
+	protected boolean isPartyLeader;
 	
-	public Unit(int id, int stamina, int maxStamina, int mana, int maxMana, int level, String name) {
+	public Unit(int id, int stamina, int maxStamina, int mana, int maxMana, int level, String name, ClassType type, boolean isPartyLeader) {
 		this.stamina = stamina;
 		this.maxStamina = maxStamina;
 		this.mana = mana;
@@ -23,6 +25,21 @@ public class Unit {
 		this.maxMana = maxMana;
 		this.level = level;
 		this.name = name;
+		this.classType = type;
+		this.isPartyLeader = isPartyLeader;
+		this.classString = Joueur.convClassTypeToString(this.classType);
+	}
+	
+	public boolean isPartyLeader() {
+		return this.isPartyLeader;
+	}
+	
+	public void setIsPartyLeader(boolean we) {
+		this.isPartyLeader = we;
+	}
+	
+	public ClassType getClassType() {
+		return this.classType;
 	}
 	
 	public String getHealthText() {

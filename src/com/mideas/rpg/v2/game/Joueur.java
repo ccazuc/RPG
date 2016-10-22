@@ -50,6 +50,7 @@ public class Joueur extends Unit {
 	private int critical;
 	private int strength;
 	private Unit target;
+	private Party party;
 	private int baseExp;
 	private float armor;
 	private Wear wear;
@@ -72,9 +73,8 @@ public class Joueur extends Unit {
 	private final static String druid = "Druid";
 	
 	public Joueur(ClassType classType, int id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
-		super(id, stamina, maxStamina, mana, maxMana, 1, "");
+		super(id, stamina, maxStamina, mana, maxMana, 1, "", classType, false);
 		this.id = id;
-		this.classType = classType;
 		this.stamina = stamina;
 		this.mana = mana;
 		this.strength = strength;
@@ -99,26 +99,26 @@ public class Joueur extends Unit {
 	}
 	
 	public Joueur(Joueur joueur) {
-		super(joueur.id, joueur.stamina, joueur.maxStamina, joueur.mana, joueur.maxMana, joueur.level, joueur.name);
-		this.weaponType = joueur.weaponType;
-		this.stamina = joueur.stamina;
-		this.mana = joueur.mana;
-		this.strength = joueur.strength;
-		this.classType = joueur.classType;
-		this.armor = joueur.armor;
-		this.defaultArmor = joueur.defaultArmor;
-		this.critical = joueur.critical;
-		this.maxStamina = joueur.maxStamina;
-		this.maxMana = joueur.maxMana;
-		this.expGained = joueur.expGained;
-		this.goldGained = joueur.goldGained;
-		this.spells = joueur.spells;
+		super(joueur.id, joueur.stamina, joueur.maxStamina, joueur.mana, joueur.maxMana, joueur.level, joueur.name, joueur.classType, joueur.isPartyLeader);
 		this.spellUnlocked = joueur.spellUnlocked;
-		this.stuff = joueur.stuff;
-		this.wear = joueur.wear;
-		//this.classString = joueur.classString;
-		this.level = joueur.level;
+		this.defaultArmor = joueur.defaultArmor;
+		this.classString = joueur.classString;
+		this.weaponType = joueur.weaponType;
+		this.goldGained = joueur.goldGained;
+		this.maxStamina = joueur.maxStamina;
 		this.friendList = joueur.friendList;
+		this.expGained = joueur.expGained;
+		this.classType = joueur.classType;
+		this.strength = joueur.strength;
+		this.critical = joueur.critical;
+		this.maxMana = joueur.maxMana;
+		this.stamina = joueur.stamina;
+		this.spells = joueur.spells;
+		this.stuff = joueur.stuff;
+		this.armor = joueur.armor;
+		this.level = joueur.level;
+		this.mana = joueur.mana;
+		this.wear = joueur.wear;
 	}
 	
 	/*public void tick() throws SQLException {
@@ -505,6 +505,14 @@ public class Joueur extends Unit {
 		}
 	}
 	
+	public void setParty(Party party) {
+		this.party = party;
+	}
+	
+	public Party getParty() {
+		return this.party;
+	}
+	
 	public Unit getTarget() {
 		return this.target;
 	}
@@ -575,10 +583,6 @@ public class Joueur extends Unit {
 	
 	public int getNumberYellowGem() {
 		return this.numberYellowGem;
-	}
-	
-	public ClassType getClassType() {
-		return this.classType;
 	}
 	
 	public float getArmor() {
@@ -734,7 +738,7 @@ public class Joueur extends Unit {
 		if(type == ClassType.WARLOCK) {
 			return warlock;
 		}
-		return null;
+		return "";
 	}
 
 	

@@ -36,6 +36,7 @@ public class SpellBarFrame {
 	private static float xHoveredSpell;
 	private static int yHoveredSpell;
 	private static int hoveredSlot = -1;
+	private final static String[] bindDisplay = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
 	
 	private static String numberFreeSlotBag = "";
 	
@@ -87,7 +88,7 @@ public class SpellBarFrame {
 						yHoveredSpell = yShift;
 					}
 					if(SpellManager.getCd(spell.getSpell().getSpellId()) > 0) {
-						TTF2.font5.drawStringShadow(Display.getWidth()/2+25+x, Display.getHeight()+y+8+yShift, String.valueOf(SpellManager.getCd(spell.getSpell().getSpellId())), Color.white, Color.black, 1, 1, 1);
+						TTF2.font5.drawStringShadow(Display.getWidth()/2+(25+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y+8+yShift, String.valueOf(SpellManager.getCd(spell.getSpell().getSpellId())), Color.white, Color.black, 1, 1, 1);
 					}
 				}
 				else if(Mideas.joueur1().getSpells(spellCount).getShortcutType() == ShortcutType.STUFF) {
@@ -113,10 +114,11 @@ public class SpellBarFrame {
 				if(DragSpellManager.getDraggedSpell() != Mideas.joueur1().getSpells(spellCount)) {
 					if(spellCount+1 < 10) {
 						//TTF2.statsName.drawStringShadow(Display.getWidth()/2+(30+x)*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(String.valueOf(spellCount+1)), Display.getHeight()+y, String.valueOf(spellCount+1), Color.white, Color.black, 1, 1);
+						TTF2.statsName.drawStringShadow(Display.getWidth()/2+(30+x)*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(bindDisplay[spellCount]), Display.getHeight()+y, bindDisplay[spellCount], Color.white, Color.black, 1, 1);
 					}
-					else if(spellCount+1 == 10) {
+					/*else if(spellCount+1 == 10) {
 						TTF2.statsName.drawStringShadow(Display.getWidth()/2+(20+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y, "0", Color.white, Color.black, 1, 1);
-					}
+					}*/
 					else if(spellCount+1 == 11) {
 						TTF2.statsName.drawStringShadow(Display.getWidth()/2+(20+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y, ")", Color.white, Color.black, 1, 1);
 					}

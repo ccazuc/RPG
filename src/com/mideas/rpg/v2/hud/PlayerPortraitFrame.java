@@ -5,13 +5,13 @@ import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.Unit;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class PlayerPortraitFrame {
 	
-	private static Color backgroundColor = new Color(0, 0, 0, .4f);
+	private final static Color backgroundColor = new Color(0, 0, 0, .4f);
+	private final static Color YELLOW = Color.decode("#F0CE0C");
 
 	private final static String deathKnight = "DeathKnight";
 	private final static String warrior = "Guerrier";
@@ -38,10 +38,15 @@ public class PlayerPortraitFrame {
 		drawHealthBar(joueur, x, y);
 		drawManaBar(joueur, x, y);
 		Draw.drawQuad(Sprites.playerUI, x, y);
-		//TTF2.playerName.drawStringShadow((int)(x+135*Mideas.getDisplayXFactor()-TTF2.playerName.getWidth(joueur.getClasseString())/2), (int)(15*Mideas.getDisplayYFactor()+y), joueur.getClasseString(), Color.orange, Color.black, 1, 1, 1);    
+		TTF2.playerName.drawStringShadow((int)(x+135*Mideas.getDisplayXFactor()-TTF2.playerName.getWidth(joueur.getName())/2), (int)(15*Mideas.getDisplayYFactor()+y), joueur.getName(), Color.orange, Color.black, 1, 1, 1);    
 		drawHealthText(joueur, x, y);
 		drawManaText(joueur, x, y);
-		//drawPortait(joueur, x, y);
+		drawPortait(joueur, x, y);
+		Draw.drawQuad(Sprites.level, x, y+45);
+		TTF2.hpAndMana.drawStringShadow(x+16-TTF2.hpAndMana.getWidth(String.valueOf(joueur.getLevel()))/2, y+55, String.valueOf(joueur.getLevel()), YELLOW, Color.black, 1, 0, 0);
+		if(joueur.isPartyLeader()) {
+			Draw.drawQuad(Sprites.party_leader_crown, x+5, y+8);
+		}
 	}
 	
 	private static void drawHealthBar(Unit joueur, int x, int y) {
@@ -109,6 +114,6 @@ public class PlayerPortraitFrame {
 		else if(joueur.getClasseString().equals(illidan)) {
 			portrait = Sprites.illidan;
 		}
-		Draw.drawQuad(portrait, x+11, y+8);
+		Draw.drawQuad(portrait, x+11*Mideas.getDisplayXFactor(), y+8*Mideas.getDisplayYFactor());
 	}
 }

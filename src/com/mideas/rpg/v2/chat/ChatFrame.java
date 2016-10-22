@@ -15,6 +15,7 @@ import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -229,7 +230,7 @@ public class ChatFrame {
 			else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT) { //write
 				if(tempMessage.length() < MAXIMUM_LENGTH) {
 					char tempChar = Keyboard.getEventCharacter();
-					if(checkNewMessageType(tempChar)) {
+					if(tempChar == ' ' && checkNewMessageType(tempChar)) {
 						cursorPosition = 0;
 						cursorShift = 0;
 						tempMessage =  "";
@@ -247,8 +248,7 @@ public class ChatFrame {
 			if(chatActive) {
 				if(!tempMessage.equals("")) {
 					rawMessages.add(tempMessage);
-					if(!ChatCommandManager.chatCommandManager(tempMessage)) {
-						//addMessage();
+					if(!ChatCommandManager.chatCommandManager(tempMessage) && !checkNewMessageType(tempMessage)) {
 						if(selectedType == MessageType.WHISPER) {
 							CommandSendMessage.writeWhisper(tempMessage, currentWhisper.substring(0, currentWhisper.length()-3));
 						}
@@ -363,8 +363,29 @@ public class ChatFrame {
 		return false;
 	}
 	
+	private static boolean checkNewMessageType(String msg) {
+		if(msg.length() >= 3 && msg.startsWith("/")) {
+			if(msg.startsWith("/i") && msg.length() >= 4) {
+				msg = msg.trim();
+				CommandParty.invitePlayer(msg.substring(getDataWithoutSpace(3, msg)));
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private static int getDataWithoutSpace(int start, String msg) {
+		while(start < msg.length()) {
+			if((msg.charAt(start) != ' ' && start+1 < msg.length() && msg.charAt(start+1) != ' ') || (msg.charAt(start) != ' ' && start+1 == msg.length())) {
+				return start;
+			}
+			start++;
+		}
+		return -1;
+	}
+	
 	private static boolean checkNewMessageType(char c) {
-		if(tempMessage.length() >= 2 && tempMessage.startsWith("/")) {
+		if(tempMessage.length() == 2 && tempMessage.startsWith("/") && c == ' ') {
 			if(tempMessage.startsWith("/s")) {
 				selectedType = MessageType.SAY;
 				currentWhisper = "";
@@ -390,7 +411,9 @@ public class ChatFrame {
 				selectedType = MessageType.WHISPER;
 				return true;
 			}
-			else if(tempMessage.startsWith("/w ") && tempMessage.length() >= 4 && tempMessage.charAt(3) != ' ' && c == ' ') {
+		}
+		else if(tempMessage.length() >= 2 && tempMessage.startsWith("/")) {
+			if(tempMessage.startsWith("/w ") && tempMessage.length() >= 4 && tempMessage.charAt(3) != ' ' && c == ' ') {
 				currentWhisper = tempMessage.substring(3)+" : ";
 				selectedType = MessageType.WHISPER;
 				return true;

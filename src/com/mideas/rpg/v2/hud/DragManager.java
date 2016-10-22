@@ -643,7 +643,7 @@ public class DragManager {
 		if(inventoryClickedSlot >= 0 && inventoryClickedSlot < Mideas.joueur1().getStuff().length) {
 			int i = 0;
 			while(i < Mideas.joueur1().getStuff().length) {
-				if(inventoryClickedSlot == i && Mideas.joueur1().getStuff(i).isSelectable()) {
+				if(inventoryClickedSlot == i && Mideas.joueur1().getStuff(i) != null && Mideas.joueur1().getStuff(i).isSelectable()) {
 					draggedItem = Mideas.joueur1().getStuff(i);
 					return true;
 				}

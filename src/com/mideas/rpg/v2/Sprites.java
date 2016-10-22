@@ -284,6 +284,7 @@ public class Sprites {
 	public static Texture friend_border;
 	public static Texture friend_note_online;
 	public static Texture friend_note_offline;
+	public static Texture party_leader_crown;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -366,6 +367,7 @@ public class Sprites {
 		deux_green_talent = new Texture("sprite/interface/talent/2_green_talent.png");
 		trois_green_talent = new Texture("sprite/interface/talent/3_green_talent.png");
 		gold_coin_container = new Texture("sprite/interface/gold_coin_container.png");
+		party_leader_crown = new Texture("sprite/interface/party/party_leader_crown.png");
 		return true;
 	}
 	

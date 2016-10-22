@@ -34,7 +34,7 @@ public class SelectScreen {
 	static SelectScreenPlayer[] characterList = new SelectScreenPlayer[10];
 	private static boolean[] selectedCharacter = new boolean[10];
 	private static int selectedCharacterIndex = 0;
-	private static int hoveredCharacter = 0;
+	private static int hoveredCharacter = -1;
 	private static int totalCharacter;
 	private static boolean init;
 	private static float x_hover_race;
@@ -300,6 +300,7 @@ public class SelectScreen {
 		if(characterList[selectedCharacterIndex] != null) {
 			setPlayer();
 			Mideas.joueur1().setId(characterList[selectedCharacterIndex].getId());
+			Mideas.joueur1().setName(characterList[selectedCharacterIndex].getName());
 			CommandLoadCharacter.write(characterList[selectedCharacterIndex].getId());
 		}
 	}
