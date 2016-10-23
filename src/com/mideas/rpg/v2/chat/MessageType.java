@@ -5,14 +5,18 @@ import org.newdawn.slick.Color;
 public enum MessageType {
 
 	SAY((char)0, Color.white, "Say : ", " Say : "),
-	GUILD((char)1, Color.decode("#40FF40"), "Guild : ", "[Guild] "),
-	PARTY((char)2, Color.decode("#797FBC"), "Party : ", "[Party] "),
-	RAID((char)3, Color.decode("#FF7F00"), "Raid : ", "[Raid] "),
-	BATTLEGROUND((char)4, Color.white, "Battleground : ", "[Battleground] "), //TODO: aller en BG pour avoir le couleur
-	YELL((char)5, Color.decode("#D23D44"), "Yell : ", " Yell : "),
-	DISCUSSION((char)6, Color.decode("#E3AFB3"), "Discussion : ", ""),
-	SELF((char)7, Color.yellow, "", ""),
-	WHISPER((char)8, Color.decode("#FF80FF"), "Say to ", "");
+	GUILD((char)1, new Color(64/255f, 251/255f, 64f/255f), "Guild : ", "[Guild] "),
+	PARTY((char)2, new Color(170/255f, 167/255f, 1), "Party : ", "[Party] "),
+	RAID((char)3, new Color(1, 125/255f, 0), "Raid : ", "[Raid] "),
+	BATTLEGROUND((char)4, Color.white, "Battleground : ", "[Battleground] "),
+	YELL((char)5, new Color(1, 63/255f, 64/255f), "Yell : ", " Yell : "),
+	DISCUSSION((char)6, new Color(1, 189/255f, 192/255f), "Discussion : ", ""),
+	SELF((char)7, new Color(1, 251/255f, 0), "", ""),
+	WHISPER((char)8, new Color(1, 126/255f, 1), "Say to ", ""),
+	EMOTE((char)9, new Color(1, 251/255f, 1), "", ""),
+	PARTY_LEADER((char)10, new Color(118/255f, 197/255f, 1), "Party : ", "[Party leader] "),
+	OFFICER_CHAT((char)11, new Color(64/255f, 189/255f, 64/255f), "Officer : ", "[Officer] "),
+	GM_ANNOUNCE((char)12, new Color(0, 251/255f, 246/255f), "Announce : ", "[GM announce] ");
 	
 	private char value;
 	private Color color;

@@ -169,19 +169,23 @@ public class ChatFrame {
 				if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 					if(Keyboard.getEventKey() == 203) { // shift CTRL left arrow
 						selectCTRLLeftArrow();
+						return;
 					}
 					else if(Keyboard.getEventKey() == 205) { // shift CTRL right arrow
 						selectCTRLRightArrow();
+						return;
 					}
 				}
 				if(Keyboard.getEventKey() == 203) { //shift left arrow
 					selectLeftArrow();
+					return;
 				}
 				else if(Keyboard.getEventKey() == 205) { // shift right arrow
 					selectRightArrow();
+					return;
 				}
 			}
-			else if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
+			if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
 				if(Keyboard.getEventKey() == 14) { //delete
 					CTRLDelete();
 					tempLength = 0;

@@ -83,7 +83,7 @@ public class EndFightFrame {
 					LogChat.setStatusText("");
 					LogChat.setStatusText2("");
 					endFightEvent = false;
-					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC, false));
+					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC));
 				}
 			}
 		}

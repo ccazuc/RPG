@@ -3,15 +3,16 @@ package com.mideas.rpg.v2.game;
 public class Party {
 
 	private Unit[] partyList;
-	private boolean isPartyLeader;
+	private Unit leader;
 	
-	public Party(Unit member) {
+	public Party(Unit leader, Unit member) {
 		this.partyList = new Unit[4];
 		this.partyList[0] = member;
+		this.leader = leader;
 	}
 	
-	public boolean isPartyLeader() {
-		return this.isPartyLeader;
+	public boolean isPartyLeader(Unit unit) {
+		return this.leader.getId() == unit.getId();
 	}
 	
 	public Unit getPartyMember(int i) {

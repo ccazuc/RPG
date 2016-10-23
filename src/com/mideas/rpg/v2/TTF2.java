@@ -39,6 +39,8 @@ public class TTF2 {
 	public static TTF realmList;
 	public static TTF friendName;
 	public static TTF friendInfos;
+	public static TTF portraitPartyName;
+	public static TTF portraitPartyStats;
 	
 	public static void init() throws FontFormatException, IOException {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
@@ -160,5 +162,13 @@ public class TTF2 {
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(12f);
 		friendInfos = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
+		portraitPartyName = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(9f);
+		portraitPartyStats = new TTF(awtFont, true);
 	}
 }

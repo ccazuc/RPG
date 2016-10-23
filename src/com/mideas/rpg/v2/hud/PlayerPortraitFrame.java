@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
 import org.newdawn.slick.Color;
-import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
@@ -12,18 +11,6 @@ public class PlayerPortraitFrame {
 	
 	private final static Color backgroundColor = new Color(0, 0, 0, .4f);
 	private final static Color YELLOW = Color.decode("#F0CE0C");
-
-	private final static String deathKnight = "DeathKnight";
-	private final static String warrior = "Guerrier";
-	private final static String hunter = "Hunter";
-	private final static String mage = "Mage";
-	private final static String monk = "Monk";
-	private final static String paladin = "Paladin";
-	private final static String priest = "Priest";
-	private final static String rogue = "Rogue";
-	private final static String shaman = "Shaman";
-	private final static String warlock = "Warlock";
-	private final static String illidan = "Illidan";
 	
 	public static void draw(Unit joueur, int x, int y) {
 		if(joueur.getHasHpChanged()) {
@@ -44,7 +31,7 @@ public class PlayerPortraitFrame {
 		drawPortait(joueur, x, y);
 		Draw.drawQuad(Sprites.level, x, y+45);
 		TTF2.hpAndMana.drawStringShadow(x+16-TTF2.hpAndMana.getWidth(String.valueOf(joueur.getLevel()))/2, y+55, String.valueOf(joueur.getLevel()), YELLOW, Color.black, 1, 0, 0);
-		if(joueur.isPartyLeader()) {
+		if(Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(joueur)) {
 			Draw.drawQuad(Sprites.party_leader_crown, x+5, y+8);
 		}
 	}
@@ -80,40 +67,6 @@ public class PlayerPortraitFrame {
 	}
 	
 	private static void drawPortait(Unit joueur, int x, int y) {
-		Texture portrait = null;
-		if(joueur.getClasseString().equals(priest)) {
-			portrait = Sprites.priest;
-		}
-		else if(joueur.getClasseString().equals(mage)) {
-			portrait = Sprites.mage;
-		}
-		else if(joueur.getClasseString().equals(deathKnight)) {
-			portrait = Sprites.deathknight;
-		}
-		else if(joueur.getClasseString().equals(warrior)) {
-			portrait = Sprites.war;
-		}
-		else if(joueur.getClasseString().equals(hunter)) {
-			portrait = Sprites.hunter;
-		}
-		else if(joueur.getClasseString().equals(monk)) {
-			portrait = Sprites.monk;
-		}	
-		else if(joueur.getClasseString().equals(paladin)) {
-			portrait = Sprites.paladin;
-		}
-		else if(joueur.getClasseString().equals(rogue)) {
-			portrait = Sprites.rogue;
-		}
-		else if(joueur.getClasseString().equals(shaman)) {
-			portrait = Sprites.shaman;
-		}
-		else if(joueur.getClasseString().equals(warlock)) {
-			portrait = Sprites.warlock;
-		}
-		else if(joueur.getClasseString().equals(illidan)) {
-			portrait = Sprites.illidan;
-		}
-		Draw.drawQuad(portrait, x+11*Mideas.getDisplayXFactor(), y+8*Mideas.getDisplayYFactor());
+		Draw.drawQuad(joueur.getPortrait(), x+11*Mideas.getDisplayXFactor(), y+8*Mideas.getDisplayYFactor());
 	}
 }

@@ -105,7 +105,7 @@ public class Interface {
 					ProfessionManager.LoadAllCraft();
 					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
 					Talent.getTalent();
-					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC, false));
+					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC));
 					isCharacterLoaded = true;
 				}
 				if(!isStuffFullyLoaded) {

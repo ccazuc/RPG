@@ -38,7 +38,8 @@ public class CommandParty extends Command {
 			int id = ConnectionManager.getConnection().readInt();
 			ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
 			//System.out.println(name+" "+stamina+" "+maxStamina+" "+mana+" "+maxMana+" "+level+" "+id);
-			Mideas.joueur1().getParty().addMember(new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type, false));
+			Mideas.joueur1().getParty().addMember(new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type));
+			System.out.println("Member joined the party");
 		}
 		else if(packetId == PacketID.PARTY_NEW) {
 			boolean isLeader = ConnectionManager.getConnection().readBoolean();
@@ -50,13 +51,14 @@ public class CommandParty extends Command {
 			int level = ConnectionManager.getConnection().readInt();
 			int id = ConnectionManager.getConnection().readInt();
 			ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
-			System.out.println(name+" "+stamina+" "+maxStamina+" "+mana+" "+maxMana+" "+level+" "+id+" "+isLeader);
-			Mideas.joueur1().setIsPartyLeader(isLeader);
-			Mideas.joueur1().setParty(new Party(new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type, !isLeader)));
+			//System.out.println(name+" "+stamina+" "+maxStamina+" "+mana+" "+maxMana+" "+level+" "+id+" "+isLeader);
+			Unit member = new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type);
+			Unit leader = isLeader ? Mideas.joueur1() : member;
+			Mideas.joueur1().setParty(new Party(leader, member));
+			System.out.println("Party created");
 		}
 		else if(packetId == PacketID.PARTY_DISBAND) {
 			Mideas.joueur1().setParty(null);
-			Mideas.joueur1().setIsPartyLeader(false);
 		}
 		else if(packetId == PacketID.PARTY_MEMBER_LEFT) {
 			if(Mideas.joueur1().getParty() != null) {
@@ -67,7 +69,6 @@ public class CommandParty extends Command {
 		}
 		else if(packetId == PacketID.PARTY_LEFT) {
 			Mideas.joueur1().setParty(null);
-			Mideas.joueur1().setIsPartyLeader(false);
 		}
 	}
 

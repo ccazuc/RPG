@@ -22,7 +22,7 @@ public class CommandSendMessage extends Command {
 			ChatFrame.addMessage(new Message(message, name, false, MessageType.WHISPER, isTarget));
 			ChatFrame.setPreviousWhisper(name);
 		}
-		else if(type == MessageType.SAY || type == MessageType.BATTLEGROUND || type == MessageType.GUILD || type == MessageType.PARTY || type == MessageType.RAID || type == MessageType.YELL) {
+		else if(type == MessageType.SAY || type == MessageType.BATTLEGROUND || type == MessageType.GUILD || type == MessageType.PARTY || type == MessageType.RAID || type == MessageType.YELL || type == MessageType.PARTY_LEADER) {
 			String author = ConnectionManager.getConnection().readString();
 			ChatFrame.addMessage(new Message(message, author, false, type));
 		}

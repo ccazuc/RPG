@@ -1,5 +1,8 @@
 package com.mideas.rpg.v2.game;
 
+import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.utils.Texture;
+
 public class Unit {
 
 	protected boolean hasManaChanged = true;
@@ -15,9 +18,9 @@ public class Unit {
 	protected String healthText = "";
 	protected String manaText = "";
 	protected ClassType classType;
-	protected boolean isPartyLeader;
+	protected Texture portraitFrame;
 	
-	public Unit(int id, int stamina, int maxStamina, int mana, int maxMana, int level, String name, ClassType type, boolean isPartyLeader) {
+	public Unit(int id, int stamina, int maxStamina, int mana, int maxMana, int level, String name, ClassType type) {
 		this.stamina = stamina;
 		this.maxStamina = maxStamina;
 		this.mana = mana;
@@ -26,16 +29,12 @@ public class Unit {
 		this.level = level;
 		this.name = name;
 		this.classType = type;
-		this.isPartyLeader = isPartyLeader;
+		this.portraitFrame = getPortrait(type);
 		this.classString = Joueur.convClassTypeToString(this.classType);
 	}
 	
-	public boolean isPartyLeader() {
-		return this.isPartyLeader;
-	}
-	
-	public void setIsPartyLeader(boolean we) {
-		this.isPartyLeader = we;
+	public Texture getPortrait() {
+		return this.portraitFrame;
 	}
 	
 	public ClassType getClassType() {
@@ -134,5 +133,36 @@ public class Unit {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public static Texture getPortrait(ClassType type) {
+		if(type == ClassType.PRIEST) {
+			return Sprites.priest;
+		}
+		else if(type == ClassType.MAGE) {
+			return Sprites.mage;
+		}
+		else if(type == ClassType.GUERRIER) {
+			return Sprites.war;
+		}
+		else if(type == ClassType.HUNTER) {
+			return Sprites.hunter;
+		}	
+		else if(type == ClassType.PALADIN) {
+			return Sprites.paladin;
+		}
+		else if(type == ClassType.ROGUE) {
+			return Sprites.rogue;
+		}
+		else if(type == ClassType.SHAMAN) {
+			return Sprites.shaman;
+		}
+		else if(type == ClassType.WARLOCK) {
+			return Sprites.warlock;
+		}
+		else if(type == ClassType.NPC) {
+			return Sprites.illidan;
+		}
+		return null;
 	}
 }

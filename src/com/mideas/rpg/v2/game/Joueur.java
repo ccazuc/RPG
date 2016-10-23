@@ -38,7 +38,6 @@ public class Joueur extends Unit {
 	private Spell[] spellUnlocked;
 	private int numberYellowGem;
 	private Bag bag = new Bag();
-	private ClassType classType;
 	private Shortcut[] shortcut;
 	private Shortcut[] spells;
 	private int numberBlueGem;
@@ -55,7 +54,6 @@ public class Joueur extends Unit {
 	private float armor;
 	private Wear wear;
 	private int gold;
-	private int mana;
 	private int exp;
 	private int id;
 	public int x;
@@ -73,16 +71,11 @@ public class Joueur extends Unit {
 	private final static String druid = "Druid";
 	
 	public Joueur(ClassType classType, int id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
-		super(id, stamina, maxStamina, mana, maxMana, 1, "", classType, false);
-		this.id = id;
-		this.stamina = stamina;
-		this.mana = mana;
+		super(id, stamina, maxStamina, mana, maxMana, 1, "", classType);
 		this.strength = strength;
 		this.armor = armor;
 		this.defaultArmor = defaultArmor;
 		this.critical = critical;
-		this.maxStamina = maxStamina;
-		this.maxMana = maxMana;
 		this.expGained = expGained;
 		this.goldGained = goldGained;
 		this.spells = spells;
@@ -92,31 +85,25 @@ public class Joueur extends Unit {
 		this.wear = wear;
 		this.firstProfession = ProfessionManager.getProfession(0);
 		//this.classString = convClassTypeToString(this.classType);
-		this.level = 1;
 		this.friendList = new ArrayList<Friend>();
 		this.friendList.add(new Friend(3, "Jean-42", 70, Race.ORC, ClassType.GUERRIER, true));
 		this.friendList.add(new Friend(2, "Jean-bas-level", 70, Race.ORC, ClassType.GUERRIER, false));
 	}
 	
 	public Joueur(Joueur joueur) {
-		super(joueur.id, joueur.stamina, joueur.maxStamina, joueur.mana, joueur.maxMana, joueur.level, joueur.name, joueur.classType, joueur.isPartyLeader);
+		super(joueur.id, joueur.stamina, joueur.maxStamina, joueur.mana, joueur.maxMana, joueur.level, joueur.name, joueur.classType);
 		this.spellUnlocked = joueur.spellUnlocked;
 		this.defaultArmor = joueur.defaultArmor;
 		this.classString = joueur.classString;
 		this.weaponType = joueur.weaponType;
 		this.goldGained = joueur.goldGained;
-		this.maxStamina = joueur.maxStamina;
 		this.friendList = joueur.friendList;
 		this.expGained = joueur.expGained;
-		this.classType = joueur.classType;
 		this.strength = joueur.strength;
 		this.critical = joueur.critical;
-		this.maxMana = joueur.maxMana;
-		this.stamina = joueur.stamina;
 		this.spells = joueur.spells;
 		this.stuff = joueur.stuff;
 		this.armor = joueur.armor;
-		this.level = joueur.level;
 		this.mana = joueur.mana;
 		this.wear = joueur.wear;
 	}
