@@ -15,6 +15,10 @@ public class Party {
 		return this.leader.getId() == unit.getId();
 	}
 	
+	public void setPartyLeader(Unit unit) {
+		this.leader = unit;
+	}
+	
 	public Unit getPartyMember(int i) {
 		if(i >= 0 && i < this.partyList.length) {
 			return this.partyList[i];

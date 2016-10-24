@@ -70,6 +70,20 @@ public class CommandParty extends Command {
 		else if(packetId == PacketID.PARTY_LEFT) {
 			Mideas.joueur1().setParty(null);
 		}
+		else if(packetId == PacketID.PARTY_SET_LEADER) {
+			setLeader(ConnectionManager.getConnection().readInt());
+		}
+	}
+	
+	private static void setLeader(int id) {
+		int i = 0;
+		while(i < Mideas.joueur1().getParty().getMemberList().length) {
+			if(Mideas.joueur1().getParty().getPartyMember(i).getId() == id) {
+				Mideas.joueur1().getParty().setPartyLeader(Mideas.joueur1().getParty().getPartyMember(i));
+				break;
+			}
+			i++;
+		}
 	}
 
 	public static void invitePlayer(String name) {
