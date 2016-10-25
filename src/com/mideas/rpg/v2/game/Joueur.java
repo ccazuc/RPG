@@ -27,6 +27,7 @@ import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.hud.LogChat;
+import com.mideas.rpg.v2.hud.PartyFrame;
 
 public class Joueur extends Unit {
 
@@ -493,6 +494,9 @@ public class Joueur extends Unit {
 	}
 	
 	public void setParty(Party party) {
+		if(party == null) {
+			PartyFrame.setDisplayMember(-1);
+		}
 		this.party = party;
 	}
 	

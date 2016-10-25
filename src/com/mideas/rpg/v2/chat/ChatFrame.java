@@ -30,7 +30,6 @@ public class ChatFrame {
 	private static Color bgColor = new Color(0, 0, 0, .35f);
 	private final static int MAXIMUM_MESSAGES = 100;
 	private final static int MAXIMUM_LENGTH = 255;
-	private static int numberLineLastMessages;
 	private static String currentWhisper = "";
 	private static int messageShowHeight = 4;
 	private static boolean hoverHeightResize;
@@ -99,7 +98,7 @@ public class ChatFrame {
 			}
 			totalNumberLine = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 		}
-		Draw.drawColorQuad(selectedStarts, Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
+		Draw.drawColorQuad(selectedStarts+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
 		TTF2.chat.drawString(40, Display.getHeight()-175, selectedType.getDefaultText()+currentWhisper, selectedType.getColor());
 		TTF2.chat.drawString(40+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, tempMessage.substring(tempLength), selectedType.getColor());
 		int k = 0;
@@ -313,7 +312,6 @@ public class ChatFrame {
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
 				totalNumberLine = getTotalNumberLine();
-				numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 			}
 		}
 		else if(heightResizing) {
@@ -325,7 +323,6 @@ public class ChatFrame {
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
 				totalNumberLine = getTotalNumberLine();
-				numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 			}
 		}
 		if(Mouse.getEventButton() == 0) {
@@ -426,6 +423,17 @@ public class ChatFrame {
 		return false;
 	}
 	
+	public static void setWhisper(String name) {
+		currentWhisper = name+" : ";
+		selectedType = MessageType.WHISPER;
+		tempMessage = "";
+		cursorPosition = 0;
+		cursorShift = 0;
+		selectedLength = 0;
+		selectedQuadLength = 0;
+		selectedStarts = 0;
+	}
+	
 	private static int getLength(String msg, int beg, int length) {
 		int i = beg;
 		String temp = "";
@@ -458,7 +466,6 @@ public class ChatFrame {
 	public static void addMessage(Message message) {
 		messages.add(message);
 		totalNumberLine = getTotalNumberLine();
-		numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 	}
 	
 	private static int getNumberLineLast(int number) {

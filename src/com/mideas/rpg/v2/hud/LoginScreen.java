@@ -30,6 +30,7 @@ public class LoginScreen {
 			Display.destroy();
 		}
 	};
+	//private static Tooltip tooltip = new Tooltip(Display.getWidth()/2-100, Display.getHeight()/2-100, 200, 200, 0.8f);
 	
 	private static Button connectionButton = new Button(Display.getWidth()/2-113*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210, 35, "Connection", 16, 2) {
 		@Override
@@ -63,6 +64,8 @@ public class LoginScreen {
 		leaveButton.draw();
 		connectionButton.draw();
 		alert.draw();
+		//Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), Color.white);
+		//tooltip.draw();
 	}
 	
 	public static boolean mouseEvent() {

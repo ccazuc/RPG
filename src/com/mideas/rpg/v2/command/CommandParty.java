@@ -39,7 +39,7 @@ public class CommandParty extends Command {
 			ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
 			//System.out.println(name+" "+stamina+" "+maxStamina+" "+mana+" "+maxMana+" "+level+" "+id);
 			Mideas.joueur1().getParty().addMember(new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type));
-			System.out.println("Member joined the party");
+			//System.out.println("Member joined the party");
 		}
 		else if(packetId == PacketID.PARTY_NEW) {
 			boolean isLeader = ConnectionManager.getConnection().readBoolean();
@@ -55,15 +55,14 @@ public class CommandParty extends Command {
 			Unit member = new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type);
 			Unit leader = isLeader ? Mideas.joueur1() : member;
 			Mideas.joueur1().setParty(new Party(leader, member));
-			System.out.println("Party created");
+			//System.out.println("Party created");
 		}
 		else if(packetId == PacketID.PARTY_DISBAND) {
 			Mideas.joueur1().setParty(null);
 		}
 		else if(packetId == PacketID.PARTY_MEMBER_LEFT) {
 			if(Mideas.joueur1().getParty() != null) {
-				int characterId = ConnectionManager.getConnection().readInt();
-				Mideas.joueur1().getParty().removeMember(characterId);
+				Mideas.joueur1().getParty().removeMember(ConnectionManager.getConnection().readInt());
 				Mideas.joueur1().getParty().updateMemberPosition();
 			}
 		}
@@ -77,12 +76,17 @@ public class CommandParty extends Command {
 	
 	private static void setLeader(int id) {
 		int i = 0;
-		while(i < Mideas.joueur1().getParty().getMemberList().length) {
-			if(Mideas.joueur1().getParty().getPartyMember(i).getId() == id) {
-				Mideas.joueur1().getParty().setPartyLeader(Mideas.joueur1().getParty().getPartyMember(i));
-				break;
+		if(id == Mideas.joueur1().getId()) {
+			Mideas.joueur1().getParty().setPartyLeader(Mideas.joueur1());
+		}
+		else {
+			while(i < Mideas.joueur1().getParty().getMemberList().length) {
+				if(Mideas.joueur1().getParty().getPartyMember(i) != null && Mideas.joueur1().getParty().getPartyMember(i).getId() == id) {
+					Mideas.joueur1().getParty().setPartyLeader(Mideas.joueur1().getParty().getPartyMember(i));
+					break;
+				}
+				i++;
 			}
-			i++;
 		}
 	}
 
@@ -101,6 +105,20 @@ public class CommandParty extends Command {
 		else {
 			ChatFrame.addMessage(new Message("You can't invite yourself in a party.", false, MessageType.SELF));
 		}
+	}
+	
+	public static void setLeaderServer(int id) {
+		ConnectionManager.getConnection().writeByte(PacketID.PARTY);
+		ConnectionManager.getConnection().writeByte(PacketID.PARTY_SET_LEADER);
+		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void kickPlayer(int id) {
+		ConnectionManager.getConnection().writeByte(PacketID.PARTY);
+		ConnectionManager.getConnection().writeByte(PacketID.PARTY_KICK_PLAYER);
+		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().send();
 	}
 	
 	public static void declineRequest() {

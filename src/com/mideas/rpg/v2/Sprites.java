@@ -286,6 +286,15 @@ public class Sprites {
 	public static Texture friend_note_offline;
 	public static Texture party_leader_crown;
 	public static Texture player_portrait_party;
+	public static Texture party_tooltip;
+	public static Texture tooltip_bot;
+	public static Texture tooltip_top;
+	public static Texture tooltip_left;
+	public static Texture tooltip_right;
+	public static Texture tooltip_top_left_corner;
+	public static Texture tooltip_top_right_corner;
+	public static Texture tooltip_bot_left_corner;
+	public static Texture tooltip_bot_right_corner;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -370,6 +379,7 @@ public class Sprites {
 		gold_coin_container = new Texture("sprite/interface/gold_coin_container.png");
 		party_leader_crown = new Texture("sprite/interface/party/party_leader_crown.png");
 		player_portrait_party = new Texture("sprite/interface/party/player_portrait_party.png");
+		party_tooltip = new Texture("sprite/interface/party/tooltip.png");
 		return true;
 	}
 	
@@ -584,6 +594,14 @@ public class Sprites {
 		friend_border = new Texture("sprite/interface/social/friend_border.png");
 		friend_note_online = new Texture("sprite/interface/social/friend_note_online.png");
 		friend_note_offline = new Texture("sprite/interface/social/friend_note_offline.png");
+		tooltip_bot = new Texture("sprite/interface/tooltip/UI-Tooltip-B.png");
+		tooltip_bot_left_corner = new Texture("sprite/interface/tooltip/UI-Tooltip-BL.png");
+		tooltip_bot_right_corner = new Texture("sprite/interface/tooltip/UI-Tooltip-BR.png");
+		tooltip_left = new Texture("sprite/interface/tooltip/UI-Tooltip-L.png");
+		tooltip_right = new Texture("sprite/interface/tooltip/UI-Tooltip-R.png");
+		tooltip_top = new Texture("sprite/interface/tooltip/UI-Tooltip-T.png");
+		tooltip_top_left_corner = new Texture("sprite/interface/tooltip/UI-Tooltip-TL.png");
+		tooltip_top_right_corner = new Texture("sprite/interface/tooltip/UI-Tooltip-TR.png");
 		return true;
 	}
 
