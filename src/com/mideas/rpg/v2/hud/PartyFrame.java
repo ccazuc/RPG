@@ -35,6 +35,7 @@ public class PartyFrame {
 		public void eventButtonClick() {
 			ChatFrame.setWhisper(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
 			ChatFrame.setChatActive(true);
+			this.reset();
 			displayMember = -1;
 		}
 	};
@@ -42,6 +43,7 @@ public class PartyFrame {
 		@Override
 		public void eventButtonClick() {
 			CommandParty.setLeaderServer(Mideas.joueur1().getParty().getPartyMember(displayMember).getId());
+			this.reset();
 			displayMember = -1;
 		}
 	};
@@ -49,6 +51,7 @@ public class PartyFrame {
 		@Override
 		public void eventButtonClick() {
 			CommandParty.kickPlayer(Mideas.joueur1().getParty().getPartyMember(displayMember).getId());
+			this.reset();
 			displayMember = -1;
 		}
 	};
@@ -60,6 +63,7 @@ public class PartyFrame {
 		@Override
 		public void eventButtonClick() {
 			CommandTrade.requestNewTrade(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
+			this.reset();
 			displayMember = -1;
 		}
 	};
@@ -74,6 +78,7 @@ public class PartyFrame {
 	private static TextMenu cancel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Cancel", 14, 1) {
 		@Override
 		public void eventButtonClick() {
+			this.reset();
 			displayMember = -1;
 		}
 	};
@@ -161,21 +166,21 @@ public class PartyFrame {
 					}
 					i++;
 				}
-				if(displayMember != -1) {
-					i = 0;
-					y = Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+65*Mideas.getDisplayYFactor();
-					yShift = 18*Mideas.getDisplayYFactor();
-					x = (displayMemberX+65)*Mideas.getDisplayXFactor();
-					y+= yShift;
-					while(i < menuTable.length) {
-						if((i == 1 || i == 2) && !Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
-							i++;
-							continue;
-						}
-						menuTable[i].eventXY(x, y);
-						y+= yShift;
+			}
+			if(displayMember != -1) {
+				int i = 0;
+				float y = Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+65*Mideas.getDisplayYFactor();
+				float yShift = 18*Mideas.getDisplayYFactor();
+				float x = (displayMemberX+65)*Mideas.getDisplayXFactor();
+				y+= yShift;
+				while(i < menuTable.length) {
+					if((i == 1 || i == 2) && !Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
 						i++;
+						continue;
 					}
+					menuTable[i].eventXY(x, y);
+					y+= yShift;
+					i++;
 				}
 			}
 			if(!Mouse.getEventButtonState()) {
@@ -196,11 +201,21 @@ public class PartyFrame {
 						}
 					}
 					else if(!isHoverTooltip()) {
+						int i = 0;
+						while(i < menuTable.length) {
+							menuTable[i].reset();
+							i++;
+						}
 						displayMember = -1;
 					}
 				}
 				else if(Mouse.getEventButton() == 0) {
 					if(!isHoverTooltip()) {
+						int i = 0;
+						while(i < menuTable.length) {
+							menuTable[i].reset();
+							i++;
+						}
 						displayMember = -1;
 					}
 				}

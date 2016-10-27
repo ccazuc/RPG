@@ -18,9 +18,11 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.InputBar;
 
 public class ChatFrame {
 	
+	private final static InputBar inputBar = new InputBar(30, Display.getHeight()-181, 510);
 	private static ArrayList<String> rawMessages = new ArrayList<String>();
 	private static ArrayList<Message> messages = new ArrayList<Message>();
 	private static Color selectedColor = new Color(1, 1, 1, .5f); 
@@ -80,7 +82,8 @@ public class ChatFrame {
 		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 130+yResize, bgColor);
 		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
 		if(chatActive) {
-			if(TTF2.chat.getWidth(tempMessage.substring(tempLength)) >= maxLength) {
+			inputBar.draw();
+			if(TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper+tempMessage.substring(tempLength)) >= maxLength) {
 				tempLength = tempMessage.length()-10;
 				cursorPosition = tempMessage.substring(tempLength).length();
 				cursorShift = TTF2.chat.getWidth(tempMessage.substring(tempLength));
@@ -93,6 +96,9 @@ public class ChatFrame {
 			if(System.currentTimeMillis()%1000 < 500) {
 				TTF2.chat.drawString(39+cursorShift+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, "|", selectedType.getColor());
 			}
+			TTF2.chat.drawString(40, Display.getHeight()-175, selectedType.getDefaultText()+currentWhisper, selectedType.getColor());
+			Draw.drawColorQuad(selectedStarts+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
+			TTF2.chat.drawString(40+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, tempMessage.substring(tempLength), selectedType.getColor());
 		}
 		if(messages.size() > MAXIMUM_MESSAGES) {
 			while(messages.size() >= MAXIMUM_MESSAGES) {
@@ -100,9 +106,6 @@ public class ChatFrame {
 			}
 			totalNumberLine = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 		}
-		Draw.drawColorQuad(selectedStarts+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
-		TTF2.chat.drawString(40, Display.getHeight()-175, selectedType.getDefaultText()+currentWhisper, selectedType.getColor());
-		TTF2.chat.drawString(40+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, tempMessage.substring(tempLength), selectedType.getColor());
 		int k = 0;
 		yDraw = -totalNumberLine*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
 		//yDraw = -numberLineLastMessages*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
@@ -316,6 +319,7 @@ public class ChatFrame {
 			}
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
+				inputBar.setXSize(510+xResize);
 				totalNumberLine = getTotalNumberLine();
 			}
 		}
@@ -327,6 +331,7 @@ public class ChatFrame {
 		else if(widthResizing) {
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
+				inputBar.setXSize(510+xResize);
 				totalNumberLine = getTotalNumberLine();
 			}
 		}
@@ -481,6 +486,10 @@ public class ChatFrame {
 			i--;
 		}
 		return height;
+	}
+	
+	public static void updateSize() {
+		inputBar.setY(Display.getHeight()-182);
 	}
 	
 	public static void clearChat() {

@@ -21,6 +21,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
+import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.connection.Connection;
@@ -264,6 +265,7 @@ public class Mideas {
 		RealmListFrame.updateSize();
 		SocialFrame.updateSize();
 		PartyFrame.updateSize();
+		ChatFrame.updateSize();
 		PerformanceBarFrame.updateSize();
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
 			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);

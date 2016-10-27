@@ -295,6 +295,10 @@ public class Sprites {
 	public static Texture tooltip_top_right_corner;
 	public static Texture tooltip_bot_left_corner;
 	public static Texture tooltip_bot_right_corner;
+	public static Texture input_bar_left_border;
+	public static Texture input_bar_middle_border;
+	public static Texture input_bar_right_border;
+	public static Texture text_menu_hover;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -380,6 +384,7 @@ public class Sprites {
 		party_leader_crown = new Texture("sprite/interface/party/party_leader_crown.png");
 		player_portrait_party = new Texture("sprite/interface/party/player_portrait_party.png");
 		party_tooltip = new Texture("sprite/interface/party/tooltip.png");
+		text_menu_hover = new Texture("sprite/interface/UI-Listbox-Highlight.png");
 		return true;
 	}
 	
@@ -458,6 +463,9 @@ public class Sprites {
 		realm_list_background = new Texture("sprite/interface/realm_list/realm_list_background.png");
 		realm_list_box = new Texture("sprite/interface/realm_list/realm_list_box.png");
 		selected_realm = new Texture("sprite/interface/realm_list/selected_realm.png");
+		input_bar_left_border = new Texture("sprite/interface/chat/UI-ChatInputBorder-Left2.png");
+		input_bar_middle_border = new Texture("sprite/interface/chat/UI-ChatInputBorder-Mid.png");
+		input_bar_right_border = new Texture("sprite/interface/chat/UI-ChatInputBorder-Right2.png");
 		return true;
 	}
 		

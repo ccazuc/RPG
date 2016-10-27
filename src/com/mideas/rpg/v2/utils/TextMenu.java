@@ -10,6 +10,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF;
 
 public class TextMenu {
@@ -67,6 +68,9 @@ public class TextMenu {
 			this.font.drawStringShadow(x, y, this.text, GRAY, Color.black, this.shadow_size, 0, 0);
 		}
 		else {
+			if(this.buttonHover) {
+				Draw.drawQuad(Sprites.text_menu_hover, x-10*Mideas.getDisplayXFactor(), y+3*Mideas.getDisplayYFactor());
+			}
 			if(this.buttonDown) {
 				this.font.drawStringShadow(x+2, y+2, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
 			}
@@ -94,7 +98,7 @@ public class TextMenu {
 	
 	private boolean eventHandler(int x, int y) {
 		this.buttonHover = false;
-		if(Mideas.mouseX() >= x && Mideas.mouseX() <= x+this.x_size && Mideas.mouseY() >= y && Mideas.mouseY() <= y+this.y_size) {
+		if(Mideas.mouseX() >= x && Mideas.mouseX() <= x+this.x_size && Mideas.mouseY() > y+2 && Mideas.mouseY() <= y+this.font.getLineHeight()+2) {
 			this.buttonHover = true;
 		}
 		if(this.buttonHover) {
@@ -120,6 +124,11 @@ public class TextMenu {
 			}
 		}
 		return false;
+	}
+	
+	public void reset() {
+		this.buttonDown = false;
+		this.buttonHover = false;
 	}
 	
 	public boolean activateCondition() { return true; }
