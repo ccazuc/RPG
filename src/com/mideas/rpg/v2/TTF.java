@@ -165,6 +165,10 @@ public final class TTF {
 		drawChar(x, y, character, color, scaleX, scaleY, 1);
 	}
 	
+	public final void drawChar(final float x, final float y, final char character, final Color color, final float opacity) {
+		drawChar(x, y, character, color, 1, 1, opacity);
+	}
+	
 	public final void drawChar(final float x, final float y, final char character, final Color color, final float scaleX, final float scaleY, final float opacity) {
 		bind();
 		OpenGL.glBegin(OpenGL.GL_QUADS);

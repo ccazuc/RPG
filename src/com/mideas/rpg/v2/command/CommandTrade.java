@@ -73,9 +73,9 @@ public class CommandTrade extends Command {
 			TradeFrame.setTraceAcceptedSelf(false);
 		}
 		else if(packetId == PacketID.TRADE_CLOSE) {
+			TradeFrame.setAllItemSelectable();
 			TradeFrame.reset();
 			Interface.setTradeFrameStatus(false);
-			TradeFrame.setAllItemSelectable();
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM_ERROR) {
 			int slot = ConnectionManager.getConnection().readInt();

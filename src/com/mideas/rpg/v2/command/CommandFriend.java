@@ -20,7 +20,13 @@ public class CommandFriend extends Command {
 			
 		}
 		else if(packetId == PacketID.FRIEND_ADD) {
-			Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readInt(), ConnectionManager.getConnection().readString(), ConnectionManager.getConnection().readInt(), Race.values()[ConnectionManager.getConnection().readChar()], ClassType.values()[ConnectionManager.getConnection().readChar()], ConnectionManager.getConnection().readBoolean()));
+			boolean online = ConnectionManager.getConnection().readBoolean();
+			if(online) {
+				Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readInt(), ConnectionManager.getConnection().readString(), ConnectionManager.getConnection().readInt(), Race.values()[ConnectionManager.getConnection().readChar()], ClassType.values()[ConnectionManager.getConnection().readChar()]));
+			}
+			else {
+				Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readInt(), ConnectionManager.getConnection().readString()));
+			}
 		}
 		else if(packetId == PacketID.FRIEND_OFFLINE) {
 			String name = ConnectionManager.getConnection().readString();
@@ -28,7 +34,7 @@ public class CommandFriend extends Command {
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).equals(name)) {
 					Mideas.joueur1().getFriendList().get(i).setOnlineStatus(false);
-					ChatFrame.addMessage(new Message(name+" vient de se déconnecter.", false, MessageType.SELF));
+					ChatFrame.addMessage(new Message(name+" logged out.", false, MessageType.SELF));
 				}
 				i++;
 			}
@@ -44,11 +50,11 @@ public class CommandFriend extends Command {
 				ConnectionManager.getConnection().send();
 			}
 			else {
-				//can't add yourself as friend
+				ChatFrame.addMessage(new Message("Can't add yourself as friend.", false, MessageType.SELF));
 			}
 		}
 		else {
-			//friendlist full
+			ChatFrame.addMessage(new Message("Your friendlist is full.", false, MessageType.SELF));
 		}
 	}
 	
@@ -57,6 +63,5 @@ public class CommandFriend extends Command {
 		ConnectionManager.getConnection().writeByte(PacketID.FRIEND_REMOVE);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
-		
 	}
 }

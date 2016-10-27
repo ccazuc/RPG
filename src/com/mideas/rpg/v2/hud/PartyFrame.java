@@ -116,9 +116,6 @@ public class PartyFrame {
 			while(i < Mideas.joueur1().getParty().getMemberList().length) {
 				if(Mideas.joueur1().getParty().getPartyMember(i) != null) {
 					drawPortraitFrame(Mideas.joueur1().getParty().getPartyMember(i), 50*Mideas.getDisplayXFactor(), y+i*yShift);
-					/*if(i == displayMember) {
-						drawDisplayMember();
-					}*/
 				}
 				i++;
 			}
@@ -136,7 +133,6 @@ public class PartyFrame {
 						continue;
 					}
 					menuTable[i].drawXY(x, y);
-					menuTable[i].eventXY(x, y);
 					y+= yShift;
 					i++;
 				}
@@ -164,6 +160,22 @@ public class PartyFrame {
 						break;
 					}
 					i++;
+				}
+				if(displayMember != -1) {
+					i = 0;
+					y = Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+65*Mideas.getDisplayYFactor();
+					yShift = 18*Mideas.getDisplayYFactor();
+					x = (displayMemberX+65)*Mideas.getDisplayXFactor();
+					y+= yShift;
+					while(i < menuTable.length) {
+						if((i == 1 || i == 2) && !Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
+							i++;
+							continue;
+						}
+						menuTable[i].eventXY(x, y);
+						y+= yShift;
+						i++;
+					}
 				}
 			}
 			if(!Mouse.getEventButtonState()) {
@@ -242,7 +254,7 @@ public class PartyFrame {
 	
 	public static void updateSize() {
 		memberTooltip.updatePosition(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor());
-		if(Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
+		if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
 			memberTooltip.setWidth(140*Mideas.getDisplayXFactor());
 			memberTooltip.setHeight(185*Mideas.getDisplayYFactor());
 		}

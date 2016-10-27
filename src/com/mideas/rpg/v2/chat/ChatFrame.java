@@ -28,7 +28,9 @@ public class ChatFrame {
 	private static MessageType selectedType = MessageType.SAY;
 	private final static int NUMBER_LAST_MESSAGE_TAKEN = 100;
 	private static Color bgColor = new Color(0, 0, 0, .35f);
-	private final static int MAXIMUM_MESSAGES = 100;
+	private final static int OPACITY_START_DECREASE_TIMER = 30000;
+	private final static int OPACITY_DECREASE_TIMER = 7000;
+	private final static int MAXIMUM_MESSAGES = 128; //same as wow BC
 	private final static int MAXIMUM_LENGTH = 255;
 	private static String currentWhisper = "";
 	private static int messageShowHeight = 4;
@@ -109,18 +111,21 @@ public class ChatFrame {
 		while(k < messages.size()) {
 			xDraw = 40;
 				if(yDraw <= Display.getHeight()-185) {
+					if(messages.get(k).getOpacity() > 0 && System.currentTimeMillis()-messages.get(k).lastSeenTimer() >= OPACITY_START_DECREASE_TIMER) {
+						messages.get(k).decreaseOpacity(-1/(Mideas.FPS*OPACITY_DECREASE_TIMER/1000f));
+					}
 					int j = 0;
 					if(messages.get(k).getAuthor() != null) {
-							if(yDraw >= Display.getHeight()-280-yResize) {
-								TTF2.chat.drawString(xDraw+1, yDraw, messages.get(k).getAuthorText(), Color.black);
-								TTF2.chat.drawString(xDraw, yDraw, messages.get(k).getAuthorText(), messages.get(k).getColor());
-							}
+						if(yDraw >= Display.getHeight()-280-yResize && messages.get(k).getOpacity() > 0) {
+							TTF2.chat.drawString(xDraw+1, yDraw, messages.get(k).getAuthorText(), Color.black, messages.get(k).getOpacity());
+							TTF2.chat.drawString(xDraw, yDraw, messages.get(k).getAuthorText(), messages.get(k).getColor(), messages.get(k).getOpacity());
+						}
 						xDraw+= TTF2.chat.getWidth(messages.get(k).getAuthorText());
 					}
 					while(j < messages.get(k).getMessage().length()) {
-						if(yDraw >= Display.getHeight()-280-yResize) {
-							TTF2.chat.drawChar(xDraw+1, yDraw, messages.get(k).getMessage().charAt(j), Color.black);
-							TTF2.chat.drawChar(xDraw, yDraw, messages.get(k).getMessage().charAt(j), messages.get(k).getColor());
+						if(yDraw >= Display.getHeight()-280-yResize && messages.get(k).getOpacity() > 0) {
+							TTF2.chat.drawChar(xDraw+1, yDraw, messages.get(k).getMessage().charAt(j), Color.black, messages.get(k).getOpacity());
+							TTF2.chat.drawChar(xDraw, yDraw, messages.get(k).getMessage().charAt(j), messages.get(k).getColor(), messages.get(k).getOpacity());
 						}
 						xDraw+= TTF2.chat.getWidth(messages.get(k).getMessage().charAt(j));
 						j++;
@@ -677,12 +682,24 @@ public class ChatFrame {
     	if(xShift/TTF2.chat.getLineHeight() <= totalNumberLine-messageShowHeight-2) {
     		xShift+= TTF2.chat.getLineHeight();
     	}
+    	resetMessagesOpacity();
 	}
 	
 	private static void scrollDown() {
     	if(xShift/TTF2.chat.getLineHeight() > 0) {
     		xShift-= TTF2.chat.getLineHeight();
     	}
+    	resetMessagesOpacity();
+	}
+	
+	private static void resetMessagesOpacity() {
+		int i = 0;
+		long time = System.currentTimeMillis();
+		while(i < messages.size()) {
+			messages.get(i).setOpacity(1);
+			messages.get(i).setLastSeenTimer(time);
+			i++;
+		}
 	}
 	
 	private static boolean CTRLDelete() {

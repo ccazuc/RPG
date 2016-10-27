@@ -22,7 +22,7 @@ public class RedAlertFrame {
 		int i = alertList.size()-1;
 		while(i >= 0 && i < alertList.size()) {
 			if(System.currentTimeMillis()-alertList.get(i).getTimer() >= OPACITY_DECREASE_TIMER) {
-				alertList.get(i).decreaseOpacity(-1/(60*OPACITY_DECREASE_TIMER/1000f));
+				alertList.get(i).decreaseOpacity(-1/(Mideas.FPS*OPACITY_DECREASE_TIMER/1000f));
 				if(alertList.get(i).getOpacity() <= 0) {
 					alertList.remove(i);
 					i++;

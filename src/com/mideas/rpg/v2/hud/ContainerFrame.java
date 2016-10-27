@@ -10,6 +10,7 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.bag.ContainerManager;
+import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
@@ -19,15 +20,16 @@ import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.IntegerInput;
+import com.mideas.rpg.v2.utils.Tooltip;
 
 public class ContainerFrame {
 	
 	private static int hoveredSlot = -1;
-	private static final Color bgColor = new Color(0, 0, 0, .6f); 
-	private static final Color borderColor = Color.decode("#494D4B");
-	private static final Color BLUE = Color.decode("#0268CC");
-	private static final Color PURPLE = Color.decode("#822CB7");
-	private static final Color LEGENDARY = Color.decode("#FF800D");
+	private final static Color bgColor = new Color(0, 0, 0, .6f); 
+	private final static Color BLUE = Color.decode("#0268CC");
+	private final static Color PURPLE = Color.decode("#822CB7");
+	private final static Color LEGENDARY = Color.decode("#FF800D");
+	private final static Color YELLOW = Color.decode("#FFC700");
 	private static int x;
 	private static int xShift;
 	private static int y;
@@ -47,6 +49,7 @@ public class ContainerFrame {
 	private static int y_item;
 	private static int numberItem = 1;
 	private static int lastSplit;
+	private static Tooltip itemHoverTooltip = new Tooltip(0, 0, 0, 0, 0.7f);
 	private static CrossButton backpackButton = new CrossButton(0, 0) {
 		@Override
 		protected void eventButtonClick() {
@@ -218,7 +221,7 @@ public class ContainerFrame {
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(backPack) {
 				if(isBagOpen[0]) {
-					z+= -bagSize[0]-50;
+					z+= -bagSize[0]-50*Mideas.getDisplayYFactor();
 				}
 				backPack = false;
 			}
@@ -259,10 +262,10 @@ public class ContainerFrame {
 				if(Mideas.joueur1().bag().getEquippedBag(0) != null) {
 					if(isBagOpen[1]) {
 						if(isBagOpen[0]) {
-							z+= -bagSize[1]-10;
+							z+= -bagSize[1]-10*Mideas.getDisplayYFactor();
 						}
 						else {
-							z+= -bagSize[1]-52;
+							z+= -bagSize[1]-52*Mideas.getDisplayYFactor();
 						}
 					}
 					yBagShift = 0;
@@ -837,9 +840,30 @@ public class ContainerFrame {
 				else if(Mideas.joueur1().bag().getBag(i).isPotion()) {
 					drawPotion(i, x, y);
 				}
+				else if(Mideas.joueur1().bag().getBag(i).isPotion()) {
+					drawGem(i, x, y);
+				}
 			}
 			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()+x, Display.getHeight()+y-1);
 		}
+	}
+	
+	private static void drawGem(int i, int x, int z) {
+		Gem gem = (Gem)Mideas.joueur1().bag().getBag(i);
+		int y = -75;
+		int shift = 0;
+		int xShift = TTF2.itemName.getWidth(gem.getStuffName());
+		//Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, 10+y, bgColor);
+		//Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, 11+y, borderColor);
+		if(itemHoverTooltip.getX() != Display.getWidth()+x-15-xShift || itemHoverTooltip.getY() != Display.getHeight()+z-10+y) {
+			itemHoverTooltip.update(Display.getWidth()+x-15-xShift, Display.getHeight()+z+y, 25+Math.abs(xShift), Math.abs(y)+15);
+		}
+		itemHoverTooltip.draw();
+		y =  -65;
+		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, gem.getStuffName(), getItemNameColor(gem), Color.black, 1, 1, 1);
+		shift+= 25;
+		TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, gem.getGemSlotString(), YELLOW, Color.black, 1, 1, 1);
+		calcCoinContainer(Mideas.joueur1().bag().getBag(i).getSellPrice(), x-55, z+y+shift-5);
 	}
 	
 	private static void drawPotion(int i, int x, int z) {
@@ -847,8 +871,12 @@ public class ContainerFrame {
 		int y = -75;
 		int shift = 0;
 		int xShift = TTF2.itemName.getWidth(potion.getStuffName());
-		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, 10+y, bgColor);
-		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, 11+y, borderColor);
+		//Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, 10+y, bgColor);
+		//Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, 11+y, borderColor);
+		if(itemHoverTooltip.getX() != Display.getWidth()+x-15-xShift || itemHoverTooltip.getY() != Display.getHeight()+z-10+y) {
+			itemHoverTooltip.update(Display.getWidth()+x-15-xShift, Display.getHeight()+z+y, 25+Math.abs(xShift), Math.abs(y)+15);
+		}
+		itemHoverTooltip.draw();
 		y =  -65;
 		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, potion.getStuffName(), getItemNameColor(potion), Color.black, 1, 1, 1);
 		shift+= 25;
@@ -876,8 +904,12 @@ public class ContainerFrame {
 		int shift = 45;
 		xShift = Math.max(TTF2.itemName.getWidth(item.getStuffName()), TTF2.statsName.getWidth(item.getClassRequirements())+15);
 		int y = -80-TTF2.statsName.getLineHeight()*getNumberStats(item);
-		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
-		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
+		//Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
+		//Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
+		if(itemHoverTooltip.getX() != Display.getWidth()+x-15-xShift || itemHoverTooltip.getY() != Display.getHeight()+z-10+y) {
+			itemHoverTooltip.update(Display.getWidth()+x-15-xShift, Display.getHeight()+z-10+y, 28+Math.abs(xShift), Math.abs(y)+15);
+		}
+		itemHoverTooltip.draw();
 		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, item.getStuffName(), getItemNameColor(item), Color.black, 1);
 		TTF2.statsName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+23, item.convStuffTypeToString(), Color.white, Color.black, 1);
 		if(Mideas.joueur1().canWear(item)) {
@@ -981,8 +1013,12 @@ public class ContainerFrame {
 		int shift = 45;
 		int y = -75-TTF2.statsName.getLineHeight()*getNumberStats(item);
 		xShift = Math.max(TTF2.font4.getWidth(item.convTypeToString()+item.convSlotToString())+10, Math.max(TTF2.itemName.getWidth(item.getStuffName()), TTF2.statsName.getWidth(item.getClassRequirements())+15));
-		Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
-		Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
+		if(itemHoverTooltip.getX() != Display.getWidth()+x-15-xShift || itemHoverTooltip.getY() != Display.getHeight()+z-10+y) {
+			itemHoverTooltip.update(Display.getWidth()+x-15-xShift, Display.getHeight()+z-10+y, 20+Math.abs(xShift), Math.abs(y)+15);
+		}
+		itemHoverTooltip.draw();
+		//Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
+		//Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
 		TTF2.itemName.drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.joueur1().bag().getBag(i).getStuffName(), getItemNameColor(item), Color.black, 1, 1, 1);
 		if(Mideas.joueur1().canWear(item)) {
 			temp = Color.white;

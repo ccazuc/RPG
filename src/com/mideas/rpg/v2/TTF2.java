@@ -80,8 +80,7 @@ public class TTF2 {
 		buttonFont = new TTF(awtFont, true);
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(21f);
-		awtFont = awtFont.deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(21f).deriveFont(Font.BOLD);
 		spellName = new TTF(awtFont, true);
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");

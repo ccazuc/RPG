@@ -195,7 +195,9 @@ public class Stuff extends Item {
 		this.color3 = weapon.color3;
 		this.level = weapon.level;
 		this.armor = weapon.armor;
+		this.type = weapon.type;
 		this.mana = weapon.mana;
+		this.wear = weapon.wear;
 		this.isLoaded = true;
 	}
 	
@@ -628,7 +630,10 @@ public class Stuff extends Item {
 		if(this.type == StuffType.OFFHAND) {
 			return offHand;
 		}
-		return ranged;
+		if(this.type == StuffType.RANGED) {
+			return ranged;
+		}
+		return "";
 	}
 	
 	public String convClassTypeToString(int i) {
@@ -672,7 +677,10 @@ public class Stuff extends Item {
 		if(this.wear == Wear.MAIL) {
 			return mail;
 		}
-		return plate;
+		if(this.wear == Wear.PLATE) {
+			return plate;
+		}
+		return "";
 	}
 	
 	public boolean canEquipTo(ClassType type) {

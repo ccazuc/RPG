@@ -13,6 +13,7 @@ public class Gem extends Item {
 	protected GemColor color;
 	protected boolean isLoaded;
 	private String gemStatsString;
+	private String gemSlotString;
 	
 	private final static String armorString = "Armor";
 	private final static String criticalString = "Critical";
@@ -64,6 +65,7 @@ public class Gem extends Item {
 		this.color = color;
 		this.mana = mana;
 		buildGemStatsString();
+		buildGemColorString();
 		this.isLoaded = true;
 	}
 
@@ -86,7 +88,37 @@ public class Gem extends Item {
 		return null;
 	}
 	
-	public void buildGemStatsString() {
+	public String getGemSlotString() {
+		return this.gemSlotString;
+	}
+	
+	private void buildGemColorString() {
+		this.gemSlotString = "Correspond to a "+getCorrespondingColor(this.color);
+	}
+	
+	private String getCorrespondingColor(GemColor type) {
+		if(type == GemColor.BLUE) {
+			return "blue gem.";
+		}
+		if(type == GemColor.GREEN) {
+			return "yellow or blue gem.";
+		}
+		if(type == GemColor.ORANGE) {
+			return "red or yellow gem.";
+		}
+		if(type == GemColor.PURPLE) {
+			return "red or blue gem.";
+		}
+		if(type == GemColor.RED) {
+			return "red gem.";
+		}
+		if(type == GemColor.YELLOW) {
+			return "yellow gem.";
+		}
+		return "";
+	}
+	
+	private void buildGemStatsString() {
 		boolean stats = false;
 		StringBuilder result = new StringBuilder();
 		if(this.armor > 0) {

@@ -66,7 +66,7 @@ public class TradeFrame {
 			tradeAcceptedOther = false;
 		}
 	};
-	private static Button acceptTrade = new Button(Display.getWidth()/2-300*Mideas.getDisplayXFactor(), Display.getHeight()/2-10*Mideas.getDisplayYFactor(), 80, 15, "Trade", 15, 1) {
+	private static Button acceptTrade = new Button(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 93*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "Trade", 15, 1) {
 		@Override
 		public void eventButtonClick() {
 			CommandTrade.writeAccept();
@@ -76,6 +76,16 @@ public class TradeFrame {
 		@Override
 		public boolean activateCondition() {
 			return !tradeAcceptedSelf;
+		}
+	};
+	private static Button cancelTrade = new Button(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 87*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "Cancel", 15, 1) {
+		@Override
+		public void eventButtonClick() {
+			Interface.setTradeFrameStatus(false);
+			CommandTrade.writeCloseTrade();
+			setAllItemSelectable();
+			tradeAcceptedSelf = false;
+			tradeAcceptedOther = false;
 		}
 	};
 	
@@ -117,6 +127,7 @@ public class TradeFrame {
 		if(leftClickDown != -1 || rightClickDown != -1) {
 			Draw.drawQuad(Sprites.click_down, x_click_down_draw, y_click_down_draw, 42*Mideas.getDisplayXFactor(), 42*Mideas.getDisplayXFactor());
 		}
+		cancelTrade.draw();
 		closeFrame.draw();
 		acceptTrade.draw();
 	}
@@ -125,6 +136,7 @@ public class TradeFrame {
 		hoveredSlot = -1;
 		float x = X_FRAME+25*Mideas.getDisplayXFactor();
 		float y = 0;
+		cancelTrade.event();
 		closeFrame.event();
 		acceptTrade.event();
 		int i = 0;
@@ -328,6 +340,8 @@ public class TradeFrame {
 		Y_HOVER_TOP = 110*Mideas.getDisplayXFactor();
 		Y_HOVER_SIZE = 45*Mideas.getDisplayYFactor();
 		Y_SHIFT = 47*Mideas.getDisplayYFactor();
+		cancelTrade.update(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 87*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
+		acceptTrade.update(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 93*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
 		declineRequest.update(Display.getWidth()/2+20*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor());
 		acceptRequest.update(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor());
 	}

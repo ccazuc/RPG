@@ -87,6 +87,7 @@ public class Mideas {
 	private final static String IP = "127.0.0.1";
 	private final static int TIMEOUT_TIMER = 10000;
 	private final static Pattern isInteger = Pattern.compile("-?[0-9]+");
+	public final static int FPS = 60;
 	
 	private static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            

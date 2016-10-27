@@ -49,8 +49,16 @@ public class Tooltip {
 		this.y_size = (int)height;
 	}
 	
+	public int getX() {
+		return this.x;
+	}
+	
 	public void setX(float x) {
 		this.x = (int)x;
+	}
+	
+	public int getY() {
+		return this.y;
 	}
 	
 	public void setY(float y) {

@@ -335,7 +335,7 @@ public class DragManager {
 			}
 			else if(Mideas.joueur1().bag().getBag(i).isWeapon()) {
 				int j = 0;
-				while(j < type.length) {
+				while(j < weaponSlot.length) {
 					if(((Stuff)Mideas.joueur1().bag().getBag(i)) != null && ((Stuff)Mideas.joueur1().bag().getBag(i)).getWeaponSlot() == weaponSlot[j] && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(Mideas.joueur1().getClassType())) {
 						if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.joueur1().bag().getBag(i)).getLevel()) {
 							if(Mideas.joueur1().getStuff(j) == null) {

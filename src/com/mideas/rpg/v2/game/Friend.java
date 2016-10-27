@@ -16,15 +16,24 @@ public class Friend {
 	private final static String space = " - ";
 	//private Area zone;
 	
-	public Friend(int character_id, String name, int level, Race race, ClassType classe, boolean isOnline) {
+	public Friend(int character_id, String name, int level, Race race, ClassType classe) { //online friend
 		this.characterId = character_id;
-		this.isOnline = isOnline;
+		this.isOnline = true;
 		this.classe = classe;
 		this.level = level;
 		this.name = name;
 		this.race = race;
 		this.infosText = Joueur.convClassTypeToString(this.classe)+levelText+this.level;
 		this.areaText = space+"Area";
+	}
+	
+	public Friend(int character_id, String name) { //offline friend
+		this.characterId = character_id;
+		this.name = name;
+	}
+	
+	public void setCharacterId(int characterId) {
+		this.characterId = characterId;
 	}
 	
 	public int getCharacterId() {
@@ -52,8 +61,17 @@ public class Friend {
 		return this.name;
 	}
 	
+	public void setRace(Race race) {
+		this.race = race;
+	}
+	
 	public Race getRace() {
 		return this.race;
+	}
+	
+	public void setClasse(ClassType classe) {
+		this.classe = classe;
+		this.infosText = Joueur.convClassTypeToString(this.classe)+levelText+this.level;
 	}
 	
 	public ClassType getClasse() {

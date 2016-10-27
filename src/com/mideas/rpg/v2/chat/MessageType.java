@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 
 public enum MessageType {
 
-	SAY((char)0, Color.white, "Say : ", " Say : "),
+	SAY((char)0, Color.white, "Say : ", " say : "),
 	GUILD((char)1, new Color(64/255f, 251/255f, 64f/255f), "Guild : ", "[Guild] "),
 	PARTY((char)2, new Color(170/255f, 167/255f, 1), "Party : ", "[Party] "),
 	RAID((char)3, new Color(1, 125/255f, 0), "Raid : ", "[Raid] "),

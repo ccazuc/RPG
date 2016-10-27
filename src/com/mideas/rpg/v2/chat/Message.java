@@ -16,35 +16,43 @@ public class Message {
 	private String author;
 	private String authorText = "";
 	private MessageType type;
+	private float opacity;
+	private long timer;
+	private long lastSeenTimer;
 	
 	public Message(String message, boolean displayHour, MessageType type) { //used for self message
-		long time = System.currentTimeMillis();
+		this.timer = System.currentTimeMillis();
+		this.lastSeenTimer = this.timer;
 		this.message = message;
-		this.hour = getMessageHour(time);
-		this.minute = getMessageMinute(time);
-		this.second = getMessageSecond(time);
+		this.hour = getMessageHour(this.timer);
+		this.minute = getMessageMinute(this.timer);
+		this.second = getMessageSecond(this.timer);
 		this.color = type.getColor();
 		this.displayHour = displayHour;
 		this.type = type;
+		this.opacity = 1;
 	}
 	
 	public Message(String message, boolean displayHour, MessageType type, Color color) { //used for self message with different color
-		long time = System.currentTimeMillis();
+		this.timer = System.currentTimeMillis();
+		this.lastSeenTimer = this.timer;
 		this.message = message;
-		this.hour = getMessageHour(time);
-		this.minute = getMessageMinute(time);
-		this.second = getMessageSecond(time);
+		this.hour = getMessageHour(this.timer);
+		this.minute = getMessageMinute(this.timer);
+		this.second = getMessageSecond(this.timer);
 		this.color = color;
 		this.displayHour = displayHour;
 		this.type = type;
+		this.opacity = 1;
 	}
 	
 	public Message(String message, String author, boolean displayHour, MessageType type) { //used for all except self and whisper
-		long time = System.currentTimeMillis();
+		this.timer = System.currentTimeMillis();
+		this.lastSeenTimer = this.timer;
 		this.message = message;
-		this.hour = getMessageHour(time);
-		this.minute = getMessageMinute(time);
-		this.second = getMessageSecond(time);
+		this.hour = getMessageHour(this.timer);
+		this.minute = getMessageMinute(this.timer);
+		this.second = getMessageSecond(this.timer);
 		this.color = type.getColor();
 		this.type = type;
 		this.displayHour = displayHour;
@@ -55,14 +63,16 @@ public class Message {
 		else {
 			this.authorText = type.getChatDisplay()+"["+author+"] : ";
 		}
+		this.opacity = 1;
 	}
 	
 	public Message(String message, String author, boolean displayHour, MessageType type, boolean isTarget) { //used for whispers
-		long time = System.currentTimeMillis();
+		this.timer = System.currentTimeMillis();
+		this.lastSeenTimer = this.timer;
 		this.message = message;
-		this.hour = getMessageHour(time);
-		this.minute = getMessageMinute(time);
-		this.second = getMessageSecond(time);
+		this.hour = getMessageHour(this.timer);
+		this.minute = getMessageMinute(this.timer);
+		this.second = getMessageSecond(this.timer);
 		this.color = type.getColor();
 		this.type = type;
 		this.displayHour = displayHour;
@@ -73,6 +83,19 @@ public class Message {
 		else {
 			this.authorText = "To ["+this.author+"] : ";
 		}
+		this.opacity = 1;
+	}
+	
+	public float getOpacity() {
+		return this.opacity;
+	}
+	
+	public void decreaseOpacity(float opacity) {
+		this.opacity = this.opacity+opacity;
+	}
+	
+	public void setOpacity(float opacity) {
+		this.opacity = opacity;
 	}
 	
 	public MessageType getType() {
@@ -93,6 +116,14 @@ public class Message {
 	
 	public String getMessage() {
 		return this.message;
+	}
+	
+	public void setLastSeenTimer(long timer) {
+		this.lastSeenTimer = timer;
+	}
+	
+	public long lastSeenTimer() {
+		return this.lastSeenTimer;
 	}
 	
 	public int getHour() {

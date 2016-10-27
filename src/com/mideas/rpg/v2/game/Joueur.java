@@ -87,8 +87,8 @@ public class Joueur extends Unit {
 		this.firstProfession = ProfessionManager.getProfession(0);
 		//this.classString = convClassTypeToString(this.classType);
 		this.friendList = new ArrayList<Friend>();
-		this.friendList.add(new Friend(3, "Jean-42", 70, Race.ORC, ClassType.GUERRIER, true));
-		this.friendList.add(new Friend(2, "Jean-bas-level", 70, Race.ORC, ClassType.GUERRIER, false));
+		this.friendList.add(new Friend(3, "Jean-42", 70, Race.ORC, ClassType.GUERRIER));
+		this.friendList.add(new Friend(2, "Jean-bas-level"));
 	}
 	
 	public Joueur(Joueur joueur) {
@@ -475,9 +475,27 @@ public class Joueur extends Unit {
 	public void addFriend(Friend friend) {
 		if(this.friendList.size() < MAXIMUM_AMOUNT_FRIENDS) {
 			this.friendList.add(friend);
+			sortFriendList();
 		}
 	}
 	
+	private void sortFriendList() {
+		int i = 0;
+		int j = 0;
+		Friend temp;
+		while(i < this.friendList.size()) {
+			j = i;
+			while(j < this.friendList.size()) {
+				if(this.friendList.get(i).getName().compareTo(this.friendList.get(i).getName()) > 0) {
+					temp = this.friendList.get(j);
+					this.friendList.set(j, this.friendList.get(i));
+					this.friendList.set(i, temp);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
 	public ArrayList<Friend> getFriendList() {
 		return this.friendList;
 	}

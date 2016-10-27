@@ -33,7 +33,7 @@ public class CommandSendMessage extends Command {
 		ConnectionManager.getConnection().writeString(message);
 		ConnectionManager.getConnection().writeChar(type.getValue());
 		ConnectionManager.getConnection().send();
-		System.out.println(message);
+		//System.out.println(message);
 	}
 	
 	public static void writeWhisper(String message, String target) {

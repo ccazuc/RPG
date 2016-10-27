@@ -184,7 +184,7 @@ public class CharacterFrame {
 		return false;
 	}
 	
-	private static void characterItemHover(int i, int x, int z) {
+	private static void characterItemHover(int i, int x, int z) { //TODO split function in drawStuff() and drawWeapon()
 		Color temp = null;
 		int xShift = 237;
 		int shift = 45;
