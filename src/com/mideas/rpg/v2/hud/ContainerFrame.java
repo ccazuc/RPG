@@ -942,10 +942,10 @@ public class ContainerFrame {
 		
 		//TODO: draw gem with a function in a loop
 		
-		if(item.getGemSlot1() != GemColor.NONE) {
-			if(item.getEquippedGem(1) != null) {
-				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(1).getGemStatsString(), Color.white, Color.black, 1);
+		if(item.getGemColor(0) != GemColor.NONE) {
+			if(item.getEquippedGem(0) != null) {
+				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(0).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(0).getGemStatsString(), Color.white, Color.black, 1);
 			}
 			else {
 				Draw.drawQuad(item.getFreeSlotGemSprite1(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
@@ -954,10 +954,10 @@ public class ContainerFrame {
 			Draw.drawQuad(Sprites.cursor, -5000, -5000);
 			shift+= 20;
 		}
-		if(item.getGemSlot2() != GemColor.NONE) {
-			if(item.getEquippedGem(2) != null) {
-				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(2).getGemStatsString(), Color.white, Color.black, 1);
+		if(item.getGemColor(1) != GemColor.NONE) {
+			if(item.getEquippedGem(1) != null) {
+				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(1).getGemStatsString(), Color.white, Color.black, 1);
 			}
 			else {
 				Draw.drawQuad(item.getFreeSlotGemSprite2(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
@@ -966,10 +966,10 @@ public class ContainerFrame {
 			Draw.drawQuad(Sprites.cursor, -5000, -5000);
 			shift+= 20;
 		}
-		if(item.getGemSlot3() != GemColor.NONE) {
-			if(item.getEquippedGem(3) != null) {
-				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(3).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(3).getGemStatsString(), Color.white, Color.black, 1);
+		if(item.getGemColor(2) != GemColor.NONE) {
+			if(item.getEquippedGem(2) != null) {
+				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				TTF2.statsName.drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(2).getGemStatsString(), Color.white, Color.black, 1);
 			}
 			else {
 				Draw.drawQuad(item.getFreeSlotGemSprite3(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
@@ -1087,13 +1087,13 @@ public class ContainerFrame {
 		if(stuff.getClassType().length < 10) {
 			i++;
 		}
-		if(stuff.getGemSlot1() != GemColor.NONE)  {
+		if(stuff.getGemColor(0) != GemColor.NONE)  {
 			i+= 2; //bonus type + gem
 		}
-		if(stuff.getGemSlot2() != GemColor.NONE) {
+		if(stuff.getGemColor(1) != GemColor.NONE) {
 			i++;
 		}
-		if(stuff.getGemSlot3() != GemColor.NONE) {
+		if(stuff.getGemColor(2) != GemColor.NONE) {
 			i++;
 		}
 		return i;

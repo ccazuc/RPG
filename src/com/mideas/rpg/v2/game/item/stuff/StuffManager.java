@@ -59,7 +59,7 @@ public class StuffManager {
 	}
 	
 	public static boolean canEquipStuff(Stuff stuff) {
-		if(Mideas.joueur1().getLevel() >= stuff.getLevel() && Mideas.joueur1().canWear(stuff) && stuff.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString()))) {
+		if(Mideas.joueur1().getLevel() >= stuff.getLevel() && Mideas.joueur1().canWear(stuff) && stuff.canEquipTo(Mideas.joueur1().getClassType())) {
 			return true;
 		}
 		return false;

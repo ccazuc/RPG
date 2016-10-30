@@ -13,6 +13,7 @@ import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.bag.Bag;
 import com.mideas.rpg.v2.game.item.bag.ContainerManager;
+import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
@@ -210,23 +211,60 @@ public class Joueur extends Unit {
 		while(i < Mideas.joueur1().getStuff().length) {
 			if(Mideas.joueur1().getStuff(i) != null && !Mideas.joueur1().getStuff(i).getIsLoaded()) {
 				if(StuffManager.exists(Mideas.joueur1().getStuff(i).getId())) {
+					Gem gem1 = Mideas.joueur1().getStuff(i).getEquippedGem(0);
+					Gem gem2 = Mideas.joueur1().getStuff(i).getEquippedGem(1);
+					Gem gem3 = Mideas.joueur1().getStuff(i).getEquippedGem(2);
 					Mideas.joueur1().setStuff(i, StuffManager.getClone(Mideas.joueur1().getStuff(i).getId()));
-					Mideas.joueur1().getStuff(i).setIsLoaded(true);
+					Mideas.joueur1().getStuff(i).setEquippedGem(0, gem1);
+					Mideas.joueur1().getStuff(i).setEquippedGem(1, gem2);
+					Mideas.joueur1().getStuff(i).setEquippedGem(2, gem3);
 					ConnectionManager.getItemRequested().remove(Mideas.joueur1().getStuff(i).getId());
+					Mideas.joueur1().getStuff(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
 				else if(WeaponManager.exists(Mideas.joueur1().getStuff(i).getId())) {
+					Gem gem1 = Mideas.joueur1().getStuff(i).getEquippedGem(0);
+					Gem gem2 = Mideas.joueur1().getStuff(i).getEquippedGem(1);
+					Gem gem3 = Mideas.joueur1().getStuff(i).getEquippedGem(2);
 					Mideas.joueur1().setStuff(i, WeaponManager.getClone(Mideas.joueur1().getStuff(i).getId()));
-					Mideas.joueur1().getStuff(i).setIsLoaded(true);
+					Mideas.joueur1().getStuff(i).setEquippedGem(0, gem1);
+					Mideas.joueur1().getStuff(i).setEquippedGem(1, gem2);
+					Mideas.joueur1().getStuff(i).setEquippedGem(2, gem3);
 					ConnectionManager.getItemRequested().remove(Mideas.joueur1().getStuff(i).getId());
+					Mideas.joueur1().getStuff(i).setIsLoaded(true);
 					i++;
 					continue;
 				}
 				Interface.setStuffFullyLoaded(false);
 			}
+			else if(Mideas.joueur1().getStuff(i) != null && !checkGemLoaded(Mideas.joueur1().getStuff(i))) {
+				int j = 0;
+				while(j < Mideas.joueur1().getStuff(i).getEquippedGems().length) {
+					if(Mideas.joueur1().getStuff(i).getEquippedGem(j) != null  && !Mideas.joueur1().getStuff(i).getEquippedGem(j).getIsLoaded()) {
+						if(GemManager.exists(Mideas.joueur1().getStuff(i).getEquippedGem(j).getId())) {
+							Mideas.joueur1().getStuff(i).setEquippedGem(j, GemManager.getClone(Mideas.joueur1().getStuff(i).getEquippedGem(j).getId()));
+						}
+					}
+					else {
+						Interface.setStuffFullyLoaded(false);
+					}
+					j++;
+				}
+ 			}
 			i++;
 		}
+	}
+	
+	private static boolean checkGemLoaded(Stuff stuff) {
+		int i = 0;
+		while(i < stuff.getEquippedGems().length) {
+			if(stuff.getEquippedGem(i) != null && !stuff.getEquippedGem(i).getIsLoaded()) {
+				return false;
+			}
+			i++;
+		}
+		return true;
 	}
 	
 	public void loadBag() {
@@ -235,43 +273,61 @@ public class Joueur extends Unit {
 		while(i < this.bag.getBag().length) {
 			if(this.bag.getBag(i) != null && !this.bag.getBag(i).getIsLoaded()) {
 				if(StuffManager.exists(this.bag.getBag(i).getId())) {
+					Gem gem1 = ((Stuff)this.bag.getBag(i)).getEquippedGem(0);
+					Gem gem2 = ((Stuff)this.bag.getBag(i)).getEquippedGem(1);
+					Gem gem3 = ((Stuff)this.bag.getBag(i)).getEquippedGem(2);
 					this.bag.setBag(i, StuffManager.getClone(this.bag.getBag(i).getId()));
-					this.bag.getBag(i).setIsLoaded(true);
+					((Stuff)this.bag.getBag(i)).setEquippedGem(0, gem1);
+					((Stuff)this.bag.getBag(i)).setEquippedGem(1, gem2);
+					((Stuff)this.bag.getBag(i)).setEquippedGem(2, gem3);
 					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
-					i++;
-					continue;
+					this.bag.getBag(i).setIsLoaded(true);
 				}
 				else if(WeaponManager.exists(this.bag.getBag(i).getId())) {
+					Gem gem1 = ((Stuff)this.bag.getBag(i)).getEquippedGem(0);
+					Gem gem2 = ((Stuff)this.bag.getBag(i)).getEquippedGem(1);
+					Gem gem3 = ((Stuff)this.bag.getBag(i)).getEquippedGem(2);
 					this.bag.setBag(i, WeaponManager.getClone(this.bag.getBag(i).getId()));
+					((Stuff)this.bag.getBag(i)).setEquippedGem(0, gem1);
+					((Stuff)this.bag.getBag(i)).setEquippedGem(1, gem2);
+					((Stuff)this.bag.getBag(i)).setEquippedGem(2, gem3);
 					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
 					this.bag.getBag(i).setIsLoaded(true);
-					i++;
-					continue;
 				}
 				else if(GemManager.exists(this.bag.getBag(i).getId())) {
 					this.bag.setBag(i, GemManager.getClone(this.bag.getBag(i).getId()));
 					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
 					this.bag.getBag(i).setIsLoaded(true);
-					i++;
-					continue;
 				}
 				else if(ContainerManager.exists(this.bag.getBag(i).getId())) {
 					this.bag.setBag(i, ContainerManager.getClone(this.bag.getBag(i).getId()));
 					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
 					this.bag.getBag(i).setIsLoaded(true);
-					i++;
-					continue;
 				}
 				else if(PotionManager.exists(this.bag.getBag(i).getId())) {
 					int number = this.bag.getBag(i).getAmount();
 					this.bag.setBag(i, PotionManager.getClone(this.bag.getBag(i).getId()), number);
 					ConnectionManager.getItemRequested().remove(this.bag.getBag(i).getId());
 					this.bag.getBag(i).setIsLoaded(true);
-					i++;
-					continue;
 				}
-				Interface.setBagFullyLoaded(false);
+				else {
+					Interface.setBagFullyLoaded(false);
+				}
 			}
+			if(this.bag.getBag(i) != null && (this.bag.getBag(i).isStuff() || this.bag.getBag(i).isWeapon())) {
+				int j = 0;
+				while(j < ((Stuff)this.bag.getBag(i)).getEquippedGems().length) {
+					if(((Stuff)this.bag.getBag(i)).getEquippedGem(j) != null  && !((Stuff)this.bag.getBag(i)).getEquippedGem(j).getIsLoaded()) {
+						if(GemManager.exists(((Stuff)this.bag.getBag(i)).getEquippedGem(j).getId())) {
+							((Stuff)this.bag.getBag(i)).setEquippedGem(j, GemManager.getClone(((Stuff)this.bag.getBag(i)).getEquippedGem(j).getId()));
+						}
+						else {
+							Interface.setBagFullyLoaded(false);
+						}
+					}
+					j++;
+				}
+ 			}
 			i++;
 		}
 		if(Interface.getBagFullyLoaded()) {

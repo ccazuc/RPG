@@ -86,14 +86,14 @@ public class CharacterStuff {
 					if(StuffManager.exists(id)) {
 						Mideas.joueur1().bag().setBag(i, StuffManager.getClone(id));
 						Stuff temp = (Stuff)Mideas.joueur1().bag().getBag(i);
-						if(GemManager.exists(gem1Id) && temp.getGemSlot1() != GemColor.NONE) {
-							temp.setEquippedGem(1, GemManager.getClone(gem1Id));
+						if(GemManager.exists(gem1Id) && temp.getGemColor(0) != GemColor.NONE) {
+							temp.setEquippedGem(0, GemManager.getClone(gem1Id));
 						}
-						if(GemManager.exists(gem2Id) && temp.getGemSlot2() != GemColor.NONE) {
-							temp.setEquippedGem(2, GemManager.getClone(gem2Id));
+						if(GemManager.exists(gem2Id) && temp.getGemColor(1) != GemColor.NONE) {
+							temp.setEquippedGem(1, GemManager.getClone(gem2Id));
 						}
-						if(GemManager.exists(gem3Id) && temp.getGemSlot3() != GemColor.NONE) {
-							temp.setEquippedGem(3, GemManager.getClone(gem3Id));
+						if(GemManager.exists(gem3Id) && temp.getGemColor(2) != GemColor.NONE) {
+							temp.setEquippedGem(2, GemManager.getClone(gem3Id));
 						}
 						Mideas.joueur1().bag().setBag(i, temp);
 						((Stuff)Mideas.joueur1().bag().getBag(i)).checkBonusTypeActivated();
@@ -107,13 +107,13 @@ public class CharacterStuff {
 						Mideas.joueur1().bag().setBag(i, WeaponManager.getClone(id));
 						Stuff temp = (Stuff)Mideas.joueur1().bag().getBag(i);
 						if(GemManager.exists(gem1Id)) {
-							temp.setEquippedGem(1, GemManager.getClone(gem1Id));
+							temp.setEquippedGem(0, GemManager.getClone(gem1Id));
 						}
 						if(GemManager.exists(gem2Id)) {
-							temp.setEquippedGem(2, GemManager.getClone(gem2Id));
+							temp.setEquippedGem(1, GemManager.getClone(gem2Id));
 						}
 						if(GemManager.exists(gem3Id)) {
-							temp.setEquippedGem(3, GemManager.getClone(gem3Id));
+							temp.setEquippedGem(2, GemManager.getClone(gem3Id));
 						}
 						Mideas.joueur1().bag().setBag(i, temp);
 						numberBagPieceLoaded++;
@@ -153,6 +153,12 @@ public class CharacterStuff {
 					else if(tempBag.isStuff() || tempBag.isWeapon()) {
 						statement.putInt(tempBag.getId());
 						statement.putInt(0);
+						if(((Stuff)tempBag).getEquippedGem(0) == null) {
+							statement.putInt(0);
+						}
+						else {
+							statement.putInt((((Stuff)tempBag).getEquippedGem(0).getId()));
+						}
 						if(((Stuff)tempBag).getEquippedGem(1) == null) {
 							statement.putInt(0);
 						}
@@ -164,12 +170,6 @@ public class CharacterStuff {
 						}
 						else {
 							statement.putInt((((Stuff)tempBag).getEquippedGem(2).getId()));
-						}
-						if(((Stuff)tempBag).getEquippedGem(3) == null) {
-							statement.putInt(0);
-						}
-						else {
-							statement.putInt((((Stuff)tempBag).getEquippedGem(3).getId()));
 						}
 					}
 					else if(tempBag.isContainer() || tempBag.isGem()) {
@@ -266,9 +266,9 @@ public class CharacterStuff {
 				}
 				else {
 					statement.putInt(Mideas.joueur1().getStuff(i).getId());
+					putGem(statement, i, 0);
 					putGem(statement, i, 1);
 					putGem(statement, i, 2);
-					putGem(statement, i, 3);
 					/*if(Mideas.joueur1().getStuff(i).getEquippedGem(1) != null) {
 						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem(1).getId());
 					}
@@ -290,7 +290,7 @@ public class CharacterStuff {
 				}
 				i++;
 			}
-			statement.putInt(Mideas.getCharacterId());
+			statement.putInt(Mideas.joueur1().getId());
 			statement.execute();
 		}
 		catch(SQLException e) {

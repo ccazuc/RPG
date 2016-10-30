@@ -151,12 +151,12 @@ public class Mideas {
 		time = System.currentTimeMillis();
 		initSQL();
 		CharacterStuff.initSQLRequest();
-		GemManager.loadGems();
-		WeaponManager.loadWeapons();
-		PotionManager.loadPotions();
+		//GemManager.loadGems();
+		//WeaponManager.loadWeapons();
+		//PotionManager.loadPotions();
 		ContainerManager.loadBags();
 		ContainerManager.loadBagsSprites();
-		StuffManager.loadStuffs();
+		//StuffManager.loadStuffs();
 		ShopManager.loadStuffs();
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();

@@ -5,13 +5,12 @@ import com.mideas.rpg.v2.game.item.ItemType;
 
 public class Gem extends Item {
 	
-	protected int strength;
-	protected int stamina;
-	protected int mana;
-	protected int armor;
-	protected int critical;
-	protected GemColor color;
-	protected boolean isLoaded;
+	private int strength;
+	private int stamina;
+	private int mana;
+	private int armor;
+	private int critical;
+	private GemColor color;
 	private String gemStatsString;
 	private String gemSlotString;
 	
@@ -42,6 +41,7 @@ public class Gem extends Item {
 	public Gem(int id) {
 		super(id, empty, ItemType.GEM, empty, 0, 0, 1, 1);
 		this.id = id;
+		this.isLoaded = false;
 	}
 
 	public Gem(Gem gem) {

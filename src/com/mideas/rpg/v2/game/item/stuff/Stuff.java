@@ -1,7 +1,7 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
 import com.mideas.rpg.v2.utils.Texture;
-
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.game.ClassType;
@@ -16,6 +16,7 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 
 public class Stuff extends Item {
 
+	private GemColor[] gemColor = new GemColor[3];
 	private Gem[] equippedGem = new Gem[3];
 	private boolean gemBonusActivated;
 	private GemBonusType gemBonusType;
@@ -36,9 +37,6 @@ public class Stuff extends Item {
 	private String manaString;
 	private int numberGemSlot;
 	private int gemBonusValue;
-	private GemColor color1;
-	private GemColor color2;
-	private GemColor color3;
 	private StuffType type;
 	private int critical;
 	private int strength;
@@ -136,10 +134,8 @@ public class Stuff extends Item {
 		this.classType = stuff.classType;
 		this.critical = stuff.critical;
 		this.strength = stuff.strength;
+		this.gemColor = stuff.gemColor;
 		this.stamina = stuff.stamina;
-		this.color1 = stuff.color1;
-		this.color2 = stuff.color2;
-		this.color3 = stuff.color3;
 		this.level = stuff.level;
 		this.armor = stuff.armor;
 		this.type = stuff.type;
@@ -156,9 +152,9 @@ public class Stuff extends Item {
 		this.critical = critical;
 		this.strength = strength;
 		this.stamina = stamina;
-		this.color1 = color1;
-		this.color2 = color2;
-		this.color3 = color3;
+		this.gemColor[0] = color1;
+		this.gemColor[1] = color2;
+		this.gemColor[2] = color3;
 		this.level = level;
 		this.armor = armor;
 		this.type = type;
@@ -190,9 +186,7 @@ public class Stuff extends Item {
 		this.critical = weapon.critical;
 		this.strength = weapon.strength;
 		this.stamina = weapon.stamina;
-		this.color1 = weapon.color1;
-		this.color2 = weapon.color2;
-		this.color3 = weapon.color3;
+		this.gemColor = weapon.gemColor;
 		this.level = weapon.level;
 		this.armor = weapon.armor;
 		this.type = weapon.type;
@@ -211,9 +205,9 @@ public class Stuff extends Item {
 		this.critical = critical;
 		this.strength = strength;
 		this.stamina = stamina;
-		this.color1 = color1;
-		this.color2 = color2;
-		this.color3 = color3;
+		this.gemColor[0] = color1;
+		this.gemColor[1] = color2;
+		this.gemColor[2] = color3;
 		this.level = level;
 		this.armor = armor;
 		this.mana = mana;
@@ -248,12 +242,12 @@ public class Stuff extends Item {
 	}
 	
 	public boolean checkBonusTypeActivated() {
-		if(this.color1 != GemColor.NONE || this.color2 != GemColor.NONE || this.color3 != GemColor.NONE) {
-			if(this.equippedGem[1] != null && isBonusActivated(this.equippedGem[1].getColor(), this.color1)) {
-				if(this.color2 != GemColor.NONE) {
-					if(this.equippedGem[3] != null && isBonusActivated(this.equippedGem[2].getColor(), this.color2)) {
-						if(this.color3 != GemColor.NONE) {
-							if(this.equippedGem[3] != null && isBonusActivated(this.equippedGem[3].getColor(), this.color3)) {
+		if(this.gemColor[0] != GemColor.NONE || this.gemColor[1] != GemColor.NONE || this.gemColor[2] != GemColor.NONE) {
+			if(this.equippedGem[0] != null && isBonusActivated(this.equippedGem[0].getColor(), this.gemColor[0])) {
+				if(this.gemColor[1] != GemColor.NONE) {
+					if(this.equippedGem[1] != null && isBonusActivated(this.equippedGem[1].getColor(), this.gemColor[1])) {
+						if(this.gemColor[2] != GemColor.NONE) {
+							if(this.equippedGem[2] != null && isBonusActivated(this.equippedGem[2].getColor(), this.gemColor[2])) {
 								this.gemBonusActivated = true;
 								return true;
 							}
@@ -331,21 +325,25 @@ public class Stuff extends Item {
 	}
 	
 	private void buildGem1String() {
-		if(this.color1 != GemColor.NONE) {
-			this.gem1String = Gem.convGemColorToString(this.color1)+socket;
+		if(this.gemColor[0] != GemColor.NONE) {
+			this.gem1String = Gem.convGemColorToString(this.gemColor[0])+socket;
 		}
 	}
 	
 	private void buildGem2String() {
-		if(this.color2 != GemColor.NONE) {
-			this.gem2String = Gem.convGemColorToString(this.color2)+socket;
+		if(this.gemColor[1] != GemColor.NONE) {
+			this.gem2String = Gem.convGemColorToString(this.gemColor[1])+socket;
 		}
 	}
 	
 	private void buildGem3String() {
-		if(this.color3 != GemColor.NONE) {
-			this.gem3String = Gem.convGemColorToString(this.color3)+socket;
+		if(this.gemColor[2] != GemColor.NONE) {
+			this.gem3String = Gem.convGemColorToString(this.gemColor[2])+socket;
 		}
+	}
+	
+	public Gem[] getEquippedGems() {
+		return this.equippedGem;
 	}
 	
 	public String getLevelString() {
@@ -385,13 +383,13 @@ public class Stuff extends Item {
 	}
 	
 	private void checkNumberGemSlot() {
-		if(this.color1 != GemColor.NONE) {
+		if(this.gemColor[0] != GemColor.NONE) {
 			this.numberGemSlot++;
 		}
-		if(this.color2 != GemColor.NONE) {
+		if(this.gemColor[1] != GemColor.NONE) {
 			this.numberGemSlot++;
 		}
-		if(this.color3 != GemColor.NONE) {
+		if(this.gemColor[2] != GemColor.NONE) {
 			this.numberGemSlot++;
 		}
 	}
@@ -420,16 +418,15 @@ public class Stuff extends Item {
 		return this.weaponType;
 	}
 	
-	public GemColor getGemSlot1() {
-		return this.color1;
+	public GemColor[] getGemColor() {
+		return this.gemColor;
 	}
 	
-	public GemColor getGemSlot2() {
-		return this.color2;
-	}
-	
-	public GemColor getGemSlot3() {
-		return this.color3;
+	public GemColor getGemColor(int index) {
+		if(index >= 0 && index < this.gemColor.length) {
+			return this.gemColor[index];
+		}
+		return null;
 	}
 	
 	public GemBonusType getGemBonusType() {
@@ -441,6 +438,9 @@ public class Stuff extends Item {
 	}
 	public void setEquippedGem(int slot, Gem gem) {
 		this.equippedGem[slot] = gem;
+		if(gem != null && !gem.getIsLoaded()) {
+			Interface.setStuffFullyLoaded(false);
+		}
 		checkBonusTypeActivated();
 	}
 	
@@ -452,15 +452,15 @@ public class Stuff extends Item {
 	}
 	
 	public Texture getFreeSlotGemSprite1() {
-		return convColor(this.color1);
+		return convColor(this.gemColor[0]);
 	}
 	
 	public Texture getFreeSlotGemSprite2() {
-		return convColor(this.color2);
+		return convColor(this.gemColor[1]);
 	}
 	
 	public Texture getFreeSlotGemSprite3() {
-		return convColor(this.color3);
+		return convColor(this.gemColor[2]);
 	}
 	
 	public boolean isBonusActivated(GemColor gemColor, GemColor slotColor) {

@@ -7,6 +7,7 @@ import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.item.gem.Gem;
+import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
@@ -36,9 +37,15 @@ public class CommandLoadEquippedItems extends Command {
 	
 	private static void loadStuff(int index) {
 		int id = ConnectionManager.getConnection().readInt();
-		int gem1Id = ConnectionManager.getConnection().readInt();
-		int gem2Id = ConnectionManager.getConnection().readInt();
-		int gem3Id = ConnectionManager.getConnection().readInt();
+		boolean hasGem = ConnectionManager.getConnection().readBoolean();
+		int gem1Id = 0;
+		int gem2Id = 0;
+		int gem3Id = 0;
+		if(hasGem) {
+			gem1Id = ConnectionManager.getConnection().readInt();
+			gem2Id = ConnectionManager.getConnection().readInt();
+			gem3Id = ConnectionManager.getConnection().readInt();
+		}
 		if(id != 0 && !StuffManager.exists(id)) {
 			Mideas.joueur1().setStuff(index, new Stuff(id));
 			CommandStuff.write(id);
@@ -49,38 +56,17 @@ public class CommandLoadEquippedItems extends Command {
 			}
 		}
 		if(Mideas.joueur1().getStuff(index) != null) {
-			/*if(gem1Id != 0 && GemManager.exists(gem1Id)) {
-				Mideas.joueur1().getStuff(index).setEquippedGem(1, GemManager.getClone(gem1Id));
-			}
-			else if(gem1Id != 0) {
-				Mideas.joueur1().getStuff(index).setEquippedGem(1, new Gem(gem1Id));
-				CommandGem.write(gem1Id);
-			}
-			if(gem2Id != 0 && GemManager.exists(gem2Id)) {
-				Mideas.joueur1().getStuff(index).setEquippedGem(2, GemManager.getClone(gem2Id));
-			}
-			else if(gem2Id != 0) {
-				Mideas.joueur1().getStuff(index).setEquippedGem(2, new Gem(gem2Id));
-				CommandGem.write(gem2Id);
-			}
-			if(gem3Id != 0 && GemManager.exists(gem3Id)) {
-				Mideas.joueur1().getStuff(index).setEquippedGem(3, GemManager.getClone(gem3Id));
-			}
-			else if(gem3Id != 0) {
-				Mideas.joueur1().getStuff(index).setEquippedGem(3, new Gem(gem3Id));
-				CommandGem.write(gem3Id);
-			}*/
-			equipGem(index, 1, gem1Id);
-			equipGem(index, 2, gem2Id);
-			equipGem(index, 3, gem3Id);
+			equipGem(index, 0, gem1Id);
+			equipGem(index, 1, gem2Id);
+			equipGem(index, 2, gem3Id);
 		}
 	}
 	
 	private static void loadItem(int index) {
 		int id = ConnectionManager.getConnection().readInt();
 		if(!StuffManager.exists(id) && id != 0) {
-			CommandStuff.write(id);
 			Mideas.joueur1().setStuff(index, new Stuff(id));
+			CommandStuff.write(id);
 		}
 		else if(id != 0) {
 			Mideas.joueur1().setStuff(index, StuffManager.getClone(id));
@@ -89,9 +75,15 @@ public class CommandLoadEquippedItems extends Command {
 	
 	private static void loadWeapon(int index) {
 		int id = ConnectionManager.getConnection().readInt();
-		int gem1Id = ConnectionManager.getConnection().readInt();
-		int gem2Id = ConnectionManager.getConnection().readInt();
-		int gem3Id = ConnectionManager.getConnection().readInt();
+		boolean hasGem = ConnectionManager.getConnection().readBoolean();
+		int gem1Id = 0;
+		int gem2Id = 0;
+		int gem3Id = 0;
+		if(hasGem) {
+			gem1Id = ConnectionManager.getConnection().readInt();
+			gem2Id = ConnectionManager.getConnection().readInt();
+			gem3Id = ConnectionManager.getConnection().readInt();
+		}
 		if(!WeaponManager.exists(id) && id != 0) {
 			Mideas.joueur1().setStuff(index, new Stuff(id));
 			CommandWeapon.write(id);
@@ -99,39 +91,20 @@ public class CommandLoadEquippedItems extends Command {
 		else if(id != 0) {
 			Mideas.joueur1().setStuff(index, WeaponManager.getClone(id));
 		}
-		equipGem(index, 1, gem1Id);
-		equipGem(index, 2, gem2Id);
-		equipGem(index, 3, gem3Id);
-		/*if(gem1Id != 0 && GemManager.exists(gem1Id)) {
-			Mideas.joueur1().getStuff(index).setEquippedGem(1, GemManager.getClone(gem1Id));
-		}
-		else if(gem1Id != 0) {
-			Mideas.joueur1().getStuff(index).setEquippedGem(1, new Gem(gem1Id));
-			CommandGem.write(gem1Id);
-		}
-		if(gem2Id != 0 && GemManager.exists(gem2Id)) {
-			Mideas.joueur1().getStuff(index).setEquippedGem(2, GemManager.getClone(gem2Id));
-		}
-		else if(gem2Id != 0) {
-			Mideas.joueur1().getStuff(index).setEquippedGem(2, new Gem(gem2Id));
-			CommandGem.write(gem2Id);
-		}
-		if(gem3Id != 0 && GemManager.exists(gem3Id)) {
-			Mideas.joueur1().getStuff(index).setEquippedGem(3, GemManager.getClone(gem3Id));
-		}
-		else if(gem3Id != 0) {
-			Mideas.joueur1().getStuff(index).setEquippedGem(3, new Gem(gem3Id));
-			CommandGem.write(gem3Id);
-		}*/
+		equipGem(index, 0, gem1Id);
+		equipGem(index, 1, gem2Id);
+		equipGem(index, 2, gem3Id);
 	}
 	
 	private static void equipGem(int bagSlot, int gemSlot, int id) {
-		if(id != 0 && GemManager.exists(id)) {
-			Mideas.joueur1().getStuff(bagSlot).setEquippedGem(gemSlot, GemManager.getClone(id));
-		}
-		else if(id != 0) {
-			Mideas.joueur1().getStuff(bagSlot).setEquippedGem(gemSlot, new Gem(id));
-			CommandGem.write(id);
+		if(Mideas.joueur1().getStuff(bagSlot) != null) {
+			if(id != 0 && GemManager.exists(id)) {
+				Mideas.joueur1().getStuff(bagSlot).setEquippedGem(gemSlot, GemManager.getClone(id));
+			}
+			else if(id != 0) {
+				Mideas.joueur1().getStuff(bagSlot).setEquippedGem(gemSlot, new Gem(id));
+				CommandGem.write(id);
+			}
 		}
 	}
 }

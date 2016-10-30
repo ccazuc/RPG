@@ -59,8 +59,11 @@ public class CharacterFrame {
 		int j = 0;
 		int z = 0;
 		int yStuff = (int)(-302*Mideas.getDisplayYFactor()+yMouseShift);
-		float yShift = 43.8f*Mideas.getDisplayXFactor();
+		float yShift = 43.8f*Mideas.getDisplayYFactor();
 		float xShift = 47.5f*Mideas.getDisplayXFactor();
+		if(Mideas.joueur1().getStuff(0) != null && Mideas.joueur1().getStuff(0).getEquippedGem(0) != null) {
+			System.out.println(Mideas.joueur1().getStuff(0).getEquippedGem(0).getIsLoaded());
+		}
 		while(i < Mideas.joueur1().getStuff().length) {
 			drawCharacterItems(i, xStuff+z*xShift, yStuff+j*yShift);
 			i++;
@@ -170,7 +173,7 @@ public class CharacterFrame {
 			i = 0;
 			if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 1 && Keyboard.isKeyDown(42)) {
-					if(hover != -1 && Mideas.joueur1().getStuff(hover).getGemSlot1() != GemColor.NONE) {
+					if(hover != -1 && Mideas.joueur1().getStuff(hover).getGemColor(0) != GemColor.NONE) {
 						SocketingFrame.setStuff(Mideas.joueur1().getStuff(hover));
 						Interface.setSocketingFrameStatus(true);
 						gemFrame = 50+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
@@ -230,10 +233,10 @@ public class CharacterFrame {
 			
 			//TODO : make a function to draw gem in a loop
 			
-			if(item.getGemSlot1() != GemColor.NONE) {
-				if(item.getEquippedGem(1) != null) {
-					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(1).getGemStatsString(), Color.white, Color.black, 1);
+			if(item.getGemColor(0) != GemColor.NONE) {
+				if(item.getEquippedGem(0) != null) {
+					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(0).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(0).getGemStatsString(), Color.white, Color.black, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite1(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
@@ -242,10 +245,10 @@ public class CharacterFrame {
 				Draw.drawQuad(Sprites.cursor, -5000, -5000);
 				shift+= 20;
 			}
-			if(item.getGemSlot2() != GemColor.NONE) {
-				if(item.getEquippedGem(2) != null) {
-					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(2).getGemStatsString(), Color.white, Color.black, 1);
+			if(item.getGemColor(1) != GemColor.NONE) {
+				if(item.getEquippedGem(1) != null) {
+					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(1).getGemStatsString(), Color.white, Color.black, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite2(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
@@ -254,10 +257,10 @@ public class CharacterFrame {
 				Draw.drawQuad(Sprites.cursor, -5000, -5000);
 				shift+= 20;
 			}
-			if(item.getGemSlot3() != GemColor.NONE) {
-				if(item.getEquippedGem(3) != null) {
-					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(3).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(3).getGemStatsString(), Color.white, Color.black, 1);
+			if(item.getGemColor(2) != GemColor.NONE) {
+				if(item.getEquippedGem(2) != null) {
+					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
+					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(2).getGemStatsString(), Color.white, Color.black, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite3(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
