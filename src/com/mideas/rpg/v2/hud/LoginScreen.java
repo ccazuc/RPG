@@ -58,7 +58,7 @@ public class LoginScreen {
 				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.white);
 			}
 			else {
-				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+password.getCursorShift(), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), bar, Color.white);
+				TTF2.loginScreenTick.drawString(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+TTF2.loginScreenPassword.getWidth(password.getText()), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), bar, Color.white);
 			}
 		}
 		leaveButton.draw();

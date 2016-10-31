@@ -273,7 +273,7 @@ public class PartyFrame {
 			memberTooltip.setWidth(140*Mideas.getDisplayXFactor());
 			memberTooltip.setHeight(185*Mideas.getDisplayYFactor());
 		}
-		else if(Mideas.joueur1().getParty() != null) {
+		else if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null) {
 			memberTooltip.setWidth(95*Mideas.getDisplayXFactor());
 			memberTooltip.setHeight(150*Mideas.getDisplayYFactor());
 		}

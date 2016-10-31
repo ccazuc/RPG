@@ -247,7 +247,7 @@ public class ChatFrame {
 						tempMessage =  "";
 						tempLength = 0;
 					}
-					else {
+					else if(isValidCharacter(tempChar)) {
 						write(tempChar);
 						cursorPosition++;
 						resetSelectedPosition();
@@ -285,6 +285,10 @@ public class ChatFrame {
         else if(Keyboard.getEventKey() == 209 && !chatActive) {  //scroll down
         	scrollDown();
         }
+	}
+	
+	private static boolean isValidCharacter(char c) {
+		return c >= ' ' && c <= 'ÿ';
 	}
 	
 	public static boolean mouseEvent() {

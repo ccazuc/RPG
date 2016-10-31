@@ -111,7 +111,6 @@ public class Stuff extends Item {
 	
 	public Stuff(int id) { //stuff created when waiting for the server to respond
 		super(id, empty, ItemType.STUFF, empty, 0, 0, 1, 1);
-		this.id = id;
 		this.sprite_id = empty;
 	}
 

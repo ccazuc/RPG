@@ -34,6 +34,12 @@ public class ContainerManager {
 		}
 	}
 	
+	public static void storeNewPiece(Container container) {
+		if(container != null) {
+			containerList.put(container.getId(), container);
+		}
+	}
+	
 	public static void loadBagsSprites() {
 		bagsSprites.put(100001, Sprites.back_bag);
 		bagsSprites.put(100003, Sprites.bag20);

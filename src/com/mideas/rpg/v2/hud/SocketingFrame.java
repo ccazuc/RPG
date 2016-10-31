@@ -139,7 +139,7 @@ public class SocketingFrame {
 		if(stuff.getNumberGemSlot() == 1) {
 			x = -127*Mideas.getDisplayXFactor();
 			y = 8;
-			drawGem(stuff.getEquippedGem(1), stuff.getGemColor(0), tempGem1, Display.getWidth()/2+x+CharacterFrame.getMouseX(), Display.getHeight()/2+y+CharacterFrame.getMouseY());
+			drawGem(stuff.getEquippedGem(0), stuff.getGemColor(0), tempGem1, Display.getWidth()/2+x+CharacterFrame.getMouseX(), Display.getHeight()/2+y+CharacterFrame.getMouseY());
 		}
 		else if(stuff.getNumberGemSlot() == 2) {
 		}

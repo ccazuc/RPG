@@ -22,7 +22,6 @@ public class Potion extends Item {
 	
 	public Potion(int id) {
 		super(id, empty, ItemType.POTION, empty, 1, 0, 1, 1);
-		this.id = id;
 	}
 
 	public Potion(Potion potion) {

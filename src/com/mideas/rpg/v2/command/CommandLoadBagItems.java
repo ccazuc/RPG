@@ -2,12 +2,14 @@ package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.command.item.CommandContainer;
 import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
 import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
@@ -21,13 +23,6 @@ public class CommandLoadBagItems extends Command {
 	@Override
 	public void read() {
 		System.out.println("Bag items loaded (CommandLoadBagItems)");
-		/*int i = 0;
-		int amount = ConnectionManager.getConnection().readInt();
-		while(i < amount) {
-			loadItem(i);
-			i++;
-		}*/
-		
 		int i = 0;
 		int amount = ConnectionManager.getConnection().readInt();
 		while(i < amount) {
@@ -40,22 +35,28 @@ public class CommandLoadBagItems extends Command {
 	
 	private static void loadItem() {
 		int number;
-		int gem1Id;
-		int gem2Id;
-		int gem3Id;
+		int gem1Id = 0;
+		int gem2Id = 0;
+		int gem3Id = 0;
 		int slot = ConnectionManager.getConnection().readInt();
 		int id = ConnectionManager.getConnection().readInt();
 		ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
 		if(type == ItemType.STUFF) {
-			gem1Id = ConnectionManager.getConnection().readInt();
-			gem2Id = ConnectionManager.getConnection().readInt();
-			gem3Id = ConnectionManager.getConnection().readInt();
+			boolean hasGem = ConnectionManager.getConnection().readBoolean();
+			if(hasGem) {
+				gem1Id = ConnectionManager.getConnection().readInt();
+				gem2Id = ConnectionManager.getConnection().readInt();
+				gem3Id = ConnectionManager.getConnection().readInt();
+			}
 			loadStuff(slot, id, gem1Id, gem2Id, gem3Id);
 		}
 		else if(type == ItemType.WEAPON) {
-			gem1Id = ConnectionManager.getConnection().readInt();
-			gem2Id = ConnectionManager.getConnection().readInt();
-			gem3Id = ConnectionManager.getConnection().readInt();
+			boolean hasGem = ConnectionManager.getConnection().readBoolean();
+			if(hasGem) {
+				gem1Id = ConnectionManager.getConnection().readInt();
+				gem2Id = ConnectionManager.getConnection().readInt();
+				gem3Id = ConnectionManager.getConnection().readInt();
+			}
 			loadWeapon(slot, id, gem1Id, gem2Id, gem3Id);
 		}
 		else if(type == ItemType.GEM) {
@@ -117,7 +118,13 @@ public class CommandLoadBagItems extends Command {
 	}
 	
 	private static void loadContainer(int index, int id) {
-		
+		if(id != 0 && ContainerManager.exists(id)) {
+			Mideas.joueur1().bag().setBag(index, ContainerManager.getClone(id));
+		}
+		else if(id != 0) {
+			Mideas.joueur1().bag().setBag(index, new Gem(id));
+			CommandContainer.write(id);
+		}
 	}
 	
 	private static void loadPotion(int index, int id, int number) {

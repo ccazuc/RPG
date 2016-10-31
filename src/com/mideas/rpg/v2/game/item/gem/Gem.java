@@ -40,7 +40,6 @@ public class Gem extends Item {
 	
 	public Gem(int id) {
 		super(id, empty, ItemType.GEM, empty, 0, 0, 1, 1);
-		this.id = id;
 		this.isLoaded = false;
 	}
 

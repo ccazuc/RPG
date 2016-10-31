@@ -90,14 +90,20 @@ public class Input {
 			suppr();
 			resetSelectedPosition();
 		}
-		else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB) { //write
+		else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB && Keyboard.getEventKey() != 56) { //write
 			if(this.text.length() < this.maxLength) {
-				char tempChar = Keyboard.getEventCharacter();
-				write(tempChar);
-				this.cursorPosition++;
-				resetSelectedPosition();
+				char c = Keyboard.getEventCharacter();
+				if(isValidCharacter(c)) {
+					write(c);
+					this.cursorPosition++;
+					resetSelectedPosition();
+				}
 			}
 		}
+	}
+	
+	private boolean isValidCharacter(char c) {
+		return c >= ' ' && c <= 'ÿ';
 	}
 	
 	private void write(String add) {

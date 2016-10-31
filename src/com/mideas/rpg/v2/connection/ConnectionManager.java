@@ -31,6 +31,7 @@ import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
 import com.mideas.rpg.v2.command.chat.CommandPlayerNotFound;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
+import com.mideas.rpg.v2.command.item.CommandContainer;
 import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
 import com.mideas.rpg.v2.command.item.CommandStuff;
@@ -50,6 +51,8 @@ public class ConnectionManager {
 	private static final String IP = "127.0.0.1";
 	private static final int AUTH_PORT = 5725;
 	private static boolean init;
+	private static byte worldLastReadedPacket;
+	private static byte authLastReadedPacket;
 	
 	private static void initPacket() {
 		commandList.put((int)LOGIN, new CommandLogin());
@@ -63,6 +66,7 @@ public class ConnectionManager {
 		commandList.put((int)STUFF, new CommandStuff());
 		commandList.put((int)WEAPON, new CommandWeapon());
 		commandList.put((int)GEM, new CommandGem());
+		commandList.put((int)CONTAINER, new CommandContainer());
 		commandList.put((int)ADD_ITEM, new CommandAddItem());
 		commandList.put((int)POTION, new CommandPotion());
 		commandList.put((int)SEND_SINGLE_BAG_ITEM, new CommandSendSingleBagItem());
@@ -224,9 +228,10 @@ public class ConnectionManager {
 			byte packetId = authServerConnection.readByte();
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();
+				authLastReadedPacket = packetId;
 			}
 			else {
-				System.out.println("Unknown Auth packet: "+(int)packetId);
+				System.out.println("Unknown Auth packet: "+(int)packetId+", last readed packet: "+authLastReadedPacket);
 			}
 		}
 	}
@@ -236,9 +241,10 @@ public class ConnectionManager {
 			byte packetId = worldServerConnection.readByte();
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();
+				worldLastReadedPacket = packetId;
 			}
 			else {
-				System.out.println("Unknown World packet: "+(int)packetId);
+				System.out.println("Unknown World packet: "+(int)packetId+", last readed packet: "+worldLastReadedPacket);
 			}
 		}
 	}

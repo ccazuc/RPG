@@ -26,6 +26,10 @@ public class Container extends Item {
 		this.id = id;
 	}
 	
+	public Container(int id) {
+		super(id, "", ItemType.CONTAINER, "", 0, 0, 1, 1);
+	}
+	
 	@Override
 	public String getSpriteId()  {
 		return this.sprite_id;

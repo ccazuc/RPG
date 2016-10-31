@@ -24,13 +24,11 @@ public class TextMenu {
 	private boolean buttonHover;
 	private boolean buttonDown;
 	private int x_size;
-	private int y_size;
 	
 	public TextMenu(float x, float y, float x_size, float y_size, String text, int font_size, int shadow_size) {
 		this.x = (int)x;
 		this.y = (int)y;
 		this.x_size = (int)x_size;
-		this.y_size = (int)y_size;
 		this.text = text;
 		this.shadow_size = shadow_size;
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");

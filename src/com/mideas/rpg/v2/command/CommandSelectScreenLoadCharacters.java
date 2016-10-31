@@ -29,7 +29,6 @@ public class CommandSelectScreenLoadCharacters extends Command {
 	public static void write() {
 		if(ConnectionManager.isConnected()) {
 			ConnectionManager.getConnection().writeByte(SELECT_SCREEN_LOAD_CHARACTERS);
-			ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
 			ConnectionManager.getConnection().send();
 		}
 	}
