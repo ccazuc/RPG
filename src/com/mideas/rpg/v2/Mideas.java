@@ -34,10 +34,9 @@ import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
-import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.SpellManager;
+import com.mideas.rpg.v2.hud.AddFriendInputFrame;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
@@ -164,9 +163,10 @@ public class Mideas {
 		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+		Keyboard.enableRepeatEvents(true);
+		context2D();
 		try {
 			while(!Display.isCloseRequested()) {
-				context2D();
 				fpsUpdate();
 				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 				if(ConnectionManager.isConnected()) {
@@ -190,6 +190,7 @@ public class Mideas {
 					}
 				}
 				if(Display.wasResized()) {
+					context2D();
 					updateDisplayFactor();
 				}
 				time = System.nanoTime();
@@ -266,6 +267,7 @@ public class Mideas {
 		SocialFrame.updateSize();
 		PartyFrame.updateSize();
 		ChatFrame.updateSize();
+		AddFriendInputFrame.updateSize();
 		PerformanceBarFrame.updateSize();
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
 			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);

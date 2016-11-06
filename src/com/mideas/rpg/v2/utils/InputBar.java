@@ -30,4 +30,10 @@ public class InputBar {
 	public void setY(float y) {
 		this.y = (int)y;
 	}
+	
+	public void update(float x, float y, float x_size) {
+		this.x = (int)x;
+		this.y = (int)y;
+		this.x_size = (int)x_size;
+	}
 }

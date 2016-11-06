@@ -20,7 +20,7 @@ public class LoginScreen {
 	private static boolean passwordActive;
 	private static Input account = new Input(TTF2.loginScreenAccount, 10);
 	private static Input password = new Input(TTF2.loginScreenPassword, 19);
-	private static Alert alert = new Alert("", Display.getWidth()/2-360*Mideas.getDisplayXFactor(), -20, 700, 130, 230, 38, Display.getHeight()+30, 20, "Ok");
+	private static Alert alert = new Alert("", Display.getWidth()/2-355*Mideas.getDisplayXFactor(), -20, 700*Mideas.getDisplayXFactor(), 130, 230, 38, Display.getHeight()+30, 20, "Ok");
 	//private static boolean alertActive;
 	private static boolean init;
 	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave", 16, 2) {
@@ -164,5 +164,6 @@ public class LoginScreen {
 		connectionButton.setButtonHeight(38);
 		alert.setX(-355*Mideas.getDisplayXFactor());
 		alert.setY(-60);
+		alert.setWidth(700*Mideas.getDisplayXFactor());
 	}
 }

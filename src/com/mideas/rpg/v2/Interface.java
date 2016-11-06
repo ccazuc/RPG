@@ -18,6 +18,7 @@ import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
+import com.mideas.rpg.v2.hud.AddFriendInputFrame;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.CastBar;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
@@ -77,6 +78,7 @@ public class Interface {
 	private static boolean socketingFrameActive;
 	private static boolean isConnectedToWorldServer;
 	private static boolean socialFrameActive;
+	private static boolean addingFriendStatus;
 
 	public static void draw() throws IOException, NumberFormatException {
 		Draw.drawQuadBG(Sprites.current_bg);
@@ -138,6 +140,9 @@ public class Interface {
 				}
 				if(System.currentTimeMillis()%2000 < 10) {
 					containerDrawTime = System.nanoTime()-time;
+				}
+				if(addingFriendStatus) {
+					AddFriendInputFrame.draw();
 				}
 				if(socialFrameActive) {
 					SocialFrame.draw();
@@ -270,6 +275,11 @@ public class Interface {
 			if(PartyFrame.mouseEvent()) {
 				return true;
 			}
+			if(addingFriendStatus) {
+				if(AddFriendInputFrame.mouseEvent()) {
+					return true;
+				}
+			}
 			if(characterFrameActive) {
 				if(CharacterFrame.mouseEvent()) {
 					return true;
@@ -349,9 +359,8 @@ public class Interface {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
 				//System.out.println(Keyboard.getEventKey());
-				if(!ChatFrame.getChatActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
+				if(!ChatFrame.getChatActive() && !addingFriendStatus && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						//RedAlertFrame.addNewAlert("Ceci est un test.");
 						CommandTrade.requestNewTrade("Midetest");
 						return true;
 					}
@@ -483,7 +492,14 @@ public class Interface {
 					}
 				}
 				if(hasLoggedInToAuth && Mideas.joueur1() != null) {
-					ChatFrame.event();
+					if(addingFriendStatus) {
+						if(AddFriendInputFrame.event()) {
+							return true;
+						}
+					}
+					else if(ChatFrame.event()) {
+						return true;
+					}
 				}
 				else if(!hasLoggedInToAuth) {
 					LoginScreen.event();
@@ -502,6 +518,10 @@ public class Interface {
 			}
 		}
 		return false;
+	}
+	
+	public static void setAddFriendStatus(boolean we) {
+		addingFriendStatus = we;
 	}
 	
 	public static void setIsConnectedToWorldServer(boolean we) {

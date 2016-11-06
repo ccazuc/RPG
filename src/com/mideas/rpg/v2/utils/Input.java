@@ -31,25 +31,29 @@ public class Input {
 		this.maxLength = maxLength;
 	}
 	
-	public void event() {
-		Keyboard.enableRepeatEvents(true);
+	public boolean event() {
 		if(Keyboard.getEventKey() == 1) { //escape
 			resetSelectedPosition();
+			return true;
 		}
 		else if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { //left shift
 			if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 				if(Keyboard.getEventKey() == 203) { // shift CTRL left arrow
 					selectCTRLLeftArrow();
+					return true;
 				}
 				else if(Keyboard.getEventKey() == 205) { // shift CTRL right arrow
 					selectCTRLRightArrow();
+					return true;
 				}
 			}
 			if(Keyboard.getEventKey() == 203) { //shift left arrow
 				selectLeftArrow();
+				return true;
 			}
 			else if(Keyboard.getEventKey() == 205) { // shift right arrow
 				selectRightArrow();
+				return true;
 			}
 		}
 		else if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
@@ -57,53 +61,66 @@ public class Input {
 				CTRLDelete();
 				this.tempLength = 0;
 				resetSelectedPosition();
+				return true;
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_V) { // c/c
-	            write(Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", ""));
-	            this.cursorPosition+= Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "").length();
+				String temp = Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "");
+	            write(temp);
+	            this.cursorPosition+= temp.length();
+				return true;
 	        }
 			else if(Keyboard.getEventKey() == 203) { //left arrow
 				CTRLleftArrow();
 				resetSelectedPosition();
+				return true;
 			}
 			else if(Keyboard.getEventKey() == 205) { //right arrow
 				CTRLrightArrow();
 				resetSelectedPosition();
+				return true;
 			}
 			else if(Keyboard.getEventKey() == Keyboard.KEY_C) {
 				copySelected();
+				return true;
 			}
 		}
 		else if(Keyboard.getEventKey() == 14) { //delete
 			delete();
 			resetSelectedPosition();
+			return true;
 		}
 		else if(Keyboard.getEventKey() == 203) { //left arrow
 			leftArrow();
 			resetSelectedPosition();
+			return true;
 		}
 		else if(Keyboard.getEventKey() == 205) { //right arrow
 			rightArrow();
 			resetSelectedPosition();
+			return true;
 		}
 		else if(Keyboard.getEventKey() == 211) { //suppr
 			suppr();
 			resetSelectedPosition();
+			return true;
 		}
 		else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB && Keyboard.getEventKey() != 56) { //write
 			if(this.text.length() < this.maxLength) {
 				char c = Keyboard.getEventCharacter();
+				System.out.println(c);
 				if(isValidCharacter(c)) {
 					write(c);
 					this.cursorPosition++;
 					resetSelectedPosition();
 				}
 			}
+			return true;
 		}
+		return false;
 	}
 	
 	private boolean isValidCharacter(char c) {
-		return c >= ' ' && c <= 'ÿ';
+		return c >= ' ' && c <= 255;
 	}
 	
 	private void write(String add) {

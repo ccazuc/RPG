@@ -79,7 +79,7 @@ public class ChatFrame {
 	public static void draw() {
 		messageShowHeight = 4+yResize/TTF2.chat.getLineHeight();
 		maxLength = 490+xResize;
-		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 130+yResize, bgColor);
+		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 115+yResize, bgColor);
 		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
 		if(chatActive) {
 			inputBar.draw();
@@ -165,7 +165,7 @@ public class ChatFrame {
 		return number;
 	}
 	
-	public static void event() throws NumberFormatException {
+	public static boolean event() throws NumberFormatException {
 		if(chatActive) {
 			Keyboard.enableRepeatEvents(true);
 			if(Keyboard.getEventKey() == 1) { //escape
@@ -176,20 +176,20 @@ public class ChatFrame {
 				if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 					if(Keyboard.getEventKey() == 203) { // shift CTRL left arrow
 						selectCTRLLeftArrow();
-						return;
+						return true;
 					}
 					else if(Keyboard.getEventKey() == 205) { // shift CTRL right arrow
 						selectCTRLRightArrow();
-						return;
+						return true;
 					}
 				}
 				if(Keyboard.getEventKey() == 203) { //shift left arrow
 					selectLeftArrow();
-					return;
+					return true;
 				}
 				else if(Keyboard.getEventKey() == 205) { // shift right arrow
 					selectRightArrow();
-					return;
+					return true;
 				}
 			}
 			if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
@@ -197,46 +197,57 @@ public class ChatFrame {
 					CTRLDelete();
 					tempLength = 0;
 					resetSelectedPosition();
+					return true;
 				}
 				else if(Keyboard.getEventKey() == Keyboard.KEY_V) { // c/c
 	                write(Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", ""));
 	                cursorPosition+= Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "").length();
+					return true;
 	            }
 				else if(Keyboard.getEventKey() == 203) { //left arrow
 					CTRLleftArrow();
 					resetSelectedPosition();
+					return true;
 				}
 				else if(Keyboard.getEventKey() == 205) { //right arrow
 					CTRLrightArrow();
 					resetSelectedPosition();
+					return true;
 				}
 				else if(Keyboard.getEventKey() == Keyboard.KEY_C) {
 					copySelected();
+					return true;
 				}
 			}
 			else if(Keyboard.getEventKey() == 14) { //delete
 				delete();
 				resetSelectedPosition();
+				return true;
 			}
 			else if(Keyboard.getEventKey() == 200) {  //up arrow
 				upArrow();
 				resetSelectedPosition();
+				return true;
 			}
 			else if(Keyboard.getEventKey() == 208) { //down arrow
 				downArrow();
 				resetSelectedPosition();
+				return true;
 			}
 			else if(Keyboard.getEventKey() == 203) { //left arrow
 				leftArrow();
 				resetSelectedPosition();
+				return true;
 			}
 			else if(Keyboard.getEventKey() == 205) { //right arrow
 				rightArrow();
 				resetSelectedPosition();
+				return true;
 			}
 			else if(Keyboard.getEventKey() == 211) { //suppr
 				suppr();
 				resetSelectedPosition();
+				return true;
 			}
 			else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT) { //write
 				if(tempMessage.length() < MAXIMUM_LENGTH) {
@@ -246,11 +257,13 @@ public class ChatFrame {
 						cursorShift = 0;
 						tempMessage =  "";
 						tempLength = 0;
+						return true;
 					}
 					else if(isValidCharacter(tempChar)) {
 						write(tempChar);
 						cursorPosition++;
 						resetSelectedPosition();
+						return true;
 					}
 				}
 			}
@@ -281,10 +294,13 @@ public class ChatFrame {
 		}
         else if(Keyboard.getEventKey() == 201 && !chatActive) {  //scroll up
         	scrollUp();
+			return true;
         }
         else if(Keyboard.getEventKey() == 209 && !chatActive) {  //scroll down
         	scrollDown();
+			return true;
         }
+        return false;
 	}
 	
 	private static boolean isValidCharacter(char c) {

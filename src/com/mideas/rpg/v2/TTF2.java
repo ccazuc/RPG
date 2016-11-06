@@ -42,6 +42,8 @@ public class TTF2 {
 	public static TTF portraitPartyName;
 	public static TTF portraitPartyStats;
 	public static TTF partyFrameTooltip;
+	public static TTF addingFriendInput;
+	public static TTF addingFriendTitle;
 	
 	public static void init() throws FontFormatException, IOException {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
@@ -174,5 +176,13 @@ public class TTF2 {
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(14f);
 		partyFrameTooltip = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(15f);
+		addingFriendInput = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(14f);
+		addingFriendTitle = new TTF(awtFont, true);
 	}
 }

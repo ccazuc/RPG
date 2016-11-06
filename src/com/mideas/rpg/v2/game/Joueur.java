@@ -88,8 +88,11 @@ public class Joueur extends Unit {
 		this.firstProfession = ProfessionManager.getProfession(0);
 		//this.classString = convClassTypeToString(this.classType);
 		this.friendList = new ArrayList<Friend>();
-		this.friendList.add(new Friend(3, "Jean-42", 70, Race.ORC, ClassType.GUERRIER));
 		this.friendList.add(new Friend(2, "Jean-bas-level"));
+		this.friendList.add(new Friend(1, "Jaan-bas-level"));
+		this.friendList.add(new Friend(3, "Jean-42", 70, Race.ORC, ClassType.GUERRIER));
+		this.friendList.add(new Friend(4, "Jaan-42", 70, Race.ORC, ClassType.GUERRIER));
+		sortFriendList();
 	}
 	
 	public Joueur(Joueur joueur) {
@@ -542,7 +545,7 @@ public class Joueur extends Unit {
 		while(i < this.friendList.size()) {
 			j = i;
 			while(j < this.friendList.size()) {
-				if(this.friendList.get(i).getName().compareTo(this.friendList.get(i).getName()) > 0) {
+				if((this.friendList.get(i).isOnline() && this.friendList.get(j).isOnline() && this.friendList.get(i).getName().compareTo(this.friendList.get(j).getName()) > 0) || (!this.friendList.get(i).isOnline() && !this.friendList.get(j).isOnline() && this.friendList.get(i).getName().compareTo(this.friendList.get(j).getName()) > 0) || (this.friendList.get(j).isOnline() && !this.friendList.get(i).isOnline())) {
 					temp = this.friendList.get(j);
 					this.friendList.set(j, this.friendList.get(i));
 					this.friendList.set(i, temp);
@@ -552,6 +555,7 @@ public class Joueur extends Unit {
 			i++;
 		}
 	}
+	
 	public ArrayList<Friend> getFriendList() {
 		return this.friendList;
 	}

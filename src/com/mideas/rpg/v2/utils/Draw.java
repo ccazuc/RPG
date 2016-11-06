@@ -123,7 +123,6 @@ public final class Draw {
 	
 	public final static void drawQuad(final Texture texture, final float x, final float y) {
 		if(texture != null) {
-			//drawQuad(texture, x, y, 1);
 			drawQuad(texture, x, y, texture.getWidth()*Mideas.getDisplayXFactor(), texture.getHeight()*Mideas.getDisplayYFactor(), 0, 0, texture.getWidth(), texture.getHeight(), 1);
 		}
 	}
