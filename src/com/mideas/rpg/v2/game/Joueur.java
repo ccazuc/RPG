@@ -88,11 +88,11 @@ public class Joueur extends Unit {
 		this.firstProfession = ProfessionManager.getProfession(0);
 		//this.classString = convClassTypeToString(this.classType);
 		this.friendList = new ArrayList<Friend>();
-		this.friendList.add(new Friend(2, "Jean-bas-level"));
-		this.friendList.add(new Friend(1, "Jaan-bas-level"));
-		this.friendList.add(new Friend(3, "Jean-42", 70, Race.ORC, ClassType.GUERRIER));
-		this.friendList.add(new Friend(4, "Jaan-42", 70, Race.ORC, ClassType.GUERRIER));
-		sortFriendList();
+		//this.friendList.add(new Friend(2, "Jean-bas-level"));
+		//this.friendList.add(new Friend(1, "Jaan-bas-level"));
+		//this.friendList.add(new Friend(3, "Jean-42", 70, Race.ORC, ClassType.GUERRIER));
+		//this.friendList.add(new Friend(4, "Jaan-42", 70, Race.ORC, ClassType.GUERRIER));
+		//sortFriendList();
 	}
 	
 	public Joueur(Joueur joueur) {
@@ -111,6 +111,11 @@ public class Joueur extends Unit {
 		this.armor = joueur.armor;
 		this.mana = joueur.mana;
 		this.wear = joueur.wear;
+	}
+	
+	@Override
+	public String toString() {
+		return "|     [Player]     |\n[Hashcode = "+this.hashCode()+"]\n[Name = "+this.name+"]\n";
 	}
 	
 	/*public void tick() throws SQLException {
@@ -538,7 +543,7 @@ public class Joueur extends Unit {
 		}
 	}
 	
-	private void sortFriendList() {
+	public void sortFriendList() {
 		int i = 0;
 		int j = 0;
 		Friend temp;

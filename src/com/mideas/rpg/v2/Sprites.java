@@ -299,6 +299,11 @@ public class Sprites {
 	public static Texture input_bar_middle_border;
 	public static Texture input_bar_right_border;
 	public static Texture text_menu_hover;
+	public static Texture button_menu_selected_left;
+	public static Texture button_menu_selected_right;
+	public static Texture button_menu_selected_middle;
+	public static Texture button_menu;
+	public static Texture button_menu_hover;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -540,7 +545,7 @@ public class Sprites {
 	}
 		
 	public static boolean sprite9() {
-		selected_character = new Texture("sprite/interface/character_selected.png");
+		selected_character = new Texture("sprite/interface/Glue-CharacterSelect-Highlight.png");
 		login_screen = new Texture("sprite/interface/loginscreen.png");
 		bag4 = new Texture("sprite/interface/bag/4.png");
 		bag6 = new Texture("sprite/interface/bag/6.png");
@@ -599,7 +604,7 @@ public class Sprites {
 		input_box = new Texture("sprite/interface/input_box.png");
 		trade_frame = new Texture("sprite/interface/trade/trade_frame.png");
 		friend_frame = new Texture("sprite/interface/social/friend_frame.png");
-		friend_border = new Texture("sprite/interface/social/friend_border.png");
+		friend_border = new Texture("sprite/interface/social/UI-FriendsFrame-HighlightBar.png");
 		friend_note_online = new Texture("sprite/interface/social/friend_note_online.png");
 		friend_note_offline = new Texture("sprite/interface/social/friend_note_offline.png");
 		tooltip_bot = new Texture("sprite/interface/tooltip/UI-Tooltip-B.png");
@@ -610,6 +615,11 @@ public class Sprites {
 		tooltip_top = new Texture("sprite/interface/tooltip/UI-Tooltip-T.png");
 		tooltip_top_left_corner = new Texture("sprite/interface/tooltip/UI-Tooltip-TL.png");
 		tooltip_top_right_corner = new Texture("sprite/interface/tooltip/UI-Tooltip-TR.png");
+		button_menu = new Texture("sprite/interface/button_menu/UI-CHARACTER-INACTIVETAB.png");
+		button_menu_selected_left = new Texture("sprite/interface/button_menu/selected_menu_left.png");
+		button_menu_selected_right = new Texture("sprite/interface/button_menu/selected_menu_right.png");
+		button_menu_selected_middle = new Texture("sprite/interface/button_menu/selected_menu_middle.png");
+		button_menu_hover = new Texture("sprite/interface/button_menu/UI-Character-Tab-Highlight.png");
 		return true;
 	}
 

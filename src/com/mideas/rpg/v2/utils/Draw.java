@@ -17,6 +17,12 @@ import static org.lwjgl.opengl.GL11.glColor4f;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL14.glBlendFuncSeparate;
+import static org.lwjgl.opengl.GL20.glBlendEquationSeparate;
+import static org.lwjgl.opengl.GL14.GL_FUNC_ADD;
+import static org.lwjgl.opengl.GL11.GL_ONE;
+import static org.lwjgl.opengl.GL11.GL_DST_COLOR;
 import static org.lwjgl.opengl.GL11.GL_LINE_SMOOTH;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_LINE_STRIP;
@@ -24,6 +30,10 @@ import static org.lwjgl.opengl.GL11.GL_LINE_LOOP;
 import static org.lwjgl.opengl.GL11.GL_POINTS;
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.GL_LINES;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_COLOR;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 public final class Draw {
 	
@@ -124,6 +134,38 @@ public final class Draw {
 	public final static void drawQuad(final Texture texture, final float x, final float y) {
 		if(texture != null) {
 			drawQuad(texture, x, y, texture.getWidth()*Mideas.getDisplayXFactor(), texture.getHeight()*Mideas.getDisplayYFactor(), 0, 0, texture.getWidth(), texture.getHeight(), 1);
+		}
+	}
+	
+	public final static void drawQuadBlend(final Texture texture, final float x, final float y) {
+		if(texture != null) {
+			texture.bind();
+			glEnable(GL_BLEND);
+			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR, GL_SRC_ALPHA, GL_DST_COLOR);
+			glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+			OpenGL.glBegin(OpenGL.GL_QUADS);
+			OpenGL.glColor4f(1, 1, 1, 1);
+			drawQuadPart(texture, x, y, texture.getWidth()*Mideas.getDisplayXFactor(), texture.getHeight()*Mideas.getDisplayYFactor(), 0, 0, texture.getWidth(), texture.getHeight());
+			OpenGL.glEnd();
+			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			//drawQuad(texture, x, y, texture.getWidth()*Mideas.getDisplayXFactor(), texture.getHeight()*Mideas.getDisplayYFactor(), 0, 0, texture.getWidth(), texture.getHeight(), 1);
+			//glBlendEquation(GL_FUNC_ADD);
+		}
+	}
+	
+	public final static void drawQuadBlend(final Texture texture, final float x, final float y, final float width, final float height) {
+		if(texture != null) {
+			texture.bind();
+			glEnable(GL_BLEND);
+			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR, GL_SRC_ALPHA, GL_DST_COLOR);
+			glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+			OpenGL.glBegin(OpenGL.GL_QUADS);
+			OpenGL.glColor4f(1, 1, 1, 1);
+			drawQuadPart(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight());
+			OpenGL.glEnd();
+			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			//drawQuad(texture, x, y, texture.getWidth()*Mideas.getDisplayXFactor(), texture.getHeight()*Mideas.getDisplayYFactor(), 0, 0, texture.getWidth(), texture.getHeight(), 1);
+			//glBlendEquation(GL_FUNC_ADD);
 		}
 	}
 	

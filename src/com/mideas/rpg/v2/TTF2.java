@@ -82,7 +82,7 @@ public class TTF2 {
 		buttonFont = new TTF(awtFont, true);
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(21f).deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(21f);
 		spellName = new TTF(awtFont, true);
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
@@ -90,7 +90,7 @@ public class TTF2 {
 		statsName= new TTF(awtFont, true);
 		
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(20f).deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(20f);
 		itemName = new TTF(awtFont, true);
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
@@ -126,27 +126,27 @@ public class TTF2 {
 		loginScreenTick = new TTF(awtFont, true);
 		
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(24f).deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(22f);
 		selectScreenName = new TTF(awtFont, true);
 		
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(15f).deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(16f);
 		selectScreenLevel = new TTF(awtFont, true);
 		
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(15f).deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(15f);
 		raceName = new TTF(awtFont, true);
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(21f).deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(21f);
 		selectScreenDeleteCharacterConfirm = new TTF(awtFont, true);
 		
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(22f).deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(22f);
 		alertFont = new TTF(awtFont, true);
 		
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f).deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
 		craft = new TTF(awtFont, true);
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");

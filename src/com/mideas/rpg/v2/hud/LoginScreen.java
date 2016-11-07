@@ -64,7 +64,8 @@ public class LoginScreen {
 		leaveButton.draw();
 		connectionButton.draw();
 		alert.draw();
-		//Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), Color.white);
+		//Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), Color.black);
+		//Draw.drawQuadBend(Sprites.button_menu_hover, Display.getWidth()/2, Display.getHeight()/2);
 		//tooltip.draw();
 	}
 	

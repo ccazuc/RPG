@@ -444,10 +444,10 @@ public class SelectScreen {
 	private static void drawCharacter(int i, float y) {
 		if(characterList[i] != null) {
 			if(selectedCharacter[i] || hoveredCharacter == i) {
-				Draw.drawQuad(Sprites.selected_character, Display.getWidth()/2+605*Mideas.getDisplayXFactor(), y-10, Sprites.selected_character.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.selected_character.getImageHeight()*Mideas.getDisplayYFactor());
+				Draw.drawQuadBlend(Sprites.selected_character, Display.getWidth()/2+592*Mideas.getDisplayXFactor(), y-15*Mideas.getDisplayYFactor(), 362*Mideas.getDisplayXFactor(), 98*Mideas.getDisplayYFactor());
 			}
-			TTF2.selectScreenName.drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y, characterList[i].getName(), YELLOW, Color.black, 2, 1, 2);
-			TTF2.selectScreenLevel.drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y+27, convClasseToString(characterList[i].getClasse())+" level "+characterList[i].getLevel(), Color.white, Color.black, 1, 1, 2);
+			TTF2.selectScreenName.drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y, characterList[i].getName(), YELLOW, Color.black, 2, 1, 1);
+			TTF2.selectScreenLevel.drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y+27, convClasseToString(characterList[i].getClasse())+" level "+characterList[i].getLevel(), Color.white, Color.black, 2, 0, 0);
 		}
 	}
 	

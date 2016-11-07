@@ -361,7 +361,8 @@ public class Interface {
 				//System.out.println(Keyboard.getEventKey());
 				if(!ChatFrame.getChatActive() && !addingFriendStatus && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						CommandTrade.requestNewTrade("Midetest");
+						SocialFrame.test();
+						System.out.println(Mideas.joueur1());
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {

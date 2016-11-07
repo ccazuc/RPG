@@ -107,7 +107,6 @@ public class Input {
 		else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB && Keyboard.getEventKey() != 56) { //write
 			if(this.text.length() < this.maxLength) {
 				char c = Keyboard.getEventCharacter();
-				System.out.println(c);
 				if(isValidCharacter(c)) {
 					write(c);
 					this.cursorPosition++;

@@ -29,15 +29,51 @@ public class CommandFriend extends Command {
 			}
 		}
 		else if(packetId == PacketID.FRIEND_OFFLINE) {
-			String name = ConnectionManager.getConnection().readString();
+			int id = ConnectionManager.getConnection().readInt();
 			int i = 0;
 			while(i < Mideas.joueur1().getFriendList().size()) {
-				if(Mideas.joueur1().getFriendList().get(i).equals(name)) {
+				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
+					ChatFrame.addMessage(new Message(Mideas.joueur1().getFriendList().get(i).getName()+" logged out.", false, MessageType.SELF));
 					Mideas.joueur1().getFriendList().get(i).setOnlineStatus(false);
-					ChatFrame.addMessage(new Message(name+" logged out.", false, MessageType.SELF));
 				}
 				i++;
 			}
+		}
+		else if(packetId == PacketID.FRIEND_ONLINE) {
+			int id = ConnectionManager.getConnection().readInt();
+			String name = ConnectionManager.getConnection().readString();
+			int level = ConnectionManager.getConnection().readInt();
+			Race race = Race.values()[ConnectionManager.getConnection().readChar()];
+			ClassType classe = ClassType.values()[ConnectionManager.getConnection().readChar()];
+			System.out.println(id+" "+name+" "+level+" "+race+" "+classe);
+			int i = 0;
+			while(i < Mideas.joueur1().getFriendList().size()) {
+				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
+					ChatFrame.addMessage(new Message(name+" is now online.", false, MessageType.SELF));
+					Mideas.joueur1().getFriendList().get(i).updateInformations(name, level, race, classe);
+				}
+				i++;
+			}
+		}
+		else if(packetId == PacketID.FRIEND_LOAD_ALL) {
+			int i = 0;
+			int length = ConnectionManager.getConnection().readInt();
+			while(i < length) {
+				int id = ConnectionManager.getConnection().readInt();
+				boolean isOnline = ConnectionManager.getConnection().readBoolean();
+				String name = ConnectionManager.getConnection().readString();
+				if(isOnline) {
+					int level = ConnectionManager.getConnection().readInt();
+					Race race = Race.values()[ConnectionManager.getConnection().readChar()];
+					ClassType classe = ClassType.values()[ConnectionManager.getConnection().readChar()];
+					Mideas.joueur1().addFriend(new Friend(id, name, level, race, classe));
+				}
+				else {
+					Mideas.joueur1().addFriend(new Friend(id, name));
+				}
+				i++;
+			}
+			Mideas.joueur1().sortFriendList();
 		}
 	}
 	

@@ -41,15 +41,15 @@ public class Button {
 		this.shadow_size = shadow_size;
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		Font awtFont = null;
-			try {
-				awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-			} 
-			catch (FontFormatException e) {
-				e.printStackTrace();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		} 
+		catch (FontFormatException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		awtFont = awtFont.deriveFont(font_size);
 		this.font = new TTF(awtFont, true);
 	}
@@ -66,15 +66,15 @@ public class Button {
 		this.hoveredColor = hoveredColor;
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		Font awtFont = null;
-			try {
-				awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-			} 
-			catch (FontFormatException e) {
-				e.printStackTrace();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		} 
+		catch (FontFormatException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		awtFont = awtFont.deriveFont(font_size);
 		this.font = new TTF(awtFont, true);
 	}
@@ -86,15 +86,15 @@ public class Button {
 		this.text = text;
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		Font awtFont = null;
-			try {
-				awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-			}
-			catch (FontFormatException e) {
-				e.printStackTrace();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		}
+		catch (FontFormatException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		awtFont = awtFont.deriveFont(15f);
 		this.font = new TTF(awtFont, true);
 	}
@@ -106,15 +106,15 @@ public class Button {
 		this.text = text;
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		Font awtFont = null;
-			try {
-				awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-			} 
-			catch (FontFormatException e) {
-				e.printStackTrace();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		} 
+		catch (FontFormatException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		awtFont = awtFont.deriveFont(size);
 		this.font = new TTF(awtFont, true);
 	}

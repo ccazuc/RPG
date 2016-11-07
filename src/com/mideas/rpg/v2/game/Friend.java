@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.game;
 
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.race.Race;
 
 public class Friend {
@@ -30,6 +31,15 @@ public class Friend {
 	public Friend(int character_id, String name) { //offline friend
 		this.characterId = character_id;
 		this.name = name;
+	}
+	
+	public void updateInformations(String name, int level, Race race, ClassType classe) {
+		this.name = name;
+		setLevel(level);
+		this.race = race;
+		setClasse(classe);
+		setOnlineStatus(true);
+		this.areaText = space+"Area";
 	}
 	
 	public void setCharacterId(int characterId) {
@@ -83,6 +93,9 @@ public class Friend {
 	}
 	
 	public void setOnlineStatus(boolean we) {
-		this.isOnline = we;
+		if(this.isOnline != we) {
+			this.isOnline = we;
+			Mideas.joueur1().sortFriendList();
+		}
 	}
 }
