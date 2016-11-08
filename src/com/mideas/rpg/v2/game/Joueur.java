@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.Wear;
+import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.bag.Bag;
@@ -22,7 +23,6 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
-import com.mideas.rpg.v2.game.race.Race;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
@@ -54,6 +54,7 @@ public class Joueur extends Unit {
 	private Party party;
 	private int baseExp;
 	private float armor;
+	private Guild guild;
 	private Wear wear;
 	private int gold;
 	private int exp;
@@ -574,6 +575,14 @@ public class Joueur extends Unit {
 			}
 			i++;
 		}
+	}
+	
+	public Guild getGuild() {
+		return this.guild;
+	}
+	
+	public void setGuild(Guild guild) {
+		this.guild = guild;
 	}
 	
 	public void setParty(Party party) {

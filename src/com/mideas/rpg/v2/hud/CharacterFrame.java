@@ -61,9 +61,6 @@ public class CharacterFrame {
 		int yStuff = (int)(-302*Mideas.getDisplayYFactor()+yMouseShift);
 		float yShift = 43.8f*Mideas.getDisplayYFactor();
 		float xShift = 47.5f*Mideas.getDisplayXFactor();
-		if(Mideas.joueur1().getStuff(0) != null && Mideas.joueur1().getStuff(0).getEquippedGem(0) != null) {
-			System.out.println(Mideas.joueur1().getStuff(0).getEquippedGem(0).getIsLoaded());
-		}
 		while(i < Mideas.joueur1().getStuff().length) {
 			drawCharacterItems(i, xStuff+z*xShift, yStuff+j*yShift);
 			i++;

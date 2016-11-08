@@ -13,6 +13,7 @@ import com.mideas.rpg.v2.command.CommandAddItem;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandFriend;
+import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandLoadBagItems;
 import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
@@ -82,6 +83,7 @@ public class ConnectionManager {
 		commandList.put((int)PLAYER_NOT_FOUND, new CommandPlayerNotFound());
 		commandList.put((int)SEND_MESSAGE, new CommandSendMessage());
 		commandList.put((int)PARTY, new CommandParty());
+		commandList.put((int)GUILD, new CommandGuild());
 	}
 
 	public static final boolean connectAuthServer() {

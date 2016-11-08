@@ -106,7 +106,7 @@ public class TTF2 {
 		itemNumber = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(14f).deriveFont(Font.BOLD);
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(14f);
 		talent = new TTF(awtFont, true);
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");

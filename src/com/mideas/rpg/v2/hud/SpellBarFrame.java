@@ -26,16 +26,16 @@ import com.mideas.rpg.v2.game.spell.SpellType;
 import com.mideas.rpg.v2.hud.Cast;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Texture;
+import com.mideas.rpg.v2.utils.Tooltip;
 
 public class SpellBarFrame {
 	
 	static Shortcut hoveredSpell;
-	private static Color bgColor = new Color(0, 0, 0, .6f);
-	private static Color borderColor = Color.decode("#494D4B");
 	private static boolean isCastingSpell;
 	private static float xHoveredSpell;
 	private static int yHoveredSpell;
 	private static int hoveredSlot = -1;
+	private static Tooltip tooltip = new Tooltip(0, 0, 0, 0, 0.6f);
 	private final static String[] bindDisplay = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
 	
 	private static String numberFreeSlotBag = "";
@@ -113,12 +113,8 @@ public class SpellBarFrame {
 				}
 				if(DragSpellManager.getDraggedSpell() != Mideas.joueur1().getSpells(spellCount)) {
 					if(spellCount+1 < 10) {
-						//TTF2.statsName.drawStringShadow(Display.getWidth()/2+(30+x)*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(String.valueOf(spellCount+1)), Display.getHeight()+y, String.valueOf(spellCount+1), Color.white, Color.black, 1, 1);
 						TTF2.statsName.drawStringShadow(Display.getWidth()/2+(30+x)*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(bindDisplay[spellCount]), Display.getHeight()+y, bindDisplay[spellCount], Color.white, Color.black, 1, 1);
 					}
-					/*else if(spellCount+1 == 10) {
-						TTF2.statsName.drawStringShadow(Display.getWidth()/2+(20+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y, "0", Color.white, Color.black, 1, 1);
-					}*/
 					else if(spellCount+1 == 11) {
 						TTF2.statsName.drawStringShadow(Display.getWidth()/2+(20+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y, ")", Color.white, Color.black, 1, 1);
 					}
@@ -162,10 +158,12 @@ public class SpellBarFrame {
 				Draw.drawQuad(IconsManager.getSprite37(Mideas.joueur1().bag().getSpriteId(i)), Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
 				if(DragBagManager.getHoverBag(i)) {
 					Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
-					Draw.drawColorQuad(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-92, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots"), 50, bgColor);
-					Draw.drawColorQuadBorder(Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()-93, -TTF2.talent.getWidth("Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots"), 52, borderColor);
-					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-87, Mideas.joueur1().bag().getEquippedBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
-					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-TTF2.talent.getWidth("Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots"), Display.getHeight()-67, "Container "+Integer.toString(Mideas.joueur1().bag().getEquippedBagSize(i))+" slots", Color.white, Color.black, 1, 1, 1);
+					if(tooltip.getHashcode() != Mideas.joueur1().bag().getEquippedBag(i).hashCode()) {
+						tooltip.update(Display.getWidth()/2+xBag+i*xBagShift-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-25*Mideas.getDisplayXFactor(),  Display.getHeight()-100*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()+25*Mideas.getDisplayXFactor(), 60*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).hashCode());
+					}
+					tooltip.draw();
+					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-15*Mideas.getDisplayXFactor(), Display.getHeight()-90*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
+					TTF2.talent.drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-15*Mideas.getDisplayXFactor(), Display.getHeight()-70*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getSlotTooltipString(), Color.white, Color.black, 1, 1, 1);
 				}
 				if(DragBagManager.getClickBag(i)) {
 					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);

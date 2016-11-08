@@ -8,7 +8,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
-import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
@@ -79,6 +78,18 @@ public class Interface {
 	private static boolean isConnectedToWorldServer;
 	private static boolean socialFrameActive;
 	private static boolean addingFriendStatus;
+	private static double time;
+	
+	private static long LAST_CONTAINER_TIMER;
+	private final static int CONTAINER_TIMER_FREQUENCE = 1000;
+	private static long LAST_SPELLBAR_TIMER;
+	private final static int SPELLBAR_TIMER_FREQUENCE = 1000;
+	private static long LAST_CHARACTER_MOUSE_EVENT_TIMER;
+	private final static int CHARACTER_MOUSE_EVENT_TIMER_FREQUENCE = 1000;
+	private static long LAST_CONTAINER_MOUSE_EVENT_TIMER;
+	private final static int CONTAINER_MOUSE_EVENT_TIMER_FREQUENCE = 1000;
+	private static long LAST_DRAGMANAGER_MOUSE_EVENT_TIMER;
+	private final static int DRAGMANAGER_MOUSE_EVENT_TIMER_FREQUENCE = 1000;
 
 	public static void draw() throws IOException, NumberFormatException {
 		Draw.drawQuadBG(Sprites.current_bg);
@@ -138,8 +149,9 @@ public class Interface {
 					ContainerFrame.draw();
 					GoldFrame.draw();
 				}
-				if(System.currentTimeMillis()%2000 < 10) {
+				if(System.currentTimeMillis()-LAST_CONTAINER_TIMER >= CONTAINER_TIMER_FREQUENCE) {
 					containerDrawTime = System.nanoTime()-time;
+					LAST_CONTAINER_TIMER = System.currentTimeMillis();
 				}
 				if(addingFriendStatus) {
 					AddFriendInputFrame.draw();
@@ -218,9 +230,6 @@ public class Interface {
 			}
 		}
 		else if(Mideas.joueur1() == null) {
-			/*if(ClassSelectFrame.mouseEvent()) {
-				return true;
-			}*/
 			if(SelectScreen.mouseEvent()) {
 				return true;
 			}
@@ -229,39 +238,48 @@ public class Interface {
 			if(DragSpellManager.mouseEvent()) {
 				return true;
 			}
-			double time = System.nanoTime();
+			time = System.nanoTime();
 			if(SpellBarFrame.mouseEvent()) {
+				if(System.currentTimeMillis()-LAST_SPELLBAR_TIMER >= SPELLBAR_TIMER_FREQUENCE) {
+					spellBarMouseEventTime = System.nanoTime()-time;
+					LAST_SPELLBAR_TIMER = System.currentTimeMillis();
+				}
 				return true;
 			}
-			if(System.currentTimeMillis()%500 < 10) {
+			if(System.currentTimeMillis()-LAST_SPELLBAR_TIMER >= SPELLBAR_TIMER_FREQUENCE) {
 				spellBarMouseEventTime = System.nanoTime()-time;
+				LAST_SPELLBAR_TIMER = System.currentTimeMillis();
 			}
 			if(ShortcutFrame.mouseEvent()) {
 				return true;
 			}
-			time = System.nanoTime();
 			if(characterFrameActive) {
+				time = System.nanoTime();
 				if(CharacterFrame.mouseEvent()) {
-					if(System.currentTimeMillis()%500 < 10) {
+					if(System.currentTimeMillis()-LAST_CHARACTER_MOUSE_EVENT_TIMER >= CHARACTER_MOUSE_EVENT_TIMER_FREQUENCE) {
 						characterMouseEventTime = System.nanoTime()-time;
+						LAST_CHARACTER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
 					}
 					return true;
 				}
+				if(System.currentTimeMillis()-LAST_CHARACTER_MOUSE_EVENT_TIMER >= CHARACTER_MOUSE_EVENT_TIMER_FREQUENCE) {
+					characterMouseEventTime = System.nanoTime()-time;
+					LAST_CHARACTER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
+				}
 			}
-			if(System.currentTimeMillis()%500 < 10) {
-				characterMouseEventTime = System.nanoTime()-time;
-			}
-			time = System.nanoTime();
 			if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
+				time = System.nanoTime();
 				if(ContainerFrame.mouseEvent()) {
-					if(System.currentTimeMillis()%500 < 10) {
+					if(System.currentTimeMillis()-LAST_CONTAINER_MOUSE_EVENT_TIMER >= CONTAINER_MOUSE_EVENT_TIMER_FREQUENCE) {
 						containerMouseEventTime = System.nanoTime()-time;
+						LAST_CONTAINER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
 					}
 					return true;
 				}
-			}
-			if(System.currentTimeMillis()%500 < 10) {
-				containerMouseEventTime = System.nanoTime()-time;
+				if(System.currentTimeMillis()-LAST_CONTAINER_MOUSE_EVENT_TIMER >= CONTAINER_MOUSE_EVENT_TIMER_FREQUENCE) {
+					containerMouseEventTime = System.nanoTime()-time;
+					LAST_CONTAINER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
+				}
 			}
 			if(socialFrameActive) {
 				if(SocialFrame.mouseEvent()) {
@@ -336,13 +354,15 @@ public class Interface {
 			}
 			time = System.nanoTime();
             if(DragManager.mouseEvent()) {
-    			if(System.currentTimeMillis()%500 < 10) {
+    			if(System.currentTimeMillis()-LAST_DRAGMANAGER_MOUSE_EVENT_TIMER >= DRAGMANAGER_MOUSE_EVENT_TIMER_FREQUENCE) {
     				dragMouseEventTime = System.nanoTime()-time;
+    				LAST_DRAGMANAGER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
     			}
                 return true;
             }
-			if(System.currentTimeMillis()%500 < 10) {
+			if(System.currentTimeMillis()-LAST_DRAGMANAGER_MOUSE_EVENT_TIMER >= DRAGMANAGER_MOUSE_EVENT_TIMER_FREQUENCE) {
 				dragMouseEventTime = System.nanoTime()-time;
+				LAST_DRAGMANAGER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
 			}
             if(PerformanceBarFrame.mouseEvent()) {
             	return true;
@@ -519,6 +539,14 @@ public class Interface {
 			}
 		}
 		return false;
+	}
+	
+	public static boolean isSocialFrameActive() {
+		return socialFrameActive;
+	}
+	
+	public static void setSocialFrameStatus(boolean we) {
+		socialFrameActive = we;
 	}
 	
 	public static void setAddFriendStatus(boolean we) {

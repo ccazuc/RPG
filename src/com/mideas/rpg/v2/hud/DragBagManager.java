@@ -133,8 +133,10 @@ public class DragBagManager {
 	public static void openBag() {
 		Arrays.fill(hoverBag, false);
 		int i = 0;
+		float x = 491*Mideas.getDisplayXFactor();
+		float xShift = 48.2f*Mideas.getDisplayXFactor();
 		while(i < hoverBag.length) {
-			bagHover(i, 491-48.2f*i);
+			bagHover(i, x-xShift*i);
 			i++;
 		}
 		if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {

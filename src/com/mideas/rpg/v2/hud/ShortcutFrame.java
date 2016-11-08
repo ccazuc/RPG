@@ -20,17 +20,20 @@ public class ShortcutFrame {
 	private static int y = -43;
 
 	public static void draw() {
-		if(Interface.isTalentFrameActive()) {
-			Draw.drawQuad(Sprites.shortcut[2], Display.getWidth()/2+(x+3+2*xShift)*Mideas.getDisplayXFactor(), Display.getHeight()+(y+4)*Mideas.getDisplayYFactor());
+		if(Interface.getCharacterFrameStatus()) {
+			Draw.drawQuad(Sprites.shortcut[0], Display.getWidth()/2+(x+3)*Mideas.getDisplayXFactor(), Display.getHeight()+(y+4)*Mideas.getDisplayYFactor());
 		}
 		if(Interface.isSpellBookFrameActive()) {
 			Draw.drawQuad(Sprites.shortcut[1], Display.getWidth()/2+(x+3+xShift)*Mideas.getDisplayXFactor(), Display.getHeight()+(y+4)*Mideas.getDisplayYFactor());
 		}
+		if(Interface.isTalentFrameActive()) {
+			Draw.drawQuad(Sprites.shortcut[2], Display.getWidth()/2+(x+3+2*xShift)*Mideas.getDisplayXFactor(), Display.getHeight()+(y+4)*Mideas.getDisplayYFactor());
+		}
+		if(Interface.isSocialFrameActive()) {
+			Draw.drawQuad(Sprites.shortcut[4], Display.getWidth()/2+(x+3+4*xShift)*Mideas.getDisplayXFactor(), Display.getHeight()+(y+4)*Mideas.getDisplayYFactor());
+		}
 		if(Interface.getEscapeFrameStatus()) {
 			Draw.drawQuad(Sprites.shortcut[6], Display.getWidth()/2+(x+3+6*xShift)*Mideas.getDisplayXFactor(), Display.getHeight()+(y+4)*Mideas.getDisplayYFactor());
-		}
-		if(Interface.getCharacterFrameStatus()) {
-			Draw.drawQuad(Sprites.shortcut[0], Display.getWidth()/2+(x+3)*Mideas.getDisplayXFactor(), Display.getHeight()+(y+4)*Mideas.getDisplayYFactor());
 		}
 		int i = 0;
 		while(i < LENGTH) {
@@ -87,6 +90,17 @@ public class ShortcutFrame {
 					}
 					else if(hover == 2) { 																			//talent
 						Interface.setTalentFrameStatus(!Interface.isTalentFrameActive());
+						Interface.closeCharacterFrame();
+						Interface.closeShopFrame();
+						Interface.closeSpellBookFrame();
+						Interface.closeEscapeFrame();
+						Interface.closeAdminPanelFrame();
+						CharacterFrame.setHoverFalse();
+						Arrays.fill(SpellBookFrame.getHoverBook(), false);
+						return true;
+					}
+					else if(hover == 4) { 																			//social
+						Interface.setSocialFrameStatus(!Interface.isSocialFrameActive());
 						Interface.closeCharacterFrame();
 						Interface.closeShopFrame();
 						Interface.closeSpellBookFrame();

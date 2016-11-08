@@ -59,7 +59,6 @@ import com.mideas.rpg.v2.utils.Draw;
 public class Mideas {
 	
 	private static double ping;
-	private final static int PING_FREQUENCE = 5000;
 	private static boolean currentPlayer;
 	private static Joueur joueur1;
 	private static JDO jdo;
@@ -88,6 +87,13 @@ public class Mideas {
 	private final static int TIMEOUT_TIMER = 10000;
 	private final static Pattern isInteger = Pattern.compile("-?[0-9]+");
 	public final static int FPS = 60;
+	
+	private static long LAST_PING_TIMER;
+	private final static int PING_FREQUENCE = 10000;
+	private static long LAST_RAM_TIMER;
+	private final static long RAM_UPDATE_FREQUENCE = 1000;
+	private static long LAST_MOUSE_EVENT_TIMER;
+	private final static long MOUSE_EVENT_UPDATE_FREQUENCE = 1000;
 	
 	private static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -181,8 +187,9 @@ public class Mideas {
 						continue;
 					}
 				}
-				if(System.currentTimeMillis()%500 < 2) {
+				if(System.currentTimeMillis()-LAST_MOUSE_EVENT_TIMER >= MOUSE_EVENT_UPDATE_FREQUENCE) {
 					mouseEventTime = (float)(System.nanoTime()-time);
+					LAST_MOUSE_EVENT_TIMER = System.currentTimeMillis();
 				}
 				while(Keyboard.next()) {
 					if(Interface.keyboardEvent()) {
@@ -199,12 +206,14 @@ public class Mideas {
 				}
 				catch(RuntimeException e) {
 				}
-				if(System.currentTimeMillis()%1000 < 10) {
+				if(System.currentTimeMillis()-LAST_RAM_TIMER >= RAM_UPDATE_FREQUENCE) {
 					usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 					interfaceDrawTime = System.nanoTime()-time;
+					LAST_RAM_TIMER = System.currentTimeMillis();
 				}
-				if(System.currentTimeMillis()%PING_FREQUENCE < 2 && ConnectionManager.isConnected()) {
+				if(System.currentTimeMillis()-LAST_PING_TIMER >= PING_FREQUENCE && ConnectionManager.isConnected()) {
 					CommandPing.write();
+					LAST_PING_TIMER = System.currentTimeMillis();
 				}
 				timeEvent();
 				Display.update();

@@ -78,6 +78,7 @@ public class CommandParty extends Command {
 		int i = 0;
 		if(id == Mideas.joueur1().getId()) {
 			Mideas.joueur1().getParty().setPartyLeader(Mideas.joueur1());
+			PartyFrame.updateSize();
 		}
 		else {
 			while(i < Mideas.joueur1().getParty().getMemberList().length) {

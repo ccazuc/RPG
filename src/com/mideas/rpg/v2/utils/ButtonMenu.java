@@ -19,7 +19,6 @@ public class ButtonMenu {
 	private int y;
 	private int x_size;
 	private int y_size;
-	private int anchor_difference;
 	private String text;
 	private boolean isSelected;
 	private boolean buttonHover;
@@ -31,8 +30,8 @@ public class ButtonMenu {
 	private int shadow_size;
 	private TTF font;
 	private static final Color GREY = Color.decode("#808080");
-	
-	public ButtonMenu(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, boolean isSelected, float anchor_difference) {
+
+	public ButtonMenu(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, boolean isSelected) {
 		this.x = (int)x;
 		this.y = (int)y;
 		this.x_size = (int)x_size;
@@ -40,11 +39,10 @@ public class ButtonMenu {
 		this.text = text;
 		this.isSelected = isSelected;
 		this.shadow_size = shadow_size;
-		this.anchor_difference = (int)anchor_difference;
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		Font awtFont = null;
 		try {
-			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(font_size);
 		} 
 		catch (FontFormatException e) {
 			e.printStackTrace();
@@ -52,7 +50,6 @@ public class ButtonMenu {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		awtFont = awtFont.deriveFont(font_size);
 		this.font = new TTF(awtFont, true);
 	}
 	
@@ -60,12 +57,17 @@ public class ButtonMenu {
 		if(this.isSelected) {
 			int sideWidth = (int)(Sprites.button_menu_selected_left.getImageWidth()*Mideas.getDisplayXFactor());
 			Draw.drawQuad(Sprites.button_menu_selected_left, this.x, this.y, sideWidth, this.y_size);
-			Draw.drawQuad(Sprites.button_menu_selected_middle, this.x+sideWidth, this.y, this.x_size-sideWidth, this.y_size);
+			Draw.drawQuad(Sprites.button_menu_selected_middle, this.x+sideWidth, this.y, this.x_size-2*sideWidth, this.y_size);
 			Draw.drawQuad(Sprites.button_menu_selected_right, this.x+this.x_size-sideWidth, this.y, sideWidth, this.y_size);
 			this.font.drawStringShadow(this.x+this.x_size/2-this.font.getWidth(this.text)/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.selectedColor, Color.black, this.shadow_size, 0, 0);
 		}
 		else {
-			Draw.drawQuad(Sprites.button_menu, this.x, this.y+this.anchor_difference, this.x_size, this.y_size+Math.abs(this.anchor_difference));
+			//Draw.drawQuad(Sprites.button_menu, this.x, this.y+this.anchor_difference, this.x_size, this.y_size+Math.abs(this.anchor_difference));
+			int sideWidth = (int)(Sprites.button_menu_unselected_left.getImageWidth()*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.button_menu_unselected_left, this.x, this.y, sideWidth, this.y_size);
+			Draw.drawQuad(Sprites.button_menu_unselected_middle, this.x+sideWidth, this.y, this.x_size-2*sideWidth, this.y_size);
+			Draw.drawQuad(Sprites.button_menu_unselected_right, this.x+this.x_size-sideWidth, this.y, sideWidth, this.y_size);
+			Draw.drawQuad(Sprites.button_menu_unselected_top, this.x, this.y+1, this.x_size, Sprites.button_menu_unselected_top.getImageHeight()*Mideas.getDisplayYFactor());
 			if(activateCondition()) {
 				if(this.buttonDown) {
 					this.font.drawStringShadow(this.x+this.x_size/2-this.font.getWidth(this.text)/2+2, this.y+this.y_size/2-this.font.getLineHeight()/2+2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
@@ -118,6 +120,18 @@ public class ButtonMenu {
 			}
 		}
 		return false;
+	}
+	
+	public void update(float x, float y, float x_size, float y_size) {
+		this.x = (int)x;
+		this.y = (int)y;
+		this.x_size = (int)x_size;
+		this.y_size = (int)y_size;
+	}
+	
+	public void update(float x, float y) {
+		this.x = (int)x;
+		this.y = (int)y;
 	}
 	
 	public boolean isSelected() {

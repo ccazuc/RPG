@@ -12,6 +12,7 @@ public class Tooltip {
 	private int x_size;
 	private int y_size;
 	private Color color;
+	private int hashcode_selected_item;
 	
 	public Tooltip(float x, float y, float x_size, float y_size, float opacity) {
 		this.x = (int)x;
@@ -65,11 +66,23 @@ public class Tooltip {
 		this.y = (int)y;
 	}
 	
+	public int getHashcode() {
+		return this.hashcode_selected_item;
+	}
+	
 	public void update(float x, float y, float x_size, float y_size) {
 		this.x = (int)x;
 		this.y = (int)y;
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;
+	}
+	
+	public void update(float x, float y, float x_size, float y_size, int hashcode) {
+		this.x = (int)x;
+		this.y = (int)y;
+		this.x_size = (int)x_size;
+		this.y_size = (int)y_size;
+		this.hashcode_selected_item = hashcode;
 	}
 	
 	public void updatePosition(float x, float y) {

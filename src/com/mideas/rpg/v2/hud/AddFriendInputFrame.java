@@ -24,6 +24,7 @@ public class AddFriendInputFrame {
 		public void eventButtonClick() {
 			CommandFriend.addFriend(input.getText());
 			Interface.setAddFriendStatus(false);
+			input.resetText();
 		}
 	};
 	private static Button cancelButton = new Button(Display.getWidth()/2+10*Mideas.getDisplayXFactor(), Display.getHeight()/2-283*Mideas.getDisplayYFactor(), 135*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Cancel", 13, 1) {
@@ -31,6 +32,7 @@ public class AddFriendInputFrame {
 		@Override
 		public void eventButtonClick() {
 			Interface.setAddFriendStatus(false);
+			input.resetText();
 		}
 	};
 	private static AlertBackground background = new AlertBackground(Display.getWidth()/2-180*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 360*Mideas.getDisplayXFactor(), 120*Mideas.getDisplayYFactor(), 0.6f);

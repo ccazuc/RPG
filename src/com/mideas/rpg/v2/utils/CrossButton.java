@@ -10,7 +10,7 @@ public class CrossButton {
 	private float x;
 	private float y;
 	private float x_size = Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor();
-	private float y_size = Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor();
+	private float y_size = Sprites.cross_button.getImageHeight()*Mideas.getDisplayYFactor();
 	private Texture texture = Sprites.cross_button;
 	private boolean buttonDown;
 	private boolean buttonHover;
@@ -50,7 +50,7 @@ public class CrossButton {
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
 	}
 	
-	public void event() {
+	public boolean event() {
 		this.buttonHover = false;
 		if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 			this.texture = Sprites.cross_button_hover;
@@ -69,7 +69,7 @@ public class CrossButton {
 					this.texture = Sprites.cross_button_hover;
 					eventButtonClick();
 					this.hasClicked = true;
-					return;
+					return true;
 				}
 				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					this.buttonDown = false;
@@ -87,6 +87,7 @@ public class CrossButton {
 				this.texture = Sprites.cross_button_hover_down;
 			}
 		}
+		return false;
 	}
 	
 	public void setX(float x) {
@@ -140,5 +141,7 @@ public class CrossButton {
 	public void update(float x, float y) {
 		this.x = x;
 		this.y = y;
+		this.x_size = Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor();
+		this.y_size = Sprites.cross_button.getImageHeight()*Mideas.getDisplayYFactor();
 	}
 }

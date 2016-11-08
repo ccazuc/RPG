@@ -302,6 +302,10 @@ public class Sprites {
 	public static Texture button_menu_selected_left;
 	public static Texture button_menu_selected_right;
 	public static Texture button_menu_selected_middle;
+	public static Texture button_menu_unselected_left;
+	public static Texture button_menu_unselected_right;
+	public static Texture button_menu_unselected_middle;
+	public static Texture button_menu_unselected_top;
 	public static Texture button_menu;
 	public static Texture button_menu_hover;
 	public static Texture[] shortcut = new Texture[8];
@@ -349,7 +353,7 @@ public class Sprites {
 		shortcut[1] = new Texture("sprite/interface/shortcut/book_frame_open.png");
 		shortcut[2] = new Texture("sprite/interface/shortcut/talent_frame_open.png");
 		//shortcut[3] = quest_open
-		//shortcut[4] = social_open
+		shortcut[4] = new Texture("sprite/interface/shortcut/social_frame_open.png");
 		//shortcut[5] = lfg_open
 		shortcut[6] = new Texture("sprite/interface/shortcut/escape_frame_open.png");
 		//shortcut[7] = request_open
@@ -620,6 +624,10 @@ public class Sprites {
 		button_menu_selected_right = new Texture("sprite/interface/button_menu/selected_menu_right.png");
 		button_menu_selected_middle = new Texture("sprite/interface/button_menu/selected_menu_middle.png");
 		button_menu_hover = new Texture("sprite/interface/button_menu/UI-Character-Tab-Highlight.png");
+		button_menu_unselected_left = new Texture("sprite/interface/button_menu/unselected_menu_left.png");
+		button_menu_unselected_right = new Texture("sprite/interface/button_menu/unselected_menu_right.png");
+		button_menu_unselected_middle = new Texture("sprite/interface/button_menu/unselected_menu_middle.png");
+		button_menu_unselected_top = new Texture("sprite/interface/button_menu/unselected_menu_top.png");
 		return true;
 	}
 

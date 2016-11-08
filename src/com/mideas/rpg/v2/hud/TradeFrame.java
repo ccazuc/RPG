@@ -97,11 +97,11 @@ public class TradeFrame {
 		int i = 0;
 		int j = 0;
 		if(tradeAcceptedSelf) {
-			Draw.drawQuad(Sprites.trade_accepted, X_FRAME+20*Mideas.getDisplayXFactor(), Y_FRAME+108*Mideas.getDisplayXFactor(), 180*Mideas.getDisplayXFactor(), 355*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.trade_accepted, X_FRAME+20*Mideas.getDisplayXFactor(), Y_FRAME+108*Mideas.getDisplayXFactor(), 180*Mideas.getDisplayXFactor(), 355*Mideas.getDisplayYFactor());
 			Draw.drawQuad(Sprites.cursor, -100, -100);
 		}
 		if(tradeAcceptedOther) {
-			Draw.drawQuad(Sprites.trade_accepted, X_FRAME+215*Mideas.getDisplayXFactor(), Y_FRAME+108*Mideas.getDisplayXFactor(), 180*Mideas.getDisplayXFactor(), 355*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.trade_accepted, X_FRAME+215*Mideas.getDisplayXFactor(), Y_FRAME+108*Mideas.getDisplayXFactor(), 180*Mideas.getDisplayXFactor(), 355*Mideas.getDisplayYFactor());
 		}
 		while(i < itemList.length) {
 			if(itemList[i] != null) {

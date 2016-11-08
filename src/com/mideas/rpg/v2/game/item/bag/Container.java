@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.game.item.bag;
 
+import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 
@@ -9,6 +10,8 @@ public class Container extends Item {
 	private String sprite_id;
 	private String name;
 	private int size;
+	private int tooltip_maximum_size;
+	private String container_slot_string;
 	
 	public Container(Container bag) {
 		super(bag.id, bag.sprite_id, bag.itemType, bag.name, bag.quality, bag.sellPrice, bag.maxStack, 1);
@@ -16,6 +19,8 @@ public class Container extends Item {
 		this.name = bag.name;
 		this.size = bag.size;
 		this.id = bag.id;
+		this.container_slot_string = "Container "+Integer.toString(this.size)+" slots";
+		this.tooltip_maximum_size = Math.max(TTF2.talent.getWidth(this.name), TTF2.talent.getWidth(this.container_slot_string));
 	}
 	
 	public Container(int id,  String name, String sprite_id, int quality, int size, int sellPrice) {
@@ -24,6 +29,8 @@ public class Container extends Item {
 		this.name = name;
 		this.size = size;
 		this.id = id;
+		this.container_slot_string = "Container "+Integer.toString(this.size)+" slots";
+		this.tooltip_maximum_size = Math.max(TTF2.talent.getWidth(this.name), TTF2.talent.getWidth(this.container_slot_string));
 	}
 	
 	public Container(int id) {
@@ -39,6 +46,13 @@ public class Container extends Item {
 		return this.size;
 	}
 	
+	public String getSlotTooltipString() {
+		return this.container_slot_string;
+	}
+	
+	public int getMaximumTooltipSize() {
+		return this.tooltip_maximum_size;
+	}
 	@Override
 	public int getId() {
 		return this.id;
