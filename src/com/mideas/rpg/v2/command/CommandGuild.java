@@ -71,6 +71,7 @@ public class CommandGuild extends Command {
 						j++;
 					}
 					memberList.add(new GuildMember(id, name, level, guildRank, isOnline, note, officerNote, type));
+					i++;
 				}
 			}
 			else {
@@ -92,6 +93,7 @@ public class CommandGuild extends Command {
 						j++;
 					}
 					memberList.add(new GuildMember(id, name, level, guildRank, isOnline, note, "", type));
+					i++;
 				}
 			}
 			Mideas.joueur1().setGuild(new Guild(guildId, leaderId, guildName, information, motd, memberList, rankList));
