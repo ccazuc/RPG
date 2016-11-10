@@ -8,6 +8,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
@@ -17,7 +18,6 @@ import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
-import com.mideas.rpg.v2.hud.AddFriendInputFrame;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.CastBar;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
@@ -39,12 +39,16 @@ import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.RedAlertFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.ShortcutFrame;
-import com.mideas.rpg.v2.hud.SocialFrame;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.SpellLevel;
 import com.mideas.rpg.v2.hud.TradeFrame;
+import com.mideas.rpg.v2.hud.social.AddFriendInputFrame;
+import com.mideas.rpg.v2.hud.social.AddGuildMemberInputFrame;
+import com.mideas.rpg.v2.hud.social.GuildFrame;
+import com.mideas.rpg.v2.hud.social.GuildInviteNotification;
+import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class Interface {
@@ -78,6 +82,7 @@ public class Interface {
 	private static boolean isConnectedToWorldServer;
 	private static boolean socialFrameActive;
 	private static boolean addingFriendStatus;
+	private static boolean addingGuildMemberStatus;
 	private static double time;
 	
 	private static long LAST_CONTAINER_TIMER;
@@ -131,8 +136,8 @@ public class Interface {
 					//Mideas.joueur1().loadSpellbar();
 				}
 				if(Mideas.joueur1().getTarget() != null) {
-					PlayerPortraitFrame.draw(Mideas.joueur1().getTarget(), Window.getWidth()-243, 50);
-					PlayerPortraitFrame.draw(Mideas.joueur1(), 50, 50);
+					PlayerPortraitFrame.draw(Mideas.joueur1().getTarget(), Window.getWidth()-243*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayYFactor());
+					PlayerPortraitFrame.draw(Mideas.joueur1(), 50*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayYFactor());
 					if((Mideas.joueur1().getStamina() <= 0 || Mideas.joueur1().getTarget().getStamina() <= 0) && !Dungeon.dungeonActive()) {
 						EndFightFrame.draw();
 					}
@@ -143,6 +148,7 @@ public class Interface {
 				SpellBarFrame.draw();
 				CastBar.event();
 				SpellLevel.addSpell();
+				GuildInviteNotification.draw();
 				double time = System.nanoTime();
 				if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 					containerFrameActive = true;
@@ -155,6 +161,9 @@ public class Interface {
 				}
 				if(addingFriendStatus) {
 					AddFriendInputFrame.draw();
+				}
+				if(addingGuildMemberStatus) {
+					AddGuildMemberInputFrame.draw();
 				}
 				if(socialFrameActive) {
 					SocialFrame.draw();
@@ -253,6 +262,9 @@ public class Interface {
 			if(ShortcutFrame.mouseEvent()) {
 				return true;
 			}
+			if(GuildInviteNotification.mouseEvent()) {
+				return true;
+			}
 			if(characterFrameActive) {
 				time = System.nanoTime();
 				if(CharacterFrame.mouseEvent()) {
@@ -295,6 +307,11 @@ public class Interface {
 			}
 			if(addingFriendStatus) {
 				if(AddFriendInputFrame.mouseEvent()) {
+					return true;
+				}
+			}
+			if(addingGuildMemberStatus) {
+				if(AddGuildMemberInputFrame.mouseEvent()) {
 					return true;
 				}
 			}
@@ -379,10 +396,10 @@ public class Interface {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
 				//System.out.println(Keyboard.getEventKey());
-				if(!ChatFrame.getChatActive() && !addingFriendStatus && hasLoggedInToAuth && Mideas.joueur1() != null) {
+				if(!ChatFrame.getChatActive() && !AddFriendInputFrame.getInput().isActive() && !AddGuildMemberInputFrame.getInput().isActive() && !GuildFrame.getInformationInput().isActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						SocialFrame.test();
-						System.out.println(Mideas.joueur1());
+						//SocialFrame.test();
+						CommandGuild.addMember("Midetest");
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
@@ -513,13 +530,25 @@ public class Interface {
 					}
 				}
 				if(hasLoggedInToAuth && Mideas.joueur1() != null) {
-					if(addingFriendStatus) {
+					if(AddFriendInputFrame.getInput().isActive()) {
 						if(AddFriendInputFrame.event()) {
 							return true;
 						}
 					}
-					else if(ChatFrame.event()) {
-						return true;
+					else if(AddGuildMemberInputFrame.getInput().isActive()) {
+						if(AddGuildMemberInputFrame.event()) {
+							return true;
+						}
+					}
+					else if(GuildFrame.getInformationInput().isActive()) {
+						if(GuildFrame.event()) {
+							return true;
+						}
+					}
+					else if(ChatFrame.getChatActive()) {
+						if(ChatFrame.event()) {
+							return true;
+						}
 					}
 				}
 				else if(!hasLoggedInToAuth) {
@@ -541,6 +570,13 @@ public class Interface {
 		return false;
 	}
 	
+	public static void setAllInputInactive() {
+		AddFriendInputFrame.getInput().setIsActive(false);
+		AddGuildMemberInputFrame.getInput().setIsActive(false);
+		GuildFrame.getInformationInput().setIsActive(false);
+		ChatFrame.setChatActive(false);
+	}
+	
 	public static boolean isSocialFrameActive() {
 		return socialFrameActive;
 	}
@@ -551,6 +587,10 @@ public class Interface {
 	
 	public static void setAddFriendStatus(boolean we) {
 		addingFriendStatus = we;
+	}
+	
+	public static void setAddGuildMemberStatus(boolean we) {
+		addingGuildMemberStatus = we;
 	}
 	
 	public static void setIsConnectedToWorldServer(boolean we) {
@@ -757,5 +797,6 @@ public class Interface {
 		ContainerFrame.setBagOpen(3, false);
 		ContainerFrame.setBagOpen(4, false);
 		closeBagEvent();
+		ChatFrame.clearChat();
 	}
 }

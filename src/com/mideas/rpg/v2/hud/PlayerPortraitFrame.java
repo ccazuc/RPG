@@ -12,7 +12,7 @@ public class PlayerPortraitFrame {
 	private final static Color backgroundColor = new Color(0, 0, 0, .4f);
 	private final static Color YELLOW = Color.decode("#F0CE0C");
 	
-	public static void draw(Unit joueur, int x, int y) {
+	public static void draw(Unit joueur, float x, float y) {
 		if(joueur.getHasHpChanged()) {
 			joueur.setHealthText(joueur.getStamina()+" / "+joueur.getMaxStamina());
 			joueur.setHasHpChanged(false);
@@ -22,13 +22,13 @@ public class PlayerPortraitFrame {
 			joueur.setHasManaChanged(false);
 		}
 		Draw.drawColorQuad(x+70*Mideas.getDisplayXFactor(), y+15*Mideas.getDisplayYFactor(), 120*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayXFactor(), backgroundColor);
-		drawHealthBar(joueur, x, y);
-		drawManaBar(joueur, x, y);
-		Draw.drawQuad(Sprites.playerUI, x, y);
+		drawHealthBar(joueur, (int)x, (int)y);
+		drawManaBar(joueur, (int)x, (int)y);
+		Draw.drawQuad(Sprites.playerUI, (int)x, (int)y);
 		TTF2.playerName.drawStringShadow((int)(x+135*Mideas.getDisplayXFactor()-TTF2.playerName.getWidth(joueur.getName())/2), (int)(15*Mideas.getDisplayYFactor()+y), joueur.getName(), Color.orange, Color.black, 1, 1, 1);    
-		drawHealthText(joueur, x, y);
-		drawManaText(joueur, x, y);
-		drawPortait(joueur, x, y);
+		drawHealthText(joueur, (int)x, (int)y);
+		drawManaText(joueur, (int)x, (int)y);
+		drawPortait(joueur, (int)x, (int)y);
 		Draw.drawQuad(Sprites.level, x, y+45);
 		TTF2.hpAndMana.drawStringShadow(x+16-TTF2.hpAndMana.getWidth(String.valueOf(joueur.getLevel()))/2, y+55, String.valueOf(joueur.getLevel()), YELLOW, Color.black, 1, 0, 0);
 		if(Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(joueur)) {

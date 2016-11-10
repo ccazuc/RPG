@@ -3,12 +3,16 @@ package com.mideas.rpg.v2.command;
 import java.util.ArrayList;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.guild.GuildMember;
 import com.mideas.rpg.v2.game.guild.GuildRank;
+import com.mideas.rpg.v2.hud.social.GuildInviteNotification;
 
 public class CommandGuild extends Command {
 	
@@ -23,6 +27,7 @@ public class CommandGuild extends Command {
 		else if(packetId == PacketID.GUILD_INVITE_PLAYER) {
 			String player_name = ConnectionManager.getConnection().readString();
 			String guild_name = ConnectionManager.getConnection().readString();
+			GuildInviteNotification.setRequest(player_name, guild_name);
 			//enable popup
 		}
 		else if(packetId == PacketID.GUILD_INIT) {
@@ -33,18 +38,12 @@ public class CommandGuild extends Command {
 			String information = ConnectionManager.getConnection().readString();
 			String motd = ConnectionManager.getConnection().readString();
 			int rankListSize = ConnectionManager.getConnection().readInt();
-			boolean isLeader = ConnectionManager.getConnection().readBoolean();
 			ArrayList<GuildRank> rankList = new ArrayList<GuildRank>(rankListSize);
 			while(i < rankListSize) {
 				int rank_order = ConnectionManager.getConnection().readInt();
 				String name = ConnectionManager.getConnection().readString();
-				if(isLeader) {
-					int permission = ConnectionManager.getConnection().readInt();
-					rankList.add(new GuildRank(rank_order, permission, name));
-				}
-				else {
-					rankList.add(new GuildRank(rank_order, 0, name));
-				}
+				int permission = ConnectionManager.getConnection().readInt();
+				rankList.add(new GuildRank(rank_order, permission, name));
 				i++;
 			}
 			i = 0;
@@ -97,6 +96,41 @@ public class CommandGuild extends Command {
 				}
 			}
 			Mideas.joueur1().setGuild(new Guild(guildId, leaderId, guildName, information, motd, memberList, rankList));
+			Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getMember(Mideas.joueur1().getId()).getRank());
+			Mideas.joueur1().getGuild().getMember(Mideas.joueur1().getId()).setOnlineStatus(true);
+			Mideas.joueur1().getGuild().initOnlineMembers();
 		}
+		else if(packetId == PacketID.GUILD_NEW_MEMBER) {
+			int id = ConnectionManager.getConnection().readInt();
+			String name = ConnectionManager.getConnection().readString();
+			String note = ConnectionManager.getConnection().readString();
+			String officerNote = ConnectionManager.getConnection().readString();
+			int rankOrder = ConnectionManager.getConnection().readInt();
+			GuildRank rank = Mideas.joueur1().getGuild().getRank(rankOrder);
+			int level = ConnectionManager.getConnection().readInt();
+			boolean isOnline = ConnectionManager.getConnection().readBoolean();
+			ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
+			Mideas.joueur1().getGuild().addMember(new GuildMember(id, name, level, rank, isOnline, note, officerNote, type));
+			ChatFrame.addMessage(new Message(name+" joined the guild.", false, MessageType.SELF));
+		}
+	}
+	
+	public static void addMember(String name) {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_INVITE_PLAYER);
+		ConnectionManager.getConnection().writeString(name);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void acceptRequest() {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_ACCEPT_REQUEST);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void declineRequest() {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_DECLINE_REQUEST);
+		ConnectionManager.getConnection().send();
 	}
 }

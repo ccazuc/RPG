@@ -36,7 +36,6 @@ import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.SpellManager;
-import com.mideas.rpg.v2.hud.AddFriendInputFrame;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
@@ -48,9 +47,12 @@ import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
 import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
-import com.mideas.rpg.v2.hud.SocialFrame;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
+import com.mideas.rpg.v2.hud.social.AddFriendInputFrame;
+import com.mideas.rpg.v2.hud.social.FriendsFrame;
+import com.mideas.rpg.v2.hud.social.GuildFrame;
+import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
@@ -278,6 +280,8 @@ public class Mideas {
 		ChatFrame.updateSize();
 		AddFriendInputFrame.updateSize();
 		PerformanceBarFrame.updateSize();
+		FriendsFrame.updateSize();
+		GuildFrame.updateSize();
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
 			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
 		}

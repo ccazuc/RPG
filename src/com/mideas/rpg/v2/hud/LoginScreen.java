@@ -16,10 +16,8 @@ import com.mideas.rpg.v2.utils.Input;
 
 public class LoginScreen {
 
-	private static boolean accountActive = true;
-	private static boolean passwordActive;
-	private static Input account = new Input(TTF2.loginScreenAccount, 10);
-	private static Input password = new Input(TTF2.loginScreenPassword, 19);
+	private static Input account = new Input(TTF2.loginScreenAccount, 10, false, false, true);
+	private static Input password = new Input(TTF2.loginScreenPassword, 19, false, false);
 	private static Alert alert = new Alert("", Display.getWidth()/2-355*Mideas.getDisplayXFactor(), -20, 700*Mideas.getDisplayXFactor(), 130, 230, 38, Display.getHeight()+30, 20, "Ok");
 	//private static boolean alertActive;
 	private static boolean init;
@@ -54,7 +52,7 @@ public class LoginScreen {
 		TTF2.loginScreenAccount.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.white);
 		TTF2.loginScreenPassword.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), drawPassword(password.getText().length()), Color.white);
 		if(System.currentTimeMillis()%1000 < 500) {
-			if(accountActive) {
+			if(account.isActive()) {
 				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.white);
 			}
 			else {
@@ -77,12 +75,12 @@ public class LoginScreen {
 				connectionButton.event();
 				if((Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) && Mouse.getEventButtonState()) {
 					if(Mideas.mouseX() >= Display.getWidth()/2-105*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+105*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2+8*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()/2+43*Mideas.getDisplayYFactor()) {
-						accountActive = true;
-						passwordActive = false;
+						password.setIsActive(false);
+						account.setIsActive(true);
 					}
 					else if(Mideas.mouseX() >= Display.getWidth()/2-105*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+105*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2+108*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()/2+143*Mideas.getDisplayYFactor()) {
-						accountActive = false;
-						passwordActive = true;
+						password.setIsActive(true);
+						account.setIsActive(false);
 					}
 				}
 			}
@@ -101,14 +99,14 @@ public class LoginScreen {
 		}
 		if(!alert.isActive()) {
 			if(Keyboard.getEventKey() == Keyboard.KEY_TAB) {
-				accountActive = !accountActive;
-				passwordActive = !passwordActive;
+				password.setIsActive(!password.isActive());
+				account.setIsActive(!account.isActive());;
 			}
 		}
-		if(accountActive) {
+		if(account.isActive()) {
 			account.event();
 		}
-		else if(passwordActive) {
+		else if(password.isActive()) {
 			password.event();
 		}
 	}
@@ -148,10 +146,9 @@ public class LoginScreen {
 	}
 	
 	public static void loginSuccess() {
-		account.resetText();
 		password.resetText();
-		accountActive = true;
-		passwordActive = false;
+		account.setIsActive(false);
+		password.setIsActive(true);
 	}
 	
 	public static void updateSize() {

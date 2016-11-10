@@ -64,7 +64,6 @@ public class ChatFrame {
 	private static int xShift;
 	private static int yDraw; 
 	private static int xDraw;
-	private static int i;
 	
 	private static String warrior = "Warrior";
 	private static String paladin = "Paladin";
@@ -284,7 +283,6 @@ public class ChatFrame {
 					numberMessageSent++;
 					cursorPosition = 0;
 					cursorShift = 0;
-					i++;
 				}
 				tempMessage =  "";
 				tempLength = 0;
@@ -684,7 +682,7 @@ public class ChatFrame {
  	}
 	
 	private static void upArrow() {
-		if(i >= numberUpArrow) {
+		if(numberMessageSent >= numberUpArrow) {
 			tempMessage = rawMessages.get(numberMessageSent-numberUpArrow);
 			numberUpArrow++;
 			cursorPosition = tempMessage.length();

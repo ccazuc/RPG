@@ -20,6 +20,7 @@ public class ButtonMenu {
 	private int x_size;
 	private int y_size;
 	private String text;
+	private int textWidth;
 	private boolean isSelected;
 	private boolean buttonHover;
 	private boolean buttonDown;
@@ -51,6 +52,7 @@ public class ButtonMenu {
 			e.printStackTrace();
 		}
 		this.font = new TTF(awtFont, true);
+		this.textWidth = this.font.getWidth(this.text);
 	}
 	
 	public void draw() {
@@ -59,7 +61,7 @@ public class ButtonMenu {
 			Draw.drawQuad(Sprites.button_menu_selected_left, this.x, this.y, sideWidth, this.y_size);
 			Draw.drawQuad(Sprites.button_menu_selected_middle, this.x+sideWidth, this.y, this.x_size-2*sideWidth, this.y_size);
 			Draw.drawQuad(Sprites.button_menu_selected_right, this.x+this.x_size-sideWidth, this.y, sideWidth, this.y_size);
-			this.font.drawStringShadow(this.x+this.x_size/2-this.font.getWidth(this.text)/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.selectedColor, Color.black, this.shadow_size, 0, 0);
+			this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.selectedColor, Color.black, this.shadow_size, 0, 0);
 		}
 		else {
 			//Draw.drawQuad(Sprites.button_menu, this.x, this.y+this.anchor_difference, this.x_size, this.y_size+Math.abs(this.anchor_difference));
@@ -70,17 +72,17 @@ public class ButtonMenu {
 			Draw.drawQuad(Sprites.button_menu_unselected_top, this.x, this.y+1, this.x_size, Sprites.button_menu_unselected_top.getImageHeight()*Mideas.getDisplayYFactor());
 			if(activateCondition()) {
 				if(this.buttonDown) {
-					this.font.drawStringShadow(this.x+this.x_size/2-this.font.getWidth(this.text)/2+2, this.y+this.y_size/2-this.font.getLineHeight()/2+2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
+					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2+2, this.y+this.y_size/2-this.font.getLineHeight()/2+2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
 				}
 				else {
-					this.font.drawStringShadow(this.x+this.x_size/2-this.font.getWidth(this.text)/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
+					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
 				}
 				if(this.buttonHover) {
 					Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, this.y, this.x_size, this.y_size);
 				}
 			}
 			else {
-				this.font.drawStringShadow(this.x+this.x_size/2-this.font.getWidth(this.text)/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, GREY, Color.black, this.shadow_size, 0, 0);
+				this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, GREY, Color.black, this.shadow_size, 0, 0);
 			}
 		}
 	}
@@ -88,7 +90,7 @@ public class ButtonMenu {
 	public boolean event() {
 		if(!this.isSelected && activateCondition()) {
 			this.buttonHover = false;
-			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y+4 && Mideas.mouseY() <= this.y+this.y_size) {
 				this.buttonHover = true;
 				this.color = this.hoveredColor;
 			}

@@ -44,6 +44,15 @@ public class TTF2 {
 	public static TTF partyFrameTooltip;
 	public static TTF addingFriendInput;
 	public static TTF addingFriendTitle;
+	public static TTF guildTitle;
+	public static TTF guildMember;
+	public static TTF guildMotd;
+	public static TTF guildInformationTitle;
+	public static TTF guildInformationText;
+	public static TTF guildMemberInformationName;
+	public static TTF guildMemberInformationRank;
+	public static TTF guildMemberInformationLevel;
+	public static TTF guildMemberInformationNote;
 	
 	public static void init() throws FontFormatException, IOException {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
@@ -184,5 +193,41 @@ public class TTF2 {
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(14f);
 		addingFriendTitle = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(15f);
+		guildTitle = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
+		guildMember = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(12f);
+		guildMotd = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(14f);
+		guildInformationTitle = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
+		guildInformationText = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
+		guildMemberInformationName = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
+		guildMemberInformationRank = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
+		guildMemberInformationLevel = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
+		guildMemberInformationNote = new TTF(awtFont, true);
 	}
 }

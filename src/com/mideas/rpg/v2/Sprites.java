@@ -308,6 +308,8 @@ public class Sprites {
 	public static Texture button_menu_unselected_top;
 	public static Texture button_menu;
 	public static Texture button_menu_hover;
+	public static Texture guild_frame;
+	public static Texture guild_close_information_button_border;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -524,10 +526,10 @@ public class Sprites {
 		right_colored_arrow = new Texture("sprite/interface/right_colored_arrow.png");
 		right_uncolored_arrow = new Texture("sprite/interface/right_uncolored_arrow.png");
 		gold_coin = new Texture("sprite/interface/gold_coin.png");
-		check_box = new Texture("sprite/interface/checkBox/check_box.png");
-		check_box_hover = new Texture("sprite/interface/checkBox/check_box_hover.png");
-		check_box_down = new Texture("sprite/interface/checkBox/check_box_down2.png");
-		check_box_down_hover = new Texture("sprite/interface/checkBox/check_box_down_hover.png");
+		check_box = new Texture("sprite/interface/checkBox/UI-CheckBox-Up.png");
+		check_box_hover = new Texture("sprite/interface/checkBox/UI-CheckBox-Highlight.png");
+		check_box_down = new Texture("sprite/interface/checkBox/UI-CheckBox-Down.png");
+		//check_box_down_hover = new Texture("sprite/interface/checkBox/check_box_down_hover.png");
 		check_box_enable = new Texture("sprite/interface/checkBox/check_box_enable.png");
 		interface_option_frame = new Texture("sprite/interface/interface_option_frame.png");
 		socketing_frame = new Texture("sprite/interface/socketing_frame.png");
@@ -545,6 +547,8 @@ public class Sprites {
 		blue_socket_background = new Texture("sprite/interface/gem/blue_socket_background.png");
 		yellow_socket_background = new Texture("sprite/interface/gem/yellow_socket_background.png");
 		click_down = new Texture("sprite/interface/click_down.png");
+		guild_frame = new Texture("sprite/interface/social/guild_frame.png");
+		guild_close_information_button_border = new Texture("sprite/interface/social/guild_close_information_button_border.png");
 		return true;
 	}
 		

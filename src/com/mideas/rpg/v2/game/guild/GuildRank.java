@@ -5,7 +5,6 @@ public class GuildRank {
 	private int order;
 	private int permission;
 	private boolean[] permissionList;
-	private int waitingPermission;
 	private String name;
 	
 	//Permission index in the table
@@ -32,6 +31,28 @@ public class GuildRank {
 		this.permissionList = new boolean[15];
 	}
 	
+	private void parsePermission() {
+		int i = 0;
+		while(i < this.permissionList.length) {
+			if((this.permission & (1 << i)) != 0) {
+				this.permissionList[i] = true;
+			}
+			i++;
+		}
+	}
+	
+	public boolean canInvitePlayer() {
+		return this.permissionList[CAN_INVITE_MEMBER];
+	}
+	
+	public boolean canSeeOfficerNote() {
+		return this.permissionList[CAN_SEE_OFFICER_NOTE];
+	}
+	
+	public boolean canTalkInGuildChannel() {
+		return this.permissionList[CAN_TALK_GUILD_CHANNEL];
+	}
+	
 	public int getOrder() {
 		return this.order;
 	}
@@ -45,7 +66,10 @@ public class GuildRank {
 	}
 	
 	public void setPermission(int permission) {
-		this.permission = permission;
+		if(this.permission != permission) {
+			this.permission = permission;
+			parsePermission();
+		}
 	}
 	
 	public String getName() {

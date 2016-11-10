@@ -51,13 +51,14 @@ public class SelectScreen {
 	private static float x_selected_classe = -868;
 	private static float y_selected_classe = 99;
 	private static Color bgColor = new Color(0, 0, 0, .35f);
-	private static Input character = new Input(TTF2.loginScreenAccount, 12);
-	static Input deleteCharacter = new Input(TTF2.loginScreenAccount, 8);
+	static Input character = new Input(TTF2.loginScreenAccount, 12, false, false);
+	static Input deleteCharacter = new Input(TTF2.loginScreenAccount, 8, false, false);
 	private static Alert alert = new Alert("", Display.getWidth()/2-360*Mideas.getDisplayXFactor(), -20, 700, 130, 230, 38, Display.getHeight()+30, 20, "Ok");
 	private static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293, 278*Mideas.getDisplayXFactor(), 36, "Create new character", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			creatingCharacter = true;
+			character.setIsActive(true);
 			this.reset();
 		}
 	};	
@@ -73,6 +74,7 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			creatingCharacter = false;
+			character.setIsActive(false);
 			acceptCharacterButton.reset();
 			SelectScreen.mouseEvent();
 		}
@@ -103,6 +105,7 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			deletingCharacter = true;
+			deleteCharacter.setIsActive(true);
 			this.reset();
 		}
 	};
@@ -110,6 +113,7 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			deleteCharacter();
+			deleteCharacter.setIsActive(false);
 		}
 		
 		@Override
@@ -124,6 +128,7 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			deletingCharacter = false;
+			deleteCharacter.setIsActive(false);
 		}
 	};
 

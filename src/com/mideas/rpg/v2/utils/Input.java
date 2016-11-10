@@ -25,101 +25,142 @@ public class Input {
 	private int selectedStarts;
 	private TTF font;
 	private int maxLength;
+	private boolean isActive;
+	private boolean multipleLine;
+	private boolean debugActive;
 	
-	public Input(TTF font, int maxLength) {
+	private final static int ENTER_VALUE = 27;
+	
+	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive) {
 		this.font = font;
 		this.maxLength = maxLength;
+		this.multipleLine = multipleLine;
+		this.debugActive = debugActive;
+	}
+	
+	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive, boolean isActive) {
+		this.font = font;
+		this.maxLength = maxLength;
+		this.multipleLine = multipleLine;
+		this.debugActive = debugActive;
+		this.isActive = isActive;
 	}
 	
 	public boolean event() {
-		if(Keyboard.getEventKey() == 1) { //escape
-			resetSelectedPosition();
-			return true;
-		}
-		else if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { //left shift
-			if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-				if(Keyboard.getEventKey() == 203) { // shift CTRL left arrow
-					selectCTRLLeftArrow();
+		if(this.isActive) {
+			if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { //left shift
+				if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+					if(Keyboard.getEventKey() == 203) { // shift CTRL left arrow
+						selectCTRLLeftArrow();
+						return true;
+					}
+					else if(Keyboard.getEventKey() == 205) { // shift CTRL right arrow
+						selectCTRLRightArrow();
+						return true;
+					}
+				}
+				if(Keyboard.getEventKey() == 203) { //shift left arrow
+					selectLeftArrow();
 					return true;
 				}
-				else if(Keyboard.getEventKey() == 205) { // shift CTRL right arrow
-					selectCTRLRightArrow();
+				else if(Keyboard.getEventKey() == 205) { // shift right arrow
+					selectRightArrow();
 					return true;
 				}
 			}
-			if(Keyboard.getEventKey() == 203) { //shift left arrow
-				selectLeftArrow();
-				return true;
+			else if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
+				if(Keyboard.getEventKey() == 14) { //delete
+					CTRLDelete();
+					this.tempLength = 0;
+					resetSelectedPosition();
+					return true;
+				}
+				else if(Keyboard.getEventKey() == Keyboard.KEY_V) { // c/c
+					String temp = Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "");
+		            write(temp);
+		            this.cursorPosition+= temp.length();
+					return true;
+		        }
+				else if(Keyboard.getEventKey() == 203) { //left arrow
+					CTRLleftArrow();
+					resetSelectedPosition();
+					return true;
+				}
+				else if(Keyboard.getEventKey() == 205) { //right arrow
+					CTRLrightArrow();
+					resetSelectedPosition();
+					return true;
+				}
+				else if(Keyboard.getEventKey() == Keyboard.KEY_C) {
+					copySelected();
+					return true;
+				}
 			}
-			else if(Keyboard.getEventKey() == 205) { // shift right arrow
-				selectRightArrow();
-				return true;
-			}
-		}
-		else if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
-			if(Keyboard.getEventKey() == 14) { //delete
-				CTRLDelete();
-				this.tempLength = 0;
+			else if(Keyboard.getEventKey() == 14) { //delete
+				delete();
 				resetSelectedPosition();
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_V) { // c/c
-				String temp = Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "");
-	            write(temp);
-	            this.cursorPosition+= temp.length();
-				return true;
-	        }
 			else if(Keyboard.getEventKey() == 203) { //left arrow
-				CTRLleftArrow();
+				leftArrow();
 				resetSelectedPosition();
 				return true;
 			}
 			else if(Keyboard.getEventKey() == 205) { //right arrow
-				CTRLrightArrow();
+				rightArrow();
 				resetSelectedPosition();
 				return true;
 			}
-			else if(Keyboard.getEventKey() == Keyboard.KEY_C) {
-				copySelected();
+			else if(Keyboard.getEventKey() == 211) { //suppr
+				suppr();
+				resetSelectedPosition();
 				return true;
 			}
-		}
-		else if(Keyboard.getEventKey() == 14) { //delete
-			delete();
-			resetSelectedPosition();
-			return true;
-		}
-		else if(Keyboard.getEventKey() == 203) { //left arrow
-			leftArrow();
-			resetSelectedPosition();
-			return true;
-		}
-		else if(Keyboard.getEventKey() == 205) { //right arrow
-			rightArrow();
-			resetSelectedPosition();
-			return true;
-		}
-		else if(Keyboard.getEventKey() == 211) { //suppr
-			suppr();
-			resetSelectedPosition();
-			return true;
-		}
-		else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB && Keyboard.getEventKey() != 56) { //write
-			if(this.text.length() < this.maxLength) {
-				char c = Keyboard.getEventCharacter();
-				if(isValidCharacter(c)) {
-					write(c);
-					this.cursorPosition++;
-					resetSelectedPosition();
+			else if(Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB && Keyboard.getEventKey() != 56) { //write
+				if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156 || Keyboard.getEventKey() == 28) {
+					if(!this.multipleLine) {
+						return false;
+					}
+					if(this.debugActive) {
+						System.out.println("Enter");
+					}
 				}
+				if(this.text.length() < this.maxLength) {
+					char c = Keyboard.getEventCharacter();
+					if(this.debugActive) {
+						System.out.println("char: "+c+", value : "+(int)c);
+					}
+					if(isValidCharacter(c) || Keyboard.getEventKey() == 28 || Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+						if(this.debugActive) {
+							System.out.println("Enter is valid");
+						}
+						if(!keyEvent(c)) {
+							if(this.debugActive) {
+								System.out.println("No event triggered");
+							}
+							write(c);
+							resetSelectedPosition();
+						}
+					}
+				}
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
 	
+	public boolean keyEvent(char c) {return false;}
+	
 	private boolean isValidCharacter(char c) {
 		return c >= ' ' && c <= 255;
+	}
+	
+	public void setIsActive(boolean we) {
+		this.isActive = we;
+	}
+	
+	public boolean isActive() {
+		return this.isActive;
 	}
 	
 	private void write(String add) {
@@ -132,6 +173,7 @@ public class Input {
 			this.text = beg+add+end;
 		}
 		this.cursorShift+= this.font.getWidth(add);
+		this.cursorPosition+= add.length();
 	}
 	
 	public void resetText() {
@@ -142,6 +184,11 @@ public class Input {
 		this.selectedLength = 0;
 		this.selectedQuadLength = 0;
 		this.selectedStarts = 0;
+	}
+	
+	public void setText(String text) {
+		resetText();
+		write(text);
 	}
 	
 	private void write(char add) {
@@ -155,6 +202,7 @@ public class Input {
 			this.text = beg+add+end;
 		}
 		this.cursorShift+= this.font.getWidth(add);
+		this.cursorPosition++;
 	}
 
 	private void delete() {
@@ -163,7 +211,7 @@ public class Input {
 				deleteSelected();
 			}
 			else if(this.cursorPosition > 0) {
-				this.cursorShift-= this.font.getWidth(this.text.substring(this.cursorPosition-1).charAt(0));
+				this.cursorShift-= this.font.getWidth(this.text.charAt(this.cursorPosition-1));
 				String beg = this.text.substring(0, this.cursorPosition-1+this.text.substring(0, this.tempLength).length());
 				String end = this.text.substring(this.cursorPosition+this.text.substring(0, this.tempLength).length(), this.text.length());
 				this.text = beg+end;
@@ -217,13 +265,13 @@ public class Input {
 		int i = this.cursorPosition;
 		String temp = this.text.substring(this.cursorPosition);
 		if(this.text.length() != 0) {
-			if(this.text.substring(this.text.length()-1).charAt(0) == ' ' || this.text.substring(this.text.length()-1).charAt(0) == ',') {
+			if(this.text.charAt(this.text.length()-1) == ' ' || this.text.charAt(this.text.length()-1) == ',' || this.text.charAt(this.text.length()-1) == ENTER_VALUE) {
 				this.text = this.text.substring(0, this.text.length()-1);
 				i--;
 			}
 		}
 		while(i > 0) {
-			if(this.text.substring(i-1, i).charAt(0) == ' ' || this.text.substring(i-1, i).charAt(0) == ',') {
+			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_VALUE) {
 				this.text = this.text.substring(0, i);
 				this.cursorPosition = this.text.length();
 				this.cursorShift = this.font.getWidth(this.text);
@@ -239,20 +287,20 @@ public class Input {
 	private boolean CTRLleftArrow() {
 		int i = this.cursorPosition;
 		if(this.text.length() != 0 && i > 0) {
-			if(this.text.substring(this.cursorPosition-1).charAt(0) == ' ' || this.text.substring(this.cursorPosition-1).charAt(0) == ',') {
-				this.cursorShift-= this.font.getWidth(this.text.substring(this.cursorPosition-1).charAt(0));
+			if(this.text.charAt(this.cursorPosition-1) == ' ' || this.text.charAt(this.cursorPosition-1) == ',' || this.text.charAt(this.cursorPosition-1) == ENTER_VALUE) {
+				this.cursorShift-= this.font.getWidth(this.text.charAt(this.cursorPosition-1));
 				this.cursorPosition--;
 				i--;
 			}
 		}
 		while(i > 0) {
 			this.cursorPosition--;
-			this.cursorShift-= this.font.getWidth(this.text.substring(i-1, i).charAt(0));
+			this.cursorShift-= this.font.getWidth(this.text.charAt(i-1));
 			i--;
 			if(i <= 0) {
 				return true;
 			}
-			if(this.text.substring(i-1, i).charAt(0) == ' ' || this.text.substring(i-1, i).charAt(0) == ',') {
+			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_VALUE) {
 				return true;
 			}
 		}
@@ -267,26 +315,30 @@ public class Input {
 		return this.cursorShift;
 	}
 	
+	public int getCursorPosition() {
+		return this.cursorPosition;
+	}
+	
 	private boolean CTRLrightArrow() {
 		int i = this.cursorPosition;
 		if(i < this.text.length()) {
 			if(this.text.length() != 0) {
-				if(this.text.substring(this.cursorPosition+1).charAt(0) == ' ' || this.text.substring(this.cursorPosition+1).charAt(0) == ',') {
-					this.cursorShift+= this.font.getWidth(this.text.substring(this.cursorPosition+1).charAt(0));
+				if(this.text.charAt(this.cursorPosition+1) == ' ' || this.text.charAt(this.cursorPosition+1) == ',' || this.text.charAt(this.cursorPosition+1) == ENTER_VALUE) {
+					this.cursorShift+= this.font.getWidth(this.text.charAt(this.cursorPosition+1));
 					this.cursorPosition++;
 					i++;
 				}
 			}
 			while(i < this.text.length() && i >= 0) {
 				this.cursorPosition++;
-				this.cursorShift+= this.font.getWidth(this.text.substring(i, i+1).charAt(0));
+				this.cursorShift+= this.font.getWidth(this.text.charAt(i));
 				i++;
 				if(i >= this.text.length()) {
 					return true;
 				}
-				if(this.text.substring(i, i+1).charAt(0) == ' ' || this.text.substring(i, i+1).charAt(0) == ',') {
+				if(this.text.charAt(i) == ' ' || this.text.charAt(i) == ',' || this.text.charAt(i) == ENTER_VALUE) {
 					this.cursorPosition++;
-					this.cursorShift+= this.font.getWidth(this.text.substring(i, i+1).charAt(0));
+					this.cursorShift+= this.font.getWidth(this.text.charAt(i));
 					return true;
 				}
 			}
@@ -330,9 +382,9 @@ public class Input {
 			this.selectedStarts = 40+this.cursorShift;
 		}
 		if(this.text.length() != 0 && i > 0) {
-			if(this.text.substring(this.cursorPosition-1).charAt(0) == ' ' || this.text.substring(this.cursorPosition-1).charAt(0) == ',') {
-				this.cursorShift-= this.font.getWidth(this.text.substring(this.cursorPosition-1).charAt(0));
-				this.selectedQuadLength-= this.font.getWidth(this.text.substring(this.cursorPosition-1).charAt(0));
+			if(this.text.charAt(this.cursorPosition-1) == ' ' || this.text.charAt(this.cursorPosition-1) == ',' || this.text.charAt(this.cursorPosition-1) == ENTER_VALUE) {
+				this.cursorShift-= this.font.getWidth(this.text.charAt(this.cursorPosition-1));
+				this.selectedQuadLength-= this.font.getWidth(this.text.charAt(this.cursorPosition-1));
 				this.selectedLength--;
 				this.cursorPosition--;
 				i--;
@@ -341,13 +393,13 @@ public class Input {
 		while(i > 0) {
 			this.cursorPosition--;
 			this.cursorShift-= this.font.getWidth(this.text.substring(i-1, i).charAt(0));
-			this.selectedQuadLength-= this.font.getWidth(this.text.substring(i-1, i).charAt(0));
+			this.selectedQuadLength-= this.font.getWidth(this.text.charAt(i-1));
 			this.selectedLength--;
 			i--;
 			if(i <= 0) {
 				return true;
 			}
-			if(this.text.substring(i-1, i).charAt(0) == ' ' || this.text.substring(i-1, i).charAt(0) == ',') {
+			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_VALUE) {
 				return true;
 			}
 		}
@@ -361,9 +413,9 @@ public class Input {
 		}
 		if(i < this.text.length()) {
 			if(this.text.length() != 0 && this.cursorPosition+1 <= this.text.length() && this.cursorPosition+1 >= 0) {
-				if(this.text.substring(this.cursorPosition+1).charAt(0) == ' ' || this.text.substring(this.cursorPosition+1).charAt(0) == ',') {
-					this.cursorShift+= this.font.getWidth(this.text.substring(this.cursorPosition+1).charAt(0));
-					this.selectedQuadLength+= this.font.getWidth(this.text.substring(this.cursorPosition+1).charAt(0));
+				if(this.text.charAt(this.cursorPosition+1) == ' ' || this.text.charAt(this.cursorPosition+1) == ',' || this.text.charAt(this.cursorPosition+1) == ENTER_VALUE) {
+					this.cursorShift+= this.font.getWidth(this.text.charAt(this.cursorPosition+1));
+					this.selectedQuadLength+= this.font.getWidth(this.text.charAt(this.cursorPosition+1));
 					this.selectedLength++;
 					this.cursorPosition++;
 					i++;
@@ -371,14 +423,14 @@ public class Input {
 			}
 			while(i < this.text.length() && i >= 0) {
 				this.cursorPosition++;
-				this.cursorShift+= this.font.getWidth(this.text.substring(i, i+1).charAt(0));
-				this.selectedQuadLength+= this.font.getWidth(this.text.substring(i, i+1).charAt(0));
+				this.cursorShift+= this.font.getWidth(this.text.charAt(i));
+				this.selectedQuadLength+= this.font.getWidth(this.text.charAt(i));
 				this.selectedLength++;
 				i++;
 				if(i >= this.text.length()) {
 					return true;
 				}
-				if(this.text.substring(i, i+1).charAt(0) == ' ' || this.text.substring(i, i+1).charAt(0) == ',') {
+				if(this.text.charAt(i) == ' ' || this.text.charAt(i) == ',' || this.text.charAt(i) == ENTER_VALUE) {
 					return true;
 				}
 			}

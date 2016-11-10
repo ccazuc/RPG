@@ -72,6 +72,10 @@ public class RealmListFrame {
 		realmList.add(realm);
 	}
 	
+	public static void clearRealmList() {
+		realmList.clear();
+	}
+	
 	public static void sortRealmList() {
 		int i = 0;
 		int j = 0;

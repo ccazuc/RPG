@@ -10,6 +10,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.guild.Guild;
+import com.mideas.rpg.v2.game.guild.GuildRank;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.bag.Bag;
@@ -39,10 +40,12 @@ public class Joueur extends Unit {
 	private WeaponType[] weaponType;
 	private Spell[] spellUnlocked;
 	private int numberYellowGem;
+	private GuildRank guildRank;
 	private Bag bag = new Bag();
 	private Shortcut[] shortcut;
 	private Shortcut[] spells;
 	private int numberBlueGem;
+	private String guildTitle;
 	private int defaultArmor;
 	private int numberRedGem;
 	private int goldGained;
@@ -575,6 +578,19 @@ public class Joueur extends Unit {
 			}
 			i++;
 		}
+	}
+	
+	public String getGuildTitle() {
+		return this.guildTitle;
+	}
+	
+	public GuildRank getGuildRank() {
+		return this.guildRank;
+	}
+	
+	public void setGuildRank(GuildRank guildRank) {
+		this.guildRank = guildRank;
+		this.guildTitle = guildRank.getName()+" of "+this.guild.getName();
 	}
 	
 	public Guild getGuild() {

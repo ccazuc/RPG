@@ -23,6 +23,10 @@ public class InputBar {
 		Draw.drawQuad(Sprites.input_bar_right_border, this.x+this.x_size-imageWidth, this.y);
 	}
 	
+	public boolean isHover() {
+		return Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+Sprites.input_bar_left_border.getImageHeight()*Mideas.getDisplayYFactor();
+	}
+	
 	public void setXSize(float x_size) {
 		this.x_size = (int)x_size;
 	}

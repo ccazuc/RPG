@@ -20,6 +20,7 @@ import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
 import com.mideas.rpg.v2.command.CommandLoadStats;
 import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandLoginRealm;
+import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
@@ -39,6 +40,8 @@ import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.hud.LoginScreen;
+import com.mideas.rpg.v2.hud.RealmListFrame;
+
 import static com.mideas.rpg.v2.connection.PacketID.*;
 
 public class ConnectionManager {
@@ -191,9 +194,12 @@ public class ConnectionManager {
 			} 
 			catch (IOException e) {
 				e.printStackTrace();
+				CommandLogout.write();
 				close();
 				closeAuth();
 				Interface.setHasLoggedInToAuth(false);
+				Interface.setIsConnectedToWorldServer(false);
+				RealmListFrame.clearRealmList();
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);
 				ChatFrame.clearChat();
@@ -213,8 +219,12 @@ public class ConnectionManager {
 			} 
 			catch (IOException e) {
 				e.printStackTrace();
+				CommandLogout.write();
 				closeAuth();
+				close();
 				Interface.setHasLoggedInToAuth(false);
+				Interface.setIsConnectedToWorldServer(false);
+				RealmListFrame.clearRealmList();
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);
 				ChatFrame.clearChat();

@@ -1,20 +1,23 @@
-package com.mideas.rpg.v2.hud;
+package com.mideas.rpg.v2.hud.social;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.Friend;
 import com.mideas.rpg.v2.game.SocialFrameMenu;
-import com.mideas.rpg.v2.hud.social.FriendsFrame;
 import com.mideas.rpg.v2.utils.ButtonMenu;
 import com.mideas.rpg.v2.utils.CrossButton;
 
 public class SocialFrame {
 
-	static SocialFrameMenu selectedMenu = SocialFrameMenu.FRIEND_FRAME;
+	static SocialFrameMenu selectedMenu = SocialFrameMenu.GUILD_FRAME;
 	static Friend selectedFriend;
-	private final static float BUTTON_MENU_Y = 611;
+	private static int Y_SOCIAL_FRAME_DEFAULT = 115;
+	static float Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
+	private static int X_SOCIAL_FRAME_DEFAULT = 5;
+	static float X_SOCIAL_FRAME = X_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayXFactor();
+	private final static float BUTTON_MENU_Y = 461;
 	private final static float BUTTON_MENU_Y_SIZE = 33;
-	private static ButtonMenu friendButtonMenu = new ButtonMenu(30*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 54*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Friends", 10, 1, true) {
+	private static ButtonMenu friendButtonMenu = new ButtonMenu(X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 54*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Friends", 10, 1, true) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -23,7 +26,7 @@ public class SocialFrame {
 			selectedMenu = SocialFrameMenu.FRIEND_FRAME;
 		}
 	};
-	private static ButtonMenu whoButtonMenu = new ButtonMenu(90*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 44*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Who", 10, 1, false) {
+	private static ButtonMenu whoButtonMenu = new ButtonMenu(X_SOCIAL_FRAME+80*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 44*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Who", 10, 1, false) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -32,13 +35,13 @@ public class SocialFrame {
 			//selectedMenu = SocialFrameMenu.WHO_FRAME;
 		}
 	};
-	private static ButtonMenu guildButtonMenu = new ButtonMenu(140*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 60*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Guild", 10, 1, false) {
+	private static ButtonMenu guildButtonMenu = new ButtonMenu(X_SOCIAL_FRAME+130*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 60*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Guild", 10, 1, false) {
 		
 		@Override
 		public void eventButtonClick() {
 			unselectAllButton();
 			this.setIsSelected(true);
-			//selectedMenu = SocialFrameMenu.GUILD_FRAME;
+			selectedMenu = SocialFrameMenu.GUILD_FRAME;
 		}
 		
 		@Override
@@ -46,7 +49,7 @@ public class SocialFrame {
 			return Mideas.joueur1().getGuild() != null;
 		}
 	};
-	private static ButtonMenu discussionButtonMenu = new ButtonMenu(204*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 85*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Discussion", 10, 1, false) {
+	private static ButtonMenu discussionButtonMenu = new ButtonMenu(X_SOCIAL_FRAME+194*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 85*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Discussion", 10, 1, false) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -55,7 +58,7 @@ public class SocialFrame {
 			//selectedMenu = SocialFrameMenu.DISCUSSION_FRAME;
 		}
 	};
-	private static ButtonMenu raidButtonMenu = new ButtonMenu(295*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 49*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Raid", 10, 1, false) {
+	private static ButtonMenu raidButtonMenu = new ButtonMenu(X_SOCIAL_FRAME+285*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 49*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Raid", 10, 1, false) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -64,7 +67,7 @@ public class SocialFrame {
 			//selectedMenu = SocialFrameMenu.RAID_FRAME;
 		}
 	};
-	private static CrossButton closeFrame = new CrossButton(380*Mideas.getDisplayXFactor(), 164*Mideas.getDisplayYFactor()) {
+	private static CrossButton closeFrame = new CrossButton(X_SOCIAL_FRAME+370*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor()) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -82,7 +85,7 @@ public class SocialFrame {
 			drawWhoFrame();
 		}
 		else if(selectedMenu == SocialFrameMenu.GUILD_FRAME) {
-			drawGuildFrame();
+			GuildFrame.draw();
 		}
 		else if(selectedMenu == SocialFrameMenu.DISCUSSION_FRAME) {
 			drawDiscussionFrame();
@@ -114,7 +117,7 @@ public class SocialFrame {
 			return mouseEventWhoFrame();
 		}
 		else if(selectedMenu == SocialFrameMenu.GUILD_FRAME) {
-			return mouseEventGuildFrame();
+			return GuildFrame.mouseEvent();
 		}
 		else if(selectedMenu == SocialFrameMenu.DISCUSSION_FRAME) {
 			return mouseEventDiscussionFrame();
@@ -129,10 +132,6 @@ public class SocialFrame {
 		
 	}
 	
-	private static void drawGuildFrame() {
-		
-	}
-	
 	private static void drawDiscussionFrame() {
 		
 	}
@@ -142,11 +141,6 @@ public class SocialFrame {
 	}
 	
 	private static boolean mouseEventWhoFrame() {
-		
-		return false;
-	}
-	
-	private static boolean mouseEventGuildFrame() {
 		
 		return false;
 	}
@@ -170,12 +164,14 @@ public class SocialFrame {
 	}
 	
 	public static void updateSize() {
-		friendButtonMenu.update(30*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 54*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
-		whoButtonMenu.update(90*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 44*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
-		guildButtonMenu.update(140*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 60*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
-		discussionButtonMenu.update(204*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 85*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
-		raidButtonMenu.update(295*Mideas.getDisplayXFactor(), BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 49*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
-		closeFrame.update(380*Mideas.getDisplayXFactor(), 164*Mideas.getDisplayYFactor());
+		Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
+		X_SOCIAL_FRAME = X_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayXFactor();
+		friendButtonMenu.update(X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 54*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
+		whoButtonMenu.update(X_SOCIAL_FRAME+80*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 44*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
+		guildButtonMenu.update(X_SOCIAL_FRAME+130*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 60*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
+		discussionButtonMenu.update(X_SOCIAL_FRAME+194*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 85*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
+		raidButtonMenu.update(X_SOCIAL_FRAME+285*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 49*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
+		closeFrame.update(X_SOCIAL_FRAME+370*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor());
 	}
 	
 	public static void test() {
