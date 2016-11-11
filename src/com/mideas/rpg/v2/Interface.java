@@ -2,6 +2,7 @@ package com.mideas.rpg.v2;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.lwjgl.input.Keyboard;
@@ -50,6 +51,7 @@ import com.mideas.rpg.v2.hud.social.GuildFrame;
 import com.mideas.rpg.v2.hud.social.GuildInviteNotification;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Input;
 
 public class Interface {
 	
@@ -95,6 +97,8 @@ public class Interface {
 	private final static int CONTAINER_MOUSE_EVENT_TIMER_FREQUENCE = 1000;
 	private static long LAST_DRAGMANAGER_MOUSE_EVENT_TIMER;
 	private final static int DRAGMANAGER_MOUSE_EVENT_TIMER_FREQUENCE = 1000;
+	
+	private final static ArrayList<Input> inputList = new ArrayList<Input>();
 
 	public static void draw() throws IOException, NumberFormatException {
 		Draw.drawQuadBG(Sprites.current_bg);
@@ -416,6 +420,7 @@ public class Interface {
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_O) {
 						socialFrameActive = !socialFrameActive;
+						SocialFrame.mouseEvent();
 					}
 					else if(Keyboard.isKeyDown(42) && Keyboard.getEventKey() == Keyboard.KEY_B && !escapeFrameActive) {
 						if(containerFrameActive) {
@@ -571,10 +576,19 @@ public class Interface {
 	}
 	
 	public static void setAllInputInactive() {
-		AddFriendInputFrame.getInput().setIsActive(false);
+		int i = 0;
+		while(i < inputList.size()) {
+			inputList.get(i).setIsActive(false);
+			i++;
+		}
+		/*AddFriendInputFrame.getInput().setIsActive(false);
 		AddGuildMemberInputFrame.getInput().setIsActive(false);
-		GuildFrame.getInformationInput().setIsActive(false);
+		GuildFrame.getInformationInput().setIsActive(false);*/
 		ChatFrame.setChatActive(false);
+	}
+	
+	public static void registerInput(Input input) {
+		inputList.add(input);
 	}
 	
 	public static boolean isSocialFrameActive() {

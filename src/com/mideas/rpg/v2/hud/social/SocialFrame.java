@@ -180,4 +180,8 @@ public class SocialFrame {
 		guildButtonMenu.setIsSelected(!guildButtonMenu.isSelected());
 		draw = !draw;
 	}
+	
+	public static void setSelectedMenu(SocialFrameMenu menu) {
+		selectedMenu = menu;
+	}
 }

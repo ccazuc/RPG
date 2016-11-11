@@ -35,6 +35,7 @@ public class AddGuildMemberInputFrame {
 		public void eventButtonClick() {
 			CommandGuild.addMember(input.getText());
 			Interface.setAddGuildMemberStatus(false);
+			input.setIsActive(false);
 			input.resetText();
 		}
 	};
@@ -43,6 +44,7 @@ public class AddGuildMemberInputFrame {
 		@Override
 		public void eventButtonClick() {
 			Interface.setAddGuildMemberStatus(false);
+			input.setIsActive(false);
 			input.resetText();
 		}
 	};
@@ -64,7 +66,6 @@ public class AddGuildMemberInputFrame {
 		if(inputBar.isHover()) {
 			if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					Interface.setAllInputInactive();
 					input.setIsActive(true);
 				}
 			}
@@ -75,10 +76,12 @@ public class AddGuildMemberInputFrame {
 	public static boolean event() {
 		if(!input.isActive() && Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
 			Interface.setAddGuildMemberStatus(false);
+			input.setIsActive(false);
 			return true;
 		}
 		else if(input.isActive() && Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 			CommandGuild.addMember(input.getText());
+			input.setIsActive(false);
 			Interface.setAddGuildMemberStatus(false);
 			return true;
 		}

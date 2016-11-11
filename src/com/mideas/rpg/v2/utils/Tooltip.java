@@ -25,6 +25,8 @@ public class Tooltip {
 	public void draw() {
 		float xFac = Mideas.getDisplayXFactor();
 		float yFac = Mideas.getDisplayYFactor();
+		int defaultImageWidth = Sprites.tooltip_bot_left_corner.getImageWidth();
+		int defaultImageHeight = Sprites.tooltip_bot_left_corner.getImageHeight();
 		int imageWidth = (int) (Sprites.tooltip_top_left_corner.getImageWidth()*xFac);
 		int imageHeight = (int) (Sprites.tooltip_top_left_corner.getImageHeight()*yFac);
 		/*Draw.drawQuad(Sprites.tooltip_top_left_corner, this.x, this.y);
@@ -38,14 +40,14 @@ public class Tooltip {
 		Draw.drawColorQuad(this.x+imageWidth, this.y+imageHeight, this.x_size-2*imageWidth, this.y_size-2*imageHeight, this.color);*/
 
 		Draw.drawColorQuad(this.x+imageWidth-4*Mideas.getDisplayYFactor(), this.y+imageHeight-4*Mideas.getDisplayYFactor(), this.x_size-2*imageWidth+8*Mideas.getDisplayXFactor(), this.y_size-2*imageHeight+8*Mideas.getDisplayYFactor(), this.color);
-		Draw.drawQuad(Sprites.tooltip_top_left_corner, this.x, this.y);
-		Draw.drawQuad(Sprites.tooltip_top, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight);
-		Draw.drawQuad(Sprites.tooltip_top_right_corner, this.x+this.x_size-imageWidth, this.y);
-		Draw.drawQuad(Sprites.tooltip_bot_left_corner, this.x, this.y+this.y_size-imageHeight);
-		Draw.drawQuad(Sprites.tooltip_bot, this.x+imageWidth, this.y+this.y_size-imageHeight, this.x_size-2*imageWidth, imageHeight);
-		Draw.drawQuad(Sprites.tooltip_bot_right_corner, this.x+this.x_size-imageWidth, this.y+this.y_size-imageHeight);
-		Draw.drawQuad(Sprites.tooltip_left, this.x, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
-		Draw.drawQuad(Sprites.tooltip_right, this.x+this.x_size-imageWidth, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
+		Draw.drawQuad(Sprites.tooltip_top_left_corner, this.x, this.y, defaultImageWidth, defaultImageHeight);
+		Draw.drawQuad(Sprites.tooltip_top, this.x+imageWidth, this.y, this.x_size-2*imageWidth, defaultImageHeight);
+		Draw.drawQuad(Sprites.tooltip_top_right_corner, this.x+this.x_size-imageWidth, this.y, defaultImageWidth, defaultImageHeight);
+		Draw.drawQuad(Sprites.tooltip_bot_left_corner, this.x, this.y+this.y_size-imageHeight, defaultImageWidth, defaultImageHeight);
+		Draw.drawQuad(Sprites.tooltip_bot, this.x+imageWidth, this.y+this.y_size-imageHeight, this.x_size-2*imageWidth, Sprites.tooltip_bot.getImageHeight());
+		Draw.drawQuad(Sprites.tooltip_bot_right_corner, this.x+this.x_size-imageWidth, this.y+this.y_size-imageHeight, defaultImageWidth, defaultImageHeight);
+		Draw.drawQuad(Sprites.tooltip_left, this.x, this.y+imageHeight, defaultImageWidth, this.y_size-2*imageHeight);
+		Draw.drawQuad(Sprites.tooltip_right, this.x+this.x_size-imageWidth, this.y+imageHeight, defaultImageWidth, this.y_size-2*imageHeight);
 	}
 	
 	public boolean isHover() {

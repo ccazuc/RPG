@@ -22,6 +22,7 @@ public class AddFriendInputFrame {
 		
 		@Override
 		public void eventButtonClick() {
+			input.setIsActive(false);
 			CommandFriend.addFriend(input.getText());
 			Interface.setAddFriendStatus(false);
 			input.resetText();
@@ -31,6 +32,7 @@ public class AddFriendInputFrame {
 		
 		@Override
 		public void eventButtonClick() {
+			input.setIsActive(false);
 			Interface.setAddFriendStatus(false);
 			input.resetText();
 		}

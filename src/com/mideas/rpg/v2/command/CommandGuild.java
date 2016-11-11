@@ -113,6 +113,19 @@ public class CommandGuild extends Command {
 			Mideas.joueur1().getGuild().addMember(new GuildMember(id, name, level, rank, isOnline, note, officerNote, type));
 			ChatFrame.addMessage(new Message(name+" joined the guild.", false, MessageType.SELF));
 		}
+		else if(packetId == PacketID.GUILD_KICK_MEMBER) {
+			int id = ConnectionManager.getConnection().readInt();
+			String memberName = ConnectionManager.getConnection().readString();
+			String officerName = ConnectionManager.getConnection().readString();
+			if(id != Mideas.joueur1().getId()) {
+				ChatFrame.addMessage(new Message(memberName+" has been kicked out of the guild by "+officerName, false, MessageType.SELF));
+				Mideas.joueur1().getGuild().removeMember(id);
+			}
+			else {
+				ChatFrame.addMessage(new Message("you have been kicked out of the guild by "+officerName, false, MessageType.SELF));
+				Mideas.joueur1().setGuild(null);
+			}
+		}
 	}
 	
 	public static void addMember(String name) {

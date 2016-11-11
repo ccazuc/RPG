@@ -80,8 +80,13 @@ public class ChatFrame {
 		maxLength = 490+xResize;
 		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 115+yResize, bgColor);
 		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
-		if(chatActive) {
+		if(tempMessage.length() >= 1 || chatActive) {
 			inputBar.draw();
+			TTF2.chat.drawString(40, Display.getHeight()-175, selectedType.getDefaultText()+currentWhisper, selectedType.getColor());
+			Draw.drawColorQuad(selectedStarts+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
+			TTF2.chat.drawString(40+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, tempMessage.substring(tempLength), selectedType.getColor());
+		}
+		if(chatActive) {
 			if(TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper+tempMessage.substring(tempLength)) >= maxLength) {
 				tempLength = tempMessage.length()-10;
 				cursorPosition = tempMessage.substring(tempLength).length();
@@ -93,11 +98,8 @@ public class ChatFrame {
 				cursorShift = TTF2.chat.getWidth(tempMessage.substring(tempLength));
 			}
 			if(System.currentTimeMillis()%1000 < 500) {
-				TTF2.chat.drawString(39+cursorShift+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, "|", selectedType.getColor());
+				Draw.drawColorQuad(41+cursorShift+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-173, 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
 			}
-			TTF2.chat.drawString(40, Display.getHeight()-175, selectedType.getDefaultText()+currentWhisper, selectedType.getColor());
-			Draw.drawColorQuad(selectedStarts+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, selectedQuadLength, 20, selectedColor);
-			TTF2.chat.drawString(40+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), Display.getHeight()-175, tempMessage.substring(tempLength), selectedType.getColor());
 		}
 		if(messages.size() > MAXIMUM_MESSAGES) {
 			while(messages.size() >= MAXIMUM_MESSAGES) {

@@ -22,12 +22,12 @@ public class CheckBox {
 	private int y_size;
 	private String text;
 	private String tooltip_text;
-	private boolean mouseHover;
-	private boolean leftButtonDown;
-	private boolean rightButtonDown;
+	private boolean buttonHover;
+	private boolean buttonDown;
 	private Color color;
 	private TTF font;
 	private int textWidth;
+	private final static Color GREY = Color.decode("#999999");
 	
 	public CheckBox(float x, float y, String text, String tooltip_text, Color color, float font_size) {
 		this.x = x;
@@ -61,6 +61,28 @@ public class CheckBox {
 		this.color = color;
 	}
 	
+	public CheckBox(float x, float y, float x_size, float y_size, String text, Color color, float font_size) {
+		this.x = x;
+		this.y = y;
+		this.x_size = (int)(x_size);
+		this.y_size = (int)(y_size);
+		this.text = text;
+		this.color = color;
+		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		Font awtFont = null;
+		try {
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(font_size);
+		} 
+		catch (FontFormatException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.font = new TTF(awtFont, true);
+		this.textWidth = this.font.getWidth(this.text);
+	}
+	
 	public CheckBox(float x, float y, float x_size, float y_size) {
 		this.x = x;
 		this.y = y;
@@ -70,56 +92,61 @@ public class CheckBox {
 	
 	public void draw() {
 		Draw.drawQuad(Sprites.check_box, this.x, this.y, this.x_size, this.y_size);
-		if(this.mouseHover) {
-			Draw.drawQuadBlend(Sprites.check_box_hover, this.x+1, this.y+1, this.x_size-2, this.y_size-2);
-			if(this.tooltip_text != null) {
-				//draw tooltip
+		if(activateCondition()) {
+			if(this.buttonHover) {
+				Draw.drawQuadBlend(Sprites.check_box_hover, this.x+1, this.y+1, this.x_size-2, this.y_size-2);
+				if(this.tooltip_text != null) {
+					//draw tooltip
+				}
+			}
+			if(this.buttonDown) {
+				Draw.drawQuad(Sprites.check_box_down, this.x, this.y, this.x_size, this.y_size);
+			}
+			if(get()) {
+				Draw.drawQuad(Sprites.check_box_enable, this.x-1, this.y-1, this.x_size, this.y_size);
+			}
+			if(this.text != null) {
+				this.font.drawStringShadow(this.x+(this.x_size+6)*Mideas.getDisplayXFactor(), this.y-1, this.text, this.color, Color.black, 1, 0, 0);
 			}
 		}
-		if(this.leftButtonDown || this.rightButtonDown) {
-			Draw.drawQuad(Sprites.check_box_down, this.x, this.y, this.x_size, this.y_size);
-		}
-		if(get()) {
-			Draw.drawQuad(Sprites.check_box_enable, this.x-1, this.y-1);
-		}
-		if(this.text != null) {
-			this.font.drawStringShadow(this.x+(Sprites.check_box.getImageWidth()+10)*Mideas.getDisplayXFactor(), this.y, this.text, this.color, Color.black, 1, 0, 0);
+		else {
+			if(get()) {
+				Draw.drawQuad(Sprites.check_box_disable, this.x-1, this.y-1, this.x_size, this.y_size);
+			}
+			if(this.text != null) {
+				this.font.drawStringShadow(this.x+(this.x_size+6)*Mideas.getDisplayXFactor(), this.y-1, this.text, GREY, Color.black, 1, 0, 0);
+			}
 		}
 	}
 	
 	public boolean event() {
-		if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+(Sprites.check_box.getImageWidth()+10)*Mideas.getDisplayXFactor()+this.textWidth && Mideas.mouseY() >= this.y-3 && Mideas.mouseY() <= this.y+3+Sprites.check_box.getImageHeight()*Mideas.getDisplayYFactor()) {
-			this.mouseHover = true;
-			if(Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0) {
-					this.leftButtonDown = true;
+		if(activateCondition()) {
+			this.buttonHover = false;
+			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+(this.x_size+6)*Mideas.getDisplayXFactor()+this.textWidth && Mideas.mouseY() > this.y-4 && Mideas.mouseY() <= this.y+4+this.y_size) {
+				this.buttonHover = true;
+			}
+			if(this.buttonHover) {
+				if(Mouse.getEventButtonState()) {
+					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+						this.buttonDown = true;
+					}
 				}
-				else if(Mouse.getEventButton() == 1) {
-					this.rightButtonDown = true;
+				else if(this.buttonDown) {
+					if(Mouse.getEventButton() == 0) {
+						this.buttonDown = false;
+						set();
+						return true;
+					}
+					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+						this.buttonDown = false;
+					}
 				}
 			}
-			else {
-				if(Mouse.getEventButton() == 0) {
-					set();
-					this.leftButtonDown = false;
-					this.rightButtonDown = false;
-					return true;
-				}
-				else if(Mouse.getEventButton() == 1) {
-					this.rightButtonDown = false;
-					this.leftButtonDown = false;
-					return true;
-				}
-			}
-		}
-		else {
-			if(!Mouse.getEventButtonState()) {
+			else if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					this.rightButtonDown = false;
-					this.leftButtonDown = false;
+					this.buttonDown = false;
 				}
 			}
-			this.mouseHover = false;
 		}
 		return false;
 	}
@@ -140,4 +167,5 @@ public class CheckBox {
 	
 	protected void set() {}
 	protected boolean get() {return false;}
+	protected boolean activateCondition() {return true;}
 }

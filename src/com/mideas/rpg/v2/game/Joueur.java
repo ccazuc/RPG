@@ -30,6 +30,7 @@ import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.PartyFrame;
+import com.mideas.rpg.v2.hud.social.SocialFrame;
 
 public class Joueur extends Unit {
 
@@ -599,6 +600,9 @@ public class Joueur extends Unit {
 	
 	public void setGuild(Guild guild) {
 		this.guild = guild;
+		if(this.guild == null) {
+			SocialFrame.setSelectedMenu(SocialFrameMenu.FRIEND_FRAME);
+		}
 	}
 	
 	public void setParty(Party party) {

@@ -47,6 +47,14 @@ public class AlertBackground {
 		this.y = (int)y;
 	}
 	
+	public void setWidth(float x_size) {
+		this.x_size = (int)x_size;
+	}
+	
+	public void setHeight(float y_size) {
+		this.y_size = (int)y_size;
+	}
+	
 	public void update(float x, float y, float x_size, float y_size) {
 		this.x = (int)x;
 		this.y = (int)y;

@@ -102,9 +102,12 @@ public class Button {
 			this.texture = Sprites.button_disabled;
 			this.color = GREY;
 		}
-		else if(!this.buttonDown && !this.buttonHover) {
+		else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
 			this.texture = Sprites.button;
 			this.color = this.baseColor;
+		}
+		else if(hoverSpriteActivateCondition()) {
+			this.color = this.hoveredColor;
 		}
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
 		this.font.drawStringShadow(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
@@ -145,14 +148,14 @@ public class Button {
 				}
 			}
 			if(this.buttonDown) {
-				if(this.buttonHover) {
+				if(this.buttonHover || hoverSpriteActivateCondition()) {
 					this.texture = Sprites.button_down_hover;
 				}
 				else {
 					this.texture = Sprites.button_down;
 				}
 			}
-			else if(this.buttonHover) {
+			else if(this.buttonHover || hoverSpriteActivateCondition()) {
 				this.texture = Sprites.button_hover;
 			}
 			else {
@@ -169,8 +172,6 @@ public class Button {
 	public void setX(float x) {
 		this.x = x;
 	}
-	
-	protected boolean activateCondition() {return true;}
 	
 	public void setY(float y) {
 		this.y = y;
@@ -189,6 +190,8 @@ public class Button {
 	}
 	
 	protected void eventButtonClick() {}
+	protected boolean activateCondition() {return true;}
+	protected boolean hoverSpriteActivateCondition() {return false;}
 	
 	public boolean getButtonDown() {
 		return this.buttonDown;

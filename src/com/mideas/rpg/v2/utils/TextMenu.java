@@ -24,6 +24,7 @@ public class TextMenu {
 	private boolean buttonHover;
 	private boolean buttonDown;
 	private int x_size;
+	private int value;
 	
 	public TextMenu(float x, float y, float x_size, float y_size, String text, int font_size, int shadow_size) {
 		this.x = (int)x;
@@ -43,6 +44,37 @@ public class TextMenu {
 			e.printStackTrace();
 		}
 		this.font = new TTF(awtFont, true);
+	}
+	
+	public TextMenu(float x, float y, float x_size, float y_size, String text, int font_size, int shadow_size, int value) {
+		this.x = (int)x;
+		this.y = (int)y;
+		this.x_size = (int)x_size;
+		this.text = text;
+		this.shadow_size = shadow_size;
+		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");
+		Font awtFont = null;
+		try {
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont((float)font_size);
+		} 
+		catch (FontFormatException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.font = new TTF(awtFont, true);
+		this.value = value;
+	}
+	
+	public TextMenu(TextMenu menu) {
+		this.x = menu.x;
+		this.y = menu.y;
+		this.x_size = menu.x_size;
+		this.text = menu.text;
+		this.shadow_size = menu.shadow_size;
+		this.font = menu.font;
+		this.value = menu.value;
 	}
 	
 	public void drawX(float x) {
@@ -78,20 +110,20 @@ public class TextMenu {
 		}
 	}
 	
-	public void eventX(float x) {
-		eventHandler((int)x, this.y);
+	public boolean eventX(float x) {
+		return eventHandler((int)x, this.y);
 	}
 	
-	public void eventY(float y) {
-		eventHandler(this.x, (int)y);
+	public boolean eventY(float y) {
+		return eventHandler(this.x, (int)y);
 	}
 	
-	public void eventXY(float x, float y) {
-		eventHandler((int)x, (int)y);
+	public boolean eventXY(float x, float y) {
+		return eventHandler((int)x, (int)y);
 	}
 	
-	public void event() {
-		eventHandler(this.x, this.y);
+	public boolean event() {
+		return eventHandler(this.x, this.y);
 	}
 	
 	private boolean eventHandler(int x, int y) {
@@ -127,6 +159,18 @@ public class TextMenu {
 	public void reset() {
 		this.buttonDown = false;
 		this.buttonHover = false;
+	}
+	
+	public String getText() {
+		return this.text;
+	}
+	
+	public void setValue(int value) {
+		this.value = value;
+	}
+	
+	public int getValue() {
+		return this.value;
 	}
 	
 	public boolean activateCondition() { return true; }

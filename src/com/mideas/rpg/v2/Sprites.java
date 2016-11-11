@@ -259,6 +259,7 @@ public class Sprites {
 	public static Texture check_box_down;
 	public static Texture check_box_down_hover;
 	public static Texture check_box_enable;
+	public static Texture check_box_disable;
 	public static Texture interface_option_frame;
 	public static Texture socketing_frame;
 	public static Texture cross_button;
@@ -310,6 +311,18 @@ public class Sprites {
 	public static Texture button_menu_hover;
 	public static Texture guild_frame;
 	public static Texture guild_close_information_button_border;
+	public static Texture guild_member_display_button_border;
+	public static Texture edit_box_left_border;
+	public static Texture edit_box_middle_border;
+	public static Texture edit_box_right_border;
+	public static Texture arrow_top_down;
+	public static Texture arrow_top;
+	public static Texture arrow_bot_down;
+	public static Texture arrow_bot;
+	public static Texture arrow_hover;
+	public static Texture drop_down_menu_left_border;
+	public static Texture drop_down_menu_middle_border;
+	public static Texture drop_down_menu_right_border;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -396,6 +409,14 @@ public class Sprites {
 		player_portrait_party = new Texture("sprite/interface/party/player_portrait_party.png");
 		party_tooltip = new Texture("sprite/interface/party/tooltip.png");
 		text_menu_hover = new Texture("sprite/interface/UI-Listbox-Highlight.png");
+		arrow_top = new Texture("sprite/interface/arrow/UI-ChatIcon-ScrollUp-Up.png");
+		arrow_top_down = new Texture("sprite/interface/arrow/UI-ChatIcon-ScrollUp-Down.png");
+		arrow_bot = new Texture("sprite/interface/arrow/UI-ChatIcon-ScrollDown-Up.png");
+		arrow_bot_down = new Texture("sprite/interface/arrow/UI-ChatIcon-ScrollDown-Down.png");
+		arrow_hover = new Texture("sprite/interface/arrow/UI-Common-MouseHilight.png");
+		drop_down_menu_left_border = new Texture("sprite/interface/drop_down_menu/drop_down_menu_left_border.png");
+		drop_down_menu_middle_border = new Texture("sprite/interface/drop_down_menu/drop_down_menu_middle_border.png");
+		drop_down_menu_right_border = new Texture("sprite/interface/drop_down_menu/drop_down_menu_right_border.png");
 		return true;
 	}
 	
@@ -529,8 +550,8 @@ public class Sprites {
 		check_box = new Texture("sprite/interface/checkBox/UI-CheckBox-Up.png");
 		check_box_hover = new Texture("sprite/interface/checkBox/UI-CheckBox-Highlight.png");
 		check_box_down = new Texture("sprite/interface/checkBox/UI-CheckBox-Down.png");
-		//check_box_down_hover = new Texture("sprite/interface/checkBox/check_box_down_hover.png");
 		check_box_enable = new Texture("sprite/interface/checkBox/check_box_enable.png");
+		check_box_disable = new Texture("sprite/interface/checkBox/UI-CheckBox-Check-Disabled.png");
 		interface_option_frame = new Texture("sprite/interface/interface_option_frame.png");
 		socketing_frame = new Texture("sprite/interface/socketing_frame.png");
 		cross_button = new Texture("sprite/interface/cross_button/cross_button.png");
@@ -549,6 +570,10 @@ public class Sprites {
 		click_down = new Texture("sprite/interface/click_down.png");
 		guild_frame = new Texture("sprite/interface/social/guild_frame.png");
 		guild_close_information_button_border = new Texture("sprite/interface/social/guild_close_information_button_border.png");
+		guild_member_display_button_border = new Texture("sprite/interface/social/guild_member_display_button_border.png");
+		edit_box_left_border = new Texture("sprite/interface/edit_box/left_border.png");
+		edit_box_middle_border = new Texture("sprite/interface/edit_box/middle_border.png");
+		edit_box_right_border = new Texture("sprite/interface/edit_box/right_border.png");
 		return true;
 	}
 		

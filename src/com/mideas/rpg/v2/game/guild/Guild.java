@@ -69,6 +69,25 @@ public class Guild {
 		return null;
 	}
 	
+	public void removeMember(int id) {
+		int i = 0;
+		while(i < this.memberList.size()) {
+			if(this.memberList.get(i).getId() == id) {
+				this.memberList.remove(i);
+				break;
+			}
+			i++;
+		}
+	}
+	
+	public void resetTempRank() {
+		int i = 0;
+		while(i < this.rankList.size()) {
+			this.rankList.get(i).cancelTempModification();
+			i++;
+		}
+	}
+	
 	private void initNumberOnlineMembers() {
 		int i = 0;
 		while(i < this.memberList.size()) {
@@ -102,6 +121,10 @@ public class Guild {
 	
 	public int getLeaderId() {
 		return this.leader_id;
+	}
+	
+	public boolean isLeader(int id) {
+		return this.leader_id == id;
 	}
 	
 	public int getId() {
