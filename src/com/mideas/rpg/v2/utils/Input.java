@@ -3,12 +3,14 @@ package com.mideas.rpg.v2.utils;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.util.ArrayList;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.TTF;
+import com.mideas.rpg.v2.chat.ChatFrame;
 
 /**
  * 
@@ -29,6 +31,7 @@ public class Input {
 	private boolean isActive;
 	private boolean multipleLine;
 	private boolean debugActive;
+	private final static ArrayList<Input> inputList = new ArrayList<Input>();
 	
 	private final static int ENTER_VALUE = 27;
 	
@@ -37,7 +40,7 @@ public class Input {
 		this.maxLength = maxLength;
 		this.multipleLine = multipleLine;
 		this.debugActive = debugActive;
-		Interface.registerInput(this);
+		inputList.add(this);
 	}
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive, boolean isActive) {
@@ -46,7 +49,7 @@ public class Input {
 		this.multipleLine = multipleLine;
 		this.debugActive = debugActive;
 		this.isActive = isActive;
-		Interface.registerInput(this);
+		inputList.add(this);
 	}
 	
 	public boolean event() {
@@ -162,9 +165,18 @@ public class Input {
 	
 	public void setIsActive(boolean we) {
 		if(we) {
-			Interface.setAllInputInactive();
+			setInactiveAllInput();
 		}
 		this.isActive = we;
+	}
+	
+	public static void setInactiveAllInput() {
+		int i = 0;
+		while(i < inputList.size()) {
+			inputList.get(i).setIsActive(false);
+			i++;
+		}
+		ChatFrame.setChatActive(false);
 	}
 	
 	public boolean isActive() {

@@ -34,6 +34,8 @@ import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
+import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
@@ -81,7 +83,6 @@ public class Mideas {
 	private static float displayXFactor = 1700/1920f;
 	private static float displayYFactor = 930/1018f;
 	private static int rank;
-	private static int characterId;
 	private static Connection connection;
 	private static SocketChannel socket;
 	private final static int PORT = 5720;
@@ -89,6 +90,7 @@ public class Mideas {
 	private final static int TIMEOUT_TIMER = 10000;
 	private final static Pattern isInteger = Pattern.compile("-?[0-9]+");
 	public final static int FPS = 60;
+	private static boolean hover;
 	
 	private static long LAST_PING_TIMER;
 	private final static int PING_FREQUENCE = 10000;
@@ -96,6 +98,8 @@ public class Mideas {
 	private final static long RAM_UPDATE_FREQUENCE = 1000;
 	private static long LAST_MOUSE_EVENT_TIMER;
 	private final static long MOUSE_EVENT_UPDATE_FREQUENCE = 1000;
+	private static long LAST_GC_TIMER;
+	private final static long GC_FREQUENCE = 10000;
 	
 	private static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -158,12 +162,12 @@ public class Mideas {
 		time = System.currentTimeMillis();
 		initSQL();
 		CharacterStuff.initSQLRequest();
-		//GemManager.loadGems();
-		//WeaponManager.loadWeapons();
-		//PotionManager.loadPotions();
+		GemManager.loadGems();
+		WeaponManager.loadWeapons();
+		PotionManager.loadPotions();
 		ContainerManager.loadBags();
 		ContainerManager.loadBagsSprites();
-		//StuffManager.loadStuffs();
+		StuffManager.loadStuffs();
 		ShopManager.loadStuffs();
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();
@@ -176,6 +180,7 @@ public class Mideas {
 		try {
 			while(!Display.isCloseRequested()) {
 				fpsUpdate();
+				hover = true;
 				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 				if(ConnectionManager.isConnected()) {
 					ConnectionManager.read();
@@ -246,8 +251,9 @@ public class Mideas {
 	}
 	
 	private static void timeEvent() {
-		if(System.currentTimeMillis()%10000 < 10) {
+		if(System.currentTimeMillis()-LAST_GC_TIMER >= GC_FREQUENCE) {
 			System.gc();
+			LAST_GC_TIMER = System.currentTimeMillis();
 		}
 		if(CommandPing.getPingStatus() && System.currentTimeMillis()-CommandPing.getTimer() > TIMEOUT_TIMER) {
 			CommandPing.setPingStatus(false);
@@ -314,6 +320,14 @@ public class Mideas {
 	
 	public static double getPing() {
 		return ping;
+	}
+	
+	public static boolean getHover() {
+		return hover;
+	}
+	
+	public static void setHover(boolean we) {
+		hover = we;
 	}
 	
 	public static SocketChannel getSocket() {
@@ -1166,13 +1180,5 @@ public class Mideas {
 
 	public static void setDisplayYFactor(float displayYFactor) {
 		Mideas.displayYFactor = displayYFactor;
-	}
-
-	public static int getCharacterId() {
-		return characterId;
-	}
-
-	public static void setCharacterId(int characterId) {
-		Mideas.characterId = characterId;
 	}
 }

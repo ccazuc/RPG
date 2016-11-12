@@ -39,16 +39,32 @@ public class AlertBackground {
 		Draw.drawColorQuad(this.x+imageWidth, this.y+imageHeight, this.x_size-2*imageWidth, this.y_size-2*imageHeight, this.bgColor);
 	}
 	
+	public boolean isHover() {
+		return Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size;
+	}
+	
 	public void setX(float x) {
 		this.x = (int)x;
+	}
+	
+	public int getX() {
+		return this.x;
 	}
 	
 	public void setY(float y) {
 		this.y = (int)y;
 	}
 	
+	public int getY() {
+		return this.y;
+	}
+	
 	public void setWidth(float x_size) {
 		this.x_size = (int)x_size;
+	}
+	
+	public int getWidth() {
+		return this.x_size;
 	}
 	
 	public void setHeight(float y_size) {

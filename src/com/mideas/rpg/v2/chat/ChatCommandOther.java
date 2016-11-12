@@ -27,7 +27,6 @@ public class ChatCommandOther {
 				System.exit(0);
 			}
 			else if(datas[0].equals(".logout")) {
-				Mideas.setCharacterId(0);
 				Mideas.setJoueur1Null();
 				Interface.closeAllFrame();
 			}

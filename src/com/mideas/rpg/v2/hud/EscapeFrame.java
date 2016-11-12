@@ -33,7 +33,6 @@ public class EscapeFrame {
 		@Override
 		public void eventButtonClick() {
 			CommandLogoutCharacter.write();
-			Mideas.setCharacterId(0);
 			Mideas.setJoueur1Null();
 			Interface.closeAllFrame();
 			Interface.setCharacterLoaded(false);

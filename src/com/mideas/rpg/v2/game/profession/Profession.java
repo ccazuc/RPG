@@ -102,12 +102,13 @@ public class Profession {
 	public void draw(int x, int y) {
 		if(!this.init) {
 			if(this.scrollBar == null ) {
-				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 17*Mideas.getDisplayXFactor());
+				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayYFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayYFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 17*Mideas.getDisplayXFactor());
+				//System.out.println("SB init");
 			}
 			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
 				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
 			}
-			updateSize(x, y);
+			//updateSize(x, y);
 			this.init = true;
 		}
 		if(this.change) {
@@ -128,23 +129,72 @@ public class Profession {
 		}
 		this.craftButton.draw();
 		x+= 26*Mideas.getDisplayXFactor();
-		y+= 99*Mideas.getDisplayXFactor();
+		y+= 99*Mideas.getDisplayYFactor();
 		final int Y_TOP = y;
 		int i = 0;
 		int j = 0;
 		int yShift = 0;
-		float yShiftHeight = 17*Mideas.getDisplayXFactor();
+		int yShiftHeight = (int)(17*Mideas.getDisplayYFactor());
 		if(this.numberLine > 8) {
 			this.scrollBar.draw();
 			this.y_offset = yShiftHeight*(this.numberLine-8)*this.scrollBar.getScrollPercentage();
+			//this.y_offset = (int)((this.numberLine-8)*this.scrollBar.getScrollPercentage());
+			//System.out.println((int)this.y_offset);
 		}
 		else {
 			this.y_offset = 0;
 		}
 		y-= this.y_offset;
+		/*i = calculateCategoryOffset();
+		j = calculateCraftOffset(i);
+		boolean init = false;
+		//calculateCraftOffset(calculateCategoryOffset());
+		//System.out.println("i offset: "+(int)(this.y_offset/yShiftHeight)+" c size: "+this.categoryList.size()+" "+(y+yShift >= Y_TOP)+" "+(yShift+yShiftHeight <= MAX_HEIGHT*Mideas.getDisplayYFactor())+" "+this.categoryList.get(0).getCraftList().size());
+		while(i < this.categoryList.size()) {
+			if(init) {
+				j = 0;
+			}
+			if(j == 0 && y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayYFactor() && this.categoryList.get(i).getCraftList().size() > 0) {
+				drawButton(this.categoryList.get(i), x, y+yShift);
+				if(this.categoryList.get(i).getMouseDown()) {
+					TTF2.craft.drawString(x+22, y+2+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
+				}
+				else {
+					TTF2.craft.drawString(x+20, y+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
+				}
+			}
+			yShift+= yShiftHeight;
+			if(this.categoryList.get(i).getExpand() && this.categoryList.get(i).getCraftList().size() >= 1) {
+				while(j < this.categoryList.get(i).getCraftList().size()) {
+					if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+						if(this.categoryList.get(i).getCraftList().get(j) == this.selectedItem) {
+							Draw.drawQuad(getColor(this.categoryList.get(i).getCraftList().get(j).getLevel()), x-5, y+yShift);
+						}
+						if(this.categoryList.get(i).getCraftList().get(j).getMouseDown()) {
+							TTF2.craft.drawString(x+29, y+2+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							TTF2.craft.drawString(x+35+TTF2.craft.getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+2+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+						}
+						else {
+							TTF2.craft.drawString(x+27, y+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							TTF2.craft.drawString(x+33+TTF2.craft.getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+						}
+					}
+					yShift+= yShiftHeight;
+					j++;
+					if(yShift+yShiftHeight-this.y_offset >= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+						break;
+					}
+				}
+			}
+			if(yShift+yShiftHeight-this.y_offset >= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+				break;
+			}
+			init = true;
+			i++;
+		}*/
 		while(i < this.categoryList.size()) {
 			j = 0;
-			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayXFactor() && this.categoryList.get(i).getCraftList().size() > 0) {
+			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayYFactor() && this.categoryList.get(i).getCraftList().size() > 0) {
 				drawButton(this.categoryList.get(i), x, y+yShift);
 				if(this.categoryList.get(i).getMouseDown()) {
 					TTF2.craft.drawString(x+22, y+2+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
@@ -183,15 +233,47 @@ public class Profession {
 		}
 	}
 	
+	private int calculateCategoryOffset() {
+		int i = 0;
+		int value = 0;
+		while(i < this.categoryList.size() && value < this.y_offset) {
+			if(this.categoryList.get(i).getExpand()) {
+				value+= this.categoryList.get(i).getCraftList().size();
+			}
+			value++;
+			if(value >= this.y_offset) {
+				//System.out.println("i: "+i);
+				return i;
+			}
+			i++;
+		}
+		//System.out.println("ii: "+i);
+		return i;
+	}
+	
+	private int calculateCraftOffset(int i) {
+		int j = 0;
+		int value = 1;
+		while(j < this.categoryList.get(i).getCraftList().size()) {
+			value++;
+			if(value >= this.y_offset) {
+				//System.out.println("j: "+j);
+				return j;
+			}
+			j++;
+		}
+		//System.out.println("jj: "+j);
+		return j;
+	}
+	
 	public void event(int x, int y) {
 		if(!this.init) {
 			if(this.scrollBar == null ) {
-				this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 17*Mideas.getDisplayXFactor());
+				this.scrollBar = new ScrollBar(x+130*Mideas.getDisplayXFactor(), y-238*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 17*Mideas.getDisplayXFactor());
 			}
 			if(this.categoryList.size() > 0 && this.categoryList.get(0).getCraftList().size() > 0) {
 				this.selectedItem = this.categoryList.get(0).getCraftList().get(0);
 			}
-			updateSize(x, y);
 			this.init = true;
 		}
 		if(this.numberLine > 8) {
@@ -199,14 +281,14 @@ public class Profession {
 		}
 		this.craftButton.event();
 		x+= 26*Mideas.getDisplayXFactor();
-		y+= 99*Mideas.getDisplayXFactor();
+		y+= 99*Mideas.getDisplayYFactor();
 		final int Y_TOP = y;
 		int i = 0;
 		int j = 0;
 		int yShift = 0;
-		float yShiftHeight = 17*Mideas.getDisplayXFactor();
+		float yShiftHeight = 17*Mideas.getDisplayYFactor();
 		y-= this.y_offset;
-		float borderHeight = Sprites.craft_orange_selection.getImageHeight()*Mideas.getDisplayXFactor()-2;
+		float borderHeight = Sprites.craft_orange_selection.getImageHeight()*Mideas.getDisplayYFactor()-2;
 		while(i < this.categoryList.size()) {
 			j = 0;
 			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayXFactor() && this.categoryList.get(i).getCraftList().size() > 0) {
@@ -225,7 +307,7 @@ public class Profession {
 					}
 				}
 			}
-			if(yShift+yShiftHeight-this.y_offset >= MAX_HEIGHT*Mideas.getDisplayXFactor()) {
+			if(yShift+yShiftHeight-this.y_offset >= MAX_HEIGHT*Mideas.getDisplayYFactor()) {
 				break;
 			}
 			i++;
@@ -365,11 +447,12 @@ public class Profession {
 	}
 	
 	public void updateSize(float x, float y) {
+		//System.out.println("Size updated");
 		if(this.scrollBar != null) {
-			this.scrollBar.update(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor());
+			this.scrollBar.update(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayYFactor(), 17*Mideas.getDisplayXFactor());
 		}
 		else {
-			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayXFactor(), false, 16*Mideas.getDisplayXFactor());
+			this.scrollBar = new ScrollBar(x+358*Mideas.getDisplayXFactor(), y+97*Mideas.getDisplayXFactor(), 125*Mideas.getDisplayYFactor(), Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.character_frame.getImageHeight()*Mideas.getDisplayYFactor(), false, 16*Mideas.getDisplayXFactor());
 		}
 		this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
 		this.craftButton.setY(y+440*Mideas.getDisplayXFactor());

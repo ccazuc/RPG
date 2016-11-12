@@ -34,6 +34,7 @@ public class LoginScreen {
 			connectionEvent();
 		}
 	};
+	//private static DropDownMenu menu = new DropDownMenu(Display.getWidth()/2-100, Display.getHeight()/2-15, 200, Display.getWidth()/2-110, Display.getHeight()/2+5, 130, 13, .6f);
 
 	private final static String noAccountName = "Veuillez saisir votre nom de compte.";
 	private final static String noPassword = "Veuillez saisir votre mot de passe.";
@@ -42,6 +43,21 @@ public class LoginScreen {
 	private final static String empty = "";
 	
 	public static void draw() {
+		/*if(!init) {
+			int i = 0;
+			float yShift = 18;
+			while(i < 5) {
+				menu.addMenu(new TextMenu(Display.getWidth()/2-90, Display.getHeight()/2+25+i*yShift, 110, 25, String.valueOf(i), 13, 1, 40) {
+					
+					@Override
+					public void eventButtonClick() {
+						System.out.println(this.value);
+					}
+				});
+				i++;
+			}
+			init = true;
+		}*/
 		if(!init) {
 			updateSize();
 			init = true;
@@ -60,7 +76,9 @@ public class LoginScreen {
 		leaveButton.draw();
 		connectionButton.draw();
 		alert.draw();
-		//Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), Color.black);
+		//Draw.drawQuadBG(Sprites.login_screen);
+		//Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), Color.white);
+		//menu.draw();
 		//Draw.drawQuadBend(Sprites.button_menu_hover, Display.getWidth()/2, Display.getHeight()/2);
 		//tooltip.draw();
 	}
@@ -83,6 +101,7 @@ public class LoginScreen {
 				}
 			}
 		}
+		//menu.event();
 		return false;
 	}
 	

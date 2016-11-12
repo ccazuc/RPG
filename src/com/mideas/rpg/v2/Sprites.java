@@ -241,9 +241,12 @@ public class Sprites {
 	public static Texture reduce_category_craft_hover;
 	public static Texture expand_category_craft_hover;
 	public static Texture scrollbar_up_arrow;
+	public static Texture scrollbar_up_arrow_down;
 	public static Texture scrollbar_grey_up_arrow;
 	public static Texture scrollbar_down_arrow;
+	public static Texture scrollbar_down_arrow_down;
 	public static Texture scrollbar_grey_down_arrow;
+	public static Texture scrollbar_arrow_hover;
 	public static Texture ascensor;
 	public static Texture profession_border;
 	public static Texture scrollbar;
@@ -323,6 +326,9 @@ public class Sprites {
 	public static Texture drop_down_menu_left_border;
 	public static Texture drop_down_menu_middle_border;
 	public static Texture drop_down_menu_right_border;
+	public static Texture horizontal_bar_left;
+	public static Texture horizontal_bar_middle;
+	public static Texture horizontal_bar_right;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -414,9 +420,9 @@ public class Sprites {
 		arrow_bot = new Texture("sprite/interface/arrow/UI-ChatIcon-ScrollDown-Up.png");
 		arrow_bot_down = new Texture("sprite/interface/arrow/UI-ChatIcon-ScrollDown-Down.png");
 		arrow_hover = new Texture("sprite/interface/arrow/UI-Common-MouseHilight.png");
-		drop_down_menu_left_border = new Texture("sprite/interface/drop_down_menu/drop_down_menu_left_border.png");
-		drop_down_menu_middle_border = new Texture("sprite/interface/drop_down_menu/drop_down_menu_middle_border.png");
-		drop_down_menu_right_border = new Texture("sprite/interface/drop_down_menu/drop_down_menu_right_border.png");
+		drop_down_menu_left_border = new Texture("sprite/interface/drop_down_menu/left_border.png");
+		drop_down_menu_middle_border = new Texture("sprite/interface/drop_down_menu/middle_border.png");
+		drop_down_menu_right_border = new Texture("sprite/interface/drop_down_menu/right_border.png");
 		return true;
 	}
 	
@@ -498,6 +504,9 @@ public class Sprites {
 		input_bar_left_border = new Texture("sprite/interface/chat/UI-ChatInputBorder-Left2.png");
 		input_bar_middle_border = new Texture("sprite/interface/chat/UI-ChatInputBorder-Mid.png");
 		input_bar_right_border = new Texture("sprite/interface/chat/UI-ChatInputBorder-Right2.png");
+		horizontal_bar_left = new Texture("sprite/interface/horizontal_bar/left_part.png");
+		horizontal_bar_middle = new Texture("sprite/interface/horizontal_bar/middle_part.png");
+		horizontal_bar_right = new Texture("sprite/interface/horizontal_bar/right_part.png");
 		return true;
 	}
 		
@@ -525,12 +534,15 @@ public class Sprites {
 		craft_yellow_selection = new Texture("sprite/interface/profession/craft_yellow_selection.png");
 		craft_green_selection = new Texture("sprite/interface/profession/craft_green_selection.png");
 		craft_grey_selection = new Texture("sprite/interface/profession/craft_grey_selection.png");
-		scrollbar_up_arrow = new Texture("sprite/interface/scrollBar/up_arrow.png");
-		scrollbar_grey_up_arrow = new Texture("sprite/interface/scrollBar/grey_up_arrow.png");
-		scrollbar_down_arrow = new Texture("sprite/interface/scrollBar/down_arrow.png");
-		scrollbar_grey_down_arrow = new Texture("sprite/interface/scrollBar/grey_down_arrow.png");
-		ascensor = new Texture("sprite/interface/scrollBar/ascensor.png");
-		scrollbar = new Texture("sprite/interface/scrollBar/scrollbar.png");
+		scrollbar_up_arrow = new Texture("sprite/interface/scrollBar/UI-ScrollBar-ScrollUpButton-Up.png");
+		scrollbar_up_arrow_down = new Texture("sprite/interface/scrollBar/UI-ScrollBar-ScrollUpButton-Down.png");
+		scrollbar_grey_up_arrow = new Texture("sprite/interface/scrollBar/UI-ScrollBar-ScrollUpButton-Disabled.png");
+		scrollbar_down_arrow = new Texture("sprite/interface/scrollBar/UI-ScrollBar-ScrollDownButton-Up.png");
+		scrollbar_down_arrow_down = new Texture("sprite/interface/scrollBar/UI-ScrollBar-ScrollDownButton-Down.png");
+		scrollbar_grey_down_arrow = new Texture("sprite/interface/scrollBar/UI-ScrollBar-ScrollDownButton-Disabled.png");
+		scrollbar_arrow_hover = new Texture("sprite/interface/scrollBar/UI-ScrollBar-ScrollDownButton-Highlight.png");
+		ascensor = new Texture("sprite/interface/scrollBar/UI-ScrollBar-Knob.png");
+		scrollbar = new Texture("sprite/interface/scrollBar/scrollbar_border.png");
 		top_button = new Texture("sprite/interface/scrollBar/top_button.png");
 		bot_button = new Texture("sprite/interface/scrollBar/bot_button.png");
 		profession_border = new Texture("sprite/interface/profession/border.png");

@@ -20,7 +20,7 @@ public class ProfessionManager {
 	
 	private static void loadUnlockedCraft() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT craft_id FROM craft_unlocked WHERE character_id = ?");
-		statement.putInt(Mideas.getCharacterId());
+		statement.putInt(Mideas.joueur1().getId());
 		statement.execute();
 		while(statement.fetch()) {
 			int id = statement.getInt();
@@ -32,7 +32,7 @@ public class ProfessionManager {
 		if(!unlockedCraftList.contains(id)) {
 			unlockedCraftList.add(id);
 			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO craft_unlocked (character_id, craft_id) VALUES (?, ?)");
-			statement.putInt(Mideas.getCharacterId());
+			statement.putInt(Mideas.joueur1().getId());
 			statement.putInt(id);
 			statement.execute();
 		}

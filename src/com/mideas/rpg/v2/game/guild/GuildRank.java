@@ -35,6 +35,7 @@ public class GuildRank {
 		this.tempPermissionList = new boolean[15];
 		parsePermission();
 		Arrays.fill(this.permissionList, true);
+		this.tempPermissionList = this.permissionList;
 	}
 	
 	private void parsePermission() {

@@ -17,7 +17,6 @@ public class CommandSendEquippedItems extends Command {
 	
 	public void write() {
 		ConnectionManager.getConnection().writeByte(PacketID.SEND_EQUIPPED_ITEMS);
-		ConnectionManager.getConnection().writeInt(Mideas.getCharacterId());
 		int i = 0;
 		while(i < 12) {
 			if(i != 5 && i != 6) {

@@ -24,9 +24,10 @@ public class TextMenu {
 	private boolean buttonHover;
 	private boolean buttonDown;
 	private int x_size;
-	private int value;
+	protected int value;
+	private int textShift;
 	
-	public TextMenu(float x, float y, float x_size, float y_size, String text, int font_size, int shadow_size) {
+	public TextMenu(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, float textShift) {
 		this.x = (int)x;
 		this.y = (int)y;
 		this.x_size = (int)x_size;
@@ -35,7 +36,7 @@ public class TextMenu {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");
 		Font awtFont = null;
 		try {
-			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont((float)font_size);
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(font_size);
 		} 
 		catch (FontFormatException e) {
 			e.printStackTrace();
@@ -44,9 +45,10 @@ public class TextMenu {
 			e.printStackTrace();
 		}
 		this.font = new TTF(awtFont, true);
+		this.textShift = (int)textShift;
 	}
 	
-	public TextMenu(float x, float y, float x_size, float y_size, String text, int font_size, int shadow_size, int value) {
+	public TextMenu(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
 		this.x = (int)x;
 		this.y = (int)y;
 		this.x_size = (int)x_size;
@@ -55,7 +57,7 @@ public class TextMenu {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");
 		Font awtFont = null;
 		try {
-			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont((float)font_size);
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(font_size);
 		} 
 		catch (FontFormatException e) {
 			e.printStackTrace();
@@ -64,7 +66,6 @@ public class TextMenu {
 			e.printStackTrace();
 		}
 		this.font = new TTF(awtFont, true);
-		this.value = value;
 	}
 	
 	public TextMenu(TextMenu menu) {
@@ -98,14 +99,14 @@ public class TextMenu {
 			this.font.drawStringShadow(x, y, this.text, GRAY, Color.black, this.shadow_size, 0, 0);
 		}
 		else {
-			if(this.buttonHover) {
-				Draw.drawQuad(Sprites.text_menu_hover, x-10*Mideas.getDisplayXFactor(), y+3*Mideas.getDisplayYFactor(), this.x_size, Sprites.text_menu_hover.getImageHeight()*Mideas.getDisplayYFactor());
-			}
 			if(this.buttonDown) {
-				this.font.drawStringShadow(x+2, y+2, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
+				this.font.drawStringShadow(x+2+this.textShift, y+2, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
 			}
 			else {
-				this.font.drawStringShadow(x, y, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
+				this.font.drawStringShadow(x+this.textShift, y, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
+			}
+			if(this.buttonHover) {
+				Draw.drawQuadBlend(Sprites.text_menu_hover, x-10*Mideas.getDisplayXFactor(), y, this.x_size, Sprites.text_menu_hover.getImageHeight()*Mideas.getDisplayYFactor());
 			}
 		}
 	}
@@ -128,8 +129,9 @@ public class TextMenu {
 	
 	private boolean eventHandler(int x, int y) {
 		this.buttonHover = false;
-		if(Mideas.mouseX() >= x && Mideas.mouseX() <= x+this.x_size && Mideas.mouseY() > y+2 && Mideas.mouseY() <= y+this.font.getLineHeight()+1) {
+		if(Mideas.getHover() && Mideas.mouseX() >= x-10*Mideas.getDisplayXFactor() && Mideas.mouseX() <= x+-10*Mideas.getDisplayXFactor()+this.x_size && Mideas.mouseY() > y+2 && Mideas.mouseY() <= y+this.font.getLineHeight()+1) {
 			this.buttonHover = true;
+			Mideas.setHover(false);
 		}
 		if(this.buttonHover) {
 			if(Mouse.getEventButtonState()) {
@@ -163,6 +165,25 @@ public class TextMenu {
 	
 	public String getText() {
 		return this.text;
+	}
+	
+	public TTF getFont() {
+		return this.font;
+	}
+	
+	public void setY(float y) {
+		this.y = (int)y;
+	}
+	
+	public void setX(float x) {
+		this.x = (int)x;
+	}
+	
+	public void update(float x, float y, float x_size, float textShift) {
+		this.x = (int)x;
+		this.y = (int)y;
+		this.textShift = (int)textShift;
+		this.x_size = (int)x_size;
 	}
 	
 	public void setValue(int value) {

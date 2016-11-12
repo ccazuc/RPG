@@ -14,7 +14,11 @@ import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.CheckBox;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.DropDownMenu;
+import com.mideas.rpg.v2.utils.HorizontalBar;
 import com.mideas.rpg.v2.utils.Input;
+import com.mideas.rpg.v2.utils.ScrollBar;
+import com.mideas.rpg.v2.utils.TextMenu;
 import com.mideas.rpg.v2.utils.Tooltip;
 
 import static com.mideas.rpg.v2.hud.social.SocialFrame.Y_SOCIAL_FRAME;
@@ -57,6 +61,8 @@ public class GuildFrame {
 	private final static Color GREEN = new Color(64/255f, 251/255f, 64f/255f);
 	static boolean displayGuildInformation;
 	private static boolean inputInit;
+	private static boolean dropDownMenuInit;
+	private final static ScrollBar memberScrollBar = new ScrollBar(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 240*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 270*Mideas.getDisplayYFactor(), false, 18*Mideas.getDisplayYFactor());
 	private final static CheckBox showOfflineMembersCheckBox = new CheckBox(X_SOCIAL_FRAME+353*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), 17*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor()) {
 		
 		@Override
@@ -78,6 +84,20 @@ public class GuildFrame {
 				return true;
 			}
 			return false;
+		}
+	};
+	private final static int DROP_DOWN_MENU_BAR_X = 458;
+	private final static int DROP_DOWN_MENU_BAR_X_SIZE = 205;
+	private final static int DROP_DOWN_MENU_BAR_Y = 38;
+	private final static int DROP_DOWN_MENU_ALERT_X = 450;
+	private final static int DROP_DOWN_MENU_ALERT_Y = 63;
+	private final static int DROP_DOWN_MENU_ALERT_X_SIZE = 130;
+	private final static DropDownMenu manageRankDropDownMenu = new DropDownMenu(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor(), 13, .6f) {
+		
+		@Override
+		public void eventButtonClick() {
+			selectedRank = Mideas.joueur1().getGuild().getRankList().get(this.selectedMenuValue);
+			System.out.println(selectedRank);
 		}
 	};
 	final static AlertBackground informationBackground = new AlertBackground(X_SOCIAL_FRAME+GUILD_INFORMATION_ALERT_BACKGROUND_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME, GUILD_INFORMATION_ALERT_BACKGROUND_X_SIZE*Mideas.getDisplayXFactor(), GUILD_INFORMATION_ALERT_BACKGROUND_Y_SIZE*Mideas.getDisplayYFactor(), .6f);
@@ -445,12 +465,26 @@ public class GuildFrame {
 	
 	private static void drawMembers() {
 		int i = 0;
+		if(showOfflineMembers && Mideas.joueur1().getGuild().getMemberList().size() > 13) {
+			i = (int)((Mideas.joueur1().getGuild().getMemberList().size()-13)*memberScrollBar.getScrollPercentage());
+			memberScrollBar.draw();
+			//System.out.println(i);
+		}
+		else if(!showOfflineMembers && Mideas.joueur1().getGuild().getNumberOnlineMember() > 13) {
+			i = (int)((Mideas.joueur1().getGuild().getNumberOnlineMember()-13)*memberScrollBar.getScrollPercentage());
+			memberScrollBar.draw();
+			//System.out.println(i);
+		}
+		//System.out.println("Scroll %: "+memberScrollBar.getScrollPercentage());
+		//System.out.println("SIZE: "+Mideas.joueur1().getGuild().getMemberList().size()+" ONLINE: "+Mideas.joueur1().getGuild().getNumberOnlineMember());
 		float x = X_SOCIAL_FRAME+35*Mideas.getDisplayXFactor();
 		float y = Y_SOCIAL_FRAME+105*Mideas.getDisplayYFactor();
 		int yShift = 0;
 		float yShiftHeight = 18*Mideas.getDisplayYFactor();
+		//System.out.println(Mideas.joueur1().getGuild().getNumberOnlineMember());
 		while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
 			if(Mideas.joueur1().getGuild().getMemberList().get(i).isOnline()) {
+				//System.out.println("i: "+i+", name: "+Mideas.joueur1().getGuild().getMemberList().get(i).getName());
 				TTF2.guildMember.drawStringShadow(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), YELLOW, Color.black, 1, 0, 0);
 				TTF2.guildMember.drawStringShadow(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", Color.white, Color.black, 1, 0, 0);
 				TTF2.guildMember.drawStringShadow(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), Color.white, Color.black, 1, 0, 0);
@@ -475,9 +509,17 @@ public class GuildFrame {
 	}
 	
 	private static boolean mouseEventMembers() {
-		hoveredMember = -1;
 		int i = 0;
-		float x = X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor();
+		if((showOfflineMembers && Mideas.joueur1().getGuild().getMemberList().size() > 13)) {
+			memberScrollBar.event();
+			i = (int)((Mideas.joueur1().getGuild().getMemberList().size()-13)*memberScrollBar.getScrollPercentage());
+		}
+		if(!showOfflineMembers && Mideas.joueur1().getGuild().getNumberOnlineMember() > 13) {
+			memberScrollBar.event();
+			i = (int)((Mideas.joueur1().getGuild().getNumberOnlineMember()-13)*memberScrollBar.getScrollPercentage());
+		}
+		hoveredMember = -1;
+		float x = X_SOCIAL_FRAME+19*Mideas.getDisplayXFactor();
 		float y = Y_SOCIAL_FRAME+105*Mideas.getDisplayYFactor();
 		int yShift = 0;
 		float yShiftHeight = 18*Mideas.getDisplayYFactor();
@@ -537,6 +579,11 @@ public class GuildFrame {
 	
 	private static void drawManageFrame() {
 		if(manageFrameOpen) {
+			if(!dropDownMenuInit) {
+				fillDropDownMenuWithRank();
+				manageRankDropDownMenu.update(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor());
+				dropDownMenuInit = true;
+			}
 			informationBackground.draw();
 			canListenGuildChannelCheckBox.draw();
 			canListenOfficerChannelCheckBox.draw();
@@ -551,11 +598,13 @@ public class GuildFrame {
 			canRemoveMemberCheckBox.draw();
 			canEditPublicNoteCheckBox.draw();
 			canEditOfficerNoteCheckBox.draw();
+			manageRankDropDownMenu.draw();
 		}
 	}
 	
 	private static boolean mouseEventManageFrame() {
 		if(manageFrameOpen) {
+			if(manageRankDropDownMenu.event()) return true;
 			if(canListenGuildChannelCheckBox.event()) return true;
 			if(canListenOfficerChannelCheckBox.event()) return true;
 			if(canPromoteCheckBox.event()) return true;
@@ -571,6 +620,15 @@ public class GuildFrame {
 			if(canEditOfficerNoteCheckBox.event()) return true;
 		}
 		return false;
+	}
+	
+	private static void fillDropDownMenuWithRank() {
+		int i = 0;
+		manageRankDropDownMenu.resetMenuList();
+		while(i < Mideas.joueur1().getGuild().getRankList().size()) {
+			manageRankDropDownMenu.addMenu(new TextMenu(X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X+20*Mideas.getDisplayXFactor(), 0, (DROP_DOWN_MENU_ALERT_X_SIZE-20)*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuild().getRankList().get(i).getName(), 13f, 1));
+			i++;
+		}
 	}
 	
 	private static void drawDisplayedMember() {
@@ -677,8 +735,8 @@ public class GuildFrame {
 		xShift+= TTF2.guildMotd.getWidth(Mideas.joueur1().getGuild().getNumberMember());
 		TTF2.guildMotd.drawStringShadow(x+xShift, y, " Guild Member (", YELLOW, Color.black, 1, 0, 0);
 		xShift+= TTF2.guildMotd.getWidth(" Guild Member (");
-		TTF2.guildMotd.drawStringShadow(x+xShift, y, Mideas.joueur1().getGuild().getNumberOnlineMember(), Color.white, Color.black, 1, 0, 0);
-		xShift+= TTF2.guildMotd.getWidth(Mideas.joueur1().getGuild().getNumberOnlineMember());
+		TTF2.guildMotd.drawStringShadow(x+xShift, y, Mideas.joueur1().getGuild().getNumberOnlineMemberString(), Color.white, Color.black, 1, 0, 0);
+		xShift+= TTF2.guildMotd.getWidth(Mideas.joueur1().getGuild().getNumberOnlineMemberString());
 		TTF2.guildMotd.drawStringShadow(x+xShift, y, " Online ", GREEN, Color.black, 1, 0, 0);
 		xShift+= TTF2.guildMotd.getWidth("Online ");
 		TTF2.guildMotd.drawStringShadow(x+xShift, y, ")", YELLOW, Color.black, 1, 0, 0);
@@ -759,6 +817,8 @@ public class GuildFrame {
 		canRemoveMemberCheckBox.update(X_SOCIAL_FRAME+MANAGE_FRAME_CHECKBOX_RIGHT_SIDE*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+199*Mideas.getDisplayYFactor(), 15*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 		canEditPublicNoteCheckBox.update(X_SOCIAL_FRAME+MANAGE_FRAME_CHECKBOX_RIGHT_SIDE*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+220*Mideas.getDisplayYFactor(), 15*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 		canEditOfficerNoteCheckBox.update(X_SOCIAL_FRAME+MANAGE_FRAME_CHECKBOX_RIGHT_SIDE*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+241*Mideas.getDisplayYFactor(), 15*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
+		memberScrollBar.update(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 240*Mideas.getDisplayYFactor(), 365*Mideas.getDisplayXFactor(), 260*Mideas.getDisplayYFactor(), 18*Mideas.getDisplayYFactor());
+		manageRankDropDownMenu.update(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor());
 	}
 	
 	public static Input getInformationInput() {

@@ -29,20 +29,20 @@ public class Guild {
 		this.motd = motd;
 		this.tempMotd = motd;
 		this.id = id;
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), false, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), false, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), false, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), false, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), false, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), false, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), false, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Test", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.numberMembers = String.valueOf(this.memberList.size());
 		initNumberOnlineMembers();
 	}
@@ -115,8 +115,12 @@ public class Guild {
 		return this.numberMembers;
 	}
 	
-	public String getNumberOnlineMember() {
+	public String getNumberOnlineMemberString() {
 		return this.numberOnlineMembersString;
+	}
+	
+	public int getNumberOnlineMember() {
+		return this.numberOnlineMembers;
 	}
 	
 	public int getLeaderId() {

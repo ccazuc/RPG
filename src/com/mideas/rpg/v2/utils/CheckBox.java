@@ -122,8 +122,9 @@ public class CheckBox {
 	public boolean event() {
 		if(activateCondition()) {
 			this.buttonHover = false;
-			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+(this.x_size+6)*Mideas.getDisplayXFactor()+this.textWidth && Mideas.mouseY() > this.y-4 && Mideas.mouseY() <= this.y+4+this.y_size) {
+			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+(this.x_size+6)*Mideas.getDisplayXFactor()+this.textWidth && Mideas.mouseY() > this.y-4 && Mideas.mouseY() <= this.y+4+this.y_size) {
 				this.buttonHover = true;
+				Mideas.setHover(false);
 			}
 			if(this.buttonHover) {
 				if(Mouse.getEventButtonState()) {
