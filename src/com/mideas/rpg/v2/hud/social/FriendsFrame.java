@@ -49,6 +49,7 @@ public class FriendsFrame {
 		@Override
 		public void eventButtonClick() {
 			Interface.setAddFriendStatus(true);
+			AddFriendInputFrame.getInput().setIsActive(true);
 		}
 	};
 	private static Button sendMessageFriendButton = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), BUTTON_LENGTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Send message", 12, 1) {

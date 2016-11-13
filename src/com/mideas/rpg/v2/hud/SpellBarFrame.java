@@ -169,7 +169,7 @@ public class SpellBarFrame {
 					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
 				}
 				if(ContainerFrame.getBagOpen(i+1)) {
-					Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
+					Draw.drawQuadBlend(Sprites.bag_open_border, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
 					Draw.drawQuad(Sprites.cursor, -5000, -5000);
 					i++;
 					continue;
@@ -178,14 +178,14 @@ public class SpellBarFrame {
 			}
 			i++;
 		}
-		if(Mideas.mouseX() >= Display.getWidth()/2+539.2f && Mideas.mouseX() <= Display.getWidth()/2+539.2+48.2f && Mideas.mouseY() >= Display.getHeight()-40 && Mideas.mouseY() <= Display.getHeight()-3) {
-			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+537, Display.getHeight()-41);
+		if(Mideas.mouseX() >= Display.getWidth()/2+539.2f*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+(539.2+48.2f)*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()+yBag && Mideas.mouseY() <= Display.getHeight()-3*Mideas.getDisplayYFactor()) {
+			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+537*Mideas.getDisplayXFactor(), Display.getHeight()+yBag);
 		}
 		/*if(DragBagManager.getClickBag(0)) {
 			Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+539.2f, Display.getHeight()-41);
 		}*/
 		if(ContainerFrame.getBagOpen(0)) {
-			Draw.drawQuad(Sprites.bag_open_border, Display.getWidth()/2+539.2f, Display.getHeight()-41);
+			Draw.drawQuadBlend(Sprites.bag_open_border, Display.getWidth()/2+536.2f*Mideas.getDisplayXFactor(), Display.getHeight()+yBag, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
 		}
 		return false;
 	}

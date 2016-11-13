@@ -6,6 +6,7 @@ public class GuildRank {
 
 	private int order;
 	private int permission;
+	private int tempPermission;
 	private boolean[] permissionList;
 	private boolean[] tempPermissionList;
 	private String name;
@@ -27,6 +28,8 @@ public class GuildRank {
 	public final static int CAN_WITHDRAW_GOLD = 13;
 	public final static int CAN_USE_GOLD_REPARATION = 14;
 	
+	private final static boolean DEBUG_ENABLE = false;
+	
 	public GuildRank(int order, int permission, String name) {
 		this.order = order;
 		this.permission = permission;
@@ -34,19 +37,69 @@ public class GuildRank {
 		this.permissionList = new boolean[15];
 		this.tempPermissionList = new boolean[15];
 		parsePermission();
-		Arrays.fill(this.permissionList, true);
-		this.tempPermissionList = this.permissionList;
+		//Arrays.fill(this.permissionList, true);
+		updateTempPermission();
+		//this.tempPermissionList = this.permissionList;
 	}
 	
 	private void parsePermission() {
 		int i = 0;
+		if(DEBUG_ENABLE) {
+			System.out.println("Start parse for rank :"+this.name);
+		}
 		while(i < this.permissionList.length) {
 			if((this.permission & (1 << i)) != 0) {
 				this.permissionList[i] = true;
 				this.tempPermissionList[i] = true;
 			}
+			else {
+				this.permissionList[i] = false;
+				this.tempPermissionList[i] = false;
+			}
 			i++;
 		}
+		if(DEBUG_ENABLE) {
+			System.out.println("Finished parse for rank"+this.name);
+		}
+	}
+	
+	private void updateTempPermission() {
+		int i = 0;
+		while(i < this.tempPermissionList.length) {
+			if(this.permissionList[i]) {
+				this.tempPermissionList[i] = true;
+			}
+			else {
+				this.tempPermissionList[i] = false;
+			}
+			i++;
+		}
+	}
+	
+	public void setPermission(int permission) {
+		if(this.permission != permission) {
+			this.permission = permission;
+			parsePermission();
+			updateTempPermission();
+		}
+	}
+	
+	public void buildTempPermission() {
+		int i = 0;
+		this.tempPermission = 0;
+		while(i < this.tempPermissionList.length) {
+			if(this.tempPermissionList[i]) {
+				this.tempPermission += (1 << i);
+			}
+			else {
+				this.tempPermission += (0 << i);
+			}
+			i++;
+		}
+	}
+	
+	public void resetTempRank() {
+		updateTempPermission();
 	}
 	
 	public boolean canListenGuildChannel() {
@@ -63,6 +116,7 @@ public class GuildRank {
 	
 	public boolean canInvitePlayer() {
 		return this.permissionList[CAN_INVITE_MEMBER];
+		//return true;
 	}
 	
 	public boolean canModifyMotd() {
@@ -173,6 +227,7 @@ public class GuildRank {
 	public void setTempPermission(int index, boolean we) {
 		this.tempPermissionList[index] = we;
 	}
+	
 	public void cancelTempModification() {
 		this.tempPermissionList = this.permissionList;
 	}
@@ -189,11 +244,8 @@ public class GuildRank {
 		return this.permission;
 	}
 	
-	public void setPermission(int permission) {
-		if(this.permission != permission) {
-			this.permission = permission;
-			parsePermission();
-		}
+	public int getTempPermission() {
+		return this.tempPermission;
 	}
 	
 	public String getName() {

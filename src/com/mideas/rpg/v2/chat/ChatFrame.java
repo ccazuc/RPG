@@ -18,6 +18,7 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.InputBar;
 
 public class ChatFrame {
@@ -878,6 +879,9 @@ public class ChatFrame {
 	}
 	
 	public static void setChatActive(boolean we) {
+		if(we) {
+			Input.setInactiveAllInput();
+		}
 		chatActive = we;
 	}
 	

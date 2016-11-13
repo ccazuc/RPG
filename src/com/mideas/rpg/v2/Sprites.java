@@ -329,6 +329,8 @@ public class Sprites {
 	public static Texture horizontal_bar_left;
 	public static Texture horizontal_bar_middle;
 	public static Texture horizontal_bar_right;
+	public static Texture guild_manage_frame_bot_border;
+	public static Texture guild_manage_rank_horizontal_bar;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -423,6 +425,8 @@ public class Sprites {
 		drop_down_menu_left_border = new Texture("sprite/interface/drop_down_menu/left_border.png");
 		drop_down_menu_middle_border = new Texture("sprite/interface/drop_down_menu/middle_border.png");
 		drop_down_menu_right_border = new Texture("sprite/interface/drop_down_menu/right_border.png");
+		guild_manage_frame_bot_border = new Texture("sprite/interface/social/guild_manage_frame_bot_border.png");
+		guild_manage_rank_horizontal_bar = new Texture("sprite/interface/social/guild_manage_rank_horizontal_bar.png");
 		return true;
 	}
 	

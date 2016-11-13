@@ -18,11 +18,20 @@ import com.mideas.rpg.v2.utils.InputBar;
 public class AddGuildMemberInputFrame {
 	
 	static Input input = new Input(TTF2.addingFriendInput, 12, false, false) {
-		
+
 		@Override
 		public boolean keyEvent(char c) {
-			if(c == 27) {
-				input.setIsActive(false);
+			if(c == Input.ENTER_CHAR_VALUE) {
+				CommandGuild.addMember(input.getText());
+				Interface.setAddGuildMemberStatus(false);
+				this.setIsActive(false);
+				this.resetText();
+				return true;
+			}
+			else if(c == Input.ESCAPE_CHAR_VALUE) {
+				Interface.setAddGuildMemberStatus(false);
+				this.setIsActive(false);
+				this.resetText();
 				return true;
 			}
 			return false;
@@ -77,12 +86,6 @@ public class AddGuildMemberInputFrame {
 		if(!input.isActive() && Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
 			Interface.setAddGuildMemberStatus(false);
 			input.setIsActive(false);
-			return true;
-		}
-		else if(input.isActive() && Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
-			CommandGuild.addMember(input.getText());
-			input.setIsActive(false);
-			Interface.setAddGuildMemberStatus(false);
 			return true;
 		}
 		return input.event();

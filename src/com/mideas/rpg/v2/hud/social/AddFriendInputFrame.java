@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.hud.social;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
@@ -16,7 +15,26 @@ import com.mideas.rpg.v2.utils.InputBar;
 
 public class AddFriendInputFrame {
 
-	static Input input = new Input(TTF2.addingFriendInput, 12, false, false);
+	static Input input = new Input(TTF2.addingFriendInput, 12, false, false) {
+		
+		@Override
+		public boolean keyEvent(char c) {
+			if(c == Input.ENTER_CHAR_VALUE) {
+				CommandFriend.addFriend(input.getText());
+				Interface.setAddFriendStatus(false);
+				this.resetText();
+				this.setIsActive(false);
+				return true;
+			}
+			else if(c == Input.ESCAPE_CHAR_VALUE) {
+				Interface.setAddFriendStatus(false);
+				this.resetText();
+				this.setIsActive(false);
+				return true;
+			}
+			return false;
+		}
+	};
 	private static InputBar inputBar = new InputBar(Display.getWidth()/2-88*Mideas.getDisplayXFactor(), Display.getHeight()/2-325*Mideas.getDisplayYFactor(), 170*Mideas.getDisplayXFactor());
 	private static Button acceptButton = new Button(Display.getWidth()/2-143*Mideas.getDisplayXFactor(), Display.getHeight()/2-283*Mideas.getDisplayYFactor(), 135*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Accept", 13, 1) {
 		
@@ -56,15 +74,6 @@ public class AddFriendInputFrame {
 	}
 	
 	public static boolean event() {
-		if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-			Interface.setAddFriendStatus(false);
-			return true;
-		}
-		else if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
-			CommandFriend.addFriend(input.getText());
-			Interface.setAddFriendStatus(false);
-			return true;
-		}
 		return input.event();
 	}
 	

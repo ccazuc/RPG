@@ -50,6 +50,7 @@ import com.mideas.rpg.v2.hud.social.GuildFrame;
 import com.mideas.rpg.v2.hud.social.GuildInviteNotification;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Input;
 
 public class Interface {
 	
@@ -396,11 +397,12 @@ public class Interface {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
 				//System.out.println(Keyboard.getEventKey());
-				if(!ChatFrame.getChatActive() && !AddFriendInputFrame.getInput().isActive() && !AddGuildMemberInputFrame.getInput().isActive() && !GuildFrame.getInformationInput().isActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
+				if(!Input.hasInputActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
 						//SocialFrame.test();
-						CommandGuild.addMember("Midetest");
-						Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
+						//CommandGuild.addMember("Midetest");
+						//Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
+						CommandGuild.setMotd("Ceci est un test !");
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
@@ -542,12 +544,12 @@ public class Interface {
 							return true;
 						}
 					}
-					else if(GuildFrame.getInformationInput().isActive()) {
+					else if(socialFrameActive && SocialFrame.isGuildFrameActive()) {
 						if(GuildFrame.event()) {
 							return true;
 						}
 					}
-					else if(ChatFrame.getChatActive()) {
+					if(ChatFrame.getChatActive()) {
 						if(ChatFrame.event()) {
 							return true;
 						}

@@ -2,7 +2,7 @@ package com.mideas.rpg.v2.game.guild;
 
 import java.util.ArrayList;
 
-import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.hud.social.GuildFrame;
 
 public class Guild {
 
@@ -10,7 +10,6 @@ public class Guild {
 	private int leader_id;
 	private String name;
 	private String information;
-	private String tempInformation;
 	private String motd;
 	private String tempMotd;
 	private String numberMembers;
@@ -21,7 +20,6 @@ public class Guild {
 	
 	public Guild(int id, int leader_id, String name, String information, String motd, ArrayList<GuildMember> memberList, ArrayList<GuildRank> rankList) {
 		this.information = information;
-		this.tempInformation = information;
 		this.memberList = memberList;
 		this.leader_id = leader_id;
 		this.rankList = rankList;
@@ -29,6 +27,7 @@ public class Guild {
 		this.motd = motd;
 		this.tempMotd = motd;
 		this.id = id;
+		/*this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
@@ -41,8 +40,7 @@ public class Guild {
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));*/
 		this.numberMembers = String.valueOf(this.memberList.size());
 		initNumberOnlineMembers();
 	}
@@ -131,6 +129,16 @@ public class Guild {
 		return this.leader_id == id;
 	}
 	
+	public void memberLoggedIn() {
+		this.numberOnlineMembers++;
+		this.numberOnlineMembersString = String.valueOf(this.numberOnlineMembers);
+	}
+	
+	public void memberLoggedOut() {
+		this.numberOnlineMembers++;
+		this.numberOnlineMembersString = String.valueOf(this.numberOnlineMembers);
+	}
+	
 	public int getId() {
 		return this.id;
 	}
@@ -145,14 +153,7 @@ public class Guild {
 	
 	public void setInformation(String information) {
 		this.information = information;
-	}
-	
-	public String getTempInformation() {
-		return this.tempInformation;
-	}
-	
-	public void setTempInformation(String tempInformation) {
-		this.tempInformation = tempInformation;
+		GuildFrame.getInformationInput().setText(this.information);
 	}
 	
 	public String getMotd() {
@@ -161,6 +162,7 @@ public class Guild {
 	
 	public void setMotd(String motd) {
 		this.motd = motd;
+		this.tempMotd = motd;
 	}
 	
 	public String getTempMotd() {

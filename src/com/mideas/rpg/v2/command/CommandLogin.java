@@ -28,6 +28,7 @@ public class CommandLogin extends Command {
 			//SelectScreen.mouseEvent();
 			RealmListFrame.mouseEvent();
 			LoginScreen.loginSuccess();
+			LoginScreen.closeInput();
 		}
 		else if(packetId == ACCOUNT_BANNED_TEMP) {
 			LoginScreen.getAlert().setActive();

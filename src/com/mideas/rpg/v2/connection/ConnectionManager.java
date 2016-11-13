@@ -205,6 +205,7 @@ public class ConnectionManager {
 				ChatFrame.clearChat();
 				LoginScreen.getAlert().setActive();
 				LoginScreen.getAlert().setText("Vous avez été déconnecté.");
+				LoginScreen.setPasswordActive();
 				return;
 			}
 		}
@@ -230,6 +231,7 @@ public class ConnectionManager {
 				ChatFrame.clearChat();
 				LoginScreen.getAlert().setActive();
 				LoginScreen.getAlert().setText("Vous avez été déconnecté.");
+				LoginScreen.setPasswordActive();
 				return;
 			}
 		}

@@ -29,7 +29,7 @@ public class DragBagManager {
 	private static String yes = "Yes";
 	private static String no = "No";
 	
-	public static void draw() {
+	public static void draw() { //TODO: rewrite the whole class
 		hoverDelete = false;
 		hoverSave = false;
 		if(draggedBag != null) {
@@ -132,6 +132,7 @@ public class DragBagManager {
 	
 	public static void openBag() {
 		Arrays.fill(hoverBag, false);
+		//System.out.println(Mideas.joueur1().bag().getBag().length);
 		int i = 0;
 		float x = 491*Mideas.getDisplayXFactor();
 		float xShift = 48.2f*Mideas.getDisplayXFactor();
@@ -142,7 +143,7 @@ public class DragBagManager {
 		if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 			if(!Mouse.getEventButtonState()) {
 				i = 0;
-				if(Mideas.mouseX() >= Display.getWidth()/2+539 && Mideas.mouseX() <= Display.getWidth()/2+539+40 && Mideas.mouseY() >= Display.getHeight()-40 && Mideas.mouseY() <= Display.getHeight()-3) {
+				if(Mideas.mouseX() >= Display.getWidth()/2+539*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+579*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()-41*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()-3) {
 					ContainerFrame.setBagOpen(0, !ContainerFrame.getBagOpen(0));
 				}
 				while(i < hoverBag.length) {
@@ -157,7 +158,7 @@ public class DragBagManager {
 	}
 	
 	private static void bagHover(int i, float x) {
-		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37 && Mideas.mouseY() >= Display.getHeight()-40 && Mideas.mouseY() <= Display.getHeight()-3) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()-41*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()-3) {
 			hoverBag[i] = true;
 		}
 	}

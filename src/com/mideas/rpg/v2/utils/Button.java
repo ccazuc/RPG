@@ -31,6 +31,7 @@ public class Button {
 	private Color baseColor = Color.decode("#FFC700");
 	private boolean hasClicked;
 	private static final Color GREY = Color.decode("#808080");
+	private boolean isEnable;
 	
 	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
 		this.x = x;
@@ -98,23 +99,25 @@ public class Button {
 	}
 	
 	public void draw() {
-		if(!activateCondition()) {
-			this.texture = Sprites.button_disabled;
-			this.color = GREY;
+		if(this.isEnable) {
+			if(!activateCondition()) {
+				this.texture = Sprites.button_disabled;
+				this.color = GREY;
+			}
+			else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
+				this.texture = Sprites.button;
+				this.color = this.baseColor;
+			}
+			else if(hoverSpriteActivateCondition()) {
+				this.color = this.hoveredColor;
+			}
+			Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
+			this.font.drawStringShadow(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
 		}
-		else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
-			this.texture = Sprites.button;
-			this.color = this.baseColor;
-		}
-		else if(hoverSpriteActivateCondition()) {
-			this.color = this.hoveredColor;
-		}
-		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
-		this.font.drawStringShadow(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
 	}
 	
 	public boolean event() {
-		if(activateCondition()) {
+		if(this.isEnable && activateCondition()) {
 			this.color = this.baseColor;
 			this.buttonHover = false;
 			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
@@ -189,9 +192,19 @@ public class Button {
 		this.y_size = height*Mideas.getDisplayXFactor();
 	}
 	
+	public void enable() {
+		this.isEnable = true;
+	}
+	
+	public void disable() {
+		reset();
+		this.isEnable = false;
+	}
+	
 	protected void eventButtonClick() {}
 	protected boolean activateCondition() {return true;}
 	protected boolean hoverSpriteActivateCondition() {return false;}
+	protected void popupClosed() {}
 	
 	public boolean getButtonDown() {
 		return this.buttonDown;

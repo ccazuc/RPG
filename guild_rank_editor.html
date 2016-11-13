@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			Class id generator
+		</title>
+	</head>
+	<body>
+		<input type="checkbox" onchange="change()" id="a"><label for="a">GuildListen</label><br />
+		<input type="checkbox" onchange="change()" id="b"><label for="b">OfficerListen</label><br />
+		<input type="checkbox" onchange="change()" id="c"><label for="c">Promote</label><br />
+		<input type="checkbox" onchange="change()" id="d"><label for="d">InviteMember</label><br />
+		<input type="checkbox" onchange="change()" id="e"><label for="e">SetMOTD</label><br />
+		<input type="checkbox" onchange="change()" id="f"><label for="f">ViewOfficerNote</label><br />
+		<input type="checkbox" onchange="change()" id="g"><label for="g">SetInfos</label><br />
+		<input type="checkbox" onchange="change()" id="h"><label for="h">TalkGuildChann</label><br />
+		<input type="checkbox" onchange="change()" id="i"><label for="i">TalkOfficerChann</label><br />
+		<input type="checkbox" onchange="change()" id="j"><label for="j">Demote</label><br />
+		<input type="checkbox" onchange="change()" id="k"><label for="k">Kick</label><br />
+		<input type="checkbox" onchange="change()" id="l"><label for="l">EditPublicNote</label><br />
+		<input type="checkbox" onchange="change()" id="m"><label for="m">EditOfficerNote</label><br />
+		<input type="checkbox" onchange="change()" id="n"><label for="n">WithdrawGold</label><br />
+		<input type="checkbox" onchange="change()" id="o"><label for="o">UseGoldForRepa</label><br />
+		<input type="text" id="result" value="0">
+		<script>
+			function a(id) {
+				return (document.getElementById(id).checked);
+			}
+			
+			function change() {
+				var result = 0;
+				if (a("a"))
+					result += 1 << 0;
+				if (a("b"))
+					result += 1 << 1;
+				if (a("c"))
+					result += 1 << 2;
+				if (a("d"))
+					result += 1 << 3;
+				if (a("e"))
+					result += 1 << 4;
+				if (a("f"))
+					result += 1 << 5;
+				if (a("g"))
+					result += 1 << 6;
+				if (a("h"))
+					result += 1 << 7;
+				if (a("i"))
+					result += 1 << 8;
+				if (a("j"))
+					result += 1 << 9;
+				if (a("k"))
+					result += 1 << 10;
+				if (a("l"))
+					result += 1 << 11;
+				if (a("m"))
+					result += 1 << 12;
+				if (a("n"))
+					result += 1 << 13;
+				if (a("o"))
+					result += 1 << 14;
+					document.getElementById("result").value = result;
+			}
+		</script>
+	</body>
+</html>

@@ -2,7 +2,6 @@ package com.mideas.rpg.v2.hud.social;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.game.Friend;
 import com.mideas.rpg.v2.game.SocialFrameMenu;
 import com.mideas.rpg.v2.utils.ButtonMenu;
 import com.mideas.rpg.v2.utils.CrossButton;
@@ -10,7 +9,6 @@ import com.mideas.rpg.v2.utils.CrossButton;
 public class SocialFrame {
 
 	static SocialFrameMenu selectedMenu = SocialFrameMenu.GUILD_FRAME;
-	static Friend selectedFriend;
 	private static int Y_SOCIAL_FRAME_DEFAULT = 115;
 	static float Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
 	private static int X_SOCIAL_FRAME_DEFAULT = 5;
@@ -82,16 +80,16 @@ public class SocialFrame {
 			FriendsFrame.draw();
 		}
 		else if(selectedMenu == SocialFrameMenu.WHO_FRAME) {
-			drawWhoFrame();
+			//WhoFrame.draw();
 		}
 		else if(selectedMenu == SocialFrameMenu.GUILD_FRAME) {
 			GuildFrame.draw();
 		}
 		else if(selectedMenu == SocialFrameMenu.DISCUSSION_FRAME) {
-			drawDiscussionFrame();
+			//DiscussionFrame.draw();
 		}
 		else if(selectedMenu == SocialFrameMenu.RAID_FRAME) {
-			drawRaidFrame();
+			//RaidFrame.draw();
 		}
 		if(draw) {
 			friendButtonMenu.draw();
@@ -114,44 +112,17 @@ public class SocialFrame {
 			return FriendsFrame.mouseEvent();
 		}
 		else if(selectedMenu == SocialFrameMenu.WHO_FRAME) {
-			return mouseEventWhoFrame();
+			//return WhoFrame.mouseEvent();
 		}
 		else if(selectedMenu == SocialFrameMenu.GUILD_FRAME) {
 			return GuildFrame.mouseEvent();
 		}
 		else if(selectedMenu == SocialFrameMenu.DISCUSSION_FRAME) {
-			return mouseEventDiscussionFrame();
+			//return DiscussionFrame.mouseEvent();
 		}
 		else if(selectedMenu == SocialFrameMenu.RAID_FRAME) {
-			return mouseEventRaidFrame();
+			//return RaidFrame.mouseEvent();
 		}
-		return false;
-	}
-	
-	private static void drawWhoFrame() {
-		
-	}
-	
-	private static void drawDiscussionFrame() {
-		
-	}
-	
-	private static void drawRaidFrame() {
-		
-	}
-	
-	private static boolean mouseEventWhoFrame() {
-		
-		return false;
-	}
-	
-	private static boolean mouseEventDiscussionFrame() {
-		
-		return false;
-	}
-	
-	private static boolean mouseEventRaidFrame() {
-		
 		return false;
 	}
 	
@@ -183,5 +154,9 @@ public class SocialFrame {
 	
 	public static void setSelectedMenu(SocialFrameMenu menu) {
 		selectedMenu = menu;
+	}
+	
+	public static boolean isGuildFrameActive() {
+		return selectedMenu == SocialFrameMenu.GUILD_FRAME;
 	}
 }

@@ -99,6 +99,7 @@ public class CommandGuild extends Command {
 			Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getMember(Mideas.joueur1().getId()).getRank());
 			Mideas.joueur1().getGuild().getMember(Mideas.joueur1().getId()).setOnlineStatus(true);
 			Mideas.joueur1().getGuild().initOnlineMembers();
+			ChatFrame.addMessage(new Message("[Guild Message Of The Day] : "+Mideas.joueur1().getGuild().getMotd(), false, MessageType.SELF, MessageType.GUILD.getColor()));
 		}
 		else if(packetId == PacketID.GUILD_NEW_MEMBER) {
 			int id = ConnectionManager.getConnection().readInt();
@@ -126,6 +127,56 @@ public class CommandGuild extends Command {
 				Mideas.joueur1().setGuild(null);
 			}
 		}
+		else if(packetId == PacketID.GUILD_ONLINE_PLAYER) {
+			int id = ConnectionManager.getConnection().readInt();
+			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
+			if(member != null) {
+				member.setOnlineStatus(true);
+				ChatFrame.addMessage(new Message(member.getName()+" is now online.", false, MessageType.SELF));
+				Mideas.joueur1().getGuild().memberLoggedIn();
+			}
+		}
+		else if(packetId == PacketID.GUILD_OFFLINE_PLAYER) {
+			int id = ConnectionManager.getConnection().readInt();
+			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
+			if(member != null) {
+				member.setOnlineStatus(false);
+				ChatFrame.addMessage(new Message(member.getName()+" is now offline.", false, MessageType.SELF));
+				Mideas.joueur1().getGuild().memberLoggedOut();
+			}
+		}
+		else if(packetId == PacketID.GUILD_SET_MOTD) {
+			String msg = ConnectionManager.getConnection().readString();
+			Mideas.joueur1().getGuild().setMotd(msg);
+			ChatFrame.addMessage(new Message("[Guild Message Of The Day] : "+msg, false, MessageType.SELF, MessageType.GUILD.getColor()));
+		}
+		else if(packetId == PacketID.GUILD_SET_INFORMATION) {
+			String msg = ConnectionManager.getConnection().readString();
+			Mideas.joueur1().getGuild().setInformation(msg);
+		}
+	}
+	
+	public static void setInformation(String msg) {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_INFORMATION);
+		ConnectionManager.getConnection().writeString(msg);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void setMotd(String msg) {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_MOTD);
+		ConnectionManager.getConnection().writeString(msg);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void updatePermission(int rank_order, int value, String name) {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_UPDATE_PERMISSION);
+		ConnectionManager.getConnection().writeInt(rank_order);
+		ConnectionManager.getConnection().writeInt(value);
+		ConnectionManager.getConnection().writeString(name);
+		ConnectionManager.getConnection().send();
 	}
 	
 	public static void addMember(String name) {

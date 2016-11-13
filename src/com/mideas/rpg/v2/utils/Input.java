@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.chat.ChatFrame;
 
@@ -33,7 +32,8 @@ public class Input {
 	private boolean debugActive;
 	private final static ArrayList<Input> inputList = new ArrayList<Input>();
 	
-	private final static int ENTER_VALUE = 27;
+	public final static int ESCAPE_CHAR_VALUE = 27;
+	public final static int ENTER_CHAR_VALUE = 13;
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive) {
 		this.font = font;
@@ -123,34 +123,36 @@ public class Input {
 					resetSelectedPosition();
 					return true;
 				}
-				else if(Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB && Keyboard.getEventKey() != 56) { //write
+				else if(Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB) { //write
 					if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156 || Keyboard.getEventKey() == 28) {
-						if(!this.multipleLine) {
+						char c = Keyboard.getEventCharacter();
+						if(!this.multipleLine && keyEvent(c)) {
+							if(this.debugActive) {
+								System.out.println("Event triggered");
+							}
 							return false;
 						}
 						if(this.debugActive) {
-							System.out.println("Enter");
+							System.out.println("No event triggered");
 						}
 					}
 					if(this.text.length() < this.maxLength) {
 						char c = Keyboard.getEventCharacter();
 						if(this.debugActive) {
-							System.out.println("char: "+c+", value : "+(int)c);
+							System.out.println("char: "+c+", value: "+(int)c);
 						}
-						if(isValidCharacter(c) || Keyboard.getEventKey() == 28 || Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+						if(keyEvent(c)) {
 							if(this.debugActive) {
-								System.out.println("Enter is valid");
+								System.out.println("Event triggered");
 							}
-							if(!keyEvent(c)) {
-								if(this.debugActive) {
-									System.out.println("No event triggered");
-								}
-								write(c);
-								resetSelectedPosition();
-							}
+							return true;
+						}
+						if(isValidCharacter(c) || (this.multipleLine && c == ENTER_CHAR_VALUE)) {
+							write(c);
+							resetSelectedPosition();
+							return true;
 						}
 					}
-					return true;
 				}
 			}
 		}
@@ -168,6 +170,17 @@ public class Input {
 			setInactiveAllInput();
 		}
 		this.isActive = we;
+	}
+	
+	public static boolean hasInputActive() {
+		int i = 0;
+		while(i < inputList.size()) {
+			if(inputList.get(i).isActive) {
+				return true;
+			}
+			i++;
+		}
+		return ChatFrame.getChatActive();
 	}
 	
 	public static void setInactiveAllInput() {
@@ -285,13 +298,13 @@ public class Input {
 		int i = this.cursorPosition;
 		String temp = this.text.substring(this.cursorPosition);
 		if(this.text.length() != 0) {
-			if(this.text.charAt(this.text.length()-1) == ' ' || this.text.charAt(this.text.length()-1) == ',' || this.text.charAt(this.text.length()-1) == ENTER_VALUE) {
+			if(this.text.charAt(this.text.length()-1) == ' ' || this.text.charAt(this.text.length()-1) == ',' || this.text.charAt(this.text.length()-1) == ENTER_CHAR_VALUE) {
 				this.text = this.text.substring(0, this.text.length()-1);
 				i--;
 			}
 		}
 		while(i > 0) {
-			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_VALUE) {
+			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_CHAR_VALUE) {
 				this.text = this.text.substring(0, i);
 				this.cursorPosition = this.text.length();
 				this.cursorShift = this.font.getWidth(this.text);
@@ -307,7 +320,7 @@ public class Input {
 	private boolean CTRLleftArrow() {
 		int i = this.cursorPosition;
 		if(this.text.length() != 0 && i > 0) {
-			if(this.text.charAt(this.cursorPosition-1) == ' ' || this.text.charAt(this.cursorPosition-1) == ',' || this.text.charAt(this.cursorPosition-1) == ENTER_VALUE) {
+			if(this.text.charAt(this.cursorPosition-1) == ' ' || this.text.charAt(this.cursorPosition-1) == ',' || this.text.charAt(this.cursorPosition-1) == ENTER_CHAR_VALUE) {
 				this.cursorShift-= this.font.getWidth(this.text.charAt(this.cursorPosition-1));
 				this.cursorPosition--;
 				i--;
@@ -320,7 +333,7 @@ public class Input {
 			if(i <= 0) {
 				return true;
 			}
-			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_VALUE) {
+			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_CHAR_VALUE) {
 				return true;
 			}
 		}
@@ -343,7 +356,7 @@ public class Input {
 		int i = this.cursorPosition;
 		if(i < this.text.length()) {
 			if(this.text.length() != 0) {
-				if(this.text.charAt(this.cursorPosition+1) == ' ' || this.text.charAt(this.cursorPosition+1) == ',' || this.text.charAt(this.cursorPosition+1) == ENTER_VALUE) {
+				if(this.text.charAt(this.cursorPosition+1) == ' ' || this.text.charAt(this.cursorPosition+1) == ',' || this.text.charAt(this.cursorPosition+1) == ENTER_CHAR_VALUE) {
 					this.cursorShift+= this.font.getWidth(this.text.charAt(this.cursorPosition+1));
 					this.cursorPosition++;
 					i++;
@@ -356,7 +369,7 @@ public class Input {
 				if(i >= this.text.length()) {
 					return true;
 				}
-				if(this.text.charAt(i) == ' ' || this.text.charAt(i) == ',' || this.text.charAt(i) == ENTER_VALUE) {
+				if(this.text.charAt(i) == ' ' || this.text.charAt(i) == ',' || this.text.charAt(i) == ENTER_CHAR_VALUE) {
 					this.cursorPosition++;
 					this.cursorShift+= this.font.getWidth(this.text.charAt(i));
 					return true;
@@ -402,7 +415,7 @@ public class Input {
 			this.selectedStarts = 40+this.cursorShift;
 		}
 		if(this.text.length() != 0 && i > 0) {
-			if(this.text.charAt(this.cursorPosition-1) == ' ' || this.text.charAt(this.cursorPosition-1) == ',' || this.text.charAt(this.cursorPosition-1) == ENTER_VALUE) {
+			if(this.text.charAt(this.cursorPosition-1) == ' ' || this.text.charAt(this.cursorPosition-1) == ',' || this.text.charAt(this.cursorPosition-1) == ENTER_CHAR_VALUE) {
 				this.cursorShift-= this.font.getWidth(this.text.charAt(this.cursorPosition-1));
 				this.selectedQuadLength-= this.font.getWidth(this.text.charAt(this.cursorPosition-1));
 				this.selectedLength--;
@@ -419,7 +432,7 @@ public class Input {
 			if(i <= 0) {
 				return true;
 			}
-			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_VALUE) {
+			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_CHAR_VALUE) {
 				return true;
 			}
 		}
@@ -433,7 +446,7 @@ public class Input {
 		}
 		if(i < this.text.length()) {
 			if(this.text.length() != 0 && this.cursorPosition+1 <= this.text.length() && this.cursorPosition+1 >= 0) {
-				if(this.text.charAt(this.cursorPosition+1) == ' ' || this.text.charAt(this.cursorPosition+1) == ',' || this.text.charAt(this.cursorPosition+1) == ENTER_VALUE) {
+				if(this.text.charAt(this.cursorPosition+1) == ' ' || this.text.charAt(this.cursorPosition+1) == ',' || this.text.charAt(this.cursorPosition+1) == ENTER_CHAR_VALUE) {
 					this.cursorShift+= this.font.getWidth(this.text.charAt(this.cursorPosition+1));
 					this.selectedQuadLength+= this.font.getWidth(this.text.charAt(this.cursorPosition+1));
 					this.selectedLength++;
@@ -450,7 +463,7 @@ public class Input {
 				if(i >= this.text.length()) {
 					return true;
 				}
-				if(this.text.charAt(i) == ' ' || this.text.charAt(i) == ',' || this.text.charAt(i) == ENTER_VALUE) {
+				if(this.text.charAt(i) == ' ' || this.text.charAt(i) == ',' || this.text.charAt(i) == ENTER_CHAR_VALUE) {
 					return true;
 				}
 			}

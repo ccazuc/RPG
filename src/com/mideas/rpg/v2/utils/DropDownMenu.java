@@ -117,6 +117,7 @@ public class DropDownMenu {
 		if(!this.initText) {
 			this.selectedMenuText = menu.getText();
 			this.selectedMenuValue = menu.getValue();
+			this.initText = true;
 		}
 	}
 	
