@@ -8,7 +8,8 @@ import com.mideas.rpg.v2.utils.Hash;
 
 public class LoginManager {
 
-	public static boolean checkLogin(String account, String password) {	
+	public static boolean checkLogin(String account, String password) {
+		LoginScreen.resetPassword();
 		ConnectionManager.connectAuthServer();
 		try {
 			CommandLogin.write(account, Hash.hash(password));

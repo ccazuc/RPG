@@ -14,7 +14,13 @@ public class CommandSendMessage extends Command {
 		MessageType type = MessageType.values()[ConnectionManager.getConnection().readChar()];
 		String message = ConnectionManager.getConnection().readString();
 		if(type == MessageType.SELF) {
-			ChatFrame.addMessage(new Message(message, false, MessageType.SELF));
+			boolean hasAuthor = ConnectionManager.getConnection().readBoolean();
+			if(hasAuthor) {
+				
+			}
+			else {
+				ChatFrame.addMessage(new Message(message, false, MessageType.SELF));
+			}
 		}
 		else if(type == MessageType.WHISPER) {
 			String name = ConnectionManager.getConnection().readString();

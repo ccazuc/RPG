@@ -33,8 +33,9 @@ public class CommandFriend extends Command {
 			int i = 0;
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
-					ChatFrame.addMessage(new Message(Mideas.joueur1().getFriendList().get(i).getName()+" logged out.", false, MessageType.SELF));
+					ChatFrame.addMessage(new Message(Mideas.joueur1().getFriendList().get(i).getName()+" is now offline.", false, MessageType.SELF));
 					Mideas.joueur1().getFriendList().get(i).setOnlineStatus(false);
+					return;
 				}
 				i++;
 			}
@@ -45,12 +46,12 @@ public class CommandFriend extends Command {
 			int level = ConnectionManager.getConnection().readInt();
 			Race race = Race.values()[ConnectionManager.getConnection().readChar()];
 			ClassType classe = ClassType.values()[ConnectionManager.getConnection().readChar()];
-			System.out.println(id+" "+name+" "+level+" "+race+" "+classe);
 			int i = 0;
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
-					ChatFrame.addMessage(new Message(name+" is now online.", false, MessageType.SELF));
+					ChatFrame.addMessage(new Message(" is now online.", name, false, MessageType.SELF));
 					Mideas.joueur1().getFriendList().get(i).updateInformations(name, level, race, classe);
+					return;
 				}
 				i++;
 			}

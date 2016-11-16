@@ -90,9 +90,10 @@ public class ButtonMenu {
 	public boolean event() {
 		if(!this.isSelected && activateCondition()) {
 			this.buttonHover = false;
-			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y+4 && Mideas.mouseY() <= this.y+this.y_size) {
+			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y+4 && Mideas.mouseY() <= this.y+this.y_size) {
 				this.buttonHover = true;
 				this.color = this.hoveredColor;
+				Mideas.setHover(false);
 			}
 			else {
 				this.color = this.defaultColor;

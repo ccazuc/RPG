@@ -47,8 +47,9 @@ public class Arrow {
 	public boolean event() {
 		if(activateCondition()) {
 			this.buttonHover = false;
-			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 				this.buttonHover = true;
+				Mideas.setHover(false);
 			}
 			if(this.buttonHover) {
 				if(Mouse.getEventButtonState()) {

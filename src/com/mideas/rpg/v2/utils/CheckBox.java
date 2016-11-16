@@ -12,7 +12,6 @@ import org.newdawn.slick.util.ResourceLoader;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF;
-import com.mideas.rpg.v2.TTF2;
 
 public class CheckBox {
 

@@ -23,6 +23,7 @@ public final class OpenGL {
 	public static final int GL_LINE_LOOP = GL11.GL_LINE_LOOP;
 	public static final int GL_MODELVIEW = GL11.GL_MODELVIEW;
 	public static final int GL_SRC_ALPHA = GL11.GL_SRC_ALPHA;
+	public static final int GL_NEAREST = GL11.GL_NEAREST;
 	public static final int GL_LINEAR = GL11.GL_LINEAR;
 	public static final int GL_POINTS = GL11.GL_POINTS;
 	public static final int GL_QUADS = GL11.GL_QUADS;

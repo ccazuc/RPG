@@ -33,6 +33,21 @@ public class Message {
 		this.opacity = 1;
 	}
 	
+	public Message(String message, String author, String authorText, boolean displayHour, MessageType type) { //used for self message
+		this.timer = System.currentTimeMillis();
+		this.lastSeenTimer = this.timer;
+		this.message = message;
+		this.hour = getMessageHour(this.timer);
+		this.minute = getMessageMinute(this.timer);
+		this.second = getMessageSecond(this.timer);
+		this.color = type.getColor();
+		this.displayHour = displayHour;
+		this.type = type;
+		this.opacity = 1;
+		this.author = author;
+		this.authorText = authorText;
+	}
+	
 	public Message(String message, boolean displayHour, MessageType type, Color color) { //used for self message with different color
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
@@ -60,8 +75,11 @@ public class Message {
 		if(type == MessageType.SAY || type == MessageType.YELL) {
 			this.authorText = "["+author+"]"+type.getChatDisplay();
 		}
-		else {
+		else if(type != MessageType.SELF) {
 			this.authorText = type.getChatDisplay()+"["+author+"] : ";
+		}
+		else {
+			this.authorText = '['+author+']';
 		}
 		this.opacity = 1;
 	}

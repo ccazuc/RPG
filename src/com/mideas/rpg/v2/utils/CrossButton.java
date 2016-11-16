@@ -52,9 +52,10 @@ public class CrossButton {
 	
 	public boolean event() {
 		this.buttonHover = false;
-		if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 			this.texture = Sprites.cross_button_hover;
 			this.buttonHover = true;
+			Mideas.setHover(false);
 		}
 		if(this.buttonHover) {
 			if(Mouse.getEventButtonState()) {

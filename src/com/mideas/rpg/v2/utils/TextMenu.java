@@ -96,7 +96,7 @@ public class TextMenu {
 	
 	private void draw(float x, float y) {
 		if(!activateCondition()) {
-			this.font.drawStringShadow(x, y, this.text, GRAY, Color.black, this.shadow_size, 0, 0);
+			this.font.drawStringShadow(x+this.textShift, y, this.text, GRAY, Color.black, this.shadow_size, 0, 0);
 		}
 		else {
 			if(this.buttonDown) {
@@ -177,6 +177,10 @@ public class TextMenu {
 	
 	public void setX(float x) {
 		this.x = (int)x;
+	}
+	
+	public void setWidth(float x_size) {
+		this.x_size = (int)x_size;
 	}
 	
 	public void update(float x, float y, float x_size, float textShift) {

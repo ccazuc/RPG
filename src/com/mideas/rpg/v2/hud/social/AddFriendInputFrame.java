@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.hud.social;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
@@ -15,21 +16,17 @@ import com.mideas.rpg.v2.utils.InputBar;
 
 public class AddFriendInputFrame {
 
-	static Input input = new Input(TTF2.addingFriendInput, 12, false, false) {
+	static Input input = new Input(TTF2.addingFriendInput, 12, false, true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
 			if(c == Input.ENTER_CHAR_VALUE) {
 				CommandFriend.addFriend(input.getText());
-				Interface.setAddFriendStatus(false);
-				this.resetText();
-				this.setIsActive(false);
+				closeFrame();
 				return true;
 			}
 			else if(c == Input.ESCAPE_CHAR_VALUE) {
-				Interface.setAddFriendStatus(false);
-				this.resetText();
-				this.setIsActive(false);
+				closeFrame();
 				return true;
 			}
 			return false;
@@ -40,19 +37,17 @@ public class AddFriendInputFrame {
 		
 		@Override
 		public void eventButtonClick() {
-			input.setIsActive(false);
 			CommandFriend.addFriend(input.getText());
-			Interface.setAddFriendStatus(false);
-			input.resetText();
+			closeFrame();
+			this.reset();
 		}
 	};
 	private static Button cancelButton = new Button(Display.getWidth()/2+10*Mideas.getDisplayXFactor(), Display.getHeight()/2-283*Mideas.getDisplayYFactor(), 135*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Cancel", 13, 1) {
 		
 		@Override
 		public void eventButtonClick() {
-			input.setIsActive(false);
-			Interface.setAddFriendStatus(false);
-			input.resetText();
+			closeFrame();
+			this.reset();
 		}
 	};
 	private static AlertBackground background = new AlertBackground(Display.getWidth()/2-180*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 360*Mideas.getDisplayXFactor(), 120*Mideas.getDisplayYFactor(), 0.6f);
@@ -70,6 +65,14 @@ public class AddFriendInputFrame {
 	}
 	
 	public static boolean mouseEvent() {
+		if(inputBar.isHover()) {
+			if(!Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					input.setIsActive(true);
+					return true;
+				}
+			}
+		}
 		return cancelButton.event() || acceptButton.event();
 	}
 	
@@ -86,5 +89,11 @@ public class AddFriendInputFrame {
 	
 	public static Input getInput() {
 		return input;
+	}
+	
+	public static void closeFrame() {
+		Interface.setAddFriendStatus(false);
+		input.setIsActive(false);
+		input.resetText();
 	}
 }

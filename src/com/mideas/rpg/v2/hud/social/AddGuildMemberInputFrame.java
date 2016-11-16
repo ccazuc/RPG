@@ -23,15 +23,11 @@ public class AddGuildMemberInputFrame {
 		public boolean keyEvent(char c) {
 			if(c == Input.ENTER_CHAR_VALUE) {
 				CommandGuild.addMember(input.getText());
-				Interface.setAddGuildMemberStatus(false);
-				this.setIsActive(false);
-				this.resetText();
+				closeFrame();
 				return true;
 			}
 			else if(c == Input.ESCAPE_CHAR_VALUE) {
-				Interface.setAddGuildMemberStatus(false);
 				this.setIsActive(false);
-				this.resetText();
 				return true;
 			}
 			return false;
@@ -43,18 +39,16 @@ public class AddGuildMemberInputFrame {
 		@Override
 		public void eventButtonClick() {
 			CommandGuild.addMember(input.getText());
-			Interface.setAddGuildMemberStatus(false);
-			input.setIsActive(false);
-			input.resetText();
+			closeFrame();
+			this.reset();
 		}
 	};
 	private static Button cancelButton = new Button(Display.getWidth()/2+10*Mideas.getDisplayXFactor(), Display.getHeight()/2-283*Mideas.getDisplayYFactor(), 135*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Cancel", 13, 1) {
 		
 		@Override
 		public void eventButtonClick() {
-			Interface.setAddGuildMemberStatus(false);
-			input.setIsActive(false);
-			input.resetText();
+			closeFrame();
+			this.reset();
 		}
 	};
 	private static AlertBackground background = new AlertBackground(Display.getWidth()/2-180*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 360*Mideas.getDisplayXFactor(), 120*Mideas.getDisplayYFactor(), 0.6f);
@@ -76,6 +70,7 @@ public class AddGuildMemberInputFrame {
 			if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					input.setIsActive(true);
+					return true;
 				}
 			}
 		}
@@ -100,5 +95,11 @@ public class AddGuildMemberInputFrame {
 	
 	public static Input getInput() {
 		return input;
+	}
+	
+	public static void closeFrame() {
+		Interface.setAddGuildMemberStatus(false);
+		input.setIsActive(false);
+		input.resetText();
 	}
 }

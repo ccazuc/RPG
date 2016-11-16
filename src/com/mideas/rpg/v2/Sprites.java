@@ -331,6 +331,9 @@ public class Sprites {
 	public static Texture horizontal_bar_right;
 	public static Texture guild_manage_frame_bot_border;
 	public static Texture guild_manage_rank_horizontal_bar;
+	public static Texture button_menu_sort_left_part;
+	public static Texture button_menu_sort_middle_part;
+	public static Texture button_menu_sort_right_part;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -522,14 +525,14 @@ public class Sprites {
 		bag_border1 = new Texture("sprite/interface/bag_border.png");
 		shop_border = new Texture("sprite/interface/shop_border.png");
 		
-		bot_left_corner_alert = new Texture("sprite/interface/bot_left_corner_alert.png");
-		bot_right_corner_alert = new Texture("sprite/interface/bot_right_corner_alert.png");
-		top_left_corner_alert = new Texture("sprite/interface/top_left_corner_alert.png");
-		top_right_corner_alert = new Texture("sprite/interface/top_right_corner_alert.png");
-		width_top_border_alert = new Texture("sprite/interface/width_top_border_alert.png");
-		width_bot_border_alert = new Texture("sprite/interface/width_bot_border_alert.png");
-		height_left_border_alert = new Texture("sprite/interface/height_left_border_alert.png");
-		height_right_border_alert = new Texture("sprite/interface/height_right_border_alert.png");
+		bot_left_corner_alert = new Texture("sprite/interface/alert_background/bot_left_corner_alert.png");
+		bot_right_corner_alert = new Texture("sprite/interface/alert_background/bot_right_corner_alert.png");
+		top_left_corner_alert = new Texture("sprite/interface/alert_background/top_left_corner_alert.png");
+		top_right_corner_alert = new Texture("sprite/interface/alert_background/top_right_corner_alert.png");
+		width_top_border_alert = new Texture("sprite/interface/alert_background/width_top_border_alert.png");
+		width_bot_border_alert = new Texture("sprite/interface/alert_background/width_bot_border_alert.png");
+		height_left_border_alert = new Texture("sprite/interface/alert_background/height_left_border_alert.png");
+		height_right_border_alert = new Texture("sprite/interface/alert_background/height_right_border_alert.png");
 		reduce_category_craft = new Texture("sprite/interface/buttons/reduce_craft_category.png");
 		expand_category_craft = new Texture("sprite/interface/buttons/expand_craft_category.png");
 		reduce_category_craft_hover = new Texture("sprite/interface/buttons/reduce_craft_category_hover.png");
@@ -569,7 +572,7 @@ public class Sprites {
 		check_box_enable = new Texture("sprite/interface/checkBox/check_box_enable.png");
 		check_box_disable = new Texture("sprite/interface/checkBox/UI-CheckBox-Check-Disabled.png");
 		interface_option_frame = new Texture("sprite/interface/interface_option_frame.png");
-		socketing_frame = new Texture("sprite/interface/socketing_frame.png");
+		socketing_frame = new Texture("sprite/interface/gem/UI-ItemSocketingFrame.png");
 		cross_button = new Texture("sprite/interface/cross_button/cross_button.png");
 		cross_button_down = new Texture("sprite/interface/cross_button/cross_button_down.png");
 		cross_button_hover = new Texture("sprite/interface/cross_button/cross_button_hover.png");
@@ -590,6 +593,9 @@ public class Sprites {
 		edit_box_left_border = new Texture("sprite/interface/edit_box/left_border.png");
 		edit_box_middle_border = new Texture("sprite/interface/edit_box/middle_border.png");
 		edit_box_right_border = new Texture("sprite/interface/edit_box/right_border.png");
+		button_menu_sort_left_part = new Texture("sprite/interface/button_menu_sort/left_part.png");
+		button_menu_sort_middle_part = new Texture("sprite/interface/button_menu_sort/middle_part.png");
+		button_menu_sort_right_part = new Texture("sprite/interface/button_menu_sort/right_part.png");
 		return true;
 	}
 		

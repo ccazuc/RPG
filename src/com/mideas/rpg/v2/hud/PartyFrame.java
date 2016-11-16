@@ -30,7 +30,7 @@ public class PartyFrame {
 	static int displayMember = -1;
 	private static float displayMemberX;
 	private static float displayMemberY;
-	private static TextMenu whisper = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Whisper", 14, 1) {
+	private static TextMenu whisper = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Whisper", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			ChatFrame.setWhisper(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
@@ -39,7 +39,7 @@ public class PartyFrame {
 			displayMember = -1;
 		}
 	};
-	private static TextMenu setLeader = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Give leadership", 14, 1) {
+	private static TextMenu setLeader = new TextMenu(0, 0, 90*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Give leadership", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			CommandParty.setLeaderServer(Mideas.joueur1().getParty().getPartyMember(displayMember).getId());
@@ -47,7 +47,7 @@ public class PartyFrame {
 			displayMember = -1;
 		}
 	};
-	private static TextMenu kick = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Kick player", 14, 1) {
+	private static TextMenu kick = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Kick player", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			CommandParty.kickPlayer(Mideas.joueur1().getParty().getPartyMember(displayMember).getId());
@@ -55,11 +55,11 @@ public class PartyFrame {
 			displayMember = -1;
 		}
 	};
-	private static TextMenu inspect = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Inspect", 14, 1) {
+	private static TextMenu inspect = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Inspect", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public boolean activateCondition() { return false; }
 	};
-	private static TextMenu trade = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Trade", 14, 1) {
+	private static TextMenu trade = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Trade", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			CommandTrade.requestNewTrade(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
@@ -67,15 +67,15 @@ public class PartyFrame {
 			displayMember = -1;
 		}
 	};
-	private static TextMenu follow = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Follow", 14, 1) {
+	private static TextMenu follow = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Follow", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public boolean activateCondition() { return false; }
 	};
-	private static TextMenu duel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Duel", 14, 1) {
+	private static TextMenu duel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Duel", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public boolean activateCondition() { return false; }
 	};
-	private static TextMenu cancel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Cancel", 14, 1) {
+	private static TextMenu cancel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Cancel", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
@@ -128,9 +128,9 @@ public class PartyFrame {
 				i = 0;
 				y = Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+65*Mideas.getDisplayYFactor();
 				yShift = 18*Mideas.getDisplayYFactor();
-				float x = (displayMemberX+65)*Mideas.getDisplayXFactor();
+				float x = (displayMemberX+75)*Mideas.getDisplayXFactor();
 				memberTooltip.draw();
-				TTF2.partyFrameTooltip.drawStringShadow(x, y, Mideas.joueur1().getParty().getPartyMember(displayMember).getName(), YELLOW, Color.black, 1, 0, 0);
+				TTF2.partyFrameTooltip.drawStringShadow(x-10*Mideas.getDisplayXFactor(), y, Mideas.joueur1().getParty().getPartyMember(displayMember).getName(), YELLOW, Color.black, 1, 0, 0);
 				y+= yShift;
 				while(i < menuTable.length) {
 					if((i == 1 || i == 2) && !Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
@@ -194,10 +194,20 @@ public class PartyFrame {
 						if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
 							memberTooltip.setWidth(140*Mideas.getDisplayXFactor());
 							memberTooltip.setHeight(185*Mideas.getDisplayYFactor());
+							int i = 0;
+							while(i < menuTable.length) {
+								menuTable[i].setWidth(110*Mideas.getDisplayXFactor());
+								i++;
+							}
 						}
 						else if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null) {
 							memberTooltip.setWidth(95*Mideas.getDisplayXFactor());
 							memberTooltip.setHeight(150*Mideas.getDisplayYFactor());
+							int i = 0;
+							while(i < menuTable.length) {
+								menuTable[i].setWidth(65*Mideas.getDisplayXFactor());
+								i++;
+							}
 						}
 					}
 					else if(!isHoverTooltip()) {
@@ -272,10 +282,20 @@ public class PartyFrame {
 		if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
 			memberTooltip.setWidth(140*Mideas.getDisplayXFactor());
 			memberTooltip.setHeight(185*Mideas.getDisplayYFactor());
+			int i = 0;
+			while(i < menuTable.length) {
+				menuTable[i].setWidth(110*Mideas.getDisplayXFactor());
+				i++;
+			}
 		}
 		else if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null) {
 			memberTooltip.setWidth(95*Mideas.getDisplayXFactor());
 			memberTooltip.setHeight(150*Mideas.getDisplayYFactor());
+			int i = 0;
+			while(i < menuTable.length) {
+				menuTable[i].setWidth(65*Mideas.getDisplayXFactor());
+				i++;
+			}
 		}
 	}
 	

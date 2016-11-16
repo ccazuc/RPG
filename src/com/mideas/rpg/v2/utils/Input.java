@@ -31,6 +31,7 @@ public class Input {
 	private boolean multipleLine;
 	private boolean debugActive;
 	private final static ArrayList<Input> inputList = new ArrayList<Input>();
+	private static Input activatedInput;
 	
 	public final static int ESCAPE_CHAR_VALUE = 27;
 	public final static int ENTER_CHAR_VALUE = 13;
@@ -50,6 +51,9 @@ public class Input {
 		this.debugActive = debugActive;
 		this.isActive = isActive;
 		inputList.add(this);
+		if(isActive) {
+			activatedInput = this;
+		}
 	}
 	
 	public boolean event() {
@@ -75,7 +79,7 @@ public class Input {
 						return true;
 					}
 				}
-				else if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
+				if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
 					if(Keyboard.getEventKey() == 14) { //delete
 						CTRLDelete();
 						this.tempLength = 0;
@@ -168,6 +172,7 @@ public class Input {
 	public void setIsActive(boolean we) {
 		if(we) {
 			setInactiveAllInput();
+			activatedInput = this;
 		}
 		this.isActive = we;
 	}
@@ -185,9 +190,12 @@ public class Input {
 	
 	public static void setInactiveAllInput() {
 		int i = 0;
-		while(i < inputList.size()) {
+		/*while(i < inputList.size()) {
 			inputList.get(i).setIsActive(false);
 			i++;
+		}*/
+		if(activatedInput != null) {
+			activatedInput.setIsActive(false);
 		}
 		ChatFrame.setChatActive(false);
 	}

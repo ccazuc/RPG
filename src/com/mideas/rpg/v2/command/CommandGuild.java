@@ -132,7 +132,7 @@ public class CommandGuild extends Command {
 			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
 			if(member != null) {
 				member.setOnlineStatus(true);
-				ChatFrame.addMessage(new Message(member.getName()+" is now online.", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF));
 				Mideas.joueur1().getGuild().memberLoggedIn();
 			}
 		}

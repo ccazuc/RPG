@@ -19,22 +19,22 @@ public class LoginScreen {
 	private static Input account = new Input(TTF2.loginScreenAccount, 10, false, false, true);
 	private static Input password = new Input(TTF2.loginScreenPassword, 19, false, false);
 	private static String passwordText = "";
-	private static Alert alert = new Alert("", Display.getWidth()/2-355*Mideas.getDisplayXFactor(), -20, 700*Mideas.getDisplayXFactor(), 130, 230, 38, Display.getHeight()+30, 20, "Ok");
-	private static boolean init;
+	private static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 130*Mideas.getDisplayXFactor(), 230*Mideas.getDisplayXFactor(), 38*Mideas.getDisplayYFactor(), Display.getHeight()+30, 20, "Ok");
 	private static StringBuilder passwordBuilder = new StringBuilder();
-	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave", 16, 2) {
+	private static Button leaveButton = new Button(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Leave", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			Mideas.saveAllStats();
 			Display.destroy();
 		}
 	};
-	private static Button connectionButton = new Button(Display.getWidth()/2-113*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210, 35, "Connection", 16, 2) {
+	private static Button connectionButton = new Button(Display.getWidth()/2-105*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Connection", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			connectionEvent();
 		}
 	};
+	//private static Popup popup = new Popup(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor(), "Ceci est un test");
 
 	private final static String noAccountName = "Veuillez saisir votre nom de compte.";
 	private final static String noPassword = "Veuillez saisir votre mot de passe.";
@@ -43,10 +43,6 @@ public class LoginScreen {
 	private final static String empty = "";
 	
 	public static void draw() {
-		if(!init) {
-			updateSize();
-			init = true;
-		}
 		Draw.drawQuadBG(Sprites.login_screen);
 		TTF2.loginScreenAccount.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.white);
 		TTF2.loginScreenPassword.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), passwordText, Color.white);
@@ -62,6 +58,7 @@ public class LoginScreen {
 		connectionButton.draw();
 		alert.draw();
 		//Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), Color.white);
+		//popup.draw();
 	}
 	
 	public static boolean mouseEvent() {
@@ -86,14 +83,17 @@ public class LoginScreen {
 	public static void event() {
 		//System.out.println((int)Keyboard.getEventCharacter());
 		//System.out.println(Keyboard.getEventKey());
+		if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+			if(!alert.isActive()) {
+				System.exit(0);
+			}
+		}
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 			if(alert.isActive()) {
 				alert.setInactive();
 			}
 			else {
 				connectionEvent();
-				password.resetText();
-				passwordText = "";
 			}
 		}
 		if(!alert.isActive()) {
@@ -158,20 +158,20 @@ public class LoginScreen {
 	}
 	
 	public static void updateSize() {
-		leaveButton.setX(Display.getWidth()/2+753*Mideas.getDisplayXFactor());
-		leaveButton.setY(Display.getHeight()/2+428*Mideas.getDisplayYFactor());
-		leaveButton.setButtonWidth(185);
-		leaveButton.setButtonHeight(34);
-		connectionButton.setX(Display.getWidth()/2-105*Mideas.getDisplayXFactor());
-		connectionButton.setY(Display.getHeight()/2+185*Mideas.getDisplayYFactor());
-		connectionButton.setButtonWidth(210);
-		connectionButton.setButtonHeight(38);
+		leaveButton.update(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
+		connectionButton.update(Display.getWidth()/2-105*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor());
 		alert.setX(-355*Mideas.getDisplayXFactor());
-		alert.setY(-60);
+		alert.setY(-60*Mideas.getDisplayYFactor());
 		alert.setWidth(700*Mideas.getDisplayXFactor());
+		//popup.update(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor());
 	}
 	
 	public static void setPasswordActive() {
 		password.setIsActive(true);
+	}
+	
+	public static void resetPassword() {
+		password.resetText();
+		passwordText = "";
 	}
 }

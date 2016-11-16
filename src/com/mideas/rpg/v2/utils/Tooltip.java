@@ -51,7 +51,11 @@ public class Tooltip {
 	}
 	
 	public boolean isHover() {
-		return Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size;
+		if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+			Mideas.setHover(false);
+			return true;
+		}
+		return false;
 	}
 	
 	public void setWidth(float width) {

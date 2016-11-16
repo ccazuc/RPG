@@ -26,6 +26,9 @@ public class AlertBackground {
 		float yFac = Mideas.getDisplayYFactor();
 		int imageWidth = (int) (Sprites.top_left_corner_alert.getImageWidth()*xFac);
 		int imageHeight = (int) (Sprites.top_left_corner_alert.getImageHeight()*yFac);
+		int borderWidthShift = (int)(13*Mideas.getDisplayXFactor());
+		int borderHeightShift = (int)(13*Mideas.getDisplayYFactor());
+		Draw.drawColorQuad(this.x+borderWidthShift, this.y+borderHeightShift, this.x_size-2*borderWidthShift, this.y_size-2*borderHeightShift+1, this.bgColor);
 		Draw.drawQuad(Sprites.top_left_corner_alert, this.x, this.y, imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.width_top_border_alert, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.top_right_corner_alert, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight);
@@ -36,11 +39,14 @@ public class AlertBackground {
 		
 		Draw.drawQuad(Sprites.height_left_border_alert, this.x, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
 		Draw.drawQuad(Sprites.height_right_border_alert, this.x+this.x_size-imageWidth, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
-		Draw.drawColorQuad(this.x+imageWidth, this.y+imageHeight, this.x_size-2*imageWidth, this.y_size-2*imageHeight, this.bgColor);
 	}
 	
 	public boolean isHover() {
-		return Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size;
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+			Mideas.setHover(false);
+			return true;
+		}
+		return false;
 	}
 	
 	public void setX(float x) {

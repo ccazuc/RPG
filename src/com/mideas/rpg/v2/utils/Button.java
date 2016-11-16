@@ -31,7 +31,7 @@ public class Button {
 	private Color baseColor = Color.decode("#FFC700");
 	private boolean hasClicked;
 	private static final Color GREY = Color.decode("#808080");
-	private boolean isEnable;
+	private boolean isEnable = true;
 	
 	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
 		this.x = x;
@@ -120,8 +120,9 @@ public class Button {
 		if(this.isEnable && activateCondition()) {
 			this.color = this.baseColor;
 			this.buttonHover = false;
-			if(Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 				this.buttonHover = true;
+				Mideas.setHover(false);
 			}
 			if(this.buttonHover) {
 				if(Mouse.getEventButtonState()) {
@@ -185,11 +186,11 @@ public class Button {
 	}
 	
 	public void setButtonWidth(float width) {
-		this.x_size = width*Mideas.getDisplayXFactor();
+		this.x_size = width;
 	}
 	
 	public void setButtonHeight(float height) {
-		this.y_size = height*Mideas.getDisplayXFactor();
+		this.y_size = height;
 	}
 	
 	public void enable() {

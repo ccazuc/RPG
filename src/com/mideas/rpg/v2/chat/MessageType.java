@@ -15,7 +15,7 @@ public enum MessageType {
 	WHISPER((char)8, new Color(1, 126/255f, 1), "Say to ", ""),
 	EMOTE((char)9, new Color(1, 251/255f, 1), "", ""),
 	PARTY_LEADER((char)10, new Color(118/255f, 197/255f, 1), "Party : ", "[Party leader] "),
-	OFFICER_CHAT((char)11, new Color(64/255f, 189/255f, 64/255f), "Officer : ", "[Officer] "),
+	OFFICER((char)11, new Color(64/255f, 189/255f, 64/255f), "Officer : ", "[Officer] "),
 	GM_ANNOUNCE((char)12, new Color(0, 251/255f, 246/255f), "Announce : ", "[GM announce] ");
 	
 	private char value;

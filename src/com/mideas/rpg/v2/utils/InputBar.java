@@ -24,7 +24,11 @@ public class InputBar {
 	}
 	
 	public boolean isHover() {
-		return Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+Sprites.input_bar_left_border.getImageHeight()*Mideas.getDisplayYFactor();
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+Sprites.input_bar_left_border.getImageHeight()*Mideas.getDisplayYFactor()) {
+			Mideas.setHover(false);
+			return true;
+		}
+		return false;
 	}
 	
 	public void setXSize(float x_size) {

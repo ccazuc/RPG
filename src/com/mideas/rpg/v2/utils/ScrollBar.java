@@ -203,13 +203,14 @@ public class ScrollBar {
 	
 	private void mouseDragEvent() {
 		if(Mideas.mouseX() >= this.x+4 && Mideas.mouseX() <= this.x+24) {
-			if(Mideas.mouseY() >= this.y+this.y_ascensor+22*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+this.y_ascensor+22*Mideas.getDisplayYFactor()+Sprites.ascensor.getImageHeight()*Mideas.getDisplayYFactor()) {
+			if(Mideas.getHover() && Mideas.mouseY() >= this.y+this.y_ascensor+22*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+this.y_ascensor+22*Mideas.getDisplayYFactor()+Sprites.ascensor.getImageHeight()*Mideas.getDisplayYFactor()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					if(Mouse.getEventButtonState()) {
 						this.down = true;
 						this.y_ascensor_onclick = Mideas.mouseY();
 					}
 				}
+				Mideas.setHover(false);
 			}
 		}
 		if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {

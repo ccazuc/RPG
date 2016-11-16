@@ -73,8 +73,8 @@ public class SocketingFrame {
 	public static boolean mouseEvent() {
 		hoveredGem = -1;
 		gemsHover();
-		closeSocketingFrame.event();
-		putGem.event();
+		if(closeSocketingFrame.event()) return true;
+		if(putGem.event()) return true;
 		if(Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0) {
 				leftButtonDown = hoveredGem;

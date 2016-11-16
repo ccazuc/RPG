@@ -8,50 +8,48 @@ import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.utils.AlertBackground;
 import com.mideas.rpg.v2.utils.Button;
+import com.mideas.rpg.v2.utils.Popup;
 
 public class GuildInviteNotification {
 	
 	static boolean requestPending;
-	private static String playerName;
-	private static String guildName;
-	private static AlertBackground memberTooltip = new AlertBackground(Display.getWidth()/2-250*Mideas.getDisplayXFactor(), Display.getHeight()/2-250*Mideas.getDisplayYFactor(), 500*Mideas.getDisplayXFactor(), 110*Mideas.getDisplayYFactor(), 0.6f);
-	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Accept", 15, 2) {
+	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Accept", 12, 1) {
+		
 		@Override
 		public void eventButtonClick() {
 			CommandGuild.acceptRequest();
 			requestPending = false;
 			this.reset();
 		}
-	};
-	private static Button declineRequest = new Button(Display.getWidth()/2+20*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Decline", 15, 2) {
+		
 		@Override
-		public void eventButtonClick() {
+		public void popupClosed() {
 			CommandGuild.declineRequest();
 			requestPending = false;
 			this.reset();
 		}
 	};
+	private static Popup popup = new Popup(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor(), "Ceci est un test");
 	
 	public static void draw() {
 		if(requestPending) {
-			memberTooltip.draw();
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-(TTF2.font4.getWidth(playerName+" wants to invite you in the guild : "+guildName)*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-230*Mideas.getDisplayYFactor(), playerName+" wants to invite you in the guild : "+guildName, Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
-			acceptRequest.draw();
-			declineRequest.draw();
+			popup.draw();
 		}
 	}
 	
 	public static boolean mouseEvent() {
 		if(requestPending) {
-			if(acceptRequest.event()) return true;
-			if(declineRequest.event()) return true;
+			if(popup.event()) return true;
 		}
 		return false;
 	}
 	
 	public static void setRequest(String player_name, String guild_name) {
 		requestPending = true;
-		playerName = player_name;
-		guildName = guild_name;
+		popup.setPopup(acceptRequest, player_name+" wants to invite you in the guild: "+guild_name);
+	}
+	
+	public static void updateSize() {
+		popup.update(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor());
 	}
 }

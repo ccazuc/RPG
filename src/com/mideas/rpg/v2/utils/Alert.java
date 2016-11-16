@@ -17,12 +17,11 @@ public class Alert {
 	private int baseY;
 	private int x;
 	private int y;
-	private float x_size_alert;
-	private float y_size_alert;
 	private float x_size_button;
 	private float y_size_button;
 	private Color bgColor = new Color(0, 0, 0, .6f);
 	private static final Color YELLOW = Color.decode("#FFC700"); 
+	private AlertBackground background;
 	private boolean isActive;
 	private int diff;
 	
@@ -32,10 +31,9 @@ public class Alert {
 		this.y = Display.getHeight()/2+(int)y;
 		this.baseX = (int)x;
 		this.baseY = (int)y;
-		this.x_size_alert = x_size_alert;
-		this.y_size_alert = y_size_alert;
 		this.x_size_button = x_size_button;
 		this.y_size_button = y_size_button;
+		this.background = new AlertBackground(this.x, this.y, x_size_alert, y_size_alert, .7f);
 		this.diff = (int)(y_size_alert-10-TTF2.alertFont.getLineHeight());
 		this.button = new Button(this.x+x_size_alert/2-x_size_button/2, this.y+TTF2.alertFont.getLineHeight()+this.diff/2-y_size_button/2, x_size_button, y_size_button, button_text, font_size, 2);
 	}
@@ -47,10 +45,10 @@ public class Alert {
 			int i = 0;
 			int j = 0;
 			int k = 0;
-			float lineNumber = (TTF2.alertFont.getWidth(this.text)/(this.x_size_alert*Mideas.getDisplayXFactor()-30));
+			float lineNumber = (TTF2.alertFont.getWidth(this.text)/(this.background.getWidth()*Mideas.getDisplayXFactor()-30));
 			this.formatedText = new String[(int)Math.ceil(lineNumber)];
 			while(i < this.text.length()) {
-				if(TTF2.alertFont.getWidth(this.text.substring(j, i)) < this.x_size_alert*Mideas.getDisplayXFactor()-30) {
+				if(TTF2.alertFont.getWidth(this.text.substring(j, i)) < this.background.getWidth()*Mideas.getDisplayXFactor()-30) {
 					
 				}
 				else {
@@ -96,7 +94,7 @@ public class Alert {
 			Draw.drawQuad(Sprites.width_top_border_alert, xTemp+cornerWidth, yTemp, xSizeAlertTemp-2*cornerWidth, botBorderHeight);
 			
 			Draw.drawColorQuad(xTemp+cornerWidth, yTemp+cornerHeight, xSizeAlertTemp-2*cornerWidth+1, ySizeAlertTemp-2*cornerHeight, this.bgColor);*/
-			float xFac = Mideas.getDisplayXFactor();
+			/*float xFac = Mideas.getDisplayXFactor();
 			float yFac = Mideas.getDisplayYFactor();
 			int imageWidth = (int) (Sprites.top_left_corner_alert.getImageWidth()*xFac);
 			int imageHeight = (int) (Sprites.top_left_corner_alert.getImageHeight()*yFac);
@@ -109,11 +107,12 @@ public class Alert {
 			Draw.drawQuad(Sprites.bot_right_corner_alert, this.x+this.x_size_alert-imageWidth, this.y+this.y_size_alert-imageHeight, imageWidth, imageHeight);
 			Draw.drawQuad(Sprites.height_left_border_alert, this.x, this.y+imageHeight, imageWidth, this.y_size_alert-2*imageHeight);
 			Draw.drawQuad(Sprites.height_right_border_alert, this.x+this.x_size_alert-imageWidth, this.y+imageHeight, imageWidth, this.y_size_alert-2*imageHeight);
-			Draw.drawColorQuad(this.x+imageWidth, this.y+imageHeight, this.x_size_alert-2*imageWidth, this.y_size_alert-2*imageHeight, this.bgColor);
+			Draw.drawColorQuad(this.x+imageWidth, this.y+imageHeight, this.x_size_alert-2*imageWidth, this.y_size_alert-2*imageHeight, this.bgColor);*/
+			this.background.draw();
 			int i = 0;
 			int y_shift = 0;
 			if(this.formatedText.length == 1) {
-				TTF2.alertFont.drawStringShadow(this.x+this.x_size_alert/2-TTF2.alertFont.getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], YELLOW, Color.black, 3, 2, 2);
+				TTF2.alertFont.drawStringShadow(this.x+this.background.getWidth()/2-TTF2.alertFont.getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], YELLOW, Color.black, 3, 2, 2);
 			}
 			else {
 				while(i < this.formatedText.length) {
@@ -137,17 +136,19 @@ public class Alert {
 	}
 	
 	public void setWidth(float width) {
-		this.x_size_alert = width;
-		this.button.setX(this.x+this.x_size_alert/2-this.x_size_button/2);
+		this.background.setWidth(width);
+		this.button.setX(this.x+this.background.getWidth()/2-this.x_size_button/2);
 	}
 	
 	public void setX(float x) {
 		this.x = Display.getWidth()/2+(int)x;
-		this.button.setX(this.x+this.x_size_alert/2-this.x_size_button/2);
+		this.background.setX(this.x);
+		this.button.setX(this.x+this.background.getWidth()/2-this.x_size_button/2);
 	}
 	
 	public void setY(float y) {
 		this.y = Display.getHeight()/2+(int)y;
+		this.background.setY(this.y);
 		this.button.setY(this.y+TTF2.alertFont.getLineHeight()+this.diff/2-this.y_size_button/2);
 	}
 	
@@ -156,10 +157,10 @@ public class Alert {
 		int i = 0;
 		int j = 0;
 		int k = 0;
-		float lineNumber = (TTF2.alertFont.getWidth(this.text)/(this.x_size_alert*Mideas.getDisplayXFactor()-30));
+		float lineNumber = (TTF2.alertFont.getWidth(this.text)/(this.background.getWidth()*Mideas.getDisplayXFactor()-30));
 		this.formatedText = new String[(int)Math.ceil(lineNumber)];
 		while(i < this.text.length()) {
-			if(TTF2.alertFont.getWidth(this.text.substring(j, i)) < this.x_size_alert*Mideas.getDisplayXFactor()-30) {
+			if(TTF2.alertFont.getWidth(this.text.substring(j, i)) < this.background.getWidth()*Mideas.getDisplayXFactor()-30) {
 			}
 			else {
 				if(this.text.substring(i, i+1).charAt(0) != ' ') {
@@ -192,6 +193,7 @@ public class Alert {
 	
 	public void setActive() {
 		this.isActive = true;
+		this.event();
 	}
 	
 	public void setInactive() {
@@ -204,7 +206,7 @@ public class Alert {
 	}
 	
 	private int checkSpace(String text, int i) {
-		while(text.substring(i, i+1).charAt(0) != ' ') {
+		while(text.substring(i, i+1).charAt(0) != ' ' || text.substring(i, i+1).charAt(0) != ',') {
 			i--;
 		}
 		return i;
