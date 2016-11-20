@@ -551,6 +551,11 @@ public class Mideas {
 		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
+		if(Display.wasResized()) {
+			context2D();
+			updateDisplayFactor();
+			barWidth = (int)(850*Mideas.getDisplayXFactor());
+		}
 		
 		Sprites.sprite();
 		context2D();
@@ -560,6 +565,11 @@ public class Mideas {
 		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
+		if(Display.wasResized()) {
+			context2D();
+			updateDisplayFactor();
+			barWidth = (int)(850*Mideas.getDisplayXFactor());
+		}
 		
 		Sprites.sprite2();
 		context2D();
@@ -569,6 +579,11 @@ public class Mideas {
 		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
+		if(Display.wasResized()) {
+			context2D();
+			updateDisplayFactor();
+			barWidth = (int)(850*Mideas.getDisplayXFactor());
+		}
 		
 		Sprites.sprite8();
 		context2D();
@@ -578,6 +593,11 @@ public class Mideas {
 		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
+		if(Display.wasResized()) {
+			context2D();
+			updateDisplayFactor();
+			barWidth = (int)(850*Mideas.getDisplayXFactor());
+		}
 		
 		Sprites.sprite9();
 		Sprites.sprite10();
@@ -588,6 +608,11 @@ public class Mideas {
 		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
 		Display.update();
 		Display.sync(60);
+		if(Display.wasResized()) {
+			context2D();
+			updateDisplayFactor();
+			barWidth = (int)(850*Mideas.getDisplayXFactor());
+		}
 	}
 	
 	public static Joueur joueur1() {

@@ -189,8 +189,8 @@ public class Input {
 	}
 	
 	public static void setInactiveAllInput() {
-		int i = 0;
-		/*while(i < inputList.size()) {
+		/*int i = 0;
+		while(i < inputList.size()) {
 			inputList.get(i).setIsActive(false);
 			i++;
 		}*/

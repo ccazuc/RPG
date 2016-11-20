@@ -334,7 +334,7 @@ public class TradeFrame {
 	}
 	
 	public static void updateSize() {
-		closeFrame.update(Display.getWidth()/2-272*Mideas.getDisplayXFactor(), Display.getHeight()/2-285*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
+		closeFrame.update(Display.getWidth()/2-272*Mideas.getDisplayXFactor(), Display.getHeight()/2-285*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayXFactor());
 		X_FRAME = Display.getWidth()/2-650*Mideas.getDisplayXFactor();
 		Y_FRAME = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
 		Y_HOVER_TOP = 110*Mideas.getDisplayXFactor();

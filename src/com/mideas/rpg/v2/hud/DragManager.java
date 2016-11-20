@@ -38,7 +38,7 @@ public class DragManager {
 	private static int mouseX;
 	private static int mouseY;
 	private static boolean draggedItemSplit;
-	private static Button hoverDeleteYes = new Button(Display.getWidth()/2-130*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor(), "Yes", 14, 1) {
+	private static Button hoverDeleteYes = new Button(Display.getWidth()/2-130*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), 127*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "Yes", 14, 1) {
 		@Override
 		public void eventButtonClick() {
 			if(draggedItem.isStackable()) {
@@ -57,7 +57,7 @@ public class DragManager {
 		}
 	};
 
-	private static Button hoverDeleteNo = new Button(Display.getWidth()/2+7*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor(), "No", 14, 1) {
+	private static Button hoverDeleteNo = new Button(Display.getWidth()/2+7*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), 127*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "No", 14, 1) {
 		@Override
 		public void eventButtonClick() {
 			if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
@@ -959,11 +959,11 @@ public class DragManager {
 	public static void updateSize() {
 		hoverDeleteYes.setX(Display.getWidth()/2-130*Mideas.getDisplayXFactor());
 		hoverDeleteYes.setY(Display.getHeight()/2-43*Mideas.getDisplayYFactor());
-		hoverDeleteYes.setButtonWidth(Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor());
-		hoverDeleteYes.setButtonHeight(Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor());
+		hoverDeleteYes.setButtonWidth(127*Mideas.getDisplayXFactor());
+		hoverDeleteYes.setButtonHeight(23*Mideas.getDisplayYFactor());
 		hoverDeleteNo.setX(Display.getWidth()/2+7*Mideas.getDisplayXFactor());
 		hoverDeleteNo.setY(Display.getHeight()/2-43*Mideas.getDisplayYFactor());
-		hoverDeleteNo.setButtonWidth(Sprites.button_hover.getImageWidth()*Mideas.getDisplayXFactor());
-		hoverDeleteNo.setButtonHeight(Sprites.button_hover.getImageHeight()*Mideas.getDisplayYFactor());
+		hoverDeleteNo.setButtonWidth(127*Mideas.getDisplayXFactor());
+		hoverDeleteNo.setButtonHeight(23*Mideas.getDisplayYFactor());
 	}
 }

@@ -7,10 +7,12 @@ import com.mideas.rpg.v2.Sprites;
 
 public class CrossButton {
 
+	public final static int DEFAULT_WIDTH = 22;
+	public final static int DEFAULT_HEIGHT = 19;
 	private float x;
 	private float y;
-	private float x_size = Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor();
-	private float y_size = Sprites.cross_button.getImageHeight()*Mideas.getDisplayYFactor();
+	private float x_size;
+	private float y_size;
 	private Texture texture = Sprites.cross_button;
 	private boolean buttonDown;
 	private boolean buttonHover;
@@ -26,6 +28,8 @@ public class CrossButton {
 	public CrossButton(float x, float y) {
 		this.x = x;
 		this.y = y;
+		this.x_size = DEFAULT_WIDTH*Mideas.getDisplayXFactor();
+		this.y_size = DEFAULT_HEIGHT*Mideas.getDisplayYFactor();
 	}
 	
 	public void draw(float x, float y) {
@@ -142,7 +146,7 @@ public class CrossButton {
 	public void update(float x, float y) {
 		this.x = x;
 		this.y = y;
-		this.x_size = Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor();
-		this.y_size = Sprites.cross_button.getImageHeight()*Mideas.getDisplayYFactor();
+		this.x_size = DEFAULT_WIDTH*Mideas.getDisplayXFactor();
+		this.y_size = DEFAULT_HEIGHT*Mideas.getDisplayYFactor();
 	}
 }

@@ -15,6 +15,7 @@ import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.TextMenu;
 import com.mideas.rpg.v2.utils.Tooltip;
+import com.mideas.rpg.v2.utils.TooltipMenu;
 
 public class PartyFrame {
 
@@ -82,8 +83,9 @@ public class PartyFrame {
 			displayMember = -1;
 		}
 	};
-	private static TextMenu[] menuTable = new TextMenu[] {whisper, setLeader, kick, inspect, trade, follow, duel, cancel};
-	private static Tooltip memberTooltip = new Tooltip(0, 0, 171*Mideas.getDisplayXFactor(), 199*Mideas.getDisplayYFactor(), 0.8f);
+	//private static TextMenu[] menuTable = new TextMenu[] {whisper, setLeader, kick, inspect, trade, follow, duel, cancel};
+	//private static Tooltip memberTooltip = new Tooltip(0, 0, 171*Mideas.getDisplayXFactor(), 199*Mideas.getDisplayYFactor(), 0.8f);
+	private static TooltipMenu menuTooltip = new TooltipMenu(0, 0, 0);
 	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Accept", 15, 2) {
 		@Override
 		public void eventButtonClick() {
@@ -129,10 +131,11 @@ public class PartyFrame {
 				y = Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+65*Mideas.getDisplayYFactor();
 				yShift = 18*Mideas.getDisplayYFactor();
 				float x = (displayMemberX+75)*Mideas.getDisplayXFactor();
-				memberTooltip.draw();
-				TTF2.partyFrameTooltip.drawStringShadow(x-10*Mideas.getDisplayXFactor(), y, Mideas.joueur1().getParty().getPartyMember(displayMember).getName(), YELLOW, Color.black, 1, 0, 0);
+				//memberTooltip.draw();
+				menuTooltip.draw();
+				//TTF2.partyFrameTooltip.drawStringShadow(x-10*Mideas.getDisplayXFactor(), y, Mideas.joueur1().getParty().getPartyMember(displayMember).getName(), YELLOW, Color.black, 1, 0, 0);
 				y+= yShift;
-				while(i < menuTable.length) {
+				/*while(i < menuTable.length) {
 					if((i == 1 || i == 2) && !Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
 						i++;
 						continue;
@@ -140,7 +143,7 @@ public class PartyFrame {
 					menuTable[i].drawXY(x, y);
 					y+= yShift;
 					i++;
-				}
+				}*/
 			}
 		}
 	}
@@ -173,7 +176,8 @@ public class PartyFrame {
 				float yShift = 18*Mideas.getDisplayYFactor();
 				float x = (displayMemberX+65)*Mideas.getDisplayXFactor();
 				y+= yShift;
-				while(i < menuTable.length) {
+				menuTooltip.event();
+				/*while(i < menuTable.length) {
 					if((i == 1 || i == 2) && !Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
 						i++;
 						continue;
@@ -181,7 +185,7 @@ public class PartyFrame {
 					menuTable[i].eventXY(x, y);
 					y+= yShift;
 					i++;
-				}
+				}*/
 			}
 			if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 1) {
@@ -189,43 +193,48 @@ public class PartyFrame {
 						displayMember = hoveredMember;
 						displayMemberX = hoveredMemberX;
 						displayMemberY = hoveredMemberY;
-						memberTooltip.setX(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor());
-						memberTooltip.setY(Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor());
+						//memberTooltip.setX(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor());
+						//memberTooltip.setY(Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor());
 						if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
-							memberTooltip.setWidth(140*Mideas.getDisplayXFactor());
+							/*memberTooltip.setWidth(140*Mideas.getDisplayXFactor());
 							memberTooltip.setHeight(185*Mideas.getDisplayYFactor());
 							int i = 0;
 							while(i < menuTable.length) {
 								menuTable[i].setWidth(110*Mideas.getDisplayXFactor());
 								i++;
-							}
+							}*/
+							setTooltipLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 140*Mideas.getDisplayXFactor());
+							menuTooltip.setActive(true);
 						}
 						else if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null) {
-							memberTooltip.setWidth(95*Mideas.getDisplayXFactor());
+							/*memberTooltip.setWidth(95*Mideas.getDisplayXFactor());
 							memberTooltip.setHeight(150*Mideas.getDisplayYFactor());
 							int i = 0;
 							while(i < menuTable.length) {
 								menuTable[i].setWidth(65*Mideas.getDisplayXFactor());
 								i++;
-							}
+							}*/
+							setTooltipNonLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor());
+							menuTooltip.setActive(true);
 						}
+						menuTooltip.setName(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
 					}
 					else if(!isHoverTooltip()) {
 						int i = 0;
-						while(i < menuTable.length) {
+						/*while(i < menuTable.length) {
 							menuTable[i].reset();
 							i++;
-						}
+						}*/
 						displayMember = -1;
 					}
 				}
 				else if(Mouse.getEventButton() == 0) {
 					if(!isHoverTooltip()) {
 						int i = 0;
-						while(i < menuTable.length) {
+						/*while(i < menuTable.length) {
 							menuTable[i].reset();
 							i++;
-						}
+						}*/
 						displayMember = -1;
 					}
 				}
@@ -257,7 +266,7 @@ public class PartyFrame {
 	}
 	
 	private static boolean isHoverTooltip() {
-		return displayMember != -1 && memberTooltip.isHover();
+		return displayMember != -1 && menuTooltip.isHover();
 	}
 	
 	private static boolean isHoverMember(float x, float y) {
@@ -278,28 +287,57 @@ public class PartyFrame {
 	}
 	
 	public static void updateSize() {
-		memberTooltip.updatePosition(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor());
-		if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
-			memberTooltip.setWidth(140*Mideas.getDisplayXFactor());
-			memberTooltip.setHeight(185*Mideas.getDisplayYFactor());
-			int i = 0;
-			while(i < menuTable.length) {
-				menuTable[i].setWidth(110*Mideas.getDisplayXFactor());
-				i++;
+		//memberTooltip.updatePosition(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor());
+		if(displayMember != -1) {
+			if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
+				/*memberTooltip.setWidth(140*Mideas.getDisplayXFactor());
+				memberTooltip.setHeight(185*Mideas.getDisplayYFactor());
+				int i = 0;
+				while(i < menuTable.length) {
+					menuTable[i].setWidth(110*Mideas.getDisplayXFactor());
+					i++;
+				}*/
+				setTooltipLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 140*Mideas.getDisplayXFactor());
 			}
-		}
-		else if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null) {
-			memberTooltip.setWidth(95*Mideas.getDisplayXFactor());
-			memberTooltip.setHeight(150*Mideas.getDisplayYFactor());
-			int i = 0;
-			while(i < menuTable.length) {
-				menuTable[i].setWidth(65*Mideas.getDisplayXFactor());
-				i++;
+			else if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null) {
+				/*memberTooltip.setWidth(95*Mideas.getDisplayXFactor());
+				memberTooltip.setHeight(150*Mideas.getDisplayYFactor());
+				int i = 0;
+				while(i < menuTable.length) {
+					menuTable[i].setWidth(65*Mideas.getDisplayXFactor());
+					i++;
+				}*/
+				setTooltipNonLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor());
 			}
 		}
 	}
 	
 	public static void setDisplayMember(int value) {
 		displayMember = value;
+	}
+	
+	public static void setTooltipLeader(float x, float y, float x_size) {
+		menuTooltip.clearMenu();
+		menuTooltip.addMenu(whisper);
+		menuTooltip.addMenu(setLeader);
+		menuTooltip.addMenu(kick);
+		menuTooltip.addMenu(inspect);
+		menuTooltip.addMenu(trade);
+		menuTooltip.addMenu(follow);
+		menuTooltip.addMenu(duel);
+		menuTooltip.addMenu(cancel);
+		menuTooltip.updateSize(x, y, x_size);
+	}
+	
+	public static void setTooltipNonLeader(float x, float y, float x_size) {
+		menuTooltip.clearMenu();
+		menuTooltip.addMenu(whisper);
+		menuTooltip.addMenu(inspect);
+		menuTooltip.addMenu(trade);
+		menuTooltip.addMenu(follow);
+		menuTooltip.addMenu(duel);
+		menuTooltip.addMenu(cancel);
+		menuTooltip.updateSize(x, y, x_size);
+		
 	}
 }

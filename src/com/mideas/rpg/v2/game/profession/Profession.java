@@ -242,12 +242,10 @@ public class Profession {
 			}
 			value++;
 			if(value >= this.y_offset) {
-				//System.out.println("i: "+i);
 				return i;
 			}
 			i++;
 		}
-		//System.out.println("ii: "+i);
 		return i;
 	}
 	
@@ -257,12 +255,10 @@ public class Profession {
 		while(j < this.categoryList.get(i).getCraftList().size()) {
 			value++;
 			if(value >= this.y_offset) {
-				//System.out.println("j: "+j);
 				return j;
 			}
 			j++;
 		}
-		//System.out.println("jj: "+j);
 		return j;
 	}
 	

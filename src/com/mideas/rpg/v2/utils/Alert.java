@@ -4,7 +4,6 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 
 public class Alert {
@@ -19,7 +18,6 @@ public class Alert {
 	private int y;
 	private float x_size_button;
 	private float y_size_button;
-	private Color bgColor = new Color(0, 0, 0, .6f);
 	private static final Color YELLOW = Color.decode("#FFC700"); 
 	private AlertBackground background;
 	private boolean isActive;

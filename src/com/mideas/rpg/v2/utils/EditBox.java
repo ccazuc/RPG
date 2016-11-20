@@ -86,6 +86,10 @@ public class EditBox {
 		return this.input.event();
 	}
 	
+	public void setActive(boolean we) {
+		this.input.setIsActive(we);
+	}
+	
 	public void update(float x, float y, float x_size) {
 		this.x = (int)x;
 		this.y = (int)y;

@@ -251,7 +251,7 @@ public class GuildFrame {
 			return memberInformationDisplayed != null && memberInformationDisplayed.getId() != Mideas.joueur1().getId() && Mideas.joueur1().getGuildRank().canKickMember() && memberInformationDisplayed.getRank().getOrder() > Mideas.joueur1().getGuildRank().getOrder();
 		}
 	};
-	private final static Button memberDisplayInviteButton = new Button(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor(), "Invite", 12, 1) {
+	private final static Button memberDisplayInviteButton = new Button(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor(), "Inv. party", 12, 1) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -722,8 +722,8 @@ public class GuildFrame {
 			if(Mideas.joueur1().getGuild().getMemberList().get(i).isOnline() || (!Mideas.joueur1().getGuild().getMemberList().get(i).isOnline() && showOfflineMembers)) {
 				if(isHoverMember(x, y+yShift)) {
 					hoveredMember = i;
-					hoveredMemberX = (int)x;
-					hoveredMemberY = (int)y+yShift;
+					hoveredMemberX = (int)(Mideas.mouseX()+4*Mideas.getDisplayXFactor());
+					hoveredMemberY = (int)(Mideas.mouseY()+4*Mideas.getDisplayYFactor());
 					break;
 				}
 				yShift+= yShiftHeight;
@@ -785,6 +785,7 @@ public class GuildFrame {
 			Draw.drawQuad(Sprites.guild_manage_rank_horizontal_bar, X_SOCIAL_FRAME+399*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+65*Mideas.getDisplayYFactor());
 			TTF2.guildMemberInformationName.drawStringShadow(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Select guild rank to modify:")/2, Y_SOCIAL_FRAME+20*Mideas.getDisplayYFactor(), "Select guild rank to modify:", YELLOW, Color.black, 1, 0, 0);
 			TTF2.guildMemberInformationName.drawStringShadow(X_SOCIAL_FRAME+485*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Rank Label:")/2, Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), "Rank Label:", YELLOW, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationName.drawStringShadow(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Allow this rank to:")/2, Y_SOCIAL_FRAME+110*Mideas.getDisplayYFactor(), "Allow this rank to:", Color.white, Color.black, 1, 0, 0);
 			rankNameEditBox.draw();
 			canListenGuildChannelCheckBox.draw();
 			canListenOfficerChannelCheckBox.draw();
@@ -828,13 +829,14 @@ public class GuildFrame {
 		return false;
 	}
 	
-	private static void fillDropDownMenuWithRank() {
+	public static void fillDropDownMenuWithRank() {
 		int i = 0;
 		manageRankDropDownMenu.resetMenuList();
 		while(i < Mideas.joueur1().getGuild().getRankList().size()) {
 			manageRankDropDownMenu.addMenu(new TextMenu(X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X+20*Mideas.getDisplayXFactor(), 0, (DROP_DOWN_MENU_ALERT_X_SIZE-20)*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuild().getRankList().get(i).getName(), 13f, 1));
 			i++;
 		}
+		rankNameEditBox.setText(selectedRank.getName());
 	}
 	
 	private static void drawSortButton() {
@@ -1072,6 +1074,8 @@ public class GuildFrame {
 		manageFrameChangeMade = false;
 		manageRankCloseFrameButton.disable();
 		manageRankAcceptButton.disable();
+		rankNameEditBox.setActive(false);
+		rankNameEditBox.setText(selectedRank.getName());
 	}
 	
 	static void openManageFrame() {

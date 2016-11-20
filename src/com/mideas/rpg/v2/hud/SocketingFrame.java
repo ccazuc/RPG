@@ -28,7 +28,7 @@ public class SocketingFrame {
 	private static int mouseY;
 	private static float yFrame = -380*Mideas.getDisplayYFactor();
 	private static float xFrame = -306*Mideas.getDisplayXFactor();
-	private static CrossButton closeSocketingFrame = new CrossButton(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), Display.getHeight()/2-365*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY(), Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), (Sprites.cross_button.getImageHeight()+2)*Mideas.getDisplayXFactor()) {
+	private static CrossButton closeSocketingFrame = new CrossButton(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), Display.getHeight()/2-365*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY(), CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayXFactor()) {
 		@Override
 		protected void eventButtonClick() {
 			Interface.setSocketingFrameStatus(false);

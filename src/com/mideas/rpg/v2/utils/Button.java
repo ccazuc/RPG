@@ -17,8 +17,8 @@ public class Button {
 
 	private float x;
 	private float y;
-	private float x_size = Sprites.button.getImageWidth();
-	private float y_size = Sprites.button.getImageHeight();
+	private float x_size;
+	private float y_size;
 	private Texture texture = Sprites.button;
 	private String text;
 	private int textWidth;
@@ -82,6 +82,8 @@ public class Button {
 	public Button(float x, float y, String text, float font_size) {
 		this.x = x;
 		this.y = y;
+		this.x_size = Sprites.button.getImageWidth();
+		this.y_size = Sprites.button.getImageHeight();
 		this.text = text;
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		Font awtFont = null;

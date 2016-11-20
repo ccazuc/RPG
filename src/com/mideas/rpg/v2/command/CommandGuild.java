@@ -12,6 +12,7 @@ import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.guild.GuildMember;
 import com.mideas.rpg.v2.game.guild.GuildRank;
+import com.mideas.rpg.v2.hud.social.GuildFrame;
 import com.mideas.rpg.v2.hud.social.GuildInviteNotification;
 
 public class CommandGuild extends Command {
@@ -22,7 +23,11 @@ public class CommandGuild extends Command {
 		if(packetId == PacketID.GUILD_UPDATE_PERMISSION) {
 			int rank_order = ConnectionManager.getConnection().readInt();
 			int permission = ConnectionManager.getConnection().readInt();
+			String name = ConnectionManager.getConnection().readString();
 			Mideas.joueur1().getGuild().getRank(rank_order).setPermission(permission);
+			Mideas.joueur1().getGuild().getRank(rank_order).setName(name);
+			GuildFrame.fillDropDownMenuWithRank();
+			Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuildRank());
 		}
 		else if(packetId == PacketID.GUILD_INVITE_PLAYER) {
 			String player_name = ConnectionManager.getConnection().readString();

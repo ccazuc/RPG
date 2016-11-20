@@ -1,12 +1,9 @@
 package com.mideas.rpg.v2.hud.social;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.command.CommandGuild;
-import com.mideas.rpg.v2.utils.AlertBackground;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Popup;
 

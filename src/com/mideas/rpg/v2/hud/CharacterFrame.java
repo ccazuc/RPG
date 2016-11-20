@@ -33,7 +33,7 @@ public class CharacterFrame {
 	private static int lastMouseY;
 	private final static int X_CLOSE_FRAME_BUTTON = 69;
 	private final static int Y_CLOSE_FRAME_BUTTON = -366;
-	private static CrossButton closeFrameButton = new CrossButton(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor()) {
+	private static CrossButton closeFrameButton = new CrossButton(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, 22*Mideas.getDisplayXFactor(), 19*Mideas.getDisplayXFactor()) {
 		@Override
 		protected void eventButtonClick() {
 			Interface.closeCharacterFrame();
@@ -362,9 +362,9 @@ public class CharacterFrame {
 	}
 	
 	public static void updateButton() {
-		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
+		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayXFactor());
 		closeFrameButton.event();
-		SocketingFrame.getCrossButton().update(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), (Sprites.cross_button.getImageHeight()+2)*Mideas.getDisplayXFactor());
+		SocketingFrame.getCrossButton().update(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift, CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayXFactor());
 		SocketingFrame.getButton().update(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), 620*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayXFactor());
 	}
 	
@@ -372,8 +372,8 @@ public class CharacterFrame {
 		if(gemFrame != 0) {
 			gemFrame = 50+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
 		}
-		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.cross_button.getImageHeight()*Mideas.getDisplayXFactor());
-		SocketingFrame.getCrossButton().update(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift, Sprites.cross_button.getImageWidth()*Mideas.getDisplayXFactor(), (Sprites.cross_button.getImageHeight()+2)*Mideas.getDisplayXFactor());
+		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayXFactor());
+		SocketingFrame.getCrossButton().update(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift, CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayXFactor());
 		SocketingFrame.getButton().update(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), 620*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayXFactor());
 	}
 }

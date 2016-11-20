@@ -71,17 +71,25 @@ public final class TTF {
 	}
 	
 	private final void loadFontMetrics() {
-		final Graphics2D graphics = (Graphics2D)new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB).getGraphics();
+		final Graphics2D graphics = (Graphics2D)new BufferedImage(1, 1, BufferedImage.TYPE_BYTE_GRAY/*TYPE_INT_ARGB*/).getGraphics();
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	   	graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+	   	graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+	   	graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+	   	graphics.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
 		graphics.setFont(this.font);
 		this.fontMetrics = graphics.getFontMetrics();
 	}
 	
 	private final void createSet() {  
 		try {
-			final BufferedImage imgTemp = new BufferedImage(this.textureWidth, this.textureHeight, BufferedImage.TYPE_INT_ARGB);
+			final BufferedImage imgTemp = new BufferedImage(this.textureWidth, this.textureHeight, BufferedImage.TYPE_BYTE_GRAY/*.TYPE_INT_ARGB*/);
 			final Graphics2D graphics = (Graphics2D)imgTemp.getGraphics();
 		   	graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		   	graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		   	graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		   	graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+		   	graphics.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
 		    graphics.setFont(this.font);
 		    graphics.setColor(java.awt.Color.WHITE);
 			int positionX = 0;
@@ -314,20 +322,25 @@ public final class TTF {
 			final int bpp = bufferedImage.getColorModel().getPixelSize();
 			ByteBuffer byteBuffer;
 			DataBuffer db = bufferedImage.getData().getDataBuffer();
-			if(db instanceof DataBufferInt) {
-				final int pixels[] = ((DataBufferInt)(bufferedImage.getData().getDataBuffer())).getData();
-				byteBuffer = ByteBuffer.allocateDirect(width*height*(bpp/8)).order(ByteOrder.nativeOrder());
+			if(db instanceof DataBufferByte) {
+				final byte pixels[] = ((DataBufferByte)(bufferedImage.getData().getDataBuffer())).getData();
+				byteBuffer = ByteBuffer.allocateDirect(width*height*4).order(ByteOrder.nativeOrder());
 				int i = -1;
+				//System.out.println(pixels.length);
+				//System.out.println(width * height * bpp / 8);
 				while(++i < pixels.length) {
-					final int pixel = pixels[i];
-					byteBuffer.put((byte)(pixel>>16));
+					final byte pixel = pixels[i];
+					/*byteBuffer.put((byte)(pixel>>16));
 					byteBuffer.put((byte)(pixel>>8));
-					byteBuffer.put((byte) pixel);
-					if(pixel>>24 == 1) {
+					byteBuffer.put((byte) pixel);*/
+					byteBuffer.put((byte)255);
+					byteBuffer.put((byte)255);
+					byteBuffer.put((byte)255);
+					if(pixel == 1) {
 						byteBuffer.put((byte)0);
 					}
 					else {
-						byteBuffer.put((byte)(pixel>>24));
+						byteBuffer.put((byte)(pixel));
 					}
 				}
 			}

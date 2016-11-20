@@ -549,10 +549,8 @@ public class Interface {
 							return true;
 						}
 					}
-					if(ChatFrame.getChatActive()) {
-						if(ChatFrame.event()) {
-							return true;
-						}
+					if(ChatFrame.event()) {
+						return true;
 					}
 				}
 				else if(!hasLoggedInToAuth) {

@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.game.guild;
 
-import java.util.Arrays;
-
 public class GuildRank {
 
 	private int order;
@@ -37,9 +35,7 @@ public class GuildRank {
 		this.permissionList = new boolean[15];
 		this.tempPermissionList = new boolean[15];
 		parsePermission();
-		//Arrays.fill(this.permissionList, true);
 		updateTempPermission();
-		//this.tempPermissionList = this.permissionList;
 	}
 	
 	private void parsePermission() {
@@ -116,7 +112,6 @@ public class GuildRank {
 	
 	public boolean canInvitePlayer() {
 		return this.permissionList[CAN_INVITE_MEMBER];
-		//return true;
 	}
 	
 	public boolean canModifyMotd() {

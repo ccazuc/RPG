@@ -26,6 +26,7 @@ public class TextMenu {
 	private int x_size;
 	protected int value;
 	private int textShift;
+	private boolean isActive;
 	
 	public TextMenu(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, float textShift) {
 		this.x = (int)x;
@@ -95,18 +96,20 @@ public class TextMenu {
 	}
 	
 	private void draw(float x, float y) {
-		if(!activateCondition()) {
-			this.font.drawStringShadow(x+this.textShift, y, this.text, GRAY, Color.black, this.shadow_size, 0, 0);
-		}
-		else {
-			if(this.buttonDown) {
-				this.font.drawStringShadow(x+2+this.textShift, y+2, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
+		if(this.isActive) {
+			if(!activateCondition()) {
+				this.font.drawStringShadow(x+this.textShift, y, this.text, GRAY, Color.black, this.shadow_size, 0, 0);
 			}
 			else {
-				this.font.drawStringShadow(x+this.textShift, y, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
-			}
-			if(this.buttonHover) {
-				Draw.drawQuadBlend(Sprites.text_menu_hover, x-10*Mideas.getDisplayXFactor(), y, this.x_size, Sprites.text_menu_hover.getImageHeight()*Mideas.getDisplayYFactor());
+				if(this.buttonDown) {
+					this.font.drawStringShadow(x+2+this.textShift, y+2, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
+				}
+				else {
+					this.font.drawStringShadow(x+this.textShift, y, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
+				}
+				if(this.buttonHover) {
+					Draw.drawQuadBlend(Sprites.text_menu_hover, x, y+2, this.x_size, Sprites.text_menu_hover.getImageHeight()*Mideas.getDisplayYFactor());
+				}
 			}
 		}
 	}
@@ -128,31 +131,33 @@ public class TextMenu {
 	}
 	
 	private boolean eventHandler(int x, int y) {
-		this.buttonHover = false;
-		if(Mideas.getHover() && Mideas.mouseX() >= x-10*Mideas.getDisplayXFactor() && Mideas.mouseX() <= x+-10*Mideas.getDisplayXFactor()+this.x_size && Mideas.mouseY() > y+2 && Mideas.mouseY() <= y+this.font.getLineHeight()+1) {
-			this.buttonHover = true;
-			Mideas.setHover(false);
-		}
-		if(this.buttonHover) {
-			if(Mouse.getEventButtonState()) {
+		if(this.isActive) {
+			this.buttonHover = false;
+			if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+this.x_size && Mideas.mouseY() >= y && Mideas.mouseY() <= y+this.font.getLineHeight()+1) {
+				this.buttonHover = true;
+				Mideas.setHover(false);
+			}
+			if(this.buttonHover) {
+				if(Mouse.getEventButtonState()) {
+					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+						this.buttonDown = true;
+					}
+				}
+				else if(this.buttonDown) {
+					if(Mouse.getEventButton() == 0) {
+						this.buttonDown = false;
+						eventButtonClick();
+						return true;
+					}
+					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+						this.buttonDown = false;
+					}
+				}
+			}
+			else if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					this.buttonDown = true;
-				}
-			}
-			else if(this.buttonDown) {
-				if(Mouse.getEventButton() == 0) {
-					this.buttonDown = false;
-					eventButtonClick();
-					return true;
-				}
-				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					this.buttonDown = false;
 				}
-			}
-		}
-		else if(!Mouse.getEventButtonState()) {
-			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-				this.buttonDown = false;
 			}
 		}
 		return false;
@@ -181,6 +186,14 @@ public class TextMenu {
 	
 	public void setWidth(float x_size) {
 		this.x_size = (int)x_size;
+	}
+	
+	public void setActive(boolean we) {
+		this.isActive = we;
+	}
+	
+	public void setTextShift(float shift) {
+		this.textShift = (int)shift;
 	}
 	
 	public void update(float x, float y, float x_size, float textShift) {

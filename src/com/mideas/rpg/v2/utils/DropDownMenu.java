@@ -104,6 +104,7 @@ public class DropDownMenu {
 		this.menuList.clear();
 		this.background.setHeight(0);
 		this.initText = false;
+		this.backgroundHeight = 0;
 	}
 	
 	public void addMenu(TextMenu menu) {

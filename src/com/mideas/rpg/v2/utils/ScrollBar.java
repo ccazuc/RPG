@@ -212,6 +212,23 @@ public class ScrollBar {
 				}
 				Mideas.setHover(false);
 			}
+			else if(Mideas.getHover() && Mideas.mouseY() > this.y+22*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+this.y_size) {
+				if(Mouse.getEventButtonState()) {
+					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+						this.y_ascensor = Mideas.mouseY()-this.y-28*Mideas.getDisplayYFactor();
+						this.y_ascensor_lastclick = this.y_ascensor;
+						if(this.y_ascensor < this.Y_ASCENSOR_UP_SHIFT) {
+							this.y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
+							this.buttonHoverTopArrow = false;
+						}
+						else if(this.y_ascensor > this.Y_ASCENSOR_DOWN_SHIFT) {
+							this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
+							this.buttonHoverBotArrow = false;
+						}
+					}
+				}
+				Mideas.setHover(false);
+			}
 		}
 		if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 			if(!Mouse.getEventButtonState()) {
