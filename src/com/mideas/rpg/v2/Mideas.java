@@ -24,6 +24,7 @@ import org.lwjgl.opengl.GL11;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandPing;
+import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
@@ -47,6 +48,7 @@ import com.mideas.rpg.v2.hud.EscapeFrame;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
+import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.SocketingFrame;
@@ -55,7 +57,6 @@ import com.mideas.rpg.v2.hud.social.AddFriendInputFrame;
 import com.mideas.rpg.v2.hud.social.AddGuildMemberInputFrame;
 import com.mideas.rpg.v2.hud.social.FriendsFrame;
 import com.mideas.rpg.v2.hud.social.GuildFrame;
-import com.mideas.rpg.v2.hud.social.GuildInviteNotification;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
@@ -72,7 +73,7 @@ public class Mideas {
 	//private static String cursor;
 	private static long last;
 	private static int count;
-	private static String fps;
+	private static int fps;
 	private static BufferedImage cursor_image;
 	private static int expNeeded;
 	private static int gold_calc;
@@ -93,6 +94,8 @@ public class Mideas {
 	private final static Pattern isInteger = Pattern.compile("-?[0-9]+");
 	public final static int FPS = 60;
 	private static boolean hover;
+	private static Thread authServerConnectionThread;
+	private static AuthServerConnectionRunnable authServerConnectionRunnable;
 	
 	private static long LAST_PING_TIMER;
 	private final static int PING_FREQUENCE = 10000;
@@ -175,6 +178,9 @@ public class Mideas {
 		ClassManager.loadClasses();
 		GemManager.loadGemSprites();
 		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
+		authServerConnectionRunnable = new AuthServerConnectionRunnable();
+		authServerConnectionThread = new Thread(authServerConnectionRunnable);
+		authServerConnectionThread.start();
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		Keyboard.enableRepeatEvents(true);
@@ -288,8 +294,8 @@ public class Mideas {
 		ChatFrame.updateSize();
 		AddFriendInputFrame.updateSize();
 		AddGuildMemberInputFrame.updateSize();
-		GuildInviteNotification.updateSize();
 		PerformanceBarFrame.updateSize();
+		PopupFrame.updateSize();
 		FriendsFrame.updateSize();
 		GuildFrame.updateSize();
 		if(joueur1 != null && joueur1.getFirstProfession() != null) {
@@ -313,7 +319,7 @@ public class Mideas {
 		count++;
 		if(System.currentTimeMillis()-last >= 1000) {
 			last = System.currentTimeMillis();
-			fps = String.valueOf(count);
+			fps = count;
 			count = 0;
 		}
 	}
@@ -635,7 +641,7 @@ public class Mideas {
 		currentPlayer = we;
 	}
 	
-	public static String getFps() {
+	public static int getFps() {
 		return fps;
 	}
 	

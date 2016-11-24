@@ -195,6 +195,11 @@ public class Button {
 		this.y_size = height;
 	}
 	
+	public void setText(String text) {
+		this.text = text;
+		this.textWidth = this.font.getWidth(text);
+	}
+	
 	public void enable() {
 		this.isEnable = true;
 	}

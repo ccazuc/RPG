@@ -7,11 +7,13 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.game.guild.GuildMember;
 import com.mideas.rpg.v2.game.guild.GuildRank;
 import com.mideas.rpg.v2.game.guild.MemberSort;
+import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.utils.AlertBackground;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.ButtonMenuSort;
@@ -24,6 +26,7 @@ import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.ScrollBar;
 import com.mideas.rpg.v2.utils.TextMenu;
 import com.mideas.rpg.v2.utils.Tooltip;
+import com.mideas.rpg.v2.utils.TooltipMenu;
 
 import static com.mideas.rpg.v2.hud.social.SocialFrame.Y_SOCIAL_FRAME;
 import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;
@@ -61,6 +64,7 @@ public class GuildFrame {
 	static boolean memberInformationDisplay;
 	private static int hoveredMemberX;
 	private static int hoveredMemberY;
+	static GuildMember memberMenu;
 	private static int selectedMember = -1;
 	private final static Color YELLOW = Color.decode("#FFC700");
 	private final static Color GREY = Color.decode("#999999");
@@ -120,7 +124,7 @@ public class GuildFrame {
 	private final static int DROP_DOWN_MENU_ALERT_X = 450;
 	private final static int DROP_DOWN_MENU_ALERT_Y = 63;
 	private final static int DROP_DOWN_MENU_ALERT_X_SIZE = 130;
-	private final static DropDownMenu manageRankDropDownMenu = new DropDownMenu(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor(), 13, .6f) {
+	final static DropDownMenu manageRankDropDownMenu = new DropDownMenu(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor(), 13, .6f) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -243,7 +247,7 @@ public class GuildFrame {
 		
 		@Override
 		public void eventButtonClick() {
-			//popup to confirm kick
+			PopupFrame.activateGuildKickMemberPopup(memberInformationDisplayed.getName(), memberInformationDisplayed.getId());
 		}
 		
 		@Override
@@ -335,6 +339,59 @@ public class GuildFrame {
 				Mideas.joueur1().getGuild().sortMemberByOnlineAscending();
 				memberSort = MemberSort.ONLINE_ASCENDING;
 			}
+		}
+	};
+	final static TooltipMenu displayedMemberMenu = new TooltipMenu(0, 0, 0) {
+		
+		@Override
+		public void onClose() {
+			memberMenu = null;
+		}
+	};
+	private static TextMenu whisperTextMenu = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Whisper", 14, 1, -8*Mideas.getDisplayXFactor()) {
+		@Override
+		public void eventButtonClick() {
+			ChatFrame.setWhisper(memberMenu.getName());
+			ChatFrame.setChatActive(true);
+			this.reset();
+			displayedMemberMenu.setActive(false);
+		}
+	};
+	private static TextMenu targetTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Target", 14, 1, -8*Mideas.getDisplayXFactor()) {
+		@Override
+		public void eventButtonClick() {
+			this.reset();
+			displayedMemberMenu.setActive(false);
+		}
+	};
+	private static TextMenu ignoreTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Ignore", 14, 1, -8*Mideas.getDisplayXFactor()) {
+		@Override
+		public void eventButtonClick() {
+			this.reset();
+			displayedMemberMenu.setActive(false); //TODO: implement ignore
+		}
+	};
+	private static TextMenu leaveGuildTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Leave guild", 14, 1, -8*Mideas.getDisplayXFactor()) {
+		@Override
+		public void eventButtonClick() {
+			this.reset();
+			displayedMemberMenu.setActive(false);
+			CommandGuild.leaveGuild();
+		}
+	};
+	private static TextMenu setLeaderTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Give leadership", 14, 1, -8*Mideas.getDisplayXFactor()) {
+		@Override
+		public void eventButtonClick() {
+			CommandGuild.setLeader(memberMenu.getId());
+			this.reset();
+			displayedMemberMenu.setActive(false);
+		}
+	};
+	private static TextMenu cancelTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Cancel", 14, 1, -8*Mideas.getDisplayXFactor()) {
+		@Override
+		public void eventButtonClick() {
+			this.reset();
+			displayedMemberMenu.setActive(false);
 		}
 	};
 	
@@ -613,9 +670,9 @@ public class GuildFrame {
 		TTF2.guildTitle.drawStringShadow(X_SOCIAL_FRAME+220*Mideas.getDisplayXFactor()-TTF2.guildTitle.getWidth(Mideas.joueur1().getGuildTitle())/2, Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuildTitle(), YELLOW, Color.black, 1, 0, 0);
 		TTF2.guildMotd.drawStringShadow(X_SOCIAL_FRAME+23*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+368*Mideas.getDisplayYFactor(), "Guild Message Of The Day:", YELLOW, Color.black, 1, 0, 0);
 		TTF2.guildMotd.drawStringShadow(X_SOCIAL_FRAME+210*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), "Show Offline Members", Color.white, Color.black, 1, 0, 0);
+		drawNumberMember();
 		drawMembers();
 		drawMotd();
-		drawNumberMember();
 		drawInformationFrame();
 		drawDisplayedMember();
 		drawManageFrame();
@@ -701,10 +758,15 @@ public class GuildFrame {
 			}
 			i++;
 		}
+		if(memberMenu != null) {
+			displayedMemberMenu.draw();
+			//System.out.println(displayedMemberMenu.getX()+" "+displayedMemberMenu.getY());
+		}
 	}
 	
 	private static boolean mouseEventMembers() {
 		int i = 0;
+		if(displayedMemberMenu.event()) return true;
 		if((showOfflineMembers && Mideas.joueur1().getGuild().getMemberList().size() > 13)) {
 			memberScrollBar.event();
 			i = (int)((Mideas.joueur1().getGuild().getMemberList().size()-13)*memberScrollBar.getScrollPercentage());
@@ -720,10 +782,11 @@ public class GuildFrame {
 		float yShiftHeight = 18*Mideas.getDisplayYFactor();
 		while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
 			if(Mideas.joueur1().getGuild().getMemberList().get(i).isOnline() || (!Mideas.joueur1().getGuild().getMemberList().get(i).isOnline() && showOfflineMembers)) {
-				if(isHoverMember(x, y+yShift)) {
+				if(Mideas.getHover() && isHoverMember(x, y+yShift)) {
 					hoveredMember = i;
-					hoveredMemberX = (int)(Mideas.mouseX()+4*Mideas.getDisplayXFactor());
-					hoveredMemberY = (int)(Mideas.mouseY()+4*Mideas.getDisplayYFactor());
+					hoveredMemberX = (int)(Mideas.mouseX()+2*Mideas.getDisplayXFactor());
+					hoveredMemberY = (int)(Mideas.mouseY()+2*Mideas.getDisplayYFactor());
+					Mideas.setHover(false);
 					break;
 				}
 				yShift+= yShiftHeight;
@@ -760,12 +823,63 @@ public class GuildFrame {
 					return true;
 				}
 				else if(Mouse.getEventButton() == 1) {
-					//open tooltip frame
+					if(displayedMemberMenu.isActive()) {
+						displayedMemberMenu.setActive(false);
+					}
+					memberMenu = Mideas.joueur1().getGuild().getMemberList().get(hoveredMember);
+					if(memberMenu.isOnline()) {
+						buildMenuList();
+						displayedMemberMenu.setName(memberMenu.getName());
+						displayedMemberMenu.setActive(true);
+					}
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+	
+	private static void buildMenuList() {
+		if(Mideas.joueur1().getGuild().isLeader(Mideas.joueur1().getId()) && memberMenu.getId() != Mideas.joueur1().getId()) {
+			buildMenuListLeader(hoveredMemberX, hoveredMemberY, 130*Mideas.getDisplayXFactor());
+		}
+		else {
+			if(memberMenu.getId() == Mideas.joueur1().getId()) {
+				buildMenuListSelf(hoveredMemberX, hoveredMemberY, 110*Mideas.getDisplayXFactor());
+			}
+			else {
+				buildMenuListNonLeader(hoveredMemberX, hoveredMemberY, 85*Mideas.getDisplayXFactor());
+			}
+		}
+	}
+	
+	private static void buildMenuListSelf(float x, float y, float x_size) {
+		displayedMemberMenu.clearMenu();
+		displayedMemberMenu.addMenu(whisperTextMenu);
+		displayedMemberMenu.addMenu(targetTextMenu);
+		displayedMemberMenu.addMenu(ignoreTextMenu);
+		displayedMemberMenu.addMenu(leaveGuildTextMenu);
+		displayedMemberMenu.addMenu(cancelTextMenu);
+		displayedMemberMenu.updateSize(x, y, x_size);
+	}
+	
+	private static void buildMenuListLeader(float x, float y, float x_size) {
+		displayedMemberMenu.clearMenu();
+		displayedMemberMenu.addMenu(whisperTextMenu);
+		displayedMemberMenu.addMenu(targetTextMenu);
+		displayedMemberMenu.addMenu(ignoreTextMenu);
+		displayedMemberMenu.addMenu(setLeaderTextMenu);
+		displayedMemberMenu.addMenu(cancelTextMenu);
+		displayedMemberMenu.updateSize(x, y, x_size);
+	}
+	
+	private static void buildMenuListNonLeader(float x, float y, float x_size) {
+		displayedMemberMenu.clearMenu();
+		displayedMemberMenu.addMenu(whisperTextMenu);
+		displayedMemberMenu.addMenu(targetTextMenu);
+		displayedMemberMenu.addMenu(ignoreTextMenu);
+		displayedMemberMenu.addMenu(cancelTextMenu);
+		displayedMemberMenu.updateSize(x, y, x_size);
 	}
 	
 	private static boolean isHoverMember(float x, float y) {
@@ -779,6 +893,7 @@ public class GuildFrame {
 				manageRankDropDownMenu.update(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor());
 				rankNameEditBox.setText(selectedRank.getName());
 				dropDownMenuInit = true;
+				manageRankDropDownMenu.setActive(true);
 			}
 			informationBackground.draw();
 			Draw.drawQuad(Sprites.guild_manage_frame_bot_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+433*Mideas.getDisplayYFactor());
@@ -1049,6 +1164,9 @@ public class GuildFrame {
 		sortByRankButton.update(X_SOCIAL_FRAME+113*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_SORT_Y*Mideas.getDisplayYFactor(), 86*Mideas.getDisplayXFactor());
 		sortByNoteButton.update(X_SOCIAL_FRAME+198*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_SORT_Y*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor());
 		sortByLastOnlineButton.update(X_SOCIAL_FRAME+296*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_SORT_Y*Mideas.getDisplayYFactor(), 89*Mideas.getDisplayXFactor());
+		if(displayedMemberMenu.isActive()) {
+			buildMenuList();
+		}
 	}
 	
 	public static Input getInformationInput() {
@@ -1076,6 +1194,7 @@ public class GuildFrame {
 		manageRankAcceptButton.disable();
 		rankNameEditBox.setActive(false);
 		rankNameEditBox.setText(selectedRank.getName());
+		manageRankDropDownMenu.setActive(false);
 	}
 	
 	static void openManageFrame() {
@@ -1083,5 +1202,10 @@ public class GuildFrame {
 		rankNameInput.setText(selectedRank.getName());
 		manageRankCloseFrameButton.enable();
 		manageRankAcceptButton.enable();
+		manageRankDropDownMenu.setActive(true);
+		if(selectedRank != null) {
+			manageRankDropDownMenu.setMenuText(selectedRank.getName());
+			manageRankDropDownMenu.setValue(selectedRank.getOrder());
+		}
 	}
 }

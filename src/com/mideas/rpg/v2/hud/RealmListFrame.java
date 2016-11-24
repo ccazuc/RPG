@@ -24,7 +24,9 @@ public class RealmListFrame {
 	private static Button acceptButton = new Button(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 154*Mideas.getDisplayXFactor(), 31*Mideas.getDisplayXFactor(), "OK", 20, 2) {
 		@Override
 		public void eventButtonClick() {
-			CommandLogin.loginRealm(selectedRealm.getRealmId(), selectedRealm.getRealmName());
+			if(selectedRealm != null) {
+				CommandLogin.loginRealm(selectedRealm.getRealmId(), selectedRealm.getRealmName());
+			}
 		}
 	};
 	private static Button cancelButton = new Button(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 152*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor(), "Cancel", 18, 2) {
@@ -42,7 +44,6 @@ public class RealmListFrame {
 		int i = 0;
 		while(i < realmList.size()) {
 			if(selectedRealm == realmList.get(i)) {
-				//Draw.drawQuad(Sprites.craft_green_selection, Display.getWidth()/2+70*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, 730*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
 				Draw.drawQuad(Sprites.selected_realm, Display.getWidth()/2+25*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift);
 				TTF2.realmList.drawStringShadow(Display.getWidth()/2+40*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, realmList.get(i).getRealmName(), Color.white, Color.black, 2, 1, 1);
 			}
@@ -64,7 +65,9 @@ public class RealmListFrame {
 	
 	public static void event() {
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
-			CommandLogin.loginRealm(selectedRealm.getRealmId(), selectedRealm.getRealmName());
+			if(selectedRealm != null) {
+				CommandLogin.loginRealm(selectedRealm.getRealmId(), selectedRealm.getRealmName());
+			}
 		}
 	}
 	

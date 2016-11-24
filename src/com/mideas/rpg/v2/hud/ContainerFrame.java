@@ -194,7 +194,7 @@ public class ContainerFrame {
 				if(bagShift <= -700) {
 					bagShift = 0;
 					xBagShift = (int)(-200*Mideas.getDisplayXFactor());
-					yBagShift = -bagSize[4]-142;
+					yBagShift = -bagSize[4]-142*Mideas.getDisplayYFactor();
 				}
 				fourthBagButton.draw(Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
 				Draw.drawQuad(IconsManager.getSprite35(Mideas.joueur1().bag().getSpriteId(3)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
@@ -247,6 +247,7 @@ public class ContainerFrame {
 			}
 			else if(i >= Mideas.joueur1().bag().getEquippedBagSize(0)+Mideas.joueur1().bag().getEquippedBagSize(1)+Mideas.joueur1().bag().getEquippedBagSize(2)+16 && i < Mideas.joueur1().bag().getEquippedBagSize(0)+Mideas.joueur1().bag().getEquippedBagSize(1)+Mideas.joueur1().bag().getEquippedBagSize(2)+Mideas.joueur1().bag().getEquippedBagSize(3)+16) {
 				if(isBagOpen[4]) { 
+					System.out.println(z+" "+-bagSize[4]+" "+k+" "+resize+" "+(-bagSize[4]-142)+" "+Mideas.mouseY());
 					drawBags(i, x+j*xShift+xBagShift, k*yShift+z, x+xBagShift, z);
 				}
 			}
@@ -337,6 +338,7 @@ public class ContainerFrame {
 					if(isBagOpen[4]) {
 						if(z <= -650) {  
 							z = 0;
+							k = 0;
 							xBagShift = (int)(-200*Mideas.getDisplayXFactor());
 							yBagShift = -bagSize[4]+22;
 							resize = true;
@@ -351,16 +353,16 @@ public class ContainerFrame {
 							z+= -bagSize[4]-102;
 						}
 						else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
-							z+= -bagSize[4]-62;
+							z+= -bagSize[4]-102;
 						}
 						else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
 							z+= -bagSize[4];
 						}
 						else if(isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3]) {
-							z+= -bagSize[4]-62;
+							z+= -bagSize[4]-102;
 						}
 						else if(isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
-							z+= -bagSize[4]-62;
+							z+= -bagSize[4]-102;
 						}
 						else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !isBagOpen[3] && !resize) {
 							z+= -bagSize[4]-62;
@@ -628,16 +630,16 @@ public class ContainerFrame {
 								z+= -bagSize[4]-102;
 							}
 							else if(!isBagOpen[0] && isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
-								z+= -bagSize[4]-62;
+								z+= -bagSize[4]-102;
 							}
 							else if(!isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3] && !resize) {
 								z+= -bagSize[4];
 							}
 							else if(isBagOpen[0] && isBagOpen[1] && !isBagOpen[2] && isBagOpen[3]) {
-								z+= -bagSize[4]-62;
+								z+= -bagSize[4]-102;
 							}
 							else if(isBagOpen[0] && !isBagOpen[1] && isBagOpen[2] && isBagOpen[3]) {
-								z+= -bagSize[4]-62;
+								z+= -bagSize[4]-102;
 							}
 							else if(isBagOpen[0] && !isBagOpen[1] && !isBagOpen[2] && !isBagOpen[3] && !resize) {
 								z+= -bagSize[4]-62;

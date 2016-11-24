@@ -20,6 +20,7 @@ import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.InputBar;
+import com.mideas.rpg.v2.utils.Colors;
 
 public class ChatFrame {
 
@@ -31,21 +32,26 @@ public class ChatFrame {
 	private static int defaultHeight = Display.getHeight()-285;
 	private static MessageType selectedType = MessageType.SAY;
 	private final static int NUMBER_LAST_MESSAGE_TAKEN = 100;
-	private static Color bgColor = new Color(0, 0, 0, .35f);
-	private final static int OPACITY_START_DECREASE_TIMER = 30000;
-	private final static int OPACITY_DECREASE_TIMER = 7000;
+	private final static Colors bgColors = new Colors(0, 0, 0, 0);
+	private final static float FRAME_MAXIMUM_OPACITY = .35f;
+	private final static int MESSAGE_OPACITY_START_DECREASE_TIMER = 30000;
+	private final static int MESSAGE_OPACITY_DECREASE_TIMER = 7000;
 	private final static int MAXIMUM_MESSAGES = 128; //same as wow BC
+	private final static int FRAME_OPACITY_START_DECREASE_TIMER = 500;
+	private final static int FRAME_OPACITY_DECREASE_TIMER = 1000;
 	private final static int MAXIMUM_LENGTH = 255;
 	private static String currentWhisper = "";
 	private static int messageShowHeight = 4;
 	private static boolean hoverHeightResize;
 	private static boolean hoverWidthResize;
 	private static String tempMessage = "";
+	private static long lastHoverChatFrame;
 	private static boolean heightResizing;
 	private static boolean hoverAllResize;
 	private static String previousWhisper;
 	private static int selectedQuadLength;
 	private static int defaultWidth = 540;
+	private static boolean hoverChatFrame;
 	private static int numberMessageSent;
 	private static boolean widthResizing;
 	private static int numberUpArrow = 1;
@@ -80,7 +86,7 @@ public class ChatFrame {
 	public static void draw() {
 		messageShowHeight = 4+yResize/TTF2.chat.getLineHeight();
 		maxLength = 490+xResize;
-		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 115+yResize, bgColor);
+		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 115+yResize, bgColors);
 		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
 		if(tempMessage.length() >= 1 || chatActive) {
 			inputBar.draw();
@@ -103,6 +109,12 @@ public class ChatFrame {
 				Draw.drawColorQuad(45+cursorShift+TTF2.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+9*Mideas.getDisplayYFactor(), 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
 			}
 		}
+		if(hoverChatFrame && bgColors.alpha() < FRAME_MAXIMUM_OPACITY && System.currentTimeMillis()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER ) {
+			bgColors.setAlpha(bgColors.alpha()+1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
+		}
+		else if(!hoverChatFrame && bgColors.alpha() > 0) {
+			bgColors.setAlpha(bgColors.alpha()-1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
+		}
 		if(messages.size() > MAXIMUM_MESSAGES) {
 			while(messages.size() >= MAXIMUM_MESSAGES) {
 				messages.remove(0);
@@ -117,8 +129,8 @@ public class ChatFrame {
 		while(k < messages.size()) {
 			xDraw = 40;
 				if(yDraw <= Display.getHeight()-185) {
-					if(messages.get(k).getOpacity() > 0 && System.currentTimeMillis()-messages.get(k).lastSeenTimer() >= OPACITY_START_DECREASE_TIMER) {
-						messages.get(k).decreaseOpacity(-1/(Mideas.FPS*OPACITY_DECREASE_TIMER/1000f));
+					if(messages.get(k).getOpacity() > 0 && System.currentTimeMillis()-messages.get(k).lastSeenTimer() >= MESSAGE_OPACITY_START_DECREASE_TIMER) {
+						messages.get(k).decreaseOpacity(-1/(Mideas.FPS*MESSAGE_OPACITY_DECREASE_TIMER/1000f));
 					}
 					int j = 0;
 					if(messages.get(k).getAuthor() != null) {
@@ -307,7 +319,7 @@ public class ChatFrame {
 	}
 	
 	private static boolean isValidCharacter(char c) {
-		return c >= ' ' && c <= 'ÿ';
+		return c >= ' ' && c <= 255;
 	}
 	
 	public static boolean mouseEvent() {
@@ -341,7 +353,16 @@ public class ChatFrame {
 			hoverWidthResize = true;
 			Mideas.setHover(false);
 		}
-		else if(chatActive && Mideas.getHover() && inputBar.isHover()) {
+		else if(Mideas.getHover() && Mideas.mouseX() >= 30 && Mideas.mouseX() <= 540+xResize && Mideas.mouseY() >= Display.getHeight()-280-yResize && Mideas.mouseY() <= Display.getHeight()-165) {
+			if(!hoverChatFrame) {
+				lastHoverChatFrame = System.currentTimeMillis();
+				hoverChatFrame = true;
+			}
+		}
+		else {
+			hoverChatFrame = false;
+		}
+		if(chatActive && Mideas.getHover() && inputBar.isHover()) {
 			Mideas.setHover(false);
 			if(Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
@@ -411,6 +432,9 @@ public class ChatFrame {
 					i++;
 				}
 			}
+		}
+		else {
+			hoverChatFrame = false;
 		}
 		int maxResize = 1200;
 		if(allResizing) {

@@ -12,8 +12,8 @@ import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.guild.GuildMember;
 import com.mideas.rpg.v2.game.guild.GuildRank;
+import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.social.GuildFrame;
-import com.mideas.rpg.v2.hud.social.GuildInviteNotification;
 
 public class CommandGuild extends Command {
 	
@@ -32,8 +32,8 @@ public class CommandGuild extends Command {
 		else if(packetId == PacketID.GUILD_INVITE_PLAYER) {
 			String player_name = ConnectionManager.getConnection().readString();
 			String guild_name = ConnectionManager.getConnection().readString();
-			GuildInviteNotification.setRequest(player_name, guild_name);
-			//enable popup
+			//GuildInviteNotification.setRequest(player_name, guild_name);
+			PopupFrame.activateGuildInvitationPopup(player_name, guild_name);
 		}
 		else if(packetId == PacketID.GUILD_INIT) {
 			int i = 0;
@@ -120,11 +120,11 @@ public class CommandGuild extends Command {
 			ChatFrame.addMessage(new Message(name+" joined the guild.", false, MessageType.SELF));
 		}
 		else if(packetId == PacketID.GUILD_KICK_MEMBER) {
-			int id = ConnectionManager.getConnection().readInt();
-			String memberName = ConnectionManager.getConnection().readString();
 			String officerName = ConnectionManager.getConnection().readString();
+			int id = ConnectionManager.getConnection().readInt();
+			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
 			if(id != Mideas.joueur1().getId()) {
-				ChatFrame.addMessage(new Message(memberName+" has been kicked out of the guild by "+officerName, false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(member.getName()+" has been kicked out of the guild by "+officerName, false, MessageType.SELF));
 				Mideas.joueur1().getGuild().removeMember(id);
 			}
 			else {
@@ -159,6 +159,45 @@ public class CommandGuild extends Command {
 			String msg = ConnectionManager.getConnection().readString();
 			Mideas.joueur1().getGuild().setInformation(msg);
 		}
+		else if(packetId == PacketID.GUILD_MEMBER_LEFT) {
+			int id = ConnectionManager.getConnection().readInt();
+			ChatFrame.addMessage(new Message(Mideas.joueur1().getGuild().getMember(id).getName()+" left the guild.", false, MessageType.SELF));
+			Mideas.joueur1().getGuild().removeMember(id);
+		}
+		else if(packetId == PacketID.GUILD_SET_LEADER) {
+			int id = ConnectionManager.getConnection().readInt();
+			GuildMember leader = Mideas.joueur1().getGuild().getMember(Mideas.joueur1().getGuild().getLeaderId());
+			if(leader.getId() == Mideas.joueur1().getId()) {
+				Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getRankList().get(1));
+			}
+			if(id == Mideas.joueur1().getId()) {
+				Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getRankList().get(0));
+			}
+			ChatFrame.addMessage(new Message(leader.getName()+" has made "+Mideas.joueur1().getGuild().getMember(id).getName()+" the new Guild Master.", false, MessageType.SELF));
+			Mideas.joueur1().getGuild().getMember(id).setRank(Mideas.joueur1().getGuild().getRankList().get(0));
+			leader.setRank(Mideas.joueur1().getGuild().getRankList().get(1));
+			Mideas.joueur1().getGuild().setLeaderId(id);
+		}
+	}
+	
+	public static void kickMember(int id) {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_KICK_MEMBER);
+		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void leaveGuild() {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_LEAVE);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void setLeader(int id) {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_LEADER);
+		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().send();
 	}
 	
 	public static void setInformation(String msg) {

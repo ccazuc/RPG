@@ -227,6 +227,7 @@ public class Stuff extends Item {
 		buildStrengthString();
 		buildCriticalString();
 		buildLevelString();
+		buildSellPriceString();
 	}
 
 	public boolean canWearWeapon() {
@@ -310,7 +311,7 @@ public class Stuff extends Item {
 	}
 	
 	private void buildSellPriceString() {
-		
+		this.sellPriceString = String.valueOf(this.sellPrice);
 	}
 	
 	private void buildLevelString() {
@@ -343,6 +344,10 @@ public class Stuff extends Item {
 	
 	public Gem[] getEquippedGems() {
 		return this.equippedGem;
+	}
+	
+	public String getSellPriceString() {
+		return this.sellPriceString;
 	}
 	
 	public String getLevelString() {

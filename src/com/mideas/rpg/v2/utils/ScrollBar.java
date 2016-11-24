@@ -159,6 +159,7 @@ public class ScrollBar {
 	private boolean buttonHoverTopArrow;
 	private boolean buttonDownBotArrow;
 	private boolean buttonHoverBotArrow;
+	private boolean scrollbar_anchor_visible = true;
 	
 	public ScrollBar(float x, float y, float y_size, float x_frame_size, float y_frame_size, boolean dragAndScroll, float scroll_tick_size) {
 		this.x = (int)x;
@@ -171,8 +172,22 @@ public class ScrollBar {
 		this.Y_ASCENSOR_DOWN_SHIFT = this.y_size-45*Mideas.getDisplayYFactor();
 	}
 	
+	public ScrollBar(float x, float y, float y_size, float x_frame_size, float y_frame_size, boolean dragAndScroll, float scroll_tick_size, boolean scrollbar_anchor_visible) {
+		this.x = (int)x;
+		this.y = (int)y;
+		this.y_size = (int)y_size;
+		this.x_frame_size = (int)x_frame_size;
+		this.y_frame_size = (int)y_frame_size;
+		this.dragAndScroll = dragAndScroll;
+		this.scroll_tick_size = (int)scroll_tick_size;
+		this.Y_ASCENSOR_DOWN_SHIFT = this.y_size-45*Mideas.getDisplayYFactor();
+		this.scrollbar_anchor_visible = scrollbar_anchor_visible;
+	}
+	
 	public void draw() {
-		Draw.drawQuad(Sprites.scrollbar, this.x, this.y+Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.scrollbar.getImageWidth()*Mideas.getDisplayYFactor(), this.y_size+19-Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor()-Sprites.bot_button.getImageHeight()*Mideas.getDisplayYFactor());
+		if(this.scrollbar_anchor_visible) {
+			Draw.drawQuad(Sprites.scrollbar, this.x, this.y+Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.scrollbar.getImageWidth()*Mideas.getDisplayYFactor(), this.y_size+19-Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor()-Sprites.bot_button.getImageHeight()*Mideas.getDisplayYFactor());
+		}
 		Draw.drawQuad(Sprites.top_button, this.x-3*Mideas.getDisplayXFactor(), this.y);
 		Draw.drawQuad(Sprites.bot_button, this.x-3*Mideas.getDisplayXFactor(), this.y+19+this.y_size-Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor());
 		drawUpArrow();

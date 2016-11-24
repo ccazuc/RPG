@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
@@ -145,16 +146,20 @@ public class LoginScreen {
 			alert.setActive();
 		}
 		else {
-			if(LoginManager.checkLogin(account.getText(), password.getText())) {
+			/*if(LoginManager.checkLogin(account.getText(), password.getText())) {
 				loginSuccess();
-			}
+			}*/
+			alert.setText("Connection...");
+			alert.setActive();
+			AuthServerConnectionRunnable.setShouldConnect(true, account.getText(), password.getText());
+			password.resetText();
 		}
 	}
 	
 	public static void loginSuccess() {
-		password.resetText();
 		account.setIsActive(false);
 		password.setIsActive(true);
+		alert.setInactive();
 	}
 	
 	public static void updateSize() {

@@ -154,6 +154,8 @@ public class SocialFrame {
 	
 	public static void setSelectedMenu(SocialFrameMenu menu) {
 		selectedMenu = menu;
+		unselectAllButton();
+		friendButtonMenu.setIsSelected(true);
 	}
 	
 	public static boolean isGuildFrameActive() {

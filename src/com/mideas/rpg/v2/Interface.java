@@ -35,6 +35,7 @@ import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
 import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
+import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.RedAlertFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
@@ -47,7 +48,6 @@ import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.hud.social.AddFriendInputFrame;
 import com.mideas.rpg.v2.hud.social.AddGuildMemberInputFrame;
 import com.mideas.rpg.v2.hud.social.GuildFrame;
-import com.mideas.rpg.v2.hud.social.GuildInviteNotification;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
@@ -143,13 +143,13 @@ public class Interface {
 						EndFightFrame.draw();
 					}
 				}
+				PopupFrame.draw();
 				PartyFrame.draw();
 				TradeFrame.event();
 				RedAlertFrame.draw();
 				SpellBarFrame.draw();
 				CastBar.event();
 				SpellLevel.addSpell();
-				GuildInviteNotification.draw();
 				double time = System.nanoTime();
 				if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 					containerFrameActive = true;
@@ -263,7 +263,7 @@ public class Interface {
 			if(ShortcutFrame.mouseEvent()) {
 				return true;
 			}
-			if(GuildInviteNotification.mouseEvent()) {
+			if(PopupFrame.mouseEvent()) {
 				return true;
 			}
 			if(characterFrameActive) {

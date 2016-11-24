@@ -81,11 +81,15 @@ public class Guild {
 		int i = 0;
 		while(i < this.memberList.size()) {
 			if(this.memberList.get(i).getId() == id) {
+				if(this.memberList.get(i).isOnline()) {
+					memberLoggedOut();
+				}
 				this.memberList.remove(i);
 				break;
 			}
 			i++;
 		}
+		this.numberMembers = String.valueOf(this.memberList.size());
 	}
 	
 	public void resetTempRank() {
@@ -137,6 +141,10 @@ public class Guild {
 	
 	public boolean isLeader(int id) {
 		return this.leader_id == id;
+	}
+	
+	public void setLeaderId(int id) {
+		this.leader_id = id;
 	}
 	
 	public void memberLoggedIn() {

@@ -56,7 +56,7 @@ public class SpellBarFrame {
 			float e = ((float)Mideas.joueur1().getExp()/Mideas.getExpNeeded(Mideas.joueur1().getLevel()));
 			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor()/2+110*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor()+24*Mideas.getDisplayXFactor(), 1165*e*Mideas.getDisplayXFactor(), 8);
 		}
-		TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1);
+		//TTF2.statsName.drawStringShadow(Display.getWidth()/2+5-TTF2.statsName.getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Color.yellow, Color.black, 1);
         Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor());
 		TTF2.statsName.drawStringShadow(Display.getWidth()/2+557*Mideas.getDisplayXFactor()-TTF2.statsName.getWidth(numberFreeSlotBag)/2, Display.getHeight()-22, numberFreeSlotBag, Color.white, Color.black, 1, 1, 1);
 		float x = -Sprites.final_spellbar.getImageWidth()/2+120f;

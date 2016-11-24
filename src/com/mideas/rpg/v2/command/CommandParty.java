@@ -10,6 +10,7 @@ import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Party;
 import com.mideas.rpg.v2.game.Unit;
 import com.mideas.rpg.v2.hud.PartyFrame;
+import com.mideas.rpg.v2.hud.PopupFrame;
 
 public class CommandParty extends Command {
 	
@@ -18,8 +19,7 @@ public class CommandParty extends Command {
 		byte packetId = ConnectionManager.getConnection().readByte();
 		if(packetId == PacketID.PARTY_ADD_MEMBER) {
 			String name = ConnectionManager.getConnection().readString();
-			PartyFrame.setRequestPending(true);
-			PartyFrame.setRequestName(name);
+			PopupFrame.activatePartyInvitationPopup(name);
 		}
 		else if(packetId == PacketID.PARTY_DECLINE_REQUEST) {
 			String name = ConnectionManager.getConnection().readString();

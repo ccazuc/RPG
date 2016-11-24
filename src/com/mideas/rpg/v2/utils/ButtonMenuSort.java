@@ -18,7 +18,6 @@ public class ButtonMenuSort {
 	private int x;
 	private int y;
 	private int x_size;
-	private int textWidth;
 	private String text;
 	private boolean buttonHover;
 	private boolean buttonDown;
@@ -41,7 +40,6 @@ public class ButtonMenuSort {
 			e.printStackTrace();
 		}
 		this.font = new TTF(awtFont, true);
-		this.textWidth = this.font.getWidth(this.text);
 	}
 	
 	public void draw() {

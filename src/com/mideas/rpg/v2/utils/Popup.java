@@ -19,6 +19,10 @@ public class Popup {
 	protected boolean isActive;
 	private final static int BUTTON_WIDTH = 135;
 	private final static int BUTTON_HEIGHT = 24;
+	private final static String YES = "Yes";
+	private final static String NO = "No";
+	private final static String ACCEPT = "Accept";
+	private final static String DECLINE = "Decline";
 	
 	public Popup(float x, float y, float x_size, float y_size, String message) {
 		this.x = (int)x;
@@ -46,21 +50,26 @@ public class Popup {
 	}
 	
 	public boolean event() {
-		return this.cancelButton.event() || this.acceptButton.event();
+		if(this.cancelButton.event() || this.acceptButton.event()) {
+			this.setActive(false);
+			return true;
+		}
+		return false;
 	}
 	
 	public void setPopup(Button button, String msg) {
+		if(this.isActive) {
+			popupClosed();
+		}
 		this.acceptButton = button;
-		button.setButtonWidth(BUTTON_WIDTH*Mideas.getDisplayXFactor());
-		button.setButtonHeight(BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		button.setX(this.x+this.x_size/2-10-BUTTON_WIDTH*Mideas.getDisplayXFactor());
-		button.setY(this.y+this.y_size-37*Mideas.getDisplayYFactor());
+		updateAcceptButton();
 		setText(msg);
+		this.isActive = true;
 	}
 	
 	public void setActive(boolean we) {
 		if(!we) {
-			this.acceptButton.popupClosed();
+			popupClosed();
 		}
 		this.isActive = we;
 	}
@@ -74,10 +83,6 @@ public class Popup {
 		this.textWidth = TTF2.popup.getWidth(text);
 	}
 	
-	public void setAcceptButton(Button button) {
-		this.acceptButton = button;
-	}
-	
 	public void update(float x, float y, float x_size, float y_size) {
 		this.x = (int)x;
 		this.y = (int)y;
@@ -85,5 +90,28 @@ public class Popup {
 		this.y_size = (int)y_size;
 		this.background.update(this.x, this.y, this.x_size, this.y_size);
 		this.cancelButton.update(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		updateAcceptButton();
+	}
+	
+	public void setTextTypeAccept() {
+		this.acceptButton.setText(ACCEPT);
+		this.cancelButton.setText(DECLINE);
+	}
+	
+	public void setTextTypeYes() {
+		this.acceptButton.setText(YES);
+		this.cancelButton.setText(NO);
+	}
+	
+	private void updateAcceptButton() {
+		if(this.acceptButton != null) {
+			this.acceptButton.update(this.x+this.x_size/2-10-BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		}
+	}
+	
+	private void popupClosed() {
+		this.acceptButton.popupClosed();
+		this.acceptButton.reset();
+		this.cancelButton.reset();
 	}
 }

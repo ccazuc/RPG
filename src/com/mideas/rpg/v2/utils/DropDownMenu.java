@@ -19,6 +19,7 @@ public class DropDownMenu {
 	private int x_bar;
 	private int y_bar;
 	private int x_size_bar;
+	private boolean isActive;
 	private TTF font;
 	private Arrow arrow;
 	private ArrayList<TextMenu> menuList;
@@ -57,43 +58,47 @@ public class DropDownMenu {
 	}
 	
 	public void draw() {
-		int imageWidth = Sprites.drop_down_menu_left_border.getImageWidth();
-		int imageHeight = (int)(Sprites.drop_down_menu_left_border.getImageHeight()*Mideas.getDisplayYFactor());
-		Draw.drawQuad(Sprites.drop_down_menu_left_border, this.x_bar, this.y_bar, imageWidth, imageHeight);
-		Draw.drawQuad(Sprites.drop_down_menu_middle_border, this.x_bar+imageWidth, this.y_bar, this.x_size_bar-2*imageWidth, imageHeight);
-		Draw.drawQuad(Sprites.drop_down_menu_right_border, this.x_bar+this.x_size_bar-imageWidth, this.y_bar, imageWidth, imageHeight);
-		this.font.drawStringShadow(this.x_bar+10, this.y_bar+3, this.selectedMenuText, Color.white, Color.black, 1, 0, 0);
-		this.arrow.draw();
-		if(this.backgroundActive) {
-			int i = 0;
-			this.background.draw();
-			while(i < this.menuList.size()) {
-				this.menuList.get(i).draw();
-				i++;
+		if(this.isActive) {
+			int imageWidth = Sprites.drop_down_menu_left_border.getImageWidth();
+			int imageHeight = (int)(Sprites.drop_down_menu_left_border.getImageHeight()*Mideas.getDisplayYFactor());
+			Draw.drawQuad(Sprites.drop_down_menu_left_border, this.x_bar, this.y_bar, imageWidth, imageHeight);
+			Draw.drawQuad(Sprites.drop_down_menu_middle_border, this.x_bar+imageWidth, this.y_bar, this.x_size_bar-2*imageWidth, imageHeight);
+			Draw.drawQuad(Sprites.drop_down_menu_right_border, this.x_bar+this.x_size_bar-imageWidth, this.y_bar, imageWidth, imageHeight);
+			this.font.drawStringShadow(this.x_bar+10, this.y_bar+3, this.selectedMenuText, Color.white, Color.black, 1, 0, 0);
+			this.arrow.draw();
+			if(this.backgroundActive) {
+				int i = 0;
+				this.background.draw();
+				while(i < this.menuList.size()) {
+					this.menuList.get(i).draw();
+					i++;
+				}
 			}
 		}
 	}
 	
 	public boolean event() {
-		if(this.arrow.event()) return true;
-		if(this.backgroundActive) {
-			int i = 0;
-			while(i < this.menuList.size()) {
-				if(this.menuList.get(i).event()) {
-					this.selectedMenuValue = this.menuList.get(i).getValue();
-					this.selectedMenuText = this.menuList.get(i).getText();
-					eventButtonClick();
-					this.backgroundActive = false;
-					return true;
+		if(this.isActive) {
+			if(this.arrow.event()) return true;
+			if(this.backgroundActive) {
+				int i = 0;
+				while(i < this.menuList.size()) {
+					if(this.menuList.get(i).event()) {
+						this.selectedMenuValue = this.menuList.get(i).getValue();
+						this.selectedMenuText = this.menuList.get(i).getText();
+						eventButtonClick();
+						this.backgroundActive = false;
+						return true;
+					}
+					i++;
 				}
-				i++;
-			}
-			if(Mideas.getHover() && this.background.isHover()) {
-				Mideas.setHover(false);
-			}
-			if(!Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0) {
-					this.backgroundActive = false;
+				if(Mideas.getHover() && this.background.isHover()) {
+					Mideas.setHover(false);
+				}
+				if(!Mouse.getEventButtonState()) {
+					if(Mouse.getEventButton() == 0) {
+						this.backgroundActive = false;
+					}
 				}
 			}
 		}
@@ -110,10 +115,11 @@ public class DropDownMenu {
 	public void addMenu(TextMenu menu) {
 		float yShift = 18*Mideas.getDisplayYFactor();
 		menu.setValue(this.menuList.size());
-		menu.setX(this.background.getX()+this.background.getWidth()/2-menu.getFont().getWidth(menu.getText())/2);
+		menu.setX(this.background.getX()+10*Mideas.getDisplayXFactor());
+		menu.setTextShift(this.background.getWidth()/2-10*Mideas.getDisplayXFactor()-menu.getFont().getWidth(menu.getText())/2);
 		menu.setY(this.background.getY()+this.menuList.size()*yShift+20*Mideas.getDisplayYFactor());
 		this.menuList.add(menu);
-		this.backgroundHeight+= this.font.getLineHeight()+9*Mideas.getDisplayYFactor();
+		this.backgroundHeight+= this.font.getLineHeight()+7*Mideas.getDisplayYFactor();
 		this.background.setHeight(this.backgroundHeight);
 		if(!this.initText) {
 			this.selectedMenuText = menu.getText();
@@ -122,19 +128,45 @@ public class DropDownMenu {
 		}
 	}
 	
+	public void setActive(boolean we) {
+		if(we) {
+			int i = 0;
+			while(i < this.menuList.size()) {
+				this.menuList.get(i).setActive(true);
+				i++;
+			}
+		}
+		else {
+			int i = 0;
+			while(i < this.menuList.size()) {
+				this.menuList.get(i).setActive(false);
+				i++;
+			}
+		}
+		this.isActive = we;
+	}
+	
 	public void update(float x_bar, float y_bar, float x_size_bar, float x_alert, float y_alert, float x_size_alert) {
 		this.x_bar = (int)x_bar;
 		this.y_bar = (int)y_bar;
 		this.x_size_bar = (int)x_size_bar;
-		this.background.update(x_alert, y_alert, x_size_alert, (this.font.getLineHeight()+9*Mideas.getDisplayYFactor())*this.menuList.size());
+		this.background.update(x_alert, y_alert, x_size_alert, (this.font.getLineHeight()+7*Mideas.getDisplayYFactor())*this.menuList.size());
 		this.arrow.update(this.x_bar+this.x_size_bar-Sprites.arrow_bot.getImageWidth()*Mideas.getDisplayXFactor(), this.y_bar);
 		int i = 0;
 		float yShift = 18*Mideas.getDisplayYFactor();
 		//System.out.println(this.background.getWidth()/2-this.menuList.get(0).getFont().getWidth(this.menuList.get(i).getText())/2+"  "+(23*Mideas.getDisplayXFactor()-this.menuList.get(i).getFont().getWidth(this.menuList.get(i).getText())/2));
 		while(i < this.menuList.size()) {
-			this.menuList.get(i).update(this.background.getX()+22*Mideas.getDisplayXFactor(), this.background.getY()+i*yShift+20*Mideas.getDisplayYFactor(), this.background.getWidth()-20*Mideas.getDisplayXFactor(), this.background.getWidth()/2-22*Mideas.getDisplayXFactor()-this.menuList.get(i).getFont().getWidth(this.menuList.get(i).getText())/2);
+			this.menuList.get(i).update(this.background.getX()+10*Mideas.getDisplayXFactor(), this.background.getY()+i*yShift+20*Mideas.getDisplayYFactor(), this.background.getWidth()-20*Mideas.getDisplayXFactor(), this.background.getWidth()/2-10*Mideas.getDisplayXFactor()-this.menuList.get(i).getFont().getWidth(this.menuList.get(i).getText())/2);
 			i++;
 		}
+	}
+	
+	public void setMenuText(String name) {
+		this.selectedMenuText = name;
+	}
+	
+	public void setValue(int value) {
+		this.selectedMenuValue = value;
 	}
 	
 	protected void eventButtonClick() {}

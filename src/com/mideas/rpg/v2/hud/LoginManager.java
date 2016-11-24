@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.utils.Hash;
 public class LoginManager {
 
 	public static boolean checkLogin(String account, String password) {
+		System.out.println("LoginManager:checkLogin()");
 		LoginScreen.resetPassword();
 		ConnectionManager.connectAuthServer();
 		try {

@@ -33,7 +33,7 @@ public class SelectScreen {
 	static boolean characterLoaded;
 	static SelectScreenPlayer[] characterList = new SelectScreenPlayer[10];
 	private static boolean[] selectedCharacter = new boolean[10];
-	private static int selectedCharacterIndex = 0;
+	static int selectedCharacterIndex = 0;
 	private static int hoveredCharacter = -1;
 	private static int totalCharacter;
 	private static boolean init;
@@ -86,10 +86,13 @@ public class SelectScreen {
 			Interface.setIsConnectedToWorldServer(false);
 			Mideas.setJoueur1Null();
 			Mideas.setAccountId(0);
-			LoginScreen.mouseEvent();
+			LoginScreen.setPasswordActive();
 			CommandLogout.write();
 			SelectScreen.characterLoaded = false;
+			SelectScreen.selectedCharacterIndex = 0;
 			this.reset();
+			LoginScreen.mouseEvent();
+			RealmListFrame.clearRealmList();
 		}
 	};
 	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250, 50, "Enter game", 19, 2) {

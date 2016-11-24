@@ -1,15 +1,8 @@
 package com.mideas.rpg.v2.hud.social;
 
-import org.lwjgl.opengl.Display;
-
-import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.command.CommandGuild;
-import com.mideas.rpg.v2.utils.Button;
-import com.mideas.rpg.v2.utils.Popup;
-
-public class GuildInviteNotification {
+public class GuildInviteNotification { //UNUSED
 	
-	static boolean requestPending;
+	/*static boolean requestPending;
 	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Accept", 12, 1) {
 		
 		@Override
@@ -47,6 +40,6 @@ public class GuildInviteNotification {
 	}
 	
 	public static void updateSize() {
-		popup.update(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor());
-	}
+		//popup.update(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor());
+	}*/
 }

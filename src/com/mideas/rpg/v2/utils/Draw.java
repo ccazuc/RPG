@@ -10,6 +10,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.OpenGL;
+import com.mideas.rpg.v2.utils.Colors;
 
 import static org.lwjgl.opengl.GL11.glVertex2d;
 import static org.lwjgl.opengl.GL11.glDisable;
@@ -39,6 +40,10 @@ public final class Draw {
 		drawColorQuad(x, y, width, height, color, color, color, color);
 	}
 	
+	public final static void drawColorQuad(final float x, final float y, final float width, final float height, final Colors color) {
+		drawColorQuad(x, y, width, height, color, color, color, color);
+	}
+	
 	public final static void drawColorQuad(final float x, final float y, final float width, final float height, final Color topLeft, final Color topRight, final Color bottomRight, final Color bottomLeft) {
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
@@ -49,6 +54,21 @@ public final class Draw {
 		glColor4f(bottomRight.getRed()/255f, bottomRight.getGreen()/255f, bottomRight.getBlue()/255f, bottomRight.getAlpha()/255f);
 		glVertex2f(x+width, y+height);
 		glColor4f(bottomLeft.getRed()/255f, bottomLeft.getGreen()/255f, bottomLeft.getBlue()/255f, bottomLeft.getAlpha()/255f);
+		glVertex2f(x, y+height);
+		glEnd();
+		glEnable(GL_TEXTURE_2D);
+	}
+	
+	public final static void drawColorQuad(final float x, final float y, final float width, final float height, final Colors topLeft, final Colors topRight, final Colors bottomRight, final Colors bottomLeft) {
+		glDisable(GL_TEXTURE_2D);
+		glBegin(GL_QUADS);
+		glColor4f(topLeft.red(), topLeft.green(), topLeft.blue(), topLeft.alpha());
+		glVertex2f(x, y);
+		glColor4f(topRight.red(), topRight.green(), topRight.blue(), topRight.alpha());
+		glVertex2f(x+width, y);
+		glColor4f(bottomRight.red(), bottomRight.green(), bottomRight.blue(), bottomRight.alpha());
+		glVertex2f(x+width, y+height);
+		glColor4f(bottomLeft.red(), bottomLeft.green(), bottomLeft.blue(), bottomLeft.alpha());
 		glVertex2f(x, y+height);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
