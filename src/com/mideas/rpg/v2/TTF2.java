@@ -54,6 +54,7 @@ public class TTF2 {
 	public static TTF guildMemberInformationLevel;
 	public static TTF guildMemberInformationNote;
 	public static TTF popup;
+	public static TTF ignoreName;
 	
 	public static void init() throws FontFormatException, IOException {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
@@ -234,5 +235,9 @@ public class TTF2 {
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
 		popup = new TTF(awtFont, true);
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
+		ignoreName = new TTF(awtFont, true);
 	}
 }

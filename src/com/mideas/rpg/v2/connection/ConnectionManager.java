@@ -214,7 +214,7 @@ public class ConnectionManager {
 	}
 	
 	public static void readAuthServer() {
-		if(authSocket != null && authServerConnection != null && authSocket.isConnected()) {
+		if(authServerConnection != null && authSocket.isConnected()) {
 			try {
 				int readed = authServerConnection.read();
 				if(readed == 1) {
@@ -243,7 +243,6 @@ public class ConnectionManager {
 	private static void readAuthPacket() {
 		while(authServerConnection != null && authServerConnection.hasRemaining()) {
 			byte packetId = authServerConnection.readByte();
-			System.out.println(packetId);
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();
 				authLastReadedPacket = packetId;

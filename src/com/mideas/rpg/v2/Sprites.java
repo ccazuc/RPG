@@ -340,6 +340,7 @@ public class Sprites {
 	public static Texture frame_tab_inactive_left_part;
 	public static Texture frame_tab_inactive_middle_part;
 	public static Texture frame_tab_inactive_right_part;
+	public static Texture ignore_frame;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -665,6 +666,7 @@ public class Sprites {
 		input_box = new Texture("sprite/interface/input_box.png");
 		trade_frame = new Texture("sprite/interface/trade/trade_frame.png");
 		friend_frame = new Texture("sprite/interface/social/friend_frame.png");
+		ignore_frame = new Texture("sprite/interface/social/ignore_frame.png");
 		friend_border = new Texture("sprite/interface/social/UI-FriendsFrame-HighlightBar.png");
 		friend_note_online = new Texture("sprite/interface/social/friend_note_online.png");
 		friend_note_offline = new Texture("sprite/interface/social/friend_note_offline.png");

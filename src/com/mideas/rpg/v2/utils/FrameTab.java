@@ -58,9 +58,9 @@ public class FrameTab {
 	public void draw() {
 		if(this.isSelected) {
 			int sideWidth = Sprites.frame_tab_active_left_part.getImageWidth();
-			int x = (int)(this.x+3*Mideas.getDisplayXFactor());
+			int x = (int)(this.x+1*Mideas.getDisplayXFactor());
 			int y = (int)(this.y+3*Mideas.getDisplayYFactor());
-			int x_size = (int)(this.x_size+6*Mideas.getDisplayYFactor());
+			int x_size = (int)(this.x_size+2*Mideas.getDisplayYFactor());
 			int y_size = (int)(this.y_size-3*Mideas.getDisplayYFactor());
 			Draw.drawQuad(Sprites.frame_tab_active_left_part, x, y, sideWidth, y_size);
 			Draw.drawQuad(Sprites.frame_tab_active_middle_part, x+sideWidth, y, x_size-2*sideWidth, y_size);
@@ -82,7 +82,7 @@ public class FrameTab {
 					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, y+y_size/2-this.font.getLineHeight()/2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
 				}
 				if(this.buttonHover) {
-					Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, y, this.x_size, y_size);
+					Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, y, this.x_size, y_size+7*Mideas.getDisplayYFactor());
 				}
 			}
 			else {

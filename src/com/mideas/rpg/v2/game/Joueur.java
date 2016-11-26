@@ -98,7 +98,58 @@ public class Joueur extends Unit {
 		this.firstProfession = ProfessionManager.getProfession(0);
 		//this.classString = convClassTypeToString(this.classType);
 		this.friendList = new ArrayList<Friend>();
+		this.friendList.add(new Friend(2, "Jean-42"));
+		this.friendList.add(new Friend(2, "Jean-4"));
+		this.friendList.add(new Friend(2, "Jean-"));
+		this.friendList.add(new Friend(2, "Jean"));
+		this.friendList.add(new Friend(2, "Jea"));
+		this.friendList.add(new Friend(2, "Je"));
+		this.friendList.add(new Friend(2, "J"));
+		this.friendList.add(new Friend(2, "Test"));
+		this.friendList.add(new Friend(2, "Te"));
+		this.friendList.add(new Friend(2, "T"));
+		this.friendList.add(new Friend(2, "QDQODK"));
 		this.ignoreList = new ArrayList<Ignore>();
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "Test"));
+		this.ignoreList.add(new Ignore(1, "THEEND"));
 	}
 	
 	public Joueur(Joueur joueur) {
@@ -109,6 +160,7 @@ public class Joueur extends Unit {
 		this.weaponType = joueur.weaponType;
 		this.goldGained = joueur.goldGained;
 		this.friendList = joueur.friendList;
+		this.ignoreList = joueur.ignoreList;
 		this.expGained = joueur.expGained;
 		this.strength = joueur.strength;
 		this.critical = joueur.critical;
@@ -630,6 +682,10 @@ public class Joueur extends Unit {
 			}
 			i++;
 		}
+	}
+	
+	public ArrayList<Ignore> getIgnoreList() {
+		return this.ignoreList;
 	}
 	
 	public String getGuildTitle() {

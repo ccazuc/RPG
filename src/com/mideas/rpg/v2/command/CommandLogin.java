@@ -29,7 +29,6 @@ public class CommandLogin extends Command {
 			RealmListFrame.mouseEvent();
 			LoginScreen.loginSuccess();
 			LoginScreen.closeInput();
-			System.out.println("CommandLogin: auth_login_accepted");
 		}
 		else if(packetId == ACCOUNT_BANNED_TEMP) {
 			LoginScreen.getAlert().setActive();
@@ -62,6 +61,10 @@ public class CommandLogin extends Command {
 				ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
 				ConnectionManager.getConnection().send();
 				System.out.println("LOGINr:LOGIN_REALM_ACCEPTED");
+			}
+			else {
+				CommandLogout.write();
+				System.out.println("CommandLogin: cannot connect to worldServer");
 			}
 		}
 	}
