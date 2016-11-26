@@ -550,6 +550,12 @@ public class Joueur extends Unit {
 		}
 	}
 	
+	public void addFriendNoSort(Friend friend) {
+		if(this.friendList.size() < MAXIMUM_AMOUNT_FRIENDS) {
+			this.friendList.add(friend);
+		}
+	}
+	
 	public void removeFriend(int id) {
 		int i = 0;
 		while(i < this.friendList.size()) {

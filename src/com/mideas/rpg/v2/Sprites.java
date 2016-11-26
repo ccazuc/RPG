@@ -334,6 +334,12 @@ public class Sprites {
 	public static Texture button_menu_sort_left_part;
 	public static Texture button_menu_sort_middle_part;
 	public static Texture button_menu_sort_right_part;
+	public static Texture frame_tab_active_left_part;
+	public static Texture frame_tab_active_middle_part;
+	public static Texture frame_tab_active_right_part;
+	public static Texture frame_tab_inactive_left_part;
+	public static Texture frame_tab_inactive_middle_part;
+	public static Texture frame_tab_inactive_right_part;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -679,6 +685,12 @@ public class Sprites {
 		button_menu_unselected_right = new Texture("sprite/interface/button_menu/unselected_menu_right.png");
 		button_menu_unselected_middle = new Texture("sprite/interface/button_menu/unselected_menu_middle.png");
 		button_menu_unselected_top = new Texture("sprite/interface/button_menu/unselected_menu_top.png");
+		frame_tab_active_left_part = new Texture("sprite/interface/frame_tab/active_left_part.png");
+		frame_tab_active_middle_part = new Texture("sprite/interface/frame_tab/active_middle_part.png");
+		frame_tab_active_right_part = new Texture("sprite/interface/frame_tab/active_right_part.png");
+		frame_tab_inactive_left_part = new Texture("sprite/interface/frame_tab/inactive_left_part.png");
+		frame_tab_inactive_middle_part = new Texture("sprite/interface/frame_tab/inactive_middle_part.png");
+		frame_tab_inactive_right_part = new Texture("sprite/interface/frame_tab/inactive_right_part.png");
 		return true;
 	}
 

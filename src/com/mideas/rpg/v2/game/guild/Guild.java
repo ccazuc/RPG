@@ -215,7 +215,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getName().compareTo(this.memberList.get(j).getName()) > 0) {
+				if(this.memberList.get(i).getName().compareTo(this.memberList.get(j).getName()) >= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -233,7 +233,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getName().compareTo(this.memberList.get(j).getName()) < 0) {
+				if(this.memberList.get(i).getName().compareTo(this.memberList.get(j).getName()) <= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -251,7 +251,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getRank().getOrder() > this.memberList.get(i).getRank().getOrder()) {
+				if(this.memberList.get(i).getRank().getOrder() >= this.memberList.get(j).getRank().getOrder()) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -269,7 +269,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getRank().getOrder() < this.memberList.get(i).getRank().getOrder()) {
+				if(this.memberList.get(i).getRank().getOrder() <= this.memberList.get(j).getRank().getOrder()) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -287,7 +287,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getLevel() > this.memberList.get(i).getLevel()) {
+				if(this.memberList.get(i).getLevel() >= this.memberList.get(j).getLevel()) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -305,7 +305,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getLevel() < this.memberList.get(i).getLevel()) {
+				if(this.memberList.get(i).getLevel() <= this.memberList.get(j).getLevel()) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -323,7 +323,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getNote().compareTo(this.memberList.get(j).getNote()) > 0) {
+				if(this.memberList.get(i).getNote().compareTo(this.memberList.get(j).getNote()) >= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -341,7 +341,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getNote().compareTo(this.memberList.get(j).getNote()) < 0) {
+				if(this.memberList.get(i).getNote().compareTo(this.memberList.get(j).getNote()) <= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);

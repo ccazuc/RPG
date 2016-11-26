@@ -4,26 +4,26 @@ import com.mideas.rpg.v2.OpenGL;
 
 public class Colors {
 	
-	public static final Colors WHITE = new Colors(1, 1, 1);
-	public static final Colors LIGHTGREY = new Colors(.75f, .75f, .75f);
-	public static final Colors GREY = new Colors(.5f, .5f, .5f);
-	public static final Colors DARKGREY = new Colors(.25f, .25f, .25f);
-	public static final Colors BLACK = new Colors(0, 0, 0);
-	public static final Colors LIGHTRED = new Colors(1, .25f, .25f);
-	public static final Colors RED = new Colors(1, 0, 0);
-	public static final Colors DARKRED = new Colors(.5f, 0, 0);
-	public static final Colors LIGHTGREEN = new Colors(.25f, 1, .25f);
-	public static final Colors GREEN = new Colors(0, 1, 0);
-	public static final Colors DARKGREEN = new Colors(0, .5f, 0);
-	public static final Colors LIGHTBLUE = new Colors(.25f, 1, 1);
-	public static final Colors BLUE = new Colors(0, 0, 1);
-	public static final Colors DARKBLUE = new Colors(0, 0, .5f);
-	public static final Colors LIGHTYELLOW = new Colors(1, 1, .33f);
-	public static final Colors YELLOW = new Colors(1, 1, 0);
-	public static final Colors DARKYELLOW = new Colors(.5f, .5f, 0);
-	public static final Colors LIGHTORANGE = new Colors(1, .75f, .25f);
-	public static final Colors ORANGE = new Colors(1, .5f, 0);
-	public static final Colors DARKORANGE = new Colors(.5f, .25f, 0);
+	public final static Colors WHITE = new Colors(1, 1, 1);
+	public final static Colors LIGHTGREY = new Colors(.75f, .75f, .75f);
+	public final static Colors GREY = new Colors(.5f, .5f, .5f);
+	public final static Colors DARKGREY = new Colors(.25f, .25f, .25f);
+	public final static Colors BLACK = new Colors(0, 0, 0);
+	public final static Colors LIGHTRED = new Colors(1, .25f, .25f);
+	public final static Colors RED = new Colors(1, 0, 0);
+	public final static Colors DARKRED = new Colors(.5f, 0, 0);
+	public final static Colors LIGHTGREEN = new Colors(.25f, 1, .25f);
+	public final static Colors GREEN = new Colors(0, 1, 0);
+	public final static Colors DARKGREEN = new Colors(0, .5f, 0);
+	public final static Colors LIGHTBLUE = new Colors(.25f, 1, 1);
+	public final static Colors BLUE = new Colors(0, 0, 1);
+	public final static Colors DARKBLUE = new Colors(0, 0, .5f);
+	public final static Colors LIGHTYELLOW = new Colors(1, 1, .33f);
+	public final static Colors YELLOW = new Colors(1, 1, 0);
+	public final static Colors DARKYELLOW = new Colors(.5f, .5f, 0);
+	public final static Colors LIGHTORANGE = new Colors(1, .75f, .25f);
+	public final static Colors ORANGE = new Colors(1, .5f, 0);
+	public final static Colors DARKORANGE = new Colors(.5f, .25f, 0);
 	
 	private float red;
 	private float green;

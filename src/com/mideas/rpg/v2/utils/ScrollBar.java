@@ -240,6 +240,7 @@ public class ScrollBar {
 							this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
 							this.buttonHoverBotArrow = false;
 						}
+						onScroll();
 					}
 				}
 				Mideas.setHover(false);
@@ -252,10 +253,7 @@ public class ScrollBar {
 			}
 		}
 		if(this.down) {
-			//System.out.println(Mideas.mouseY()+" "+this.y+" "+(this.y+this.Y_ASCENSOR_UP_SHIFT)+" "+(this.y+this.Y_ASCENSOR_DOWN_SHIFT));
-			//if(Mideas.mouseY() >= this.y+shift+this.Y_ASCENSOR_UP_SHIFT && Mideas.mouseY() <= this.y+shift+this.Y_ASCENSOR_DOWN_SHIFT) {
-				this.y_ascensor = Mideas.mouseY()-this.y_ascensor_onclick+this.y_ascensor_lastclick;
-			//}
+			this.y_ascensor = Mideas.mouseY()-this.y_ascensor_onclick+this.y_ascensor_lastclick;
 			if(this.y_ascensor < this.Y_ASCENSOR_UP_SHIFT) {
 				this.y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
 				this.buttonHoverTopArrow = false;
@@ -264,32 +262,33 @@ public class ScrollBar {
 				this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
 				this.buttonHoverBotArrow = false;
 			}
+			onScroll();
 		}
 	}
 	
 	private void mouseScroll() {
 		if(Mideas.mouseX() >= this.x-this.x_frame_size+25 && Mideas.mouseX() <= this.x+25 && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_frame_size) {
 			if(this.mouseWheel != 0 ) {
-				//System.out.println(this.mouseWheel);
-				//System.out.println("Before: "+this.y_ascensor);
 				if(this.mouseWheel > 0 && this.y_ascensor-this.scroll_tick_size > this.Y_ASCENSOR_UP_SHIFT) {
 					this.y_ascensor-= this.scroll_tick_size;
+					onScroll();
 				}
 				else if(this.mouseWheel > 0 && this.y_ascensor-this.scroll_tick_size <= this.Y_ASCENSOR_UP_SHIFT) {
 					this.y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
 					this.buttonHoverTopArrow = false;
+					onScroll();
 				}
 				else if(this.mouseWheel < 0 && this.y_ascensor+this.scroll_tick_size < this.Y_ASCENSOR_DOWN_SHIFT) {
 					this.y_ascensor+= this.scroll_tick_size;
+					onScroll();
 				}
 				else if(this.mouseWheel < 0 && this.y_ascensor+this.scroll_tick_size >= this.Y_ASCENSOR_DOWN_SHIFT) {
-					//this.y_ascensor = this.y_size+this.Y_ASCENSOR_DOWN_SHIFT*Mideas.getDisplayYFactor();
 					this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
 					this.buttonHoverBotArrow = false;
+					onScroll();
 				}
 				this.y_ascensor_lastclick = this.y_ascensor;
 				this.mouseWheel = 0;
-				//System.out.println("After: "+this.y_ascensor);
 			}
 		}
 	}
@@ -311,10 +310,12 @@ public class ScrollBar {
 						this.buttonDownTopArrow = false;
 						if(this.y_ascensor-this.scroll_tick_size > this.Y_ASCENSOR_UP_SHIFT) {
 							this.y_ascensor-= this.scroll_tick_size;
+							onScroll();
 						}
 						else if(this.y_ascensor-this.scroll_tick_size <= this.Y_ASCENSOR_UP_SHIFT) {
 							this.y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
 							this.buttonHoverTopArrow = false;
+							onScroll();
 						}
 						this.y_ascensor_lastclick = this.y_ascensor;
 					}
@@ -349,10 +350,12 @@ public class ScrollBar {
 						this.buttonDownBotArrow = false;
 						if(this.y_ascensor+this.scroll_tick_size < this.Y_ASCENSOR_DOWN_SHIFT) {
 							this.y_ascensor+= this.scroll_tick_size;
+							onScroll();
 						}
 						else if(this.y_ascensor+this.scroll_tick_size >= this.Y_ASCENSOR_DOWN_SHIFT) {
 							this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
 							this.buttonHoverBotArrow = false;
+							onScroll();
 						}
 						this.y_ascensor_lastclick = this.y_ascensor;
 					}
@@ -430,4 +433,6 @@ public class ScrollBar {
 		this.scroll_tick_size = (int)scroll_tick_size;
 		this.Y_ASCENSOR_DOWN_SHIFT = this.y_size-45*Mideas.getDisplayYFactor();
 	}
+	
+	public void onScroll() {}
 }

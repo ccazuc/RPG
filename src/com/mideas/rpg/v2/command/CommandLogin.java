@@ -29,6 +29,7 @@ public class CommandLogin extends Command {
 			RealmListFrame.mouseEvent();
 			LoginScreen.loginSuccess();
 			LoginScreen.closeInput();
+			System.out.println("CommandLogin: auth_login_accepted");
 		}
 		else if(packetId == ACCOUNT_BANNED_TEMP) {
 			LoginScreen.getAlert().setActive();
@@ -54,12 +55,14 @@ public class CommandLogin extends Command {
 			double key = ConnectionManager.getAuthConnection().readDouble();
 			int port = ConnectionManager.getAuthConnection().readInt();
 			ConnectionManager.connectWorldServer(port);
-			ConnectionManager.getConnection().writeByte(PacketID.LOGIN_REALM);
-			ConnectionManager.getConnection().writeByte(PacketID.LOGIN_REALM_REQUEST);
-			ConnectionManager.getConnection().writeDouble(key);
-			ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
-			ConnectionManager.getConnection().send();
-			System.out.println("LOGINr:LOGIN_REALM_ACCEPTED");
+			if(ConnectionManager.isConnected()) {
+				ConnectionManager.getConnection().writeByte(PacketID.LOGIN_REALM);
+				ConnectionManager.getConnection().writeByte(PacketID.LOGIN_REALM_REQUEST);
+				ConnectionManager.getConnection().writeDouble(key);
+				ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
+				ConnectionManager.getConnection().send();
+				System.out.println("LOGINr:LOGIN_REALM_ACCEPTED");
+			}
 		}
 	}
 	

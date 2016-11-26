@@ -67,10 +67,10 @@ public class CommandFriend extends Command {
 					int level = ConnectionManager.getConnection().readInt();
 					Race race = Race.values()[ConnectionManager.getConnection().readChar()];
 					ClassType classe = ClassType.values()[ConnectionManager.getConnection().readChar()];
-					Mideas.joueur1().addFriend(new Friend(id, name, level, race, classe));
+					Mideas.joueur1().addFriendNoSort(new Friend(id, name, level, race, classe));
 				}
 				else {
-					Mideas.joueur1().addFriend(new Friend(id, name));
+					Mideas.joueur1().addFriendNoSort(new Friend(id, name));
 				}
 				i++;
 			}

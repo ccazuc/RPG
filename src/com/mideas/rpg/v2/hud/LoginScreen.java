@@ -149,6 +149,7 @@ public class LoginScreen {
 			/*if(LoginManager.checkLogin(account.getText(), password.getText())) {
 				loginSuccess();
 			}*/
+			passwordText = "";
 			alert.setText("Connection...");
 			alert.setActive();
 			AuthServerConnectionRunnable.setShouldConnect(true, account.getText(), password.getText());

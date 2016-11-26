@@ -57,15 +57,14 @@ public class ButtonMenu {
 	
 	public void draw() {
 		if(this.isSelected) {
-			int sideWidth = (int)(Sprites.button_menu_selected_left.getImageWidth()*Mideas.getDisplayXFactor());
+			int sideWidth = Sprites.button_menu_selected_left.getImageWidth();
 			Draw.drawQuad(Sprites.button_menu_selected_left, this.x, this.y, sideWidth, this.y_size);
 			Draw.drawQuad(Sprites.button_menu_selected_middle, this.x+sideWidth, this.y, this.x_size-2*sideWidth, this.y_size);
 			Draw.drawQuad(Sprites.button_menu_selected_right, this.x+this.x_size-sideWidth, this.y, sideWidth, this.y_size);
 			this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.selectedColor, Color.black, this.shadow_size, 0, 0);
 		}
 		else {
-			//Draw.drawQuad(Sprites.button_menu, this.x, this.y+this.anchor_difference, this.x_size, this.y_size+Math.abs(this.anchor_difference));
-			int sideWidth = (int)(Sprites.button_menu_unselected_left.getImageWidth()*Mideas.getDisplayXFactor());
+			int sideWidth = Sprites.button_menu_unselected_left.getImageWidth();
 			Draw.drawQuad(Sprites.button_menu_unselected_left, this.x, this.y, sideWidth, this.y_size);
 			Draw.drawQuad(Sprites.button_menu_unselected_middle, this.x+sideWidth, this.y, this.x_size-2*sideWidth, this.y_size);
 			Draw.drawQuad(Sprites.button_menu_unselected_right, this.x+this.x_size-sideWidth, this.y, sideWidth, this.y_size);
