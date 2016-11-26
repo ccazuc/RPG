@@ -53,11 +53,11 @@ import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
-import com.mideas.rpg.v2.hud.social.AddFriendInputFrame;
-import com.mideas.rpg.v2.hud.social.AddGuildMemberInputFrame;
-import com.mideas.rpg.v2.hud.social.FriendsFrame;
-import com.mideas.rpg.v2.hud.social.GuildFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
+import com.mideas.rpg.v2.hud.social.friends.AddFriendInputFrame;
+import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
+import com.mideas.rpg.v2.hud.social.guild.AddGuildMemberInputFrame;
+import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
@@ -239,6 +239,7 @@ public class Mideas {
 		}
 		CommandLogout.write();
 		ConnectionManager.close();
+		authServerConnectionRunnable.setRun(false);
 		
 	}
 	

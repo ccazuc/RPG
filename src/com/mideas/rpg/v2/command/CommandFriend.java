@@ -76,6 +76,10 @@ public class CommandFriend extends Command {
 			}
 			Mideas.joueur1().sortFriendList();
 		}
+		else if(packetId == PacketID.FRIEND_REMOVE) {
+			int id = ConnectionManager.getConnection().readInt();
+			Mideas.joueur1().removeFriend(id);
+		}
 	}
 	
 	public static void addFriend(String name) {

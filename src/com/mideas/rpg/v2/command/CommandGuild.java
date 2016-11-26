@@ -13,7 +13,7 @@ import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.guild.GuildMember;
 import com.mideas.rpg.v2.game.guild.GuildRank;
 import com.mideas.rpg.v2.hud.PopupFrame;
-import com.mideas.rpg.v2.hud.social.GuildFrame;
+import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 
 public class CommandGuild extends Command {
 	

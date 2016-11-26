@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.hud.social;
+package com.mideas.rpg.v2.hud.social.friends;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
@@ -11,6 +11,7 @@ import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandFriend;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.game.Friend;
+import com.mideas.rpg.v2.hud.social.guild.AddGuildMemberInputFrame;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 
@@ -31,13 +32,6 @@ public class FriendsFrame {
 		@Override
 		public void eventButtonClick() {
 			CommandFriend.removeFriend(selectedFriend.getCharacterId());
-			Mideas.joueur1().getFriendList().remove(selectedFriend);
-			if(Mideas.joueur1().getFriendList().size() > 0) {
-				selectedFriend = Mideas.joueur1().getFriendList().get(0);
-			}
-			else {
-				selectedFriend = null;
-			}
 		}
 		
 		@Override

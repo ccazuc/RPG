@@ -7,6 +7,9 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.guild.Guild;
@@ -34,8 +37,10 @@ import com.mideas.rpg.v2.hud.social.SocialFrame;
 
 public class Joueur extends Unit {
 
-	public final static int MAXIMUM_AMOUNT_FRIENDS = 20; 
+	public final static int MAXIMUM_AMOUNT_IGNORES = 50; 
+	public final static int MAXIMUM_AMOUNT_FRIENDS = 50; 
 	private ArrayList<Friend> friendList;
+	private ArrayList<Ignore> ignoreList;
 	private Profession secondProfession;
 	private Profession firstProfession;
 	private WeaponType[] weaponType;
@@ -93,11 +98,7 @@ public class Joueur extends Unit {
 		this.firstProfession = ProfessionManager.getProfession(0);
 		//this.classString = convClassTypeToString(this.classType);
 		this.friendList = new ArrayList<Friend>();
-		//this.friendList.add(new Friend(2, "Jean-bas-level"));
-		//this.friendList.add(new Friend(1, "Jaan-bas-level"));
-		//this.friendList.add(new Friend(3, "Jean-42", 70, Race.ORC, ClassType.GUERRIER));
-		//this.friendList.add(new Friend(4, "Jaan-42", 70, Race.ORC, ClassType.GUERRIER));
-		//sortFriendList();
+		this.ignoreList = new ArrayList<Ignore>();
 	}
 	
 	public Joueur(Joueur joueur) {
@@ -545,6 +546,19 @@ public class Joueur extends Unit {
 		if(this.friendList.size() < MAXIMUM_AMOUNT_FRIENDS) {
 			this.friendList.add(friend);
 			sortFriendList();
+			ChatFrame.addMessage(new Message(friend.getName()+" is now in your friend list.", false, MessageType.SELF));
+		}
+	}
+	
+	public void removeFriend(int id) {
+		int i = 0;
+		while(i < this.friendList.size()) {
+			if(this.friendList.get(i).getCharacterId() == id) {
+				ChatFrame.addMessage(new Message(this.friendList.get(i).getName()+" is no longer in your friend list.", false, MessageType.SELF));
+				this.friendList.remove(i);
+				return;
+			}
+			i++;
 		}
 	}
 	
@@ -570,12 +584,43 @@ public class Joueur extends Unit {
 		return this.friendList;
 	}
 	
-	public void removeFriend(Friend friend) {
+	public void addIgnore(Ignore ignore) {
+		if(this.ignoreList.size() < MAXIMUM_AMOUNT_IGNORES) {
+			this.ignoreList.add(ignore);
+			sortIgnoreList();
+		}
+	}
+	
+	public void addIgnoreNoSort(Ignore ignore) {
+		if(this.ignoreList.size() < MAXIMUM_AMOUNT_IGNORES) {
+			this.ignoreList.add(ignore);
+		}
+	}
+	
+	public void removeIgnore(int id) {
 		int i = 0;
-		while(i < this.friendList.size()) {
-			if(this.friendList.get(i) == friend) {
-				this.friendList.remove(i);
+		while(i < this.ignoreList.size()) {
+			if(this.ignoreList.get(i).getId() == id) {
+				this.ignoreList.remove(i);
 				return;
+			}
+			i++;
+		}
+	}
+	
+	public void sortIgnoreList() {
+		int i = 0;
+		int j = 0;
+		Ignore temp;
+		while(i < this.ignoreList.size()) {
+			j = i;
+			while(j < this.ignoreList.size()) {
+				if(this.ignoreList.get(i).getName().compareTo(this.ignoreList.get(j).getName()) > 0) {
+					temp = this.ignoreList.get(j);
+					this.ignoreList.set(j, this.ignoreList.get(i));
+					this.ignoreList.set(i, temp);
+				}
+				j++;
 			}
 			i++;
 		}

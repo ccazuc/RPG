@@ -3,6 +3,8 @@ package com.mideas.rpg.v2.hud.social;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.SocialFrameMenu;
+import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
+import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 import com.mideas.rpg.v2.utils.ButtonMenu;
 import com.mideas.rpg.v2.utils.CrossButton;
 
@@ -10,9 +12,9 @@ public class SocialFrame {
 
 	static SocialFrameMenu selectedMenu = SocialFrameMenu.GUILD_FRAME;
 	private static int Y_SOCIAL_FRAME_DEFAULT = 115;
-	static float Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
+	public static float Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
 	private static int X_SOCIAL_FRAME_DEFAULT = 5;
-	static float X_SOCIAL_FRAME = X_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayXFactor();
+	public static float X_SOCIAL_FRAME = X_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayXFactor();
 	private final static float BUTTON_MENU_Y = 461;
 	private final static float BUTTON_MENU_Y_SIZE = 33;
 	private static ButtonMenu friendButtonMenu = new ButtonMenu(X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 54*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Friends", 10, 1, true) {

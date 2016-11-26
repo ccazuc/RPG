@@ -45,10 +45,10 @@ import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.SpellLevel;
 import com.mideas.rpg.v2.hud.TradeFrame;
-import com.mideas.rpg.v2.hud.social.AddFriendInputFrame;
-import com.mideas.rpg.v2.hud.social.AddGuildMemberInputFrame;
-import com.mideas.rpg.v2.hud.social.GuildFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
+import com.mideas.rpg.v2.hud.social.friends.AddFriendInputFrame;
+import com.mideas.rpg.v2.hud.social.guild.AddGuildMemberInputFrame;
+import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 

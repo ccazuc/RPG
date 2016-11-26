@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.hud.social;
+package com.mideas.rpg.v2.hud.social.guild;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;

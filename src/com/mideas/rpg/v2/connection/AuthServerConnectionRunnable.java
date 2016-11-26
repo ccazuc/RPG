@@ -8,14 +8,15 @@ public class AuthServerConnectionRunnable implements Runnable {
 	private static boolean shouldConnect;
 	private static String account;
 	private static String password;
-	private final static int LOOP_TIMER = 1000;
+	private final static int LOOP_TIMER = 50;
+	private static boolean run = true;
 	
 	@Override
 	public void run() {
 		System.out.println("AuthServerConnectionThread run");
 		float delta;
 		float timer;
-		while(true) {
+		while(run) {
 			timer = System.currentTimeMillis();
 			if(shouldConnect) {
 				if(LoginManager.checkLogin(account, password)) {
@@ -33,6 +34,10 @@ public class AuthServerConnectionRunnable implements Runnable {
 				}
 			}
 		}
+	}
+	
+	public void setRun(boolean we) {
+		run = we;
 	}
 	
 	public static void setShouldConnect(boolean we, String account, String password) {
