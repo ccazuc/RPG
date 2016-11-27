@@ -121,40 +121,41 @@ public class ChatFrame {
 			}
 			totalNumberLine = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 		}
-		int k = 0;
+		int i = 0;
 		yDraw = -totalNumberLine*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
 		//yDraw = -numberLineLastMessages*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
 		//System.out.println(numberLineLastMessages);
 		xDraw = 40;
-		while(k < messages.size()) {
+		while(i < messages.size()) {
 			xDraw = 40;
-				if(yDraw <= Display.getHeight()-185) {
-					if(messages.get(k).getOpacity() > 0 && System.currentTimeMillis()-messages.get(k).lastSeenTimer() >= MESSAGE_OPACITY_START_DECREASE_TIMER) {
-						messages.get(k).decreaseOpacity(-1/(Mideas.FPS*MESSAGE_OPACITY_DECREASE_TIMER/1000f));
+			Message message = messages.get(i);
+			if(yDraw <= Display.getHeight()-185) {
+					if(message.getOpacity() > 0 && System.currentTimeMillis()-message.lastSeenTimer() >= MESSAGE_OPACITY_START_DECREASE_TIMER) {
+						message.decreaseOpacity(-1/(Mideas.FPS*MESSAGE_OPACITY_DECREASE_TIMER/1000f));
 					}
 					int j = 0;
-					if(messages.get(k).getAuthor() != null) {
-						if(yDraw >= Display.getHeight()-280-yResize && messages.get(k).getOpacity() > 0) {
-							TTF2.chat.drawString(xDraw+1, yDraw, messages.get(k).getAuthorText(), Color.black, messages.get(k).getOpacity());
-							TTF2.chat.drawString(xDraw, yDraw, messages.get(k).getAuthorText(), messages.get(k).getColor(), messages.get(k).getOpacity());
+					if(message.getAuthor() != null) {
+						if(yDraw >= Display.getHeight()-280-yResize && message.getOpacity() > 0) {
+							TTF2.chat.drawString(xDraw+1, yDraw, message.getAuthorText(), Color.black, message.getOpacity());
+							TTF2.chat.drawString(xDraw, yDraw, message.getAuthorText(), message.getColor(), message.getOpacity());
 						}
-						xDraw+= TTF2.chat.getWidth(messages.get(k).getAuthorText());
+						xDraw+= TTF2.chat.getWidth(message.getAuthorText());
 					}
-					while(j < messages.get(k).getMessage().length()) {
-						if(yDraw >= Display.getHeight()-280-yResize && messages.get(k).getOpacity() > 0) {
-							TTF2.chat.drawChar(xDraw+1, yDraw, messages.get(k).getMessage().charAt(j), Color.black, messages.get(k).getOpacity());
-							TTF2.chat.drawChar(xDraw, yDraw, messages.get(k).getMessage().charAt(j), messages.get(k).getColor(), messages.get(k).getOpacity());
+					while(j < message.getMessage().length()) {
+						if(yDraw >= Display.getHeight()-280-yResize && message.getOpacity() > 0) {
+							TTF2.chat.drawChar(xDraw+1, yDraw, message.getMessage().charAt(j), Color.black, message.getOpacity());
+							TTF2.chat.drawChar(xDraw, yDraw, message.getMessage().charAt(j), message.getColor(), message.getOpacity());
 						}
-						xDraw+= TTF2.chat.getWidth(messages.get(k).getMessage().charAt(j));
+						xDraw+= TTF2.chat.getWidth(message.getMessage().charAt(j));
 						j++;
-						if(xDraw-40 > maxLength-10 && j < messages.get(k).getMessage().length()) {
+						if(xDraw-40 > maxLength-10 && j < message.getMessage().length()) {
 							yDraw+= TTF2.chat.getLineHeight();
 							xDraw = 40;
 						}
 					}
 				}
-			k++;
-			if(yDraw > Display.getHeight()-185 || !(k < messages.size())) {
+			i++;
+			if(yDraw > Display.getHeight()-185 || !(i < messages.size())) {
 				break;
 			}
 			yDraw+= TTF2.chat.getLineHeight();
@@ -384,41 +385,45 @@ public class ChatFrame {
 					x = 40;
 					j = 0;
 					k = 0;
-	 				if(messages.get(i).getAuthor() != null && !messages.get(i).getAuthor().equals("")) {
+					Message message = messages.get(i);
+	 				if(message.getAuthor() != null && !message.getAuthor().equals("")) {
 						xAuthor = x;
-						while(k < messages.get(i).getAuthorText().length()-1) {
-							if(messages.get(i).getAuthorText().charAt(k) == '[' && messages.get(i).getAuthorText().charAt(k+1) == messages.get(i).getAuthor().charAt(0)) {
+						while(k < message.getAuthorText().length()-1) {
+							if(message.getAuthorText().charAt(k) == '[' && message.getAuthorText().charAt(k+1) == message.getAuthor().charAt(0)) {
 								hasAuthor = true;
 								break;
 							}
-							xAuthor+= TTF2.chat.getWidth(messages.get(i).getAuthorText().charAt(k));
+							xAuthor+= TTF2.chat.getWidth(message.getAuthorText().charAt(k));
 							k++;
 						}
-						if(hasAuthor && Mideas.getHover() && Mideas.mouseX() >= xAuthor && Mideas.mouseX() <= xAuthor+TTF2.chat.getWidth(messages.get(i).getAuthor()+"[]") && Mideas.mouseY() >= y && Mideas.mouseY() < y+TTF2.chat.getLineHeight()) {
+						if(hasAuthor && Mideas.getHover() && Mideas.mouseX() >= xAuthor && Mideas.mouseX() <= xAuthor+TTF2.chat.getWidth(message.getAuthor()+"[]") && Mideas.mouseY() >= y && Mideas.mouseY() < y+TTF2.chat.getLineHeight()) {
 							Mideas.setHover(false);
 							if(Mouse.getEventButton() == 0) {
 								if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 									if(chatActive) {
-										write(messages.get(i).getAuthor());
+										write(message.getAuthor());
+									}
+									else if(Input.getSelectedInput().isActive()) {
+										Input.getSelectedInput().write(message.getAuthor());
 									}
 									else {
-										
+										//display information in chat
 									}
 								}
 								else {
 									setChatActive(true);
-									setWhisper(messages.get(i).getAuthor());
+									setWhisper(message.getAuthor());
 								}
 							}
 							else if(Mouse.getEventButton() == 1) {
 								
 							}
 						}
-						x+= TTF2.chat.getWidth(messages.get(i).getAuthorText());
+						x+= TTF2.chat.getWidth(message.getAuthorText());
 					}
-					while(j < messages.get(i).getMessage().length()) {
-						x+= TTF2.chat.getWidth(messages.get(i).getMessage().charAt(j));
-						if(x-40 > maxLength-10 && j < messages.get(i).getMessage().length()) {
+					while(j < message.getMessage().length()) {
+						x+= TTF2.chat.getWidth(message.getMessage().charAt(j));
+						if(x-40 > maxLength-10 && j < message.getMessage().length()) {
 							y+= TTF2.chat.getLineHeight();
 							x = 40;
 						}
@@ -443,7 +448,7 @@ public class ChatFrame {
 			}
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
-				inputBar.setXSize(510+xResize);
+				inputBar.setWidth(510+xResize);
 				totalNumberLine = getTotalNumberLine();
 			}
 		}
@@ -455,7 +460,7 @@ public class ChatFrame {
 		else if(widthResizing) {
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
-				inputBar.setXSize(510+xResize);
+				inputBar.setWidth(510+xResize);
 				totalNumberLine = getTotalNumberLine();
 			}
 		}

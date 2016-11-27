@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.hud.social.guild;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
@@ -179,8 +178,7 @@ public class GuildFrame {
 		
 		@Override
 		public void eventButtonClick() {
-			Interface.setAddGuildMemberStatus(true);
-			AddGuildMemberInputFrame.getInput().setIsActive(true);
+			PopupFrame.activateAddGuildMemberPopupInput();
 		}
 		
 		@Override
@@ -1009,6 +1007,16 @@ public class GuildFrame {
 		if(memberDisplayInviteButton.event()) return true;
 		if(memberDisplayKickButton.event()) return true;
 		if(closeDisplayMemberFrameCrossButton.event()) return true;
+		if(Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				if(noteTooltip.isHover()) {
+					PopupFrame.activateSetGuildMemberNotePopupInput(memberInformationDisplayed.getId(), memberInformationDisplayed.getNote());
+				}
+				else if(Mideas.joueur1().getGuildRank().canSeeOfficerNote() && officerNoteTooltip.isHover()) {
+					PopupFrame.activateSetGuildMemberOfficerNotePopupInput(memberInformationDisplayed.getId(), memberInformationDisplayed.getOfficerNote());
+				}
+			}
+		}
 		return false;
 	}
 	

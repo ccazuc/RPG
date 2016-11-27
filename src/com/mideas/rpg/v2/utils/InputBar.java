@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.utils;
 
+import org.lwjgl.input.Mouse;
+
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 
@@ -31,8 +33,27 @@ public class InputBar {
 		return false;
 	}
 	
-	public void setXSize(float x_size) {
+	public boolean event() {
+		if(Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				if(isHover()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public int getWidth() {
+		return this.x_size;
+	}
+	
+	public void setWidth(float x_size) {
 		this.x_size = (int)x_size;
+	}
+	
+	public void setX(float x) {
+		this.x = (int)x;
 	}
 	
 	public void setY(float y) {

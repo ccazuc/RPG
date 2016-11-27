@@ -1,23 +1,8 @@
 package com.mideas.rpg.v2.hud.social.guild;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
-
-import com.mideas.rpg.v2.Interface;
-import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.command.CommandGuild;
-import com.mideas.rpg.v2.utils.AlertBackground;
-import com.mideas.rpg.v2.utils.Button;
-import com.mideas.rpg.v2.utils.Draw;
-import com.mideas.rpg.v2.utils.Input;
-import com.mideas.rpg.v2.utils.InputBar;
-
-public class AddGuildMemberInputFrame {
+public class AddGuildMemberInputFrame { //UNUSED
 	
-	static Input input = new Input(TTF2.addingFriendInput, 12, false, false) {
+/*	static Input input = new Input(TTF2.addingFriendInput, 12, false, false) {
 
 		@Override
 		public boolean keyEvent(char c) {
@@ -101,5 +86,5 @@ public class AddGuildMemberInputFrame {
 		Interface.setAddGuildMemberStatus(false);
 		input.setIsActive(false);
 		input.resetText();
-	}
+	}*/
 }

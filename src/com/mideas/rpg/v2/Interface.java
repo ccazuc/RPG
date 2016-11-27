@@ -8,7 +8,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
-import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.CharacterStuff;
@@ -46,8 +45,6 @@ import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.SpellLevel;
 import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
-import com.mideas.rpg.v2.hud.social.friends.AddFriendInputFrame;
-import com.mideas.rpg.v2.hud.social.guild.AddGuildMemberInputFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
@@ -82,8 +79,6 @@ public class Interface {
 	private static boolean socketingFrameActive;
 	private static boolean isConnectedToWorldServer;
 	private static boolean socialFrameActive;
-	private static boolean addingFriendStatus;
-	private static boolean addingGuildMemberStatus;
 	private static double time;
 	
 	private static long LAST_CONTAINER_TIMER;
@@ -159,12 +154,6 @@ public class Interface {
 				if(System.currentTimeMillis()-LAST_CONTAINER_TIMER >= CONTAINER_TIMER_FREQUENCE) {
 					containerDrawTime = System.nanoTime()-time;
 					LAST_CONTAINER_TIMER = System.currentTimeMillis();
-				}
-				if(addingFriendStatus) {
-					AddFriendInputFrame.draw();
-				}
-				if(addingGuildMemberStatus) {
-					AddGuildMemberInputFrame.draw();
 				}
 				if(socialFrameActive) {
 					SocialFrame.draw();
@@ -306,16 +295,6 @@ public class Interface {
 			if(PartyFrame.mouseEvent()) {
 				return true;
 			}
-			if(addingFriendStatus) {
-				if(AddFriendInputFrame.mouseEvent()) {
-					return true;
-				}
-			}
-			if(addingGuildMemberStatus) {
-				if(AddGuildMemberInputFrame.mouseEvent()) {
-					return true;
-				}
-			}
 			if(characterFrameActive) {
 				if(CharacterFrame.mouseEvent()) {
 					return true;
@@ -399,10 +378,7 @@ public class Interface {
 				//System.out.println(Keyboard.getEventKey());
 				if(!Input.hasInputActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						//SocialFrame.test();
-						//CommandGuild.addMember("Midetest");
-						//Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
-						CommandGuild.setMotd("Ceci est un test !");
+						PopupFrame.activateAddFriendPopupInput();
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
@@ -534,20 +510,13 @@ public class Interface {
 					}
 				}
 				if(hasLoggedInToAuth && Mideas.joueur1() != null) {
-					if(AddFriendInputFrame.getInput().isActive()) {
-						if(AddFriendInputFrame.event()) {
-							return true;
-						}
-					}
-					else if(AddGuildMemberInputFrame.getInput().isActive()) {
-						if(AddGuildMemberInputFrame.event()) {
-							return true;
-						}
-					}
-					else if(socialFrameActive && SocialFrame.isGuildFrameActive()) {
+					if(socialFrameActive && SocialFrame.isGuildFrameActive()) {
 						if(GuildFrame.event()) {
 							return true;
 						}
+					}
+					if(PopupFrame.keyEvent()) {
+						return true;
 					}
 					if(ChatFrame.event()) {
 						return true;
@@ -578,14 +547,6 @@ public class Interface {
 	
 	public static void setSocialFrameStatus(boolean we) {
 		socialFrameActive = we;
-	}
-	
-	public static void setAddFriendStatus(boolean we) {
-		addingFriendStatus = we;
-	}
-	
-	public static void setAddGuildMemberStatus(boolean we) {
-		addingGuildMemberStatus = we;
 	}
 	
 	public static void setIsConnectedToWorldServer(boolean we) {

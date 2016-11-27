@@ -7,22 +7,23 @@ import org.newdawn.slick.Color;
 
 public class Popup {
 
-	private int x;
-	private int y;
-	private int x_size;
-	private int y_size;
-	private AlertBackground background;
-	private String message;
+	protected int x;
+	protected int y;
+	protected int x_size;
+	protected int y_size;
+	protected AlertBackground background;
+	protected String message;
 	protected Button acceptButton;
-	private Button cancelButton;
-	private int textWidth;
+	protected Button cancelButton;
+	protected int textWidth;
 	protected boolean isActive;
-	private final static int BUTTON_WIDTH = 135;
-	private final static int BUTTON_HEIGHT = 24;
-	private final static String YES = "Yes";
-	private final static String NO = "No";
-	private final static String ACCEPT = "Accept";
-	private final static String DECLINE = "Decline";
+	protected final static int BUTTON_WIDTH = 135;
+	protected final static int BUTTON_HEIGHT = 24;
+	protected final static String YES = "Yes";
+	protected final static String NO = "No";
+	protected final static String ACCEPT = "Accept";
+	protected final static String DECLINE = "Decline";
+	protected static Popup activatedPopup;
 	
 	public Popup(float x, float y, float x_size, float y_size, String message) {
 		this.x = (int)x;
@@ -43,28 +44,38 @@ public class Popup {
 	}
 	
 	public void draw() {
+		if(this.isActive) {
 		this.background.draw();
 		TTF2.popup.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.white, Color.black, 1, 0, 0);
 		this.cancelButton.draw();
-		this.acceptButton.draw();
+			this.acceptButton.draw();
+		}
 	}
 	
 	public boolean event() {
-		if(this.cancelButton.event() || this.acceptButton.event()) {
-			this.setActive(false);
-			return true;
+		if(this.isActive) {
+			if(this.cancelButton.event() || this.acceptButton.event()) {
+				this.setActive(false);
+				return true;
+			}
 		}
 		return false;
 	}
 	
 	public void setPopup(Button button, String msg) {
-		if(this.isActive) {
+		System.out.println("Activated Popup: "+activatedPopup);
+		if(activatedPopup != null && activatedPopup.isActive) {
+			System.out.println(activatedPopup);
+			activatedPopup.popupClosed();
+		}
+		else if(this.isActive) {
 			popupClosed();
 		}
 		this.acceptButton = button;
 		updateAcceptButton();
 		setText(msg);
 		this.isActive = true;
+		activatedPopup = this;
 	}
 	
 	public void setActive(boolean we) {
@@ -103,15 +114,17 @@ public class Popup {
 		this.cancelButton.setText(NO);
 	}
 	
-	private void updateAcceptButton() {
+	protected void updateAcceptButton() {
 		if(this.acceptButton != null) {
 			this.acceptButton.update(this.x+this.x_size/2-10-BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		}
 	}
 	
-	private void popupClosed() {
+	protected void popupClosed() {
+		System.out.println("Popup closed");
 		this.acceptButton.popupClosed();
 		this.acceptButton.reset();
 		this.cancelButton.reset();
+		this.isActive = false;
 	}
 }

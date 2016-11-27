@@ -32,7 +32,6 @@ public class CommandGuild extends Command {
 		else if(packetId == PacketID.GUILD_INVITE_PLAYER) {
 			String player_name = ConnectionManager.getConnection().readString();
 			String guild_name = ConnectionManager.getConnection().readString();
-			//GuildInviteNotification.setRequest(player_name, guild_name);
 			PopupFrame.activateGuildInvitationPopup(player_name, guild_name);
 		}
 		else if(packetId == PacketID.GUILD_INIT) {
@@ -178,6 +177,32 @@ public class CommandGuild extends Command {
 			leader.setRank(Mideas.joueur1().getGuild().getRankList().get(1));
 			Mideas.joueur1().getGuild().setLeaderId(id);
 		}
+		else if(packetId == PacketID.GUILD_SET_MEMBER_NOTE) {
+			int id = ConnectionManager.getConnection().readInt();
+			String note = ConnectionManager.getConnection().readString();
+			Mideas.joueur1().getGuild().getMember(id).setNote(note);
+		}
+		else if(packetId == PacketID.GUILD_SET_MEMBER_OFFICER_NOTE) {
+			int id = ConnectionManager.getConnection().readInt();
+			String officerNote = ConnectionManager.getConnection().readString();
+			Mideas.joueur1().getGuild().getMember(id).setOfficerNote(officerNote);
+		}
+	}
+	
+	public static void setMemberNote(int id, String note) {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_MEMBER_NOTE);
+		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().writeString(note);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void setMemberOfficerNote(int id, String officerNote) {
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
+		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_MEMBER_OFFICER_NOTE);
+		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().writeString(officerNote);
+		ConnectionManager.getConnection().send();
 	}
 	
 	public static void kickMember(int id) {

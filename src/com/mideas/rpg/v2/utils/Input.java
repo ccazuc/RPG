@@ -1,12 +1,17 @@
 package com.mideas.rpg.v2.utils;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.util.ResourceLoader;
 
 import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.chat.ChatFrame;
@@ -37,20 +42,39 @@ public class Input {
 	public final static int ENTER_CHAR_VALUE = 13;
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive) {
-		this.font = font;
-		this.maxLength = maxLength;
 		this.multipleLine = multipleLine;
 		this.debugActive = debugActive;
+		this.maxLength = maxLength;
 		inputList.add(this);
+		this.font = font;
+	}
+	
+	public Input(int font_size, int maxLength, boolean multipleLine, boolean debugActive) {
+		this.multipleLine = multipleLine;
+		this.debugActive = debugActive;
+		this.maxLength = maxLength;
+		inputList.add(this);
+		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		Font awtFont = null;
+		try {
+			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(font_size);
+		} 
+		catch (FontFormatException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.font = new TTF(awtFont, true);
 	}
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive, boolean isActive) {
-		this.font = font;
-		this.maxLength = maxLength;
 		this.multipleLine = multipleLine;
 		this.debugActive = debugActive;
+		this.maxLength = maxLength;
 		this.isActive = isActive;
 		inputList.add(this);
+		this.font = font;
 		if(isActive) {
 			activatedInput = this;
 		}
@@ -59,6 +83,9 @@ public class Input {
 	public boolean event() {
 		if(this.isActive) {
 			if(Keyboard.getEventKey() != 0) {
+				if(this.debugActive) {
+					System.out.println("Key pressed.");
+				}
 				if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { //left shift
 					if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
 						if(Keyboard.getEventKey() == 203) { // shift CTRL left arrow
@@ -132,9 +159,9 @@ public class Input {
 						char c = Keyboard.getEventCharacter();
 						if(!this.multipleLine && keyEvent(c)) {
 							if(this.debugActive) {
-								System.out.println("Event triggered");
+								System.out.println("First call Event triggered");
 							}
-							return false;
+							return true;
 						}
 						if(this.debugActive) {
 							System.out.println("No event triggered");
@@ -147,7 +174,7 @@ public class Input {
 						}
 						if(keyEvent(c)) {
 							if(this.debugActive) {
-								System.out.println("Event triggered");
+								System.out.println("Second call Event triggered");
 							}
 							return true;
 						}
@@ -177,6 +204,10 @@ public class Input {
 		this.isActive = we;
 	}
 	
+	public static Input getSelectedInput() {
+		return activatedInput;
+	}
+	
 	public static boolean hasInputActive() {
 		int i = 0;
 		while(i < inputList.size()) {
@@ -204,7 +235,7 @@ public class Input {
 		return this.isActive;
 	}
 	
-	private void write(String add) {
+	public void write(String add) {
 		if(this.cursorPosition == this.text.length()) {
 			this.text+= add;
 		}

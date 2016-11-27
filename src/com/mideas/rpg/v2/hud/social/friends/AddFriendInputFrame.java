@@ -1,22 +1,8 @@
 package com.mideas.rpg.v2.hud.social.friends;
 
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
+public class AddFriendInputFrame { //UNUSED
 
-import com.mideas.rpg.v2.Interface;
-import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.command.CommandFriend;
-import com.mideas.rpg.v2.utils.AlertBackground;
-import com.mideas.rpg.v2.utils.Button;
-import com.mideas.rpg.v2.utils.Draw;
-import com.mideas.rpg.v2.utils.Input;
-import com.mideas.rpg.v2.utils.InputBar;
-
-public class AddFriendInputFrame {
-
-	static Input input = new Input(TTF2.addingFriendInput, 12, false, true) {
+/*	static Input input = new Input(TTF2.addingFriendInput, 12, false, false) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -95,5 +81,5 @@ public class AddFriendInputFrame {
 		Interface.setAddFriendStatus(false);
 		input.setIsActive(false);
 		input.resetText();
-	}
+	}*/
 }

@@ -13,6 +13,7 @@ import com.mideas.rpg.v2.command.CommandIgnore;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.game.Friend;
 import com.mideas.rpg.v2.game.Ignore;
+import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.social.guild.AddGuildMemberInputFrame;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
@@ -55,9 +56,7 @@ public class FriendsFrame {
 	private final static Button addFriendButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Add friend", 12, 1) {
 		@Override
 		public void eventButtonClick() {
-			Interface.setAddFriendStatus(true);
-			AddFriendInputFrame.getInput().setIsActive(true);
-			AddGuildMemberInputFrame.closeFrame();
+			PopupFrame.activateAddFriendPopupInput();
 		}
 	};
 	private final static Button sendMessageFriendButton = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Send message", 12, 1) {

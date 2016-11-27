@@ -54,9 +54,7 @@ import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
-import com.mideas.rpg.v2.hud.social.friends.AddFriendInputFrame;
 import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
-import com.mideas.rpg.v2.hud.social.guild.AddGuildMemberInputFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
@@ -293,8 +291,6 @@ public class Mideas {
 		SocialFrame.updateSize();
 		PartyFrame.updateSize();
 		ChatFrame.updateSize();
-		AddFriendInputFrame.updateSize();
-		AddGuildMemberInputFrame.updateSize();
 		PerformanceBarFrame.updateSize();
 		PopupFrame.updateSize();
 		FriendsFrame.updateSize();
