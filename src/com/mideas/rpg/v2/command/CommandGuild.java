@@ -33,6 +33,7 @@ public class CommandGuild extends Command {
 			String player_name = ConnectionManager.getConnection().readString();
 			String guild_name = ConnectionManager.getConnection().readString();
 			PopupFrame.activateGuildInvitationPopup(player_name, guild_name);
+			ChatFrame.addMessage(new Message(" invited you to join "+guild_name, player_name, false, MessageType.SELF));
 		}
 		else if(packetId == PacketID.GUILD_INIT) {
 			int i = 0;
@@ -152,7 +153,7 @@ public class CommandGuild extends Command {
 		else if(packetId == PacketID.GUILD_SET_MOTD) {
 			String msg = ConnectionManager.getConnection().readString();
 			Mideas.joueur1().getGuild().setMotd(msg);
-			ChatFrame.addMessage(new Message("[Guild Message Of The Day] : "+msg, false, MessageType.SELF, MessageType.GUILD.getColor()));
+			ChatFrame.addMessage(new Message("[Guild Message Of The Day]: "+msg, false, MessageType.SELF, MessageType.GUILD.getColor()));
 		}
 		else if(packetId == PacketID.GUILD_SET_INFORMATION) {
 			String msg = ConnectionManager.getConnection().readString();

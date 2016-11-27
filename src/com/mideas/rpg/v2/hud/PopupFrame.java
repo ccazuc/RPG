@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.CommandFriend;
 import com.mideas.rpg.v2.command.CommandGuild;
+import com.mideas.rpg.v2.command.CommandIgnore;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Popup;
@@ -76,6 +77,13 @@ public class PopupFrame {
 			CommandGuild.setMemberOfficerNote(id, popupInput.getInput().getText());
 		}
 	};
+	private static Button addIgnoreButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+		
+		@Override
+		public void eventButtonClick() {
+			CommandIgnore.addIgnore(popupInput.getInput().getText());
+		}
+	};
 	
 	public static void draw() {
 		popup.draw();
@@ -95,6 +103,11 @@ public class PopupFrame {
 		popupInput.setTextTypeAccept();
 	}
 	
+	public static void activateAddIgnorePopupInput() {
+		popupInput.setPopup(addIgnoreButton, "Ignore Player:", 170);
+		popupInput.setTextTypeAccept();
+	}
+	
 	public static void activateAddGuildMemberPopupInput() {
 		popupInput.setPopup(addGuildMemberButton, "Add Guild Member:", 170);
 		popupInput.setTextTypeAccept();
@@ -108,7 +121,7 @@ public class PopupFrame {
 	}
 	
 	public static void activateSetGuildMemberOfficerNotePopupInput(int id, String text) {
-		popupInput.setPopup(setGuildMemberOfficerNoteButton, "Write Player Officer Note:", 380);
+		popupInput.setPopup(setGuildMemberOfficerNoteButton, "Write Player Officer Note:", 430);
 		popupInput.setInputText(text);
 		popupInput.setTextTypeAccept();
 		PopupFrame.id = id;
@@ -122,7 +135,7 @@ public class PopupFrame {
 	
 	public static void activateGuildInvitationPopup(String name, String guildName) {
 		popup.setPopup(guildInvitationButton, name+" wants to invite you in the guild: "+guildName);
-		popup.setTextTypeYes();
+		popup.setTextTypeAccept();
 	}
 	
 	public static void activatePartyInvitationPopup(String name) {

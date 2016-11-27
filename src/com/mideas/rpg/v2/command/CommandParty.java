@@ -20,6 +20,7 @@ public class CommandParty extends Command {
 		if(packetId == PacketID.PARTY_ADD_MEMBER) {
 			String name = ConnectionManager.getConnection().readString();
 			PopupFrame.activatePartyInvitationPopup(name);
+			ChatFrame.addMessage(new Message(" invited you to join a party.", name, false, MessageType.SELF));
 		}
 		else if(packetId == PacketID.PARTY_DECLINE_REQUEST) {
 			String name = ConnectionManager.getConnection().readString();
@@ -37,9 +38,7 @@ public class CommandParty extends Command {
 			int level = ConnectionManager.getConnection().readInt();
 			int id = ConnectionManager.getConnection().readInt();
 			ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
-			//System.out.println(name+" "+stamina+" "+maxStamina+" "+mana+" "+maxMana+" "+level+" "+id);
 			Mideas.joueur1().getParty().addMember(new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type));
-			//System.out.println("Member joined the party");
 		}
 		else if(packetId == PacketID.PARTY_NEW) {
 			boolean isLeader = ConnectionManager.getConnection().readBoolean();
