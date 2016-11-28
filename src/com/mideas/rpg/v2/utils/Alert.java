@@ -109,16 +109,18 @@ public class Alert {
 			this.background.draw();
 			int i = 0;
 			int y_shift = 0;
+			TTF2.alertFont.drawBegin();
 			if(this.formatedText.length == 1) {
-				TTF2.alertFont.drawStringShadow(this.x+this.background.getWidth()/2-TTF2.alertFont.getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], YELLOW, Color.black, 3, 2, 2);
+				TTF2.alertFont.drawStringShadowPart(this.x+this.background.getWidth()/2-TTF2.alertFont.getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], YELLOW, Color.black, 3, 2, 2);
 			}
 			else {
 				while(i < this.formatedText.length) {
-					TTF2.alertFont.drawStringShadow(this.x+10, this.y+14+y_shift, this.formatedText[i], YELLOW, Color.black, 2, 2, 1);
+					TTF2.alertFont.drawStringShadowPart(this.x+10, this.y+14+y_shift, this.formatedText[i], YELLOW, Color.black, 2, 2, 1);
 					y_shift+= TTF2.alertFont.getLineHeight()+3;
 					i++;
 				}
 			}
+			TTF2.alertFont.drawEnd();
 			this.button.draw();
 		}
 	}

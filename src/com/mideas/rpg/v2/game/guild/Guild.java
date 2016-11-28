@@ -67,6 +67,16 @@ public class Guild {
 		}
 	}
 	
+	public void updateMemberNote() {
+		int i = 0;
+		while(i < this.memberList.size()) {
+			GuildMember member = this.memberList.get(i);
+			member.setNoteDisplayed(GuildMember.updateNote(member.getNoteSave(), false));
+			member.setOfficerNoteDisplayed(GuildMember.updateNote(member.getOfficerNoteSave(), true));
+			i++;
+		}
+	}
+	
 	public GuildRank getRank(int rank_order) {
 		int i = 0;
 		while(i < this.rankList.size()) {
@@ -335,7 +345,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getNote().compareTo(this.memberList.get(j).getNote()) >= 0) {
+				if(this.memberList.get(i).getNoteDisplayed().compareTo(this.memberList.get(j).getNoteDisplayed()) >= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -353,7 +363,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if(this.memberList.get(i).getNote().compareTo(this.memberList.get(j).getNote()) <= 0) {
+				if(this.memberList.get(i).getNoteSave().compareTo(this.memberList.get(j).getNoteSave()) <= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -371,7 +381,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if((!this.memberList.get(i).isOnline() && this.memberList.get(j).isOnline())) { //TODO: add last online timer
+				if((!this.memberList.get(i).isOnline() && this.memberList.get(j).isOnline()) || (!this.memberList.get(i).isOnline() && !this.memberList.get(j).isOnline() && this.memberList.get(i).getLastLoginTimer() >= this.memberList.get(j).getLastLoginTimer())) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
@@ -389,7 +399,7 @@ public class Guild {
 		while(i < this.memberList.size()) {
 			j = i;
 			while(j < this.memberList.size()) {
-				if((this.memberList.get(i).isOnline() && !this.memberList.get(j).isOnline())) { //TODO: add last online timer
+				if((this.memberList.get(i).isOnline() && !this.memberList.get(j).isOnline()) || (!this.memberList.get(i).isOnline() && !this.memberList.get(j).isOnline() && this.memberList.get(i).getLastLoginTimer() <= this.memberList.get(j).getLastLoginTimer())) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);

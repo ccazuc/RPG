@@ -754,5 +754,6 @@ public class Interface {
 		ContainerFrame.setBagOpen(4, false);
 		closeBagEvent();
 		ChatFrame.clearChat();
+		GuildFrame.resetFrame();
 	}
 }

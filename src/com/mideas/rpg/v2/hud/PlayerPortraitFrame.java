@@ -26,8 +26,10 @@ public class PlayerPortraitFrame {
 		drawManaBar(joueur, (int)x, (int)y);
 		Draw.drawQuad(Sprites.playerUI, (int)x, (int)y);
 		TTF2.playerName.drawStringShadow((int)(x+135*Mideas.getDisplayXFactor()-TTF2.playerName.getWidth(joueur.getName())/2), (int)(15*Mideas.getDisplayYFactor()+y), joueur.getName(), Color.orange, Color.black, 1, 1, 1);    
+		TTF2.hpAndMana.drawBegin();
 		drawHealthText(joueur, (int)x, (int)y);
 		drawManaText(joueur, (int)x, (int)y);
+		TTF2.hpAndMana.drawEnd();
 		drawPortait(joueur, (int)x, (int)y);
 		Draw.drawQuad(Sprites.level, x, y+45);
 		TTF2.hpAndMana.drawStringShadow(x+16-TTF2.hpAndMana.getWidth(String.valueOf(joueur.getLevel()))/2, y+55, String.valueOf(joueur.getLevel()), YELLOW, Color.black, 1, 0, 0);
@@ -49,20 +51,20 @@ public class PlayerPortraitFrame {
 	private static void drawHealthText(Unit joueur, int x, int y) {
 		for(int i=129;i<132;i++) {
 			for(int j=32;j<35;j++) {
-				TTF2.hpAndMana.drawString(x+(int)(i*Mideas.getDisplayXFactor()-TTF2.hpAndMana.getWidth(joueur.getHealthText())/2), y+j*Mideas.getDisplayYFactor(), joueur.getHealthText(), Color.black);
+				TTF2.hpAndMana.drawStringPart(x+(int)(i*Mideas.getDisplayXFactor()-TTF2.hpAndMana.getWidth(joueur.getHealthText())/2), y+j*Mideas.getDisplayYFactor(), joueur.getHealthText(), Color.black);
 			}
 		}
-		TTF2.hpAndMana.drawString(x+(int)(130*Mideas.getDisplayXFactor())-TTF2.hpAndMana.getWidth(joueur.getHealthText())/2, y+33*Mideas.getDisplayYFactor(), joueur.getHealthText(), Color.white);
+		TTF2.hpAndMana.drawStringPart(x+(int)(130*Mideas.getDisplayXFactor())-TTF2.hpAndMana.getWidth(joueur.getHealthText())/2, y+33*Mideas.getDisplayYFactor(), joueur.getHealthText(), Color.white);
 		//TTF2.hpAndMana.drawStringShadow(x+130*Mideas.getDisplayXFactor()-TTF2.hpAndMana.getWidth(joueur.getStamina()+" / "+joueur.getMaxStamina())/2, y+32*Mideas.getDisplayYFactor(), joueur.getStamina()+" / "+joueur.getMaxStamina(), Color.white, Color.black, 1, -1, -1);
 	}
 	
 	private static void drawManaText(Unit joueur, int x, int y) {
 		for(int i=129;i<132;i++) {
 			for(int j=43;j<46;j++) {
-				TTF2.hpAndMana.drawString(x+(int)(i*Mideas.getDisplayXFactor()-TTF2.hpAndMana.getWidth(joueur.getManaText())/2), y+j*Mideas.getDisplayYFactor(), joueur.getManaText(), Color.black);
+				TTF2.hpAndMana.drawStringPart(x+(int)(i*Mideas.getDisplayXFactor()-TTF2.hpAndMana.getWidth(joueur.getManaText())/2), y+j*Mideas.getDisplayYFactor(), joueur.getManaText(), Color.black);
 			}
 		}
-		TTF2.hpAndMana.drawString(x+(int)(130*Mideas.getDisplayXFactor())-TTF2.hpAndMana.getWidth(joueur.getManaText())/2, y+44*Mideas.getDisplayYFactor(), joueur.getManaText(), Color.white);
+		TTF2.hpAndMana.drawStringPart(x+(int)(130*Mideas.getDisplayXFactor())-TTF2.hpAndMana.getWidth(joueur.getManaText())/2, y+44*Mideas.getDisplayYFactor(), joueur.getManaText(), Color.white);
 		//TTF2.hpAndMana.drawStringShadow(x+130*Mideas.getDisplayXFactor()-TTF2.hpAndMana.getWidth(joueur.getMana()+" / "+joueur.getMaxMana())/2, y+44*Mideas.getDisplayYFactor(), joueur.getMana()+" / "+joueur.getMaxMana(), Color.white, Color.black, 1, -1, -1);
 	}
 	

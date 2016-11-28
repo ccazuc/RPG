@@ -168,8 +168,10 @@ public class PartyFrame {
 		Draw.drawQuad(unit.getPortrait(), x+6*Mideas.getDisplayXFactor(), y+5*Mideas.getDisplayYFactor(), 45*Mideas.getDisplayXFactor(), 45*Mideas.getDisplayYFactor());
 		Draw.drawQuad(Sprites.player_portrait_party, x, y);
 		TTF2.portraitPartyName.drawStringShadow(x+100*Mideas.getDisplayXFactor()-TTF2.portraitPartyName.getWidth(unit.getName())/2, y+11*Mideas.getDisplayYFactor(), unit.getName(), YELLOW, Color.black, 1, 0, 0);
-		TTF2.portraitPartyStats.drawStringShadow(x+100*Mideas.getDisplayXFactor()-TTF2.portraitPartyStats.getWidth(unit.getHealthText())/2, y+26*Mideas.getDisplayYFactor(), unit.getHealthText(), Color.white, Color.black, 1, 0, 0);
-		TTF2.portraitPartyStats.drawStringShadow(x+100*Mideas.getDisplayXFactor()-TTF2.portraitPartyStats.getWidth(unit.getManaText())/2, y+33*Mideas.getDisplayYFactor(), unit.getManaText(), Color.white, Color.black, 1, 0, 0);
+		TTF2.portraitPartyStats.drawBegin();
+		TTF2.portraitPartyStats.drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-TTF2.portraitPartyStats.getWidth(unit.getHealthText())/2, y+26*Mideas.getDisplayYFactor(), unit.getHealthText(), Color.white, Color.black, 1, 0, 0);
+		TTF2.portraitPartyStats.drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-TTF2.portraitPartyStats.getWidth(unit.getManaText())/2, y+33*Mideas.getDisplayYFactor(), unit.getManaText(), Color.white, Color.black, 1, 0, 0);
+		TTF2.portraitPartyStats.drawEnd();
 		if(Mideas.joueur1().getParty().isPartyLeader(unit)) {
 			Draw.drawQuad(Sprites.party_leader_crown, x+5, y+8);
 		}

@@ -115,6 +115,15 @@ public final class TTF {
 		}
 	}
 	
+	public final void drawBegin() {
+		bind();
+		OpenGL.glBegin(OpenGL.GL_QUADS);
+	}
+	
+	public final void drawEnd() {
+		OpenGL.glEnd();
+	}
+	
 	private final void drawQuad(final float x, final float y, final float width, final float height, final float texX, final float texY, final float texWidth, final float texHeight) {
 		final float textureSrcX = texX/this.textureWidth;
 		final float textureSrcY = texY/this.textureHeight;
@@ -187,6 +196,16 @@ public final class TTF {
 	
 	public final void drawCharPart(final float x, final float y, final char character) {
 		drawCharPart(x, y, character, 1, 1);
+	}
+	
+	public final void drawCharPart(final float x, final float y, final char character, final Color color, final float opacity) { //TODO use drawCharPart
+		OpenGL.glColor4f(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getAlpha()*opacity/255f);
+		drawCharPart((int)x, (int)y, character, 1, 1);
+	}
+	
+	public final void drawCharPart(final float x, final float y, final char character, final Color color) { //TODO use drawCharPart
+		OpenGL.glColor4f(color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getAlpha()*1/255f);
+		drawCharPart((int)x, (int)y, character, 1, 1);
 	}
 	
 	public final void drawCharPart(final float x, final float y, final char character, final float scaleX, final float scaleY) {

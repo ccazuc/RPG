@@ -720,19 +720,21 @@ public class GuildFrame {
 	}
 	
 	private static void drawMembers() {
-		int i = 0;
+		int iOffset = 0;
 		if(showOfflineMembers && Mideas.joueur1().getGuild().getMemberList().size() > 13) {
-			i = (int)((Mideas.joueur1().getGuild().getMemberList().size()-13)*memberScrollBar.getScrollPercentage());
+			iOffset = (int)((Mideas.joueur1().getGuild().getMemberList().size()-13)*memberScrollBar.getScrollPercentage());
 			memberScrollBar.draw();
 		}
 		else if(!showOfflineMembers && Mideas.joueur1().getGuild().getNumberOnlineMember() > 13) {
-			i = (int)((Mideas.joueur1().getGuild().getNumberOnlineMember()-13)*memberScrollBar.getScrollPercentage());
+			iOffset = (int)((Mideas.joueur1().getGuild().getNumberOnlineMember()-13)*memberScrollBar.getScrollPercentage());
 			memberScrollBar.draw();
 		}
+		int i = iOffset;
 		float x = X_SOCIAL_FRAME+35*Mideas.getDisplayXFactor();
 		float y = Y_SOCIAL_FRAME+105*Mideas.getDisplayYFactor();
 		int yShift = 0;
 		float yShiftHeight = 18*Mideas.getDisplayYFactor();
+		TTF2.guildMember.drawBegin();
 		while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
 			if(Mideas.joueur1().getGuild().getMemberList().get(i).isOnline()) {
 				TTF2.guildMember.drawStringShadow(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), YELLOW, Color.black, 1, 0, 0);
@@ -748,13 +750,22 @@ public class GuildFrame {
 				TTF2.guildMember.drawStringShadow(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), GREY, Color.black, 1, 0, 0);
 				yShift+= yShiftHeight;
 			}
-			if(hoveredMember == i || selectedMember == i) {
-				Draw.drawQuadBlend(Sprites.friend_border, x-15*Mideas.getDisplayXFactor(), y+yShift-yShiftHeight, 343*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
-			}
 			if(y+yShift+yShiftHeight >= Y_SOCIAL_FRAME+350*Mideas.getDisplayYFactor()) {
 				break;
 			}
 			i++;
+		}
+		TTF2.guildMember.drawEnd();
+		i = iOffset;
+		if((hoveredMember >= i && hoveredMember < i+13) || (selectedMember >= i && selectedMember < i+13)) {
+			yShift = 0;
+			while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
+				if(hoveredMember == i || selectedMember == i) {
+					Draw.drawQuadBlend(Sprites.friend_border, x-15*Mideas.getDisplayXFactor(), y+yShift-yShiftHeight, 343*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
+				}
+				yShift+= yShiftHeight;
+				i++;
+			}
 		}
 		if(memberMenu != null) {
 			displayedMemberMenu.draw();
@@ -896,9 +907,11 @@ public class GuildFrame {
 			informationBackground.draw();
 			Draw.drawQuad(Sprites.guild_manage_frame_bot_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+433*Mideas.getDisplayYFactor());
 			Draw.drawQuad(Sprites.guild_manage_rank_horizontal_bar, X_SOCIAL_FRAME+399*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+65*Mideas.getDisplayYFactor());
-			TTF2.guildMemberInformationName.drawStringShadow(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Select guild rank to modify:")/2, Y_SOCIAL_FRAME+20*Mideas.getDisplayYFactor(), "Select guild rank to modify:", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationName.drawStringShadow(X_SOCIAL_FRAME+485*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Rank Label:")/2, Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), "Rank Label:", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationName.drawStringShadow(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Allow this rank to:")/2, Y_SOCIAL_FRAME+110*Mideas.getDisplayYFactor(), "Allow this rank to:", Color.white, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationName.drawBegin();
+			TTF2.guildMemberInformationName.drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Select guild rank to modify:")/2, Y_SOCIAL_FRAME+20*Mideas.getDisplayYFactor(), "Select guild rank to modify:", YELLOW, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationName.drawStringShadowPart(X_SOCIAL_FRAME+485*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Rank Label:")/2, Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), "Rank Label:", YELLOW, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationName.drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Allow this rank to:")/2, Y_SOCIAL_FRAME+110*Mideas.getDisplayYFactor(), "Allow this rank to:", Color.white, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationName.drawEnd();
 			rankNameEditBox.draw();
 			canListenGuildChannelCheckBox.draw();
 			canListenOfficerChannelCheckBox.draw();
@@ -969,32 +982,35 @@ public class GuildFrame {
 	
 	private static void drawDisplayedMember() {
 		if(memberInformationDisplay) {
+			long timer = System.nanoTime();
+			float x = X_SOCIAL_FRAME+415*Mideas.getDisplayXFactor();
+			float y = Y_SOCIAL_FRAME+45*Mideas.getDisplayYFactor();
 			informationBackground.draw();
 			noteTooltip.draw();
 			Draw.drawQuad(Sprites.guild_close_information_button_border, X_SOCIAL_FRAME+595*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+32*Mideas.getDisplayYFactor());
 			closeDisplayMemberFrameCrossButton.draw();
-			float x = X_SOCIAL_FRAME+415*Mideas.getDisplayXFactor();
-			float y = Y_SOCIAL_FRAME+45*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationName.drawStringShadow(x, y, memberInformationDisplayed.getName(), YELLOW, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawBegin();
+			TTF2.guildMemberInformationName.drawStringShadowPart(x, y, memberInformationDisplayed.getName(), YELLOW, Color.black, 1, 0, 0);
 			y+= (TTF2.guildMemberInformationLevel.getLineHeight())*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadow(x, y, memberInformationDisplayed.getInformationString(), Color.white, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, memberInformationDisplayed.getInformationString(), Color.white, Color.black, 1, 0, 0);
 			y+= (TTF2.guildMemberInformationLevel.getLineHeight()+4)*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Area : ", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationLevel.drawStringShadow(x+TTF2.guildMemberInformationLevel.getWidth("Area : "), y, "Area", Color.white, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, "Area : ", YELLOW, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawStringShadowPart(x+TTF2.guildMemberInformationLevel.getWidth("Area : "), y, "Area", Color.white, Color.black, 1, 0, 0);
 			y+= (TTF2.guildMemberInformationLevel.getLineHeight()+2)*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Rank : ", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationLevel.drawStringShadow(x+TTF2.guildMemberInformationLevel.getWidth("Rank : "), y, memberInformationDisplayed.getRank().getName(), Color.white, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, "Rank : ", YELLOW, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawStringShadowPart(x+TTF2.guildMemberInformationLevel.getWidth("Rank : "), y, memberInformationDisplayed.getRank().getName(), Color.white, Color.black, 1, 0, 0);
 			y+= (TTF2.guildMemberInformationLevel.getLineHeight()+1)*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Last connection : ", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationLevel.drawStringShadow(x+TTF2.guildMemberInformationLevel.getWidth("Last connection : "), y, "Unknown", Color.white, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, "Last connection : ", YELLOW, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawStringShadowPart(x+TTF2.guildMemberInformationLevel.getWidth("Last connection : "), y, memberInformationDisplayed.getLastLoginTimerString(), Color.white, Color.black, 1, 0, 0);
 			y+= (TTF2.guildMemberInformationLevel.getLineHeight()+1)*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Note : ", YELLOW, Color.black, 1, 0, 0);
-			drawNote(x+5, y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getNote(), false);
+			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, "Note : ", YELLOW, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawStringShadowPart(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getNoteDisplayed(), Color.white, Color.black, 1, 0, 0);
+			TTF2.guildMemberInformationLevel.drawEnd();
 			if(Mideas.joueur1().getGuildRank().canSeeOfficerNote()) {
 				y+= 61*Mideas.getDisplayYFactor();
 				TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Officer note :", YELLOW, Color.black, 1, 0, 0);
 				officerNoteTooltip.draw();
-				drawNote(x+5, y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getOfficerNote(), false);
+				TTF2.guildMemberInformationLevel.drawStringShadow(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getOfficerNoteDisplayed(), Color.white, Color.black, 1, 0, 0);
 				Draw.drawQuad(Sprites.guild_member_display_button_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+263*Mideas.getDisplayYFactor());
 			}
 			else {
@@ -1002,45 +1018,7 @@ public class GuildFrame {
 			}
 			memberDisplayInviteButton.draw();
 			memberDisplayKickButton.draw();
-		}
-	}
-	
-	private static void drawNote(float x, float y, String note, boolean isOfficer) {
-		if(note != null) {
-			if(note.equals("")) {
-				if(isOfficer) {
-					TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Click here to write\n an officer note.", Color.white, Color.black, 1, 0, 0);
-				}
-				else {
-					TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Click here to write\n a note.", Color.white, Color.black, 1, 0, 0);
-				}
-			}
-			else {
-				int i = 0;
-				int x_shift = 0;
-				boolean lineChange = false;
-				while(i < note.length()) {
-					TTF2.guildMemberInformationLevel.drawChar(x+x_shift+1, y, note.charAt(i), Color.black);
-					TTF2.guildMemberInformationLevel.drawChar(x+x_shift, y, note.charAt(i), Color.white);
-					x_shift+= TTF2.guildMemberInformationLevel.getWidth(note.charAt(i));
-					i++;
-					if(!lineChange && x_shift >= 180*Mideas.getDisplayXFactor()) {
-						x_shift = 0;
-						y+= TTF2.guildMemberInformationLevel.getLineHeight();
-						lineChange = true;
-					}
-					else if(lineChange && i < note.length()-3 && x_shift+TTF2.guildMemberInformationLevel.getWidth(note.charAt(i+1))+TTF2.guildMemberInformationLevel.getWidth(note.charAt(i+2))+TTF2.guildMemberInformationLevel.getWidth(note.charAt(i+3)) >= 180*Mideas.getDisplayXFactor()) {
-						int j = 0;
-						while(j < 3) {
-							TTF2.guildMemberInformationLevel.drawChar(x+x_shift, y, '.', Color.white);
-							TTF2.guildMemberInformationLevel.drawChar(x+x_shift+1, y, '.', Color.black);
-							x_shift+= TTF2.guildMemberInformationLevel.getWidth('.');
-							j++;
-						}
-						return;
-					}
-				}
-			}
+			System.out.println("Member information took "+(System.nanoTime()-timer)/1000+" µs to draw.");
 		}
 	}
 	
@@ -1051,10 +1029,10 @@ public class GuildFrame {
 		if(Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 				if(noteTooltip.isHover()) {
-					PopupFrame.activateSetGuildMemberNotePopupInput(memberInformationDisplayed.getId(), memberInformationDisplayed.getNote());
+					PopupFrame.activateSetGuildMemberNotePopupInput(memberInformationDisplayed.getId(), memberInformationDisplayed.getNoteSave());
 				}
 				else if(Mideas.joueur1().getGuildRank().canSeeOfficerNote() && officerNoteTooltip.isHover()) {
-					PopupFrame.activateSetGuildMemberOfficerNotePopupInput(memberInformationDisplayed.getId(), memberInformationDisplayed.getOfficerNote());
+					PopupFrame.activateSetGuildMemberOfficerNotePopupInput(memberInformationDisplayed.getId(), memberInformationDisplayed.getOfficerNoteSave());
 				}
 			}
 		}
@@ -1118,15 +1096,17 @@ public class GuildFrame {
 		float x = X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor();
 		float y = Y_SOCIAL_FRAME+342*Mideas.getDisplayYFactor();
 		int xShift = 0;
-		TTF2.guildMotd.drawStringShadow(x, y, Mideas.joueur1().getGuild().getNumberMember(), Color.white, Color.black, 1, 0, 0);
+		TTF2.guildMotd.drawBegin();
+		TTF2.guildMotd.drawStringShadowPart(x, y, Mideas.joueur1().getGuild().getNumberMember(), Color.white, Color.black, 1, 0, 0);
 		xShift+= TTF2.guildMotd.getWidth(Mideas.joueur1().getGuild().getNumberMember());
-		TTF2.guildMotd.drawStringShadow(x+xShift, y, " Guild Member (", YELLOW, Color.black, 1, 0, 0);
+		TTF2.guildMotd.drawStringShadowPart(x+xShift, y, " Guild Member (", YELLOW, Color.black, 1, 0, 0);
 		xShift+= TTF2.guildMotd.getWidth(" Guild Member (");
-		TTF2.guildMotd.drawStringShadow(x+xShift, y, Mideas.joueur1().getGuild().getNumberOnlineMemberString(), Color.white, Color.black, 1, 0, 0);
+		TTF2.guildMotd.drawStringShadowPart(x+xShift, y, Mideas.joueur1().getGuild().getNumberOnlineMemberString(), Color.white, Color.black, 1, 0, 0);
 		xShift+= TTF2.guildMotd.getWidth(Mideas.joueur1().getGuild().getNumberOnlineMemberString());
-		TTF2.guildMotd.drawStringShadow(x+xShift, y, " Online ", GREEN, Color.black, 1, 0, 0);
+		TTF2.guildMotd.drawStringShadowPart(x+xShift, y, " Online ", GREEN, Color.black, 1, 0, 0);
 		xShift+= TTF2.guildMotd.getWidth("Online ");
-		TTF2.guildMotd.drawStringShadow(x+xShift, y, ")", YELLOW, Color.black, 1, 0, 0);
+		TTF2.guildMotd.drawStringShadowPart(x+xShift, y, ")", YELLOW, Color.black, 1, 0, 0);
+		TTF2.guildMotd.drawEnd();
 	}
 	
 	private static void drawMotd() {
@@ -1144,9 +1124,10 @@ public class GuildFrame {
 		else {
 			color = GREY;
 		}
+		TTF2.guildMotd.drawBegin();
 		while(i < length) {
-			TTF2.guildMotd.drawChar(x+xShift+1, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), Color.black);
-			TTF2.guildMotd.drawChar(x+xShift, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), color);
+			TTF2.guildMotd.drawCharPart(x+xShift+1, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), Color.black);
+			TTF2.guildMotd.drawCharPart(x+xShift, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), color);
 			xShift+= TTF2.guildMotd.getWidth(Mideas.joueur1().getGuild().getTempMotd().charAt(i));
 			if(xShift >= maxWidth) {
 				yShift+= TTF2.guildMotd.getLineHeight();
@@ -1154,6 +1135,7 @@ public class GuildFrame {
 			}
 			i++;
 		}
+		TTF2.guildMotd.drawEnd();
 	}
 	
 	public static boolean isInformationActive() {
@@ -1235,14 +1217,16 @@ public class GuildFrame {
 	
 	static void closeManageFrame() {
 		manageFrameOpen = false;
-		selectedRank.resetTempRank();
+		if(selectedRank != null) {
+			selectedRank.resetTempRank();
+			rankNameEditBox.setText(selectedRank.getName());
+			rankNameInput.setText(selectedRank.getName());
+		}
 		rankNameInput.setIsActive(false);
-		rankNameInput.setText(selectedRank.getName());
 		manageFrameChangeMade = false;
 		manageRankCloseFrameButton.disable();
 		manageRankAcceptButton.disable();
 		rankNameEditBox.setActive(false);
-		rankNameEditBox.setText(selectedRank.getName());
 		manageRankDropDownMenu.setActive(false);
 	}
 	
@@ -1256,5 +1240,11 @@ public class GuildFrame {
 			manageRankDropDownMenu.setMenuText(selectedRank.getName());
 			manageRankDropDownMenu.setValue(selectedRank.getOrder());
 		}
+	}
+	
+	public static void resetFrame() {
+		closeManageFrame();
+		closeMemberInformationFrame();
+		closeGuildInformationFrame();
 	}
 }

@@ -36,20 +36,24 @@ public class PerformanceBarFrame {
 	public static void draw() {
 		if(hoverPerformanceBar) {
 			tooltip.draw();
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x, Display.getHeight()+y, usedRam+Long.toString(Mideas.getUsedRAM()/(1024L*1024L))+mo, Color.white, Color.black, 1);
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x, Display.getHeight()+y+yShift, fps+Mideas.getFps(), Color.white, Color.black, 1);
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x, Display.getHeight()+y+2*yShift, ping+Mideas.getPing(), Color.white, Color.black, 1);
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x, Display.getHeight()+y+3*yShift, drawTime, Color.white, Color.black, 1);
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+탎, Color.white, Color.black, 1);
-			TTF2.statsName.drawStringShadow(Display.getWidth()+x, Display.getHeight()+y+5*yShift, container+(Interface.getContainerDrawTime()/1000)+탎, Color.white, Color.black, 1);
+			TTF2.statsName.drawBegin();
+			TTF2.statsName.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y, usedRam+Long.toString(Mideas.getUsedRAM()/(1024L*1024L))+mo, Color.white, Color.black, 1);
+			TTF2.statsName.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+yShift, fps+Mideas.getFps(), Color.white, Color.black, 1);
+			TTF2.statsName.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+2*yShift, ping+Mideas.getPing(), Color.white, Color.black, 1);
+			TTF2.statsName.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+3*yShift, drawTime, Color.white, Color.black, 1);
+			TTF2.statsName.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+탎, Color.white, Color.black, 1);
+			TTF2.statsName.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+5*yShift, container+(Interface.getContainerDrawTime()/1000)+탎, Color.white, Color.black, 1);
+			TTF2.statsName.drawEnd();
 		}
 		if(topPerformanceBarActive) {
 			Draw.drawColorQuad(0, 0, Display.getWidth(), 15, Color.gray);
-			TTF2.font2.drawStringShadow(1, 0, total+(Mideas.getMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
-			TTF2.font2.drawStringShadow(121, 0, container+(Interface.getContainerMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
-			TTF2.font2.drawStringShadow(241, 0, character+(Interface.getCharacterMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
-			TTF2.font2.drawStringShadow(361, 0, spellbar+(Interface.getSpellBarMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
-			TTF2.font2.drawStringShadow(481, 0, drag+(Interface.getDragMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
+			TTF2.font2.drawBegin();
+			TTF2.font2.drawStringShadowPart(1, 0, total+(Mideas.getMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
+			TTF2.font2.drawStringShadowPart(121, 0, container+(Interface.getContainerMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
+			TTF2.font2.drawStringShadowPart(241, 0, character+(Interface.getCharacterMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
+			TTF2.font2.drawStringShadowPart(361, 0, spellbar+(Interface.getSpellBarMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
+			TTF2.font2.drawStringShadowPart(481, 0, drag+(Interface.getDragMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
+			TTF2.font2.drawEnd();
 		}
 	}
 	

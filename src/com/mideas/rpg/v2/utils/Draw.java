@@ -36,6 +36,14 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 public final class Draw {
 	
+	public final static void drawBegin() {
+		glBegin(GL_QUADS);
+	}
+	
+	public final static void drawEnd() {
+		glEnd();
+	}
+	
 	public final static void drawColorQuad(final float x, final float y, final float width, final float height, final Color color) {
 		drawColorQuad(x, y, width, height, color, color, color, color);
 	}
@@ -72,6 +80,23 @@ public final class Draw {
 		glVertex2f(x, y+height);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
+	}
+	
+	public final static void drawColorQuadPart(final float x, final float y, final float width, final float height, final Color topLeft, final Color topRight, final Color bottomRight, final Color bottomLeft) {
+		glDisable(GL_TEXTURE_2D);
+		glColor4f(topLeft.getRed()/255f, topLeft.getGreen()/255f, topLeft.getBlue()/255f, topLeft.getAlpha()/255f);
+		glVertex2f(x, y);
+		glColor4f(topRight.getRed()/255f, topRight.getGreen()/255f, topRight.getBlue()/255f, topRight.getAlpha()/255f);
+		glVertex2f(x+width, y);
+		glColor4f(bottomRight.getRed()/255f, bottomRight.getGreen()/255f, bottomRight.getBlue()/255f, bottomRight.getAlpha()/255f);
+		glVertex2f(x+width, y+height);
+		glColor4f(bottomLeft.getRed()/255f, bottomLeft.getGreen()/255f, bottomLeft.getBlue()/255f, bottomLeft.getAlpha()/255f);
+		glVertex2f(x, y+height);
+		glEnable(GL_TEXTURE_2D);
+	}
+	
+	public final static void drawColorQuadPart(final float x, final float y, final float width, final float height, final Color color) {
+		drawColorQuadPart(x, y, width, height, color, color, color, color);
 	}
 	
 	public final static void drawColorQuadBorder(final float x, final float y, final float width, final float height, final Color color) {
@@ -128,6 +153,21 @@ public final class Draw {
 		final float xTo = (texXOrg+texCoWidth)/texture.getWidth();
 		final float yFrom = texYOrg/texture.getHeight();
 		final float yTo = (texYOrg+texCoHeight)/texture.getHeight();
+		glTexCoord2f(xFrom, yFrom);
+		glVertex2f(x, y);
+		glTexCoord2f(xFrom, yTo);
+		glVertex2f(x, y+height);
+		glTexCoord2f(xTo, yTo);
+		glVertex2f(x+width, y+height);
+		glTexCoord2f(xTo, yFrom);
+		OpenGL.glVertex2f(x+width, y);
+	}
+	
+	public final static void drawQuadPart(final Texture texture, final float x, final float y, final float width, final float height) {
+		final float xFrom = 0;
+		final float xTo = 1;
+		final float yFrom = 0;
+		final float yTo = 1;
 		glTexCoord2f(xFrom, yFrom);
 		glVertex2f(x, y);
 		glTexCoord2f(xFrom, yTo);

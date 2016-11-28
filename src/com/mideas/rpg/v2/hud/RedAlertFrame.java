@@ -20,6 +20,7 @@ public class RedAlertFrame {
 	
 	public static void draw() {
 		int i = alertList.size()-1;
+		TTF2.selectScreenDeleteCharacterConfirm.drawBegin();
 		while(i >= 0 && i < alertList.size()) {
 			if(System.currentTimeMillis()-alertList.get(i).getTimer() >= OPACITY_DECREASE_TIMER) {
 				alertList.get(i).decreaseOpacity(-1/(Mideas.FPS*OPACITY_DECREASE_TIMER/1000f));
@@ -29,9 +30,10 @@ public class RedAlertFrame {
 					continue;
 				}
 			}
-			TTF2.selectScreenDeleteCharacterConfirm.drawString(Display.getWidth()/2-TTF2.selectScreenDeleteCharacterConfirm.getWidth(alertList.get(i).getMessage()), Y_DRAW+(alertList.size()-1-i)*Y_SHIFT, alertList.get(i).getMessage(), RED, alertList.get(i).getOpacity());
+			TTF2.selectScreenDeleteCharacterConfirm.drawStringPart(Display.getWidth()/2-TTF2.selectScreenDeleteCharacterConfirm.getWidth(alertList.get(i).getMessage()), Y_DRAW+(alertList.size()-1-i)*Y_SHIFT, alertList.get(i).getMessage(), RED, alertList.get(i).getOpacity());
 			i--;
 		}
+		TTF2.selectScreenDeleteCharacterConfirm.drawEnd();
 	}
 	
 	public static void addNewAlert(String message) {

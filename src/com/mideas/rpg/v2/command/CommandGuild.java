@@ -191,12 +191,12 @@ public class CommandGuild extends Command {
 		else if(packetId == PacketID.GUILD_SET_MEMBER_NOTE) {
 			int id = ConnectionManager.getConnection().readInt();
 			String note = ConnectionManager.getConnection().readString();
-			Mideas.joueur1().getGuild().getMember(id).setNote(note);
+			Mideas.joueur1().getGuild().getMember(id).setNoteSave(note);
 		}
 		else if(packetId == PacketID.GUILD_SET_MEMBER_OFFICER_NOTE) {
 			int id = ConnectionManager.getConnection().readInt();
 			String officerNote = ConnectionManager.getConnection().readString();
-			Mideas.joueur1().getGuild().getMember(id).setOfficerNote(officerNote);
+			Mideas.joueur1().getGuild().getMember(id).setOfficerNoteSave(officerNote);
 		}
 	}
 	

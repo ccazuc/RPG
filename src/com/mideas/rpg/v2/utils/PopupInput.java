@@ -57,9 +57,11 @@ public class PopupInput extends Popup {
 	public void draw() {
 		if(this.isActive) {
 			this.background.draw();
-			TTF2.popup.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.white, Color.black, 1, 0, 0);
 			this.inputBar.draw();
-			TTF2.popup.drawStringShadow(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Color.white, Color.black, 1, 0, 0);
+			TTF2.popup.drawBegin();
+			TTF2.popup.drawStringShadowPart(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.white, Color.black, 1, 0, 0);
+			TTF2.popup.drawStringShadowPart(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Color.white, Color.black, 1, 0, 0);
+			TTF2.popup.drawEnd();
 			if(this.input.isActive() && System.currentTimeMillis()%1000 < 500) {
 				Draw.drawColorQuad(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor()+this.input.getCursorShift(), this.y+51*Mideas.getDisplayYFactor(), 5*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayYFactor(), Color.white);
 			}

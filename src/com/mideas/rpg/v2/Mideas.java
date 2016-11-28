@@ -181,6 +181,7 @@ public class Mideas {
 		authServerConnectionRunnable = new AuthServerConnectionRunnable();
 		authServerConnectionThread = new Thread(authServerConnectionRunnable);
 		authServerConnectionThread.start();
+		System.out.println((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory()));
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		Keyboard.enableRepeatEvents(true);
@@ -264,7 +265,7 @@ public class Mideas {
 			System.gc();
 			LAST_GC_TIMER = System.currentTimeMillis();
 		}
-		if(joueur1.getGuild() != null && System.currentTimeMillis()-LAST_GUILD_LOGIN_TIMER_UPDATE >= Guild.LAST_ONLINE_TIMER_UPDATE_FREQUENCE) {
+		if(joueur1 != null && joueur1.getGuild() != null && System.currentTimeMillis()-LAST_GUILD_LOGIN_TIMER_UPDATE >= Guild.LAST_ONLINE_TIMER_UPDATE_FREQUENCE) {
 			joueur1.getGuild().updateLastLoginTimer();
 		}
 		if(CommandPing.getPingStatus() && System.currentTimeMillis()-CommandPing.getTimer() > TIMEOUT_TIMER) {
@@ -300,8 +301,13 @@ public class Mideas {
 		PopupFrame.updateSize();
 		FriendsFrame.updateSize();
 		GuildFrame.updateSize();
-		if(joueur1 != null && joueur1.getFirstProfession() != null) {
-			joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
+		if(joueur1 != null) {
+			if(joueur1.getFirstProfession() != null) {
+				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
+			}
+			if(joueur1.getGuild() != null) {
+				joueur1.getGuild().updateMemberNote();
+			}
 		}
 	}
 	
