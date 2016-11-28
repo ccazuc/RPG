@@ -63,9 +63,7 @@ public class Popup {
 	}
 	
 	public void setPopup(Button button, String msg) {
-		System.out.println("Activated Popup: "+activatedPopup);
 		if(activatedPopup != null && activatedPopup.isActive) {
-			System.out.println(activatedPopup);
 			activatedPopup.popupClosed();
 		}
 		else if(this.isActive) {

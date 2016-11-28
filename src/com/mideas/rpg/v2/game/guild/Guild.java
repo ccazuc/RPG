@@ -19,6 +19,10 @@ public class Guild {
 	private ArrayList<GuildMember> memberList;
 	private ArrayList<GuildRank> rankList;
 	
+	public final static int MEMBER_NOTE_MAX_LENGTH = 50;
+	public final static int MEMBER_OFFICER_NOTE_MAX_LENGTH = 50;
+	public final static int LAST_ONLINE_TIMER_UPDATE_FREQUENCE = 60000;
+	
 	public Guild(int id, int leader_id, String name, String information, String motd, ArrayList<GuildMember> memberList, ArrayList<GuildRank> rankList) {
 		this.information = information;
 		this.memberList = memberList;
@@ -42,17 +46,25 @@ public class Guild {
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));*/
-		this.memberList.add(new GuildMember(2, "A", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "D", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "E", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "f", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "z", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "al", 50, this.rankList.get(1), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "df", 50, this.rankList.get(2), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "Lf", 50, this.rankList.get(3), true, "", "", ClassType.ROGUE));
-		this.memberList.add(new GuildMember(2, "FS", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
+		this.memberList.add(new GuildMember(2, "A", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE, 0));
+		this.memberList.add(new GuildMember(2, "D", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE, 0));
+		this.memberList.add(new GuildMember(2, "E", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE, 0));
+		this.memberList.add(new GuildMember(2, "f", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE, 0));
+		this.memberList.add(new GuildMember(2, "z", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE, 0));
+		this.memberList.add(new GuildMember(2, "al", 50, this.rankList.get(1), true, "", "", ClassType.ROGUE, 0));
+		this.memberList.add(new GuildMember(2, "df", 50, this.rankList.get(2), true, "", "", ClassType.ROGUE, 0));
+		this.memberList.add(new GuildMember(2, "Lf", 50, this.rankList.get(3), true, "", "", ClassType.ROGUE, 0));
+		this.memberList.add(new GuildMember(2, "FS", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE, 0));
 		this.numberMembers = String.valueOf(this.memberList.size());
 		initNumberOnlineMembers();
+	}
+	
+	public void updateLastLoginTimer() {
+		int i = 0;
+		while(i < this.memberList.size()) {
+			this.memberList.get(i).updateLastLoginTimerString();
+			i++;
+		}
 	}
 	
 	public GuildRank getRank(int rank_order) {

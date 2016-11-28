@@ -19,8 +19,17 @@ public class GuildMember {
 	private String levelString;
 	private Color color;
 	private String informationString;
+	private long lastLoginTimer;
+	private String lastLoginTimerString;
 	
-	public GuildMember(int id, String name, int level, GuildRank rank, boolean isOnline, String note, String officer_note, ClassType classType) {
+	private final static long MS_IN_A_YEAR = 31536000000l;
+	private final static long MS_IN_A_MONTH = 1036800000l;
+	private final static long MS_IN_A_WEEK = 604800000l;
+	private final static long MS_IN_A_DAY = 86400000l;
+	private final static long MS_IN_AN_HOUR = 3600000l;
+	private final static long MS_IN_A_MINUTE = 60000l;
+	
+	public GuildMember(int id, String name, int level, GuildRank rank, boolean isOnline, String note, String officer_note, ClassType classType, long lastLoginTimer) {
 		this.id = id;
 		this.name = name;
 		this.level = level;
@@ -32,8 +41,37 @@ public class GuildMember {
 		this.classType = classType;
 		this.color = Joueur.convClassTypeToColor(this.classType);
 		this.classTypeString = Joueur.convClassTypeToString(this.classType);
-		this.informationString = this.classTypeString+" niveau "+this.levelString;
+		this.informationString = this.classTypeString+" level "+this.levelString;
+		this.lastLoginTimer = lastLoginTimer;
+		updateLastLoginTimerString();
 	}
+	
+	public void updateLastLoginTimerString() {
+		if(!this.isOnline) {
+			long delta = System.currentTimeMillis()-this.lastLoginTimer;
+			if(delta >= MS_IN_A_YEAR) {
+				this.lastLoginTimerString = (delta/MS_IN_A_YEAR)+" year";
+			}
+			else if(delta >= MS_IN_A_MONTH) {
+				this.lastLoginTimerString = (delta/MS_IN_A_MONTH)+" month";
+			}
+			else if(delta >= MS_IN_A_WEEK) {
+				this.lastLoginTimerString = (delta/MS_IN_A_WEEK)+" week";
+			}
+			else if(delta >= MS_IN_A_DAY) {
+				this.lastLoginTimerString = (delta/MS_IN_A_DAY)+" day";
+			}
+			else if(delta >= MS_IN_AN_HOUR) {
+				this.lastLoginTimerString = (delta/MS_IN_AN_HOUR)+" hour";
+			}
+			else if(delta >= MS_IN_A_MINUTE) {
+				this.lastLoginTimerString = (delta/MS_IN_A_MINUTE)+" minute";
+			}
+		}
+		else {
+			this.lastLoginTimerString = "Online";
+		}
+ 	}
 	
 	public int getId() {
 		return this.id;
@@ -41,6 +79,22 @@ public class GuildMember {
 	
 	public ClassType getClassType() {
 		return this.classType;
+	}
+	
+	public long getLastLoginTimer() {
+		return this.lastLoginTimer;
+	}
+	
+	public void setLastLoginTimer(long lastLoginTimer) {
+		this.lastLoginTimer = lastLoginTimer;
+	}
+	
+	public String getLastLoginTimerString() {
+		return this.lastLoginTimerString;
+	}
+	
+	public void setLastLoginTimerString(String lastLoginTimerString) {
+		this.lastLoginTimerString = lastLoginTimerString;
 	}
 	
 	public String getClassTypeString() {

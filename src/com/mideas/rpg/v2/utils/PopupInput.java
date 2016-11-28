@@ -101,21 +101,20 @@ public class PopupInput extends Popup {
 		this.isActive = false;
 	}
 
-	public void setPopup(Button button, String msg, float input_bar_width) {
+	public void setPopup(Button button, String msg, float input_bar_width, int inputMaxLength) {
 		if(activatedPopup != null && activatedPopup.isActive) {
 			activatedPopup.popupClosed();
 		}
 		else if(this.isActive) {
 			popupClosed();
 		}
-		System.out.println(input_bar_width*Mideas.getDisplayXFactor()+" "+this.x_size);
 		if(input_bar_width*Mideas.getDisplayXFactor() > this.x_size-40*Mideas.getDisplayXFactor()) {
 			this.x_size = (int)(input_bar_width*Mideas.getDisplayXFactor()+45*Mideas.getDisplayXFactor());
 			this.x = Display.getWidth()/2-this.x_size/2;
 			this.x_size_save = (int)input_bar_width+45;
 			this.background.update(this.x, this.y, this.x_size, this.y_size);
 		}
-		System.out.println(input_bar_width*Mideas.getDisplayXFactor()+" "+this.x_size);
+		this.input.setMaxLength(inputMaxLength);
 		this.inputBar.setWidth(input_bar_width*Mideas.getDisplayXFactor());
 		this.inputBar.setX(Display.getWidth()/2-this.inputBar.getWidth()/2);
 		this.x_size_input_bar_save = (int)input_bar_width;

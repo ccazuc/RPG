@@ -30,6 +30,7 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.ClassManager;
+import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
@@ -103,6 +104,7 @@ public class Mideas {
 	private final static long MOUSE_EVENT_UPDATE_FREQUENCE = 1000;
 	private static long LAST_GC_TIMER;
 	private final static long GC_FREQUENCE = 10000;
+	private static long LAST_GUILD_LOGIN_TIMER_UPDATE;
 	
 	private static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -261,6 +263,9 @@ public class Mideas {
 		if(System.currentTimeMillis()-LAST_GC_TIMER >= GC_FREQUENCE) {
 			System.gc();
 			LAST_GC_TIMER = System.currentTimeMillis();
+		}
+		if(joueur1.getGuild() != null && System.currentTimeMillis()-LAST_GUILD_LOGIN_TIMER_UPDATE >= Guild.LAST_ONLINE_TIMER_UPDATE_FREQUENCE) {
+			joueur1.getGuild().updateLastLoginTimer();
 		}
 		if(CommandPing.getPingStatus() && System.currentTimeMillis()-CommandPing.getTimer() > TIMEOUT_TIMER) {
 			CommandPing.setPingStatus(false);

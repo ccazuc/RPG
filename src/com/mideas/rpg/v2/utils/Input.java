@@ -190,6 +190,10 @@ public class Input {
 		return false;
 	}
 	
+	public void setMaxLength(int maxLength) {
+		this.maxLength = maxLength;
+	}
+	
 	public boolean keyEvent(char c) {return false;}
 	
 	private boolean isValidCharacter(char c) {

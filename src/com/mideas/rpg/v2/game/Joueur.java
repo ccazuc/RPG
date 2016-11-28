@@ -34,6 +34,7 @@ import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
+import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
 
 public class Joueur extends Unit {
 
@@ -98,17 +99,6 @@ public class Joueur extends Unit {
 		this.firstProfession = ProfessionManager.getProfession(0);
 		//this.classString = convClassTypeToString(this.classType);
 		this.friendList = new ArrayList<Friend>();
-		this.friendList.add(new Friend(2, "Jean-42"));
-		this.friendList.add(new Friend(2, "Jean-4"));
-		this.friendList.add(new Friend(2, "Jean-"));
-		this.friendList.add(new Friend(2, "Jean"));
-		this.friendList.add(new Friend(2, "Jea"));
-		this.friendList.add(new Friend(2, "Je"));
-		this.friendList.add(new Friend(2, "J"));
-		this.friendList.add(new Friend(2, "Test"));
-		this.friendList.add(new Friend(2, "Te"));
-		this.friendList.add(new Friend(2, "T"));
-		this.friendList.add(new Friend(2, "QDQODK"));
 		this.ignoreList = new ArrayList<Ignore>();
 		this.ignoreList.add(new Ignore(1, "Test"));
 		this.ignoreList.add(new Ignore(1, "Test"));
@@ -611,13 +601,29 @@ public class Joueur extends Unit {
 	public void removeFriend(int id) {
 		int i = 0;
 		while(i < this.friendList.size()) {
-			if(this.friendList.get(i).getCharacterId() == id) {
-				ChatFrame.addMessage(new Message(this.friendList.get(i).getName()+" is no longer in your friend list.", false, MessageType.SELF));
+			Friend friend = this.friendList.get(i);
+			if(friend.getCharacterId() == id) {
+				ChatFrame.addMessage(new Message(friend.getName()+" is no longer in your friend list.", false, MessageType.SELF));
 				this.friendList.remove(i);
+				if(this.friendList.size() == 0) {
+					FriendsFrame.resetSelectedFriend();
+				}
 				return;
 			}
 			i++;
 		}
+	}
+	
+	public Friend getFriend(int id) {
+		int i = 0;
+		while(i < this.friendList.size()) {
+			Friend friend = this.friendList.get(i);
+			if(friend.getCharacterId() == id) {
+				return friend;
+			}
+			i++;
+		}
+		return null;
 	}
 	
 	public void sortFriendList() {

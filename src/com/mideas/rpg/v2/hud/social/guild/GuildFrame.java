@@ -989,10 +989,12 @@ public class GuildFrame {
 			TTF2.guildMemberInformationLevel.drawStringShadow(x+TTF2.guildMemberInformationLevel.getWidth("Last connection : "), y, "Unknown", Color.white, Color.black, 1, 0, 0);
 			y+= (TTF2.guildMemberInformationLevel.getLineHeight()+1)*Mideas.getDisplayYFactor();
 			TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Note : ", YELLOW, Color.black, 1, 0, 0);
+			drawNote(x+5, y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getNote(), false);
 			if(Mideas.joueur1().getGuildRank().canSeeOfficerNote()) {
 				y+= 61*Mideas.getDisplayYFactor();
 				TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Officer note :", YELLOW, Color.black, 1, 0, 0);
 				officerNoteTooltip.draw();
+				drawNote(x+5, y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getOfficerNote(), false);
 				Draw.drawQuad(Sprites.guild_member_display_button_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+263*Mideas.getDisplayYFactor());
 			}
 			else {
@@ -1000,6 +1002,45 @@ public class GuildFrame {
 			}
 			memberDisplayInviteButton.draw();
 			memberDisplayKickButton.draw();
+		}
+	}
+	
+	private static void drawNote(float x, float y, String note, boolean isOfficer) {
+		if(note != null) {
+			if(note.equals("")) {
+				if(isOfficer) {
+					TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Click here to write\n an officer note.", Color.white, Color.black, 1, 0, 0);
+				}
+				else {
+					TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Click here to write\n a note.", Color.white, Color.black, 1, 0, 0);
+				}
+			}
+			else {
+				int i = 0;
+				int x_shift = 0;
+				boolean lineChange = false;
+				while(i < note.length()) {
+					TTF2.guildMemberInformationLevel.drawChar(x+x_shift+1, y, note.charAt(i), Color.black);
+					TTF2.guildMemberInformationLevel.drawChar(x+x_shift, y, note.charAt(i), Color.white);
+					x_shift+= TTF2.guildMemberInformationLevel.getWidth(note.charAt(i));
+					i++;
+					if(!lineChange && x_shift >= 180*Mideas.getDisplayXFactor()) {
+						x_shift = 0;
+						y+= TTF2.guildMemberInformationLevel.getLineHeight();
+						lineChange = true;
+					}
+					else if(lineChange && i < note.length()-3 && x_shift+TTF2.guildMemberInformationLevel.getWidth(note.charAt(i+1))+TTF2.guildMemberInformationLevel.getWidth(note.charAt(i+2))+TTF2.guildMemberInformationLevel.getWidth(note.charAt(i+3)) >= 180*Mideas.getDisplayXFactor()) {
+						int j = 0;
+						while(j < 3) {
+							TTF2.guildMemberInformationLevel.drawChar(x+x_shift, y, '.', Color.white);
+							TTF2.guildMemberInformationLevel.drawChar(x+x_shift+1, y, '.', Color.black);
+							x_shift+= TTF2.guildMemberInformationLevel.getWidth('.');
+							j++;
+						}
+						return;
+					}
+				}
+			}
 		}
 	}
 	

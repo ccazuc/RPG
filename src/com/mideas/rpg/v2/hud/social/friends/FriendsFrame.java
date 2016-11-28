@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.hud.social.friends;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
@@ -14,7 +13,6 @@ import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.game.Friend;
 import com.mideas.rpg.v2.game.Ignore;
 import com.mideas.rpg.v2.hud.PopupFrame;
-import com.mideas.rpg.v2.hud.social.guild.AddGuildMemberInputFrame;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.FrameTab;
@@ -210,6 +208,11 @@ public class FriendsFrame {
 		if(friend_tab_active) {
 			hoveredFriend = -1;
 			int i = 0;
+			final int FL_SIZE = Mideas.joueur1().getFriendList().size();
+			if(FL_SIZE > 10) {
+				friendScrollbar.draw();
+				i = (int)((FL_SIZE-FL_MAXIMUM_DISPLAY)*friendScrollbar.getScrollPercentage());
+			}
 			float y = Y_SOCIAL_FRAME+80*Mideas.getDisplayYFactor();
 			float yShift = 32*Mideas.getDisplayYFactor();
 			while(i < Mideas.joueur1().getFriendList().size()) {
@@ -286,6 +289,10 @@ public class FriendsFrame {
 			if(ignorePlayer.event()) return true;
 		}
 		return false;
+	}
+	
+	public static void resetSelectedFriend() {
+		selectedFriend = null;
 	}
 	
 	private static boolean isHover(float y) {

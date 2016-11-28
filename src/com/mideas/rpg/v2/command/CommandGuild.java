@@ -65,6 +65,7 @@ public class CommandGuild extends Command {
 					String officerNote = ConnectionManager.getConnection().readString();
 					int rank = ConnectionManager.getConnection().readInt();
 					boolean isOnline = ConnectionManager.getConnection().readBoolean();
+					long lastLoginTimer = ConnectionManager.getConnection().readLong();
 					GuildRank guildRank = null;
 					int j = 0;
 					while(j < rankList.size()) {
@@ -74,7 +75,7 @@ public class CommandGuild extends Command {
 						}
 						j++;
 					}
-					memberList.add(new GuildMember(id, name, level, guildRank, isOnline, note, officerNote, type));
+					memberList.add(new GuildMember(id, name, level, guildRank, isOnline, note, officerNote, type, lastLoginTimer));
 					i++;
 				}
 			}
@@ -87,6 +88,7 @@ public class CommandGuild extends Command {
 					String note = ConnectionManager.getConnection().readString();
 					int rank = ConnectionManager.getConnection().readInt();
 					boolean isOnline = ConnectionManager.getConnection().readBoolean();
+					long lastLoginTimer = ConnectionManager.getConnection().readLong();
 					GuildRank guildRank = null;
 					int j = 0;
 					while(j < rankList.size()) {
@@ -96,7 +98,7 @@ public class CommandGuild extends Command {
 						}
 						j++;
 					}
-					memberList.add(new GuildMember(id, name, level, guildRank, isOnline, note, "", type));
+					memberList.add(new GuildMember(id, name, level, guildRank, isOnline, note, "", type, lastLoginTimer));
 					i++;
 				}
 			}
@@ -116,7 +118,8 @@ public class CommandGuild extends Command {
 			int level = ConnectionManager.getConnection().readInt();
 			boolean isOnline = ConnectionManager.getConnection().readBoolean();
 			ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
-			Mideas.joueur1().getGuild().addMember(new GuildMember(id, name, level, rank, isOnline, note, officerNote, type));
+			long lastLoginTimer = ConnectionManager.getConnection().readLong();
+			Mideas.joueur1().getGuild().addMember(new GuildMember(id, name, level, rank, isOnline, note, officerNote, type, lastLoginTimer));
 			ChatFrame.addMessage(new Message(name+" joined the guild.", false, MessageType.SELF));
 		}
 		else if(packetId == PacketID.GUILD_KICK_MEMBER) {
@@ -137,7 +140,10 @@ public class CommandGuild extends Command {
 			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
 			if(member != null) {
 				member.setOnlineStatus(true);
-				ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF));
+				member.updateLastLoginTimerString();
+				if(Mideas.joueur1().getFriend(id) != null) {
+					ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF));
+				}
 				Mideas.joueur1().getGuild().memberLoggedIn();
 			}
 		}
@@ -146,7 +152,11 @@ public class CommandGuild extends Command {
 			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
 			if(member != null) {
 				member.setOnlineStatus(false);
-				ChatFrame.addMessage(new Message(member.getName()+" is now offline.", false, MessageType.SELF));
+				member.setLastLoginTimer(System.currentTimeMillis());
+				member.updateLastLoginTimerString();
+				if(Mideas.joueur1().getFriend(id) != null) {
+					ChatFrame.addMessage(new Message(member.getName()+" is now offline.", false, MessageType.SELF));
+				}
 				Mideas.joueur1().getGuild().memberLoggedOut();
 			}
 		}

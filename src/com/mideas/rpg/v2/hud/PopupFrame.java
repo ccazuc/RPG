@@ -7,6 +7,7 @@ import com.mideas.rpg.v2.command.CommandFriend;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandIgnore;
 import com.mideas.rpg.v2.command.CommandParty;
+import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Popup;
 import com.mideas.rpg.v2.utils.PopupInput;
@@ -99,29 +100,29 @@ public class PopupFrame {
 	}
 	
 	public static void activateAddFriendPopupInput() {
-		popupInput.setPopup(addFriendButton, "Add Friend:", 170);
+		popupInput.setPopup(addFriendButton, "Add Friend:", 170, 20);
 		popupInput.setTextTypeAccept();
 	}
 	
 	public static void activateAddIgnorePopupInput() {
-		popupInput.setPopup(addIgnoreButton, "Ignore Player:", 170);
+		popupInput.setPopup(addIgnoreButton, "Ignore Player:", 170, 20);
 		popupInput.setTextTypeAccept();
 	}
 	
 	public static void activateAddGuildMemberPopupInput() {
-		popupInput.setPopup(addGuildMemberButton, "Add Guild Member:", 170);
+		popupInput.setPopup(addGuildMemberButton, "Add Guild Member:", 170, 20);
 		popupInput.setTextTypeAccept();
 	}
 	
 	public static void activateSetGuildMemberNotePopupInput(int id, String text) {
-		popupInput.setPopup(setGuildMemberNoteButton, "Write Player Note:", 430);
+		popupInput.setPopup(setGuildMemberNoteButton, "Write Player Note:", 430, Guild.MEMBER_NOTE_MAX_LENGTH);
 		popupInput.setInputText(text);
 		popupInput.setTextTypeAccept();
 		PopupFrame.id = id;
 	}
 	
 	public static void activateSetGuildMemberOfficerNotePopupInput(int id, String text) {
-		popupInput.setPopup(setGuildMemberOfficerNoteButton, "Write Player Officer Note:", 430);
+		popupInput.setPopup(setGuildMemberOfficerNoteButton, "Write Player Officer Note:", 430, Guild.MEMBER_OFFICER_NOTE_MAX_LENGTH);
 		popupInput.setInputText(text);
 		popupInput.setTextTypeAccept();
 		PopupFrame.id = id;
