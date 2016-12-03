@@ -5,7 +5,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
@@ -63,18 +62,18 @@ public class LoginScreen {
 	}
 	
 	public static boolean mouseEvent() {
-		if(!Interface.getHasLoggedIn()) {
-			alert.event();
-			if(!alert.isActive()) {
-				leaveButton.event();
-				connectionButton.event();
-				if((Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) && Mouse.getEventButtonState()) {
-					if(Mideas.mouseX() >= Display.getWidth()/2-105*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+105*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2+8*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()/2+43*Mideas.getDisplayYFactor()) {
-						account.setIsActive(true);
-					}
-					else if(Mideas.mouseX() >= Display.getWidth()/2-105*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+105*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2+108*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()/2+143*Mideas.getDisplayYFactor()) {
-						password.setIsActive(true);
-					}
+		if(alert.event()) return true;
+		if(!alert.isActive()) {
+			if(leaveButton.event()) return true;
+			if(connectionButton.event()) return true;
+			if((Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) && Mouse.getEventButtonState()) {
+				if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2-105*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+105*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2+8*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()/2+43*Mideas.getDisplayYFactor()) {
+					account.setIsActive(true);
+					Mideas.setHover(false);
+				}
+				else if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2-105*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+105*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2+108*Mideas.getDisplayYFactor() && Mideas.mouseY() <= Display.getHeight()/2+143*Mideas.getDisplayYFactor()) {
+					password.setIsActive(true);
+					Mideas.setHover(false);
 				}
 			}
 		}
@@ -152,7 +151,7 @@ public class LoginScreen {
 			passwordText = "";
 			alert.setText("Connection...");
 			alert.setActive();
-			AuthServerConnectionRunnable.setShouldConnect(true, account.getText(), password.getText());
+			AuthServerConnectionRunnable.connectToAuthServer(account.getText(), password.getText());
 			password.resetText();
 		}
 	}

@@ -35,7 +35,6 @@ import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
 import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
 import com.mideas.rpg.v2.hud.PopupFrame;
-import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.RedAlertFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.ShortcutFrame;
@@ -77,7 +76,6 @@ public class Interface {
 	private static boolean isBagFullyLoaded;
 	private static boolean isSpellbarFullyLoaded = true;
 	private static boolean socketingFrameActive;
-	private static boolean isConnectedToWorldServer;
 	private static boolean socialFrameActive;
 	private static double time;
 	
@@ -104,9 +102,6 @@ public class Interface {
 			if(!hasLoggedInToAuth) {
 				LoginScreen.draw();
 				return;
-			}
-			else if(!isConnectedToWorldServer) {
-				RealmListFrame.draw();
 			}
 			else if(Mideas.joueur1() == null) {
 				SelectScreen.draw();
@@ -220,11 +215,6 @@ public class Interface {
 		}
 		else if(!hasLoggedInToAuth) {
 			if(LoginScreen.mouseEvent()) {
-				return true;
-			}
-		}
-		else if(!isConnectedToWorldServer) {
-			if(RealmListFrame.mouseEvent()) {
 				return true;
 			}
 		}
@@ -525,9 +515,6 @@ public class Interface {
 				else if(!hasLoggedInToAuth) {
 					LoginScreen.event();
 				}
-				else if(!isConnectedToWorldServer) {
-					RealmListFrame.event();
-				}
 				else if(Mideas.joueur1() == null) {
 					SelectScreen.event();
 				}
@@ -547,10 +534,6 @@ public class Interface {
 	
 	public static void setSocialFrameStatus(boolean we) {
 		socialFrameActive = we;
-	}
-	
-	public static void setIsConnectedToWorldServer(boolean we) {
-		isConnectedToWorldServer = we;
 	}
 	
 	public static void setTradeFrameStatus(boolean we) {
@@ -754,6 +737,8 @@ public class Interface {
 		ContainerFrame.setBagOpen(4, false);
 		closeBagEvent();
 		ChatFrame.clearChat();
-		GuildFrame.resetFrame();
+		if(Mideas.joueur1().getGuild() != null) {
+			GuildFrame.resetFrame();
+		}
 	}
 }

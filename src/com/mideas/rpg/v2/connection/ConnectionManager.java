@@ -42,6 +42,7 @@ import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.RealmListFrame;
+import com.mideas.rpg.v2.hud.SelectScreen;
 
 import static com.mideas.rpg.v2.connection.PacketID.*;
 
@@ -200,7 +201,8 @@ public class ConnectionManager {
 				close();
 				closeAuth();
 				Interface.setHasLoggedInToAuth(false);
-				Interface.setIsConnectedToWorldServer(false);
+				SelectScreen.setRealmScreenActive(true);
+				SelectScreen.setIsConnectedToWorldServer(false);
 				RealmListFrame.clearRealmList();
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);
@@ -227,7 +229,8 @@ public class ConnectionManager {
 				closeAuth();
 				close();
 				Interface.setHasLoggedInToAuth(false);
-				Interface.setIsConnectedToWorldServer(false);
+				SelectScreen.setRealmScreenActive(true);
+				SelectScreen.setIsConnectedToWorldServer(false);
 				RealmListFrame.clearRealmList();
 				Mideas.setJoueur1Null();
 				Mideas.setAccountId(0);

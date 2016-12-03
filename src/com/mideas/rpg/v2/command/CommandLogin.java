@@ -13,6 +13,7 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.RealmListFrame;
+import com.mideas.rpg.v2.hud.SelectScreen;
 
 public class CommandLogin extends Command {
 
@@ -60,10 +61,13 @@ public class CommandLogin extends Command {
 				ConnectionManager.getConnection().writeDouble(key);
 				ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
 				ConnectionManager.getConnection().send();
+				SelectScreen.getAlert().setInactive();
+				SelectScreen.setRealmScreenActive(false);
 				System.out.println("LOGINr:LOGIN_REALM_ACCEPTED");
 			}
 			else {
-				CommandLogout.write();
+				SelectScreen.getAlert().setInactive();
+				SelectScreen.setRealmScreenActive(true);
 				System.out.println("CommandLogin: cannot connect to worldServer");
 			}
 		}
@@ -78,7 +82,7 @@ public class CommandLogin extends Command {
 		}
 	}
 	
-	public static void loginRealm(int id, String name) {
+	public static void loginRealm(int id) {
 		ConnectionManager.getAuthConnection().writeByte(PacketID.LOGIN_REALM);
 		ConnectionManager.getAuthConnection().writeInt(id);
 		ConnectionManager.getAuthConnection().send();

@@ -1,15 +1,18 @@
 package com.mideas.rpg.v2.connection;
 
+import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.hud.LoginManager;
 import com.mideas.rpg.v2.hud.LoginScreen;
 
 public class AuthServerConnectionRunnable implements Runnable {
 
-	private static boolean shouldConnect;
+	private static boolean shouldConnectToAuth;
+	private static boolean shouldConnectToWorld;
 	private static String account;
 	private static String password;
 	private final static int LOOP_TIMER = 50;
 	private static boolean run = true;
+	private static int realmId;
 	
 	@Override
 	public void run() {
@@ -18,11 +21,15 @@ public class AuthServerConnectionRunnable implements Runnable {
 		float timer;
 		while(run) {
 			timer = System.currentTimeMillis();
-			if(shouldConnect) {
+			if(shouldConnectToAuth) {
 				if(LoginManager.checkLogin(account, password)) {
 					LoginScreen.loginSuccess();
 				}
-				shouldConnect = false;
+				shouldConnectToAuth = false;
+			}
+			if(shouldConnectToWorld) {
+				CommandLogin.loginRealm(realmId);
+				shouldConnectToWorld = false;
 			}
 			delta = System.currentTimeMillis()-timer;
 			if(delta < LOOP_TIMER) {
@@ -40,8 +47,13 @@ public class AuthServerConnectionRunnable implements Runnable {
 		run = we;
 	}
 	
-	public static void setShouldConnect(boolean we, String account, String password) {
-		shouldConnect = we;
+	public static void connectToWorldServer(int realmId) {
+		shouldConnectToWorld = true;
+		AuthServerConnectionRunnable.realmId = realmId;
+	}
+	
+	public static void connectToAuthServer(String account, String password) {
+		shouldConnectToAuth = true;
 		AuthServerConnectionRunnable.account = account;
 		AuthServerConnectionRunnable.password = password;
 	}

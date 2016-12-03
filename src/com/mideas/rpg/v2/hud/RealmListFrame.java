@@ -10,7 +10,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF2;
 import com.mideas.rpg.v2.Window;
-import com.mideas.rpg.v2.command.CommandLogin;
+import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.game.WorldServer;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
@@ -25,20 +25,29 @@ public class RealmListFrame {
 		@Override
 		public void eventButtonClick() {
 			if(selectedRealm != null) {
-				CommandLogin.loginRealm(selectedRealm.getRealmId(), selectedRealm.getRealmName());
+				SelectScreen.setRealmScreenActive(false);
+				SelectScreen.setAlert("Connecting to server...");
+				AuthServerConnectionRunnable.connectToWorldServer(selectedRealm.getRealmId());
+				SelectScreen.resetCharacterList();
+				this.reset();
 			}
+		}
+		
+		@Override
+		public boolean activateCondition() {
+			return selectedRealm != null;
 		}
 	};
 	private static Button cancelButton = new Button(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 152*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor(), "Cancel", 18, 2) {
 		@Override
 		public void eventButtonClick() {
-			
+			SelectScreen.setRealmScreenActive(false);
+			this.reset();
 		}
 	};
 	
 	public static void draw() {
 		float yShift = 29*Mideas.getDisplayYFactor();
-		Draw.drawQuadBG(Sprites.realm_list_background);
 		Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), BG_COLOR);
 		Draw.drawQuad(Sprites.realm_list_box, Display.getWidth()/2+5*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-350*Mideas.getDisplayYFactor());
 		int i = 0;
@@ -63,12 +72,14 @@ public class RealmListFrame {
 		return false;
 	}
 	
-	public static void event() {
+	public static boolean event() {
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 			if(selectedRealm != null) {
-				CommandLogin.loginRealm(selectedRealm.getRealmId(), selectedRealm.getRealmName());
+				AuthServerConnectionRunnable.connectToWorldServer(selectedRealm.getRealmId());
 			}
+			return true;
 		}
+		return false;
 	}
 	
 	public static void addRealm(WorldServer realm) {

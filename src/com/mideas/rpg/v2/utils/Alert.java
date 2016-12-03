@@ -125,14 +125,15 @@ public class Alert {
 		}
 	}
 	
-	public void event() {
+	public boolean event() {
 		if(this.isActive) {
-			this.button.event();
-			if(this.button.hasClicked()) {
+			if(this.button.event()) {
 				this.button.reset();
 				this.isActive = false;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public void setWidth(float width) {
