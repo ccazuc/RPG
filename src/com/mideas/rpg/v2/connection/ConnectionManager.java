@@ -176,6 +176,8 @@ public class ConnectionManager {
  		if(worldServerConnection != null) {
  			worldServerConnection.close();
  		}
+ 		authSocket = null;
+ 		authServerConnection = null;
 		socket = null;
 		worldServerConnection = null;
 	}
@@ -197,19 +199,7 @@ public class ConnectionManager {
 			} 
 			catch (IOException e) {
 				e.printStackTrace();
-				CommandLogout.write();
-				close();
-				closeAuth();
-				Interface.setHasLoggedInToAuth(false);
-				SelectScreen.setRealmScreenActive(true);
-				SelectScreen.setIsConnectedToWorldServer(false);
-				RealmListFrame.clearRealmList();
-				Mideas.setJoueur1Null();
-				Mideas.setAccountId(0);
-				ChatFrame.clearChat();
-				LoginScreen.getAlert().setActive();
-				LoginScreen.getAlert().setText("Vous avez été déconnecté.");
-				LoginScreen.setPasswordActive();
+				disconnect();
 				return;
 			}
 		}
@@ -225,22 +215,26 @@ public class ConnectionManager {
 			} 
 			catch (IOException e) {
 				e.printStackTrace();
-				CommandLogout.write();
-				closeAuth();
-				close();
-				Interface.setHasLoggedInToAuth(false);
-				SelectScreen.setRealmScreenActive(true);
-				SelectScreen.setIsConnectedToWorldServer(false);
-				RealmListFrame.clearRealmList();
-				Mideas.setJoueur1Null();
-				Mideas.setAccountId(0);
-				ChatFrame.clearChat();
-				LoginScreen.getAlert().setActive();
-				LoginScreen.getAlert().setText("Vous avez été déconnecté.");
-				LoginScreen.setPasswordActive();
+				disconnect();
 				return;
 			}
 		}
+	}
+	
+	public static void disconnect() {
+		CommandLogout.write();
+		close();
+		closeAuth();
+		Interface.setHasLoggedInToAuth(false);
+		SelectScreen.setRealmScreenActive(true);
+		SelectScreen.setIsConnectedToWorldServer(false);
+		RealmListFrame.clearRealmList();
+		Mideas.setJoueur1Null();
+		Mideas.setAccountId(0);
+		ChatFrame.clearChat();
+		LoginScreen.getAlert().setActive();
+		LoginScreen.getAlert().setText("Vous avez été déconnecté.");
+		LoginScreen.setPasswordActive();
 	}
 	
 	private static void readAuthPacket() {

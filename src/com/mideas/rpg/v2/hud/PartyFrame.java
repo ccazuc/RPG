@@ -6,7 +6,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandTrade;
@@ -167,11 +167,11 @@ public class PartyFrame {
 		Draw.drawQuad(Sprites.mana_bar, x+54*Mideas.getDisplayXFactor(), y+35*Mideas.getDisplayYFactor(), 88*Mideas.getDisplayXFactor()*unit.getMana()/unit.getMaxMana(), 8*Mideas.getDisplayYFactor());
 		Draw.drawQuad(unit.getPortrait(), x+6*Mideas.getDisplayXFactor(), y+5*Mideas.getDisplayYFactor(), 45*Mideas.getDisplayXFactor(), 45*Mideas.getDisplayYFactor());
 		Draw.drawQuad(Sprites.player_portrait_party, x, y);
-		TTF2.portraitPartyName.drawStringShadow(x+100*Mideas.getDisplayXFactor()-TTF2.portraitPartyName.getWidth(unit.getName())/2, y+11*Mideas.getDisplayYFactor(), unit.getName(), YELLOW, Color.black, 1, 0, 0);
-		TTF2.portraitPartyStats.drawBegin();
-		TTF2.portraitPartyStats.drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-TTF2.portraitPartyStats.getWidth(unit.getHealthText())/2, y+26*Mideas.getDisplayYFactor(), unit.getHealthText(), Color.white, Color.black, 1, 0, 0);
-		TTF2.portraitPartyStats.drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-TTF2.portraitPartyStats.getWidth(unit.getManaText())/2, y+33*Mideas.getDisplayYFactor(), unit.getManaText(), Color.white, Color.black, 1, 0, 0);
-		TTF2.portraitPartyStats.drawEnd();
+		FontManager.get("FRIZQT", 13).drawStringShadow(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth(unit.getName())/2, y+11*Mideas.getDisplayYFactor(), unit.getName(), YELLOW, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 9).drawBegin();
+		FontManager.get("FRIZQT", 9).drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 9).getWidth(unit.getHealthText())/2, y+26*Mideas.getDisplayYFactor(), unit.getHealthText(), Color.white, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 9).drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 9).getWidth(unit.getManaText())/2, y+33*Mideas.getDisplayYFactor(), unit.getManaText(), Color.white, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 9).drawEnd();
 		if(Mideas.joueur1().getParty().isPartyLeader(unit)) {
 			Draw.drawQuad(Sprites.party_leader_crown, x+5, y+8);
 		}

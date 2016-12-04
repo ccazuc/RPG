@@ -1,6 +1,6 @@
 package com.mideas.rpg.v2.game.item.bag;
 
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 
@@ -20,7 +20,7 @@ public class Container extends Item {
 		this.size = bag.size;
 		this.id = bag.id;
 		this.container_slot_string = "Container "+Integer.toString(this.size)+" slots";
-		this.tooltip_maximum_size = Math.max(TTF2.talent.getWidth(this.name), TTF2.talent.getWidth(this.container_slot_string));
+		this.tooltip_maximum_size = Math.max(FontManager.get("FRIZQT", 14).getWidth(this.name), FontManager.get("FRIZQT", 14).getWidth(this.container_slot_string));
 	}
 	
 	public Container(int id,  String name, String sprite_id, int quality, int size, int sellPrice) {
@@ -30,7 +30,7 @@ public class Container extends Item {
 		this.size = size;
 		this.id = id;
 		this.container_slot_string = "Container "+Integer.toString(this.size)+" slots";
-		this.tooltip_maximum_size = Math.max(TTF2.talent.getWidth(this.name), TTF2.talent.getWidth(this.container_slot_string));
+		this.tooltip_maximum_size = Math.max(FontManager.get("FRIZQT", 14).getWidth(this.name), FontManager.get("FRIZQT", 14).getWidth(this.container_slot_string));
 	}
 	
 	public Container(int id) {

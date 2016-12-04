@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2;
 
-import java.io.IOException;
-
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
@@ -9,6 +7,7 @@ import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class Hud { 
+	
 	////////////
 	//        //
 	// UNUSED //
@@ -26,7 +25,7 @@ public class Hud {
 	static int selectedSpell;
 	static Spell hoveredSpell;
 	
-	public static void render() throws IOException {  
+	public static void render() {  
 		if(sprite) {
 			Sprites.sprite();
 			sprite = false;
@@ -39,7 +38,7 @@ public class Hud {
         Draw.drawQuad(Sprites.spellbar, Window.getWidth()/2-300, Window.getHeight()-120);                                                 //spellBar
 		Draw.drawQuad(Sprites.spell_attack, Window.getWidth()/2-139, Window.getHeight()-61);                                              //attack
 		Draw.drawQuad(Sprites.border, Window.getWidth()/2-143, Window.getHeight()-66);
-		TTF2.font5.drawStringShadow(Window.getWidth()/2-105, Window.getHeight()-61, "1", Color.white, Color.black, 1, 1, 1);
+		FontManager.font5.drawStringShadow(Window.getWidth()/2-105, Window.getHeight()-61, "1", Color.white, Color.black, 1, 1, 1);
 		
 		Draw.drawColorQuad(90, 58, 120, 13, bgColor);                           //left backgroundHealthBar
 		Draw.drawColorQuad(90, 58, 120*x, 12, healthBar);                       //left healthBar		
@@ -51,10 +50,10 @@ public class Hud {
 		Draw.drawColorQuad(Window.getWidth()-154, 38, 119, 18,  bgColor);       //right backgroundName	
 		Draw.drawColorQuad(Window.getWidth()-154, 68, 119, 13,  bgColor);       //right backgroundManaBar
 		Draw.drawColorQuad(Window.getWidth()-154, 68, 119*b-3, 12, manaBar);    //right manaBar		                                                   
-		TTF2.font.drawStringShadow(40, Window.getHeight()-230, statusText, Color.black, Color.white, 1, 1, 1);
-		TTF2.font.drawStringShadow(40, Window.getHeight()-190, statusText2, Color.black, Color.white, 1, 1, 1);                                                                     
+		FontManager.font.drawStringShadow(40, Window.getHeight()-230, statusText, Color.black, Color.white, 1, 1, 1);
+		FontManager.font.drawStringShadow(40, Window.getHeight()-190, statusText2, Color.black, Color.white, 1, 1, 1);                                                                     
 		 
-		TTF2.playerName.drawString(155-TTF2.font.getWidth(Mideas.joueur1().getClasseString())/2, 38, Mideas.joueur1().getClasseString(), Color.orange);                                              //leftPlayerName
+		FontManager.get("FRIZQT", 13).drawString(155-FontManager.font.getWidth(Mideas.joueur1().getClasseString())/2, 38, Mideas.joueur1().getClasseString(), Color.orange);                                              //leftPlayerName
 		//TTF2.playerName.drawString(Window.getWidth()-91-TTF2.font.getWidth(Mideas.joueur1().getClasseString())/2, 38,  Mideas.target().getClasseString(), Color.orange);                          //fps
 		
 		/*if(Mideas.x >= Window.getWidth()/2-139 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()/2-83 && Mideas.y <= Window.getHeight()-5) {

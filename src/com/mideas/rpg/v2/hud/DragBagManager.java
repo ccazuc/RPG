@@ -9,7 +9,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
@@ -56,9 +56,9 @@ public class DragBagManager {
 				draggedBag = null;
 				deleteItem = false;
 			}
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-TTF2.font4.getWidth("Voulez vous supprimer "+draggedBag.getStuffName())/2, Display.getHeight()/2-65, "Voulez vous supprimer "+draggedBag.getStuffName(), Color.white, Color.black, 1, 1, 1);
-			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth(yes)/2-69, Display.getHeight()/2-41, yes, Color.white, Color.black, 1, 1, 1);
-			TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth(no)/2+70, Display.getHeight()/2-40, no, Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 16).getWidth("Voulez vous supprimer "+draggedBag.getStuffName())/2, Display.getHeight()/2-65, "Voulez vous supprimer "+draggedBag.getStuffName(), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(yes)/2-69, Display.getHeight()/2-41, yes, Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(no)/2+70, Display.getHeight()/2-40, no, Color.white, Color.black, 1, 1, 1);
 		}
 	}
 	

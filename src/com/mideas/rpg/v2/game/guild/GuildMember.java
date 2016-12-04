@@ -3,7 +3,7 @@ package com.mideas.rpg.v2.game.guild;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Joueur;
 
@@ -114,18 +114,18 @@ public class GuildMember {
 		boolean lineChange = false;
 		while(i < note.length()) {
 			builder.append(note.charAt(i));
-			x_shift+= TTF2.guildMemberInformationLevel.getWidth(note.charAt(i));
+			x_shift+= FontManager.get("FRIZQT", 13).getWidth(note.charAt(i));
 			i++;
-			if(!lineChange && (note.charAt(i-1) == ' ' || note.charAt(i-1) == ',') && x_shift+TTF2.guildMemberInformationLevel.getWidth(nextWord(note, i)) >= 180*Mideas.getDisplayXFactor()) {
+			if(!lineChange && (note.charAt(i-1) == ' ' || note.charAt(i-1) == ',') && x_shift+FontManager.get("FRIZQT", 13).getWidth(nextWord(note, i)) >= 180*Mideas.getDisplayXFactor()) {
 				x_shift = 0;
 				builder.append("\n");
 				lineChange = true;
 			}
-			else if(lineChange && i < note.length()-3 && x_shift+TTF2.guildMemberInformationLevel.getWidth(note.charAt(i+1))+TTF2.guildMemberInformationLevel.getWidth(note.charAt(i+2))+TTF2.guildMemberInformationLevel.getWidth(note.charAt(i+3)) >= 180*Mideas.getDisplayXFactor()) {
+			else if(lineChange && i < note.length()-3 && x_shift+FontManager.get("FRIZQT", 13).getWidth(note.charAt(i+1))+FontManager.get("FRIZQT", 13).getWidth(note.charAt(i+2))+FontManager.get("FRIZQT", 13).getWidth(note.charAt(i+3)) >= 180*Mideas.getDisplayXFactor()) {
 				int j = 0;
 				while(j < 3) {
 					builder.append('.');
-					x_shift+= TTF2.guildMemberInformationLevel.getWidth('.');
+					x_shift+= FontManager.get("FRIZQT", 13).getWidth('.');
 					j++;
 				}
 				return builder.toString();

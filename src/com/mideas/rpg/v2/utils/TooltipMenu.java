@@ -3,7 +3,7 @@ package com.mideas.rpg.v2.utils;
 import java.util.ArrayList;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 
 import org.newdawn.slick.Color;
 
@@ -38,7 +38,7 @@ public class TooltipMenu {
 				setActive(false);
 			}
 			this.tooltip.draw();
-			TTF2.partyFrameTooltip.drawStringShadow(this.x+21*Mideas.getDisplayXFactor(), this.y+15*Mideas.getDisplayYFactor(), this.name, YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 14).drawStringShadow(this.x+21*Mideas.getDisplayXFactor(), this.y+15*Mideas.getDisplayYFactor(), this.name, YELLOW, Color.black, 1, 0, 0);
 			int i = 0;
 			while(i < this.menuList.size()) {
 				this.menuList.get(i).draw();

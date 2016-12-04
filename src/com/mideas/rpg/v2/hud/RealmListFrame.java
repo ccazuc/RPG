@@ -8,7 +8,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Window;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.game.WorldServer;
@@ -54,10 +54,10 @@ public class RealmListFrame {
 		while(i < realmList.size()) {
 			if(selectedRealm == realmList.get(i)) {
 				Draw.drawQuad(Sprites.selected_realm, Display.getWidth()/2+25*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift);
-				TTF2.realmList.drawStringShadow(Display.getWidth()/2+40*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, realmList.get(i).getRealmName(), Color.white, Color.black, 2, 1, 1);
+				FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()/2+40*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, realmList.get(i).getRealmName(), Color.white, Color.black, 2, 1, 1);
 			}
 			else {
-				TTF2.realmList.drawStringShadow(Display.getWidth()/2+40*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, realmList.get(i).getRealmName(), GREEN, Color.black, 2, 1, 1);
+				FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()/2+40*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, realmList.get(i).getRealmName(), GREEN, Color.black, 2, 1, 1);
 			}
 			i++;
 		}

@@ -737,8 +737,10 @@ public class Interface {
 		ContainerFrame.setBagOpen(4, false);
 		closeBagEvent();
 		ChatFrame.clearChat();
-		if(Mideas.joueur1().getGuild() != null) {
-			GuildFrame.resetFrame();
+		if(Mideas.joueur1() != null) {
+			if(Mideas.joueur1().getGuild() != null) {
+				GuildFrame.resetFrame();
+			}
 		}
 	}
 }

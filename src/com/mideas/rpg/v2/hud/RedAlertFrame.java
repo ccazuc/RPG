@@ -6,7 +6,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.utils.RedAlert;
 
 public class RedAlertFrame {
@@ -20,7 +20,7 @@ public class RedAlertFrame {
 	
 	public static void draw() {
 		int i = alertList.size()-1;
-		TTF2.selectScreenDeleteCharacterConfirm.drawBegin();
+		FontManager.get("FRIZQT", 21).drawBegin();
 		while(i >= 0 && i < alertList.size()) {
 			if(System.currentTimeMillis()-alertList.get(i).getTimer() >= OPACITY_DECREASE_TIMER) {
 				alertList.get(i).decreaseOpacity(-1/(Mideas.FPS*OPACITY_DECREASE_TIMER/1000f));
@@ -30,10 +30,10 @@ public class RedAlertFrame {
 					continue;
 				}
 			}
-			TTF2.selectScreenDeleteCharacterConfirm.drawStringPart(Display.getWidth()/2-TTF2.selectScreenDeleteCharacterConfirm.getWidth(alertList.get(i).getMessage()), Y_DRAW+(alertList.size()-1-i)*Y_SHIFT, alertList.get(i).getMessage(), RED, alertList.get(i).getOpacity());
+			FontManager.get("FRIZQT", 21).drawStringPart(Display.getWidth()/2-FontManager.get("FRIZQT", 21).getWidth(alertList.get(i).getMessage()), Y_DRAW+(alertList.size()-1-i)*Y_SHIFT, alertList.get(i).getMessage(), RED, alertList.get(i).getOpacity());
 			i--;
 		}
-		TTF2.selectScreenDeleteCharacterConfirm.drawEnd();
+		FontManager.get("FRIZQT", 21).drawEnd();
 	}
 	
 	public static void addNewAlert(String message) {

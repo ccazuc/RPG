@@ -7,7 +7,7 @@ import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class GuerrierTalent {
@@ -84,44 +84,44 @@ public class GuerrierTalent {
 		}
 		if(hoverLeft1) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+74, Display.getHeight()/2+Talent.getY()-80, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-78, "Frappe h�ro�que am�lior�e", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-65, "Rang "+heroicStrikeTalent+"/3", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-43, "R�duit le coup en rage de votre technique", Color.yellow, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-33, "frappe h�ro�que de 1 points.", Color.yellow, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-78, "Frappe h�ro�que am�lior�e", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-65, "Rang "+heroicStrikeTalent+"/3", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-43, "R�duit le coup en rage de votre technique", Color.yellow, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-33, "frappe h�ro�que de 1 points.", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 0, heroicStrikeTalent, 5, 78, -50, 0, "");
 		}
 		else if(hoverLeft2) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+139, Display.getHeight()/2+Talent.getY()-80, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-78, "D�viation", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-65, "Rang "+deflectionTalent+"/5", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-43, "Augmente votre armure de 5", Color.yellow, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-78, "D�viation", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-65, "Rang "+deflectionTalent+"/5", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-43, "Augmente votre armure de 5", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 0, deflectionTalent, 5, 143, -50, 0, "");
 		}
 		else if(hoverLeft3) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+204, Display.getHeight()/2+Talent.getY()-80, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-78, "Pourfendre am�lior�e", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-65, "Rang "+improvedRend+"/3", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-35, "Augmente de 25% les points de d�g�ts", Color.yellow, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-25, "inflig�s par la technique Pourfendre.", Color.yellow, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-78, "Pourfendre am�lior�e", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-65, "Rang "+improvedRend+"/3", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-35, "Augmente de 25% les points de d�g�ts", Color.yellow, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-25, "inflig�s par la technique Pourfendre.", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 0, improvedRend, 3, 208, -50, 0, "");
 		}
 		else if(hoverLeft4) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+74, Display.getHeight()/2+Talent.getY()-18, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-15, "Charge am�lior�e", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY(), "Rang "+improvedCharge+"/2", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantit� de Rage g�n�r�e par", Color.yellow, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Color.yellow, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-15, "Charge am�lior�e", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY(), "Rang "+improvedCharge+"/2", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantit� de Rage g�n�r�e par", Color.yellow, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 5, improvedCharge, 2, 78, 15, 65, "Requiert 5 points en Armes");
 		}
 		else if(hoverLeft5) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+139, Display.getHeight()/2+Talent.getY()-18, 350, 100, bgColor);
-			TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-15, "Volont� de fer", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY(), "Rang "+ironWill+"/5", Color.white, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantit� de Rage g�n�r�e par", Color.yellow, Color.black, 1, 1, 1);
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Color.yellow, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-15, "Volont� de fer", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY(), "Rang "+ironWill+"/5", Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantit� de Rage g�n�r�e par", Color.yellow, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Color.yellow, Color.black, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 5, ironWill, 5, 143, 15, 65, "Requiert 5 points en Armes");
 		}
-		TTF2.itemName.drawStringShadow(Display.getWidth()/2+Talent.getX()+250, Display.getHeight()/2+160, String.valueOf(numberArmsTalent), Color.white, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+Talent.getX()+250, Display.getHeight()/2+160, String.valueOf(numberArmsTalent), Color.white, Color.black, 1, 1, 1);
 	}
 	
 	public static boolean mouseEvent() {
@@ -250,10 +250,10 @@ public class GuerrierTalent {
 	}
 	
 	public static void clickToLearn(int x, int y) {
-		TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Cliquer pour apprendre", Color.green, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Cliquer pour apprendre", Color.green, Color.black, 1, 1, 1);
 	}
 	public static void clickToUnlearn(int x, int y) {
-		TTF2.itemNumber.drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Clic droit pour d�sapprendre", Color.red, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Clic droit pour d�sapprendre", Color.red, Color.black, 1, 1, 1);
 	}
 	 
 	private static void requiredPoint(int numberTalentSpec, int number, int talent, int numberTalent, int x_string, int y_string, int y_stringClickToLearn, String string) {
@@ -266,10 +266,10 @@ public class GuerrierTalent {
 			}
 		}
 		if(number != 0 && numberTalentSpec >= 5) {
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+x_string, Display.getHeight()/2+Talent.getY()+y_string, string, Color.green, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+x_string, Display.getHeight()/2+Talent.getY()+y_string, string, Color.green, Color.black, 1, 1, 1);
 		}
 		else if(numberTalentSpec <= number && number != 0) {
-			TTF2.talent.drawStringShadow(Display.getWidth()/2+Talent.getX()+24+x_string, Display.getHeight()/2+Talent.getY()+y_string, string, Color.red, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+x_string, Display.getHeight()/2+Talent.getY()+y_string, string, Color.red, Color.black, 1, 1, 1);
 		}
 	}
 	

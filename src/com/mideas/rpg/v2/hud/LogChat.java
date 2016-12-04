@@ -6,7 +6,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class LogChat {
@@ -21,19 +21,19 @@ public class LogChat {
 	public static void drawStatus() { // player2
 		int x = 40;
 		int y = -190; 
-		TTF2.font4.drawStringShadow(x, Display.getHeight()+y, statusText2, Color.white, Color.black, 1, 1, 1); 
+		FontManager.get("FRIZQT", 16).drawStringShadow(x, Display.getHeight()+y, statusText2, Color.white, Color.black, 1, 1, 1); 
 	}
 	
 	public static void drawStatus2() { // player1
 		int x = 40;
 		int y = -230; 
-		TTF2.font4.drawStringShadow(x, Display.getHeight()+y, statusText, Color.white, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 16).drawStringShadow(x, Display.getHeight()+y, statusText, Color.white, Color.black, 1, 1, 1);
 	}
 	
 	public static void drawStatus3() {
 		int x = 40;
 		int y = -270; 
-		TTF2.font4.drawStringShadow(x, Display.getHeight()+y, statusText3, Color.white, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 16).drawStringShadow(x, Display.getHeight()+y, statusText3, Color.white, Color.black, 1, 1, 1);
 	}
 	
 	public static void setStatusText(String text) {

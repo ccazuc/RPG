@@ -9,7 +9,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
@@ -91,7 +91,7 @@ public class TradeFrame {
 	
 	public static void draw() {
 		Draw.drawQuad(Sprites.trade_frame, X_FRAME, Y_FRAME);
-		TTF2.itemNumber.drawStringShadow(X_FRAME+150*Mideas.getDisplayXFactor(), Y_FRAME+15*Mideas.getDisplayYFactor(), Mideas.joueur1().getName(), YELLOW, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 13).drawStringShadow(X_FRAME+150*Mideas.getDisplayXFactor(), Y_FRAME+15*Mideas.getDisplayYFactor(), Mideas.joueur1().getName(), YELLOW, Color.black, 1, 0, 0);
 		float x = X_FRAME+25*Mideas.getDisplayXFactor();
 		float y = 0;
 		int i = 0;
@@ -107,7 +107,7 @@ public class TradeFrame {
 			if(itemList[i] != null) {
 				Draw.drawQuad(IconsManager.getSprite37(itemList[i].getSpriteId()), x+3, Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+3, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
 				if(itemList[i].getAmount() > 1) {
-					TTF2.itemNumber.drawStringShadow(x+20*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+25*Mideas.getDisplayYFactor(), itemList[i].getAmountString(), Color.white, Color.black, 1, 1, 1);
+					FontManager.get("FRIZQT", 13).drawStringShadow(x+20*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+25*Mideas.getDisplayYFactor(), itemList[i].getAmountString(), Color.white, Color.black, 1, 1, 1);
 				}
 			}
 			i++;
@@ -196,11 +196,11 @@ public class TradeFrame {
 		return false;
 	}
 	
-	public static void event() {
+	public static void event() { //TODO: use Popup classe
 		if(requestPending) {
 			if(System.currentTimeMillis()-requestReceivedTimer <= requestMaximumTimer) {
 				Draw.drawQuad(Sprites.alert, Display.getWidth()/2-250*Mideas.getDisplayXFactor(), Display.getHeight()/2-250*Mideas.getDisplayYFactor(), 500*Mideas.getDisplayXFactor(), 110*Mideas.getDisplayYFactor());
-				TTF2.font4.drawStringShadow(Display.getWidth()/2-(TTF2.font4.getWidth("Do you want to accept "+name+"'s trade ? "+(int)(20-(System.currentTimeMillis()-requestReceivedTimer)/1000)+" seconds left")*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-230*Mideas.getDisplayYFactor(), "Do you want to accept "+name+"'s trade ? "+(int)(20-(System.currentTimeMillis()-requestReceivedTimer)/1000)+" seconds left", Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
+				FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-(FontManager.get("FRIZQT", 16).getWidth("Do you want to accept "+name+"'s trade ? "+(int)(20-(System.currentTimeMillis()-requestReceivedTimer)/1000)+" seconds left")*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-230*Mideas.getDisplayYFactor(), "Do you want to accept "+name+"'s trade ? "+(int)(20-(System.currentTimeMillis()-requestReceivedTimer)/1000)+" seconds left", Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
 				acceptRequest.event();
 				declineRequest.event();
 				acceptRequest.draw();

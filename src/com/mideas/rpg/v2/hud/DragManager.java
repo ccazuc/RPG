@@ -8,7 +8,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.Joueur;
@@ -79,12 +79,12 @@ public class DragManager {
 			Draw.drawQuad(IconsManager.getSprite42((draggedItem.getSpriteId())), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 			if(draggedItem.isStackable()) {
-				TTF2.itemNumber.drawStringShadow(Mideas.mouseX()+35-TTF2.itemNumber.getWidth(String.valueOf(draggedItem.getAmount())), Mideas.mouseY()+20, String.valueOf(draggedItem.getAmount()), Color.white, Color.black, 1, 1, 1);
+				FontManager.get("FRIZQT", 13).drawStringShadow(Mideas.mouseX()+35-FontManager.get("FRIZQT", 13).getWidth(String.valueOf(draggedItem.getAmount())), Mideas.mouseY()+20, String.valueOf(draggedItem.getAmount()), Color.white, Color.black, 1, 1, 1);
 			}
 		}
 		if(deleteItem && draggedItem != null) {
 			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-172*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), Sprites.alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.alert.getImageHeight()*Mideas.getDisplayYFactor());
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-(TTF2.font4.getWidth(draggedItem.getDeleteConfirm())*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-72*Mideas.getDisplayYFactor(), draggedItem.getDeleteConfirm(), Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-(FontManager.get("FRIZQT", 16).getWidth(draggedItem.getDeleteConfirm())*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-72*Mideas.getDisplayYFactor(), draggedItem.getDeleteConfirm(), Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
 			hoverDeleteYes.draw();
 			hoverDeleteNo.draw();
 		}

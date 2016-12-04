@@ -8,7 +8,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
@@ -191,40 +191,40 @@ public class CharacterFrame {
 		int yAnchor = 0;
 		Stuff item = Mideas.joueur1().getStuff(i);
 		if(item != null && hover == i) {
-			xShift = Math.max(TTF2.itemName.getWidth(item.getStuffName()), TTF2.statsName.getWidth(item.getClassRequirements()))+15;
-			int y = -75-TTF2.statsName.getLineHeight()*ContainerFrame.getNumberStats(item);
+			xShift = Math.max(FontManager.get("FRIZQT", 20).getWidth(item.getStuffName()), FontManager.get("FRIZQT", 15).getWidth(item.getClassRequirements()))+15;
+			int y = -75-FontManager.get("FRIZQT", 15).getLineHeight()*ContainerFrame.getNumberStats(item);
 			if(Display.getHeight()/2+z-2+y < 0) {
 				yAnchor = -(Display.getHeight()/2+z-2+y)+3;
 			}
 			Draw.drawColorQuad(Display.getWidth()/2+x-1, Display.getHeight()/2+z-2+yAnchor, 5+xShift, y, bgColor);
 			Draw.drawColorQuadBorder(Display.getWidth()/2+x-1, Display.getHeight()/2+z-2+yAnchor, 6+xShift, y, borderColor);
-			TTF2.itemName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+yAnchor, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.black, 1);
-			TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+23+yAnchor, item.convStuffTypeToString(), Color.white, Color.black, 1);
+			FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+yAnchor, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+23+yAnchor, item.convStuffTypeToString(), Color.white, Color.black, 1);
 			if(Mideas.joueur1().canWear(item)) {
 				temp = Color.white;
 			}
 			else {
 				temp = Color.red;
 			}
-			TTF2.statsName.drawStringShadow(Display.getWidth()/2+x-10+xShift-TTF2.font4.getWidth(item.convWearToString()), Display.getHeight()/2+y+23+z+yAnchor, item.convWearToString(), temp, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x-10+xShift-FontManager.get("FRIZQT", 16).getWidth(item.convWearToString()), Display.getHeight()/2+y+23+z+yAnchor, item.convWearToString(), temp, Color.black, 1);
 			if(item.getArmor() > 0) {
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getArmorString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getArmorString(), Color.white, Color.black, 1);
 				shift+= 20;
 			}
 			if(item.getStrength() > 0) {
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getStrengthString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getStrengthString(), Color.white, Color.black, 1);
 				shift+= 20;
 			}
 			if(item.getMana() > 0) {
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getManaString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getManaString(), Color.white, Color.black, 1);
 				shift+= 20;
 			}
 			if(item.getStamina() > 0) {
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getStaminaString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getStaminaString(), Color.white, Color.black, 1);
 				shift+= 20;
 			}
 			if(item.getCritical() > 0) {
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getCriticalString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getCriticalString(), Color.white, Color.black, 1);
 				shift+= 20;
 			}
 			
@@ -233,11 +233,11 @@ public class CharacterFrame {
 			if(item.getGemColor(0) != GemColor.NONE) {
 				if(item.getEquippedGem(0) != null) {
 					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(0).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(0).getGemStatsString(), Color.white, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(0).getGemStatsString(), Color.white, Color.black, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite1(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem1String(), Color.gray, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem1String(), Color.gray, Color.black, 1);
 				}
 				Draw.drawQuad(Sprites.cursor, -5000, -5000);
 				shift+= 20;
@@ -245,11 +245,11 @@ public class CharacterFrame {
 			if(item.getGemColor(1) != GemColor.NONE) {
 				if(item.getEquippedGem(1) != null) {
 					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(1).getGemStatsString(), Color.white, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(1).getGemStatsString(), Color.white, Color.black, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite2(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem2String(), Color.gray, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem2String(), Color.gray, Color.black, 1);
 				}
 				Draw.drawQuad(Sprites.cursor, -5000, -5000);
 				shift+= 20;
@@ -257,21 +257,21 @@ public class CharacterFrame {
 			if(item.getGemColor(2) != GemColor.NONE) {
 				if(item.getEquippedGem(2) != null) {
 					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(2).getGemStatsString(), Color.white, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(2).getGemStatsString(), Color.white, Color.black, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite3(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem3String(), Color.gray, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem3String(), Color.gray, Color.black, 1);
 				}
 				Draw.drawQuad(Sprites.cursor, -5000, -5000);
 				shift+= 20;
 			}
 			if(item.getGemBonusType() != GemBonusType.NONE) {
 				if(item.getGemBonusActivated()) {
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getSocketBonusString(), Color.green, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getSocketBonusString(), Color.green, Color.black, 1);
 				}
 				else {
-					TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z-3+yAnchor, item.getSocketBonusString(), Color.gray, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z-3+yAnchor, item.getSocketBonusString(), Color.gray, Color.black, 1);
 				}
 				shift+= 20;
 			}
@@ -282,14 +282,14 @@ public class CharacterFrame {
 				temp = Color.red;
 			}
 			if(item.getClassRequirements() != null) {
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getClassRequirements(), temp, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getClassRequirements(), temp, Color.black, 1);
 				shift+= 20;
 			}
 			if(Mideas.joueur1().getLevel() >= item.getLevel()) {
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getLevelString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getLevelString(), Color.white, Color.black, 1);
 			}
 			else {
-				TTF2.statsName.drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getLevelString(), Color.red, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getLevelString(), Color.red, Color.black, 1);
 			}
 		}
 	}

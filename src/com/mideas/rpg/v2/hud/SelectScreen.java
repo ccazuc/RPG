@@ -10,7 +10,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandLoadCharacter;
@@ -51,8 +51,8 @@ public class SelectScreen {
 	private static float x_selected_classe = -868;
 	private static float y_selected_classe = 99;
 	private static Color bgColor = new Color(0, 0, 0, .35f);
-	static Input character = new Input(TTF2.loginScreenAccount, 12, false, false);
-	static Input deleteCharacter = new Input(TTF2.loginScreenAccount, 8, false, false);
+	static Input character = new Input(FontManager.get("FRIZQT", 21), 12, false, false);
+	static Input deleteCharacter = new Input(FontManager.get("FRIZQT", 21), 8, false, false);
 	private static boolean realmScreenActive = true;
 	static boolean isConnectedToWorldServer;
 	static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 130*Mideas.getDisplayXFactor(), 230*Mideas.getDisplayXFactor(), 38*Mideas.getDisplayYFactor(), Display.getHeight()+30, 20, "Ok");
@@ -163,13 +163,13 @@ public class SelectScreen {
 			Draw.drawQuadBG(Sprites.select_screen_background);
 			if(deletingCharacter) { //TODO: use PopupInput classe
 				Draw.drawQuad(Sprites.big_alert, Display.getWidth()/2-350*Mideas.getDisplayXFactor(), Display.getHeight()/2-120*Mideas.getDisplayYFactor(), Sprites.big_alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.big_alert.getImageHeight()*Mideas.getDisplayYFactor());
-				TTF2.selectScreenDeleteCharacterConfirm.drawStringShadow(Display.getWidth()/2-TTF2.selectScreenDeleteCharacterConfirm.getWidth("Voulez-vous effacer")/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-105*Mideas.getDisplayYFactor(), "Voulez-vous effacer", YELLOW, Color.black, 3, 2, 2);
-				TTF2.selectScreenDeleteCharacterConfirm.drawStringShadow(Display.getWidth()/2-TTF2.selectScreenDeleteCharacterConfirm.getWidth(characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel())/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel(), Color.white, Color.black, 2, 4, 2);
-				TTF2.raceName.drawStringShadow(Display.getWidth()/2-TTF2.raceName.getWidth("Tapez \"EFFACER\" dans le champ pour confirmer.")*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-30*Mideas.getDisplayYFactor(), "Tapez \"EFFACER\" dans le champ pour confirmer." , YELLOW, Color.black, 2, 1, 1);
+				FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 21).getWidth("Voulez-vous effacer")/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-105*Mideas.getDisplayYFactor(), "Voulez-vous effacer", YELLOW, Color.black, 3, 2, 2);
+				FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 21).getWidth(characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel())/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel(), Color.white, Color.black, 2, 4, 2);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 15).getWidth("Tapez \"EFFACER\" dans le champ pour confirmer.")*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-30*Mideas.getDisplayYFactor(), "Tapez \"EFFACER\" dans le champ pour confirmer." , YELLOW, Color.black, 2, 1, 1);
 				Draw.drawQuad(Sprites.input_box, Display.getWidth()/2-Sprites.input_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-2*Mideas.getDisplayYFactor(), Sprites.input_box.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.input_box.getImageHeight()*Mideas.getDisplayYFactor());
-				TTF2.loginScreenAccount.drawStringShadow(Display.getWidth()/2-92*Mideas.getDisplayXFactor(), Display.getHeight()/2+5*Mideas.getDisplayYFactor(), deleteCharacter.getText(), Color.white, Color.black, 1, 1, 1);
+				FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-92*Mideas.getDisplayXFactor(), Display.getHeight()/2+5*Mideas.getDisplayYFactor(), deleteCharacter.getText(), Color.white, Color.black, 1, 1, 1);
 				if(System.currentTimeMillis()%1000 < 500) {
-					TTF2.selectScreenName.drawString(Display.getWidth()/2-96*Mideas.getDisplayXFactor()+deleteCharacter.getCursorShift(), Display.getHeight()/2+0*Mideas.getDisplayYFactor(), "|", Color.white);
+					FontManager.get("FRIZQT", 22).drawString(Display.getWidth()/2-96*Mideas.getDisplayXFactor()+deleteCharacter.getCursorShift(), Display.getHeight()/2+0*Mideas.getDisplayYFactor(), "|", Color.white);
 				}
 				confirmDeleteCharacterButton.draw();
 				cancelDeleteCharacterButton.draw();
@@ -191,7 +191,7 @@ public class SelectScreen {
 		else {
 			Draw.drawQuadBG(Sprites.create_character_background);
 			alert.draw();
-			TTF2.loginScreenAccount.drawStringShadow(Display.getWidth()/2-77*Mideas.getDisplayXFactor(), Display.getHeight()/2+405*Mideas.getDisplayYFactor(), character.getText(), Color.white, Color.black, 1, 1, 2);
+			FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-77*Mideas.getDisplayXFactor(), Display.getHeight()/2+405*Mideas.getDisplayYFactor(), character.getText(), Color.white, Color.black, 1, 1, 2);
 			acceptCharacterButton.draw();
 			returnCharacterButton.draw();
 			int i = 0;
@@ -207,27 +207,27 @@ public class SelectScreen {
 				}
 			}
 			if(System.currentTimeMillis()%1000 < 500) {
-				TTF2.loginScreenTick.drawString(Display.getWidth()/2-84*Mideas.getDisplayXFactor()+character.getCursorShift(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), "|", Color.white);
+				FontManager.loginScreenTick.drawString(Display.getWidth()/2-84*Mideas.getDisplayXFactor()+character.getCursorShift(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), "|", Color.white);
 			}
 			if(hoveredRace != null && hoveredRace != selectedRace) {
 				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+x_hover_race*Mideas.getDisplayXFactor()+3, Display.getHeight()/2+y_hover_race*Mideas.getDisplayYFactor()+2, Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
-				Draw.drawColorQuad(Display.getWidth()/2+(x_hover_race+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_race-35)*Mideas.getDisplayYFactor(), TTF2.raceName.getWidth(hoveredRace.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), bgColor);
-				Draw.drawColorQuadBorder(Display.getWidth()/2+(x_hover_race+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_race-35)*Mideas.getDisplayYFactor(), TTF2.raceName.getWidth(hoveredRace.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), Color.gray);
-				TTF2.raceName.drawStringShadow(Display.getWidth()/2+(x_hover_race+73)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_race-29)*Mideas.getDisplayYFactor(), hoveredRace.getName(), Color.white, Color.black, 1, 1, 1);
+				Draw.drawColorQuad(Display.getWidth()/2+(x_hover_race+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_race-35)*Mideas.getDisplayYFactor(), FontManager.get("FRIZQT", 15).getWidth(hoveredRace.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), bgColor);
+				Draw.drawColorQuadBorder(Display.getWidth()/2+(x_hover_race+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_race-35)*Mideas.getDisplayYFactor(), FontManager.get("FRIZQT", 15).getWidth(hoveredRace.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), Color.gray);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(x_hover_race+73)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_race-29)*Mideas.getDisplayYFactor(), hoveredRace.getName(), Color.white, Color.black, 1, 1, 1);
 			}
 			if(selectedRace != null) {
 				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+(x_selected_race+3)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_selected_race+2)*Mideas.getDisplayYFactor(), Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
-				TTF2.raceName.drawStringShadow(Display.getWidth()/2+(x_selected_race+30)*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedRace.getName())/2, Display.getHeight()/2+(y_selected_race+40)*Mideas.getDisplayYFactor(), selectedRace.getName(), YELLOW, Color.black, 1, 1, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(x_selected_race+30)*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(selectedRace.getName())/2, Display.getHeight()/2+(y_selected_race+40)*Mideas.getDisplayYFactor(), selectedRace.getName(), YELLOW, Color.black, 1, 1, 1);
 			}
 			if(hoveredClasse != null && hoveredClasse != selectedClasse) {
 				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+(x_hover_classe-1)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-1)*Mideas.getDisplayYFactor(), Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
-				Draw.drawColorQuad(Display.getWidth()/2+(x_hover_classe+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-35)*Mideas.getDisplayYFactor(), TTF2.raceName.getWidth(hoveredClasse.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), bgColor);
-				Draw.drawColorQuadBorder(Display.getWidth()/2+(x_hover_classe+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-35)*Mideas.getDisplayYFactor(), TTF2.raceName.getWidth(hoveredClasse.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), Color.gray);
-				TTF2.raceName.drawStringShadow(Display.getWidth()/2+(x_hover_classe+73)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-29)*Mideas.getDisplayYFactor(), hoveredClasse.getName(), Color.white, Color.black, 1, 1, 1);
+				Draw.drawColorQuad(Display.getWidth()/2+(x_hover_classe+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-35)*Mideas.getDisplayYFactor(), FontManager.get("FRIZQT", 15).getWidth(hoveredClasse.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), bgColor);
+				Draw.drawColorQuadBorder(Display.getWidth()/2+(x_hover_classe+63)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-35)*Mideas.getDisplayYFactor(), FontManager.get("FRIZQT", 15).getWidth(hoveredClasse.getName())+50*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayYFactor(), Color.gray);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(x_hover_classe+73)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-29)*Mideas.getDisplayYFactor(), hoveredClasse.getName(), Color.white, Color.black, 1, 1, 1);
 			}
 			if(selectedClasse != null) {
 				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+(x_selected_classe-1)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_selected_classe-1)*Mideas.getDisplayYFactor(), Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
-				TTF2.raceName.drawStringShadow(Display.getWidth()/2+(x_selected_classe+30)*Mideas.getDisplayXFactor()-TTF2.raceName.getWidth(selectedClasse.getName())/2, Display.getHeight()/2+(y_selected_classe+40)*Mideas.getDisplayYFactor(), selectedClasse.getName(), YELLOW, Color.black, 2, 1, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(x_selected_classe+30)*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(selectedClasse.getName())/2, Display.getHeight()/2+(y_selected_classe+40)*Mideas.getDisplayYFactor(), selectedClasse.getName(), YELLOW, Color.black, 2, 1, 1);
 			}
 		}
 		if(realmScreenActive) {
@@ -486,8 +486,8 @@ public class SelectScreen {
 			if(selectedCharacter[i] || hoveredCharacter == i) {
 				Draw.drawQuadBlend(Sprites.selected_character, Display.getWidth()/2+592*Mideas.getDisplayXFactor(), y-15*Mideas.getDisplayYFactor(), 362*Mideas.getDisplayXFactor(), 98*Mideas.getDisplayYFactor());
 			}
-			TTF2.selectScreenName.drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y, characterList[i].getName(), YELLOW, Color.black, 2, 1, 1);
-			TTF2.selectScreenLevel.drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y+27, convClasseToString(characterList[i].getClasse())+" level "+characterList[i].getLevel(), Color.white, Color.black, 2, 0, 0);
+			FontManager.get("FRIZQT", 22).drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y, characterList[i].getName(), YELLOW, Color.black, 2, 1, 1);
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y+27, convClasseToString(characterList[i].getClasse())+" level "+characterList[i].getLevel(), Color.white, Color.black, 2, 0, 0);
 		}
 	}
 	

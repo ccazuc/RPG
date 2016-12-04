@@ -5,7 +5,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandParty;
@@ -84,7 +84,7 @@ public class GuildFrame {
 			showOfflineMembers = !showOfflineMembers;
 		}
 	};
-	final static Input informationInput = new Input(TTF2.guildInformationText, 300, true, false) {
+	final static Input informationInput = new Input(FontManager.get("FRIZQT", 13), 300, true, false) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -95,7 +95,7 @@ public class GuildFrame {
 			return false;
 		}
 	};
-	final static Input rankNameInput = new Input(TTF2.guildInformationText, 300, true, false) {
+	final static Input rankNameInput = new Input(FontManager.get("FRIZQT", 13), 300, true, false) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -106,7 +106,7 @@ public class GuildFrame {
 			return false;
 		}
 	};
-	final static EditBox rankNameEditBox = new EditBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, false, TTF2.guildInformationText, .5f) {
+	final static EditBox rankNameEditBox = new EditBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, false, FontManager.get("FRIZQT", 13), .5f) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -665,9 +665,9 @@ public class GuildFrame {
 			hasInitRank = true;
 		}
 		Draw.drawQuad(Sprites.guild_frame, X_SOCIAL_FRAME, Y_SOCIAL_FRAME);
-		TTF2.guildTitle.drawStringShadow(X_SOCIAL_FRAME+220*Mideas.getDisplayXFactor()-TTF2.guildTitle.getWidth(Mideas.joueur1().getGuildTitle())/2, Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuildTitle(), YELLOW, Color.black, 1, 0, 0);
-		TTF2.guildMotd.drawStringShadow(X_SOCIAL_FRAME+23*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+368*Mideas.getDisplayYFactor(), "Guild Message Of The Day:", YELLOW, Color.black, 1, 0, 0);
-		TTF2.guildMotd.drawStringShadow(X_SOCIAL_FRAME+210*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), "Show Offline Members", Color.white, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+220*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(Mideas.joueur1().getGuildTitle())/2, Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuildTitle(), YELLOW, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+23*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+368*Mideas.getDisplayYFactor(), "Guild Message Of The Day:", YELLOW, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+210*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), "Show Offline Members", Color.white, Color.black, 1, 0, 0);
 		drawNumberMember();
 		drawMembers();
 		drawMotd();
@@ -734,20 +734,20 @@ public class GuildFrame {
 		float y = Y_SOCIAL_FRAME+105*Mideas.getDisplayYFactor();
 		int yShift = 0;
 		float yShiftHeight = 18*Mideas.getDisplayYFactor();
-		TTF2.guildMember.drawBegin();
+		FontManager.get("FRIZQT", 13).drawBegin();
 		while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
 			if(Mideas.joueur1().getGuild().getMemberList().get(i).isOnline()) {
-				TTF2.guildMember.drawStringShadow(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), YELLOW, Color.black, 1, 0, 0);
-				TTF2.guildMember.drawStringShadow(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", Color.white, Color.black, 1, 0, 0);
-				TTF2.guildMember.drawStringShadow(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), Color.white, Color.black, 1, 0, 0);
-				TTF2.guildMember.drawStringShadow(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), Mideas.joueur1().getGuild().getMemberList().get(i).getColor(), Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), YELLOW, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", Color.white, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), Color.white, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), Mideas.joueur1().getGuild().getMemberList().get(i).getColor(), Color.black, 1, 0, 0);
 				yShift+= yShiftHeight;
 			}
 			else if(showOfflineMembers) {
-				TTF2.guildMember.drawStringShadow(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), GREY, Color.black, 1, 0, 0);
-				TTF2.guildMember.drawStringShadow(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", GREY, Color.black, 1, 0, 0);
-				TTF2.guildMember.drawStringShadow(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), GREY, Color.black, 1, 0, 0);
-				TTF2.guildMember.drawStringShadow(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), GREY, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), GREY, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", GREY, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), GREY, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), GREY, Color.black, 1, 0, 0);
 				yShift+= yShiftHeight;
 			}
 			if(y+yShift+yShiftHeight >= Y_SOCIAL_FRAME+350*Mideas.getDisplayYFactor()) {
@@ -755,7 +755,7 @@ public class GuildFrame {
 			}
 			i++;
 		}
-		TTF2.guildMember.drawEnd();
+		FontManager.get("FRIZQT", 13).drawEnd();
 		i = iOffset;
 		if((hoveredMember >= i && hoveredMember < i+13) || (selectedMember >= i && selectedMember < i+13)) {
 			yShift = 0;
@@ -907,11 +907,11 @@ public class GuildFrame {
 			informationBackground.draw();
 			Draw.drawQuad(Sprites.guild_manage_frame_bot_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+433*Mideas.getDisplayYFactor());
 			Draw.drawQuad(Sprites.guild_manage_rank_horizontal_bar, X_SOCIAL_FRAME+399*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+65*Mideas.getDisplayYFactor());
-			TTF2.guildMemberInformationName.drawBegin();
-			TTF2.guildMemberInformationName.drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Select guild rank to modify:")/2, Y_SOCIAL_FRAME+20*Mideas.getDisplayYFactor(), "Select guild rank to modify:", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationName.drawStringShadowPart(X_SOCIAL_FRAME+485*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Rank Label:")/2, Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), "Rank Label:", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationName.drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-TTF2.guildMemberInformationName.getWidth("Allow this rank to:")/2, Y_SOCIAL_FRAME+110*Mideas.getDisplayYFactor(), "Allow this rank to:", Color.white, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationName.drawEnd();
+			FontManager.get("FRIZQT", 13).drawBegin();
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Select guild rank to modify:")/2, Y_SOCIAL_FRAME+20*Mideas.getDisplayYFactor(), "Select guild rank to modify:", YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+485*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Rank Label:")/2, Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), "Rank Label:", YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Allow this rank to:")/2, Y_SOCIAL_FRAME+110*Mideas.getDisplayYFactor(), "Allow this rank to:", Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawEnd();
 			rankNameEditBox.draw();
 			canListenGuildChannelCheckBox.draw();
 			canListenOfficerChannelCheckBox.draw();
@@ -989,28 +989,28 @@ public class GuildFrame {
 			noteTooltip.draw();
 			Draw.drawQuad(Sprites.guild_close_information_button_border, X_SOCIAL_FRAME+595*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+32*Mideas.getDisplayYFactor());
 			closeDisplayMemberFrameCrossButton.draw();
-			TTF2.guildMemberInformationLevel.drawBegin();
-			TTF2.guildMemberInformationName.drawStringShadowPart(x, y, memberInformationDisplayed.getName(), YELLOW, Color.black, 1, 0, 0);
-			y+= (TTF2.guildMemberInformationLevel.getLineHeight())*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, memberInformationDisplayed.getInformationString(), Color.white, Color.black, 1, 0, 0);
-			y+= (TTF2.guildMemberInformationLevel.getLineHeight()+4)*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, "Area : ", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationLevel.drawStringShadowPart(x+TTF2.guildMemberInformationLevel.getWidth("Area : "), y, "Area", Color.white, Color.black, 1, 0, 0);
-			y+= (TTF2.guildMemberInformationLevel.getLineHeight()+2)*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, "Rank : ", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationLevel.drawStringShadowPart(x+TTF2.guildMemberInformationLevel.getWidth("Rank : "), y, memberInformationDisplayed.getRank().getName(), Color.white, Color.black, 1, 0, 0);
-			y+= (TTF2.guildMemberInformationLevel.getLineHeight()+1)*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, "Last connection : ", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationLevel.drawStringShadowPart(x+TTF2.guildMemberInformationLevel.getWidth("Last connection : "), y, memberInformationDisplayed.getLastLoginTimerString(), Color.white, Color.black, 1, 0, 0);
-			y+= (TTF2.guildMemberInformationLevel.getLineHeight()+1)*Mideas.getDisplayYFactor();
-			TTF2.guildMemberInformationLevel.drawStringShadowPart(x, y, "Note : ", YELLOW, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationLevel.drawStringShadowPart(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getNoteDisplayed(), Color.white, Color.black, 1, 0, 0);
-			TTF2.guildMemberInformationLevel.drawEnd();
+			FontManager.get("FRIZQT", 13).drawBegin();
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getName(), YELLOW, Color.black, 1, 0, 0);
+			y+= (FontManager.get("FRIZQT", 13).getLineHeight())*Mideas.getDisplayYFactor();
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getInformationString(), Color.white, Color.black, 1, 0, 0);
+			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+4)*Mideas.getDisplayYFactor();
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Area : ", YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Area : "), y, "Area", Color.white, Color.black, 1, 0, 0);
+			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+2)*Mideas.getDisplayYFactor();
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Rank : ", YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Rank : "), y, memberInformationDisplayed.getRank().getName(), Color.white, Color.black, 1, 0, 0);
+			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+1)*Mideas.getDisplayYFactor();
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Last connection : ", YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Last connection : "), y, memberInformationDisplayed.getLastLoginTimerString(), Color.white, Color.black, 1, 0, 0);
+			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+1)*Mideas.getDisplayYFactor();
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Note : ", YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getNoteDisplayed(), Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawEnd();
 			if(Mideas.joueur1().getGuildRank().canSeeOfficerNote()) {
 				y+= 61*Mideas.getDisplayYFactor();
-				TTF2.guildMemberInformationLevel.drawStringShadow(x, y, "Officer note :", YELLOW, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadow(x, y, "Officer note :", YELLOW, Color.black, 1, 0, 0);
 				officerNoteTooltip.draw();
-				TTF2.guildMemberInformationLevel.drawStringShadow(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getOfficerNoteDisplayed(), Color.white, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadow(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getOfficerNoteDisplayed(), Color.white, Color.black, 1, 0, 0);
 				Draw.drawQuad(Sprites.guild_member_display_button_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+263*Mideas.getDisplayYFactor());
 			}
 			else {
@@ -1047,7 +1047,7 @@ public class GuildFrame {
 			}
 			informationBackground.draw();
 			guildInformationTooltip.draw();
-			TTF2.guildInformationTitle.drawStringShadow(X_SOCIAL_FRAME+411*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+15*Mideas.getDisplayYFactor(), "General options", YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 14).drawStringShadow(X_SOCIAL_FRAME+411*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+15*Mideas.getDisplayYFactor(), "General options", YELLOW, Color.black, 1, 0, 0);
 			drawInformationText();
 			Draw.drawQuad(Sprites.guild_close_information_button_border, X_SOCIAL_FRAME+691*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+7*Mideas.getDisplayYFactor());
 			journalButton.draw();
@@ -1073,17 +1073,17 @@ public class GuildFrame {
 		}
 		while(i < informationInput.getText().length()) {
 			if(informationInput.getText().charAt(i) == 13) {
-				yShift+= TTF2.guildInformationTitle.getLineHeight();
+				yShift+= FontManager.get("FRIZQT", 14).getLineHeight();
 				xShift = 0;
 			}
 			else {
-				TTF2.guildInformationText.drawChar(x+xShift+1, y+yShift, informationInput.getText().charAt(i), Color.black);
-				TTF2.guildInformationText.drawChar(x+xShift, y+yShift, informationInput.getText().charAt(i), color);
-				xShift+= TTF2.guildInformationText.getWidth(informationInput.getText().charAt(i));
+				FontManager.get("FRIZQT", 13).drawChar(x+xShift+1, y+yShift, informationInput.getText().charAt(i), Color.black);
+				FontManager.get("FRIZQT", 13).drawChar(x+xShift, y+yShift, informationInput.getText().charAt(i), color);
+				xShift+= FontManager.get("FRIZQT", 13).getWidth(informationInput.getText().charAt(i));
 			}
 			if(xShift >= maxLength) {
 				xShift = 0;
-				yShift+= TTF2.guildInformationText.getLineHeight();
+				yShift+= FontManager.get("FRIZQT", 13).getLineHeight();
 			}
 			if(informationInput.isActive() && informationInput.getCursorPosition() == i+1 && System.currentTimeMillis()%1000 < 500) {
 				Draw.drawColorQuad(x+xShift, y+yShift, 5*Mideas.getDisplayXFactor(), 16*Mideas.getDisplayYFactor(), color);
@@ -1096,17 +1096,17 @@ public class GuildFrame {
 		float x = X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor();
 		float y = Y_SOCIAL_FRAME+342*Mideas.getDisplayYFactor();
 		int xShift = 0;
-		TTF2.guildMotd.drawBegin();
-		TTF2.guildMotd.drawStringShadowPart(x, y, Mideas.joueur1().getGuild().getNumberMember(), Color.white, Color.black, 1, 0, 0);
-		xShift+= TTF2.guildMotd.getWidth(Mideas.joueur1().getGuild().getNumberMember());
-		TTF2.guildMotd.drawStringShadowPart(x+xShift, y, " Guild Member (", YELLOW, Color.black, 1, 0, 0);
-		xShift+= TTF2.guildMotd.getWidth(" Guild Member (");
-		TTF2.guildMotd.drawStringShadowPart(x+xShift, y, Mideas.joueur1().getGuild().getNumberOnlineMemberString(), Color.white, Color.black, 1, 0, 0);
-		xShift+= TTF2.guildMotd.getWidth(Mideas.joueur1().getGuild().getNumberOnlineMemberString());
-		TTF2.guildMotd.drawStringShadowPart(x+xShift, y, " Online ", GREEN, Color.black, 1, 0, 0);
-		xShift+= TTF2.guildMotd.getWidth("Online ");
-		TTF2.guildMotd.drawStringShadowPart(x+xShift, y, ")", YELLOW, Color.black, 1, 0, 0);
-		TTF2.guildMotd.drawEnd();
+		FontManager.get("FRIZQT", 12).drawBegin();
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x, y, Mideas.joueur1().getGuild().getNumberMember(), Color.white, Color.black, 1, 0, 0);
+		xShift+= FontManager.get("FRIZQT", 12).getWidth(Mideas.joueur1().getGuild().getNumberMember());
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, " Guild Member (", YELLOW, Color.black, 1, 0, 0);
+		xShift+= FontManager.get("FRIZQT", 12).getWidth(" Guild Member (");
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, Mideas.joueur1().getGuild().getNumberOnlineMemberString(), Color.white, Color.black, 1, 0, 0);
+		xShift+= FontManager.get("FRIZQT", 12).getWidth(Mideas.joueur1().getGuild().getNumberOnlineMemberString());
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, " Online ", GREEN, Color.black, 1, 0, 0);
+		xShift+= FontManager.get("FRIZQT", 12).getWidth("Online ");
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, ")", YELLOW, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawEnd();
 	}
 	
 	private static void drawMotd() {
@@ -1124,18 +1124,18 @@ public class GuildFrame {
 		else {
 			color = GREY;
 		}
-		TTF2.guildMotd.drawBegin();
+		FontManager.get("FRIZQT", 12).drawBegin();
 		while(i < length) {
-			TTF2.guildMotd.drawCharPart(x+xShift+1, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), Color.black);
-			TTF2.guildMotd.drawCharPart(x+xShift, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), color);
-			xShift+= TTF2.guildMotd.getWidth(Mideas.joueur1().getGuild().getTempMotd().charAt(i));
+			FontManager.get("FRIZQT", 12).drawCharPart(x+xShift+1, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), Color.black);
+			FontManager.get("FRIZQT", 12).drawCharPart(x+xShift, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), color);
+			xShift+= FontManager.get("FRIZQT", 12).getWidth(Mideas.joueur1().getGuild().getTempMotd().charAt(i));
 			if(xShift >= maxWidth) {
-				yShift+= TTF2.guildMotd.getLineHeight();
+				yShift+= FontManager.get("FRIZQT", 12).getLineHeight();
 				xShift = 0;
 			}
 			i++;
 		}
-		TTF2.guildMotd.drawEnd();
+		FontManager.get("FRIZQT", 12).drawEnd();
 	}
 	
 	public static boolean isInformationActive() {

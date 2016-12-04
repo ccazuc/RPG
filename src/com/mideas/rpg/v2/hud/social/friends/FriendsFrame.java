@@ -5,7 +5,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandFriend;
 import com.mideas.rpg.v2.command.CommandIgnore;
@@ -138,15 +138,15 @@ public class FriendsFrame {
 				friend = Mideas.joueur1().getFriendList().get(i);
 				if(friend.isOnline()) {
 					Draw.drawQuad(Sprites.friend_note_online, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
-					TTF2.friendName.drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), YELLOW, Color.black, 1, 0, 0);
-					TTF2.friendName.drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+TTF2.friendName.getWidth(friend.getName()), y, friend.getAreaText(), Color.white, Color.black, 1, 0, 0);
-					TTF2.friendInfos.drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), friend.getInfosText(), Color.white, Color.black, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), YELLOW, Color.black, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, friend.getAreaText(), Color.white, Color.black, 1, 0, 0);
+					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), friend.getInfosText(), Color.white, Color.black, 1, 0, 0);
 				}
 				else {
 					Draw.drawQuad(Sprites.friend_note_offline, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
-					TTF2.friendName.drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), GREY, Color.black, 1, 0, 0);
-					TTF2.friendName.drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+TTF2.friendName.getWidth(friend.getName()), y, " - offline", GREY, Color.black, 1, 0, 0);
-					TTF2.friendInfos.drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), "Unknwon", Color.white, Color.black, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), GREY, Color.black, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, " - offline", GREY, Color.black, 1, 0, 0);
+					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), "Unknwon", Color.white, Color.black, 1, 0, 0);
 				}
 				if(selectedFriend == friend || hoveredFriend == i) {
 					if(FL_SIZE > FL_MAXIMUM_DISPLAY) {
@@ -182,7 +182,7 @@ public class FriendsFrame {
 			}
 			while(i < IGNORE_LIST_SIZE) {
 				Ignore ignore = Mideas.joueur1().getIgnoreList().get(i);
-				TTF2.ignoreName.drawStringShadow(x, y, ignore.getName(), YELLOW, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadow(x, y, ignore.getName(), YELLOW, Color.black, 1, 0, 0);
 				if(hoveredIgnore == i || ignore == selectedIgnore) {
 					if(IGNORE_LIST_SIZE > IL_MAXIMUM_DISPLAY) {
 						Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());

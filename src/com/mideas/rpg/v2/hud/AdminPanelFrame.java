@@ -7,7 +7,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Draw;
@@ -54,7 +54,7 @@ public class AdminPanelFrame {
 			init = true;
 		}
 		Draw.drawQuad(Sprites.admin_panel, LEFT_ANCHOR-75, Display.getHeight()/2+y-100);
-		TTF2.coinContainer.drawStringShadow(LEFT_ANCHOR+25, Display.getHeight()/2+y-40, joueur1, Color.white, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 18).drawStringShadow(LEFT_ANCHOR+25, Display.getHeight()/2+y-40, joueur1, Color.white, Color.black, 1, 1, 1);
 		sexMaxStaminaPlayer1.draw();
 		sexMaxManaPlayer1.draw();
 		killPlayer1.draw();

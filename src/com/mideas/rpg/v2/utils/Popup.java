@@ -1,7 +1,7 @@
 package com.mideas.rpg.v2.utils;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 
 import org.newdawn.slick.Color;
 
@@ -31,7 +31,7 @@ public class Popup {
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;
 		this.message = message;
-		this.textWidth = TTF2.popup.getWidth(this.message);
+		this.textWidth = FontManager.get("FRIZQT", 13).getWidth(this.message);
 		this.background = new AlertBackground(this.x, this.y, this.x_size, this.y_size, .7f);
 		this.cancelButton = new Button(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "No", 12, 1) {
 			
@@ -46,7 +46,7 @@ public class Popup {
 	public void draw() {
 		if(this.isActive) {
 		this.background.draw();
-		TTF2.popup.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.white, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 13).drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.white, Color.black, 1, 0, 0);
 		this.cancelButton.draw();
 			this.acceptButton.draw();
 		}
@@ -89,7 +89,7 @@ public class Popup {
 	
 	public void setText(String text) {
 		this.message = text;
-		this.textWidth = TTF2.popup.getWidth(text);
+		this.textWidth = FontManager.get("FRIZQT", 13).getWidth(text);
 	}
 	
 	public void update(float x, float y, float x_size, float y_size) {

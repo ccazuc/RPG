@@ -388,4 +388,9 @@ public final class TTF {
 		return this.font.getSize();
 	}
 	
+		public float getSize1()
+		{
+				return (this.font.getSize());
+		}
+	
 }

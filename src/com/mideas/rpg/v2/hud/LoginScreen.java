@@ -7,7 +7,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
@@ -16,16 +16,15 @@ import com.mideas.rpg.v2.utils.Input;
 
 public class LoginScreen {
 
-	private static Input account = new Input(TTF2.loginScreenAccount, 10, false, false, true);
-	private static Input password = new Input(TTF2.loginScreenPassword, 19, false, false);
+	private static Input account = new Input(FontManager.get("FRIZQT", 21), 10, false, false, true);
+	private static Input password = new Input(FontManager.get("FRIZQT", 16), 19, false, false);
 	private static String passwordText = "";
 	private static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 130*Mideas.getDisplayXFactor(), 230*Mideas.getDisplayXFactor(), 38*Mideas.getDisplayYFactor(), Display.getHeight()+30, 20, "Ok");
 	private static StringBuilder passwordBuilder = new StringBuilder();
 	private static Button leaveButton = new Button(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Leave", 16, 2) {
 		@Override
 		public void eventButtonClick() {
-			Mideas.saveAllStats();
-			Display.destroy();
+			Mideas.close();
 		}
 	};
 	private static Button connectionButton = new Button(Display.getWidth()/2-105*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Connection", 16, 2) {
@@ -44,14 +43,14 @@ public class LoginScreen {
 	
 	public static void draw() {
 		Draw.drawQuadBG(Sprites.login_screen);
-		TTF2.loginScreenAccount.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.white);
-		TTF2.loginScreenPassword.drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), passwordText, Color.white);
+		FontManager.get("FRIZQT", 21).drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.white);
+		FontManager.get("FRIZQT", 16).drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), passwordText, Color.white);
 		if(System.currentTimeMillis()%1000 < 500) {
 			if(account.isActive()) {
-				TTF2.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.white);
+				FontManager.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.white);
 			}
 			else {
-				TTF2.loginScreenTick.drawString(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+TTF2.loginScreenPassword.getWidth(passwordText), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), bar, Color.white);
+				FontManager.loginScreenTick.drawString(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 16).getWidth(passwordText), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), bar, Color.white);
 			}
 		}
 		leaveButton.draw();

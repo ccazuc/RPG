@@ -4,7 +4,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 
 public class PopupInput extends Popup {
 
@@ -24,7 +24,7 @@ public class PopupInput extends Popup {
 		}
 		this.x = Display.getWidth()/2-this.x_size/2;
 		this.x_size_input_bar_save = (int)input_bar_width;
-		this.textWidth = TTF2.popup.getWidth(this.message);
+		this.textWidth = FontManager.get("FRIZQT", 13).getWidth(this.message);
 		this.cancelButton = new Button(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "No", 12, 1) {
 			
 			@Override
@@ -33,7 +33,7 @@ public class PopupInput extends Popup {
 				PopupInput.this.isActive = false;
 			}
 		};
-		this.input = new Input(TTF2.popup, 30, false, false) {
+		this.input = new Input(FontManager.get("FRIZQT", 13), 30, false, false) {
 			
 			@Override
 			public boolean keyEvent(char c) {
@@ -58,10 +58,10 @@ public class PopupInput extends Popup {
 		if(this.isActive) {
 			this.background.draw();
 			this.inputBar.draw();
-			TTF2.popup.drawBegin();
-			TTF2.popup.drawStringShadowPart(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.white, Color.black, 1, 0, 0);
-			TTF2.popup.drawStringShadowPart(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Color.white, Color.black, 1, 0, 0);
-			TTF2.popup.drawEnd();
+			FontManager.get("FRIZQT", 13).drawBegin();
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawEnd();
 			if(this.input.isActive() && System.currentTimeMillis()%1000 < 500) {
 				Draw.drawColorQuad(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor()+this.input.getCursorShift(), this.y+51*Mideas.getDisplayYFactor(), 5*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayYFactor(), Color.white);
 			}

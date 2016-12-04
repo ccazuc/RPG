@@ -4,7 +4,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 
 public class Alert {
 
@@ -32,21 +32,21 @@ public class Alert {
 		this.x_size_button = x_size_button;
 		this.y_size_button = y_size_button;
 		this.background = new AlertBackground(this.x, this.y, x_size_alert, y_size_alert, .7f);
-		this.diff = (int)(y_size_alert-10-TTF2.alertFont.getLineHeight());
-		this.button = new Button(this.x+x_size_alert/2-x_size_button/2, this.y+TTF2.alertFont.getLineHeight()+this.diff/2-y_size_button/2, x_size_button, y_size_button, button_text, font_size, 2);
+		this.diff = (int)(y_size_alert-10-FontManager.get("FRIZQT", 22).getLineHeight());
+		this.button = new Button(this.x+x_size_alert/2-x_size_button/2, this.y+FontManager.get("FRIZQT", 22).getLineHeight()+this.diff/2-y_size_button/2, x_size_button, y_size_button, button_text, font_size, 2);
 	}
 	
 	public void draw() {
 		if(Display.wasResized() || this.init) {
-			this.button.setY(this.y+5/Mideas.getDisplayXFactor()+TTF2.alertFont.getLineHeight()+this.diff/2-this.y_size_button/2);
+			this.button.setY(this.y+5/Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 22).getLineHeight()+this.diff/2-this.y_size_button/2);
 			this.init = false;
 			int i = 0;
 			int j = 0;
 			int k = 0;
-			float lineNumber = (TTF2.alertFont.getWidth(this.text)/(this.background.getWidth()*Mideas.getDisplayXFactor()-30));
+			float lineNumber = (FontManager.get("FRIZQT", 22).getWidth(this.text)/(this.background.getWidth()*Mideas.getDisplayXFactor()-30));
 			this.formatedText = new String[(int)Math.ceil(lineNumber)];
 			while(i < this.text.length()) {
-				if(TTF2.alertFont.getWidth(this.text.substring(j, i)) < this.background.getWidth()*Mideas.getDisplayXFactor()-30) {
+				if(FontManager.get("FRIZQT", 22).getWidth(this.text.substring(j, i)) < this.background.getWidth()*Mideas.getDisplayXFactor()-30) {
 					
 				}
 				else {
@@ -109,18 +109,18 @@ public class Alert {
 			this.background.draw();
 			int i = 0;
 			int y_shift = 0;
-			TTF2.alertFont.drawBegin();
+			FontManager.get("FRIZQT", 22).drawBegin();
 			if(this.formatedText.length == 1) {
-				TTF2.alertFont.drawStringShadowPart(this.x+this.background.getWidth()/2-TTF2.alertFont.getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], YELLOW, Color.black, 3, 2, 2);
+				FontManager.get("FRIZQT", 22).drawStringShadowPart(this.x+this.background.getWidth()/2-FontManager.get("FRIZQT", 22).getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], YELLOW, Color.black, 3, 2, 2);
 			}
 			else {
 				while(i < this.formatedText.length) {
-					TTF2.alertFont.drawStringShadowPart(this.x+10, this.y+14+y_shift, this.formatedText[i], YELLOW, Color.black, 2, 2, 1);
-					y_shift+= TTF2.alertFont.getLineHeight()+3;
+					FontManager.get("FRIZQT", 22).drawStringShadowPart(this.x+10, this.y+14+y_shift, this.formatedText[i], YELLOW, Color.black, 2, 2, 1);
+					y_shift+= FontManager.get("FRIZQT", 22).getLineHeight()+3;
 					i++;
 				}
 			}
-			TTF2.alertFont.drawEnd();
+			FontManager.get("FRIZQT", 22).drawEnd();
 			this.button.draw();
 		}
 	}
@@ -150,7 +150,7 @@ public class Alert {
 	public void setY(float y) {
 		this.y = Display.getHeight()/2+(int)y;
 		this.background.setY(this.y);
-		this.button.setY(this.y+TTF2.alertFont.getLineHeight()+this.diff/2-this.y_size_button/2);
+		this.button.setY(this.y+FontManager.get("FRIZQT", 22).getLineHeight()+this.diff/2-this.y_size_button/2);
 	}
 	
 	public void setText(String text) {
@@ -158,10 +158,10 @@ public class Alert {
 		int i = 0;
 		int j = 0;
 		int k = 0;
-		float lineNumber = (TTF2.alertFont.getWidth(this.text)/(this.background.getWidth()*Mideas.getDisplayXFactor()-30));
+		float lineNumber = (FontManager.get("FRIZQT", 22).getWidth(this.text)/(this.background.getWidth()*Mideas.getDisplayXFactor()-30));
 		this.formatedText = new String[(int)Math.ceil(lineNumber)];
 		while(i < this.text.length()) {
-			if(TTF2.alertFont.getWidth(this.text.substring(j, i)) < this.background.getWidth()*Mideas.getDisplayXFactor()-30) {
+			if(FontManager.get("FRIZQT", 22).getWidth(this.text.substring(j, i)) < this.background.getWidth()*Mideas.getDisplayXFactor()-30) {
 			}
 			else {
 				if(this.text.substring(i, i+1).charAt(0) != ' ') {

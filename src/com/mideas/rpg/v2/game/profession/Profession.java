@@ -8,7 +8,7 @@ import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.hud.Cast;
 import com.mideas.rpg.v2.hud.CastBar;
@@ -157,10 +157,10 @@ public class Profession {
 			if(j == 0 && y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayYFactor() && this.categoryList.get(i).getCraftList().size() > 0) {
 				drawButton(this.categoryList.get(i), x, y+yShift);
 				if(this.categoryList.get(i).getMouseDown()) {
-					TTF2.craft.drawString(x+22, y+2+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
+					TTF2.get("FRIZQT", 13).drawString(x+22, y+2+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
 				}
 				else {
-					TTF2.craft.drawString(x+20, y+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
+					TTF2.get("FRIZQT", 13).drawString(x+20, y+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
 				}
 			}
 			yShift+= yShiftHeight;
@@ -171,12 +171,12 @@ public class Profession {
 							Draw.drawQuad(getColor(this.categoryList.get(i).getCraftList().get(j).getLevel()), x-5, y+yShift);
 						}
 						if(this.categoryList.get(i).getCraftList().get(j).getMouseDown()) {
-							TTF2.craft.drawString(x+29, y+2+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
-							TTF2.craft.drawString(x+35+TTF2.craft.getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+2+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							TTF2.get("FRIZQT", 13).drawString(x+29, y+2+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							TTF2.get("FRIZQT", 13).drawString(x+35+TTF2.get("FRIZQT", 13).getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+2+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
 						}
 						else {
-							TTF2.craft.drawString(x+27, y+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
-							TTF2.craft.drawString(x+33+TTF2.craft.getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							TTF2.get("FRIZQT", 13).drawString(x+27, y+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							TTF2.get("FRIZQT", 13).drawString(x+33+TTF2.get("FRIZQT", 13).getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
 						}
 					}
 					yShift+= yShiftHeight;
@@ -197,10 +197,10 @@ public class Profession {
 			if(y+yShift >= Y_TOP && yShift+yShiftHeight-this.y_offset <= MAX_HEIGHT*Mideas.getDisplayYFactor() && this.categoryList.get(i).getCraftList().size() > 0) {
 				drawButton(this.categoryList.get(i), x, y+yShift);
 				if(this.categoryList.get(i).getMouseDown()) {
-					TTF2.craft.drawString(x+22, y+2+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
+					FontManager.get("FRIZQT", 13).drawString(x+22, y+2+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
 				}
 				else {
-					TTF2.craft.drawString(x+20, y+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
+					FontManager.get("FRIZQT", 13).drawString(x+20, y+yShift, this.categoryList.get(i).getName(), getColorCategory(this.categoryList.get(i)));
 				}
 			}
 			yShift+= yShiftHeight;
@@ -211,12 +211,12 @@ public class Profession {
 							Draw.drawQuad(getColor(this.categoryList.get(i).getCraftList().get(j).getLevel()), x-5, y+yShift);
 						}
 						if(this.categoryList.get(i).getCraftList().get(j).getMouseDown()) {
-							TTF2.craft.drawString(x+29, y+2+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
-							TTF2.craft.drawString(x+35+TTF2.craft.getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+2+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							FontManager.get("FRIZQT", 13).drawString(x+29, y+2+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							FontManager.get("FRIZQT", 13).drawString(x+35+FontManager.get("FRIZQT", 13).getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+2+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
 						}
 						else {
-							TTF2.craft.drawString(x+27, y+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
-							TTF2.craft.drawString(x+33+TTF2.craft.getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							FontManager.get("FRIZQT", 13).drawString(x+27, y+yShift, this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName(), getFontColor(this.categoryList.get(i).getCraftList().get(j)));
+							FontManager.get("FRIZQT", 13).drawString(x+33+FontManager.get("FRIZQT", 13).getWidth(this.categoryList.get(i).getCraftList().get(j).getItem().getStuffName()), y+yShift, "["+possibleCraftList.get(this.categoryList.get(i).getCraftList().get(j).getId())+"]", getFontColor(this.categoryList.get(i).getCraftList().get(j)));
 						}
 					}
 					yShift+= yShiftHeight;
@@ -313,7 +313,7 @@ public class Profession {
 	private void drawSelectedItem(float x, float y) {
 		Draw.drawQuad(IconsManager.getSprite37(this.selectedItem.getItem().getSpriteId()), x, y, 41*Mideas.getDisplayXFactor(), 39*Mideas.getDisplayXFactor());
 		Draw.drawQuad(Sprites.profession_border, x, y);
-		TTF2.craft.drawString(x+53*Mideas.getDisplayXFactor(), y+2, this.selectedItem.getItem().getStuffName(), YELLOW);
+		FontManager.get("FRIZQT", 13).drawString(x+53*Mideas.getDisplayXFactor(), y+2, this.selectedItem.getItem().getStuffName(), YELLOW);
 		drawComponent(x-4, y+61*Mideas.getDisplayXFactor(), 0);
 	}
 	
@@ -324,8 +324,8 @@ public class Profession {
 			if(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)) < this.selectedItem.getNeededItemNumber(number)) {
 				Draw.drawColorQuad(x, y, 42*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayXFactor(), BG_COLOR);
 			}
-			TTF2.craft.drawStringShadow(x+39-TTF2.craft.getWidth(Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number)), y+23, Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number), Color.white, Color.black, 1, 1);
-			TTF2.craft.drawStringShadow(x+45*Mideas.getDisplayXFactor(), y, this.selectedItem.getNeededItem(0).getStuffName(), YELLOW, Color.black, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(x+39-FontManager.get("FRIZQT", 13).getWidth(Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number)), y+23, Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number), Color.white, Color.black, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(x+45*Mideas.getDisplayXFactor(), y, this.selectedItem.getNeededItem(0).getStuffName(), YELLOW, Color.black, 1, 1);
 		}
 	}
 	

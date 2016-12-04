@@ -1,26 +1,17 @@
 package com.mideas.rpg.v2.utils;
 
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.util.ResourceLoader;
 
 import com.mideas.rpg.v2.TTF;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.ChatFrame;
 
-/**
- * 
- * @author Mideas
- * Made 25-06-2016
- */
 public class Input {
 
 	private String text = "";
@@ -54,18 +45,7 @@ public class Input {
 		this.debugActive = debugActive;
 		this.maxLength = maxLength;
 		inputList.add(this);
-		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-		Font awtFont = null;
-		try {
-			awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(font_size);
-		} 
-		catch (FontFormatException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.font = new TTF(awtFont, true);
+		this.font = FontManager.get("FRIZQT", font_size);
 	}
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive, boolean isActive) {

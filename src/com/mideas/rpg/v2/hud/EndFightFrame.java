@@ -9,8 +9,7 @@ import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF2;
-import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Unit;
 import com.mideas.rpg.v2.utils.Draw;
@@ -51,13 +50,13 @@ public class EndFightFrame {
 		else {
 			Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
 		}
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth(retry)/2-69, Display.getHeight()/2-41, retry, Color.white, Color.black, 1, 1, 1);
-		TTF2.buttonFont.drawStringShadow(Display.getWidth()/2-TTF2.buttonFont.getWidth(quit)/2+69, Display.getHeight()/2-41, quit, Color.white, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(retry)/2-69, Display.getHeight()/2-41, retry, Color.white, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(quit)/2+69, Display.getHeight()/2-41, quit, Color.white, Color.black, 1, 1, 1);
 		if(Mideas.joueur1().getStamina() <= 0) {
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player2Won, Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player2Won, Color.white, Color.black, 1, 1, 1);
 		}
 		else if(Mideas.joueur1().getTarget().getStamina() <= 0) {
-			TTF2.font4.drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player1Won, Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player1Won, Color.white, Color.black, 1, 1, 1);
 			if(!endFightEvent) {
 				doEndFightEvent();
 				endFightEvent = true;
@@ -70,13 +69,7 @@ public class EndFightFrame {
 		if(Mouse.getEventButton() == 0) {
 			if(!Mouse.getEventButtonState()) {
 				if(Mideas.mouseX() >= Display.getWidth()/2+7 && Mideas.mouseX() <= Display.getWidth()/2+134 && Mideas.mouseY() <= Display.getHeight()/2-15 && Mideas.mouseY() >= Display.getHeight()/2-38) {
-					CharacterStuff.setBagItems();
-					CharacterStuff.setEquippedBags();
-					CharacterStuff.setEquippedItems();
-					Mideas.setConfig();
-					Mideas.joueur1().setExp(Mideas.joueur1().getExp());
-					Mideas.joueur1().setGold(Mideas.joueur1().getGold());	
-					System.exit(1);
+					Mideas.close();
 				}
 				else if(Mideas.mouseX() >= Display.getWidth()/2-130 && Mideas.mouseX() <= Display.getWidth()/2-3 && Mideas.mouseY() <= Display.getHeight()/2-18 && Mideas.mouseY() >= Display.getHeight()/2-37) {
 					Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());

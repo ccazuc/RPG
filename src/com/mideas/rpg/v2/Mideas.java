@@ -95,6 +95,7 @@ public class Mideas {
 	private static boolean hover;
 	private static Thread authServerConnectionThread;
 	private static AuthServerConnectionRunnable authServerConnectionRunnable;
+	private static boolean closeRequested = false;
 	
 	private static long LAST_PING_TIMER;
 	private final static int PING_FREQUENCE = 10000;
@@ -159,7 +160,7 @@ public class Mideas {
 		cursor_buffer.position(0);
 		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));
 		//Display.setFullscreen(true);
-		TTF2.init();
+		FontManager.init();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		double time = System.currentTimeMillis();
 		loadingScreen();
@@ -181,13 +182,15 @@ public class Mideas {
 		authServerConnectionRunnable = new AuthServerConnectionRunnable();
 		authServerConnectionThread = new Thread(authServerConnectionRunnable);
 		authServerConnectionThread.start();
-		System.out.println((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory()));
 		System.gc();
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		Keyboard.enableRepeatEvents(true);
 		context2D();
 		try {
-			while(!Display.isCloseRequested()) {
+			while(!closeRequested) {
+				if(Display.isCloseRequested()) {
+					closeRequested = true;
+				}
 				fpsUpdate();
 				hover = true;
 				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -249,6 +252,10 @@ public class Mideas {
 		saveAllStats();
 	}
 	
+	public static void close() {
+		closeRequested = true;
+	}
+	
 	public static void initSQL() throws IllegalAccessException, ClassNotFoundException {
 		try {
 			jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
@@ -270,12 +277,7 @@ public class Mideas {
 		}
 		if(CommandPing.getPingStatus() && System.currentTimeMillis()-CommandPing.getTimer() > TIMEOUT_TIMER) {
 			CommandPing.setPingStatus(false);
-			Interface.setHasLoggedInToAuth(false);
-			Mideas.setJoueur1Null();
-			Mideas.setAccountId(0);
-			LoginScreen.getAlert().setActive();
-			LoginScreen.getAlert().setText("Vous avez été déconnecté.");
-			ConnectionManager.close();
+			ConnectionManager.disconnect();
 		}
 	}
 	
@@ -535,7 +537,7 @@ public class Mideas {
 		joueur1 = new Joueur(joueur);
 	}
 	
-	private static void lessCd() {
+	/*private static void lessCd() {
 		int i = 0;
 		int j = 0;
 		first:
@@ -553,7 +555,7 @@ public class Mideas {
 			}
 			i++;
 		}
-	}
+	}*/
 	
 	public static void loadingScreen() {
 		Sprites.initBG();
