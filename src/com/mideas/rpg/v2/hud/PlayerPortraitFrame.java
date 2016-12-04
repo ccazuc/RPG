@@ -25,7 +25,7 @@ public class PlayerPortraitFrame {
 		drawHealthBar(joueur, (int)x, (int)y);
 		drawManaBar(joueur, (int)x, (int)y);
 		Draw.drawQuad(Sprites.playerUI, (int)x, (int)y);
-		FontManager.get("FRIZQT", 16).drawStringShadow((int)(x+135*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 16).getWidth(joueur.getName())/2), (int)(15*Mideas.getDisplayYFactor()+y), joueur.getName(), Color.orange, Color.black, 1, 1, 1);    
+		FontManager.get("FRIZQT", 14).drawStringShadow((int)(x+135*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 16).getWidth(joueur.getName())/2), (int)(15*Mideas.getDisplayYFactor()+y), joueur.getName(), Color.orange, Color.black, 1, 1, 1);    
 		FontManager.get("FRIZQT", 11).drawBegin();
 		drawHealthText(joueur, (int)x, (int)y);
 		drawManaText(joueur, (int)x, (int)y);

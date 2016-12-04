@@ -81,6 +81,16 @@ public final class Texture {
 		this(new File(string));
 	}
 
+	public final void drawBegin() {
+		bind();
+		OpenGL.glBegin(OpenGL.GL_QUADS);
+		OpenGL.glColor4f(1, 1, 1, 1);
+	}
+	
+	public final void drawEnd() {
+		OpenGL.glEnd();
+	}
+
 	public final void bind() {
 		OpenGL.glBindTexture(OpenGL.GL_TEXTURE_2D, this.textureID);
 	}

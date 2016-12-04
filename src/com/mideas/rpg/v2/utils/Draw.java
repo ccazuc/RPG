@@ -160,7 +160,7 @@ public final class Draw {
 		glTexCoord2f(xTo, yTo);
 		glVertex2f(x+width, y+height);
 		glTexCoord2f(xTo, yFrom);
-		OpenGL.glVertex2f(x+width, y);
+		glVertex2f(x+width, y);
 	}
 	
 	public final static void drawQuadPart(final Texture texture, final float x, final float y, final float width, final float height) {
@@ -175,7 +175,7 @@ public final class Draw {
 		glTexCoord2f(xTo, yTo);
 		glVertex2f(x+width, y+height);
 		glTexCoord2f(xTo, yFrom);
-		OpenGL.glVertex2f(x+width, y);
+		glVertex2f(x+width, y);
 	}
 	
 	public final static void drawQuad(final Texture texture, final float x, final float y, final float alpha) {

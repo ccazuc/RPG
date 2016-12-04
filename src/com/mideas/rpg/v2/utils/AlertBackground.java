@@ -28,8 +28,8 @@ public class AlertBackground {
 		int imageHeight = (int) (Sprites.top_left_corner_alert.getImageHeight()*yFac);
 		int borderWidthShift = (int)(13*Mideas.getDisplayXFactor());
 		int borderHeightShift = (int)(13*Mideas.getDisplayYFactor());
-		Draw.drawColorQuad(this.x+borderWidthShift, this.y+borderHeightShift, this.x_size-2*borderWidthShift, this.y_size-2*borderHeightShift+1, this.bgColor);
-		Draw.drawQuad(Sprites.top_left_corner_alert, this.x, this.y, imageWidth, imageHeight);
+		//Draw.drawColorQuad(this.x+borderWidthShift, this.y+borderHeightShift, this.x_size-2*borderWidthShift, this.y_size-2*borderHeightShift+1, this.bgColor);
+		/*Draw.drawQuad(Sprites.top_left_corner_alert, this.x, this.y, imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.width_top_border_alert, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.top_right_corner_alert, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight);
 		
@@ -38,7 +38,19 @@ public class AlertBackground {
 		Draw.drawQuad(Sprites.bot_right_corner_alert, this.x+this.x_size-imageWidth, this.y+this.y_size-imageHeight, imageWidth, imageHeight);
 		
 		Draw.drawQuad(Sprites.height_left_border_alert, this.x, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
-		Draw.drawQuad(Sprites.height_right_border_alert, this.x+this.x_size-imageWidth, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
+		Draw.drawQuad(Sprites.height_right_border_alert, this.x+this.x_size-imageWidth, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);*/
+		Sprites.alert_background.drawBegin();
+		Draw.drawQuadPart(Sprites.alert_background, this.x, this.y, imageWidth, imageHeight, 0, 0, 27, 24);															//top_left_corner	
+		Draw.drawQuadPart(Sprites.alert_background, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight, 54, 24, 6, 24);								//top_border
+		Draw.drawQuadPart(Sprites.alert_background, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight, 27, 0, 27, 24);									//top_right_corner
+		
+		Draw.drawQuadPart(Sprites.alert_background, this.x, this.y+this.y_size-imageHeight, imageWidth, imageHeight, 54, 0, 27, 24);								//bot_left_corner
+		Draw.drawQuadPart(Sprites.alert_background, this.x+imageWidth, this.y+this.y_size-imageHeight, this.x_size-2*imageWidth, imageHeight, 60, 24, 6, 24);		//bot_border
+		Draw.drawQuadPart(Sprites.alert_background, this.x+this.x_size-imageWidth, this.y+this.y_size-imageHeight, imageWidth, imageHeight, 81, 0, 27, 24);			//bot_right_corner
+		
+		Draw.drawQuadPart(Sprites.alert_background, this.x, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight, 0, 25, 27, 6);								//left_border
+		Draw.drawQuadPart(Sprites.alert_background, this.x+this.x_size-imageWidth, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight, 27, 25, 27, 6);		//right_border
+		Sprites.alert_background.drawEnd();
 	}
 	
 	public boolean isHover() {

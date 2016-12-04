@@ -140,7 +140,7 @@ public class Mideas {
 		Display.setResizable(true);
 		Display.setDisplayMode(new DisplayMode(1700, 930));
 		Display.setVSyncEnabled(true);
-        cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
+		cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
 		final int cursor_width = cursor_image.getWidth();
 		final int cursor_height = cursor_image.getHeight();
 		final int[] cursor_pixels = new int[cursor_width*cursor_height];
@@ -429,7 +429,8 @@ public class Mideas {
 	}
 	
 	public static void nTime(long time, String text) {
-		System.out.println((System.nanoTime()-time)+"ns "+text);
+		long timer = System.nanoTime();
+		System.out.println((timer-time)+"ns "+((timer-time)/1000)+"µs "+((timer-time)/1000000)+"ms "+text);
 	}
 	
 	public static void setConfig() {

@@ -359,7 +359,7 @@ public final class TTF {
 						byteBuffer.put((byte)0);
 					}
 					else {
-						byteBuffer.put((byte)(pixel));
+						byteBuffer.put((pixel));
 					}
 				}
 			}

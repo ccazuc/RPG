@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.account: ~3 rows (environ)
+-- Export de données de la table rpg.account: ~2 rows (environ)
 DELETE FROM `account`;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
 INSERT INTO `account` (`id`, `name`, `password`, `salt`, `email`, `rank`, `banned`, `ban_duration`) VALUES
@@ -525,51 +525,54 @@ CREATE TABLE IF NOT EXISTS `bag` (
   `slot96_gem2` mediumint(9) NOT NULL DEFAULT '0',
   `slot96_gem3` mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (`character_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.bag: 9 rows
+-- Export de données de la table rpg.bag: ~10 rows (environ)
 DELETE FROM `bag`;
 /*!40000 ALTER TABLE `bag` DISABLE KEYS */;
 INSERT INTO `bag` (`character_id`, `slot1`, `numberstack1`, `slot1_gem1`, `slot1_gem2`, `slot1_gem3`, `slot2`, `numberstack2`, `slot2_gem1`, `slot2_gem2`, `slot2_gem3`, `slot3`, `numberstack3`, `slot3_gem1`, `slot3_gem2`, `slot3_gem3`, `slot4`, `numberstack4`, `slot4_gem1`, `slot4_gem2`, `slot4_gem3`, `slot5`, `numberstack5`, `slot5_gem1`, `slot5_gem2`, `slot5_gem3`, `slot6`, `numberstack6`, `slot6_gem1`, `slot6_gem2`, `slot6_gem3`, `slot7`, `numberstack7`, `slot7_gem1`, `slot7_gem2`, `slot7_gem3`, `slot8`, `numberstack8`, `slot8_gem1`, `slot8_gem2`, `slot8_gem3`, `slot9`, `numberstack9`, `slot9_gem1`, `slot9_gem2`, `slot9_gem3`, `slot10`, `numberstack10`, `slot10_gem1`, `slot10_gem2`, `slot10_gem3`, `slot11`, `numberstack11`, `slot11_gem1`, `slot11_gem2`, `slot11_gem3`, `slot12`, `numberstack12`, `slot12_gem1`, `slot12_gem2`, `slot12_gem3`, `slot13`, `numberstack13`, `slot13_gem1`, `slot13_gem2`, `slot13_gem3`, `slot14`, `numberstack14`, `slot14_gem1`, `slot14_gem2`, `slot14_gem3`, `slot15`, `numberstack15`, `slot15_gem1`, `slot15_gem2`, `slot15_gem3`, `slot16`, `numberstack16`, `slot16_gem1`, `slot16_gem2`, `slot16_gem3`, `slot17`, `numberstack17`, `slot17_gem1`, `slot17_gem2`, `slot17_gem3`, `slot18`, `numberstack18`, `slot18_gem1`, `slot18_gem2`, `slot18_gem3`, `slot19`, `numberstack19`, `slot19_gem1`, `slot19_gem2`, `slot19_gem3`, `slot20`, `numberstack20`, `slot20_gem1`, `slot20_gem2`, `slot20_gem3`, `slot21`, `numberstack21`, `slot21_gem1`, `slot21_gem2`, `slot21_gem3`, `slot22`, `numberstack22`, `slot22_gem1`, `slot22_gem2`, `slot22_gem3`, `slot23`, `numberstack23`, `slot23_gem1`, `slot23_gem2`, `slot23_gem3`, `slot24`, `numberstack24`, `slot24_gem1`, `slot24_gem2`, `slot24_gem3`, `slot25`, `numberstack25`, `slot25_gem1`, `slot25_gem2`, `slot25_gem3`, `slot26`, `numberstack26`, `slot26_gem1`, `slot26_gem2`, `slot26_gem3`, `slot27`, `numberstack27`, `slot27_gem1`, `slot27_gem2`, `slot27_gem3`, `slot28`, `numberstack28`, `slot28_gem1`, `slot28_gem2`, `slot28_gem3`, `slot29`, `numberstack29`, `slot29_gem1`, `slot29_gem2`, `slot29_gem3`, `slot30`, `numberstack30`, `slot30_gem1`, `slot30_gem2`, `slot30_gem3`, `slot31`, `numberstack31`, `slot31_gem1`, `slot31_gem2`, `slot31_gem3`, `slot32`, `numberstack32`, `slot32_gem1`, `slot32_gem2`, `slot32_gem3`, `slot33`, `numberstack33`, `slot33_gem1`, `slot33_gem2`, `slot33_gem3`, `slot34`, `numberstack34`, `slot34_gem1`, `slot34_gem2`, `slot34_gem3`, `slot35`, `numberstack35`, `slot35_gem1`, `slot35_gem2`, `slot35_gem3`, `slot36`, `numberstack36`, `slot36_gem1`, `slot36_gem2`, `slot36_gem3`, `slot37`, `numberstack37`, `slot37_gem1`, `slot37_gem2`, `slot37_gem3`, `slot38`, `numberstack38`, `slot38_gem1`, `slot38_gem2`, `slot38_gem3`, `slot39`, `numberstack39`, `slot39_gem1`, `slot39_gem2`, `slot39_gem3`, `slot40`, `numberstack40`, `slot40_gem1`, `slot40_gem2`, `slot40_gem3`, `slot41`, `numberstack41`, `slot41_gem1`, `slot41_gem2`, `slot41_gem3`, `slot42`, `numberstack42`, `slot42_gem1`, `slot42_gem2`, `slot42_gem3`, `slot43`, `numberstack43`, `slot43_gem1`, `slot43_gem2`, `slot43_gem3`, `slot44`, `numberstack44`, `slot44_gem1`, `slot44_gem2`, `slot44_gem3`, `slot45`, `numberstack45`, `slot45_gem1`, `slot45_gem2`, `slot45_gem3`, `slot46`, `numberstack46`, `slot46_gem1`, `slot46_gem2`, `slot46_gem3`, `slot47`, `numberstack47`, `slot47_gem1`, `slot47_gem2`, `slot47_gem3`, `slot48`, `numberstack48`, `slot48_gem1`, `slot48_gem2`, `slot48_gem3`, `slot49`, `numberstack49`, `slot49_gem1`, `slot49_gem2`, `slot49_gem3`, `slot50`, `numberstack50`, `slot50_gem1`, `slot50_gem2`, `slot50_gem3`, `slot51`, `numberstack51`, `slot51_gem1`, `slot51_gem2`, `slot51_gem3`, `slot52`, `numberstack52`, `slot52_gem1`, `slot52_gem2`, `slot52_gem3`, `slot53`, `numberstack53`, `slot53_gem1`, `slot53_gem2`, `slot53_gem3`, `slot54`, `numberstack54`, `slot54_gem1`, `slot54_gem2`, `slot54_gem3`, `slot55`, `numberstack55`, `slot55_gem1`, `slot55_gem2`, `slot55_gem3`, `slot56`, `numberstack56`, `slot56_gem1`, `slot56_gem2`, `slot56_gem3`, `slot57`, `numberstack57`, `slot57_gem1`, `slot57_gem2`, `slot57_gem3`, `slot58`, `numberstack58`, `slot58_gem1`, `slot58_gem2`, `slot58_gem3`, `slot59`, `numberstack59`, `slot59_gem1`, `slot59_gem2`, `slot59_gem3`, `slot60`, `numberstack60`, `slot60_gem1`, `slot60_gem2`, `slot60_gem3`, `slot61`, `numberstack61`, `slot61_gem1`, `slot61_gem2`, `slot61_gem3`, `slot62`, `numberstack62`, `slot62_gem1`, `slot62_gem2`, `slot62_gem3`, `slot63`, `numberstack63`, `slot63_gem1`, `slot63_gem2`, `slot63_gem3`, `slot64`, `numberstack64`, `slot64_gem1`, `slot64_gem2`, `slot64_gem3`, `slot65`, `numberstack65`, `slot65_gem1`, `slot65_gem2`, `slot65_gem3`, `slot66`, `numberstack66`, `slot66_gem1`, `slot66_gem2`, `slot66_gem3`, `slot67`, `numberstack67`, `slot67_gem1`, `slot67_gem2`, `slot67_gem3`, `slot68`, `numberstack68`, `slot68_gem1`, `slot68_gem2`, `slot68_gem3`, `slot69`, `numberstack69`, `slot69_gem1`, `slot69_gem2`, `slot69_gem3`, `slot70`, `numberstack70`, `slot70_gem1`, `slot70_gem2`, `slot70_gem3`, `slot71`, `numberstack71`, `slot71_gem1`, `slot71_gem2`, `slot71_gem3`, `slot72`, `numberstack72`, `slot72_gem1`, `slot72_gem2`, `slot72_gem3`, `slot73`, `numberstack73`, `slot73_gem1`, `slot73_gem2`, `slot73_gem3`, `slot74`, `numberstack74`, `slot74_gem1`, `slot74_gem2`, `slot74_gem3`, `slot75`, `numberstack75`, `slot75_gem1`, `slot75_gem2`, `slot75_gem3`, `slot76`, `numberstack76`, `slot76_gem1`, `slot76_gem2`, `slot76_gem3`, `slot77`, `numberstack77`, `slot77_gem1`, `slot77_gem2`, `slot77_gem3`, `slot78`, `numberstack78`, `slot78_gem1`, `slot78_gem2`, `slot78_gem3`, `slot79`, `numberstack79`, `slot79_gem1`, `slot79_gem2`, `slot79_gem3`, `slot80`, `numberstack80`, `slot80_gem1`, `slot80_gem2`, `slot80_gem3`, `slot81`, `numberstack81`, `slot81_gem1`, `slot81_gem2`, `slot81_gem3`, `slot82`, `numberstack82`, `slot82_gem1`, `slot82_gem2`, `slot82_gem3`, `slot83`, `numberstack83`, `slot83_gem1`, `slot83_gem2`, `slot83_gem3`, `slot84`, `numberstack84`, `slot84_gem1`, `slot84_gem2`, `slot84_gem3`, `slot85`, `numberstack85`, `slot85_gem1`, `slot85_gem2`, `slot85_gem3`, `slot86`, `numberstack86`, `slot86_gem1`, `slot86_gem2`, `slot86_gem3`, `slot87`, `numberstack87`, `slot87_gem1`, `slot87_gem2`, `slot87_gem3`, `slot88`, `numberstack88`, `slot88_gem1`, `slot88_gem2`, `slot88_gem3`, `slot89`, `numberstack89`, `slot89_gem1`, `slot89_gem2`, `slot89_gem3`, `slot90`, `numberstack90`, `slot90_gem1`, `slot90_gem2`, `slot90_gem3`, `slot91`, `numberstack91`, `slot91_gem1`, `slot91_gem2`, `slot91_gem3`, `slot92`, `numberstack92`, `slot92_gem1`, `slot92_gem2`, `slot92_gem3`, `slot93`, `numberstack93`, `slot93_gem1`, `slot93_gem2`, `slot93_gem3`, `slot94`, `numberstack94`, `slot94_gem1`, `slot94_gem2`, `slot94_gem3`, `slot95`, `numberstack95`, `slot95_gem1`, `slot95_gem2`, `slot95_gem3`, `slot96`, `numberstack96`, `slot96_gem1`, `slot96_gem2`, `slot96_gem3`) VALUES
 	(1, 1001, 0, 50001, 0, 0, 0, 0, 0, 0, 0, 1, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(2, 1002, 0, 0, 0, 0, 9001, 0, 0, 0, 0, 14002, 0, 0, 0, 0, 6001, 0, 0, 0, 0, 1001, 0, 50001, 0, 0, 10001, 0, 0, 0, 0, 10001, 0, 0, 0, 0, 4001, 0, 0, 0, 0, 1001, 0, 0, 0, 0, 8001, 0, 0, 0, 0, 9001, 0, 0, 0, 0, 1001, 0, 0, 0, 0, 13001, 0, 0, 0, 0, 14001, 0, 0, 0, 0, 1001, 0, 0, 0, 0, 14002, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	(14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(15, 1001, 0, 0, 0, 0, 1001, 0, 0, 0, 0, 15001, 0, 0, 0, 0, 15001, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	(18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	(19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `bag` ENABLE KEYS */;
 
 
 -- Export de la structure de table rpg. character
 DROP TABLE IF EXISTS `character`;
 CREATE TABLE IF NOT EXISTS `character` (
-  `character_id` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `account_id` tinyint(4) NOT NULL,
+  `account_id` smallint(6) NOT NULL,
+  `character_id` smallint(6) NOT NULL AUTO_INCREMENT,
   `name` char(50) NOT NULL DEFAULT '',
   `class` enum('WARRIOR','DEATHKNIGHT','PALADIN','WARLOCK','HUNTER','ROGUE','MAGE','PRIEST','SHAMAN','MONK') NOT NULL,
   `race` enum('HUMAN','DWARF','NIGHTELF','GNOME','DRAENEI','ORC','UNDEAD','TAUREN','TROLL','BLOODELF') NOT NULL,
   `experience` mediumint(9) NOT NULL DEFAULT '0',
   `gold` int(11) NOT NULL DEFAULT '0',
   `online` tinyint(4) NOT NULL DEFAULT '0',
+  `last_login_timer` bigint(30) NOT NULL DEFAULT '0',
   PRIMARY KEY (`character_id`,`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.character: ~9 rows (environ)
+-- Export de données de la table rpg.character: ~10 rows (environ)
 DELETE FROM `character`;
 /*!40000 ALTER TABLE `character` DISABLE KEYS */;
-INSERT INTO `character` (`character_id`, `account_id`, `name`, `class`, `race`, `experience`, `gold`, `online`) VALUES
-	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 1),
-	(2, 1, 'Midelol', 'ROGUE', 'UNDEAD', 0, 0, 0),
-	(5, 1, 'Test', 'WARRIOR', 'UNDEAD', 0, 1000000, 0),
-	(6, 1, 'Bla', 'WARRIOR', 'UNDEAD', 0, 1000000, 0),
-	(14, 1, 'Blqk', 'WARRIOR', 'UNDEAD', 0, 1000000, 0),
-	(15, 2, 'Midetest', 'WARRIOR', 'UNDEAD', 0, 1000000, 0),
-	(16, 2, 'Jukino', 'WARRIOR', 'ORC', 0, 1000000, 0),
-	(17, 3, 'Windeal', 'WARRIOR', 'UNDEAD', 0, 1000000, 0),
-	(18, 3, 'Jean-42', 'WARRIOR', 'UNDEAD', 82000, 1000000, 0);
+INSERT INTO `character` (`account_id`, `character_id`, `name`, `class`, `race`, `experience`, `gold`, `online`, `last_login_timer`) VALUES
+	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 1, 1480844067747),
+	(1, 2, 'Midelol', 'ROGUE', 'UNDEAD', 0, 0, 0, 0),
+	(1, 5, 'Test', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
+	(1, 6, 'Bla', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
+	(1, 14, 'Blqk', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
+	(2, 15, 'Midetest', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 1480840663577),
+	(2, 16, 'Jukino', 'WARRIOR', 'ORC', 0, 1000000, 0, 0),
+	(3, 17, 'Windeal', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
+	(3, 18, 'Jean-42', 'WARRIOR', 'UNDEAD', 82000, 1000000, 0, 0),
+	(1, 19, 'Mdr', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0);
 /*!40000 ALTER TABLE `character` ENABLE KEYS */;
 
 
@@ -584,7 +587,7 @@ CREATE TABLE IF NOT EXISTS `character_containers` (
   PRIMARY KEY (`character_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.character_containers: ~9 rows (environ)
+-- Export de données de la table rpg.character_containers: ~10 rows (environ)
 DELETE FROM `character_containers`;
 /*!40000 ALTER TABLE `character_containers` DISABLE KEYS */;
 INSERT INTO `character_containers` (`character_id`, `slot1`, `slot2`, `slot3`, `slot4`) VALUES
@@ -596,7 +599,8 @@ INSERT INTO `character_containers` (`character_id`, `slot1`, `slot2`, `slot3`, `
 	(15, 0, 0, 0, 0),
 	(16, 0, 0, 0, 0),
 	(17, 0, 0, 0, 0),
-	(18, 0, 0, 0, 0);
+	(18, 0, 0, 0, 0),
+	(19, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `character_containers` ENABLE KEYS */;
 
 
@@ -683,7 +687,7 @@ CREATE TABLE IF NOT EXISTS `character_stuff` (
   PRIMARY KEY (`character_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.character_stuff: ~9 rows (environ)
+-- Export de données de la table rpg.character_stuff: ~10 rows (environ)
 DELETE FROM `character_stuff`;
 /*!40000 ALTER TABLE `character_stuff` DISABLE KEYS */;
 INSERT INTO `character_stuff` (`character_id`, `head`, `head_gem1`, `head_gem2`, `head_gem3`, `necklace`, `necklace_gem1`, `necklace_gem2`, `necklace_gem3`, `shoulders`, `shoulders_gem1`, `shoulders_gem2`, `shoulders_gem3`, `back`, `back_gem1`, `back_gem2`, `back_gem3`, `chest`, `chest_gem1`, `chest_gem2`, `chest_gem3`, `useless`, `useless_gem1`, `useless_gem2`, `useless_gem3`, `useless2`, `useless2_gem1`, `useless2_gem2`, `useless2_gem3`, `wrists`, `wrists_gem1`, `wrists_gem2`, `wrists_gem3`, `gloves`, `gloves_gem1`, `gloves_gem2`, `gloves_gem3`, `belt`, `belt_gem1`, `belt_gem2`, `belt_gem3`, `leggings`, `leggings_gem1`, `leggings_gem2`, `leggings_gem3`, `boots`, `boots_gem1`, `boots_gem2`, `boots_gem3`, `ring`, `ring_gem1`, `ring_gem2`, `ring_gem3`, `ring2`, `ring2_gem1`, `ring2_gem2`, `ring2_gem3`, `trinket`, `trinket_gem1`, `trinket_gem2`, `trinket_gem3`, `trinket2`, `trinket2_gem1`, `trinket2_gem2`, `trinket2_gem3`, `mainhand`, `mainhand_gem1`, `mainhand_gem2`, `mainhand_gem3`, `offhand`, `offhand_gem1`, `offhand_gem2`, `offhand_gem3`, `ranged`, `ranged_gem1`, `ranged_gem2`, `ranged_gem3`) VALUES
@@ -695,7 +699,8 @@ INSERT INTO `character_stuff` (`character_id`, `head`, `head_gem1`, `head_gem2`,
 	(15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	(18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	(19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `character_stuff` ENABLE KEYS */;
 
 
@@ -705,12 +710,58 @@ CREATE TABLE IF NOT EXISTS `chatlog` (
   `date` bigint(50) NOT NULL DEFAULT '0',
   `message` text NOT NULL,
   PRIMARY KEY (`date`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.chatlog: 2 543 rows
+-- Export de données de la table rpg.chatlog: ~2 543 rows (environ)
 DELETE FROM `chatlog`;
 /*!40000 ALTER TABLE `chatlog` DISABLE KEYS */;
 INSERT INTO `chatlog` (`date`, `message`) VALUES
+	(18561468002084, 'Votre inventaire est pleins'),
+	(18561560925065, 'Votre inventaire est pleins'),
+	(18561563791462, 'Votre inventaire est pleins'),
+	(19956235287465, 'Votre inventaire est pleins'),
+	(19978404753569, 'Votre inventaire est pleins'),
+	(19978408320508, 'Votre inventaire est pleins'),
+	(94180895185164, 'Votre inventaire est pleins'),
+	(100617628254770, 'Votre inventaire est pleins'),
+	(100706098990063, 'Votre inventaire est pleins'),
+	(100770913662681, 'Votre inventaire est pleins'),
+	(236296085663461, 'Votre inventaire est pleins'),
+	(236296205753722, 'Votre inventaire est pleins'),
+	(237984570059848, 'Votre inventaire est pleins'),
+	(237984575967754, 'Votre inventaire est pleins'),
+	(237984579429012, 'Votre inventaire est pleins'),
+	(251800010295836, 'Votre inventaire est pleins'),
+	(251837446570910, 'Votre inventaire est pleins'),
+	(251840445615540, 'Votre inventaire est pleins'),
+	(251994154947705, 'Votre inventaire est pleins'),
+	(251997003558703, 'Votre inventaire est pleins'),
+	(254298900152644, 'Votre inventaire est pleins'),
+	(254356416445565, 'Votre inventaire est pleins'),
+	(255740246624352, 'Votre inventaire est pleins'),
+	(256694874120438, 'Votre inventaire est pleins'),
+	(265896557821589, 'Votre inventaire est pleins'),
+	(339061236874503, 'Votre inventaire est pleins'),
+	(339503889451607, 'Votre inventaire est pleins'),
+	(406760525680114, 'Votre inventaire est pleins'),
+	(407511697257620, 'Votre inventaire est pleins'),
+	(413509160987685, 'Votre inventaire est pleins'),
+	(413520692524854, 'Votre inventaire est pleins'),
+	(413670694701529, 'Votre inventaire est pleins'),
+	(413845295173235, 'Votre inventaire est pleins'),
+	(413994972848465, 'Votre inventaire est pleins'),
+	(414451767448386, 'Votre inventaire est pleins'),
+	(414451771235576, 'Votre inventaire est pleins'),
+	(414820475289894, 'Votre inventaire est pleins'),
+	(414820479649875, 'Votre inventaire est pleins'),
+	(414833135881582, 'Votre inventaire est pleins'),
+	(414962616640040, 'Votre inventaire est pleins'),
+	(414962685992737, 'Votre inventaire est pleins'),
+	(414962799208774, 'Votre inventaire est pleins'),
+	(414962803302429, 'Votre inventaire est pleins'),
+	(416786375978255, 'Votre inventaire est pleins'),
+	(416786378416019, 'Votre inventaire est pleins'),
+	(416786381958874, 'Votre inventaire est pleins'),
 	(842338810785406, ''),
 	(842338811305268, ''),
 	(842342538872298, ''),
@@ -3207,53 +3258,7 @@ INSERT INTO `chatlog` (`date`, `message`) VALUES
 	(849089714484792, 'Vous avez bien acheté Super Healing Potion'),
 	(849089939392427, 'Vous avez bien acheté Super Healing Potion'),
 	(849091052569633, 'Vous avez vendu 2 Super Healing Potion pour 2'),
-	(849091053281974, 'Vos HP Ã©taient dÃ©jÃ  au maximum'),
-	(94180895185164, 'Votre inventaire est pleins'),
-	(100617628254770, 'Votre inventaire est pleins'),
-	(100706098990063, 'Votre inventaire est pleins'),
-	(100770913662681, 'Votre inventaire est pleins'),
-	(254298900152644, 'Votre inventaire est pleins'),
-	(254356416445565, 'Votre inventaire est pleins'),
-	(339061236874503, 'Votre inventaire est pleins'),
-	(339503889451607, 'Votre inventaire est pleins'),
-	(18561468002084, 'Votre inventaire est pleins'),
-	(18561560925065, 'Votre inventaire est pleins'),
-	(18561563791462, 'Votre inventaire est pleins'),
-	(19956235287465, 'Votre inventaire est pleins'),
-	(19978404753569, 'Votre inventaire est pleins'),
-	(19978408320508, 'Votre inventaire est pleins'),
-	(256694874120438, 'Votre inventaire est pleins'),
-	(406760525680114, 'Votre inventaire est pleins'),
-	(407511697257620, 'Votre inventaire est pleins'),
-	(413509160987685, 'Votre inventaire est pleins'),
-	(413520692524854, 'Votre inventaire est pleins'),
-	(413670694701529, 'Votre inventaire est pleins'),
-	(413845295173235, 'Votre inventaire est pleins'),
-	(413994972848465, 'Votre inventaire est pleins'),
-	(414451767448386, 'Votre inventaire est pleins'),
-	(414451771235576, 'Votre inventaire est pleins'),
-	(414820475289894, 'Votre inventaire est pleins'),
-	(414820479649875, 'Votre inventaire est pleins'),
-	(414833135881582, 'Votre inventaire est pleins'),
-	(414962616640040, 'Votre inventaire est pleins'),
-	(414962685992737, 'Votre inventaire est pleins'),
-	(414962799208774, 'Votre inventaire est pleins'),
-	(414962803302429, 'Votre inventaire est pleins'),
-	(416786375978255, 'Votre inventaire est pleins'),
-	(416786378416019, 'Votre inventaire est pleins'),
-	(416786381958874, 'Votre inventaire est pleins'),
-	(236296085663461, 'Votre inventaire est pleins'),
-	(236296205753722, 'Votre inventaire est pleins'),
-	(237984570059848, 'Votre inventaire est pleins'),
-	(237984575967754, 'Votre inventaire est pleins'),
-	(237984579429012, 'Votre inventaire est pleins'),
-	(255740246624352, 'Votre inventaire est pleins'),
-	(265896557821589, 'Votre inventaire est pleins'),
-	(251800010295836, 'Votre inventaire est pleins'),
-	(251837446570910, 'Votre inventaire est pleins'),
-	(251840445615540, 'Votre inventaire est pleins'),
-	(251994154947705, 'Votre inventaire est pleins'),
-	(251997003558703, 'Votre inventaire est pleins');
+	(849091053281974, 'Vos HP Ã©taient dÃ©jÃ  au maximum');
 /*!40000 ALTER TABLE `chatlog` ENABLE KEYS */;
 
 
@@ -3388,23 +3393,6 @@ DELETE FROM `drop`;
 /*!40000 ALTER TABLE `drop` ENABLE KEYS */;
 
 
--- Export de la structure de table rpg. friend
-DROP TABLE IF EXISTS `friend`;
-CREATE TABLE IF NOT EXISTS `friend` (
-  `character_id` int(11) NOT NULL,
-  `friend_id` int(11) NOT NULL,
-  PRIMARY KEY (`character_id`,`friend_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Export de données de la table rpg.friend: ~2 rows (environ)
-DELETE FROM `friend`;
-/*!40000 ALTER TABLE `friend` DISABLE KEYS */;
-INSERT INTO `friend` (`character_id`, `friend_id`) VALUES
-	(1, 15),
-	(15, 1);
-/*!40000 ALTER TABLE `friend` ENABLE KEYS */;
-
-
 -- Export de la structure de table rpg. guild
 DROP TABLE IF EXISTS `guild`;
 CREATE TABLE IF NOT EXISTS `guild` (
@@ -3420,7 +3408,7 @@ CREATE TABLE IF NOT EXISTS `guild` (
 DELETE FROM `guild`;
 /*!40000 ALTER TABLE `guild` DISABLE KEYS */;
 INSERT INTO `guild` (`id`, `name`, `leader_id`, `information`, `motd`) VALUES
-	(1, 'On En Aggro', 1, 'Ceci est une informationaa', 'Ceci est un  message du jour');
+	(1, 'On En Aggro', 1, 'Ceci est une informationaab\raabc', 'Ceci est un  message du jour');
 /*!40000 ALTER TABLE `guild` ENABLE KEYS */;
 
 
@@ -3435,12 +3423,12 @@ CREATE TABLE IF NOT EXISTS `guild_member` (
   PRIMARY KEY (`guild_id`,`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.guild_member: ~0 rows (environ)
+-- Export de données de la table rpg.guild_member: ~2 rows (environ)
 DELETE FROM `guild_member`;
 /*!40000 ALTER TABLE `guild_member` DISABLE KEYS */;
 INSERT INTO `guild_member` (`guild_id`, `member_id`, `rank`, `note`, `officer_note`) VALUES
-	(1, 1, 1, 'Mdr la note', 'Officer note test'),
-	(1, 15, 3, 'Mdr la note', 'Officer note test');
+	(1, 1, 1, '', ''),
+	(1, 15, 2, 'Mdr la note', 'Officer note test');
 /*!40000 ALTER TABLE `guild_member` ENABLE KEYS */;
 
 
@@ -3454,15 +3442,15 @@ CREATE TABLE IF NOT EXISTS `guild_rank` (
   PRIMARY KEY (`guild_id`,`rank_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.guild_rank: ~4 rows (environ)
+-- Export de données de la table rpg.guild_rank: ~5 rows (environ)
 DELETE FROM `guild_rank`;
 /*!40000 ALTER TABLE `guild_rank` DISABLE KEYS */;
 INSERT INTO `guild_rank` (`guild_id`, `rank_order`, `permission`, `name`) VALUES
 	(1, 1, 32767, 'Guild Master'),
-	(1, 2, 8191, 'Officer'),
-	(1, 3, 0, 'Veteran'),
-	(1, 4, 0, 'Member'),
-	(1, 5, 201, 'Initiate');
+	(1, 2, 8118, 'Officer'),
+	(1, 3, 8, 'Veteran'),
+	(1, 4, 95, 'Membera'),
+	(1, 5, 235, 'Initiate');
 /*!40000 ALTER TABLE `guild_rank` ENABLE KEYS */;
 
 
@@ -3738,6 +3726,36 @@ INSERT INTO `shop` (`order`, `id`, `class`, `price`) VALUES
 /*!40000 ALTER TABLE `shop` ENABLE KEYS */;
 
 
+-- Export de la structure de table rpg. social_friend
+DROP TABLE IF EXISTS `social_friend`;
+CREATE TABLE IF NOT EXISTS `social_friend` (
+  `character_id` int(11) NOT NULL,
+  `friend_id` int(11) NOT NULL,
+  PRIMARY KEY (`character_id`,`friend_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Export de données de la table rpg.social_friend: ~1 rows (environ)
+DELETE FROM `social_friend`;
+/*!40000 ALTER TABLE `social_friend` DISABLE KEYS */;
+INSERT INTO `social_friend` (`character_id`, `friend_id`) VALUES
+	(15, 1);
+/*!40000 ALTER TABLE `social_friend` ENABLE KEYS */;
+
+
+-- Export de la structure de table rpg. social_ignore
+DROP TABLE IF EXISTS `social_ignore`;
+CREATE TABLE IF NOT EXISTS `social_ignore` (
+  `character_id` int(11) NOT NULL,
+  `ignore_id` int(11) NOT NULL,
+  PRIMARY KEY (`character_id`,`ignore_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Export de données de la table rpg.social_ignore: ~0 rows (environ)
+DELETE FROM `social_ignore`;
+/*!40000 ALTER TABLE `social_ignore` DISABLE KEYS */;
+/*!40000 ALTER TABLE `social_ignore` ENABLE KEYS */;
+
+
 -- Export de la structure de table rpg. spell
 DROP TABLE IF EXISTS `spell`;
 CREATE TABLE IF NOT EXISTS `spell` (
@@ -3840,7 +3858,7 @@ CREATE TABLE IF NOT EXISTS `spellbar` (
   PRIMARY KEY (`character_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.spellbar: ~9 rows (environ)
+-- Export de données de la table rpg.spellbar: ~10 rows (environ)
 DELETE FROM `spellbar`;
 /*!40000 ALTER TABLE `spellbar` DISABLE KEYS */;
 INSERT INTO `spellbar` (`character_id`, `slot1`, `slot2`, `slot3`, `slot4`, `slot5`, `slot6`, `slot7`, `slot8`, `slot9`, `slot10`, `slot11`, `slot12`, `slot13`, `slot14`, `slot15`, `slot16`, `slot17`, `slot18`, `slot19`, `slot20`, `slot21`, `slot22`, `slot23`, `slot24`, `slot25`, `slot26`, `slot27`, `slot28`, `slot29`, `slot30`, `slot31`, `slot32`, `slot33`, `slot34`, `slot35`, `slot36`) VALUES
@@ -3852,7 +3870,8 @@ INSERT INTO `spellbar` (`character_id`, `slot1`, `slot2`, `slot3`, `slot4`, `slo
 	(15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	(18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	(19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `spellbar` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

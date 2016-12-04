@@ -29,16 +29,27 @@ public class Tooltip {
 		int defaultImageHeight = Sprites.tooltip_bot_left_corner.getImageHeight();
 		int imageWidth = (int) (Sprites.tooltip_top_left_corner.getImageWidth()*xFac);
 		int imageHeight = (int) (Sprites.tooltip_top_left_corner.getImageHeight()*yFac);
-
-		Draw.drawColorQuad(this.x+imageWidth-4*Mideas.getDisplayYFactor(), this.y+imageHeight-4*Mideas.getDisplayYFactor(), this.x_size-2*imageWidth+8*Mideas.getDisplayXFactor(), this.y_size-2*imageHeight+8*Mideas.getDisplayYFactor(), this.color);
-		Draw.drawQuad(Sprites.tooltip_top_left_corner, this.x, this.y, defaultImageWidth, defaultImageHeight);
-		Draw.drawQuad(Sprites.tooltip_top, this.x+imageWidth, this.y, this.x_size-2*imageWidth, defaultImageHeight);
-		Draw.drawQuad(Sprites.tooltip_top_right_corner, this.x+this.x_size-imageWidth, this.y, defaultImageWidth, defaultImageHeight);
-		Draw.drawQuad(Sprites.tooltip_bot_left_corner, this.x, this.y+this.y_size-imageHeight, defaultImageWidth, defaultImageHeight);
-		Draw.drawQuad(Sprites.tooltip_bot, this.x+imageWidth, this.y+this.y_size-imageHeight, this.x_size-2*imageWidth, Sprites.tooltip_bot.getImageHeight());
-		Draw.drawQuad(Sprites.tooltip_bot_right_corner, this.x+this.x_size-imageWidth, this.y+this.y_size-imageHeight, defaultImageWidth, defaultImageHeight);
-		Draw.drawQuad(Sprites.tooltip_left, this.x, this.y+imageHeight, defaultImageWidth, this.y_size-2*imageHeight);
-		Draw.drawQuad(Sprites.tooltip_right, this.x+this.x_size-imageWidth, this.y+imageHeight, defaultImageWidth, this.y_size-2*imageHeight);
+		//long timer = System.nanoTime();
+		//Draw.drawColorQuad(this.x+imageWidth-3*Mideas.getDisplayYFactor(), this.y+imageHeight-3*Mideas.getDisplayYFactor(), this.x_size-2*imageWidth+8*Mideas.getDisplayXFactor(), this.y_size-2*imageHeight+8*Mideas.getDisplayYFactor(), this.color);
+		//Draw.drawQuad(Sprites.tooltip_top_left_corner, this.x, this.y, defaultImageWidth, defaultImageHeight);
+		//Draw.drawQuad(Sprites.tooltip_top, this.x+imageWidth, this.y, this.x_size-2*imageWidth, defaultImageHeight);
+		//Draw.drawQuad(Sprites.tooltip_top_right_corner, this.x+this.x_size-imageWidth, this.y, defaultImageWidth, defaultImageHeight);
+		Draw.drawQuad(Sprites.tooltip_bot_left_corner, this.x+5, this.y+this.y_size-imageHeight, defaultImageWidth, defaultImageHeight);
+		//Draw.drawQuad(Sprites.tooltip_bot, this.x+imageWidth, this.y+this.y_size-imageHeight, this.x_size-2*imageWidth, Sprites.tooltip_bot.getImageHeight());
+		//Draw.drawQuad(Sprites.tooltip_bot_right_corner, this.x+this.x_size-imageWidth, this.y+this.y_size-imageHeight, defaultImageWidth, defaultImageHeight);
+		Draw.drawQuad(Sprites.tooltip_left, this.x+5, this.y+imageHeight, defaultImageWidth, this.y_size-2*imageHeight);
+		//Draw.drawQuad(Sprites.tooltip_right, this.x+this.x_size-imageWidth, this.y+imageHeight, defaultImageWidth, this.y_size-2*imageHeight);
+		Sprites.tooltip_frame.drawBegin();
+		//Draw.drawQuadPart(Sprites.tooltip_frame, this.x, this.y, defaultImageWidth, defaultImageHeight, 0, 0, 8, 8);																 //top_left_corner
+		//Draw.drawQuadPart(Sprites.tooltip_frame, this.x+imageWidth, this.y, this.x_size-2*imageWidth, defaultImageHeight, 16, 8, 8, 8);												 //top_border
+		//Draw.drawQuadPart(Sprites.tooltip_frame, this.x+this.x_size-imageWidth, this.y, defaultImageWidth, defaultImageHeight, 8, 0, 8, 8);											 //top_right_corner
+		Draw.drawQuadPart(Sprites.tooltip_frame, this.x, this.y+this.y_size-imageHeight, defaultImageWidth, defaultImageHeight, 16, 0, 8, 8);										 //bot_left_corner
+		//Draw.drawQuadPart(Sprites.tooltip_frame, this.x+imageWidth, this.y+this.y_size-imageHeight, this.x_size-2*imageWidth, Sprites.tooltip_bot.getImageHeight(), 24, 8, 8, 8);	 //bot_border
+		//Draw.drawQuadPart(Sprites.tooltip_frame, this.x+this.x_size-imageWidth, this.y+this.y_size-imageHeight, defaultImageWidth, defaultImageHeight, 24, 0, 8, 8);				 //bot_right_corner
+		Draw.drawQuadPart(Sprites.tooltip_frame, this.x, this.y+imageHeight, defaultImageWidth, this.y_size-2*imageHeight, 0, 8, 8, 8);												 //left_border
+		//Draw.drawQuadPart(Sprites.tooltip_frame, this.x+this.x_size-imageWidth, this.y+imageHeight, defaultImageWidth, this.y_size-2*imageHeight, 8, 8, 8, 8);						 //right_border
+		Sprites.tooltip_frame.drawEnd();
+		//Mideas.nTime(timer, "Tooltip draw");
 	}
 	
 	public void drawPart() {
