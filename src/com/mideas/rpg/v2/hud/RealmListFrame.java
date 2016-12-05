@@ -12,13 +12,13 @@ import com.mideas.rpg.v2.Window;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.game.WorldServer;
 import com.mideas.rpg.v2.utils.Button;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class RealmListFrame {
 
-	private final static Colors BG_COLOR = new Colors(0, 0, 0, .78f);
-	private static final Colors GREEN = Colors.decode("#158816");
+	private final static Color BG_COLOR = new Color(0, 0, 0, .78f);
+	private static final Color GREEN = Color.decode("#158816");
 	private static ArrayList<WorldServer> realmList = new ArrayList<WorldServer>();
 	static WorldServer selectedRealm;
 	private static Button acceptButton = new Button(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 154*Mideas.getDisplayXFactor(), 31*Mideas.getDisplayXFactor(), "OK", 20, 2) {
@@ -54,10 +54,10 @@ public class RealmListFrame {
 		while(i < realmList.size()) {
 			if(selectedRealm == realmList.get(i)) {
 				Draw.drawQuad(Sprites.selected_realm, Display.getWidth()/2+25*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift);
-				FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()/2+40*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, realmList.get(i).getRealmName(), Colors.WHITE, Colors.BLACK, 2, 1, 1);
+				FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()/2+40*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, realmList.get(i).getRealmName(), Color.WHITE, Color.BLACK, 2, 1, 1);
 			}
 			else {
-				FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()/2+40*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, realmList.get(i).getRealmName(), GREEN, Colors.BLACK, 2, 1, 1);
+				FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()/2+40*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-264*Mideas.getDisplayYFactor()+i*yShift, realmList.get(i).getRealmName(), GREEN, Color.BLACK, 2, 1, 1);
 			}
 			i++;
 		}

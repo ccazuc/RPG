@@ -138,27 +138,29 @@ public class CommandGuild extends Command {
 		else if(packetId == PacketID.GUILD_ONLINE_PLAYER) {
 			int id = ConnectionManager.getConnection().readInt();
 			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
-			if(member != null) {
-				member.setOnlineStatus(true);
-				member.updateLastLoginTimerString();
-				if(Mideas.joueur1().getFriend(id) != null) {
-					ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF));
-				}
-				Mideas.joueur1().getGuild().memberLoggedIn();
+			if(member == null) {
+				return;
 			}
+			member.setOnlineStatus(true);
+			member.updateLastLoginTimerString();
+			if(Mideas.joueur1().getFriend(id) == null) {
+				ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF));
+			}
+			Mideas.joueur1().getGuild().memberLoggedIn();
 		}
 		else if(packetId == PacketID.GUILD_OFFLINE_PLAYER) {
 			int id = ConnectionManager.getConnection().readInt();
 			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
-			if(member != null) {
-				member.setOnlineStatus(false);
-				member.setLastLoginTimer(System.currentTimeMillis());
-				member.updateLastLoginTimerString();
-				if(Mideas.joueur1().getFriend(id) != null) {
-					ChatFrame.addMessage(new Message(member.getName()+" is now offline.", false, MessageType.SELF));
-				}
-				Mideas.joueur1().getGuild().memberLoggedOut();
+			if(member == null) {
+				return;
 			}
+			member.setOnlineStatus(false);
+			member.setLastLoginTimer(System.currentTimeMillis());
+			member.updateLastLoginTimerString();
+			if(Mideas.joueur1().getFriend(id) == null) {
+				ChatFrame.addMessage(new Message(member.getName()+" is now offline.", false, MessageType.SELF));
+			}
+			Mideas.joueur1().getGuild().memberLoggedOut();
 		}
 		else if(packetId == PacketID.GUILD_SET_MOTD) {
 			String msg = ConnectionManager.getConnection().readString();
@@ -180,7 +182,7 @@ public class CommandGuild extends Command {
 			if(leader.getId() == Mideas.joueur1().getId()) {
 				Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getRankList().get(1));
 			}
-			if(id == Mideas.joueur1().getId()) {
+			else if(id == Mideas.joueur1().getId()) {
 				Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getRankList().get(0));
 			}
 			ChatFrame.addMessage(new Message(leader.getName()+" has made "+Mideas.joueur1().getGuild().getMember(id).getName()+" the new Guild Master.", false, MessageType.SELF));

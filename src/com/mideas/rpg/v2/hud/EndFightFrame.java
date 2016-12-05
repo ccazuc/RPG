@@ -11,7 +11,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Unit;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class EndFightFrame {
@@ -50,13 +50,13 @@ public class EndFightFrame {
 		else {
 			Draw.drawQuad(Sprites.button2, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
 		}
-		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(retry)/2-69, Display.getHeight()/2-41, retry, Colors.WHITE, Colors.BLACK, 1, 1, 1);
-		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(quit)/2+69, Display.getHeight()/2-41, quit, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(retry)/2-69, Display.getHeight()/2-41, retry, Color.WHITE, Color.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(quit)/2+69, Display.getHeight()/2-41, quit, Color.WHITE, Color.BLACK, 1, 1, 1);
 		if(Mideas.joueur1().getStamina() <= 0) {
-			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player2Won, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player2Won, Color.WHITE, Color.BLACK, 1, 1, 1);
 		}
 		else if(Mideas.joueur1().getTarget().getStamina() <= 0) {
-			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player1Won, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-50, Display.getHeight()/2-66, player1Won, Color.WHITE, Color.BLACK, 1, 1, 1);
 			if(!endFightEvent) {
 				doEndFightEvent();
 				endFightEvent = true;

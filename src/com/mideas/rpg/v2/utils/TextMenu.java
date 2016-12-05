@@ -9,7 +9,7 @@ import com.mideas.rpg.v2.FontManager;
 
 public class TextMenu {
 
-	private final static Colors GRAY = Colors.decode("#47494D");
+	private final static Color GRAY = Color.decode("#47494D");
 	private int x;
 	private int y;
 	private String text;
@@ -68,21 +68,21 @@ public class TextMenu {
 	}
 	
 	private void draw(float x, float y) {
-		if(this.isActive) {
-			if(!activateCondition()) {
-				this.font.drawStringShadow(x+this.textShift, y, this.text, GRAY, Colors.BLACK, this.shadow_size, 0, 0);
-			}
-			else {
-				if(this.buttonDown) {
-					this.font.drawStringShadow(x+2+this.textShift, y+2, this.text, Colors.WHITE, Colors.BLACK, this.shadow_size, 0, 0);
-				}
-				else {
-					this.font.drawStringShadow(x+this.textShift, y, this.text, Colors.WHITE, Colors.BLACK, this.shadow_size, 0, 0);
-				}
-				if(this.buttonHover) {
-					Draw.drawQuadBlend(Sprites.text_menu_hover, x, y+2, this.x_size, Sprites.text_menu_hover.getImageHeight()*Mideas.getDisplayYFactor());
-				}
-			}
+		if(!this.isActive) {
+			return;
+		}
+		if(!activateCondition()) {
+			this.font.drawStringShadow(x+this.textShift, y, this.text, GRAY, Color.BLACK, this.shadow_size, 0, 0);
+			return;
+		}
+		if(this.buttonDown) {
+			this.font.drawStringShadow(x+2+this.textShift, y+2, this.text, Color.WHITE, Color.BLACK, this.shadow_size, 0, 0);
+		}
+		else {
+			this.font.drawStringShadow(x+this.textShift, y, this.text, Color.WHITE, Color.BLACK, this.shadow_size, 0, 0);
+		}
+		if(this.buttonHover) {
+			Draw.drawQuadBlend(Sprites.text_menu_hover, x, y+2, this.x_size, Sprites.text_menu_hover.getImageHeight()*Mideas.getDisplayYFactor());
 		}
 	}
 	
@@ -103,33 +103,36 @@ public class TextMenu {
 	}
 	
 	private boolean eventHandler(int x, int y) {
-		if(this.isActive) {
+		if(!this.isActive) {
+			return false;
+		}
+		if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+this.x_size && Mideas.mouseY() >= y && Mideas.mouseY() <= y+this.font.getLineHeight()+1) {
+			this.buttonHover = true;
+			Mideas.setHover(false);
+		}
+		else {
 			this.buttonHover = false;
-			if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+this.x_size && Mideas.mouseY() >= y && Mideas.mouseY() <= y+this.font.getLineHeight()+1) {
-				this.buttonHover = true;
-				Mideas.setHover(false);
-			}
-			if(this.buttonHover) {
-				if(Mouse.getEventButtonState()) {
-					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDown = true;
-					}
-				}
-				else if(this.buttonDown) {
-					if(Mouse.getEventButton() == 0) {
-						this.buttonDown = false;
-						eventButtonClick();
-						return true;
-					}
-					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDown = false;
-					}
-				}
-			}
-			else if(!Mouse.getEventButtonState()) {
+		}
+		if(this.buttonHover) {
+			if(Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					this.buttonDown = true;
+				}
+			}
+			else if(this.buttonDown) {
+				if(Mouse.getEventButton() == 0) {
+					this.buttonDown = false;
+					eventButtonClick();
+					return true;
+				}
+				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					this.buttonDown = false;
 				}
+			}
+		}
+		else if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				this.buttonDown = false;
 			}
 		}
 		return false;

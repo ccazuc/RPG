@@ -29,9 +29,7 @@ public class Arrow {
 	}
 
 	public Arrow(float x, float y, ArrowDirection direction) {
-		this.x = (int)x;
-		this.y = (int)y;
-		initSprite(direction);
+		this(x, y, Sprites.arrow_top.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.arrow_top.getImageHeight()*Mideas.getDisplayYFactor(), direction);
 	}
 	
 	public void draw() {

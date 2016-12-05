@@ -19,7 +19,7 @@ import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.InputBar;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 
 public class ChatFrame {
 
@@ -27,11 +27,11 @@ public class ChatFrame {
 	private final static InputBar inputBar = new InputBar(30, INPUT_BAR_Y, 510);
 	private static ArrayList<String> rawMessages = new ArrayList<String>();
 	private static ArrayList<Message> messages = new ArrayList<Message>();
-	private static Colors selectedColors = new Colors(1, 1, 1, .5f); 
+	private static Color selectedColors = new Color(1, 1, 1, .5f); 
 	private static int defaultHeight = Display.getHeight()-285;
 	private static MessageType selectedType = MessageType.SAY;
 	private final static int NUMBER_LAST_MESSAGE_TAKEN = 100;
-	private final static Colors bgColor = new Colors(0, 0, 0, 0);
+	private final static Color bgColor = new Color(0, 0, 0, 0);
 	private final static float FRAME_MAXIMUM_OPACITY = .35f;
 	private final static int MESSAGE_OPACITY_START_DECREASE_TIMER = 30000;
 	private final static int MESSAGE_OPACITY_DECREASE_TIMER = 7000;
@@ -139,14 +139,14 @@ public class ChatFrame {
 					int j = 0;
 					if(message.getAuthor() != null) {
 						if(yDraw >= Display.getHeight()-280-yResize && message.getOpacity() > 0) {
-							FontManager.chat.drawStringPart(xDraw+1, yDraw, message.getAuthorText(), Colors.BLACK, message.getOpacity());
+							FontManager.chat.drawStringPart(xDraw+1, yDraw, message.getAuthorText(), Color.BLACK, message.getOpacity());
 							FontManager.chat.drawStringPart(xDraw, yDraw, message.getAuthorText(), message.getColor(), message.getOpacity());
 						}
 						xDraw+= FontManager.chat.getWidth(message.getAuthorText());
 					}
 					while(j < message.getMessage().length()) {
 						if(yDraw >= Display.getHeight()-280-yResize && message.getOpacity() > 0) {
-							FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getMessage().charAt(j), Colors.BLACK, message.getOpacity());
+							FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getMessage().charAt(j), Color.BLACK, message.getOpacity());
 							FontManager.chat.drawCharPart(xDraw, yDraw, message.getMessage().charAt(j), message.getColor(), message.getOpacity());
 						}
 						xDraw+= FontManager.chat.getWidth(message.getMessage().charAt(j));
@@ -989,7 +989,7 @@ public class ChatFrame {
 		return rawMessages;
 	}
 	
-	public static Colors convClassColors(String classe) {
+	public static Color convClassColors(String classe) {
 		if(classe.equals(druid)) {
 			return ClassColor.DRUID_COLOR;
 		}
@@ -1017,7 +1017,7 @@ public class ChatFrame {
 		if(classe.equals(warrior)) {
 			return ClassColor.WARRIOR_COLOR;
 		}
-		return Colors.WHITE;
+		return Color.WHITE;
 	}
 	
 	private static void resetSelectedPosition() {

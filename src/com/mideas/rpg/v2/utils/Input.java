@@ -32,22 +32,6 @@ public class Input {
 	public final static int ESCAPE_CHAR_VALUE = 27;
 	public final static int ENTER_CHAR_VALUE = 13;
 	
-	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive) {
-		this.multipleLine = multipleLine;
-		this.debugActive = debugActive;
-		this.maxLength = maxLength;
-		inputList.add(this);
-		this.font = font;
-	}
-	
-	public Input(int font_size, int maxLength, boolean multipleLine, boolean debugActive) {
-		this.multipleLine = multipleLine;
-		this.debugActive = debugActive;
-		this.maxLength = maxLength;
-		inputList.add(this);
-		this.font = FontManager.get("FRIZQT", font_size);
-	}
-	
 	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive, boolean isActive) {
 		this.multipleLine = multipleLine;
 		this.debugActive = debugActive;
@@ -60,111 +44,122 @@ public class Input {
 		}
 	}
 	
+	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive) {
+		this(font, maxLength, multipleLine, debugActive, false);
+	}
+	
+	public Input(int font_size, int maxLength, boolean multipleLine, boolean debugActive) {
+		this(FontManager.get("FRIZQT", font_size), maxLength, multipleLine, debugActive, false);
+	}
+	
 	public boolean event() {
-		if(this.isActive) {
-			if(Keyboard.getEventKey() != 0) {
+		if(!this.isActive) {
+			return false;
+		}
+		if(Keyboard.getEventKey() == 0) {
+			return false;
+		}
+		if(this.debugActive) {
+			System.out.println("Key pressed.");
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { //left shift
+			if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+				if(Keyboard.getEventKey() == 203) { // shift CTRL left arrow
+					selectCTRLLeftArrow();
+					return true;
+				}
+				if(Keyboard.getEventKey() == 205) { // shift CTRL right arrow
+					selectCTRLRightArrow();
+					return true;
+				}
+			}
+			if(Keyboard.getEventKey() == 203) { //shift left arrow
+				selectLeftArrow();
+				return true;
+			}
+			if(Keyboard.getEventKey() == 205) { // shift right arrow
+				selectRightArrow();
+				return true;
+			}
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
+			if(Keyboard.getEventKey() == 14) { //delete
+				CTRLDelete();
+				this.tempLength = 0;
+				resetSelectedPosition();
+				return true;
+			}
+			if(Keyboard.getEventKey() == Keyboard.KEY_V) { // c/c
+				String temp = Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "");
+				write(temp);
+				this.cursorPosition+= temp.length();
+				return true;
+			}
+			if(Keyboard.getEventKey() == 203) { //left arrow
+				CTRLleftArrow();
+				resetSelectedPosition();
+				return true;
+			}
+			if(Keyboard.getEventKey() == 205) { //right arrow
+				CTRLrightArrow();
+				resetSelectedPosition();
+				return true;
+			}
+			if(Keyboard.getEventKey() == Keyboard.KEY_C) {
+				copySelected();
+				return true;
+			}
+		}
+		if(Keyboard.getEventKey() == 14) { //delete
+			delete();
+			resetSelectedPosition();
+			return true;
+		}
+		if(Keyboard.getEventKey() == 203) { //left arrow
+			leftArrow();
+			resetSelectedPosition();
+			return true;
+		}
+		if(Keyboard.getEventKey() == 205) { //right arrow
+			rightArrow();
+			resetSelectedPosition();
+			return true;
+		}
+		if(Keyboard.getEventKey() == 211) { //suppr
+			suppr();
+			resetSelectedPosition();
+			return true;
+		}
+		if(!(Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB)) { //write
+			return false;
+		}
+		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156 || Keyboard.getEventKey() == 28) {
+			char c = Keyboard.getEventCharacter();
+			if(!this.multipleLine && keyEvent(c)) {
 				if(this.debugActive) {
-					System.out.println("Key pressed.");
+					System.out.println("First call Event triggered");
 				}
-				if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { //left shift
-					if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-						if(Keyboard.getEventKey() == 203) { // shift CTRL left arrow
-							selectCTRLLeftArrow();
-							return true;
-						}
-						else if(Keyboard.getEventKey() == 205) { // shift CTRL right arrow
-							selectCTRLRightArrow();
-							return true;
-						}
-					}
-					if(Keyboard.getEventKey() == 203) { //shift left arrow
-						selectLeftArrow();
-						return true;
-					}
-					else if(Keyboard.getEventKey() == 205) { // shift right arrow
-						selectRightArrow();
-						return true;
-					}
+				return true;
+			}
+			if(this.debugActive) {
+				System.out.println("No event triggered");
+			}
+		}
+		if(this.text.length() < this.maxLength) {
+			char c = Keyboard.getEventCharacter();
+			if(this.debugActive) {
+				System.out.println("char: "+c+", value: "+(int)c);
+			}
+			if(keyEvent(c)) {
+				if(this.debugActive) {
+					System.out.println("Second call Event triggered");
 				}
-				if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { //ctrl down
-					if(Keyboard.getEventKey() == 14) { //delete
-						CTRLDelete();
-						this.tempLength = 0;
-						resetSelectedPosition();
-						return true;
-					}
-					else if(Keyboard.getEventKey() == Keyboard.KEY_V) { // c/c
-						String temp = Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "");
-			            write(temp);
-			            this.cursorPosition+= temp.length();
-						return true;
-			        }
-					else if(Keyboard.getEventKey() == 203) { //left arrow
-						CTRLleftArrow();
-						resetSelectedPosition();
-						return true;
-					}
-					else if(Keyboard.getEventKey() == 205) { //right arrow
-						CTRLrightArrow();
-						resetSelectedPosition();
-						return true;
-					}
-					else if(Keyboard.getEventKey() == Keyboard.KEY_C) {
-						copySelected();
-						return true;
-					}
-				}
-				else if(Keyboard.getEventKey() == 14) { //delete
-					delete();
-					resetSelectedPosition();
-					return true;
-				}
-				else if(Keyboard.getEventKey() == 203) { //left arrow
-					leftArrow();
-					resetSelectedPosition();
-					return true;
-				}
-				else if(Keyboard.getEventKey() == 205) { //right arrow
-					rightArrow();
-					resetSelectedPosition();
-					return true;
-				}
-				else if(Keyboard.getEventKey() == 211) { //suppr
-					suppr();
-					resetSelectedPosition();
-					return true;
-				}
-				else if(Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB) { //write
-					if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156 || Keyboard.getEventKey() == 28) {
-						char c = Keyboard.getEventCharacter();
-						if(!this.multipleLine && keyEvent(c)) {
-							if(this.debugActive) {
-								System.out.println("First call Event triggered");
-							}
-							return true;
-						}
-						if(this.debugActive) {
-							System.out.println("No event triggered");
-						}
-					}
-					if(this.text.length() < this.maxLength) {
-						char c = Keyboard.getEventCharacter();
-						if(this.debugActive) {
-							System.out.println("char: "+c+", value: "+(int)c);
-						}
-						if(keyEvent(c)) {
-							if(this.debugActive) {
-								System.out.println("Second call Event triggered");
-							}
-							return true;
-						}
-						if(isValidCharacter(c) || (this.multipleLine && c == ENTER_CHAR_VALUE)) {
-							write(c);
-							resetSelectedPosition();
-							return true;
-						}
-					}
-				}
+				return true;
+			}
+			if(isValidCharacter(c) || (this.multipleLine && c == ENTER_CHAR_VALUE)) {
+				write(c);
+				resetSelectedPosition();
+				return true;
 			}
 		}
 		return false;

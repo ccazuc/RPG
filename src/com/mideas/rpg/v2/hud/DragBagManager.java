@@ -12,7 +12,7 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class DragBagManager {
@@ -56,9 +56,9 @@ public class DragBagManager {
 				draggedBag = null;
 				deleteItem = false;
 			}
-			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 16).getWidth("Voulez vous supprimer "+draggedBag.getStuffName())/2, Display.getHeight()/2-65, "Voulez vous supprimer "+draggedBag.getStuffName(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(yes)/2-69, Display.getHeight()/2-41, yes, Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(no)/2+70, Display.getHeight()/2-40, no, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 16).getWidth("Voulez vous supprimer "+draggedBag.getStuffName())/2, Display.getHeight()/2-65, "Voulez vous supprimer "+draggedBag.getStuffName(), Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(yes)/2-69, Display.getHeight()/2-41, yes, Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 13).getWidth(no)/2+70, Display.getHeight()/2-40, no, Color.WHITE, Color.BLACK, 1, 1, 1);
 		}
 	}
 	

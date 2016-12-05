@@ -3,7 +3,7 @@ package com.mideas.rpg.v2;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.game.spell.Spell;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class Hud { 
@@ -30,15 +30,15 @@ public class Hud {
 			Sprites.sprite();
 			sprite = false;
 		}
-		Colors bgColor = new Colors(0, 0, 0,.35f);     
-		Colors healthBar = Colors.decode("#07D705");
-		Colors manaBar = Colors.decode("#0101D5");
+		Color bgColor = new Color(0, 0, 0,.35f);     
+		Color healthBar = Color.decode("#07D705");
+		Color manaBar = Color.decode("#0101D5");
 		Draw.drawQuad(Sprites.bg, Display.getWidth()/2-Sprites.bg.getWidth()/2, Display.getHeight()/2-Sprites.bg.getHeight()/2);  //bg
 		expBar();
 		Draw.drawQuad(Sprites.spellbar, Window.getWidth()/2-300, Window.getHeight()-120);                                                 //spellBar
 		Draw.drawQuad(Sprites.spell_attack, Window.getWidth()/2-139, Window.getHeight()-61);                                              //attack
 		Draw.drawQuad(Sprites.border, Window.getWidth()/2-143, Window.getHeight()-66);
-		FontManager.font5.drawStringShadow(Window.getWidth()/2-105, Window.getHeight()-61, "1", Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		FontManager.font5.drawStringShadow(Window.getWidth()/2-105, Window.getHeight()-61, "1", Color.WHITE, Color.BLACK, 1, 1, 1);
 		
 		Draw.drawColorQuad(90, 58, 120, 13, bgColor);                           //left backgroundHealthBar
 		Draw.drawColorQuad(90, 58, 120*x, 12, healthBar);                       //left healthBar		
@@ -50,10 +50,10 @@ public class Hud {
 		Draw.drawColorQuad(Window.getWidth()-154, 38, 119, 18,  bgColor);       //right backgroundName	
 		Draw.drawColorQuad(Window.getWidth()-154, 68, 119, 13,  bgColor);       //right backgroundManaBar
 		Draw.drawColorQuad(Window.getWidth()-154, 68, 119*b-3, 12, manaBar);    //right manaBar		                                                   
-		FontManager.font.drawStringShadow(40, Window.getHeight()-230, statusText, Colors.BLACK, Colors.WHITE, 1, 1, 1);
-		FontManager.font.drawStringShadow(40, Window.getHeight()-190, statusText2, Colors.BLACK, Colors.WHITE, 1, 1, 1);                                                                     
+		FontManager.font.drawStringShadow(40, Window.getHeight()-230, statusText, Color.BLACK, Color.WHITE, 1, 1, 1);
+		FontManager.font.drawStringShadow(40, Window.getHeight()-190, statusText2, Color.BLACK, Color.WHITE, 1, 1, 1);                                                                     
 		 
-		FontManager.get("FRIZQT", 13).drawString(155-FontManager.font.getWidth(Mideas.joueur1().getClasseString())/2, 38, Mideas.joueur1().getClasseString(), Colors.ORANGE);                                              //leftPlayerName
+		FontManager.get("FRIZQT", 13).drawString(155-FontManager.font.getWidth(Mideas.joueur1().getClasseString())/2, 38, Mideas.joueur1().getClasseString(), Color.ORANGE);                                              //leftPlayerName
 		//TTF2.playerName.drawString(Window.getWidth()-91-TTF2.font.getWidth(Mideas.joueur1().getClasseString())/2, 38,  Mideas.target().getClasseString(), Colors.orange);                          //fps
 		
 		/*if(Mideas.x >= Window.getWidth()/2-139 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()/2-83 && Mideas.y <= Window.getHeight()-5) {
@@ -356,7 +356,7 @@ public class Hud {
 	
 	public static boolean redBars() {
 		if(Mideas.joueur1().getStamina() <= 0) {
-			Draw.drawColorQuad(90, 58, 120, 10, Colors.RED);
+			Draw.drawColorQuad(90, 58, 120, 10, Color.RED);
 			return true;
 		}
 		/*else if(Mideas.target().getStamina() <= 0) {
@@ -368,6 +368,6 @@ public class Hud {
 	
 	public static void expBar() {
 		e = ((float)Mideas.joueur1().getExp()-(float)Mideas.getExpNeeded(Mideas.joueur1().getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.joueur1().getLevel())-Mideas.getExpNeeded(Mideas.joueur1().getLevel()-1));
-		Draw.drawColorQuad(Window.getWidth()/2-140, Window.getHeight()-80, 270*e, 11,  Colors.decode("#680764"));
+		Draw.drawColorQuad(Window.getWidth()/2-140, Window.getHeight()-80, 270*e, 11,  Color.decode("#680764"));
 	}
 }

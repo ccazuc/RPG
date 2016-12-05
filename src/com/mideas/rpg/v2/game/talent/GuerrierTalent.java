@@ -7,7 +7,7 @@ import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class GuerrierTalent {
@@ -33,7 +33,7 @@ public class GuerrierTalent {
 	public static int ironWill;
 	public static int improvedThunderClap;
 	public static int numberFirstArms;
-	private static Colors bgColor = new Colors(0, 0, 0,.8f); 
+	private static Color bgColor = new Color(0, 0, 0,.8f); 
 	
 	public static void draw() {
 		if(heroicStrikeTalent == 1) {
@@ -82,44 +82,44 @@ public class GuerrierTalent {
 		}
 		if(hoverLeft1) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+74, Display.getHeight()/2+Talent.getY()-80, 350, 100, bgColor);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-78, "Frappe h�ro�que am�lior�e", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-65, "Rang "+heroicStrikeTalent+"/3", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-43, "R�duit le coup en rage de votre technique", Colors.YELLOW, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-33, "frappe h�ro�que de 1 points.", Colors.YELLOW, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-78, "Frappe h�ro�que am�lior�e", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-65, "Rang "+heroicStrikeTalent+"/3", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-43, "R�duit le coup en rage de votre technique", Color.YELLOW, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-33, "frappe h�ro�que de 1 points.", Color.YELLOW, Color.BLACK, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 0, heroicStrikeTalent, 5, 78, -50, 0, "");
 		}
 		else if(hoverLeft2) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+139, Display.getHeight()/2+Talent.getY()-80, 350, 100, bgColor);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-78, "D�viation", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-65, "Rang "+deflectionTalent+"/5", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-43, "Augmente votre armure de 5", Colors.YELLOW, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-78, "D�viation", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-65, "Rang "+deflectionTalent+"/5", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-43, "Augmente votre armure de 5", Color.YELLOW, Color.BLACK, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 0, deflectionTalent, 5, 143, -50, 0, "");
 		}
 		else if(hoverLeft3) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+204, Display.getHeight()/2+Talent.getY()-80, 350, 100, bgColor);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-78, "Pourfendre am�lior�e", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-65, "Rang "+improvedRend+"/3", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-35, "Augmente de 25% les points de d�g�ts", Colors.YELLOW, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-25, "inflig�s par la technique Pourfendre.", Colors.YELLOW, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-78, "Pourfendre am�lior�e", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-65, "Rang "+improvedRend+"/3", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-35, "Augmente de 25% les points de d�g�ts", Color.YELLOW, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+208, Display.getHeight()/2+Talent.getY()-25, "inflig�s par la technique Pourfendre.", Color.YELLOW, Color.BLACK, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 0, improvedRend, 3, 208, -50, 0, "");
 		}
 		else if(hoverLeft4) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+74, Display.getHeight()/2+Talent.getY()-18, 350, 100, bgColor);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-15, "Charge am�lior�e", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY(), "Rang "+improvedCharge+"/2", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantit� de Rage g�n�r�e par", Colors.YELLOW, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Colors.YELLOW, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()-15, "Charge am�lior�e", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY(), "Rang "+improvedCharge+"/2", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantit� de Rage g�n�r�e par", Color.YELLOW, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+78, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Color.YELLOW, Color.BLACK, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 5, improvedCharge, 2, 78, 15, 65, "Requiert 5 points en Armes");
 		}
 		else if(hoverLeft5) {
 			Draw.drawColorQuad(Display.getWidth()/2+Talent.getX()+24+139, Display.getHeight()/2+Talent.getY()-18, 350, 100, bgColor);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-15, "Volont� de fer", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY(), "Rang "+ironWill+"/5", Colors.WHITE, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantit� de Rage g�n�r�e par", Colors.YELLOW, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Colors.YELLOW, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()-15, "Volont� de fer", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY(), "Rang "+ironWill+"/5", Color.WHITE, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+37, "Augmente la quantit� de Rage g�n�r�e par", Color.YELLOW, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+143, Display.getHeight()/2+Talent.getY()+49, "votre technique Charge de 3.", Color.YELLOW, Color.BLACK, 1, 1, 1);
 			requiredPoint(numberArmsTalent, 5, ironWill, 5, 143, 15, 65, "Requiert 5 points en Armes");
 		}
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+Talent.getX()+250, Display.getHeight()/2+160, String.valueOf(numberArmsTalent), Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+Talent.getX()+250, Display.getHeight()/2+160, String.valueOf(numberArmsTalent), Color.WHITE, Color.BLACK, 1, 1, 1);
 	}
 	
 	public static boolean mouseEvent() {
@@ -248,10 +248,10 @@ public class GuerrierTalent {
 	}
 	
 	public static void clickToLearn(int x, int y) {
-		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Cliquer pour apprendre", Colors.GREEN, Colors.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Cliquer pour apprendre", Color.GREEN, Color.BLACK, 1, 1, 1);
 	}
 	public static void clickToUnlearn(int x, int y) {
-		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Clic droit pour d�sapprendre", Colors.RED, Colors.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, "Clic droit pour d�sapprendre", Color.RED, Color.BLACK, 1, 1, 1);
 	}
 	 
 	private static void requiredPoint(int numberTalentSpec, int number, int talent, int numberTalent, int x_string, int y_string, int y_stringClickToLearn, String string) {
@@ -264,10 +264,10 @@ public class GuerrierTalent {
 			}
 		}
 		if(number != 0 && numberTalentSpec >= 5) {
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+x_string, Display.getHeight()/2+Talent.getY()+y_string, string, Colors.GREEN, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+x_string, Display.getHeight()/2+Talent.getY()+y_string, string, Color.GREEN, Color.BLACK, 1, 1, 1);
 		}
 		else if(numberTalentSpec <= number && number != 0) {
-			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+x_string, Display.getHeight()/2+Talent.getY()+y_string, string, Colors.RED, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+Talent.getX()+24+x_string, Display.getHeight()/2+Talent.getY()+y_string, string, Color.RED, Color.BLACK, 1, 1, 1);
 		}
 	}
 	

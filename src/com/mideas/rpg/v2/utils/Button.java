@@ -20,118 +20,105 @@ public class Button {
 	protected TTF font;
 	private boolean buttonDown;
 	private boolean buttonHover;
-	private Colors color = Colors.decode("#FFC700");
-	private Colors hoveredColor = Colors.WHITE;
-	private Colors baseColor = Colors.decode("#FFC700");
+	private Color color = Color.decode("#FFC700");
+	private Color hoveredColor;
+	private Color baseColor;
 	private boolean hasClicked;
-	private static final Colors GREY = Colors.decode("#808080");
+	private static final Color GREY = Color.decode("#808080");
 	private boolean isEnable = true;
-	
-	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
-		this.x = x;
-		this.y = y;
-		this.x_size = x_size;
-		this.y_size = y_size;
-		this.text = text;
-		this.shadow_size = shadow_size;
+
+	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {
 		this.font = FontManager.get("FRIZQT", font_size);
 		this.textWidth = this.font.getWidth(this.text);
-	}
-
-	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, Colors baseColor, Colors hoveredColor) {
-		this.x = x;
-		this.y = y;
-		this.x_size = x_size;
-		this.y_size = y_size;
-		this.text = text;
+		this.hoveredColor = hoveredColor;
 		this.shadow_size = shadow_size;
 		this.baseColor = baseColor;
-		this.hoveredColor = hoveredColor;
-		this.font = FontManager.get("FRIZQT", font_size);
-		this.textWidth = this.font.getWidth(this.text);
+		this.x_size = x_size;
+		this.y_size = y_size;
+		this.text = text;
+		this.x = x;
+		this.y = y;
+	}
+	
+	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
+		this(x, y, x_size, y_size, text, font_size, shadow_size, Color.decode("#FFC700"), Color.WHITE);
 	}
 
 	public Button(float x, float y, String text, float font_size) {
-		this.x = x;
-		this.y = y;
-		this.x_size = Sprites.button.getImageWidth();
-		this.y_size = Sprites.button.getImageHeight();
-		this.text = text;
-		this.font = FontManager.get("FRIZQT", font_size);
-		this.textWidth = this.font.getWidth(this.text);
+		this(x, y, Sprites.button.getImageWidth(), Sprites.button.getImageHeight(), text, font_size, 0, Color.decode("#FFC700"), Color.WHITE);
 	}
 	
 	public void draw() {
-		if(this.isEnable) {
-			if(!activateCondition()) {
-				this.texture = Sprites.button_disabled;
-				this.color = GREY;
-			}
-			else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
-				this.texture = Sprites.button;
-				this.color = this.baseColor;
-			}
-			else if(hoverSpriteActivateCondition()) {
-				this.color = this.hoveredColor;
-			}
-			Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
-			this.font.drawStringShadow(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Colors.BLACK, this.shadow_size, 0, 0);
+		if(!this.isEnable) {
+			return;
 		}
+		if(!activateCondition()) {
+			this.texture = Sprites.button_disabled;
+			this.color = GREY;
+		}
+		else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
+			this.texture = Sprites.button;
+			this.color = this.baseColor;
+		}
+		else if(hoverSpriteActivateCondition()) {
+			this.color = this.hoveredColor;
+		}
+		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
+		this.font.drawStringShadow(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
 	}
 	
 	public boolean event() {
-		if(this.isEnable && activateCondition()) {
-			this.color = this.baseColor;
-			this.buttonHover = false;
-			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
-				this.buttonHover = true;
-				Mideas.setHover(false);
-			}
-			if(this.buttonHover) {
-				if(Mouse.getEventButtonState()) {
-					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDown = true;
-					}
-				}
-				else if(this.buttonDown) {
-					if(Mouse.getEventButton() == 0) {
-						this.buttonDown = false;
-						this.color = this.hoveredColor;
-						this.texture = Sprites.button_hover;
-						eventButtonClick();
-						this.hasClicked = true;
-						return true;
-					}
-					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDown = false;
-					}
-				}
-				this.color = this.hoveredColor;
-			}
-			else if(!Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					this.buttonDown = false;
-					this.hasClicked = false;
-				}
-			}
-			if(this.buttonDown) {
-				if(this.buttonHover || hoverSpriteActivateCondition()) {
-					this.texture = Sprites.button_down_hover;
-				}
-				else {
-					this.texture = Sprites.button_down;
-				}
-			}
-			else if(this.buttonHover || hoverSpriteActivateCondition()) {
-				this.texture = Sprites.button_hover;
-			}
-			else {
-				this.texture = Sprites.button;
-			}
-		}
-		else {
+		if(!(this.isEnable && activateCondition())) {
 			this.texture = Sprites.button_disabled;
 			this.color = GREY;
+			return false;
+		}
+		this.color = this.baseColor;
+		this.buttonHover = false;
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+			this.buttonHover = true;
+			Mideas.setHover(false);
+		}
+		if(this.buttonHover) {
+			if(Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					this.buttonDown = true;
+				}
+			}
+			else if(this.buttonDown) {
+				if(Mouse.getEventButton() == 0) {
+					this.buttonDown = false;
+					this.color = this.hoveredColor;
+					this.texture = Sprites.button_hover;
+					eventButtonClick();
+					this.hasClicked = true;
+					return true;
+				}
+				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					this.buttonDown = false;
+				}
+			}
+			this.color = this.hoveredColor;
+		}
+		else if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				this.buttonDown = false;
+				this.hasClicked = false;
+			}
+		}
+		if(this.buttonDown) {
+			if(this.buttonHover || hoverSpriteActivateCondition()) {
+				this.texture = Sprites.button_down_hover;
+			}
+			else {
+				this.texture = Sprites.button_down;
+			}
+		}
+		else if(this.buttonHover || hoverSpriteActivateCondition()) {
+			this.texture = Sprites.button_hover;
+		}
+		else {
+			this.texture = Sprites.button;
 		}
 		return false;
 	}

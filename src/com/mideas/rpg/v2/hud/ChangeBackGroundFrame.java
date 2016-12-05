@@ -6,7 +6,7 @@ import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class ChangeBackGroundFrame {
@@ -73,7 +73,7 @@ public class ChangeBackGroundFrame {
 	
 	private static void drawBorder(int x, int y, int i) {
 		if(hoveredSlot == i) {
-			Draw.drawColorQuadBorder(x-3, y-3, 356*Mideas.getDisplayXFactor(), 225*Mideas.getDisplayXFactor(), Colors.BLACK, 3);
+			Draw.drawColorQuadBorder(x-3, y-3, 356*Mideas.getDisplayXFactor(), 225*Mideas.getDisplayXFactor(), Color.BLACK, 3);
 		}
 	}
 	

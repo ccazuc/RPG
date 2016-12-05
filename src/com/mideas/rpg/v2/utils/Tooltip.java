@@ -9,7 +9,7 @@ public class Tooltip {
 	private int y;
 	private int x_size;
 	private int y_size;
-	private Colors color;
+	private Color color;
 	private int hashcode_selected_item;
 	
 	public Tooltip(float x, float y, float x_size, float y_size, float opacity) {
@@ -17,7 +17,7 @@ public class Tooltip {
 		this.y = (int)y;
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;
-		this.color = new Colors(0, 0, 0, opacity);
+		this.color = new Color(0, 0, 0, opacity);
 	}
 	
 	public void draw() {

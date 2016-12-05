@@ -6,7 +6,7 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class CastBar {
@@ -14,7 +14,7 @@ public class CastBar {
 	private final static int BAR_WIDTH = 214;
 	private static float xDraw = -BAR_WIDTH/2;
 	private static int yDraw = 250;
-	private static Colors bgColor = new Colors(0, 0, 0, .35f);
+	private static Color bgColor = new Color(0, 0, 0, .35f);
 	private static Cast currentCast;
 	private static ArrayList<Cast> castList = new ArrayList<Cast>();
 	private static boolean isCasting;

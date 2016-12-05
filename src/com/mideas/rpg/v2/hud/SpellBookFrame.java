@@ -11,7 +11,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Texture;
 
@@ -19,8 +19,8 @@ public class SpellBookFrame {
 	
 	private static boolean[] hover_book = new boolean[7];
 	private static boolean hover_book_button;
-	private final static Colors YELLOW = Colors.decode("#D9D623");
-	private final static Colors BROWN = Colors.decode("#633E21");
+	private final static Color YELLOW = Color.decode("#D9D623");
+	private final static Color BROWN = Color.decode("#633E21");
 
 	public static void draw() {
 		int x = 110;
@@ -31,7 +31,7 @@ public class SpellBookFrame {
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y);
 			Draw.drawQuad(IconsManager.getSprite42(SpellManager.getBookSpell(102).getSpriteId()), Display.getWidth()/2+x+20, Display.getHeight()/2+y+yShift+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y+yShift);
-			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+yShift+15, "Heroic Strike", YELLOW, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+yShift+15, "Heroic Strike", YELLOW, Color.BLACK, 1, 1, 1);
 			drawSpell(Sprites.spell_book_grey_charge, IconsManager.getSprite42(SpellManager.getBookSpell(101).getSpriteId()), 3, x, y+2*yShift, "Charge");
 			drawSpell(Sprites.spell_book_grey_thunder_clap, IconsManager.getSprite42(SpellManager.getBookSpell(105).getSpriteId()), 7, x, y+3*yShift, "Thunder Clap");
 			drawSpell(Sprites.spell_book_grey_rend, IconsManager.getSprite42(SpellManager.getBookSpell(104).getSpriteId()), 10, x, y+4*yShift, "Rend");
@@ -74,13 +74,13 @@ public class SpellBookFrame {
 		if(Mideas.joueur1().getLevel() < level) {
 			Draw.drawQuad(grey_texture, Display.getWidth()/2+x+20, Display.getHeight()/2+y+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg_grey, Display.getWidth()/2+x, Display.getHeight()/2+y);
-			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+15, spellName, BROWN, Colors.BLACK, 1, 1, 1);
-			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+30, "Available at level "+level, BROWN, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+15, spellName, BROWN, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+30, "Available at level "+level, BROWN, Color.BLACK, 1, 1, 1);
 		}
 		else {
 			Draw.drawQuad(texture, Display.getWidth()/2+x+20, Display.getHeight()/2+y+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y);
-			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+15, spellName, YELLOW, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+15, spellName, YELLOW, Color.BLACK, 1, 1, 1);
 		}
 	}
 	

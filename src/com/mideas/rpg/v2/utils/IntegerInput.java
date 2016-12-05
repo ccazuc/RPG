@@ -18,26 +18,33 @@ public class IntegerInput {
 		this.maxLength = maxLength;
 	}
 	
-	public void event() {
-		Keyboard.enableRepeatEvents(true);
+	public boolean event() {
+		if(Keyboard.getEventKey() == 0) {
+			return false;
+		}
 		if(Keyboard.getEventKey() == 14) {
 			delete();
+			return true;
 		}
-		else if(Keyboard.getEventKey() == 203) {
+		if(Keyboard.getEventKey() == 203) {
 			leftArrow();
+			return true;
 		}
-		else if(Keyboard.getEventKey() == 205) {
+		if(Keyboard.getEventKey() == 205) {
 			rightArrow();
+			return true;
 		}
-		else if(Keyboard.getEventKey() == 211) {
+		if(Keyboard.getEventKey() == 211) {
 			suppr();
+			return true;
 		}
-		else if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB) { //write
+		if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB) { //write
 			if(this.text.length() < this.maxLength) {
 				write(Keyboard.getEventCharacter());
 			}
+			return true;
 		}
-		
+		return false;
 	}
 	
 	public int maximumValue() {
@@ -48,7 +55,7 @@ public class IntegerInput {
 		if(!Mideas.isInteger(c)) {
 			return;
 		}
-		else if(Integer.valueOf(this.text+c) <= maximumValue()) {
+		if(Integer.valueOf(this.text+c) <= maximumValue()) {
 			if(this.cursorPosition != this.text.length()) {
 				this.text = this.text.substring(0, this.cursorPosition)+c+this.text.substring(this.cursorPosition);
 			}

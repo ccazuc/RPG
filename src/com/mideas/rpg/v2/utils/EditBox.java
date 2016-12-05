@@ -15,7 +15,7 @@ public class EditBox {
 	private TTF font;
 	private boolean buttonDown;
 	private boolean buttonHover;
-	private Colors bgColor;
+	private Color bgColor;
 	
 	public EditBox(float x, float y, float x_size, int maxLength, boolean debugActive, TTF font, float opacity) {
 		this.x = (int)x;
@@ -29,7 +29,7 @@ public class EditBox {
 			}
 		};
 		this.font = font;
-		this.bgColor = new Colors(0, 0, 0, opacity);
+		this.bgColor = new Color(0, 0, 0, opacity);
 	}
 	
 	public void draw() {
@@ -39,9 +39,9 @@ public class EditBox {
 		Draw.drawQuad(Sprites.edit_box_left_border, this.x, this.y, imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.edit_box_middle_border, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.edit_box_right_border, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight);
-		this.font.drawStringShadow(this.x+6, this.y+2, this.input.getText(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
+		this.font.drawStringShadow(this.x+6, this.y+2, this.input.getText(), Color.WHITE, Color.BLACK, 1, 0, 0);
 		if(this.input.isActive() && System.currentTimeMillis()%1000 < 500) {
-			Draw.drawColorQuad(this.x+this.font.getWidth(this.input.getText())+6, this.y+3, 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), Colors.WHITE);
+			Draw.drawColorQuad(this.x+this.font.getWidth(this.input.getText())+6, this.y+3, 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), Color.WHITE);
 		}
 	}
 	

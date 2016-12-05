@@ -4,7 +4,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Joueur;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 
 public class GuildMember {
 
@@ -20,7 +20,7 @@ public class GuildMember {
 	private ClassType classType;
 	private String classTypeString;
 	private String levelString;
-	private Colors color;
+	private Color color;
 	private String informationString;
 	private long lastLoginTimer;
 	private String lastLoginTimerString;
@@ -42,9 +42,8 @@ public class GuildMember {
 		this.rank = rank;
 		this.isOnline = isOnline;
 		this.note_displayed = updateNote(note, false);
-		this.officer_note_displayed = updateNote(officer_note, true);
 		this.note_save = note;
-		this.officer_note_save = officer_note;
+		setOfficerNoteSave(officer_note);
 		this.classType = classType;
 		this.color = Joueur.convClassTypeToColor(this.classType);
 		this.classTypeString = Joueur.convClassTypeToString(this.classType);
@@ -133,18 +132,6 @@ public class GuildMember {
 		return builder.toString();
 	}
 	
-	/*private static String removeLine(String text) {
-		StringBuilder builder = new StringBuilder();
-		int i = 0;
-		while(i < text.length()) {
-			if(text.charAt(i) != '\n') {
-				builder.append(text.charAt(i));
-			}
-			i++;
-		}
-		return builder.toString();
-	}*/
-	
 	private static String nextWord(String text, int i) {
 		int start = i;
 		while(i < text.length() && text.charAt(i) != ' ' && text.charAt(i) != ',') {
@@ -185,7 +172,7 @@ public class GuildMember {
 		return this.name;
 	}
 	
-	public Colors getColor() {
+	public Color getColor() {
 		return this.color;
 	}
 	

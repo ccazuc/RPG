@@ -20,7 +20,7 @@ public class TooltipMenu {
 	private final static int CLOSE_TIMER = 3000;
 	private final static int SPACE_BETWEEN_MENU = 18;
 	private final static int TOOLTIP_DEFAULT_HEIGHT = 47;
-	private final static Colors YELLOW = Colors.decode("#FFC700");
+	private final static Color YELLOW = Color.decode("#FFC700");
 	
 	public TooltipMenu(float x, float y, float x_size) {
 		this.x = (int)x;
@@ -31,35 +31,37 @@ public class TooltipMenu {
 	}
 	
 	public void draw() {
-		if(this.isActive) {
-			if(System.currentTimeMillis()-this.lastHover > CLOSE_TIMER && !this.tooltip.isHover()) {
-				setActive(false);
-			}
-			this.tooltip.draw();
-			FontManager.get("FRIZQT", 14).drawStringShadow(this.x+21*Mideas.getDisplayXFactor(), this.y+15*Mideas.getDisplayYFactor(), this.name, YELLOW, Colors.BLACK, 1, 0, 0);
-			int i = 0;
-			while(i < this.menuList.size()) {
-				this.menuList.get(i).draw();
-				i++;
-			}
+		if(!this.isActive) {
+			return;
+		}
+		if(System.currentTimeMillis()-this.lastHover > CLOSE_TIMER && !this.tooltip.isHover()) {
+			setActive(false);
+		}
+		this.tooltip.draw();
+		FontManager.get("FRIZQT", 14).drawStringShadow(this.x+21*Mideas.getDisplayXFactor(), this.y+15*Mideas.getDisplayYFactor(), this.name, YELLOW, Color.BLACK, 1, 0, 0);
+		int i = 0;
+		while(i < this.menuList.size()) {
+			this.menuList.get(i).draw();
+			i++;
 		}
 	}
 	
 	public boolean event() {
-		if(this.isActive) {
-			if(Mideas.getHover()) {
-				int i = 0;
-				while(i < this.menuList.size()) {
-					if(this.menuList.get(i).event()) {
-						this.lastHover = System.currentTimeMillis();
-						return true;
-					}
-					i++;
-				}
-				if(this.tooltip.isHover()) {
+		if(!this.isActive) {
+			return false;
+		}
+		if(Mideas.getHover()) {
+			int i = 0;
+			while(i < this.menuList.size()) {
+				if(this.menuList.get(i).event()) {
 					this.lastHover = System.currentTimeMillis();
-					Mideas.setHover(false);
+					return true;
 				}
+				i++;
+			}
+			if(this.tooltip.isHover()) {
+				this.lastHover = System.currentTimeMillis();
+				Mideas.setHover(false);
 			}
 		}
 		return false;

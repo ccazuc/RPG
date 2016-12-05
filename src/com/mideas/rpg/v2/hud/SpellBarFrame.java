@@ -23,7 +23,7 @@ import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.spell.SpellType;
 import com.mideas.rpg.v2.hud.Cast;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.utils.Tooltip;
@@ -58,7 +58,7 @@ public class SpellBarFrame {
 		}
 		//TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+5-TTF2.get("FRIZQT", 15).getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Colors.yellow, Colors.BLACK, 1);
         Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor());
-		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+557*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(numberFreeSlotBag)/2, Display.getHeight()-22, numberFreeSlotBag, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+557*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(numberFreeSlotBag)/2, Display.getHeight()-22, numberFreeSlotBag, Color.WHITE, Color.BLACK, 1, 1, 1);
 		float x = -Sprites.final_spellbar.getImageWidth()/2+120f;
 		int spellCount = 0;
 		int yShift = 0;
@@ -88,7 +88,7 @@ public class SpellBarFrame {
 						yHoveredSpell = yShift;
 					}
 					if(SpellManager.getCd(spell.getSpell().getSpellId()) > 0) {
-						FontManager.font5.drawStringShadow(Display.getWidth()/2+(25+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y+8+yShift, String.valueOf(SpellManager.getCd(spell.getSpell().getSpellId())), Colors.WHITE, Colors.BLACK, 1, 1, 1);
+						FontManager.font5.drawStringShadow(Display.getWidth()/2+(25+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y+8+yShift, String.valueOf(SpellManager.getCd(spell.getSpell().getSpellId())), Color.WHITE, Color.BLACK, 1, 1, 1);
 					}
 				}
 				else if(Mideas.joueur1().getSpells(spellCount).getShortcutType() == ShortcutType.STUFF) {
@@ -113,13 +113,13 @@ public class SpellBarFrame {
 				}
 				if(DragSpellManager.getDraggedSpell() != Mideas.joueur1().getSpells(spellCount)) {
 					if(spellCount+1 < 10) {
-						FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(30+x)*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(bindDisplay[spellCount]), Display.getHeight()+y, bindDisplay[spellCount], Colors.WHITE, Colors.BLACK, 1, 1);
+						FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(30+x)*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(bindDisplay[spellCount]), Display.getHeight()+y, bindDisplay[spellCount], Color.WHITE, Color.BLACK, 1, 1);
 					}
 					else if(spellCount+1 == 11) {
-						FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(20+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y, ")", Colors.WHITE, Colors.BLACK, 1, 1);
+						FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(20+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y, ")", Color.WHITE, Color.BLACK, 1, 1);
 					}
 					else if(spellCount+1 == 12) {
-						FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(20+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y, "=", Colors.WHITE, Colors.BLACK, 1, 1);
+						FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(20+x)*Mideas.getDisplayXFactor(), Display.getHeight()+y, "=", Color.WHITE, Color.BLACK, 1, 1);
 					}
 				}
 			}
@@ -139,7 +139,7 @@ public class SpellBarFrame {
 		if(hoveredSpell != null) {
 			if(hoveredSpell.getShortcutType() == ShortcutType.SPELL) {
 				Draw.drawQuad(Sprites.tooltip, Display.getWidth()/2-74+xHoveredSpell, Display.getHeight()-220+yHoveredSpell);
-				FontManager.get("FRIZQT", 16).drawString(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-210+yHoveredSpell, ((SpellShortcut)hoveredSpell).getSpell().getName(), Colors.WHITE);
+				FontManager.get("FRIZQT", 16).drawString(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-210+yHoveredSpell, ((SpellShortcut)hoveredSpell).getSpell().getName(), Color.WHITE);
 				//TTF2.font4.drawString(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-188+yHoveredSpell, ((SpellShortcut)hoveredSpell).getSpell().getManaCost()+" Mana", Colors.WHITE);
 				if(((SpellShortcut)hoveredSpell).getSpell().getType() == SpellType.HEAL) {
 					//TTF2.font4.drawStringShadow(Display.getWidth()/2-66+xHoveredSpell, Display.getHeight()-158+yHoveredSpell, "Heals you for "+((SpellShortcut)hoveredSpell).getSpell().getHeal(), Colors.yellow, Colors.BLACK, 1, 1, 1);
@@ -162,8 +162,8 @@ public class SpellBarFrame {
 						tooltip.update(Display.getWidth()/2+xBag+i*xBagShift-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-25*Mideas.getDisplayXFactor(),  Display.getHeight()-100*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()+25*Mideas.getDisplayXFactor(), 60*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).hashCode());
 					}
 					tooltip.draw();
-					FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-15*Mideas.getDisplayXFactor(), Display.getHeight()-90*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getStuffName(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
-					FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-15*Mideas.getDisplayXFactor(), Display.getHeight()-70*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getSlotTooltipString(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
+					FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-15*Mideas.getDisplayXFactor(), Display.getHeight()-90*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getStuffName(), Color.WHITE, Color.BLACK, 1, 1, 1);
+					FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-15*Mideas.getDisplayXFactor(), Display.getHeight()-70*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getSlotTooltipString(), Color.WHITE, Color.BLACK, 1, 1, 1);
 				}
 				if(DragBagManager.getClickBag(i)) {
 					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);

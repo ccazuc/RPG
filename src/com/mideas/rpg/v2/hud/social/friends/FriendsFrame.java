@@ -14,7 +14,7 @@ import com.mideas.rpg.v2.game.Friend;
 import com.mideas.rpg.v2.game.Ignore;
 import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.utils.Button;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.FrameTab;
 import com.mideas.rpg.v2.utils.ScrollBar;
@@ -25,8 +25,8 @@ import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;
 
 public class FriendsFrame {
 
-	private final static Colors YELLOW = Colors.decode("#FFC700");
-	private final static Colors GREY = Colors.decode("#999999");
+	private final static Color YELLOW = Color.decode("#FFC700");
+	private final static Color GREY = Color.decode("#999999");
 	static Friend selectedFriend;
 	static int selectedIgnore;
 	private static int hoveredFriend = -1;
@@ -139,15 +139,15 @@ public class FriendsFrame {
 				friend = Mideas.joueur1().getFriendList().get(i);
 				if(friend.isOnline()) {
 					Draw.drawQuad(Sprites.friend_note_online, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), YELLOW, Colors.BLACK, 1, 0, 0);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, friend.getAreaText(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
-					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), friend.getInfosText(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), YELLOW, Color.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, friend.getAreaText(), Color.WHITE, Color.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), friend.getInfosText(), Color.WHITE, Color.BLACK, 1, 0, 0);
 				}
 				else {
 					Draw.drawQuad(Sprites.friend_note_offline, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), GREY, Colors.BLACK, 1, 0, 0);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, " - offline", GREY, Colors.BLACK, 1, 0, 0);
-					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), "Unknwon", Colors.WHITE, Colors.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), GREY, Color.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, " - offline", GREY, Color.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), "Unknwon", Color.WHITE, Color.BLACK, 1, 0, 0);
 				}
 				if(selectedFriend == friend || hoveredFriend == i) {
 					if(FL_SIZE > FL_MAXIMUM_DISPLAY) {
@@ -186,7 +186,7 @@ public class FriendsFrame {
 			font.drawBegin();
 			while(i < IGNORE_LIST_SIZE) {
 				Ignore ignore = Mideas.joueur1().getIgnoreList().get(i);
-				font.drawStringShadowPart(x, y, ignore.getName(), YELLOW, Colors.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x, y, ignore.getName(), YELLOW, Color.BLACK, 1, 0, 0);
 				i++;
 				y+= yShift;
 				if(y >= Y_SOCIAL_FRAME+430*Mideas.getDisplayYFactor()) {
@@ -303,7 +303,11 @@ public class FriendsFrame {
 	}
 	
 	private static boolean isHover(float y) {
-		return Mideas.mouseX() >= X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor() && Mideas.mouseX() <= X_SOCIAL_FRAME+(20+343)*Mideas.getDisplayXFactor() && Mideas.mouseY() >= y && Mideas.mouseY() <= y+Sprites.friend_border.getImageHeight()*Mideas.getDisplayYFactor();
+		if(Mideas.getHover() && Mideas.mouseX() >= X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor() && Mideas.mouseX() <= X_SOCIAL_FRAME+(20+343)*Mideas.getDisplayXFactor() && Mideas.mouseY() >= y && Mideas.mouseY() <= y+Sprites.friend_border.getImageHeight()*Mideas.getDisplayYFactor()) {
+			Mideas.setHover(false);
+			return true;
+		}
+		return false;
 	}
 	
 	public static void updateSize() {

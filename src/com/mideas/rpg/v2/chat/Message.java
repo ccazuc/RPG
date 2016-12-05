@@ -2,7 +2,7 @@ package com.mideas.rpg.v2.chat;
 
 import java.util.Calendar;
 
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 
 public class Message {
 
@@ -11,7 +11,7 @@ public class Message {
 	private int hour;
 	private int minute;
 	private int second;
-	private Colors color;
+	private Color color;
 	private String author;
 	private String authorText = "";
 	private MessageType type;
@@ -47,7 +47,7 @@ public class Message {
 		this.authorText = authorText;
 	}
 	
-	public Message(String message, boolean displayHour, MessageType type, Colors color) { //used for self message with different color
+	public Message(String message, boolean displayHour, MessageType type, Color color) { //used for self message with different color
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -155,7 +155,7 @@ public class Message {
 		return this.second;
 	}
 	
-	public Colors getColor() {
+	public Color getColor() {
 		return this.color;
 	}
 

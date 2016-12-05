@@ -42,20 +42,22 @@ public class Popup {
 	}
 	
 	public void draw() {
-		if(this.isActive) {
-		this.background.draw();
-		FontManager.get("FRIZQT", 13).drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Colors.WHITE, Colors.BLACK, 1, 0, 0);
-		this.cancelButton.draw();
-			this.acceptButton.draw();
+		if(!this.isActive) {
+			return;
 		}
+		this.background.draw();
+		FontManager.get("FRIZQT", 13).drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.WHITE, Color.BLACK, 1, 0, 0);
+		this.cancelButton.draw();
+		this.acceptButton.draw();
 	}
 	
 	public boolean event() {
-		if(this.isActive) {
-			if(this.cancelButton.event() || this.acceptButton.event()) {
-				this.setActive(false);
-				return true;
-			}
+		if(!this.isActive) {
+			return false;
+		}
+		if(this.cancelButton.event() || this.acceptButton.event()) {
+			this.setActive(false);
+			return true;
 		}
 		return false;
 	}
@@ -117,7 +119,6 @@ public class Popup {
 	}
 	
 	protected void popupClosed() {
-		System.out.println("Popup closed");
 		this.acceptButton.popupClosed();
 		this.acceptButton.reset();
 		this.cancelButton.reset();

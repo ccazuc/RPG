@@ -7,7 +7,7 @@ import org.lwjgl.opengl.Display;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 
 public class LogChat {
 	
@@ -21,19 +21,19 @@ public class LogChat {
 	public static void drawStatus() { // player2
 		int x = 40;
 		int y = -190; 
-		FontManager.get("FRIZQT", 16).drawStringShadow(x, Display.getHeight()+y, statusText2, Colors.WHITE, Colors.BLACK, 1, 1, 1); 
+		FontManager.get("FRIZQT", 16).drawStringShadow(x, Display.getHeight()+y, statusText2, Color.WHITE, Color.BLACK, 1, 1, 1); 
 	}
 	
 	public static void drawStatus2() { // player1
 		int x = 40;
 		int y = -230; 
-		FontManager.get("FRIZQT", 16).drawStringShadow(x, Display.getHeight()+y, statusText, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 16).drawStringShadow(x, Display.getHeight()+y, statusText, Color.WHITE, Color.BLACK, 1, 1, 1);
 	}
 	
 	public static void drawStatus3() {
 		int x = 40;
 		int y = -270; 
-		FontManager.get("FRIZQT", 16).drawStringShadow(x, Display.getHeight()+y, statusText3, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 16).drawStringShadow(x, Display.getHeight()+y, statusText3, Color.WHITE, Color.BLACK, 1, 1, 1);
 	}
 	
 	public static void setStatusText(String text) {

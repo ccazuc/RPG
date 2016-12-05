@@ -17,7 +17,7 @@ public class Alert {
 	private int y;
 	private float x_size_button;
 	private float y_size_button;
-	private static final Colors YELLOW = Colors.decode("#FFC700"); 
+	private static final Color YELLOW = Color.decode("#FFC700"); 
 	private AlertBackground background;
 	private boolean isActive;
 	private int diff;
@@ -110,11 +110,11 @@ public class Alert {
 			int y_shift = 0;
 			FontManager.get("FRIZQT", 22).drawBegin();
 			if(this.formatedText.length == 1) {
-				FontManager.get("FRIZQT", 22).drawStringShadowPart(this.x+this.background.getWidth()/2-FontManager.get("FRIZQT", 22).getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], YELLOW, Colors.BLACK, 3, 2, 2);
+				FontManager.get("FRIZQT", 22).drawStringShadowPart(this.x+this.background.getWidth()/2-FontManager.get("FRIZQT", 22).getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], YELLOW, Color.BLACK, 3, 2, 2);
 			}
 			else {
 				while(i < this.formatedText.length) {
-					FontManager.get("FRIZQT", 22).drawStringShadowPart(this.x+10, this.y+14+y_shift, this.formatedText[i], YELLOW, Colors.BLACK, 2, 2, 1);
+					FontManager.get("FRIZQT", 22).drawStringShadowPart(this.x+10, this.y+14+y_shift, this.formatedText[i], YELLOW, Color.BLACK, 2, 2, 1);
 					y_shift+= FontManager.get("FRIZQT", 22).getLineHeight()+3;
 					i++;
 				}

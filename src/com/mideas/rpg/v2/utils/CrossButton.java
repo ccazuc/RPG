@@ -26,15 +26,10 @@ public class CrossButton {
 	}
 	
 	public CrossButton(float x, float y) {
-		this.x = x;
-		this.y = y;
-		this.x_size = DEFAULT_WIDTH*Mideas.getDisplayXFactor();
-		this.y_size = DEFAULT_HEIGHT*Mideas.getDisplayYFactor();
+		this(x, y, DEFAULT_WIDTH*Mideas.getDisplayXFactor(), DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
 	}
 	
 	public void draw(float x, float y) {
-		this.x = x;
-		this.y = y;
 		if(!this.buttonDown && !this.buttonHover) {
 			this.texture = Sprites.cross_button;
 		}
@@ -45,13 +40,7 @@ public class CrossButton {
 	}
 	
 	public void draw() {
-		if(!this.buttonDown && !this.buttonHover) {
-			this.texture = Sprites.cross_button;
-		}
-		else if(this.buttonDown && !this.buttonHover) {
-			this.texture = Sprites.cross_button_down;
-		}
-		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
+		draw(this.x, this.y);
 	}
 	
 	public boolean event() {

@@ -19,7 +19,7 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.shortcut.ShortcutType;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.utils.Button;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class DragManager {
@@ -79,12 +79,12 @@ public class DragManager {
 			Draw.drawQuad(IconsManager.getSprite42((draggedItem.getSpriteId())), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 			if(draggedItem.isStackable()) {
-				FontManager.get("FRIZQT", 13).drawStringShadow(Mideas.mouseX()+35-FontManager.get("FRIZQT", 13).getWidth(String.valueOf(draggedItem.getAmount())), Mideas.mouseY()+20, String.valueOf(draggedItem.getAmount()), Colors.WHITE, Colors.BLACK, 1, 1, 1);
+				FontManager.get("FRIZQT", 13).drawStringShadow(Mideas.mouseX()+35-FontManager.get("FRIZQT", 13).getWidth(String.valueOf(draggedItem.getAmount())), Mideas.mouseY()+20, String.valueOf(draggedItem.getAmount()), Color.WHITE, Color.BLACK, 1, 1, 1);
 			}
 		}
 		if(deleteItem && draggedItem != null) {
 			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-172*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), Sprites.alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.alert.getImageHeight()*Mideas.getDisplayYFactor());
-			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-(FontManager.get("FRIZQT", 16).getWidth(draggedItem.getDeleteConfirm())*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-72*Mideas.getDisplayYFactor(), draggedItem.getDeleteConfirm(), Colors.WHITE, Colors.BLACK, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-(FontManager.get("FRIZQT", 16).getWidth(draggedItem.getDeleteConfirm())*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-72*Mideas.getDisplayYFactor(), draggedItem.getDeleteConfirm(), Color.WHITE, Color.BLACK, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
 			hoverDeleteYes.draw();
 			hoverDeleteNo.draw();
 		}

@@ -33,7 +33,7 @@ import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 
 public class Joueur extends Unit {
 
@@ -954,7 +954,7 @@ public class Joueur extends Unit {
 	}
 
 	
-	public static Colors convClassTypeToColor(ClassType type) {
+	public static Color convClassTypeToColor(ClassType type) {
 		if(type == ClassType.DRUID) {
 			return ClassColor.DRUID_COLOR;
 		}

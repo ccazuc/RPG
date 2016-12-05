@@ -42,49 +42,51 @@ public class DropDownMenu {
 	}
 	
 	public void draw() {
-		if(this.isActive) {
-			int imageWidth = Sprites.drop_down_menu_left_border.getImageWidth();
-			int imageHeight = (int)(Sprites.drop_down_menu_left_border.getImageHeight()*Mideas.getDisplayYFactor());
-			Draw.drawQuad(Sprites.drop_down_menu_left_border, this.x_bar, this.y_bar, imageWidth, imageHeight);
-			Draw.drawQuad(Sprites.drop_down_menu_middle_border, this.x_bar+imageWidth, this.y_bar, this.x_size_bar-2*imageWidth, imageHeight);
-			Draw.drawQuad(Sprites.drop_down_menu_right_border, this.x_bar+this.x_size_bar-imageWidth, this.y_bar, imageWidth, imageHeight);
-			this.font.drawStringShadow(this.x_bar+10, this.y_bar+3, this.selectedMenuText, Colors.WHITE, Colors.BLACK, 1, 0, 0);
-			this.arrow.draw();
-			if(this.backgroundActive) {
-				int i = 0;
-				this.background.draw();
-				while(i < this.menuList.size()) {
-					this.menuList.get(i).draw();
-					i++;
-				}
+		if(!this.isActive) {
+			return;
+		}
+		int imageWidth = Sprites.drop_down_menu_left_border.getImageWidth();
+		int imageHeight = (int)(Sprites.drop_down_menu_left_border.getImageHeight()*Mideas.getDisplayYFactor());
+		Draw.drawQuad(Sprites.drop_down_menu_left_border, this.x_bar, this.y_bar, imageWidth, imageHeight);
+		Draw.drawQuad(Sprites.drop_down_menu_middle_border, this.x_bar+imageWidth, this.y_bar, this.x_size_bar-2*imageWidth, imageHeight);
+		Draw.drawQuad(Sprites.drop_down_menu_right_border, this.x_bar+this.x_size_bar-imageWidth, this.y_bar, imageWidth, imageHeight);
+		this.font.drawStringShadow(this.x_bar+10, this.y_bar+3, this.selectedMenuText, Color.WHITE, Color.BLACK, 1, 0, 0);
+		this.arrow.draw();
+		if(this.backgroundActive) {
+			int i = 0;
+			this.background.draw();
+			while(i < this.menuList.size()) {
+				this.menuList.get(i).draw();
+				i++;
 			}
 		}
 	}
 	
 	public boolean event() {
-		if(this.isActive) {
-			if(this.arrow.event()) return true;
-			if(!this.backgroundActive) {
-				return false;
+		if(!this.isActive) {
+			return false;
+		}
+		if(this.arrow.event()) return true;
+		if(!this.backgroundActive) {
+			return false;
+		}
+		int i = 0;
+		while(i < this.menuList.size()) {
+			if(this.menuList.get(i).event()) {
+				this.selectedMenuValue = this.menuList.get(i).getValue();
+				this.selectedMenuText = this.menuList.get(i).getText();
+				eventButtonClick();
+				this.backgroundActive = false;
+				return true;
 			}
-			int i = 0;
-			while(i < this.menuList.size()) {
-				if(this.menuList.get(i).event()) {
-					this.selectedMenuValue = this.menuList.get(i).getValue();
-					this.selectedMenuText = this.menuList.get(i).getText();
-					eventButtonClick();
-					this.backgroundActive = false;
-					return true;
-				}
-				i++;
-			}
-			if(Mideas.getHover() && this.background.isHover()) {
-				Mideas.setHover(false);
-			}
-			if(!Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0) {
-					this.backgroundActive = false;
-				}
+			i++;
+		}
+		if(Mideas.getHover() && this.background.isHover()) {
+			Mideas.setHover(false);
+		}
+		if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0) {
+				this.backgroundActive = false;
 			}
 		}
 		return false;
@@ -97,7 +99,7 @@ public class DropDownMenu {
 		this.backgroundHeight = 0;
 	}
 	
-	public void addMenu(TextMenu menu) {
+	public void addMenu(TextMenu menu) { //TODO: update all menu's width if this menu is larger than current width
 		float yShift = 18*Mideas.getDisplayYFactor();
 		menu.setValue(this.menuList.size());
 		menu.setX(this.background.getX()+10*Mideas.getDisplayXFactor());

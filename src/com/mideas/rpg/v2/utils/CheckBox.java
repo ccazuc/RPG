@@ -17,12 +17,12 @@ public class CheckBox {
 	private String tooltip_text;
 	private boolean buttonHover;
 	private boolean buttonDown;
-	private Colors color;
+	private Color color;
 	private TTF font;
 	private int textWidth;
-	private final static Colors GREY = Colors.decode("#999999");
+	private final static Color GREY = Color.decode("#999999");
 	
-	public CheckBox(float x, float y, String text, String tooltip_text, Colors color, float font_size) {
+	public CheckBox(float x, float y, String text, String tooltip_text, Color color, float font_size) {
 		this.x = x;
 		this.x_size = (int)(Sprites.check_box.getImageWidth()*Mideas.getDisplayXFactor());
 		this.y_size = (int)(Sprites.check_box.getImageHeight()*Mideas.getDisplayYFactor());
@@ -34,7 +34,7 @@ public class CheckBox {
 		this.textWidth = this.font.getWidth(this.text);
 	}
 	
-	public CheckBox(float x, float y, float x_size, float y_size, String text, Colors color, float font_size) {
+	public CheckBox(float x, float y, float x_size, float y_size, String text, Color color, float font_size) {
 		this.x = x;
 		this.y = y;
 		this.x_size = (int)(x_size);
@@ -68,7 +68,7 @@ public class CheckBox {
 				Draw.drawQuad(Sprites.check_box_enable, this.x-1, this.y-1, this.x_size, this.y_size);
 			}
 			if(this.text != null) {
-				this.font.drawStringShadow(this.x+(this.x_size+6)*Mideas.getDisplayXFactor(), this.y-1, this.text, this.color, Colors.BLACK, 1, 0, 0);
+				this.font.drawStringShadow(this.x+(this.x_size+6)*Mideas.getDisplayXFactor(), this.y-1, this.text, this.color, Color.BLACK, 1, 0, 0);
 			}
 		}
 		else {
@@ -76,7 +76,7 @@ public class CheckBox {
 				Draw.drawQuad(Sprites.check_box_disable, this.x-1, this.y-1, this.x_size, this.y_size);
 			}
 			if(this.text != null) {
-				this.font.drawStringShadow(this.x+(this.x_size+6)*Mideas.getDisplayXFactor(), this.y-1, this.text, GREY, Colors.BLACK, 1, 0, 0);
+				this.font.drawStringShadow(this.x+(this.x_size+6)*Mideas.getDisplayXFactor(), this.y-1, this.text, GREY, Color.BLACK, 1, 0, 0);
 			}
 		}
 	}

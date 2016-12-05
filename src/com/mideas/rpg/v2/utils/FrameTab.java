@@ -18,24 +18,24 @@ public class FrameTab {
 	private boolean isSelected;
 	private boolean buttonHover;
 	private boolean buttonDown;
-	private Colors defaultColor = Colors.decode("#FFC700");
-	private Colors hoveredColor = Colors.WHITE;
-	private Colors selectedColor = Colors.WHITE;
-	private Colors color = this.defaultColor;
+	private Color defaultColor = Color.decode("#FFC700");
+	private Color hoveredColor = Color.WHITE;
+	private Color selectedColor = Color.WHITE;
+	private Color color = this.defaultColor;
 	private int shadow_size;
 	private TTF font;
-	private static final Colors GREY = Colors.decode("#808080");
+	private static final Color GREY = Color.decode("#808080");
 	
 	public FrameTab(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, boolean isSelected) {
-		this.x = (int)x;
-		this.y = (int)y;
+		this.font = FontManager.get("FRIZQT", font_size);
+		this.textWidth = this.font.getWidth(this.text);
+		this.shadow_size = shadow_size;
+		this.isSelected = isSelected;
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;
 		this.text = text;
-		this.isSelected = isSelected;
-		this.shadow_size = shadow_size;
-		this.font = FontManager.get("FRIZQT", font_size);
-		this.textWidth = this.font.getWidth(this.text);
+		this.x = (int)x;
+		this.y = (int)y;
 	}
 	
 	public void draw() {
@@ -48,7 +48,7 @@ public class FrameTab {
 			Draw.drawQuad(Sprites.frame_tab_active_left_part, x, y, sideWidth, y_size);
 			Draw.drawQuad(Sprites.frame_tab_active_middle_part, x+sideWidth, y, x_size-2*sideWidth, y_size);
 			Draw.drawQuad(Sprites.frame_tab_active_right_part, x+x_size-sideWidth, y, sideWidth, y_size);
-			this.font.drawStringShadow(x+x_size/2-this.textWidth/2, y+y_size/2-this.font.getLineHeight()/2, this.text, this.selectedColor, Colors.BLACK, this.shadow_size, 0, 0);
+			this.font.drawStringShadow(x+x_size/2-this.textWidth/2, y+y_size/2-this.font.getLineHeight()/2, this.text, this.selectedColor, Color.BLACK, this.shadow_size, 0, 0);
 		}
 		else {
 			int sideWidth = Sprites.frame_tab_inactive_left_part.getImageWidth();
@@ -59,17 +59,17 @@ public class FrameTab {
 			Draw.drawQuad(Sprites.frame_tab_inactive_right_part, this.x+this.x_size-sideWidth, y, sideWidth, y_size);
 			if(activateCondition()) {
 				if(this.buttonDown) {
-					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2+2, y+y_size/2-this.font.getLineHeight()/2+2, this.text, this.color, Colors.BLACK, this.shadow_size, 0, 0);
+					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2+2, y+y_size/2-this.font.getLineHeight()/2+2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
 				}
 				else {
-					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, y+y_size/2-this.font.getLineHeight()/2, this.text, this.color, Colors.BLACK, this.shadow_size, 0, 0);
+					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, y+y_size/2-this.font.getLineHeight()/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
 				}
 				if(this.buttonHover) {
 					Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, y, this.x_size, y_size+7*Mideas.getDisplayYFactor());
 				}
 			}
 			else {
-				this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, y+y_size/2-this.font.getLineHeight()/2, this.text, GREY, Colors.BLACK, this.shadow_size, 0, 0);
+				this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, y+y_size/2-this.font.getLineHeight()/2, this.text, GREY, Color.BLACK, this.shadow_size, 0, 0);
 			}
 		}
 	}

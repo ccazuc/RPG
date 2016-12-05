@@ -9,14 +9,14 @@ public class AlertBackground {
 	private int y;
 	private int x_size;
 	private int y_size;
-	private Colors bgColor;
+	private Color bgColor;
 	
 	public AlertBackground(float x, float y, float x_size, float y_size, float opacity) {
 		this.x = (int)x;
 		this.y = (int)y;
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;
-		this.bgColor = new Colors(0, 0, 0, opacity);
+		this.bgColor = new Color(0, 0, 0, opacity);
 	}
 	
 	public void draw() {

@@ -12,7 +12,7 @@ import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.hud.Cast;
 import com.mideas.rpg.v2.hud.CastBar;
 import com.mideas.rpg.v2.utils.Button;
-import com.mideas.rpg.v2.utils.Colors;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.ScrollBar;
 import com.mideas.rpg.v2.utils.Texture;
@@ -30,12 +30,12 @@ public class Profession {
 	private int numberLine;
 	private float y_offset;
 	private static final int MAX_HEIGHT = 140;
-	private static final Colors BG_COLOR = new Colors(0, 0, 0, .5f); 
-	private static final Colors YELLOW = Colors.decode("#DDB500");
-	private static final Colors ORANGE = Colors.decode("#A8542A");
-	private static final Colors YELLOW_CRAFT = Colors.decode("#B9B700");
-	private static final Colors GREEN = Colors.decode("#2D852D");
-	private static final Colors GREY = Colors.decode("#585758");
+	private static final Color BG_COLOR = new Color(0, 0, 0, .5f); 
+	private static final Color YELLOW = Color.decode("#DDB500");
+	private static final Color ORANGE = Color.decode("#A8542A");
+	private static final Color YELLOW_CRAFT = Color.decode("#B9B700");
+	private static final Color GREEN = Color.decode("#2D852D");
+	private static final Color GREY = Color.decode("#585758");
 	static HashMap<Integer, Integer> possibleCraftList = new HashMap<Integer, Integer>();
 
 	private Button craftButton = new Button(0, 0, 185, 34, "Create", 14, 1) {
@@ -324,8 +324,8 @@ public class Profession {
 			if(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)) < this.selectedItem.getNeededItemNumber(number)) {
 				Draw.drawColorQuad(x, y, 42*Mideas.getDisplayXFactor(), 40*Mideas.getDisplayXFactor(), BG_COLOR);
 			}
-			FontManager.get("FRIZQT", 13).drawStringShadow(x+39-FontManager.get("FRIZQT", 13).getWidth(Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number)), y+23, Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number), Colors.WHITE, Colors.BLACK, 1, 1);
-			FontManager.get("FRIZQT", 13).drawStringShadow(x+45*Mideas.getDisplayXFactor(), y, this.selectedItem.getNeededItem(0).getStuffName(), YELLOW, Colors.BLACK, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(x+39-FontManager.get("FRIZQT", 13).getWidth(Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number)), y+23, Integer.toString(Mideas.joueur1().bag().getItemNumber(this.selectedItem.getNeededItem(number)))+"/"+this.selectedItem.getNeededItemNumber(number), Color.WHITE, Color.BLACK, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(x+45*Mideas.getDisplayXFactor(), y, this.selectedItem.getNeededItem(0).getStuffName(), YELLOW, Color.BLACK, 1, 1);
 		}
 	}
 	
@@ -434,9 +434,9 @@ public class Profession {
  		}
 	}
 	
-	private static Colors getColorCategory(Category category) {
+	private static Color getColorCategory(Category category) {
 		if(category.getMouseHover()) {
-			return Colors.WHITE;
+			return Color.WHITE;
 		}
 		return YELLOW;
 		
@@ -472,10 +472,10 @@ public class Profession {
 		return null;
 	}
 	
-	private Colors getFontColors(CraftableItem item) {
+	private Color getFontColors(CraftableItem item) {
 		int itemLevel = item.getLevel();
 		if(item.getMouseHover() || this.selectedItem == item) {
-			return Colors.WHITE;
+			return Color.WHITE;
 		}
 		if(this.playerLevel-itemLevel < 15) {
 			return ORANGE;
