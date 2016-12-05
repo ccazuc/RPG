@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.utils;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -10,7 +9,7 @@ import com.mideas.rpg.v2.FontManager;
 
 public class TextMenu {
 
-	private final static Color GRAY = Color.decode("#47494D");
+	private final static Colors GRAY = Colors.decode("#47494D");
 	private int x;
 	private int y;
 	private String text;
@@ -23,33 +22,33 @@ public class TextMenu {
 	private int textShift;
 	private boolean isActive;
 	
-	public TextMenu(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, float textShift) {
-		this.x = (int)x;
-		this.y = (int)y;
-		this.x_size = (int)x_size;
-		this.text = text;
-		this.shadow_size = shadow_size;
+	public TextMenu(float x, float y, float x_size, String text, float font_size, int shadow_size, float textShift) {
 		this.font = FontManager.get("FRIZQT", font_size);
 		this.textShift = (int)textShift;
-	}
-	
-	public TextMenu(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
-		this.x = (int)x;
-		this.y = (int)y;
+		this.shadow_size = shadow_size;
 		this.x_size = (int)x_size;
 		this.text = text;
-		this.shadow_size = shadow_size;
+		this.x = (int)x;
+		this.y = (int)y;
+	}
+	
+	public TextMenu(float x, float y, float x_size, String text, float font_size, int shadow_size) {
 		this.font = FontManager.get("FRIZQT", font_size);
+		this.shadow_size = shadow_size;
+		this.x_size = (int)x_size;
+		this.text = text;
+		this.x = (int)x;
+		this.y = (int)y;
 	}
 	
 	public TextMenu(TextMenu menu) {
+		this.shadow_size = menu.shadow_size;
+		this.x_size = menu.x_size;
+		this.value = menu.value;
+		this.text = menu.text;
+		this.font = menu.font;
 		this.x = menu.x;
 		this.y = menu.y;
-		this.x_size = menu.x_size;
-		this.text = menu.text;
-		this.shadow_size = menu.shadow_size;
-		this.font = menu.font;
-		this.value = menu.value;
 	}
 	
 	public void drawX(float x) {
@@ -71,14 +70,14 @@ public class TextMenu {
 	private void draw(float x, float y) {
 		if(this.isActive) {
 			if(!activateCondition()) {
-				this.font.drawStringShadow(x+this.textShift, y, this.text, GRAY, Color.black, this.shadow_size, 0, 0);
+				this.font.drawStringShadow(x+this.textShift, y, this.text, GRAY, Colors.BLACK, this.shadow_size, 0, 0);
 			}
 			else {
 				if(this.buttonDown) {
-					this.font.drawStringShadow(x+2+this.textShift, y+2, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
+					this.font.drawStringShadow(x+2+this.textShift, y+2, this.text, Colors.WHITE, Colors.BLACK, this.shadow_size, 0, 0);
 				}
 				else {
-					this.font.drawStringShadow(x+this.textShift, y, this.text, Color.white, Color.black, this.shadow_size, 0, 0);
+					this.font.drawStringShadow(x+this.textShift, y, this.text, Colors.WHITE, Colors.BLACK, this.shadow_size, 0, 0);
 				}
 				if(this.buttonHover) {
 					Draw.drawQuadBlend(Sprites.text_menu_hover, x, y+2, this.x_size, Sprites.text_menu_hover.getImageHeight()*Mideas.getDisplayYFactor());

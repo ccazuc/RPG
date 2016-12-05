@@ -1,11 +1,11 @@
 package com.mideas.rpg.v2.hud;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Tooltip;
 
@@ -37,22 +37,22 @@ public class PerformanceBarFrame {
 		if(hoverPerformanceBar) {
 			tooltip.draw();
 			FontManager.get("FRIZQT", 15).drawBegin();
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y, usedRam+Long.toString(Mideas.getUsedRAM()/(1024L*1024L))+mo, Color.white, Color.black, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+yShift, fps+Mideas.getFps(), Color.white, Color.black, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+2*yShift, ping+Mideas.getPing(), Color.white, Color.black, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+3*yShift, drawTime, Color.white, Color.black, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+탎, Color.white, Color.black, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+5*yShift, container+(Interface.getContainerDrawTime()/1000)+탎, Color.white, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y, usedRam+Long.toString(Mideas.getUsedRAM()/(1024L*1024L))+mo, Colors.WHITE, Colors.BLACK, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+yShift, fps+Mideas.getFps(), Colors.WHITE, Colors.BLACK, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+2*yShift, ping+Mideas.getPing(), Colors.WHITE, Colors.BLACK, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+3*yShift, drawTime, Colors.WHITE, Colors.BLACK, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+탎, Colors.WHITE, Colors.BLACK, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+5*yShift, container+(Interface.getContainerDrawTime()/1000)+탎, Colors.WHITE, Colors.BLACK, 1);
 			FontManager.get("FRIZQT", 15).drawEnd();
 		}
 		if(topPerformanceBarActive) {
-			Draw.drawColorQuad(0, 0, Display.getWidth(), 15, Color.gray);
+			Draw.drawColorQuad(0, 0, Display.getWidth(), 15, Colors.GREY);
 			FontManager.font2.drawBegin();
-			FontManager.font2.drawStringShadowPart(1, 0, total+(Mideas.getMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
-			FontManager.font2.drawStringShadowPart(121, 0, container+(Interface.getContainerMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
-			FontManager.font2.drawStringShadowPart(241, 0, character+(Interface.getCharacterMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
-			FontManager.font2.drawStringShadowPart(361, 0, spellbar+(Interface.getSpellBarMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
-			FontManager.font2.drawStringShadowPart(481, 0, drag+(Interface.getDragMouseEventTime()/1000)+탎, Color.white, Color.black, 1);
+			FontManager.font2.drawStringShadowPart(1, 0, total+(Mideas.getMouseEventTime()/1000)+탎, Colors.WHITE, Colors.BLACK, 1);
+			FontManager.font2.drawStringShadowPart(121, 0, container+(Interface.getContainerMouseEventTime()/1000)+탎, Colors.WHITE, Colors.BLACK, 1);
+			FontManager.font2.drawStringShadowPart(241, 0, character+(Interface.getCharacterMouseEventTime()/1000)+탎, Colors.WHITE, Colors.BLACK, 1);
+			FontManager.font2.drawStringShadowPart(361, 0, spellbar+(Interface.getSpellBarMouseEventTime()/1000)+탎, Colors.WHITE, Colors.BLACK, 1);
+			FontManager.font2.drawStringShadowPart(481, 0, drag+(Interface.getDragMouseEventTime()/1000)+탎, Colors.WHITE, Colors.BLACK, 1);
 			FontManager.font2.drawEnd();
 		}
 	}

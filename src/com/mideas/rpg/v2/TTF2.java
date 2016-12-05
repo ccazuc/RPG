@@ -60,33 +60,33 @@ public class TTF2 {
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
 		Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		awtFont = awtFont.deriveFont(18f);
-	    font = new TTF(awtFont, true);
+		font = new TTF(awtFont, true);
 	    
-	    awtFont = new Font("MORPHEUS", Font.BOLD, 11);
-	    font2 = new TTF(awtFont, true);
+		awtFont = new Font("MORPHEUS", Font.BOLD, 11);
+		font2 = new TTF(awtFont, true);
 	    
-	    awtFont = new Font("MORPHEUS", Font.BOLD, 20);
-	    font3 = new TTF(awtFont, true);
+		    awtFont = new Font("MORPHEUS", Font.BOLD, 20);
+		    font3 = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		awtFont = awtFont.deriveFont(16f);
-	    font4 = new TTF(awtFont, true);
+		font4 = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(15f);
-	    chat = new TTF(awtFont, true);
+		chat = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
-	    playerName = new TTF(awtFont, true);
+		playerName = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(11f);
-	    hpAndMana = new TTF(awtFont, true);
+		hpAndMana = new TTF(awtFont, true);
 	    
-	    awtFont = new Font("MORPHEUS", Font.BOLD, 20);
-	    font5 = new TTF(awtFont, true);
+		awtFont = new Font("MORPHEUS", Font.BOLD, 20);
+		font5 = new TTF(awtFont, true);
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f);
@@ -106,11 +106,11 @@ public class TTF2 {
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(11f);
-	    coin = new TTF(awtFont, true);
+		coin = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(18f).deriveFont(Font.BOLD);
-	    coinContainer = new TTF(awtFont, true);
+		coinContainer = new TTF(awtFont, true);
 	    
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(13f).deriveFont(Font.BOLD);

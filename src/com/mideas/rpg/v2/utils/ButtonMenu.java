@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.utils;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -19,13 +18,13 @@ public class ButtonMenu {
 	private boolean isSelected;
 	private boolean buttonHover;
 	private boolean buttonDown;
-	private Color defaultColor = Color.decode("#FFC700");
-	private Color hoveredColor = Color.white;
-	private Color selectedColor = Color.white;
-	private Color color = this.defaultColor;
+	private Colors defaultColor = Colors.decode("#FFC700");
+	private Colors hoveredColor = Colors.WHITE;
+	private Colors selectedColor = Colors.WHITE;
+	private Colors color = this.defaultColor;
 	private int shadow_size;
 	private TTF font;
-	private static final Color GREY = Color.decode("#808080");
+	private static final Colors GREY = Colors.decode("#808080");
 
 	public ButtonMenu(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, boolean isSelected) {
 		this.x = (int)x;
@@ -45,7 +44,7 @@ public class ButtonMenu {
 			Draw.drawQuad(Sprites.button_menu_selected_left, this.x, this.y, sideWidth, this.y_size);
 			Draw.drawQuad(Sprites.button_menu_selected_middle, this.x+sideWidth, this.y, this.x_size-2*sideWidth, this.y_size);
 			Draw.drawQuad(Sprites.button_menu_selected_right, this.x+this.x_size-sideWidth, this.y, sideWidth, this.y_size);
-			this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.selectedColor, Color.black, this.shadow_size, 0, 0);
+			this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.selectedColor, Colors.BLACK, this.shadow_size, 0, 0);
 		}
 		else {
 			int sideWidth = Sprites.button_menu_unselected_left.getImageWidth();
@@ -55,17 +54,17 @@ public class ButtonMenu {
 			Draw.drawQuad(Sprites.button_menu_unselected_top, this.x, this.y+1, this.x_size, Sprites.button_menu_unselected_top.getImageHeight()*Mideas.getDisplayYFactor());
 			if(activateCondition()) {
 				if(this.buttonDown) {
-					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2+2, this.y+this.y_size/2-this.font.getLineHeight()/2+2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
+					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2+2, this.y+this.y_size/2-this.font.getLineHeight()/2+2, this.text, this.color, Colors.BLACK, this.shadow_size, 0, 0);
 				}
 				else {
-					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
+					this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, this.color, Colors.BLACK, this.shadow_size, 0, 0);
 				}
 				if(this.buttonHover) {
 					Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, this.y, this.x_size, this.y_size);
 				}
 			}
 			else {
-				this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, GREY, Color.black, this.shadow_size, 0, 0);
+				this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, GREY, Colors.BLACK, this.shadow_size, 0, 0);
 			}
 		}
 	}

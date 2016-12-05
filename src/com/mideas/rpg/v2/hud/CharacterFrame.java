@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.hud;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
@@ -14,13 +13,14 @@ import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class CharacterFrame {
 
-	private static Color bgColor = new Color(0, 0, 0, .6f); 
-	private static Color borderColor = Color.decode("#494D4B");
+	private static Colors bgColor = new Colors(0, 0, 0, .6f); 
+	private static Colors borderColor = Colors.decode("#494D4B");
 	private static int hover = -1;
 	private static int gemFrame;
 	private static int xMouseShift;
@@ -44,16 +44,16 @@ public class CharacterFrame {
 		Draw.drawQuad(Sprites.character_frame, Display.getWidth()/2-300*Mideas.getDisplayXFactor()+gemFrame+xMouseShift, Display.getHeight()/2-380*Mideas.getDisplayYFactor()+yMouseShift);
 		closeFrameButton.draw();
 		/*Draw.drawQuad(Sprites.character_frame_stats, Display.getWidth()/2-224+xMouseShift+gemFrame, Display.getHeight()/2-60+yMouseShift);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2-27+yMouseShift, "Strength:", Color.yellow, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getStrength())), Display.getHeight()/2-27+yMouseShift, String.valueOf(Mideas.joueur1().getStrength()), Color.white, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2-15+yMouseShift, "Stamina:", Color.yellow, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getMaxStamina()/10)), Display.getHeight()/2-15+yMouseShift, String.valueOf(Mideas.joueur1().getMaxStamina()/10), Color.white, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2-3+yMouseShift, "Armor:", Color.yellow, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf((int)Mideas.joueur1().getArmor())), Display.getHeight()/2-3+yMouseShift, String.valueOf((int)Mideas.joueur1().getArmor()), Color.white, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2+9+yMouseShift, "Critical:", Color.yellow, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getCritical())+"%"), Display.getHeight()/2+9+yMouseShift, String.valueOf(Mideas.joueur1().getCritical())+"%", Color.white, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2+21+yMouseShift, "Mana:", Color.yellow, Color.black, 1, 1, 1);
-		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getMana())), Display.getHeight()/2+21+yMouseShift, String.valueOf(Mideas.joueur1().getMana()), Color.white, Color.black, 1, 1, 1);*/
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2-27+yMouseShift, "Strength:", Colors.yellow, Colors.BLACK, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getStrength())), Display.getHeight()/2-27+yMouseShift, String.valueOf(Mideas.joueur1().getStrength()), Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2-15+yMouseShift, "Stamina:", Colors.yellow, Colors.BLACK, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getMaxStamina()/10)), Display.getHeight()/2-15+yMouseShift, String.valueOf(Mideas.joueur1().getMaxStamina()/10), Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2-3+yMouseShift, "Armor:", Colors.yellow, Colors.BLACK, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf((int)Mideas.joueur1().getArmor())), Display.getHeight()/2-3+yMouseShift, String.valueOf((int)Mideas.joueur1().getArmor()), Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2+9+yMouseShift, "Critical:", Colors.yellow, Colors.BLACK, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getCritical())+"%"), Display.getHeight()/2+9+yMouseShift, String.valueOf(Mideas.joueur1().getCritical())+"%", Colors.WHITE, Colors.BLACK, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-215+xMouseShift+gemFrame, Display.getHeight()/2+21+yMouseShift, "Mana:", Colors.yellow, Colors.BLACK, 1, 1, 1);
+		TTF2.characterFrameStats.drawStringShadow(Display.getWidth()/2-88+xMouseShift+gemFrame-TTF2.characterFrameStats.getWidth(String.valueOf(Mideas.joueur1().getMana())), Display.getHeight()/2+21+yMouseShift, String.valueOf(Mideas.joueur1().getMana()), Colors.WHITE, Colors.BLACK, 1, 1, 1);*/
 		int xStuff = (int)(-280*Mideas.getDisplayXFactor()+xMouseShift+gemFrame);
 		int i = 0;
 		int j = 0;
@@ -185,7 +185,7 @@ public class CharacterFrame {
 	}
 	
 	private static void characterItemHover(int i, int x, int z) { //TODO split function in drawStuff() and drawWeapon()
-		Color temp = null;
+		Colors temp = null;
 		int xShift = 237;
 		int shift = 45;
 		int yAnchor = 0;
@@ -198,99 +198,99 @@ public class CharacterFrame {
 			}
 			Draw.drawColorQuad(Display.getWidth()/2+x-1, Display.getHeight()/2+z-2+yAnchor, 5+xShift, y, bgColor);
 			Draw.drawColorQuadBorder(Display.getWidth()/2+x-1, Display.getHeight()/2+z-2+yAnchor, 6+xShift, y, borderColor);
-			FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+yAnchor, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.black, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+23+yAnchor, item.convStuffTypeToString(), Color.white, Color.black, 1);
+			FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+yAnchor, item.getStuffName(), ContainerFrame.getItemNameColor(item), Colors.BLACK, 1);
+			FontManager.get("FRIZQT", 15).drawBegin();
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+23+yAnchor, item.convStuffTypeToString(), Colors.WHITE, Colors.BLACK, 1);
 			if(Mideas.joueur1().canWear(item)) {
-				temp = Color.white;
+				temp = Colors.WHITE;
 			}
 			else {
-				temp = Color.red;
+				temp = Colors.RED;
 			}
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x-10+xShift-FontManager.get("FRIZQT", 16).getWidth(item.convWearToString()), Display.getHeight()/2+y+23+z+yAnchor, item.convWearToString(), temp, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x-10+xShift-FontManager.get("FRIZQT", 16).getWidth(item.convWearToString()), Display.getHeight()/2+y+23+z+yAnchor, item.convWearToString(), temp, Colors.BLACK, 1);
 			if(item.getArmor() > 0) {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getArmorString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getArmorString(), Colors.WHITE, Colors.BLACK, 1);
 				shift+= 20;
 			}
 			if(item.getStrength() > 0) {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getStrengthString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getStrengthString(), Colors.WHITE, Colors.BLACK, 1);
 				shift+= 20;
 			}
 			if(item.getMana() > 0) {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getManaString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getManaString(), Colors.WHITE, Colors.BLACK, 1);
 				shift+= 20;
 			}
 			if(item.getStamina() > 0) {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getStaminaString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getStaminaString(), Colors.WHITE, Colors.BLACK, 1);
 				shift+= 20;
 			}
 			if(item.getCritical() > 0) {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getCriticalString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getCriticalString(), Colors.WHITE, Colors.BLACK, 1);
 				shift+= 20;
 			}
-			
+			FontManager.get("FRIZQT", 15).drawEnd();
 			//TODO : make a function to draw gem in a loop
 			
 			if(item.getGemColor(0) != GemColor.NONE) {
 				if(item.getEquippedGem(0) != null) {
 					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(0).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(0).getGemStatsString(), Color.white, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(0).getGemStatsString(), Colors.WHITE, Colors.BLACK, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite1(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem1String(), Color.gray, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem1String(), Colors.GREY, Colors.BLACK, 1);
 				}
-				Draw.drawQuad(Sprites.cursor, -5000, -5000);
 				shift+= 20;
 			}
 			if(item.getGemColor(1) != GemColor.NONE) {
 				if(item.getEquippedGem(1) != null) {
 					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(1).getGemStatsString(), Color.white, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(1).getGemStatsString(), Colors.WHITE, Colors.BLACK, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite2(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem2String(), Color.gray, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem2String(), Colors.GREY, Colors.BLACK, 1);
 				}
-				Draw.drawQuad(Sprites.cursor, -5000, -5000);
 				shift+= 20;
 			}
 			if(item.getGemColor(2) != GemColor.NONE) {
 				if(item.getEquippedGem(2) != null) {
 					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(2).getGemStatsString(), Color.white, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(2).getGemStatsString(), Colors.WHITE, Colors.BLACK, 1);
 				}
 				else {
 					Draw.drawQuad(item.getFreeSlotGemSprite3(), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
-					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem3String(), Color.gray, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+26, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getGem3String(), Colors.GREY, Colors.BLACK, 1);
 				}
-				Draw.drawQuad(Sprites.cursor, -5000, -5000);
 				shift+= 20;
 			}
+			FontManager.get("FRIZQT", 15).drawBegin();
 			if(item.getGemBonusType() != GemBonusType.NONE) {
 				if(item.getGemBonusActivated()) {
-					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getSocketBonusString(), Color.green, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getSocketBonusString(), Colors.GREEN, Colors.BLACK, 1);
 				}
 				else {
-					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z-3+yAnchor, item.getSocketBonusString(), Color.gray, Color.black, 1);
+					FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z-3+yAnchor, item.getSocketBonusString(), Colors.GREY, Colors.BLACK, 1);
 				}
 				shift+= 20;
 			}
 			if(item.canEquipTo(Mideas.joueur1().getClassType())) {
-				temp = Color.white;
+				temp = Colors.WHITE;
 			}
 			else {
-				temp = Color.red;
+				temp = Colors.RED;
 			}
 			if(item.getClassRequirements() != null) {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getClassRequirements(), temp, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getClassRequirements(), temp, Colors.BLACK, 1);
 				shift+= 20;
 			}
 			if(Mideas.joueur1().getLevel() >= item.getLevel()) {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getLevelString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getLevelString(), Colors.WHITE, Colors.BLACK, 1);
 			}
 			else {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getLevelString(), Color.red, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+y+shift+z+yAnchor, item.getLevelString(), Colors.RED, Colors.BLACK, 1);
 			}
+			FontManager.get("FRIZQT", 15).drawEnd();
 		}
 	}
 	
@@ -303,12 +303,7 @@ public class CharacterFrame {
 				Draw.drawColorQuad(Display.getWidth()/2+x, Display.getHeight()/2+y, 37, 35, bgColor);
 			}
 			if(DragManager.getDraggedItem() != null && hover != i && DragManager.getDraggedItem().isStuff() && ((Stuff)DragManager.getDraggedItem()).getType() == stuff.getType()) {
-				//if(hover%2 == 0) {
-					Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
-				//}
-				//else {
-					//Draw.drawQuad(Sprites.spell_hover2, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
-				//}
+				Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
 			}
 		}
 		if(hover == i) {

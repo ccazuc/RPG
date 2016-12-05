@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.utils;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -49,7 +48,7 @@ public class DropDownMenu {
 			Draw.drawQuad(Sprites.drop_down_menu_left_border, this.x_bar, this.y_bar, imageWidth, imageHeight);
 			Draw.drawQuad(Sprites.drop_down_menu_middle_border, this.x_bar+imageWidth, this.y_bar, this.x_size_bar-2*imageWidth, imageHeight);
 			Draw.drawQuad(Sprites.drop_down_menu_right_border, this.x_bar+this.x_size_bar-imageWidth, this.y_bar, imageWidth, imageHeight);
-			this.font.drawStringShadow(this.x_bar+10, this.y_bar+3, this.selectedMenuText, Color.white, Color.black, 1, 0, 0);
+			this.font.drawStringShadow(this.x_bar+10, this.y_bar+3, this.selectedMenuText, Colors.WHITE, Colors.BLACK, 1, 0, 0);
 			this.arrow.draw();
 			if(this.backgroundActive) {
 				int i = 0;
@@ -65,25 +64,26 @@ public class DropDownMenu {
 	public boolean event() {
 		if(this.isActive) {
 			if(this.arrow.event()) return true;
-			if(this.backgroundActive) {
-				int i = 0;
-				while(i < this.menuList.size()) {
-					if(this.menuList.get(i).event()) {
-						this.selectedMenuValue = this.menuList.get(i).getValue();
-						this.selectedMenuText = this.menuList.get(i).getText();
-						eventButtonClick();
-						this.backgroundActive = false;
-						return true;
-					}
-					i++;
+			if(!this.backgroundActive) {
+				return false;
+			}
+			int i = 0;
+			while(i < this.menuList.size()) {
+				if(this.menuList.get(i).event()) {
+					this.selectedMenuValue = this.menuList.get(i).getValue();
+					this.selectedMenuText = this.menuList.get(i).getText();
+					eventButtonClick();
+					this.backgroundActive = false;
+					return true;
 				}
-				if(Mideas.getHover() && this.background.isHover()) {
-					Mideas.setHover(false);
-				}
-				if(!Mouse.getEventButtonState()) {
-					if(Mouse.getEventButton() == 0) {
-						this.backgroundActive = false;
-					}
+				i++;
+			}
+			if(Mideas.getHover() && this.background.isHover()) {
+				Mideas.setHover(false);
+			}
+			if(!Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0) {
+					this.backgroundActive = false;
 				}
 			}
 		}
@@ -101,7 +101,7 @@ public class DropDownMenu {
 		float yShift = 18*Mideas.getDisplayYFactor();
 		menu.setValue(this.menuList.size());
 		menu.setX(this.background.getX()+10*Mideas.getDisplayXFactor());
-		menu.setTextShift(this.background.getWidth()/2-10*Mideas.getDisplayXFactor()-menu.getFont().getWidth(menu.getText())/2);
+		menu.setTextShift(this.background.getWidth()/2-80*Mideas.getDisplayXFactor());
 		menu.setY(this.background.getY()+this.menuList.size()*yShift+20*Mideas.getDisplayYFactor());
 		this.menuList.add(menu);
 		this.backgroundHeight+= this.font.getLineHeight()+7*Mideas.getDisplayYFactor();
@@ -141,7 +141,7 @@ public class DropDownMenu {
 		float yShift = 18*Mideas.getDisplayYFactor();
 		//System.out.println(this.background.getWidth()/2-this.menuList.get(0).getFont().getWidth(this.menuList.get(i).getText())/2+"  "+(23*Mideas.getDisplayXFactor()-this.menuList.get(i).getFont().getWidth(this.menuList.get(i).getText())/2));
 		while(i < this.menuList.size()) {
-			this.menuList.get(i).update(this.background.getX()+10*Mideas.getDisplayXFactor(), this.background.getY()+i*yShift+20*Mideas.getDisplayYFactor(), this.background.getWidth()-20*Mideas.getDisplayXFactor(), this.background.getWidth()/2-10*Mideas.getDisplayXFactor()-this.menuList.get(i).getFont().getWidth(this.menuList.get(i).getText())/2);
+			this.menuList.get(i).update(this.background.getX()+10*Mideas.getDisplayXFactor(), this.background.getY()+i*yShift+20*Mideas.getDisplayYFactor(), this.background.getWidth()-20*Mideas.getDisplayXFactor(), this.background.getWidth()/2-10*Mideas.getDisplayXFactor());
 			i++;
 		}
 	}

@@ -53,7 +53,16 @@ public class Colors {
 		OpenGL.glColor4f(this.red, this.green, this.blue, this.alpha);
 	}
 	
+	public static Colors decode(String nm) throws NumberFormatException {
+		int i = Integer.decode(nm).intValue();
+		return new Colors((i >> 16) & 0xFF, (i >> 8) & 0xFF, i & 0xFF);
+     }
+	
 	public final float red() {
+		return this.red;
+	}
+	
+	public final float getRed() {
 		return this.red;
 	}
 	
@@ -65,6 +74,10 @@ public class Colors {
 		return this.green;
 	}
 	
+	public final float getGreen() {
+		return this.green;
+	}
+	
 	public final void setGreen(final float green) {
 		this.green = green;
 	}
@@ -73,11 +86,19 @@ public class Colors {
 		return this.blue;
 	}
 	
+	public final float getBlue() {
+		return this.blue;
+	}
+	
 	public final void setBlue(final float blue) {
 		this.blue = blue;
 	}
 	
 	public final float alpha() {
+		return this.alpha;
+	}
+	
+	public final float getAlpha() {
 		return this.alpha;
 	}
 	

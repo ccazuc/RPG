@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.hud;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -11,6 +10,7 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 
@@ -43,20 +43,20 @@ public class LoginScreen {
 	
 	public static void draw() {
 		Draw.drawQuadBG(Sprites.login_screen);
-		FontManager.get("FRIZQT", 21).drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.white);
-		FontManager.get("FRIZQT", 16).drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), passwordText, Color.white);
+		FontManager.get("FRIZQT", 21).drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Colors.WHITE);
+		FontManager.get("FRIZQT", 16).drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), passwordText, Colors.WHITE);
 		if(System.currentTimeMillis()%1000 < 500) {
 			if(account.isActive()) {
-				FontManager.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.white);
+				FontManager.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Colors.WHITE);
 			}
 			else {
-				FontManager.loginScreenTick.drawString(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 16).getWidth(passwordText), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), bar, Color.white);
+				FontManager.loginScreenTick.drawString(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 16).getWidth(passwordText), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), bar, Colors.WHITE);
 			}
 		}
 		leaveButton.draw();
 		connectionButton.draw();
 		alert.draw();
-		//Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), Color.white);
+		//Draw.drawColorsQuad(0, 0, Display.getWidth(), Display.getHeight(), Colors.WHITE);
 		//popup.draw();
 	}
 	

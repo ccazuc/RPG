@@ -6,8 +6,6 @@ import static org.lwjgl.opengl.GL11.glPointSize;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 
 import com.mideas.rpg.v2.OpenGL;
 
@@ -27,11 +25,11 @@ import static org.lwjgl.opengl.GL11.GL_LINES;
 
 public final class Draw2 {
 	
-	public final static void drawColorQuad(final float x, final float y, final float width, final float height, final Color color) {
-		drawColorQuad(x, y, width, height, color, color, color, color);
+	public final static void drawColorsQuad(final float x, final float y, final float width, final float height, final Colors color) {
+		drawColorsQuad(x, y, width, height, color, color, color, color);
 	}
 	
-	public final static void drawColorQuad(final float x, final float y, final float width, final float height, final Color topLeft, final Color topRight, final Color bottomRight, final Color bottomLeft) {
+	public final static void drawColorsQuad(final float x, final float y, final float width, final float height, final Colors topLeft, final Colors topRight, final Colors bottomRight, final Colors bottomLeft) {
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 		glColor4f(topLeft.getRed()/255f, topLeft.getGreen()/255f, topLeft.getBlue()/255f, topLeft.getAlpha()/255f);
@@ -46,29 +44,29 @@ public final class Draw2 {
 		glEnable(GL_TEXTURE_2D);
 	}
 	
-	public final static void drawColorQuadBorder(final float x, final float y, final float width, final float height, final Color color) {
-		drawColorQuadBorder(x, y, width, height, color, color, color, color, 1);
+	public final static void drawColorsQuadBorder(final float x, final float y, final float width, final float height, final Colors color) {
+		drawColorsQuadBorder(x, y, width, height, color, color, color, color, 1);
 	}
 	
-	public final static void drawColorQuadBorder(final float x, final float y, final float width, final float height, final Color topLeftColor, final Color topRightColor, final Color bottomRightColor, final Color bottomLeftColor) {
-		drawColorQuadBorder(x, y, width, height, topLeftColor, topRightColor, bottomRightColor, bottomLeftColor, 1);
+	public final static void drawColorsQuadBorder(final float x, final float y, final float width, final float height, final Colors topLeftColors, final Colors topRightColors, final Colors bottomRightColors, final Colors bottomLeftColors) {
+		drawColorsQuadBorder(x, y, width, height, topLeftColors, topRightColors, bottomRightColors, bottomLeftColors, 1);
 	}
 
-	public final static void drawColorQuadBorder(final float x, final float y, final float width, final float height, final Color color, final int lineWeight) {
-		drawColorQuadBorder(x, y, width, height, color, color, color, color, lineWeight);
+	public final static void drawColorsQuadBorder(final float x, final float y, final float width, final float height, final Colors color, final int lineWeight) {
+		drawColorsQuadBorder(x, y, width, height, color, color, color, color, lineWeight);
 	}
 	
-	public final static void drawColorQuadBorder(final float x, final float y, final float width, final float height, final Color topLeftColor, final Color topRightColor, final Color bottomRightColor, final Color bottomLeftColor, final int lineWeight) {
+	public final static void drawColorsQuadBorder(final float x, final float y, final float width, final float height, final Colors topLeftColors, final Colors topRightColors, final Colors bottomRightColors, final Colors bottomLeftColors, final int lineWeight) {
 		glLineWidth(lineWeight);
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_LINE_LOOP);
-		glColor4f(topLeftColor.getRed(), topLeftColor.getGreen(), topLeftColor.getBlue(), topLeftColor.getAlpha());
+		glColor4f(topLeftColors.getRed(), topLeftColors.getGreen(), topLeftColors.getBlue(), topLeftColors.getAlpha());
 		glVertex2f(x+1, y);
-		glColor4f(topRightColor.getRed(), topRightColor.getGreen(), topRightColor.getBlue(), topRightColor.getAlpha());
+		glColor4f(topRightColors.getRed(), topRightColors.getGreen(), topRightColors.getBlue(), topRightColors.getAlpha());
 		glVertex2f(x+width, y);
-		glColor4f(bottomRightColor.getRed(), bottomRightColor.getGreen(), bottomRightColor.getBlue(), bottomRightColor.getAlpha());
+		glColor4f(bottomRightColors.getRed(), bottomRightColors.getGreen(), bottomRightColors.getBlue(), bottomRightColors.getAlpha());
 		glVertex2f(x+width, y+height);
-		glColor4f(bottomLeftColor.getRed(), bottomLeftColor.getGreen(), bottomLeftColor.getBlue(), bottomLeftColor.getAlpha());
+		glColor4f(bottomLeftColors.getRed(), bottomLeftColors.getGreen(), bottomLeftColors.getBlue(), bottomLeftColors.getAlpha());
 		glVertex2f(x, y+height);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
@@ -127,7 +125,7 @@ public final class Draw2 {
 		}
 	}
 	
-	public final static void drawQuadColor(final float x, final float y, final Texture texture, final Color color) {
+	public final static void drawQuadColors(final float x, final float y, final Texture texture, final Colors color) {
 		if(texture != null) {
 			glBegin(GL_QUADS);
 			glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
@@ -158,7 +156,7 @@ public final class Draw2 {
 		drawCirclePart(x, y, rayon, (int)(Math.PI*rayon), 2*(float)Math.PI, 0);
 	}
 	
-	public final static void drawCircle(final float x, final float y, final int rayon, final Color color, final int nbSeg, final float lineWeight, final float angle, final float startAngle) {
+	public final static void drawCircle(final float x, final float y, final int rayon, final Colors color, final int nbSeg, final float lineWeight, final float angle, final float startAngle) {
 		glLineWidth(lineWeight);
 		glDisable(GL_TEXTURE_2D);
 		glEnable(GL_LINE_SMOOTH);
@@ -170,19 +168,19 @@ public final class Draw2 {
 		glEnable(GL_TEXTURE_2D);
 	}
 	
-	public final static void drawCircle(final float x, final float y, final int rayon, final Color color, final int nbSeg, final float lineWeight) {
+	public final static void drawCircle(final float x, final float y, final int rayon, final Colors color, final int nbSeg, final float lineWeight) {
 		Draw.drawCircle(x, y, rayon, color, nbSeg, lineWeight, 2*(float)Math.PI, 0);
 	}
 	
-	public final static void drawCircle(final float x, final float y, final int rayon, final Color color, final int nbSeg) {
+	public final static void drawCircle(final float x, final float y, final int rayon, final Colors color, final int nbSeg) {
 		Draw.drawCircle(x, y, rayon, color, nbSeg, 1, 2*(float)Math.PI, 0);
 	}
 	
-	public final static void drawCircle(final float x, final float y, final int rayon, final Color color) {
+	public final static void drawCircle(final float x, final float y, final int rayon, final Colors color) {
 		Draw.drawCircle(x, y, rayon, color, (int)(Math.PI*rayon), 1, 2*(float)Math.PI, 0);
 	}
 	
-	public final static void drawLine(final float x1, final float y1, final float x2, final float y2, final Color color1, final Color color2, final float lineWeight) {
+	public final static void drawLine(final float x1, final float y1, final float x2, final float y2, final Colors color1, final Colors color2, final float lineWeight) {
 		glLineWidth(lineWeight);
 		glDisable(GL_TEXTURE_2D);
 		if(x1 != x2 && y1 != y2) {
@@ -198,19 +196,19 @@ public final class Draw2 {
 		glEnable(GL_TEXTURE_2D);
 	}
 	
-	public final static void drawLine(final float x1, final float y1, final float x2, final float y2, final Color color1, final Color color2) {
+	public final static void drawLine(final float x1, final float y1, final float x2, final float y2, final Colors color1, final Colors color2) {
 		drawLine(x1, y1, x2, y2, color1, color2, 1);
 	}
 	
-	public final static void drawLine(final float x1, final float y1, final float x2, final float y2, final Color color, final float lineWeight) {
+	public final static void drawLine(final float x1, final float y1, final float x2, final float y2, final Colors color, final float lineWeight) {
 		drawLine(x1, y1, x2, y2, color, color, lineWeight);
 	}
 	
-	public final static void drawLine(final float x1, final float y1, final float x2, final float y2, final Color color) {
+	public final static void drawLine(final float x1, final float y1, final float x2, final float y2, final Colors color) {
 		drawLine(x1, y1, x2, y2, color, color, 1);
 	}
 	
-	public final static void drawPoint(final float x, final float y, final Color color, final float size) {
+	public final static void drawPoint(final float x, final float y, final Colors color, final float size) {
 		glPointSize(size);
 		glDisable(GL_TEXTURE_2D);
 		glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
@@ -220,14 +218,14 @@ public final class Draw2 {
 		glEnable(GL_TEXTURE_2D);
 	}
 	
-	public final static void drawPoint(final float x, final float y, final Color color) {
+	public final static void drawPoint(final float x, final float y, final Colors color) {
 		drawPoint(x, y, color, 1);
 	}
-	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height, final float texXOrg, final float texYOrg, final float texCoWidth, final float texCoHeight, final Color color) {
+	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height, final float texXOrg, final float texYOrg, final float texCoWidth, final float texCoHeight, final Colors color) {
 		if(texture != null) {
 			texture.bind();
 			OpenGL.glBegin(OpenGL.GL_QUADS);
-			OpenGL.glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+			glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 			drawQuadPart(texture, x, y, width, height, texXOrg, texYOrg, texCoWidth, texCoHeight);
 			OpenGL.glEnd();
 		}
@@ -247,7 +245,7 @@ public final class Draw2 {
 		drawQuad(texture, x, y, width, height, texXOrg, texYOrg, texCoWidth, texCoHeight, 1);
 	}
 	
-	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height, final Color color) {
+	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height, final Colors color) {
 		drawQuad(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight(), color);
 	}
 	
@@ -259,7 +257,7 @@ public final class Draw2 {
 		drawQuad(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight(), 1);
 	}
 	
-	public final static void drawQuad(final Texture texture, final float x, final float y, final Color color) {
+	public final static void drawQuad(final Texture texture, final float x, final float y, final Colors color) {
 		drawQuad(texture, x, y, texture.getWidth(), texture.getHeight(), 0, 0, texture.getWidth(), texture.getHeight(), color);
 	}
 }

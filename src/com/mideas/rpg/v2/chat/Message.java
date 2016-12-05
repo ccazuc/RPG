@@ -2,8 +2,7 @@ package com.mideas.rpg.v2.chat;
 
 import java.util.Calendar;
 
-import org.newdawn.slick.Color;
-
+import com.mideas.rpg.v2.utils.Colors;
 
 public class Message {
 
@@ -12,7 +11,7 @@ public class Message {
 	private int hour;
 	private int minute;
 	private int second;
-	private Color color;
+	private Colors color;
 	private String author;
 	private String authorText = "";
 	private MessageType type;
@@ -48,7 +47,7 @@ public class Message {
 		this.authorText = authorText;
 	}
 	
-	public Message(String message, boolean displayHour, MessageType type, Color color) { //used for self message with different color
+	public Message(String message, boolean displayHour, MessageType type, Colors color) { //used for self message with different color
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -156,7 +155,7 @@ public class Message {
 		return this.second;
 	}
 	
-	public Color getColor() {
+	public Colors getColor() {
 		return this.color;
 	}
 

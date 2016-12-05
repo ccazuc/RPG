@@ -18,10 +18,6 @@ public class IntegerInput {
 		this.maxLength = maxLength;
 	}
 	
-	public IntegerInput(int fontSize, int shadowSize) {
-		
-	}
-	
 	public void event() {
 		Keyboard.enableRepeatEvents(true);
 		if(Keyboard.getEventKey() == 14) {

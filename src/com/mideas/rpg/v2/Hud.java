@@ -1,9 +1,9 @@
 package com.mideas.rpg.v2;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class Hud { 
@@ -30,15 +30,15 @@ public class Hud {
 			Sprites.sprite();
 			sprite = false;
 		}
-		Color bgColor = new Color(0, 0, 0,.35f);     
-		Color healthBar = Color.decode("#07D705");
-		Color manaBar = Color.decode("#0101D5");
+		Colors bgColor = new Colors(0, 0, 0,.35f);     
+		Colors healthBar = Colors.decode("#07D705");
+		Colors manaBar = Colors.decode("#0101D5");
 		Draw.drawQuad(Sprites.bg, Display.getWidth()/2-Sprites.bg.getWidth()/2, Display.getHeight()/2-Sprites.bg.getHeight()/2);  //bg
 		expBar();
-        Draw.drawQuad(Sprites.spellbar, Window.getWidth()/2-300, Window.getHeight()-120);                                                 //spellBar
+		Draw.drawQuad(Sprites.spellbar, Window.getWidth()/2-300, Window.getHeight()-120);                                                 //spellBar
 		Draw.drawQuad(Sprites.spell_attack, Window.getWidth()/2-139, Window.getHeight()-61);                                              //attack
 		Draw.drawQuad(Sprites.border, Window.getWidth()/2-143, Window.getHeight()-66);
-		FontManager.font5.drawStringShadow(Window.getWidth()/2-105, Window.getHeight()-61, "1", Color.white, Color.black, 1, 1, 1);
+		FontManager.font5.drawStringShadow(Window.getWidth()/2-105, Window.getHeight()-61, "1", Colors.WHITE, Colors.BLACK, 1, 1, 1);
 		
 		Draw.drawColorQuad(90, 58, 120, 13, bgColor);                           //left backgroundHealthBar
 		Draw.drawColorQuad(90, 58, 120*x, 12, healthBar);                       //left healthBar		
@@ -50,32 +50,32 @@ public class Hud {
 		Draw.drawColorQuad(Window.getWidth()-154, 38, 119, 18,  bgColor);       //right backgroundName	
 		Draw.drawColorQuad(Window.getWidth()-154, 68, 119, 13,  bgColor);       //right backgroundManaBar
 		Draw.drawColorQuad(Window.getWidth()-154, 68, 119*b-3, 12, manaBar);    //right manaBar		                                                   
-		FontManager.font.drawStringShadow(40, Window.getHeight()-230, statusText, Color.black, Color.white, 1, 1, 1);
-		FontManager.font.drawStringShadow(40, Window.getHeight()-190, statusText2, Color.black, Color.white, 1, 1, 1);                                                                     
+		FontManager.font.drawStringShadow(40, Window.getHeight()-230, statusText, Colors.BLACK, Colors.WHITE, 1, 1, 1);
+		FontManager.font.drawStringShadow(40, Window.getHeight()-190, statusText2, Colors.BLACK, Colors.WHITE, 1, 1, 1);                                                                     
 		 
-		FontManager.get("FRIZQT", 13).drawString(155-FontManager.font.getWidth(Mideas.joueur1().getClasseString())/2, 38, Mideas.joueur1().getClasseString(), Color.orange);                                              //leftPlayerName
-		//TTF2.playerName.drawString(Window.getWidth()-91-TTF2.font.getWidth(Mideas.joueur1().getClasseString())/2, 38,  Mideas.target().getClasseString(), Color.orange);                          //fps
+		FontManager.get("FRIZQT", 13).drawString(155-FontManager.font.getWidth(Mideas.joueur1().getClasseString())/2, 38, Mideas.joueur1().getClasseString(), Colors.ORANGE);                                              //leftPlayerName
+		//TTF2.playerName.drawString(Window.getWidth()-91-TTF2.font.getWidth(Mideas.joueur1().getClasseString())/2, 38,  Mideas.target().getClasseString(), Colors.orange);                          //fps
 		
 		/*if(Mideas.x >= Window.getWidth()/2-139 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()/2-83 && Mideas.y <= Window.getHeight()-5) {
 			Draw.drawQuad(Sprites.hover, Window.getWidth()/2-142, Window.getHeight()-63);	
 			Draw.drawQuad(Sprites.tooltip, Window.getWidth()/2-141, Window.getHeight()-220);
-			TTF2.spellName.drawString(Window.getWidth()/2-133, Window.getHeight()-210, "Attack", Color.white);
-			TTF2.font4.drawString(Window.getWidth()/2-133, Window.getHeight()-188, "No mana cost", Color.white);
+			TTF2.spellName.drawString(Window.getWidth()/2-133, Window.getHeight()-210, "Attack", Colors.white);
+			TTF2.font4.drawString(Window.getWidth()/2-133, Window.getHeight()-188, "No mana cost", Colors.white);
 		}*/
 		/*if(Mideas.joueur1().getStamina() <= 0) {
-			Draw.drawColorQuad(90, 58, 120, 10, Color.red);
+			Draw.drawColorQuad(90, 58, 120, 10, Colors.red);
 		}
 		else if(Mideas.target().getStamina() <= 0) {
-			Draw.drawColorQuad(Window.getWidth()-154, 58, 120, 10,  Color.red);
+			Draw.drawColorQuad(Window.getWidth()-154, 58, 120, 10,  Colors.red);
 		}
 		Draw.drawColorQuad(30, Window.getHeight()-240, 490, 100, bgColor);                                  
 		Draw.drawQuad(Sprites.playerUI, 20, 23);
 		Draw.drawQuad(Sprites.playerUI2, Window.getWidth()-224, 23); 
-		TTF2.hpAndMana.drawStringShadow(Window.getWidth()-134-TTF2.font.getWidth(Mideas.target().getStamina()+" / "+Mideas.target().getMaxStamina())/2+48, 56, Mideas.target().getStamina()+" / "+Mideas.target().getMaxStamina(), Color.white, Color.black, 1, 1, 1);   
-		TTF2.hpAndMana.drawStringShadow(Window.getWidth()-134-TTF2.font.getWidth(Mideas.target().getMana()+" / "+Mideas.target().getMaxMana())/2+48, 67, Mideas.target().getMana()+" / "+Mideas.target().getMaxMana(), Color.white, Color.black, 1, 1, 1); 
-		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getMana()+"")/2-14, 67, Mideas.joueur1().getMana()+" / "+Mideas.joueur1().getMaxMana(), Color.white, Color.black, 1, 1, 1);   
-		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getStamina()+"")/2-14, 56, Mideas.joueur1().getStamina()+" / "+Mideas.joueur1().getMaxStamina(), Color.white, Color.black, 1, 1, 1);  
-		TTF2.font2.drawString(Window.getWidth()-100, 300,"level "+Mideas.joueur1().getLevel(), Color.black);
+		TTF2.hpAndMana.drawStringShadow(Window.getWidth()-134-TTF2.font.getWidth(Mideas.target().getStamina()+" / "+Mideas.target().getMaxStamina())/2+48, 56, Mideas.target().getStamina()+" / "+Mideas.target().getMaxStamina(), Colors.white, Colors.black, 1, 1, 1);   
+		TTF2.hpAndMana.drawStringShadow(Window.getWidth()-134-TTF2.font.getWidth(Mideas.target().getMana()+" / "+Mideas.target().getMaxMana())/2+48, 67, Mideas.target().getMana()+" / "+Mideas.target().getMaxMana(), Colors.white, Colors.black, 1, 1, 1); 
+		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getMana()+"")/2-14, 67, Mideas.joueur1().getMana()+" / "+Mideas.joueur1().getMaxMana(), Colors.white, Colors.black, 1, 1, 1);   
+		TTF2.hpAndMana.drawStringShadow(150-TTF2.font.getWidth(Mideas.joueur1().getStamina()+"")/2-14, 56, Mideas.joueur1().getStamina()+" / "+Mideas.joueur1().getMaxStamina(), Colors.white, Colors.black, 1, 1, 1);  
+		TTF2.font2.drawString(Window.getWidth()-100, 300,"level "+Mideas.joueur1().getLevel(), Colors.black);
 		hoveredSpell = null;*/
 		/*int i = 0;
 		if(Mideas.currentPlayer) {
@@ -86,25 +86,25 @@ public class Hud {
 					if(Mideas.x >= Window.getWidth()/2+62 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()/2+118 && Mideas.y <= Window.getHeight()-5) {
 						Draw.drawQuad(Sprites.hover, Window.getWidth()/2+59, Window.getHeight()-63);	
 						Draw.drawQuad(Sprites.tooltip, Window.getWidth()/2+60, Window.getHeight()-220);
-						TTF2.spellName.drawString(Window.getWidth()/2+68, Window.getHeight()-210, spell.getName()+"", Color.white);
-						TTF2.font4.drawString(Window.getWidth()/2+68, Window.getHeight()-188, spell.getManaCost()+" Mana", Color.white);
+						TTF2.spellName.drawString(Window.getWidth()/2+68, Window.getHeight()-210, spell.getName()+"", Colors.white);
+						TTF2.font4.drawString(Window.getWidth()/2+68, Window.getHeight()-188, spell.getManaCost()+" Mana", Colors.white);
 						if(spell.getName() == "HealingSurge" || spell.getName() == "FlashHeal" || spell.getName() == "LayOnHands") {
-							TTF2.font4.drawString(Window.getWidth()/2+68, Window.getHeight()-158, "Heals you for "+spell.getHeal(), Color.yellow);
+							TTF2.font4.drawString(Window.getWidth()/2+68, Window.getHeight()-158, "Heals you for "+spell.getHeal(), Colors.yellow);
 						}
 						else {
-							TTF2.font4.drawString(Window.getWidth()/2+68, Window.getHeight()-158, "Deals "+spell.getBaseDamage()+" damage to the enemy", Color.yellow);
+							TTF2.font4.drawString(Window.getWidth()/2+68, Window.getHeight()-158, "Deals "+spell.getBaseDamage()+" damage to the enemy", Colors.yellow);
 						}
 						hoveredSpell = spell;
 					}
-					TTF2.font5.drawString(Window.getWidth()/2+99, Window.getHeight()-61, "4", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+99, Window.getHeight()-60, "4", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+99, Window.getHeight()-62, "4", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+100, Window.getHeight()-60, "4", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+100, Window.getHeight()-62, "4", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+101, Window.getHeight()-60, "4", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+101, Window.getHeight()-61, "4", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+101, Window.getHeight()-62, "4", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+100, Window.getHeight()-61, "4", Color.white);
+					TTF2.font5.drawString(Window.getWidth()/2+99, Window.getHeight()-61, "4", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+99, Window.getHeight()-60, "4", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+99, Window.getHeight()-62, "4", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+100, Window.getHeight()-60, "4", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+100, Window.getHeight()-62, "4", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+101, Window.getHeight()-60, "4", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+101, Window.getHeight()-61, "4", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+101, Window.getHeight()-62, "4", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+100, Window.getHeight()-61, "4", Colors.white);
 				}
 				else if(i == 1) {
 					Draw.drawQuad(spell.getSprite(), Window.getWidth()/2-5, Window.getHeight()-61);
@@ -112,21 +112,21 @@ public class Hud {
 					if(Mideas.x >= Window.getWidth()/2-5 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()/2+51 && Mideas.y <= Window.getHeight()-5) {
 						Draw.drawQuad(Sprites.hover, Window.getWidth()/2-8, Window.getHeight()-63);	
 						Draw.drawQuad(Sprites.tooltip, Window.getWidth()/2-7, Window.getHeight()-220);
-						TTF2.spellName.drawString(Window.getWidth()/2+1, Window.getHeight()-210, spell.getName()+"", Color.white);
-						TTF2.font4.drawString(Window.getWidth()/2+1, Window.getHeight()-188, spell.getManaCost()+" Mana", Color.white);
-						TTF2.font4.drawString(Window.getWidth()/2+1, Window.getHeight()-158, "Deals "+spell.getBaseDamage()+" damage to the enemy", Color.yellow);
+						TTF2.spellName.drawString(Window.getWidth()/2+1, Window.getHeight()-210, spell.getName()+"", Colors.white);
+						TTF2.font4.drawString(Window.getWidth()/2+1, Window.getHeight()-188, spell.getManaCost()+" Mana", Colors.white);
+						TTF2.font4.drawString(Window.getWidth()/2+1, Window.getHeight()-158, "Deals "+spell.getBaseDamage()+" damage to the enemy", Colors.yellow);
 						hoveredSpell = spell;
 						
 					}
-					TTF2.font5.drawString(Window.getWidth()/2+33, Window.getHeight()-61, "3", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+33, Window.getHeight()-60, "3", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+33, Window.getHeight()-62, "3", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+34, Window.getHeight()-60, "3", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+34, Window.getHeight()-62, "3", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+35, Window.getHeight()-60, "3", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+35, Window.getHeight()-61, "3", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+35, Window.getHeight()-62, "3", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2+34, Window.getHeight()-61, "3", Color.white);
+					TTF2.font5.drawString(Window.getWidth()/2+33, Window.getHeight()-61, "3", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+33, Window.getHeight()-60, "3", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+33, Window.getHeight()-62, "3", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+34, Window.getHeight()-60, "3", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+34, Window.getHeight()-62, "3", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+35, Window.getHeight()-60, "3", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+35, Window.getHeight()-61, "3", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+35, Window.getHeight()-62, "3", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2+34, Window.getHeight()-61, "3", Colors.white);
 				}
 				else if(i == 2) {
 					Draw.drawQuad(spell.getSprite(), Window.getWidth()/2-72, Window.getHeight()-61);
@@ -134,20 +134,20 @@ public class Hud {
 					if(Mideas.x >= Window.getWidth()/2-72 && Mideas.y >= Window.getHeight()-61 && Mideas.x <= Window.getWidth()/2-16 && Mideas.y <= Window.getHeight()-5) {
 						Draw.drawQuad(Sprites.hover, Window.getWidth()/2-75, Window.getHeight()-63);	
 						Draw.drawQuad(Sprites.tooltip, Window.getWidth()/2-74, Window.getHeight()-220);
-						TTF2.font4.drawString(Window.getWidth()/2-66, Window.getHeight()-210, spell.getName()+"", Color.white);
-						TTF2.font4.drawString(Window.getWidth()/2-66, Window.getHeight()-188, spell.getManaCost()+" Mana", Color.white);
-						TTF2.font4.drawString(Window.getWidth()/2-66, Window.getHeight()-158, "Deals "+spell.getBaseDamage()+" damage to the enemy", Color.yellow);
+						TTF2.font4.drawString(Window.getWidth()/2-66, Window.getHeight()-210, spell.getName()+"", Colors.white);
+						TTF2.font4.drawString(Window.getWidth()/2-66, Window.getHeight()-188, spell.getManaCost()+" Mana", Colors.white);
+						TTF2.font4.drawString(Window.getWidth()/2-66, Window.getHeight()-158, "Deals "+spell.getBaseDamage()+" damage to the enemy", Colors.yellow);
 						hoveredSpell = spell;
 					}
-					TTF2.font5.drawString(Window.getWidth()/2-34, Window.getHeight()-61, "2", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2-34, Window.getHeight()-60, "2", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2-34, Window.getHeight()-62, "2", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2-35, Window.getHeight()-60, "2", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2-35, Window.getHeight()-62, "2", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2-36, Window.getHeight()-60, "2", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2-36, Window.getHeight()-61, "2", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2-36, Window.getHeight()-62, "2", Color.black);
-					TTF2.font5.drawString(Window.getWidth()/2-35, Window.getHeight()-61, "2", Color.white);
+					TTF2.font5.drawString(Window.getWidth()/2-34, Window.getHeight()-61, "2", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2-34, Window.getHeight()-60, "2", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2-34, Window.getHeight()-62, "2", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2-35, Window.getHeight()-60, "2", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2-35, Window.getHeight()-62, "2", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2-36, Window.getHeight()-60, "2", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2-36, Window.getHeight()-61, "2", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2-36, Window.getHeight()-62, "2", Colors.black);
+					TTF2.font5.drawString(Window.getWidth()/2-35, Window.getHeight()-61, "2", Colors.white);
 				}
 				i++;
 			}
@@ -356,11 +356,11 @@ public class Hud {
 	
 	public static boolean redBars() {
 		if(Mideas.joueur1().getStamina() <= 0) {
-			Draw.drawColorQuad(90, 58, 120, 10, Color.red);
+			Draw.drawColorQuad(90, 58, 120, 10, Colors.RED);
 			return true;
 		}
 		/*else if(Mideas.target().getStamina() <= 0) {
-			Draw.drawColorQuad(Window.getWidth()-154, 58, 120, 10,  Color.red);
+			Draw.drawColorQuad(Window.getWidth()-154, 58, 120, 10,  Colors.red);
 			return true;
 		}*/
 		return false;
@@ -368,6 +368,6 @@ public class Hud {
 	
 	public static void expBar() {
 		e = ((float)Mideas.joueur1().getExp()-(float)Mideas.getExpNeeded(Mideas.joueur1().getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.joueur1().getLevel())-Mideas.getExpNeeded(Mideas.joueur1().getLevel()-1));
-		Draw.drawColorQuad(Window.getWidth()/2-140, Window.getHeight()-80, 270*e, 11,  Color.decode("#680764"));
+		Draw.drawColorQuad(Window.getWidth()/2-140, Window.getHeight()-80, 270*e, 11,  Colors.decode("#680764"));
 	}
 }

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 
-import org.newdawn.slick.Color;
-
 public class TooltipMenu {
 
 	private Tooltip tooltip;
@@ -22,7 +20,7 @@ public class TooltipMenu {
 	private final static int CLOSE_TIMER = 3000;
 	private final static int SPACE_BETWEEN_MENU = 18;
 	private final static int TOOLTIP_DEFAULT_HEIGHT = 47;
-	private final static Color YELLOW = Color.decode("#FFC700");
+	private final static Colors YELLOW = Colors.decode("#FFC700");
 	
 	public TooltipMenu(float x, float y, float x_size) {
 		this.x = (int)x;
@@ -38,7 +36,7 @@ public class TooltipMenu {
 				setActive(false);
 			}
 			this.tooltip.draw();
-			FontManager.get("FRIZQT", 14).drawStringShadow(this.x+21*Mideas.getDisplayXFactor(), this.y+15*Mideas.getDisplayYFactor(), this.name, YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 14).drawStringShadow(this.x+21*Mideas.getDisplayXFactor(), this.y+15*Mideas.getDisplayYFactor(), this.name, YELLOW, Colors.BLACK, 1, 0, 0);
 			int i = 0;
 			while(i < this.menuList.size()) {
 				this.menuList.get(i).draw();

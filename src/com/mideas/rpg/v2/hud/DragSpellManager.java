@@ -227,13 +227,11 @@ public class DragSpellManager {
 					SpellBarManager.setSpellBar();
 					return true;
 				}
-				else {
-					Shortcut tempSpellShortcut = Mideas.joueur1().getSpells(i);
-					Mideas.joueur1().setSpells(i, draggedShortcut);
-					draggedShortcut = tempSpellShortcut;
-					SpellBarManager.setSpellBar();
-					return true;
-				}
+				Shortcut tempSpellShortcut = Mideas.joueur1().getSpells(i);
+				Mideas.joueur1().setSpells(i, draggedShortcut);
+				draggedShortcut = tempSpellShortcut;
+				SpellBarManager.setSpellBar();
+				return true;
 			}
 		}
 		else if(draggedBookSpell != null) {
@@ -245,14 +243,12 @@ public class DragSpellManager {
 					SpellBarManager.setSpellBar();
 					return true;
 				}
-				else {
-					Shortcut tempSpell = Mideas.joueur1().getSpells(i);
-					Mideas.joueur1().setSpells(i, new SpellShortcut(draggedBookSpell));
-					draggedShortcut = tempSpell;
-					draggedBookSpell = null;
-					SpellBarManager.setSpellBar();
-					return true;
-				}
+				Shortcut tempSpell = Mideas.joueur1().getSpells(i);
+				Mideas.joueur1().setSpells(i, new SpellShortcut(draggedBookSpell));
+				draggedShortcut = tempSpell;
+				draggedBookSpell = null;
+				SpellBarManager.setSpellBar();
+				return true;
 			}
 		}
 		else if(DragManager.getDraggedItem() != null) {
@@ -264,14 +260,12 @@ public class DragSpellManager {
 						SpellBarManager.setSpellBar();
 						return true;
 					}
-					else {
-						Shortcut temp = Mideas.joueur1().getSpells(i);
-						Mideas.joueur1().setSpells(i, new StuffShortcut((Stuff)DragManager.getDraggedItem()));
-						DragManager.setDraggedItem(null);
-						draggedShortcut = temp;
-						SpellBarManager.setSpellBar();
-						return true;
-					}
+					Shortcut temp = Mideas.joueur1().getSpells(i);
+					Mideas.joueur1().setSpells(i, new StuffShortcut((Stuff)DragManager.getDraggedItem()));
+					DragManager.setDraggedItem(null);
+					draggedShortcut = temp;
+					SpellBarManager.setSpellBar();
+					return true;
 				}
 				else if(DragManager.getDraggedItem().isPotion()) {
 					if(Mideas.joueur1().getSpells(i) == null) {

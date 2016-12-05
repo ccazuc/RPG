@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Interface;
@@ -14,11 +13,12 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.hud.EndFightFrame;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class BlackTemple extends Dungeon {
 	
-	private static boolean blackTempleActive;
+	private static boolean BLACKTempleActive;
 	private static Joueur[] joueur = new Joueur[5];
 	private static boolean isBlackTempleLoaded;
 	private static int maxRoom;
@@ -39,21 +39,21 @@ public class BlackTemple extends Dungeon {
 	private final static int DUNGEON_CLEARED_WIDTH = FontManager.get("FRIZQT", 21).getWidth(DUNGEON_CLEARED);
 	private final static int RETURN_GAME_WIDTH = FontManager.get("FRIZQT", 21).getWidth(RETURN_GAME);
 	
-	private final static Color DARK = Color.decode("#383838");
-	private final static Color GRAY = Color.decode("#7a7a7a");
+	private final static Colors DARK = Colors.decode("#383838");
+	private final static Colors GRAY = Colors.decode("#7a7a7a");
 
 	public static void draw() {
 		Draw.drawColorQuad(Display.getWidth()/2-200, 30, 400, 30, DARK);
 		Draw.drawColorQuad(Display.getWidth()/2-160, 35, 310, 20, GRAY);
-		Draw.drawColorQuad(Display.getWidth()/2-160, 35, 310*(float)i/maxRoom, 20, Color.green);
+		Draw.drawColorQuad(Display.getWidth()/2-160, 35, 310*(float)i/maxRoom, 20, Colors.GREEN);
 		if(i == maxRoom-1) {
-			FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-BOSS_AREA_WIDTH/2, 65, BOSS_AREA, Color.red, Color.black, 1);
+			FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-BOSS_AREA_WIDTH/2, 65, BOSS_AREA, Colors.RED, Colors.BLACK, 1);
 		}
 		else {
-			FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 21).getWidth("Room"+(i+1))/2, Display.getHeight()/2-400, "Room "+(i+1), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 21).getWidth("Room"+(i+1))/2, Display.getHeight()/2-400, "Room "+(i+1), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 		}
-		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+165, 37, Math.round(100*(float)i/maxRoom)+"%", Color.white, Color.black, 1);
-		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-192, 37, Integer.toString(i)+"/"+Integer.toString(maxRoom), Color.white, Color.black, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2+165, 37, Math.round(100*(float)i/maxRoom)+"%", Colors.WHITE, Colors.BLACK, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-192, 37, Integer.toString(i)+"/"+Integer.toString(maxRoom), Colors.WHITE, Colors.BLACK, 1);
 	}
 	
 	public static void event() throws FileNotFoundException {
@@ -134,9 +134,9 @@ public class BlackTemple extends Dungeon {
 			else {
 				Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
 			}
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-QUIT_DUNGEON_WIDTH/2-69, Display.getHeight()/2-41, QUIT_DUNGEON, Color.white, Color.black, 1, 1, 1);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-QUIT_GAME_WIDTH/2+69, Display.getHeight()/2-41, QUIT_GAME, Color.white, Color.black, 1, 1, 1);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-CONTINUE_DUNGEON_WIDTH/2, Display.getHeight()/2-73, CONTINUE_DUNGEON, Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-QUIT_DUNGEON_WIDTH/2-69, Display.getHeight()/2-41, QUIT_DUNGEON, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-QUIT_GAME_WIDTH/2+69, Display.getHeight()/2-41, QUIT_GAME, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-CONTINUE_DUNGEON_WIDTH/2, Display.getHeight()/2-73, CONTINUE_DUNGEON, Colors.WHITE, Colors.BLACK, 1, 1, 1);
 		}
 		else {
 			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2-105, Display.getHeight()/2-80);
@@ -157,9 +157,9 @@ public class BlackTemple extends Dungeon {
 			else {
 				Draw.drawQuad(Sprites.button, Display.getWidth()/2-Sprites.button_hover.getImageWidth()/2+70, Display.getHeight()/2-43);
 			}
-			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-DUNGEON_CLEARED_WIDTH/2, Display.getHeight()/2-65, DUNGEON_CLEARED, Color.white, Color.black, 1, 1, 1);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-RETURN_GAME_WIDTH/2-69, Display.getHeight()/2-41, RETURN_GAME, Color.white, Color.black, 1, 1, 1);
-			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-QUIT_GAME_WIDTH/2+69, Display.getHeight()/2-41, QUIT_GAME, Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-DUNGEON_CLEARED_WIDTH/2, Display.getHeight()/2-65, DUNGEON_CLEARED, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-RETURN_GAME_WIDTH/2-69, Display.getHeight()/2-41, RETURN_GAME, Colors.WHITE, Colors.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()/2-QUIT_GAME_WIDTH/2+69, Display.getHeight()/2-41, QUIT_GAME, Colors.WHITE, Colors.BLACK, 1, 1, 1);
 		}
 	}
 	
@@ -172,11 +172,11 @@ public class BlackTemple extends Dungeon {
 	}
 	
 	public static boolean getBlackTempleStatus() {
-		return blackTempleActive;
+		return BLACKTempleActive;
 	}
 
 	public static void setBlackTempleStatus(boolean we) {
-		blackTempleActive = we;
+		BLACKTempleActive = we;
 	}
 	
 	public static Joueur getJoueur(int i) {

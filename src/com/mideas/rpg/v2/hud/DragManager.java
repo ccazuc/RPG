@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.hud;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
@@ -20,6 +19,7 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.shortcut.ShortcutType;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.utils.Button;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class DragManager {
@@ -79,12 +79,12 @@ public class DragManager {
 			Draw.drawQuad(IconsManager.getSprite42((draggedItem.getSpriteId())), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 			if(draggedItem.isStackable()) {
-				FontManager.get("FRIZQT", 13).drawStringShadow(Mideas.mouseX()+35-FontManager.get("FRIZQT", 13).getWidth(String.valueOf(draggedItem.getAmount())), Mideas.mouseY()+20, String.valueOf(draggedItem.getAmount()), Color.white, Color.black, 1, 1, 1);
+				FontManager.get("FRIZQT", 13).drawStringShadow(Mideas.mouseX()+35-FontManager.get("FRIZQT", 13).getWidth(String.valueOf(draggedItem.getAmount())), Mideas.mouseY()+20, String.valueOf(draggedItem.getAmount()), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			}
 		}
 		if(deleteItem && draggedItem != null) {
 			Draw.drawQuad(Sprites.alert, Display.getWidth()/2-172*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), Sprites.alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.alert.getImageHeight()*Mideas.getDisplayYFactor());
-			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-(FontManager.get("FRIZQT", 16).getWidth(draggedItem.getDeleteConfirm())*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-72*Mideas.getDisplayYFactor(), draggedItem.getDeleteConfirm(), Color.white, Color.black, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
+			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-(FontManager.get("FRIZQT", 16).getWidth(draggedItem.getDeleteConfirm())*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-72*Mideas.getDisplayYFactor(), draggedItem.getDeleteConfirm(), Colors.WHITE, Colors.BLACK, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
 			hoverDeleteYes.draw();
 			hoverDeleteNo.draw();
 		}
@@ -318,16 +318,14 @@ public class DragManager {
 								Mideas.joueur1().bag().setBagChange(true);
 								return true;
 							}
-							else {
-								Item tempItem = Mideas.joueur1().bag().getBag(i);
-								Mideas.joueur1().bag().setBag(i, Mideas.joueur1().getStuff(j));
-								calcStatsLess(Mideas.joueur1().getStuff(j));
-								Mideas.joueur1().setStuff(j, tempItem);
-								calcStats(Mideas.joueur1().getStuff(j));
-								CharacterStuff.setBagItems();
-								CharacterStuff.setEquippedItems();
-								return true;
-							}
+							Item tempItem = Mideas.joueur1().bag().getBag(i);
+							Mideas.joueur1().bag().setBag(i, Mideas.joueur1().getStuff(j));
+							calcStatsLess(Mideas.joueur1().getStuff(j));
+							Mideas.joueur1().setStuff(j, tempItem);
+							calcStats(Mideas.joueur1().getStuff(j));
+							CharacterStuff.setBagItems();
+							CharacterStuff.setEquippedItems();
+							return true;
 						}
 					}
 					j++;
@@ -347,16 +345,14 @@ public class DragManager {
 								Mideas.joueur1().bag().setBagChange(true);
 								return true;
 							}
-							else {
-								Item tempItem = Mideas.joueur1().bag().getBag(i);
-								Mideas.joueur1().bag().setBag(i, Mideas.joueur1().getStuff(j));
-								calcStatsLess(Mideas.joueur1().getStuff(j));
-								Mideas.joueur1().setStuff(j, tempItem);
-								calcStats(Mideas.joueur1().getStuff(j));
-								CharacterStuff.setBagItems();
-								CharacterStuff.setEquippedItems();
-								return true;
-							}
+							Item tempItem = Mideas.joueur1().bag().getBag(i);
+							Mideas.joueur1().bag().setBag(i, Mideas.joueur1().getStuff(j));
+							calcStatsLess(Mideas.joueur1().getStuff(j));
+							Mideas.joueur1().setStuff(j, tempItem);
+							calcStats(Mideas.joueur1().getStuff(j));
+							CharacterStuff.setBagItems();
+							CharacterStuff.setEquippedItems();
+							return true;
 						}
 					}
 					j++;
@@ -426,10 +422,8 @@ public class DragManager {
 					CharacterStuff.setBagItems();
 					return true;
 				}
-				else {
-					equipItem(i);
-					return true;
-				}
+				equipItem(i);
+				return true;
 			}
 			else if(checkBagItems(draggedItem)) {
 				if(Mideas.joueur1().bag().getBag(i) == null) {
@@ -449,10 +443,8 @@ public class DragManager {
 						CharacterStuff.setBagItems();
 						return true;
 					}
-					else {
-						draggedItem = null;
-						return true;
-					}
+					draggedItem = null;
+					return true;
 				}
 				else if(draggedItem == Mideas.joueur1().bag().getBag(i)) {
 					Mideas.joueur1().bag().getBag(i).setIsSelectable(true);
@@ -476,37 +468,33 @@ public class DragManager {
 					CharacterStuff.setBagItems();
 					return true;
 				}
-				else {
-					if(draggedItem.isPotion() && draggedItem.getId() == Mideas.joueur1().bag().getBag(i).getId()) {
-						if(draggedItem != Mideas.joueur1().bag().getBag(i)) {
-							int number = draggedItem.getAmount()+Mideas.joueur1().bag().getBag(i).getAmount();
-							setNullContainer(draggedItem);
-							Mideas.joueur1().bag().getBag(i).setAmount(number);
-							draggedItem = null;
-							CharacterStuff.setBagItems();
-							return true;
-						}
-						else {
-							draggedItem = null;
-							return true;
-						}
-					}
-					if(draggedItemSplit) {
-						if(draggedItem.getId() != Mideas.joueur1().bag().getBag(i).getId()) {
-							Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()).setAmount(Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()).getAmount()+draggedItem.getAmount());
-							draggedItem = null;
-							CharacterStuff.setBagItems();
-							draggedItemSplit = false;
-							return true;
-						}
-					}
-					else {
-						Item tempItem = Mideas.joueur1().bag().getBag(i);
-						Mideas.joueur1().bag().setBag(i, draggedItem);
-						draggedItem = tempItem;
+				if(draggedItem.isPotion() && draggedItem.getId() == Mideas.joueur1().bag().getBag(i).getId()) {
+					if(draggedItem != Mideas.joueur1().bag().getBag(i)) {
+						int number = draggedItem.getAmount()+Mideas.joueur1().bag().getBag(i).getAmount();
+						setNullContainer(draggedItem);
+						Mideas.joueur1().bag().getBag(i).setAmount(number);
+						draggedItem = null;
 						CharacterStuff.setBagItems();
 						return true;
 					}
+					draggedItem = null;
+					return true;
+				}
+				if(draggedItemSplit) {
+					if(draggedItem.getId() != Mideas.joueur1().bag().getBag(i).getId()) {
+						Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()).setAmount(Mideas.joueur1().bag().getBag(ContainerFrame.getLastSplit()).getAmount()+draggedItem.getAmount());
+						draggedItem = null;
+						CharacterStuff.setBagItems();
+						draggedItemSplit = false;
+						return true;
+					}
+				}
+				else {
+					Item tempItem = Mideas.joueur1().bag().getBag(i);
+					Mideas.joueur1().bag().setBag(i, draggedItem);
+					draggedItem = tempItem;
+					CharacterStuff.setBagItems();
+					return true;
 				}
 			}
 		}
@@ -620,20 +608,16 @@ public class DragManager {
 						CharacterStuff.setBagItems();
 						return true;
 					}
-					else {
-						Item tempItem = Mideas.joueur1().getStuff(i);
-						calcStatsLess(Mideas.joueur1().getStuff(i));
-						Mideas.joueur1().setStuff(i, draggedItem);
-						calcStats(draggedItem);
-						draggedItem = tempItem;
-						CharacterStuff.setEquippedItems();
-						CharacterStuff.setBagItems();
-						return true;
-					}
+					Item tempItem = Mideas.joueur1().getStuff(i);
+					calcStatsLess(Mideas.joueur1().getStuff(i));
+					Mideas.joueur1().setStuff(i, draggedItem);
+					calcStats(draggedItem);
+					draggedItem = tempItem;
+					CharacterStuff.setEquippedItems();
+					CharacterStuff.setBagItems();
+					return true;
 				}
-				else {
-					draggedItem = null;
-				}
+				draggedItem = null;
 			}
 		}
 		return false;

@@ -1,13 +1,13 @@
 package com.mideas.rpg.v2.hud;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.command.CommandLogoutCharacter;
 import com.mideas.rpg.v2.utils.Button;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.Draw;
 
 
@@ -18,17 +18,17 @@ public class EscapeFrame {
 	private static float BUTTON_HEIGHT_SHIFT = 23*Mideas.getDisplayXFactor();
 	private static float BUTTON_HEIGHT = 21*Mideas.getDisplayXFactor();
 	private static boolean init;
-	private static Button videoButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Video", 13, 1, Color.white, Color.white) {
+	private static Button videoButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Video", 13, 1, Colors.WHITE, Colors.WHITE) {
 	};
-	private static Button soundButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Sound", 13, 1, Color.white, Color.white) {
+	private static Button soundButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Sound", 13, 1, Colors.WHITE, Colors.WHITE) {
 	};
-	private static Button interfaceButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Interface", 13, 1, Color.white, Color.white) {
+	private static Button interfaceButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Interface", 13, 1, Colors.WHITE, Colors.WHITE) {
 	};
-	private static Button keybindButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Keybind", 13, 1, Color.white, Color.white) {
+	private static Button keybindButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Keybind", 13, 1, Colors.WHITE, Colors.WHITE) {
 	};
-	private static Button macrosButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Macros", 13, 1, Color.white, Color.white) {
+	private static Button macrosButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Macros", 13, 1, Colors.WHITE, Colors.WHITE) {
 	};
-	private static Button logoutButton = new Button(Display.getWidth()/2-99*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Logout", 13, 1, Color.white, Color.white) {
+	private static Button logoutButton = new Button(Display.getWidth()/2-99*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Logout", 13, 1, Colors.WHITE, Colors.WHITE) {
 		@Override
 		public void eventButtonClick() {
 			CommandLogoutCharacter.write();
@@ -37,13 +37,13 @@ public class EscapeFrame {
 			Interface.setCharacterLoaded(false);
 		}
 	};
-	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave game", 13, 1, Color.white, Color.white) {
+	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave game", 13, 1, Colors.WHITE, Colors.WHITE) {
 		@Override
 		public void eventButtonClick() {
 			Mideas.close();
 		}
 	};
-	private static Button returnButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Return game", 13, 1, Color.white, Color.white) {
+	private static Button returnButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Return game", 13, 1, Colors.WHITE, Colors.WHITE) {
 		@Override
 		public void eventButtonClick() {
 			Interface.closeEscapeFrame();

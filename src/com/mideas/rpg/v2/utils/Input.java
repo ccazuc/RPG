@@ -176,7 +176,7 @@ public class Input {
 	
 	public boolean keyEvent(char c) {return false;}
 	
-	private boolean isValidCharacter(char c) {
+	private static boolean isValidCharacter(char c) {
 		return c >= ' ' && c <= 255;
 	}
 	

@@ -9,7 +9,6 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Mideas;
@@ -28,11 +27,11 @@ public class ChatFrame {
 	private final static InputBar inputBar = new InputBar(30, INPUT_BAR_Y, 510);
 	private static ArrayList<String> rawMessages = new ArrayList<String>();
 	private static ArrayList<Message> messages = new ArrayList<Message>();
-	private static Color selectedColor = new Color(1, 1, 1, .5f); 
+	private static Colors selectedColors = new Colors(1, 1, 1, .5f); 
 	private static int defaultHeight = Display.getHeight()-285;
 	private static MessageType selectedType = MessageType.SAY;
 	private final static int NUMBER_LAST_MESSAGE_TAKEN = 100;
-	private final static Colors bgColors = new Colors(0, 0, 0, 0);
+	private final static Colors bgColor = new Colors(0, 0, 0, 0);
 	private final static float FRAME_MAXIMUM_OPACITY = .35f;
 	private final static int MESSAGE_OPACITY_START_DECREASE_TIMER = 30000;
 	private final static int MESSAGE_OPACITY_DECREASE_TIMER = 7000;
@@ -86,11 +85,11 @@ public class ChatFrame {
 	public static void draw() {
 		messageShowHeight = 4+yResize/FontManager.chat.getLineHeight();
 		maxLength = 490+xResize;
-		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 115+yResize, bgColors);
+		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 115+yResize, bgColor);
 		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
 		if(tempMessage.length() >= 1 || chatActive) {
 			inputBar.draw();
-			Draw.drawColorQuad(selectedStarts+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+6*Mideas.getDisplayYFactor(), selectedQuadLength, 20, selectedColor);
+			Draw.drawColorQuad(selectedStarts+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+6*Mideas.getDisplayYFactor(), selectedQuadLength, 20, selectedColors);
 			FontManager.chat.drawBegin();
 			FontManager.chat.drawStringPart(44, INPUT_BAR_Y+7*Mideas.getDisplayYFactor(), selectedType.getDefaultText()+currentWhisper, selectedType.getColor());
 			FontManager.chat.drawStringPart(44+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+7*Mideas.getDisplayYFactor(), tempMessage.substring(tempLength), selectedType.getColor());
@@ -111,11 +110,11 @@ public class ChatFrame {
 				Draw.drawColorQuad(45+cursorShift+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+9*Mideas.getDisplayYFactor(), 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
 			}
 		}
-		if(hoverChatFrame && bgColors.alpha() < FRAME_MAXIMUM_OPACITY && System.currentTimeMillis()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER ) {
-			bgColors.setAlpha(bgColors.alpha()+1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
+		if(hoverChatFrame && bgColor.alpha() < FRAME_MAXIMUM_OPACITY && System.currentTimeMillis()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER ) {
+			bgColor.setAlpha(bgColor.alpha()+1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
 		}
-		else if(!hoverChatFrame && bgColors.alpha() > 0) {
-			bgColors.setAlpha(bgColors.alpha()-1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
+		else if(!hoverChatFrame && bgColor.alpha() > 0) {
+			bgColor.setAlpha(bgColor.alpha()-1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
 		}
 		if(messages.size() > MAXIMUM_MESSAGES) {
 			while(messages.size() >= MAXIMUM_MESSAGES) {
@@ -140,14 +139,14 @@ public class ChatFrame {
 					int j = 0;
 					if(message.getAuthor() != null) {
 						if(yDraw >= Display.getHeight()-280-yResize && message.getOpacity() > 0) {
-							FontManager.chat.drawStringPart(xDraw+1, yDraw, message.getAuthorText(), Color.black, message.getOpacity());
+							FontManager.chat.drawStringPart(xDraw+1, yDraw, message.getAuthorText(), Colors.BLACK, message.getOpacity());
 							FontManager.chat.drawStringPart(xDraw, yDraw, message.getAuthorText(), message.getColor(), message.getOpacity());
 						}
 						xDraw+= FontManager.chat.getWidth(message.getAuthorText());
 					}
 					while(j < message.getMessage().length()) {
 						if(yDraw >= Display.getHeight()-280-yResize && message.getOpacity() > 0) {
-							FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getMessage().charAt(j), Color.black, message.getOpacity());
+							FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getMessage().charAt(j), Colors.BLACK, message.getOpacity());
 							FontManager.chat.drawCharPart(xDraw, yDraw, message.getMessage().charAt(j), message.getColor(), message.getOpacity());
 						}
 						xDraw+= FontManager.chat.getWidth(message.getMessage().charAt(j));
@@ -638,7 +637,7 @@ public class ChatFrame {
 	/*private static void addMessage() {
 		String temp = tempMessage;
 		if(temp != null && !temp.equals("")) {
-			messages.add(new Message(temp, true, Color.white));
+			messages.add(new Message(temp, true, Colors.WHITE));
 			totalNumberLine = getTotalNumberLine();
 			numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 		}
@@ -990,7 +989,7 @@ public class ChatFrame {
 		return rawMessages;
 	}
 	
-	public static Color convClassColor(String classe) {
+	public static Colors convClassColors(String classe) {
 		if(classe.equals(druid)) {
 			return ClassColor.DRUID_COLOR;
 		}
@@ -1018,7 +1017,7 @@ public class ChatFrame {
 		if(classe.equals(warrior)) {
 			return ClassColor.WARRIOR_COLOR;
 		}
-		return Color.white;
+		return Colors.WHITE;
 	}
 	
 	private static void resetSelectedPosition() {

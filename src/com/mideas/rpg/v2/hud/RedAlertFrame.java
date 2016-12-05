@@ -3,10 +3,10 @@ package com.mideas.rpg.v2.hud;
 import java.util.ArrayList;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.RedAlert;
 
 public class RedAlertFrame {
@@ -16,7 +16,7 @@ public class RedAlertFrame {
 	private static float Y_DRAW = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
 	private static float Y_SHIFT = 25*Mideas.getDisplayXFactor();
 	private static ArrayList<RedAlert> alertList = new ArrayList<RedAlert>();
-	private final static Color RED = Color.decode("#FA1518");
+	private final static Colors RED = Colors.decode("#FA1518");
 	
 	public static void draw() {
 		int i = alertList.size()-1;

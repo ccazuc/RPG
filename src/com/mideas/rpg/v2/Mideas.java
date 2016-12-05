@@ -38,7 +38,6 @@ import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
-import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
@@ -109,17 +108,17 @@ public class Mideas {
 	
 	private static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
-        GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);                
-        GL11.glClearDepth(1);     
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        GL11.glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        GL11.glLoadIdentity();
+		GL11.glClearColor(0, 0, 0, 0);                
+	        GL11.glClearDepth(1);     
+	        GL11.glEnable(GL11.GL_BLEND);
+	        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	        GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
+	        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+	        GL11.glMatrixMode(GL11.GL_PROJECTION);
+	        GL11.glLoadIdentity();
+	        GL11.glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
+	        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+	        GL11.glLoadIdentity();
 	}
 	
 	private static void loop() throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException {
@@ -224,6 +223,7 @@ public class Mideas {
 					Interface.draw();
 				}
 				catch(RuntimeException e) {
+					e.printStackTrace();
 				}
 				if(System.currentTimeMillis()-LAST_RAM_TIMER >= RAM_UPDATE_FREQUENCE) {
 					usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
@@ -240,6 +240,7 @@ public class Mideas {
 			}
 		}
 		catch(IllegalStateException e) {
+			e.printStackTrace();
 		}
 		CommandLogout.write();
 		ConnectionManager.close();
@@ -288,9 +289,6 @@ public class Mideas {
 		SelectScreen.updateSize();
 		DragManager.updateSize();
 		AdminPanelFrame.updateSize();
-		if(joueur1 != null) {
-			ContainerFrame.updateBagFrameSize();
-		}
 		CharacterFrame.updateSize();
 		SocketingFrame.updateSize();
 		EscapeFrame.updateSize();
@@ -310,6 +308,7 @@ public class Mideas {
 			if(joueur1.getGuild() != null) {
 				joueur1.getGuild().updateMemberNote();
 			}
+			ContainerFrame.updateBagFrameSize();
 		}
 	}
 	

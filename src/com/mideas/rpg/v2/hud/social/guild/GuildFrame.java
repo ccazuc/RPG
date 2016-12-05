@@ -1,13 +1,13 @@
 package com.mideas.rpg.v2.hud.social.guild;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandGuild;
+import com.mideas.rpg.v2.command.CommandIgnore;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.game.guild.GuildMember;
 import com.mideas.rpg.v2.game.guild.GuildRank;
@@ -17,6 +17,7 @@ import com.mideas.rpg.v2.utils.AlertBackground;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.ButtonMenuSort;
 import com.mideas.rpg.v2.utils.CheckBox;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.DropDownMenu;
@@ -65,9 +66,9 @@ public class GuildFrame {
 	private static int hoveredMemberY;
 	static GuildMember memberMenu;
 	private static int selectedMember = -1;
-	private final static Color YELLOW = Color.decode("#FFC700");
-	private final static Color GREY = Color.decode("#999999");
-	private final static Color GREEN = new Color(64/255f, 251/255f, 64f/255f);
+	private final static Colors YELLOW = Colors.decode("#FFC700");
+	private final static Colors GREY = Colors.decode("#999999");
+	private final static Colors GREEN = new Colors(64/255f, 251/255f, 64f/255f);
 	static boolean displayGuildInformation;
 	private static boolean inputInit;
 	private static boolean dropDownMenuInit;
@@ -346,7 +347,7 @@ public class GuildFrame {
 			memberMenu = null;
 		}
 	};
-	private static TextMenu whisperTextMenu = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Whisper", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu whisperTextMenu = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), "Whisper", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			ChatFrame.setWhisper(memberMenu.getName());
@@ -355,21 +356,22 @@ public class GuildFrame {
 			displayedMemberMenu.setActive(false);
 		}
 	};
-	private static TextMenu targetTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Target", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu targetTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Target", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
 			displayedMemberMenu.setActive(false);
 		}
 	};
-	private static TextMenu ignoreTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Ignore", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu ignoreTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Ignore", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
-			displayedMemberMenu.setActive(false); //TODO: implement ignore
+			displayedMemberMenu.setActive(false);
+			CommandIgnore.addIgnore(memberInformationDisplayed.getName());
 		}
 	};
-	private static TextMenu leaveGuildTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Leave guild", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu leaveGuildTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Leave guild", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
@@ -377,7 +379,7 @@ public class GuildFrame {
 			CommandGuild.leaveGuild();
 		}
 	};
-	private static TextMenu setLeaderTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Give leadership", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu setLeaderTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Give leadership", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			CommandGuild.setLeader(memberMenu.getId());
@@ -385,7 +387,7 @@ public class GuildFrame {
 			displayedMemberMenu.setActive(false);
 		}
 	};
-	private static TextMenu cancelTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Cancel", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu cancelTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Cancel", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
@@ -665,9 +667,9 @@ public class GuildFrame {
 			hasInitRank = true;
 		}
 		Draw.drawQuad(Sprites.guild_frame, X_SOCIAL_FRAME, Y_SOCIAL_FRAME);
-		FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+220*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(Mideas.joueur1().getGuildTitle())/2, Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuildTitle(), YELLOW, Color.black, 1, 0, 0);
-		FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+23*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+368*Mideas.getDisplayYFactor(), "Guild Message Of The Day:", YELLOW, Color.black, 1, 0, 0);
-		FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+210*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), "Show Offline Members", Color.white, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+220*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(Mideas.joueur1().getGuildTitle())/2, Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuildTitle(), YELLOW, Colors.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+23*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+368*Mideas.getDisplayYFactor(), "Guild Message Of The Day:", YELLOW, Colors.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+210*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), "Show Offline Members", Colors.WHITE, Colors.BLACK, 1, 0, 0);
 		drawNumberMember();
 		drawMembers();
 		drawMotd();
@@ -737,17 +739,17 @@ public class GuildFrame {
 		FontManager.get("FRIZQT", 13).drawBegin();
 		while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
 			if(Mideas.joueur1().getGuild().getMemberList().get(i).isOnline()) {
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), YELLOW, Color.black, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", Color.white, Color.black, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), Color.white, Color.black, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), Mideas.joueur1().getGuild().getMemberList().get(i).getColor(), Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), YELLOW, Colors.BLACK, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", Colors.WHITE, Colors.BLACK, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), Mideas.joueur1().getGuild().getMemberList().get(i).getColor(), Colors.BLACK, 1, 0, 0);
 				yShift+= yShiftHeight;
 			}
 			else if(showOfflineMembers) {
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), GREY, Color.black, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", GREY, Color.black, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), GREY, Color.black, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), GREY, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), GREY, Colors.BLACK, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", GREY, Colors.BLACK, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), GREY, Colors.BLACK, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), GREY, Colors.BLACK, 1, 0, 0);
 				yShift+= yShiftHeight;
 			}
 			if(y+yShift+yShiftHeight >= Y_SOCIAL_FRAME+350*Mideas.getDisplayYFactor()) {
@@ -760,16 +762,17 @@ public class GuildFrame {
 		if((hoveredMember >= i && hoveredMember < i+13) || (selectedMember >= i && selectedMember < i+13)) {
 			yShift = 0;
 			while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
-				if(hoveredMember == i || selectedMember == i) {
-					Draw.drawQuadBlend(Sprites.friend_border, x-15*Mideas.getDisplayXFactor(), y+yShift-yShiftHeight, 343*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
+				if((Mideas.joueur1().getGuild().getMemberList().get(i).isOnline() || showOfflineMembers)) {
+					if(hoveredMember == i || selectedMember == i) {
+						Draw.drawQuadBlend(Sprites.friend_border, x-15*Mideas.getDisplayXFactor(), y+yShift, 343*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
+					}
+					yShift+= yShiftHeight;
 				}
-				yShift+= yShiftHeight;
 				i++;
 			}
 		}
 		if(memberMenu != null) {
 			displayedMemberMenu.draw();
-			//System.out.println(displayedMemberMenu.getX()+" "+displayedMemberMenu.getY());
 		}
 	}
 	
@@ -908,9 +911,9 @@ public class GuildFrame {
 			Draw.drawQuad(Sprites.guild_manage_frame_bot_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+433*Mideas.getDisplayYFactor());
 			Draw.drawQuad(Sprites.guild_manage_rank_horizontal_bar, X_SOCIAL_FRAME+399*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+65*Mideas.getDisplayYFactor());
 			FontManager.get("FRIZQT", 13).drawBegin();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Select guild rank to modify:")/2, Y_SOCIAL_FRAME+20*Mideas.getDisplayYFactor(), "Select guild rank to modify:", YELLOW, Color.black, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+485*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Rank Label:")/2, Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), "Rank Label:", YELLOW, Color.black, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Allow this rank to:")/2, Y_SOCIAL_FRAME+110*Mideas.getDisplayYFactor(), "Allow this rank to:", Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Select guild rank to modify:")/2, Y_SOCIAL_FRAME+20*Mideas.getDisplayYFactor(), "Select guild rank to modify:", YELLOW, Colors.BLACK, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+485*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Rank Label:")/2, Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), "Rank Label:", YELLOW, Colors.BLACK, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Allow this rank to:")/2, Y_SOCIAL_FRAME+110*Mideas.getDisplayYFactor(), "Allow this rank to:", Colors.WHITE, Colors.BLACK, 1, 0, 0);
 			FontManager.get("FRIZQT", 13).drawEnd();
 			rankNameEditBox.draw();
 			canListenGuildChannelCheckBox.draw();
@@ -959,7 +962,7 @@ public class GuildFrame {
 		int i = 0;
 		manageRankDropDownMenu.resetMenuList();
 		while(i < Mideas.joueur1().getGuild().getRankList().size()) {
-			manageRankDropDownMenu.addMenu(new TextMenu(X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X+20*Mideas.getDisplayXFactor(), 0, (DROP_DOWN_MENU_ALERT_X_SIZE-20)*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuild().getRankList().get(i).getName(), 13f, 1));
+			manageRankDropDownMenu.addMenu(new TextMenu(X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X+20*Mideas.getDisplayXFactor(), 0, (DROP_DOWN_MENU_ALERT_X_SIZE-20)*Mideas.getDisplayXFactor(), Mideas.joueur1().getGuild().getRankList().get(i).getName(), 13f, 1));
 			i++;
 		}
 		rankNameEditBox.setText(selectedRank.getName());
@@ -989,28 +992,34 @@ public class GuildFrame {
 			noteTooltip.draw();
 			Draw.drawQuad(Sprites.guild_close_information_button_border, X_SOCIAL_FRAME+595*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+32*Mideas.getDisplayYFactor());
 			closeDisplayMemberFrameCrossButton.draw();
+			long time = System.nanoTime();
 			FontManager.get("FRIZQT", 13).drawBegin();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getName(), YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getName(), YELLOW, Colors.BLACK, 1, 0, 0);
 			y+= (FontManager.get("FRIZQT", 13).getLineHeight())*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getInformationString(), Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getInformationString(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
 			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+4)*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Area : ", YELLOW, Color.black, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Area : "), y, "Area", Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Area : ", YELLOW, Colors.BLACK, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Area : "), y, "Area", Colors.WHITE, Colors.BLACK, 1, 0, 0);
 			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+2)*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Rank : ", YELLOW, Color.black, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Rank : "), y, memberInformationDisplayed.getRank().getName(), Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Rank : ", YELLOW, Colors.BLACK, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Rank : "), y, memberInformationDisplayed.getRank().getName(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
 			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+1)*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Last connection : ", YELLOW, Color.black, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Last connection : "), y, memberInformationDisplayed.getLastLoginTimerString(), Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Last connection : ", YELLOW, Colors.BLACK, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Last connection : "), y, memberInformationDisplayed.getLastLoginTimerString(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
 			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+1)*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Note : ", YELLOW, Color.black, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getNoteDisplayed(), Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Note : ", YELLOW, Colors.BLACK, 1, 0, 0);
+			long noteTimer = System.nanoTime();
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getNoteDisplayed(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
+			Mideas.nTime(noteTimer, "Note draw time");
 			FontManager.get("FRIZQT", 13).drawEnd();
+			Mideas.nTime(time, "Member information text draw time");
 			if(Mideas.joueur1().getGuildRank().canSeeOfficerNote()) {
 				y+= 61*Mideas.getDisplayYFactor();
-				FontManager.get("FRIZQT", 13).drawStringShadow(x, y, "Officer note :", YELLOW, Color.black, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadow(x, y, "Officer note :", YELLOW, Colors.BLACK, 1, 0, 0);
+				time = System.nanoTime();
 				officerNoteTooltip.draw();
-				FontManager.get("FRIZQT", 13).drawStringShadow(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getOfficerNoteDisplayed(), Color.white, Color.black, 1, 0, 0);
+				Mideas.nTime(time, "Officer note tooltip draw time");
+				FontManager.get("FRIZQT", 13).drawStringShadow(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getOfficerNoteDisplayed(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
 				Draw.drawQuad(Sprites.guild_member_display_button_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+263*Mideas.getDisplayYFactor());
 			}
 			else {
@@ -1018,7 +1027,7 @@ public class GuildFrame {
 			}
 			memberDisplayInviteButton.draw();
 			memberDisplayKickButton.draw();
-			System.out.println("Member information took "+(System.nanoTime()-timer)/1000+" µs to draw.");
+			Mideas.nTime(timer, "Member information draw time");
 		}
 	}
 	
@@ -1047,7 +1056,7 @@ public class GuildFrame {
 			}
 			informationBackground.draw();
 			guildInformationTooltip.draw();
-			FontManager.get("FRIZQT", 14).drawStringShadow(X_SOCIAL_FRAME+411*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+15*Mideas.getDisplayYFactor(), "General options", YELLOW, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 14).drawStringShadow(X_SOCIAL_FRAME+411*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+15*Mideas.getDisplayYFactor(), "General options", YELLOW, Colors.BLACK, 1, 0, 0);
 			drawInformationText();
 			Draw.drawQuad(Sprites.guild_close_information_button_border, X_SOCIAL_FRAME+691*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+7*Mideas.getDisplayYFactor());
 			journalButton.draw();
@@ -1064,9 +1073,9 @@ public class GuildFrame {
 		float y = Y_SOCIAL_FRAME+45*Mideas.getDisplayYFactor();
 		int yShift = 0;
 		float maxLength = 285*Mideas.getDisplayXFactor();
-		Color color;
+		Colors color;
 		if(Mideas.joueur1().getGuildRank().canModifyGuildInformation()) {
-			color = Color.white;
+			color = Colors.WHITE;
 		}
 		else {
 			color = GREY;
@@ -1077,7 +1086,7 @@ public class GuildFrame {
 				xShift = 0;
 			}
 			else {
-				FontManager.get("FRIZQT", 13).drawChar(x+xShift+1, y+yShift, informationInput.getText().charAt(i), Color.black);
+				FontManager.get("FRIZQT", 13).drawChar(x+xShift+1, y+yShift, informationInput.getText().charAt(i), Colors.BLACK);
 				FontManager.get("FRIZQT", 13).drawChar(x+xShift, y+yShift, informationInput.getText().charAt(i), color);
 				xShift+= FontManager.get("FRIZQT", 13).getWidth(informationInput.getText().charAt(i));
 			}
@@ -1097,15 +1106,15 @@ public class GuildFrame {
 		float y = Y_SOCIAL_FRAME+342*Mideas.getDisplayYFactor();
 		int xShift = 0;
 		FontManager.get("FRIZQT", 12).drawBegin();
-		FontManager.get("FRIZQT", 12).drawStringShadowPart(x, y, Mideas.joueur1().getGuild().getNumberMember(), Color.white, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x, y, Mideas.joueur1().getGuild().getNumberMember(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
 		xShift+= FontManager.get("FRIZQT", 12).getWidth(Mideas.joueur1().getGuild().getNumberMember());
-		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, " Guild Member (", YELLOW, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, " Guild Member (", YELLOW, Colors.BLACK, 1, 0, 0);
 		xShift+= FontManager.get("FRIZQT", 12).getWidth(" Guild Member (");
-		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, Mideas.joueur1().getGuild().getNumberOnlineMemberString(), Color.white, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, Mideas.joueur1().getGuild().getNumberOnlineMemberString(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
 		xShift+= FontManager.get("FRIZQT", 12).getWidth(Mideas.joueur1().getGuild().getNumberOnlineMemberString());
-		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, " Online ", GREEN, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, " Online ", GREEN, Colors.BLACK, 1, 0, 0);
 		xShift+= FontManager.get("FRIZQT", 12).getWidth("Online ");
-		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, ")", YELLOW, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadowPart(x+xShift, y, ")", YELLOW, Colors.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 12).drawEnd();
 	}
 	
@@ -1117,16 +1126,16 @@ public class GuildFrame {
 		float yShift = 0;
 		float maxWidth = 325*Mideas.getDisplayXFactor();
 		int length = Mideas.joueur1().getGuild().getTempMotd().length();
-		Color color;
+		Colors color;
 		if(Mideas.joueur1().getGuildRank().canModifyMotd()) {
-			color = Color.white;
+			color = Colors.WHITE;
 		}
 		else {
 			color = GREY;
 		}
 		FontManager.get("FRIZQT", 12).drawBegin();
 		while(i < length) {
-			FontManager.get("FRIZQT", 12).drawCharPart(x+xShift+1, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), Color.black);
+			FontManager.get("FRIZQT", 12).drawCharPart(x+xShift+1, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), Colors.BLACK);
 			FontManager.get("FRIZQT", 12).drawCharPart(x+xShift, y+yShift, Mideas.joueur1().getGuild().getTempMotd().charAt(i), color);
 			xShift+= FontManager.get("FRIZQT", 12).getWidth(Mideas.joueur1().getGuild().getTempMotd().charAt(i));
 			if(xShift >= maxWidth) {

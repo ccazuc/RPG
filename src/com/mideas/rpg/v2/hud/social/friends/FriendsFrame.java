@@ -1,10 +1,10 @@
 package com.mideas.rpg.v2.hud.social.friends;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandFriend;
@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.game.Friend;
 import com.mideas.rpg.v2.game.Ignore;
 import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.utils.Button;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.FrameTab;
 import com.mideas.rpg.v2.utils.ScrollBar;
@@ -24,10 +25,10 @@ import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;
 
 public class FriendsFrame {
 
-	private final static Color YELLOW = Color.decode("#FFC700");
-	private final static Color GREY = Color.decode("#999999");
+	private final static Colors YELLOW = Colors.decode("#FFC700");
+	private final static Colors GREY = Colors.decode("#999999");
 	static Friend selectedFriend;
-	static Ignore selectedIgnore;
+	static int selectedIgnore;
 	private static int hoveredFriend = -1;
 	private static int leftButtonDownFriend = -1;
 	private static int hoveredIgnore = -1;
@@ -89,12 +90,12 @@ public class FriendsFrame {
 	private final static Button removeIgnorePlayer = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor(), IGNORE_BUTTON_LENGTH*Mideas.getDisplayXFactor(), IGNORE_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Remove Player", 12 , 1) {
 		@Override
 		public void eventButtonClick() {
-			CommandIgnore.removeIgnore(selectedIgnore.getId());
+			CommandIgnore.removeIgnore(Mideas.joueur1().getIgnoreList().get(selectedIgnore).getId());
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return selectedIgnore != null;
+			return selectedIgnore != -1;
 		}
 	};
 	final static FrameTab friendFrameTab = new FrameTab(X_SOCIAL_FRAME+73*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+45*Mideas.getDisplayYFactor(), 57*Mideas.getDisplayXFactor(), 32*Mideas.getDisplayYFactor(), "Friend", 12, 1, true) {
@@ -138,15 +139,15 @@ public class FriendsFrame {
 				friend = Mideas.joueur1().getFriendList().get(i);
 				if(friend.isOnline()) {
 					Draw.drawQuad(Sprites.friend_note_online, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), YELLOW, Color.black, 1, 0, 0);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, friend.getAreaText(), Color.white, Color.black, 1, 0, 0);
-					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), friend.getInfosText(), Color.white, Color.black, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), YELLOW, Colors.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, friend.getAreaText(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), friend.getInfosText(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
 				}
 				else {
 					Draw.drawQuad(Sprites.friend_note_offline, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), GREY, Color.black, 1, 0, 0);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, " - offline", GREY, Color.black, 1, 0, 0);
-					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), "Unknwon", Color.white, Color.black, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), GREY, Colors.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, " - offline", GREY, Colors.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), "Unknwon", Colors.WHITE, Colors.BLACK, 1, 0, 0);
 				}
 				if(selectedFriend == friend || hoveredFriend == i) {
 					if(FL_SIZE > FL_MAXIMUM_DISPLAY) {
@@ -180,23 +181,29 @@ public class FriendsFrame {
 				ignoreScrollbar.draw();
 				i = (int)((IGNORE_LIST_SIZE-IL_MAXIMUM_DISPLAY)*ignoreScrollbar.getScrollPercentage());
 			}
+			long timer = System.nanoTime();
+			TTF font = FontManager.get("FRIZQT", 13);
+			font.drawBegin();
 			while(i < IGNORE_LIST_SIZE) {
 				Ignore ignore = Mideas.joueur1().getIgnoreList().get(i);
-				FontManager.get("FRIZQT", 13).drawStringShadow(x, y, ignore.getName(), YELLOW, Color.black, 1, 0, 0);
-				if(hoveredIgnore == i || ignore == selectedIgnore) {
-					if(IGNORE_LIST_SIZE > IL_MAXIMUM_DISPLAY) {
-						Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
-					}
-					else {
-						Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y, 343*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
-					}
-				}
+				font.drawStringShadowPart(x, y, ignore.getName(), YELLOW, Colors.BLACK, 1, 0, 0);
 				i++;
 				y+= yShift;
 				if(y >= Y_SOCIAL_FRAME+430*Mideas.getDisplayYFactor()) {
 					break;
 				}
 			}
+			i = 0;
+			font.drawEnd();
+			Mideas.nTime(timer, "Ignore text draw time");
+			y = Y_SOCIAL_FRAME+80*Mideas.getDisplayYFactor();
+			if(hoveredIgnore != -1) {
+				Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y+hoveredIgnore*yShift, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
+			}
+			if(selectedIgnore != -1) {
+				Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y+selectedIgnore*yShift, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
+			}
+			Mideas.nTime(timer, "Ignore text total draw time");
 		}
 		friendFrameTab.draw();
 		ignoreFrameTab.draw();
@@ -278,7 +285,7 @@ public class FriendsFrame {
 			if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0) {
 					if(hoveredIgnore != -1 && leftButtonDownIgnore == hoveredIgnore) {
-						selectedIgnore = Mideas.joueur1().getIgnoreList().get(hoveredIgnore);
+						selectedIgnore = hoveredIgnore;
 					}
 					else {
 						leftButtonDownIgnore = -1;

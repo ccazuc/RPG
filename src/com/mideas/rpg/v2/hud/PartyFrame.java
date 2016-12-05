@@ -2,7 +2,6 @@ package com.mideas.rpg.v2.hud;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -11,21 +10,22 @@ import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.game.Unit;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.TextMenu;
 import com.mideas.rpg.v2.utils.TooltipMenu;
 
 public class PartyFrame {
 
-	private final static Color backgroundColor = new Color(0, 0, 0, .4f);
-	private final static Color YELLOW = Color.decode("#F0CE0C");
+	private final static Colors backgroundColors = new Colors(0, 0, 0, .4f);
+	private final static Colors YELLOW = Colors.decode("#F0CE0C");
 	private static int hoveredMember = -1;
 	private static float hoveredMemberX;
 	private static float hoveredMemberY;
 	static int displayMember = -1;
 	private static float displayMemberX;
 	private static float displayMemberY;
-	private static TextMenu whisper = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Whisper", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu whisper = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), "Whisper", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			ChatFrame.setWhisper(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
@@ -34,7 +34,7 @@ public class PartyFrame {
 			menuTooltip.setActive(false);
 		}
 	};
-	private static TextMenu setLeader = new TextMenu(0, 0, 90*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Give leadership", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu setLeader = new TextMenu(0, 0, 90*Mideas.getDisplayXFactor(), "Give leadership", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			CommandParty.setLeaderServer(Mideas.joueur1().getParty().getPartyMember(displayMember).getId());
@@ -42,7 +42,7 @@ public class PartyFrame {
 			menuTooltip.setActive(false);
 		}
 	};
-	private static TextMenu kick = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Kick player", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu kick = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Kick player", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			CommandParty.kickPlayer(Mideas.joueur1().getParty().getPartyMember(displayMember).getId());
@@ -50,11 +50,11 @@ public class PartyFrame {
 			menuTooltip.setActive(false);
 		}
 	};
-	private static TextMenu inspect = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Inspect", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu inspect = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Inspect", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public boolean activateCondition() { return false; }
 	};
-	private static TextMenu trade = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Trade", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu trade = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Trade", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			CommandTrade.requestNewTrade(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
@@ -62,15 +62,15 @@ public class PartyFrame {
 			menuTooltip.setActive(false);
 		}
 	};
-	private static TextMenu follow = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Follow", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu follow = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Follow", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public boolean activateCondition() { return false; }
 	};
-	private static TextMenu duel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Duel", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu duel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Duel", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public boolean activateCondition() { return false; }
 	};
-	private static TextMenu cancel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), 20*Mideas.getDisplayYFactor(), "Cancel", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu cancel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Cancel", 14, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
@@ -162,15 +162,15 @@ public class PartyFrame {
 			unit.setManaText(unit.getMana()+" / "+unit.getMaxMana());
 			unit.setHasManaChanged(false);
 		}
-		Draw.drawColorQuad(x+45*Mideas.getDisplayXFactor(), y+13*Mideas.getDisplayYFactor(), 96*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayYFactor(), backgroundColor);
+		Draw.drawColorQuad(x+45*Mideas.getDisplayXFactor(), y+13*Mideas.getDisplayYFactor(), 96*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayYFactor(), backgroundColors);
 		Draw.drawQuad(Sprites.life_bar, x+54*Mideas.getDisplayXFactor(), y+28*Mideas.getDisplayYFactor(), 88*Mideas.getDisplayXFactor()*unit.getStamina()/unit.getMaxStamina(), 8*Mideas.getDisplayYFactor());
 		Draw.drawQuad(Sprites.mana_bar, x+54*Mideas.getDisplayXFactor(), y+35*Mideas.getDisplayYFactor(), 88*Mideas.getDisplayXFactor()*unit.getMana()/unit.getMaxMana(), 8*Mideas.getDisplayYFactor());
 		Draw.drawQuad(unit.getPortrait(), x+6*Mideas.getDisplayXFactor(), y+5*Mideas.getDisplayYFactor(), 45*Mideas.getDisplayXFactor(), 45*Mideas.getDisplayYFactor());
 		Draw.drawQuad(Sprites.player_portrait_party, x, y);
-		FontManager.get("FRIZQT", 13).drawStringShadow(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth(unit.getName())/2, y+11*Mideas.getDisplayYFactor(), unit.getName(), YELLOW, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 13).drawStringShadow(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth(unit.getName())/2, y+11*Mideas.getDisplayYFactor(), unit.getName(), YELLOW, Colors.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 9).drawBegin();
-		FontManager.get("FRIZQT", 9).drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 9).getWidth(unit.getHealthText())/2, y+26*Mideas.getDisplayYFactor(), unit.getHealthText(), Color.white, Color.black, 1, 0, 0);
-		FontManager.get("FRIZQT", 9).drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 9).getWidth(unit.getManaText())/2, y+33*Mideas.getDisplayYFactor(), unit.getManaText(), Color.white, Color.black, 1, 0, 0);
+		FontManager.get("FRIZQT", 9).drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 9).getWidth(unit.getHealthText())/2, y+26*Mideas.getDisplayYFactor(), unit.getHealthText(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 9).drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 9).getWidth(unit.getManaText())/2, y+33*Mideas.getDisplayYFactor(), unit.getManaText(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 9).drawEnd();
 		if(Mideas.joueur1().getParty().isPartyLeader(unit)) {
 			Draw.drawQuad(Sprites.party_leader_crown, x+5, y+8);

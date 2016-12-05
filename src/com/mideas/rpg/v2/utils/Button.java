@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.utils;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -21,11 +20,11 @@ public class Button {
 	protected TTF font;
 	private boolean buttonDown;
 	private boolean buttonHover;
-	private Color color = Color.decode("#FFC700");
-	private Color hoveredColor = Color.white;
-	private Color baseColor = Color.decode("#FFC700");
+	private Colors color = Colors.decode("#FFC700");
+	private Colors hoveredColor = Colors.WHITE;
+	private Colors baseColor = Colors.decode("#FFC700");
 	private boolean hasClicked;
-	private static final Color GREY = Color.decode("#808080");
+	private static final Colors GREY = Colors.decode("#808080");
 	private boolean isEnable = true;
 	
 	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
@@ -39,7 +38,7 @@ public class Button {
 		this.textWidth = this.font.getWidth(this.text);
 	}
 
-	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {
+	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, Colors baseColor, Colors hoveredColor) {
 		this.x = x;
 		this.y = y;
 		this.x_size = x_size;
@@ -76,7 +75,7 @@ public class Button {
 				this.color = this.hoveredColor;
 			}
 			Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
-			this.font.drawStringShadow(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.black, this.shadow_size, 0, 0);
+			this.font.drawStringShadow(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Colors.BLACK, this.shadow_size, 0, 0);
 		}
 	}
 	

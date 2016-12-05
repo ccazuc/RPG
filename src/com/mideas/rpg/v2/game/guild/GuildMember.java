@@ -1,11 +1,10 @@
 package com.mideas.rpg.v2.game.guild;
 
-import org.newdawn.slick.Color;
-
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Joueur;
+import com.mideas.rpg.v2.utils.Colors;
 
 public class GuildMember {
 
@@ -21,7 +20,7 @@ public class GuildMember {
 	private ClassType classType;
 	private String classTypeString;
 	private String levelString;
-	private Color color;
+	private Colors color;
 	private String informationString;
 	private long lastLoginTimer;
 	private String lastLoginTimerString;
@@ -186,7 +185,7 @@ public class GuildMember {
 		return this.name;
 	}
 	
-	public Color getColor() {
+	public Colors getColor() {
 		return this.color;
 	}
 	

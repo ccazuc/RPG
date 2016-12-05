@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.utils;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -33,10 +32,10 @@ public class ButtonMenuSort {
 		Draw.drawQuad(Sprites.button_menu_sort_middle_part, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.button_menu_sort_right_part, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight);
 		if(this.buttonDown) {
-			this.font.drawStringShadow(this.x+9*Mideas.getDisplayXFactor()+2, this.y+imageHeight/2-this.font.getLineHeight()/2+2, this.text, Color.white, Color.black, 1, 0, 0);
+			this.font.drawStringShadow(this.x+9*Mideas.getDisplayXFactor()+2, this.y+imageHeight/2-this.font.getLineHeight()/2+2, this.text, Colors.WHITE, Colors.BLACK, 1, 0, 0);
 		}
 		else {
-			this.font.drawStringShadow(this.x+9*Mideas.getDisplayXFactor(), this.y+imageHeight/2-this.font.getLineHeight()/2, this.text, Color.white, Color.black, 1, 0, 0);
+			this.font.drawStringShadow(this.x+9*Mideas.getDisplayXFactor(), this.y+imageHeight/2-this.font.getLineHeight()/2, this.text, Colors.WHITE, Colors.BLACK, 1, 0, 0);
 		}
 		if(this.buttonHover) {
 			Draw.drawQuadBlend(Sprites.button_menu_hover, this.x-3*Mideas.getDisplayXFactor(), this.y-3*Mideas.getDisplayYFactor(), this.x_size+7*Mideas.getDisplayYFactor(), imageHeight+9*Mideas.getDisplayYFactor());

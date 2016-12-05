@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.utils;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
@@ -59,11 +58,11 @@ public class PopupInput extends Popup {
 			this.background.draw();
 			this.inputBar.draw();
 			FontManager.get("FRIZQT", 13).drawBegin();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.white, Color.black, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Color.white, Color.black, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Colors.WHITE, Colors.BLACK, 1, 0, 0);
+			FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Colors.WHITE, Colors.BLACK, 1, 0, 0);
 			FontManager.get("FRIZQT", 13).drawEnd();
 			if(this.input.isActive() && System.currentTimeMillis()%1000 < 500) {
-				Draw.drawColorQuad(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor()+this.input.getCursorShift(), this.y+51*Mideas.getDisplayYFactor(), 5*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayYFactor(), Color.white);
+				Draw.drawColorQuad(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor()+this.input.getCursorShift(), this.y+51*Mideas.getDisplayYFactor(), 5*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayYFactor(), Colors.WHITE);
 			}
 			this.cancelButton.draw();
 			this.acceptButton.draw();
@@ -86,7 +85,7 @@ public class PopupInput extends Popup {
 	}
 	
 	public boolean keyEvent() {
-		if(this.isActive) {;
+		if(this.isActive) {
 			return this.input.event();
 		}
 		return false;

@@ -2,8 +2,6 @@ package com.mideas.rpg.v2.game;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Color;
-
 import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
@@ -35,6 +33,7 @@ import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
+import com.mideas.rpg.v2.utils.Colors;
 
 public class Joueur extends Unit {
 
@@ -68,7 +67,6 @@ public class Joueur extends Unit {
 	private Wear wear;
 	private int gold;
 	private int exp;
-	private int id;
 	public int x;
 	public static int y;
 	public static int z;
@@ -436,9 +434,7 @@ public class Joueur extends Unit {
 			if(item.isStackable()) {
 				return addSingleItem(item, amount);
 			}
-			else {
-				return addMultipleUnstackableItem(item.getId(), amount);
-			}
+			return addMultipleUnstackableItem(item.getId(), amount);
 		}
 		return false;
 	}
@@ -958,7 +954,7 @@ public class Joueur extends Unit {
 	}
 
 	
-	public static Color convClassTypeToColor(ClassType type) {
+	public static Colors convClassTypeToColor(ClassType type) {
 		if(type == ClassType.DRUID) {
 			return ClassColor.DRUID_COLOR;
 		}

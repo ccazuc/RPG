@@ -2,7 +2,6 @@ package com.mideas.rpg.v2.hud;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
@@ -17,6 +16,7 @@ import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.utils.Colors;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.IntegerInput;
@@ -25,11 +25,11 @@ import com.mideas.rpg.v2.utils.Tooltip;
 public class ContainerFrame {
 	
 	private static int hoveredSlot = -1;
-	private final static Color bgColor = new Color(0, 0, 0, .6f); 
-	private final static Color BLUE = Color.decode("#0268CC");
-	private final static Color PURPLE = Color.decode("#822CB7");
-	private final static Color LEGENDARY = Color.decode("#FF800D");
-	private final static Color YELLOW = Color.decode("#FFC700");
+	private final static Colors bgColor = new Colors(0, 0, 0, .6f); 
+	private final static Colors BLUE = Colors.decode("#0268CC");
+	private final static Colors PURPLE = Colors.decode("#822CB7");
+	private final static Colors LEGENDARY = Colors.decode("#FF800D");
+	private final static Colors YELLOW = Colors.decode("#FFC700");
 	private static int x;
 	private static int xShift;
 	private static int y;
@@ -100,7 +100,7 @@ public class ContainerFrame {
 		}
 	};
  	
-	private static void drawBags(int i, int x_items, int y_items, int x_textt, int y_textt) {
+	private static void drawBags(int i, int x_items, int y_items) {
 		drawBag(i, x_items, y_items);
 		if(hoveredSlot == i) {
 			iHover = i;
@@ -227,28 +227,28 @@ public class ContainerFrame {
 			}
 			if(i < 16) {
 				if(isBagOpen[0]) {
-					drawBags(i, x+j*xShift+xBagShift, y+k*yShift+z, x+xBagShift, y+z);
+					drawBags(i, x+j*xShift+xBagShift, y+k*yShift+z);
 				}
 			}
 			else if(i >= 16 && i < Mideas.joueur1().bag().getEquippedBagSize(0)+16) {
 				if(isBagOpen[1]) {
-					drawBags(i, x+j*xShift+xBagShift, y+k*yShift+z, x+xBagShift, y+z);
+					drawBags(i, x+j*xShift+xBagShift, y+k*yShift+z);
 				}
 			}
 			else if(i >= Mideas.joueur1().bag().getEquippedBagSize(0)+16 && i < Mideas.joueur1().bag().getEquippedBagSize(0)+Mideas.joueur1().bag().getEquippedBagSize(1)+16) {
 				if(isBagOpen[2]) { 
-					drawBags(i, x+j*xShift+xBagShift, y+k*yShift+z, x+xBagShift, y+z);
+					drawBags(i, x+j*xShift+xBagShift, y+k*yShift+z);
 				}
 			}
 			else if(i >= Mideas.joueur1().bag().getEquippedBagSize(0)+Mideas.joueur1().bag().getEquippedBagSize(1)+16 && i < Mideas.joueur1().bag().getEquippedBagSize(0)+Mideas.joueur1().bag().getEquippedBagSize(1)+Mideas.joueur1().bag().getEquippedBagSize(2)+16) {
 				if(isBagOpen[3]) {
-					drawBags(i, x+j*xShift+xBagShift, k*yShift+z, x+xBagShift, z);
+					drawBags(i, x+j*xShift+xBagShift, k*yShift+z);
 				}
 			}
 			else if(i >= Mideas.joueur1().bag().getEquippedBagSize(0)+Mideas.joueur1().bag().getEquippedBagSize(1)+Mideas.joueur1().bag().getEquippedBagSize(2)+16 && i < Mideas.joueur1().bag().getEquippedBagSize(0)+Mideas.joueur1().bag().getEquippedBagSize(1)+Mideas.joueur1().bag().getEquippedBagSize(2)+Mideas.joueur1().bag().getEquippedBagSize(3)+16) {
 				if(isBagOpen[4]) { 
 					System.out.println(z+" "+-bagSize[4]+" "+k+" "+resize+" "+(-bagSize[4]-142)+" "+Mideas.mouseY());
-					drawBags(i, x+j*xShift+xBagShift, k*yShift+z, x+xBagShift, z);
+					drawBags(i, x+j*xShift+xBagShift, k*yShift+z);
 				}
 			}
 			i++;
@@ -715,7 +715,7 @@ public class ContainerFrame {
 		if(Mideas.joueur1().bag().getBag(i) != null) {
 			Draw.drawQuad(IconsManager.getSprite37((Mideas.joueur1().bag().getBag(i).getSpriteId())), Display.getWidth()+x, Display.getHeight()+y);
 			if((Mideas.joueur1().bag().getBag(i).isStackable())) {
-				FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()+x+35*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 16).getWidth(Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount())), Display.getHeight()+y+20*Mideas.getDisplayYFactor(), Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount()), Color.white, Color.black, 1, 1, 1);
+				FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()+x+35*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 16).getWidth(Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount())), Display.getHeight()+y+20*Mideas.getDisplayYFactor(), Integer.toString(Mideas.joueur1().bag().getBag(i).getAmount()), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 				if(Mideas.joueur1().bag().getBag(i).getAmount() <= 0) {
 					Mideas.joueur1().bag().setBag(i, null);
 				}
@@ -774,7 +774,7 @@ public class ContainerFrame {
 			numberItem = 1;
 		}
 		Draw.drawQuad(Sprites.itemnumber_frame, Display.getWidth()+x+30-Sprites.itemnumber_frame.getImageWidth(), Display.getHeight()+y-5-Sprites.itemnumber_frame.getImageHeight());
-		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()+x+153-Sprites.itemnumber_frame.getImageWidth()-FontManager.get("FRIZQT", 13).getWidth(Integer.toString(numberItem)), Display.getHeight()+y+15-Sprites.itemnumber_frame.getImageHeight(), Integer.toString(numberItem), Color.white, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 13).drawStringShadow(Display.getWidth()+x+153-Sprites.itemnumber_frame.getImageWidth()-FontManager.get("FRIZQT", 13).getWidth(Integer.toString(numberItem)), Display.getHeight()+y+15-Sprites.itemnumber_frame.getImageHeight(), Integer.toString(numberItem), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 		xItemNumber = x+30-Sprites.itemnumber_frame.getImageWidth();
 		yItemNumber = y-5-Sprites.itemnumber_frame.getImageHeight();
 		if(numberItem > 1) {
@@ -790,37 +790,37 @@ public class ContainerFrame {
 			int shift = 60;
 			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getItemType() == ItemType.STUFF) {
 				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()/2-80, 285, 80+TTF2.get("FRIZQT", 15).getLineHeight()*4, bgColor);
-				TTF2.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-180-TTF2.get("FRIZQT", 20).getWidth(Mideas.joueur1().bag().getBag(i).getStuffName())/2, Display.getHeight()/2+y-20, Mideas.joueur1().bag().getBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
+				TTF2.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-180-TTF2.get("FRIZQT", 20).getWidth(Mideas.joueur1().bag().getBag(i).getStuffName())/2, Display.getHeight()/2+y-20, Mideas.joueur1().bag().getBag(i).getStuffName(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 				if(((Stuff)Mideas.joueur1().bag().getBag(i)).getArmor() > 0) {
-					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getArmor()+" Armor", Color.white, Color.black, 1, 1, 1);
+					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getArmor()+" Armor", Colors.WHITE, Colors.BLACK, 1, 1, 1);
 					shift+= 20;
 				}
 				if(((Stuff)Mideas.joueur1().bag().getBag(i)).getStamina() > 0) {
-					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getStamina()+" Stamina", Color.white, Color.black, 1, 1, 1);
+					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getStamina()+" Stamina", Colors.WHITE, Colors.BLACK, 1, 1, 1);
 					shift+= 20;
 				}
 				if(((Stuff)Mideas.joueur1().bag().getBag(i)).getMana() > 0) {
-					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getMana()+" Mana", Colors.WHITE, Colors.BLACK, 1, 1, 1);
 					shift+= 20;
 				}
 				if(((Stuff)Mideas.joueur1().bag().getBag(i)).getStrength() > 0) {
-					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getStrength()+" Strengh", Color.white, Color.black, 1, 1, 1);
+					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getStrength()+" Strengh", Colors.WHITE, Colors.BLACK, 1, 1, 1);
 					shift+= 20;
 				}
 				if(((Stuff)Mideas.joueur1().bag().getBag(i)).getCritical() > 0) {
-					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getCritical()+" Critical", Color.white, Color.black, 1, 1, 1);
+					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "+"+((Stuff)Mideas.joueur1().bag().getBag(i)).getCritical()+" Critical", Colors.WHITE, Colors.BLACK, 1, 1, 1);
 				}
 				ContainerFrame.calcCoinContainer(Mideas.joueur1().bag().getBag(i).getSellPrice(), x-70, y+100);
 			}
 			else if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getItemType() == ItemType.POTION) {
 				Draw.drawColorQuad(Display.getWidth()+x-300, Display.getHeight()/2-80, 285, 80+TTF2.get("FRIZQT", 15).getLineHeight()*4, bgColor);
-				TTF2.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-180-TTF2.get("FRIZQT", 20).getWidth(Mideas.joueur1().bag().getBag(i).getStuffName())/2, Display.getHeight()/2+y-20, Mideas.joueur1().bag().getBag(i).getStuffName(), Color.white, Color.black, 1, 1, 1);
+				TTF2.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-180-TTF2.get("FRIZQT", 20).getWidth(Mideas.joueur1().bag().getBag(i).getStuffName())/2, Display.getHeight()/2+y-20, Mideas.joueur1().bag().getBag(i).getStuffName(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 				if(((Potion)Mideas.joueur1().bag().getBag(i)).getPotionHeal() > 0) {
-					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "Restores "+((Potion)Mideas.joueur1().bag().getBag(i)).getPotionHeal()+" Hp", Color.white, Color.black, 1, 1, 1);
+					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "Restores "+((Potion)Mideas.joueur1().bag().getBag(i)).getPotionHeal()+" Hp", Colors.WHITE, Colors.BLACK, 1, 1, 1);
 					shift+= 20;
 				}
 				if(((Potion)Mideas.joueur1().bag().getBag(i)).getPotionMana() > 0) {
-					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "Restores "+((Potion)Mideas.joueur1().bag().getBag(i)).getPotionMana()+" Mana", Color.white, Color.black, 1, 1, 1);
+					TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-295, Display.getHeight()/2+y+shift+z, "Restores "+((Potion)Mideas.joueur1().bag().getBag(i)).getPotionMana()+" Mana", Colors.WHITE, Colors.BLACK, 1, 1, 1);
 				}
 			}
 			if(Mideas.joueur1().bag().getBag(i) != null && DragManager.getClickBag(i) && DragManager.getDraggedItem() == null) {
@@ -862,9 +862,9 @@ public class ContainerFrame {
 		}
 		itemHoverTooltip.draw();
 		y =  -65;
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, gem.getStuffName(), getItemNameColor(gem), Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, gem.getStuffName(), getItemNameColor(gem), Colors.BLACK, 1, 1, 1);
 		shift+= 25;
-		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, gem.getGemSlotString(), YELLOW, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, gem.getGemSlotString(), YELLOW, Colors.BLACK, 1, 1, 1);
 		calcCoinContainer(Mideas.joueur1().bag().getBag(i).getSellPrice(), x-55, z+y+shift-5);
 	}
 	
@@ -880,27 +880,27 @@ public class ContainerFrame {
 		}
 		itemHoverTooltip.draw();
 		y =  -65;
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, potion.getStuffName(), getItemNameColor(potion), Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, potion.getStuffName(), getItemNameColor(potion), Colors.BLACK, 1, 1, 1);
 		shift+= 25;
 		if(potion.getPotionHeal() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, potion.getDoHealString(), Color.green, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, potion.getDoHealString(), Colors.GREEN, Colors.BLACK, 1, 1, 1);
 			shift+= 20;
 		}
 		if(potion.getPotionMana() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, potion.getDoManaString(), Color.green, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, potion.getDoManaString(), Colors.GREEN, Colors.BLACK, 1, 1, 1);
 			shift+= 20;
 		}
 		if(Mideas.joueur1().getLevel() >= potion.getLevel()) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, potion.getLevelString(), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, potion.getLevelString(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 		}
 		else {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, potion.getLevelString(), Color.red, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, potion.getLevelString(), Colors.RED, Colors.BLACK, 1, 1, 1);
 		}
 		calcCoinContainer(Mideas.joueur1().bag().getBag(i).getSellPrice(), x-55, z+y+shift-5);
 	}
 	
 	private static void drawStuff(int i, int x, int z) {
-		Color temp = null;
+		Colors temp = null;
 		Stuff item = (Stuff)Mideas.joueur1().bag().getBag(i);
 		int xShift = 237;
 		int shift = 45;
@@ -912,104 +912,104 @@ public class ContainerFrame {
 			itemHoverTooltip.update(Display.getWidth()+x-15-xShift, Display.getHeight()+z-10+y, 28+Math.abs(xShift), Math.abs(y)+15);
 		}
 		itemHoverTooltip.draw();
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, item.getStuffName(), getItemNameColor(item), Color.black, 1);
-		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+23, item.convStuffTypeToString(), Color.white, Color.black, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, item.getStuffName(), getItemNameColor(item), Colors.BLACK, 1);
+		FontManager.get("FRIZQT", 15).drawBegin();
+		FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+23, item.convStuffTypeToString(), Colors.WHITE, Colors.BLACK, 1);
 		if(Mideas.joueur1().canWear(item)) {
-			temp = Color.white;
+			temp = Colors.WHITE;
 		}
 		else {
-			temp = Color.red;
+			temp = Colors.RED;
 		}
-		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-20-FontManager.get("FRIZQT", 16).getWidth(item.convWearToString()), Display.getHeight()+y+23+z, item.convWearToString(), temp, Color.black, 1);
+		FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-20-FontManager.get("FRIZQT", 16).getWidth(item.convWearToString()), Display.getHeight()+y+23+z, item.convWearToString(), temp, Colors.BLACK, 1);
 		if(item.getArmor() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getArmorString(), Color.white, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getArmorString(), Colors.WHITE, Colors.BLACK, 1);
 			shift+= 20;
 		}
 		if(item.getStrength() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStrengthString(), Color.white, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStrengthString(), Colors.WHITE, Colors.BLACK, 1);
 			shift+= 20;
 		}
 		if(item.getMana() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getManaString(), Color.white, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getManaString(), Colors.WHITE, Colors.BLACK, 1);
 			shift+= 20;
 		}
 		if(item.getStamina() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStaminaString(), Color.white, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStaminaString(), Colors.WHITE, Colors.BLACK, 1);
 			shift+= 20;
 		}
 		if(item.getCritical() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getCriticalString(), Color.white, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getCriticalString(), Colors.WHITE, Colors.BLACK, 1);
 			shift+= 20;
 		}
-		
+		FontManager.get("FRIZQT", 15).drawEnd();
 		//TODO: draw gem with a function in a loop
 		
 		if(item.getGemColor(0) != GemColor.NONE) {
 			if(item.getEquippedGem(0) != null) {
 				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(0).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(0).getGemStatsString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(0).getGemStatsString(), Colors.WHITE, Colors.BLACK, 1);
 			}
 			else {
 				Draw.drawQuad(item.getFreeSlotGemSprite1(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getGem1String(), Color.gray, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getGem1String(), Colors.GREY, Colors.BLACK, 1);
 			}
-			Draw.drawQuad(Sprites.cursor, -5000, -5000);
 			shift+= 20;
 		}
 		if(item.getGemColor(1) != GemColor.NONE) {
 			if(item.getEquippedGem(1) != null) {
 				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(1).getGemStatsString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(1).getGemStatsString(), Colors.WHITE, Colors.BLACK, 1);
 			}
 			else {
 				Draw.drawQuad(item.getFreeSlotGemSprite2(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getGem2String(), Color.gray, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getGem2String(), Colors.GREY, Colors.BLACK, 1);
 			}
-			Draw.drawQuad(Sprites.cursor, -5000, -5000);
 			shift+= 20;
 		}
 		if(item.getGemColor(2) != GemColor.NONE) {
 			if(item.getEquippedGem(2) != null) {
 				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(2).getGemStatsString(), Color.white, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(2).getGemStatsString(), Colors.WHITE, Colors.BLACK, 1);
 			}
 			else {
 				Draw.drawQuad(item.getFreeSlotGemSprite3(), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getGem3String(), Color.gray, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getGem3String(), Colors.GREY, Colors.BLACK, 1);
 			}
-			Draw.drawQuad(Sprites.cursor, -5000, -5000);
 			shift+= 20;
 		}
+		FontManager.get("FRIZQT", 15).drawBegin();
 		if(item.getGemBonusType() != GemBonusType.NONE) {
 			if(item.getGemBonusActivated()) {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, item.getSocketBonusString(), Color.green, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, item.getSocketBonusString(), Colors.GREEN, Colors.BLACK, 1);
 			}
 			else {
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, item.getSocketBonusString(), Color.gray, Color.black, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z-3, item.getSocketBonusString(), Colors.GREY, Colors.BLACK, 1);
 			}
 			shift+= 20;
 		}
 		if(item.canEquipTo(Mideas.joueur1().getClassType())) {
-			temp = Color.white;
+			temp = Colors.WHITE;
 		}
 		else {
-			temp = Color.red;
+			temp = Colors.RED;
 		}
 		if(item.getClassRequirements() != null) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getClassRequirements(), temp, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getClassRequirements(), temp, Colors.BLACK, 1);
 			shift+= 20;
 		}
 		if(Mideas.joueur1().getLevel() >= item.getLevel()) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Color.white, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Colors.WHITE, Colors.BLACK, 1);
 		}
 		else {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Color.red, Color.black, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Colors.RED, Colors.BLACK, 1);
 		}
+		FontManager.get("FRIZQT", 15).drawEnd();
 		calcCoinContainer(item.getSellPrice(), x-55, z+y+shift-5);
 	}
 	
 	private static void drawWeapon(int i, int x, int z) {
-		Color temp = null;
+		Colors temp = null;
 		Stuff item = (Stuff)Mideas.joueur1().bag().getBag(i);
 		int xShift = 0;
 		int shift = 45;
@@ -1021,51 +1021,53 @@ public class ContainerFrame {
 		itemHoverTooltip.draw();
 		//Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
 		//Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.joueur1().bag().getBag(i).getStuffName(), getItemNameColor(item), Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.joueur1().bag().getBag(i).getStuffName(), getItemNameColor(item), Colors.BLACK, 1, 1, 1);
 		if(Mideas.joueur1().canWear(item)) {
-			temp = Color.white;
+			temp = Colors.WHITE;
 		}
 		else {
-			temp = Color.red;
+			temp = Colors.RED;
 		}
-		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-FontManager.get("FRIZQT", 16).getWidth(item.convTypeToString()), Display.getHeight()+y+25+z, item.convTypeToString(), temp, Color.black, 1, 1, 1);
-		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-xShift, Display.getHeight()+y+25+z, item.convSlotToString(), Color.white, Color.black, 1, 1, 1);
+		FontManager.get("FRIZQT", 15).drawBegin();
+		FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-FontManager.get("FRIZQT", 16).getWidth(item.convTypeToString()), Display.getHeight()+y+25+z, item.convTypeToString(), temp, Colors.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-xShift, Display.getHeight()+y+25+z, item.convSlotToString(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 		if(item.getArmor() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getArmorString(), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getArmorString(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			shift+= 20;
 		}
 		if(item.getStrength() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStrengthString(), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStrengthString(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			shift+= 20;
 		}
 		if(item.getMana() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getManaString(), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getManaString(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			shift+= 20;
 		}
 		if(item.getStamina() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStaminaString(), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getStaminaString(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			shift+= 20;
 		}
 		if(item.getCritical() > 0) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getCriticalString(), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getCriticalString(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			shift+= 20;
 		}
 		if(item.canEquipTo(Mideas.joueur1().getClassType())) {
-			temp = Color.white;
+			temp = Colors.WHITE;
 		}
 		else {
-			temp = Color.red;
+			temp = Colors.RED;
 		}
 		if(item.getClassRequirements() != null) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getClassRequirements(), temp, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getClassRequirements(), temp, Colors.BLACK, 1, 1, 1);
 			shift+= 20;
 		}
 		if(Mideas.joueur1().getLevel() >= item.getLevel()) {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, item.getLevelString(), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 		}
 		else {
-			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z,item.getLevelString(), Color.red, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z,item.getLevelString(), Colors.RED, Colors.BLACK, 1, 1, 1);
 		}
+		FontManager.get("FRIZQT", 15).drawEnd();
 		calcCoinContainer(Mideas.joueur1().bag().getBag(i).getSellPrice(), x-55, z+y+shift-2);
 	}
 	
@@ -1101,15 +1103,15 @@ public class ContainerFrame {
 		return i;
 	}
 	
-	public static Color getItemNameColor(Item item) {
+	public static Colors getItemNameColor(Item item) {
 		if(item.getQuality() == 0) {
-			return Color.gray;
+			return Colors.GREY;
 		}
 		if(item.getQuality() == 1) {
-			return Color.white;
+			return Colors.WHITE;
 		}
 		if(item.getQuality() == 2) {
-			return Color.green;
+			return Colors.GREEN;
 		}
 		if(item.getQuality() == 3) {
 			return BLUE;
@@ -1120,7 +1122,7 @@ public class ContainerFrame {
 		if(item.getQuality() == 5) {
 			return LEGENDARY;
 		}
-		return Color.white;
+		return Colors.WHITE;
 	}
 	
 	public static int getSlotItem(Item item) {
@@ -1166,47 +1168,47 @@ public class ContainerFrame {
 	
 	public static boolean calcCoinContainer(int cost, int x, int y) {
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-30-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-30-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-30-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y);
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y);
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 <= 0) {
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y);
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) <= 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y);
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) <= 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))+String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x-5-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y);
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) <= 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 <= 0) {
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.gold_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) <= 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 <= 0) {
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(Mideas.calcSilverCoinCost(cost))), Display.getHeight()+y, String.valueOf(Mideas.calcSilverCoinCost(cost)), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.silver_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
 		if(Mideas.calcGoldCoinCost(cost) <= 0 && Mideas.calcSilverCoinCost(cost) <= 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
-			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Color.white, Color.black, 1, 1, 1);
+			FontManager.get("FRIZQT", 18).drawStringShadow(Display.getWidth()+x+20-FontManager.get("FRIZQT", 18).getWidth(String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100)), Display.getHeight()+y, String.valueOf(cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100), Colors.WHITE, Colors.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.copper_coin_container, Display.getWidth()+x+20, Display.getHeight()+y);
 			return true;
 		}
