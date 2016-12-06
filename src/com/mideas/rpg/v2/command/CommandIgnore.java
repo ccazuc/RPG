@@ -3,13 +3,13 @@ package com.mideas.rpg.v2.command;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.Ignore;
+import com.mideas.rpg.v2.game.social.Ignore;
 
 public class CommandIgnore extends Command {
 	
 	@Override
 	public void read() {
-		byte packetId = ConnectionManager.getConnection().readByte();
+		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.IGNORE_ADD) {
 			int id = ConnectionManager.getConnection().readInt();
 			String name = ConnectionManager.getConnection().readString();
@@ -32,15 +32,15 @@ public class CommandIgnore extends Command {
 	}
 	
 	public static void addIgnore(String name) {
-		ConnectionManager.getConnection().writeByte(PacketID.IGNORE);
-		ConnectionManager.getConnection().writeByte(PacketID.IGNORE_ADD);
+		ConnectionManager.getConnection().writeShort(PacketID.IGNORE);
+		ConnectionManager.getConnection().writeShort(PacketID.IGNORE_ADD);
 		ConnectionManager.getConnection().writeString(name);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void removeIgnore(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.IGNORE);
-		ConnectionManager.getConnection().writeByte(PacketID.IGNORE_REMOVE);
+		ConnectionManager.getConnection().writeShort(PacketID.IGNORE);
+		ConnectionManager.getConnection().writeShort(PacketID.IGNORE_REMOVE);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
 	}

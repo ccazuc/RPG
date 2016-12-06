@@ -15,7 +15,7 @@ public class CommandPotion extends Command {
 
 	public static void write(int id) {
 		if(!ConnectionManager.getItemRequested().containsKey(id)) {
-			ConnectionManager.getConnection().writeByte(PacketID.POTION);
+			ConnectionManager.getConnection().writeShort(PacketID.POTION);
 			ConnectionManager.getConnection().writeInt(id);
 			ConnectionManager.getConnection().send();
 			ConnectionManager.getItemRequested().put(id, new Potion(id));

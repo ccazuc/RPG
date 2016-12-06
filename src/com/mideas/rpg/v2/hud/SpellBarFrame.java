@@ -200,7 +200,7 @@ public class SpellBarFrame {
 									@Override
 									public void endCastEvent() {
 										//((SpellShortcut)hoveredSpell).getSpell().action(Mideas.joueur1(), Mideas.target());
-										CommandSpellCast.write(((SpellShortcut)hoveredSpell).getSpell());
+										//CommandSpellCast.write(((SpellShortcut)hoveredSpell).getSpell());
 									}
 								});
 							}

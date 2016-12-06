@@ -13,7 +13,7 @@ public class CommandTrade extends Command {
 
 	@Override
 	public void read() {
-		byte packetId = ConnectionManager.getConnection().readByte();
+		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.TRADE_NEW_CONFIRM) {
 			Interface.setTradeFrameStatus(true);
 			//System.out.println("trade confirmed");
@@ -55,8 +55,8 @@ public class CommandTrade extends Command {
 			String name = ConnectionManager.getConnection().readString();
 			TradeFrame.setName(name);
 			TradeFrame.requestPending(true);
-			/*ConnectionManager.getConnection().writeByte(PacketID.TRADE);
-			ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW_CONFIRM);
+			/*ConnectionManager.getConnection().writeShort(PacketID.TRADE);
+			ConnectionManager.getConnection().writeShort(PacketID.TRADE_NEW_CONFIRM);
 			ConnectionManager.getConnection().send();
 			Interface.setTradeFrameStatus(true);*/
 		}
@@ -86,12 +86,12 @@ public class CommandTrade extends Command {
 			System.out.println("TRADE: TRADE_SEND_ALL_ITEMS");
 			TradeFrame.removedTradedItems();
 			int i = 0;
-			byte packetID;
+			short packetID;
 			int id;
 			int amount;
 			Item item;
 			while(i < 6) {
-				packetID = ConnectionManager.getConnection().readByte();
+				packetID = ConnectionManager.getConnection().readShort();
 				if(packetID == PacketID.KNOWN_ITEM) {
 					System.out.println("Added known item");
 					id = ConnectionManager.getConnection().readInt();
@@ -113,8 +113,8 @@ public class CommandTrade extends Command {
 	}
 	
 	public static void writeAddItem(Item item, int slot, int amount) {
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE_ADD_ITEM);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE_ADD_ITEM);
 		ConnectionManager.getConnection().writeInt(item.getId());
 		ConnectionManager.getConnection().writeInt(slot);
 		ConnectionManager.getConnection().writeInt(amount);
@@ -164,34 +164,34 @@ public class CommandTrade extends Command {
 	}
 	
 	public static void requestNewTrade(String name) {
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE_NEW);
 		ConnectionManager.getConnection().writeString(name);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeAccept() {
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE_ACCEPT);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE_ACCEPT);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeRemovedItem(int i) {
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE_REMOVE_ITEM);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE_REMOVE_ITEM);
 		ConnectionManager.getConnection().writeInt(i);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeCloseTrade() {
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE_CLOSE);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE_CLOSE);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeConfirm() {
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE);
-		ConnectionManager.getConnection().writeByte(PacketID.TRADE_NEW_CONFIRM);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE_NEW_CONFIRM);
 		ConnectionManager.getConnection().send();
 	}
 }

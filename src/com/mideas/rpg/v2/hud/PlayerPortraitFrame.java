@@ -10,7 +10,6 @@ import com.mideas.rpg.v2.utils.Draw;
 public class PlayerPortraitFrame {
 	
 	private final static Color backgroundColors = new Color(0, 0, 0, .4f);
-	private final static Color YELLOW = Color.decode("#F0CE0C");
 	
 	public static void draw(Unit joueur, float x, float y) {
 		if(joueur.getHasHpChanged()) {
@@ -26,11 +25,11 @@ public class PlayerPortraitFrame {
 		drawManaBar(joueur, (int)x, (int)y);
 		Draw.drawQuad(Sprites.playerUI, (int)x, (int)y);
 		Draw.drawQuad(Sprites.level, x, y+45);
-		FontManager.get("FRIZQT", 12).drawStringShadow((int)(x+135*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 12).getWidth(joueur.getName())/2), (int)(15*Mideas.getDisplayYFactor()+y), joueur.getName(), Color.ORANGE, Color.BLACK, 1, 1, 1);    
+		FontManager.get("FRIZQT", 12).drawStringShadow((int)(x+135*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 12).getWidth(joueur.getName())/2), (int)(15*Mideas.getDisplayYFactor()+y), joueur.getName(), Color.YELLOW, Color.BLACK, 1, 1, 1);    
 		FontManager.get("FRIZQT", 11).drawBegin();
 		drawHealthText(joueur, (int)x, (int)y);
 		drawManaText(joueur, (int)x, (int)y);
-		FontManager.get("FRIZQT", 11).drawStringShadow(x+16-FontManager.get("FRIZQT", 11).getWidth(String.valueOf(joueur.getLevel()))/2, y+55, String.valueOf(joueur.getLevel()), YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 11).drawStringShadow(x+16-FontManager.get("FRIZQT", 11).getWidth(String.valueOf(joueur.getLevel()))/2, y+55, String.valueOf(joueur.getLevel()), Color.YELLOW, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 11).drawEnd();
 		drawPortait(joueur, (int)x, (int)y);
 		if(Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(joueur)) {

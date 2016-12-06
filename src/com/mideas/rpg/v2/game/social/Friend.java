@@ -1,6 +1,8 @@
-package com.mideas.rpg.v2.game;
+package com.mideas.rpg.v2.game.social;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.race.Race;
 
 public class Friend {

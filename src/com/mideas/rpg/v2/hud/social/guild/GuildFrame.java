@@ -66,8 +66,8 @@ public class GuildFrame {
 	private static int hoveredMemberY;
 	static GuildMember memberMenu;
 	private static int selectedMember = -1;
-	private final static Color YELLOW = Color.decode("#FFC700");
-	private final static Color GREY = Color.decode("#999999");
+	private final static Color YELLOW = Color.YELLOW;
+	private final static Color GREY = Color.GREY;
 	private final static Color GREEN = new Color(64/255f, 251/255f, 64f/255f);
 	static boolean displayGuildInformation;
 	private static boolean inputInit;
@@ -265,7 +265,7 @@ public class GuildFrame {
 		
 		@Override
 		public boolean activateCondition() {
-			return memberInformationDisplayed != null && memberInformationDisplayed.getId() != Mideas.joueur1().getId() && memberInformationDisplayed.isOnline() && ((Mideas.joueur1().getParty() == null) || (Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())));
+			return memberInformationDisplayed != null && Mideas.joueur1().canInvitePlayerInParty(memberInformationDisplayed.getId());
 		}
 	};
 	private final static CrossButton closeInformationFrameCrossButton = new CrossButton(X_SOCIAL_FRAME+698*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+10*Mideas.getDisplayYFactor()) {
@@ -739,7 +739,7 @@ public class GuildFrame {
 		FontManager.get("FRIZQT", 13).drawBegin();
 		while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
 			if(Mideas.joueur1().getGuild().getMemberList().get(i).isOnline()) {
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), YELLOW, Color.BLACK, 1, 0, 0);
+				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
 				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", Color.WHITE, Color.BLACK, 1, 0, 0);
 				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), Color.WHITE, Color.BLACK, 1, 0, 0);
 				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), Mideas.joueur1().getGuild().getMemberList().get(i).getColor(), Color.BLACK, 1, 0, 0);

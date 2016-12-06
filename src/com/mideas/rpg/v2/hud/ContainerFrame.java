@@ -29,7 +29,6 @@ public class ContainerFrame {
 	private final static Color BLUE = Color.decode("#0268CC");
 	private final static Color PURPLE = Color.decode("#822CB7");
 	private final static Color LEGENDARY = Color.decode("#FF800D");
-	private final static Color YELLOW = Color.decode("#FFC700");
 	private static int x;
 	private static int xShift;
 	private static int y;
@@ -864,7 +863,7 @@ public class ContainerFrame {
 		y =  -65;
 		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, gem.getStuffName(), getItemNameColor(gem), Color.BLACK, 1, 1, 1);
 		shift+= 25;
-		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, gem.getGemSlotString(), YELLOW, Color.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, gem.getGemSlotString(), Color.YELLOW, Color.BLACK, 1, 1, 1);
 		calcCoinContainer(Mideas.joueur1().bag().getBag(i).getSellPrice(), x-55, z+y+shift-5);
 	}
 	

@@ -29,6 +29,7 @@ import com.mideas.rpg.v2.command.CommandSendRealmList;
 import com.mideas.rpg.v2.command.CommandSendSingleBagItem;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.command.CommandUpdateStats;
+import com.mideas.rpg.v2.command.CommandWho;
 import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
@@ -57,8 +58,8 @@ public class ConnectionManager {
 	private static final String IP = "127.0.0.1";
 	private static final int AUTH_PORT = 5725;
 	private static boolean init;
-	private static byte worldLastReadedPacket;
-	private static byte authLastReadedPacket;
+	private static short worldLastReadedPacket;
+	private static short authLastReadedPacket;
 	
 	private static void initPacket() {
 		commandList.put((int)LOGIN, new CommandLogin());
@@ -90,6 +91,7 @@ public class ConnectionManager {
 		commandList.put((int)PARTY, new CommandParty());
 		commandList.put((int)GUILD, new CommandGuild());
 		commandList.put((int)IGNORE, new CommandIgnore());
+		commandList.put((int)WHO, new CommandWho());
 	}
 
 	public static final boolean connectAuthServer() {
@@ -176,8 +178,6 @@ public class ConnectionManager {
  		if(worldServerConnection != null) {
  			worldServerConnection.close();
  		}
- 		authSocket = null;
- 		authServerConnection = null;
 		socket = null;
 		worldServerConnection = null;
 	}
@@ -239,7 +239,7 @@ public class ConnectionManager {
 	
 	private static void readAuthPacket() {
 		while(authServerConnection != null && authServerConnection.hasRemaining()) {
-			byte packetId = authServerConnection.readByte();
+			short packetId = authServerConnection.readShort();
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();
 				authLastReadedPacket = packetId;
@@ -252,7 +252,7 @@ public class ConnectionManager {
 	
 	private static void readPacket() {
 		while(worldServerConnection != null && worldServerConnection.hasRemaining()) {
-			byte packetId = worldServerConnection.readByte();
+			short packetId = worldServerConnection.readShort();
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();
 				worldLastReadedPacket = packetId;

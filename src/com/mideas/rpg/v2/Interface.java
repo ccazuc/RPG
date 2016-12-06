@@ -43,6 +43,7 @@ import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.SpellLevel;
 import com.mideas.rpg.v2.hud.TradeFrame;
+import com.mideas.rpg.v2.hud.social.OsefFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 import com.mideas.rpg.v2.utils.Draw;
@@ -66,23 +67,26 @@ public class Interface {
 	private static boolean craftFrameActive;
 	private static boolean chatFrameActive = true;
 	private static boolean cast;
-	private static double containerDrawTime;
-	private static double containerMouseEventTime;
-	private static double characterMouseEventTime;
-	private static double spellBarMouseEventTime;
-	private static double dragMouseEventTime;
+	private static long containerDrawTime;
+	private static long containerMouseEventTime;
+	private static long characterMouseEventTime;
+	private static long spellBarMouseEventTime;
+	private static long dragMouseEventTime;
 	private static boolean hasLoggedInToAuth;
 	private static boolean isStuffFullyLoaded;
 	private static boolean isBagFullyLoaded;
 	private static boolean isSpellbarFullyLoaded = true;
 	private static boolean socketingFrameActive;
 	private static boolean socialFrameActive;
-	private static double time;
+	private static long time;
+	private static long socialDrawTime;
 	
 	private static long LAST_CONTAINER_TIMER;
 	private final static int CONTAINER_TIMER_FREQUENCE = 1000;
 	private static long LAST_SPELLBAR_TIMER;
 	private final static int SPELLBAR_TIMER_FREQUENCE = 1000;
+	private static long LAST_SOCIAL_TIMER;
+	private final static int SOCIAL_TIMER_FREQUENCE = 1000;
 	private static long LAST_CHARACTER_MOUSE_EVENT_TIMER;
 	private final static int CHARACTER_MOUSE_EVENT_TIMER_FREQUENCE = 1000;
 	private static long LAST_CONTAINER_MOUSE_EVENT_TIMER;
@@ -133,14 +137,14 @@ public class Interface {
 						EndFightFrame.draw();
 					}
 				}
-				PopupFrame.draw();
+				OsefFrame.draw();
 				PartyFrame.draw();
 				TradeFrame.event();
 				RedAlertFrame.draw();
 				SpellBarFrame.draw();
 				CastBar.event();
 				SpellLevel.addSpell();
-				double time = System.nanoTime();
+				long time = System.nanoTime();
 				if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 					containerFrameActive = true;
 					ContainerFrame.draw();
@@ -150,8 +154,13 @@ public class Interface {
 					containerDrawTime = System.nanoTime()-time;
 					LAST_CONTAINER_TIMER = System.currentTimeMillis();
 				}
+				time = System.nanoTime();
 				if(socialFrameActive) {
 					SocialFrame.draw();
+				}
+				if(System.currentTimeMillis()-LAST_SOCIAL_TIMER >= SOCIAL_TIMER_FREQUENCE) {
+					socialDrawTime = System.nanoTime()-time;
+					LAST_SOCIAL_TIMER = System.currentTimeMillis();
 				}
 				if(shopFrameActive) {
 					ShopManager.draw();		
@@ -192,6 +201,7 @@ public class Interface {
 				}
 				PerformanceBarFrame.draw();
 				LogChat.draw();
+				PopupFrame.draw();
 				DragManager.draw();
 				DragBagManager.draw();
 				DragSpellManager.draw();
@@ -368,7 +378,7 @@ public class Interface {
 				//System.out.println(Keyboard.getEventKey());
 				if(!Input.hasInputActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						PopupFrame.activateAddFriendPopupInput();
+						OsefFrame.run();
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
@@ -576,23 +586,27 @@ public class Interface {
 		return isBagFullyLoaded;
 	}
 	
-	public static double getContainerDrawTime() {
+	public static long getSocialDrawTime() {
+		return socialDrawTime;
+	}
+	
+	public static long getContainerDrawTime() {
 		return containerDrawTime;
 	}
 	
-	public static double getContainerMouseEventTime() {
+	public static long getContainerMouseEventTime() {
 		return containerMouseEventTime;
 	}
 	
-	public static double getCharacterMouseEventTime() {
+	public static long getCharacterMouseEventTime() {
 		return characterMouseEventTime;
 	}
 	
-	public static double getSpellBarMouseEventTime() {
+	public static long getSpellBarMouseEventTime() {
 		return spellBarMouseEventTime;
 	}
 	
-	public static double getDragMouseEventTime() {
+	public static long getDragMouseEventTime() {
 		return dragMouseEventTime;
 	}
 	

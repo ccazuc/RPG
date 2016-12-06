@@ -45,7 +45,7 @@ public class GuildMember {
 		this.note_save = note;
 		setOfficerNoteSave(officer_note);
 		this.classType = classType;
-		this.color = Joueur.convClassTypeToColor(this.classType);
+		this.color = Color.convClassTypeToColor(this.classType);
 		this.classTypeString = Joueur.convClassTypeToString(this.classType);
 		this.informationString = this.classTypeString+" level "+this.levelString;
 		this.lastLoginTimer = lastLoginTimer;
@@ -173,6 +173,7 @@ public class GuildMember {
 	}
 	
 	public Color getColor() {
+		System.out.println(this.name+" "+this.color);
 		return this.color;
 	}
 	

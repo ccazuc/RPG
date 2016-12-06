@@ -19,7 +19,7 @@ public class CommandLogin extends Command {
 
 	@Override
 	public void read() {
-		byte packetId = ConnectionManager.getAuthConnection().readByte();
+		short packetId = ConnectionManager.getAuthConnection().readShort();
 		if(packetId == LOGIN_ACCEPT) {
 			int id = ConnectionManager.getAuthConnection().readInt();
 			//int rank = ConnectionManager.getAuthConnection().readInt();
@@ -56,13 +56,11 @@ public class CommandLogin extends Command {
 			int port = ConnectionManager.getAuthConnection().readInt();
 			ConnectionManager.connectWorldServer(port);
 			if(ConnectionManager.isConnected()) {
-				ConnectionManager.getConnection().writeByte(PacketID.LOGIN_REALM);
-				ConnectionManager.getConnection().writeByte(PacketID.LOGIN_REALM_REQUEST);
+				ConnectionManager.getConnection().writeShort(PacketID.LOGIN_REALM);
+				ConnectionManager.getConnection().writeShort(PacketID.LOGIN_REALM_REQUEST);
 				ConnectionManager.getConnection().writeDouble(key);
 				ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
 				ConnectionManager.getConnection().send();
-				SelectScreen.getAlert().setInactive();
-				SelectScreen.setRealmScreenActive(false);
 				System.out.println("LOGINr:LOGIN_REALM_ACCEPTED");
 			}
 			else {
@@ -75,7 +73,7 @@ public class CommandLogin extends Command {
 	
 	public static void write(String account, String password) {
 		if(ConnectionManager.isAuthServerConnected()) {
-			ConnectionManager.getAuthConnection().writeByte(LOGIN);
+			ConnectionManager.getAuthConnection().writeShort(LOGIN);
 			ConnectionManager.getAuthConnection().writeString(account);
 			ConnectionManager.getAuthConnection().writeString(password);
 			ConnectionManager.getAuthConnection().send();
@@ -83,7 +81,7 @@ public class CommandLogin extends Command {
 	}
 	
 	public static void loginRealm(int id) {
-		ConnectionManager.getAuthConnection().writeByte(PacketID.LOGIN_REALM);
+		ConnectionManager.getAuthConnection().writeShort(PacketID.LOGIN_REALM);
 		ConnectionManager.getAuthConnection().writeInt(id);
 		ConnectionManager.getAuthConnection().send();
 		System.out.println("LOGINw:LOGIN_REALM");

@@ -10,7 +10,7 @@ public class CommandRequestItem extends Command {
 	public void read() {}
 	
 	public static void write(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.REQUEST_ITEM);
+		ConnectionManager.getConnection().writeShort(PacketID.REQUEST_ITEM);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
 	}

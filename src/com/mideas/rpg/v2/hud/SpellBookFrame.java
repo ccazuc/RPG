@@ -19,7 +19,6 @@ public class SpellBookFrame {
 	
 	private static boolean[] hover_book = new boolean[7];
 	private static boolean hover_book_button;
-	private final static Color YELLOW = Color.decode("#D9D623");
 	private final static Color BROWN = Color.decode("#633E21");
 
 	public static void draw() {
@@ -31,7 +30,7 @@ public class SpellBookFrame {
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y);
 			Draw.drawQuad(IconsManager.getSprite42(SpellManager.getBookSpell(102).getSpriteId()), Display.getWidth()/2+x+20, Display.getHeight()/2+y+yShift+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y+yShift);
-			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+yShift+15, "Heroic Strike", YELLOW, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+yShift+15, "Heroic Strike", Color.YELLOW, Color.BLACK, 1, 1, 1);
 			drawSpell(Sprites.spell_book_grey_charge, IconsManager.getSprite42(SpellManager.getBookSpell(101).getSpriteId()), 3, x, y+2*yShift, "Charge");
 			drawSpell(Sprites.spell_book_grey_thunder_clap, IconsManager.getSprite42(SpellManager.getBookSpell(105).getSpriteId()), 7, x, y+3*yShift, "Thunder Clap");
 			drawSpell(Sprites.spell_book_grey_rend, IconsManager.getSprite42(SpellManager.getBookSpell(104).getSpriteId()), 10, x, y+4*yShift, "Rend");
@@ -80,7 +79,7 @@ public class SpellBookFrame {
 		else {
 			Draw.drawQuad(texture, Display.getWidth()/2+x+20, Display.getHeight()/2+y+15);
 			Draw.drawQuad(Sprites.spellbook_spell_bg, Display.getWidth()/2+x, Display.getHeight()/2+y);
-			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+15, spellName, YELLOW, Color.BLACK, 1, 1, 1);
+			FontManager.get("FRIZQT", 12).drawStringShadow(Display.getWidth()/2+x+75, Display.getHeight()/2+y+15, spellName, Color.YELLOW, Color.BLACK, 1, 1, 1);
 		}
 	}
 	

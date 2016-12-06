@@ -22,12 +22,14 @@ public class LoginScreen {
 	private static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 130*Mideas.getDisplayXFactor(), 230*Mideas.getDisplayXFactor(), 38*Mideas.getDisplayYFactor(), Display.getHeight()+30, 20, "Ok");
 	private static StringBuilder passwordBuilder = new StringBuilder();
 	private static Button leaveButton = new Button(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Leave", 16, 2) {
+		
 		@Override
 		public void eventButtonClick() {
 			Mideas.close();
 		}
 	};
 	private static Button connectionButton = new Button(Display.getWidth()/2-105*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Connection", 16, 2) {
+		
 		@Override
 		public void eventButtonClick() {
 			connectionEvent();
@@ -43,8 +45,8 @@ public class LoginScreen {
 	
 	public static void draw() {
 		Draw.drawQuadBG(Sprites.login_screen);
-		FontManager.get("FRIZQT", 21).drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.WHITE);
-		FontManager.get("FRIZQT", 16).drawString(Display.getWidth()/2-93*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), passwordText, Color.WHITE);
+		FontManager.get("FRIZQT", 21).drawString(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.WHITE);
+		FontManager.get("FRIZQT", 16).drawString(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), passwordText, Color.WHITE);
 		if(System.currentTimeMillis()%1000 < 500) {
 			if(account.isActive()) {
 				FontManager.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.WHITE);
@@ -144,9 +146,6 @@ public class LoginScreen {
 			alert.setActive();
 		}
 		else {
-			/*if(LoginManager.checkLogin(account.getText(), password.getText())) {
-				loginSuccess();
-			}*/
 			passwordText = "";
 			alert.setText("Connection...");
 			alert.setActive();
@@ -156,8 +155,9 @@ public class LoginScreen {
 	}
 	
 	public static void loginSuccess() {
-		account.setIsActive(false);
-		password.setIsActive(true);
+		account.setIsActive(true);
+		password.setIsActive(false);
+		account.resetText();
 		alert.setInactive();
 	}
 	

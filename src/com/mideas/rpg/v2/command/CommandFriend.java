@@ -7,15 +7,15 @@ import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.ClassType;
-import com.mideas.rpg.v2.game.Friend;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.race.Race;
+import com.mideas.rpg.v2.game.social.Friend;
 
 public class CommandFriend extends Command {
 
 	@Override
 	public void read() {
-		byte packetId = ConnectionManager.getConnection().readByte();
+		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.FRIEND_SEND_INFO) {
 			
 		}
@@ -85,8 +85,8 @@ public class CommandFriend extends Command {
 	public static void addFriend(String name) {
 		if(Mideas.joueur1().getFriendList().size() < Joueur.MAXIMUM_AMOUNT_FRIENDS) {
 			if(!name.equals(Mideas.joueur1().getName())) {
-				ConnectionManager.getConnection().writeByte(PacketID.FRIEND);
-				ConnectionManager.getConnection().writeByte(PacketID.FRIEND_ADD);
+				ConnectionManager.getConnection().writeShort(PacketID.FRIEND);
+				ConnectionManager.getConnection().writeShort(PacketID.FRIEND_ADD);
 				ConnectionManager.getConnection().writeString(name);
 				ConnectionManager.getConnection().send();
 			}
@@ -100,8 +100,8 @@ public class CommandFriend extends Command {
 	}
 	
 	public static void removeFriend(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.FRIEND);
-		ConnectionManager.getConnection().writeByte(PacketID.FRIEND_REMOVE);
+		ConnectionManager.getConnection().writeShort(PacketID.FRIEND);
+		ConnectionManager.getConnection().writeShort(PacketID.FRIEND_REMOVE);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
 	}

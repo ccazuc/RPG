@@ -25,9 +25,12 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
+import com.mideas.rpg.v2.game.race.Race;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
+import com.mideas.rpg.v2.game.social.Friend;
+import com.mideas.rpg.v2.game.social.Ignore;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.PartyFrame;
@@ -721,6 +724,10 @@ public class Joueur extends Unit {
 		this.party = party;
 	}
 	
+	public boolean canInvitePlayerInParty(int id) {
+		return id != Mideas.joueur1().getId() && ((this.party == null) || (this.party.isPartyLeader(this)));
+	}
+	
 	public Party getParty() {
 		return this.party;
 	}
@@ -950,38 +957,6 @@ public class Joueur extends Unit {
 		if(type == ClassType.WARLOCK) {
 			return warlock;
 		}
-		return "";
-	}
-
-	
-	public static Color convClassTypeToColor(ClassType type) {
-		if(type == ClassType.DRUID) {
-			return ClassColor.DRUID_COLOR;
-		}
-		if(type == ClassType.GUERRIER) {
-			return ClassColor.WARRIOR_COLOR;
-		}
-		if(type == ClassType.HUNTER) {
-			return ClassColor.HUNTER_COLOR;
-		}
-		if(type == ClassType.MAGE) {
-			return ClassColor.MAGE_COLOR;
-		}
-		if(type == ClassType.PALADIN) {
-			return ClassColor.PALADIN_COLOR;
-		}
-		if(type == ClassType.PRIEST) {
-			return ClassColor.PRIEST_COLOR;
-		}
-		if(type == ClassType.ROGUE) {
-			return ClassColor.ROGUE_COLOR;
-		}
-		if(type == ClassType.SHAMAN) {
-			return ClassColor.SHAMAN_COLOR;
-		}
-		if(type == ClassType.WARLOCK) {
-			return ClassColor.WARLOCK_COLOR;
-		}
 		return null;
 	}
 	
@@ -1012,6 +987,40 @@ public class Joueur extends Unit {
 		}
 		if(classType.equals(warlock)) {
 			return ClassType.WARLOCK;
+		}
+		return null;
+	}
+	
+	public static String convRaceToString(Race race) {
+		if(race == Race.BLOODELF) {
+			return "Bloodelf";
+		}
+		if(race == Race.DRAENEI) {
+			return "Draenei";
+		}
+		if(race == Race.DWARF) {
+			return "Dwarf";
+		}
+		if(race == Race.GNOME) {
+			return "Gnome";
+		}
+		if(race == Race.HUMAN) {
+			return "Human";
+		}
+		if(race == Race.NIGHTELF) {
+			return "Nightelf";
+		}
+		if(race == Race.ORC) {
+			return "Orc";
+		}
+		if(race == Race.TAUREN) {
+			return "Tauren";
+		}
+		if(race == Race.TROLL) {
+			return "Troll";
+		}
+		if(race == Race.UNDEAD) {
+			return "Undead";
 		}
 		return null;
 	}

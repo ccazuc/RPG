@@ -97,7 +97,7 @@ public class Item implements Cloneable {
 	}
 	
 	public static void requestItem(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.REQUEST_ITEM);
+		ConnectionManager.getConnection().writeShort(PacketID.REQUEST_ITEM);
 		ConnectionManager.getConnection().writeInt(id);
 	}
 	

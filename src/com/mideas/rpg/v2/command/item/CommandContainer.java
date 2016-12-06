@@ -15,7 +15,7 @@ public class CommandContainer extends Command {
 
 	public static void write(int id) {
 		if(!ConnectionManager.getItemRequested().containsKey(id)) {
-			ConnectionManager.getConnection().writeByte(PacketID.CONTAINER);
+			ConnectionManager.getConnection().writeShort(PacketID.CONTAINER);
 			ConnectionManager.getConnection().writeInt(id);
 			ConnectionManager.getConnection().send();
 			ConnectionManager.getItemRequested().put(id, new Container(id));

@@ -16,7 +16,7 @@ public class CommandParty extends Command {
 	
 	@Override
 	public void read() {
-		byte packetId = ConnectionManager.getConnection().readByte();
+		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.PARTY_ADD_MEMBER) {
 			String name = ConnectionManager.getConnection().readString();
 			PopupFrame.activatePartyInvitationPopup(name);
@@ -93,8 +93,8 @@ public class CommandParty extends Command {
 	public static void invitePlayer(String name) {
 		if(!name.equals(Mideas.joueur1().getName())) {
 			//if(Mideas.joueur1().getParty() == null || (Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader())) {
-				ConnectionManager.getConnection().writeByte(PacketID.PARTY);
-				ConnectionManager.getConnection().writeByte(PacketID.PARTY_ADD_MEMBER);
+				ConnectionManager.getConnection().writeShort(PacketID.PARTY);
+				ConnectionManager.getConnection().writeShort(PacketID.PARTY_ADD_MEMBER);
 				ConnectionManager.getConnection().writeString(name);
 				ConnectionManager.getConnection().send();
 			//}
@@ -108,28 +108,28 @@ public class CommandParty extends Command {
 	}
 	
 	public static void setLeaderServer(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.PARTY);
-		ConnectionManager.getConnection().writeByte(PacketID.PARTY_SET_LEADER);
+		ConnectionManager.getConnection().writeShort(PacketID.PARTY);
+		ConnectionManager.getConnection().writeShort(PacketID.PARTY_SET_LEADER);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void kickPlayer(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.PARTY);
-		ConnectionManager.getConnection().writeByte(PacketID.PARTY_KICK_PLAYER);
+		ConnectionManager.getConnection().writeShort(PacketID.PARTY);
+		ConnectionManager.getConnection().writeShort(PacketID.PARTY_KICK_PLAYER);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void declineRequest() {
-		ConnectionManager.getConnection().writeByte(PacketID.PARTY);
-		ConnectionManager.getConnection().writeByte(PacketID.PARTY_DECLINE_REQUEST);
+		ConnectionManager.getConnection().writeShort(PacketID.PARTY);
+		ConnectionManager.getConnection().writeShort(PacketID.PARTY_DECLINE_REQUEST);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void acceptRequest() {
-		ConnectionManager.getConnection().writeByte(PacketID.PARTY);
-		ConnectionManager.getConnection().writeByte(PacketID.PARTY_ACCEPT_REQUEST);
+		ConnectionManager.getConnection().writeShort(PacketID.PARTY);
+		ConnectionManager.getConnection().writeShort(PacketID.PARTY_ACCEPT_REQUEST);
 		ConnectionManager.getConnection().send();
 	}
 }

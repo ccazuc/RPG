@@ -246,8 +246,28 @@ public final class TTF {
 		}
 	}
 	
+	public final void drawStringPart(final float x, final float y, final String text, final Color color, final float scaleX, final float scaleY, final double opacity) {
+		Char charObject;
+		float totalHeight = 0;
+		float totalWidth = 0;
+		char currentChar;
+		int i = -1;
+		OpenGL.glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()*(float)opacity);
+		while(++i < text.length()) {
+			currentChar = text.charAt(i);
+			if(currentChar == '\n') {
+				totalHeight+= this.lineHeight*scaleY;
+				totalWidth = 0;
+			}
+			else if(currentChar > 0 && (charObject = this.charArray[currentChar]) != null) {
+				drawCharPart(totalWidth+x, totalHeight+y, currentChar, scaleX, scaleY);
+				totalWidth+= (charObject.width)*scaleX;
+			}
+		}
+	}
+	
 	public final void drawString(final float x, final float y, final String text, final Color color) {
-		drawString(x, y, text, color, 1, 1, 1);
+		drawString(x, y, text, color, .88f, 1, 1);
 	}
 	
 	public final void drawString(final float x, final float y, final String text, final Color color, final float opacity) {
@@ -259,6 +279,13 @@ public final class TTF {
 	}
 	
 	public final void drawString(final float x, final float y, final String text, final Color color, final float scaleX, final float scaleY, final float opacity) {
+		bind();
+		OpenGL.glBegin(OpenGL.GL_QUADS);
+		drawStringPart(x, y, text, color, scaleX, scaleY, opacity);
+		OpenGL.glEnd();
+	}
+	
+	public final void drawString(final float x, final float y, final String text, final Color color, final float scaleX, final float scaleY, final double opacity) {
 		bind();
 		OpenGL.glBegin(OpenGL.GL_QUADS);
 		drawStringPart(x, y, text, color, scaleX, scaleY, opacity);
@@ -386,10 +413,4 @@ public final class TTF {
 	public float getSize() {
 		return this.font.getSize();
 	}
-	
-		public float getSize1()
-		{
-				return (this.font.getSize());
-		}
-	
 }

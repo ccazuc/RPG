@@ -43,6 +43,7 @@ public class PerformanceBarFrame {
 			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+3*yShift, drawTime, Color.WHITE, Color.BLACK, 1);
 			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+µs, Color.WHITE, Color.BLACK, 1);
 			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+5*yShift, container+(Interface.getContainerDrawTime()/1000)+µs, Color.WHITE, Color.BLACK, 1);
+			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+6*yShift, "Social : "+(Interface.getSocialDrawTime()/1000)+µs, Color.WHITE, Color.BLACK, 1);
 			FontManager.get("FRIZQT", 15).drawEnd();
 		}
 		if(topPerformanceBarActive) {

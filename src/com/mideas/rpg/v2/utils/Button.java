@@ -20,16 +20,16 @@ public class Button {
 	protected TTF font;
 	private boolean buttonDown;
 	private boolean buttonHover;
-	private Color color = Color.decode("#FFC700");
+	private Color color = Color.YELLOW;
 	private Color hoveredColor;
 	private Color baseColor;
 	private boolean hasClicked;
-	private static final Color GREY = Color.decode("#808080");
+	private static final Color GREY = Color.YELLOW;
 	private boolean isEnable = true;
 
 	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {
 		this.font = FontManager.get("FRIZQT", font_size);
-		this.textWidth = this.font.getWidth(this.text);
+		this.textWidth = this.font.getWidth(text);
 		this.hoveredColor = hoveredColor;
 		this.shadow_size = shadow_size;
 		this.baseColor = baseColor;
@@ -41,11 +41,11 @@ public class Button {
 	}
 	
 	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
-		this(x, y, x_size, y_size, text, font_size, shadow_size, Color.decode("#FFC700"), Color.WHITE);
+		this(x, y, x_size, y_size, text, font_size, shadow_size, Color.YELLOW, Color.WHITE);
 	}
 
 	public Button(float x, float y, String text, float font_size) {
-		this(x, y, Sprites.button.getImageWidth(), Sprites.button.getImageHeight(), text, font_size, 0, Color.decode("#FFC700"), Color.WHITE);
+		this(x, y, Sprites.button.getImageWidth(), Sprites.button.getImageHeight(), text, font_size, 0, Color.YELLOW, Color.WHITE);
 	}
 	
 	public void draw() {
@@ -54,7 +54,7 @@ public class Button {
 		}
 		if(!activateCondition()) {
 			this.texture = Sprites.button_disabled;
-			this.color = GREY;
+			this.color = Color.GREY;
 		}
 		else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
 			this.texture = Sprites.button;
@@ -73,11 +73,13 @@ public class Button {
 			this.color = GREY;
 			return false;
 		}
-		this.color = this.baseColor;
-		this.buttonHover = false;
 		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
+		}
+		else {
+			this.color = this.baseColor;
+			this.buttonHover = false;
 		}
 		if(this.buttonHover) {
 			if(Mouse.getEventButtonState()) {

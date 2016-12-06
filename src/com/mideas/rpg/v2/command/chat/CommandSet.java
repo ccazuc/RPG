@@ -10,10 +10,10 @@ import com.mideas.rpg.v2.connection.PacketID;
 
 public class CommandSet extends Command {
 
-	public static void write(byte packetID, int playerID, int value, int rank) {
+	public static void write(short packetID, int playerID, int value, int rank) {
 		if(Mideas.getRank() >= rank) {
-			ConnectionManager.getConnection().writeByte(PacketID.CHAT_SET);
-			ConnectionManager.getConnection().writeByte(packetID);
+			ConnectionManager.getConnection().writeShort(PacketID.CHAT_SET);
+			ConnectionManager.getConnection().writeShort(packetID);
 			ConnectionManager.getConnection().writeInt(playerID);
 			ConnectionManager.getConnection().writeInt(value);
 			ConnectionManager.getConnection().send();

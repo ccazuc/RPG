@@ -19,7 +19,7 @@ public class CommandGuild extends Command {
 	
 	@Override
 	public void read() {
-		byte packetId = ConnectionManager.getConnection().readByte();
+		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.GUILD_UPDATE_PERMISSION) {
 			int rank_order = ConnectionManager.getConnection().readInt();
 			int permission = ConnectionManager.getConnection().readInt();
@@ -203,58 +203,58 @@ public class CommandGuild extends Command {
 	}
 	
 	public static void setMemberNote(int id, String note) {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_MEMBER_NOTE);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_MEMBER_NOTE);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().writeString(note);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void setMemberOfficerNote(int id, String officerNote) {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_MEMBER_OFFICER_NOTE);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_MEMBER_OFFICER_NOTE);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().writeString(officerNote);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void kickMember(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_KICK_MEMBER);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_KICK_MEMBER);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void leaveGuild() {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_LEAVE);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_LEAVE);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void setLeader(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_LEADER);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_LEADER);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void setInformation(String msg) {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_INFORMATION);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_INFORMATION);
 		ConnectionManager.getConnection().writeString(msg);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void setMotd(String msg) {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_SET_MOTD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_MOTD);
 		ConnectionManager.getConnection().writeString(msg);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void updatePermission(int rank_order, int value, String name) {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_UPDATE_PERMISSION);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_UPDATE_PERMISSION);
 		ConnectionManager.getConnection().writeInt(rank_order);
 		ConnectionManager.getConnection().writeInt(value);
 		ConnectionManager.getConnection().writeString(name);
@@ -262,21 +262,21 @@ public class CommandGuild extends Command {
 	}
 	
 	public static void addMember(String name) {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_INVITE_PLAYER);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_INVITE_PLAYER);
 		ConnectionManager.getConnection().writeString(name);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void acceptRequest() {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_ACCEPT_REQUEST);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_ACCEPT_REQUEST);
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void declineRequest() {
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD);
-		ConnectionManager.getConnection().writeByte(PacketID.GUILD_DECLINE_REQUEST);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
+		ConnectionManager.getConnection().writeShort(PacketID.GUILD_DECLINE_REQUEST);
 		ConnectionManager.getConnection().send();
 	}
 }

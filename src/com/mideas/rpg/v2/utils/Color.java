@@ -1,11 +1,14 @@
 package com.mideas.rpg.v2.utils;
 
+import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.OpenGL;
+import com.mideas.rpg.v2.game.ClassType;
 
 public class Color {
 	
 	public final static Color WHITE = new Color(1, 1, 1);
 	public final static Color LIGHTGREY = new Color(.75f, .75f, .75f);
+	//public final static Color GREY = new Color(.5f, .5f, .5f);
 	public final static Color GREY = new Color(.5f, .5f, .5f);
 	public final static Color DARKGREY = new Color(.25f, .25f, .25f);
 	public final static Color BLACK = new Color(0, 0, 0);
@@ -19,7 +22,7 @@ public class Color {
 	public final static Color BLUE = new Color(0, 0, 1);
 	public final static Color DARKBLUE = new Color(0, 0, .5f);
 	public final static Color LIGHTYELLOW = new Color(1, 1, .33f);
-	public final static Color YELLOW = new Color(1, 1, 0);
+	public final static Color YELLOW = decode("#FFB700");
 	public final static Color DARKYELLOW = new Color(.5f, .5f, 0);
 	public final static Color LIGHTORANGE = new Color(1, .75f, .25f);
 	public final static Color ORANGE = new Color(1, .5f, 0);
@@ -30,6 +33,17 @@ public class Color {
 	private float blue;
 	private float alpha;
 	
+	public Color(final float red, final float green, final float blue, final float alpha) {
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+		this.alpha = alpha;
+	}
+	
+	public Color(final float red, final float green, final float blue) {
+		this(red, green, blue, 1);
+	}
+	
 	public Color(final float rgb, final float alpha) {
 		this(rgb, rgb, rgb, alpha);
 	}
@@ -38,25 +52,19 @@ public class Color {
 		this(rgb, rgb, rgb, 1);
 	}
 	
-	public Color(final float red, final float green, final float blue) {
-		this(red, green, blue, 1);
-	}
-	
-	public Color(final float red, final float green, final float blue, final float alpha) {
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
-		this.alpha = alpha;
-	}
-	
 	public final void bind() {
 		OpenGL.glColor4f(this.red, this.green, this.blue, this.alpha);
 	}
 	
-	public static Color decode(String nm) throws NumberFormatException {
-		int i = Integer.decode(nm).intValue();
-		return new Color((i >> 16) & 0xFF, (i >> 8) & 0xFF, i & 0xFF);
-     }
+	public static Color decode(String color) throws NumberFormatException {
+		int i = Integer.decode(color).intValue();
+		return new Color(((i >> 16) & 0xFF)/255f, ((i >> 8) & 0xFF)/255f, (i & 0xFF)/255f);
+	}
+	
+	@Override
+	public final String toString() {
+		return "Red: "+this.red+" Green: "+this.green+" Blue: "+this.blue+" Alpha: "+this.alpha;
+	}
 	
 	public final float red() {
 		return this.red;
@@ -104,5 +112,36 @@ public class Color {
 	
 	public final void setAlpha(final float alpha) {
 		this.alpha = alpha;
+	}
+
+	public static Color convClassTypeToColor(ClassType type) {
+		if(type == ClassType.DRUID) {
+			return ClassColor.DRUID_COLOR;
+		}
+		if(type == ClassType.GUERRIER) {
+			return ClassColor.WARRIOR_COLOR;
+		}
+		if(type == ClassType.HUNTER) {
+			return ClassColor.HUNTER_COLOR;
+		}
+		if(type == ClassType.MAGE) {
+			return ClassColor.MAGE_COLOR;
+		}
+		if(type == ClassType.PALADIN) {
+			return ClassColor.PALADIN_COLOR;
+		}
+		if(type == ClassType.PRIEST) {
+			return ClassColor.PRIEST_COLOR;
+		}
+		if(type == ClassType.ROGUE) {
+			return ClassColor.ROGUE_COLOR;
+		}
+		if(type == ClassType.SHAMAN) {
+			return ClassColor.SHAMAN_COLOR;
+		}
+		if(type == ClassType.WARLOCK) {
+			return ClassColor.WARLOCK_COLOR;
+		}
+		return null;
 	}
 }

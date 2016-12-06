@@ -15,7 +15,7 @@ public class CommandSpellCast extends Command {
 	
 	public static void write(Spell spell) {
 		if(Mideas.joueur1().getMana() >= spell.getManaCost()) {
-			ConnectionManager.getConnection().writeByte(PacketID.SPELL_CAST);
+			ConnectionManager.getConnection().writeShort(PacketID.SPELL_CAST);
 			ConnectionManager.getConnection().writeInt(spell.getSpellId());
 			ConnectionManager.getConnection().send();
 			System.out.println(spell.getSpellId());

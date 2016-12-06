@@ -15,7 +15,7 @@ public class CommandStuff extends Command {
 	
 	public static void write(int id) {
 		if(!ConnectionManager.getItemRequested().containsKey(id)) {
-			ConnectionManager.getConnection().writeByte(PacketID.STUFF);
+			ConnectionManager.getConnection().writeShort(PacketID.STUFF);
 			ConnectionManager.getConnection().writeInt(id);
 			ConnectionManager.getConnection().send();
 			ConnectionManager.getItemRequested().put(id, new Stuff(id));

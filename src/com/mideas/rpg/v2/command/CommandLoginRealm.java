@@ -12,6 +12,8 @@ public class CommandLoginRealm extends Command {
 		if(packetId == PacketID.LOGIN_REALM_SUCCESS) {
 			System.out.println("LOGIN:LOGIN_REALM_SUCCESS");
 			SelectScreen.setIsConnectedToWorldServer(true);
+			SelectScreen.getAlert().setInactive();
+			SelectScreen.setRealmScreenActive(false);
 		}
 	}
 }

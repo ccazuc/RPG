@@ -18,7 +18,6 @@ import com.mideas.rpg.v2.utils.TooltipMenu;
 public class PartyFrame {
 
 	private final static Color backgroundColors = new Color(0, 0, 0, .4f);
-	private final static Color YELLOW = Color.decode("#F0CE0C");
 	private static int hoveredMember = -1;
 	private static float hoveredMemberX;
 	private static float hoveredMemberY;
@@ -167,7 +166,7 @@ public class PartyFrame {
 		Draw.drawQuad(Sprites.mana_bar, x+54*Mideas.getDisplayXFactor(), y+35*Mideas.getDisplayYFactor(), 88*Mideas.getDisplayXFactor()*unit.getMana()/unit.getMaxMana(), 8*Mideas.getDisplayYFactor());
 		Draw.drawQuad(unit.getPortrait(), x+6*Mideas.getDisplayXFactor(), y+5*Mideas.getDisplayYFactor(), 45*Mideas.getDisplayXFactor(), 45*Mideas.getDisplayYFactor());
 		Draw.drawQuad(Sprites.player_portrait_party, x, y);
-		FontManager.get("FRIZQT", 13).drawStringShadow(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth(unit.getName())/2, y+11*Mideas.getDisplayYFactor(), unit.getName(), YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 13).drawStringShadow(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth(unit.getName())/2, y+11*Mideas.getDisplayYFactor(), unit.getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 9).drawBegin();
 		FontManager.get("FRIZQT", 9).drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 9).getWidth(unit.getHealthText())/2, y+26*Mideas.getDisplayYFactor(), unit.getHealthText(), Color.WHITE, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 9).drawStringShadowPart(x+100*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 9).getWidth(unit.getManaText())/2, y+33*Mideas.getDisplayYFactor(), unit.getManaText(), Color.WHITE, Color.BLACK, 1, 0, 0);

@@ -18,17 +18,16 @@ public class FrameTab {
 	private boolean isSelected;
 	private boolean buttonHover;
 	private boolean buttonDown;
-	private Color defaultColor = Color.decode("#FFC700");
+	private Color defaultColor = Color.YELLOW;
 	private Color hoveredColor = Color.WHITE;
 	private Color selectedColor = Color.WHITE;
 	private Color color = this.defaultColor;
 	private int shadow_size;
 	private TTF font;
-	private static final Color GREY = Color.decode("#808080");
 	
 	public FrameTab(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, boolean isSelected) {
 		this.font = FontManager.get("FRIZQT", font_size);
-		this.textWidth = this.font.getWidth(this.text);
+		this.textWidth = this.font.getWidth(text);
 		this.shadow_size = shadow_size;
 		this.isSelected = isSelected;
 		this.x_size = (int)x_size;
@@ -69,7 +68,7 @@ public class FrameTab {
 				}
 			}
 			else {
-				this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, y+y_size/2-this.font.getLineHeight()/2, this.text, GREY, Color.BLACK, this.shadow_size, 0, 0);
+				this.font.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, y+y_size/2-this.font.getLineHeight()/2, this.text, Color.GREY, Color.BLACK, this.shadow_size, 0, 0);
 			}
 		}
 	}

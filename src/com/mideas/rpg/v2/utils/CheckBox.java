@@ -20,7 +20,6 @@ public class CheckBox {
 	private Color color;
 	private TTF font;
 	private int textWidth;
-	private final static Color GREY = Color.decode("#999999");
 	
 	public CheckBox(float x, float y, String text, String tooltip_text, Color color, float font_size) {
 		this.x = x;
@@ -76,7 +75,7 @@ public class CheckBox {
 				Draw.drawQuad(Sprites.check_box_disable, this.x-1, this.y-1, this.x_size, this.y_size);
 			}
 			if(this.text != null) {
-				this.font.drawStringShadow(this.x+(this.x_size+6)*Mideas.getDisplayXFactor(), this.y-1, this.text, GREY, Color.BLACK, 1, 0, 0);
+				this.font.drawStringShadow(this.x+(this.x_size+6)*Mideas.getDisplayXFactor(), this.y-1, this.text, Color.GREY, Color.BLACK, 1, 0, 0);
 			}
 		}
 	}

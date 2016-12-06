@@ -40,7 +40,6 @@ public class TradeFrame {
 	static boolean requestPending;
 	private static long requestReceivedTimer;
 	private static long requestMaximumTimer = 20000;
-	private final static Color YELLOW = Color.decode("#FFC700");
 	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Accept", 15, 2) {
 		@Override
 		public void eventButtonClick() {
@@ -91,7 +90,7 @@ public class TradeFrame {
 	
 	public static void draw() {
 		Draw.drawQuad(Sprites.trade_frame, X_FRAME, Y_FRAME);
-		FontManager.get("FRIZQT", 13).drawStringShadow(X_FRAME+150*Mideas.getDisplayXFactor(), Y_FRAME+15*Mideas.getDisplayYFactor(), Mideas.joueur1().getName(), YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 13).drawStringShadow(X_FRAME+150*Mideas.getDisplayXFactor(), Y_FRAME+15*Mideas.getDisplayYFactor(), Mideas.joueur1().getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
 		float x = X_FRAME+25*Mideas.getDisplayXFactor();
 		float y = 0;
 		int i = 0;

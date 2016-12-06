@@ -54,7 +54,7 @@ public class PopupFrame {
 		
 		@Override
 		public void eventButtonClick() {
-			CommandFriend.addFriend(popupInput.getInput().getText());;
+			CommandFriend.addFriend(popupInput.getInput().getText());
 		}
 	};
 	private static Button addGuildMemberButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {

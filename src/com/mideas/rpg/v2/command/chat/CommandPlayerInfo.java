@@ -19,7 +19,7 @@ public class CommandPlayerInfo extends Command {
 	}
 	
 	public static void write(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.CHAT_PLAYER_INFO);
+		ConnectionManager.getConnection().writeShort(PacketID.CHAT_PLAYER_INFO);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
 	}

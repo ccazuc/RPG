@@ -11,7 +11,7 @@ public class CommandGet extends Command {
 	
 	@Override
 	public void read() {
-		byte type = ConnectionManager.getConnection().readByte();
+		short type = ConnectionManager.getConnection().readShort();
 		if(type == PacketID.INT) {
 			ChatFrame.addMessage(new Message(Integer.toString(ConnectionManager.getConnection().readInt()), false, MessageType.SELF));
 		}
@@ -20,16 +20,16 @@ public class CommandGet extends Command {
 		}
 	}
 	
-	public static void write(byte packetID, int playerID) {
-		ConnectionManager.getConnection().writeByte(PacketID.CHAT_GET);
-		ConnectionManager.getConnection().writeByte(packetID);
+	public static void write(short packetID, int playerID) {
+		ConnectionManager.getConnection().writeShort(PacketID.CHAT_GET);
+		ConnectionManager.getConnection().writeShort(packetID);
 		ConnectionManager.getConnection().writeInt(playerID);
 		ConnectionManager.getConnection().send();
 	}
 	
-	public static void write(byte packetID, String string) {
-		ConnectionManager.getConnection().writeByte(PacketID.CHAT_GET);
-		ConnectionManager.getConnection().writeByte(packetID);
+	public static void write(short packetID, String string) {
+		ConnectionManager.getConnection().writeShort(PacketID.CHAT_GET);
+		ConnectionManager.getConnection().writeShort(packetID);
 		ConnectionManager.getConnection().writeString(string);
 		ConnectionManager.getConnection().send();
 	}

@@ -22,13 +22,11 @@ public class RealmListFrame {
 	private static ArrayList<WorldServer> realmList = new ArrayList<WorldServer>();
 	static WorldServer selectedRealm;
 	private static Button acceptButton = new Button(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 154*Mideas.getDisplayXFactor(), 31*Mideas.getDisplayXFactor(), "OK", 20, 2) {
+		
 		@Override
 		public void eventButtonClick() {
 			if(selectedRealm != null) {
-				SelectScreen.setRealmScreenActive(false);
-				SelectScreen.setAlert("Connecting to server...");
-				AuthServerConnectionRunnable.connectToWorldServer(selectedRealm.getRealmId());
-				SelectScreen.resetCharacterList();
+				connectToWorldServer();
 				this.reset();
 			}
 		}
@@ -39,6 +37,7 @@ public class RealmListFrame {
 		}
 	};
 	private static Button cancelButton = new Button(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 152*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor(), "Cancel", 18, 2) {
+		
 		@Override
 		public void eventButtonClick() {
 			SelectScreen.setRealmScreenActive(false);
@@ -75,7 +74,7 @@ public class RealmListFrame {
 	public static boolean event() {
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 			if(selectedRealm != null) {
-				AuthServerConnectionRunnable.connectToWorldServer(selectedRealm.getRealmId());
+				connectToWorldServer();
 			}
 			return true;
 		}
@@ -114,5 +113,12 @@ public class RealmListFrame {
 	public static void updateSize() {
 		acceptButton.update(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 154*Mideas.getDisplayXFactor(), 31*Mideas.getDisplayXFactor());
 		cancelButton.update(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Window.getHeight()/2+282*Mideas.getDisplayYFactor(), 152*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+	}
+	
+	static void connectToWorldServer() {
+		SelectScreen.setRealmScreenActive(false);
+		SelectScreen.setAlert("Connecting to server...");
+		AuthServerConnectionRunnable.connectToWorldServer(selectedRealm.getRealmId());
+		SelectScreen.resetCharacterList();
 	}
 }

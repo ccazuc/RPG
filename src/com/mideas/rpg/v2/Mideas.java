@@ -108,8 +108,8 @@ public class Mideas {
 	
 	private static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
-		GL11.glClearColor(0, 0, 0, 0);                
-	        GL11.glClearDepth(1);     
+		GL11.glClearColor(0f, 0f, 0f, 0f);                
+	        GL11.glClearDepth(1f);     
 	        GL11.glEnable(GL11.GL_BLEND);
 	        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	        GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());

@@ -9,7 +9,7 @@ public class CommandLoadCharacter extends Command {
 	public void read() {}
 	
 	public static void write(int id) {
-		ConnectionManager.getConnection().writeByte(PacketID.LOAD_CHARACTER);
+		ConnectionManager.getConnection().writeShort(PacketID.LOAD_CHARACTER);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().send();
 	}

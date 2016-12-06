@@ -9,7 +9,6 @@ import com.mideas.rpg.v2.FontManager;
 
 public class TextMenu {
 
-	private final static Color GRAY = Color.decode("#47494D");
 	private int x;
 	private int y;
 	private String text;
@@ -72,7 +71,7 @@ public class TextMenu {
 			return;
 		}
 		if(!activateCondition()) {
-			this.font.drawStringShadow(x+this.textShift, y, this.text, GRAY, Color.BLACK, this.shadow_size, 0, 0);
+			this.font.drawStringShadow(x+this.textShift, y, this.text, Color.GREY, Color.BLACK, this.shadow_size, 0, 0);
 			return;
 		}
 		if(this.buttonDown) {

@@ -16,6 +16,7 @@ import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.command.CommandSendRealmList;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.classes.SelectScreenPlayer;
 import com.mideas.rpg.v2.game.race.Classe;
@@ -28,7 +29,6 @@ import com.mideas.rpg.v2.utils.Input;
 
 public class SelectScreen {
 
-	private static final Color YELLOW = Color.decode("#FFC700");
 	static boolean creatingCharacter;
 	static boolean deletingCharacter;
 	static boolean characterLoaded;
@@ -84,14 +84,15 @@ public class SelectScreen {
 	private static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Return", 16, 2) {
 		@Override
 		public void eventButtonClick() {
+			CommandLogout.write();
 			Interface.setHasLoggedInToAuth(false);
 			Mideas.setJoueur1Null();
 			Mideas.setAccountId(0);
 			LoginScreen.setPasswordActive();
-			CommandLogout.write();
-			SelectScreen.characterLoaded = false;
+			characterLoaded = false;
 			SelectScreen.selectedCharacterIndex = 0;
 			LoginScreen.mouseEvent();
+			Arrays.fill(characterList, null);
 			this.reset();
 		}
 	};
@@ -129,6 +130,11 @@ public class SelectScreen {
 			deleteCharacter.setIsActive(true);
 			this.reset();
 		}
+		
+		@Override
+		public boolean activateCondition() {
+			return characterList[selectedCharacterIndex] != null;
+		}
 	};
 	private static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor(), "OK", 20, 2) {
 		@Override
@@ -163,9 +169,9 @@ public class SelectScreen {
 			Draw.drawQuadBG(Sprites.select_screen_background);
 			if(deletingCharacter) { //TODO: use PopupInput classe
 				Draw.drawQuad(Sprites.big_alert, Display.getWidth()/2-350*Mideas.getDisplayXFactor(), Display.getHeight()/2-120*Mideas.getDisplayYFactor(), Sprites.big_alert.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.big_alert.getImageHeight()*Mideas.getDisplayYFactor());
-				FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 21).getWidth("Voulez-vous effacer")/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-105*Mideas.getDisplayYFactor(), "Voulez-vous effacer", YELLOW, Color.BLACK, 3, 2, 2);
+				FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 21).getWidth("Voulez-vous effacer")/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-105*Mideas.getDisplayYFactor(), "Voulez-vous effacer", Color.YELLOW, Color.BLACK, 3, 2, 2);
 				FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 21).getWidth(characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel())/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-80*Mideas.getDisplayYFactor(), characterList[selectedCharacterIndex].getName()+" "+characterList[selectedCharacterIndex].getClasse()+" level "+characterList[selectedCharacterIndex].getLevel(), Color.WHITE, Color.BLACK, 2, 4, 2);
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 15).getWidth("Tapez \"EFFACER\" dans le champ pour confirmer.")*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-30*Mideas.getDisplayYFactor(), "Tapez \"EFFACER\" dans le champ pour confirmer." , YELLOW, Color.BLACK, 2, 1, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 15).getWidth("Tapez \"EFFACER\" dans le champ pour confirmer.")*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-30*Mideas.getDisplayYFactor(), "Tapez \"EFFACER\" dans le champ pour confirmer." , Color.YELLOW, Color.BLACK, 2, 1, 1);
 				Draw.drawQuad(Sprites.input_box, Display.getWidth()/2-Sprites.input_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-2*Mideas.getDisplayYFactor(), Sprites.input_box.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.input_box.getImageHeight()*Mideas.getDisplayYFactor());
 				FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-92*Mideas.getDisplayXFactor(), Display.getHeight()/2+5*Mideas.getDisplayYFactor(), deleteCharacter.getText(), Color.WHITE, Color.BLACK, 1, 1, 1);
 				if(System.currentTimeMillis()%1000 < 500) {
@@ -217,7 +223,7 @@ public class SelectScreen {
 			}
 			if(selectedRace != null) {
 				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+(x_selected_race+3)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_selected_race+2)*Mideas.getDisplayYFactor(), Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(x_selected_race+30)*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(selectedRace.getName())/2, Display.getHeight()/2+(y_selected_race+40)*Mideas.getDisplayYFactor(), selectedRace.getName(), YELLOW, Color.BLACK, 1, 1, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(x_selected_race+30)*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(selectedRace.getName())/2, Display.getHeight()/2+(y_selected_race+40)*Mideas.getDisplayYFactor(), selectedRace.getName(), Color.YELLOW, Color.BLACK, 1, 1, 1);
 			}
 			if(hoveredClasse != null && hoveredClasse != selectedClasse) {
 				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+(x_hover_classe-1)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_hover_classe-1)*Mideas.getDisplayYFactor(), Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
@@ -227,7 +233,7 @@ public class SelectScreen {
 			}
 			if(selectedClasse != null) {
 				Draw.drawQuad(Sprites.select_screen_hover, Display.getWidth()/2+(x_selected_classe-1)*Mideas.getDisplayXFactor(), Display.getHeight()/2+(y_selected_classe-1)*Mideas.getDisplayYFactor(), Sprites.select_screen_hover.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.select_screen_hover.getImageHeight()*Mideas.getDisplayXFactor());
-				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(x_selected_classe+30)*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(selectedClasse.getName())/2, Display.getHeight()/2+(y_selected_classe+40)*Mideas.getDisplayYFactor(), selectedClasse.getName(), YELLOW, Color.BLACK, 2, 1, 1);
+				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+(x_selected_classe+30)*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(selectedClasse.getName())/2, Display.getHeight()/2+(y_selected_classe+40)*Mideas.getDisplayYFactor(), selectedClasse.getName(), Color.YELLOW, Color.BLACK, 2, 1, 1);
 			}
 		}
 		if(realmScreenActive) {
@@ -486,7 +492,7 @@ public class SelectScreen {
 			if(selectedCharacter[i] || hoveredCharacter == i) {
 				Draw.drawQuadBlend(Sprites.selected_character, Display.getWidth()/2+592*Mideas.getDisplayXFactor(), y-15*Mideas.getDisplayYFactor(), 362*Mideas.getDisplayXFactor(), 98*Mideas.getDisplayYFactor());
 			}
-			FontManager.get("FRIZQT", 22).drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y, characterList[i].getName(), YELLOW, Color.BLACK, 2, 1, 1);
+			FontManager.get("FRIZQT", 22).drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y, characterList[i].getName(), Color.YELLOW, Color.BLACK, 2, 1, 1);
 			FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2+625*Mideas.getDisplayXFactor(), y+27, convClasseToString(characterList[i].getClasse())+" level "+characterList[i].getLevel(), Color.WHITE, Color.BLACK, 2, 0, 0);
 		}
 	}
@@ -540,6 +546,7 @@ public class SelectScreen {
 		alert.setY(-60*Mideas.getDisplayYFactor());
 		confirmDeleteCharacterButton.update(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor());
 		cancelDeleteCharacterButton.update(Display.getWidth()/2+23*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor());
+		changeRealmButton.update(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
 	}
 	
 	public static Alert getAlert() {

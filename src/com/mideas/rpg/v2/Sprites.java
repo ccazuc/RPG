@@ -343,6 +343,8 @@ public class Sprites {
 	public static Texture ignore_frame;
 	public static Texture tooltip_frame;
 	public static Texture alert_background;
+	public static Texture who_frame;
+	public static Texture mlg_frog;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -441,6 +443,7 @@ public class Sprites {
 		guild_manage_rank_horizontal_bar = new Texture("sprite/interface/social/guild_manage_rank_horizontal_bar.png");
 		tooltip_frame = new Texture("sprite/interface/tooltip/tooltip.png");
 		alert_background = new Texture("sprite/interface/alert_background/alert_background.png");
+		mlg_frog = new Texture("sprite/interface/hqdefault.png");
 		return true;
 	}
 	
@@ -525,6 +528,7 @@ public class Sprites {
 		horizontal_bar_left = new Texture("sprite/interface/horizontal_bar/left_part.png");
 		horizontal_bar_middle = new Texture("sprite/interface/horizontal_bar/middle_part.png");
 		horizontal_bar_right = new Texture("sprite/interface/horizontal_bar/right_part.png");
+		who_frame = new Texture("sprite/interface/social/who_frame.png");
 		return true;
 	}
 		

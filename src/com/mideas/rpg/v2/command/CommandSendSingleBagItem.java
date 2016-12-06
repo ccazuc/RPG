@@ -14,7 +14,7 @@ public class CommandSendSingleBagItem extends Command {
 	
 	public static void write(int slot, Item item) {
 		if(item != null) {
-			ConnectionManager.getConnection().writeByte(PacketID.SEND_SINGLE_BAG_ITEM);
+			ConnectionManager.getConnection().writeShort(PacketID.SEND_SINGLE_BAG_ITEM);
 			ConnectionManager.getConnection().writeInt(slot);
 			if(item.isContainer() || item.isGem()) {
 				ConnectionManager.getConnection().writeInt(item.getId());

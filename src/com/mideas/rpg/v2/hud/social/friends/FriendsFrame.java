@@ -10,8 +10,8 @@ import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandFriend;
 import com.mideas.rpg.v2.command.CommandIgnore;
 import com.mideas.rpg.v2.command.CommandParty;
-import com.mideas.rpg.v2.game.Friend;
-import com.mideas.rpg.v2.game.Ignore;
+import com.mideas.rpg.v2.game.social.Friend;
+import com.mideas.rpg.v2.game.social.Ignore;
 import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
@@ -25,8 +25,6 @@ import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;
 
 public class FriendsFrame {
 
-	private final static Color YELLOW = Color.decode("#FFC700");
-	private final static Color GREY = Color.decode("#999999");
 	static Friend selectedFriend;
 	static int selectedIgnore;
 	private static int hoveredFriend = -1;
@@ -128,9 +126,10 @@ public class FriendsFrame {
 			final int FL_SIZE = Mideas.joueur1().getFriendList().size();
 			Draw.drawQuad(Sprites.friend_frame, X_SOCIAL_FRAME, Y_SOCIAL_FRAME);
 			int i = 0;
+			int iOffset = 0;
 			if(FL_SIZE > 10) {
 				friendScrollbar.draw();
-				i = (int)((FL_SIZE-FL_MAXIMUM_DISPLAY)*friendScrollbar.getScrollPercentage());
+				iOffset = i = (int)((FL_SIZE-FL_MAXIMUM_DISPLAY)*friendScrollbar.getScrollPercentage());
 			}
 			Friend friend;
 			float y = Y_SOCIAL_FRAME+82*Mideas.getDisplayYFactor();
@@ -139,14 +138,14 @@ public class FriendsFrame {
 				friend = Mideas.joueur1().getFriendList().get(i);
 				if(friend.isOnline()) {
 					Draw.drawQuad(Sprites.friend_note_online, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), YELLOW, Color.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
 					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, friend.getAreaText(), Color.WHITE, Color.BLACK, 1, 0, 0);
 					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), friend.getInfosText(), Color.WHITE, Color.BLACK, 1, 0, 0);
 				}
 				else {
 					Draw.drawQuad(Sprites.friend_note_offline, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), GREY, Color.BLACK, 1, 0, 0);
-					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, " - offline", GREY, Color.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), Color.GREY, Color.BLACK, 1, 0, 0);
+					FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, " - offline", Color.GREY, Color.BLACK, 1, 0, 0);
 					FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), "Unknwon", Color.WHITE, Color.BLACK, 1, 0, 0);
 				}
 				if(selectedFriend == friend || hoveredFriend == i) {
@@ -176,31 +175,33 @@ public class FriendsFrame {
 			float x = X_SOCIAL_FRAME+32*Mideas.getDisplayXFactor();
 			float y = Y_SOCIAL_FRAME+80*Mideas.getDisplayYFactor();
 			float yShift = 17.6f*Mideas.getDisplayYFactor();
+			int iOffset = 0;
 			int IGNORE_LIST_SIZE = Mideas.joueur1().getIgnoreList().size();
 			if(IGNORE_LIST_SIZE > IL_MAXIMUM_DISPLAY) {
 				ignoreScrollbar.draw();
-				i = (int)((IGNORE_LIST_SIZE-IL_MAXIMUM_DISPLAY)*ignoreScrollbar.getScrollPercentage());
+				iOffset = (int)((IGNORE_LIST_SIZE-IL_MAXIMUM_DISPLAY)*ignoreScrollbar.getScrollPercentage());
+				i = iOffset;
 			}
 			long timer = System.nanoTime();
 			TTF font = FontManager.get("FRIZQT", 13);
 			font.drawBegin();
 			while(i < IGNORE_LIST_SIZE) {
 				Ignore ignore = Mideas.joueur1().getIgnoreList().get(i);
-				font.drawStringShadowPart(x, y, ignore.getName(), YELLOW, Color.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x, y, ignore.getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
 				i++;
 				y+= yShift;
 				if(y >= Y_SOCIAL_FRAME+430*Mideas.getDisplayYFactor()) {
 					break;
 				}
 			}
-			i = 0;
+			i = iOffset;
 			font.drawEnd();
 			Mideas.nTime(timer, "Ignore text draw time");
 			y = Y_SOCIAL_FRAME+80*Mideas.getDisplayYFactor();
 			if(hoveredIgnore != -1) {
 				Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y+hoveredIgnore*yShift, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 			}
-			if(selectedIgnore != -1) {
+			if(selectedIgnore != -1 && hoveredIgnore != selectedIgnore) {
 				Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y+selectedIgnore*yShift, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 			}
 			Mideas.nTime(timer, "Ignore text total draw time");

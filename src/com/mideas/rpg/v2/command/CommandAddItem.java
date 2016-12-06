@@ -39,8 +39,7 @@ public class CommandAddItem extends Command {
 	}
 	
 	public static void write(int character_id, int item_id, int number) {
-		//System.out.println("write "+character_id+" "+number+" "+item_id);
-		ConnectionManager.getConnection().writeByte(PacketID.ADD_ITEM);
+		ConnectionManager.getConnection().writeShort(PacketID.ADD_ITEM);
 		ConnectionManager.getConnection().writeInt(character_id);
 		ConnectionManager.getConnection().writeInt(item_id);
 		ConnectionManager.getConnection().writeInt(number);

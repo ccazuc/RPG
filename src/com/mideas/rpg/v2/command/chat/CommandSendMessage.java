@@ -35,14 +35,14 @@ public class CommandSendMessage extends Command {
 	}
 	
 	public static void write(String message, MessageType type) {
-		ConnectionManager.getConnection().writeByte(PacketID.SEND_MESSAGE);
+		ConnectionManager.getConnection().writeShort(PacketID.SEND_MESSAGE);
 		ConnectionManager.getConnection().writeString(message);
 		ConnectionManager.getConnection().writeChar(type.getValue());
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeWhisper(String message, String target) {
-		ConnectionManager.getConnection().writeByte(PacketID.SEND_MESSAGE);
+		ConnectionManager.getConnection().writeShort(PacketID.SEND_MESSAGE);
 		ConnectionManager.getConnection().writeString(message);
 		ConnectionManager.getConnection().writeChar(MessageType.WHISPER.getValue());
 		ConnectionManager.getConnection().writeString(target);

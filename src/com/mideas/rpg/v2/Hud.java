@@ -31,8 +31,8 @@ public class Hud {
 			sprite = false;
 		}
 		Color bgColor = new Color(0, 0, 0,.35f);     
-		Color healthBar = Color.decode("#07D705");
-		Color manaBar = Color.decode("#0101D5");
+		//Color healthBar = Color.decode("#07D705");
+		//Color manaBar = Color.decode("#0101D5");
 		Draw.drawQuad(Sprites.bg, Display.getWidth()/2-Sprites.bg.getWidth()/2, Display.getHeight()/2-Sprites.bg.getHeight()/2);  //bg
 		expBar();
 		Draw.drawQuad(Sprites.spellbar, Window.getWidth()/2-300, Window.getHeight()-120);                                                 //spellBar
@@ -40,7 +40,7 @@ public class Hud {
 		Draw.drawQuad(Sprites.border, Window.getWidth()/2-143, Window.getHeight()-66);
 		FontManager.font5.drawStringShadow(Window.getWidth()/2-105, Window.getHeight()-61, "1", Color.WHITE, Color.BLACK, 1, 1, 1);
 		
-		Draw.drawColorQuad(90, 58, 120, 13, bgColor);                           //left backgroundHealthBar
+		/*Draw.drawColorQuad(90, 58, 120, 13, bgColor);                           //left backgroundHealthBar
 		Draw.drawColorQuad(90, 58, 120*x, 12, healthBar);                       //left healthBar		
 		Draw.drawColorQuad(90, 68, 119, 13,  bgColor);                          //left backgroundmanaBar
 		Draw.drawColorQuad(90, 38, 119, 18, bgColor);                           //left backgroundName
@@ -49,7 +49,7 @@ public class Hud {
 		Draw.drawColorQuad(Window.getWidth()-154, 58, 120*y, 12, healthBar);    //right healthBar			
 		Draw.drawColorQuad(Window.getWidth()-154, 38, 119, 18,  bgColor);       //right backgroundName	
 		Draw.drawColorQuad(Window.getWidth()-154, 68, 119, 13,  bgColor);       //right backgroundManaBar
-		Draw.drawColorQuad(Window.getWidth()-154, 68, 119*b-3, 12, manaBar);    //right manaBar		                                                   
+		Draw.drawColorQuad(Window.getWidth()-154, 68, 119*b-3, 12, manaBar);    //right manaBar	*/	                                                   
 		FontManager.font.drawStringShadow(40, Window.getHeight()-230, statusText, Color.BLACK, Color.WHITE, 1, 1, 1);
 		FontManager.font.drawStringShadow(40, Window.getHeight()-190, statusText2, Color.BLACK, Color.WHITE, 1, 1, 1);                                                                     
 		 
@@ -368,6 +368,6 @@ public class Hud {
 	
 	public static void expBar() {
 		e = ((float)Mideas.joueur1().getExp()-(float)Mideas.getExpNeeded(Mideas.joueur1().getLevel()-1))/((float)Mideas.getExpNeeded(Mideas.joueur1().getLevel())-Mideas.getExpNeeded(Mideas.joueur1().getLevel()-1));
-		Draw.drawColorQuad(Window.getWidth()/2-140, Window.getHeight()-80, 270*e, 11,  Color.decode("#680764"));
+		//Draw.drawColorQuad(Window.getWidth()/2-140, Window.getHeight()-80, 270*e, 11,  Color.decode("#680764"));
 	}
 }
