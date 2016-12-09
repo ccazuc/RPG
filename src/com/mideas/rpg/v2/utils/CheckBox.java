@@ -51,6 +51,13 @@ public class CheckBox {
 		this.y_size = (int)y_size;
 	}
 	
+	public CheckBox(float x, float y) {
+		this.x = x;
+		this.y = y;
+		this.x_size = (int)(Sprites.check_box.getImageWidth()*Mideas.getDisplayXFactor());
+		this.y_size = (int)(Sprites.check_box.getImageHeight()*Mideas.getDisplayYFactor());
+	}
+	
 	public void draw() {
 		Draw.drawQuad(Sprites.check_box, this.x, this.y, this.x_size, this.y_size);
 		if(activateCondition()) {

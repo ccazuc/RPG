@@ -112,7 +112,7 @@ public class WhoFrame {
 		}
 		TTF font = FontManager.get("FRIZQT", 13);
 		font.drawBegin();
-		float y = Y_SOCIAL_FRAME+80*Mideas.getDisplayYFactor();
+		float y = Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor();
 		float yShift = 20*Mideas.getDisplayYFactor();
 		float yShiftHeight = 0;
 		while(i < whoList.size()) {
@@ -135,10 +135,10 @@ public class WhoFrame {
 		font.drawEnd();
 		i = iOffset;
 		if(hoveredUnit != -1 && hoveredUnit >= iOffset && hoveredUnit < iOffset+MAXIMUM_UNIT_DISPLAYED) {
-			//draw hover
+			Draw.drawQuad(Sprites.friend_border, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+(hoveredUnit-iOffset)*yShift, 340*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayYFactor());
 		}
 		if(selectedUnit != -1 && selectedUnit != hoveredUnit && selectedUnit >= iOffset && selectedUnit < iOffset+MAXIMUM_UNIT_DISPLAYED) {
-			
+			Draw.drawQuad(Sprites.friend_border, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+(selectedUnit-iOffset)*yShift, 340*Mideas.getDisplayXFactor(), 21*Mideas.getDisplayYFactor());
 		}	
 	}
 	

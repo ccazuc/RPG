@@ -40,7 +40,7 @@ public class EscapeFrame {
 	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave game", 13, 1, Color.WHITE, Color.WHITE) {
 		@Override
 		public void eventButtonClick() {
-			Mideas.close();
+			Mideas.closeGame();
 		}
 	};
 	private static Button returnButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Return game", 13, 1, Color.WHITE, Color.WHITE) {

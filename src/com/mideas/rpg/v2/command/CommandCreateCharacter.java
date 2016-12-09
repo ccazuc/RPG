@@ -5,8 +5,6 @@ import static com.mideas.rpg.v2.connection.PacketID.ERROR_NAME_ALPHABET;
 import static com.mideas.rpg.v2.connection.PacketID.ERROR_NAME_ALREADY_TAKEN;
 import static com.mideas.rpg.v2.connection.PacketID.ERROR_NAME_LENGTH;
 
-import com.mideas.rpg.v2.Mideas;
-
 import static com.mideas.rpg.v2.connection.PacketID.CHARACTER_CREATED;
 
 import com.mideas.rpg.v2.connection.ConnectionManager;
@@ -27,15 +25,15 @@ public class CommandCreateCharacter extends Command {
 		}
 		else if(packetId == ERROR_NAME_ALPHABET) {
 			SelectScreen.getAlert().setActive();
-			SelectScreen.getAlert().setText("Le nom doit contenir uniquement des caractères alphabétiques");
+			SelectScreen.getAlert().setText("Le nom doit contenir uniquement des caractères alphabétiques.");
 		}
 		else if(packetId == ERROR_NAME_ALREADY_TAKEN) {
 			SelectScreen.getAlert().setActive();
-			SelectScreen.getAlert().setText("Ce nom est déjà utilisé");
+			SelectScreen.getAlert().setText("This name is already taken");
 		}
 		else if(packetId == ERROR_NAME_LENGTH) {
 			SelectScreen.getAlert().setActive();
-			SelectScreen.getAlert().setText("Votre nom doit contenir entre 2 et 10 caractères.");
+			SelectScreen.getAlert().setText("Your name should contains between 2 and 10 characters.");
 		}
 	}
 	
@@ -51,7 +49,7 @@ public class CommandCreateCharacter extends Command {
 		}
 		else {
 			SelectScreen.getAlert().setActive();
-			SelectScreen.getAlert().setText("Votre nom doit contenir entre 2 et 10 caractères.");
+			SelectScreen.getAlert().setText("Your name should contains between 2 and 10 characters.");
 		}
 	}
 }

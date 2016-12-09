@@ -253,7 +253,7 @@ public class Mideas {
 		saveAllStats();
 	}
 	
-	public static void close() {
+	public static void closeGame() {
 		closeRequested = true;
 	}
 	

@@ -209,8 +209,7 @@ public class ConnectionManager {
 	public static void readAuthServer() {
 		if(authServerConnection != null && authSocket.isConnected()) {
 			try {
-				int readed = authServerConnection.read();
-				if(readed == 1) {
+				if(authServerConnection.read() == 1) {
 					readAuthPacket();
 				}
 			} 
@@ -235,7 +234,7 @@ public class ConnectionManager {
 		ChatFrame.clearChat();
 		LoginScreen.getAlert().setActive();
 		LoginScreen.getAlert().setText("You have been disconnected.");
-		LoginScreen.setPasswordActive();
+		LoginScreen.resetMenuState();
 	}
 	
 	private static void readAuthPacket() {
