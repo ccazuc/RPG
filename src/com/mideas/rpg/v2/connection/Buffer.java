@@ -18,6 +18,7 @@ import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffType;
 import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
+import com.mideas.rpg.v2.utils.Color;
 
 public class Buffer {
 
@@ -28,6 +29,10 @@ public class Buffer {
 	public Buffer(SocketChannel socket) {
 		this.buffer = ByteBuffer.allocateDirect(16000);
 		this.socket = socket;
+	}
+	
+	public Buffer() {
+		this.buffer = ByteBuffer.allocateDirect(16000);
 	}
 	
 	protected final void send() throws IOException {
@@ -111,12 +116,16 @@ public class Buffer {
 		return new Potion(readInt(), readString(), readString(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
+	protected final Color readColor() {
+		return new Color(readFloat(), readFloat(), readFloat(), readFloat());
+	}
+	
 	protected final ClassType[] readClassType() {
 		int i = 0;
-		int number = ConnectionManager.getConnection().readInt();
+		int number = readInt();
 		ClassType[] classType = new ClassType[number];
 		while(i < classType.length) {
-			classType[i] = ClassType.values()[ConnectionManager.getConnection().readChar()];
+			classType[i] = ClassType.values()[readChar()];
 			i++;
 		}
 		return classType;

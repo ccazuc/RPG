@@ -53,8 +53,7 @@ public class SelectScreen {
 	private static Color bgColors = new Color(0, 0, 0, .35f);
 	static Input character = new Input(FontManager.get("FRIZQT", 21), 12, false, false);
 	static Input deleteCharacter = new Input(FontManager.get("FRIZQT", 21), 8, false, false);
-	private static boolean realmScreenActive = true;
-	static boolean isConnectedToWorldServer;
+	static boolean realmScreenActive = true;
 	static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 130*Mideas.getDisplayXFactor(), 230*Mideas.getDisplayXFactor(), 38*Mideas.getDisplayYFactor(), Display.getHeight()+30, 20, "Ok");
 	private static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor(), 278*Mideas.getDisplayXFactor(), 36*Mideas.getDisplayYFactor(), "Create new character", 16, 2) {
 		@Override
@@ -90,6 +89,9 @@ public class SelectScreen {
 			Mideas.setAccountId(0);
 			LoginScreen.setPasswordActive();
 			characterLoaded = false;
+			realmScreenActive = false;
+			ConnectionManager.setIsLoggedOnWorldServer(false);
+			alert.setInactive();
 			SelectScreen.selectedCharacterIndex = 0;
 			LoginScreen.mouseEvent();
 			Arrays.fill(characterList, null);
@@ -118,7 +120,7 @@ public class SelectScreen {
 			alert.setText("Loading realm...");
 			CommandSendRealmList.requestRealm();
 			this.reset();
-			isConnectedToWorldServer = false;
+			ConnectionManager.setIsLoggedOnWorldServer(false);
 			characterLoaded = false;
 		}
 		
@@ -160,7 +162,7 @@ public class SelectScreen {
 	};
 
 	public static void draw() {
-		if(isConnectedToWorldServer && !characterLoaded) {
+		if(ConnectionManager.isLoggedOnWorldServer() && !characterLoaded) {
 			loadCharacter();
 			selectedCharacter[0] = true;
 			characterLoaded = true;
@@ -556,10 +558,6 @@ public class SelectScreen {
 	public static void setAlert(String text) {
 		alert.setActive();
 		alert.setText(text);
-	}
-	
-	public static void setIsConnectedToWorldServer(boolean we) {
-		isConnectedToWorldServer = we;
 	}
 	
 	public static Input getCharacterInput() {

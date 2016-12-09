@@ -523,7 +523,6 @@ public class ChatFrame {
 			}
 			i++;
 		}
-		System.out.println("Char method: "+line);
 	}
 	
 	private static int getNumberLineDivide(String msg) {

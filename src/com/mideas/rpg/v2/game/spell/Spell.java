@@ -161,7 +161,7 @@ public class Spell {
 		return this.name;
 	}
 	public Texture getSprite() {
-		return IconsManager.getSprite47(this.sprite_id);
+		return IconsManager.getSprite37(this.sprite_id);
 	}
 	
 	public int getSpellBaseCd() {

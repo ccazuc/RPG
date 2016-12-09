@@ -8,6 +8,7 @@ import com.mideas.rpg.v2.game.item.bag.Container;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.utils.Color;
 
 public class Connection {
 
@@ -79,6 +80,10 @@ public class Connection {
 	
 	public final Potion readPotion() {
 		return this.rBuffer.readPotion();
+	}
+	
+	public final Color readColor() {
+		return this.rBuffer.readColor();
 	}
 	
 	public final void writeBoolean(final boolean b) {

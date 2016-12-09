@@ -10,7 +10,7 @@ public class CommandAddItem extends Command {
 
 	@Override
 	public void read() {
-		byte packetID = ConnectionManager.getConnection().readByte();
+		short packetID = ConnectionManager.getConnection().readShort();
 		if(packetID == PacketID.KNOWN_ITEM) {
 			int id = ConnectionManager.getConnection().readInt();
 			int number = ConnectionManager.getConnection().readInt();

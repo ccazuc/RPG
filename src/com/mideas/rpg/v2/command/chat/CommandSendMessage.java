@@ -2,10 +2,12 @@ package com.mideas.rpg.v2.command.chat;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.chat.MessageColor;
 import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
+import com.mideas.rpg.v2.utils.Color;
 
 public class CommandSendMessage extends Command {
 	
@@ -15,11 +17,23 @@ public class CommandSendMessage extends Command {
 		String message = ConnectionManager.getConnection().readString();
 		if(type == MessageType.SELF) {
 			boolean hasAuthor = ConnectionManager.getConnection().readBoolean();
+			String author = null;
+			Color color = null;
 			if(hasAuthor) {
-				
+				author = ConnectionManager.getConnection().readString();
+			}
+			boolean knownColor = ConnectionManager.getConnection().readBoolean();
+			if(knownColor) {
+				color = MessageColor.values()[ConnectionManager.getConnection().readChar()].getColor();
 			}
 			else {
-				ChatFrame.addMessage(new Message(message, false, MessageType.SELF));
+				color = ConnectionManager.getConnection().readColor();
+			}
+			if(author == null) {
+				ChatFrame.addMessage(new Message(message, false, MessageType.SELF, color));
+			}
+			else {
+				ChatFrame.addMessage(new Message(message, author, false, MessageType.SELF, color));
 			}
 		}
 		else if(type == MessageType.WHISPER) {

@@ -17,7 +17,7 @@ public class EditBox {
 	private boolean buttonHover;
 	private Color bgColor;
 	
-	public EditBox(float x, float y, float x_size, int maxLength, boolean debugActive, TTF font, float opacity) {
+	public EditBox(float x, float y, float x_size, int maxLength, TTF font, float opacity) {
 		this.x = (int)x;
 		this.y = (int)y;
 		this.x_size = (int)x_size;
@@ -95,5 +95,5 @@ public class EditBox {
 		this.x_size = (int)x_size;
 	}
 	
-	protected boolean keyEvent(char c) {return false;};
+	protected boolean keyEvent(@SuppressWarnings("unused") char c) {return false;}
 }

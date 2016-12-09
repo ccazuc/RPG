@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.utils;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.FontManager;
 
 public class Alert {
@@ -15,6 +16,7 @@ public class Alert {
 	private int baseY;
 	private int x;
 	private int y;
+	private int x_size_alert;
 	private float x_size_button;
 	private float y_size_button;
 	private AlertBackground background;
@@ -29,6 +31,7 @@ public class Alert {
 		this.baseY = (int)y;
 		this.x_size_button = x_size_button;
 		this.y_size_button = y_size_button;
+		this.x_size_alert = (int)x_size_alert;
 		this.background = new AlertBackground(this.x, this.y, x_size_alert, y_size_alert, .7f);
 		this.diff = (int)(y_size_alert-10-FontManager.get("FRIZQT", 22).getLineHeight());
 		this.button = new Button(this.x+x_size_alert/2-x_size_button/2, this.y+FontManager.get("FRIZQT", 22).getLineHeight()+this.diff/2-y_size_button/2, x_size_button, y_size_button, button_text, font_size, 2);
@@ -107,18 +110,24 @@ public class Alert {
 			this.background.draw();
 			int i = 0;
 			int y_shift = 0;
-			FontManager.get("FRIZQT", 22).drawBegin();
+			TTF font = FontManager.get("FRIZQT", 22);
+			font.drawBegin();
 			if(this.formatedText.length == 1) {
-				FontManager.get("FRIZQT", 22).drawStringShadowPart(this.x+this.background.getWidth()/2-FontManager.get("FRIZQT", 22).getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], Color.YELLOW, Color.BLACK, 3, 2, 2);
+				font.drawStringShadowPart(this.x+this.background.getWidth()/2-font.getWidth(this.formatedText[0])/2, this.y+14, this.formatedText[0], Color.YELLOW, Color.BLACK, 3, 2, 2);
 			}
 			else {
 				while(i < this.formatedText.length) {
-					FontManager.get("FRIZQT", 22).drawStringShadowPart(this.x+10, this.y+14+y_shift, this.formatedText[i], Color.YELLOW, Color.BLACK, 2, 2, 1);
-					y_shift+= FontManager.get("FRIZQT", 22).getLineHeight()+3;
+					if(i == this.formatedText.length-1) {
+						font.drawStringShadowPart(this.x+this.x_size_alert/2-FontManager.get("FRIZQT", 22).getWidth(this.formatedText[i])/2, this.y+14+y_shift, this.formatedText[i], Color.YELLOW, Color.BLACK, 2, 2, 1);
+					}
+					else {
+						font.drawStringShadowPart(this.x+10, this.y+14+y_shift, this.formatedText[i], Color.YELLOW, Color.BLACK, 2, 2, 1);
+					}
+					y_shift+= font.getLineHeight()+3;
 					i++;
 				}
 			}
-			FontManager.get("FRIZQT", 22).drawEnd();
+			font.drawEnd();
 			this.button.draw();
 		}
 	}

@@ -12,9 +12,10 @@ public class CommandWho extends Command {
 	@Override
 	public void read() {
 		int length = ConnectionManager.getConnection().readInt();
+		System.out.println(length);
 		int i = 0;
+		WhoFrame.clearList();
 		while(i < length) {
-			WhoFrame.clearList();
 			int id = ConnectionManager.getConnection().readInt();
 			String name = ConnectionManager.getConnection().readString();
 			String guildName = ConnectionManager.getConnection().readString();
@@ -26,8 +27,9 @@ public class CommandWho extends Command {
 		}
 	}
 	
-	public static void write() {
+	public static void write(String word) {
 		ConnectionManager.getConnection().writeShort(PacketID.WHO);
+		ConnectionManager.getConnection().writeString(word);
 		ConnectionManager.getConnection().send();
 	}
 }

@@ -60,6 +60,7 @@ public class ConnectionManager {
 	private static boolean init;
 	private static short worldLastReadedPacket;
 	private static short authLastReadedPacket;
+	private static boolean isLoggedOnWorldServer;
 	
 	private static void initPacket() {
 		commandList.put((int)LOGIN, new CommandLogin());
@@ -227,13 +228,13 @@ public class ConnectionManager {
 		closeAuth();
 		Interface.setHasLoggedInToAuth(false);
 		SelectScreen.setRealmScreenActive(true);
-		SelectScreen.setIsConnectedToWorldServer(false);
+		isLoggedOnWorldServer = false;
 		RealmListFrame.clearRealmList();
 		Mideas.setJoueur1Null();
 		Mideas.setAccountId(0);
 		ChatFrame.clearChat();
 		LoginScreen.getAlert().setActive();
-		LoginScreen.getAlert().setText("Vous avez été déconnecté.");
+		LoginScreen.getAlert().setText("You have been disconnected.");
 		LoginScreen.setPasswordActive();
 	}
 	
@@ -261,6 +262,14 @@ public class ConnectionManager {
 				System.out.println("Unknown World packet: "+(int)packetId+", last readed packet: "+worldLastReadedPacket);
 			}
 		}
+	}
+	
+	public static boolean isLoggedOnWorldServer() {
+		return isLoggedOnWorldServer;
+	}
+	
+	public static void setIsLoggedOnWorldServer(boolean we) {
+		isLoggedOnWorldServer = we;
 	}
 	
 	public static HashMap<Integer, Command> getCommandList() {

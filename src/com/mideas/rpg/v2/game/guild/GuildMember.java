@@ -173,7 +173,6 @@ public class GuildMember {
 	}
 	
 	public Color getColor() {
-		System.out.println(this.name+" "+this.color);
 		return this.color;
 	}
 	

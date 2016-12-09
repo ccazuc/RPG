@@ -33,7 +33,7 @@ public class DragBagManager {
 		hoverDelete = false;
 		hoverSave = false;
 		if(draggedBag != null) {
-			Draw.drawQuad(IconsManager.getSprite42(draggedBag.getSpriteId()), Mideas.mouseX(), Mideas.mouseY());
+			Draw.drawQuad(IconsManager.getSprite37(draggedBag.getSpriteId()), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
 		}
 		if(deleteItem && draggedBag != null) {

@@ -7,6 +7,7 @@ import com.mideas.rpg.v2.command.CommandFriend;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandIgnore;
 import com.mideas.rpg.v2.command.CommandParty;
+import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Popup;
@@ -85,6 +86,18 @@ public class PopupFrame {
 			CommandIgnore.addIgnore(popupInput.getInput().getText());
 		}
 	};
+	private static Button acceptTradeButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+		
+		@Override
+		public void eventButtonClick() {
+			CommandTrade.writeAccept();
+		}
+		
+		@Override
+		public void popupClosed() {
+			CommandTrade.writeCloseTrade();
+		}
+	};
 	
 	public static void draw() {
 		popup.draw();
@@ -141,6 +154,11 @@ public class PopupFrame {
 	
 	public static void activatePartyInvitationPopup(String name) {
 		popup.setPopup(partyInvitationButton, name+" wants to invite you in a party.");
+		popup.setTextTypeAccept();
+	}
+	
+	public static void activateTradePopup() {
+		popup.setPopup(acceptTradeButton, name+" wants to trade with you.");
 		popup.setTextTypeAccept();
 	}
 	

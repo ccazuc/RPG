@@ -10,7 +10,7 @@ public class CommandUpdateStats extends Command {
 
 	@Override
 	public void read() {
-		byte packetID = ConnectionManager.getConnection().readByte();
+		short packetID = ConnectionManager.getConnection().readShort();
 		int id = ConnectionManager.getConnection().readInt();
 		int value = ConnectionManager.getConnection().readInt();
 		System.out.println(id+" value: "+value);

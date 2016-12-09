@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 
 import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.FontManager;
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
 
 public class Input {
@@ -26,22 +27,52 @@ public class Input {
 	private boolean isActive;
 	private boolean multipleLine;
 	private boolean debugActive;
+	private float xDefault;
+	private float xDraw;
+	private float y;
+	private float maxWidth;
 	private final static ArrayList<Input> inputList = new ArrayList<Input>();
 	private static Input activatedInput;
 	
 	public final static int ESCAPE_CHAR_VALUE = 27;
 	public final static int ENTER_CHAR_VALUE = 13;
 	
+	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, boolean isActive) {
+		this.multipleLine = multipleLine;
+		this.maxLength = maxLength;
+		this.maxWidth = maxWidth;
+		setIsActive(isActive);
+		this.xDefault = x;
+		this.font = font;
+		this.y = y;
+	}
+	
+	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth) {
+		this.multipleLine = multipleLine;
+		this.maxLength = maxLength;
+		this.maxWidth = maxWidth;
+		this.xDefault = x;
+		this.font = font;
+		this.y = y;
+	}
+	
+	public Input(TTF font, int maxLength, boolean debugActive, boolean multipleLine, float x, float y, float maxWidth) {
+		this.multipleLine = multipleLine;
+		this.debugActive = debugActive;
+		this.maxLength = maxLength;
+		this.maxWidth = maxWidth;
+		this.xDefault = x;
+		this.font = font;
+		this.y = y;
+	}
+	
 	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive, boolean isActive) {
 		this.multipleLine = multipleLine;
 		this.debugActive = debugActive;
 		this.maxLength = maxLength;
-		this.isActive = isActive;
+		setIsActive(isActive);
 		inputList.add(this);
 		this.font = font;
-		if(isActive) {
-			activatedInput = this;
-		}
 	}
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive) {
@@ -50,6 +81,35 @@ public class Input {
 	
 	public Input(int font_size, int maxLength, boolean multipleLine, boolean debugActive) {
 		this(FontManager.get("FRIZQT", font_size), maxLength, multipleLine, debugActive, false);
+	}
+	
+	public void draw() {
+		int i = 0;
+		if(this.multipleLine) {
+			
+		}
+		else {
+			float x = this.xDraw+this.xDefault;
+			this.font.drawBegin();
+			while(i < this.text.length()) {
+				if(x >= this.xDefault) {
+					this.font.drawCharPart(x+1, this.y, this.text.charAt(i), Color.BLACK);
+					this.font.drawCharPart(x, this.y, this.text.charAt(i), Color.WHITE);
+				}
+				x+= this.font.getWidth(this.text.charAt(i));
+				if(x >= this.xDefault+this.maxWidth || (i < this.text.length()-1 && x+this.font.getWidth(this.text.charAt(i)) >= this.xDefault+this.maxWidth)) {
+					break;
+				}
+				i++;
+			}
+			this.font.drawEnd();
+			if(!this.isActive) {
+				return;
+			}
+			if(System.currentTimeMillis()%1000 < 500) {
+				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y, 5*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), Color.WHITE);
+			}
+		}
 	}
 	
 	public boolean event() {
@@ -165,11 +225,17 @@ public class Input {
 		return false;
 	}
 	
+	public void update(float x, float y, float maxWidth) {
+		this.xDefault = x;
+		this.y = y;
+		this.maxWidth = maxWidth;
+	}
+	
 	public void setMaxLength(int maxLength) {
 		this.maxLength = maxLength;
 	}
 	
-	public boolean keyEvent(char c) {return false;}
+	public boolean keyEvent(@SuppressWarnings("unused") char c) {return false;}
 	
 	private static boolean isValidCharacter(char c) {
 		return c >= ' ' && c <= 255;
@@ -235,6 +301,7 @@ public class Input {
 		this.selectedLength = 0;
 		this.selectedQuadLength = 0;
 		this.selectedStarts = 0;
+		this.xDraw = 0;
 	}
 	
 	public void setText(String text) {
@@ -254,6 +321,45 @@ public class Input {
 		}
 		this.cursorShift+= this.font.getWidth(add);
 		this.cursorPosition++;
+		System.out.println(this.cursorShift+" "+this.xDraw+" "+this.maxWidth);
+		if(this.cursorShift+this.xDraw > this.maxWidth) {
+			int i = this.cursorPosition-1;
+			this.xDraw-= this.maxWidth/3;
+			while(i > 0 && i > this.cursorPosition-5) {
+				this.xDraw-= this.font.getWidth(this.text.charAt(i));
+				i--;
+			}
+		}
+	}
+	
+	private void shiftTextLeft() {
+		//System.out.println(this.cursorShift+" "+this.xDraw+" "+this.maxWidth+" LEFT "+(this.cursorShift+this.xDraw > this.maxWidth)+" "+(this.cursorPosition < this.text.length()));
+		if(this.cursorShift+this.xDraw > this.maxWidth && this.cursorPosition <= this.text.length()) {
+			float shiftWidth = this.maxWidth/2;
+			int i = this.cursorPosition-1;
+			int shift = 0;
+			while(i >= 0 && shift < shiftWidth) {
+				this.xDraw-= this.font.getWidth(this.text.charAt(i));
+				shift+= this.font.getWidth(this.text.charAt(i));
+				i--;
+			}
+			shiftTextLeft();
+		}
+	}
+	
+	private void shiftTextRight() {
+		//System.out.println(this.cursorShift+" "+this.xDraw+" "+this.xDefault+" "+this.cursorPosition+" RIGHT "+(this.cursorShift+this.xDraw < 0));
+		if(this.cursorShift+this.xDraw < 0 && this.cursorPosition >= 0) {
+			int i = this.cursorPosition;
+			float shiftWidth = this.maxWidth/2;
+			int shift = 0;
+			while(i >= 0 && shift < shiftWidth) {
+				this.xDraw+= this.font.getWidth(this.text.charAt(i));
+				shift+= this.font.getWidth(this.text.charAt(i));
+				i--;
+			}
+			shiftTextRight();
+		}
 	}
 
 	private void delete() {
@@ -268,6 +374,7 @@ public class Input {
 				this.text = beg+end;
 				this.cursorPosition--;
 			}
+			shiftTextRight();
 		}
 	}
 	
@@ -276,6 +383,7 @@ public class Input {
 			String beg = this.text.substring(0, this.cursorPosition+this.text.substring(0, this.tempLength).length());
 			String end = this.text.substring(this.cursorPosition+1+this.text.substring(0, this.tempLength).length(), this.text.length());
 			this.text = beg+end;
+			shiftTextLeft();
 		}
 	}
 
@@ -335,7 +443,7 @@ public class Input {
 		this.cursorShift = 0;
 		return false;
 	}
-	private boolean CTRLleftArrow() {
+	private void CTRLleftArrow() {
 		int i = this.cursorPosition;
 		if(this.text.length() != 0 && i > 0) {
 			if(this.text.charAt(this.cursorPosition-1) == ' ' || this.text.charAt(this.cursorPosition-1) == ',' || this.text.charAt(this.cursorPosition-1) == ENTER_CHAR_VALUE) {
@@ -349,13 +457,13 @@ public class Input {
 			this.cursorShift-= this.font.getWidth(this.text.charAt(i-1));
 			i--;
 			if(i <= 0) {
-				return true;
+				break;
 			}
 			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_CHAR_VALUE) {
-				return true;
+				break;
 			}
 		}
-		return false;
+		shiftTextRight();
 	}
 	
 	public String getText() {
@@ -370,7 +478,7 @@ public class Input {
 		return this.cursorPosition;
 	}
 	
-	private boolean CTRLrightArrow() {
+	private void CTRLrightArrow() {
 		int i = this.cursorPosition;
 		if(i < this.text.length()) {
 			if(this.text.length() != 0) {
@@ -385,16 +493,16 @@ public class Input {
 				this.cursorShift+= this.font.getWidth(this.text.charAt(i));
 				i++;
 				if(i >= this.text.length()) {
-					return true;
+					break;
 				}
 				if(this.text.charAt(i) == ' ' || this.text.charAt(i) == ',' || this.text.charAt(i) == ENTER_CHAR_VALUE) {
 					this.cursorPosition++;
 					this.cursorShift+= this.font.getWidth(this.text.charAt(i));
-					return true;
+					break;
 				}
 			}
+			shiftTextLeft();
 		}
-		return false;
 	}
 	
 	private void leftArrow() {
@@ -402,6 +510,7 @@ public class Input {
 			this.cursorPosition--;
 			this.cursorShift-= this.font.getWidth(this.text.substring(this.cursorPosition+this.text.substring(0, this.tempLength).length(), this.cursorPosition+1+this.text.substring(0, this.tempLength).length()));
 		}
+		shiftTextRight();
 	}
 	
 	private void rightArrow() {
@@ -414,6 +523,7 @@ public class Input {
 				this.cursorShift+= this.font.getWidth(this.text.substring(this.cursorPosition-1+this.text.substring(0, this.tempLength).length(), this.cursorPosition+this.text.substring(0, this.tempLength).length()));
 			}
 		}
+		shiftTextLeft();
 	}
 	
 	private void selectLeftArrow() {
@@ -427,7 +537,7 @@ public class Input {
 		}
  	}
 	
-	private boolean selectCTRLLeftArrow() {
+	private void selectCTRLLeftArrow() {
 		int i = this.cursorPosition;
 		if(this.selectedLength == 0) {
 			this.selectedStarts = 40+this.cursorShift;
@@ -448,16 +558,17 @@ public class Input {
 			this.selectedLength--;
 			i--;
 			if(i <= 0) {
-				return true;
+				break;
 			}
 			if(this.text.charAt(i-1) == ' ' || this.text.charAt(i-1) == ',' || this.text.charAt(i-1) == ENTER_CHAR_VALUE) {
-				return true;
+				break;
 			}
 		}
-		return false;
+		shiftTextRight();
+		
 	}
 	
-	private boolean selectCTRLRightArrow() {
+	private void selectCTRLRightArrow() {
 		int i = this.cursorPosition;
 		if(this.selectedLength == 0) {
 			this.selectedStarts = 40+this.cursorShift;
@@ -479,14 +590,14 @@ public class Input {
 				this.selectedLength++;
 				i++;
 				if(i >= this.text.length()) {
-					return true;
+					break;
 				}
 				if(this.text.charAt(i) == ' ' || this.text.charAt(i) == ',' || this.text.charAt(i) == ENTER_CHAR_VALUE) {
-					return true;
+					break;
 				}
 			}
+			shiftTextLeft();
 		}
-		return false;
 	}
 
 	private void selectRightArrow() {

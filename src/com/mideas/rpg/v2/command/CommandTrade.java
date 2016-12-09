@@ -6,6 +6,7 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
+import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 
@@ -54,11 +55,7 @@ public class CommandTrade extends Command {
 			//check if windows are open etc
 			String name = ConnectionManager.getConnection().readString();
 			TradeFrame.setName(name);
-			TradeFrame.requestPending(true);
-			/*ConnectionManager.getConnection().writeShort(PacketID.TRADE);
-			ConnectionManager.getConnection().writeShort(PacketID.TRADE_NEW_CONFIRM);
-			ConnectionManager.getConnection().send();
-			Interface.setTradeFrameStatus(true);*/
+			PopupFrame.activateTradePopup();
 		}
 		else if(packetId == PacketID.TRADE_ACCEPT) {
 			TradeFrame.setTraceAcceptedOther(true);

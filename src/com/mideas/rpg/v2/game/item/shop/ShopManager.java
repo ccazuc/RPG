@@ -304,7 +304,7 @@ public class ShopManager {
 
 	private static void drawShopItem(int i, int x, int y) {
 		if(i+10*page < shopList.size()) {
-			Draw.drawQuad(IconsManager.getSprite35(getItem(shopList.get(i+10*page).getId()).getSpriteId()), Display.getWidth()/2+x+3, Display.getHeight()/2+y+3);
+			Draw.drawQuad(IconsManager.getSprite37(getItem(shopList.get(i+10*page).getId()).getSpriteId()), Display.getWidth()/2+x+3, Display.getHeight()/2+y+3);
 			Draw.drawQuad(Sprites.shop_border, Display.getWidth()/2+x-1, Display.getHeight()/2+y);
 		}
 	}

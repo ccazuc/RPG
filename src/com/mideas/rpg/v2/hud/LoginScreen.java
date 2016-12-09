@@ -16,8 +16,9 @@ import com.mideas.rpg.v2.utils.Input;
 
 public class LoginScreen {
 
-	private static Input account = new Input(FontManager.get("FRIZQT", 21), 10, false, false, true);
-	private static Input password = new Input(FontManager.get("FRIZQT", 16), 19, false, false);
+	//private static Input account = new Input(FontManager.get("FRIZQT", 21), 10, false, false, true);
+	private static Input account = new Input(FontManager.get("ARIALN", 21), 50, false, Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+13*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor(), true);
+	private static Input password = new Input(FontManager.get("ARIALN", 16), 19, false, false);
 	private static String passwordText = "";
 	private static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 130*Mideas.getDisplayXFactor(), 230*Mideas.getDisplayXFactor(), 38*Mideas.getDisplayYFactor(), Display.getHeight()+30, 20, "Ok");
 	private static StringBuilder passwordBuilder = new StringBuilder();
@@ -39,22 +40,21 @@ public class LoginScreen {
 
 	private final static String noAccountName = "Veuillez saisir votre nom de compte.";
 	private final static String noPassword = "Veuillez saisir votre mot de passe.";
-	private final static String bar = "|";
-	private final static String star = "*";
-	private final static String empty = "";
 	
 	public static void draw() {
 		Draw.drawQuadBG(Sprites.login_screen);
-		FontManager.get("FRIZQT", 21).drawString(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.WHITE);
-		FontManager.get("FRIZQT", 16).drawString(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), passwordText, Color.WHITE);
-		if(System.currentTimeMillis()%1000 < 500) {
+		//FontManager.get("FRIZQT", 21).drawString(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), account.getText(), Color.WHITE);
+		//FontManager.get("ARIALN", 21).drawString(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), passwordText, Color.WHITE);
+		drawPassword();
+		/*if(System.currentTimeMillis()%1000 < 500) {
 			if(account.isActive()) {
-				FontManager.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.WHITE);
+				//FontManager.loginScreenTick.drawString(Display.getWidth()/2-99*Mideas.getDisplayXFactor()+account.getCursorShift(), Display.getHeight()/2+3*Mideas.getDisplayYFactor(), bar, Color.WHITE);
 			}
-			else {
-				FontManager.loginScreenTick.drawString(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 16).getWidth(passwordText), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), bar, Color.WHITE);
+			else if(password.isActive()) {
+				//FontManager.loginScreenTick.drawString(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 16).getWidth(passwordText), Display.getHeight()/2+103*Mideas.getDisplayYFactor(), bar, Color.WHITE);
 			}
-		}
+		}*/
+		account.draw();
 		leaveButton.draw();
 		connectionButton.draw();
 		alert.draw();
@@ -117,11 +117,26 @@ public class LoginScreen {
 		}
 	}
 	
+	private static void drawPassword() {
+		int i = 0;
+		float x = Display.getWidth()/2-89*Mideas.getDisplayXFactor();
+		while(i < passwordText.length()) {
+			FontManager.get("ARIALN", 22).drawChar(x, Display.getHeight()/2+112*Mideas.getDisplayYFactor(), '*', Color.WHITE);
+			x+= 8*Mideas.getDisplayXFactor();
+			i++;
+		}
+		if(password.isActive()) {
+			if(System.currentTimeMillis()%1000 < 500) {
+				Draw.drawColorQuad(x-1, Display.getHeight()/2+112*Mideas.getDisplayYFactor(), 6*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), Color.WHITE);
+			}
+		}
+	}
+	
 	private static void updatePasswordText(int length) {
 		int i = 0;
 		passwordBuilder.setLength(0);
 		while(i < length) {
-			passwordBuilder.append(star);
+			passwordBuilder.append('*');
 			i++;
 		}
 		passwordText = passwordBuilder.toString();
@@ -137,11 +152,11 @@ public class LoginScreen {
 	}
 	
 	static void connectionEvent() {
-		if(account.getText().equals(empty)) {
+		if(account.getText().equals("")) {
 			alert.setText(noAccountName);
 			alert.setActive();
 		}
-		else if(password.getText().equals(empty)) {
+		else if(password.getText().equals("")) {
 			alert.setText(noPassword);
 			alert.setActive();
 		}
@@ -156,7 +171,6 @@ public class LoginScreen {
 	
 	public static void loginSuccess() {
 		account.setIsActive(true);
-		password.setIsActive(false);
 		account.resetText();
 		alert.setInactive();
 	}
@@ -167,6 +181,7 @@ public class LoginScreen {
 		alert.setX(-355*Mideas.getDisplayXFactor());
 		alert.setY(-60*Mideas.getDisplayYFactor());
 		alert.setWidth(700*Mideas.getDisplayXFactor());
+		account.update(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+13*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor());
 		//popup.update(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor());
 	}
 	

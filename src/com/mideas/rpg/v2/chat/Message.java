@@ -60,7 +60,7 @@ public class Message {
 		this.opacity = 1;
 	}
 	
-	public Message(String message, String author, boolean displayHour, MessageType type) { //used for all except self and whisper
+	public Message(String message, String author, boolean displayHour, MessageType type) { //used for all except whispers
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -68,6 +68,29 @@ public class Message {
 		this.minute = getMessageMinute(this.timer);
 		this.second = getMessageSecond(this.timer);
 		this.color = type.getColor();
+		this.type = type;
+		this.displayHour = displayHour;
+		this.author = author;
+		if(type == MessageType.SAY || type == MessageType.YELL) {
+			this.authorText = "["+author+"]"+type.getChatDisplay();
+		}
+		else if(type != MessageType.SELF) {
+			this.authorText = type.getChatDisplay()+"["+author+"] : ";
+		}
+		else {
+			this.authorText = '['+author+']';
+		}
+		this.opacity = 1;
+	}
+	
+	public Message(String message, String author, boolean displayHour, MessageType type, Color color) { //used for all except whispers
+		this.timer = System.currentTimeMillis();
+		this.lastSeenTimer = this.timer;
+		this.message = message;
+		this.hour = getMessageHour(this.timer);
+		this.minute = getMessageMinute(this.timer);
+		this.second = getMessageSecond(this.timer);
+		this.color = color;
 		this.type = type;
 		this.displayHour = displayHour;
 		this.author = author;

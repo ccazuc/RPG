@@ -8,12 +8,12 @@ public class CommandLoginRealm extends Command {
 
 	@Override
 	public void read() {
-		byte packetId = ConnectionManager.getConnection().readByte();
+		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.LOGIN_REALM_SUCCESS) {
 			System.out.println("LOGIN:LOGIN_REALM_SUCCESS");
-			SelectScreen.setIsConnectedToWorldServer(true);
-			SelectScreen.getAlert().setInactive();
-			SelectScreen.setRealmScreenActive(false);
+			ConnectionManager.setIsLoggedOnWorldServer(true);
+			SelectScreen.getAlert().setText("Loading characters...");
+			//SelectScreen.setRealmScreenActive(false);
 		}
 	}
 }

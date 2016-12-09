@@ -96,7 +96,8 @@ public class SpellBarFrame {
 					Draw.drawQuad(Sprites.spell_border, Display.getWidth()/2+(-2+x)*Mideas.getDisplayXFactor(), Display.getHeight()+(y-2+yShift)*Mideas.getDisplayYFactor());
 					StuffShortcut spell = (StuffShortcut)Mideas.joueur1().getSpells(spellCount);
 					if(isEquippedItem(Mideas.joueur1().getSpells(spellCount).getId())) {
-						Draw.drawQuad(Sprites.equipped_item_frame, Display.getWidth()/2+x*Mideas.getDisplayXFactor(), Display.getHeight()+(y-1+yShift)*Mideas.getDisplayYFactor());
+						//Draw.drawQuad(Sprites.equipped_item_frame, Display.getWidth()/2+x*Mideas.getDisplayXFactor(), Display.getHeight()+(y-1+yShift)*Mideas.getDisplayYFactor());
+						Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x*Mideas.getDisplayXFactor(), Display.getHeight()+(y-1+yShift)*Mideas.getDisplayYFactor(), 39*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor(), Color.GREEN);
 					}
 					if(Mideas.mouseX() >= Display.getWidth()/2+x*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+37+x*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()+(y-2+yShift)*Mideas.getDisplayYFactor()  && Mideas.mouseY() <= Display.getHeight()+(-2+yShift)*Mideas.getDisplayXFactor()) {
 						hoveredSpell = spell;

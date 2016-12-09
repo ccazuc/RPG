@@ -23,6 +23,7 @@ public class CommandSelectScreenLoadCharacters extends Command {
 			}
 			SelectScreen.setTotalCharacter(i);
 		}
+		SelectScreen.getAlert().setInactive();
 		System.out.println("Select screen character loaded");
 	}
 	

@@ -5,6 +5,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.SocialFrameMenu;
 import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
+import com.mideas.rpg.v2.hud.social.who.WhoFrame;
 import com.mideas.rpg.v2.utils.ButtonMenu;
 import com.mideas.rpg.v2.utils.CrossButton;
 
@@ -13,7 +14,7 @@ public class SocialFrame {
 	static SocialFrameMenu selectedMenu = SocialFrameMenu.FRIEND_FRAME;
 	private static int Y_SOCIAL_FRAME_DEFAULT = 115;
 	public static float Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
-	private static int X_SOCIAL_FRAME_DEFAULT = 500;
+	private static int X_SOCIAL_FRAME_DEFAULT = 50;
 	public static float X_SOCIAL_FRAME = X_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayXFactor();
 	private final static float BUTTON_MENU_Y = 461;
 	private final static float BUTTON_MENU_Y_SIZE = 33;
@@ -32,7 +33,7 @@ public class SocialFrame {
 		public void eventButtonClick() {
 			unselectAllButton();
 			this.setIsSelected(true);
-			//selectedMenu = SocialFrameMenu.WHO_FRAME;
+			selectedMenu = SocialFrameMenu.WHO_FRAME;
 		}
 	};
 	private static ButtonMenu guildButtonMenu = new ButtonMenu(X_SOCIAL_FRAME+130*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 60*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Guild", 10, 1, false) {
@@ -82,7 +83,7 @@ public class SocialFrame {
 			FriendsFrame.draw();
 		}
 		else if(selectedMenu == SocialFrameMenu.WHO_FRAME) {
-			//WhoFrame.draw();
+			WhoFrame.draw();
 		}
 		else if(selectedMenu == SocialFrameMenu.GUILD_FRAME) {
 			GuildFrame.draw();
@@ -114,7 +115,7 @@ public class SocialFrame {
 			return FriendsFrame.mouseEvent();
 		}
 		else if(selectedMenu == SocialFrameMenu.WHO_FRAME) {
-			//return WhoFrame.mouseEvent();
+			return WhoFrame.mouseEvent();
 		}
 		else if(selectedMenu == SocialFrameMenu.GUILD_FRAME) {
 			return GuildFrame.mouseEvent();

@@ -32,7 +32,7 @@ public class PopupInput extends Popup {
 				PopupInput.this.isActive = false;
 			}
 		};
-		this.input = new Input(FontManager.get("FRIZQT", 13), 30, false, false) {
+		this.input = new Input(FontManager.get("FRIZQT", 13), 30, false, x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor()) {
 			
 			@Override
 			public boolean keyEvent(char c) {
@@ -59,9 +59,10 @@ public class PopupInput extends Popup {
 		}
 		this.background.draw();
 		this.inputBar.draw();
+		this.input.draw();
 		FontManager.get("FRIZQT", 13).drawBegin();
 		FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.WHITE, Color.BLACK, 1, 0, 0);
-		FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		//FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Color.WHITE, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 13).drawEnd();
 		if(this.input.isActive() && System.currentTimeMillis()%1000 < 500) {
 			Draw.drawColorQuad(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor()+this.input.getCursorShift(), this.y+51*Mideas.getDisplayYFactor(), 5*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayYFactor(), Color.WHITE);
@@ -147,6 +148,7 @@ public class PopupInput extends Popup {
 		this.x = Display.getWidth()/2-this.x_size/2;
 		this.y_size = (int)y_size;
 		this.inputBar.update(Display.getWidth()/2-this.x_size_input_bar_save*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), this.x_size_input_bar_save*Mideas.getDisplayXFactor());
+		this.input.update(Display.getWidth()/2-this.x_size_input_bar_save*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), this.x_size_input_bar_save*Mideas.getDisplayXFactor());
 		this.background.update(this.x, this.y, this.x_size, this.y_size);
 		this.cancelButton.update(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		updateAcceptButton();

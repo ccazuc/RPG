@@ -20,17 +20,17 @@ public class ChatCommandOther {
 
 	public static void chatCommandOther(String[] datas) {
 		if(datas.length >= 1) {
-			if(datas[0].equals(".quit")) {
+			if(datas[0].equals("/quit")) {
 				Mideas.saveAllStats();
 				CommandLogout.write();
 				ConnectionManager.close();
 				System.exit(0);
 			}
-			else if(datas[0].equals(".logout")) {
+			else if(datas[0].equals("/logout")) {
 				Mideas.setJoueur1Null();
 				Interface.closeAllFrame();
 			}
-			else if(datas[0].equals(".lookspell")) {
+			else if(datas[0].equals("/lookspell")) {
 				if(datas.length >= 2) {
 					if(SpellManager.exists(Integer.valueOf(datas[1])) && Integer.valueOf(datas[1]) != -1) {
 						int id = Integer.valueOf(datas[1]);
@@ -44,7 +44,7 @@ public class ChatCommandOther {
 					}
 				}
 			}
-			else if(datas[0].equals(".itemnumber")) {
+			else if(datas[0].equals("/itemnumber")) {
 				if(datas.length >= 2) {
 					if(Item.exists(Integer.valueOf(datas[1]))) {
 						int id = Integer.valueOf(datas[1]);
@@ -55,7 +55,7 @@ public class ChatCommandOther {
 					}
 				}
 			}
-			else if(datas[0].equals(".update")) {
+			else if(datas[0].equals("/update")) {
 				Mideas.joueur1().getGold();
 				Mideas.joueur1().getExp();
 				ShopManager.getShopList().clear();
@@ -70,10 +70,10 @@ public class ChatCommandOther {
 				CommandLoadCharacter.write(1);
 				Interface.setStuffFullyLoaded(false);
 			}
-			else if(datas[0].equals(".reloadui")) {
+			else if(datas[0].equals("/reloadui")) {
 				Mideas.loadingScreen();
 			}
-			else if(datas[0].equals(".additem")) {
+			else if(datas[0].equals("/additem")) {
 				if(Mideas.getRank() >= 1) {
 					if(datas.length >= 2) {
 						if(Mideas.isInteger(datas[1])) {
@@ -110,7 +110,7 @@ public class ChatCommandOther {
 					ChatFrame.addMessage(new Message("You don't have the right to do this.", false, MessageType.SELF));
 				}
 			}
-			else if(datas[0].equals(".deleteitem")) {
+			else if(datas[0].equals("/deleteitem")) {
 				if(datas.length >= 2) {
 					int number = 1;
 					if(Item.exists(Integer.valueOf(datas[1]))) {
@@ -126,15 +126,15 @@ public class ChatCommandOther {
 					}
 				}
 			}
-			else if(datas[0].equals(".who")) {
+			else if(datas[0].equals("/who")) {
 				CommandListPlayer.write();
 			}
-			else if(datas[0].equals(".trade")) {
+			else if(datas[0].equals("/trade")) {
 				if(datas.length >= 2) {
 					CommandTrade.requestNewTrade(datas[1]);
 				}
 			}
-			else if(datas[0].equals(".help")) {
+			else if(datas[0].equals("/help")) {
 				ChatFrame.addMessage(new Message(".[joueur1, joueur2] [set, get] [stamina, mana, gold, experience] [value]", false, MessageType.SELF));
 				ChatFrame.addMessage(new Message(".lookspell [spell_id]", false, MessageType.SELF));
 				ChatFrame.addMessage(new Message(".itemnumber [item_id]", false, MessageType.SELF));

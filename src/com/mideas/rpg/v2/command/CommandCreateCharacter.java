@@ -16,7 +16,7 @@ public class CommandCreateCharacter extends Command {
 	
 	@Override
 	public void read() {
-		byte packetId = ConnectionManager.getConnection().readByte();
+		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == CHARACTER_CREATED) {
 			CommandSelectScreenLoadCharacters.write();
 			SelectScreen.setCreatingCharacter(false);

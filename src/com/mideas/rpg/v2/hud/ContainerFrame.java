@@ -141,7 +141,7 @@ public class ContainerFrame {
 					yBagShift = -bagSize[1]-142*Mideas.getDisplayYFactor();
 				}
 				firstBagButton.draw(Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				Draw.drawQuad(IconsManager.getSprite35(Mideas.joueur1().bag().getSpriteId(0)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
+				Draw.drawQuad(IconsManager.getSprite37(Mideas.joueur1().bag().getSpriteId(0)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(0).getId()), Display.getWidth()-320*Mideas.getDisplayXFactor(), Display.getHeight()+bagShift+yBagShift-10*Mideas.getDisplayYFactor());
 				bagShift+= yBagShift;
 				yBagShift = 0;
@@ -156,7 +156,7 @@ public class ContainerFrame {
 					yBagShift = -bagSize[2]-142*Mideas.getDisplayYFactor();
 				}
 				secondBagButton.draw(Display.getWidth()+xCloseButton, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				Draw.drawQuad(IconsManager.getSprite35(Mideas.joueur1().bag().getSpriteId(1)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
+				Draw.drawQuad(IconsManager.getSprite37(Mideas.joueur1().bag().getSpriteId(1)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(1).getId()), Display.getWidth()-(320+xBagShift)*Mideas.getDisplayXFactor(), Display.getHeight()+bagShift+yBagShift-10);
 				bagShift+= yBagShift;
 				yBagShift = 0;
@@ -176,7 +176,7 @@ public class ContainerFrame {
 					yBagShift = -bagSize[3]-142;
 				}
 				thirdBagButton.draw(Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				Draw.drawQuad(IconsManager.getSprite35(Mideas.joueur1().bag().getSpriteId(2)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
+				Draw.drawQuad(IconsManager.getSprite37(Mideas.joueur1().bag().getSpriteId(2)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(2).getId()), Display.getWidth()-320*Mideas.getDisplayXFactor()+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 				bagShift+= yBagShift;
 				yBagShift = 0;
@@ -196,7 +196,7 @@ public class ContainerFrame {
 					yBagShift = -bagSize[4]-142*Mideas.getDisplayYFactor();
 				}
 				fourthBagButton.draw(Display.getWidth()+xCloseButton+xBagShift, Display.getHeight()+bagShift+yBagShift+yCloseButton);
-				Draw.drawQuad(IconsManager.getSprite35(Mideas.joueur1().bag().getSpriteId(3)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
+				Draw.drawQuad(IconsManager.getSprite37(Mideas.joueur1().bag().getSpriteId(3)), Display.getWidth()+xBagIcon+xBagShift, Display.getHeight()+bagShift+yBagShift+yBagIcon);
 				Draw.drawQuad(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(3).getId()), Display.getWidth()-320*Mideas.getDisplayXFactor()+xBagShift, Display.getHeight()+bagShift+yBagShift-10);
 			}
 		}

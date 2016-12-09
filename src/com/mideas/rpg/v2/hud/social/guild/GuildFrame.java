@@ -4,6 +4,7 @@ import org.lwjgl.input.Mouse;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandGuild;
@@ -53,6 +54,7 @@ public class GuildFrame {
 	private final static int MEMBER_DISPLAY_BUTTON_OFFICER_Y = 266;
 	private final static int BUTTON_MENU_SORT_Y = 74;
 	
+	private final static int GUILD_MEMBER_MAXIMUM_DISPLAY = 13;
 	static MemberSort memberSort;
 	static boolean manageFrameChangeMade;
 	static boolean manageFrameOpen;
@@ -107,7 +109,7 @@ public class GuildFrame {
 			return false;
 		}
 	};
-	final static EditBox rankNameEditBox = new EditBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, false, FontManager.get("FRIZQT", 13), .5f) {
+	final static EditBox rankNameEditBox = new EditBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, FontManager.get("FRIZQT", 13), .5f) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -265,7 +267,7 @@ public class GuildFrame {
 		
 		@Override
 		public boolean activateCondition() {
-			return memberInformationDisplayed != null && Mideas.joueur1().canInvitePlayerInParty(memberInformationDisplayed.getId());
+			return memberInformationDisplayed != null && memberInformationDisplayed.isOnline() && Mideas.joueur1().canInvitePlayerInParty(memberInformationDisplayed.getId());
 		}
 	};
 	private final static CrossButton closeInformationFrameCrossButton = new CrossButton(X_SOCIAL_FRAME+698*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+10*Mideas.getDisplayYFactor()) {
@@ -723,12 +725,12 @@ public class GuildFrame {
 	
 	private static void drawMembers() {
 		int iOffset = 0;
-		if(showOfflineMembers && Mideas.joueur1().getGuild().getMemberList().size() > 13) {
-			iOffset = (int)((Mideas.joueur1().getGuild().getMemberList().size()-13)*memberScrollBar.getScrollPercentage());
+		if(showOfflineMembers && Mideas.joueur1().getGuild().getMemberList().size() > GUILD_MEMBER_MAXIMUM_DISPLAY) {
+			iOffset = (int)((Mideas.joueur1().getGuild().getMemberList().size()-GUILD_MEMBER_MAXIMUM_DISPLAY)*memberScrollBar.getScrollPercentage());
 			memberScrollBar.draw();
 		}
-		else if(!showOfflineMembers && Mideas.joueur1().getGuild().getNumberOnlineMember() > 13) {
-			iOffset = (int)((Mideas.joueur1().getGuild().getNumberOnlineMember()-13)*memberScrollBar.getScrollPercentage());
+		else if(!showOfflineMembers && Mideas.joueur1().getGuild().getNumberOnlineMember() > GUILD_MEMBER_MAXIMUM_DISPLAY) {
+			iOffset = (int)((Mideas.joueur1().getGuild().getNumberOnlineMember()-GUILD_MEMBER_MAXIMUM_DISPLAY)*memberScrollBar.getScrollPercentage());
 			memberScrollBar.draw();
 		}
 		int i = iOffset;
@@ -736,20 +738,21 @@ public class GuildFrame {
 		float y = Y_SOCIAL_FRAME+105*Mideas.getDisplayYFactor();
 		int yShift = 0;
 		float yShiftHeight = 18*Mideas.getDisplayYFactor();
-		FontManager.get("FRIZQT", 13).drawBegin();
+		TTF font = FontManager.get("FRIZQT", 13);
+		font.drawBegin();
 		while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
 			if(Mideas.joueur1().getGuild().getMemberList().get(i).isOnline()) {
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", Color.WHITE, Color.BLACK, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), Color.WHITE, Color.BLACK, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), Mideas.joueur1().getGuild().getMemberList().get(i).getColor(), Color.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", Color.WHITE, Color.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), Mideas.joueur1().getGuild().getMemberList().get(i).getColor(), Color.BLACK, 1, 0, 0);
 				yShift+= yShiftHeight;
 			}
 			else if(showOfflineMembers) {
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), GREY, Color.BLACK, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", GREY, Color.BLACK, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), GREY, Color.BLACK, 1, 0, 0);
-				FontManager.get("FRIZQT", 13).drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), GREY, Color.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x, y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getName(), GREY, Color.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x+90*Mideas.getDisplayXFactor(), y+yShift, "Area", GREY, Color.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x+223*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getLevelString(), GREY, Color.BLACK, 1, 0, 0);
+				font.drawStringShadowPart(x+255*Mideas.getDisplayXFactor(), y+yShift, Mideas.joueur1().getGuild().getMemberList().get(i).getClassTypeString(), GREY, Color.BLACK, 1, 0, 0);
 				yShift+= yShiftHeight;
 			}
 			if(y+yShift+yShiftHeight >= Y_SOCIAL_FRAME+350*Mideas.getDisplayYFactor()) {
@@ -757,19 +760,20 @@ public class GuildFrame {
 			}
 			i++;
 		}
-		FontManager.get("FRIZQT", 13).drawEnd();
+		font.drawEnd();
 		i = iOffset;
-		if((hoveredMember >= i && hoveredMember < i+13) || (selectedMember >= i && selectedMember < i+13)) {
-			yShift = 0;
-			while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
-				if((Mideas.joueur1().getGuild().getMemberList().get(i).isOnline() || showOfflineMembers)) {
-					if(hoveredMember == i || selectedMember == i) {
-						Draw.drawQuadBlend(Sprites.friend_border, x-15*Mideas.getDisplayXFactor(), y+yShift, 343*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
-					}
-					yShift+= yShiftHeight;
+		yShift = 0;
+		while(i < Mideas.joueur1().getGuild().getMemberList().size()) {
+			if((Mideas.joueur1().getGuild().getMemberList().get(i).isOnline() || showOfflineMembers)) {
+				if(hoveredMember == i || selectedMember == i) {
+					Draw.drawQuadBlend(Sprites.friend_border, x-15*Mideas.getDisplayXFactor(), y+yShift, 343*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 				}
-				i++;
+				yShift+= yShiftHeight;
 			}
+			if(y+yShift+yShiftHeight >= Y_SOCIAL_FRAME+350*Mideas.getDisplayYFactor()) {
+				break;
+			}
+			i++;
 		}
 		if(memberMenu != null) {
 			displayedMemberMenu.draw();

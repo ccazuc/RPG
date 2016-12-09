@@ -198,11 +198,11 @@ public class FriendsFrame {
 			font.drawEnd();
 			Mideas.nTime(timer, "Ignore text draw time");
 			y = Y_SOCIAL_FRAME+80*Mideas.getDisplayYFactor();
-			if(hoveredIgnore != -1) {
-				Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y+hoveredIgnore*yShift, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
+			if(hoveredIgnore != -1 && hoveredIgnore >= iOffset && hoveredIgnore <= iOffset+IL_MAXIMUM_DISPLAY) {
+				Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y+(hoveredIgnore-iOffset)*yShift, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 			}
-			if(selectedIgnore != -1 && hoveredIgnore != selectedIgnore) {
-				Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y+selectedIgnore*yShift, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
+			if(selectedIgnore != -1 && hoveredIgnore != selectedIgnore && selectedIgnore >= iOffset && selectedIgnore < iOffset+IL_MAXIMUM_DISPLAY) {
+				Draw.drawQuadBlend(Sprites.friend_border, x-7*Mideas.getDisplayXFactor(), y+(selectedIgnore-iOffset)*yShift, 328*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 			}
 			Mideas.nTime(timer, "Ignore text total draw time");
 		}

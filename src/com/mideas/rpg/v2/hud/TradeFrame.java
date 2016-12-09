@@ -19,6 +19,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class TradeFrame {
 
+	private static String name;
 	private static float X_FRAME = Display.getWidth()/2-650*Mideas.getDisplayXFactor();
 	private static float Y_FRAME = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
 	private static float Y_SHIFT = 47*Mideas.getDisplayYFactor();
@@ -34,27 +35,8 @@ public class TradeFrame {
 	private static float y_click_down_draw;
 	static boolean tradeAcceptedSelf;
 	static boolean tradeAcceptedOther;
-	private static String name = "";
 	static Item[] itemList = new Item[14];
 	private static int hoveredSlot = -1;
-	static boolean requestPending;
-	private static long requestReceivedTimer;
-	private static long requestMaximumTimer = 20000;
-	private static Button acceptRequest = new Button(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Accept", 15, 2) {
-		@Override
-		public void eventButtonClick() {
-			CommandTrade.writeConfirm();
-			requestPending = false;
-			Interface.setTradeFrameStatus(true);
-		}
-	};
-	private static Button declineRequest = new Button(Display.getWidth()/2+20*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor(), "Decline", 15, 2) {
-		@Override
-		public void eventButtonClick() {
-			CommandTrade.writeCloseTrade();
-			requestPending = false;
-		}
-	};
 	private static CrossButton closeFrame = new CrossButton(Display.getWidth()/2-272*Mideas.getDisplayXFactor(), Display.getHeight()/2-285*Mideas.getDisplayYFactor()) {
 		@Override
 		public void eventButtonClick() {
@@ -91,6 +73,7 @@ public class TradeFrame {
 	public static void draw() {
 		Draw.drawQuad(Sprites.trade_frame, X_FRAME, Y_FRAME);
 		FontManager.get("FRIZQT", 13).drawStringShadow(X_FRAME+150*Mideas.getDisplayXFactor(), Y_FRAME+15*Mideas.getDisplayYFactor(), Mideas.joueur1().getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 13).drawStringShadow(X_FRAME+350*Mideas.getDisplayXFactor(), Y_FRAME+15*Mideas.getDisplayYFactor(), name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		float x = X_FRAME+25*Mideas.getDisplayXFactor();
 		float y = 0;
 		int i = 0;
@@ -195,21 +178,6 @@ public class TradeFrame {
 	}
 	
 	public static void event() { //TODO: use Popup classe
-		if(requestPending) {
-			if(System.currentTimeMillis()-requestReceivedTimer <= requestMaximumTimer) {
-				Draw.drawQuad(Sprites.alert, Display.getWidth()/2-250*Mideas.getDisplayXFactor(), Display.getHeight()/2-250*Mideas.getDisplayYFactor(), 500*Mideas.getDisplayXFactor(), 110*Mideas.getDisplayYFactor());
-				FontManager.get("FRIZQT", 16).drawStringShadow(Display.getWidth()/2-(FontManager.get("FRIZQT", 16).getWidth("Do you want to accept "+name+"'s trade ? "+(int)(20-(System.currentTimeMillis()-requestReceivedTimer)/1000)+" seconds left")*Mideas.getDisplayXFactor())/2, Display.getHeight()/2-230*Mideas.getDisplayYFactor(), "Do you want to accept "+name+"'s trade ? "+(int)(20-(System.currentTimeMillis()-requestReceivedTimer)/1000)+" seconds left", Color.WHITE, Color.BLACK, 1, Mideas.getDisplayXFactor(), Mideas.getDisplayXFactor());
-				acceptRequest.event();
-				declineRequest.event();
-				acceptRequest.draw();
-				declineRequest.draw();
-			}
-			else {
-				requestPending = false;
-				CommandTrade.writeCloseTrade();
-				requestReceivedTimer = 0;
-			}
-		}
 	}
 	
 	private static void clickEvent() {
@@ -257,10 +225,6 @@ public class TradeFrame {
 		}
 	}
 	
-	public static void setName(String names) {
-		name = names;
-	}
-	
 	public static void addItem(int id, int slot) {
 		if(slot < itemList.length) {
 			itemList[slot] = Item.getItem(id);
@@ -290,6 +254,10 @@ public class TradeFrame {
 		}
 	}
 	
+	public static void setName(String names) {
+		name = names;
+	}
+	
 	public static float getXFrame() {
 		return X_FRAME;
 	}
@@ -304,11 +272,6 @@ public class TradeFrame {
 	
 	public static void setTraceAcceptedSelf(boolean we) {
 		tradeAcceptedSelf = we;
-	}
-	
-	public static void requestPending(boolean we) {
-		requestPending = we;
-		requestReceivedTimer = System.currentTimeMillis();
 	}
 	
 	public static void removedTradedItems() {
@@ -340,7 +303,5 @@ public class TradeFrame {
 		Y_SHIFT = 47*Mideas.getDisplayYFactor();
 		cancelTrade.update(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 87*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
 		acceptTrade.update(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 93*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
-		declineRequest.update(Display.getWidth()/2+20*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor());
-		acceptRequest.update(Display.getWidth()/2-200*Mideas.getDisplayXFactor(), Display.getHeight()/2-190*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayXFactor());
 	}
 }
