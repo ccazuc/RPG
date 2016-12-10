@@ -107,7 +107,7 @@ public class Input {
 				return;
 			}
 			if(System.currentTimeMillis()%1000 < 500) {
-				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y, 5*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), Color.WHITE);
+				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y, 6*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor(), Color.WHITE);
 			}
 		}
 	}
@@ -291,6 +291,7 @@ public class Input {
 		}
 		this.cursorShift+= this.font.getWidth(add);
 		this.cursorPosition+= add.length();
+		shiftTextLeft();
 	}
 	
 	public void resetText() {
@@ -321,15 +322,7 @@ public class Input {
 		}
 		this.cursorShift+= this.font.getWidth(add);
 		this.cursorPosition++;
-		System.out.println(this.cursorShift+" "+this.xDraw+" "+this.maxWidth);
-		if(this.cursorShift+this.xDraw > this.maxWidth) {
-			int i = this.cursorPosition-1;
-			this.xDraw-= this.maxWidth/3;
-			while(i > 0 && i > this.cursorPosition-5) {
-				this.xDraw-= this.font.getWidth(this.text.charAt(i));
-				i--;
-			}
-		}
+		shiftTextLeft();
 	}
 	
 	private void shiftTextLeft() {

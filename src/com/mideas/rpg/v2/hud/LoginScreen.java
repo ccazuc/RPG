@@ -19,27 +19,27 @@ import com.mideas.rpg.v2.utils.Input;
 public class LoginScreen {
 
 	//private static Input account = new Input(FontManager.get("FRIZQT", 21), 10, false, false, true);
-	private static Input account = new Input(FontManager.get("ARIALN", 21), 50, false, Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+13*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor(), true);
+	private static Input account = new Input(FontManager.get("ARIALN", 21), 50, false, Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor(), true);
 	private static Input password = new Input(FontManager.get("ARIALN", 16), 19, false, false);
 	private static String passwordText = "";
 	private static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 20, "Ok");
 	private static StringBuilder passwordBuilder = new StringBuilder();
 	static boolean rememberAccountName;
-	private static Button leaveButton = new Button(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Leave", 16, 2) {
+	private static Button leaveButton = new Button(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+426*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Leave", 16, 2) {
 		
 		@Override
 		public void eventButtonClick() {
 			Mideas.closeGame();
 		}
 	};
-	private static Button connectionButton = new Button(Display.getWidth()/2-105*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Connection", 16, 2) {
+	private static Button connectionButton = new Button(Display.getWidth()/2-95*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 197*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor(), "Connection", 20, 2) {
 		
 		@Override
 		public void eventButtonClick() {
 			connectionEvent();
 		}
 	};
-	private static Button officialWebsiteButton = new Button(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Official website", 14, 2) {
+	private static Button officialWebsiteButton = new Button(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor(), "Official website", 16, 2) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -147,7 +147,7 @@ public class LoginScreen {
 	
 	private static void drawPassword() {
 		int i = 0;
-		float x = Display.getWidth()/2-89*Mideas.getDisplayXFactor();
+		float x = Display.getWidth()/2-91*Mideas.getDisplayXFactor();
 		while(i < passwordText.length()) {
 			FontManager.get("ARIALN", 22).drawChar(x, Display.getHeight()/2+112*Mideas.getDisplayYFactor(), '*', Color.WHITE);
 			x+= 8*Mideas.getDisplayXFactor();
@@ -155,7 +155,7 @@ public class LoginScreen {
 		}
 		if(password.isActive()) {
 			if(System.currentTimeMillis()%1000 < 500) {
-				Draw.drawColorQuad(x-1, Display.getHeight()/2+112*Mideas.getDisplayYFactor(), 6*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), Color.WHITE);
+				Draw.drawColorQuad(x-1, Display.getHeight()/2+112*Mideas.getDisplayYFactor(), 6*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor(), Color.WHITE);
 			}
 		}
 	}
@@ -214,13 +214,32 @@ public class LoginScreen {
 	}
 	
 	public static void updateSize() {
-		leaveButton.update(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
-		connectionButton.update(Display.getWidth()/2-105*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor());
+		leaveButton.update(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+426*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
+		connectionButton.update(Display.getWidth()/2-95*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 197*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor());
 		alert.update(Display.getWidth()/2-720*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-60*Mideas.getDisplayYFactor(), 720*Mideas.getDisplayXFactor());
-		account.update(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+13*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor());
-		officialWebsiteButton.update(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor());
+		account.update(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor());
+		officialWebsiteButton.update(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor());
 		rememberAccountNameCheckBox.update(27*Mideas.getDisplayXFactor(), Display.getHeight()-167*Mideas.getDisplayYFactor(), 22*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 		//popup.update(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor());
+	}
+	
+	public static boolean getRememberAccountName() {
+		return rememberAccountName;
+	}
+	
+	public static void setRememberAccountName(boolean we) {
+		rememberAccountName = we;
+	}
+	
+	public static String getAccountName() {
+		return account.getText();
+	}
+	
+	public static void setAccountName(String name) {
+		account.setText(name);
+		if(!name.equals("")) {
+			password.setIsActive(true);
+		}
 	}
 	
 	public static void resetPassword() {

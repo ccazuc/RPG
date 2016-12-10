@@ -616,7 +616,7 @@ public class Sprites {
 		
 	public static boolean sprite9() {
 		selected_character = new Texture("sprite/interface/Glue-CharacterSelect-Highlight.png");
-		login_screen = new Texture("sprite/interface/loginscreen.png");
+		login_screen = new Texture("sprite/interface/login_screen.png");
 		bag4 = new Texture("sprite/interface/bag/4.png");
 		bag6 = new Texture("sprite/interface/bag/6.png");
 		bag8 = new Texture("sprite/interface/bag/8.png");
