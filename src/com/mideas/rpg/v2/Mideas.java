@@ -28,9 +28,10 @@ import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
-import com.mideas.rpg.v2.game.ConfigManager;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.ClassManager;
+import com.mideas.rpg.v2.game.config.ChatConfigManager;
+import com.mideas.rpg.v2.game.config.ConfigManager;
 import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
@@ -178,7 +179,10 @@ public class Mideas {
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();
 		GemManager.loadGemSprites();
+		ConfigManager.initConfigMap();
 		ConfigManager.loadConfig();
+		ChatConfigManager.initConfigMap();
+		ChatConfigManager.loadConfig();
 		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		authServerConnectionRunnable = new AuthServerConnectionRunnable();
 		authServerConnectionThread = new Thread(authServerConnectionRunnable);
@@ -247,6 +251,7 @@ public class Mideas {
 		CommandLogout.write();
 		ConnectionManager.close();
 		ConfigManager.saveConfig();
+		ChatConfigManager.saveConfig();
 		authServerConnectionRunnable.setRun(false);
 		
 	}

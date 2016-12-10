@@ -30,7 +30,7 @@ public class Input {
 	private float xDefault;
 	private float xDraw;
 	private float y;
-	private float maxWidth;
+	private float maxWidth = 100;
 	private final static ArrayList<Input> inputList = new ArrayList<Input>();
 	private static Input activatedInput;
 	
@@ -326,7 +326,6 @@ public class Input {
 	}
 	
 	private void shiftTextLeft() {
-		//System.out.println(this.cursorShift+" "+this.xDraw+" "+this.maxWidth+" LEFT "+(this.cursorShift+this.xDraw > this.maxWidth)+" "+(this.cursorPosition < this.text.length()));
 		if(this.cursorShift+this.xDraw > this.maxWidth && this.cursorPosition <= this.text.length()) {
 			float shiftWidth = this.maxWidth/2;
 			int i = this.cursorPosition-1;
