@@ -14,7 +14,7 @@ public class ConfigManager {
 	
 	private final static HashMap<String, Config> configMap = new HashMap<String, Config>();
 	public final static String FILE_NAME = "WTF/Config.wtf";
-	private final static Config REMEMBER_ACCOUNT_NAME = new Config("remember_account_name") {
+	private final static Config REMEMBER_ACCOUNT_NAME = new Config("rememberAccountName") {
 		
 		@Override
 		public void read(String value, int i) {
@@ -32,7 +32,7 @@ public class ConfigManager {
 			return this.name+" \""+writeBoolean(LoginScreen.getRememberAccountName())+'"';
 		}
 	};
-	private final static Config ACCOUNT_NAME = new Config("account_name") {
+	private final static Config ACCOUNT_NAME = new Config("accountName") {
 		
 		@Override
 		public void  read(String value, int i) {
@@ -61,10 +61,37 @@ public class ConfigManager {
 			return LoginScreen.getRememberAccountName() ? this.name+" \""+LoginScreen.getAccountName()+'"' : this.name+" \"\"";
 		}
 	};
+	private final static Config REALM_NAME = new Config("realmName") {
+		
+		@Override
+		public void  read(String value, int i) {
+			while(i < value.length()) {
+				if(value.charAt(i) != '"') {
+					i++;
+					continue;
+				}
+				i++;
+				int j = i;
+				while(j < value.length()) {
+					if(value.charAt(j) == '"') {
+						LoginScreen.setRealmName(value.substring(i, j));
+						return;
+					}
+					j++;
+				}
+			}
+		}
+		
+		@Override
+		public String write() {
+			return this.name+" \""+LoginScreen.getRealmName()+'"';
+		}
+	};
 	
 	public static void initConfigMap() {
 		configMap.put(REMEMBER_ACCOUNT_NAME.getName(), REMEMBER_ACCOUNT_NAME);
 		configMap.put(ACCOUNT_NAME.getName(), ACCOUNT_NAME);
+		configMap.put(REALM_NAME.getName(), REALM_NAME);
 	}
 	
 	public static void saveConfig() {

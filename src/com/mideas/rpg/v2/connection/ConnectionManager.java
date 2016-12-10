@@ -65,6 +65,7 @@ public class ConnectionManager {
 	private static short authLastReadedPacket;
 	private static boolean isLoggedOnWorldServer;
 	private static WorldServer loggedServer;
+	private static WorldServer lastLoggedRealm;
 	
 	private static void initPacket() {
 		commandList.put((int)LOGIN, new CommandLogin());
@@ -286,8 +287,16 @@ public class ConnectionManager {
 	
 	public static void setWorldServer(WorldServer server) {
 		loggedServer = server;
+		if(server != null) {
+			lastLoggedRealm = server;
+			LoginScreen.setRealmName(server.getRealmName());
+		}
 	}
 	
+	public static WorldServer getLastLoggedWorldServer() {
+		return lastLoggedRealm;
+	}
+	 
 	public static WorldServer getWorldServer() {
 		return loggedServer;
 	}
