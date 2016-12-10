@@ -22,8 +22,10 @@ public class CommandLogin extends Command {
 		short packetId = ConnectionManager.getAuthConnection().readShort();
 		if(packetId == LOGIN_ACCEPT) {
 			int id = ConnectionManager.getAuthConnection().readInt();
+			String accountName = ConnectionManager.getAuthConnection().readString();
 			//int rank = ConnectionManager.getAuthConnection().readInt();
 			Interface.setHasLoggedInToAuth(true);
+			Mideas.setAccountName(accountName);
 			Mideas.setAccountId(id);
 			//Mideas.setRank(rank);
 			//SelectScreen.mouseEvent();

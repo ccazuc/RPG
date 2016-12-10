@@ -6,6 +6,7 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.command.CommandLogoutCharacter;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
@@ -31,10 +32,7 @@ public class EscapeFrame {
 	private static Button logoutButton = new Button(Display.getWidth()/2-99*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 210*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), "Logout", 13, 1, Color.WHITE, Color.WHITE) {
 		@Override
 		public void eventButtonClick() {
-			CommandLogoutCharacter.write();
-			Mideas.setJoueur1Null();
-			Interface.closeAllFrame();
-			Interface.setCharacterLoaded(false);
+			ConnectionManager.logoutCharacter();
 		}
 	};
 	private static Button leaveButton = new Button(Display.getWidth()/2+773*Mideas.getDisplayXFactor(), Display.getHeight()/2+428*Mideas.getDisplayYFactor(), 185, 34, "Leave game", 13, 1, Color.WHITE, Color.WHITE) {

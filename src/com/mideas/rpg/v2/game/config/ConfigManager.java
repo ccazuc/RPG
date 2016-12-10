@@ -13,7 +13,7 @@ import com.mideas.rpg.v2.hud.LoginScreen;
 public class ConfigManager {
 	
 	private final static HashMap<String, Config> configMap = new HashMap<String, Config>();
-	public final static String FILE_NAME = "config.wtf";
+	public final static String FILE_NAME = "WTF/Config.wtf";
 	private final static Config REMEMBER_ACCOUNT_NAME = new Config("remember_account_name") {
 		
 		@Override

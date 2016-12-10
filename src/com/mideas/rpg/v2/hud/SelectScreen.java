@@ -19,6 +19,7 @@ import com.mideas.rpg.v2.command.CommandSendRealmList;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.classes.SelectScreenPlayer;
+import com.mideas.rpg.v2.game.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.race.Classe;
 import com.mideas.rpg.v2.game.race.NewCharacterRace;
 import com.mideas.rpg.v2.utils.Alert;
@@ -91,6 +92,7 @@ public class SelectScreen {
 			characterLoaded = false;
 			realmScreenActive = false;
 			ConnectionManager.setIsLoggedOnWorldServer(false);
+			ConnectionManager.setWorldServer(null);
 			alert.setInactive();
 			SelectScreen.selectedCharacterIndex = 0;
 			LoginScreen.mouseEvent();
@@ -102,6 +104,7 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			loadCharacterInfo();
+			ChatConfigManager.loadConfig();
 			Arrays.fill(characterList, null);
 			characterLoaded = false;
 			this.reset();
@@ -121,6 +124,7 @@ public class SelectScreen {
 			CommandSendRealmList.requestRealm();
 			this.reset();
 			ConnectionManager.setIsLoggedOnWorldServer(false);
+			ConnectionManager.setWorldServer(null);
 			characterLoaded = false;
 		}
 		

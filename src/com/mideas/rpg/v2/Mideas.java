@@ -83,6 +83,7 @@ public class Mideas {
 	private static double interfaceDrawTime;
 	private static double mouseEventTime;
 	private static int accountId;
+	private static String accountName;
 	private static float displayXFactor = 1700/1920f;
 	private static float displayYFactor = 930/1018f;
 	private static int rank;
@@ -182,7 +183,6 @@ public class Mideas {
 		ConfigManager.initConfigMap();
 		ConfigManager.loadConfig();
 		ChatConfigManager.initConfigMap();
-		ChatConfigManager.loadConfig();
 		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		authServerConnectionRunnable = new AuthServerConnectionRunnable();
 		authServerConnectionThread = new Thread(authServerConnectionRunnable);
@@ -539,6 +539,14 @@ public class Mideas {
 	
 	public static int getAccountId() {
 		return accountId;
+	}
+	
+	public static String getAccountName() {
+		return accountName;
+	}
+	
+	public static void setAccountName(String accountName) {
+		Mideas.accountName = accountName;
 	}
 
 	public static void setJoueur1(Joueur joueur) {

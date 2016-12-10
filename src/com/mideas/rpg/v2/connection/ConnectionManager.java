@@ -22,6 +22,7 @@ import com.mideas.rpg.v2.command.CommandLoadStats;
 import com.mideas.rpg.v2.command.CommandLogin;
 import com.mideas.rpg.v2.command.CommandLoginRealm;
 import com.mideas.rpg.v2.command.CommandLogout;
+import com.mideas.rpg.v2.command.CommandLogoutCharacter;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
@@ -40,6 +41,8 @@ import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
 import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
+import com.mideas.rpg.v2.game.WorldServer;
+import com.mideas.rpg.v2.game.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.RealmListFrame;
@@ -61,6 +64,7 @@ public class ConnectionManager {
 	private static short worldLastReadedPacket;
 	private static short authLastReadedPacket;
 	private static boolean isLoggedOnWorldServer;
+	private static WorldServer loggedServer;
 	
 	private static void initPacket() {
 		commandList.put((int)LOGIN, new CommandLogin());
@@ -221,7 +225,16 @@ public class ConnectionManager {
 		}
 	}
 	
+	public static void logoutCharacter() {
+		ChatConfigManager.saveConfig();
+		CommandLogoutCharacter.write();
+		Mideas.setJoueur1Null();
+		Interface.closeAllFrame();
+		Interface.setCharacterLoaded(false);
+	}
+	
 	public static void disconnect() {
+		ChatConfigManager.saveConfig();
 		CommandLogout.write();
 		close();
 		closeAuth();
@@ -269,6 +282,14 @@ public class ConnectionManager {
 	
 	public static void setIsLoggedOnWorldServer(boolean we) {
 		isLoggedOnWorldServer = we;
+	}
+	
+	public static void setWorldServer(WorldServer server) {
+		loggedServer = server;
+	}
+	
+	public static WorldServer getWorldServer() {
+		return loggedServer;
 	}
 	
 	public static HashMap<Integer, Command> getCommandList() {

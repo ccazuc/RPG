@@ -8,7 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.MessageType;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.utils.Color;
 
 public class ChatConfigManager {
@@ -16,19 +18,43 @@ public class ChatConfigManager {
 	private final static HashMap<String, ConfigList> configMap = new HashMap<String, ConfigList>();
 	public final static String FILE_NAME = "chat-config.wtf";
 	private final static ConfigList COLORS = new ConfigList("COLORS");
+	private final static Config SELF = new Config("SELF", MessageType.SELF);
 	private final static Config SAY = new Config("SAY", MessageType.SAY);
 	private final static Config PARTY = new Config("PARTY", MessageType.PARTY);
+	private final static Config RAID = new Config("RAID", MessageType.RAID);
+	private final static Config GUILD = new Config("GUILD", MessageType.GUILD);
+	private final static Config OFFICER = new Config("OFFICER", MessageType.OFFICER);
+	private final static Config YELL = new Config("YELL", MessageType.YELL);
+	private final static Config WHISPER = new Config("WHISPER", MessageType.WHISPER);
+	private final static Config EMOTE = new Config("EMOTE", MessageType.EMOTE);
+	private final static Config CHANNEL = new Config("CHANNEL", MessageType.CHANNEL);
+	private final static Config IGNORE = new Config("IGNORE", MessageType.IGNORE);
 	
 	public static void initConfigMap() {
+		COLORS.add(SELF);
 		COLORS.add(SAY);
 		COLORS.add(PARTY);
+		COLORS.add(RAID);
+		COLORS.add(GUILD);
+		COLORS.add(OFFICER);
+		COLORS.add(YELL);
+		COLORS.add(WHISPER);
+		COLORS.add(EMOTE);
+		COLORS.add(CHANNEL);
+		COLORS.add(IGNORE);
 		configMap.put(COLORS.getName(), COLORS);
 	}
 	
 	public static void saveConfig() {
+		if(Mideas.joueur1() == null) {
+			return;
+		}
 		try {
 			StringBuilder content = new StringBuilder();
-			File file = new File(FILE_NAME);
+			File folder = new File("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName());
+			folder.mkdirs();
+			File file = new File("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName()+'/'+FILE_NAME);
+			//System.out.println(file.mkdirs()+" "+("WTF/"+ConnectionManager.getWorldServer().getRealmName()+'/'+FILE_NAME));
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -59,7 +85,7 @@ public class ChatConfigManager {
 			int j = 0;
 			String currentLine;
 			ConfigList list;
-			buffer = new BufferedReader(new FileReader(FILE_NAME));
+			buffer = new BufferedReader(new FileReader("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName()+'/'+FILE_NAME));
 			while((currentLine = buffer.readLine()) != null) {
 				list = configMap.get(currentLine);
 				if(list == null) {

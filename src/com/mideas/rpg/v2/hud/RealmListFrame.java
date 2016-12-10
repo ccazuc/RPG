@@ -110,6 +110,10 @@ public class RealmListFrame {
 		}
 	}
 	
+	public static WorldServer getSelectedRealm() {
+		return selectedRealm;
+	}
+	
 	public static void updateSize() {
 		acceptButton.update(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 154*Mideas.getDisplayXFactor(), 31*Mideas.getDisplayXFactor());
 		cancelButton.update(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Window.getHeight()/2+282*Mideas.getDisplayYFactor(), 152*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
