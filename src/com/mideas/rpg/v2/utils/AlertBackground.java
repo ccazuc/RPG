@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.utils;
 
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 
@@ -9,7 +10,21 @@ public class AlertBackground {
 	private int y;
 	private int x_size;
 	private int y_size;
+	private String title;
+	private int titleWidth;
+	private int titleBorderWidth;
 	private Color bgColor;
+	
+	public AlertBackground(float x, float y, float x_size, float y_size, float opacity, String title, float titleBorderWidth) {
+		this.x = (int)x;
+		this.y = (int)y;
+		this.x_size = (int)x_size;
+		this.y_size = (int)y_size;
+		this.title = title;
+		this.titleWidth = FontManager.get("FRIZQT", 14).getWidth(this.title);
+		this.bgColor = new Color(0, 0, 0, opacity);
+		this.titleBorderWidth = (int)titleBorderWidth;
+	}
 	
 	public AlertBackground(float x, float y, float x_size, float y_size, float opacity) {
 		this.x = (int)x;
@@ -22,8 +37,8 @@ public class AlertBackground {
 	public void draw() {
 		float xFac = Mideas.getDisplayXFactor();
 		float yFac = Mideas.getDisplayYFactor();
-		int imageWidth = (int) (Sprites.top_left_corner_alert.getImageWidth()*xFac);
-		int imageHeight = (int) (Sprites.top_left_corner_alert.getImageHeight()*yFac);
+		int imageWidth = (int)(Sprites.top_left_corner_alert.getImageWidth()*xFac);
+		int imageHeight = (int)(Sprites.top_left_corner_alert.getImageHeight()*yFac);
 		int borderWidthShift = (int)(13*Mideas.getDisplayXFactor());
 		int borderHeightShift = (int)(13*Mideas.getDisplayYFactor());
 		Draw.drawColorQuad(this.x+borderWidthShift, this.y+borderHeightShift, this.x_size-2*borderWidthShift, this.y_size-2*borderHeightShift+1, this.bgColor);
@@ -37,6 +52,13 @@ public class AlertBackground {
 		
 		Draw.drawQuad(Sprites.height_left_border_alert, this.x, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
 		Draw.drawQuad(Sprites.height_right_border_alert, this.x+this.x_size-imageWidth, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
+		if(this.title != null) {
+			imageWidth = (int)(Sprites.alert_title_left_border.getImageWidth()*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.alert_title_left_border, this.x+this.x_size/2-this.titleBorderWidth/2, this.y-15*Mideas.getDisplayXFactor(), imageWidth, Sprites.alert_title_left_border.getImageHeight()*Mideas.getDisplayYFactor());
+			Draw.drawQuad(Sprites.alert_title_middle_border, this.x+this.x_size/2-this.titleBorderWidth/2+imageWidth, this.y-15*Mideas.getDisplayXFactor(), this.titleBorderWidth-2*imageWidth, Sprites.alert_title_middle_border.getImageHeight()*Mideas.getDisplayYFactor());
+			Draw.drawQuad(Sprites.alert_title_right_border, this.x+this.x_size/2+this.titleBorderWidth/2-imageWidth, this.y-15*Mideas.getDisplayXFactor(), imageWidth, Sprites.alert_title_right_border.getImageHeight()*Mideas.getDisplayYFactor());
+			FontManager.get("FRIZQT", 14).drawStringShadow(this.x+this.x_size/2-this.titleWidth/2, this.y-8*Mideas.getDisplayYFactor(), this.title, Color.YELLOW, Color.BLACK, 1, 0, 0);
+		}
 		
 		
 		/*Sprites.alert_background.drawBegin();
@@ -98,5 +120,13 @@ public class AlertBackground {
 		this.y = (int)y;
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;
+	}
+	
+	public void update(float x, float y, float x_size, float y_size, float titleBorderWidth) {
+		this.x = (int)x;
+		this.y = (int)y;
+		this.x_size = (int)x_size;
+		this.y_size = (int)y_size;
+		this.titleBorderWidth = (int)titleBorderWidth;
 	}
 }

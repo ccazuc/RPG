@@ -23,6 +23,7 @@ import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.DropDownMenu;
 import com.mideas.rpg.v2.utils.EditBox;
+import com.mideas.rpg.v2.utils.HorizontalBar;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.ScrollBar;
 import com.mideas.rpg.v2.utils.TextMenu;
@@ -74,6 +75,7 @@ public class GuildFrame {
 	static boolean displayGuildInformation;
 	private static boolean inputInit;
 	private static boolean dropDownMenuInit;
+	private final static HorizontalBar manageFrameHorizontalBar = new HorizontalBar(X_SOCIAL_FRAME+402*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+65*Mideas.getDisplayYFactor(), 300*Mideas.getDisplayXFactor());
 	private final static ScrollBar memberScrollBar = new ScrollBar(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 240*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 270*Mideas.getDisplayYFactor(), false, 18*Mideas.getDisplayYFactor());
 	private final static CheckBox showOfflineMembersCheckBox = new CheckBox(X_SOCIAL_FRAME+353*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), 17*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor()) {
 		
@@ -270,7 +272,7 @@ public class GuildFrame {
 			return memberInformationDisplayed != null && memberInformationDisplayed.isOnline() && Mideas.joueur1().canInvitePlayerInParty(memberInformationDisplayed.getId());
 		}
 	};
-	private final static CrossButton closeInformationFrameCrossButton = new CrossButton(X_SOCIAL_FRAME+698*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+10*Mideas.getDisplayYFactor()) {
+	private final static CrossButton closeInformationFrameCrossButton = new CrossButton(X_SOCIAL_FRAME+701*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+10*Mideas.getDisplayYFactor(), 19*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor()) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -278,7 +280,7 @@ public class GuildFrame {
 			this.reset();
 		}
 	};
-	private final static CrossButton closeDisplayMemberFrameCrossButton = new CrossButton(X_SOCIAL_FRAME+602*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+35*Mideas.getDisplayYFactor()) {
+	private final static CrossButton closeDisplayMemberFrameCrossButton = new CrossButton(X_SOCIAL_FRAME+605*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+35*Mideas.getDisplayYFactor(), 19*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor()) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -913,7 +915,8 @@ public class GuildFrame {
 			}
 			informationBackground.draw();
 			Draw.drawQuad(Sprites.guild_manage_frame_bot_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+433*Mideas.getDisplayYFactor());
-			Draw.drawQuad(Sprites.guild_manage_rank_horizontal_bar, X_SOCIAL_FRAME+399*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+65*Mideas.getDisplayYFactor());
+			//Draw.drawQuad(Sprites.guild_manage_rank_horizontal_bar, X_SOCIAL_FRAME+399*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+65*Mideas.getDisplayYFactor());
+			manageFrameHorizontalBar.draw();
 			FontManager.get("FRIZQT", 13).drawBegin();
 			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+555*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Select guild rank to modify:")/2, Y_SOCIAL_FRAME+20*Mideas.getDisplayYFactor(), "Select guild rank to modify:", YELLOW, Color.BLACK, 1, 0, 0);
 			FontManager.get("FRIZQT", 13).drawStringShadowPart(X_SOCIAL_FRAME+485*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth("Rank Label:")/2, Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), "Rank Label:", YELLOW, Color.BLACK, 1, 0, 0);
@@ -1162,7 +1165,7 @@ public class GuildFrame {
 		journalButton.update(X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+278*Mideas.getDisplayYFactor(), 65*Mideas.getDisplayXFactor(), 22*Mideas.getDisplayYFactor());
 		closeInformationButton.update(X_SOCIAL_FRAME+625*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor(), 90*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
 		acceptInformationButton.update(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor(), 90*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
-		closeInformationFrameCrossButton.update(X_SOCIAL_FRAME+698*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+10*Mideas.getDisplayYFactor());
+		closeInformationFrameCrossButton.update(X_SOCIAL_FRAME+701*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+10*Mideas.getDisplayYFactor(), 19*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 		showOfflineMembersCheckBox.update(X_SOCIAL_FRAME+353*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), 17*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor());
 		guildInformationTooltip.update(X_SOCIAL_FRAME+403*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+36*Mideas.getDisplayYFactor(), 320*Mideas.getDisplayXFactor(), 242*Mideas.getDisplayYFactor());
 		if(displayGuildInformation) {
@@ -1185,7 +1188,7 @@ public class GuildFrame {
 		}
 		noteTooltip.update(X_SOCIAL_FRAME+412*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+153*Mideas.getDisplayYFactor(), 205*Mideas.getDisplayXFactor(), 45*Mideas.getDisplayYFactor());
 		officerNoteTooltip.update(X_SOCIAL_FRAME+412*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+213*Mideas.getDisplayYFactor(), 205*Mideas.getDisplayXFactor(), 45*Mideas.getDisplayYFactor());
-		closeDisplayMemberFrameCrossButton.update(X_SOCIAL_FRAME+602*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+35*Mideas.getDisplayYFactor());
+		closeDisplayMemberFrameCrossButton.update(X_SOCIAL_FRAME+605*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+35*Mideas.getDisplayYFactor(), 19*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 		canListenGuildChannelCheckBox.update(X_SOCIAL_FRAME+MANAGE_FRAME_CHECKBOX_LEFT_SIDE*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+137*Mideas.getDisplayYFactor(), 15*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 		canListenOfficerChannelCheckBox.update(X_SOCIAL_FRAME+MANAGE_FRAME_CHECKBOX_LEFT_SIDE*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+158*Mideas.getDisplayYFactor(), 15*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 		canPromoteCheckBox.update(X_SOCIAL_FRAME+MANAGE_FRAME_CHECKBOX_LEFT_SIDE*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+179*Mideas.getDisplayYFactor(), 15*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());

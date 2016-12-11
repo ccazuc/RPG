@@ -6,13 +6,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import com.mideas.rpg.v2.hud.LoginScreen;
 
 public class ConfigManager {
 	
-	private final static HashMap<String, Config> configMap = new HashMap<String, Config>();
+	private final static LinkedHashMap<String, Config> configMap = new LinkedHashMap<String, Config>();
 	public final static String FILE_NAME = "WTF/Config.wtf";
 	private final static Config REMEMBER_ACCOUNT_NAME = new Config("rememberAccountName") {
 		
@@ -102,6 +102,7 @@ public class ConfigManager {
 				file.createNewFile();
 			}
 			for(Config config : configMap.values()) {
+				System.out.println(config.write());
 				content.append(config.write()+System.lineSeparator());
 			}
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));

@@ -146,7 +146,7 @@ public class LoginScreen {
 		}
 		if(password.isActive()) {
 			if(System.currentTimeMillis()%1000 < 500) {
-				Draw.drawColorQuad(x-1, Display.getHeight()/2+112*Mideas.getDisplayYFactor(), 6*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor(), Color.WHITE);
+				Draw.drawColorQuad(Display.getWidth()/2-92*Mideas.getDisplayXFactor()+8*Mideas.getDisplayXFactor()*password.getCursorPosition(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), 6*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor(), Color.WHITE);
 			}
 		}
 	}

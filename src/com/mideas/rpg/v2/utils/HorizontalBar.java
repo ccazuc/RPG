@@ -17,9 +17,9 @@ public class HorizontalBar {
 	
 	public void draw() {
 		int width = (int)(Sprites.horizontal_bar_left.getImageWidth()*Mideas.getDisplayXFactor());
-		int height = (int)(Sprites.horizontal_bar_left.getImageHeight()*Mideas.getDisplayYFactor());
+		int height = Sprites.horizontal_bar_left.getImageHeight();
 		Draw.drawQuad(Sprites.horizontal_bar_left, this.x, this.y, width, height);
-		Draw.drawQuad(Sprites.horizontal_bar_middle, this.x+width, this.y, this.x_size-2*width, Sprites.horizontal_bar_middle.getImageHeight());
+		Draw.drawQuad(Sprites.horizontal_bar_middle, this.x+width, this.y+5*Mideas.getDisplayYFactor(), this.x_size-2*width, Sprites.horizontal_bar_middle.getImageHeight()*Mideas.getDisplayYFactor());
 		Draw.drawQuad(Sprites.horizontal_bar_right, this.x+this.x_size-width, this.y, width, height);
 	}
 	

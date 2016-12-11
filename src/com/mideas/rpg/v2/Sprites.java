@@ -345,6 +345,9 @@ public class Sprites {
 	public static Texture alert_background;
 	public static Texture who_frame;
 	public static Texture mlg_frog;
+	public static Texture alert_title_left_border;
+	public static Texture alert_title_middle_border;
+	public static Texture alert_title_right_border;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -444,6 +447,9 @@ public class Sprites {
 		tooltip_frame = new Texture("sprite/interface/tooltip/tooltip.png");
 		alert_background = new Texture("sprite/interface/alert_background/alert_background.png");
 		mlg_frog = new Texture("sprite/interface/hqdefault.png");
+		alert_title_left_border = new Texture("sprite/interface/alert_background/title_left_border.png");
+		alert_title_middle_border = new Texture("sprite/interface/alert_background/title_middle_border.png");
+		alert_title_right_border = new Texture("sprite/interface/alert_background/title_right_border.png");
 		return true;
 	}
 	

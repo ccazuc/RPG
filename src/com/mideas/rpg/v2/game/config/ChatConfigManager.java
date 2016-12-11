@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.MessageType;
@@ -15,7 +15,7 @@ import com.mideas.rpg.v2.utils.Color;
 
 public class ChatConfigManager {
 
-	private final static HashMap<String, ConfigList> configMap = new HashMap<String, ConfigList>();
+	private final static LinkedHashMap<String, ConfigList> configMap = new LinkedHashMap<String, ConfigList>();
 	public final static String FILE_NAME = "chat-config.wtf";
 	private final static ConfigList COLORS = new ConfigList("COLORS");
 	private final static Config SELF = new Config("SELF", MessageType.SELF);

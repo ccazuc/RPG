@@ -14,7 +14,7 @@ public class SocialFrame {
 	static SocialFrameMenu selectedMenu = SocialFrameMenu.FRIEND_FRAME;
 	private static int Y_SOCIAL_FRAME_DEFAULT = 115;
 	public static float Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
-	private static int X_SOCIAL_FRAME_DEFAULT = 50;
+	private static int X_SOCIAL_FRAME_DEFAULT = 5;
 	public static float X_SOCIAL_FRAME = X_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayXFactor();
 	private final static float BUTTON_MENU_Y = 461;
 	private final static float BUTTON_MENU_Y_SIZE = 33;
