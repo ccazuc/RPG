@@ -12,6 +12,8 @@ import com.mideas.rpg.v2.hud.LoginScreen;
 
 public class ConfigManager {
 	
+	private final static boolean DEBUG_READ = false;
+	private final static boolean DEBUG_WRITE = false;
 	private final static LinkedHashMap<String, Config> configMap = new LinkedHashMap<String, Config>();
 	public final static String FILE_NAME = "WTF/Config.wtf";
 	private final static Config REMEMBER_ACCOUNT_NAME = new Config("rememberAccountName") {
@@ -102,7 +104,8 @@ public class ConfigManager {
 				file.createNewFile();
 			}
 			for(Config config : configMap.values()) {
-				System.out.println(config.write());
+				if(DEBUG_WRITE)
+					System.out.println(config.write());
 				content.append(config.write()+System.lineSeparator());
 			}
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
@@ -128,6 +131,8 @@ public class ConfigManager {
 						i++;
 						continue;
 					}
+					if(DEBUG_READ)
+						System.out.println(currentLine);
 					String tmp = currentLine.substring(0, i);
 					if(configMap.containsKey(tmp)) {
 						configMap.get(tmp).read(currentLine, i);

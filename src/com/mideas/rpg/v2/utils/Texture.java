@@ -83,8 +83,8 @@ public final class Texture {
 
 	public final void drawBegin() {
 		bind();
+		OpenGL.glColor3f(1, 1, 1);
 		OpenGL.glBegin(OpenGL.GL_QUADS);
-		OpenGL.glColor4f(1, 1, 1, 1);
 	}
 	
 	public final void drawEnd() {

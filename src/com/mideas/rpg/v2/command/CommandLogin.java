@@ -21,6 +21,7 @@ public class CommandLogin extends Command {
 	public void read() {
 		short packetId = ConnectionManager.getAuthConnection().readShort();
 		if(packetId == LOGIN_ACCEPT) {
+			System.out.println('a');
 			int id = ConnectionManager.getAuthConnection().readInt();
 			String accountName = ConnectionManager.getAuthConnection().readString();
 			//int rank = ConnectionManager.getAuthConnection().readInt();

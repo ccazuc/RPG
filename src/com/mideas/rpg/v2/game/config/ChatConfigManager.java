@@ -15,6 +15,8 @@ import com.mideas.rpg.v2.utils.Color;
 
 public class ChatConfigManager {
 
+	private final static boolean DEBUG_READ = false;
+	private final static boolean DEBUG_WRITE = false;
 	private final static LinkedHashMap<String, ConfigList> configMap = new LinkedHashMap<String, ConfigList>();
 	public final static String FILE_NAME = "chat-config.wtf";
 	private final static ConfigList COLORS = new ConfigList("COLORS");
@@ -54,7 +56,8 @@ public class ChatConfigManager {
 			File folder = new File("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName());
 			folder.mkdirs();
 			File file = new File("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName()+'/'+FILE_NAME);
-			//System.out.println(file.mkdirs()+" "+("WTF/"+ConnectionManager.getWorldServer().getRealmName()+'/'+FILE_NAME));
+			if(DEBUG_WRITE)
+				System.out.println(file.mkdirs()+" "+("WTF/"+ConnectionManager.getWorldServer().getRealmName()+'/'+FILE_NAME));
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -63,6 +66,8 @@ public class ChatConfigManager {
 				int i = 0;
 				while(i < configList.size()) {
 					if(configList.getName().equals(COLORS.getName())) {
+						if(DEBUG_WRITE) 
+							System.out.println(configList.get(i).writeChatColor());
 						content.append(configList.get(i).writeChatColor()+System.lineSeparator());
 					}
 					i++;
@@ -89,7 +94,8 @@ public class ChatConfigManager {
 			while((currentLine = buffer.readLine()) != null) {
 				list = configMap.get(currentLine);
 				if(list == null) {
-					System.out.println("Error load "+FILE_NAME+" on line "+j+" line value: \""+currentLine+"\"");
+					if(!currentLine.equals(""))
+						System.out.println("Error load "+FILE_NAME+" on line "+j+" line value: \""+currentLine+"\"");
 					continue;
 				}
 				while((currentLine = buffer.readLine()) != null) {
@@ -101,6 +107,8 @@ public class ChatConfigManager {
 					}
 					String tmp = currentLine.substring(0, i);
 					if(list.contains(tmp)) {
+						if(DEBUG_READ)
+							System.out.println(tmp);
 						if(list.getName().equals(COLORS.getName())) {
 							list.get(currentLine.substring(0, i)).readChatColor(currentLine);
 						}

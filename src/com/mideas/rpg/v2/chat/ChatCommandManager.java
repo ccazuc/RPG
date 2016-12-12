@@ -23,7 +23,6 @@ public class ChatCommandManager {
 						ChatCommandOther.chatCommandOther(datas);
 					}
 				}
-				return true;
 			}
 		}
 		return false;

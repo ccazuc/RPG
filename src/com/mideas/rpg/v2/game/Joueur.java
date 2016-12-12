@@ -2,7 +2,6 @@ package com.mideas.rpg.v2.game;
 
 import java.util.ArrayList;
 
-import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
@@ -36,7 +35,6 @@ import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
-import com.mideas.rpg.v2.utils.Color;
 
 public class Joueur extends Unit {
 

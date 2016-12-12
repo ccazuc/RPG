@@ -67,6 +67,7 @@ public class GuildFrame {
 	static boolean memberInformationDisplay;
 	private static int hoveredMemberX;
 	private static int hoveredMemberY;
+	private static int downMember = -1;
 	static GuildMember memberMenu;
 	private static int selectedMember = -1;
 	private final static Color YELLOW = Color.YELLOW;
@@ -351,7 +352,7 @@ public class GuildFrame {
 			memberMenu = null;
 		}
 	};
-	private static TextMenu whisperTextMenu = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), "Whisper", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu whisperTextMenu = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), "Whisper", 12, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			ChatFrame.setWhisper(memberMenu.getName());
@@ -360,38 +361,38 @@ public class GuildFrame {
 			displayedMemberMenu.setActive(false);
 		}
 	};
-	private static TextMenu targetTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Target", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu targetTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Target", 12, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
 			displayedMemberMenu.setActive(false);
 		}
 	};
-	private static TextMenu ignoreTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Ignore", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu ignoreTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Ignore", 12, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
+			CommandIgnore.addIgnore(memberMenu.getName());
 			displayedMemberMenu.setActive(false);
-			CommandIgnore.addIgnore(memberInformationDisplayed.getName());
 		}
 	};
-	private static TextMenu leaveGuildTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Leave guild", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu leaveGuildTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Leave guild", 12, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
-			displayedMemberMenu.setActive(false);
 			CommandGuild.leaveGuild();
-		}
-	};
-	private static TextMenu setLeaderTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Give leadership", 14, 1, -8*Mideas.getDisplayXFactor()) {
-		@Override
-		public void eventButtonClick() {
-			CommandGuild.setLeader(memberMenu.getId());
-			this.reset();
 			displayedMemberMenu.setActive(false);
 		}
 	};
-	private static TextMenu cancelTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Cancel", 14, 1, -8*Mideas.getDisplayXFactor()) {
+	private static TextMenu setLeaderTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Give leadership", 12, 1, -8*Mideas.getDisplayXFactor()) {
+		@Override
+		public void eventButtonClick() {
+			this.reset();
+			CommandGuild.setLeader(memberMenu.getId());
+			displayedMemberMenu.setActive(false);
+		}
+	};
+	private static TextMenu cancelTextMenu = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Cancel", 12, 1, -8*Mideas.getDisplayXFactor()) {
 		@Override
 		public void eventButtonClick() {
 			this.reset();
@@ -815,12 +816,18 @@ public class GuildFrame {
 			i++;
 		}
 		if(hoveredMember != -1) {
-			if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					downMember = hoveredMember;
+				}
+			}
+			if(!Mouse.getEventButtonState() && downMember == hoveredMember) {
 				if(Mouse.getEventButton() == 0) {
 					if(selectedMember == hoveredMember) {
 						selectedMember = -1;
 						memberInformationDisplay = false;
 						memberInformationDisplayed = null;
+						downMember = -1;
 						return true;
 					}
 					memberInformationDisplayed = Mideas.joueur1().getGuild().getMemberList().get(hoveredMember);
@@ -838,6 +845,7 @@ public class GuildFrame {
 					memberInformationDisplay = true;
 					closeGuildInformationFrame();
 					closeManageFrame();
+					downMember = -1;
 					return true;
 				}
 				else if(Mouse.getEventButton() == 1) {
@@ -850,6 +858,7 @@ public class GuildFrame {
 						displayedMemberMenu.setName(memberMenu.getName());
 						displayedMemberMenu.setActive(true);
 					}
+					downMember = -1;
 					return true;
 				}
 			}
@@ -859,14 +868,14 @@ public class GuildFrame {
 	
 	private static void buildMenuList() {
 		if(Mideas.joueur1().getGuild().isLeader(Mideas.joueur1().getId()) && memberMenu.getId() != Mideas.joueur1().getId()) {
-			buildMenuListLeader(hoveredMemberX, hoveredMemberY, 130*Mideas.getDisplayXFactor());
+			buildMenuListLeader(hoveredMemberX, hoveredMemberY, 143*Mideas.getDisplayXFactor());
 		}
 		else {
 			if(memberMenu.getId() == Mideas.joueur1().getId()) {
-				buildMenuListSelf(hoveredMemberX, hoveredMemberY, 110*Mideas.getDisplayXFactor());
+				buildMenuListSelf(hoveredMemberX, hoveredMemberY, 118*Mideas.getDisplayXFactor());
 			}
 			else {
-				buildMenuListNonLeader(hoveredMemberX, hoveredMemberY, 85*Mideas.getDisplayXFactor());
+				buildMenuListNonLeader(hoveredMemberX, hoveredMemberY, 92*Mideas.getDisplayXFactor());
 			}
 		}
 	}

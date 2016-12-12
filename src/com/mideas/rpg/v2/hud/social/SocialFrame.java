@@ -146,6 +146,9 @@ public class SocialFrame {
 		discussionButtonMenu.update(X_SOCIAL_FRAME+194*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 85*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
 		raidButtonMenu.update(X_SOCIAL_FRAME+285*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 49*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
 		closeFrame.update(X_SOCIAL_FRAME+370*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor());
+		WhoFrame.updateSize();
+		GuildFrame.updateSize();
+		FriendsFrame.updateSize();
 	}
 	
 	public static void test() {

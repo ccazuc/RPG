@@ -307,8 +307,6 @@ public class Mideas {
 		ChatFrame.updateSize();
 		PerformanceBarFrame.updateSize();
 		PopupFrame.updateSize();
-		FriendsFrame.updateSize();
-		GuildFrame.updateSize();
 		if(joueur1 != null) {
 			if(joueur1.getFirstProfession() != null) {
 				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);

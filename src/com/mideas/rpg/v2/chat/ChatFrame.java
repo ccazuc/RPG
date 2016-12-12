@@ -292,7 +292,7 @@ public class ChatFrame {
 			if(chatActive) {
 				if(!tempMessage.equals("")) {
 					rawMessages.add(tempMessage);
-					if(!ChatCommandManager.chatCommandManager(tempMessage) && !checkNewMessageType(tempMessage)) {
+					if(!checkNewMessageType(tempMessage) && !ChatCommandManager.chatCommandManager(tempMessage)) {
 						if(selectedType == MessageType.WHISPER) {
 							CommandSendMessage.writeWhisper(tempMessage, currentWhisper.substring(0, currentWhisper.length()-3));
 						}
@@ -532,6 +532,7 @@ public class ChatFrame {
 	}
 	 
 	private static boolean checkNewMessageType(String msg) {
+		System.out.println(msg);
 		if(msg.length() >= 3 && msg.startsWith("/")) {
 			if(msg.startsWith("/i") && msg.length() >= 4) {
 				msg = msg.trim();

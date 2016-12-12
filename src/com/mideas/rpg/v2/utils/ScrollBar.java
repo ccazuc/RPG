@@ -199,30 +199,32 @@ public class ScrollBar {
 		return this.x;
 	}
 	
-	public void event() {
+	public boolean event() {
 		this.mouseWheel = Mouse.getDWheel()/12;
-		mouseDragEvent();
-		topArrowEvent();
-		botArrowEvent();
+		if(mouseDragEvent()) return true;
+		if(topArrowEvent()) return true;
+		if(botArrowEvent()) return true;
 		if(this.down) {
 			if(this.dragAndScroll) {
 				mouseScroll();
-				return;
+				return true;
 			}
 			this.mouseWheel = 0;
 		}
 		else {
 			mouseScroll();
 		}
+		return false;
 	}
 	
-	private void mouseDragEvent() {
+	private boolean mouseDragEvent() {
 		if(Mideas.mouseX() >= this.x+4 && Mideas.mouseX() <= this.x+24) {
 			if(Mideas.getHover() && Mideas.mouseY() >= this.y+this.y_ascensor+22*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+this.y_ascensor+22*Mideas.getDisplayYFactor()+Sprites.ascensor.getImageHeight()*Mideas.getDisplayYFactor()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					if(Mouse.getEventButtonState()) {
 						this.down = true;
 						this.y_ascensor_onclick = Mideas.mouseY();
+						return true;
 					}
 				}
 				Mideas.setHover(false);
@@ -241,6 +243,7 @@ public class ScrollBar {
 							this.buttonHoverBotArrow = false;
 						}
 						onScroll();
+						return true;
 					}
 				}
 				Mideas.setHover(false);
@@ -264,6 +267,7 @@ public class ScrollBar {
 			}
 			onScroll();
 		}
+		return false;
 	}
 	
 	private void mouseScroll() {
@@ -293,47 +297,52 @@ public class ScrollBar {
 		}
 	}
 	
-	private void topArrowEvent() {
-		if(this.y_ascensor != this.Y_ASCENSOR_UP_SHIFT) {
+	private boolean topArrowEvent() {
+		if(this.y_ascensor == this.Y_ASCENSOR_UP_SHIFT) {
+			return false;
+		}
+		if(Mideas.mouseX() >= this.x+4*Mideas.getDisplayXFactor() && Mideas.mouseX() <= this.x+4*Mideas.getDisplayXFactor()+Sprites.scrollbar_up_arrow.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= this.y+2*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+2*Mideas.getDisplayYFactor()+Sprites.scrollbar_down_arrow.getImageHeight()*Mideas.getDisplayYFactor()) {
+			this.buttonHoverTopArrow = true;
+		}
+		else {
 			this.buttonHoverTopArrow = false;
-			if(Mideas.mouseX() >= this.x+4*Mideas.getDisplayXFactor() && Mideas.mouseX() <= this.x+4*Mideas.getDisplayXFactor()+Sprites.scrollbar_up_arrow.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= this.y+2*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+2*Mideas.getDisplayYFactor()+Sprites.scrollbar_down_arrow.getImageHeight()*Mideas.getDisplayYFactor()) {
-				this.buttonHoverTopArrow = true;
-			}
-			if(this.buttonHoverTopArrow) {
-				if(Mouse.getEventButtonState()) {
-					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDownTopArrow = true;
-					}
-				}
-				else if(this.buttonDownTopArrow) {
-					if(Mouse.getEventButton() == 0) {
-						this.buttonDownTopArrow = false;
-						if(this.y_ascensor-this.scroll_tick_size > this.Y_ASCENSOR_UP_SHIFT) {
-							this.y_ascensor-= this.scroll_tick_size;
-							onScroll();
-						}
-						else if(this.y_ascensor-this.scroll_tick_size <= this.Y_ASCENSOR_UP_SHIFT) {
-							this.y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
-							this.buttonHoverTopArrow = false;
-							onScroll();
-						}
-						this.y_ascensor_lastclick = this.y_ascensor;
-					}
-					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDownTopArrow = false;
-					}
-				}
-			}
-			else if(!Mouse.getEventButtonState()) {
+		}
+		if(this.buttonHoverTopArrow) {
+			if(Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					this.buttonDownTopArrow = true;
+				}
+			}
+			else if(this.buttonDownTopArrow) {
+				if(Mouse.getEventButton() == 0) {
+					this.buttonDownTopArrow = false;
+					if(this.y_ascensor-this.scroll_tick_size > this.Y_ASCENSOR_UP_SHIFT) {
+						this.y_ascensor-= this.scroll_tick_size;
+						onScroll();
+					}
+					else if(this.y_ascensor-this.scroll_tick_size <= this.Y_ASCENSOR_UP_SHIFT) {
+						this.y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
+						this.buttonHoverTopArrow = false;
+						onScroll();
+					}
+					this.y_ascensor_lastclick = this.y_ascensor;
+					return true;
+				}
+				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					this.buttonDownTopArrow = false;
 				}
 			}
 		}
+		else if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				this.buttonDownTopArrow = false;
+			}
+		}
+		return false;
 	}
 
 	
-	private void botArrowEvent() {
+	private boolean botArrowEvent() {
 		if(this.y_ascensor != this.Y_ASCENSOR_DOWN_SHIFT) {
 			this.buttonHoverBotArrow = false;
 			if(Mideas.mouseX() >= this.x+4*Mideas.getDisplayXFactor() && Mideas.mouseX() <= this.x+4*Mideas.getDisplayXFactor()+Sprites.scrollbar_up_arrow.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= this.y+this.y_size+2*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+this.y_size+2*Mideas.getDisplayYFactor()+Sprites.scrollbar_down_arrow.getImageHeight()*Mideas.getDisplayYFactor()) {
@@ -343,6 +352,7 @@ public class ScrollBar {
 				if(Mouse.getEventButtonState()) {
 					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 						this.buttonDownBotArrow = true;
+						return true;
 					}
 				}
 				else if(this.buttonDownBotArrow) {
@@ -358,6 +368,7 @@ public class ScrollBar {
 							onScroll();
 						}
 						this.y_ascensor_lastclick = this.y_ascensor;
+						return true;
 					}
 					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 						this.buttonDownBotArrow = false;
@@ -370,6 +381,7 @@ public class ScrollBar {
 				}
 			}
 		}
+		return false;
 	}
 	
 	private void drawUpArrow() {

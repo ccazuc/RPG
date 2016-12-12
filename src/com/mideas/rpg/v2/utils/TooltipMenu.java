@@ -19,7 +19,7 @@ public class TooltipMenu {
 	private static TooltipMenu activeMenu;
 	private final static int CLOSE_TIMER = 3000;
 	private final static int SPACE_BETWEEN_MENU = 18;
-	private final static int TOOLTIP_DEFAULT_HEIGHT = 47;
+	private final static int TOOLTIP_DEFAULT_HEIGHT = 50;
 	
 	public TooltipMenu(float x, float y, float x_size) {
 		this.x = (int)x;
