@@ -18,6 +18,7 @@ import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.race.Race;
 import com.mideas.rpg.v2.game.social.WhoUnit;
 import com.mideas.rpg.v2.utils.Button;
+import com.mideas.rpg.v2.utils.ButtonMenuSort;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.DropDownMenu;
@@ -33,7 +34,7 @@ public class WhoFrame {
 	private static String numberPeopleFound = "0 player found";
 	private static int peopleFoundWidth = FontManager.get("FRIZQT", 12).getWidth(numberPeopleFound);
 	private static boolean updateString = true;
-	private static WhoSort sorted = WhoSort.NAME;
+	static WhoSort sorted = WhoSort.NAME_ASCENDING;
 	private static int dropDownMenuValue;
 	final static ArrayList<WhoUnit> whoList = new ArrayList<WhoUnit>();
 	final static Input input = new Input(FontManager.get("FRIZQT", 13), 255, false, false) {
@@ -59,10 +60,24 @@ public class WhoFrame {
 				sortByArea();
 			}
 			else if(this.selectedMenuValue == 1) {
-				sortByGuild();
+				if(sorted == WhoSort.GUILD_ASCENDING) {
+					sortByGuildDescending();
+					sorted = WhoSort.GUILD_DESCENDING;
+				}
+				else {
+					sortByGuildAscending();
+					sorted = WhoSort.GUILD_ASCENDING;
+				}
 			}
 			else if(this.selectedMenuValue == 2) {
-				sortByRace();
+				if(sorted == WhoSort.RACE_ASCENDING) {
+					sortByRaceDescending();
+					sorted = WhoSort.RACE_DESCENDING;
+				}
+				else {
+					sortByRaceAscending();
+					sorted = WhoSort.RACE_ASCENDING;
+				}
 			}
 		}
 	};
@@ -101,6 +116,20 @@ public class WhoFrame {
 			return selectedUnit != -1 && Mideas.joueur1().canInvitePlayerInParty(whoList.get(selectedUnit).getId());
 		}
 	};
+	private final static ButtonMenuSort sortByName = new ButtonMenuSort(X_SOCIAL_FRAME+10*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+70*Mideas.getDisplayYFactor(), 60*Mideas.getDisplayXFactor(), "Name", 12) {
+	
+		@Override
+		public void eventButtonClick() {
+			if(sorted == WhoSort.NAME_ASCENDING) {
+				sortByNameDescending();
+				sorted = WhoSort.NAME_DESCENDING;
+			}
+			else {
+				sortByNameAscending();
+				sorted = WhoSort.NAME_ASCENDING;
+			}
+		}
+	};
 	private final static ScrollBar scrollBar = new ScrollBar(X_SOCIAL_FRAME+357*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 290*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 290*Mideas.getDisplayYFactor(), false, 20*Mideas.getDisplayYFactor());
 	
 	public static void draw() {
@@ -120,6 +149,7 @@ public class WhoFrame {
 		addFriendButton.draw();
 		inviteButton.draw();
 		dropDownMenu.draw();
+		sortByName.draw();
 		FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+200*Mideas.getDisplayXFactor()-peopleFoundWidth/2, Y_SOCIAL_FRAME+392*Mideas.getDisplayYFactor(), numberPeopleFound, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		if(!(whoList.size() > 0)) {
 			return;
@@ -176,6 +206,7 @@ public class WhoFrame {
 		if(updateButton.event()) return true;
 		if(addFriendButton.event()) return true;
 		if(inviteButton.event()) return true;
+		if(sortByName.event()) return true;
 		int i = 0;
 		hoveredUnit = -1;
 		if(whoList.size() > MAXIMUM_UNIT_DISPLAYED) {
@@ -218,16 +249,152 @@ public class WhoFrame {
 		return false;
 	}
 	
+	public static void sortByNameAscending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getName().compareTo(whoList.get(j).getName()) >= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	
+	public static void sortByNameDescending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getName().compareTo(whoList.get(j).getName()) <= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	
 	public static void sortByArea() {
 		
 	}
 	
-	public  static void sortByGuild() {
-		
+	public static void sortByGuildAscending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getGuildName().compareTo(whoList.get(j).getGuildName()) >= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
 	}
 	
-	public static void sortByRace() {
-		
+	public static void sortByGuildDescending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getGuildName().compareTo(whoList.get(j).getGuildName()) <= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	
+	public static void sortByLevelAscending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getLevel().compareTo(whoList.get(j).getLevel()) >= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	
+	public static void sortByLevelDescending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getLevel().compareTo(whoList.get(j).getLevel()) <= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	
+	public static void sortByRaceAscending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getRace().compareTo(whoList.get(j).getRace()) >= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	
+	public static void sortByRaceDescending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getRace().compareTo(whoList.get(j).getRace()) <= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
 	}
 	
 	public static void clearList() {

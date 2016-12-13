@@ -161,7 +161,6 @@ public class Mideas {
 		}
 		cursor_buffer.position(0);
 		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));
-		//Display.setFullscreen(true);
 		FontManager.init();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		double time = System.currentTimeMillis();
