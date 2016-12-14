@@ -554,6 +554,17 @@ public class SelectScreen {
 		changeRealmButton.update(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
 	}
 	
+	public static void resetScreen() {
+		Arrays.fill(characterList, null);
+		creatingCharacter = false;
+		deletingCharacter = false;
+		selectedCharacterIndex = 0;
+		hoveredCharacter = -1;
+		characterLoaded = false;
+		character.setIsActive(false);
+		alert.setInactive();
+	}
+	
 	public static Alert getAlert() {
 		return alert;
 	}

@@ -241,6 +241,7 @@ public class ConnectionManager {
 		closeAuth();
 		Interface.setHasLoggedInToAuth(false);
 		SelectScreen.setRealmScreenActive(true);
+		SelectScreen.resetScreen();
 		isLoggedOnWorldServer = false;
 		RealmListFrame.clearRealmList();
 		Mideas.setJoueur1Null();

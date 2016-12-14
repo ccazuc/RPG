@@ -113,7 +113,6 @@ public class Mideas {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
 		GL11.glClearColor(0f, 0f, 0f, 0f);                
 	        GL11.glClearDepth(1f);     
-	        GL11.glEnable(GL11.GL_BLEND);
 	        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	        GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
 	        GL11.glMatrixMode(GL11.GL_MODELVIEW);
@@ -131,6 +130,7 @@ public class Mideas {
 		//setDisplayMode(1920, 1080, false);
 		//Display.setFullscreen(true);
 		Display.setTitle("World Of Warcraft");
+		Display.create();
 		final String[] ICON_PATHS = {"sprite/interface/icon_32.png", "sprite/interface/icon_128.png"};
 		final ByteBuffer[] icon_array = new ByteBuffer[ICON_PATHS.length];
 		int i = ICON_PATHS.length;
@@ -138,7 +138,6 @@ public class Mideas {
 			icon_array[i] = PNGDecoder.decode(new File(ICON_PATHS[i]));
 		}
 		Display.setIcon(icon_array);
-		Display.create();
 		Display.setResizable(true);
 		Display.setDisplayMode(new DisplayMode(1700, 930));
 		Display.setVSyncEnabled(true);
@@ -163,6 +162,7 @@ public class Mideas {
 		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));
 		FontManager.init();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
+	        GL11.glEnable(GL11.GL_BLEND);
 		double time = System.currentTimeMillis();
 		loadingScreen();
 		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
@@ -378,6 +378,7 @@ public class Mideas {
 	public static boolean isInteger(char c) {
 		return c >= '0' && c <= '9';
 	}
+	
 	public static double getInterfaceDrawTime() {
 		return interfaceDrawTime;
 	}

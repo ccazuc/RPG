@@ -11,19 +11,18 @@ public class CommandWho extends Command {
 	
 	@Override
 	public void read() {
-		int length = ConnectionManager.getConnection().readInt();
-		System.out.println(length);
-		int i = 0;
 		WhoFrame.clearList();
-		while(i < length) {
+		while(ConnectionManager.getConnection().hasRemaining()) {
 			int id = ConnectionManager.getConnection().readInt();
+			if(id == -1) {
+				return;
+			}
 			String name = ConnectionManager.getConnection().readString();
 			String guildName = ConnectionManager.getConnection().readString();
 			Race race = Race.values()[ConnectionManager.getConnection().readChar()];
 			int level = ConnectionManager.getConnection().readInt();
 			ClassType classe = ClassType.values()[ConnectionManager.getConnection().readChar()];
 			WhoFrame.addToList(new WhoUnit(id, name, guildName, level, classe, race));
-			i++;
 		}
 	}
 	

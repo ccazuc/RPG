@@ -145,7 +145,11 @@ public class ChatFrame {
 						xDraw+= FontManager.chat.getWidth(message.getAuthorText());
 					}
 					while(j < message.getMessage().length()) {
-						if(yDraw >= Display.getHeight()-280-yResize && message.getOpacity() > 0) {
+						if(message.getMessage().charAt(j) == '\n') {
+							yDraw+= FontManager.chat.getLineHeight();
+							xDraw = 40;
+						}
+						if(yDraw >= Display.getHeight()-280-yResize && message.getOpacity() > 0 && yDraw < Display.getHeight()-185) {
 							FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getMessage().charAt(j), Color.BLACK, message.getOpacity());
 							FontManager.chat.drawCharPart(xDraw, yDraw, message.getMessage().charAt(j), message.getColor(), message.getOpacity());
 						}
@@ -172,14 +176,17 @@ public class ChatFrame {
 	
 	private static int getNumberLine(Message msg) {
 		int i = 0;
-		int x = 0;
+		int x = FontManager.chat.getWidth(msg.getAuthorText());
 		int number = 1;
-		x+= FontManager.chat.getWidth(msg.getAuthorText());
 		while(i < msg.getMessage().length()) {
+			if(msg.getMessage().charAt(i) == '\n') {
+				number++;
+				x = 0;
+			}
 			x+= FontManager.chat.getWidth(msg.getMessage().charAt(i));
 			if(x > maxLength-5) {
-				x = 0;
 				number++;
+				x = 0;
 			}
 			i++;
 		}
@@ -298,8 +305,8 @@ public class ChatFrame {
 						}
 						else {
 							CommandSendMessage.write(tempMessage, selectedType);
-							getNumberLineChar(tempMessage);
-							getNumberLineDivide(tempMessage);
+							//getNumberLineChar(tempMessage);
+							//getNumberLineDivide(tempMessage);
 						}
 					}
 					numberUpArrow = 1;
@@ -427,6 +434,10 @@ public class ChatFrame {
 						x+= FontManager.chat.getWidth(message.getAuthorText());
 					}
 					while(j < message.getMessage().length()) {
+						if(message.getMessage().charAt(j) == '\n') {
+							y+= FontManager.chat.getLineHeight();
+							x = 40;
+						}
 						x+= FontManager.chat.getWidth(message.getMessage().charAt(j));
 						if(x-40 > maxLength-10 && j < message.getMessage().length()) {
 							y+= FontManager.chat.getLineHeight();
@@ -532,7 +543,6 @@ public class ChatFrame {
 	}
 	 
 	private static boolean checkNewMessageType(String msg) {
-		System.out.println(msg);
 		if(msg.length() >= 3 && msg.startsWith("/")) {
 			if(msg.startsWith("/i") && msg.length() >= 4) {
 				msg = msg.trim();
