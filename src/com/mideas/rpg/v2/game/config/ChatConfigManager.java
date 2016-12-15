@@ -130,7 +130,7 @@ public class ChatConfigManager {
 	static int parseColor(String value, MessageType type) {
 		String[] list = value.split(" ");
 		if(list.length == 4) {
-			type.setColor(new Color(Integer.valueOf(list[1]), Integer.valueOf(list[2]), Integer.valueOf(list[3])));
+			type.setColor(new Color(Integer.parseInt(list[1]), Integer.parseInt(list[2]), Integer.parseInt(list[3])));
 			return 0;
 		}
 		return -1;

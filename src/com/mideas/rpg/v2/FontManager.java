@@ -71,17 +71,19 @@ public class FontManager {
     
 		awtFont = new Font("MORPHEUS", Font.BOLD, 20);
 		font3 = new TTF(awtFont, true);
-    
+
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		int i = 9;
 		while(i < 30) {
-			inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
-			fontMap.get("FRIZQT").put((float)i, new TTF(Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont((float)i), true));
+			fontMap.get("FRIZQT").put((float)i, new TTF(awtFont.deriveFont((float)i), true));
 			i++;
 		}
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		i = 9;
 		while(i < 30) {
-			inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");
-			fontMap.get("ARIALN").put((float)i, new TTF(Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont((float)i), true));
+			fontMap.get("ARIALN").put((float)i, new TTF(awtFont.deriveFont((float)i), true));
 			i++;
 		}
 	    

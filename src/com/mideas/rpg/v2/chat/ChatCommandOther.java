@@ -32,8 +32,8 @@ public class ChatCommandOther {
 			}
 			else if(datas[0].equals("/lookspell")) {
 				if(datas.length >= 2) {
-					if(SpellManager.exists(Integer.valueOf(datas[1])) && Integer.valueOf(datas[1]) != -1) {
-						int id = Integer.valueOf(datas[1]);
+					if(SpellManager.exists(Integer.parseInt(datas[1])) && Integer.parseInt(datas[1]) != -1) {
+						int id = Integer.parseInt(datas[1]);
 						Spell spell = SpellManager.getShortcutSpell(id).getSpell();
 						ChatFrame.addMessage(new Message(spell.getName()+": ", false, MessageType.SELF));
 						ChatFrame.addMessage(new Message(spell.getDefaultDamage()+" damage", false, MessageType.SELF));
@@ -46,8 +46,8 @@ public class ChatCommandOther {
 			}
 			else if(datas[0].equals("/itemnumber")) {
 				if(datas.length >= 2) {
-					if(Item.exists(Integer.valueOf(datas[1]))) {
-						int id = Integer.valueOf(datas[1]);
+					if(Item.exists(Integer.parseInt(datas[1]))) {
+						int id = Integer.parseInt(datas[1]);
 						ChatFrame.addMessage(new Message("You have "+Mideas.joueur1().bag().getNumberItemInBags(id)+" "+Item.getItem(id).getStuffName()+" in your bags.", false, MessageType.SELF));
 					}
 					else {
@@ -79,13 +79,13 @@ public class ChatCommandOther {
 						if(Mideas.isInteger(datas[1])) {
 							int number = 1;
 							int character_id = Mideas.joueur1().getId();
-							int item_id = Integer.valueOf(datas[1]);
+							int item_id = Integer.parseInt(datas[1]);
 							if(datas.length >= 3) {
 								if(Mideas.isInteger(datas[2])) {
-									number = Integer.valueOf(datas[2]);
+									number = Integer.parseInt(datas[2]);
 									if(datas.length >= 4) {
 										if(Mideas.isInteger(datas[3])) {
-											character_id = Integer.valueOf(datas[3]);
+											character_id = Integer.parseInt(datas[3]);
 										}
 										else {
 											ChatFrame.addMessage(new Message("Invalid value for [character_id]", false, MessageType.SELF));
@@ -113,13 +113,13 @@ public class ChatCommandOther {
 			else if(datas[0].equals("/deleteitem")) {
 				if(datas.length >= 2) {
 					int number = 1;
-					if(Item.exists(Integer.valueOf(datas[1]))) {
+					if(Item.exists(Integer.parseInt(datas[1]))) {
 						if(datas.length >= 3) {
-							if(Integer.valueOf(datas[2]) >= 1 && Integer.valueOf(datas[2]) <= 255) {
-								number = Integer.valueOf(datas[2]);
+							if(Integer.parseInt(datas[2]) >= 1 && Integer.parseInt(datas[2]) <= 255) {
+								number = Integer.parseInt(datas[2]);
 							}
 						}
-						Mideas.joueur1().deleteItem(Item.getItem(Integer.valueOf(datas[1])), number);
+						Mideas.joueur1().deleteItem(Item.getItem(Integer.parseInt(datas[1])), number);
 					}
 					else {
 						ChatFrame.addMessage(new Message("That item doesn't exist", false, MessageType.SELF));

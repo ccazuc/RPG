@@ -767,7 +767,7 @@ public class ContainerFrame {
 	
 	private static void drawItemNumber(int x, int y) {
 		if(Mideas.isInteger(itemNumber.getText())) {
-			numberItem = Integer.valueOf(itemNumber.getText());
+			numberItem = Integer.parseInt(itemNumber.getText());
 		}
 		else {
 			numberItem = 1;

@@ -477,7 +477,7 @@ public class Mideas {
 			if(statement.fetch()) {
 				temp = statement.getString();
 			}
-			CharacterFrame.setMouseX(Integer.valueOf(temp));
+			CharacterFrame.setMouseX(Integer.parseInt(temp));
 	
 			statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
 			statement.putString("y_inventory_frame");
@@ -485,7 +485,7 @@ public class Mideas {
 			if(statement.fetch()) {
 				temp = statement.getString();
 			}
-			CharacterFrame.setMouseY(Integer.valueOf(temp));
+			CharacterFrame.setMouseY(Integer.parseInt(temp));
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

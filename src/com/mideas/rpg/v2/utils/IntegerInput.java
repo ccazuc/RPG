@@ -55,7 +55,7 @@ public class IntegerInput {
 		if(!Mideas.isInteger(c)) {
 			return;
 		}
-		if(Integer.valueOf(this.text+c) <= maximumValue()) {
+		if(Integer.parseInt(this.text+c) <= maximumValue()) {
 			if(this.cursorPosition != this.text.length()) {
 				this.text = this.text.substring(0, this.cursorPosition)+c+this.text.substring(this.cursorPosition);
 			}
