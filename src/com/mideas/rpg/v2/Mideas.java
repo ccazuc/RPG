@@ -23,7 +23,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandLogout;
-import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
@@ -32,7 +31,6 @@ import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.config.ConfigManager;
-import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
@@ -41,6 +39,7 @@ import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
+import com.mideas.rpg.v2.game.task.TaskManager;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
@@ -56,8 +55,6 @@ import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
-import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
-import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
@@ -79,7 +76,7 @@ public class Mideas {
 	private static int gold_calc;
 	private static int i;
 	private static int k;
-	private static long usedRAM;
+	static long usedRAM;
 	private static double interfaceDrawTime;
 	private static double mouseEventTime;
 	private static int accountId;
@@ -91,23 +88,22 @@ public class Mideas {
 	private static SocketChannel socket;
 	private final static int PORT = 5720;
 	private final static String IP = "127.0.0.1";
-	private final static int TIMEOUT_TIMER = 10000;
 	private final static Pattern isInteger = Pattern.compile("-?[0-9]+");
 	public final static int FPS = 60;
 	private static boolean hover;
 	private static Thread authServerConnectionThread;
 	private static AuthServerConnectionRunnable authServerConnectionRunnable;
-	private static boolean closeRequested = false;
-	
-	private static long LAST_PING_TIMER;
-	private final static int PING_FREQUENCE = 10000;
-	private static long LAST_RAM_TIMER;
-	private final static long RAM_UPDATE_FREQUENCE = 1000;
+	private static boolean closeRequested;
+	private static long LOOP_TICK_TIMER;
+
+	public final static int TIMEOUT_TIMER = 15000;
+	public final static int PING_FREQUENCE = 10000;
+	public final static int GC_FREQUENCE = 30000;
+	public final static int RAM_UPDATE_FREQUENCE = 5000;
 	private static long LAST_MOUSE_EVENT_TIMER;
-	private final static long MOUSE_EVENT_UPDATE_FREQUENCE = 1000;
-	private static long LAST_GC_TIMER;
-	private final static long GC_FREQUENCE = 10000;
-	private static long LAST_GUILD_LOGIN_TIMER_UPDATE;
+	private static long LAST_INTERFACE_DRAW_TIMER;
+	private final static int INTERFACE_DRAW_UPDATE_FREQUENCE = 1000;
+	private final static int MOUSE_EVENT_UPDATE_FREQUENCE = 1000;
 	
 	private static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
@@ -130,7 +126,6 @@ public class Mideas {
 		//setDisplayMode(1920, 1080, false);
 		//Display.setFullscreen(true);
 		Display.setTitle("World Of Warcraft");
-		Display.create();
 		final String[] ICON_PATHS = {"sprite/interface/icon_32.png", "sprite/interface/icon_128.png"};
 		final ByteBuffer[] icon_array = new ByteBuffer[ICON_PATHS.length];
 		int i = ICON_PATHS.length;
@@ -138,9 +133,16 @@ public class Mideas {
 			icon_array[i] = PNGDecoder.decode(new File(ICON_PATHS[i]));
 		}
 		Display.setIcon(icon_array);
+		Display.create();
 		Display.setResizable(true);
 		Display.setDisplayMode(new DisplayMode(1700, 930));
 		Display.setVSyncEnabled(true);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+	        GL11.glEnable(GL11.GL_BLEND);
+		FontManager.init();
+		double time = System.currentTimeMillis();
+		loadingScreen();
+		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
 		final int cursor_width = cursor_image.getWidth();
 		final int cursor_height = cursor_image.getHeight();
@@ -160,12 +162,6 @@ public class Mideas {
 		}
 		cursor_buffer.position(0);
 		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));
-		FontManager.init();
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-	        GL11.glEnable(GL11.GL_BLEND);
-		double time = System.currentTimeMillis();
-		loadingScreen();
-		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		time = System.currentTimeMillis();
 		initSQL();
 		CharacterStuff.initSQLRequest();
@@ -192,6 +188,7 @@ public class Mideas {
 		context2D();
 		try {
 			while(!closeRequested) {
+				LOOP_TICK_TIMER = System.currentTimeMillis();
 				if(Display.isCloseRequested()) {
 					closeRequested = true;
 				}
@@ -210,9 +207,9 @@ public class Mideas {
 						continue;
 					}
 				}
-				if(System.currentTimeMillis()-LAST_MOUSE_EVENT_TIMER >= MOUSE_EVENT_UPDATE_FREQUENCE) {
+				if(LOOP_TICK_TIMER-LAST_MOUSE_EVENT_TIMER >= MOUSE_EVENT_UPDATE_FREQUENCE) {
 					mouseEventTime = (float)(System.nanoTime()-time);
-					LAST_MOUSE_EVENT_TIMER = System.currentTimeMillis();
+					LAST_MOUSE_EVENT_TIMER = LOOP_TICK_TIMER;
 				}
 				while(Keyboard.next()) {
 					if(Interface.keyboardEvent()) {
@@ -223,23 +220,13 @@ public class Mideas {
 					context2D();
 					updateDisplayFactor();
 				}
+				TaskManager.executeTask();
 				time = System.nanoTime();
-				try {
-					Interface.draw();
-				}
-				catch(RuntimeException e) {
-					e.printStackTrace();
-				}
-				if(System.currentTimeMillis()-LAST_RAM_TIMER >= RAM_UPDATE_FREQUENCE) {
-					usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+				Interface.draw();
+				if(LOOP_TICK_TIMER-LAST_INTERFACE_DRAW_TIMER >= INTERFACE_DRAW_UPDATE_FREQUENCE) {
 					interfaceDrawTime = System.nanoTime()-time;
-					LAST_RAM_TIMER = System.currentTimeMillis();
+					LAST_INTERFACE_DRAW_TIMER = LOOP_TICK_TIMER;
 				}
-				if(System.currentTimeMillis()-LAST_PING_TIMER >= PING_FREQUENCE && ConnectionManager.isConnected()) {
-					CommandPing.write();
-					LAST_PING_TIMER = System.currentTimeMillis();
-				}
-				timeEvent();
 				Display.update();
 				//Display.sync(240);
 			}
@@ -272,20 +259,6 @@ public class Mideas {
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
-		}
-	}
-	
-	private static void timeEvent() {
-		if(System.currentTimeMillis()-LAST_GC_TIMER >= GC_FREQUENCE) {
-			System.gc();
-			LAST_GC_TIMER = System.currentTimeMillis();
-		}
-		if(joueur1 != null && joueur1.getGuild() != null && System.currentTimeMillis()-LAST_GUILD_LOGIN_TIMER_UPDATE >= Guild.LAST_ONLINE_TIMER_UPDATE_FREQUENCE) {
-			joueur1.getGuild().updateLastLoginTimer();
-		}
-		if(CommandPing.getPingStatus() && System.currentTimeMillis()-CommandPing.getTimer() > TIMEOUT_TIMER) {
-			CommandPing.setPingStatus(false);
-			ConnectionManager.disconnect();
 		}
 	}
 	
@@ -329,6 +302,10 @@ public class Mideas {
 		return Display.getHeight()-Mouse.getY();
 	}
 	
+	public static long getLoopTickTimer() {
+		return LOOP_TICK_TIMER;
+	}
+	
 	public static void fpsUpdate() {
 		count++;
 		if(System.currentTimeMillis()-last >= 1000) {
@@ -336,6 +313,10 @@ public class Mideas {
 			fps = count;
 			count = 0;
 		}
+	}
+	
+	public static void setUsedRam(long ram) {
+		usedRAM = ram;
 	}
 	
 	public static void setPing(double pings) {
