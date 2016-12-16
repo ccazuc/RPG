@@ -94,7 +94,7 @@ public class ChatConfigManager {
 			while((currentLine = buffer.readLine()) != null) {
 				list = configMap.get(currentLine);
 				if(list == null) {
-					if(!currentLine.equals(""))
+					if(currentLine.length() != 0)
 						System.out.println("Error load "+FILE_NAME+" on line "+j+" line value: \""+currentLine+"\"");
 					continue;
 				}

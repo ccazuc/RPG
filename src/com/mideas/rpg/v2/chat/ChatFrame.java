@@ -101,7 +101,7 @@ public class ChatFrame {
 				cursorPosition = tempMessage.substring(tempLength).length();
 				cursorShift = FontManager.chat.getWidth(tempMessage.substring(tempLength));
 			}
-			if(tempLength != 0 && tempMessage.substring(tempLength).equals("")) {
+			if(tempLength != 0 && tempMessage.substring(tempLength).length() == 0) {
 				tempLength-= getLength(tempMessage, 0, maxLength-130);
 				cursorPosition = tempMessage.substring(tempLength).length();
 				cursorShift = FontManager.chat.getWidth(tempMessage.substring(tempLength));
@@ -110,10 +110,10 @@ public class ChatFrame {
 				Draw.drawColorQuad(45+cursorShift+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+9*Mideas.getDisplayYFactor(), 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
 			}
 		}
-		if(hoverChatFrame && bgColor.alpha() < FRAME_MAXIMUM_OPACITY && System.currentTimeMillis()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER ) {
+		if((allResizing || widthResizing || heightResizing || hoverChatFrame) && bgColor.alpha() < FRAME_MAXIMUM_OPACITY && Mideas.getLoopTickTimer()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER) {
 			bgColor.setAlpha(bgColor.alpha()+1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
 		}
-		else if(!hoverChatFrame && bgColor.alpha() > 0) {
+		else if(!hoverChatFrame && !allResizing && !widthResizing && !heightResizing && bgColor.alpha() > 0) {
 			bgColor.setAlpha(bgColor.alpha()-1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
 		}
 		if(messages.size() > MAXIMUM_MESSAGES) {
@@ -133,7 +133,7 @@ public class ChatFrame {
 			xDraw = 40;
 			Message message = messages.get(i);
 			if(yDraw <= Display.getHeight()-185) {
-					if(message.getOpacity() > 0 && System.currentTimeMillis()-message.lastSeenTimer() >= MESSAGE_OPACITY_START_DECREASE_TIMER) {
+					if(message.getOpacity() > 0 && Mideas.getLoopTickTimer()-message.lastSeenTimer() >= MESSAGE_OPACITY_START_DECREASE_TIMER) {
 						message.decreaseOpacity(-1/(Mideas.FPS*MESSAGE_OPACITY_DECREASE_TIMER/1000f));
 					}
 					int j = 0;
@@ -297,7 +297,7 @@ public class ChatFrame {
 		}
         if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) { //enter
 			if(chatActive) {
-				if(!tempMessage.equals("")) {
+				if(tempMessage.length() != 0) {
 					rawMessages.add(tempMessage);
 					if(!checkNewMessageType(tempMessage) && !ChatCommandManager.chatCommandManager(tempMessage)) {
 						if(selectedType == MessageType.WHISPER) {
@@ -398,7 +398,7 @@ public class ChatFrame {
 					j = 0;
 					k = 0;
 					Message message = messages.get(i);
-	 				if(message.getAuthor() != null && !message.getAuthor().equals("")) {
+	 				if(message.getAuthor() != null && message.getAuthor().length() != 0) {
 						xAuthor = x;
 						while(k < message.getAuthorText().length()-1) {
 							if(message.getAuthorText().charAt(k) == '[' && message.getAuthorText().charAt(k+1) == message.getAuthor().charAt(0)) {
@@ -646,7 +646,7 @@ public class ChatFrame {
 	
 	/*private static void addMessage() {
 		String temp = tempMessage;
-		if(temp != null && !temp.equals("")) {
+		if(temp != null && temp.length() != 0) {
 			messages.add(new Message(temp, true, Colors.WHITE));
 			totalNumberLine = getTotalNumberLine();
 			numberLineLastMessages = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);

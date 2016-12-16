@@ -171,11 +171,11 @@ public class LoginScreen {
 	}
 	
 	static void connectionEvent() {
-		if(account.getText().equals("")) {
+		if(account.getText().length() == 0) {
 			alert.setText(noAccountName);
 			alert.setActive();
 		}
-		else if(password.getText().equals("")) {
+		else if(password.getText().length() == 0) {
 			alert.setText(noPassword);
 			alert.setActive();
 		}
@@ -228,7 +228,7 @@ public class LoginScreen {
 	
 	public static void setAccountName(String name) {
 		account.setText(name);
-		if(!name.equals("")) {
+		if(name.length() != 0) {
 			password.setIsActive(true);
 		}
 	}

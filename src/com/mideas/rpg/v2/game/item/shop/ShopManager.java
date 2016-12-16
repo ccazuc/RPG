@@ -413,7 +413,7 @@ public class ShopManager {
 		else {
 			temp = Color.RED;
 		}
-		if(!classe.equals("")) {
+		if(classe.length() != 0) {
 			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x_item-10-xShift, Display.getHeight()/2+y_item+shift, classe, temp, Color.BLACK, 1, 1, 1);
 			shift+= 20;
 		}
@@ -485,7 +485,7 @@ public class ShopManager {
 		else {
 			temp = Color.RED;
 		}
-		if(!classe.equals("")) {
+		if(classe.length() != 0) {
 			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+shift, classe, temp, Color.BLACK, 1, 1, 1);
 			shift+= 20;
 		}

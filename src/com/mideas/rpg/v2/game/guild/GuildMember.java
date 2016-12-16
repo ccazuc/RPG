@@ -99,7 +99,7 @@ public class GuildMember {
 	
 	public static String updateNote(String note, boolean isOfficer) {
 		StringBuilder builder = new StringBuilder();
-		if(note.equals("")) {
+		if(note.length() == 0) {
 			if(isOfficer) {
 				note = noOfficerNote;
 			}
