@@ -25,8 +25,8 @@ import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;
 
 public class FriendsFrame {
 
-	static Friend selectedFriend;
-	static int selectedIgnore;
+	static int selectedFriend = -1;
+	static int selectedIgnore = -1;
 	private static int hoveredFriend = -1;
 	private static int leftButtonDownFriend = -1;
 	private static int hoveredIgnore = -1;
@@ -42,12 +42,12 @@ public class FriendsFrame {
 	private final static Button deleteFriendButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Delete", 12, 1) {
 		@Override
 		public void eventButtonClick() {
-			CommandFriend.removeFriend(selectedFriend.getCharacterId());
+			CommandFriend.removeFriend(Mideas.joueur1().getFriendList().get(selectedFriend).getCharacterId());
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return selectedFriend != null;
+			return selectedFriend != -1;
 		}
 	};
 	private final static Button addFriendButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Add friend", 12, 1) {
@@ -59,24 +59,24 @@ public class FriendsFrame {
 	private final static Button sendMessageFriendButton = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Send message", 12, 1) {
 		@Override
 		public void eventButtonClick() {
-			ChatFrame.setWhisper(selectedFriend.getName());
+			ChatFrame.setWhisper(Mideas.joueur1().getFriendList().get(selectedFriend).getName());
 			ChatFrame.setChatActive(true);
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return selectedFriend != null && selectedFriend.isOnline();
+			return selectedFriend != -1 && Mideas.joueur1().getFriendList().get(selectedFriend).isOnline();
 		}
 	};
 	private final static Button invInParty = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Inv. in party", 12 , 1) {
 		@Override
 		public void eventButtonClick() {
-			CommandParty.invitePlayer(selectedFriend.getName());
+			CommandParty.invitePlayer(Mideas.joueur1().getFriendList().get(selectedFriend).getName());
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return selectedFriend != null && selectedFriend.isOnline();
+			return selectedFriend != -1 && Mideas.joueur1().getFriendList().get(selectedFriend).isOnline();
 		}
 	};
 	private final static Button ignorePlayer = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor(), IGNORE_BUTTON_LENGTH*Mideas.getDisplayXFactor(), IGNORE_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Ignore Player", 12 , 1) {
@@ -120,7 +120,7 @@ public class FriendsFrame {
 	public static void draw() {
 		if(friend_tab_active) {
 			if(!friendInit && Mideas.joueur1().getFriendList().size() > 0) {
-				selectedFriend = Mideas.joueur1().getFriendList().get(0);
+				selectedFriend = 0;
 				friendInit = true;
 			}
 			final int FL_SIZE = Mideas.joueur1().getFriendList().size();
@@ -134,7 +134,8 @@ public class FriendsFrame {
 			Friend friend;
 			float y = Y_SOCIAL_FRAME+82*Mideas.getDisplayYFactor();
 			float yShift = 32*Mideas.getDisplayYFactor();
-			while(i < Mideas.joueur1().getFriendList().size()) {
+			long timer = System.nanoTime();
+			/*while(i < Mideas.joueur1().getFriendList().size()) {
 				friend = Mideas.joueur1().getFriendList().get(i);
 				if(friend.isOnline()) {
 					Draw.drawQuad(Sprites.friend_note_online, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
@@ -161,7 +162,60 @@ public class FriendsFrame {
 				if(y >= Y_SOCIAL_FRAME+400*Mideas.getDisplayYFactor()) {
 					break;
 				}
+			}*/
+			TTF font = FontManager.get("FRIZQT", 15);
+			font.drawBegin();
+			while(i < iOffset+FL_MAXIMUM_DISPLAY) {
+				friend = Mideas.joueur1().getFriendList().get(i);
+				if(friend.isOnline()) {
+					font.drawStringShadowPart(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+					font.drawStringShadowPart(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, friend.getAreaText(), Color.WHITE, Color.BLACK, 1, 0, 0);
+				}
+				else {
+					font.drawStringShadowPart(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y, friend.getName(), Color.GREY, Color.BLACK, 1, 0, 0);
+					font.drawStringShadowPart(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor()+FontManager.get("FRIZQT", 15).getWidth(friend.getName()), y, " - offline", Color.GREY, Color.BLACK, 1, 0, 0);
+				}
+				i++;
+				y+= yShift;
 			}
+			font.drawEnd();
+			i = iOffset;
+			y = Y_SOCIAL_FRAME+82*Mideas.getDisplayYFactor();
+			while(i < iOffset+FL_MAXIMUM_DISPLAY) {
+				friend = Mideas.joueur1().getFriendList().get(i);
+				if(friend.isOnline()) {
+					Draw.drawQuad(Sprites.friend_note_online, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
+				}
+				else {
+					Draw.drawQuad(Sprites.friend_note_offline, X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+5);
+				}
+				i++;
+				y+= yShift;
+			}
+			i = iOffset;
+			y = Y_SOCIAL_FRAME+82*Mideas.getDisplayYFactor();
+			font = FontManager.get("FRIZQT", 12);
+			font.drawBegin();
+			while(i < iOffset+FL_MAXIMUM_DISPLAY) {
+				friend = Mideas.joueur1().getFriendList().get(i);
+				if(friend.isOnline()) {
+					font.drawStringShadowPart(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), friend.getInfosText(), Color.WHITE, Color.BLACK, 1, 0, 0);
+				}
+				else {
+					font.drawStringShadowPart(X_SOCIAL_FRAME+40*Mideas.getDisplayXFactor(), y+18*Mideas.getDisplayYFactor(), "Unknwon", Color.WHITE, Color.BLACK, 1, 0, 0);
+				}
+				i++;
+				y+= yShift;
+			}
+			font.drawEnd();
+			y = Y_SOCIAL_FRAME+82*Mideas.getDisplayYFactor();
+			if(hoveredFriend != -1 && hoveredFriend >= iOffset && hoveredFriend <= iOffset+IL_MAXIMUM_DISPLAY) {
+				Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), y+(hoveredFriend-iOffset)*yShift, 335*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
+			}
+			if(selectedFriend != -1 && hoveredFriend != selectedFriend && selectedFriend >= iOffset && selectedFriend < iOffset+IL_MAXIMUM_DISPLAY) {
+				Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), y+(selectedFriend-iOffset)*yShift, 335*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
+			}
+			Mideas.nTime(timer, "Draw friendlist");
 			deleteFriendButton.draw();
 			addFriendButton.draw();
 			sendMessageFriendButton.draw();
@@ -240,7 +294,7 @@ public class FriendsFrame {
 			if(!Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0) {
 					if(leftButtonDownFriend != -1 && leftButtonDownFriend == hoveredFriend) {
-						selectedFriend = Mideas.joueur1().getFriendList().get(leftButtonDownFriend);
+						selectedFriend = leftButtonDownFriend;
 					}
 					else {
 						leftButtonDownFriend = -1;
@@ -300,7 +354,7 @@ public class FriendsFrame {
 	}
 	
 	public static void resetSelectedFriend() {
-		selectedFriend = null;
+		selectedFriend = -1;
 	}
 	
 	private static boolean isHover(float y) {
