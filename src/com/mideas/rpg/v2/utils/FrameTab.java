@@ -74,38 +74,39 @@ public class FrameTab {
 	}
 	
 	public boolean event() {
-		if(!this.isSelected && activateCondition()) {
+		if(!(!this.isSelected && activateCondition())) {
+			return false;
+		}
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y+4 && Mideas.mouseY() <= this.y+this.y_size) {
+			this.buttonHover = true;
+			this.color = this.hoveredColor;
+			Mideas.setHover(false);
+		}
+		else {
 			this.buttonHover = false;
-			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y+4 && Mideas.mouseY() <= this.y+this.y_size) {
-				this.buttonHover = true;
-				this.color = this.hoveredColor;
-				Mideas.setHover(false);
-			}
-			else {
-				this.color = this.defaultColor;
-			}
-			if(this.buttonHover) {
-				if(Mouse.getEventButtonState()) {
-					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDown = true;
-					}
-				}
-				else if(this.buttonDown) {
-					if(Mouse.getEventButton() == 0) {
-						this.buttonDown = false;
-						this.buttonHover = false;
-						eventButtonClick();
-						return true;
-					}
-					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDown = false;
-					}
-				}
-			}
-			else if(!Mouse.getEventButtonState()) {
+			this.color = this.defaultColor;
+		}
+		if(this.buttonHover) {
+			if(Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					this.buttonDown = true;
+				}
+			}
+			else if(this.buttonDown) {
+				if(Mouse.getEventButton() == 0) {
+					this.buttonDown = false;
+					this.buttonHover = false;
+					eventButtonClick();
+					return true;
+				}
+				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					this.buttonDown = false;
 				}
+			}
+		}
+		else if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				this.buttonDown = false;
 			}
 		}
 		return false;

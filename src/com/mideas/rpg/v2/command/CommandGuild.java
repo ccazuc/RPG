@@ -155,7 +155,7 @@ public class CommandGuild extends Command {
 				return;
 			}
 			member.setOnlineStatus(false);
-			member.setLastLoginTimer(System.currentTimeMillis());
+			member.setLastLoginTimer(Mideas.getLoopTickTimer());
 			member.updateLastLoginTimerString();
 			if(Mideas.joueur1().getFriend(id) == null) {
 				ChatFrame.addMessage(new Message(member.getName()+" is now offline.", false, MessageType.SELF));

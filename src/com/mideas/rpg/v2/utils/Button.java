@@ -24,7 +24,7 @@ public class Button {
 	private Color hoveredColor;
 	private Color baseColor;
 	private boolean hasClicked;
-	private static final Color GREY = Color.YELLOW;
+	private static final Color GREY = Color.GREY;
 	private boolean isEnable = true;
 
 	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {

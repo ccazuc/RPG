@@ -126,7 +126,6 @@ public class Tooltip {
 		this.y = (int)y;
 	}
 
-	
 	public void updateSize(float x_size, float y_size) {
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;

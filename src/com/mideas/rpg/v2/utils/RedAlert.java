@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.utils;
 
+import com.mideas.rpg.v2.Mideas;
+
 public class RedAlert {
 
 	private String message;
@@ -9,7 +11,7 @@ public class RedAlert {
 	public RedAlert(String message) {
 		this.message = message;
 		this.opacity = 1;
-		this.timer = System.currentTimeMillis();
+		this.timer = Mideas.getLoopTickTimer();
 	}
 	
 	public String getMessage() {

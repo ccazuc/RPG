@@ -46,10 +46,12 @@ public class EditBox {
 	}
 	
 	public boolean mouseEvent() {
-		this.buttonHover = false;
 		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+Sprites.edit_box_left_border.getImageHeight()*Mideas.getDisplayYFactor()) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
+		}
+		else {
+			this.buttonHover = false;
 		}
 		if(this.buttonHover) {
 			if(Mouse.getEventButtonState()) {

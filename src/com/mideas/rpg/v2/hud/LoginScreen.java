@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.CheckBox;
@@ -18,12 +19,11 @@ import com.mideas.rpg.v2.utils.Input;
 
 public class LoginScreen {
 
-	//private static Input account = new Input(FontManager.get("FRIZQT", 21), 10, false, false, true);
-	private static Input account = new Input(FontManager.get("ARIALN", 21), 50, false, Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor(), true);
-	private static Input password = new Input(FontManager.get("ARIALN", 16), 19, false, false);
+	private final static Input account = new Input(FontManager.get("ARIALN", 21), 50, false, Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor(), true);
+	private final static Input password = new Input(FontManager.get("ARIALN", 16), 19, false, false);
 	private static String passwordText = "";
-	private static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 20, "Ok");
-	private static StringBuilder passwordBuilder = new StringBuilder();
+	final static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 21, "OK");
+	private final static StringBuilder passwordBuilder = new StringBuilder();
 	static boolean rememberAccountName;
 	private static String realmName = "";
 	private static int realmNameWidth;
@@ -58,6 +58,20 @@ public class LoginScreen {
 		@Override
 		public void set() {
 			rememberAccountName = !rememberAccountName;
+		}
+	};
+	private final static Button cancelConnectionAlertButton = new Button(0, 0, 0, 0, "Cancel", 20, 2) {
+		
+		@Override
+		public void eventButtonClick() {
+			ConnectionManager.closeAuth();
+		}
+	};
+	private final static Button okAlertButton = new Button(0, 0, 0, 0, "OK", 20, 2) {
+		
+		@Override
+		public void eventButtonClick() {
+			alert.setInactive();
 		}
 	};
 
@@ -100,11 +114,6 @@ public class LoginScreen {
 	public static void event() {
 		//System.out.println((int)Keyboard.getEventCharacter());
 		//System.out.println(Keyboard.getEventKey());
-		if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-			if(!alert.isActive()) {
-				Mideas.closeGame();
-			}
-		}
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 			if(alert.isActive()) {
 				alert.setInactive();
@@ -113,7 +122,7 @@ public class LoginScreen {
 				connectionEvent();
 			}
 		}
-		if(!alert.isActive()) {
+		else if(!alert.isActive()) {
 			if(Keyboard.getEventKey() == Keyboard.KEY_TAB) {
 				if(password.isActive()) {
 					account.setIsActive(true);
@@ -122,8 +131,10 @@ public class LoginScreen {
 					password.setIsActive(true);
 				}
 			}
+			else if(Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+				Mideas.closeGame();
+			}
 		}
-		
 		if(account.isActive()) {
 			if(account.event()) {
 				rememberAccountName = false;
@@ -145,7 +156,7 @@ public class LoginScreen {
 			i++;
 		}
 		if(password.isActive()) {
-			if(System.currentTimeMillis()%1000 < 500) {
+			if(Mideas.getLoopTickTimer()%1000 < 500) {
 				Draw.drawColorQuad(Display.getWidth()/2-92*Mideas.getDisplayXFactor()+8*Mideas.getDisplayXFactor()*password.getCursorPosition(), Display.getHeight()/2+112*Mideas.getDisplayYFactor(), 6*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor(), Color.WHITE);
 			}
 		}
@@ -161,10 +172,6 @@ public class LoginScreen {
 		passwordText = passwordBuilder.toString();
 	}
 	
-	public static Alert getAlert() {
-		return alert;
-	}
-	
 	public static void closeInput() {
 		password.setIsActive(false);
 		account.setIsActive(false);
@@ -174,15 +181,18 @@ public class LoginScreen {
 		if(account.getText().length() == 0) {
 			alert.setText(noAccountName);
 			alert.setActive();
+			LoginScreen.setAlertButtonOk();
 		}
 		else if(password.getText().length() == 0) {
 			alert.setText(noPassword);
 			alert.setActive();
+			LoginScreen.setAlertButtonOk();
 		}
 		else {
 			passwordText = "";
 			alert.setText("Connection...");
 			alert.setActive();
+			alert.setButton(cancelConnectionAlertButton);
 			AuthServerConnectionRunnable.connectToAuthServer(account.getText(), password.getText());
 			password.resetText();
 		}
@@ -211,7 +221,10 @@ public class LoginScreen {
 		account.update(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor());
 		officialWebsiteButton.update(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor());
 		rememberAccountNameCheckBox.update(27*Mideas.getDisplayXFactor(), Display.getHeight()-167*Mideas.getDisplayYFactor(), 22*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
-		//popup.update(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor());
+	}
+	
+	public static Alert getAlert() {
+		return alert;
 	}
 	
 	public static boolean getRememberAccountName() {
@@ -236,6 +249,10 @@ public class LoginScreen {
 	public static void setRealmName(String name) {
 		realmName = name;
 		realmNameWidth = FontManager.get("FRIZQT", 17).getWidth(realmName);
+	}
+	
+	public static void setAlertButtonOk() {
+		alert.setButton(okAlertButton);
 	}
 	
 	public static String getRealmName() {

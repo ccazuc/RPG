@@ -43,45 +43,46 @@ public class Arrow {
 	}
 	
 	public boolean event() {
-		if(activateCondition()) {
+		if(!activateCondition()) {
+			this.texture = Sprites.button_disabled;
+			return false;
+		}
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+			this.buttonHover = true;
+			Mideas.setHover(false);
+		}
+		else {
 			this.buttonHover = false;
-			if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
-				this.buttonHover = true;
-				Mideas.setHover(false);
-			}
-			if(this.buttonHover) {
-				if(Mouse.getEventButtonState()) {
-					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDown = true;
-					}
-				}
-				else if(this.buttonDown) {
-					if(Mouse.getEventButton() == 0) {
-						this.buttonDown = false;
-						eventButtonClick();
-						this.hasClicked = true;
-						this.texture = this.defaultTexture;
-						return true;
-					}
-					else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-						this.buttonDown = false;
-						this.texture = this.defaultTexture;
-					}
-				}
-			}
-			else if(!Mouse.getEventButtonState()) {
+		}
+		if(this.buttonHover) {
+			if(Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					this.buttonDown = true;
+				}
+			}
+			else if(this.buttonDown) {
+				if(Mouse.getEventButton() == 0) {
 					this.buttonDown = false;
-					this.hasClicked = false;
+					eventButtonClick();
+					this.hasClicked = true;
+					this.texture = this.defaultTexture;
+					return true;
+				}
+				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+					this.buttonDown = false;
 					this.texture = this.defaultTexture;
 				}
 			}
-			if(this.buttonDown) {
-				this.texture = this.downTexture;
+		}
+		else if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				this.buttonDown = false;
+				this.hasClicked = false;
+				this.texture = this.defaultTexture;
 			}
 		}
-		else {
-			this.texture = Sprites.button_disabled;
+		if(this.buttonDown) {
+			this.texture = this.downTexture;
 		}
 		return false;
 	}

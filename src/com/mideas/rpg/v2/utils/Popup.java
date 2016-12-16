@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.utils;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.FontManager;
 
 public class Popup {
@@ -17,6 +18,8 @@ public class Popup {
 	protected boolean isActive;
 	protected final static int BUTTON_WIDTH = 135;
 	protected final static int BUTTON_HEIGHT = 24;
+	protected final static int TEXT_FONT_SIZE = 13;
+	protected final static TTF textFont = FontManager.get("FRIZQT", TEXT_FONT_SIZE);
 	protected final static String YES = "Yes";
 	protected final static String NO = "No";
 	protected final static String ACCEPT = "Accept";
@@ -29,7 +32,7 @@ public class Popup {
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;
 		this.message = message;
-		this.textWidth = FontManager.get("FRIZQT", 13).getWidth(this.message);
+		this.textWidth = textFont.getWidth(this.message);
 		this.background = new AlertBackground(this.x, this.y, this.x_size, this.y_size, .7f);
 		this.cancelButton = new Button(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "No", 12, 1) {
 			
@@ -46,7 +49,7 @@ public class Popup {
 			return;
 		}
 		this.background.draw();
-		FontManager.get("FRIZQT", 13).drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.WHITE, Color.BLACK, 1, 0, 0);
+		textFont.drawStringShadow(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.WHITE, Color.BLACK, 1, 0, 0);
 		this.cancelButton.draw();
 		this.acceptButton.draw();
 	}
@@ -65,9 +68,6 @@ public class Popup {
 	public void setPopup(Button button, String msg) {
 		if(activatedPopup != null && activatedPopup.isActive) {
 			activatedPopup.popupClosed();
-		}
-		else if(this.isActive) {
-			popupClosed();
 		}
 		this.acceptButton = button;
 		updateAcceptButton();
@@ -89,7 +89,7 @@ public class Popup {
 	
 	public void setText(String text) {
 		this.message = text;
-		this.textWidth = FontManager.get("FRIZQT", 13).getWidth(text);
+		this.textWidth = textFont.getWidth(text);
 	}
 	
 	public void update(float x, float y, float x_size, float y_size) {

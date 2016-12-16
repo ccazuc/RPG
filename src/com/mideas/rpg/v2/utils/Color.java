@@ -22,7 +22,7 @@ public class Color {
 	public final static Color BLUE = new Color(0, 0, 1);
 	public final static Color DARKBLUE = new Color(0, 0, .5f);
 	public final static Color LIGHTYELLOW = new Color(1, 1, .33f);
-	public final static Color YELLOW = decode("#FFD700");
+	public final static Color YELLOW = decode("#FFC700");
 	public final static Color DARKYELLOW = new Color(.5f, .5f, 0);
 	public final static Color LIGHTORANGE = new Color(1, .75f, .25f);
 	public final static Color ORANGE = new Color(1, .5f, 0);

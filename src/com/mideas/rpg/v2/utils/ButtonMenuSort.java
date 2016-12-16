@@ -43,10 +43,12 @@ public class ButtonMenuSort {
 	}
 	
 	public boolean event() {
-		this.buttonHover = false;
 		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+Sprites.button_menu_sort_left_part.getImageHeight()*Mideas.getDisplayYFactor()) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
+		}
+		else  {
+			this.buttonHover = false;
 		}
 		if(this.buttonHover) {
 			if(Mouse.getEventButtonState()) {

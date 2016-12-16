@@ -76,12 +76,13 @@ public class Alert {
 	public void update(float x, float y, float x_size) {
 		this.x = (int)x;
 		this.y = (int)y;
+		this.x_size_alert = (int)x_size;
+		this.background.setY(this.y);
+		this.background.setX(this.x);
 		this.background.setWidth(x_size);
 		this.button.setX(this.x+this.background.getWidth()/2-BUTTON_WIDTH*Mideas.getDisplayXFactor()/2);
 		this.button.setButtonWidth(BUTTON_WIDTH*Mideas.getDisplayXFactor());
 		this.button.setButtonHeight(BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.background.setY(this.y);
-		this.background.setX(this.x);
 		setText(this.text);
 	}
 	
@@ -124,6 +125,14 @@ public class Alert {
 		}
 		this.background.setHeight(110*Mideas.getDisplayYFactor()+(font.getLineHeight()+3)*lineNumber);
 		this.button.setY(this.background.getY()+this.background.getHeight()-70*Mideas.getDisplayYFactor());
+	}
+	
+	public void setButton(Button button) {
+		if(this.button == button) {
+			return;
+		}
+		this.button = button;
+		this.button.update(this.x+this.x_size_alert/2-BUTTON_WIDTH*Mideas.getDisplayXFactor()/2, this.background.getY()+this.background.getHeight()-70*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 	}
 	
 	public int getBaseX() {

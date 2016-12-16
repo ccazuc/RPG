@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.utils;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.FontManager;
 
 public class PopupInput extends Popup {
 
@@ -23,7 +22,7 @@ public class PopupInput extends Popup {
 		}
 		this.x = Display.getWidth()/2-this.x_size/2;
 		this.x_size_input_bar_save = (int)input_bar_width;
-		this.textWidth = FontManager.get("FRIZQT", 13).getWidth(this.message);
+		this.textWidth = textFont.getWidth(this.message);
 		this.cancelButton = new Button(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "No", 12, 1) {
 			
 			@Override
@@ -32,7 +31,7 @@ public class PopupInput extends Popup {
 				PopupInput.this.isActive = false;
 			}
 		};
-		this.input = new Input(FontManager.get("FRIZQT", 13), 30, false, x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor()) {
+		this.input = new Input(textFont, 30, false, x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor()) {
 			
 			@Override
 			public boolean keyEvent(char c) {
@@ -60,11 +59,11 @@ public class PopupInput extends Popup {
 		this.background.draw();
 		this.inputBar.draw();
 		this.input.draw();
-		FontManager.get("FRIZQT", 13).drawBegin();
-		FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.WHITE, Color.BLACK, 1, 0, 0);
+		textFont.drawBegin();
+		textFont.drawStringShadowPart(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.WHITE, Color.BLACK, 1, 0, 0);
 		//FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Color.WHITE, Color.BLACK, 1, 0, 0);
-		FontManager.get("FRIZQT", 13).drawEnd();
-		if(this.input.isActive() && System.currentTimeMillis()%1000 < 500) {
+		textFont.drawEnd();
+		if(this.input.isActive() && Mideas.getLoopTickTimer()%1000 < 500) {
 			Draw.drawColorQuad(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor()+this.input.getCursorShift(), this.y+51*Mideas.getDisplayYFactor(), 5*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayYFactor(), Color.WHITE);
 		}
 		this.cancelButton.draw();
@@ -108,9 +107,6 @@ public class PopupInput extends Popup {
 		if(activatedPopup != null && activatedPopup.isActive) {
 			activatedPopup.popupClosed();
 		}
-		else if(this.isActive) {
-			popupClosed();
-		}
 		if(input_bar_width*Mideas.getDisplayXFactor() > this.x_size-40*Mideas.getDisplayXFactor()) {
 			this.x_size = (int)(input_bar_width*Mideas.getDisplayXFactor()+45*Mideas.getDisplayXFactor());
 			this.x = Display.getWidth()/2-this.x_size/2;
@@ -131,10 +127,6 @@ public class PopupInput extends Popup {
 		this.input.setText(text);
 	}
 	
-	public Input getInput() {
-		return this.input;
-	}
-	
 	private void onShow() {
 		activatedPopup = this;
 		this.isActive = true;
@@ -152,5 +144,9 @@ public class PopupInput extends Popup {
 		this.background.update(this.x, this.y, this.x_size, this.y_size);
 		this.cancelButton.update(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		updateAcceptButton();
+	}
+	
+	public Input getInput() {
+		return this.input;
 	}
 }

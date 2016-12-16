@@ -124,6 +124,7 @@ public class ConnectionManager {
 			e.printStackTrace();
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Impossible de se connecter.");
+			LoginScreen.setAlertButtonOk();
 			Interface.setCharacterLoaded(false);
 			Interface.closeAllFrame();
 			close();
@@ -151,6 +152,7 @@ public class ConnectionManager {
 			e.printStackTrace();
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Impossible de se connecter.");
+			LoginScreen.setAlertButtonOk();
 			Interface.setCharacterLoaded(false);
 			Interface.closeAllFrame();
 			close();
@@ -249,6 +251,7 @@ public class ConnectionManager {
 		ChatFrame.clearChat();
 		LoginScreen.getAlert().setActive();
 		LoginScreen.getAlert().setText("You have been disconnected.");
+		LoginScreen.setAlertButtonOk();
 		LoginScreen.resetMenuState();
 	}
 	

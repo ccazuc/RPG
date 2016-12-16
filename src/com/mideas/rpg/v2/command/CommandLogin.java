@@ -37,21 +37,25 @@ public class CommandLogin extends Command {
 		else if(packetId == ACCOUNT_BANNED_TEMP) {
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Vous avez été bannis de façon temporaire.");
+			LoginScreen.setAlertButtonOk();
 			ConnectionManager.closeAuth();
 		}
 		else if(packetId == ACCOUNT_BANNED_PERM) {
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Vous avez été bannis de façon permanente.");
+			LoginScreen.setAlertButtonOk();
 			ConnectionManager.closeAuth();
 		}
 		else if(packetId == LOGIN_WRONG) {
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Identifiants incorrectes.");
+			LoginScreen.setAlertButtonOk();
 			ConnectionManager.closeAuth();
 		}
 		else if(packetId == ALREADY_LOGGED) {
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Ce compte est déjà connecté.");
+			LoginScreen.setAlertButtonOk();
 			ConnectionManager.closeAuth();
 		}
 		else if(packetId == PacketID.LOGIN_REALM_ACCEPTED) {

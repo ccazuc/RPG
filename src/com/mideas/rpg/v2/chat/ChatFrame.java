@@ -106,7 +106,7 @@ public class ChatFrame {
 				cursorPosition = tempMessage.substring(tempLength).length();
 				cursorShift = FontManager.chat.getWidth(tempMessage.substring(tempLength));
 			}
-			if(System.currentTimeMillis()%1000 < 500) {
+			if(Mideas.getLoopTickTimer()%1000 < 500) {
 				Draw.drawColorQuad(45+cursorShift+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+9*Mideas.getDisplayYFactor(), 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
 			}
 		}
@@ -368,7 +368,7 @@ public class ChatFrame {
 		}
 		else if(Mideas.getHover() && Mideas.mouseX() >= 30 && Mideas.mouseX() <= 540+xResize && Mideas.mouseY() >= Display.getHeight()-280-yResize && Mideas.mouseY() <= Display.getHeight()-165) {
 			if(!hoverChatFrame) {
-				lastHoverChatFrame = System.currentTimeMillis();
+				lastHoverChatFrame = Mideas.getLoopTickTimer();
 				hoverChatFrame = true;
 			}
 		}
@@ -884,7 +884,7 @@ public class ChatFrame {
 	
 	private static void resetMessagesOpacity() {
 		int i = 0;
-		long time = System.currentTimeMillis();
+		long time = Mideas.getLoopTickTimer();
 		while(i < messages.size()) {
 			messages.get(i).setOpacity(1);
 			messages.get(i).setLastSeenTimer(time);
