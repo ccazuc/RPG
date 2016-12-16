@@ -31,7 +31,7 @@ public class PopupInput extends Popup {
 				PopupInput.this.isActive = false;
 			}
 		};
-		this.input = new Input(textFont, 30, false, x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor()) {
+		this.input = new Input(textFont, 30, false, x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor(), 15) {
 			
 			@Override
 			public boolean keyEvent(char c) {
@@ -63,9 +63,6 @@ public class PopupInput extends Popup {
 		textFont.drawStringShadowPart(this.x+this.x_size/2-this.textWidth/2, this.y+15*Mideas.getDisplayYFactor(), this.message, Color.WHITE, Color.BLACK, 1, 0, 0);
 		//FontManager.get("FRIZQT", 13).drawStringShadowPart(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor(), this.y+51*Mideas.getDisplayYFactor(), this.input.getText(), Color.WHITE, Color.BLACK, 1, 0, 0);
 		textFont.drawEnd();
-		if(this.input.isActive() && Mideas.getLoopTickTimer()%1000 < 500) {
-			Draw.drawColorQuad(this.x+this.x_size/2-this.inputBar.getWidth()/2+13*Mideas.getDisplayXFactor()+this.input.getCursorShift(), this.y+51*Mideas.getDisplayYFactor(), 5*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayYFactor(), Color.WHITE);
-		}
 		this.cancelButton.draw();
 		this.acceptButton.draw();
 	}

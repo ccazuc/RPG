@@ -22,6 +22,7 @@ public class Input {
 	private int selectedLength;
 	private int selectedQuadLength;
 	private int selectedStarts;
+	private int cursorHeight;
 	private TTF font;
 	private int maxLength;
 	private boolean isActive;
@@ -37,8 +38,9 @@ public class Input {
 	public final static int ESCAPE_CHAR_VALUE = 27;
 	public final static int ENTER_CHAR_VALUE = 13;
 	
-	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, boolean isActive) {
+	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, boolean isActive, int cursorHeight) {
 		this.multipleLine = multipleLine;
+		this.cursorHeight = cursorHeight;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
 		setIsActive(isActive);
@@ -47,7 +49,8 @@ public class Input {
 		this.y = y;
 	}
 	
-	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth) {
+	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, int cursorHeight) {
+		this.cursorHeight = cursorHeight;
 		this.multipleLine = multipleLine;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
@@ -56,8 +59,9 @@ public class Input {
 		this.y = y;
 	}
 	
-	public Input(TTF font, int maxLength, boolean debugActive, boolean multipleLine, float x, float y, float maxWidth) {
+	public Input(TTF font, int maxLength, boolean debugActive, boolean multipleLine, float x, float y, float maxWidth, int cursorHeight) {
 		this.multipleLine = multipleLine;
+		this.cursorHeight = cursorHeight;
 		this.debugActive = debugActive;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
@@ -107,7 +111,7 @@ public class Input {
 				return;
 			}
 			if(System.currentTimeMillis()%1000 < 500) {
-				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y, 6*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor(), Color.WHITE);
+				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y, 6*Mideas.getDisplayXFactor(), this.cursorHeight*Mideas.getDisplayYFactor(), Color.WHITE);
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
@@ -36,15 +37,16 @@ public class PerformanceBarFrame {
 	public static void draw() {
 		if(hoverPerformanceBar) {
 			tooltip.draw();
-			FontManager.get("FRIZQT", 15).drawBegin();
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y, usedRam+Long.toString(Mideas.getUsedRAM()/(1024L*1024L))+mo, Color.WHITE, Color.BLACK, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+yShift, fps+Mideas.getFps(), Color.WHITE, Color.BLACK, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+2*yShift, ping+Mideas.getPing(), Color.WHITE, Color.BLACK, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+3*yShift, drawTime, Color.WHITE, Color.BLACK, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+5*yShift, container+(Interface.getContainerDrawTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
-			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+6*yShift, "Social : "+(Interface.getSocialDrawTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
-			FontManager.get("FRIZQT", 15).drawEnd();
+			TTF font = FontManager.get("FRIZQT", 15);
+			font.drawBegin();
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y, usedRam+Long.toString(Mideas.getUsedRAM()/(1024L*1024L))+mo, Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+yShift, fps+Mideas.getFps(), Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+2*yShift, ping+Mideas.getPing(), Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+3*yShift, drawTime, Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+5*yShift, container+(Interface.getContainerDrawTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+6*yShift, "Social : "+(Interface.getSocialDrawTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
+			font.drawEnd();
 		}
 		if(topPerformanceBarActive) {
 			Draw.drawColorQuad(0, 0, Display.getWidth(), 15, Color.GREY);
@@ -59,9 +61,11 @@ public class PerformanceBarFrame {
 	}
 	
 	public static boolean mouseEvent() {
-		hoverPerformanceBar = false;
 		if(Mideas.mouseX()>= Display.getWidth()/2+300*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+325*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()-45*Mideas.getDisplayYFactor()) {
 			hoverPerformanceBar = true;
+		}
+		else {
+			hoverPerformanceBar = false;
 		}
 		return false;
 	}

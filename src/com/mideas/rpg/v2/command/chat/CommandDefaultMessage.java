@@ -10,6 +10,7 @@ import com.mideas.rpg.v2.utils.Color;
 
 public class CommandDefaultMessage extends Command {
 
+	@Override
 	public void read() {
 		DefaultMessage value = DefaultMessage.values()[ConnectionManager.getConnection().readChar()];
 		boolean knownColor = ConnectionManager.getConnection().readBoolean();

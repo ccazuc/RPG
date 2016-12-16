@@ -522,25 +522,19 @@ public class ChatFrame {
 		return false;
 	}
 	
-	private static void getNumberLineChar(String msg) {
+	/*private static void getNumberLineChar(String msg) {
 		int i = 0;
 		int shift = 0;
 		int line = 0;
 		while(i < msg.length()) {
 			shift+= FontManager.chat.getWidth(msg.charAt(i));
 			if(shift >= maxLength+30) {
-				line++;                                                        //Both works well
+				line+;
 				shift = 0;
 			}
 			i++;
 		}
-	}
-	
-	private static int getNumberLineDivide(String msg) {
-		int line = Math.max(FontManager.chat.getWidth(msg)/(maxLength+30), 1);
-		//System.out.println("Divide method: "+line);
-		return line;
-	}
+	}*/
 	 
 	private static boolean checkNewMessageType(String msg) {
 		if(msg.length() >= 3 && msg.startsWith("/")) {
