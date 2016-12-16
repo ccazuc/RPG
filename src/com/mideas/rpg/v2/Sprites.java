@@ -287,6 +287,7 @@ public class Sprites {
 	public static Texture friend_frame;
 	public static Texture friend_border;
 	public static Texture friend_note_online;
+	public static Texture friend_note;
 	public static Texture friend_note_offline;
 	public static Texture party_leader_crown;
 	public static Texture player_portrait_party;
@@ -683,6 +684,7 @@ public class Sprites {
 		ignore_frame = new Texture("sprite/interface/social/ignore_frame.png");
 		friend_border = new Texture("sprite/interface/social/UI-FriendsFrame-HighlightBar.png");
 		friend_note_online = new Texture("sprite/interface/social/friend_note_online.png");
+		friend_note = new Texture("sprite/interface/social/friend_note.png");
 		friend_note_offline = new Texture("sprite/interface/social/friend_note_offline.png");
 		tooltip_bot = new Texture("sprite/interface/tooltip/UI-Tooltip-B.png");
 		tooltip_bot_left_corner = new Texture("sprite/interface/tooltip/UI-Tooltip-BL.png");

@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.game.social;
 
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Joueur;
@@ -8,6 +9,7 @@ import com.mideas.rpg.v2.game.race.Race;
 public class Friend {
 	
 	private String name;
+	private int nameWidth15;
 	private int level;
 	private Race race;
 	private int characterId;
@@ -24,7 +26,7 @@ public class Friend {
 		this.isOnline = true;
 		this.classe = classe;
 		this.level = level;
-		this.name = name;
+		setName(name);
 		this.race = race;
 		this.infosText = Joueur.convClassTypeToString(this.classe)+levelText+this.level;
 		this.areaText = space+"Area";
@@ -32,11 +34,11 @@ public class Friend {
 	
 	public Friend(int character_id, String name) { //offline friend
 		this.characterId = character_id;
-		this.name = name;
+		setName(name);
 	}
 	
 	public void updateInformations(String name, int level, Race race, ClassType classe) {
-		this.name = name;
+		setName(name);
 		setLevel(level);
 		this.race = race;
 		setClasse(classe);
@@ -69,8 +71,17 @@ public class Friend {
 		return this.level;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+		this.nameWidth15 = FontManager.get("FRIZQT", 15).getWidth(this.name);
+	}
+	
 	public String getName() {
 		return this.name;
+	}
+	
+	public int getFriendNameWidth15() {
+		return this.nameWidth15;
 	}
 	
 	public void setRace(Race race) {
