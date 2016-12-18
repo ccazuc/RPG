@@ -107,6 +107,7 @@ public class SelectScreen {
 			ChatConfigManager.loadConfig();
 			Arrays.fill(characterList, null);
 			characterLoaded = false;
+			Interface.setCharacterLoaded(false);
 			this.reset();
 		}
 		

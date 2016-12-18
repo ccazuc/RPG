@@ -7,4 +7,5 @@ public enum SocialFrameMenu {
 	GUILD_FRAME,
 	DISCUSSION_FRAME,
 	RAID_FRAME;
+	
 }

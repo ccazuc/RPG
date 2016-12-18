@@ -3,15 +3,19 @@ package com.mideas.rpg.v2.command.item;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
+import com.mideas.rpg.v2.game.item.RequestItem;
 
 public class CommandRequestItem extends Command {
 
 	@Override
-	public void read() {}
+	public void read() {
+		
+	}
 	
-	public static void write(int id) {
+	public static void write(RequestItem item) {
 		ConnectionManager.getConnection().writeShort(PacketID.REQUEST_ITEM);
-		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().writeInt(item.getId());
+		ConnectionManager.getConnection().writeByte(item.getSlot().getValue());
 		ConnectionManager.getConnection().send();
 	}
 }

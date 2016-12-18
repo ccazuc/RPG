@@ -210,13 +210,14 @@ public class FriendsFrame {
 			}
 			font.drawEnd();
 			y = Y_SOCIAL_FRAME+82*Mideas.getDisplayYFactor();
+			System.out.println(hoveredFriend+" "+selectedFriend);
 			if(hoveredFriend != -1 && hoveredFriend >= iOffset && hoveredFriend <= iOffset+IL_MAXIMUM_DISPLAY) {
 				Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), y+(hoveredFriend-iOffset)*yShift, 335*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
 			}
 			if(selectedFriend != -1 && hoveredFriend != selectedFriend && selectedFriend >= iOffset && selectedFriend < iOffset+IL_MAXIMUM_DISPLAY) {
 				Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), y+(selectedFriend-iOffset)*yShift, 335*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
 			}
-			Mideas.nTime(timer, "Friendlist text draw time");
+			//Mideas.nTime(timer, "Friendlist text draw time");
 			deleteFriendButton.draw();
 			addFriendButton.draw();
 			sendMessageFriendButton.draw();

@@ -73,7 +73,7 @@ public class Buffer {
 	}
 	
 	protected final Item readItem() {
-		ItemType type = ItemType.values()[readChar()];
+		ItemType type = ItemType.values()[readByte()];
 		if(type == ItemType.CONTAINER) {
 			return readContainer();
 		}
@@ -97,7 +97,7 @@ public class Buffer {
 	}
 	
 	protected final Gem readGem() {
-		return new Gem(readInt(), readString(), readString(), readInt(), GemColor.values()[ConnectionManager.getConnection().readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Gem(readInt(), readString(), readString(), readInt(), GemColor.values()[ConnectionManager.getConnection().readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	protected final Container readContainer() {
@@ -105,11 +105,11 @@ public class Buffer {
 	}
 	
 	protected final Stuff readStuff() {
-		return new Stuff(StuffType.values()[readChar()], readClassType(), readString(), readInt(), readString(), readInt(), GemColor.values()[readChar()], GemColor.values()[readChar()], GemColor.values()[readChar()], GemBonusType.values()[readChar()], readInt(), readInt(), Wear.values()[readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Stuff(StuffType.values()[readByte()], readClassType(), readString(), readInt(), readString(), readInt(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), Wear.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	protected final Stuff readWeapon() {
-		return new Stuff(readInt(), readString(), readString(), readClassType(), WeaponType.values()[readChar()], WeaponSlot.values()[readChar()], readInt(), GemColor.values()[readChar()], GemColor.values()[readChar()], GemColor.values()[readChar()], GemBonusType.values()[readChar()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Stuff(readInt(), readString(), readString(), readClassType(), WeaponType.values()[readByte()], WeaponSlot.values()[readByte()], readInt(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	protected final Potion readPotion() {
@@ -125,7 +125,7 @@ public class Buffer {
 		int number = readInt();
 		ClassType[] classType = new ClassType[number];
 		while(i < classType.length) {
-			classType[i] = ClassType.values()[readChar()];
+			classType[i] = ClassType.values()[readByte()];
 			i++;
 		}
 		return classType;
@@ -224,5 +224,5 @@ public class Buffer {
 	
 	protected final char readChar() {
 		return (char)(Character.MAX_VALUE-this.buffer.getChar());
-}
+	}
 }

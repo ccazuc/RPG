@@ -13,19 +13,19 @@ public enum NewCharacterRace {
 	TROLL("Troll", new Classe[]{Classe.WARRIOR, Classe.HUNTER, Classe.ROGUE, Classe.PRIEST, Classe.SHAMAN, Classe.MAGE}),
 	BLOODELF("Blood elf", new Classe[]{Classe.PALADIN, Classe.HUNTER, Classe.ROGUE, Classe.PRIEST, Classe.MAGE, Classe.WARLOCK});
 
-    private final Classe[] classe;
-    private final String name;
+	private final Classe[] classe;
+	private final String name;
     
-    NewCharacterRace(String name, Classe[] classe) {
-        this.classe = classe;
-        this.name = name;
-    }
+	NewCharacterRace(String name, Classe[] classe) {
+		this.classe = classe;
+		this.name = name;
+	}
+	
+	public Classe[] getClasse() {
+		return this.classe;
+	}
     
-    public Classe[] getClasse() {
-    	return this.classe;
-    }
-    
-    public String getName() {
-    	return this.name;
-    }
+	public String getName() {
+	    return this.name;
+	}
 }
