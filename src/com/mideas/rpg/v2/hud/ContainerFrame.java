@@ -946,7 +946,7 @@ public class ContainerFrame {
 		
 		if(item.getGemColor(0) != GemColor.NONE) {
 			if(item.getEquippedGem(0) != null) {
-				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(0).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				Draw.drawQuad(IconsManager.getSprite37(item.getEquippedGem(0).getSpriteId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, 15*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor());
 				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(0).getGemStatsString(), Color.WHITE, Color.BLACK, 1);
 			}
 			else {
@@ -957,7 +957,7 @@ public class ContainerFrame {
 		}
 		if(item.getGemColor(1) != GemColor.NONE) {
 			if(item.getEquippedGem(1) != null) {
-				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				Draw.drawQuad(IconsManager.getSprite37(item.getEquippedGem(1).getSpriteId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, 15*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor());
 				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(1).getGemStatsString(), Color.WHITE, Color.BLACK, 1);
 			}
 			else {
@@ -968,7 +968,7 @@ public class ContainerFrame {
 		}
 		if(item.getGemColor(2) != GemColor.NONE) {
 			if(item.getEquippedGem(2) != null) {
-				Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z);
+				Draw.drawQuad(IconsManager.getSprite37(item.getEquippedGem(2).getSpriteId()), Display.getWidth()+x-2-xShift, Display.getHeight()+y+shift+z, 15*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor());
 				FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x+15-xShift, Display.getHeight()+y+shift+z-3, item.getEquippedGem(2).getGemStatsString(), Color.WHITE, Color.BLACK, 1);
 			}
 			else {

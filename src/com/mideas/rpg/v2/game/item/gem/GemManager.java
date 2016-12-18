@@ -12,7 +12,7 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 public class GemManager {
 
 	private static HashMap<Integer, Gem> gemList = new HashMap<Integer, Gem>();
-	private static HashMap<Integer, Texture> gemSprites = new HashMap<Integer, Texture>();
+	//private static HashMap<Integer, Texture> gemSprites = new HashMap<Integer, Texture>();
 	
 	public static void loadGems() {
 		try {
@@ -44,7 +44,7 @@ public class GemManager {
 		}
 	}
 	
-	public static Texture getGemSprite(int id) {
+	/*public static Texture getGemSprite(int id) {
 		return gemSprites.get(id);
 	}
 	
@@ -52,7 +52,7 @@ public class GemManager {
 		gemSprites.put(50001, Sprites.crimson_spinel);
 		gemSprites.put(50101, Sprites.pyrestone);
 		gemSprites.put(50201, Sprites.empyrean_sapphire);
-	}
+	}*/
 	
 	public static void storeNewPiece(Gem gem) {
 		if(gem != null) {

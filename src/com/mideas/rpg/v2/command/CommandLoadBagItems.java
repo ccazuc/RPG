@@ -2,13 +2,11 @@ package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.command.item.CommandContainer;
-import com.mideas.rpg.v2.command.item.CommandGem;
-import com.mideas.rpg.v2.command.item.CommandPotion;
-import com.mideas.rpg.v2.command.item.CommandStuff;
-import com.mideas.rpg.v2.command.item.CommandWeapon;
+import com.mideas.rpg.v2.command.item.CommandRequestItem;
+import com.mideas.rpg.v2.command.item.RequestItemSlotType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.RequestItem;
 import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
@@ -30,7 +28,6 @@ public class CommandLoadBagItems extends Command {
 			i++;
 		}
 		Interface.setBagFullyLoaded(false);
-		Mideas.joueur1().bag().setBagChange(true);
 	}
 	
 	private static void loadItem() {
@@ -40,7 +37,7 @@ public class CommandLoadBagItems extends Command {
 		int gem3Id = 0;
 		int slot = ConnectionManager.getConnection().readInt();
 		int id = ConnectionManager.getConnection().readInt();
-		ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
+		ItemType type = ItemType.values()[ConnectionManager.getConnection().readByte()];
 		if(type == ItemType.STUFF) {
 			boolean hasGem = ConnectionManager.getConnection().readBoolean();
 			if(hasGem) {
@@ -77,7 +74,7 @@ public class CommandLoadBagItems extends Command {
 		}
 		else if(id != 0) {
 			Mideas.joueur1().bag().setBag(index, new Stuff(id));
-			CommandStuff.write(id);
+			CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CONTAINER, index));
 		}
 		equipGem(index, 0, gem1Id);
 		equipGem(index, 1, gem2Id);
@@ -90,7 +87,7 @@ public class CommandLoadBagItems extends Command {
 		}
 		else if(id != 0) {
 			Mideas.joueur1().bag().setBag(index, new Stuff(id));
-			CommandWeapon.write(id);
+			CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CONTAINER, index));
 		}
 		equipGem(index, 0, gem1Id);
 		equipGem(index, 1, gem2Id);
@@ -103,7 +100,8 @@ public class CommandLoadBagItems extends Command {
 		}
 		else if(id != 0) {
 			((Stuff)Mideas.joueur1().bag().getBag(bagSlot)).setEquippedGem(gemSlot, new Gem(id));
-			CommandGem.write(id);
+			CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CONTAINER, bagSlot, gemSlot));
+			System.out.println("EQUIP GEM bagslot : "+bagSlot+" id "+id);
 		}
 	}
 	
@@ -113,7 +111,7 @@ public class CommandLoadBagItems extends Command {
 		}
 		else if(id != 0) {
 			Mideas.joueur1().bag().setBag(index, new Gem(id));
-			CommandGem.write(id);
+			CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CONTAINER, index));
 		}
 	}
 	
@@ -123,7 +121,7 @@ public class CommandLoadBagItems extends Command {
 		}
 		else if(id != 0) {
 			Mideas.joueur1().bag().setBag(index, new Gem(id));
-			CommandContainer.write(id);
+			CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CONTAINER, index));
 		}
 	}
 	
@@ -135,7 +133,7 @@ public class CommandLoadBagItems extends Command {
 		else if(id != 0) {
 			Mideas.joueur1().bag().setBag(index, new Potion(id));
 			Mideas.joueur1().bag().getBag(index).setAmount(number);
-			CommandPotion.write(id);
+			CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CONTAINER, index));
 		}
 	}
 }

@@ -4,6 +4,9 @@ import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.ItemType;
+import com.mideas.rpg.v2.game.item.gem.Gem;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class Bag extends Item implements Cloneable {
@@ -173,6 +176,10 @@ public class Bag extends Item implements Cloneable {
 	public void setBag(int i, Item stuff) {
 		if(i >= 0 && i < this.bag.length) {
 			this.bag[i] = stuff;
+			bagChange = true;
+		}
+		else {
+			System.out.println("Error on setBag for slot :"+i);
 		}
 	}
 	
@@ -185,15 +192,39 @@ public class Bag extends Item implements Cloneable {
 				this.bag[i] = stuff;
 				this.bag[i].setAmount(number);
 			}
+			bagChange = true;
+		}
+		else {
+			System.out.println("Error on setBag for slot :"+i);
 		}
 	}
 	
-	@Override
-	public int getId() {
-		return this.id;
+	public void updateBag(int slot, Item item) {
+		item.setIsLoaded(true);
+		if(this.bag[slot] == null) {
+			this.bag[slot] = item;
+			return;
+		}
+		if((item.isStuff() || item.isWeapon()) && (this.bag[slot].isStuff() || this.bag[slot].isWeapon())) {
+			int i = 0; 
+			while(i < ((Stuff)this.bag[slot]).getEquippedGems().length) {
+				((Stuff)item).setEquippedGem(i, ((Stuff)this.bag[slot]).getEquippedGem(i));
+				i++;
+			}
+		}
+		if(item.isStackable()) {
+			
+		}
+		this.bag[slot] = item;
 	}
 	
-	public void setBagChange(boolean we) {
-		bagChange = we;
+	public void updateBagGem(int slot, int gemSlot, Item item) {
+		item.setIsLoaded(true);
+		if(this.bag[slot] == null) {
+			return;
+		}
+		if(item.isGem() && (this.bag[slot].isStuff() || this.bag[slot].isWeapon())) {
+			((Stuff)this.bag[slot]).setEquippedGem(gemSlot, (Gem)item);
+		}
 	}
 }

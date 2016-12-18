@@ -233,7 +233,7 @@ public class CharacterFrame {
 			
 			if(item.getGemColor(0) != GemColor.NONE) {
 				if(item.getEquippedGem(0) != null) {
-					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(0).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
+					Draw.drawQuad(IconsManager.getSprite37((item.getEquippedGem(0).getSpriteId())), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor, 15*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor());
 					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(0).getGemStatsString(), Color.WHITE, Color.BLACK, 1);
 				}
 				else {
@@ -244,7 +244,7 @@ public class CharacterFrame {
 			}
 			if(item.getGemColor(1) != GemColor.NONE) {
 				if(item.getEquippedGem(1) != null) {
-					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(1).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
+					Draw.drawQuad(IconsManager.getSprite37((item.getEquippedGem(1).getSpriteId())), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor, 15*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor());
 					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(1).getGemStatsString(), Color.WHITE, Color.BLACK, 1);
 				}
 				else {
@@ -255,7 +255,7 @@ public class CharacterFrame {
 			}
 			if(item.getGemColor(2) != GemColor.NONE) {
 				if(item.getEquippedGem(2) != null) {
-					Draw.drawQuad(GemManager.getGemSprite(item.getEquippedGem(2).getId()), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor);
+					Draw.drawQuad(IconsManager.getSprite37((item.getEquippedGem(2).getSpriteId())), Display.getWidth()/2+x+2, Display.getHeight()/2+y+shift+z+yAnchor, 15*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor());
 					FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x+19, Display.getHeight()/2+y+shift+z+yAnchor-3, item.getEquippedGem(2).getGemStatsString(), Color.WHITE, Color.BLACK, 1);
 				}
 				else {

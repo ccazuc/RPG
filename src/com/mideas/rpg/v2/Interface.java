@@ -121,12 +121,12 @@ public class Interface {
 					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC));
 					isCharacterLoaded = true;
 				}
-				if(!isStuffFullyLoaded) {
+				/*if(!isStuffFullyLoaded) {
 					Mideas.joueur1().loadStuff();
 				}
 				if(!isBagFullyLoaded) {
 					Mideas.joueur1().loadBag();
-				}
+				}*/
 				if(!isSpellbarFullyLoaded) {
 					//Mideas.joueur1().loadSpellbar();
 				}

@@ -60,7 +60,7 @@ public class CommandGuild extends Command {
 					int id = ConnectionManager.getConnection().readInt();
 					int level = ConnectionManager.getConnection().readInt();
 					String name = ConnectionManager.getConnection().readString();
-					ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
+					ClassType type = ClassType.values()[ConnectionManager.getConnection().readByte()];
 					String note = ConnectionManager.getConnection().readString();
 					String officerNote = ConnectionManager.getConnection().readString();
 					int rank = ConnectionManager.getConnection().readInt();
@@ -84,7 +84,7 @@ public class CommandGuild extends Command {
 					int id = ConnectionManager.getConnection().readInt();
 					int level = ConnectionManager.getConnection().readInt();
 					String name = ConnectionManager.getConnection().readString();
-					ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
+					ClassType type = ClassType.values()[ConnectionManager.getConnection().readByte()];
 					String note = ConnectionManager.getConnection().readString();
 					int rank = ConnectionManager.getConnection().readInt();
 					boolean isOnline = ConnectionManager.getConnection().readBoolean();
@@ -117,7 +117,7 @@ public class CommandGuild extends Command {
 			GuildRank rank = Mideas.joueur1().getGuild().getRank(rankOrder);
 			int level = ConnectionManager.getConnection().readInt();
 			boolean isOnline = ConnectionManager.getConnection().readBoolean();
-			ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
+			ClassType type = ClassType.values()[ConnectionManager.getConnection().readByte()];
 			long lastLoginTimer = ConnectionManager.getConnection().readLong();
 			Mideas.joueur1().getGuild().addMember(new GuildMember(id, name, level, rank, isOnline, note, officerNote, type, lastLoginTimer));
 			ChatFrame.addMessage(new Message(name+" joined the guild.", false, MessageType.SELF));

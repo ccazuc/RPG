@@ -63,7 +63,7 @@ public class CharacterStuff {
 		getBagRequest = builderGetBagItemsRequest.toString();
 	}
 	
-	public static void getBagItems() throws SQLException {
+	public static void getBagItemss() throws SQLException {
 		int i = 1;
 		int id;
 		int number;

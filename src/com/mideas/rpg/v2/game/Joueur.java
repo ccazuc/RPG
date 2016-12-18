@@ -475,7 +475,6 @@ public class Joueur extends Unit {
 			while(i < this.bag.getBag().length && amount > 0) {
 				if(this.bag.getBag(i) == null) {
 					this.bag.setBag(i, item);
-					this.bag.setBagChange(true);
 					amount --;
 				}
 				i++;
@@ -486,7 +485,6 @@ public class Joueur extends Unit {
 			while(i < this.bag.getBag().length) {
 				if(this.bag.getBag(i) != null && this.bag.getBag(i).equals(item)) {
 					this.bag.setBag(i, item, this.bag.getBag(i).getAmount()+amount);
-					this.bag.setBagChange(true);
 					CharacterStuff.setBagItems();
 					return true;
 				}
@@ -496,7 +494,6 @@ public class Joueur extends Unit {
 			while(i < this.bag.getBag().length) {
 				if(this.bag.getBag(i) == null) {
 					this.bag.setBag(i, item, amount);
-					this.bag.setBagChange(true);
 					CharacterStuff.setBagItems();
 					return true;
 				}
@@ -538,7 +535,6 @@ public class Joueur extends Unit {
 					else {
 						this.bag.setBag(i, ContainerManager.getClone(id));
 					}
-					this.bag.setBagChange(true);
 					number--;
 					returns = true;
 				}
@@ -555,7 +551,6 @@ public class Joueur extends Unit {
 			while(i < this.bag.getBag().length && amount > 0) {
 				if(this.bag.getBag(i) != null && this.bag.getBag(i).equals(item)) {
 					this.bag.setBag(i, null);
-					this.bag.setBagChange(true);
 					amount--;
 				}
 				i++;
@@ -568,7 +563,6 @@ public class Joueur extends Unit {
 					int temp = amount;
 					amount-= this.bag.getBag(i).getAmount();
 					this.bag.setBag(i, this.bag.getBag(i), Math.max(0, this.bag.getBag(i).getAmount()-temp));
-					this.bag.setBagChange(true);
 				}
 				i++;
 			}
@@ -883,13 +877,13 @@ public class Joueur extends Unit {
 		if(tempItem == null) {
 			this.stuff[i] = null;
 		}
-		else if(tempItem.getItemType() == ItemType.STUFF || tempItem.getItemType() == ItemType.WEAPON) {
+		else if(tempItem.isStuff() || tempItem.isWeapon()) {
 			this.stuff[i] = (Stuff)tempItem;
 		}
 	}
 	
 	public void updateStuff(int slot, Item item) {
-		if(item.getItemType() == ItemType.STUFF || item.getItemType() == ItemType.WEAPON) {
+		if(item.isStuff() || item.isWeapon()) {
 			item.setIsLoaded(true);
 			if(this.stuff[slot] == null) {
 				this.stuff[slot] = (Stuff)item;
@@ -900,7 +894,18 @@ public class Joueur extends Unit {
 					((Stuff)item).setEquippedGem(i, this.stuff[slot].getEquippedGem(i));
 					i++;
 				}
+				this.stuff[slot] = (Stuff)item;
 			}
+		}
+	}
+	
+	public void updateStuffGem(int slot, int gemSlot, Item item) {
+		if(item.isGem()) {
+			item.setIsLoaded(true);
+			if(this.stuff[slot] == null) {
+				return;
+			}
+			this.stuff[slot].setEquippedGem(gemSlot, (Gem)item);
 		}
 	}
 	

@@ -44,7 +44,6 @@ public class AdminPanelFrame {
 		public void eventButtonClick() {
 			Arrays.fill(Mideas.joueur1().bag().getBag(), null);
 			CharacterStuff.setBagItems();
-			Mideas.joueur1().bag().setBagChange(true);
 		}
 	};
 	

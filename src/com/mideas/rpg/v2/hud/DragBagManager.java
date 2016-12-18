@@ -105,7 +105,6 @@ public class DragBagManager {
 						draggedBag = null;
 						CharacterStuff.setEquippedBags();
 						CharacterStuff.setBagItems();
-						Mideas.joueur1().bag().setBagChange(true);
 						deleteItem = false;
 						ContainerFrame.setBagchange(true);
 					}

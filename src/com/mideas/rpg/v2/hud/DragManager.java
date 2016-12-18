@@ -42,16 +42,17 @@ public class DragManager {
 		@Override
 		public void eventButtonClick() {
 			if(draggedItem.isStackable()) {
-				Mideas.joueur1().bag().setBagChange(true);
+				Mideas.joueur1().deleteItem(draggedItem, draggedItem.getAmount());
+			}
+			else {
+				deleteItem(draggedItem);
 			}
 			if(checkCharacterItems(draggedItem)) {
 				calcStatsLess(draggedItem);
 			}
-			deleteItem(draggedItem);
 			draggedItem = null;
 			CharacterStuff.setEquippedItems();
 			CharacterStuff.setBagItems();
-			Mideas.joueur1().bag().setBagChange(true);
 			this.setHoverFalse();
 			deleteItem = false;
 		}
@@ -62,7 +63,6 @@ public class DragManager {
 		public void eventButtonClick() {
 			if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
 				checkFreeSlotBag(draggedItem);
-				Mideas.joueur1().bag().setBagChange(true);
 			}
 			this.setHoverFalse();
 			draggedItem = null;
@@ -315,7 +315,6 @@ public class DragManager {
 								setNullContainer(Mideas.joueur1().bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								Mideas.joueur1().bag().setBagChange(true);
 								return true;
 							}
 							Item tempItem = Mideas.joueur1().bag().getBag(i);
@@ -342,7 +341,6 @@ public class DragManager {
 								setNullContainer(Mideas.joueur1().bag().getBag(i));
 								CharacterStuff.setBagItems();
 								CharacterStuff.setEquippedItems();
-								Mideas.joueur1().bag().setBagChange(true);
 								return true;
 							}
 							Item tempItem = Mideas.joueur1().bag().getBag(i);
@@ -368,20 +366,17 @@ public class DragManager {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
 				Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 				item.setAmount(item.getAmount()-1);
-				Mideas.joueur1().bag().setBagChange(true);
 			}
 			else if(Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()+item.getPotionHeal());
 				LogChat.setStatusText3("Vous vous êtes rendu "+item.getPotionHeal()+" hp");
 				item.setAmount(item.getAmount()-1);
-				Mideas.joueur1().bag().setBagChange(true);
 			}
 			else {
 				LogChat.setStatusText3("Vos HP étaient déjà au maximum");
 			}
 			if(item.getAmount() <= 0) {
 				Mideas.joueur1().bag().setBag(i, null);
-				Mideas.joueur1().bag().setBagChange(true);
 			}
 			CharacterStuff.setBagItems();
 		}
@@ -416,7 +411,6 @@ public class DragManager {
 					calcStatsLess(draggedItem);
 					setNullCharacter(draggedItem);
 					Mideas.joueur1().bag().setBag(i, draggedItem);
-					Mideas.joueur1().bag().setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setEquippedItems();
 					CharacterStuff.setBagItems();
@@ -463,7 +457,6 @@ public class DragManager {
 			else {
 				if(Mideas.joueur1().bag().getBag(i) == null) {
 					Mideas.joueur1().bag().setBag(i, draggedItem);
-					Mideas.joueur1().bag().setBagChange(true);
 					draggedItem = null;
 					CharacterStuff.setBagItems();
 					return true;
@@ -700,7 +693,6 @@ public class DragManager {
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(Mideas.joueur1().bag().getBag(i) != null && draggedItem2 == Mideas.joueur1().bag().getBag(i)) {
 				Mideas.joueur1().bag().setBag(i, null);
-				Mideas.joueur1().bag().setBagChange(true);
 				return true;
 			}
 			i++;
@@ -756,7 +748,6 @@ public class DragManager {
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == id) {
 				Mideas.joueur1().bag().setBag(i, null);
-				Mideas.joueur1().bag().setBagChange(true);
 				return true;
 			}
 			i++;
@@ -791,7 +782,6 @@ public class DragManager {
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(Mideas.joueur1().bag().getBag(i) == null) {
 				Mideas.joueur1().bag().setBag(i, item);
-				Mideas.joueur1().bag().setBagChange(true);
 				return true;
 			}
 			i++;

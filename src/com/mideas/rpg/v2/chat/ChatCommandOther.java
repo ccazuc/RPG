@@ -66,7 +66,6 @@ public class ChatCommandOther {
 				//CharacterStuff.getEquippedItems();
 				ContainerFrame.setBagchange(true);
 				SpellBarManager.loadSpellBar();
-				Mideas.joueur1().bag().setBagChange(true);
 				CommandLoadCharacter.write(1);
 				Interface.setStuffFullyLoaded(false);
 			}
