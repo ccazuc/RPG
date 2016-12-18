@@ -289,7 +289,7 @@ public class Joueur extends Unit {
 		}*/
 	}
 	
-	public void loadStuff() {
+	/*public void loadStuff() {
 		int i = 0;
 		Interface.setStuffFullyLoaded(true);
 		while(i < Mideas.joueur1().getStuff().length) {
@@ -338,7 +338,7 @@ public class Joueur extends Unit {
  			}
 			i++;
 		}
-	}
+	}*/
 	
 	private static boolean checkGemLoaded(Stuff stuff) {
 		int i = 0;
@@ -351,7 +351,7 @@ public class Joueur extends Unit {
 		return true;
 	}
 	
-	public void loadBag() {
+	/*public void loadBag() {
 		int i = 0;
 		Interface.setBagFullyLoaded(true);
 		while(i < this.bag.getBag().length) {
@@ -422,7 +422,7 @@ public class Joueur extends Unit {
 				Mideas.joueur1().getSecondProfession().updateNumberPossibleCraft();
 			}
 		}
-	}
+	}*/
 	
 	public void loadSpellbar() {
 		int i = 0;
@@ -885,6 +885,22 @@ public class Joueur extends Unit {
 		}
 		else if(tempItem.getItemType() == ItemType.STUFF || tempItem.getItemType() == ItemType.WEAPON) {
 			this.stuff[i] = (Stuff)tempItem;
+		}
+	}
+	
+	public void updateStuff(int slot, Item item) {
+		if(item.getItemType() == ItemType.STUFF || item.getItemType() == ItemType.WEAPON) {
+			item.setIsLoaded(true);
+			if(this.stuff[slot] == null) {
+				this.stuff[slot] = (Stuff)item;
+			}
+			else {
+				int i = 0; 
+				while(i < this.stuff[slot].getEquippedGems().length) {
+					((Stuff)item).setEquippedGem(i, this.stuff[slot].getEquippedGem(i));
+					i++;
+				}
+			}
 		}
 	}
 	

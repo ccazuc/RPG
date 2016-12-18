@@ -5,10 +5,7 @@ import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 
 public class Container extends Item {
-	
-	private int id;
-	private String sprite_id;
-	private String name;
+
 	private int size;
 	private int tooltip_maximum_size;
 	private String container_slot_string;

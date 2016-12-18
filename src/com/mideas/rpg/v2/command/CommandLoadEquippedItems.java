@@ -31,7 +31,7 @@ public class CommandLoadEquippedItems extends Command {
 			i++;
 		}
 		Interface.setStuffFullyLoaded(false);
-		Mideas.joueur1().loadStuff();
+		//Mideas.joueur1().loadStuff();
 	}
 	
 	private static void loadStuff(int index) {

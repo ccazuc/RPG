@@ -4,19 +4,25 @@ import com.mideas.rpg.v2.command.item.RequestItemSlotType;
 
 public class RequestItem {
 
+	private RequestItemSlotType slotType;
+	private int slot;
 	private int id;
-	private RequestItemSlotType slot;
 	
-	public RequestItem(int id, RequestItemSlotType slot) {
-		this.id = id;
+	public RequestItem(int id, RequestItemSlotType slotType, int slot) {
+		this.slotType = slotType;
 		this.slot = slot;
+		this.id = id;
 	}
 	
 	public int getId() {
 		return this.id;
 	}
 	
-	public RequestItemSlotType getSlot() {
+	public RequestItemSlotType getSlotType() {
+		return this.slotType;
+	}
+	
+	public int getSlot() {
 		return this.slot;
 	}
 } 

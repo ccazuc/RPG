@@ -39,10 +39,11 @@ import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.command.item.CommandContainer;
 import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
+import com.mideas.rpg.v2.command.item.CommandRequestItem;
 import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
+import com.mideas.rpg.v2.files.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.WorldServer;
-import com.mideas.rpg.v2.game.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.RealmListFrame;
@@ -98,6 +99,7 @@ public class ConnectionManager {
 		commandList.put((int)GUILD, new CommandGuild());
 		commandList.put((int)IGNORE, new CommandIgnore());
 		commandList.put((int)WHO, new CommandWho());
+		commandList.put((int)REQUEST_ITEM, new CommandRequestItem());
 	}
 
 	public static final boolean connectAuthServer() {

@@ -441,6 +441,9 @@ public class Stuff extends Item {
 		return this.gemBonusValue;
 	}
 	public void setEquippedGem(int slot, Gem gem) {
+		if(slot >= this.numberGemSlot) {
+			return;
+		}
 		this.equippedGem[slot] = gem;
 		if(gem != null && !gem.getIsLoaded()) {
 			Interface.setStuffFullyLoaded(false);

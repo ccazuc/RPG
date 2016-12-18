@@ -95,7 +95,7 @@ public class Gem extends Item {
 		this.gemSlotString = "Correspond to a "+getCorrespondingColor(this.color);
 	}
 	
-	private String getCorrespondingColor(GemColor type) {
+	private static String getCorrespondingColor(GemColor type) {
 		if(type == GemColor.BLUE) {
 			return "blue gem.";
 		}
