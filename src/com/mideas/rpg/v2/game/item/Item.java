@@ -9,7 +9,6 @@ import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.weapon.Weapon;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 
 public class Item implements Cloneable {

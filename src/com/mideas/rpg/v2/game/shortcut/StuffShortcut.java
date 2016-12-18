@@ -24,7 +24,7 @@ public class StuffShortcut implements Shortcut {
 	}
 	
 	@Override
-	public boolean use(Shortcut shortcut) {
+	public boolean use() {
 		int i = 0;
 		if(DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
 			while(i < Mideas.joueur1().getStuff().length) {
@@ -39,16 +39,14 @@ public class StuffShortcut implements Shortcut {
 								CharacterStuff.setEquippedItems();
 								break;
 							}
-							else {
-								Item tempItem = Mideas.joueur1().getStuff(i);
-								DragManager.calcStatsLess(tempItem);
-								Mideas.joueur1().setStuff(i, this.stuff);
-								DragManager.calcStats(Mideas.joueur1().getStuff(i));
-								Mideas.joueur1().bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
-								CharacterStuff.setBagItems();
-								CharacterStuff.setEquippedItems();
-								break;
-							}
+							Item tempItem = Mideas.joueur1().getStuff(i);
+							DragManager.calcStatsLess(tempItem);
+							Mideas.joueur1().setStuff(i, this.stuff);
+							DragManager.calcStats(Mideas.joueur1().getStuff(i));
+							Mideas.joueur1().bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
+							CharacterStuff.setBagItems();
+							CharacterStuff.setEquippedItems();
+							break;
 						}
 					}
 				}
@@ -63,16 +61,14 @@ public class StuffShortcut implements Shortcut {
 								CharacterStuff.setEquippedItems();
 								break;
 							}
-							else {
-								Item tempItem = Mideas.joueur1().getStuff(i);
-								DragManager.calcStatsLess(tempItem);
-								Mideas.joueur1().setStuff(i, this.stuff);
-								DragManager.calcStats(Mideas.joueur1().getStuff(i));
-								Mideas.joueur1().bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
-								CharacterStuff.setBagItems();
-								CharacterStuff.setEquippedItems();
-								break;
-							}
+							Item tempItem = Mideas.joueur1().getStuff(i);
+							DragManager.calcStatsLess(tempItem);
+							Mideas.joueur1().setStuff(i, this.stuff);
+							DragManager.calcStats(Mideas.joueur1().getStuff(i));
+							Mideas.joueur1().bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
+							CharacterStuff.setBagItems();
+							CharacterStuff.setEquippedItems();
+							break;
 						}
 					}
 				}

@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.command;
+/*package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
@@ -24,4 +24,4 @@ public class CommandSpellCast extends Command {
 			RedAlertFrame.addNewAlert("Vous n'avez pas assez de mana.");
 		}
 	}
- }
+ }*/

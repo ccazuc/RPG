@@ -19,10 +19,10 @@ public class PotionShortcut implements Shortcut {
 	}
 	
 	@Override
-	public boolean use(Shortcut potion) {
+	public boolean use() {
 		int i = 0;
 		while(i < Mideas.joueur1().bag().getBag().length) {
-			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == ((PotionShortcut)potion).getId()) {
+			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == this.potion.getId()) {
 				SpellBarFrame.doHealingPotion((Potion)Mideas.joueur1().bag().getBag(i));
 				return true;
 			}

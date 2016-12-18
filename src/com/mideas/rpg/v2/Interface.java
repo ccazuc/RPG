@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -209,7 +208,7 @@ public class Interface {
 		}
 	}
 	
-	public static boolean mouseEvent() throws FileNotFoundException {
+	public static boolean mouseEvent() {
 		if(changeBackgroundFrameActive) {
 			if(ChangeBackGroundFrame.mouseEvent()) {
 				return true;
@@ -364,7 +363,7 @@ public class Interface {
 		return false;
 	}
 	
-	public static boolean keyboardEvent() throws IOException {
+	public static boolean keyboardEvent() {
 		if(Keyboard.getEventKey() != 0) {
 			if(Keyboard.getEventKeyState()) {
 				//System.out.println(Keyboard.getEventKey());

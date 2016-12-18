@@ -1,8 +1,7 @@
 package com.mideas.rpg.v2.game.shortcut;
 
 import com.mideas.rpg.v2.utils.Texture;
-
-import com.mideas.rpg.v2.command.CommandSpellCast;
+import com.mideas.rpg.v2.command.CommandCast;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
@@ -18,11 +17,10 @@ public class SpellShortcut implements Shortcut {
 		this.type = ShortcutType.SPELL;
 	}
 	
-	
 	@Override
-	public boolean use(Shortcut spell) {
+	public boolean use() {
 		//(((SpellShortcut)spell).getSpell()).action(Mideas.joueur1(), Mideas.target());
-		CommandSpellCast.write(((SpellShortcut)spell).getSpell());
+		CommandCast.cast(this.spell.getSpellId());
 		return true;
 	}
 	
