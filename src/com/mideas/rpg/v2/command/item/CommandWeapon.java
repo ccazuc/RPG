@@ -13,6 +13,7 @@ public class CommandWeapon extends Command {
 		WeaponManager.storeNewPiece(ConnectionManager.getConnection().readWeapon());
 	}
 
+	@Deprecated
 	public static void write(int id) {
 		if(!ConnectionManager.getItemRequested().containsKey(id)) {
 			ConnectionManager.getConnection().writeShort(PacketID.WEAPON);

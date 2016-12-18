@@ -340,7 +340,7 @@ public class Joueur extends Unit {
 		}
 	}*/
 	
-	private static boolean checkGemLoaded(Stuff stuff) {
+	/*private static boolean checkGemLoaded(Stuff stuff) {
 		int i = 0;
 		while(i < stuff.getEquippedGems().length) {
 			if(stuff.getEquippedGem(i) != null && !stuff.getEquippedGem(i).getIsLoaded()) {
@@ -349,7 +349,7 @@ public class Joueur extends Unit {
 			i++;
 		}
 		return true;
-	}
+	}*/
 	
 	/*public void loadBag() {
 		int i = 0;
@@ -507,7 +507,7 @@ public class Joueur extends Unit {
 	private boolean addMultipleUnstackableItem(int id, int number) {
 		int i = 0;
 		boolean returns = false;
-		ItemType type;
+		ItemType type = null;
 		if(WeaponManager.exists(id) || StuffManager.exists(id) || GemManager.exists(id) || ContainerManager.exists(id)) {
 			if(WeaponManager.exists(id)) {
 				type = ItemType.WEAPON;
@@ -518,7 +518,7 @@ public class Joueur extends Unit {
 			else if(GemManager.exists(id)) {
 				type = ItemType.GEM;
 			}
-			else {
+			else if(ContainerManager.exists(id)) {
 				type = ItemType.CONTAINER;
 			}
 			while(i < this.bag.getBag().length && number > 0) {
@@ -883,6 +883,10 @@ public class Joueur extends Unit {
 	}
 	
 	public void updateStuff(int slot, Item item) {
+		if(item == null) {
+			System.out.println("Error updateStuff slot "+slot);
+			return;
+		}
 		if(item.isStuff() || item.isWeapon()) {
 			item.setIsLoaded(true);
 			if(this.stuff[slot] == null) {
@@ -900,6 +904,10 @@ public class Joueur extends Unit {
 	}
 	
 	public void updateStuffGem(int slot, int gemSlot, Item item) {
+		if(item == null) {
+			System.out.println("Error updateStuffGem slot "+slot);
+			return;
+		}
 		if(item.isGem()) {
 			item.setIsLoaded(true);
 			if(this.stuff[slot] == null) {

@@ -13,6 +13,7 @@ public class CommandStuff extends Command {
 		StuffManager.storeNewPiece(ConnectionManager.getConnection().readStuff());
 	}
 	
+	@Deprecated
 	public static void write(int id) {
 		if(!ConnectionManager.getItemRequested().containsKey(id)) {
 			ConnectionManager.getConnection().writeShort(PacketID.STUFF);

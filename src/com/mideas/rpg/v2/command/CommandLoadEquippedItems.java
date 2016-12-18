@@ -1,11 +1,7 @@
 package com.mideas.rpg.v2.command;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandRequestItem;
-import com.mideas.rpg.v2.command.item.CommandStuff;
-import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.command.item.RequestItemSlotType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.item.RequestItem;
@@ -33,8 +29,6 @@ public class CommandLoadEquippedItems extends Command {
 			}
 			i++;
 		}
-		Interface.setStuffFullyLoaded(false);
-		//Mideas.joueur1().loadStuff();
 	}
 	
 	private static void loadStuff(int index) {

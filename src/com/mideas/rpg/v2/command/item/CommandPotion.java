@@ -13,6 +13,7 @@ public class CommandPotion extends Command {
 		PotionManager.storeNewPiece(ConnectionManager.getConnection().readPotion());
 	}
 
+	@Deprecated
 	public static void write(int id) {
 		if(!ConnectionManager.getItemRequested().containsKey(id)) {
 			ConnectionManager.getConnection().writeShort(PacketID.POTION);

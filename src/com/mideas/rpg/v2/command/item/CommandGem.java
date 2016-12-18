@@ -13,6 +13,7 @@ public class CommandGem extends Command {
 		GemManager.storeNewPiece(ConnectionManager.getConnection().readGem());
 	}
 
+	@Deprecated
 	public static void write(int id) {
 		if(!ConnectionManager.getItemRequested().containsKey(id)) {
 			ConnectionManager.getConnection().writeShort(PacketID.GEM);

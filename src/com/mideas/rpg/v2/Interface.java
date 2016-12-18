@@ -73,8 +73,6 @@ public class Interface {
 	private static long spellBarMouseEventTime;
 	private static long dragMouseEventTime;
 	private static boolean hasLoggedInToAuth;
-	private static boolean isStuffFullyLoaded;
-	private static boolean isBagFullyLoaded;
 	private static boolean isSpellbarFullyLoaded = true;
 	private static boolean socketingFrameActive;
 	private static boolean socialFrameActive;
@@ -121,12 +119,6 @@ public class Interface {
 					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC));
 					isCharacterLoaded = true;
 				}
-				/*if(!isStuffFullyLoaded) {
-					Mideas.joueur1().loadStuff();
-				}
-				if(!isBagFullyLoaded) {
-					Mideas.joueur1().loadBag();
-				}*/
 				if(!isSpellbarFullyLoaded) {
 					//Mideas.joueur1().loadSpellbar();
 				}
@@ -572,18 +564,6 @@ public class Interface {
 	
 	public static boolean getSpellbarFullyLoaded() {
 		return isSpellbarFullyLoaded;
-	}
-	
-	public static void setStuffFullyLoaded(boolean we) {
-		isStuffFullyLoaded = we;
-	}
-	
-	public static void setBagFullyLoaded(boolean we) {
-		isBagFullyLoaded = we;
-	}
-	
-	public static boolean getBagFullyLoaded() {
-		return isBagFullyLoaded;
 	}
 	
 	public static long getSocialDrawTime() {

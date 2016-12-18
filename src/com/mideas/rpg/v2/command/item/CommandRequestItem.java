@@ -6,24 +6,28 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.RequestItem;
-import com.mideas.rpg.v2.game.item.stuff.Stuff;
 
 public class CommandRequestItem extends Command {
 
 	@Override
 	public void read() {
-		Item item = ConnectionManager.getConnection().readItem();
+		boolean knownItem = ConnectionManager.getConnection().readBoolean();
+		Item item = null;
+		if(knownItem) {
+			item = Item.getItem(ConnectionManager.getConnection().readInt());
+		}
+		else {
+			item = ConnectionManager.getConnection().readItem();
+		}
 		RequestItemSlotType slotType = RequestItemSlotType.values()[ConnectionManager.getConnection().readByte()];
 		int slot = ConnectionManager.getConnection().readInt();
 		boolean isGem = ConnectionManager.getConnection().readBoolean();
 		int gemSlot = 0;
 		if(isGem) {
 			gemSlot = ConnectionManager.getConnection().readInt();
-			System.out.println(item.getStuffName()+" "+slotType+" "+slot+" "+isGem+" "+gemSlot+" "+item.getSpriteId());
 			setGem(item, slotType, slot, gemSlot);
 			return;
 		}
-		System.out.println(item.getStuffName()+" "+slotType+" "+slot+" "+isGem+" "+gemSlot);
 		setItem(item, slotType, slot);
 	}
 	
@@ -58,9 +62,11 @@ public class CommandRequestItem extends Command {
 		else if(slotType == RequestItemSlotType.GUILDBANK) {
 			
 		}
+		Item.storeItem(item);
 	}
 	
 	private static void setGem(Item item, RequestItemSlotType slotType, int slot, int gemSlot) {
+		Item.storeItem(item);
 		if(slotType == RequestItemSlotType.BANK) {
 			
 		}

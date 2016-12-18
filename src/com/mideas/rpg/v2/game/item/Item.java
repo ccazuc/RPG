@@ -3,9 +3,13 @@ package com.mideas.rpg.v2.game.item;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.bag.ContainerManager;
+import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
+import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.game.item.weapon.Weapon;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 
 public class Item implements Cloneable {
@@ -158,6 +162,28 @@ public class Item implements Cloneable {
 			return PotionManager.getClone(id);
 		}
 		return null;
+	}
+	
+	public static void storeItem(Item item) {
+		if(item.isStuff()) {
+			StuffManager.storeNewPiece(new Stuff((Stuff)item));
+			return;
+		}
+		if(item.isWeapon()) {
+			WeaponManager.storeNewPiece(new Stuff((Stuff)item));
+			return;
+		}
+		if(item.isGem()) {
+			GemManager.storeNewPiece(new Gem((Gem)item));
+			return;
+		}
+		if(item.isPotion()) {
+			PotionManager.storeNewPiece(new Potion((Potion)item));
+			return;
+		}
+		if(item.isItem()) {
+			
+		}
 	}
 	
 	public static boolean exists(int id) {

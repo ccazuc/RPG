@@ -3,7 +3,6 @@ package com.mideas.rpg.v2.chat;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.CommandAddItem;
-import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
@@ -66,8 +65,6 @@ public class ChatCommandOther {
 				//CharacterStuff.getEquippedItems();
 				ContainerFrame.setBagchange(true);
 				SpellBarManager.loadSpellBar();
-				CommandLoadCharacter.write(1);
-				Interface.setStuffFullyLoaded(false);
 			}
 			else if(datas[0].equals("/reloadui")) {
 				Mideas.loadingScreen();

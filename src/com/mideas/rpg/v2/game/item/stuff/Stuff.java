@@ -1,7 +1,6 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
 import com.mideas.rpg.v2.utils.Texture;
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.game.ClassType;
@@ -445,9 +444,6 @@ public class Stuff extends Item {
 			return;
 		}
 		this.equippedGem[slot] = gem;
-		if(gem != null && !gem.getIsLoaded()) {
-			Interface.setStuffFullyLoaded(false);
-		}
 		checkBonusTypeActivated();
 	}
 	
@@ -455,6 +451,7 @@ public class Stuff extends Item {
 		if(slot >= 0 && slot < this.equippedGem.length) {
 			return this.equippedGem[slot];
 		}
+		System.out.println("ERROR getEquippedGem slot "+slot);
 		return null;
 	}
 	

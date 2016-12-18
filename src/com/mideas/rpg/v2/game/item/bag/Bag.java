@@ -170,6 +170,7 @@ public class Bag extends Item implements Cloneable {
 		if(i >= 0 && i < this.bag.length && this.bag[i] != null) {
 			return this.bag[i];
 		}
+		System.out.println("Error on getBag slot "+i);
 		return null;
 	}
 	
@@ -200,6 +201,10 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public void updateBag(int slot, Item item) {
+		if(item == null) {
+			System.out.println("Error on updateBag for slot "+slot);
+			return;
+		}
 		item.setIsLoaded(true);
 		if(this.bag[slot] == null) {
 			this.bag[slot] = item;
@@ -219,6 +224,10 @@ public class Bag extends Item implements Cloneable {
 	}
 	
 	public void updateBagGem(int slot, int gemSlot, Item item) {
+		if(item == null) {
+			System.out.println("Error on updateBagGem for slot "+slot);
+			return;
+		}
 		item.setIsLoaded(true);
 		if(this.bag[slot] == null) {
 			return;

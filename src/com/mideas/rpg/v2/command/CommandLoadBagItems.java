@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.command;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.item.CommandRequestItem;
 import com.mideas.rpg.v2.command.item.RequestItemSlotType;
@@ -27,7 +26,6 @@ public class CommandLoadBagItems extends Command {
 			loadItem();
 			i++;
 		}
-		Interface.setBagFullyLoaded(false);
 	}
 	
 	private static void loadItem() {
