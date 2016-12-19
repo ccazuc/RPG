@@ -280,6 +280,10 @@ public class DragSpellManager {
 		return false;
 	}
 	
+	public static void setDraggedSpell(Shortcut shortcut) {
+		draggedShortcut = shortcut;
+	}
+	
 	public static Shortcut getDraggedSpell() {
 		return draggedShortcut;
 	}
@@ -289,7 +293,8 @@ public class DragSpellManager {
 	}
 	
 	public static boolean isHoverSpellBarFrame() {
-		if(Mideas.mouseX() >= Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseX() <= Display.getWidth()/2+Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseY() >= Display.getHeight()-Sprites.final_spellbar.getImageHeight()-30 && Mideas.mouseY() <= Display.getHeight()) {
+		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseX() <= Display.getWidth()/2+Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseY() >= Display.getHeight()-Sprites.final_spellbar.getImageHeight()-30 && Mideas.mouseY() <= Display.getHeight()) {
+			Mideas.setHover(false);
 			return true;
 		}
 		return false;

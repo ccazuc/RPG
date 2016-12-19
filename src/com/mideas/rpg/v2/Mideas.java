@@ -35,6 +35,7 @@ import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
+import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.task.TaskManager;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
@@ -167,7 +168,7 @@ public class Mideas {
 		PotionManager.loadPotions();
 		ContainerManager.loadBags();
 		ContainerManager.loadBagsSprites();
-		//StuffManager.loadStuffs();
+		StuffManager.loadStuffs();
 		ShopManager.loadStuffs();
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();

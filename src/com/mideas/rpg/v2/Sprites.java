@@ -349,6 +349,8 @@ public class Sprites {
 	public static Texture alert_title_left_border;
 	public static Texture alert_title_middle_border;
 	public static Texture alert_title_right_border;
+	public static Texture button_down_spellbar;
+	public static Texture button_hover_spellbar;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -451,6 +453,8 @@ public class Sprites {
 		alert_title_left_border = new Texture("sprite/interface/alert_background/title_left_border.png");
 		alert_title_middle_border = new Texture("sprite/interface/alert_background/title_middle_border.png");
 		alert_title_right_border = new Texture("sprite/interface/alert_background/title_right_border.png");
+		button_down_spellbar = new Texture("sprite/interface/click_down.png");
+		button_hover_spellbar = new Texture("sprite/interface/OldButtonHilight-Square.png");
 		return true;
 	}
 	
@@ -648,7 +652,7 @@ public class Sprites {
 		border = new Texture("sprite/interface/border.png");
 		spell_hover = new Texture("sprite/interface/spell_hover.png");
 		spell_hover2 = new Texture("sprite/interface/spell_hover.png");
-		spell_border = new Texture("sprite/interface/final_border.png");
+		spell_border = new Texture("sprite/interface/spell_border.png");
 		border2 = new Texture("sprite/interface/border.png");
 		border3 = new Texture("sprite/interface/border.png");
 		border4 = new Texture("sprite/interface/border.png");
