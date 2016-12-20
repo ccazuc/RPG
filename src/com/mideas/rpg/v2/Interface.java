@@ -226,6 +226,20 @@ public class Interface {
 			}
 		}
 		else if(Mideas.joueur1() != null) {
+			if(characterFrameActive) {
+				time = System.nanoTime();
+				if(CharacterFrame.mouseEvent()) {
+					if(System.currentTimeMillis()-LAST_CHARACTER_MOUSE_EVENT_TIMER >= CHARACTER_MOUSE_EVENT_TIMER_FREQUENCE) {
+						characterMouseEventTime = System.nanoTime()-time;
+						LAST_CHARACTER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
+					}
+					return true;
+				}
+				if(System.currentTimeMillis()-LAST_CHARACTER_MOUSE_EVENT_TIMER >= CHARACTER_MOUSE_EVENT_TIMER_FREQUENCE) {
+					characterMouseEventTime = System.nanoTime()-time;
+					LAST_CHARACTER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
+				}
+			}
 			if(DragSpellManager.mouseEvent()) {
 				return true;
 			}
@@ -246,20 +260,6 @@ public class Interface {
 			}
 			if(PopupFrame.mouseEvent()) {
 				return true;
-			}
-			if(characterFrameActive) {
-				time = System.nanoTime();
-				if(CharacterFrame.mouseEvent()) {
-					if(System.currentTimeMillis()-LAST_CHARACTER_MOUSE_EVENT_TIMER >= CHARACTER_MOUSE_EVENT_TIMER_FREQUENCE) {
-						characterMouseEventTime = System.nanoTime()-time;
-						LAST_CHARACTER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
-					}
-					return true;
-				}
-				if(System.currentTimeMillis()-LAST_CHARACTER_MOUSE_EVENT_TIMER >= CHARACTER_MOUSE_EVENT_TIMER_FREQUENCE) {
-					characterMouseEventTime = System.nanoTime()-time;
-					LAST_CHARACTER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
-				}
 			}
 			if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 				time = System.nanoTime();
@@ -286,11 +286,6 @@ public class Interface {
 			}
 			if(PartyFrame.mouseEvent()) {
 				return true;
-			}
-			if(characterFrameActive) {
-				if(CharacterFrame.mouseEvent()) {
-					return true;
-				}
 			}
 			if(tradeFrameActive) {
 				if(TradeFrame.mouseEvent()) {
@@ -342,20 +337,20 @@ public class Interface {
 				}
 			}
 			time = System.nanoTime();
-            if(DragManager.mouseEvent()) {
-    			if(System.currentTimeMillis()-LAST_DRAGMANAGER_MOUSE_EVENT_TIMER >= DRAGMANAGER_MOUSE_EVENT_TIMER_FREQUENCE) {
-    				dragMouseEventTime = System.nanoTime()-time;
-    				LAST_DRAGMANAGER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
-    			}
-                return true;
-            }
+			if(DragManager.mouseEvent()) {
+	    			if(System.currentTimeMillis()-LAST_DRAGMANAGER_MOUSE_EVENT_TIMER >= DRAGMANAGER_MOUSE_EVENT_TIMER_FREQUENCE) {
+	    				dragMouseEventTime = System.nanoTime()-time;
+	    				LAST_DRAGMANAGER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
+	    			}
+	    			return true;
+			}
 			if(System.currentTimeMillis()-LAST_DRAGMANAGER_MOUSE_EVENT_TIMER >= DRAGMANAGER_MOUSE_EVENT_TIMER_FREQUENCE) {
 				dragMouseEventTime = System.nanoTime()-time;
 				LAST_DRAGMANAGER_MOUSE_EVENT_TIMER = System.currentTimeMillis();
 			}
-            if(PerformanceBarFrame.mouseEvent()) {
-            	return true;
-            }
+			if(PerformanceBarFrame.mouseEvent()) {
+				return true;
+			}
 			if(Mideas.joueur1().getStamina() <= 0 || (Mideas.joueur1().getTarget() != null && Mideas.joueur1().getTarget().getStamina() <= 0) && !Dungeon.dungeonActive()) {
 				EndFightFrame.mouseEvent();
 				return true;

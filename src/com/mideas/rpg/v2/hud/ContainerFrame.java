@@ -1157,7 +1157,7 @@ public class ContainerFrame {
 	
 	
 	public static boolean isHoverItemNumberFrame() {
-		if(Mideas.mouseX() >= Display.getWidth()+xItemNumber && Mideas.mouseX() <= Display.getWidth()+xItemNumber+Sprites.itemnumber_frame.getImageWidth()+8 && Mideas.mouseY() >= Display.getHeight()+yItemNumber && Mideas.mouseY() <= Display.getHeight()+yItemNumber+Sprites.itemnumber_frame.getImageHeight()+4) {
+		if(Mideas.mouseX() >= Display.getWidth()+xItemNumber && Mideas.mouseX() <= Display.getWidth()+xItemNumber+(Sprites.itemnumber_frame.getImageWidth()+8)*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()+yItemNumber && Mideas.mouseY() <= Display.getHeight()+yItemNumber+(Sprites.itemnumber_frame.getImageHeight()+4)*Mideas.getDisplayYFactor()) {
 			return true;
 		}
 		return false;

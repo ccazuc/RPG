@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
@@ -9,7 +10,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
-import com.mideas.rpg.v2.game.Joueur;
+import com.mideas.rpg.v2.game.PopupType;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
@@ -37,8 +38,10 @@ public class DragManager {
 	private static int mouseXDown;
 	private static int mouseYDown;
 	static Item draggedItem;
-	private static int bagClickedSlot = -1;
-	private static int inventoryClickedSlot = -1;
+	private static int bagLeftClickedSlot = -1;
+	private static int bagRightClickedSlot = -1;
+	private static int inventoryLeftClickedSlot = -1;
+	private static int inventoryRightClickedSlot = -1;
 	private static int mouseX;
 	private static int mouseY;
 	private static boolean draggedItemSplit;
@@ -98,7 +101,7 @@ public class DragManager {
 		if(ContainerFrame.getContainerFrameSlotHover() == -1) {
 			return false;
 		}
-		bagClickedSlot = ContainerFrame.getContainerFrameSlotHover();
+		bagLeftClickedSlot = ContainerFrame.getContainerFrameSlotHover();
 		leftClickBagDown = true;
 		mouseXDown = Mideas.mouseX();
 		mouseYDown = Mideas.mouseY();
@@ -109,13 +112,29 @@ public class DragManager {
 		if(ContainerFrame.getContainerFrameSlotHover() == -1) {
 			return false;
 		}
+		bagRightClickedSlot = ContainerFrame.getContainerFrameSlotHover();
 		rightClickBagDown = true;
 		return false;
 	}
 	
+	private static boolean bagRightClickUp() {
+		if(ContainerFrame.getContainerFrameSlotHover() == -1) {
+			return false;
+		}
+		if(bagRightClickedSlot == ContainerFrame.getContainerFrameSlotHover() && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()) != null && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()).isStackable() && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()).getAmount() > 1 && Keyboard.isKeyDown(42)) {
+			ContainerFrame.setItemNumberOpen(ContainerFrame.getContainerFrameSlotHover());
+			bagRightClickedSlot = -1;
+			rightClickBagDown = false;
+			return true;
+		}
+		bagRightClickedSlot = -1;
+		rightClickBagDown = false;
+		return false;
+	}
+	
 	private static boolean bagLeftClickUp() {
-		int bagClickedSlot = DragManager.bagClickedSlot;
-		DragManager.bagClickedSlot = -1;
+		bagLeftClickedSlot = -1;
+		inventoryLeftClickedSlot = -1;
 		leftClickBagDown = false;
 		leftClickInventoryDown = false;
 		if(ContainerFrame.getContainerFrameSlotHover() == -1) {
@@ -158,7 +177,7 @@ public class DragManager {
 			return true;
 		}
 		if(checkBagItems(draggedItem)) {
-			if(draggedItem == Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover())) {
+			if(draggedItem == bagItem) {
 				draggedItem = null;
 				return true;
 			}
@@ -167,6 +186,19 @@ public class DragManager {
 				return false;
 			}
 			Item tmp = bagItem;
+			if(draggedItem.getId() == bagItem.getId() && draggedItem.isStackable() && bagItem.isStackable()) {
+				if(draggedItem.getAmount()+bagItem.getAmount() > draggedItem.getMaxStack()) {
+					int amount = bagItem.getAmount();
+					bagItem.setAmount(bagItem.getMaxStack());
+					draggedItem.setAmount(bagItem.getMaxStack()-amount-draggedItem.getAmount());
+					draggedItem = null;
+					return true;
+				}
+				bagItem.setAmount(draggedItem.getAmount()+bagItem.getAmount());
+				deleteItem(draggedItem);
+				draggedItem = null;
+				return true;
+			}
 			Mideas.joueur1().bag().setBag(ContainerFrame.getContainerFrameSlotHover(), draggedItem);
 			Mideas.joueur1().bag().setBag(slot, tmp);
 			draggedItem = null;
@@ -175,86 +207,92 @@ public class DragManager {
 	}
 	
 	private static boolean mouseMove() {
-		//if(isHoverBagFrame()) {
-			if(ContainerFrame.getContainerFrameSlotHover() == -1 && CharacterFrame.getSlotHover() == -1) {
-				return false;
+		if((ContainerFrame.getContainerFrameSlotHover() == -1 && bagLeftClickedSlot == -1) && (CharacterFrame.getSlotHover() == -1 && inventoryLeftClickedSlot == -1)) {
+			return false;
+		}
+		if(!leftClickBagDown && !leftClickInventoryDown) {
+			return false;
+		}
+		if(bagLeftClickedSlot != -1 && inventoryLeftClickedSlot != -1) {
+			return false;
+		}
+		if(!(Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseXDown)) >= PICK_UP_ITEM_RANGE || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseYDown)) >= PICK_UP_ITEM_RANGE)) {
+			return false;
+		}
+		if(bagLeftClickedSlot != -1 && leftClickBagDown) {
+			System.out.println(bagLeftClickedSlot);
+			final Item bagItem = Mideas.joueur1().bag().getBag(bagLeftClickedSlot);
+			int bagClickedSlot = DragManager.bagLeftClickedSlot;
+			DragManager.bagLeftClickedSlot = -1;
+			if(bagItem == null) {
+				if(DragSpellManager.getDraggedSpell() != null)  {
+					return false;
+				}
+				deleteItem(draggedItem);
+				Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
+				draggedItem = null;
+				return true;
 			}
-			if(!leftClickBagDown && !leftClickInventoryDown) {
-				return false;
-			}
-			if(bagClickedSlot == -1 && inventoryClickedSlot == -1) {
-				return false;
-			}
-			if(Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseXDown)) >= PICK_UP_ITEM_RANGE || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseYDown)) >= PICK_UP_ITEM_RANGE) {
-				final Item bagItem = Mideas.joueur1().bag().getBag(bagClickedSlot);
-				int bagClickedSlot = DragManager.bagClickedSlot;
-				DragManager.bagClickedSlot = -1;
-				if(bagItem == null) {
-					if(DragSpellManager.getDraggedSpell() != null)  {
-						return false;
-					}
-					deleteItem(draggedItem);
-					Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
-					System.out.println(bagClickedSlot);
+			if(!bagItem.isSelectable()) {
+				if(bagItem == draggedItem) {
 					draggedItem = null;
 					return true;
 				}
-				if(!bagItem.isSelectable()) {
-					if(bagItem == draggedItem) {
-						draggedItem = null;
-						return true;
-					}
-					return false;
-				}
-				if(draggedItem != null) {
-					if(checkBagItems(draggedItem)) {
-						Item tmp = bagItem;
-						int slot = checkItemSlotBag(draggedItem);
-						if(slot == -1) {
-							return false;
-						}
-						Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
-						Mideas.joueur1().bag().setBag(slot, tmp);
-						draggedItem = null;
-						return true;
-					}
-					if(checkCharacterItems(draggedItem)) {
-						if(!bagItem.isStuff()) {
-							RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
-							return false;
-						}
-						if(((Stuff)draggedItem).getType() != ((Stuff)bagItem).getType()) {
-							RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
-							return false;
-						}
-						if(!StuffManager.canEquipStuff((Stuff)bagItem)) {
-							RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
-							return false;
-						}
-						int slot = checkItemSlotInventory(draggedItem);
-						if(slot == -1) {
-							System.out.println("Error in DragManager mouseMove in Bag for item slot inventory of draggedItem");
-							return false;
-						}
-						Stuff tmp = (Stuff)bagItem;
-						Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
-						Mideas.joueur1().setStuff(slot, tmp);
-						return true;
-					}
-					draggedItem = bagItem;
-					return false;
-				}
-				if(draggedItem == null) {
-					DragSpellManager.setDraggedSpell(null);
-					draggedItem = bagItem;
-					return true;
-				}
-				System.out.println("Error in DragManager mouseMove in Bag");
 				return false;
 			}
-		//}
-		if(isHoverCharacterFrame()) {
-			final Stuff stuff = Mideas.joueur1().getStuff(CharacterFrame.getSlotHover());
+			if(draggedItem != null) {
+				if(checkBagItems(draggedItem)) {
+					Item tmp = bagItem;
+					int slot = checkItemSlotBag(draggedItem);
+					if(slot == -1) {
+						return false;
+					}
+					Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
+					Mideas.joueur1().bag().setBag(slot, tmp);
+					draggedItem = null;
+					return true;
+				}
+				if(checkCharacterItems(draggedItem)) {
+					if(!bagItem.isStuff()) {
+						draggedItem = null;
+						RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
+						return false;
+					}
+					draggedItem = null;
+					if(((Stuff)draggedItem).getType() != ((Stuff)bagItem).getType()) {
+						RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
+						return false;
+					}
+					if(!StuffManager.canEquipStuff((Stuff)bagItem)) {
+						draggedItem = null;
+						RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
+						return false;
+					}
+					int slot = checkItemSlotInventory(draggedItem);
+					if(slot == -1) {
+						System.out.println("Error in DragManager mouseMove in Bag for item slot inventory of draggedItem");
+						return false;
+					}
+					Stuff tmp = (Stuff)bagItem;
+					Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
+					Mideas.joueur1().setStuff(slot, tmp);
+					return true;
+				}
+				draggedItem = bagItem;
+				return false;
+			}
+			if(draggedItem == null) {
+				DragSpellManager.setDraggedSpell(null);
+				draggedItem = bagItem;
+				return true;
+			}
+			System.out.println("Error in DragManager mouseMove in Bag");
+			return false;
+		}
+		if(inventoryLeftClickedSlot != -1 && leftClickInventoryDown) {
+			int inventoryLeftClickedSlot = DragManager.inventoryLeftClickedSlot;
+			DragManager.inventoryLeftClickedSlot = -1;
+			final Stuff stuff = Mideas.joueur1().getStuff(inventoryLeftClickedSlot);
 			if(draggedItem == null && DragSpellManager.getDraggedSpell() == null) {
 				if(stuff == null) {
 					return false;
@@ -265,6 +303,7 @@ public class DragManager {
 			if(draggedItem != null) {
 				if(checkBagItems(draggedItem)) {
 					if(!draggedItem.isStuff() && !draggedItem.isWeapon()) {
+						draggedItem = null;
 						RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
 						return false;
 					}
@@ -279,10 +318,74 @@ public class DragManager {
 					return true;
 				}
 				if(checkCharacterItems(draggedItem)) {
+					if(Mideas.joueur1().getStuff(inventoryLeftClickedSlot) == null) {
+						if(CharacterFrame.getStuffType(inventoryLeftClickedSlot) != ((Stuff)draggedItem).getType()) {
+							draggedItem = null;
+							return false;
+						}
+						deleteItem(draggedItem);
+						Mideas.joueur1().setStuff(inventoryLeftClickedSlot, draggedItem);
+						draggedItem = null;
+						return true;
+					}
 					draggedItem = null;
 					return false;
 				}
 			}
+		}
+		return false;
+	}
+	
+	private static boolean characterLeftClickDown() {
+		if(CharacterFrame.getSlotHover() == -1) {
+			return false;
+		}
+		inventoryLeftClickedSlot = CharacterFrame.getSlotHover();
+		leftClickInventoryDown = true;
+		mouseXDown = Mideas.mouseX();
+		mouseYDown = Mideas.mouseY();
+		return false;
+	}
+	
+	private static boolean characterLeftClickUp() {
+		leftClickInventoryDown = false;
+		leftClickBagDown = false;
+		bagLeftClickedSlot = -1;
+		if(inventoryLeftClickedSlot != CharacterFrame.getSlotHover()) {
+			if(checkBagItems(draggedItem)) {
+				if(!draggedItem.isStuff() && !draggedItem.isWeapon()) {
+					draggedItem = null;
+					RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
+					return false;
+				}
+				int bagSlot = checkItemSlotBag(draggedItem);
+				Stuff tmp = Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot());
+				Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), draggedItem);
+				Mideas.joueur1().bag().setBag(bagSlot, tmp);
+				draggedItem = null;
+			}
+			inventoryLeftClickedSlot = -1;
+			return false;
+		}
+		inventoryLeftClickedSlot = -1;
+		if(draggedItem == null && CharacterFrame.getSlotHover() != -1) {
+			draggedItem = Mideas.joueur1().getStuff(CharacterFrame.getSlotHover());
+			return true;
+		}
+		if(checkBagItems(draggedItem)) {
+			if(!draggedItem.isStuff() && !draggedItem.isWeapon()) {
+				draggedItem = null;
+				RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
+				return false;
+			}
+			int bagSlot = checkItemSlotBag(draggedItem);
+			Stuff tmp = Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot());
+			Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), draggedItem);
+			Mideas.joueur1().bag().setBag(bagSlot, tmp);
+			draggedItem = null;
+		}
+		if(checkCharacterItems(draggedItem)) {
+			
 		}
 		return false;
 	}
@@ -293,28 +396,66 @@ public class DragManager {
 			mouseY = Mideas.mouseY();
 			mouseMove();
 		}
-		//if(isHoverBagFrame()) {
+		if(Mouse.getEventButtonState() && Mouse.getEventButton() == 1) {
+			if(draggedItem != null || DragSpellManager.getDraggedSpell() != null) {
+				draggedItem = null;
+				DragSpellManager.setDraggedSpell(null);
+				if(PopupFrame.getCurrentPopup() == PopupType.DELETE_ITEM) {
+					PopupFrame.closePopup();
+				}
+				return true;
+			}
+		}
+		if(ContainerFrame.isHoverItemNumberFrame()) {
+			
+		}
+		else if(isHoverBagFrame()) {
 			if(Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0) {
-					bagLeftClickDown();
+					return bagLeftClickDown();
 				}
 				else if(Mouse.getEventButton() == 1) {
-					bagRightClickDown();
+					return bagRightClickDown();
 				}
 			}
 			else {
 				if(Mouse.getEventButton() == 0) {
-					bagLeftClickUp();
+					return bagLeftClickUp();
 				}
 				else if(Mouse.getEventButton() == 1) {
-					if(draggedItem != null || DragSpellManager.getDraggedSpell() != null) {
-						draggedItem = null;
-						DragSpellManager.setDraggedSpell(null);
-						return true;
-					}
+					return bagRightClickUp();
 				}
 			}
-		//}
+		}
+		else if(isHoverCharacterFrame()) {
+			if(Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0) {
+					return characterLeftClickDown();
+				}
+				else if(Mouse.getEventButton() == 1) {
+					//bagRightClickDown();
+				}
+			}
+			else {
+				if(Mouse.getEventButton() == 0) {
+					return characterLeftClickUp();
+				}
+				else if(Mouse.getEventButton() == 1) {
+					
+				}
+			}
+		}
+		if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 0) {
+				if(draggedItem != null) {
+					if(PopupFrame.getCurrentPopup() == PopupType.DELETE_ITEM) {
+						PopupFrame.closePopup();
+						return true;
+					}
+					PopupFrame.activateDeleteItemWithoutConfirm(draggedItem.getStuffName());
+				}
+			}
+		}
 		/*if(!ContainerFrame.isHoverItemNumberFrame()) {
 			if(Keyboard.isKeyDown(42) && !Mouse.getEventButtonState() && (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)) { //split item
 				int i = 0;
@@ -526,7 +667,7 @@ public class DragManager {
 		}
 	}
 	
-	private static boolean equipBagItem(int i) {
+	/*private static boolean equipBagItem(int i) {
 		if(ContainerFrame.getContainerFrameSlotHover(i)) {
 			if(Mideas.joueur1().bag().getBag(i).isStuff()) {
 				int j = 0;
@@ -582,9 +723,9 @@ public class DragManager {
 			}
 		}
 		return false;
-	}
+	}*/
 	
-	private static void doHealingPotion(Potion item, boolean hover, int i) {
+	/*private static void doHealingPotion(Potion item, boolean hover, int i) {
 		if(hover && item != null && item.isPotion() && Mideas.joueur1().getLevel() >= item.getLevel()) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
 				LogChat.setStatusText3("Vous vous êtes rendu "+(Mideas.joueur1().getMaxStamina()-Mideas.joueur1().getStamina())+" hp");
@@ -604,10 +745,10 @@ public class DragManager {
 			}
 			CharacterStuff.setBagItems();
 		}
-	}
+	}*/
 	
 	
-	private static void equipItem(int i) {
+	/*private static void equipItem(int i) {
 		if(Mideas.joueur1().bag().getBag(i).isStuff() && draggedItem.isStuff()) {
 			if(Mideas.joueur1().getLevel() >= ((Stuff)Mideas.joueur1().bag().getBag(i)).getLevel() && ((Stuff)Mideas.joueur1().bag().getBag(i)).canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString())) && ((Stuff)Mideas.joueur1().bag().getBag(i)).getType() == ((Stuff)draggedItem).getType()) {
 				Stuff temp = (Stuff)Mideas.joueur1().bag().getBag(i);
@@ -617,9 +758,9 @@ public class DragManager {
 				calcStats(temp);
 			}
 		}
-	}
+	}*/
 	
-	private static boolean clickBagItem(int i) {
+	/*private static boolean clickBagItem(int i) {
 		if(ContainerFrame.getContainerFrameSlotHover(i) && !DragSpellManager.isHoverSpellBarFrame()) {
 			if(draggedItem == null) {
 				if(Mideas.joueur1().bag().getBag(i) == null) {
@@ -716,9 +857,9 @@ public class DragManager {
 			}
 		}
 		return false;
-	}
+	}*/
 	
-	private static boolean clickInventoryItem(int i) {
+	/*private static boolean clickInventoryItem(int i) {
 		if(CharacterFrame.getHoverCharacterFrame(i)) {
 			if(draggedItem == null) {
 				if(Mideas.joueur1().getStuff(i) == null) {
@@ -838,9 +979,9 @@ public class DragManager {
 			}
 		}
 		return false;
-	}
+	}*/
 	
-	private static boolean setDraggedItemForCharacter() {
+	/*private static boolean setDraggedItemForCharacter() {
 		if(inventoryClickedSlot >= 0 && inventoryClickedSlot < Mideas.joueur1().getStuff().length) {
 			int i = 0;
 			while(i < Mideas.joueur1().getStuff().length) {
@@ -852,9 +993,9 @@ public class DragManager {
 			}
 		}
 		return false;
-	}
+	}*/
 	
-	private static boolean setDraggedItemForBag() {
+	/*private static boolean setDraggedItemForBag() {
 		if(bagClickedSlot >= 0 && bagClickedSlot < Mideas.joueur1().bag().getBag().length) {
 			int i = 0;
 			while(i < Mideas.joueur1().bag().getBag().length) {
@@ -866,9 +1007,9 @@ public class DragManager {
 			}
 		}
 		return false;
-	}
+	}*/
 	
-	private static boolean checkBagClick() {
+	/*private static boolean checkBagClick() {
 		int i = 0;
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(ContainerFrame.getContainerFrameSlotHover(i) == true && draggedItem == null) {
@@ -890,9 +1031,9 @@ public class DragManager {
 			i++;
 		}
 		return false;
-	}
+	}*/
 	
-	private static boolean setNullCharacter(Item tempItem) {
+	/*private static boolean setNullCharacter(Item tempItem) {
 		int i = 0;
 		while(i < Mideas.joueur1().getStuff().length) {
 			if(tempItem == Mideas.joueur1().getStuff(i)) {
@@ -902,7 +1043,7 @@ public class DragManager {
 			i++;
 		}
 		return false;
-	}
+	}*/
 
 	static boolean deleteItem(Item draggedItem2) {
 		int i = 0;
@@ -980,6 +1121,9 @@ public class DragManager {
 	}
 	
 	static boolean checkBagItems(Item item) {
+		if(item == null) {
+			return false;
+		}
 		int i = 0;
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(Mideas.joueur1().bag().getBag(i) == item) {
@@ -1055,7 +1199,7 @@ public class DragManager {
 	
 	public static boolean isHoverCharacterFrame() {
 		if(Interface.getCharacterFrameStatus()) {
-			if(Mideas.mouseX() >= Display.getWidth()/2-300+CharacterFrame.getMouseX()+CharacterFrame.getGemFrameSize() && Mideas.mouseX() <= Display.getWidth()/2-300+CharacterFrame.getGemFrameSize()+Sprites.character_frame.getImageWidth()+CharacterFrame.getMouseX() && Mideas.mouseY() >= Display.getHeight()/2-380+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2-380+Sprites.character_frame.getImageHeight()+CharacterFrame.getMouseY()) {
+			if(Mideas.mouseX() >= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX()+CharacterFrame.getGemFrameSize() && Mideas.mouseX() <= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+CharacterFrame.getGemFrameSize()+Sprites.character_frame.getImageWidth()*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX() && Mideas.mouseY() >= Display.getHeight()/2-380*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2-380*Mideas.getDisplayYFactor()+Sprites.character_frame.getImageHeight()*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY()) {
 				return true;
 			}
 		}
@@ -1064,7 +1208,7 @@ public class DragManager {
 	
 	public static boolean isHoverBagFrame() {
 		if(Interface.getContainerFrameStatus()) {
-			if(Mideas.mouseX() >= Display.getWidth()-520 && Mideas.mouseX() <= Display.getWidth()-320+Sprites.back_bag.getImageWidth()) {
+			if(Mideas.mouseX() >= Display.getWidth()-520*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()-320*Mideas.getDisplayXFactor()+Sprites.back_bag.getImageWidth()) {
 				return true;
 			}
 		}
@@ -1073,7 +1217,7 @@ public class DragManager {
 	
 	public static boolean isHoverSocketingFrame() {
 		if(Interface.isSocketingFrameActive()) {
-			if(Mideas.mouseX() >= Display.getWidth()/2-300+CharacterFrame.getMouseX() && Mideas.mouseX() <= Display.getWidth()/2-300+CharacterFrame.getMouseX()+Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2-380+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2-380+CharacterFrame.getMouseY()+Sprites.socketing_frame.getImageHeight()*Mideas.getDisplayXFactor()) {
+			if(Mideas.mouseX() >= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX() && Mideas.mouseX() <= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX()+Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()/2-380*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY() && Mideas.mouseY() <= Display.getHeight()/2-380*Mideas.getDisplayYFactor()+CharacterFrame.getMouseY()+Sprites.socketing_frame.getImageHeight()*Mideas.getDisplayXFactor()) {
 				return true;
 			}
 		}
@@ -1089,7 +1233,7 @@ public class DragManager {
 		return false;
 	}
 	
-	private static boolean checkBagHover() {
+	/*private static boolean checkBagHover() {
 		int i = 0;
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(bagClickedSlot == i && true == ContainerFrame.getContainerFrameSlotHover(i)) {
@@ -1098,17 +1242,18 @@ public class DragManager {
 			i++;
 		}
 		return false;
-	}
-	private static boolean checkCharacterHover() {
+	}*/
+	
+	/*private static boolean checkCharacterHover() {
 		int i = 0;
 		while(i < Mideas.joueur1().getStuff().length) {
-			if(inventoryClickedSlot == i && CharacterFrame.getHoverCharacterFrame(i) == true) {
+			if(inventoryLeftClickedSlot == i && CharacterFrame.getHoverCharacterFrame(i) == true) {
 				return true;
 			}
 			i++;
 		}
 		return false;
-	}
+	}*/
 	
 	public static int checkItemSlotBag(Item item) {
 		int i = 0;
@@ -1133,11 +1278,11 @@ public class DragManager {
 	}
 	
 	public static boolean getClickBag(int i) {
-		return bagClickedSlot == i;
+		return bagLeftClickedSlot == i;
 	}
 	
 	public static boolean getClickInventory(int i) {
-		return inventoryClickedSlot == i;
+		return inventoryLeftClickedSlot == i;
 	}
 	
 	public static void setDraggedItemSplit(boolean we) {
@@ -1152,11 +1297,11 @@ public class DragManager {
 	}
 	
 	public static void resetInventoryClickedSlot() {
-		inventoryClickedSlot = -1;
+		inventoryLeftClickedSlot = -1;
 	}
 	
 	public static void resetBagClickedSlot() {
-		bagClickedSlot = -1;
+		bagLeftClickedSlot = -1;
 	}
 	
 	public static void updateSize() {

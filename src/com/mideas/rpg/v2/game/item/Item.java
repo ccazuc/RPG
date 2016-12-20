@@ -51,6 +51,10 @@ public class Item implements Cloneable {
 		this.amountString = Integer.toString(amount);
 	}
 	
+	public int getMaxStack() {
+		return this.maxStack;
+	}
+	
 	public int getAmount() {
 		return this.amount;
 	}

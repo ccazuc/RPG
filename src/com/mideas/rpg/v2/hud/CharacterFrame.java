@@ -12,6 +12,7 @@ import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.game.item.stuff.StuffType;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
@@ -111,6 +112,7 @@ public class CharacterFrame {
 	public static boolean mouseEvent() {
 		hover = -1;
 		hoverMove = false;
+		closeFrameButton.event();
 		if(Mideas.mouseX()>= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+xMouseShift+gemFrame && Mideas.mouseX() <= Display.getWidth()/2-300*Mideas.getDisplayXFactor()+xMouseShift+gemFrame+Sprites.character_frame.getImageWidth() && Mideas.mouseY() >= Display.getHeight()/2-375*Mideas.getDisplayYFactor()+yMouseShift && Mideas.mouseY() <= Display.getHeight()/2-375*Mideas.getDisplayYFactor()+yMouseShift+25) {
 			hoverMove = true;
 		}
@@ -119,7 +121,6 @@ public class CharacterFrame {
 			xMouseShift = Mideas.mouseX()-baseMouseX+lastMouseX;
 			updateButton();
 		}
-		closeFrameButton.event();
 		if(Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0) {
 				if(hoverMove && !moving) {
@@ -301,9 +302,9 @@ public class CharacterFrame {
 			if(stuff == DragManager.getDraggedItem() || !stuff.isSelectable()) {
 				Draw.drawColorQuad(Display.getWidth()/2+x, Display.getHeight()/2+y, 37, 35, bgColor);
 			}
-			if(DragManager.getDraggedItem() != null && hover != i && DragManager.getDraggedItem().isStuff() && ((Stuff)DragManager.getDraggedItem()).getType() == stuff.getType()) {
-				Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
-			}
+		}
+		if(DragManager.getDraggedItem() != null && hover != i && DragManager.getDraggedItem().isStuff() && ((Stuff)DragManager.getDraggedItem()).getType().getSlot() == i) {
+			Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
 		}
 		if(hover == i) {
 			Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-2, Display.getHeight()/2+y-2);
@@ -357,6 +358,28 @@ public class CharacterFrame {
 	
 	public static int getGemFrameSize() {
 		return gemFrame;
+	}
+	
+	public static StuffType getStuffType(int slot) {
+		if(slot <= 12) {
+			return StuffType.values()[slot];
+		}
+		if(slot == 13) {
+			return StuffType.RING;
+		}
+		if(slot == 14 || slot == 15) {
+			return StuffType.TRINKET;
+		}
+		if(slot == 16) {
+			return StuffType.MAINHAND;
+		}
+		if(slot == 17) {
+			return StuffType.OFFHAND;
+		}
+		if(slot == 18) {
+			return StuffType.RANGED;
+		}
+		return null;
 	}
 	
 	public static void updateButton() {
