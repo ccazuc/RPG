@@ -2,12 +2,10 @@ package com.mideas.rpg.v2.game;
 
 import java.util.ArrayList;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.chat.MessageType;
-import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.guild.GuildRank;
@@ -17,7 +15,6 @@ import com.mideas.rpg.v2.game.item.bag.Bag;
 import com.mideas.rpg.v2.game.item.bag.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
-import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
@@ -25,9 +22,7 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.race.Race;
-import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
-import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.social.Friend;
 import com.mideas.rpg.v2.game.social.Ignore;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -81,7 +76,7 @@ public class Joueur extends Unit {
 	private final static String warlock = "Warlock";
 	private final static String druid = "Druid";
 	
-	public Joueur(ClassType classType, int id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Shortcut[] spells, Spell[] spellUnlocked, Stuff[] stuff) {
+	public Joueur(ClassType classType, int id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Spell[] spellUnlocked, Stuff[] stuff) {
 		super(id, stamina, maxStamina, mana, maxMana, 1, "", classType);
 		this.strength = strength;
 		this.armor = armor;
@@ -843,7 +838,7 @@ public class Joueur extends Unit {
 	}
 
 	public int getSpellsListSize() {
-		return SpellBarFrame.getButtonList().size();
+		return SpellBarFrame.getButtonList().length;
 	}
 
 	public Shortcut getSpells(int i) {
@@ -878,7 +873,14 @@ public class Joueur extends Unit {
 			this.stuff[i] = null;
 		}
 		else if(tempItem.isStuff() || tempItem.isWeapon()) {
+			if(this.stuff[i] != null) {
+				SpellBarFrame.updateEquippedItem(this.stuff[i].getId(), false);
+			}
 			this.stuff[i] = (Stuff)tempItem;
+			SpellBarFrame.updateEquippedItem(this.stuff[i].getId(), true);
+		}
+		else {
+			System.out.println("Error on setStuff, tried to wear an item that isn't a Stuff");
 		}
 	}
 	

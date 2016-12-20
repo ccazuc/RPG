@@ -1,8 +1,5 @@
 package com.mideas.rpg.v2.hud;
 
-import java.util.ArrayList;
-
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
@@ -13,6 +10,7 @@ import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
+import com.mideas.rpg.v2.game.shortcut.ShortcutType;
 import com.mideas.rpg.v2.utils.ButtonSpellbar;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
@@ -27,7 +25,7 @@ public class SpellBarFrame {
 	private static int hoveredSlot = -1;
 	private static Tooltip tooltip = new Tooltip(0, 0, 0, 0, 0.6f);
 	//private final static String[] bindDisplay = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-	private final static ArrayList<ButtonSpellbar> buttonList = new ArrayList<ButtonSpellbar>();
+	private final static ButtonSpellbar[] buttonList = new ButtonSpellbar[60];
 	
 	private static String numberFreeSlotBag = "";
 	private static boolean init = false;
@@ -151,8 +149,8 @@ public class SpellBarFrame {
 			}
 		}*/
 		int i = 0;
-		while(i < buttonList.size()) {
-			buttonList.get(i).draw();
+		while(i < buttonList.length) {
+			buttonList[i].draw();
 			i++;
 		}
 		i = 0;
@@ -214,8 +212,8 @@ public class SpellBarFrame {
 			}
 		}*/
 		int i = 0;
-		while(i < buttonList.size()) {
-			if(buttonList.get(i).mouseEvent()) {
+		while(i < buttonList.length) {
+			if(buttonList[i].mouseEvent()) {
 				return true;
 			}
 			i++;
@@ -225,8 +223,8 @@ public class SpellBarFrame {
 	
 	public static boolean keyboardEvent() {
 		int i = 0;
-		while(i < buttonList.size()) {
-			buttonList.get(i).keyEvent();
+		while(i < buttonList.length) {
+			buttonList[i].keyEvent();
 			i++;
 		}
 		/*if(!ChatFrame.getChatActive()) {
@@ -333,10 +331,10 @@ public class SpellBarFrame {
 		int j = 0;
 		while(i < 36) {
 			if(i < 12) {
-				buttonList.add(new ButtonSpellbar(x+j*yShift, y, i+1, true));
+				buttonList[i] = new ButtonSpellbar(x+j*yShift, y, i+1, true);
 			}
 			else {
-				buttonList.add(new ButtonSpellbar(x+j*yShift, y, -1, false));
+				buttonList[i] = new ButtonSpellbar(x+j*yShift, y, -1, false);
 			}
 			i++;
 			j++;
@@ -359,7 +357,7 @@ public class SpellBarFrame {
 		int i = 0;
 		int j = 0;
 		while(i < 36) {
-			buttonList.get(i).update(x+j*yShift, y);
+			buttonList[i].update(x+j*yShift, y);
 			i++;
 			j++;
 			if(i == 12) {
@@ -369,16 +367,16 @@ public class SpellBarFrame {
 		}
 	}
 	
-	public static ArrayList<ButtonSpellbar> getButtonList() {
+	public static ButtonSpellbar[] getButtonList() {
 		return buttonList;
 	}
 	
 	public static ButtonSpellbar getButton(int slot) {
-		return buttonList.get(slot);
+		return buttonList[slot];
 	}
 	
 	public static void setShortcut(int slot, Shortcut shortcut) {
-		buttonList.get(slot).setShortcut(shortcut);
+		buttonList[slot].setShortcut(shortcut);
 	}
 	
 	public static boolean doHealingPotion(Potion item) {
@@ -431,6 +429,20 @@ public class SpellBarFrame {
 			i++;
 		}
 		return false;
+	}
+	
+	public static void updateEquippedItem(int id, boolean we) {
+		int i = 0;
+		while(i < buttonList.length) {
+			if(buttonList[i].getShortcut() != null) {
+				if(buttonList[i].getShortcut().getShortcutType() == ShortcutType.STUFF) {
+					if(buttonList[i].getShortcut().getId() == id)  {
+						buttonList[i].setItemIsEquipped(we);
+					}
+				}
+			}
+			i++;
+		}
 	}
 	
 	public static void setNumberFreeSlotBag(int number) {

@@ -7,7 +7,6 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
-import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.jdo.JDOStatement;
@@ -38,13 +37,11 @@ public class ClassManager {
 				int maxMana = statement.getInt();
 				int expGained = statement.getInt();
 				int goldGained = statement.getInt();
-				Shortcut[] spells = new Shortcut[49];
-				Shortcut[] spellss = new Shortcut[49];
 				Spell[] spellUnlocked = new Spell[49];
 				Spell[] spellUnlockeds = new Spell[49];
 				Stuff[] stuff = new Stuff[19];
-				playerList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spells, spellUnlocked, stuff));
-				iaList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellss, spellUnlockeds, stuff));
+				playerList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellUnlocked, stuff));
+				iaList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellUnlockeds, stuff));
 				initTable(id);
 			}
 		}

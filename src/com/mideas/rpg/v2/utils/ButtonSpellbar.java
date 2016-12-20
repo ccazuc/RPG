@@ -7,12 +7,12 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF;
+import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.ShortcutType;
-import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
@@ -61,6 +61,9 @@ public class ButtonSpellbar {
 	}
 	
 	public void draw() {
+		if((this.shortcut == null && !this.isInFirstBar) || (this.shortcut != null) && !this.isInFirstBar && !this.buttonDown && !this.keyDown) {
+        		Draw.drawQuad(Sprites.spellbar_case, this.x, this.y-1, 44*Mideas.getDisplayXFactor(), 41*Mideas.getDisplayYFactor(), .5f);
+		}
 		if(this.shortcut != null) {
 			Draw.drawQuad(this.shortcut.getSprite(), this.x+3, this.y+1);
 			//Draw.drawQuad(Sprites.spell_border, this.x+3, this.y+1, borderWidth, borderHeight);
@@ -81,9 +84,6 @@ public class ButtonSpellbar {
 			if(this.buttonHover) {
 				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+1, this.y, borderWidth, borderHeight);
 			}
-			if(!this.isInFirstBar && !this.buttonDown && !this.keyDown) {
-	        		Draw.drawQuad(Sprites.spellbar_case, this.x, this.y-1, 44*Mideas.getDisplayXFactor(), 41*Mideas.getDisplayYFactor(), .5f);
-			}
 			if(this.keyBind >= 0) {
 				keyBindFont.drawStringShadow(this.x+37*Mideas.getDisplayXFactor()-this.keyBindStringWidth, this.y, this.keyBindString, Color.GREY, Color.BLACK, 1, 0, 0);
 			}
@@ -100,7 +100,6 @@ public class ButtonSpellbar {
 		}
 		if(this.buttonDown && (Math.abs(Math.abs(Mideas.mouseX())-Math.abs(this.buttonDownX)) >= MOUSE_MOVE_TRIGGER_RANGE || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(this.buttonDownY)) >= MOUSE_MOVE_TRIGGER_RANGE)) {
 			this.buttonDown = false;
-			System.out.println("TRIGGER");
 			if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 				Shortcut tmp = this.shortcut;
 				setShortcut(getDraggedSpell());
@@ -118,16 +117,20 @@ public class ButtonSpellbar {
 				}
 				else {
 					this.buttonDown = false;
-					Shortcut shortcut = getDraggedSpell();
-					if(shortcut != null) {
-						System.out.println("Before : "+this.shortcut+" "+DragSpellManager.getDraggedSpell());
+					if(DragManager.getDraggedItem() != null && (DragManager.getDraggedItem().isPotion() || DragManager.getDraggedItem().isStuff() || DragManager.getDraggedItem().isWeapon())) {
+						Shortcut shortcut = Item.createShortcut(DragManager.getDraggedItem());
 						Shortcut tmp = this.shortcut;
 						setShortcut(shortcut);
+						DragManager.setDraggedItem(null);
 						DragSpellManager.setDraggedSpell(tmp);
-						System.out.println("After : "+this.shortcut+" "+DragSpellManager.getDraggedSpell());
 						return true;
 					}
-					System.out.println("BUTTON DOWN FALSE B");
+					if(DragSpellManager.getDraggedSpell() != null) {
+						Shortcut tmp = this.shortcut;
+						setShortcut(DragSpellManager.getDraggedSpell());
+						DragSpellManager.setDraggedSpell(tmp);
+						return true;
+					}
 					if(this.shortcut != null) {
 						this.shortcut.use();
 					}
@@ -207,6 +210,10 @@ public class ButtonSpellbar {
 			return DragSpellManager.getDraggedSpell();
 		}
 		return null;
+	}
+	
+	public void setItemIsEquipped(boolean we) {
+		this.itemIsEquipped = we;
 	}
 	
 	public Shortcut getShortcut() {

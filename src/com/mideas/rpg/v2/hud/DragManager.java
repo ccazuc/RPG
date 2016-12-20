@@ -44,7 +44,6 @@ public class DragManager {
 	private static int inventoryRightClickedSlot = -1;
 	private static int mouseX;
 	private static int mouseY;
-	private static boolean draggedItemSplit;
 	private static Button hoverDeleteYes = new Button(Display.getWidth()/2-130*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), 127*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "Yes", 14, 1) {
 		@Override
 		public void eventButtonClick() {
@@ -154,12 +153,12 @@ public class DragManager {
 			draggedItem = null;
 			return true;
 		}
-		if(!Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()).isSelectable()) {
+		if(!bagItem.isSelectable()) {
 			draggedItem = null;
 			return false;
 		}
 		if(draggedItem == null) {
-			draggedItem = Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover());
+			draggedItem = bagItem;
 			return true;
 		}
 		if(checkCharacterItems(draggedItem)) {
@@ -171,7 +170,7 @@ public class DragManager {
 				RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
 				return false;
 			}
-			Stuff tmp = (Stuff)Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover());
+			Stuff tmp = (Stuff)bagItem;
 			Mideas.joueur1().bag().setBag(ContainerFrame.getContainerFrameSlotHover(), draggedItem);
 			Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), tmp);
 			return true;
@@ -407,9 +406,9 @@ public class DragManager {
 			}
 		}
 		if(ContainerFrame.isHoverItemNumberFrame()) {
-			
+			return false;
 		}
-		else if(isHoverBagFrame()) {
+		if(isHoverBagFrame()) {
 			if(Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0) {
 					return bagLeftClickDown();
@@ -453,6 +452,9 @@ public class DragManager {
 						return true;
 					}
 					PopupFrame.activateDeleteItemWithoutConfirm(draggedItem.getStuffName());
+				}
+				else if(DragSpellManager.getDraggedSpell() != null) {
+					DragSpellManager.setDraggedSpell(null);
 				}
 			}
 		}
@@ -1283,10 +1285,6 @@ public class DragManager {
 	
 	public static boolean getClickInventory(int i) {
 		return inventoryLeftClickedSlot == i;
-	}
-	
-	public static void setDraggedItemSplit(boolean we) {
-		draggedItemSplit = we;
 	}
 	
 	public static WeaponSlot getWeaponSlot(int i) {

@@ -10,6 +10,9 @@ import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
+import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
+import com.mideas.rpg.v2.game.shortcut.Shortcut;
+import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 
 public class Item implements Cloneable {
 
@@ -206,5 +209,15 @@ public class Item implements Cloneable {
 			return true;
 		}
 		return false;
+	}
+	
+	public static Shortcut createShortcut(Item item) {
+		if(item.isStuff()) {
+			return new StuffShortcut((Stuff)item);
+		}
+		if(item.isPotion()) {
+			return new PotionShortcut((Potion)item);
+		}
+		return null;
 	}
 }

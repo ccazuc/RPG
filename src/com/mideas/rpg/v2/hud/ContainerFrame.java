@@ -745,7 +745,6 @@ public class ContainerFrame {
 			iItemNumber = -1;
 			numberItem = 1;
 			lastSplit = i;
-			DragManager.setDraggedItemSplit(true);
 		}
 	}
 	
