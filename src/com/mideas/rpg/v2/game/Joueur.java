@@ -33,6 +33,7 @@ import com.mideas.rpg.v2.game.social.Ignore;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.PartyFrame;
+import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
 
@@ -49,8 +50,6 @@ public class Joueur extends Unit {
 	private int numberYellowGem;
 	private GuildRank guildRank;
 	private Bag bag = new Bag();
-	private Shortcut[] shortcut;
-	private Shortcut[] spells;
 	private int numberBlueGem;
 	private String guildTitle;
 	private int defaultArmor;
@@ -90,7 +89,6 @@ public class Joueur extends Unit {
 		this.critical = critical;
 		this.expGained = expGained;
 		this.goldGained = goldGained;
-		this.spells = spells;
 		this.spellUnlocked = spellUnlocked;
 		this.weaponType = weaponType;
 		this.stuff = stuff;
@@ -182,7 +180,6 @@ public class Joueur extends Unit {
 		this.expGained = joueur.expGained;
 		this.strength = joueur.strength;
 		this.critical = joueur.critical;
-		this.spells = joueur.spells;
 		this.stuff = joueur.stuff;
 		this.armor = joueur.armor;
 		this.mana = joueur.mana;
@@ -424,7 +421,7 @@ public class Joueur extends Unit {
 		}
 	}*/
 	
-	public void loadSpellbar() {
+	/*public void loadSpellbar() {
 		int i = 0;
 		Interface.setSpellbarFullyLoaded(true);
 		while(i < Mideas.joueur1().getSpells().length) {
@@ -454,7 +451,7 @@ public class Joueur extends Unit {
 			}
 			i++;
 		}
-	}
+	}*/
 	
 	public boolean addItem(Item item, int amount) {
 		if(amount == 1) {
@@ -845,16 +842,16 @@ public class Joueur extends Unit {
 		return this.x;
 	}
 
-	public Shortcut[] getSpells() {
-		return this.spells;
+	public int getSpellsListSize() {
+		return SpellBarFrame.getButtonList().size();
 	}
 
 	public Shortcut getSpells(int i) {
-		return this.spells[i];
+		return SpellBarFrame.getButton(i).getShortcut();
 	}
 	
 	public void setSpells(int i, Shortcut spell) {
-		this.spells[i] = spell;
+		SpellBarFrame.setShortcut(i, spell);
 	}
 	
 	public Spell[] getSpellUnlocked() {
@@ -873,7 +870,10 @@ public class Joueur extends Unit {
 		return this.stuff[i];
 	}
 	
-	public void setStuff(int i, Item tempItem) {
+	public void setStuff(int i, Item tempItem) { //TODO : add stats calculation
+		if(this.stuff[i] != null) {
+			
+		}
 		if(tempItem == null) {
 			this.stuff[i] = null;
 		}
@@ -919,14 +919,6 @@ public class Joueur extends Unit {
 	
 	public Bag bag() {
 		return this.bag;
-	}
-	
-	public Shortcut getShortcut(int i) {
-		return this.shortcut[i];
-	}
-	
-	public Shortcut[] getShortcut() {
-		return this.shortcut;
 	}
 
 	public void setSpellUnlocked(int i, Spell spell) {

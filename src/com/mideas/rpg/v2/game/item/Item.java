@@ -24,7 +24,7 @@ public class Item implements Cloneable {
 	protected String deleteConfirm;
 	protected boolean isSelectable = true;
 	protected int amount;
-	protected String amountString;
+	protected String amountString = "";
 	
 	private final static String delete = "Voulez vous supprimer ";
 	

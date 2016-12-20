@@ -117,7 +117,7 @@ public class SelectScreen {
 		}
 		
 	};
-	private static Button changeRealmButton = new Button(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Change Realm", 12, 2) {
+	private static Button changeRealmButton = new Button(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Change Realm", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			alert.setActive();
@@ -186,6 +186,7 @@ public class SelectScreen {
 				}
 				confirmDeleteCharacterButton.draw();
 				cancelDeleteCharacterButton.draw();
+				return;
 			}
 			int i = 0;
 			float y = 110*Mideas.getDisplayYFactor();
@@ -193,6 +194,9 @@ public class SelectScreen {
 				drawCharacter(i, y);
 				i++;
 				y+= 75*Mideas.getDisplayYFactor();
+			}
+			if(characterList[selectedCharacterIndex] != null) {
+				FontManager.get("FRIZQT", 30).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 30).getWidth(characterList[selectedCharacterIndex].getName())/2, Display.getHeight()-170*Mideas.getDisplayYFactor(), characterList[selectedCharacterIndex].getName(), Color.YELLOW, Color.BLACK, 2, 2, 2);
 			}
 			alert.draw();
 			newCharacterButton.draw();

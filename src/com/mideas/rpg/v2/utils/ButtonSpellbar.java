@@ -42,28 +42,30 @@ public class ButtonSpellbar {
 	private final static TTF keyBindFont = FontManager.get("FRIZQT", 15);
 	private final static int MOUSE_MOVE_TRIGGER_RANGE = 15;
 	private int keyBind;
-	private static int borderWidth = (int)(40*Mideas.getDisplayXFactor());
-	private static int borderHeight = (int)(39*Mideas.getDisplayYFactor());
+	private static int borderWidth = (int)(42*Mideas.getDisplayXFactor());
+	private static int borderHeight = (int)(40*Mideas.getDisplayYFactor());
 	
-	public ButtonSpellbar(float x, float y, boolean isInFirstBar) {
+	public ButtonSpellbar(float x, float y, int keyBind, boolean isInFirstBar) {
 		this.x = (int)x;
 		this.y = (int)y;
-		this.isInFirstBar = false;
+		this.isInFirstBar = isInFirstBar;
+		setKeyBind(keyBind);
 	}
 	
-	public ButtonSpellbar(float x, float y, Shortcut shortcut, boolean isInFirstBar) {
+	public ButtonSpellbar(float x, float y, int keyBind, Shortcut shortcut, boolean isInFirstBar) {
 		this.x = (int)x;
 		this.y = (int)y;
-		this.isInFirstBar = false;
+		this.isInFirstBar = isInFirstBar;
 		setShortcut(shortcut);
+		setKeyBind(keyBind);
 	}
 	
 	public void draw() {
 		if(this.shortcut != null) {
 			Draw.drawQuad(this.shortcut.getSprite(), this.x+3, this.y+1);
-			Draw.drawQuad(Sprites.spell_border, this.x+3, this.y+1, borderWidth, borderHeight);
+			//Draw.drawQuad(Sprites.spell_border, this.x+3, this.y+1, borderWidth, borderHeight);
 			if(this.itemIsEquipped) {
-				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+3, this.y+1, borderWidth, borderHeight, Color.GREEN);
+				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+1, this.y, borderWidth, borderHeight, Color.GREEN);
 			}
 			if(this.numberItemString != null) {
 				keyBindFont.drawStringShadow(this.x+30*Mideas.getDisplayXFactor()-this.keyBindStringWidth, this.y, this.numberItemString, Color.WHITE, Color.BLACK, 1, 0, 0);
@@ -74,13 +76,16 @@ public class ButtonSpellbar {
 		}
 		if((this.shortcut == null && !this.isInFirstBar) || (this.shortcut != null)) {
 			if(this.buttonDown || this.keyDown) {
-				Draw.drawQuad(Sprites.button_down_spellbar, this.x+3, this.y+1, borderWidth, borderHeight);
+				Draw.drawQuad(Sprites.button_down_spellbar, this.x+1, this.y, borderWidth, borderHeight);
 			}
 			if(this.buttonHover) {
-				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+3, this.y+1, borderWidth, borderHeight);
+				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+1, this.y, borderWidth, borderHeight);
 			}
 			if(!this.isInFirstBar && !this.buttonDown && !this.keyDown) {
-	        		Draw.drawQuad(Sprites.spellbar_case, this.x, this.y-1, 45*Mideas.getDisplayXFactor(), 43*Mideas.getDisplayYFactor(), .6f);
+	        		Draw.drawQuad(Sprites.spellbar_case, this.x, this.y-1, 44*Mideas.getDisplayXFactor(), 41*Mideas.getDisplayYFactor(), .5f);
+			}
+			if(this.keyBind >= 0) {
+				keyBindFont.drawStringShadow(this.x+37*Mideas.getDisplayXFactor()-this.keyBindStringWidth, this.y, this.keyBindString, Color.GREY, Color.BLACK, 1, 0, 0);
 			}
 		}
 	}
@@ -111,7 +116,7 @@ public class ButtonSpellbar {
 					this.buttonDownX = Mideas.mouseX();
 					this.buttonDownY = Mideas.mouseY();
 				}
-				else if(this.buttonDown) {
+				else {
 					this.buttonDown = false;
 					Shortcut shortcut = getDraggedSpell();
 					if(shortcut != null) {
@@ -133,7 +138,6 @@ public class ButtonSpellbar {
 		else if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 				this.buttonDown = false;
-				System.out.println("BUTTON DOWN FALSE");
 			}
 		}
 		return false;
@@ -145,14 +149,25 @@ public class ButtonSpellbar {
 				this.keyDown = true;
 				return true;
 			}
-			this.shortcut.use();
+			this.keyDown = false;
+			if(this.shortcut != null) {
+				this.shortcut.use();
+			}
 			return true;
 		}
 		return false;
 	}
 	
+	public void update(float x, float y) {
+		this.x = (int)x;
+		this.y = (int)y;
+	}
+	
 	public void setKeyBind(int value) {
 		this.keyBind = value;
+		if(this.keyBind < 0) {
+			return;
+		}
 		this.keyBindString = Keyboard.getKeyName(this.keyBind);
 		this.keyBindStringWidth = keyBindFont.getWidth(this.keyBindString);
 	}
@@ -190,9 +205,6 @@ public class ButtonSpellbar {
 		}
 		if(DragSpellManager.getDraggedSpell() != null) {
 			return DragSpellManager.getDraggedSpell();
-		}
-		if(DragSpellManager.getDraggedSpellBook() != null) {
-			return new SpellShortcut(DragSpellManager.getDraggedSpellBook());
 		}
 		return null;
 	}

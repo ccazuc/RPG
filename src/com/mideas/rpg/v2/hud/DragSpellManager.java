@@ -1,36 +1,18 @@
 package com.mideas.rpg.v2.hud;
 
-import java.util.Arrays;
-
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.game.item.potion.Potion;
-import com.mideas.rpg.v2.game.item.stuff.Stuff;
-import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
-import com.mideas.rpg.v2.game.shortcut.ShortcutType;
-import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
-import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
-import com.mideas.rpg.v2.game.spell.Spell;
-import com.mideas.rpg.v2.game.spell.SpellBarManager;
-import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.utils.Draw;
 
 public class DragSpellManager {
 
-	private static Spell draggedBookSpell;
 	private static Shortcut draggedShortcut;
-	private static boolean[] hover = new boolean[49];
+	//private static boolean[] hover = new boolean[49];
 	
 	public static void draw() {
-		if(draggedBookSpell != null) {
-			Draw.drawQuad(draggedBookSpell.getSprite(), Mideas.mouseX(), Mideas.mouseY());
-			Draw.drawQuad(Sprites.draggedspell_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
-		}
 		if(draggedShortcut != null) {
 			Draw.drawQuad(draggedShortcut.getSprite(), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.draggedspell_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
@@ -38,7 +20,7 @@ public class DragSpellManager {
 	}
 	
 	public static boolean mouseEvent() {
-		if(isHoverSpellBarFrame()) {
+		/*if(isHoverSpellBarFrame()) {
 			Arrays.fill(hover, false);
 		}
 		float xShift = 47.9f;
@@ -116,19 +98,19 @@ public class DragSpellManager {
 					draggedBookSpell = null;
 				}
 			}
-		}
+		}*/
 		return false;
 	}
 	
-	private static void isHoverSpellBar(float x, float y, int i) {
+	/*private static void isHoverSpellBar(float x, float y, int i) {
 		if(Mideas.mouseX() >= Display.getWidth()/2+x && Mideas.mouseX() <= Display.getWidth()/2+x+37 && Mideas.mouseY() >= Display.getHeight()+y && Mideas.mouseY() <= Display.getHeight()+y+35) {
 			hover[i] = true;
 		}
-	}
+	}*/
 	
-	private static void deleteSpell(Shortcut draggedSpell) {
+	/*private static void deleteSpell(Shortcut draggedSpell) {
 		int i = 0;
-		while(i < Mideas.joueur1().getSpells().length) {
+		while(i < Mideas.joueur1().getSpells().size()) {
 			if(draggedSpell == Mideas.joueur1().getSpells(i)) {
 				Mideas.joueur1().setSpells(i, null);
 				SpellBarManager.setSpellBar();
@@ -136,9 +118,9 @@ public class DragSpellManager {
 			}
 			i++;
 		}
-	}
+	}*/
 	
-	private static boolean clickSpell(int i) {
+	/*private static boolean clickSpell(int i) {
 		if(hover[i]) {
 			if(Mideas.joueur1().getSpells(i) != null) {
 				if(Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.SPELL) {
@@ -202,11 +184,11 @@ public class DragSpellManager {
 		}
 
 		return false;
-	}
+	}*/
 	
-	private static boolean setNullSpell(Shortcut spell) {
+	/*private static boolean setNullSpell(Shortcut spell) {
 		int i = 0;
-		while(i < Mideas.joueur1().getSpells().length) {
+		while(i < Mideas.joueur1().getSpells().size()) {
 			if(spell == Mideas.joueur1().getSpells(i)) {
 				Mideas.joueur1().setSpells(i, null);
 				SpellBarManager.setSpellBar();
@@ -215,9 +197,9 @@ public class DragSpellManager {
 			i++;
 		}
 		return false;
-	}
+	}*/
 	
-	private static boolean dropSpell(int i) {
+	/*private static boolean dropSpell(int i) {
 		if(draggedShortcut != null) {
 			if(hover[i]) {
 				if(Mideas.joueur1().getSpells(i) == null) {
@@ -278,7 +260,7 @@ public class DragSpellManager {
 			}
 		}
 		return false;
-	}
+	}*/
 	
 	public static void setDraggedSpell(Shortcut shortcut) {
 		draggedShortcut = shortcut;
@@ -288,13 +270,8 @@ public class DragSpellManager {
 		return draggedShortcut;
 	}
 	
-	public static Spell getDraggedSpellBook() {
-		return draggedBookSpell;
-	}
-	
 	public static boolean isHoverSpellBarFrame() {
-		if(Mideas.getHover() && Mideas.mouseX() >= Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseX() <= Display.getWidth()/2+Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseY() >= Display.getHeight()-Sprites.final_spellbar.getImageHeight()-30 && Mideas.mouseY() <= Display.getHeight()) {
-			Mideas.setHover(false);
+		if(Mideas.mouseX() >= Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseX() <= Display.getWidth()/2+Sprites.final_spellbar.getImageWidth()/2 && Mideas.mouseY() >= Display.getHeight()-Sprites.final_spellbar.getImageHeight()-30 && Mideas.mouseY() <= Display.getHeight()) {
 			return true;
 		}
 		return false;

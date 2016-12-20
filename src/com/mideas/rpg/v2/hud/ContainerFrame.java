@@ -1250,6 +1250,10 @@ public class ContainerFrame {
 		return hoveredSlot == i;
 	}
 	
+	public static int getContainerFrameSlotHover() {
+		return hoveredSlot;
+	}
+	
 	public static void setHoverFalse() {
 		hoveredSlot = -1;
 	}

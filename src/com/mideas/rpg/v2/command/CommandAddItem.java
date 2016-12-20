@@ -19,7 +19,7 @@ public class CommandAddItem extends Command {
 		}
 		else if(packetID == PacketID.UNKNOWN_ITEM) {
 			int number = ConnectionManager.getConnection().readInt();
-			ItemType type = ItemType.values()[ConnectionManager.getConnection().readChar()];
+			ItemType type = ItemType.values()[ConnectionManager.getConnection().readByte()];
 			if(type == ItemType.CONTAINER) {
 				Mideas.joueur1().addItem(ConnectionManager.getConnection().readContainer(), number);
 			}

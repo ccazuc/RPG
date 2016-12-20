@@ -26,7 +26,7 @@ public class StuffShortcut implements Shortcut {
 	@Override
 	public boolean use() {
 		int i = 0;
-		if(DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null && DragSpellManager.getDraggedSpellBook() == null) {
+		if(DragManager.getDraggedItem() == null && DragSpellManager.getDraggedSpell() == null) {
 			while(i < Mideas.joueur1().getStuff().length) {
 				if(this.stuff.getItemType() == ItemType.STUFF) {
 					if(this.stuff != null && this.stuff.getType() == DragManager.getStuffType(i) && this.stuff.canEquipTo(Joueur.convStringToClassType(Mideas.joueur1().getClasseString())) && Mideas.joueur1().canWear(this.stuff)) {
@@ -43,7 +43,7 @@ public class StuffShortcut implements Shortcut {
 							DragManager.calcStatsLess(tempItem);
 							Mideas.joueur1().setStuff(i, this.stuff);
 							DragManager.calcStats(Mideas.joueur1().getStuff(i));
-							Mideas.joueur1().bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
+							Mideas.joueur1().bag().setBag(DragManager.checkItemSlotInventory(this.stuff), tempItem);
 							CharacterStuff.setBagItems();
 							CharacterStuff.setEquippedItems();
 							break;
@@ -65,7 +65,7 @@ public class StuffShortcut implements Shortcut {
 							DragManager.calcStatsLess(tempItem);
 							Mideas.joueur1().setStuff(i, this.stuff);
 							DragManager.calcStats(Mideas.joueur1().getStuff(i));
-							Mideas.joueur1().bag().setBag(DragManager.checkItemSlot(this.stuff), tempItem);
+							Mideas.joueur1().bag().setBag(DragManager.checkItemSlotInventory(this.stuff), tempItem);
 							CharacterStuff.setBagItems();
 							CharacterStuff.setEquippedItems();
 							break;

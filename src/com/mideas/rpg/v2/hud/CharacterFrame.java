@@ -347,6 +347,10 @@ public class CharacterFrame {
 		return hover == i;
 	}
 	
+	public static int getSlotHover() {
+		return hover;
+	}
+	
 	public static void setHoverFalse() {
 		hover = -1;
 	}

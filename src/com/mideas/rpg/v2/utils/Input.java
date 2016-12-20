@@ -30,6 +30,8 @@ public class Input {
 	private boolean debugActive;
 	private float xDefault;
 	private float xDraw;
+	private long lastWrite;
+	private long writeTickTimerActivation = 500;
 	private float y;
 	private float maxWidth = 100;
 	private final static ArrayList<Input> inputList = new ArrayList<Input>();
@@ -110,7 +112,7 @@ public class Input {
 			if(!this.isActive) {
 				return;
 			}
-			if(System.currentTimeMillis()%1000 < 500) {
+			if(System.currentTimeMillis()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) {
 				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y, 6*Mideas.getDisplayXFactor(), this.cursorHeight*Mideas.getDisplayYFactor(), Color.WHITE);
 			}
 		}
@@ -295,6 +297,7 @@ public class Input {
 		}
 		this.cursorShift+= this.font.getWidth(add);
 		this.cursorPosition+= add.length();
+		this.lastWrite = Mideas.getLoopTickTimer();
 		shiftTextLeft();
 	}
 	
@@ -326,6 +329,7 @@ public class Input {
 		}
 		this.cursorShift+= this.font.getWidth(add);
 		this.cursorPosition++;
+		this.lastWrite = Mideas.getLoopTickTimer();
 		shiftTextLeft();
 	}
 	

@@ -10,6 +10,7 @@ import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
+import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class SpellBarManager {
@@ -18,6 +19,7 @@ public class SpellBarManager {
 		try {
 			int i = 0;
 			int id;
+			SpellBarFrame.createSpellbarButton();
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16, slot17, slot18, slot19, slot20, slot21, slot22, slot23, slot24, slot25, slot26, slot27, slot28, slot29, slot30, slot31, slot32, slot33, slot34, slot35, slot36 FROM spellbar WHERE character_id = ?");
 			statement.putInt(Mideas.joueur1().getId());
 			statement.execute();

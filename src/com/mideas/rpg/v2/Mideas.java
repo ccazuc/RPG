@@ -51,6 +51,7 @@ import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.SocketingFrame;
+import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.jdo.JDO;
@@ -191,7 +192,6 @@ public class Mideas {
 					closeRequested = true;
 				}
 				fpsUpdate();
-				hover = true;
 				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 				if(ConnectionManager.isConnected()) {
 					ConnectionManager.read();
@@ -277,6 +277,7 @@ public class Mideas {
 		ChatFrame.updateSize();
 		PerformanceBarFrame.updateSize();
 		PopupFrame.updateSize();
+		SpellBarFrame.updateSize();
 		if(joueur1 != null) {
 			if(joueur1.getFirstProfession() != null) {
 				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);

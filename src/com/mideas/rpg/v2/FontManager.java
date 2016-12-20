@@ -75,7 +75,7 @@ public class FontManager {
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		int i = 9;
-		while(i < 30) {
+		while(i < 40) {
 			fontMap.get("FRIZQT").put((float)i, new TTF(awtFont.deriveFont((float)i), true));
 			i++;
 		}

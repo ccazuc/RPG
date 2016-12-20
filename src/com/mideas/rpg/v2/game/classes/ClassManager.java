@@ -180,7 +180,7 @@ public class ClassManager {
 			playerList.get("Guerrier").setSpellUnlocked(0, SpellManager.getBookSpell(102));
 			//joueurList.get("Guerrier").setSpells(0, SpellManager.getShortcutSpell(102));
 			iaList.get("Guerrier").setSpellUnlocked(0, SpellManager.getBookSpell(102));
-			iaList.get("Guerrier").setSpells(0, SpellManager.getShortcutSpell(102));
+			//iaList.get("Guerrier").setSpells(0, SpellManager.getShortcutSpell(102));
 		}
 	}
 }

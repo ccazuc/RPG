@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.game.redalert.DefaultRedAlert;
 import com.mideas.rpg.v2.game.redalert.RedAlert;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.utils.Color;
@@ -38,6 +39,13 @@ public class RedAlertFrame {
 	
 	public static void addNewAlert(String message) {
 		alertList.add(new RedAlert(message));
+		if(alertList.size() > MAXIMUM_ALERT) {
+			alertList.remove(0);
+		}
+	}
+	
+	public static void addNewAlert(DefaultRedAlert alert) {
+		alertList.add(new RedAlert(alert.getMessage()));
 		if(alertList.size() > MAXIMUM_ALERT) {
 			alertList.remove(0);
 		}

@@ -209,6 +209,7 @@ public class Interface {
 	}
 	
 	public static boolean mouseEvent() {
+		Mideas.setHover(true);
 		if(changeBackgroundFrameActive) {
 			if(ChangeBackGroundFrame.mouseEvent()) {
 				return true;
@@ -519,10 +520,10 @@ public class Interface {
 				else if(Mideas.joueur1() == null) {
 					SelectScreen.event();
 				}
-				if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur1().getTarget() != null && Mideas.joueur1().getTarget().getStamina() > 0) {
-					if(SpellBarFrame.keyboardEvent()) {
-						return true;
-					}
+			}
+			if(Mideas.joueur1() != null && Mideas.joueur1().getStamina() > 0 && Mideas.joueur1().getTarget() != null && Mideas.joueur1().getTarget().getStamina() > 0) {
+				if(SpellBarFrame.keyboardEvent()) {
+					return true;
 				}
 			}
 		}

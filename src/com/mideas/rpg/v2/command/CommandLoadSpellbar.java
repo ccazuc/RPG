@@ -27,7 +27,7 @@ public class CommandLoadSpellbar extends Command {
 			i++;
 		}
 		Interface.setSpellbarFullyLoaded(false);
-		Mideas.joueur1().loadSpellbar();
+		//Mideas.joueur1().loadSpellbar();
 	}
 	
 	private static void loadItem(int index) {

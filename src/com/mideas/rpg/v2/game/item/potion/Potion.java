@@ -6,11 +6,11 @@ import com.mideas.rpg.v2.game.item.ItemType;
 public class Potion extends Item {
 
 	private int doHeal;
-	private String doHealString;
+	private String doHealString = "";
 	private int doMana;
-	private String doManaString;
+	private String doManaString = "";
 	private int level;
-	private String levelString;
+	private String levelString = "";
 	
 	private final static String restore = "Restores ";
 	private final static String required = " required";
