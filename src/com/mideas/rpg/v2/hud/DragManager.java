@@ -117,9 +117,6 @@ public class DragManager {
 	}
 	
 	private static boolean bagRightClickUp() {
-		if(ContainerFrame.getContainerFrameSlotHover() == -1) {
-			return false;
-		}
 		if(bagRightClickedSlot == ContainerFrame.getContainerFrameSlotHover() && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()) != null && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()).isStackable() && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()).getAmount() > 1 && Keyboard.isKeyDown(42)) {
 			ContainerFrame.setItemNumberOpen(ContainerFrame.getContainerFrameSlotHover());
 			bagRightClickedSlot = -1;
@@ -389,6 +386,21 @@ public class DragManager {
 		return false;
 	}
 	
+	private static boolean characterRightClickDown() {
+		if(CharacterFrame.getSlotHover() == -1) {
+			return false;
+		}
+		inventoryRightClickedSlot = CharacterFrame.getSlotHover();
+		rightClickInventoryDown = true;
+		return false;
+	}
+	
+	private static boolean characterRightClickUp() {
+		rightClickInventoryDown = false;
+		inventoryRightClickedSlot = -1;
+		return false;
+	}
+	
 	public static boolean mouseEvent() {
 		if(mouseX != Mideas.mouseX() || mouseY != Mideas.mouseY()) {
 			mouseX = Mideas.mouseX();
@@ -432,7 +444,7 @@ public class DragManager {
 					return characterLeftClickDown();
 				}
 				else if(Mouse.getEventButton() == 1) {
-					//bagRightClickDown();
+					return characterRightClickDown();
 				}
 			}
 			else {
@@ -440,7 +452,7 @@ public class DragManager {
 					return characterLeftClickUp();
 				}
 				else if(Mouse.getEventButton() == 1) {
-					
+					return characterRightClickUp();
 				}
 			}
 		}
@@ -456,6 +468,12 @@ public class DragManager {
 				else if(DragSpellManager.getDraggedSpell() != null) {
 					DragSpellManager.setDraggedSpell(null);
 				}
+			}
+			if(Mouse.getEventButton() == 1) {
+				rightClickBagDown = false;
+				rightClickInventoryDown = false;
+				bagRightClickedSlot = -1;
+				inventoryRightClickedSlot = -1;
 			}
 		}
 		/*if(!ContainerFrame.isHoverItemNumberFrame()) {
@@ -1283,8 +1301,12 @@ public class DragManager {
 		return bagLeftClickedSlot == i;
 	}
 	
-	public static boolean getClickInventory(int i) {
+	public static boolean getLeftClickInventory(int i) {
 		return inventoryLeftClickedSlot == i;
+	}
+	
+	public static boolean getRightClickInventory(int i) {
+		return inventoryRightClickedSlot == i;
 	}
 	
 	public static WeaponSlot getWeaponSlot(int i) {

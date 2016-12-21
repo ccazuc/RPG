@@ -309,8 +309,8 @@ public class CharacterFrame {
 		if(hover == i) {
 			Draw.drawQuad(Sprites.spell_hover, Display.getWidth()/2+x-2, Display.getHeight()/2+y-2);
 		}
-		if(DragManager.getClickInventory(i) && DragManager.getDraggedItem() == null) {
-			Draw.drawQuad(Sprites.inventory_click_hover, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3);
+		if(DragManager.getLeftClickInventory(i) || DragManager.getRightClickInventory(i)) {
+			Draw.drawQuad(Sprites.click_down, Display.getWidth()/2+x-3, Display.getHeight()/2+y-3, 41*Mideas.getDisplayXFactor(), 39*Mideas.getDisplayYFactor());
 		}
 	}
 	

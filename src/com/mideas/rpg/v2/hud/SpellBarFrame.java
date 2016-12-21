@@ -25,7 +25,7 @@ public class SpellBarFrame {
 	private static int hoveredSlot = -1;
 	private static Tooltip tooltip = new Tooltip(0, 0, 0, 0, 0.6f);
 	//private final static String[] bindDisplay = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-	private final static ButtonSpellbar[] buttonList = new ButtonSpellbar[60];
+	private final static ButtonSpellbar[] buttonList = new ButtonSpellbar[36];
 	
 	private static String numberFreeSlotBag = "";
 	private static boolean init = false;
