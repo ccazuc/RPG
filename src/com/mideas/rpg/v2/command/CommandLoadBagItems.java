@@ -6,7 +6,7 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.RequestItem;
-import com.mideas.rpg.v2.game.item.bag.ContainerManager;
+import com.mideas.rpg.v2.game.item.container.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;

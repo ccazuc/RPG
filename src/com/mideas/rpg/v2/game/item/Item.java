@@ -2,7 +2,7 @@ package com.mideas.rpg.v2.game.item;
 
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.item.bag.ContainerManager;
+import com.mideas.rpg.v2.game.item.container.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
@@ -185,7 +185,7 @@ public class Item implements Cloneable {
 			return;
 		}
 		if(item.isWeapon()) {
-			WeaponManager.storeNewPiece(new Stuff((Stuff)item));
+			WeaponManager.storeNewPiece(new Stuff((Stuff)item, 0));
 			return;
 		}
 		if(item.isGem()) {

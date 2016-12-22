@@ -32,7 +32,7 @@ import com.mideas.rpg.v2.files.config.ConfigManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.ClassManager;
-import com.mideas.rpg.v2.game.item.bag.ContainerManager;
+import com.mideas.rpg.v2.game.item.container.ContainerManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
@@ -168,7 +168,7 @@ public class Mideas {
 		//GemManager.loadGems();
 		//WeaponManager.loadWeapons();
 		ItemCacheMgr.readItemCache();
-		PotionManager.loadPotions();
+		//PotionManager.loadPotions();
 		ContainerManager.loadBags();
 		ContainerManager.loadBagsSprites();
 		//StuffManager.loadStuffs();

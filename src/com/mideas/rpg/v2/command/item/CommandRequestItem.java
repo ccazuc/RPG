@@ -24,6 +24,7 @@ public class CommandRequestItem extends Command {
 		int slot = ConnectionManager.getConnection().readInt();
 		boolean isGem = ConnectionManager.getConnection().readBoolean();
 		int gemSlot = 0;
+		System.out.println(slot+" "+item.getId()+" "+Item.exists(item.getId()));
 		if(isGem) {
 			gemSlot = ConnectionManager.getConnection().readInt();
 			setGem(item, slotType, slot, gemSlot);

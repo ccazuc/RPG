@@ -195,7 +195,6 @@ public class Stuff extends Item {
 	
 	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, int quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
 		super(id, sprite_id, ItemType.WEAPON, name, quality, sellPrice, 1, 1);
-		System.out.println(weaponSlot);
 		this.gemBonusValue = gemBonusValue;
 		this.gemBonusType = gemBonusType;
 		this.weaponType = weaponType;

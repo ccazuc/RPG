@@ -16,7 +16,7 @@ import com.mideas.rpg.v2.utils.PopupInput;
 
 public class PopupFrame {
 	
-	private static PopupType currentPopup;
+	static PopupType currentPopup;
 	private final static int POPUP_INPUT_WIDTH = 370;
 	static int id;
 	static String name;

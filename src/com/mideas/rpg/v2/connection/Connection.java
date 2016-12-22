@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.channels.SocketChannel;
 
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.bag.Container;
+import com.mideas.rpg.v2.game.item.container.Container;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;

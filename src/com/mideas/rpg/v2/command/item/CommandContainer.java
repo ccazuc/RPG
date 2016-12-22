@@ -3,8 +3,8 @@ package com.mideas.rpg.v2.command.item;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.item.bag.Container;
-import com.mideas.rpg.v2.game.item.bag.ContainerManager;
+import com.mideas.rpg.v2.game.item.container.Container;
+import com.mideas.rpg.v2.game.item.container.ContainerManager;
 
 public class CommandContainer extends Command {
 	

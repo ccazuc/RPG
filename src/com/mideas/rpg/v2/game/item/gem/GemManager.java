@@ -3,10 +3,7 @@ package com.mideas.rpg.v2.game.item.gem;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import com.mideas.rpg.v2.utils.Texture;
-
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class GemManager {
@@ -102,5 +99,9 @@ public class GemManager {
 	
 	public static boolean exists(int id) {
 		return gemList.containsKey(id);
+	}
+	
+	public static HashMap<Integer, Gem> getGemMap() {
+		return gemList;
 	}
 }

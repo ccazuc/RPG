@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.game.item.bag;
+package com.mideas.rpg.v2.game.item.container;
 
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.item.Item;

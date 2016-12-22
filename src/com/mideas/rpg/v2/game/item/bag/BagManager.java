@@ -7,11 +7,12 @@ import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.game.item.container.Container;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class BagManager {
 	
-	private static HashMap<Integer, Container> containerList = new HashMap<Integer, Container>();
+	/*private static HashMap<Integer, Container> containerList = new HashMap<Integer, Container>();
 	private static HashMap<Integer, Texture> bagsSprites = new HashMap<Integer, Texture>();
 	
 	public static void loadBags() {
@@ -61,5 +62,5 @@ public class BagManager {
 			return new Container(tempContainer);
 		}
 		return null;
-	}
+	}*/
 }

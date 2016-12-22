@@ -61,4 +61,8 @@ public class PotionManager {
 	public static int getNumberPotionLoaded() {
 		return numberPotionLoaded;
 	}
+	
+	public static HashMap<Integer, Potion> getPotionMap() {
+		return potionList;
+	}
 }

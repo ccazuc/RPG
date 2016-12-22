@@ -103,7 +103,7 @@ public class CommandSetItem extends Command {
 			int id = ConnectionManager.getConnection().readInt();
 			int slot = ConnectionManager.getConnection().readInt();
 			int amount = ConnectionManager.getConnection().readInt();
-			addItem(type, itemType, id, slot, amount);
+			addItem(type, id, slot, amount);
 		}
 	}
 	
@@ -131,9 +131,8 @@ public class CommandSetItem extends Command {
 		Mideas.joueur1().setStuff(destination, tmp);
 	}
 	
-	private static void addItem(DragItem type, ItemType itemType, int id, int slot, int amount) {
+	private static void addItem(DragItem type, int id, int slot, int amount) {
 		Item item = Item.getItem(id);
-		System.out.println(id+" "+slot+" "+amount+" "+item);
 		if(item == null) {
 			CommandRequestItem.write(new RequestItem(id, type, amount));
 			return;

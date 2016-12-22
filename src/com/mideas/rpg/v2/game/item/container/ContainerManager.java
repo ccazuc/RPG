@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.game.item.bag;
+package com.mideas.rpg.v2.game.item.container;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -67,5 +67,9 @@ public class ContainerManager {
 			return new Container(tempContainer);
 		}
 		return null;
+	}
+	
+	public static HashMap<Integer, Container> getContainerMap() {
+		return containerList;
 	}
 }
