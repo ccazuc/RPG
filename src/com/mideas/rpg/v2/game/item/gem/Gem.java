@@ -196,6 +196,10 @@ public class Gem extends Item {
 		return this.armor;
 	}
 	
+	public int getMana() {
+		return this.mana;
+	}
+	
 	public int getCritical() {
 		return this.critical;
 	}

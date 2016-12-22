@@ -229,4 +229,8 @@ public class StuffManager {
 		}
 		return null;
 	}
+	
+	public static HashMap<Integer, Stuff> getStuffMap() {
+		return stuffList;
+	}
 }

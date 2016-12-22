@@ -99,6 +99,10 @@ public class ConfigManager {
 	public static void saveConfig() {
 		try {
 			StringBuilder content = new StringBuilder();
+			File folder = new File("WTF");
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
 			File file = new File(FILE_NAME);
 			if (!file.exists()) {
 				file.createNewFile();
@@ -123,7 +127,15 @@ public class ConfigManager {
 			int i = 0;
 			int j = 0;
 			String currentLine;
-			buffer = new BufferedReader(new FileReader(FILE_NAME));
+			File folder = new File("WTF");
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
+			File file = new File(FILE_NAME);
+			if(!file.exists()) {
+				file.createNewFile();
+			}
+			buffer = new BufferedReader(new FileReader(file));
 			while((currentLine = buffer.readLine()) != null) {
 				i = 0;
 				while(i < currentLine.length()) {

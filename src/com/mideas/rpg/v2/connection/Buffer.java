@@ -2,6 +2,7 @@ package com.mideas.rpg.v2.connection;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 
@@ -33,6 +34,10 @@ public class Buffer {
 	
 	public Buffer() {
 		this.buffer = ByteBuffer.allocateDirect(16000);
+	}
+	
+	public Buffer(int capacity) {
+		this.buffer = ByteBuffer.allocateDirect(capacity);
 	}
 	
 	protected final void send() throws IOException {
@@ -68,7 +73,19 @@ public class Buffer {
 		return 2;
 	}
 	
-	protected final boolean hasRemaining() {
+	public final void flip() {
+		this.buffer.flip();
+	}
+	
+	public final void setOrder(ByteOrder order) {
+		this.buffer.order(order);
+	}
+	
+	public final ByteBuffer getBuffer() {
+		return this.buffer;
+	}
+	
+	public final boolean hasRemaining() {
 		return this.buffer.hasRemaining();
 	}
 	
@@ -96,28 +113,121 @@ public class Buffer {
 		return null;
 	}
 	
-	protected final Gem readGem() {
+	public final Gem readGem() {
 		return new Gem(readInt(), readString(), readString(), readInt(), GemColor.values()[ConnectionManager.getConnection().readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
-	protected final Container readContainer() {
+	public final Container readContainer() {
 		return new Container(readInt(), readString(), readString(), readInt(), readInt(), readInt());
 	}
 	
-	protected final Stuff readStuff() {
+	public final Stuff readStuff() {
 		return new Stuff(StuffType.values()[readByte()], readClassType(), readString(), readInt(), readString(), readInt(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), Wear.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
-	protected final Stuff readWeapon() {
+	public final Stuff readWeapon() {
 		return new Stuff(readInt(), readString(), readString(), readClassType(), WeaponType.values()[readByte()], WeaponSlot.values()[readByte()], readInt(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
-	protected final Potion readPotion() {
+	public final Potion readPotion() {
 		return new Potion(readInt(), readString(), readString(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
-	protected final Color readColor() {
+	public final Color readColor() {
 		return new Color(readFloat(), readFloat(), readFloat(), readFloat());
+	}
+	
+	public final void writeStuff(final Stuff stuff) {
+		int i = 0;
+		writeByte(stuff.getType().getValue());
+		writeInt(stuff.getClassType().length);
+		while(i < stuff.getClassType().length) {
+			writeByte(stuff.getClassType(i).getValue());
+			i++;
+		}
+		writeString(stuff.getSpriteId());
+		writeInt(stuff.getId());
+		writeString(stuff.getStuffName());
+		writeInt(stuff.getQuality());
+		writeByte(stuff.getGemColor(0).getValue());
+		writeByte(stuff.getGemColor(1).getValue());
+		writeByte(stuff.getGemColor(2).getValue());
+		writeByte(stuff.getGemBonusType().getValue());
+		writeInt(stuff.getGemBonusValue());
+		writeInt(stuff.getLevel());
+		writeByte(stuff.getWear().getValue());
+		writeInt(stuff.getCritical());
+		writeInt(stuff.getStrength());
+		writeInt(stuff.getStamina());
+		writeInt(stuff.getArmor());
+		writeInt(stuff.getMana());
+		writeInt(stuff.getSellPrice());
+		this.written = true;
+	}
+	
+	public final void writeGem(final Gem gem) {
+		writeInt(gem.getId());
+		writeString(gem.getSpriteId());
+		writeString(gem.getStuffName());
+		writeInt(gem.getQuality());
+		writeByte(gem.getColor().getValue());
+		writeInt(gem.getStrength());
+		writeInt(gem.getStamina());
+		writeInt(gem.getArmor());
+		writeInt(gem.getMana());
+		writeInt(gem.getCritical());
+		writeInt(gem.getSellPrice());
+		this.written = true;
+	}
+	
+	public final void writePotion(final Potion potion) {
+		writeInt(potion.getId());
+		writeString(potion.getSpriteId());
+		writeString(potion.getStuffName());
+		writeInt(potion.getLevel());
+		writeInt(potion.getPotionHeal());
+		writeInt(potion.getPotionMana());
+		writeInt(potion.getSellPrice());
+		writeInt(potion.getAmount());
+		this.written = true;
+	}
+	
+	public final void writeWeapon(final Stuff weapon) {
+		int i = 0;
+		writeInt(weapon.getId());
+		writeString(weapon.getStuffName());
+		writeString(weapon.getSpriteId());
+		writeInt(weapon.getClassType().length);
+		while(i < weapon.getClassType().length) {
+			writeByte(weapon.getClassType(i).getValue());
+			i++;
+		}
+		writeByte(weapon.getWeaponType().getValue());
+		writeByte(weapon.getWeaponSlot().getValue());
+		writeInt(weapon.getQuality());
+		writeByte(weapon.getGemColor(0).getValue());
+		writeByte(weapon.getGemColor(1).getValue());
+		writeByte(weapon.getGemColor(2).getValue());
+		writeByte(weapon.getGemBonusType().getValue());
+		writeInt(weapon.getGemBonusValue());
+		writeInt(weapon.getLevel());
+		writeInt(weapon.getArmor());
+		writeInt(weapon.getStamina());
+		writeInt(weapon.getMana());
+		writeInt(weapon.getCritical());
+		writeInt(weapon.getStrength());
+		writeInt(weapon.getSellPrice());
+		this.written = true;
+	}
+	
+	public final void writeContainer(final Container bag) {
+		writeInt(bag.getId());
+		writeString(bag.getStuffName());
+		writeString(bag.getSpriteId());
+		writeInt(bag.getQuality());
+		writeInt(bag.getSize());
+		writeInt(bag.getSellPrice());
+		this.written = true;
 	}
 	
 	protected final ClassType[] readClassType() {
@@ -131,7 +241,7 @@ public class Buffer {
 		return classType;
 	}
 
-	protected final void writeString(final String s) {
+	public final void writeString(final String s) {
 		writeShort((short)s.length());
 		int i = -1;
 		while(++i < s.length()) {
@@ -140,7 +250,7 @@ public class Buffer {
 		this.written = true;
 	}
 	
-	protected final String readString() {
+	public final String readString() {
 		final short length = readShort();
 		final char[] chars = new char[length];
 		int i = -1;
@@ -150,79 +260,79 @@ public class Buffer {
 		return new String(chars);
 	}
 	
-	protected final void clear() {
+	public final void clear() {
 		this.buffer.clear();
 	}
 	
-	protected final void writeBoolean(final boolean b) {
+	public final void writeBoolean(final boolean b) {
 		this.buffer.put((byte)(b?1:0));
 		this.written = true;
 	}
 	
-	protected final boolean readBoolean() {
+	public final boolean readBoolean() {
 		return this.buffer.get() == 1;
 	}
 	
-	protected final void writeByte(final byte b) {
+	public final void writeByte(final byte b) {
 		this.buffer.put(b);
 		this.written = true;
 	}
 	
-	protected final byte readByte() {
+	public final byte readByte() {
 		return this.buffer.get();
 	}
 	
-	protected final void writeShort(final short s) {
+	public final void writeShort(final short s) {
 		this.buffer.putShort(s);
 		this.written = true;
 	}
 	
-	protected final short readShort() {
+	public final short readShort() {
 		return this.buffer.getShort();
 	}
 	
-	protected final void writeInt(final int i) {
+	public final void writeInt(final int i) {
 		this.buffer.putInt(i);
 		this.written = true;
 	}
 	
-	protected final int readInt() {
+	public final int readInt() {
 		return this.buffer.getInt();
 	}
 	
-	protected final void writeLong(final long l) {
+	public final void writeLong(final long l) {
 		this.buffer.putLong(l);
 		this.written = true;
 	}
 	
-	protected final long readLong() {
+	public final long readLong() {
 		return this.buffer.getLong();
 	}
 	
-	protected final void writeFloat(final float f) {
+	public final void writeFloat(final float f) {
 		this.buffer.putFloat(f);
 		this.written = true;
 	}
 	
-	protected final float readFloat() {
+	public final float readFloat() {
 		return this.buffer.getFloat();
 	}
 	
-	protected final void writeDouble(final double d) {
+	public final void writeDouble(final double d) {
 		this.buffer.putDouble(d);
 		this.written = true;
 	}
 	
-	protected final double readDouble() {
+	public final double readDouble() {
 		return this.buffer.getDouble();
 	}
 	
-	protected final void writeChar(final char c) {
+	public final void writeChar(final char c) {
 		this.buffer.putChar((char)(Character.MAX_VALUE-c));
 		this.written = true;
 	}
 	
-	protected final char readChar() {
+	public final char readChar() {
 		return (char)(Character.MAX_VALUE-this.buffer.getChar());
 	}
 }

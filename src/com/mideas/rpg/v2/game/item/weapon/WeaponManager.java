@@ -152,4 +152,8 @@ public class WeaponManager {
 		}
 		return null;
 	}
+	
+	public static HashMap<Integer, Stuff> getWeaponMap() {
+		return weaponList;
+	}
 }

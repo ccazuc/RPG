@@ -2,10 +2,19 @@ package com.mideas.rpg.v2.game.classes;
 
 public enum Wear {
 
-	CLOTH,
-	LEATHER,
-	MAIL,
-	PLATE,
-	NONE
+	CLOTH((byte)0),
+	LEATHER((byte)1),
+	MAIL((byte)2),
+	PLATE((byte)3),
+	NONE((byte)4);
 	
+	private byte value;
+	
+	private Wear(byte value) {
+		this.value = value;
+	}
+	
+	public byte getValue() {
+		return this.value;
+	}
 }

@@ -26,6 +26,7 @@ import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.files.cache.ItemCacheMgr;
 import com.mideas.rpg.v2.files.config.ChatConfigManager;
 import com.mideas.rpg.v2.files.config.ConfigManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
@@ -166,10 +167,11 @@ public class Mideas {
 		CharacterStuff.initSQLRequest();
 		//GemManager.loadGems();
 		//WeaponManager.loadWeapons();
+		ItemCacheMgr.readItemCache();
 		PotionManager.loadPotions();
 		ContainerManager.loadBags();
 		ContainerManager.loadBagsSprites();
-		StuffManager.loadStuffs();
+		//StuffManager.loadStuffs();
 		ShopManager.loadStuffs();
 		SpellManager.loadSpells();
 		ClassManager.loadClasses();
@@ -236,6 +238,7 @@ public class Mideas {
 		ConnectionManager.close();
 		ConfigManager.saveConfig();
 		ChatConfigManager.saveConfig();
+		ItemCacheMgr.writeItemCache();
 		authServerConnectionRunnable.setRun(false);
 		
 	}

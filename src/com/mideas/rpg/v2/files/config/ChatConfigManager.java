@@ -54,7 +54,9 @@ public class ChatConfigManager {
 		try {
 			StringBuilder content = new StringBuilder();
 			File folder = new File("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName());
-			folder.mkdirs();
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
 			File file = new File("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName()+'/'+FILE_NAME);
 			if(DEBUG_WRITE)
 				System.out.println(file.mkdirs()+" "+("WTF/"+ConnectionManager.getWorldServer().getRealmName()+'/'+FILE_NAME));
