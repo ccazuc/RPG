@@ -6,6 +6,7 @@ public enum DefaultRedAlert {
 	STUNNED((byte)1, "I cannot do this while stunned"),
 	DEAD((byte)2, "I cannot do this while dead"),
 	CANNOT_EQUIP_ITEM((byte)3, "I cannot equip this item"),
+	CANNOT_STACK_ITEM((byte)4, "This item cannot stack"),
 	;
 	
 	private byte value;

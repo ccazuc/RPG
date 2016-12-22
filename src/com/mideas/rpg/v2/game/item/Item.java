@@ -28,6 +28,7 @@ public class Item implements Cloneable {
 	protected boolean isSelectable = true;
 	protected int amount;
 	protected String amountString = "";
+	protected int draggedAmount = -1;
 	
 	private final static String delete = "Voulez vous supprimer ";
 	
@@ -47,6 +48,14 @@ public class Item implements Cloneable {
 
 	private void buildAllString() {
 		buildDeleteConfirm();
+	}
+	
+	public int getDraggedAmount() {
+		return this.draggedAmount;
+	}
+	
+	public void setDraggedAmount(int amount) {
+		this.draggedAmount = amount;
 	}
 	
 	public void setAmount(int amount) {

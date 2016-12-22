@@ -2,8 +2,8 @@ package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.item.CommandRequestItem;
-import com.mideas.rpg.v2.command.item.RequestItemSlotType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.RequestItem;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
@@ -44,7 +44,7 @@ public class CommandLoadEquippedItems extends Command {
 		}
 		if(id != 0 && !StuffManager.exists(id)) {
 			Mideas.joueur1().setStuff(index, new Stuff(id));
-			CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CHARACTER, index));
+			CommandRequestItem.write(new RequestItem(id, DragItem.INVENTORY, index));
 		}
 		else if(id != 0) {
 			if(StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
@@ -62,7 +62,7 @@ public class CommandLoadEquippedItems extends Command {
 		int id = ConnectionManager.getConnection().readInt();
 		if(!StuffManager.exists(id) && id != 0) {
 			Mideas.joueur1().setStuff(index, new Stuff(id));
-			CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CHARACTER, index));
+			CommandRequestItem.write(new RequestItem(id, DragItem.INVENTORY, index));
 		}
 		else if(id != 0) {
 			Mideas.joueur1().setStuff(index, StuffManager.getClone(id));
@@ -82,7 +82,7 @@ public class CommandLoadEquippedItems extends Command {
 		}
 		if(!WeaponManager.exists(id) && id != 0) {
 			Mideas.joueur1().setStuff(index, new Stuff(id));
-			CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CHARACTER, index));
+			CommandRequestItem.write(new RequestItem(id, DragItem.INVENTORY, index));
 		}
 		else if(id != 0) {
 			Mideas.joueur1().setStuff(index, WeaponManager.getClone(id));
@@ -99,7 +99,7 @@ public class CommandLoadEquippedItems extends Command {
 			}
 			else if(id != 0) {
 				Mideas.joueur1().getStuff(bagSlot).setEquippedGem(gemSlot, new Gem(id));
-				CommandRequestItem.write(new RequestItem(id, RequestItemSlotType.CHARACTER, bagSlot, gemSlot));
+				CommandRequestItem.write(new RequestItem(id, DragItem.INVENTORY, bagSlot, gemSlot));
 			}
 		}
 	}

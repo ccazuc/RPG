@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.game.redalert.DefaultRedAlert;
 import com.mideas.rpg.v2.game.redalert.RedAlert;
 import com.mideas.rpg.v2.FontManager;
@@ -18,12 +19,13 @@ public class RedAlertFrame {
 	private static float Y_SHIFT = 25*Mideas.getDisplayXFactor();
 	private static ArrayList<RedAlert> alertList = new ArrayList<RedAlert>();
 	private final static Color RED = Color.decode("#FA1518");
+	public final static TTF FONT = FontManager.get("FRIZQT", 21);
 	
 	public static void draw() {
 		int i = alertList.size()-1;
-		FontManager.get("FRIZQT", 21).drawBegin();
+		FONT.drawBegin();
 		while(i >= 0 && i < alertList.size()) {
-			if(System.currentTimeMillis()-alertList.get(i).getTimer() >= OPACITY_DECREASE_TIMER) {
+			if(Mideas.getLoopTickTimer()-alertList.get(i).getTimer() >= OPACITY_DECREASE_TIMER) {
 				alertList.get(i).decreaseOpacity(-1/(Mideas.FPS*OPACITY_DECREASE_TIMER/1000f));
 				if(alertList.get(i).getOpacity() <= 0) {
 					alertList.remove(i);
@@ -31,10 +33,10 @@ public class RedAlertFrame {
 					continue;
 				}
 			}
-			FontManager.get("FRIZQT", 21).drawStringPart(Display.getWidth()/2-FontManager.get("FRIZQT", 21).getWidth(alertList.get(i).getMessage()), Y_DRAW+(alertList.size()-1-i)*Y_SHIFT, alertList.get(i).getMessage(), RED, alertList.get(i).getOpacity());
+			FONT.drawStringShadowPart(Display.getWidth()/2-alertList.get(i).getMessageWidth()/2, Y_DRAW+(alertList.size()-1-i)*Y_SHIFT, alertList.get(i).getMessage(), RED, Color.BLACK, 1, 1, 1, alertList.get(i).getOpacity());
 			i--;
 		}
-		FontManager.get("FRIZQT", 21).drawEnd();
+		FONT.drawEnd();
 	}
 	
 	public static void addNewAlert(String message) {

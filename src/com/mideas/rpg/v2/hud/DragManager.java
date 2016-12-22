@@ -149,8 +149,9 @@ public class DragManager {
 			}
 			/*deleteItem(draggedItem);
 			Mideas.joueur1().bag().setBag(ContainerFrame.getContainerFrameSlotHover(), draggedItem);*/
+			CommandDragItems.write(DragItem.BAG, getBagSlot(draggedItem), DragItem.BAG, ContainerFrame.getContainerFrameSlotHover(), draggedItem.getDraggedAmount());
+			draggedItem.setDraggedAmount(-1);
 			draggedItem.setIsSelectable(false);
-			CommandDragItems.write(DragItem.BAG, getBagSlot(draggedItem), DragItem.BAG, ContainerFrame.getContainerFrameSlotHover());
 			draggedItem = null;
 			return true;
 		}
@@ -174,7 +175,8 @@ public class DragManager {
 			/*Stuff tmp = (Stuff)bagItem;
 			Mideas.joueur1().bag().setBag(ContainerFrame.getContainerFrameSlotHover(), draggedItem);
 			Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), tmp);*/
-			CommandDragItems.write(DragItem.INVENTORY, getInventorySlot(draggedItem), DragItem.BAG, ContainerFrame.getContainerFrameSlotHover());
+			CommandDragItems.write(DragItem.INVENTORY, getInventorySlot(draggedItem), DragItem.BAG, ContainerFrame.getContainerFrameSlotHover(), draggedItem.getDraggedAmount());
+			draggedItem.setDraggedAmount(-1);
 			draggedItem.setIsSelectable(false);
 			bagItem.setIsSelectable(false);
 			draggedItem = null;
@@ -189,7 +191,12 @@ public class DragManager {
 			if(slot == -1) {
 				return false;
 			}
-			Item tmp = bagItem;
+			CommandDragItems.write(DragItem.BAG, slot, DragItem.BAG, ContainerFrame.getContainerFrameSlotHover(), draggedItem.getDraggedAmount());
+			draggedItem.setDraggedAmount(-1);
+			draggedItem.setIsSelectable(false);
+			bagItem.setIsSelectable(false);
+			draggedItem = null;
+			/*Item tmp = bagItem;
 			if(draggedItem.getId() == bagItem.getId() && draggedItem.isStackable() && bagItem.isStackable()) {
 				if(draggedItem.getAmount()+bagItem.getAmount() > draggedItem.getMaxStack()) {
 					int amount = bagItem.getAmount();
@@ -204,8 +211,7 @@ public class DragManager {
 				return true;
 			}
 			Mideas.joueur1().bag().setBag(ContainerFrame.getContainerFrameSlotHover(), draggedItem);
-			Mideas.joueur1().bag().setBag(slot, tmp);
-			draggedItem = null;
+			Mideas.joueur1().bag().setBag(slot, tmp);*/
 		}
 		return false;
 	}
@@ -231,10 +237,23 @@ public class DragManager {
 				if(DragSpellManager.getDraggedSpell() != null)  {
 					return false;
 				}
-				deleteItem(draggedItem);
-				Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
-				draggedItem = null;
-				return true;
+				if(draggedItem != null) {
+					if(checkBagItems(draggedItem)) {
+						CommandDragItems.write(DragItem.BAG, getBagSlot(draggedItem), DragItem.BAG, bagClickedSlot, draggedItem.getDraggedAmount());
+						draggedItem.setDraggedAmount(-1);
+						draggedItem.setIsSelectable(false);
+						draggedItem = null;
+						return true;
+					}
+					if(checkCharacterItems(draggedItem)) {
+						CommandDragItems.write(DragItem.INVENTORY, getInventorySlot(draggedItem), DragItem.BAG, bagClickedSlot, draggedItem.getDraggedAmount());
+						draggedItem.setDraggedAmount(-1);
+						draggedItem.setIsSelectable(false);
+						draggedItem = null;
+						return true;
+					}
+				}
+				return false;
 			}
 			if(!bagItem.isSelectable()) {
 				if(bagItem == draggedItem) {
@@ -250,9 +269,13 @@ public class DragManager {
 					if(slot == -1) {
 						return false;
 					}
-					Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
-					Mideas.joueur1().bag().setBag(slot, tmp);
+					CommandDragItems.write(DragItem.BAG, slot, DragItem.BAG, bagClickedSlot, draggedItem.getDraggedAmount());
+					draggedItem.setDraggedAmount(-1);
+					tmp.setIsSelectable(false);
+					draggedItem.setIsSelectable(false);
 					draggedItem = null;
+					/*Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
+					Mideas.joueur1().bag().setBag(slot, tmp);*/
 					return true;
 				}
 				if(checkCharacterItems(draggedItem)) {
@@ -277,8 +300,13 @@ public class DragManager {
 						return false;
 					}
 					Stuff tmp = (Stuff)bagItem;
-					Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
-					Mideas.joueur1().setStuff(slot, tmp);
+					/*Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
+					Mideas.joueur1().setStuff(slot, tmp);*/
+					CommandDragItems.write(DragItem.INVENTORY, slot, DragItem.BAG, bagClickedSlot, draggedItem.getDraggedAmount());
+					tmp.setIsSelectable(false);
+					draggedItem.setIsSelectable(false);
+					draggedItem = null;
+					draggedItem.setDraggedAmount(-1);
 					return true;
 				}
 				draggedItem = bagItem;
@@ -409,11 +437,6 @@ public class DragManager {
 	}
 	
 	public static boolean mouseEvent() {
-		if(mouseX != Mideas.mouseX() || mouseY != Mideas.mouseY()) {
-			mouseX = Mideas.mouseX();
-			mouseY = Mideas.mouseY();
-			mouseMove();
-		}
 		if(Mouse.getEventButtonState() && Mouse.getEventButton() == 1) {
 			if(draggedItem != null || DragSpellManager.getDraggedSpell() != null) {
 				draggedItem = null;
@@ -423,6 +446,16 @@ public class DragManager {
 				}
 				return true;
 			}
+		}
+		if(!Mouse.getEventButtonState() && Mouse.getEventButton() == 0) {
+			if(PopupFrame.getCurrentPopup() == PopupType.DELETE_ITEM) {
+				PopupFrame.closePopup();
+			}
+		}
+		if(mouseX != Mideas.mouseX() || mouseY != Mideas.mouseY()) {
+			mouseX = Mideas.mouseX();
+			mouseY = Mideas.mouseY();
+			mouseMove();
 		}
 		if(ContainerFrame.isHoverItemNumberFrame()) {
 			return false;

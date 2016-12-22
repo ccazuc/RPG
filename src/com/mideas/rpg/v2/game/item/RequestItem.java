@@ -1,26 +1,24 @@
 package com.mideas.rpg.v2.game.item;
 
-import com.mideas.rpg.v2.command.item.RequestItemSlotType;
-
 public class RequestItem {
 
-	private RequestItemSlotType slotType;
+	private DragItem slotType;
 	private int gemSlot;
 	private int slot;
 	private int id;
 	
-	public RequestItem(int id, RequestItemSlotType slotType, int slot, int gemSlot) {
+	public RequestItem(int id, DragItem slotType, int slot, int gemSlot) {
 		this.slotType = slotType;
 		this.gemSlot = gemSlot;
 		this.slot = slot;
 		this.id = id;
 	}
 	
-	public RequestItem(int id, RequestItemSlotType slotType, int slot) {
+	public RequestItem(int id, DragItem slotType, int slot) {
 		this(id, slotType, slot, -1);
 	}
 	
-	public RequestItemSlotType getSlotType() {
+	public DragItem getSlotType() {
 		return this.slotType;
 	}
 	

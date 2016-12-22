@@ -952,25 +952,26 @@ public class GuildFrame {
 	}
 	
 	private static boolean mouseEventManageFrame() {
-		if(manageFrameOpen) {
-			if(rankNameEditBox.mouseEvent()) return true;
-			if(manageRankDropDownMenu.event()) return true;
-			if(manageRankAcceptButton.event()) return true;
-			if(manageRankCloseFrameButton.event()) return true;
-			if(canListenGuildChannelCheckBox.event()) return true;
-			if(canListenOfficerChannelCheckBox.event()) return true;
-			if(canPromoteCheckBox.event()) return true;
-			if(canInviteMemberCheckBox.event()) return true;
-			if(canSetMotdCheckBox.event()) return true;
-			if(canSeeOfficerNoteCheckBox.event()) return true;
-			if(canModifyGuildInformationCheckBox.event()) return true;
-			if(canTalkInGuildChannelCheckBox.event()) return true;
-			if(canTalkInOfficerChannelCheckBox.event()) return true;
-			if(canDemoteCheckBox.event()) return true;
-			if(canRemoveMemberCheckBox.event()) return true;
-			if(canEditPublicNoteCheckBox.event()) return true;
-			if(canEditOfficerNoteCheckBox.event()) return true;
+		if(!manageFrameOpen) {
+			return false;
 		}
+		if(manageRankDropDownMenu.event()) return true;
+		if(rankNameEditBox.mouseEvent()) return true;
+		if(manageRankAcceptButton.event()) return true;
+		if(manageRankCloseFrameButton.event()) return true;
+		if(canListenGuildChannelCheckBox.event()) return true;
+		if(canListenOfficerChannelCheckBox.event()) return true;
+		if(canPromoteCheckBox.event()) return true;
+		if(canInviteMemberCheckBox.event()) return true;
+		if(canSetMotdCheckBox.event()) return true;
+		if(canSeeOfficerNoteCheckBox.event()) return true;
+		if(canModifyGuildInformationCheckBox.event()) return true;
+		if(canTalkInGuildChannelCheckBox.event()) return true;
+		if(canTalkInOfficerChannelCheckBox.event()) return true;
+		if(canDemoteCheckBox.event()) return true;
+		if(canRemoveMemberCheckBox.event()) return true;
+		if(canEditPublicNoteCheckBox.event()) return true;
+		if(canEditOfficerNoteCheckBox.event()) return true;
 		return false;
 	}
 	
@@ -1000,54 +1001,58 @@ public class GuildFrame {
 	}
 	
 	private static void drawDisplayedMember() {
-		if(memberInformationDisplay) {
-			long timer = System.nanoTime();
-			float x = X_SOCIAL_FRAME+415*Mideas.getDisplayXFactor();
-			float y = Y_SOCIAL_FRAME+45*Mideas.getDisplayYFactor();
-			informationBackground.draw();
-			noteTooltip.draw();
-			Draw.drawQuad(Sprites.guild_close_information_button_border, X_SOCIAL_FRAME+595*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+32*Mideas.getDisplayYFactor());
-			closeDisplayMemberFrameCrossButton.draw();
-			long time = System.nanoTime();
-			FontManager.get("FRIZQT", 13).drawBegin();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getName(), YELLOW, Color.BLACK, 1, 0, 0);
-			y+= (FontManager.get("FRIZQT", 13).getLineHeight())*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getInformationString(), Color.WHITE, Color.BLACK, 1, 0, 0);
-			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+4)*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Area : ", YELLOW, Color.BLACK, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Area : "), y, "Area", Color.WHITE, Color.BLACK, 1, 0, 0);
-			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+2)*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Rank : ", YELLOW, Color.BLACK, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Rank : "), y, memberInformationDisplayed.getRank().getName(), Color.WHITE, Color.BLACK, 1, 0, 0);
-			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+1)*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Last connection : ", YELLOW, Color.BLACK, 1, 0, 0);
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Last connection : "), y, memberInformationDisplayed.getLastLoginTimerString(), Color.WHITE, Color.BLACK, 1, 0, 0);
-			y+= (FontManager.get("FRIZQT", 13).getLineHeight()+1)*Mideas.getDisplayYFactor();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Note : ", YELLOW, Color.BLACK, 1, 0, 0);
-			long noteTimer = System.nanoTime();
-			FontManager.get("FRIZQT", 13).drawStringShadowPart(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getNoteDisplayed(), Color.WHITE, Color.BLACK, 1, 0, 0);
-			Mideas.nTime(noteTimer, "Note draw time");
-			FontManager.get("FRIZQT", 13).drawEnd();
-			Mideas.nTime(time, "Member information text draw time");
-			if(Mideas.joueur1().getGuildRank().canSeeOfficerNote()) {
-				y+= 61*Mideas.getDisplayYFactor();
-				FontManager.get("FRIZQT", 13).drawStringShadow(x, y, "Officer note :", YELLOW, Color.BLACK, 1, 0, 0);
-				time = System.nanoTime();
-				officerNoteTooltip.draw();
-				Mideas.nTime(time, "Officer note tooltip draw time");
-				FontManager.get("FRIZQT", 13).drawStringShadow(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getOfficerNoteDisplayed(), Color.WHITE, Color.BLACK, 1, 0, 0);
-				Draw.drawQuad(Sprites.guild_member_display_button_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+263*Mideas.getDisplayYFactor());
-			}
-			else {
-				Draw.drawQuad(Sprites.guild_member_display_button_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+201*Mideas.getDisplayYFactor());
-			}
-			memberDisplayInviteButton.draw();
-			memberDisplayKickButton.draw();
-			Mideas.nTime(timer, "Member information draw time");
+		if(!memberInformationDisplay) {
+			return;
 		}
+		long timer = System.nanoTime();
+		float x = X_SOCIAL_FRAME+415*Mideas.getDisplayXFactor();
+		float y = Y_SOCIAL_FRAME+45*Mideas.getDisplayYFactor();
+		informationBackground.draw();
+		noteTooltip.draw();
+		Draw.drawQuad(Sprites.guild_close_information_button_border, X_SOCIAL_FRAME+595*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+32*Mideas.getDisplayYFactor());
+		closeDisplayMemberFrameCrossButton.draw();
+		long time = System.nanoTime();
+		FontManager.get("FRIZQT", 13).drawBegin();
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getName(), YELLOW, Color.BLACK, 1, 0, 0);
+		y+= (FontManager.get("FRIZQT", 13).getLineHeight())*Mideas.getDisplayYFactor();
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, memberInformationDisplayed.getInformationString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		y+= (FontManager.get("FRIZQT", 13).getLineHeight()+4)*Mideas.getDisplayYFactor();
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Area : ", YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Area : "), y, "Area", Color.WHITE, Color.BLACK, 1, 0, 0);
+		y+= (FontManager.get("FRIZQT", 13).getLineHeight()+2)*Mideas.getDisplayYFactor();
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Rank : ", YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Rank : "), y, memberInformationDisplayed.getRank().getName(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		y+= (FontManager.get("FRIZQT", 13).getLineHeight()+1)*Mideas.getDisplayYFactor();
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Last connection : ", YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x+FontManager.get("FRIZQT", 13).getWidth("Last connection : "), y, memberInformationDisplayed.getLastLoginTimerString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		y+= (FontManager.get("FRIZQT", 13).getLineHeight()+1)*Mideas.getDisplayYFactor();
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x, y, "Note : ", YELLOW, Color.BLACK, 1, 0, 0);
+		long noteTimer = System.nanoTime();
+		FontManager.get("FRIZQT", 13).drawStringShadowPart(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getNoteDisplayed(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		Mideas.nTime(noteTimer, "Note draw time");
+		FontManager.get("FRIZQT", 13).drawEnd();
+		Mideas.nTime(time, "Member information text draw time");
+		if(Mideas.joueur1().getGuildRank().canSeeOfficerNote()) {
+			y+= 61*Mideas.getDisplayYFactor();
+			FontManager.get("FRIZQT", 13).drawStringShadow(x, y, "Officer note :", YELLOW, Color.BLACK, 1, 0, 0);
+			time = System.nanoTime();
+			officerNoteTooltip.draw();
+			Mideas.nTime(time, "Officer note tooltip draw time");
+			FontManager.get("FRIZQT", 13).drawStringShadow(x+5*Mideas.getDisplayXFactor(), y+19*Mideas.getDisplayYFactor(), memberInformationDisplayed.getOfficerNoteDisplayed(), Color.WHITE, Color.BLACK, 1, 0, 0);
+			Draw.drawQuad(Sprites.guild_member_display_button_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+263*Mideas.getDisplayYFactor());
+		}
+		else {
+			Draw.drawQuad(Sprites.guild_member_display_button_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+201*Mideas.getDisplayYFactor());
+		}
+		memberDisplayInviteButton.draw();
+		memberDisplayKickButton.draw();
+		Mideas.nTime(timer, "Member information draw time");
 	}
 	
 	private static boolean mouseEventDisplayedMember() {
+		if(!memberInformationDisplay || memberInformationDisplayed == null) {
+			return false;
+		}
 		if(memberDisplayInviteButton.event()) return true;
 		if(memberDisplayKickButton.event()) return true;
 		if(closeDisplayMemberFrameCrossButton.event()) return true;

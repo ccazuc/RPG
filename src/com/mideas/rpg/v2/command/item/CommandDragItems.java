@@ -18,6 +18,17 @@ public class CommandDragItems extends Command {
 		ConnectionManager.getConnection().writeInt(source);
 		ConnectionManager.getConnection().writeByte(destinationType.getValue());
 		ConnectionManager.getConnection().writeInt(destination);
+		ConnectionManager.getConnection().writeInt(0);
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void write(DragItem sourceType, int source, DragItem destinationType, int destination, int amount) {
+		ConnectionManager.getConnection().writeShort(PacketID.DRAG_ITEM);
+		ConnectionManager.getConnection().writeByte(sourceType.getValue());
+		ConnectionManager.getConnection().writeInt(source);
+		ConnectionManager.getConnection().writeByte(destinationType.getValue());
+		ConnectionManager.getConnection().writeInt(destination);
+		ConnectionManager.getConnection().writeInt(amount);
 		ConnectionManager.getConnection().send();
 	}
 }

@@ -734,10 +734,12 @@ public class ContainerFrame {
 	private static void splitItem(int i) {
 		if(Mideas.joueur1().bag().getBag(i) != null) {
 			if(Mideas.joueur1().bag().getBag(i).isPotion()) {
-				Potion temp = PotionManager.getClone(Mideas.joueur1().bag().getBag(i).getId());
+				/*Potion temp = PotionManager.getClone(Mideas.joueur1().bag().getBag(i).getId());
 				temp.setAmount(numberItem);
 				DragManager.setDraggedItem(temp);
-				Mideas.joueur1().bag().getBag(i).setAmount(Mideas.joueur1().bag().getBag(i).getAmount()-numberItem);
+				Mideas.joueur1().bag().getBag(i).setAmount(Mideas.joueur1().bag().getBag(i).getAmount()-numberItem);*/
+				Mideas.joueur1().bag().getBag(i).setDraggedAmount(numberItem);
+				DragManager.setDraggedItem(Mideas.joueur1().bag().getBag(i));
 			}
 			else if(Mideas.joueur1().bag().getBag(i).isItem()) {
 				

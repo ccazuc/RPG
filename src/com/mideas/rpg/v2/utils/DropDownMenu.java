@@ -81,9 +81,7 @@ public class DropDownMenu {
 			}
 			i++;
 		}
-		if(Mideas.getHover() && this.background.isHover()) {
-			Mideas.setHover(false);
-		}
+		this.background.isHover();
 		if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0) {
 				this.backgroundActive = false;
@@ -103,7 +101,7 @@ public class DropDownMenu {
 		float yShift = 18*Mideas.getDisplayYFactor();
 		menu.setValue(this.menuList.size());
 		menu.setX(this.background.getX()+10*Mideas.getDisplayXFactor());
-		menu.setTextShift(this.background.getWidth()/2-80*Mideas.getDisplayXFactor());
+		menu.setTextShift(this.background.getWidth()/2-50*Mideas.getDisplayXFactor());
 		menu.setY(this.background.getY()+this.menuList.size()*yShift+20*Mideas.getDisplayYFactor());
 		this.menuList.add(menu);
 		this.backgroundHeight+= this.font.getLineHeight()+7*Mideas.getDisplayYFactor();
@@ -143,7 +141,7 @@ public class DropDownMenu {
 		float yShift = 18*Mideas.getDisplayYFactor();
 		//System.out.println(this.background.getWidth()/2-this.menuList.get(0).getFont().getWidth(this.menuList.get(i).getText())/2+"  "+(23*Mideas.getDisplayXFactor()-this.menuList.get(i).getFont().getWidth(this.menuList.get(i).getText())/2));
 		while(i < this.menuList.size()) {
-			this.menuList.get(i).update(this.background.getX()+10*Mideas.getDisplayXFactor(), this.background.getY()+i*yShift+20*Mideas.getDisplayYFactor(), this.background.getWidth()-20*Mideas.getDisplayXFactor(), this.background.getWidth()/2-10*Mideas.getDisplayXFactor());
+			this.menuList.get(i).update(this.background.getX()+10*Mideas.getDisplayXFactor(), this.background.getY()+i*yShift+20*Mideas.getDisplayYFactor(), this.background.getWidth()-20*Mideas.getDisplayXFactor(), this.background.getWidth()/2-50*Mideas.getDisplayXFactor());
 			i++;
 		}
 	}

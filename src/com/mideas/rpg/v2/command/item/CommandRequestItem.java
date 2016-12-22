@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
+import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.RequestItem;
 
@@ -19,7 +20,7 @@ public class CommandRequestItem extends Command {
 		else {
 			item = ConnectionManager.getConnection().readItem();
 		}
-		RequestItemSlotType slotType = RequestItemSlotType.values()[ConnectionManager.getConnection().readByte()];
+		DragItem slotType = DragItem.values()[ConnectionManager.getConnection().readByte()];
 		int slot = ConnectionManager.getConnection().readInt();
 		boolean isGem = ConnectionManager.getConnection().readBoolean();
 		int gemSlot = 0;
@@ -46,40 +47,40 @@ public class CommandRequestItem extends Command {
 		ConnectionManager.getConnection().send();
 	}
 	
-	private static void setItem(Item item, RequestItemSlotType slotType, int slot) {
-		if(slotType == RequestItemSlotType.BANK) {
+	private static void setItem(Item item, DragItem slotType, int slot) {
+		if(slotType == DragItem.BANK) {
 			
 		}
-		else if(slotType == RequestItemSlotType.CHARACTER) {
+		else if(slotType == DragItem.INVENTORY) {
 			Mideas.joueur1().updateStuff(slot, item);
 		}
-		else if(slotType == RequestItemSlotType.CONTAINER) {
+		else if(slotType == DragItem.BAG) {
 			Mideas.joueur1().bag().updateBag(slot, item);
 		}
-		else if(slotType == RequestItemSlotType.DISPLAYED) {
+		else if(slotType == DragItem.DISPLAYED) {
 			
 		}
-		else if(slotType == RequestItemSlotType.GUILDBANK) {
+		else if(slotType == DragItem.GUILDBANK) {
 			
 		}
 		Item.storeItem(item);
 	}
 	
-	private static void setGem(Item item, RequestItemSlotType slotType, int slot, int gemSlot) {
+	private static void setGem(Item item, DragItem slotType, int slot, int gemSlot) {
 		Item.storeItem(item);
-		if(slotType == RequestItemSlotType.BANK) {
+		if(slotType == DragItem.BANK) {
 			
 		}
-		else if(slotType == RequestItemSlotType.CHARACTER) {
+		else if(slotType == DragItem.INVENTORY) {
 			Mideas.joueur1().updateStuffGem(slot, gemSlot, item);
 		}
-		else if(slotType == RequestItemSlotType.CONTAINER) {
+		else if(slotType == DragItem.BAG) {
 			Mideas.joueur1().bag().updateBagGem(slot, gemSlot, item);
 		}
-		else if(slotType == RequestItemSlotType.DISPLAYED) {
+		else if(slotType == DragItem.DISPLAYED) {
 			
 		}
-		else if(slotType == RequestItemSlotType.GUILDBANK) {
+		else if(slotType == DragItem.GUILDBANK) {
 			
 		}
 	}

@@ -14,17 +14,24 @@ public enum StuffType {
 	BELT((byte)9, (byte)9),
 	LEGGINGS((byte)10, (byte)10),
 	BOOTS((byte)11, (byte)11),
-	RING((byte)12, (byte)12),
-	TRINKET((byte)13, (byte)14),
+	RING((byte)12, (byte)12, (byte)13),
+	TRINKET((byte)13, (byte)14, (byte)15),
 	MAINHAND((byte)14, (byte)16),
 	OFFHAND((byte)15, (byte)17),
 	RANGED((byte)16, (byte)18);
 	
 	private byte value;
 	private byte slot;
+	private byte slot2;
 	
 	private StuffType(byte value, byte slot) {
 		this.value = value;
+		this.slot = slot;
+	}
+	
+	private StuffType(byte value, byte slot, byte slot2) {
+		this.value = value;
+		this.slot2 = slot2;
 		this.slot = slot;
 	}
 	
@@ -34,5 +41,9 @@ public enum StuffType {
 	
 	public byte getSlot() {
 		return this.slot;
+	}
+	
+	public byte getSlot2() {
+		return this.slot2;
 	}
 }
