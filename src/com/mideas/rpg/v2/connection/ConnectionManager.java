@@ -40,6 +40,7 @@ import com.mideas.rpg.v2.command.item.CommandContainer;
 import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
 import com.mideas.rpg.v2.command.item.CommandRequestItem;
+import com.mideas.rpg.v2.command.item.CommandSetItem;
 import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.files.config.ChatConfigManager;
@@ -100,6 +101,7 @@ public class ConnectionManager {
 		commandList.put((int)IGNORE, new CommandIgnore());
 		commandList.put((int)WHO, new CommandWho());
 		commandList.put((int)REQUEST_ITEM, new CommandRequestItem());
+		commandList.put((int)SET_ITEM, new CommandSetItem());
 	}
 
 	public static final boolean connectAuthServer() {

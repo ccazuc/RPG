@@ -7,10 +7,12 @@ import org.lwjgl.opengl.Display;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.command.item.CommandDragItems;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.PopupType;
+import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
@@ -145,8 +147,10 @@ public class DragManager {
 			if(draggedItem == null) {
 				return false;
 			}
-			deleteItem(draggedItem);
-			Mideas.joueur1().bag().setBag(ContainerFrame.getContainerFrameSlotHover(), draggedItem);
+			/*deleteItem(draggedItem);
+			Mideas.joueur1().bag().setBag(ContainerFrame.getContainerFrameSlotHover(), draggedItem);*/
+			draggedItem.setIsSelectable(false);
+			CommandDragItems.write(DragItem.BAG, getBagSlot(draggedItem), DragItem.BAG, ContainerFrame.getContainerFrameSlotHover());
 			draggedItem = null;
 			return true;
 		}
@@ -167,9 +171,13 @@ public class DragManager {
 				RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
 				return false;
 			}
-			Stuff tmp = (Stuff)bagItem;
+			/*Stuff tmp = (Stuff)bagItem;
 			Mideas.joueur1().bag().setBag(ContainerFrame.getContainerFrameSlotHover(), draggedItem);
-			Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), tmp);
+			Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), tmp);*/
+			CommandDragItems.write(DragItem.INVENTORY, getInventorySlot(draggedItem), DragItem.BAG, ContainerFrame.getContainerFrameSlotHover());
+			draggedItem.setIsSelectable(false);
+			bagItem.setIsSelectable(false);
+			draggedItem = null;
 			return true;
 		}
 		if(checkBagItems(draggedItem)) {
@@ -216,7 +224,6 @@ public class DragManager {
 			return false;
 		}
 		if(bagLeftClickedSlot != -1 && leftClickBagDown) {
-			System.out.println(bagLeftClickedSlot);
 			final Item bagItem = Mideas.joueur1().bag().getBag(bagLeftClickedSlot);
 			int bagClickedSlot = DragManager.bagLeftClickedSlot;
 			DragManager.bagLeftClickedSlot = -1;
@@ -685,6 +692,34 @@ public class DragManager {
 			Mideas.joueur1().setStuffMana(-((Stuff)stuff).getMana());
 			Mideas.joueur1().setStuffCritical(-((Stuff)stuff).getCritical());
 		}
+	}
+	
+	public static int getBagSlot(Item item) {
+		if(item == null) {
+			return -1;
+		}
+		int i = 0;
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) == item) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
+	}
+	
+	public static int getInventorySlot(Item item) {
+		if(item == null) {
+			return -1;
+		}
+		int i = 0;
+		while(i < Mideas.joueur1().getStuff().length) {
+			if(Mideas.joueur1().getStuff(i) == item) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
 	}
 	
 	/*private static boolean equipBagItem(int i) {
