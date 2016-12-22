@@ -149,7 +149,12 @@ public class DragManager {
 			}
 			/*deleteItem(draggedItem);
 			Mideas.joueur1().bag().setBag(ContainerFrame.getContainerFrameSlotHover(), draggedItem);*/
-			CommandDragItems.write(DragItem.BAG, getBagSlot(draggedItem), DragItem.BAG, ContainerFrame.getContainerFrameSlotHover(), draggedItem.getDraggedAmount());
+			if(checkCharacterItems(draggedItem)) {
+				CommandDragItems.write(DragItem.INVENTORY, getInventorySlot(draggedItem), DragItem.BAG, ContainerFrame.getContainerFrameSlotHover(), draggedItem.getDraggedAmount());
+			}
+			else if(checkBagItems(draggedItem)) {
+				CommandDragItems.write(DragItem.BAG, getBagSlot(draggedItem), DragItem.BAG, ContainerFrame.getContainerFrameSlotHover(), draggedItem.getDraggedAmount());
+			}
 			draggedItem.setDraggedAmount(-1);
 			draggedItem.setIsSelectable(false);
 			draggedItem = null;
@@ -246,6 +251,7 @@ public class DragManager {
 						return true;
 					}
 					if(checkCharacterItems(draggedItem)) {
+						System.out.println(getInventorySlot(draggedItem));
 						CommandDragItems.write(DragItem.INVENTORY, getInventorySlot(draggedItem), DragItem.BAG, bagClickedSlot, draggedItem.getDraggedAmount());
 						draggedItem.setDraggedAmount(-1);
 						draggedItem.setIsSelectable(false);
@@ -284,8 +290,8 @@ public class DragManager {
 						RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
 						return false;
 					}
-					draggedItem = null;
 					if(((Stuff)draggedItem).getType() != ((Stuff)bagItem).getType()) {
+						draggedItem = null;
 						RedAlertFrame.addNewAlert(DefaultRedAlert.CANNOT_EQUIP_ITEM);
 						return false;
 					}
@@ -299,14 +305,13 @@ public class DragManager {
 						System.out.println("Error in DragManager mouseMove in Bag for item slot inventory of draggedItem");
 						return false;
 					}
-					Stuff tmp = (Stuff)bagItem;
 					/*Mideas.joueur1().bag().setBag(bagClickedSlot, draggedItem);
 					Mideas.joueur1().setStuff(slot, tmp);*/
 					CommandDragItems.write(DragItem.INVENTORY, slot, DragItem.BAG, bagClickedSlot, draggedItem.getDraggedAmount());
-					tmp.setIsSelectable(false);
+					bagItem.setIsSelectable(false);
 					draggedItem.setIsSelectable(false);
-					draggedItem = null;
 					draggedItem.setDraggedAmount(-1);
+					draggedItem = null;
 					return true;
 				}
 				draggedItem = bagItem;
@@ -325,9 +330,6 @@ public class DragManager {
 			DragManager.inventoryLeftClickedSlot = -1;
 			final Stuff stuff = Mideas.joueur1().getStuff(inventoryLeftClickedSlot);
 			if(draggedItem == null && DragSpellManager.getDraggedSpell() == null) {
-				if(stuff == null) {
-					return false;
-				}
 				draggedItem = stuff;
 				return true;
 			}
@@ -342,13 +344,25 @@ public class DragManager {
 					if(slot == -1) {
 						return false;
 					}
-					Stuff toBag = Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot());
+					if(Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot()) != null && Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot2()) == null) {
+						CommandDragItems.write(DragItem.BAG, slot, DragItem.INVENTORY, ((Stuff)draggedItem).getType().getSlot2());
+					}
+					else {
+						CommandDragItems.write(DragItem.BAG, slot, DragItem.INVENTORY, ((Stuff)draggedItem).getType().getSlot());
+					}
+					/*Stuff toBag = Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot());
 					Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), draggedItem);
-					Mideas.joueur1().bag().setBag(slot, toBag);
+					Mideas.joueur1().bag().setBag(slot, toBag);*/
+					if(stuff != null) {
+						stuff.setIsSelectable(false);
+					}
+					draggedItem.setIsSelectable(false);
+					draggedItem.setDraggedAmount(-1);
 					draggedItem = null;
 					return true;
 				}
 				if(checkCharacterItems(draggedItem)) {
+					System.out.println('c');
 					if(Mideas.joueur1().getStuff(inventoryLeftClickedSlot) == null) {
 						if(CharacterFrame.getStuffType(inventoryLeftClickedSlot) != ((Stuff)draggedItem).getType()) {
 							draggedItem = null;
