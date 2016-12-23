@@ -33,11 +33,7 @@ public class ItemCacheMgr {
 	public static void writeItemCache() {
 		FileChannel out;
 		writeBuffer.clear();
-		int i = 0;
-		while(i < HEADER_SIGNATURE.length) {
-			writeBuffer.writeByte(HEADER_SIGNATURE[i]);
-			i++;
-		}
+		writeHeader();
 		for(Stuff stuff : StuffManager.getStuffMap().values()) {
 			writeBuffer.writeByte(ItemType.STUFF.getValue());
 			writeBuffer.writeStuff(stuff);
@@ -93,6 +89,11 @@ public class ItemCacheMgr {
 						}
 						i++;
 					}
+					int fileSize = readBuffer.readInt();
+					if(fileSize != (int)fc.size()) {
+						clearFile();
+						return;
+					}
 					readedHeader = true;
 				}
 				ItemType type = ItemType.values()[readBuffer.readByte()];
@@ -137,8 +138,74 @@ public class ItemCacheMgr {
 		}
 	}
 	
-	private static void clearFile() {
-		
+	private static void writeHeader() {
+		int i = 0;
+		while(i < HEADER_SIGNATURE.length) {
+			writeBuffer.writeByte(HEADER_SIGNATURE[i]);
+			i++;
+		}
+		int size = HEADER_SIGNATURE.length+4;
+		for(Stuff stuff : StuffManager.getStuffMap().values()) {
+			size+= getStuffSize(stuff)+1;
+		}
+		for(Stuff weapon : WeaponManager.getWeaponMap().values()) {
+			size+= getWeaponSize(weapon)+1;
+		}
+		for(Potion potion : PotionManager.getPotionMap().values()) {
+			size+= getPotionSize(potion)+1;
+		}
+		for(Container container : ContainerManager.getContainerMap().values()) {
+			size+= getContainerSize(container)+1;
+		}
+		for(Gem gem : GemManager.getGemMap().values()) {
+			size+= getGemSize(gem)+1;
+		}
+		System.out.println("File size : "+size);
+		writeBuffer.writeInt(size);
 	}
 	
+	private static void clearFile() {
+		FileChannel out;
+		writeBuffer.clear();
+		checkFileStatus();
+		try {
+			FileOutputStream outputStream = new FileOutputStream(FILE_PATH);
+			out = outputStream.getChannel();
+			out.write(writeBuffer.getBuffer());
+			out.close();
+			outputStream.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static int getStuffSize(Stuff stuff) {
+		int size = 50+stuff.getClassType().length+getStringSize(stuff.getStuffName())+getStringSize(stuff.getSpriteId());
+		return size;
+	}
+	
+	private static int getWeaponSize(Stuff weapon) {
+		int size = 50+weapon.getClassType().length+getStringSize(weapon.getStuffName())+getStringSize(weapon.getSpriteId());
+		return size;
+	}
+	
+	private static int getPotionSize(Potion potion) {
+		int size = 24+getStringSize(potion.getStuffName())+getStringSize(potion.getSpriteId());
+		return size;
+	}
+	
+	private static int getContainerSize(Container container) {
+		int size = 16+getStringSize(container.getStuffName())+getStringSize(container.getSpriteId());
+		return size;
+	}
+	
+	private static int getGemSize(Gem gem) {
+		int size = 34+getStringSize(gem.getStuffName())+getStringSize(gem.getSpriteId());
+		return size;
+	}
+	
+	private static int getStringSize(String str) {
+		return 2+str.length()*2;
+	}
 }
