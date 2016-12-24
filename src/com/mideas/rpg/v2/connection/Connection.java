@@ -67,6 +67,22 @@ public class Connection {
 		this.wBuffer.setPosition(position);
 	}
 	
+	public final int rBufferRemaining() {
+		return this.rBuffer.remaining();
+	}
+	
+	public final void rBufferSetPosition(int position) {
+		this.rBuffer.setPosition(position);
+	}
+	
+	public final void flipRBuffer() {
+		this.rBuffer.flip();
+	}
+	
+	public final int rBufferPosition() {
+		return this.rBuffer.getPosition();
+	}
+	
 	public final boolean hasRemaining() {
 		return this.rBuffer.hasRemaining();
 	}

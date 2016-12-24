@@ -89,6 +89,10 @@ public class Buffer {
 		this.buffer.order(order);
 	}
 	
+	public final int remaining() {
+		return this.buffer.remaining();
+	}
+	
 	public final ByteBuffer getBuffer() {
 		return this.buffer;
 	}

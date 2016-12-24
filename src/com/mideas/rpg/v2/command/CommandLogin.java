@@ -67,7 +67,7 @@ public class CommandLogin extends Command {
 				ConnectionManager.getConnection().writeShort(PacketID.LOGIN_REALM_REQUEST);
 				ConnectionManager.getConnection().writeDouble(key);
 				ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
-				ConnectionManager.getConnection().send();
+				ConnectionManager.getConnection().endPacket();
 				ConnectionManager.getConnection().send();
 				System.out.println("LOGINr:LOGIN_REALM_ACCEPTED");
 			}
@@ -81,16 +81,20 @@ public class CommandLogin extends Command {
 	
 	public static void write(String account, String password) {
 		if(ConnectionManager.isAuthServerConnected()) {
+			ConnectionManager.getAuthConnection().startPacket();
 			ConnectionManager.getAuthConnection().writeShort(LOGIN);
 			ConnectionManager.getAuthConnection().writeString(account);
 			ConnectionManager.getAuthConnection().writeString(password);
+			ConnectionManager.getAuthConnection().endPacket();
 			ConnectionManager.getAuthConnection().send();
 		}
 	}
 	
 	public static void loginRealm(int id) {
+		ConnectionManager.getAuthConnection().startPacket();
 		ConnectionManager.getAuthConnection().writeShort(PacketID.LOGIN_REALM);
 		ConnectionManager.getAuthConnection().writeInt(id);
+		ConnectionManager.getAuthConnection().endPacket();
 		ConnectionManager.getAuthConnection().send();
 		System.out.println("LOGINw:LOGIN_REALM");
 	}

@@ -263,6 +263,11 @@ public class ConnectionManager {
 	
 	private static void readAuthPacket() {
 		while(authServerConnection != null && authServerConnection.hasRemaining()) {
+			int packetLength = authServerConnection.readInt();
+			if(authServerConnection.rBufferRemaining()+4 < packetLength) {
+				authServerConnection.rBufferSetPosition(authServerConnection.rBufferPosition()-4);
+				return;
+			}
 			short packetId = authServerConnection.readShort();
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();
@@ -276,6 +281,11 @@ public class ConnectionManager {
 	
 	private static void readPacket() {
 		while(worldServerConnection != null && worldServerConnection.hasRemaining()) {
+			int packetLength = worldServerConnection.readInt();
+			if(worldServerConnection.rBufferRemaining()+4 < packetLength) {
+				worldServerConnection.rBufferSetPosition(worldServerConnection.rBufferPosition()-4);
+				return;
+			}
 			short packetId = worldServerConnection.readShort();
 			if(commandList.containsKey((int)packetId)) {
 				commandList.get((int)packetId).read();
