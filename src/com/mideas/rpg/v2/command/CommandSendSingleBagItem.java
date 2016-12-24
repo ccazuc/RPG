@@ -12,8 +12,9 @@ public class CommandSendSingleBagItem extends Command {
 	public void read() {
 	}
 	
-	public static void write(int slot, Item item) {
+	/*public static void write(int slot, Item item) {
 		if(item != null) {
+			ConnectionManager.getConnection().startPacket();
 			ConnectionManager.getConnection().writeShort(PacketID.SEND_SINGLE_BAG_ITEM);
 			ConnectionManager.getConnection().writeInt(slot);
 			if(item.isContainer() || item.isGem()) {
@@ -29,6 +30,7 @@ public class CommandSendSingleBagItem extends Command {
 				ConnectionManager.getConnection().writeInt(item.getId());
 				ConnectionManager.getConnection().writeInt(item.getAmount());
 			}
+			ConnectionManager.getConnection().endPacket();
 		}
 	}
 	
@@ -39,5 +41,5 @@ public class CommandSendSingleBagItem extends Command {
 		else {
 			ConnectionManager.getConnection().writeInt(0);
 		}
-	}
+	}*/
 }

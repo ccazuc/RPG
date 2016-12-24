@@ -27,8 +27,10 @@ public class CommandWho extends Command {
 	}
 	
 	public static void write(String word) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.WHO);
 		ConnectionManager.getConnection().writeString(word);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 }

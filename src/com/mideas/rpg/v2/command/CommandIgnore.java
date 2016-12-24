@@ -32,16 +32,20 @@ public class CommandIgnore extends Command {
 	}
 	
 	public static void addIgnore(String name) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.IGNORE);
 		ConnectionManager.getConnection().writeShort(PacketID.IGNORE_ADD);
 		ConnectionManager.getConnection().writeString(name);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void removeIgnore(int id) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.IGNORE);
 		ConnectionManager.getConnection().writeShort(PacketID.IGNORE_REMOVE);
 		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 }

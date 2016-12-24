@@ -34,6 +34,7 @@ public class CommandRequestItem extends Command {
 	}
 	
 	public static void write(RequestItem item) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.REQUEST_ITEM);
 		ConnectionManager.getConnection().writeInt(item.getId());
 		ConnectionManager.getConnection().writeByte(item.getSlotType().getValue());
@@ -45,6 +46,7 @@ public class CommandRequestItem extends Command {
 			ConnectionManager.getConnection().writeBoolean(true);
 			ConnectionManager.getConnection().writeInt(item.getGemSlot());
 		}
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	

@@ -24,7 +24,9 @@ public class CommandSendRealmList extends Command {
 	}
 	
 	public static void requestRealm() {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getAuthConnection().writeShort(PacketID.SEND_REALM_LIST);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getAuthConnection().send();
 	}
 }

@@ -110,6 +110,7 @@ public class CommandTrade extends Command {
 	}
 	
 	public static void writeAddItem(Item item, int slot, int amount) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE_ADD_ITEM);
 		ConnectionManager.getConnection().writeInt(item.getId());
@@ -148,6 +149,7 @@ public class CommandTrade extends Command {
 		else {
 			ConnectionManager.getConnection().writeBoolean(false);
 		}
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
@@ -161,34 +163,44 @@ public class CommandTrade extends Command {
 	}
 	
 	public static void requestNewTrade(String name) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE_NEW);
 		ConnectionManager.getConnection().writeString(name);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeAccept() {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE_ACCEPT);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeRemovedItem(int i) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE_REMOVE_ITEM);
 		ConnectionManager.getConnection().writeInt(i);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeCloseTrade() {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE_CLOSE);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void writeConfirm() {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE_NEW_CONFIRM);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 }

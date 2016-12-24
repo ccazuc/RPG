@@ -203,80 +203,102 @@ public class CommandGuild extends Command {
 	}
 	
 	public static void setMemberNote(int id, String note) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_MEMBER_NOTE);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().writeString(note);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void setMemberOfficerNote(int id, String officerNote) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_MEMBER_OFFICER_NOTE);
 		ConnectionManager.getConnection().writeInt(id);
 		ConnectionManager.getConnection().writeString(officerNote);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void kickMember(int id) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_KICK_MEMBER);
 		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void leaveGuild() {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_LEAVE);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void setLeader(int id) {
+		ConnectionManager.getConnection().send();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_LEADER);
 		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void setInformation(String msg) {
+		ConnectionManager.getConnection().send();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_INFORMATION);
 		ConnectionManager.getConnection().writeString(msg);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void setMotd(String msg) {
+		ConnectionManager.getConnection().send();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_MOTD);
 		ConnectionManager.getConnection().writeString(msg);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void updatePermission(int rank_order, int value, String name) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_UPDATE_PERMISSION);
 		ConnectionManager.getConnection().writeInt(rank_order);
 		ConnectionManager.getConnection().writeInt(value);
 		ConnectionManager.getConnection().writeString(name);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void addMember(String name) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_INVITE_PLAYER);
 		ConnectionManager.getConnection().writeString(name);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void acceptRequest() {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_ACCEPT_REQUEST);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void declineRequest() {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_DECLINE_REQUEST);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 }

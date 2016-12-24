@@ -85,9 +85,11 @@ public class CommandFriend extends Command {
 	public static void addFriend(String name) {
 		if(Mideas.joueur1().getFriendList().size() < Joueur.MAXIMUM_AMOUNT_FRIENDS) {
 			if(!name.equals(Mideas.joueur1().getName())) {
+				ConnectionManager.getConnection().startPacket();
 				ConnectionManager.getConnection().writeShort(PacketID.FRIEND);
 				ConnectionManager.getConnection().writeShort(PacketID.FRIEND_ADD);
 				ConnectionManager.getConnection().writeString(name);
+				ConnectionManager.getConnection().endPacket();
 				ConnectionManager.getConnection().send();
 			}
 			else {
@@ -100,9 +102,11 @@ public class CommandFriend extends Command {
 	}
 	
 	public static void removeFriend(int id) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.FRIEND);
 		ConnectionManager.getConnection().writeShort(PacketID.FRIEND_REMOVE);
 		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 }

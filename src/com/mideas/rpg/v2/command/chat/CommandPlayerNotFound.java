@@ -13,5 +13,4 @@ public class CommandPlayerNotFound extends Command {
 		String name = ConnectionManager.getConnection().readString();
 		ChatFrame.addMessage(new Message("Player "+name+" not found.", false, MessageType.SELF));
 	}
-
 }

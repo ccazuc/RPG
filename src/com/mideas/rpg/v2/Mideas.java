@@ -30,6 +30,7 @@ import com.mideas.rpg.v2.files.cache.ItemCacheMgr;
 import com.mideas.rpg.v2.files.config.ChatConfigManager;
 import com.mideas.rpg.v2.files.config.ConfigManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.GameState;
 import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.item.container.ContainerManager;
@@ -66,6 +67,7 @@ public class Mideas {
 	private static boolean currentPlayer;
 	private static Joueur joueur1;
 	private static JDO jdo;
+	private static GameState gameState = GameState.LOGGED_OUT;
 	private static Shop shop = new Shop();
 	//private static String cursor;
 	private static long last;
@@ -712,6 +714,14 @@ public class Mideas {
 			Mideas.joueur1().setExp(Mideas.joueur1().getExp());
 		}
 		Mideas.setConfig();
+	}
+	
+	public static GameState getGameState() {
+		return gameState;
+	}
+	
+	public static void setGameState(GameState state) {
+		gameState = state;
 	}
 	
 	public static int getLevel(int exp) {

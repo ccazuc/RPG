@@ -11,12 +11,16 @@ public class CommandLogout extends Command {
 	
 	public static void write() {
 		if(ConnectionManager.isConnected()) {
+			ConnectionManager.getConnection().startPacket();
 			ConnectionManager.getConnection().writeShort(LOGOUT);
+			ConnectionManager.getConnection().endPacket();
 			ConnectionManager.getConnection().send();
 			ConnectionManager.close();
 		}
 		if(ConnectionManager.isAuthServerConnected()) {
+			ConnectionManager.getConnection().startPacket();
 			ConnectionManager.getAuthConnection().writeShort(LOGOUT);
+			ConnectionManager.getConnection().endPacket();
 			ConnectionManager.getAuthConnection().send();
 			ConnectionManager.closeAuth();
 		}

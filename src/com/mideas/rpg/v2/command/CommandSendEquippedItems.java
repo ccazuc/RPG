@@ -15,7 +15,7 @@ public class CommandSendEquippedItems extends Command {
 		
 	}
 	
-	public void write() {
+	/*public void write() {
 		ConnectionManager.getConnection().writeShort(PacketID.SEND_EQUIPPED_ITEMS);
 		int i = 0;
 		while(i < 12) {
@@ -95,7 +95,7 @@ public class CommandSendEquippedItems extends Command {
 			ConnectionManager.getConnection().writeInt(0);
 		}
 		ConnectionManager.getConnection().send();
-	}
+	}*/
 	
 	private static void sendGemDatas(int slot) {
 	/*	if(Mideas.joueur1().getStuff(slot).getEquippedGem(1) != null && GemManager.exists(Mideas.joueur1().getStuff(slot).getEquippedGem(1).getId())) {

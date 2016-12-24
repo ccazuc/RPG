@@ -77,6 +77,14 @@ public class Buffer {
 		this.buffer.flip();
 	}
 	
+	public final int getPosition() {
+		return this.buffer.position();
+	}
+	
+	public final void setPosition(int position) {
+		this.buffer.position(position);
+	}
+	
 	public final void setOrder(ByteOrder order) {
 		this.buffer.order(order);
 	}

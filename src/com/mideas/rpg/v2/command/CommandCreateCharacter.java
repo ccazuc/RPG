@@ -40,10 +40,12 @@ public class CommandCreateCharacter extends Command {
 	public static void write(String name) {
 		if(name.length() >= 2 && name.length() <= 10) {
 			if(ConnectionManager.isConnected()) {
+				ConnectionManager.getConnection().startPacket();
 				ConnectionManager.getConnection().writeShort(CREATE_CHARACTER);
 				ConnectionManager.getConnection().writeString(name);
 				ConnectionManager.getConnection().writeString(SelectScreen.getSelectedClasse());
 				ConnectionManager.getConnection().writeString(SelectScreen.getSelectedRace());
+				ConnectionManager.getConnection().endPacket();
 				ConnectionManager.getConnection().send();
 			}
 		}

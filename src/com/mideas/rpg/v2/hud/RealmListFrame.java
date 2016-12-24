@@ -65,7 +65,6 @@ public class RealmListFrame {
 	}
 	
 	public static boolean mouseEvent() {
-	
 		acceptButton.event();
 		cancelButton.event();
 		return false;
@@ -87,6 +86,7 @@ public class RealmListFrame {
 	
 	public static void clearRealmList() {
 		realmList.clear();
+		selectedRealm = null;
 	}
 	
 	public static void sortRealmList() {

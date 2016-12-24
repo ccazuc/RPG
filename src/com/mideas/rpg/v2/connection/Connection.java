@@ -15,6 +15,7 @@ public class Connection {
 	private Buffer wBuffer;
 	private Buffer rBuffer;
 	private SocketChannel socket;
+	private int startPacketPosition;
 	
 	public Connection(SocketChannel socket) {
 		this.socket = socket;
@@ -52,6 +53,18 @@ public class Connection {
 		catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public final void startPacket() {
+		this.startPacketPosition = this.wBuffer.getPosition();
+		writeInt(0);
+	}
+	
+	public final void endPacket() {
+		int position = this.wBuffer.getPosition();
+		this.wBuffer.setPosition(this.startPacketPosition);
+		this.wBuffer.writeInt(position-this.startPacketPosition);
+		this.wBuffer.setPosition(position);
 	}
 	
 	public final boolean hasRemaining() {

@@ -21,16 +21,20 @@ public class CommandGet extends Command {
 	}
 	
 	public static void write(short packetID, int playerID) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.CHAT_GET);
 		ConnectionManager.getConnection().writeShort(packetID);
 		ConnectionManager.getConnection().writeInt(playerID);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 	
 	public static void write(short packetID, String string) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.CHAT_GET);
 		ConnectionManager.getConnection().writeShort(packetID);
 		ConnectionManager.getConnection().writeString(string);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 }

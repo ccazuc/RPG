@@ -14,8 +14,10 @@ public class CommandDeleteCharacter extends Command {
 	}
 	
 	public static void write(int id) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(DELETE_CHARACTER);
 		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 }

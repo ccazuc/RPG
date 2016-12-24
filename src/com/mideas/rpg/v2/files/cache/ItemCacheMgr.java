@@ -29,7 +29,7 @@ public class ItemCacheMgr {
 	private final static String FOLDER_PATH = "Cache/WDB/frFR";
 	private final static String FILE_PATH = "Cache/WDB/frFR/itemcache.wdb";
 	private final static byte[] HEADER_SIGNATURE = new byte[] {66, 68, 73, 87};
-	
+
 	public static void writeItemCache() {
 		FileChannel out;
 		writeBuffer.clear();

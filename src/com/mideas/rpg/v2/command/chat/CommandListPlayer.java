@@ -22,7 +22,9 @@ public class CommandListPlayer extends Command {
 	}
 	
 	public static void write() {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.CHAT_LIST_PLAYER);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 }

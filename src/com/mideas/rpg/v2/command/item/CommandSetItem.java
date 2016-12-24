@@ -6,7 +6,6 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.RequestItem;
 
 public class CommandSetItem extends Command {
@@ -99,7 +98,6 @@ public class CommandSetItem extends Command {
 		}
 		else if(packetId == PacketID.SET_ITEM_ADD) {
 			DragItem type = DragItem.values()[ConnectionManager.getConnection().readByte()];
-			ItemType itemType = ItemType.values()[ConnectionManager.getConnection().readByte()];
 			int id = ConnectionManager.getConnection().readInt();
 			int slot = ConnectionManager.getConnection().readInt();
 			int amount = ConnectionManager.getConnection().readInt();

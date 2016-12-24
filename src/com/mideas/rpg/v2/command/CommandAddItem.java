@@ -39,10 +39,12 @@ public class CommandAddItem extends Command {
 	}
 	
 	public static void write(int character_id, int item_id, int number) {
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.ADD_ITEM);
 		ConnectionManager.getConnection().writeInt(character_id);
 		ConnectionManager.getConnection().writeInt(item_id);
 		ConnectionManager.getConnection().writeInt(number);
+		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
 }
