@@ -139,7 +139,6 @@ public class DragManager {
 			return false;
 		}
 		if(DragSpellManager.getDraggedSpell() != null) {
-			DragSpellManager.setDraggedSpell(null);
 			return false;
 		}
 		Item bagItem = Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover());

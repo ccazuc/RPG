@@ -61,7 +61,7 @@ public class ButtonSpellbar {
 	}
 	
 	public void draw() {
-		if((this.shortcut == null && !this.isInFirstBar) || (this.shortcut != null) && !this.isInFirstBar && !this.buttonDown && !this.keyDown) {
+		if((this.shortcut == null && !this.isInFirstBar) || (this.shortcut != null && !this.isInFirstBar && !this.buttonDown && !this.keyDown)) {
         		Draw.drawQuad(Sprites.spellbar_case, this.x, this.y-1, 44*Mideas.getDisplayXFactor(), 41*Mideas.getDisplayYFactor(), .5f);
 		}
 		if(this.shortcut != null) {

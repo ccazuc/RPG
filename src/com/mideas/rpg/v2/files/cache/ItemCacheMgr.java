@@ -24,6 +24,7 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 
 public class ItemCacheMgr {
 
+	private final static Buffer readBufferHeader = new Buffer(8);
 	private final static Buffer writeBuffer = new Buffer(160000);
 	private static Buffer readBuffer;
 	private final static String FOLDER_PATH = "Cache/WDB/frFR";
@@ -73,29 +74,23 @@ public class ItemCacheMgr {
 		try {
 			checkFileStatus();
 			FileChannel fc = (FileChannel) Files.newByteChannel(Paths.get(FILE_PATH), StandardOpenOption.READ);
-			readBuffer = new Buffer((int)fc.size());
+			readBufferHeader.setOrder(ByteOrder.BIG_ENDIAN);
+			fc.read(readBufferHeader.getBuffer());
+			readBufferHeader.flip();
+			int i = 0;
+			while(i < HEADER_SIGNATURE.length) {
+				if(readBufferHeader.readByte() != HEADER_SIGNATURE[i]) {
+					clearFile();
+					return;
+				}
+				i++;
+			}
+			int fileSize = readBufferHeader.readInt();
+			readBuffer = new Buffer(fileSize);
 			readBuffer.setOrder(ByteOrder.BIG_ENDIAN);
 			fc.read(readBuffer.getBuffer());
 			readBuffer.flip();
-			boolean readedHeader = false;
 			while(readBuffer.hasRemaining()) {
-				if(!readedHeader) {
-					int i = 0;
-					while(i < HEADER_SIGNATURE.length) {
-						if((readBuffer.readByte()) != HEADER_SIGNATURE[i]) {
-							System.out.println("Invalid signature for itemcache.wdb");
-							clearFile();
-							return;
-						}
-						i++;
-					}
-					int fileSize = readBuffer.readInt();
-					if(fileSize != (int)fc.size()) {
-						clearFile();
-						return;
-					}
-					readedHeader = true;
-				}
 				ItemType type = ItemType.values()[readBuffer.readByte()];
 				if(type == ItemType.STUFF) {
 					Item.storeItem(readBuffer.readStuff());
