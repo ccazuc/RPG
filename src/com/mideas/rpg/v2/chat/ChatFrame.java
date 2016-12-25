@@ -43,6 +43,7 @@ public class ChatFrame {
 	private static int messageShowHeight = 4;
 	private static boolean hoverHeightResize;
 	private static boolean hoverWidthResize;
+	private static long lastKeyPressedTimer;
 	private static String tempMessage = "";
 	private static long lastHoverChatFrame;
 	private static boolean heightResizing;
@@ -106,7 +107,7 @@ public class ChatFrame {
 				cursorPosition = tempMessage.substring(tempLength).length();
 				cursorShift = FontManager.chat.getWidth(tempMessage.substring(tempLength));
 			}
-			if(Mideas.getLoopTickTimer()%1000 < 500) {
+			if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-lastKeyPressedTimer <= 400) {
 				Draw.drawColorQuad(45+cursorShift+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+9*Mideas.getDisplayYFactor(), 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
 			}
 		}
@@ -863,17 +864,17 @@ public class ChatFrame {
 	}
 	
 	private static void scrollUp() {
-    	if(xShift/FontManager.chat.getLineHeight() <= totalNumberLine-messageShowHeight-2) {
-    		xShift+= FontManager.chat.getLineHeight();
-    	}
-    	resetMessagesOpacity();
+	    	if(xShift/FontManager.chat.getLineHeight() <= totalNumberLine-messageShowHeight-2) {
+	    		xShift+= FontManager.chat.getLineHeight();
+	    	}
+	    	resetMessagesOpacity();
 	}
 	
 	private static void scrollDown() {
-    	if(xShift/FontManager.chat.getLineHeight() > 0) {
-    		xShift-= FontManager.chat.getLineHeight();
-    	}
-    	resetMessagesOpacity();
+	    	if(xShift/FontManager.chat.getLineHeight() > 0) {
+	    		xShift-= FontManager.chat.getLineHeight();
+	    	}
+	    	resetMessagesOpacity();
 	}
 	
 	private static void resetMessagesOpacity() {
@@ -939,8 +940,8 @@ public class ChatFrame {
 			selected = tempMessage.substring(cursorPosition-selectedLength, cursorPosition);
 		}
 		StringSelection selection = new StringSelection(selected);
-	    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-	    clipboard.setContents(selection, selection);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(selection, selection);
 	}
 	
 	private static void delete() {
@@ -969,6 +970,7 @@ public class ChatFrame {
 		}
 		cursorShift+= FontManager.chat.getWidth(add);
 		cursorPosition+= add.length();
+		lastKeyPressedTimer = Mideas.getLoopTickTimer();
 	}
 	
 	private static void write(char add) {
@@ -983,6 +985,7 @@ public class ChatFrame {
 		}
 		cursorShift+= FontManager.chat.getWidth(add);
 		cursorPosition++;
+		lastKeyPressedTimer = Mideas.getLoopTickTimer();
 	}
 	
 	public static ArrayList<Message> getMessageList() {
