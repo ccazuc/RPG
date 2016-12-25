@@ -32,6 +32,7 @@ import com.mideas.rpg.v2.command.CommandSendSingleBagItem;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.command.CommandUpdateStats;
 import com.mideas.rpg.v2.command.CommandWho;
+import com.mideas.rpg.v2.command.chat.CommandDefaultMessage;
 import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
@@ -104,6 +105,7 @@ public class ConnectionManager {
 		commandList.put((int)REQUEST_ITEM, new CommandRequestItem());
 		commandList.put((int)SET_ITEM, new CommandSetItem());
 		commandList.put((int)SEND_RED_ALERT, new CommandSendRedAlert());
+		commandList.put((int)CHAT_DEFAULT_MESSAGE, new CommandDefaultMessage());
 	}
 
 	public static final boolean connectAuthServer() {
