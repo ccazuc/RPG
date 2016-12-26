@@ -7,6 +7,7 @@ import org.lwjgl.opengl.Display;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.command.item.CommandDeleteItem;
 import com.mideas.rpg.v2.command.item.CommandDragItems;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.CharacterStuff;
@@ -65,7 +66,6 @@ public class DragManager {
 			deleteItem = false;
 		}
 	};
-
 	private static Button hoverDeleteNo = new Button(Display.getWidth()/2+7*Mideas.getDisplayXFactor(), Display.getHeight()/2-43*Mideas.getDisplayYFactor(), 127*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "No", 14, 1) {
 		@Override
 		public void eventButtonClick() {
@@ -250,7 +250,6 @@ public class DragManager {
 						return true;
 					}
 					if(checkCharacterItems(draggedItem)) {
-						System.out.println(getInventorySlot(draggedItem));
 						CommandDragItems.write(DragItem.INVENTORY, getInventorySlot(draggedItem), DragItem.BAG, bagClickedSlot, draggedItem.getDraggedAmount());
 						draggedItem.setDraggedAmount(-1);
 						draggedItem.setIsSelectable(false);
@@ -344,10 +343,10 @@ public class DragManager {
 						return false;
 					}
 					if(Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot()) != null && Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot2()) == null) {
-						CommandDragItems.write(DragItem.BAG, slot, DragItem.INVENTORY, ((Stuff)draggedItem).getType().getSlot2());
+						CommandDragItems.write(DragItem.BAG, slot, DragItem.INVENTORY, ((Stuff)draggedItem).getType().getSlot2(), draggedItem.getDraggedAmount());
 					}
 					else {
-						CommandDragItems.write(DragItem.BAG, slot, DragItem.INVENTORY, ((Stuff)draggedItem).getType().getSlot());
+						CommandDragItems.write(DragItem.BAG, slot, DragItem.INVENTORY, ((Stuff)draggedItem).getType().getSlot(), draggedItem.getDraggedAmount());
 					}
 					/*Stuff toBag = Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot());
 					Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), draggedItem);
@@ -361,7 +360,6 @@ public class DragManager {
 					return true;
 				}
 				if(checkCharacterItems(draggedItem)) {
-					System.out.println('c');
 					if(Mideas.joueur1().getStuff(inventoryLeftClickedSlot) == null) {
 						if(CharacterFrame.getStuffType(inventoryLeftClickedSlot) != ((Stuff)draggedItem).getType()) {
 							draggedItem = null;
@@ -396,6 +394,7 @@ public class DragManager {
 		leftClickBagDown = false;
 		bagLeftClickedSlot = -1;
 		if(inventoryLeftClickedSlot != CharacterFrame.getSlotHover()) {
+			inventoryLeftClickedSlot = -1;
 			if(checkBagItems(draggedItem)) {
 				if(!draggedItem.isStuff() && !draggedItem.isWeapon()) {
 					draggedItem = null;
@@ -403,12 +402,17 @@ public class DragManager {
 					return false;
 				}
 				int bagSlot = checkItemSlotBag(draggedItem);
-				Stuff tmp = Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot());
+				if(bagSlot == -1) {
+					return false;
+				}
+				CommandDragItems.write(DragItem.BAG, bagSlot, DragItem.INVENTORY, CharacterFrame.getSlotHover(), draggedItem.getDraggedAmount());
+				/*Stuff tmp = Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot());
 				Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), draggedItem);
-				Mideas.joueur1().bag().setBag(bagSlot, tmp);
+				Mideas.joueur1().bag().setBag(bagSlot, tmp);*/
+				draggedItem.setDraggedAmount(-1);
+				draggedItem.setIsSelectable(false);
 				draggedItem = null;
 			}
-			inventoryLeftClickedSlot = -1;
 			return false;
 		}
 		inventoryLeftClickedSlot = -1;
@@ -423,9 +427,32 @@ public class DragManager {
 				return false;
 			}
 			int bagSlot = checkItemSlotBag(draggedItem);
-			Stuff tmp = Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot());
+			if(bagSlot == -1) {
+				return false;
+			}
+			/*Stuff tmp = Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot());
 			Mideas.joueur1().setStuff(((Stuff)draggedItem).getType().getSlot(), draggedItem);
-			Mideas.joueur1().bag().setBag(bagSlot, tmp);
+			Mideas.joueur1().bag().setBag(bagSlot, tmp);*/
+			if(CharacterFrame.getSlotHover() != -1) {
+				System.out.println('b');
+				CommandDragItems.write(DragItem.BAG, bagSlot, DragItem.INVENTORY, CharacterFrame.getSlotHover(), draggedItem.getDraggedAmount());
+			}
+			else {
+				if(Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot()) != null && Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot2()) == null) {
+					CommandDragItems.write(DragItem.BAG, bagSlot, DragItem.INVENTORY, ((Stuff)draggedItem).getType().getSlot2(), draggedItem.getDraggedAmount());
+					if(Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot2()) != null) {
+						Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot2()).setIsSelectable(false);
+					}
+				}
+				else {
+					CommandDragItems.write(DragItem.BAG, bagSlot, DragItem.INVENTORY, ((Stuff)draggedItem).getType().getSlot(), draggedItem.getDraggedAmount());
+					if(Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot()) != null) {
+						Mideas.joueur1().getStuff(((Stuff)draggedItem).getType().getSlot()).setIsSelectable(false);
+					}
+				}
+			}
+			draggedItem.setIsSelectable(false);
+			draggedItem.setDraggedAmount(-1);
 			draggedItem = null;
 		}
 		if(checkCharacterItems(draggedItem)) {
@@ -1148,17 +1175,17 @@ public class DragManager {
 
 	static boolean deleteItem(Item draggedItem2) {
 		int i = 0;
-		while(i < Mideas.joueur1().getSpellsListSize()) {
+		/*while(i < Mideas.joueur1().getSpellsListSize()) {
 			if(Mideas.joueur1().getSpells(i) != null && Mideas.joueur1().getSpells(i).getShortcutType() == ShortcutType.STUFF && ((StuffShortcut)Mideas.joueur1().getSpells(i)).getStuff() == draggedItem2) {
 				Mideas.joueur1().setSpells(i, null);
-				break;
+				return true;
 			}
 			i++;
-		}
+		}*/
 		i = 0;
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(Mideas.joueur1().bag().getBag(i) != null && draggedItem2 == Mideas.joueur1().bag().getBag(i)) {
-				Mideas.joueur1().bag().setBag(i, null);
+				CommandDeleteItem.deleteItem(DragItem.BAG, i);
 				return true;
 			}
 			i++;
@@ -1166,7 +1193,7 @@ public class DragManager {
 		i = 0;
 		while(i < Mideas.joueur1().getStuff().length) {
 			if(Mideas.joueur1().getStuff(i) != null && draggedItem2 == Mideas.joueur1().getStuff(i)) {
-				Mideas.joueur1().setStuff(i, null);
+				CommandDeleteItem.deleteItem(DragItem.INVENTORY, i);
 				return true;
 			}
 			i++;

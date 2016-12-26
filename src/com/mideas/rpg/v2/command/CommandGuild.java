@@ -240,7 +240,7 @@ public class CommandGuild extends Command {
 	}
 	
 	public static void setLeader(int id) {
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_LEADER);
 		ConnectionManager.getConnection().writeInt(id);
@@ -249,7 +249,7 @@ public class CommandGuild extends Command {
 	}
 	
 	public static void setInformation(String msg) {
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_INFORMATION);
 		ConnectionManager.getConnection().writeString(msg);
@@ -258,7 +258,7 @@ public class CommandGuild extends Command {
 	}
 	
 	public static void setMotd(String msg) {
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD);
 		ConnectionManager.getConnection().writeShort(PacketID.GUILD_SET_MOTD);
 		ConnectionManager.getConnection().writeString(msg);

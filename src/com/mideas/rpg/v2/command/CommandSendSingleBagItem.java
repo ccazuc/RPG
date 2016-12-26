@@ -1,11 +1,5 @@
 package com.mideas.rpg.v2.command;
 
-import com.mideas.rpg.v2.connection.ConnectionManager;
-import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.item.Item;
-import com.mideas.rpg.v2.game.item.gem.Gem;
-import com.mideas.rpg.v2.game.item.stuff.Stuff;
-
 public class CommandSendSingleBagItem extends Command {
 
 	@Override

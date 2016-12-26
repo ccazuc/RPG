@@ -39,6 +39,7 @@ import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
 import com.mideas.rpg.v2.command.chat.CommandPlayerNotFound;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.command.item.CommandContainer;
+import com.mideas.rpg.v2.command.item.CommandDeleteItem;
 import com.mideas.rpg.v2.command.item.CommandGem;
 import com.mideas.rpg.v2.command.item.CommandPotion;
 import com.mideas.rpg.v2.command.item.CommandRequestItem;
@@ -106,6 +107,7 @@ public class ConnectionManager {
 		commandList.put((int)SET_ITEM, new CommandSetItem());
 		commandList.put((int)SEND_RED_ALERT, new CommandSendRedAlert());
 		commandList.put((int)CHAT_DEFAULT_MESSAGE, new CommandDefaultMessage());
+		commandList.put((int)DELETE_ITEM, new CommandDeleteItem());
 	}
 
 	public static final boolean connectAuthServer() {
@@ -321,10 +323,6 @@ public class ConnectionManager {
 	 
 	public static WorldServer getWorldServer() {
 		return loggedServer;
-	}
-	
-	public static HashMap<Integer, Command> getCommandList() {
-		return commandList;
 	}
 	
 	public static HashMap<Integer, Item> getItemRequested() {
