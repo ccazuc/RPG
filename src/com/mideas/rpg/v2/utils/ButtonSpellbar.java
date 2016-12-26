@@ -40,6 +40,7 @@ public class ButtonSpellbar {
 	private int keyBindStringWidth;
 	private final static TTF numberItemFont = FontManager.get("FRIZQT", 15);
 	private final static TTF keyBindFont = FontManager.get("FRIZQT", 15);
+	private final static Color BACKGROUND_COLOR = new Color(0, 0, 0, .65f);
 	private final static int MOUSE_MOVE_TRIGGER_RANGE = 15;
 	private int keyBind;
 	private static int borderWidth = (int)(42*Mideas.getDisplayXFactor());
@@ -75,6 +76,9 @@ public class ButtonSpellbar {
 			}
 			if(this.numberItem >= 0) {
 				numberItemFont.drawStringShadow(this.x+37*Mideas.getDisplayXFactor()-this.numberItemStringWidth, this.y+16*Mideas.getDisplayYFactor(), this.numberItemString, Color.WHITE, Color.BLACK, 1, 0, 0);
+			}
+			if(!this.itemIsInBag && !this.itemIsEquipped) {
+				Draw.drawColorQuad(this.x+3, this.y+1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), BACKGROUND_COLOR);
 			}
 		}
 		if((this.shortcut == null && !this.isInFirstBar) || (this.shortcut != null)) {
