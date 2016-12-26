@@ -1,6 +1,8 @@
 package com.mideas.rpg.v2.command;
 
 public class CommandSendSingleBagItem extends Command {
+	
+	//UNUSED
 
 	@Override
 	public void read() {

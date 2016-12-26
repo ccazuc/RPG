@@ -39,6 +39,19 @@ public class Button {
 		this.x = x;
 		this.y = y;
 	}
+
+	public Button(float x, float y, float x_size, float y_size, String text, TTF font, int shadow_size, Color baseColor, Color hoveredColor) {
+		this.font = font;
+		this.textWidth = this.font.getWidth(text);
+		this.hoveredColor = hoveredColor;
+		this.shadow_size = shadow_size;
+		this.baseColor = baseColor;
+		this.x_size = x_size;
+		this.y_size = y_size;
+		this.text = text;
+		this.x = x;
+		this.y = y;
+	}
 	
 	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
 		this(x, y, x_size, y_size, text, font_size, shadow_size, Color.YELLOW, Color.WHITE);
@@ -65,6 +78,35 @@ public class Button {
 		}
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
 		this.font.drawStringShadow(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
+	}
+	
+	public void drawTexture() {
+		if(!this.isEnable) {
+			return;
+		}
+		if(!activateCondition()) {
+			this.texture = Sprites.button_disabled;
+		}
+		else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
+			this.texture = Sprites.button;
+		}
+		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
+	}
+	
+	public void drawText() {
+		if(!this.isEnable) {
+			return;
+		}
+		if(!activateCondition()) {
+			this.color = Color.GREY;
+		}
+		else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
+			this.color = this.baseColor;
+		}
+		else if(hoverSpriteActivateCondition()) {
+			this.color = this.hoveredColor;
+		}
+		this.font.drawStringShadowPart(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
 	}
 	
 	public boolean event() {

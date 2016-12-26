@@ -21,8 +21,6 @@ import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffType;
 import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.redalert.DefaultRedAlert;
-import com.mideas.rpg.v2.game.shortcut.ShortcutType;
-import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
@@ -70,7 +68,7 @@ public class DragManager {
 		@Override
 		public void eventButtonClick() {
 			if(!checkBagItems(draggedItem) && !checkCharacterItems(draggedItem)) {
-				checkFreeSlotBag(draggedItem);
+				Mideas.joueur1().addItem(draggedItem, draggedItem.getAmount());
 			}
 			this.setHoverFalse();
 			draggedItem = null;
@@ -1236,18 +1234,6 @@ public class DragManager {
 		return null;
 	}
 	
-	public static boolean deleteItem(int id) {
-		int i = 0;
-		while(i < Mideas.joueur1().bag().getBag().length) {
-			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == id) {
-				Mideas.joueur1().bag().setBag(i, null);
-				return true;
-			}
-			i++;
-		}
-		return false;
-	}
-	
 	static boolean checkBagItems(Item item) {
 		if(item == null) {
 			return false;
@@ -1266,18 +1252,6 @@ public class DragManager {
 		while(i < Mideas.joueur1().bag().getBag().length) {
 			if(item == Mideas.joueur1().bag().getBag(i)) {
 				Mideas.joueur1().bag().setBag(i, null);
-				return true;
-			}
-			i++;
-		}
-		return false;
-	}
-	
-	public static boolean checkFreeSlotBag(Item item) {
-		int i = 0;
-		while(i < Mideas.joueur1().bag().getBag().length) {
-			if(Mideas.joueur1().bag().getBag(i) == null) {
-				Mideas.joueur1().bag().setBag(i, item);
 				return true;
 			}
 			i++;
@@ -1360,28 +1334,6 @@ public class DragManager {
 		}
 		return false;
 	}
-	
-	/*private static boolean checkBagHover() {
-		int i = 0;
-		while(i < Mideas.joueur1().bag().getBag().length) {
-			if(bagClickedSlot == i && true == ContainerFrame.getContainerFrameSlotHover(i)) {
-				return true;
-			}
-			i++;
-		}
-		return false;
-	}*/
-	
-	/*private static boolean checkCharacterHover() {
-		int i = 0;
-		while(i < Mideas.joueur1().getStuff().length) {
-			if(inventoryLeftClickedSlot == i && CharacterFrame.getHoverCharacterFrame(i) == true) {
-				return true;
-			}
-			i++;
-		}
-		return false;
-	}*/
 	
 	public static int checkItemSlotBag(Item item) {
 		int i = 0;
