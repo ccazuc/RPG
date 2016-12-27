@@ -8,6 +8,7 @@ public class Unit {
 	protected boolean hasManaChanged = true;
 	protected boolean hasHpChanged = true;
 	protected int level;
+	protected String levelString;
 	protected String name;
 	protected String classString = "";
 	protected int maxStamina;
@@ -26,7 +27,7 @@ public class Unit {
 		this.mana = mana;
 		this.id = id;
 		this.maxMana = maxMana;
-		this.level = level;
+		setLevel(level);
 		this.name = name;
 		this.classType = type;
 		this.portraitFrame = getPortrait(type);
@@ -111,12 +112,17 @@ public class Unit {
 		this.maxMana = maxMana;
 	}
 	
+	public String getLevelString() {
+		return this.levelString;
+	}
+	
 	public int getLevel() {
 		return this.level;
 	}
 	
 	public void setLevel(int level) {
 		this.level = level;
+		this.levelString = Integer.toString(level);
 	}
 	
 	public void setId(int id) {

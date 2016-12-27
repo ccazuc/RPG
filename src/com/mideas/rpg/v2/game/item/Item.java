@@ -44,6 +44,11 @@ public class Item implements Cloneable {
 		buildAllString();
 	}
 	
+	public Item(int id) {
+		this.id = id;
+		this.isLoaded = false;
+	}
+	
 	public Item() {}
 
 	private void buildAllString() {
@@ -221,7 +226,7 @@ public class Item implements Cloneable {
 	}
 	
 	public static Shortcut createShortcut(Item item) {
-		if(item.isStuff()) {
+		if(item.isStuff() || item.isWeapon()) {
 			return new StuffShortcut((Stuff)item);
 		}
 		if(item.isPotion()) {

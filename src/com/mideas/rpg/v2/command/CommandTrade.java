@@ -9,9 +9,9 @@ import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.RequestItem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
+import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
-import com.mideas.rpg.v2.game.item.stuff.Stuff;
 
 public class CommandTrade extends Command {
 
@@ -20,7 +20,7 @@ public class CommandTrade extends Command {
 		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.TRADE_NEW_CONFIRM) {
 			Interface.setTradeFrameStatus(true);
-			//System.out.println("trade confirmed");
+			System.out.println("Trade confirmed");
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM) {
 			boolean self = ConnectionManager.getConnection().readBoolean();
@@ -39,19 +39,33 @@ public class CommandTrade extends Command {
 					System.out.println("Error in CommandTrade:TRADE_ADD_ITEM, item == null");
 					return;
 				}
+				item.setIsSelectable(false);
 				TradeFrame.addItem(item, tradeSlot);
 			}
 			else {
 				int tradeSlot = ConnectionManager.getConnection().readInt();
+				int amount = ConnectionManager.getConnection().readInt();
 				int itemId = ConnectionManager.getConnection().readInt();
 				boolean hasGem = ConnectionManager.getConnection().readBoolean();
-				if(hasGem) {
-					
-				}
 				Item item = Item.getItem(itemId);
-				if(item == null) {
+				if(hasGem) {
+					if(item == null) {
+						item = new Stuff(itemId);
+						CommandRequestItem.write(new RequestItem(itemId, DragItem.TRADE, tradeSlot));
+					}
+					int gem1Id = ConnectionManager.getConnection().readInt();
+					int gem2Id = ConnectionManager.getConnection().readInt();
+					int gem3Id = ConnectionManager.getConnection().readInt();
+					setGem(item, gem1Id, tradeSlot, 0);
+					setGem(item, gem2Id, tradeSlot, 1);
+					setGem(item, gem3Id, tradeSlot, 2);
+				}
+				else if(item == null) {
+					item = new Item(itemId);
 					CommandRequestItem.write(new RequestItem(itemId, DragItem.TRADE, tradeSlot));
 				}
+				item.setAmount(amount);
+				TradeFrame.addItem(item, tradeSlot);
 			}
 			TradeFrame.setTraceAcceptedOther(false);
 			TradeFrame.setTraceAcceptedSelf(false);
@@ -60,7 +74,7 @@ public class CommandTrade extends Command {
 			//check if windows are open etc
 			String name = ConnectionManager.getConnection().readString();
 			TradeFrame.setName(name);
-			PopupFrame.activateTradePopup();
+			PopupFrame.activateTradePopup(name);
 		}
 		else if(packetId == PacketID.TRADE_ACCEPT) {
 			TradeFrame.setTraceAcceptedOther(true);
@@ -70,11 +84,21 @@ public class CommandTrade extends Command {
 		}
 		else if(packetId == PacketID.TRADE_REMOVE_ITEM) {
 			int slot = ConnectionManager.getConnection().readInt();
-			TradeFrame.addItem(null, slot+7);
-			TradeFrame.setTraceAcceptedOther(false);
-			TradeFrame.setTraceAcceptedSelf(false);
+			if(slot >= 0 && slot <= 6) {
+				if(TradeFrame.getItem(slot) != null) {
+					TradeFrame.getItem(slot).setIsSelectable(true);
+				}
+			}
+			TradeFrame.addItem(null, slot);
+			if(slot <= 6) {
+				TradeFrame.setTraceAcceptedSelf(false);
+			}
+			else {
+				TradeFrame.setTraceAcceptedOther(false);
+			}
 		}
 		else if(packetId == PacketID.TRADE_CLOSE) {
+			System.out.println("Trade closed");
 			TradeFrame.setAllItemSelectable();
 			TradeFrame.reset();
 			Interface.setTradeFrameStatus(false);
@@ -198,5 +222,14 @@ public class CommandTrade extends Command {
 		ConnectionManager.getConnection().writeInt(tradeSlot);
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
+	}
+	
+	public static void setGem(Item item, int gemID, int tradeSlot, int gemSlot) {
+		if(GemManager.exists(gemID)) {
+			((Stuff)item).setEquippedGem(gemSlot, GemManager.getClone(gemID));
+		}
+		else {
+			CommandRequestItem.write(new RequestItem(gemID, DragItem.TRADE, tradeSlot, gemSlot));
+		}
 	}
 }

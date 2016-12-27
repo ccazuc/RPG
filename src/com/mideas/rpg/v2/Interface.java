@@ -525,6 +525,10 @@ public class Interface {
 		return false;
 	}
 	
+	public static boolean getTradeStatus() {
+		return tradeFrameActive;
+	}
+	
 	public static boolean isSocialFrameActive() {
 		return socialFrameActive;
 	}

@@ -7,6 +7,7 @@ import org.lwjgl.opengl.Display;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.command.item.CommandDeleteItem;
 import com.mideas.rpg.v2.command.item.CommandDragItems;
 import com.mideas.rpg.v2.FontManager;
@@ -32,13 +33,17 @@ public class DragManager {
 	static boolean deleteItem;
 	private static boolean init;
 	private final static int PICK_UP_ITEM_RANGE = 15;
-	private static boolean leftClickInventoryDown;
-	private static boolean leftClickBagDown;
-	private static boolean rightClickInventoryDown;
-	private static boolean rightClickBagDown;
+	private static boolean inventoryLeftClickDown;
+	private static boolean bagLeftClickDown;
+	private static boolean tradeLeftClickDown;
+	private static boolean inventoryRightClickDown;
+	private static boolean bagRightClickDown;
+
 	private static int mouseXDown;
 	private static int mouseYDown;
 	static Item draggedItem;
+	private static int tradeRightClickedSlot = -1;
+	private static int tradeLeftClickedSlot = -1;
 	private static int bagLeftClickedSlot = -1;
 	private static int bagRightClickedSlot = -1;
 	private static int inventoryLeftClickedSlot = -1;
@@ -101,7 +106,7 @@ public class DragManager {
 			return false;
 		}
 		bagLeftClickedSlot = ContainerFrame.getContainerFrameSlotHover();
-		leftClickBagDown = true;
+		bagLeftClickDown = true;
 		mouseXDown = Mideas.mouseX();
 		mouseYDown = Mideas.mouseY();
 		return false;
@@ -112,27 +117,35 @@ public class DragManager {
 			return false;
 		}
 		bagRightClickedSlot = ContainerFrame.getContainerFrameSlotHover();
-		rightClickBagDown = true;
+		bagLeftClickDown = true;
 		return false;
 	}
 	
 	private static boolean bagRightClickUp() {
+		int bagRightClickedSlot = DragManager.bagRightClickedSlot; 
+		bagRightClickedSlot = -1;
+		bagLeftClickDown = false;
 		if(bagRightClickedSlot == ContainerFrame.getContainerFrameSlotHover() && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()) != null && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()).isStackable() && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()).getAmount() > 1 && Keyboard.isKeyDown(42)) {
 			ContainerFrame.setItemNumberOpen(ContainerFrame.getContainerFrameSlotHover());
 			bagRightClickedSlot = -1;
-			rightClickBagDown = false;
+			bagLeftClickDown = false;
 			return true;
 		}
-		bagRightClickedSlot = -1;
-		rightClickBagDown = false;
+		if(Interface.getTradeStatus() && Mideas.joueur1().bag().getBag(ContainerFrame.getContainerFrameSlotHover()) != null) {
+			int slot = TradeFrame.getFirstEmptySlot();
+			if(slot == -1) {
+				return false;
+			}
+			CommandTrade.addItem(DragItem.BAG, ContainerFrame.getContainerFrameSlotHover(), slot);
+		}
 		return false;
 	}
 	
 	private static boolean bagLeftClickUp() {
 		bagLeftClickedSlot = -1;
 		inventoryLeftClickedSlot = -1;
-		leftClickBagDown = false;
-		leftClickInventoryDown = false;
+		bagLeftClickDown = false;
+		inventoryLeftClickDown = false;
 		if(ContainerFrame.getContainerFrameSlotHover() == -1) {
 			return false;
 		}
@@ -222,16 +235,16 @@ public class DragManager {
 		if((ContainerFrame.getContainerFrameSlotHover() == -1 && bagLeftClickedSlot == -1) && (CharacterFrame.getSlotHover() == -1 && inventoryLeftClickedSlot == -1)) {
 			return false;
 		}
-		if(!leftClickBagDown && !leftClickInventoryDown) {
+		if(!bagLeftClickDown && !inventoryLeftClickDown && !tradeLeftClickDown) {
 			return false;
 		}
-		if(bagLeftClickedSlot != -1 && inventoryLeftClickedSlot != -1) {
+		if(bagLeftClickedSlot != -1 && inventoryLeftClickedSlot != -1 && tradeLeftClickedSlot != -1) {
 			return false;
 		}
 		if(!(Math.abs(Math.abs(Mideas.mouseX())-Math.abs(mouseXDown)) >= PICK_UP_ITEM_RANGE || Math.abs(Math.abs(Mideas.mouseY())-Math.abs(mouseYDown)) >= PICK_UP_ITEM_RANGE)) {
 			return false;
 		}
-		if(bagLeftClickedSlot != -1 && leftClickBagDown) {
+		if(bagLeftClickedSlot != -1 && bagLeftClickDown) {
 			final Item bagItem = Mideas.joueur1().bag().getBag(bagLeftClickedSlot);
 			int bagClickedSlot = DragManager.bagLeftClickedSlot;
 			DragManager.bagLeftClickedSlot = -1;
@@ -321,7 +334,7 @@ public class DragManager {
 			System.out.println("Error in DragManager mouseMove in Bag");
 			return false;
 		}
-		if(inventoryLeftClickedSlot != -1 && leftClickInventoryDown) {
+		if(inventoryLeftClickedSlot != -1 && inventoryLeftClickDown) {
 			int inventoryLeftClickedSlot = DragManager.inventoryLeftClickedSlot;
 			DragManager.inventoryLeftClickedSlot = -1;
 			final Stuff stuff = Mideas.joueur1().getStuff(inventoryLeftClickedSlot);
@@ -372,6 +385,10 @@ public class DragManager {
 					return false;
 				}
 			}
+			return false;
+		}
+		if(tradeLeftClickDown && tradeLeftClickedSlot != -1) {
+			//TODO: handle mouse move
 		}
 		return false;
 	}
@@ -381,15 +398,15 @@ public class DragManager {
 			return false;
 		}
 		inventoryLeftClickedSlot = CharacterFrame.getSlotHover();
-		leftClickInventoryDown = true;
+		inventoryLeftClickDown = true;
 		mouseXDown = Mideas.mouseX();
 		mouseYDown = Mideas.mouseY();
 		return false;
 	}
 	
 	private static boolean characterLeftClickUp() {
-		leftClickInventoryDown = false;
-		leftClickBagDown = false;
+		inventoryLeftClickDown = false;
+		bagLeftClickDown = false;
 		bagLeftClickedSlot = -1;
 		if(inventoryLeftClickedSlot != CharacterFrame.getSlotHover()) {
 			inventoryLeftClickedSlot = -1;
@@ -464,13 +481,63 @@ public class DragManager {
 			return false;
 		}
 		inventoryRightClickedSlot = CharacterFrame.getSlotHover();
-		rightClickInventoryDown = true;
+		bagLeftClickDown = true;
 		return false;
 	}
 	
 	private static boolean characterRightClickUp() {
-		rightClickInventoryDown = false;
+		bagLeftClickDown = false;
 		inventoryRightClickedSlot = -1;
+		return false;
+	}
+	
+	private static boolean tradeLeftClickDown() {
+		if(TradeFrame.getSlotHover() == -1) {
+			return false;
+		}
+		tradeLeftClickedSlot = TradeFrame.getSlotHover();
+		tradeLeftClickDown = true;
+		return false;
+	}
+	
+	private static boolean tradeLeftClickUp() {
+		int tradeLeftClickedSlot = DragManager.tradeLeftClickedSlot;
+		tradeLeftClickDown = false;
+		DragManager.tradeLeftClickedSlot = -1;
+		if(draggedItem == null) {
+			return false;
+		}
+		if(TradeFrame.getSlotHover() == -1 || tradeLeftClickedSlot >= 7) {
+			draggedItem.setIsSelectable(true);
+			draggedItem.setDraggedAmount(-1);
+			draggedItem = null;
+			return true;
+		}
+		int slot = -1;
+		if((slot = checkItemSlotBag(draggedItem)) != -1) {
+			CommandTrade.addItem(DragItem.BAG, slot, TradeFrame.getSlotHover());
+		}
+		else if((slot = checkItemSlotInventory(draggedItem)) != -1) {
+			CommandTrade.addItem(DragItem.INVENTORY, slot, TradeFrame.getSlotHover());
+		}
+		draggedItem = null;
+		return false;
+	}
+	
+	private static boolean tradeRightClickDown() {
+		if(TradeFrame.getSlotHover() == -1) {
+			return false;
+		}
+		tradeRightClickedSlot = TradeFrame.getSlotHover();
+		return false;
+	}
+	
+	private static boolean tradeRightClickUp() {
+		tradeRightClickedSlot = -1;
+		if(TradeFrame.getSlotHover() >= 0 && TradeFrame.getSlotHover() <= 6 && TradeFrame.getItem(TradeFrame.getSlotHover()) != null) {
+			CommandTrade.writeRemovedItem(TradeFrame.getSlotHover());
+			return true;
+		}
 		return false;
 	}
 	
@@ -534,6 +601,24 @@ public class DragManager {
 				}
 			}
 		}
+		else if(isHoverTradeFrame()) {
+			if(Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0) {
+					return tradeLeftClickDown();
+				}
+				else if(Mouse.getEventButton() == 1) {
+					return tradeRightClickDown();
+				}
+			}
+			else {
+				if(Mouse.getEventButton() == 0) {
+					return tradeLeftClickUp();
+				}
+				else if(Mouse.getEventButton() == 1) {
+					return tradeRightClickUp();
+				}
+			}
+		}
 		if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0) {
 				if(draggedItem != null) {
@@ -548,8 +633,8 @@ public class DragManager {
 				}
 			}
 			if(Mouse.getEventButton() == 1) {
-				rightClickBagDown = false;
-				rightClickInventoryDown = false;
+				bagLeftClickDown = false;
+				inventoryLeftClickDown = false;
 				bagRightClickedSlot = -1;
 				inventoryRightClickedSlot = -1;
 			}
@@ -1374,6 +1459,18 @@ public class DragManager {
 			return weaponSlot[i];
 		}
 		return null;
+	}
+	
+	public static void setTradeLeftClickDown(int i) {
+		tradeLeftClickedSlot = i;
+	}
+	
+	public static int getTradeLeftClickDown() {
+		return tradeLeftClickedSlot;
+	}
+	
+	public static int getTradeRightClickDown() {
+		return tradeRightClickedSlot;
 	}
 	
 	public static void resetInventoryClickedSlot() {

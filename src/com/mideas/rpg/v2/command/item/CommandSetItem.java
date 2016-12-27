@@ -7,6 +7,7 @@ import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.RequestItem;
+import com.mideas.rpg.v2.hud.DragManager;
 
 public class CommandSetItem extends Command {
 
@@ -35,6 +36,9 @@ public class CommandSetItem extends Command {
 			DragItem type = DragItem.values()[ConnectionManager.getConnection().readByte()];
 			int slot = ConnectionManager.getConnection().readInt();
 			if(type == DragItem.BAG) {
+				if(DragManager.getDraggedItem() == Mideas.joueur1().bag().getBag(slot)) {
+					DragManager.setDraggedItem(null);
+				}
 				Mideas.joueur1().bag().setBag(slot, null);
 			}
 			else if(type == DragItem.BANK) {
@@ -44,7 +48,10 @@ public class CommandSetItem extends Command {
 				
 			}
 			else if(type == DragItem.INVENTORY) {
-				
+				if(DragManager.getDraggedItem() == Mideas.joueur1().getStuff(slot)) {
+					DragManager.setDraggedItem(null);
+				}
+				Mideas.joueur1().setStuff(slot, null);
 			}
 		}
 		else if(packetId == PacketID.SET_ITEM_SWAP) {

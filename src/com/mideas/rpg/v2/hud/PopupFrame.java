@@ -129,7 +129,7 @@ public class PopupFrame {
 		
 		@Override
 		public void eventButtonClick() {
-			CommandTrade.writeAccept();
+			CommandTrade.writeConfirm();
 		}
 		
 		@Override
@@ -236,7 +236,7 @@ public class PopupFrame {
 		popup.setTextTypeAccept();
 	}
 	
-	public static void activateTradePopup() {
+	public static void activateTradePopup(String name) {
 		currentPopup = PopupType.TRADE_REQUEST;
 		popup.setPopup(acceptTradeButton, name+" wants to trade with you.");
 		popup.setTextTypeAccept();

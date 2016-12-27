@@ -22,7 +22,7 @@ public class CommandFriend extends Command {
 		else if(packetId == PacketID.FRIEND_ADD) {
 			boolean online = ConnectionManager.getConnection().readBoolean();
 			if(online) {
-				Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readInt(), ConnectionManager.getConnection().readString(), ConnectionManager.getConnection().readInt(), Race.values()[ConnectionManager.getConnection().readChar()], ClassType.values()[ConnectionManager.getConnection().readChar()]));
+				Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readInt(), ConnectionManager.getConnection().readString(), ConnectionManager.getConnection().readInt(), Race.values()[ConnectionManager.getConnection().readByte()], ClassType.values()[ConnectionManager.getConnection().readByte()]));
 			}
 			else {
 				Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readInt(), ConnectionManager.getConnection().readString()));
@@ -44,8 +44,8 @@ public class CommandFriend extends Command {
 			int id = ConnectionManager.getConnection().readInt();
 			String name = ConnectionManager.getConnection().readString();
 			int level = ConnectionManager.getConnection().readInt();
-			Race race = Race.values()[ConnectionManager.getConnection().readChar()];
-			ClassType classe = ClassType.values()[ConnectionManager.getConnection().readChar()];
+			Race race = Race.values()[ConnectionManager.getConnection().readByte()];
+			ClassType classe = ClassType.values()[ConnectionManager.getConnection().readByte()];
 			int i = 0;
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
@@ -65,8 +65,8 @@ public class CommandFriend extends Command {
 				String name = ConnectionManager.getConnection().readString();
 				if(isOnline) {
 					int level = ConnectionManager.getConnection().readInt();
-					Race race = Race.values()[ConnectionManager.getConnection().readChar()];
-					ClassType classe = ClassType.values()[ConnectionManager.getConnection().readChar()];
+					Race race = Race.values()[ConnectionManager.getConnection().readByte()];
+					ClassType classe = ClassType.values()[ConnectionManager.getConnection().readByte()];
 					Mideas.joueur1().addFriendNoSort(new Friend(id, name, level, race, classe));
 				}
 				else {

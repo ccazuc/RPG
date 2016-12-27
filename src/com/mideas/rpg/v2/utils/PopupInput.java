@@ -72,9 +72,14 @@ public class PopupInput extends Popup {
 		if(!this.isActive) {
 			return false;
 		}
-		if(this.cancelButton.event() || this.acceptButton.event()) {
+		if(this.cancelButton.event()) {
+			this.cancelButton.reset();
 			this.setActive(false);
 			return true;
+		}
+		if(this.acceptButton.event()) {
+			this.acceptButton.reset();
+			this.isActive = false;
 		}
 		if(this.inputBar.event()) {
 			this.input.setIsActive(true);

@@ -29,7 +29,7 @@ public class PlayerPortraitFrame {
 		FontManager.get("FRIZQT", 11).drawBegin();
 		drawHealthText(joueur, (int)x, (int)y);
 		drawManaText(joueur, (int)x, (int)y);
-		FontManager.get("FRIZQT", 11).drawStringShadow(x+16-FontManager.get("FRIZQT", 11).getWidth(String.valueOf(joueur.getLevel()))/2, y+55, String.valueOf(joueur.getLevel()), Color.YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 11).drawStringShadow(x+16-FontManager.get("FRIZQT", 11).getWidth(joueur.getLevelString())/2, y+55, joueur.getLevelString(), Color.YELLOW, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 11).drawEnd();
 		drawPortait(joueur, (int)x, (int)y);
 		if(Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(joueur)) {
