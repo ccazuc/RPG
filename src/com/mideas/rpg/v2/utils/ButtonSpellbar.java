@@ -64,7 +64,7 @@ public class ButtonSpellbar {
 	}
 	
 	public void draw() {
-		if(Display.wasResized()) {
+		if(Display.wasResized() && this.keyBind >= 0) {
 			setKeyBind(this.keyBind);
 		}
 		if((this.shortcut == null && !this.isInFirstBar) || (this.shortcut != null && !this.isInFirstBar && !this.buttonDown && !this.keyDown)) {
