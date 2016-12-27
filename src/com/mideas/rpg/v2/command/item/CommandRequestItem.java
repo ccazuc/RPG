@@ -60,7 +60,7 @@ public class CommandRequestItem extends Command {
 		else if(slotType == DragItem.BAG) {
 			Mideas.joueur1().bag().updateBag(slot, item);
 		}
-		else if(slotType == DragItem.DISPLAYED) {
+		else if(slotType == DragItem.TRADE) {
 			
 		}
 		else if(slotType == DragItem.GUILDBANK) {
@@ -80,7 +80,7 @@ public class CommandRequestItem extends Command {
 		else if(slotType == DragItem.BAG) {
 			Mideas.joueur1().bag().updateBagGem(slot, gemSlot, item);
 		}
-		else if(slotType == DragItem.DISPLAYED) {
+		else if(slotType == DragItem.TRADE) {
 			
 		}
 		else if(slotType == DragItem.GUILDBANK) {

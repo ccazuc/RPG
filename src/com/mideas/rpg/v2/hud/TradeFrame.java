@@ -11,6 +11,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
@@ -183,17 +184,26 @@ public class TradeFrame {
 	private static void clickEvent() {
 		if(hoveredSlot >= 0 && hoveredSlot <= 6 && DragManager.getDraggedItem() != null) {
 			if(DragManager.checkBagItems(DragManager.getDraggedItem())) {
-				if(itemList[hoveredSlot] == null) {
+				/*if(itemList[hoveredSlot] == null) {
 					itemList[hoveredSlot] = DragManager.getDraggedItem();
 					itemList[hoveredSlot].setIsSelectable(false);
 					DragManager.setDraggedItem(null);
 					tradeAcceptedSelf = false;
 					tradeAcceptedOther = false;
-					CommandTrade.writeAddItem(itemList[hoveredSlot], hoveredSlot, itemList[hoveredSlot].getAmount());
+					int bagSlot = DragManager.getBagSlot(itemList[hoveredSlot]);
+					if(bagSlot == -1) {
+						return;
+					}
+					CommandTrade.addItem(bagSlot, hoveredSlot);
 				}
 				else {
 					
+				}*/
+				int bagSlot = DragManager.getBagSlot(itemList[hoveredSlot]);
+				if(bagSlot == -1) {
+					return;
 				}
+				CommandTrade.addItem(DragItem.BAG, bagSlot, hoveredSlot);
 			}
 			else if(DragManager.checkCharacterItems(DragManager.getDraggedItem())) {
 				if(itemList[hoveredSlot] == null) {

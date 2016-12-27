@@ -2,9 +2,12 @@ package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.command.item.CommandRequestItem;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
+import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.item.RequestItem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
@@ -20,33 +23,35 @@ public class CommandTrade extends Command {
 			//System.out.println("trade confirmed");
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM) {
-			byte itemState = ConnectionManager.getConnection().readByte();
-			//System.out.println("state: "+itemState);
-			if(itemState == PacketID.KNOWN_ITEM) {
-				int id = ConnectionManager.getConnection().readInt();
-				int slot = ConnectionManager.getConnection().readInt();
-				int amount = ConnectionManager.getConnection().readInt();
-				TradeFrame.addItem(id, slot+7);
-				TradeFrame.getItem(slot+7).setAmount(amount);
-				if(ConnectionManager.getConnection().readBoolean()) {
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(1, GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(2, GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(3, GemManager.getClone(ConnectionManager.getConnection().readInt()));
+			boolean self = ConnectionManager.getConnection().readBoolean();
+			if(self) {
+				DragItem type = DragItem.values()[ConnectionManager.getConnection().readByte()];
+				int itemSlot = ConnectionManager.getConnection().readInt();
+				int tradeSlot = ConnectionManager.getConnection().readInt();
+				Item item = null;
+				if(type == DragItem.BAG) {
+					item = Mideas.joueur1().bag().getBag(itemSlot);
 				}
-				//System.out.println("added item");
+				else if(type == DragItem.INVENTORY) {
+					item = Mideas.joueur1().getStuff(itemSlot);
+				}
+				if(item == null) {
+					System.out.println("Error in CommandTrade:TRADE_ADD_ITEM, item == null");
+					return;
+				}
+				TradeFrame.addItem(item, tradeSlot);
 			}
-			else if(itemState == PacketID.UNKNOWN_ITEM) {
-				Item item = ConnectionManager.getConnection().readItem();
-				int slot = ConnectionManager.getConnection().readInt();
-				int amount = ConnectionManager.getConnection().readInt();
-				TradeFrame.addItem(item, slot+7);
-				TradeFrame.getItem(slot+7).setAmount(amount);
-				if(ConnectionManager.getConnection().readBoolean()) {
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(1, GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(2, GemManager.getClone(ConnectionManager.getConnection().readInt()));
-					((Stuff)TradeFrame.getItem(slot+7)).setEquippedGem(3, GemManager.getClone(ConnectionManager.getConnection().readInt()));
+			else {
+				int tradeSlot = ConnectionManager.getConnection().readInt();
+				int itemId = ConnectionManager.getConnection().readInt();
+				boolean hasGem = ConnectionManager.getConnection().readBoolean();
+				if(hasGem) {
+					
 				}
-				//TradeFrame.addItem(id, slot);
+				Item item = Item.getItem(itemId);
+				if(item == null) {
+					CommandRequestItem.write(new RequestItem(itemId, DragItem.TRADE, tradeSlot));
+				}
 			}
 			TradeFrame.setTraceAcceptedOther(false);
 			TradeFrame.setTraceAcceptedSelf(false);
@@ -90,7 +95,6 @@ public class CommandTrade extends Command {
 			while(i < 6) {
 				packetID = ConnectionManager.getConnection().readShort();
 				if(packetID == PacketID.KNOWN_ITEM) {
-					System.out.println("Added known item");
 					id = ConnectionManager.getConnection().readInt();
 					amount = ConnectionManager.getConnection().readInt();
 					if(Item.exists(id)) {
@@ -98,7 +102,6 @@ public class CommandTrade extends Command {
 					}
 				}
 				else if(packetID == PacketID.UNKNOWN_ITEM) {
-					System.out.println("Added unknown item");
 					item = ConnectionManager.getConnection().readItem();
 					System.out.println(item.getStuffName());
 					amount = ConnectionManager.getConnection().readInt();
@@ -109,7 +112,7 @@ public class CommandTrade extends Command {
 		}
 	}
 	
-	public static void writeAddItem(Item item, int slot, int amount) {
+	/*public static void writeAddItem(Item item, int slot, int amount) {
 		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE_ADD_ITEM);
@@ -120,24 +123,6 @@ public class CommandTrade extends Command {
 			Stuff stuff = (Stuff)item;
 			if(stuff.getEquippedGem(1) != null || stuff.getEquippedGem(2) != null || stuff.getEquippedGem(3) != null) {
 				ConnectionManager.getConnection().writeBoolean(true);
-				/*if(stuff.getEquippedGem(1) != null) {
-					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem(1).getId());
-				}
-				else {
-					ConnectionManager.getConnection().writeInt(0);
-				}
-				if(stuff.getEquippedGem(2) != null) {
-					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem(2).getId());
-				}
-				else {
-					ConnectionManager.getConnection().writeInt(0);
-				}
-				if(stuff.getEquippedGem(3) != null) {
-					ConnectionManager.getConnection().writeInt(stuff.getEquippedGem(3).getId());
-				}
-				else {
-					ConnectionManager.getConnection().writeInt(0);
-				}*/
 				sendGem(stuff, 1);
 				sendGem(stuff, 2);
 				sendGem(stuff, 3);
@@ -151,16 +136,16 @@ public class CommandTrade extends Command {
 		}
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
-	}
+	}*/
 	
-	private static void sendGem(Stuff stuff, int slot) {
+	/*private static void sendGem(Stuff stuff, int slot) {
 		if(stuff.getEquippedGem(slot) != null) {
 			ConnectionManager.getConnection().writeInt(stuff.getEquippedGem(slot).getId());
 		}
 		else {
 			ConnectionManager.getConnection().writeInt(0);
 		}
-	}
+	}*/
 	
 	public static void requestNewTrade(String name) {
 		ConnectionManager.getConnection().startPacket();
@@ -200,6 +185,17 @@ public class CommandTrade extends Command {
 		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
 		ConnectionManager.getConnection().writeShort(PacketID.TRADE_NEW_CONFIRM);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void addItem(DragItem slotType, int bagSlot, int tradeSlot) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getConnection().writeShort(PacketID.TRADE_ADD_ITEM);
+		ConnectionManager.getConnection().writeByte(slotType.getValue());
+		ConnectionManager.getConnection().writeInt(bagSlot);
+		ConnectionManager.getConnection().writeInt(tradeSlot);
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
