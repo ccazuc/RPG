@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.game.shortcut;
 
+import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.utils.Texture;
 
 public interface Shortcut {
@@ -11,4 +12,5 @@ public interface Shortcut {
 	abstract int getId();
 	abstract boolean getIsLoaded();	
 	abstract void setIsLoaded(boolean we);	
+	abstract Item getItem();
 }

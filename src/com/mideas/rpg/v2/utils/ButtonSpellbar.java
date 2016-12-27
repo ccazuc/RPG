@@ -76,11 +76,8 @@ public class ButtonSpellbar {
 			if(this.itemIsEquipped) {
 				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+1, this.y, borderWidth, borderHeight, Color.GREEN);
 			}
-			if(this.numberItemString != null) {
-				keyBindFont.drawStringShadow(this.x+30*Mideas.getDisplayXFactor()-this.keyBindStringWidth, this.y, this.numberItemString, Color.WHITE, Color.BLACK, 1, 0, 0);
-			}
 			if(this.numberItem >= 0) {
-				numberItemFont.drawStringShadow(this.x+37*Mideas.getDisplayXFactor()-this.numberItemStringWidth, this.y+16*Mideas.getDisplayYFactor(), this.numberItemString, Color.WHITE, Color.BLACK, 1, 0, 0);
+				numberItemFont.drawStringShadow(this.x+40*Mideas.getDisplayXFactor()-this.numberItemStringWidth, this.y+16*Mideas.getDisplayYFactor(), this.numberItemString, Color.WHITE, Color.BLACK, 1, 0, 0);
 			}
 			if(this.shortcut.getShortcutType() == ShortcutType.STUFF && !this.itemIsInBag && !this.itemIsEquipped) {
 				Draw.drawColorQuad(this.x+3, this.y+1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), BACKGROUND_COLOR);
@@ -197,7 +194,6 @@ public class ButtonSpellbar {
 		int x = keyBindFont.getWidth("...");
 		while(i < bind.length()) {
 			x+= keyBindFont.getWidth(bind.charAt(i));
-			System.out.println(x+" "+bind.charAt(i));
 			if(x >= 45*Mideas.getDisplayXFactor()) {
 				if(i >= 1) {
 					return bind.substring(0, i-1)+"...";
@@ -224,9 +220,7 @@ public class ButtonSpellbar {
 			return;
 		}
 		if(this.shortcut.getShortcutType() == ShortcutType.POTION) {
-			this.numberItem = ((PotionShortcut)this.shortcut).getPotion().getAmount();
-			this.numberItemString = ((PotionShortcut)this.shortcut).getPotion().getAmountString();
-			this.numberItemStringWidth = numberItemFont.getWidth(this.numberItemString);
+			setNumberItem(Mideas.joueur1().bag().getNumberItemInBags(this.shortcut.getId()));
 			return;
 		}
 	}
@@ -246,8 +240,18 @@ public class ButtonSpellbar {
 		return null;
 	}
 	
+	public void setNumberItem(int number) {
+		this.numberItem = number;
+		this.numberItemString = Integer.toString(number);
+		this.numberItemStringWidth = numberItemFont.getWidth(this.numberItemString);
+	}
+	
 	public void setItemIsEquipped(boolean we) {
 		this.itemIsEquipped = we;
+	}
+	
+	public void setIsInBag(boolean we) {
+		this.itemIsInBag = we;
 	}
 	
 	public Shortcut getShortcut() {

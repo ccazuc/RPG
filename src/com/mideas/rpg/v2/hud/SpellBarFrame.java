@@ -416,8 +416,41 @@ public class SpellBarFrame {
 		}
 	}*/
 	
+	public static void loadEquippedItems() {
+		int i = 0;
+		while(i < buttonList.length) {
+			if(buttonList[i] == null) {
+				i++;
+				continue;
+			}
+			if(buttonList[i].getShortcut() == null) {
+				i++;
+				continue;
+			}
+			if(buttonList[i].getShortcut().getShortcutType() == ShortcutType.STUFF || buttonList[i].getShortcut().getShortcutType() == ShortcutType.POTION) {
+				buttonList[i].setItemIsEquipped(isEquippedItem(buttonList[i].getShortcut().getItem().getId()));
+				buttonList[i].setIsInBag(isInBag(buttonList[i].getShortcut().getItem().getId()));
+				if(buttonList[i].getShortcut().getShortcutType() == ShortcutType.POTION) {
+					buttonList[i].setNumberItem(Mideas.joueur1().bag().getNumberItemInBags(buttonList[i].getShortcut().getId()));
+				}
+			}
+			i++;
+		}
+	}
+	
 	public static boolean getHoverSpellBar(int i) {
 		return hoveredSlot == i;
+	}
+	
+	public static boolean isInBag(int id) {
+		int i = 0;
+		while(i < Mideas.joueur1().bag().getBag().length) {
+			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == id) {
+				return true;
+			}
+			i++;
+		}
+		return false;
 	}
 	
 	public static boolean isEquippedItem(int id) {

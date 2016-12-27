@@ -233,7 +233,7 @@ public class Profession {
 		}
 	}
 	
-	private int calculateCategoryOffset() {
+	/*private int calculateCategoryOffset() {
 		int i = 0;
 		int value = 0;
 		while(i < this.categoryList.size() && value < this.y_offset) {
@@ -260,7 +260,7 @@ public class Profession {
 			j++;
 		}
 		return j;
-	}
+	}*/
 	
 	public void event(int x, int y) {
 		if(!this.init) {

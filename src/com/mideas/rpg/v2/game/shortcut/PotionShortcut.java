@@ -55,7 +55,8 @@ public class PotionShortcut implements Shortcut {
 		return this.potion.getId();
 	}
 	
-	public Potion getPotion() {
+	@Override
+	public Potion getItem() {
 		return this.potion;
 	}
 	

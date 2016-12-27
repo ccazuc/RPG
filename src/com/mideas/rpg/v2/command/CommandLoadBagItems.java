@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
+import com.mideas.rpg.v2.hud.SpellBarFrame;
 
 public class CommandLoadBagItems extends Command {
 
@@ -26,6 +27,8 @@ public class CommandLoadBagItems extends Command {
 			loadItem();
 			i++;
 		}
+		Mideas.joueur1().bag().updateBagItem();
+		SpellBarFrame.loadEquippedItems();
 	}
 	
 	private static void loadItem() {

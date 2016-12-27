@@ -37,7 +37,6 @@ import com.mideas.rpg.v2.game.item.container.ContainerManager;
 import com.mideas.rpg.v2.game.item.potion.PotionManager;
 import com.mideas.rpg.v2.game.item.shop.Shop;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
-import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.task.TaskManager;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;

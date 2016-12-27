@@ -102,7 +102,8 @@ public class StuffShortcut implements Shortcut {
 	public void setCd(int id, int cd) {
 	}
 	
-	public Stuff getStuff() {
+	@Override
+	public Stuff getItem() {
 		return this.stuff;
 	}
 	
