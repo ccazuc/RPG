@@ -210,11 +210,11 @@ public class FriendsFrame {
 			}
 			font.drawEnd();
 			y = Y_SOCIAL_FRAME+82*Mideas.getDisplayYFactor();
-			System.out.println(hoveredFriend+" "+selectedFriend);
-			if(hoveredFriend != -1 && hoveredFriend >= iOffset && hoveredFriend <= iOffset+IL_MAXIMUM_DISPLAY) {
+			//System.out.println(hoveredFriend+" "+selectedFriend+" "+iOffset);
+			if(hoveredFriend != -1 && hoveredFriend >= iOffset && hoveredFriend < iOffset+FL_MAXIMUM_DISPLAY) {
 				Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), y+(hoveredFriend-iOffset)*yShift, 335*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
 			}
-			if(selectedFriend != -1 && hoveredFriend != selectedFriend && selectedFriend >= iOffset && selectedFriend < iOffset+IL_MAXIMUM_DISPLAY) {
+			if(selectedFriend != -1 && hoveredFriend != selectedFriend && selectedFriend >= iOffset && selectedFriend < iOffset+FL_MAXIMUM_DISPLAY) {
 				Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), y+(selectedFriend-iOffset)*yShift, 335*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
 			}
 			//Mideas.nTime(timer, "Friendlist text draw time");
@@ -266,19 +266,22 @@ public class FriendsFrame {
 		if(ignoreFrameTab.event()) return true;
 		if(friend_tab_active) {
 			hoveredFriend = -1;
-			int i = 0;
+			int iOffset = 0;
 			final int FL_SIZE = Mideas.joueur1().getFriendList().size();
 			if(FL_SIZE > 10) {
-				friendScrollbar.draw();
-				i = (int)((FL_SIZE-FL_MAXIMUM_DISPLAY)*friendScrollbar.getScrollPercentage());
+				friendScrollbar.event();
+				iOffset = (int)((FL_SIZE-FL_MAXIMUM_DISPLAY)*friendScrollbar.getScrollPercentage());
+				//System.out.println("Offset : "+i);
 			}
+			int i = iOffset;
 			float y = Y_SOCIAL_FRAME+80*Mideas.getDisplayYFactor();
 			float yShift = 32*Mideas.getDisplayYFactor();
-			while(i < Mideas.joueur1().getFriendList().size()) {
-				if(isHover(y+i*yShift)) {
+			while(i < iOffset+FL_MAXIMUM_DISPLAY) {
+				if(isHover(y)) {
 					hoveredFriend = i;
 					break;
 				}
+				y+= yShift;
 				i++;
 			}
 			if(hoveredFriend != -1) {
@@ -302,9 +305,6 @@ public class FriendsFrame {
 			addFriendButton.event();
 			sendMessageFriendButton.event();
 			invInParty.event();
-			if(Mideas.joueur1().getFriendList().size() > FL_MAXIMUM_DISPLAY) {
-				friendScrollbar.event();
-			}
 		}
 		else {
 			int i = 0;

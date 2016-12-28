@@ -19,9 +19,9 @@ public class CommandWho extends Command {
 			}
 			String name = ConnectionManager.getConnection().readString();
 			String guildName = ConnectionManager.getConnection().readString();
-			Race race = Race.values()[ConnectionManager.getConnection().readChar()];
+			Race race = Race.values()[ConnectionManager.getConnection().readByte()];
 			int level = ConnectionManager.getConnection().readInt();
-			ClassType classe = ClassType.values()[ConnectionManager.getConnection().readChar()];
+			ClassType classe = ClassType.values()[ConnectionManager.getConnection().readByte()];
 			WhoFrame.addToList(new WhoUnit(id, name, guildName, level, classe, race));
 		}
 	}

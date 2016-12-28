@@ -132,7 +132,7 @@ public class GuildFrame {
 	final static DropDownMenu manageRankDropDownMenu = new DropDownMenu(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor(), 13, .6f) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void menuEventButtonClick() {
 			selectedRank.resetTempRank();
 			selectedRank = Mideas.joueur1().getGuild().getRankList().get(this.selectedMenuValue);
 			rankNameEditBox.setText(selectedRank.getName());

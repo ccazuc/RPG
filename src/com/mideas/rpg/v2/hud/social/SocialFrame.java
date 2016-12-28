@@ -12,7 +12,7 @@ import com.mideas.rpg.v2.utils.CrossButton;
 public class SocialFrame {
 
 	static SocialFrameMenu selectedMenu = SocialFrameMenu.FRIEND_FRAME;
-	private static int Y_SOCIAL_FRAME_DEFAULT = 115;
+	private static int Y_SOCIAL_FRAME_DEFAULT = 114;
 	public static float Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
 	private static int X_SOCIAL_FRAME_DEFAULT = 5;
 	public static float X_SOCIAL_FRAME = X_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayXFactor();

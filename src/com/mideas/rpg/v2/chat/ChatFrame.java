@@ -30,7 +30,6 @@ public class ChatFrame {
 	private static Color selectedColors = new Color(1, 1, 1, .5f); 
 	private static int defaultHeight = Display.getHeight()-285;
 	private static MessageType selectedType = MessageType.SAY;
-	private final static int NUMBER_LAST_MESSAGE_TAKEN = 100;
 	private final static Color bgColor = new Color(0, 0, 0, 0);
 	private final static float FRAME_MAXIMUM_OPACITY = .35f;
 	private final static int MESSAGE_OPACITY_START_DECREASE_TIMER = 30000;
@@ -119,9 +118,9 @@ public class ChatFrame {
 		}
 		if(messages.size() > MAXIMUM_MESSAGES) {
 			while(messages.size() >= MAXIMUM_MESSAGES) {
+				totalNumberLine-= messages.get(0).getNumberLine();
 				messages.remove(0);
 			}
-			totalNumberLine = getNumberLineLast(NUMBER_LAST_MESSAGE_TAKEN);
 		}
 		int i = 0;
 		yDraw = -totalNumberLine*FontManager.chat.getLineHeight()+Display.getHeight()-175+xShift;
@@ -178,10 +177,10 @@ public class ChatFrame {
 					}
 					int j = 0;
 					if(message.getAuthor() != null) {
-						//if(yDraw >= Display.getHeight()-295-yResize && message.getOpacity() > 0) {
+						if(message.getOpacity() > 0 && yDraw >= Display.getHeight()-310-yResize) {
 							FontManager.chat.drawStringPart(xDraw+1, yDraw, message.getAuthorText(), Color.BLACK, message.getOpacity());
 							FontManager.chat.drawStringPart(xDraw, yDraw, message.getAuthorText(), message.getColor(), message.getOpacity());
-						//}
+						}
 						xDraw+= FontManager.chat.getWidth(message.getAuthorText());
 					}
 					while(j < message.getDrawMessage().length()) {
@@ -189,7 +188,7 @@ public class ChatFrame {
 							yDraw+= FontManager.chat.getLineHeight();
 							xDraw = 50;
 						}
-						if(yDraw >= Display.getHeight()-350-yResize && message.getOpacity() > 0 && yDraw < Display.getHeight()-185) {
+						if(message.getOpacity() > 0 && yDraw >= Display.getHeight()-310-yResize) {
 							FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getDrawMessage().charAt(j), Color.BLACK, message.getOpacity());
 							FontManager.chat.drawCharPart(xDraw, yDraw, message.getDrawMessage().charAt(j), message.getColor(), message.getOpacity());
 						}
@@ -202,7 +201,7 @@ public class ChatFrame {
 					}
 				}
 			i++;
-			if(yDraw > Display.getHeight()-185 || !(i < messages.size())) {
+			if(yDraw >= Display.getHeight()-185 || !(i < messages.size())) {
 				break;
 			}
 			yDraw+= FontManager.chat.getLineHeight();
@@ -215,7 +214,7 @@ public class ChatFrame {
 		}
 	}
 	
-	private static int getNumberLine(Message msg) {
+	/*private static int getNumberLine(Message msg) {
 		int i = 0;
 		int x = FontManager.chat.getWidth(msg.getAuthorText());
 		int number = 1;
@@ -232,7 +231,7 @@ public class ChatFrame {
 			i++;
 		}
 		return number;
-	}
+	}*/
 	
 	public static boolean event() throws NumberFormatException {
 		if(chatActive) {
@@ -666,7 +665,7 @@ public class ChatFrame {
 		return i;
 	}
 	
-	private static int getTotalNumberLine() {
+	/*private static int getTotalNumberLine() {
 		int i = 0;
 		int number = 0;
 		while(i < messages.size()) {
@@ -674,7 +673,7 @@ public class ChatFrame {
 			i++;
 		}
 		return number;
-	}
+	}*/
 	
 	/*private static void addMessage() {
 		String temp = tempMessage;
@@ -699,7 +698,7 @@ public class ChatFrame {
 		//totalNumberLine = getTotalNumberLine();
 		totalNumberLine+= formatMessage(message);
 		//System.out.println(formatMessage(message));
-		System.out.println("Formated : "+message.getDrawMessage());
+		//System.out.println("Formated : "+message.getDrawMessage());
 	}
 	
 	private static int formatMessage(Message message) {
@@ -712,6 +711,10 @@ public class ChatFrame {
 		StringBuilder builder = new StringBuilder();
 		while(i < text.length()) {
 			x+= FontManager.chat.getWidth(text.charAt(i));
+			if(text.charAt(i) == '\n') {
+				line++;
+				x = 0;
+			}
 			//System.out.println("Char : "+text.charAt(i)+" "+x+" "+(maxLength-10));
 			if(x > maxLength-10) {
 				//System.out.println(text.charAt(i));
@@ -720,6 +723,7 @@ public class ChatFrame {
 					builder.append('\n');
 					builder.append(getMessageThreeDots(message.getMessage(), lastSubStr));
 					message.setDrawMessage(builder.toString());
+					message.setNumberLine(line+1);
 					return line+1;
 				}
 				String subStr = text.substring(lastSubStr, previousSpace);
@@ -735,6 +739,7 @@ public class ChatFrame {
 					}
 					builder.append(getMessageThreeDots(message.getMessage(), lastSubStr));
 					message.setDrawMessage(builder.toString());
+					message.setNumberLine(line);
 					return line;
 				}
 				builder.append(subStr);
@@ -754,6 +759,7 @@ public class ChatFrame {
 			builder.append(text.substring(lastSubStr));
 		}
 		message.setDrawMessage(builder.toString());
+		message.setNumberLine(line);
 		return line;
 	}
 	
@@ -781,7 +787,7 @@ public class ChatFrame {
 		return -1;
 	}
 	
-	private static int getNumberLineLast(int number) {
+	/*private static int getNumberLineLast(int number) {
 		int i = messages.size()-1;
 		int height = 0;
 		while(i > messages.size()-number && i >= 0) {
@@ -789,7 +795,7 @@ public class ChatFrame {
 			i--;
 		}
 		return height;
-	}
+	}*/
 	
 	public static void updateSize() {
 		INPUT_BAR_Y = Display.getHeight()-168;

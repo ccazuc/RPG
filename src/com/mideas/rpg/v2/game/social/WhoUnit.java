@@ -7,10 +7,11 @@ import com.mideas.rpg.v2.utils.Color;
 
 public class WhoUnit {
 
+	private int level;
 	private int id;
 	private String name;
 	private String guildName;
-	private String level;
+	private String levelString;
 	private String classe;
 	private String race;
 	private Color color;
@@ -21,13 +22,18 @@ public class WhoUnit {
 		this.color = Color.convClassTypeToColor(classe);
 		this.race = Joueur.convRaceToString(race);
 		this.guildName = guildName;
-		this.level = Integer.toString(level);
+		this.levelString = Integer.toString(level);
+		this.level = level;
 		this.name = name;
 		this.id = id;
 	}
 	
 	public Color getColor() {
 		return this.color;
+	}
+	
+	public int getLevel() {
+		return this.level;
 	}
 	
 	public int getId() {
@@ -42,8 +48,8 @@ public class WhoUnit {
 		return this.guildName;
 	}
 	
-	public String getLevel() {
-		return this.level;
+	public String getLevelString() {
+		return this.levelString;
 	}
 	
 	public String getClasse() {

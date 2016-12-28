@@ -1,13 +1,5 @@
 package com.mideas.rpg.v2.command;
 
-import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.connection.ConnectionManager;
-import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.item.gem.GemManager;
-import com.mideas.rpg.v2.game.item.stuff.StuffManager;
-import com.mideas.rpg.v2.game.item.stuff.StuffType;
-import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
-
 public class CommandSendEquippedItems extends Command {
 
 	@Override
@@ -97,36 +89,18 @@ public class CommandSendEquippedItems extends Command {
 		ConnectionManager.getConnection().send();
 	}*/
 	
-	private static void sendGemDatas(int slot) {
-	/*	if(Mideas.joueur1().getStuff(slot).getEquippedGem(1) != null && GemManager.exists(Mideas.joueur1().getStuff(slot).getEquippedGem(1).getId())) {
-			ConnectionManager.getConnection().writeInt(Mideas.joueur1().getStuff(slot).getEquippedGem(2).getId());
-		}
-		else {
-			ConnectionManager.getConnection().writeInt(0);
-		}
-		if(Mideas.joueur1().getStuff(slot).getEquippedGem(2) != null && GemManager.exists(Mideas.joueur1().getStuff(slot).getEquippedGem(2).getId())) {
-			ConnectionManager.getConnection().writeInt(Mideas.joueur1().getStuff(slot).getEquippedGem(2).getId());
-		}
-		else {
-			ConnectionManager.getConnection().writeInt(0);
-		}
-		if(Mideas.joueur1().getStuff(slot).getEquippedGem(3) != null && GemManager.exists(Mideas.joueur1().getStuff(slot).getEquippedGem(3).getId())) {
-			ConnectionManager.getConnection().writeInt(Mideas.joueur1().getStuff(slot).getEquippedGem(3).getId());
-		}
-		else {
-			ConnectionManager.getConnection().writeInt(0);
-		}*/
+	/*private static void sendGemDatas(int slot) {
 		sendSingleGemDatas(slot, 1);
 		sendSingleGemDatas(slot, 2);
 		sendSingleGemDatas(slot, 3);
-	}
+	}*/
 	
-	private static void sendSingleGemDatas(int stuffSlot, int gemSlot) {
+	/*private static void sendSingleGemDatas(int stuffSlot, int gemSlot) {
 		if(Mideas.joueur1().getStuff(stuffSlot).getEquippedGem(gemSlot) != null && GemManager.exists(Mideas.joueur1().getStuff(stuffSlot).getEquippedGem(gemSlot).getId())) {
 			ConnectionManager.getConnection().writeInt(Mideas.joueur1().getStuff(stuffSlot).getEquippedGem(gemSlot).getId());
 		}
 		else {
 			ConnectionManager.getConnection().writeInt(0);
 		}
-	}
+	}*/
 }

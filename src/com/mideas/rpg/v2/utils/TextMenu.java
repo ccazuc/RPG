@@ -67,9 +67,6 @@ public class TextMenu {
 	}
 	
 	private void draw(float x, float y) {
-		if(!this.isActive) {
-			return;
-		}
 		if(!activateCondition()) {
 			this.font.drawStringShadow(x+this.textShift, y, this.text, Color.GREY, Color.BLACK, this.shadow_size, 0, 0);
 			return;
@@ -102,9 +99,6 @@ public class TextMenu {
 	}
 	
 	private boolean eventHandler(int x, int y) {
-		if(!this.isActive) {
-			return false;
-		}
 		if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+this.x_size && Mideas.mouseY() >= y && Mideas.mouseY() <= y+this.font.getLineHeight()+1) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
@@ -121,6 +115,7 @@ public class TextMenu {
 			else if(this.buttonDown) {
 				if(Mouse.getEventButton() == 0) {
 					this.buttonDown = false;
+					this.buttonHover = false;
 					eventButtonClick();
 					return true;
 				}
@@ -154,8 +149,16 @@ public class TextMenu {
 		this.y = (int)y;
 	}
 	
+	public int getY() {
+		return this.y;
+	}
+	
 	public void setX(float x) {
 		this.x = (int)x;
+	}
+	
+	public int getX() {
+		return this.x;
 	}
 	
 	public void setWidth(float x_size) {
@@ -168,6 +171,10 @@ public class TextMenu {
 	
 	public void setTextShift(float shift) {
 		this.textShift = (int)shift;
+	}
+	
+	public int getTextShift() {
+		return this.textShift;
 	}
 	
 	public void update(float x, float y, float x_size, float textShift) {

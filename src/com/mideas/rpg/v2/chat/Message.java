@@ -19,6 +19,7 @@ public class Message {
 	private float opacity;
 	private long timer;
 	private long lastSeenTimer;
+	private int numberLine;
 	
 	public Message(String message, boolean displayHour, MessageType type) { //used for self message
 		this.timer = System.currentTimeMillis();
@@ -125,6 +126,14 @@ public class Message {
 			this.authorText = "To ["+this.author+"] : ";
 		}
 		this.opacity = 1;
+	}
+	
+	public int getNumberLine() {
+		return this.numberLine;
+	}
+	
+	public void setNumberLine(int number) {
+		this.numberLine = number;
 	}
 	
 	public float getOpacity() {

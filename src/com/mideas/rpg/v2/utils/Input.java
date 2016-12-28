@@ -112,7 +112,7 @@ public class Input {
 			if(!this.isActive) {
 				return;
 			}
-			if(System.currentTimeMillis()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) {
+			if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) {
 				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y, 6*Mideas.getDisplayXFactor(), this.cursorHeight*Mideas.getDisplayYFactor(), Color.WHITE);
 			}
 		}

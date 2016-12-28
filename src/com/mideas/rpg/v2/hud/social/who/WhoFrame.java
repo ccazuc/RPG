@@ -24,6 +24,7 @@ import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.DropDownMenu;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.ScrollBar;
+import com.mideas.rpg.v2.utils.TextMenu;
 
 public class WhoFrame {
 
@@ -35,7 +36,7 @@ public class WhoFrame {
 	private static int peopleFoundWidth = FontManager.get("FRIZQT", 12).getWidth(numberPeopleFound);
 	private static boolean updateString = true;
 	static WhoSort sorted = WhoSort.NAME_ASCENDING;
-	private static int dropDownMenuValue;
+	static WhoDropDownDisplay dropDownDisplay = WhoDropDownDisplay.AREA;
 	final static ArrayList<WhoUnit> whoList = new ArrayList<WhoUnit>();
 	final static Input input = new Input(FontManager.get("FRIZQT", 13), 255, false, false) {
 		
@@ -52,14 +53,33 @@ public class WhoFrame {
 			return false;
 		}
 	};
-	private final static DropDownMenu dropDownMenu = new DropDownMenu(X_SOCIAL_FRAME+200*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME, +70*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+70*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+50*Mideas.getDisplayYFactor(), 80*Mideas.getDisplayXFactor(), 13, .6f) {
+	private final static DropDownMenu dropDownMenu = new DropDownMenu(X_SOCIAL_FRAME+114*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 115*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+105*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+98*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor(), 13, .6f, 15, true) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void menuEventButtonClick() {
 			if(this.selectedMenuValue == 0) {
-				sortByArea();
+				dropDownDisplay = WhoDropDownDisplay.AREA;
 			}
 			else if(this.selectedMenuValue == 1) {
+				dropDownDisplay = WhoDropDownDisplay.GUILD;
+			}
+			else if(this.selectedMenuValue == 2) {
+				dropDownDisplay = WhoDropDownDisplay.RACE;
+			}
+		}
+		
+		@Override
+		public void barEventButtonClick() {
+			if(dropDownDisplay == WhoDropDownDisplay.AREA) {
+				if(sorted == WhoSort.AREA_ASCENDING) {
+					
+					sorted = WhoSort.AREA_DESCENDING;
+				}
+				else {
+					sorted = WhoSort.AREA_ASCENDING;
+				}
+			}
+			else if(dropDownDisplay == WhoDropDownDisplay.GUILD) {
 				if(sorted == WhoSort.GUILD_ASCENDING) {
 					sortByGuildDescending();
 					sorted = WhoSort.GUILD_DESCENDING;
@@ -69,7 +89,7 @@ public class WhoFrame {
 					sorted = WhoSort.GUILD_ASCENDING;
 				}
 			}
-			else if(this.selectedMenuValue == 2) {
+			else if(dropDownDisplay == WhoDropDownDisplay.RACE) {
 				if(sorted == WhoSort.RACE_ASCENDING) {
 					sortByRaceDescending();
 					sorted = WhoSort.RACE_DESCENDING;
@@ -81,6 +101,9 @@ public class WhoFrame {
 			}
 		}
 	};
+	private final static TextMenu sortByGuild = new TextMenu(0, 0, 0, "Guild", 12, 1);
+	private final static TextMenu sortByArea = new TextMenu(0, 0, 0, "Area", 12, 1);
+	private final static TextMenu sortByRace = new TextMenu(0, 0, 0, "Race", 12, 1);
 	private final static Button updateButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), "Actualise", 12, 1) {
 	
 		@Override
@@ -116,7 +139,7 @@ public class WhoFrame {
 			return selectedUnit != -1 && Mideas.joueur1().canInvitePlayerInParty(whoList.get(selectedUnit).getId());
 		}
 	};
-	private final static ButtonMenuSort sortByName = new ButtonMenuSort(X_SOCIAL_FRAME+10*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+70*Mideas.getDisplayYFactor(), 60*Mideas.getDisplayXFactor(), "Name", 12) {
+	private final static ButtonMenuSort sortByName = new ButtonMenuSort(X_SOCIAL_FRAME+19*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor(), "Name", 12) {
 	
 		@Override
 		public void eventButtonClick() {
@@ -130,9 +153,45 @@ public class WhoFrame {
 			}
 		}
 	};
+	private final static ButtonMenuSort dropDownBackground = new ButtonMenuSort(X_SOCIAL_FRAME+112*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 125*Mideas.getDisplayXFactor(), "", 12);
+	private final static ButtonMenuSort sortByLevel = new ButtonMenuSort(X_SOCIAL_FRAME+234*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 40*Mideas.getDisplayXFactor(), "Lvl.", 12) {
+	
+		@Override
+		public void eventButtonClick() {
+			if(sorted == WhoSort.LEVEL_ASCENDING) {
+				sortByLevelDescending();
+				sorted = WhoSort.LEVEL_DESCENDING;
+			}
+			else {
+				sortByLevelAscending();
+				sorted = WhoSort.LEVEL_ASCENDING;
+			}
+		}
+	};
+	private final static ButtonMenuSort sortByClasse = new ButtonMenuSort(X_SOCIAL_FRAME+272*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 80*Mideas.getDisplayXFactor(), "Classe", 12) {
+		
+		@Override
+		public void eventButtonClick() {
+			if(sorted == WhoSort.CLASSE_ASCENDING) {
+				sortByClasseDescending();
+				sorted = WhoSort.CLASSE_DESCENDING;
+			}
+			else {
+				sortByClasseAscending();
+				sorted = WhoSort.CLASSE_ASCENDING;
+			}
+		}
+	};
 	private final static ScrollBar scrollBar = new ScrollBar(X_SOCIAL_FRAME+357*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 290*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 290*Mideas.getDisplayYFactor(), false, 20*Mideas.getDisplayYFactor());
+	private static boolean initDropDownMenu;
 	
 	public static void draw() {
+		if(!initDropDownMenu) {
+			dropDownMenu.addMenu(sortByArea);
+			dropDownMenu.addMenu(sortByGuild);
+			dropDownMenu.addMenu(sortByRace);
+			initDropDownMenu = true;
+		}
 		if(updateString) {
 			if(whoList.size() > 1) {
 				numberPeopleFound = whoList.size()+" players found";
@@ -148,10 +207,13 @@ public class WhoFrame {
 		updateButton.draw();
 		addFriendButton.draw();
 		inviteButton.draw();
-		dropDownMenu.draw();
 		sortByName.draw();
+		sortByLevel.draw();
+		sortByClasse.draw();
 		FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+200*Mideas.getDisplayXFactor()-peopleFoundWidth/2, Y_SOCIAL_FRAME+392*Mideas.getDisplayYFactor(), numberPeopleFound, Color.YELLOW, Color.BLACK, 1, 0, 0);
-		if(!(whoList.size() > 0)) {
+		if(whoList.size() == 0) {
+			dropDownBackground.draw();
+			dropDownMenu.draw();
 			return;
 		}
 		int i = 0;
@@ -168,16 +230,16 @@ public class WhoFrame {
 		while(i < whoList.size()) {
 			WhoUnit unit = whoList.get(i);
 			font.drawStringShadowPart(X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
-			if(dropDownMenuValue == 0) {
+			if(dropDownDisplay == WhoDropDownDisplay.AREA) {
 				font.drawStringShadowPart(X_SOCIAL_FRAME+140*Mideas.getDisplayXFactor(), y+yShiftHeight, "Area", Color.WHITE, Color.BLACK, 1, 0, 0);
 			}
-			else if(dropDownMenuValue == 1) {
+			else if(dropDownDisplay == WhoDropDownDisplay.GUILD) {
 				font.drawStringShadowPart(X_SOCIAL_FRAME+140*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getGuildName(), Color.WHITE, Color.BLACK, 1, 0, 0);
 			}
-			else if(dropDownMenuValue == 2) {
+			else if(dropDownDisplay == WhoDropDownDisplay.RACE) {
 				font.drawStringShadowPart(X_SOCIAL_FRAME+140*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getRace(), Color.WHITE, Color.BLACK, 1, 0, 0);
 			}
-			font.drawStringShadowPart(X_SOCIAL_FRAME+230*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getLevel(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+			font.drawStringShadowPart(X_SOCIAL_FRAME+230*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getLevelString(), Color.WHITE, Color.BLACK, 1, 0, 0);
 			font.drawStringShadowPart(X_SOCIAL_FRAME+310*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getClasse(), unit.getColor(), Color.BLACK, 1, 0, 0);
 			yShiftHeight+= yShift;
 			if(yShiftHeight >= 280*Mideas.getDisplayYFactor()) {
@@ -199,7 +261,9 @@ public class WhoFrame {
 		}
 		if(selectedUnit != -1 && selectedUnit != hoveredUnit && selectedUnit >= iOffset && selectedUnit < iOffset+MAXIMUM_UNIT_DISPLAYED) {
 			Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+25*Mideas.getDisplayXFactor(), y+(selectedUnit-iOffset)*yShift, width, 17*Mideas.getDisplayYFactor());
-		}	
+		}
+		dropDownBackground.draw();
+		dropDownMenu.draw();	
 	}
 	
 	public static boolean mouseEvent() {
@@ -207,6 +271,9 @@ public class WhoFrame {
 		if(addFriendButton.event()) return true;
 		if(inviteButton.event()) return true;
 		if(sortByName.event()) return true;
+		if(sortByLevel.event()) return true;
+		if(dropDownMenu.event()) return true;
+		if(sortByClasse.event()) return true;
 		int i = 0;
 		hoveredUnit = -1;
 		if(whoList.size() > MAXIMUM_UNIT_DISPLAYED) {
@@ -332,7 +399,7 @@ public class WhoFrame {
 		while(i < whoList.size()) {
 			j = i;
 			while(j < whoList.size()) {
-				if(whoList.get(i).getLevel().compareTo(whoList.get(j).getLevel()) >= 0) {
+				if(whoList.get(i).getLevel() >= whoList.get(j).getLevel()) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
@@ -350,7 +417,7 @@ public class WhoFrame {
 		while(i < whoList.size()) {
 			j = i;
 			while(j < whoList.size()) {
-				if(whoList.get(i).getLevel().compareTo(whoList.get(j).getLevel()) <= 0) {
+				if(whoList.get(i).getLevel() <= whoList.get(j).getLevel()) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
@@ -397,6 +464,42 @@ public class WhoFrame {
 		}
 	}
 	
+	public static void sortByClasseAscending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getClasse().compareTo(whoList.get(j).getClasse()) >= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	
+	public static void sortByClasseDescending() {
+		int i = 0;
+		int j = 0;
+		WhoUnit tmp;
+		while(i < whoList.size()) {
+			j = i;
+			while(j < whoList.size()) {
+				if(whoList.get(i).getClasse().compareTo(whoList.get(j).getClasse()) <= 0) {
+					tmp = whoList.get(j);
+					whoList.set(j, whoList.get(i));
+					whoList.set(i, tmp);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	
 	public static void clearList() {
 		selectedUnit = -1;
 		whoList.clear();
@@ -404,6 +507,11 @@ public class WhoFrame {
 	}
 	
 	public static void updateSize() {
+		dropDownMenu.update(X_SOCIAL_FRAME+114*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 115*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+105*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+98*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor());
+		dropDownBackground.update(X_SOCIAL_FRAME+112*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 125*Mideas.getDisplayXFactor());
+		sortByClasse.update(X_SOCIAL_FRAME+272*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 80*Mideas.getDisplayXFactor());
+		sortByLevel.update(X_SOCIAL_FRAME+234*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 40*Mideas.getDisplayXFactor());
+		sortByName.update(X_SOCIAL_FRAME+19*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor());
 		scrollBar.update(X_SOCIAL_FRAME+357*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 290*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 290*Mideas.getDisplayYFactor(), 20*Mideas.getDisplayYFactor());
 		updateButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
 		addFriendButton.update(X_SOCIAL_FRAME+119*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
@@ -412,46 +520,11 @@ public class WhoFrame {
 	
 	public static void addToList(WhoUnit unit) {
 		whoList.add(unit);
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
-		whoList.add(new WhoUnit(3, "Test", "GuildTest", 70, ClassType.DRUID, Race.DRAENEI));
+		int i = 0;
+		while(i < 70) {
+			whoList.add(new WhoUnit(3, "Test", "GuildTest", (int)(70*Math.random()), ClassType.DRUID, Race.DRAENEI));
+			i++;
+		}
 		whoList.add(new WhoUnit(3, "END", "EENNDD", 70, ClassType.DRUID, Race.DRAENEI));
 	}
 } 
