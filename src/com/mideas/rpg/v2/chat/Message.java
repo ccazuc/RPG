@@ -6,6 +6,7 @@ import com.mideas.rpg.v2.utils.Color;
 
 public class Message {
 
+	private String drawMessage;
 	private String message;
 	private boolean displayHour;
 	private int hour;
@@ -180,6 +181,14 @@ public class Message {
 	
 	public Color getColor() {
 		return this.color;
+	}
+	
+	public String getDrawMessage() {
+		return this.drawMessage;
+	}
+	
+	public void setDrawMessage(String message) {
+		this.drawMessage = message;
 	}
 
 	private static int getMessageHour(long time) {

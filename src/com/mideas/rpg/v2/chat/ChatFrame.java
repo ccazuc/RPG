@@ -128,9 +128,10 @@ public class ChatFrame {
 		//yDraw = -numberLineLastMessages*TTF2.chat.getLineHeight()+Display.getHeight()-175+xShift;
 		//System.out.println(numberLineLastMessages);
 		xDraw = 40;
+		Draw.glScissorBegin(40, 150, 510+xResize, 130+yResize);
 		FontManager.chat.drawBegin();
 		//long timer = System.nanoTime();
-		while(i < messages.size()) {
+		/*while(i < messages.size()) {
 			xDraw = 40;
 			Message message = messages.get(i);
 			if(yDraw <= Display.getHeight()-185) {
@@ -148,7 +149,7 @@ public class ChatFrame {
 					while(j < message.getMessage().length()) {
 						if(message.getMessage().charAt(j) == '\n') {
 							yDraw+= FontManager.chat.getLineHeight();
-							xDraw = 40;
+							xDraw = 50;
 						}
 						if(yDraw >= Display.getHeight()-280-yResize && message.getOpacity() > 0 && yDraw < Display.getHeight()-185) {
 							FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getMessage().charAt(j), Color.BLACK, message.getOpacity());
@@ -158,7 +159,45 @@ public class ChatFrame {
 						j++;
 						if(xDraw-40 > maxLength-10 && j < message.getMessage().length()) {
 							yDraw+= FontManager.chat.getLineHeight();
-							xDraw = 40;
+							xDraw = 50;
+						}
+					}
+				}
+			i++;
+			if(yDraw > Display.getHeight()-185 || !(i < messages.size())) {
+				break;
+			}
+			yDraw+= FontManager.chat.getLineHeight();
+		}*/
+		while(i < messages.size()) {
+			xDraw = 40;
+			Message message = messages.get(i);
+			if(yDraw <= Display.getHeight()-185) {
+					if(message.getOpacity() > 0 && Mideas.getLoopTickTimer()-message.lastSeenTimer() >= MESSAGE_OPACITY_START_DECREASE_TIMER) {
+						message.decreaseOpacity(-1/(Mideas.FPS*MESSAGE_OPACITY_DECREASE_TIMER/1000f));
+					}
+					int j = 0;
+					if(message.getAuthor() != null) {
+						//if(yDraw >= Display.getHeight()-295-yResize && message.getOpacity() > 0) {
+							FontManager.chat.drawStringPart(xDraw+1, yDraw, message.getAuthorText(), Color.BLACK, message.getOpacity());
+							FontManager.chat.drawStringPart(xDraw, yDraw, message.getAuthorText(), message.getColor(), message.getOpacity());
+						//}
+						xDraw+= FontManager.chat.getWidth(message.getAuthorText());
+					}
+					while(j < message.getDrawMessage().length()) {
+						if(message.getDrawMessage().charAt(j) == '\n') {
+							yDraw+= FontManager.chat.getLineHeight();
+							xDraw = 50;
+						}
+						if(yDraw >= Display.getHeight()-350-yResize && message.getOpacity() > 0 && yDraw < Display.getHeight()-185) {
+							FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getDrawMessage().charAt(j), Color.BLACK, message.getOpacity());
+							FontManager.chat.drawCharPart(xDraw, yDraw, message.getDrawMessage().charAt(j), message.getColor(), message.getOpacity());
+						}
+						xDraw+= FontManager.chat.getWidth(message.getDrawMessage().charAt(j));
+						j++;
+						if(xDraw-40 > maxLength-10 && j < message.getDrawMessage().length()) {
+							yDraw+= FontManager.chat.getLineHeight();
+							xDraw = 50;
 						}
 					}
 				}
@@ -169,6 +208,7 @@ public class ChatFrame {
 			yDraw+= FontManager.chat.getLineHeight();
 		}
 		FontManager.chat.drawEnd();
+		Draw.glScissorEnd();
 		//System.out.println("ChatDraw took "+(System.nanoTime()-timer)/1000+" µs");
 		if(topArrow) {
 			Draw.drawQuad(Sprites.up_chat_button, 3, Display.getHeight()-236);
@@ -229,8 +269,9 @@ public class ChatFrame {
 					return true;
 				}
 				else if(Keyboard.getEventKey() == Keyboard.KEY_V) { // c/c
-	                write(Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", ""));
-	                cursorPosition+= Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "").length();
+					String cc = Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "");
+					write(cc);
+					cursorPosition+= cc.length();
 					return true;
 	            }
 				else if(Keyboard.getEventKey() == 203) { //left arrow
@@ -300,7 +341,7 @@ public class ChatFrame {
 			if(chatActive) {
 				if(tempMessage.length() != 0) {
 					rawMessages.add(tempMessage);
-					if(!checkNewMessageType(tempMessage) && !ChatCommandManager.chatCommandManager(tempMessage)) {
+					if(!checkNewMessageType(tempMessage) || !ChatCommandManager.chatCommandManager(tempMessage)) {
 						if(selectedType == MessageType.WHISPER) {
 							CommandSendMessage.writeWhisper(tempMessage, currentWhisper.substring(0, currentWhisper.length()-3));
 						}
@@ -365,13 +406,10 @@ public class ChatFrame {
 		}
 		else if(Mideas.getHover() && Mideas.mouseX() >= 535+xResize && Mideas.mouseX() <= 545+xResize && Mideas.mouseY() >= Display.getHeight()-280-yResize && Mideas.mouseY() <= Display.getHeight()-150) {
 			hoverWidthResize = true;
-			Mideas.setHover(false);
 		}
-		else if(Mideas.getHover() && Mideas.mouseX() >= 30 && Mideas.mouseX() <= 540+xResize && Mideas.mouseY() >= Display.getHeight()-280-yResize && Mideas.mouseY() <= Display.getHeight()-165) {
-			if(!hoverChatFrame) {
-				lastHoverChatFrame = Mideas.getLoopTickTimer();
-				hoverChatFrame = true;
-			}
+		else if(Mideas.mouseX() >= 30 && Mideas.mouseX() <= 545+xResize && Mideas.mouseY() >= Display.getHeight()-280-yResize && Mideas.mouseY() <= Display.getHeight()-165) {
+			lastHoverChatFrame = Mideas.getLoopTickTimer();
+			hoverChatFrame = true;
 		}
 		else {
 			hoverChatFrame = false;
@@ -434,15 +472,15 @@ public class ChatFrame {
 						}
 						x+= FontManager.chat.getWidth(message.getAuthorText());
 					}
-					while(j < message.getMessage().length()) {
-						if(message.getMessage().charAt(j) == '\n') {
+					while(j < message.getDrawMessage().length()) {
+						if(message.getDrawMessage().charAt(j) == '\n') {
 							y+= FontManager.chat.getLineHeight();
-							x = 40;
+							x = 50;
 						}
-						x+= FontManager.chat.getWidth(message.getMessage().charAt(j));
-						if(x-40 > maxLength-10 && j < message.getMessage().length()) {
+						x+= FontManager.chat.getWidth(message.getDrawMessage().charAt(j));
+						if(x-40 > maxLength-10 && j < message.getDrawMessage().length()) {
 							y+= FontManager.chat.getLineHeight();
-							x = 40;
+							x = 50;
 						}
 						j++;
 					}
@@ -455,9 +493,6 @@ public class ChatFrame {
 				}
 			}
 		}
-		else {
-			hoverChatFrame = false;
-		}
 		int maxResize = 1200;
 		if(allResizing) {
 			if(Mideas.mouseY() >= defaultHeight-maxResize && Mideas.mouseY() <= defaultHeight) {
@@ -466,7 +501,8 @@ public class ChatFrame {
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
 				inputBar.setWidth(510+xResize);
-				totalNumberLine = getTotalNumberLine();
+				updateDrawMessage();
+				//totalNumberLine = getTotalNumberLine();
 			}
 		}
 		else if(heightResizing) {
@@ -478,7 +514,8 @@ public class ChatFrame {
 			if(Mideas.mouseX() >= defaultWidth && Mideas.mouseX() <= defaultWidth+maxResize) {
 				xResize = Mideas.mouseX()-defaultWidth;
 				inputBar.setWidth(510+xResize);
-				totalNumberLine = getTotalNumberLine();
+				updateDrawMessage();
+				//totalNumberLine = getTotalNumberLine();
 			}
 		}
 		if(Mouse.getEventButton() == 0) {
@@ -648,9 +685,100 @@ public class ChatFrame {
 		}
 	}*/
 	
+	private static void updateDrawMessage() {
+		int i = 0;
+		totalNumberLine = 0;
+		while(i < messages.size()) {
+			totalNumberLine+= formatMessage(messages.get(i));
+			i++;
+		}
+	}
+	
 	public static void addMessage(Message message) {
 		messages.add(message);
-		totalNumberLine = getTotalNumberLine();
+		//totalNumberLine = getTotalNumberLine();
+		totalNumberLine+= formatMessage(message);
+		//System.out.println(formatMessage(message));
+		System.out.println("Formated : "+message.getDrawMessage());
+	}
+	
+	private static int formatMessage(Message message) {
+		String text = message.getMessage();
+		//System.out.println("Raw : "+text);
+		int i = 0;
+		int lastSubStr = 0;
+		int line = 1;
+		int x = FontManager.chat.getWidth(message.getAuthorText());
+		StringBuilder builder = new StringBuilder();
+		while(i < text.length()) {
+			x+= FontManager.chat.getWidth(text.charAt(i));
+			//System.out.println("Char : "+text.charAt(i)+" "+x+" "+(maxLength-10));
+			if(x > maxLength-10) {
+				//System.out.println(text.charAt(i));
+				int previousSpace = checkPreviousSpace(message.getMessage(), i, lastSubStr);
+				if(previousSpace == -1) {
+					builder.append('\n');
+					builder.append(getMessageThreeDots(message.getMessage(), lastSubStr));
+					message.setDrawMessage(builder.toString());
+					return line+1;
+				}
+				String subStr = text.substring(lastSubStr, previousSpace);
+				lastSubStr = previousSpace;
+				//System.out.println("SubStr : "+subStr+" "+FontManager.chat.getWidth(subStr)+" "+subStr.length());
+				if(FontManager.chat.getWidth(subStr) > maxLength-10 || subStr.length() == 0 || subStr.equals(' ')) {
+					//System.out.println("SubSequence : "+builder.subSequence(lastSubStr-1, lastSubStr)+" "+builder.subSequence(lastSubStr, lastSubStr+1));
+					String tmp = builder.toString();
+					//System.out.println((tmp.charAt(lastSubStr) == '\n')+" "+(tmp.charAt(lastSubStr-1) == '\n')+" "+(tmp.charAt(lastSubStr+1) == '\n'));
+					if(tmp.charAt(lastSubStr) != '\n' && tmp.charAt(lastSubStr+1) != '\n') {
+						builder.append('\n');
+						line++;
+					}
+					builder.append(getMessageThreeDots(message.getMessage(), lastSubStr));
+					message.setDrawMessage(builder.toString());
+					return line;
+				}
+				builder.append(subStr);
+				//System.out.println("Previous space : "+previousSpace+"  "+i+" "+text.length());
+				if(previousSpace != text.length()) {
+					builder.append('\n');
+					line++;
+				}
+				x = FontManager.chat.getWidth(text.substring(previousSpace, i));
+			}
+			i++;
+		}
+		if(line == 1) {
+			builder.append(text);
+		}
+		else if(lastSubStr != text.length()) {
+			builder.append(text.substring(lastSubStr));
+		}
+		message.setDrawMessage(builder.toString());
+		return line;
+	}
+	
+	private static String getMessageThreeDots(String message, int index) {
+		int i = index;
+		int x = 5+FontManager.chat.getWidth("...");
+		while(i < message.length()) {
+			x+= FontManager.chat.getWidth(message.charAt(i));
+			if(x >= maxLength-10) {
+				return message.substring(index, i-1)+"...";
+			}
+			i++;
+		}
+		return message;
+	}
+	
+	private static int checkPreviousSpace(String message, int index, int lastSubStr) {
+		int i = index;
+		while(i >= lastSubStr) {
+			if(message.charAt(i) == ' ') {
+				return i;
+			}
+			i--;
+		}
+		return -1;
 	}
 	
 	private static int getNumberLineLast(int number) {

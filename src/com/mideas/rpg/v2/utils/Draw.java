@@ -1,9 +1,5 @@
 package com.mideas.rpg.v2.utils;
 
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glLineWidth;
-import static org.lwjgl.opengl.GL11.glPointSize;
-import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import org.lwjgl.opengl.GL11;
 
@@ -11,6 +7,11 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.OpenGL;
 import com.mideas.rpg.v2.utils.Color;
 
+import static org.lwjgl.opengl.GL11.glScissor;
+import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glLineWidth;
+import static org.lwjgl.opengl.GL11.glPointSize;
+import static org.lwjgl.opengl.GL11.glVertex2f;
 import static org.lwjgl.opengl.GL11.glVertex2d;
 import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glColor4f;
@@ -19,6 +20,7 @@ import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL14.glBlendFuncSeparate;
 import static org.lwjgl.opengl.GL20.glBlendEquationSeparate;
+import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 import static org.lwjgl.opengl.GL14.GL_FUNC_ADD;
 import static org.lwjgl.opengl.GL11.GL_DST_COLOR;
 import static org.lwjgl.opengl.GL11.GL_LINE_SMOOTH;
@@ -40,6 +42,15 @@ public final class Draw {
 	
 	public final static void drawEnd() {
 		glEnd();
+	}
+	
+	public final static void glScissorBegin(final float x, final float y, final float width, final float height) {
+		glEnable(GL_SCISSOR_TEST);
+		glScissor((int)x, (int)y, (int)width, (int)height);
+	}
+	
+	public final static void glScissorEnd() {
+		glDisable(GL_SCISSOR_TEST);
 	}
 	
 	public final static void drawColorQuad(final float x, final float y, final float width, final float height, final Color Colors) {
