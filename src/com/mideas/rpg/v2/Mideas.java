@@ -267,21 +267,21 @@ public class Mideas {
 	private static void updateDisplayFactor() {
 		displayXFactor = Display.getWidth()/1920f;
 		displayYFactor = Display.getHeight()/1018f;
-		LoginScreen.updateSize();
-		SelectScreen.updateSize();
-		DragManager.updateSize();
-		AdminPanelFrame.updateSize();
-		CharacterFrame.updateSize();
-		SocketingFrame.updateSize();
-		EscapeFrame.updateSize();
-		TradeFrame.updateSize();
-		RealmListFrame.updateSize();
-		SocialFrame.updateSize();
-		PartyFrame.updateSize();
-		ChatFrame.updateSize();
-		PerformanceBarFrame.updateSize();
-		PopupFrame.updateSize();
-		SpellBarFrame.updateSize();
+		LoginScreen.shouldUpdate();
+		SelectScreen.shouldUpdate();
+		DragManager.shouldUpdate();
+		AdminPanelFrame.shouldUpdate();
+		CharacterFrame.shouldUpdate();
+		SocketingFrame.shouldUpdate();
+		EscapeFrame.shouldUpdate();
+		TradeFrame.shouldUpdate();
+		RealmListFrame.shouldUpdate();
+		SocialFrame.shouldUpdate();
+		PartyFrame.shouldUpdate();
+		ChatFrame.shouldUpdate();
+		PerformanceBarFrame.shouldUpdate();
+		PopupFrame.shouldUpdate();
+		SpellBarFrame.shouldUpdate();
 		if(joueur1 != null) {
 			if(joueur1.getFirstProfession() != null) {
 				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);

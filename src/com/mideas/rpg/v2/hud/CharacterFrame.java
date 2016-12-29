@@ -19,6 +19,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class CharacterFrame {
 
+	private static boolean shouldUpdateSize;
 	private static Color bgColor = new Color(0, 0, 0, .6f); 
 	private static Color borderColor = Color.decode("#494D4B");
 	private static int hover = -1;
@@ -41,6 +42,7 @@ public class CharacterFrame {
 	};
 
 	public static void draw() {
+		updateSize();
 		Draw.drawQuad(Sprites.character_frame, Display.getWidth()/2-300*Mideas.getDisplayXFactor()+gemFrame+xMouseShift, Display.getHeight()/2-380*Mideas.getDisplayYFactor()+yMouseShift);
 		closeFrameButton.draw();
 		/*Draw.drawQuad(Sprites.character_frame_stats, Display.getWidth()/2-224+xMouseShift+gemFrame, Display.getHeight()/2-60+yMouseShift);
@@ -390,11 +392,19 @@ public class CharacterFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		if(gemFrame != 0) {
 			gemFrame = 50+(int)(Sprites.socketing_frame.getImageWidth()*Mideas.getDisplayXFactor());
 		}
 		closeFrameButton.update(Display.getWidth()/2+(X_CLOSE_FRAME_BUTTON)*Mideas.getDisplayXFactor()+xMouseShift+gemFrame, Display.getHeight()/2+Y_CLOSE_FRAME_BUTTON*Mideas.getDisplayYFactor()+yMouseShift, CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayXFactor());
 		SocketingFrame.getCrossButton().update(Display.getWidth()/2+66*Mideas.getDisplayXFactor()+xMouseShift, Display.getHeight()/2-365*Mideas.getDisplayYFactor()+yMouseShift, CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayXFactor());
 		SocketingFrame.getButton().update(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), 620*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayXFactor());
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 }

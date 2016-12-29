@@ -28,13 +28,15 @@ public class SpellBarFrame {
 	private final static ButtonSpellbar[] buttonList = new ButtonSpellbar[36];
 	
 	private static String numberFreeSlotBag = "";
-	private static boolean init = false;
+	private static boolean init;
+	private static boolean shouldUpdateSize;
 	
 	public static boolean draw() {
 		if(!init) {
 			createSpellbarButton();
 			init = true;
 		}
+		updateSize();
 		/*if(DragManager.isSpellBarHover()) {
 			hoveredSlot = -1;
 		}*/
@@ -347,6 +349,9 @@ public class SpellBarFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		if(!init) {
 			createSpellbarButton();
 			init = true;
@@ -365,6 +370,11 @@ public class SpellBarFrame {
 				y-= 61*Mideas.getDisplayYFactor();
 			}
 		}
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	public static ButtonSpellbar[] getButtonList() {

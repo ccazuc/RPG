@@ -12,6 +12,7 @@ import com.mideas.rpg.v2.utils.Tooltip;
 
 public class PerformanceBarFrame {
 	
+	private static boolean shouldUpdateSize;
 	private static boolean hoverPerformanceBar;
 	private static boolean topPerformanceBarActive = true;
 	
@@ -35,6 +36,7 @@ public class PerformanceBarFrame {
 	private static Tooltip tooltip = new Tooltip(Display.getWidth()+x-10, Display.getHeight()+y-10, 270, 350, 0.7f);
 
 	public static void draw() {
+		updateSize();
 		if(hoverPerformanceBar) {
 			tooltip.draw();
 			TTF font = FontManager.get("FRIZQT", 15);
@@ -78,7 +80,15 @@ public class PerformanceBarFrame {
 		return topPerformanceBarActive;
 	}
 	
-	public static void updateSize() { 
+	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		tooltip.updatePosition(Display.getWidth()+x-10, Display.getHeight()+y-10);
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 }

@@ -16,6 +16,7 @@ import com.mideas.rpg.v2.utils.PopupInput;
 
 public class PopupFrame {
 	
+	private static boolean shouldUpdateSize;
 	static PopupType currentPopup;
 	private final static int POPUP_INPUT_WIDTH = 370;
 	static int id;
@@ -171,6 +172,7 @@ public class PopupFrame {
 	};
 	
 	public static void draw() {
+		updateSize();
 		popup.draw();
 		popupInput.draw();
 	}
@@ -265,7 +267,15 @@ public class PopupFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		popup.update(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor());
 		popupInput.update(Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 120*Mideas.getDisplayYFactor());
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 }

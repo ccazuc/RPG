@@ -17,6 +17,7 @@ import com.mideas.rpg.v2.utils.Texture;
 
 public class SocketingFrame {
 
+	private static boolean shouldUpdateSize;
 	static Stuff stuff;
 	static Gem tempGem1;
 	static Gem tempGem2;
@@ -64,6 +65,7 @@ public class SocketingFrame {
 	};
 	
 	public static void draw() {
+		updateSize();
 		Draw.drawQuad(Sprites.socketing_frame, Display.getWidth()/2+xFrame+CharacterFrame.getMouseX(), Display.getHeight()/2+yFrame+CharacterFrame.getMouseY());
 		closeSocketingFrame.draw();
 		putGem.draw();
@@ -205,8 +207,16 @@ public class SocketingFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		yFrame = -380*Mideas.getDisplayYFactor();
 		xFrame = -306*Mideas.getDisplayXFactor();
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	private static void setDraggedItem(int mouse)  {

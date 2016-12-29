@@ -28,6 +28,7 @@ import com.mideas.rpg.v2.utils.TextMenu;
 
 public class WhoFrame {
 
+	private static boolean shouldUpdateSize;
 	private final static int MAXIMUM_UNIT_DISPLAYED = 17;
 	private static int hoveredUnit = -1;
 	static int selectedUnit = -1;
@@ -186,6 +187,7 @@ public class WhoFrame {
 	private static boolean initDropDownMenu;
 	
 	public static void draw() {
+		updateSize();
 		if(!initDropDownMenu) {
 			dropDownMenu.addMenu(sortByArea);
 			dropDownMenu.addMenu(sortByGuild);
@@ -507,6 +509,9 @@ public class WhoFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		dropDownMenu.update(X_SOCIAL_FRAME+114*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 115*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+105*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+98*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor());
 		dropDownBackground.update(X_SOCIAL_FRAME+112*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 125*Mideas.getDisplayXFactor());
 		sortByClasse.update(X_SOCIAL_FRAME+272*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 80*Mideas.getDisplayXFactor());
@@ -516,6 +521,11 @@ public class WhoFrame {
 		updateButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
 		addFriendButton.update(X_SOCIAL_FRAME+119*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
 		inviteButton.update(X_SOCIAL_FRAME+253*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	public static void addToList(WhoUnit unit) {

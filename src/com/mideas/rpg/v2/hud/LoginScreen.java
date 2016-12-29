@@ -19,6 +19,7 @@ import com.mideas.rpg.v2.utils.Input;
 
 public class LoginScreen {
 
+	private static boolean shouldUpdateSize;
 	private final static Input account = new Input(FontManager.get("ARIALN", 21), 50, false, Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor(), true, 24);
 	private final static Input password = new Input(FontManager.get("ARIALN", 16), 19, false, false);
 	private static String passwordText = "";
@@ -79,6 +80,7 @@ public class LoginScreen {
 	private final static String noPassword = "Veuillez saisir votre mot de passe.";
 	
 	public static void draw() {
+		updateSize();
 		Draw.drawQuadBG(Sprites.login_screen);
 		drawPassword();
 		FontManager.get("FRIZQT", 17).drawStringShadow(Display.getWidth()-23*Mideas.getDisplayXFactor()-realmNameWidth, Display.getHeight()/2+325*Mideas.getDisplayYFactor(), realmName, Color.GREY, Color.BLACK, 2, 0, 0);
@@ -215,12 +217,20 @@ public class LoginScreen {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		leaveButton.update(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+426*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
 		connectionButton.update(Display.getWidth()/2-95*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 197*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor());
 		alert.update(Display.getWidth()/2-720*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-60*Mideas.getDisplayYFactor(), 720*Mideas.getDisplayXFactor());
 		account.update(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor());
 		officialWebsiteButton.update(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor());
 		rememberAccountNameCheckBox.update(27*Mideas.getDisplayXFactor(), Display.getHeight()-167*Mideas.getDisplayYFactor(), 22*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	public static Alert getAlert() {

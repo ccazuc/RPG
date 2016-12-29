@@ -11,6 +11,7 @@ import com.mideas.rpg.v2.utils.CrossButton;
 
 public class SocialFrame {
 
+	private static boolean shouldUpdateSize;
 	static SocialFrameMenu selectedMenu = SocialFrameMenu.FRIEND_FRAME;
 	private static int Y_SOCIAL_FRAME_DEFAULT = 114;
 	public static float Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
@@ -79,6 +80,7 @@ public class SocialFrame {
 	private static boolean draw = true;
 	
 	public static void draw() {
+		updateSize();
 		if(selectedMenu == SocialFrameMenu.FRIEND_FRAME) {
 			FriendsFrame.draw();
 		}
@@ -138,6 +140,9 @@ public class SocialFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		Y_SOCIAL_FRAME = Y_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayYFactor();
 		X_SOCIAL_FRAME = X_SOCIAL_FRAME_DEFAULT*Mideas.getDisplayXFactor();
 		friendButtonMenu.update(X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 54*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
@@ -146,9 +151,14 @@ public class SocialFrame {
 		discussionButtonMenu.update(X_SOCIAL_FRAME+194*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 85*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
 		raidButtonMenu.update(X_SOCIAL_FRAME+285*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 49*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor());
 		closeFrame.update(X_SOCIAL_FRAME+370*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor());
-		WhoFrame.updateSize();
-		GuildFrame.updateSize();
-		FriendsFrame.updateSize();
+		WhoFrame.shouldUpdate();
+		GuildFrame.shouldUpdate();
+		FriendsFrame.shouldUpdate();
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	public static void test() {

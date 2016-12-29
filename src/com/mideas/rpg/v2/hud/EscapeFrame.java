@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.utils.Color;
 
 public class EscapeFrame {
 	
+	private static boolean shouldUpdateSize;
 	private final static TTF BUTTON_FONT = FontManager.get("FRIZQT", 14);
 	private static float BUTTON_WIDTH_ANCHOR = -80*Mideas.getDisplayXFactor();
 	private static float BUTTON_HEIGHT_ANCHOR = -263*Mideas.getDisplayYFactor();
@@ -52,6 +53,7 @@ public class EscapeFrame {
 	
 	public static void draw() {
 		//Draw.drawQuad(Sprites.escape_frame, Display.getWidth()/2-Sprites.escape_frame.getImageWidth()*Mideas.getDisplayXFactor()/2, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR-37*Mideas.getDisplayYFactor());
+		updateSize();
 		background.draw();
 		videoButton.drawTexture();
 		soundButton.drawTexture();
@@ -90,6 +92,9 @@ public class EscapeFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		BUTTON_WIDTH_ANCHOR = -80*Mideas.getDisplayXFactor();
 		BUTTON_HEIGHT_ANCHOR = -102*Mideas.getDisplayYFactor();
 		BUTTON_HEIGHT_SHIFT = 24*Mideas.getDisplayYFactor();
@@ -104,5 +109,10 @@ public class EscapeFrame {
 		logoutButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+5*BUTTON_HEIGHT_SHIFT, BUTTON_WIDTH, BUTTON_HEIGHT);
 		leaveButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+6*BUTTON_HEIGHT_SHIFT, BUTTON_WIDTH, BUTTON_HEIGHT);
 		returnButton.update(Display.getWidth()/2+BUTTON_WIDTH_ANCHOR, Display.getHeight()/2+BUTTON_HEIGHT_ANCHOR+7*BUTTON_HEIGHT_SHIFT+23*Mideas.getDisplayXFactor(), BUTTON_WIDTH, BUTTON_HEIGHT);
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 }

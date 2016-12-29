@@ -24,6 +24,7 @@ import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;
 
 public class FriendsFrame {
 
+	private static boolean shouldUpdateSize;
 	static int selectedFriend = -1;
 	static int selectedIgnore = -1;
 	private static int hoveredFriend = -1;
@@ -117,6 +118,7 @@ public class FriendsFrame {
 	private final static ScrollBar ignoreScrollbar = new ScrollBar(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+77*Mideas.getDisplayYFactor(), 341*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 350*Mideas.getDisplayYFactor(), false, 17.6f*Mideas.getDisplayYFactor());
 
 	public static void draw() {
+		updateSize();
 		if(friend_tab_active) {
 			if(!friendInit && Mideas.joueur1().getFriendList().size() > 0) {
 				selectedFriend = 0;
@@ -161,7 +163,7 @@ public class FriendsFrame {
 					break;
 				}
 			}*/
-			long timer = System.nanoTime();
+			//long timer = System.nanoTime();
 			TTF font = FontManager.get("FRIZQT", 15);
 			font.drawBegin();
 			while(i < iOffset+FL_MAXIMUM_DISPLAY) {
@@ -363,6 +365,9 @@ public class FriendsFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		deleteFriendButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
 		addFriendButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
 		sendMessageFriendButton.update(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
@@ -373,5 +378,10 @@ public class FriendsFrame {
 		removeIgnorePlayer.update(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor(), IGNORE_BUTTON_LENGTH*Mideas.getDisplayXFactor(), IGNORE_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
 		friendScrollbar.update(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+77*Mideas.getDisplayYFactor(), 311*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 307*Mideas.getDisplayYFactor(), 32*Mideas.getDisplayYFactor());
 		ignoreScrollbar.update(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+77*Mideas.getDisplayYFactor(), 341*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 350*Mideas.getDisplayYFactor(), 17.6f*Mideas.getDisplayYFactor());
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 }

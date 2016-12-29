@@ -17,6 +17,7 @@ import com.mideas.rpg.v2.utils.TooltipMenu;
 
 public class PartyFrame {
 
+	private static boolean shouldUpdateSize;
 	private final static Color backgroundColors = new Color(0, 0, 0, .4f);
 	private static int hoveredMember = -1;
 	private static float hoveredMemberX;
@@ -85,67 +86,70 @@ public class PartyFrame {
  	};
 	
 	public static void draw() {
-		if(Mideas.joueur1().getParty() != null) {
-			float y = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
-			float yShift = 60*Mideas.getDisplayYFactor();
-			int i = 0;
-			while(i < Mideas.joueur1().getParty().getMemberList().length) {
-				if(Mideas.joueur1().getParty().getPartyMember(i) != null) {
-					drawPortraitFrame(Mideas.joueur1().getParty().getPartyMember(i), 50*Mideas.getDisplayXFactor(), y+i*yShift);
-				}
-				i++;
+		if(Mideas.joueur1().getParty() == null) {
+			return;
+		}
+		updateSize();
+		float y = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
+		float yShift = 60*Mideas.getDisplayYFactor();
+		int i = 0;
+		while(i < Mideas.joueur1().getParty().getMemberList().length) {
+			if(Mideas.joueur1().getParty().getPartyMember(i) != null) {
+				drawPortraitFrame(Mideas.joueur1().getParty().getPartyMember(i), 50*Mideas.getDisplayXFactor(), y+i*yShift);
 			}
-			if(displayMember != -1) {
-				menuTooltip.draw();
-			}
+			i++;
+		}
+		if(displayMember != -1) {
+			menuTooltip.draw();
 		}
 	}
 	
 	public static boolean mouseEvent() {
-		if(Mideas.joueur1().getParty() != null) {
-			hoveredMember = -1;
-			if(isHoverPartyFrame()) {
-				int i = 0;
-				float x = 50;
-				float y = -300;
-				float yShift = 60;
-				while(i < Mideas.joueur1().getParty().getMemberList().length) {
-					if(Mideas.joueur1().getParty().getPartyMember(i) != null && isHoverMember(x*Mideas.getDisplayXFactor(), Display.getHeight()/2+y*Mideas.getDisplayYFactor()+i*yShift*Mideas.getDisplayYFactor())) {
-						hoveredMember = i;
-						hoveredMemberX = x;
-						hoveredMemberY = y+i*yShift;
-						break;
+		if(Mideas.joueur1().getParty() == null) {
+			return false;
+		}
+		hoveredMember = -1;
+		if(isHoverPartyFrame()) {
+			int i = 0;
+			float x = 50;
+			float y = -300;
+			float yShift = 60;
+			while(i < Mideas.joueur1().getParty().getMemberList().length) {
+				if(Mideas.joueur1().getParty().getPartyMember(i) != null && isHoverMember(x*Mideas.getDisplayXFactor(), Display.getHeight()/2+y*Mideas.getDisplayYFactor()+i*yShift*Mideas.getDisplayYFactor())) {
+					hoveredMember = i;
+					hoveredMemberX = x;
+					hoveredMemberY = y+i*yShift;
+					break;
+				}
+				i++;
+			}
+		}
+		if(displayMember != -1) {
+			menuTooltip.event();
+		}
+		if(!Mouse.getEventButtonState()) {
+			if(Mouse.getEventButton() == 1) {
+				if(hoveredMember != -1) {
+					displayMember = hoveredMember;
+					displayMemberX = hoveredMemberX;
+					displayMemberY = hoveredMemberY;
+					if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
+						setTooltipLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 140*Mideas.getDisplayXFactor());
+						menuTooltip.setActive(true);
 					}
-					i++;
+					else if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null) {
+						setTooltipNonLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor());
+						menuTooltip.setActive(true);
+					}
+					menuTooltip.setName(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
+				}
+				else if(!isHoverTooltip()) {
+					menuTooltip.setActive(false);
 				}
 			}
-			if(displayMember != -1) {
-				menuTooltip.event();
-			}
-			if(!Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 1) {
-					if(hoveredMember != -1) {
-						displayMember = hoveredMember;
-						displayMemberX = hoveredMemberX;
-						displayMemberY = hoveredMemberY;
-						if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
-							setTooltipLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 140*Mideas.getDisplayXFactor());
-							menuTooltip.setActive(true);
-						}
-						else if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null) {
-							setTooltipNonLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor());
-							menuTooltip.setActive(true);
-						}
-						menuTooltip.setName(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
-					}
-					else if(!isHoverTooltip()) {
-						menuTooltip.setActive(false);
-					}
-				}
-				else if(Mouse.getEventButton() == 0) {
-					if(!isHoverTooltip()) {
-						menuTooltip.setActive(false);
-					}
+			else if(Mouse.getEventButton() == 0) {
+				if(!isHoverTooltip()) {
+					menuTooltip.setActive(false);
 				}
 			}
 		}
@@ -189,6 +193,9 @@ public class PartyFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		if(displayMember != -1) {
 			if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
 				setTooltipLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 140*Mideas.getDisplayXFactor());
@@ -196,7 +203,12 @@ public class PartyFrame {
 			else if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null) {
 				setTooltipNonLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor());
 			}
+			shouldUpdateSize = false;
 		}
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	public static void setDisplayMember(int value) {

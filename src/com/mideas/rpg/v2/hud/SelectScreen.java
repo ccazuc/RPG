@@ -30,6 +30,7 @@ import com.mideas.rpg.v2.utils.Input;
 
 public class SelectScreen {
 
+	private static boolean shouldUpdateSize;
 	static boolean creatingCharacter;
 	static boolean deletingCharacter;
 	static boolean characterLoaded;
@@ -167,6 +168,7 @@ public class SelectScreen {
 	};
 
 	public static void draw() {
+		updateSize();
 		if(ConnectionManager.isLoggedOnWorldServer() && !characterLoaded) {
 			loadCharacter();
 			selectedCharacter[0] = true;
@@ -547,6 +549,9 @@ public class SelectScreen {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		newCharacterButton.update(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor(), 278*Mideas.getDisplayXFactor(), 36*Mideas.getDisplayYFactor());
 		acceptCharacterButton.update(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
 		returnCharacterButton.update(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
@@ -557,6 +562,11 @@ public class SelectScreen {
 		confirmDeleteCharacterButton.update(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor());
 		cancelDeleteCharacterButton.update(Display.getWidth()/2+23*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor());
 		changeRealmButton.update(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	public static void resetScreen() {

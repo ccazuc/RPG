@@ -41,6 +41,7 @@ public class ChatFrame {
 	private static String currentWhisper = "";
 	private static int messageShowHeight = 4;
 	private static boolean hoverHeightResize;
+	private static boolean shouldUpdateSize;
 	private static boolean hoverWidthResize;
 	private static long lastKeyPressedTimer;
 	private static String tempMessage = "";
@@ -83,6 +84,7 @@ public class ChatFrame {
 	private static String druid = "Druid";
 
 	public static void draw() {
+		updateSize();
 		messageShowHeight = 4+yResize/FontManager.chat.getLineHeight();
 		maxLength = 490+xResize;
 		Draw.drawColorQuad(30, Display.getHeight()-280-yResize, 510+xResize, 115+yResize, bgColor);
@@ -798,8 +800,16 @@ public class ChatFrame {
 	}*/
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		INPUT_BAR_Y = Display.getHeight()-168;
 		inputBar.setY(INPUT_BAR_Y);
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	public static void clearChat() {

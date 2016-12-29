@@ -17,9 +17,10 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class RealmListFrame {
 
+	private static boolean shouldUpdateSize;
 	private final static Color BG_COLOR = new Color(0, 0, 0, .78f);
-	private static final Color GREEN = Color.decode("#158816");
-	private static ArrayList<WorldServer> realmList = new ArrayList<WorldServer>();
+	private final static Color GREEN = Color.decode("#158816");
+	private final static ArrayList<WorldServer> realmList = new ArrayList<WorldServer>();
 	static WorldServer selectedRealm;
 	private static Button acceptButton = new Button(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 154*Mideas.getDisplayXFactor(), 31*Mideas.getDisplayXFactor(), "OK", 20, 2) {
 		
@@ -46,6 +47,7 @@ public class RealmListFrame {
 	};
 	
 	public static void draw() {
+		updateSize();
 		float yShift = 29*Mideas.getDisplayYFactor();
 		Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), BG_COLOR);
 		Draw.drawQuad(Sprites.realm_list_box, Display.getWidth()/2+5*Mideas.getDisplayXFactor()-Sprites.realm_list_box.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-350*Mideas.getDisplayYFactor());
@@ -115,8 +117,16 @@ public class RealmListFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		acceptButton.update(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 154*Mideas.getDisplayXFactor(), 31*Mideas.getDisplayXFactor());
 		cancelButton.update(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Window.getHeight()/2+282*Mideas.getDisplayYFactor(), 152*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	static void connectToWorldServer() {

@@ -55,6 +55,7 @@ public class GuildFrame {
 	private final static int MEMBER_DISPLAY_BUTTON_OFFICER_Y = 266;
 	private final static int BUTTON_MENU_SORT_Y = 74;
 	
+	private static boolean shouldUpdateSize;
 	private final static int GUILD_MEMBER_MAXIMUM_DISPLAY = 13;
 	static MemberSort memberSort;
 	static boolean manageFrameChangeMade;
@@ -671,6 +672,7 @@ public class GuildFrame {
 			selectedRank = Mideas.joueur1().getGuild().getRank(1);
 			hasInitRank = true;
 		}
+		updateSize();
 		Draw.drawQuad(Sprites.guild_frame, X_SOCIAL_FRAME, Y_SOCIAL_FRAME);
 		FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+220*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(Mideas.joueur1().getGuildTitle())/2, Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuildTitle(), YELLOW, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 12).drawStringShadow(X_SOCIAL_FRAME+23*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+368*Mideas.getDisplayYFactor(), "Guild Message Of The Day:", YELLOW, Color.BLACK, 1, 0, 0);
@@ -1173,6 +1175,9 @@ public class GuildFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		infoButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 134*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
 		addMemberButton.update(X_SOCIAL_FRAME+158*Mideas.getDisplayXFactor(),Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 110*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
 		manageGuildButton.update(X_SOCIAL_FRAME+274*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 112*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
@@ -1228,6 +1233,11 @@ public class GuildFrame {
 		if(displayedMemberMenu.isActive()) {
 			buildMenuList();
 		}
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 	
 	public static Input getInformationInput() {

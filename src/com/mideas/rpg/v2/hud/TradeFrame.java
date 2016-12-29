@@ -18,6 +18,7 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class TradeFrame {
 
+	private static boolean shouldUpdateSize;
 	private static String name = "";
 	private static float X_FRAME = Display.getWidth()/2-650*Mideas.getDisplayXFactor();
 	private static float Y_FRAME = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
@@ -64,6 +65,7 @@ public class TradeFrame {
 	};
 	
 	public static void draw() {
+		updateSize();
 		Draw.drawQuad(Sprites.trade_frame, X_FRAME, Y_FRAME);
 		FontManager.get("FRIZQT", 13).drawStringShadow(X_FRAME+140*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth(Mideas.joueur1().getName())/2, Y_FRAME+15*Mideas.getDisplayYFactor(), Mideas.joueur1().getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 13).drawStringShadow(X_FRAME+323*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth(name)/2, Y_FRAME+15*Mideas.getDisplayYFactor(), name, Color.YELLOW, Color.BLACK, 1, 0, 0);
@@ -304,6 +306,9 @@ public class TradeFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		closeFrame.update(Display.getWidth()/2-272*Mideas.getDisplayXFactor(), Display.getHeight()/2-285*Mideas.getDisplayYFactor(), CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
 		X_FRAME = Display.getWidth()/2-650*Mideas.getDisplayXFactor();
 		Y_FRAME = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
@@ -312,5 +317,10 @@ public class TradeFrame {
 		Y_SHIFT = 47*Mideas.getDisplayYFactor();
 		cancelTrade.update(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 87*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
 		acceptTrade.update(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 93*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 }

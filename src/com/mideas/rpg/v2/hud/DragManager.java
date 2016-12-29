@@ -28,10 +28,10 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class DragManager {
 	
+	private static boolean shouldUpdateSize;
 	private static StuffType[] type = new StuffType[]{StuffType.HEAD, StuffType.NECKLACE, StuffType.SHOULDERS, StuffType.BACK, StuffType.CHEST, StuffType.RAN, StuffType.RANDOM, StuffType.WRISTS, StuffType.GLOVES, StuffType.BELT, StuffType.LEGGINGS, StuffType.BOOTS, StuffType.RING, StuffType.RING, StuffType.TRINKET, StuffType.TRINKET, StuffType.MAINHAND, StuffType.OFFHAND, StuffType.RANGED, StuffType.RAN};
 	private static WeaponSlot[] weaponSlot = new WeaponSlot[]{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, WeaponSlot.MAINHAND, WeaponSlot.OFFHAND, WeaponSlot.RANGED};
 	static boolean deleteItem;
-	private static boolean init;
 	private final static int PICK_UP_ITEM_RANGE = 15;
 	private static boolean inventoryLeftClickDown;
 	private static boolean bagLeftClickDown;
@@ -82,10 +82,7 @@ public class DragManager {
 	};
 	
 	public static void draw() {
-		if(!init) {
-			updateSize();
-			init = true;
-		}
+		updateSize();
 		if(draggedItem != null) {
 			Draw.drawQuad(IconsManager.getSprite37((draggedItem.getSpriteId())), Mideas.mouseX(), Mideas.mouseY());
 			Draw.drawQuad(Sprites.stuff_border, Mideas.mouseX()-5, Mideas.mouseY()-5);
@@ -1482,6 +1479,9 @@ public class DragManager {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdateSize) {
+			return;
+		}
 		hoverDeleteYes.setX(Display.getWidth()/2-130*Mideas.getDisplayXFactor());
 		hoverDeleteYes.setY(Display.getHeight()/2-43*Mideas.getDisplayYFactor());
 		hoverDeleteYes.setButtonWidth(127*Mideas.getDisplayXFactor());
@@ -1490,5 +1490,10 @@ public class DragManager {
 		hoverDeleteNo.setY(Display.getHeight()/2-43*Mideas.getDisplayYFactor());
 		hoverDeleteNo.setButtonWidth(127*Mideas.getDisplayXFactor());
 		hoverDeleteNo.setButtonHeight(23*Mideas.getDisplayYFactor());
+		shouldUpdateSize = false;
+	}
+	
+	public static void shouldUpdate() {
+		shouldUpdateSize = true;
 	}
 }
