@@ -174,34 +174,34 @@ public class ChatFrame {
 			xDraw = 40;
 			Message message = messages.get(i);
 			if(yDraw <= Display.getHeight()-185) {
-					if(message.getOpacity() > 0 && Mideas.getLoopTickTimer()-message.lastSeenTimer() >= MESSAGE_OPACITY_START_DECREASE_TIMER) {
-						message.decreaseOpacity(-1/(Mideas.FPS*MESSAGE_OPACITY_DECREASE_TIMER/1000f));
+				if(message.getOpacity() > 0 && Mideas.getLoopTickTimer()-message.lastSeenTimer() >= MESSAGE_OPACITY_START_DECREASE_TIMER) {
+					message.decreaseOpacity(-1/(Mideas.FPS*MESSAGE_OPACITY_DECREASE_TIMER/1000f));
+				}
+				int j = 0;
+				if(message.getAuthorText() != null) {
+					if(message.getOpacity() > 0 && yDraw >= Display.getHeight()-310-yResize) {
+						FontManager.chat.drawStringPart(xDraw+1, yDraw, message.getAuthorText(), Color.BLACK, message.getOpacity());
+						FontManager.chat.drawStringPart(xDraw, yDraw, message.getAuthorText(), message.getColor(), message.getOpacity());
 					}
-					int j = 0;
-					if(message.getAuthor() != null) {
-						if(message.getOpacity() > 0 && yDraw >= Display.getHeight()-310-yResize) {
-							FontManager.chat.drawStringPart(xDraw+1, yDraw, message.getAuthorText(), Color.BLACK, message.getOpacity());
-							FontManager.chat.drawStringPart(xDraw, yDraw, message.getAuthorText(), message.getColor(), message.getOpacity());
-						}
-						xDraw+= FontManager.chat.getWidth(message.getAuthorText());
+					xDraw+= FontManager.chat.getWidth(message.getAuthorText());
+				}
+				while(j < message.getDrawMessage().length()) {
+					if(message.getDrawMessage().charAt(j) == '\n') {
+						yDraw+= FontManager.chat.getLineHeight();
+						xDraw = 50;
 					}
-					while(j < message.getDrawMessage().length()) {
-						if(message.getDrawMessage().charAt(j) == '\n') {
-							yDraw+= FontManager.chat.getLineHeight();
-							xDraw = 50;
-						}
-						if(message.getOpacity() > 0 && yDraw >= Display.getHeight()-310-yResize) {
-							FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getDrawMessage().charAt(j), Color.BLACK, message.getOpacity());
-							FontManager.chat.drawCharPart(xDraw, yDraw, message.getDrawMessage().charAt(j), message.getColor(), message.getOpacity());
-						}
-						xDraw+= FontManager.chat.getWidth(message.getDrawMessage().charAt(j));
-						j++;
-						if(xDraw-40 > maxLength-10 && j < message.getDrawMessage().length()) {
-							yDraw+= FontManager.chat.getLineHeight();
-							xDraw = 50;
-						}
+					if(message.getOpacity() > 0 && yDraw >= Display.getHeight()-310-yResize) {
+						FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getDrawMessage().charAt(j), Color.BLACK, message.getOpacity());
+						FontManager.chat.drawCharPart(xDraw, yDraw, message.getDrawMessage().charAt(j), message.getColor(), message.getOpacity());
+					}
+					xDraw+= FontManager.chat.getWidth(message.getDrawMessage().charAt(j));
+					j++;
+					if(xDraw-40 > maxLength-10 && j < message.getDrawMessage().length()) {
+						yDraw+= FontManager.chat.getLineHeight();
+						xDraw = 50;
 					}
 				}
+			}
 			i++;
 			if(yDraw >= Display.getHeight()-185 || !(i < messages.size())) {
 				break;
@@ -209,6 +209,24 @@ public class ChatFrame {
 			yDraw+= FontManager.chat.getLineHeight();
 		}
 		FontManager.chat.drawEnd();
+		i = 0;
+		yDraw = -totalNumberLine*FontManager.chat.getLineHeight()+Display.getHeight()-173+xShift;
+		xDraw = 40;
+		Sprites.chat_logo_blizz.drawBegin();
+		while(i < messages.size()) {
+			Message message = messages.get(i);
+			if(message.isGM() && message.getOpacity() > 0) {
+				if(message.getType() == MessageType.WHISPER && !message.isTarget()) {
+					Draw.drawQuadPart(Sprites.chat_logo_blizz, xDraw+16, yDraw, Sprites.chat_logo_blizz.getImageWidth(), Sprites.chat_logo_blizz.getImageHeight());
+				}
+				else {
+					Draw.drawQuadPart(Sprites.chat_logo_blizz, xDraw, yDraw, Sprites.chat_logo_blizz.getImageWidth(), Sprites.chat_logo_blizz.getImageHeight());
+				}
+			}
+			yDraw+= FontManager.chat.getLineHeight()*message.getNumberLine();
+			i++;
+		}
+		Sprites.chat_logo_blizz.drawEnd();
 		Draw.glScissorEnd();
 		//System.out.println("ChatDraw took "+(System.nanoTime()-timer)/1000+" µs");
 		if(topArrow) {
@@ -710,6 +728,9 @@ public class ChatFrame {
 		int lastSubStr = 0;
 		int line = 1;
 		int x = FontManager.chat.getWidth(message.getAuthorText());
+		if(message.isGM()) {
+			x+= Sprites.chat_logo_blizz.getImageWidth()+4;
+		}
 		StringBuilder builder = new StringBuilder();
 		while(i < text.length()) {
 			x+= FontManager.chat.getWidth(text.charAt(i));

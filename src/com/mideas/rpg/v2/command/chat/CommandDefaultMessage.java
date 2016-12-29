@@ -12,7 +12,7 @@ public class CommandDefaultMessage extends Command {
 
 	@Override
 	public void read() {
-		DefaultMessage value = DefaultMessage.values()[ConnectionManager.getConnection().readChar()];
+		DefaultMessage value = DefaultMessage.values()[ConnectionManager.getConnection().readByte()];
 		boolean knownColor = ConnectionManager.getConnection().readBoolean();
 		Color color;
 		if(knownColor) {

@@ -20,6 +20,9 @@ public class Message {
 	private long timer;
 	private long lastSeenTimer;
 	private int numberLine;
+	private boolean isTarget;
+	private boolean isGM;
+	private final static String gmLogoSpace = "            ";
 	
 	public Message(String message, boolean displayHour, MessageType type) { //used for self message
 		this.timer = System.currentTimeMillis();
@@ -34,7 +37,7 @@ public class Message {
 		this.opacity = 1;
 	}
 	
-	public Message(String message, String author, String authorText, boolean displayHour, MessageType type) { //used for self message
+	public Message(String message, String author, String authorText, boolean displayHour, MessageType type, boolean isGM) { //used for self message
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -47,6 +50,7 @@ public class Message {
 		this.opacity = 1;
 		this.author = author;
 		this.authorText = authorText;
+		this.isGM = isGM;
 	}
 	
 	public Message(String message, boolean displayHour, MessageType type, Color color) { //used for self message with different color
@@ -62,7 +66,7 @@ public class Message {
 		this.opacity = 1;
 	}
 	
-	public Message(String message, String author, boolean displayHour, MessageType type) { //used for all except whispers
+	public Message(String message, String author, boolean displayHour, MessageType type, boolean isGM) { //used for all except whispers
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -73,19 +77,33 @@ public class Message {
 		this.type = type;
 		this.displayHour = displayHour;
 		this.author = author;
+		this.isGM = isGM;
+		this.opacity = 1;
 		if(type == MessageType.SAY || type == MessageType.YELL) {
-			this.authorText = "["+author+"]"+type.getChatDisplay();
+			if(isGM) {
+				this.authorText = gmLogoSpace+"["+author+"]"+type.getChatDisplay();
+			}
+			else {
+				this.authorText = "["+author+"]"+type.getChatDisplay();
+			}
 		}
 		else if(type != MessageType.SELF) {
-			this.authorText = type.getChatDisplay()+"["+author+"] : ";
+			if(isGM) {
+				this.authorText = type.getChatDisplay()+gmLogoSpace+"["+author+"] : ";
+			}
+		}
+		else if(isGM) {
+			this.authorText = gmLogoSpace+"["+author+']';
 		}
 		else {
-			this.authorText = '['+author+']';
+			this.author = '['+author+']';
 		}
-		this.opacity = 1;
+		if(isGM) {
+			this.author = null;
+		}
 	}
 	
-	public Message(String message, String author, boolean displayHour, MessageType type, Color color) { //used for all except whispers
+	public Message(String message, String author, boolean displayHour, MessageType type, Color color, boolean isGM) { //used for all except whispers with different color
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -96,19 +114,33 @@ public class Message {
 		this.type = type;
 		this.displayHour = displayHour;
 		this.author = author;
+		this.isGM = isGM;
+		this.opacity = 1;
 		if(type == MessageType.SAY || type == MessageType.YELL) {
-			this.authorText = "["+author+"]"+type.getChatDisplay();
+			if(isGM) {
+				this.authorText = gmLogoSpace+"["+author+"]"+type.getChatDisplay();
+			}
+			else {
+				this.authorText = "["+author+"]"+type.getChatDisplay();
+			}
 		}
 		else if(type != MessageType.SELF) {
-			this.authorText = type.getChatDisplay()+"["+author+"] : ";
+			if(isGM) {
+				this.authorText = type.getChatDisplay()+gmLogoSpace+"["+author+"] : ";
+			}
+		}
+		else if(isGM) {
+			this.authorText = gmLogoSpace+"["+author+']';
 		}
 		else {
-			this.authorText = '['+author+']';
+			this.author = '['+author+']';
 		}
-		this.opacity = 1;
+		if(isGM) {
+			this.author = null;
+		}
 	}
 	
-	public Message(String message, String author, boolean displayHour, MessageType type, boolean isTarget) { //used for whispers
+	public Message(String message, String author, boolean displayHour, MessageType type, boolean isTarget, boolean isGM) { //used for whispers
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -119,13 +151,29 @@ public class Message {
 		this.type = type;
 		this.displayHour = displayHour;
 		this.author = author;
+		this.opacity = 1;
+		this.isGM = isGM;
+		this.isTarget = isTarget;
 		if(isTarget) {
-			this.authorText = "["+this.author+"] whisper : ";
+			if(isGM) {
+				this.authorText = gmLogoSpace+"["+this.author+"] whispers : ";
+			}
+			else {
+				this.authorText = '['+this.author+"] whispers : ";
+			}
 		}
 		else {
-			this.authorText = "To ["+this.author+"] : ";
+			if(isGM) {
+				this.authorText = "To"+gmLogoSpace+"["+this.author+"] : ";
+			}
+			else {
+				this.authorText = "To ["+this.author+"] : ";
+			}
 		}
-		this.opacity = 1;
+	}
+	
+	public boolean isGM() {
+		return this.isGM;
 	}
 	
 	public int getNumberLine() {
@@ -198,6 +246,10 @@ public class Message {
 	
 	public void setDrawMessage(String message) {
 		this.drawMessage = message;
+	}
+	
+	public boolean isTarget() {
+		return this.isTarget;
 	}
 
 	private static int getMessageHour(long time) {

@@ -49,7 +49,7 @@ public class CommandFriend extends Command {
 			int i = 0;
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
-					ChatFrame.addMessage(new Message(" is now online.", name, false, MessageType.SELF));
+					ChatFrame.addMessage(new Message(" is now online.", name, false, MessageType.SELF, false));
 					Mideas.joueur1().getFriendList().get(i).updateInformations(name, level, race, classe);
 					return;
 				}

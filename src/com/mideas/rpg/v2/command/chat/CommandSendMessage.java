@@ -13,7 +13,7 @@ public class CommandSendMessage extends Command {
 	
 	@Override
 	public void read() {
-		MessageType type = MessageType.values()[ConnectionManager.getConnection().readChar()];
+		MessageType type = MessageType.values()[ConnectionManager.getConnection().readByte()];
 		String message = ConnectionManager.getConnection().readString();
 		if(type == MessageType.SELF) {
 			boolean hasAuthor = ConnectionManager.getConnection().readBoolean();
@@ -24,7 +24,7 @@ public class CommandSendMessage extends Command {
 			}
 			boolean knownColor = ConnectionManager.getConnection().readBoolean();
 			if(knownColor) {
-				color = MessageColor.values()[ConnectionManager.getConnection().readChar()].getColor();
+				color = MessageColor.values()[ConnectionManager.getConnection().readByte()].getColor();
 			}
 			else {
 				color = ConnectionManager.getConnection().readColor();
@@ -33,18 +33,20 @@ public class CommandSendMessage extends Command {
 				ChatFrame.addMessage(new Message(message, false, MessageType.SELF, color));
 			}
 			else {
-				ChatFrame.addMessage(new Message(message, author, false, MessageType.SELF, color));
+				ChatFrame.addMessage(new Message(message, author, false, MessageType.SELF, color, false));
 			}
 		}
 		else if(type == MessageType.WHISPER) {
 			String name = ConnectionManager.getConnection().readString();
 			boolean isTarget = ConnectionManager.getConnection().readBoolean();
-			ChatFrame.addMessage(new Message(message, name, false, MessageType.WHISPER, isTarget));
+			boolean isGM = ConnectionManager.getConnection().readBoolean();
+			ChatFrame.addMessage(new Message(message, name, false, MessageType.WHISPER, isTarget, isGM));
 			ChatFrame.setPreviousWhisper(name);
 		}
 		else if(type == MessageType.SAY || type == MessageType.BATTLEGROUND || type == MessageType.GUILD || type == MessageType.PARTY || type == MessageType.RAID || type == MessageType.YELL || type == MessageType.PARTY_LEADER) {
 			String author = ConnectionManager.getConnection().readString();
-			ChatFrame.addMessage(new Message(message, author, false, type));
+			boolean isGM = ConnectionManager.getConnection().readBoolean();
+			ChatFrame.addMessage(new Message(message, author, false, type, isGM));
 		}
 	}
 	
@@ -52,7 +54,7 @@ public class CommandSendMessage extends Command {
 		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.SEND_MESSAGE);
 		ConnectionManager.getConnection().writeString(message);
-		ConnectionManager.getConnection().writeChar(type.getValue());
+		ConnectionManager.getConnection().writeByte(type.getValue());
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
@@ -61,7 +63,7 @@ public class CommandSendMessage extends Command {
 		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.SEND_MESSAGE);
 		ConnectionManager.getConnection().writeString(message);
-		ConnectionManager.getConnection().writeChar(MessageType.WHISPER.getValue());
+		ConnectionManager.getConnection().writeByte(MessageType.WHISPER.getValue());
 		ConnectionManager.getConnection().writeString(target);
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();

@@ -20,7 +20,7 @@ public class CommandParty extends Command {
 		if(packetId == PacketID.PARTY_ADD_MEMBER) {
 			String name = ConnectionManager.getConnection().readString();
 			PopupFrame.activatePartyInvitationPopup(name);
-			ChatFrame.addMessage(new Message(" invited you to join a party.", name, false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(" invited you to join a party.", name, false, MessageType.SELF, false));
 		}
 		else if(packetId == PacketID.PARTY_DECLINE_REQUEST) {
 			String name = ConnectionManager.getConnection().readString();

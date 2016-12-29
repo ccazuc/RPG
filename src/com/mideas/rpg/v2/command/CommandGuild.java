@@ -33,7 +33,7 @@ public class CommandGuild extends Command {
 			String player_name = ConnectionManager.getConnection().readString();
 			String guild_name = ConnectionManager.getConnection().readString();
 			PopupFrame.activateGuildInvitationPopup(player_name, guild_name);
-			ChatFrame.addMessage(new Message(" invited you to join "+guild_name, player_name, false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(" invited you to join "+guild_name, player_name, false, MessageType.SELF, false));
 		}
 		else if(packetId == PacketID.GUILD_INIT) {
 			int i = 0;
@@ -144,7 +144,7 @@ public class CommandGuild extends Command {
 			member.setOnlineStatus(true);
 			member.updateLastLoginTimerString();
 			if(Mideas.joueur1().getFriend(id) == null) {
-				ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF, false));
 			}
 			Mideas.joueur1().getGuild().memberLoggedIn();
 		}
