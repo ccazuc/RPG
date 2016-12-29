@@ -15,7 +15,7 @@ public class CommandSendMessage extends Command {
 	public void read() {
 		MessageType type = MessageType.values()[ConnectionManager.getConnection().readByte()];
 		String message = ConnectionManager.getConnection().readString();
-		if(type == MessageType.SELF) {
+		if(type == MessageType.SELF || type == MessageType.GM_ANNOUNCE || type == MessageType.ANNOUNCE) {
 			boolean hasAuthor = ConnectionManager.getConnection().readBoolean();
 			String author = null;
 			Color color = null;
@@ -30,10 +30,10 @@ public class CommandSendMessage extends Command {
 				color = ConnectionManager.getConnection().readColor();
 			}
 			if(author == null) {
-				ChatFrame.addMessage(new Message(message, false, MessageType.SELF, color));
+				ChatFrame.addMessage(new Message(message, false, type, color));
 			}
 			else {
-				ChatFrame.addMessage(new Message(message, author, false, MessageType.SELF, color, false));
+				ChatFrame.addMessage(new Message(message, author, false, type, color, false));
 			}
 		}
 		else if(type == MessageType.WHISPER) {

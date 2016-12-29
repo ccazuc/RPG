@@ -64,6 +64,14 @@ public class Message {
 		this.displayHour = displayHour;
 		this.type = type;
 		this.opacity = 1;
+		if(type == MessageType.ANNOUNCE || type == MessageType.GM_ANNOUNCE) {
+			if(this.author == null) {
+				this.authorText = type.getChatDisplay();
+			}
+			else {
+				this.authorText = '['+this.author+"] "+type.getChatDisplay();
+			}
+		}
 	}
 	
 	public Message(String message, String author, boolean displayHour, MessageType type, boolean isGM) { //used for all except whispers
@@ -116,7 +124,16 @@ public class Message {
 		this.author = author;
 		this.isGM = isGM;
 		this.opacity = 1;
-		if(type == MessageType.SAY || type == MessageType.YELL) {
+		if(type == MessageType.ANNOUNCE || type == MessageType.GM_ANNOUNCE) {
+			if(this.author == null) {
+				this.authorText = type.getChatDisplay();
+			}
+			else {
+				this.authorText = '['+this.author+"] "+type.getChatDisplay();
+			}
+			this.isGM = false;
+		}
+		else if(type == MessageType.SAY || type == MessageType.YELL) {
 			if(isGM) {
 				this.authorText = gmLogoSpace+"["+author+"]"+type.getChatDisplay();
 			}

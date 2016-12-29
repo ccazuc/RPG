@@ -16,8 +16,9 @@ public enum MessageType {
 	EMOTE((byte)9, new Color(1, 251/255f, 1), "", ""),
 	PARTY_LEADER((byte)10, new Color(118/255f, 197/255f, 1), "Party : ", "[Party leader] "),
 	OFFICER((byte)11, new Color(64/255f, 192/255f, 64/255f), "Officer : ", "[Officer] "),
-	GM_ANNOUNCE((byte)12, new Color(0, 251/255f, 246/255f), "Announce : ", "[GM announce] "),
-	IGNORE((byte)13, new Color(1, 0, 0), "" ,"");
+	ANNOUNCE((byte)12, new Color(0/255f, 208/255f, 225/255f), "Announce : ", "[Announce] "),
+	GM_ANNOUNCE((byte)13, new Color(0/255f, 208/255f, 225/255f), "GM announce : ", "[GM Announce] "),
+	IGNORE((byte)14, new Color(1, 0, 0), "" ,"");
 	
 	private byte value;
 	private Color color;
