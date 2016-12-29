@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.chat;
 
+import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.utils.Color;
 
 public enum MessageType {
@@ -20,6 +21,7 @@ public enum MessageType {
 	GM_ANNOUNCE((byte)13, new Color(0/255f, 208/255f, 225/255f), "GM announce : ", "[GM Announce] "),
 	IGNORE((byte)14, new Color(1, 0, 0), "" ,"");
 	
+	private int chatDisplayWidth;
 	private byte value;
 	private Color color;
 	private String defaultText;
@@ -30,6 +32,7 @@ public enum MessageType {
 		this.color = color;
 		this.defaultText = defaultText;
 		this.chatDisplay = chatDisplay;
+		this.chatDisplayWidth = FontManager.chat.getWidth(this.chatDisplay);
 	}
 	
 	public void setColor(Color color) {
@@ -42,6 +45,10 @@ public enum MessageType {
 	
 	public byte getValue() {
 		return this.value;
+	}
+	
+	public int getChatDisplayWidth() {
+		return this.chatDisplayWidth;
 	}
 	
 	public String getDefaultText() {

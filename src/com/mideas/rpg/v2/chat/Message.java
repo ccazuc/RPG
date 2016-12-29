@@ -99,6 +99,9 @@ public class Message {
 			if(isGM) {
 				this.authorText = type.getChatDisplay()+gmLogoSpace+"["+author+"] : ";
 			}
+			else {
+				this.authorText = type.getChatDisplay()+"["+author+"] : ";
+			}
 		}
 		else if(isGM) {
 			this.authorText = gmLogoSpace+"["+author+']';

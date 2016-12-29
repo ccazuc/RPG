@@ -219,8 +219,11 @@ public class ChatFrame {
 				if(message.getType() == MessageType.WHISPER && !message.isTarget()) {
 					Draw.drawQuadPart(Sprites.chat_logo_blizz, xDraw+16, yDraw, Sprites.chat_logo_blizz.getImageWidth(), Sprites.chat_logo_blizz.getImageHeight());
 				}
-				else {
+				else if(message.getType() == MessageType.SAY || message.getType() == MessageType.YELL) {
 					Draw.drawQuadPart(Sprites.chat_logo_blizz, xDraw, yDraw, Sprites.chat_logo_blizz.getImageWidth(), Sprites.chat_logo_blizz.getImageHeight());
+				}
+				else {
+					Draw.drawQuadPart(Sprites.chat_logo_blizz, xDraw+message.getType().getChatDisplayWidth(), yDraw, Sprites.chat_logo_blizz.getImageWidth(), Sprites.chat_logo_blizz.getImageHeight());
 				}
 			}
 			yDraw+= FontManager.chat.getLineHeight()*message.getNumberLine();
