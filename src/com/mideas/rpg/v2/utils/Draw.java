@@ -20,6 +20,7 @@ import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL14.glBlendFuncSeparate;
 import static org.lwjgl.opengl.GL20.glBlendEquationSeparate;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLE_FAN;
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 import static org.lwjgl.opengl.GL14.GL_FUNC_ADD;
 import static org.lwjgl.opengl.GL11.GL_DST_COLOR;
@@ -256,9 +257,9 @@ public final class Draw {
 	
 	public final static void drawCirclePart(final float x, final float y, final int rayon, final int nbSeg, final float angle, final float startAngle) {
 		int i = nbSeg+1;
-	    while(--i > -1) {
-	        glVertex2d(rayon*Math.cos(angle*i/nbSeg+startAngle)+x, rayon*Math.sin(angle*i/nbSeg+startAngle)+y);
-	    }
+		while(--i > -1) {
+			glVertex2d(rayon*Math.cos(angle*i/nbSeg+startAngle)+x, rayon*Math.sin(angle*i/nbSeg+startAngle)+y);
+		}
 	}
 	
 	public final static void drawCirclePart(final float x, final float y, final int rayon, final int nbSeg) {
@@ -269,15 +270,15 @@ public final class Draw {
 		drawCirclePart(x, y, rayon, (int)(Math.PI*rayon), 2*(float)Math.PI, 0);
 	}
 	
-	public final static void drawCircle(final float x, final float y, final int rayon, final Color Colors, final int nbSeg, final float lineWeight, final float angle, final float startAngle) {
+	public final static void drawCircle(final float x, final float y, final int rayon, final Color color, final int nbSeg, final float lineWeight, final float angle, final float startAngle) {
 		glLineWidth(lineWeight);
 		glDisable(GL_TEXTURE_2D);
-		glEnable(GL_LINE_SMOOTH);
-		glColor4f(Colors.getRed(), Colors.getGreen(), Colors.getBlue(), Colors.getAlpha());
-	    glBegin(GL_LINE_STRIP);
-	    drawCirclePart(x, y, rayon, nbSeg, angle, startAngle);
-	    glEnd();
-		glDisable(GL_LINE_SMOOTH);
+		glEnable(GL_TRIANGLE_FAN);
+		glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+		glBegin(GL_LINE_STRIP);
+		drawCirclePart(x, y, rayon, nbSeg, angle, startAngle);
+		glEnd();
+		glDisable(GL_TRIANGLE_FAN);
 		glEnable(GL_TEXTURE_2D);
 	}
 	

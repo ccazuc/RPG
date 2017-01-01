@@ -82,6 +82,13 @@ public class ButtonSpellbar {
 			if(this.shortcut.getShortcutType() == ShortcutType.STUFF && !this.itemIsInBag && !this.itemIsEquipped) {
 				Draw.drawColorQuad(this.x+3, this.y+1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), BACKGROUND_COLOR);
 			}
+			if(this.shortcut.getShortcutType() == ShortcutType.SPELL) {
+				if(Mideas.joueur1().getGCDEndTimer() > Mideas.getLoopTickTimer()) {
+					//System.out.println(35f*Mideas.getDisplayYFactor()*((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f)+" "+(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f);
+					Draw.drawCircle(this.x+37*Mideas.getDisplayXFactor()/2, this.y+36*Mideas.getDisplayYFactor()/2, (int)(15*Mideas.getDisplayXFactor()), BACKGROUND_COLOR, (int)(360f*(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1499), 20f, 360f*(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500, 0f);
+					//Draw.drawColorQuad(this.x+3, this.y-1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor()*((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f), BACKGROUND_COLOR);
+				}
+			}
 		}
 		if((this.shortcut == null && !this.isInFirstBar) || this.shortcut != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpell() != null) {
 			if(this.buttonDown || this.keyDown) {

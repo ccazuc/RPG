@@ -41,7 +41,7 @@ public class Profession {
 	private Button craftButton = new Button(0, 0, 185, 34, "Create", 14, 1) {
 		@Override
 		public void eventButtonClick() {
-			CastBar.addCast(new Cast(Profession.this.selectedItem.getCraftLength(), Profession.this.selectedItem.getItem().getStuffName()) {
+			/*CastBar.addCast(new Cast(Profession.this.selectedItem.getCraftLength(), Profession.this.selectedItem.getItem().getStuffName()) {
 				@Override
 				public void endCastEvent() {
 					int i = 0;
@@ -56,7 +56,7 @@ public class Profession {
 					}
 					Mideas.joueur1().addItem(Profession.this.selectedItem.getItem(), 1);
 				}
-			});
+			});*/
 		}
 		
 		@Override

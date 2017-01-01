@@ -45,9 +45,11 @@ public class Joueur extends Unit {
 	private int numberYellowGem;
 	private GuildRank guildRank;
 	private Bag bag = new Bag();
+	private long GCDStartTimer;
 	private int numberBlueGem;
 	private String guildTitle;
 	private int defaultArmor;
+	private long GCDEndTimer;
 	private int numberRedGem;
 	private int goldGained;
 	private Stuff[] stuff;
@@ -738,7 +740,7 @@ public class Joueur extends Unit {
 	}
 	
 	public boolean canInvitePlayerInParty(int id) {
-		return id != Mideas.joueur1().getId() && ((this.party == null) || (this.party.isPartyLeader(this)));
+		return id != this.id && ((this.party == null) || (this.party.isPartyLeader(this)));
 	}
 	
 	public Party getParty() {
@@ -751,6 +753,22 @@ public class Joueur extends Unit {
 	
 	public void setTarget(Unit target) {
 		this.target = target;
+	}
+	
+	public void setGCDStartTimer(long timer) {
+		this.GCDStartTimer = timer;
+	}
+	
+	public long getGCDStartTimer() {
+		return this.GCDStartTimer;
+	}
+	
+	public void setGCDEndTimer(long timer) {
+		this.GCDEndTimer = timer;
+	}
+	
+	public long getGCDEndTimer() {
+		return this.GCDEndTimer;
 	}
 	
 	public void setFirstProfession(Profession profession) {

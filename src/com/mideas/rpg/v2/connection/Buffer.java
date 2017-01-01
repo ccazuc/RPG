@@ -270,6 +270,9 @@ public class Buffer {
 	
 	public final String readString() {
 		final short length = readShort();
+		if(length == 0) {
+			return "";
+		}
 		final char[] chars = new char[length];
 		int i = -1;
 		while(++i < length) {

@@ -10,6 +10,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.command.CommandAddItem;
+import com.mideas.rpg.v2.command.CommandCast;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandFriend;
@@ -108,6 +109,7 @@ public class ConnectionManager {
 		commandList.put((int)SEND_RED_ALERT, new CommandSendRedAlert());
 		commandList.put((int)CHAT_DEFAULT_MESSAGE, new CommandDefaultMessage());
 		commandList.put((int)DELETE_ITEM, new CommandDeleteItem());
+		commandList.put((int)SPELL_CAST, new CommandCast());
 	}
 
 	public static final boolean connectAuthServer() {

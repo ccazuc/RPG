@@ -365,7 +365,8 @@ public class Interface {
 				//System.out.println(Keyboard.getEventKey());
 				if(!Input.hasInputActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						OsefFrame.run();
+						Mideas.joueur1().setGCDStartTimer(Mideas.getLoopTickTimer());
+						Mideas.joueur1().setGCDEndTimer(Mideas.getLoopTickTimer()+1500);
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
