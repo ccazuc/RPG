@@ -20,7 +20,10 @@ import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL14.glBlendFuncSeparate;
 import static org.lwjgl.opengl.GL20.glBlendEquationSeparate;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLE_FAN;
+
+import org.lwjgl.opengl.Display;
+
+import static org.lwjgl.opengl.GL11.GL_POLYGON;
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 import static org.lwjgl.opengl.GL14.GL_FUNC_ADD;
 import static org.lwjgl.opengl.GL11.GL_DST_COLOR;
@@ -36,6 +39,8 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_COLOR;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 public final class Draw {
+
+	public final static float RAD_DEG = 57.296f;
 	
 	public final static void drawBegin() {
 		glBegin(GL_QUADS);
@@ -273,12 +278,66 @@ public final class Draw {
 	public final static void drawCircle(final float x, final float y, final int rayon, final Color color, final int nbSeg, final float lineWeight, final float angle, final float startAngle) {
 		glLineWidth(lineWeight);
 		glDisable(GL_TEXTURE_2D);
-		glEnable(GL_TRIANGLE_FAN);
+		glEnable(GL_LINE_SMOOTH);
 		glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 		glBegin(GL_LINE_STRIP);
 		drawCirclePart(x, y, rayon, nbSeg, angle, startAngle);
 		glEnd();
-		glDisable(GL_TRIANGLE_FAN);
+		glDisable(GL_LINE_SMOOTH);
+		glEnable(GL_TEXTURE_2D);
+	}
+	
+	public final static void drawCircleFinal(final float x, final float y, final float radius, final double angle, final int startAngle, final Color color) {
+		glDisable(GL_TEXTURE_2D);
+		glBegin (GL_POLYGON);
+		float ang;
+		float angCalc;
+		glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+		glVertex2d(x, y);
+		final int maxAngle = -(int)(360-360*angle)+startAngle;
+		for(ang = startAngle; ang >= maxAngle; ang -= 3)  {
+			angCalc = ang/RAD_DEG;
+			glVertex2d(radius*Math.cos(angCalc)+x, radius*Math.sin(angCalc)+y);
+		}
+		glEnd ();
+		glEnable(GL_TEXTURE_2D);
+	}
+	
+	/*public final static void drawCircleFinal(float x, float y, float radius, double angle, int startAngle) {
+		glDisable(GL_TEXTURE_2D);
+		glBegin (GL_POLYGON);
+		float ang;
+		float cx;
+		float cy;
+		float angCalc;
+		glColor4f(0, 0, 0, .8f);
+		glVertex2d(x, y);
+		final int maxAngle = (int)(360-360*angle);
+		startAngle = (360-maxAngle-90);
+		for(ang = startAngle; ang <= maxAngle+startAngle; ang += 2)  {
+			angCalc = ang/RAD_DEG;
+			cx = (float)(radius*Math.cos(angCalc));
+			cy = (float)(radius*Math.sin(angCalc));
+			glVertex2d(cx+x, cy+y);
+		}
+		glEnd ();
+		glEnable(GL_TEXTURE_2D);
+	}*/
+	
+	public final static void drawCircle() {
+		glDisable(GL_TEXTURE_2D);
+		glBegin (GL_POLYGON);
+		float x;
+		float y;
+		float radius = 55f;
+		float ang;
+		glColor4f(0, 0, 0, .12f);
+		for(ang = 0.0f; ang > -360.0*((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f); ang -= 5.0)  {
+			x = (float)(radius*Math.cos(ang/RAD_DEG)+1.0);
+			y = (float)(radius*Math.sin(ang/RAD_DEG)+0.5);
+			glVertex2d(x+Display.getWidth()/2, y+Display.getHeight()/2);
+		}
+		glEnd ();
 		glEnable(GL_TEXTURE_2D);
 	}
 	
@@ -286,7 +345,7 @@ public final class Draw {
 		Draw.drawCircle(x, y, rayon, Colors, nbSeg, lineWeight, 2*(float)Math.PI, 0);
 	}
 	
-	public final static void drawCircle(final float x, final float y, final int rayon, final Color Colors, final int nbSeg) {
+	public final static void drawCircles(final float x, final float y, final int rayon, final Color Colors, final int nbSeg) {
 		Draw.drawCircle(x, y, rayon, Colors, nbSeg, 1, 2*(float)Math.PI, 0);
 	}
 	

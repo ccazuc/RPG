@@ -15,8 +15,8 @@ public class DropDownMenu {
 	private int y_bar;
 	private int x_size_bar;
 	private boolean isActive;
-	private TTF font;
-	private Arrow arrow;
+	private final TTF font;
+	private final Arrow arrow;
 	private final ArrayList<TextMenu> menuList;
 	private final AlertBackground background;
 	protected boolean backgroundActive;

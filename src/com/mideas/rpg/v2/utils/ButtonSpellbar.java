@@ -42,6 +42,7 @@ public class ButtonSpellbar {
 	private final static TTF numberItemFont = FontManager.get("FRIZQT", 15);
 	private final static TTF keyBindFont = FontManager.get("FRIZQT", 15);
 	private final static Color BACKGROUND_COLOR = new Color(0, 0, 0, .65f);
+	private final static Color CD_COLOR = new Color(0, 0, 0, .8f);
 	private final static int MOUSE_MOVE_TRIGGER_RANGE = 15;
 	private int keyBind;
 	private static int borderWidth = (int)(42*Mideas.getDisplayXFactor());
@@ -74,7 +75,7 @@ public class ButtonSpellbar {
 			Draw.drawQuad(this.shortcut.getSprite(), this.x+3, this.y+1);
 			//Draw.drawQuad(Sprites.spell_border, this.x+3, this.y+1, borderWidth, borderHeight);
 			if(this.itemIsEquipped) {
-				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+1, this.y, borderWidth, borderHeight, Color.GREEN);
+				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+3, this.y+1, borderWidth, borderHeight, Color.GREEN);
 			}
 			if(this.numberItem >= 0) {
 				numberItemFont.drawStringShadow(this.x+40*Mideas.getDisplayXFactor()-this.numberItemStringWidth, this.y+16*Mideas.getDisplayYFactor(), this.numberItemString, Color.WHITE, Color.BLACK, 1, 0, 0);
@@ -83,10 +84,14 @@ public class ButtonSpellbar {
 				Draw.drawColorQuad(this.x+3, this.y+1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), BACKGROUND_COLOR);
 			}
 			if(this.shortcut.getShortcutType() == ShortcutType.SPELL) {
-				if(Mideas.joueur1().getGCDEndTimer() > Mideas.getLoopTickTimer()) {
+				if(Mideas.joueur1().getGCDEndTimer()+3000 > Mideas.getLoopTickTimer()) {
 					//System.out.println(35f*Mideas.getDisplayYFactor()*((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f)+" "+(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f);
-					Draw.drawCircle(this.x+37*Mideas.getDisplayXFactor()/2, this.y+36*Mideas.getDisplayYFactor()/2, (int)(15*Mideas.getDisplayXFactor()), BACKGROUND_COLOR, (int)(360f*(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1499), 20f, 360f*(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500, 0f);
+					//Draw.drawCircle(this.x+37*Mideas.getDisplayXFactor()/2, this.y+36*Mideas.getDisplayYFactor()/2, (int)(15*Mideas.getDisplayXFactor()), BACKGROUND_COLOR, (int)(360f*(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1499), 20f, 360f*(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500, 0f);
 					//Draw.drawColorQuad(this.x+3, this.y-1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor()*((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f), BACKGROUND_COLOR);
+					Draw.glScissorBegin(this.x+3, Display.getHeight()-this.y-37*Mideas.getDisplayYFactor(), 38*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
+					//Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), Color.WHITE);
+					Draw.drawCircleFinal(this.x+20*Mideas.getDisplayXFactor(), this.y+20*Mideas.getDisplayYFactor(), 35*Mideas.getDisplayXFactor(), ((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/4500d), -90, CD_COLOR);
+					Draw.glScissorEnd();
 				}
 			}
 		}
