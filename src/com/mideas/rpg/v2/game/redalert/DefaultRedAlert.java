@@ -3,10 +3,11 @@ package com.mideas.rpg.v2.game.redalert;
 public enum DefaultRedAlert {
 
 	ALREADY_CASTING((byte)0, "I'm already casting !"),
-	STUNNED((byte)1, "I cannot do this while stunned"),
-	DEAD((byte)2, "I cannot do this while dead"),
-	CANNOT_EQUIP_ITEM((byte)3, "I cannot equip this item"),
-	CANNOT_STACK_ITEM((byte)4, "This item cannot stack"),
+	STUNNED((byte)1, "I cannot do this while stunned."),
+	DEAD((byte)2, "I cannot do this while dead."),
+	CANNOT_EQUIP_ITEM((byte)3, "I cannot equip this item."),
+	CANNOT_STACK_ITEM((byte)4, "This item cannot stack."),
+	SPELL_NOT_READY_YET((byte)5, "This spell is not ready yet."),
 	;
 	
 	private byte value;

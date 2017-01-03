@@ -14,7 +14,9 @@ import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.ShortcutType;
+import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
+import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
@@ -84,13 +86,19 @@ public class ButtonSpellbar {
 				Draw.drawColorQuad(this.x+3, this.y+1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), BACKGROUND_COLOR);
 			}
 			if(this.shortcut.getShortcutType() == ShortcutType.SPELL) {
-				if(Mideas.joueur1().getGCDEndTimer()+3000 > Mideas.getLoopTickTimer()) {
-					//System.out.println(35f*Mideas.getDisplayYFactor()*((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f)+" "+(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f);
-					//Draw.drawCircle(this.x+37*Mideas.getDisplayXFactor()/2, this.y+36*Mideas.getDisplayYFactor()/2, (int)(15*Mideas.getDisplayXFactor()), BACKGROUND_COLOR, (int)(360f*(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1499), 20f, 360f*(Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500, 0f);
-					//Draw.drawColorQuad(this.x+3, this.y-1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor()*((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500f), BACKGROUND_COLOR);
+				if(Mideas.joueur1().getGCDEndTimer() > Mideas.getLoopTickTimer()) {
 					Draw.glScissorBegin(this.x+3, Display.getHeight()-this.y-37*Mideas.getDisplayYFactor(), 38*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
-					//Draw.drawColorQuad(0, 0, Display.getWidth(), Display.getHeight(), Color.WHITE);
-					Draw.drawCircleFinal(this.x+20*Mideas.getDisplayXFactor(), this.y+20*Mideas.getDisplayYFactor(), 35*Mideas.getDisplayXFactor(), ((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/4500d), -90, CD_COLOR);
+					if(SpellManager.getSpell(this.shortcut.getId()).getSpellCDEnd() >= Mideas.joueur1().getGCDEndTimer()) {
+						Draw.drawCircleFinal(this.x+20*Mideas.getDisplayXFactor(), this.y+20*Mideas.getDisplayYFactor(), 35*Mideas.getDisplayXFactor(), ((Mideas.getLoopTickTimer()-SpellManager.getSpell(this.shortcut.getId()).getSpellCDStart())/(double)SpellManager.getSpell(this.shortcut.getId()).getSpellCDLength()), -90, CD_COLOR);
+					}
+					else {
+						Draw.drawCircleFinal(this.x+20*Mideas.getDisplayXFactor(), this.y+20*Mideas.getDisplayYFactor(), 35*Mideas.getDisplayXFactor(), ((Mideas.getLoopTickTimer()-Mideas.joueur1().getGCDStartTimer())/1500d), -90, CD_COLOR);
+					}
+					Draw.glScissorEnd();
+				}
+				else if(SpellManager.getSpell(this.shortcut.getId()).getSpellCDEnd() >= Mideas.joueur1().getGCDEndTimer()) {
+					Draw.glScissorBegin(this.x+3, Display.getHeight()-this.y-37*Mideas.getDisplayYFactor(), 38*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
+					Draw.drawCircleFinal(this.x+20*Mideas.getDisplayXFactor(), this.y+20*Mideas.getDisplayYFactor(), 35*Mideas.getDisplayXFactor(), ((Mideas.getLoopTickTimer()-SpellManager.getSpell(this.shortcut.getId()).getSpellCDStart())/(double)SpellManager.getSpell(this.shortcut.getId()).getSpellCDLength()), -90, CD_COLOR);
 					Draw.glScissorEnd();
 				}
 			}

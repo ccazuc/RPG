@@ -1,5 +1,6 @@
-package com.mideas.rpg.v2.command;
+package com.mideas.rpg.v2.command.spell;
 
+import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -17,12 +18,13 @@ public class CommandCast extends Command {
 		else if(packetId == PacketID.SPELL_CAST_START) {
 			int spellID = ConnectionManager.getConnection().readInt();
 			long startCastTimer = ConnectionManager.getConnection().readLong();
-			Spell spell = SpellManager.getBookSpell(spellID);
+			int castLength = ConnectionManager.getConnection().readInt();
+			Spell spell = SpellManager.getSpell(spellID);
 			if(spell == null) {
 				System.out.println("Error in CommandCast:CAST_START_SUCCEED, spell not found, id : "+spellID);
 				return;
 			}
-			CastBar.castSpell(spell, startCastTimer);
+			CastBar.castSpell(spell, startCastTimer, castLength);
 		}
 		
 	}

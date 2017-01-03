@@ -1,7 +1,7 @@
 package com.mideas.rpg.v2.game.shortcut;
 
 import com.mideas.rpg.v2.utils.Texture;
-import com.mideas.rpg.v2.command.CommandCast;
+import com.mideas.rpg.v2.command.spell.CommandCast;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.spell.Spell;
@@ -42,7 +42,7 @@ public class SpellShortcut implements Shortcut {
 	
 	@Override
 	public void setCd(int id, int cd) {
-		SpellManager.setCd(id, cd);
+		//SpellManager.setCd(id, cd);
 	}
 	
 	@Override

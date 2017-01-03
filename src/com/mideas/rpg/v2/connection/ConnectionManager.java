@@ -10,7 +10,6 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.command.CommandAddItem;
-import com.mideas.rpg.v2.command.CommandCast;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandFriend;
@@ -27,7 +26,6 @@ import com.mideas.rpg.v2.command.CommandLogoutCharacter;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
-import com.mideas.rpg.v2.command.CommandSendGCD;
 import com.mideas.rpg.v2.command.CommandSendRealmList;
 import com.mideas.rpg.v2.command.CommandSendRedAlert;
 import com.mideas.rpg.v2.command.CommandSendSingleBagItem;
@@ -48,6 +46,9 @@ import com.mideas.rpg.v2.command.item.CommandRequestItem;
 import com.mideas.rpg.v2.command.item.CommandSetItem;
 import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
+import com.mideas.rpg.v2.command.spell.CommandCast;
+import com.mideas.rpg.v2.command.spell.CommandSendGCD;
+import com.mideas.rpg.v2.command.spell.CommandSendSpellCD;
 import com.mideas.rpg.v2.files.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.WorldServer;
 import com.mideas.rpg.v2.game.item.Item;
@@ -112,6 +113,7 @@ public class ConnectionManager {
 		commandList.put((int)DELETE_ITEM, new CommandDeleteItem());
 		commandList.put((int)SPELL_CAST, new CommandCast());
 		commandList.put((int)SEND_GCD, new CommandSendGCD());
+		commandList.put((int)SEND_SPELL_CD, new CommandSendSpellCD());
 	}
 
 	public static final boolean connectAuthServer() {

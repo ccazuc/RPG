@@ -17,7 +17,10 @@ public class Spell {
 	private int manaCost;
 	private int heal;
 	private int defaultHeal;
-	private int cd;
+	private int cdLength;
+	private long cdStart;
+	private long cdEnd;
+	private int baseCD;
 	private int castTime;
 	private float stunRate;
 	private int stunDuration;
@@ -31,7 +34,7 @@ public class Spell {
 		this.manaCost = manaCost;
 		this.stunRate = stunRate;
 		this.stunDuration = stunDuration;
-		this.cd = cd;
+		this.baseCD = cd;
 		this.castTime = castTime;
 		this.id = id;
 	}
@@ -42,7 +45,7 @@ public class Spell {
 		this.name = name;
 		this.type = type;
 		this.heal = heal;
-		this.cd = cd;
+		this.baseCD = cd;
 		this.manaCost = manaCost;
 		this.castTime = castTime;
 	}
@@ -55,7 +58,7 @@ public class Spell {
 		this.manaCost = manaCost;
 		this.stunRate = stunRate;
 		this.stunDuration = stunDuration;
-		this.cd = cd;
+		this.baseCD = cd;
 		this.castTime = castTime;
 		this.id = id;
 		this.heal = heal;
@@ -165,11 +168,19 @@ public class Spell {
 	}
 	
 	public int getSpellBaseCd() {
-		return this.cd;
+		return this.baseCD;
 	}
 	
-	public int getSpellCd() {
-		return 0;
+	public int getSpellCDLength() {
+		return this.cdLength;
+	}
+	
+	public long getSpellCDEnd() {
+		return this.cdEnd;
+	}
+	
+	public long getSpellCDStart() {
+		return this.cdStart;
 	}
 	
 	public boolean equal(Spell spell) {
@@ -179,12 +190,15 @@ public class Spell {
 		return false;
 	}
 	
-	public void setSpellCd(int number) {
+	public void setSpellCd(long startCD, int cd) {
+		this.cdStart = startCD;
+		this.cdEnd = startCD+cd;
+		this.cdLength = cd;
 	}
 
 	public static void checkKeyboardCd(Spell spell) {
 		if(spell != null) {
-			spell.setSpellCd(spell.getSpellBaseCd());
+			//spell.setSpellCd(spell.getSpellBaseCd());
 		}
 	}
 	

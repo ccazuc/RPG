@@ -33,7 +33,7 @@ public class SpellBarManager {
 						Mideas.joueur1().setSpells(i, new PotionShortcut(PotionManager.getPotion(id)));
 					}
 					else if(SpellManager.exists(id)) {
-						Mideas.joueur1().setSpells(i, new SpellShortcut(SpellManager.getBookSpell(id)));
+						Mideas.joueur1().setSpells(i, new SpellShortcut(SpellManager.getSpell(id)));
 					}
 					else if(WeaponManager.exists(id)) {
 						Mideas.joueur1().setSpells(i, new StuffShortcut(WeaponManager.getWeapon(id)));

@@ -33,7 +33,7 @@ public class ChatCommandOther {
 				if(datas.length >= 2) {
 					if(SpellManager.exists(Integer.parseInt(datas[1])) && Integer.parseInt(datas[1]) != -1) {
 						int id = Integer.parseInt(datas[1]);
-						Spell spell = SpellManager.getShortcutSpell(id).getSpell();
+						Spell spell = SpellManager.getSpell(id);
 						ChatFrame.addMessage(new Message(spell.getName()+": ", false, MessageType.SELF));
 						ChatFrame.addMessage(new Message(spell.getDefaultDamage()+" damage", false, MessageType.SELF));
 						ChatFrame.addMessage(new Message(spell.getManaCost()+" mana", false, MessageType.SELF));

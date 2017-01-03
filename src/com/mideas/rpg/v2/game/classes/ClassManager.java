@@ -174,9 +174,9 @@ public class ClassManager {
 	
 	private static void initTable(String id) {
 		if(id.equals("Guerrier")) {
-			playerList.get("Guerrier").setSpellUnlocked(0, SpellManager.getBookSpell(102));
+			playerList.get("Guerrier").setSpellUnlocked(0, SpellManager.getSpell(102));
 			//joueurList.get("Guerrier").setSpells(0, SpellManager.getShortcutSpell(102));
-			iaList.get("Guerrier").setSpellUnlocked(0, SpellManager.getBookSpell(102));
+			iaList.get("Guerrier").setSpellUnlocked(0, SpellManager.getSpell(102));
 			//iaList.get("Guerrier").setSpells(0, SpellManager.getShortcutSpell(102));
 		}
 	}
