@@ -74,7 +74,7 @@ public class ButtonSpellbar {
         		Draw.drawQuad(Sprites.spellbar_case, this.x, this.y-1, 44*Mideas.getDisplayXFactor(), 41*Mideas.getDisplayYFactor(), .5f);
 		}
 		if(this.shortcut != null) {
-			Draw.drawQuad(this.shortcut.getSprite(), this.x+3, this.y+1);
+			Draw.drawQuad(this.shortcut.getSprite(), this.x+3, this.y); //TODO: check la bordure sur wow
 			//Draw.drawQuad(Sprites.spell_border, this.x+3, this.y+1, borderWidth, borderHeight);
 			if(this.itemIsEquipped) {
 				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+3, this.y+1, borderWidth, borderHeight, Color.GREEN);

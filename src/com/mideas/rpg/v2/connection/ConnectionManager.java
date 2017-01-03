@@ -29,6 +29,7 @@ import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.command.CommandSendRealmList;
 import com.mideas.rpg.v2.command.CommandSendRedAlert;
 import com.mideas.rpg.v2.command.CommandSendSingleBagItem;
+import com.mideas.rpg.v2.command.CommandSendTarget;
 import com.mideas.rpg.v2.command.CommandTrade;
 import com.mideas.rpg.v2.command.CommandUpdateStats;
 import com.mideas.rpg.v2.command.CommandWho;
@@ -114,6 +115,7 @@ public class ConnectionManager {
 		commandList.put((int)SPELL_CAST, new CommandCast());
 		commandList.put((int)SEND_GCD, new CommandSendGCD());
 		commandList.put((int)SEND_SPELL_CD, new CommandSendSpellCD());
+		commandList.put((int)SEND_TARGET, new CommandSendTarget());
 	}
 
 	public static final boolean connectAuthServer() {
