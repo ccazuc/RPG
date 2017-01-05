@@ -8,12 +8,13 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class SpellManager {
 
+	private static JDOStatement loadSpells;
 	private final static HashMap<Integer, Spell> spellMap = new HashMap<Integer, Spell>();
 	private static int numberSpellLoaded;
 	
 	public static void loadSpells() {
-		try {
-			JDOStatement statement = Mideas.getJDO().prepare("SELECT type, id FROM spell");
+		/*try {
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT id FROM spell");
 			statement.execute();
 			while(statement.fetch()) {
 				String type = statement.getString();
@@ -33,18 +34,6 @@ public class SpellManager {
 						int stunDuration = statements.getInt();
 						float stunRate = statements.getFloat();
 						spellMap.put(id, new Spell(id, sprite_id, name, spellType, damage, manaCost, stunRate, stunDuration, cd, castTime));
-						/*spellList.add(new Spell(id, sprite_id, name, spellType, damage, manaCost, stunRate, stunDuration, cd, castTime) {
-							@Override
-							public void action(Joueur caster, Joueur target) {
-								if(caster.getMana() >= this.getManaCost()) {
-									this.doDamage(caster, target);
-									caster.setMana(Math.max(0, caster.getMana()-manaCost));
-								}
-								else {
-									RedAlertFrame.addNewAlert("Not enough mana.");
-								}
-							}
-						});*/
 					}
 				}
 				else if(type.equals("HEAL")) {
@@ -60,12 +49,6 @@ public class SpellManager {
 						int cd = statements.getInt();
 						int castTime = statements.getInt();
 						spellMap.put(id, new Spell(id, sprite_id, name, spellType, manaCost, heal, cd, castTime));
-						/*spellList.add(new Spell(id, sprite_id, name, spellType, manaCost, heal, cd, castTime) {
-							@Override
-							public void action(Joueur target, Joueur caster) {
-								this.doHeal(target, caster);
-							}
-						});*/
 					}
 				}
 				else if(type.equals("HEALANDDAMAGE")) {
@@ -74,6 +57,29 @@ public class SpellManager {
 				else if(type.equals("OTHER")) {
 					
 				}
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}*/
+		try {
+			if(loadSpells == null) {
+				loadSpells = Mideas.getJDO().prepare("SELECT id, sprite_id, name, effectValue, stun_duration, stun_rate, manaCost, trigger_gcd, cd, cast_time FROM spell");
+			}
+			loadSpells.clear();
+			loadSpells.execute();
+			while(loadSpells.fetch()) {
+				int id = loadSpells.getInt();
+				String sprite_id = loadSpells.getString();
+				String name = loadSpells.getString();
+				int effectValue = loadSpells.getInt();
+				int stunDuration = loadSpells.getInt();
+				float stunRate = loadSpells.getFloat();
+				int manaCost = loadSpells.getInt();
+				boolean triggerGCD = loadSpells.getBoolean();
+				int cd = loadSpells.getInt();
+				int castTime = loadSpells.getInt();
+				spellMap.put(id, new Spell(id, sprite_id, name, effectValue, manaCost, stunRate, stunDuration, cd, castTime, triggerGCD));
 			}
 		}
 		catch(SQLException e) {
@@ -120,5 +126,9 @@ public class SpellManager {
 	
 	public static int getNumberSpellLoaded() {
 		return numberSpellLoaded;
+	}
+	
+	public static void storeSpell(Spell spell) {
+		spellMap.put(spell.getSpellId(), spell);
 	}
 }

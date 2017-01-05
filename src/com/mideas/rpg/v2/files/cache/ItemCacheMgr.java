@@ -35,6 +35,8 @@ public class ItemCacheMgr {
 		FileChannel out;
 		writeBuffer.clear();
 		writeHeader();
+		int position = writeBuffer.position();
+		writeBuffer.writeInt(0);
 		for(Stuff stuff : StuffManager.getStuffMap().values()) {
 			writeBuffer.writeByte(ItemType.STUFF.getValue());
 			writeBuffer.writeStuff(stuff);
@@ -55,6 +57,10 @@ public class ItemCacheMgr {
 			writeBuffer.writeByte(ItemType.GEM.getValue());
 			writeBuffer.writeGem(gem);
 		}
+		int endPosition = writeBuffer.position();
+		writeBuffer.position(position);
+		writeBuffer.writeInt(endPosition);
+		writeBuffer.position(endPosition);
 		writeBuffer.flip();
 		writeBuffer.setOrder(ByteOrder.LITTLE_ENDIAN);
 		try {
@@ -86,6 +92,7 @@ public class ItemCacheMgr {
 				i++;
 			}
 			int fileSize = readBufferHeader.readInt();
+			System.out.println(fileSize);
 			readBuffer = new Buffer(fileSize);
 			readBuffer.setOrder(ByteOrder.BIG_ENDIAN);
 			fc.read(readBuffer.getBuffer());
@@ -139,24 +146,6 @@ public class ItemCacheMgr {
 			writeBuffer.writeByte(HEADER_SIGNATURE[i]);
 			i++;
 		}
-		int size = HEADER_SIGNATURE.length+4;
-		for(Stuff stuff : StuffManager.getStuffMap().values()) {
-			size+= getStuffSize(stuff)+1;
-		}
-		for(Stuff weapon : WeaponManager.getWeaponMap().values()) {
-			size+= getWeaponSize(weapon)+1;
-		}
-		for(Potion potion : PotionManager.getPotionMap().values()) {
-			size+= getPotionSize(potion)+1;
-		}
-		for(Container container : ContainerManager.getContainerMap().values()) {
-			size+= getContainerSize(container)+1;
-		}
-		for(Gem gem : GemManager.getGemMap().values()) {
-			size+= getGemSize(gem)+1;
-		}
-		System.out.println("File size : "+size);
-		writeBuffer.writeInt(size);
 	}
 	
 	private static void clearFile() {
@@ -175,7 +164,7 @@ public class ItemCacheMgr {
 		}
 	}
 	
-	private static int getStuffSize(Stuff stuff) {
+	/*private static int getStuffSize(Stuff stuff) {
 		int size = 50+stuff.getClassType().length+getStringSize(stuff.getStuffName())+getStringSize(stuff.getSpriteId());
 		return size;
 	}
@@ -202,5 +191,5 @@ public class ItemCacheMgr {
 	
 	private static int getStringSize(String str) {
 		return 2+str.length()*2;
-	}
+	}*/
 }

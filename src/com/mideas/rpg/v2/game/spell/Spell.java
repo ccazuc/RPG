@@ -63,6 +63,16 @@ public class Spell {
 		this.id = id;
 		this.heal = heal;
 	}
+	public Spell(int id, String sprite_id, String name, int effectValue, int manaCost, float stunRate, int stunDuration, int cd, int castTime, boolean triggerGCD) { //Damage spells
+		this.sprite_id = sprite_id;
+		this.name = name;
+		this.manaCost = manaCost;
+		this.stunRate = stunRate;
+		this.stunDuration = stunDuration;
+		this.baseCD = cd;
+		this.castTime = castTime;
+		this.id = id;
+	}
 	
 	public boolean cast(Joueur joueur2, Joueur joueur, Spell spell) {
 		if(hasMana()) {
