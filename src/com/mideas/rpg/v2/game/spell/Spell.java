@@ -12,6 +12,8 @@ public class Spell {
 	private String sprite_id;
 	private SpellType type;
 	protected String name;
+	private String tooltip;
+	private String formatedTooltip;
 	private int damage;
 	private int defaultDamage;
 	private int manaCost;
@@ -25,7 +27,7 @@ public class Spell {
 	private float stunRate;
 	private int stunDuration;
 	
-	public Spell(int id, String sprite_id, String name, SpellType type, int damage, int manaCost, float stunRate, int stunDuration, int cd, int castTime) { //Damage spells
+	public Spell(int id, String sprite_id, String name, String tooltip, SpellType type, int damage, int manaCost, float stunRate, int stunDuration, int cd, int castTime) { //Damage spells
 		this.sprite_id = sprite_id;
 		this.name = name;
 		this.type = type;
@@ -63,12 +65,13 @@ public class Spell {
 		this.id = id;
 		this.heal = heal;
 	}
-	public Spell(int id, String sprite_id, String name, int effectValue, int manaCost, float stunRate, int stunDuration, int cd, int castTime, boolean triggerGCD) { //Damage spells
+	public Spell(int id, String sprite_id, String name, String tooltip, int effectValue, int manaCost, float stunRate, int stunDuration, int cd, int castTime, boolean triggerGCD) { //Damage spells
 		this.sprite_id = sprite_id;
 		this.name = name;
 		this.manaCost = manaCost;
 		this.stunRate = stunRate;
 		this.stunDuration = stunDuration;
+		this.tooltip = tooltip;
 		this.baseCD = cd;
 		this.castTime = castTime;
 		this.id = id;

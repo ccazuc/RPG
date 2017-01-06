@@ -7,6 +7,8 @@ import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 
 import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.aura.Aura;
+import com.mideas.rpg.v2.game.aura.AuraEffect;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
@@ -157,7 +159,11 @@ public class Buffer {
 	}
 	
 	public final Spell readSpell() {
-		return new Spell(readInt(), readString(), readString(), readInt(), readInt(), readFloat(), readInt(), readInt(), readInt(), readBoolean());
+		return new Spell(readInt(), readString(), readString(), readString(), readInt(), readInt(), readFloat(), readInt(), readInt(), readInt(), readBoolean());
+	}
+	
+	public final Aura readAura() {
+		return new Aura(readInt(), readString(), readString(), readInt(), readInt(), readBoolean(), readInt(), readInt(), readBoolean(), readBoolean(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), readBoolean(), readBoolean(), readBoolean());
 	}
 	
 	public final void writeStuff(final Stuff stuff) {
