@@ -1,5 +1,8 @@
 package com.mideas.rpg.v2.game.aura;
 
+import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.utils.Texture;
+
 public class Aura {
 
 	private final int id;
@@ -21,6 +24,7 @@ public class Aura {
 	private final int tickRate;
 	private final boolean isStackable;
 	private final boolean isMagical;
+	private final Texture texture;
 	
 	public Aura(int id, String name, String sprite_id, int spellTriggeredOnFade, int duration, boolean isStackable, int defaultNumberStack, int tickRate, boolean lowDispellable, boolean highDispellable, AuraEffect effect1, int effectValue1, AuraEffect effect2, int effectValue2, AuraEffect effect3, int effectValue3, boolean isBuff, boolean isVisible, boolean isMagical) {
 		this.id = id;
@@ -42,6 +46,7 @@ public class Aura {
 		this.tickRate = tickRate;
 		this.isStackable = isStackable;
 		this.isMagical = isMagical;
+		this.texture = IconsManager.getSprite37(sprite_id);
 	}
 	
 	public int getId() {
@@ -71,4 +76,16 @@ public class Aura {
 	public boolean isVisible() {
 		return this.isVisible;
 	}
-} 
+	
+	public boolean isStackable() {
+		return this.isStackable;
+	}
+	
+	public boolean isMagical() {
+		return this.isMagical;
+	}
+	
+	public boolean isBuff() {
+		return this.isBuff;
+	}
+}

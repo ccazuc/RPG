@@ -1,6 +1,9 @@
 package com.mideas.rpg.v2.game;
 
+import java.util.ArrayList;
+
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.game.aura.AppliedAura;
 import com.mideas.rpg.v2.utils.Texture;
 
 public class Unit {
@@ -20,6 +23,8 @@ public class Unit {
 	protected String manaText = "";
 	protected ClassType classType;
 	protected Texture portraitFrame;
+	protected ArrayList<AppliedAura> buffList;
+	protected ArrayList<AppliedAura> debuffList;
 	
 	public Unit(int id, int stamina, int maxStamina, int mana, int maxMana, int level, String name, ClassType type) {
 		this.stamina = stamina;
@@ -32,6 +37,8 @@ public class Unit {
 		this.classType = type;
 		this.portraitFrame = getPortrait(type);
 		this.classString = Joueur.convClassTypeToString(this.classType);
+		this.buffList = new ArrayList<AppliedAura>();
+		this.debuffList = new ArrayList<AppliedAura>();
 	}
 	
 	public Texture getPortrait() {
@@ -80,6 +87,14 @@ public class Unit {
 	
 	public int getStamina() {
 		return this.stamina;
+	}
+	
+	public ArrayList<AppliedAura> getBuffList() {
+		return this.buffList;
+	}
+	
+	public ArrayList<AppliedAura> getDebuffList() {
+		return this.debuffList;
 	}
 	
 	public void setStamina(double d) {

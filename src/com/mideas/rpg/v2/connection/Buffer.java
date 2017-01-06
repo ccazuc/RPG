@@ -22,6 +22,7 @@ import com.mideas.rpg.v2.game.item.stuff.StuffType;
 import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.spell.Spell;
+import com.mideas.rpg.v2.game.spell.SpellMagicalSchool;
 import com.mideas.rpg.v2.utils.Color;
 
 public class Buffer {
@@ -159,7 +160,7 @@ public class Buffer {
 	}
 	
 	public final Spell readSpell() {
-		return new Spell(readInt(), readString(), readString(), readString(), readInt(), readInt(), readFloat(), readInt(), readInt(), readInt(), readBoolean());
+		return new Spell(readInt(), readString(), readString(), readString(), readByte(), readInt(), readInt(), readFloat(), readInt(), readInt(), readInt(), readBoolean(), SpellMagicalSchool.values()[readByte()], readBoolean());
 	}
 	
 	public final Aura readAura() {

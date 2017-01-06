@@ -41,6 +41,12 @@ public enum AuraEffect {
 	MOUNT((byte)36),
 	NONE((byte)37),
 	SPELL_MODIFIER((byte)38),
+	STUN((byte)39),
+	FEAR((byte)40),
+	SILENCE((byte)41),
+	IMMUNE_PHYSICAL((byte)42),
+	IMMUNE_MAGICAL((byte)43),
+	IMMUNE_ALL((byte)44),
 	;
 	
 	private byte value;

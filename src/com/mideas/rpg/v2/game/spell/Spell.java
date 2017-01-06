@@ -4,30 +4,30 @@ import com.mideas.rpg.v2.utils.Texture;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.IconsManager;
-import com.mideas.rpg.v2.game.Joueur;
 
 public class Spell {
 	
-	private int id;
-	private String sprite_id;
-	private SpellType type;
-	protected String name;
-	private String tooltip;
+	private final int id;
+	private final String sprite_id;
+	private final SpellType type;
+	private final String name;
+	private final String tooltip;
 	private String formatedTooltip;
-	private int damage;
-	private int defaultDamage;
-	private int manaCost;
-	private int heal;
-	private int defaultHeal;
-	private int cdLength;
+	private final int manaCost;
+	private final int cdLength;
 	private long cdStart;
 	private long cdEnd;
-	private int baseCD;
-	private int castTime;
-	private float stunRate;
-	private int stunDuration;
+	private final int effectValue;
+	private final int baseCD;
+	private final int castTime;
+	private final float stunRate;
+	private final int stunDuration;
+	private final SpellMagicalSchool magicalSchool;
+	private final boolean isMagical;
+	private final boolean triggerGCD;
+	private final byte rank;
 	
-	public Spell(int id, String sprite_id, String name, String tooltip, SpellType type, int damage, int manaCost, float stunRate, int stunDuration, int cd, int castTime) { //Damage spells
+	/*public Spell(int id, String sprite_id, String name, String tooltip, SpellType type, int damage, int manaCost, float stunRate, int stunDuration, int cd, int castTime) { //Damage spells
 		this.sprite_id = sprite_id;
 		this.name = name;
 		this.type = type;
@@ -64,8 +64,9 @@ public class Spell {
 		this.castTime = castTime;
 		this.id = id;
 		this.heal = heal;
-	}
-	public Spell(int id, String sprite_id, String name, String tooltip, int effectValue, int manaCost, float stunRate, int stunDuration, int cd, int castTime, boolean triggerGCD) { //Damage spells
+	}*/
+	
+	public Spell(int id, String sprite_id, String name, String tooltip, byte rank, int effectValue, int manaCost, float stunRate, int stunDuration, int cd, int castTime, boolean triggerGCD, SpellMagicalSchool magicalSchool, boolean isMagical) { //Damage spells
 		this.sprite_id = sprite_id;
 		this.name = name;
 		this.manaCost = manaCost;
@@ -75,9 +76,14 @@ public class Spell {
 		this.baseCD = cd;
 		this.castTime = castTime;
 		this.id = id;
+		this.isMagical = isMagical;
+		this.rank = rank;
+		this.effectValue = effectValue;
+		this.triggerGCD = triggerGCD;
+		this.magicalSchool = magicalSchool;
 	}
 	
-	public boolean cast(Joueur joueur2, Joueur joueur, Spell spell) {
+	/*public boolean cast(Joueur joueur2, Joueur joueur, Spell spell) {
 		if(hasMana()) {
 			doDamage(joueur2, joueur);
 			useMana(joueur, spell);
@@ -122,7 +128,7 @@ public class Spell {
 			}
 			//}
 		}
-	}
+	}*/
 	
 	public int getManaCost() {
 		return this.manaCost;
@@ -140,37 +146,8 @@ public class Spell {
 		return this.type;
 	}
 	
-	public void doHeal(Joueur joueur) {
-		joueur.setStamina(joueur.getStamina()+getHeal());
-	}
-	
-	public void doHealMax(Joueur joueur) {
-		joueur.setStamina(joueur.getMaxStamina());
-	}
-	
-	public int getDamage() {
-		return (int)(Mideas.joueur1().getStrength()+this.defaultDamage*(Math.random()*.1+.95));
-	}
-	
-	public int getHeal() {
-		return (int)(this.heal*(1+Math.random()));
-	}
-	
-	public int getDefaultamage() {
-		return this.defaultDamage;
-	}
-	
-	public int getDefaultDamage() {
-		return this.defaultDamage;
-	}
-	
-	
 	public int getCastTime() {
 		return this.castTime;
-	}
-	
-	public void useMana(Joueur joueur, Spell spell) {
-		joueur.setMana(joueur.getMana()-spell.manaCost);
 	}
 	
 	public String getName() {
