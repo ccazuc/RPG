@@ -2,7 +2,7 @@ package com.mideas.rpg.v2.chat;
 
 import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.Unit;
+import com.mideas.rpg.v2.game.unit.Unit;
 
 public class ChatCommandPlayerGet {
 

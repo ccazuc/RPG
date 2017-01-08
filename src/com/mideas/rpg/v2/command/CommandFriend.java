@@ -6,10 +6,10 @@ import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.ClassType;
-import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.race.Race;
 import com.mideas.rpg.v2.game.social.Friend;
+import com.mideas.rpg.v2.game.unit.ClassType;
+import com.mideas.rpg.v2.game.unit.Joueur;
 
 public class CommandFriend extends Command {
 

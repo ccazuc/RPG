@@ -8,10 +8,10 @@ import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.guild.GuildMember;
 import com.mideas.rpg.v2.game.guild.GuildRank;
+import com.mideas.rpg.v2.game.unit.ClassType;
 import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 

@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.game;
+package com.mideas.rpg.v2.game.unit;
 
 public enum ClassType {
 

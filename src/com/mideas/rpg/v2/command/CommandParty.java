@@ -6,9 +6,9 @@ import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.Party;
-import com.mideas.rpg.v2.game.Unit;
+import com.mideas.rpg.v2.game.unit.ClassType;
+import com.mideas.rpg.v2.game.unit.Unit;
 import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.PopupFrame;
 

@@ -4,13 +4,13 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.game.ClassType;
-import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
+import com.mideas.rpg.v2.game.unit.ClassType;
+import com.mideas.rpg.v2.game.unit.Joueur;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class WeaponManager {

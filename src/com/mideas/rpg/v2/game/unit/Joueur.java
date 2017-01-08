@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.game;
+package com.mideas.rpg.v2.game.unit;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,9 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.chat.MessageType;
+import com.mideas.rpg.v2.game.CharacterStuff;
+import com.mideas.rpg.v2.game.Party;
+import com.mideas.rpg.v2.game.SocialFrameMenu;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.guild.GuildRank;

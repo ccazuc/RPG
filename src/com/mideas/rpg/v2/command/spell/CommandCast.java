@@ -5,6 +5,7 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
+import com.mideas.rpg.v2.game.unit.TargetType;
 import com.mideas.rpg.v2.hud.CastBar;
 
 public class CommandCast extends Command {
@@ -34,6 +35,8 @@ public class CommandCast extends Command {
 		ConnectionManager.getConnection().writeShort(PacketID.SPELL_CAST);
 		ConnectionManager.getConnection().writeShort(PacketID.SPELL_CAST_REQUEST);
 		ConnectionManager.getConnection().writeInt(spellId);
+		ConnectionManager.getConnection().writeByte(TargetType.TARGET.getValue());
+		ConnectionManager.getConnection().writeByte((byte)1);
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}

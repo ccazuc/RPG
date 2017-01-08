@@ -2,7 +2,7 @@ package com.mideas.rpg.v2.game.guild;
 
 import java.util.ArrayList;
 
-import com.mideas.rpg.v2.game.ClassType;
+import com.mideas.rpg.v2.game.unit.ClassType;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 
 public class Guild {

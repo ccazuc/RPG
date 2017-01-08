@@ -35,7 +35,6 @@ public class ChatCommandOther {
 						int id = Integer.parseInt(datas[1]);
 						Spell spell = SpellManager.getSpell(id);
 						ChatFrame.addMessage(new Message(spell.getName()+": ", false, MessageType.SELF));
-						ChatFrame.addMessage(new Message(spell.getDefaultDamage()+" damage", false, MessageType.SELF));
 						ChatFrame.addMessage(new Message(spell.getManaCost()+" mana", false, MessageType.SELF));
 					}
 					else {

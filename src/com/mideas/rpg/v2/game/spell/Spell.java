@@ -9,12 +9,11 @@ public class Spell {
 	
 	private final int id;
 	private final String sprite_id;
-	private final SpellType type;
 	private final String name;
 	private final String tooltip;
 	private String formatedTooltip;
+	private int cdLength;
 	private final int manaCost;
-	private final int cdLength;
 	private long cdStart;
 	private long cdEnd;
 	private final int effectValue;
@@ -142,10 +141,6 @@ public class Spell {
 		return this.sprite_id;
 	}
 	
-	public SpellType getType() {
-		return this.type;
-	}
-	
 	public int getCastTime() {
 		return this.castTime;
 	}
@@ -184,12 +179,6 @@ public class Spell {
 		this.cdStart = startCD;
 		this.cdEnd = startCD+cd;
 		this.cdLength = cd;
-	}
-
-	public static void checkKeyboardCd(Spell spell) {
-		if(spell != null) {
-			//spell.setSpellCd(spell.getSpellBaseCd());
-		}
 	}
 	
 	public int getSpellId() {

@@ -1,9 +1,9 @@
 package com.mideas.rpg.v2.game.guild;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.game.unit.ClassType;
+import com.mideas.rpg.v2.game.unit.Joueur;
 import com.mideas.rpg.v2.FontManager;
-import com.mideas.rpg.v2.game.ClassType;
-import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.utils.Color;
 
 public class GuildMember {

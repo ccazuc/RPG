@@ -9,7 +9,7 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandTrade;
-import com.mideas.rpg.v2.game.Unit;
+import com.mideas.rpg.v2.game.unit.Unit;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.TextMenu;

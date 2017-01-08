@@ -2,9 +2,9 @@ package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
-import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.race.Race;
 import com.mideas.rpg.v2.game.social.WhoUnit;
+import com.mideas.rpg.v2.game.unit.ClassType;
 import com.mideas.rpg.v2.hud.social.who.WhoFrame;
 
 public class CommandWho extends Command {

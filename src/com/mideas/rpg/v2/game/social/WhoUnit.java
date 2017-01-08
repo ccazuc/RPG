@@ -1,8 +1,8 @@
 package com.mideas.rpg.v2.game.social;
 
-import com.mideas.rpg.v2.game.ClassType;
-import com.mideas.rpg.v2.game.Joueur;
 import com.mideas.rpg.v2.game.race.Race;
+import com.mideas.rpg.v2.game.unit.ClassType;
+import com.mideas.rpg.v2.game.unit.Joueur;
 import com.mideas.rpg.v2.utils.Color;
 
 public class WhoUnit {

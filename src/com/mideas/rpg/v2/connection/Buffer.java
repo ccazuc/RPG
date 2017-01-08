@@ -6,7 +6,6 @@ import java.nio.ByteOrder;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 
-import com.mideas.rpg.v2.game.ClassType;
 import com.mideas.rpg.v2.game.aura.Aura;
 import com.mideas.rpg.v2.game.aura.AuraEffect;
 import com.mideas.rpg.v2.game.classes.Wear;
@@ -23,6 +22,7 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellMagicalSchool;
+import com.mideas.rpg.v2.game.unit.ClassType;
 import com.mideas.rpg.v2.utils.Color;
 
 public class Buffer {

@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.game;
 
+import com.mideas.rpg.v2.game.unit.Unit;
+
 public class Party {
 
 	private Unit[] partyList;
