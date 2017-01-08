@@ -55,6 +55,40 @@ DELETE FROM `account_banned`;
 /*!40000 ALTER TABLE `account_banned` ENABLE KEYS */;
 
 
+-- Export de la structure de table rpg. aura
+DROP TABLE IF EXISTS `aura`;
+CREATE TABLE IF NOT EXISTS `aura` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(50) NOT NULL DEFAULT '',
+  `sprite_id` varchar(50) NOT NULL DEFAULT '',
+  `spell_triggered_on_fade` mediumint(9) NOT NULL DEFAULT '0',
+  `duration` mediumint(9) NOT NULL DEFAULT '0',
+  `is_stackable` tinyint(4) NOT NULL DEFAULT '0',
+  `default_number_stack` smallint(6) NOT NULL DEFAULT '0',
+  `tick_rate` smallint(6) NOT NULL DEFAULT '1',
+  `low_dispellable` tinyint(4) NOT NULL DEFAULT '0',
+  `high_dispellable` tinyint(4) NOT NULL DEFAULT '0',
+  `aura_effect1` enum('REDUCE_STAMINA','REDUCE_MAX_STAMINA','REDUCE_MANA','REDUCE_MAX_MANA','REDUCE_ARMOR','REDUCE_CARAC','REDUCE_STRENGTH','REDUCE_AGILITY','REDUCE_ATTACK_POWER','REDUCE_INTELLIGENCE','REDUCE_SPELL_POWER','REDUCE_ATTACK_SPEED','REDUCE_HASTE','REDUCE_SPELL_HASTE','REDUCE_CRITICAL','REDUCE_SPELL_CRITICAL','REDUCE_HEALING_POWER','REDUCE_HEALING_TAKEN','INCREASE_STAMINA','INCREASE_MAX_STAMINA','INCREASE_STRENGTH','INCREASE_AGILITY','INCREASE_MANA','INCREASE_MAX_MANA','INCREASE_ARMOR','INCREASE_CARAC','INCREASE_ATTACK_POWER','INCREASE_INTELLIGENCE','INCREASE_SPELL_POWER','INCREASE_ATTACK_SPEED','INCREAE_HASTE','INCREASE_SPELL_HASTE','INCREASE_CRITICAL','INCREASE_SPELL_CRITICAL','INCREASE_HEALING_POWER','INCREASE_HEALING_TAKEN','MOUNT','NONE','SPELL_MODIFIER','STUN','FEAR','SILENCE','IMMUNE_PHYSICAL','IMMUNE_MAGICAL','IMMUNE_ALL') NOT NULL DEFAULT 'NONE',
+  `aura_effect_value1` smallint(6) NOT NULL DEFAULT '0',
+  `aura_effect2` enum('REDUCE_STAMINA','REDUCE_MAX_STAMINA','REDUCE_MANA','REDUCE_MAX_MANA','REDUCE_ARMOR','REDUCE_CARAC','REDUCE_STRENGTH','REDUCE_AGILITY','REDUCE_ATTACK_POWER','REDUCE_INTELLIGENCE','REDUCE_SPELL_POWER','REDUCE_ATTACK_SPEED','REDUCE_HASTE','REDUCE_SPELL_HASTE','REDUCE_CRITICAL','REDUCE_SPELL_CRITICAL','REDUCE_HEALING_POWER','REDUCE_HEALING_TAKEN','INCREASE_STAMINA','INCREASE_MAX_STAMINA','INCREASE_STRENGTH','INCREASE_AGILITY','INCREASE_MANA','INCREASE_MAX_MANA','INCREASE_ARMOR','INCREASE_CARAC','INCREASE_ATTACK_POWER','INCREASE_INTELLIGENCE','INCREASE_SPELL_POWER','INCREASE_ATTACK_SPEED','INCREAE_HASTE','INCREASE_SPELL_HASTE','INCREASE_CRITICAL','INCREASE_SPELL_CRITICAL','INCREASE_HEALING_POWER','INCREASE_HEALING_TAKEN','MOUNT','NONE','SPELL_MODIFIER','STUN','FEAR','SILENCE','IMMUNE_PHYSICAL','IMMUNE_MAGICAL','IMMUNE_ALL') NOT NULL DEFAULT 'NONE',
+  `aura_effect_value2` smallint(6) NOT NULL DEFAULT '0',
+  `aura_effect3` enum('REDUCE_STAMINA','REDUCE_MAX_STAMINA','REDUCE_MANA','REDUCE_MAX_MANA','REDUCE_ARMOR','REDUCE_CARAC','REDUCE_STRENGTH','REDUCE_AGILITY','REDUCE_ATTACK_POWER','REDUCE_INTELLIGENCE','REDUCE_SPELL_POWER','REDUCE_ATTACK_SPEED','REDUCE_HASTE','REDUCE_SPELL_HASTE','REDUCE_CRITICAL','REDUCE_SPELL_CRITICAL','REDUCE_HEALING_POWER','REDUCE_HEALING_TAKEN','INCREASE_STAMINA','INCREASE_MAX_STAMINA','INCREASE_STRENGTH','INCREASE_AGILITY','INCREASE_MANA','INCREASE_MAX_MANA','INCREASE_ARMOR','INCREASE_CARAC','INCREASE_ATTACK_POWER','INCREASE_INTELLIGENCE','INCREASE_SPELL_POWER','INCREASE_ATTACK_SPEED','INCREAE_HASTE','INCREASE_SPELL_HASTE','INCREASE_CRITICAL','INCREASE_SPELL_CRITICAL','INCREASE_HEALING_POWER','INCREASE_HEALING_TAKEN','MOUNT','NONE','SPELL_MODIFIER','STUN','FEAR','SILENCE','IMMUNE_PHYSICAL','IMMUNE_MAGICAL','IMMUNE_ALL') NOT NULL DEFAULT 'NONE',
+  `aura_effect_value3` smallint(6) NOT NULL DEFAULT '0',
+  `visible` tinyint(4) NOT NULL DEFAULT '1',
+  `is_buff` tinyint(4) NOT NULL DEFAULT '0',
+  `is_magical` tinyint(4) NOT NULL DEFAULT '0',
+  `magical_school` enum('FIRE','FROST','ARCANE','NATURE','SHADOW','HOLY') NOT NULL DEFAULT 'FIRE',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Export de données de la table rpg.aura: ~1 rows (environ)
+DELETE FROM `aura`;
+/*!40000 ALTER TABLE `aura` DISABLE KEYS */;
+INSERT INTO `aura` (`id`, `name`, `sprite_id`, `spell_triggered_on_fade`, `duration`, `is_stackable`, `default_number_stack`, `tick_rate`, `low_dispellable`, `high_dispellable`, `aura_effect1`, `aura_effect_value1`, `aura_effect2`, `aura_effect_value2`, `aura_effect3`, `aura_effect_value3`, `visible`, `is_buff`, `is_magical`, `magical_school`) VALUES
+	(1, 'TestAura', 'a', 0, 500, 0, 1, 1, 0, 0, 'NONE', 0, 'NONE', 0, 'NONE', 0, 1, 0, 0, 'FIRE');
+/*!40000 ALTER TABLE `aura` ENABLE KEYS */;
+
+
 -- Export de la structure de table rpg. bag
 DROP TABLE IF EXISTS `bag`;
 CREATE TABLE IF NOT EXISTS `bag` (
@@ -578,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `character` (
 DELETE FROM `character`;
 /*!40000 ALTER TABLE `character` DISABLE KEYS */;
 INSERT INTO `character` (`account_id`, `character_id`, `name`, `class`, `race`, `experience`, `gold`, `online`, `last_login_timer`) VALUES
-	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 0, 1483305304032),
+	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 1, 1483734516333),
 	(1, 2, 'Midelol', 'ROGUE', 'UNDEAD', 0, 0, 0, 0),
 	(1, 5, 'Test', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
 	(1, 6, 'Bla', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
@@ -623,7 +657,7 @@ CREATE TABLE IF NOT EXISTS `character_containers` (
 DELETE FROM `character_containers`;
 /*!40000 ALTER TABLE `character_containers` DISABLE KEYS */;
 INSERT INTO `character_containers` (`character_id`, `slot1`, `slot2`, `slot3`, `slot4`) VALUES
-	(1, 100004, 100003, 100003, 0),
+	(1, 0, 0, 0, 0),
 	(2, 100004, 100004, 100004, 100003),
 	(5, 0, 0, 0, 0),
 	(6, 0, 0, 0, 0),
@@ -3532,31 +3566,27 @@ INSERT INTO `item_container` (`id`, `sprite_id`, `name`, `quality`, `size`, `sel
 DROP TABLE IF EXISTS `item_gem`;
 CREATE TABLE IF NOT EXISTS `item_gem` (
   `id` int(11) NOT NULL,
-  `sprite_id` varchar(50) DEFAULT '0',
-  `name` varchar(50) DEFAULT '0',
-  `quality` tinyint(4) DEFAULT '0',
-  `color` enum('RED','YELLOW','BLUE','GREEN','ORANGE','PURPLE') DEFAULT NULL,
-  `sellprice` mediumint(9) DEFAULT NULL,
-  `pa` smallint(6) DEFAULT '0',
-  `intellect` smallint(6) DEFAULT '0',
-  `stamina` smallint(6) DEFAULT '0',
-  `defense` smallint(6) DEFAULT '0',
-  `mp5` tinyint(4) DEFAULT '0',
-  `mana` smallint(6) DEFAULT '0',
-  `critical` tinyint(4) DEFAULT '0',
-  `spell_critical` tinyint(4) DEFAULT '0',
-  `spell_damage` tinyint(4) DEFAULT '0',
-  `heal` smallint(6) DEFAULT '0',
+  `sprite_id` varchar(50) NOT NULL DEFAULT '0',
+  `name` varchar(50) NOT NULL DEFAULT '0',
+  `quality` tinyint(4) NOT NULL DEFAULT '0',
+  `color` enum('RED','YELLOW','BLUE','GREEN','ORANGE','PURPLE') NOT NULL DEFAULT 'RED',
+  `sellprice` mediumint(9) NOT NULL DEFAULT '0',
+  `stat1Type` enum('STRENGTH','STAMINA','INTELLIGENCE','CRITICAL','SPELL_CRITICAL','HASTE','SPELL_HASTE','MP5','HEALING_POWER','NONE') NOT NULL DEFAULT 'NONE',
+  `stat1Value` tinyint(4) NOT NULL DEFAULT '0',
+  `stat2Type` enum('STRENGTH','STAMINA','INTELLIGENCE','CRITICAL','SPELL_CRITICAL','HASTE','SPELL_HASTE','MP5','HEALING_POWER','NONE') NOT NULL DEFAULT 'NONE',
+  `stat2Value` tinyint(4) NOT NULL DEFAULT '0',
+  `stat3Type` enum('STRENGTH','STAMINA','INTELLIGENCE','CRITICAL','SPELL_CRITICAL','HASTE','SPELL_HASTE','MP5','HEALING_POWER','NONE') NOT NULL DEFAULT 'NONE',
+  `stat3Value` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.item_gem: ~3 rows (environ)
+-- Export de données de la table rpg.item_gem: ~2 rows (environ)
 DELETE FROM `item_gem`;
 /*!40000 ALTER TABLE `item_gem` DISABLE KEYS */;
-INSERT INTO `item_gem` (`id`, `sprite_id`, `name`, `quality`, `color`, `sellprice`, `pa`, `intellect`, `stamina`, `defense`, `mp5`, `mana`, `critical`, `spell_critical`, `spell_damage`, `heal`) VALUES
-	(50001, 'inv_jewelcrafting_crimsonspinel_02', 'Bold Crimson Spinel', 4, 'RED', 20000, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(50101, 'inv_jewelcrafting_pyrestone_02', 'Inscribed Pyrestone', 4, 'ORANGE', 20000, 5, 0, 0, 0, 0, 0, 2, 0, 0, 0),
-	(50201, 'inv_jewelcrafting_empyreansapphire_02', 'Solid Empyrean Sapphire', 4, 'BLUE', 20000, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `item_gem` (`id`, `sprite_id`, `name`, `quality`, `color`, `sellprice`, `stat1Type`, `stat1Value`, `stat2Type`, `stat2Value`, `stat3Type`, `stat3Value`) VALUES
+	(50001, 'inv_jewelcrafting_crimsonspinel_02', 'Bold Crimson Spinel', 4, 'RED', 20000, 'STRENGTH', 10, 'NONE', 0, 'NONE', 0),
+	(50101, 'inv_jewelcrafting_pyrestone_02', 'Inscribed Pyrestone', 4, 'ORANGE', 20000, 'STRENGTH', 0, 'NONE', 0, 'NONE', 0),
+	(50201, 'inv_jewelcrafting_empyreansapphire_02', 'Solid Empyrean Sapphire', 4, 'BLUE', 20000, 'STRENGTH', 0, 'NONE', 0, 'NONE', 0);
 /*!40000 ALTER TABLE `item_gem` ENABLE KEYS */;
 
 
@@ -3814,56 +3844,58 @@ CREATE TABLE IF NOT EXISTS `spell` (
   `id` mediumint(9) NOT NULL,
   `sprite_id` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `type` enum('DAMAGE','HEAL','HEALANDDAMAGE','OTHER') NOT NULL,
-  `heal` mediumint(9) NOT NULL,
-  `damage` mediumint(9) NOT NULL,
+  `tooltip` text NOT NULL,
+  `rank` tinyint(4) DEFAULT '1',
+  `effectValue` mediumint(9) NOT NULL,
   `stun_duration` mediumint(9) NOT NULL DEFAULT '0',
   `stun_rate` float NOT NULL DEFAULT '0',
   `manacost` mediumint(9) NOT NULL,
   `trigger_gcd` tinyint(4) NOT NULL DEFAULT '0',
-  `cd` tinyint(4) NOT NULL,
-  `cast_time` float DEFAULT NULL,
+  `cd` smallint(6) NOT NULL DEFAULT '0',
+  `cast_time` float NOT NULL DEFAULT '0',
+  `magical_school` enum('FIRE','FROST','ARCANE','NATURE','SHADOW','HOLY') NOT NULL DEFAULT 'FIRE',
+  `is_magical` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Export de données de la table rpg.spell: ~34 rows (environ)
 DELETE FROM `spell`;
 /*!40000 ALTER TABLE `spell` DISABLE KEYS */;
-INSERT INTO `spell` (`id`, `sprite_id`, `name`, `type`, `heal`, `damage`, `stun_duration`, `stun_rate`, `manacost`, `trigger_gcd`, `cd`, `cast_time`) VALUES
-	(-1, 'ability_meleedamage', 'Attack', 'DAMAGE', 0, 0, 0, 0, 0, 0, 0, 0),
-	(1, 'spell_shadow_deathcoil', 'Death Coil', 'DAMAGE', 0, 1500, 0, 0, 800, 1, 0, 0),
-	(2, 'spell_deathknight_butcher2', 'Death Strike', 'DAMAGE', 0, 2500, 0, 0, 1200, 1, 0, 0),
-	(3, 'spell_deathknight_empowerruneblade', 'Plague Strike', 'DAMAGE', 0, 2500, 0, 0, 1200, 1, 0, 0),
-	(101, 'ability_warrior_charge', 'Charge', 'DAMAGE', 0, 1000, 0, 0, 500, 1, 0, 0),
-	(102, 'ability_rogue_ambush', 'Heroic Strike', 'DAMAGE', 0, 2000, 0, 0, 1000, 1, 0, 2000),
-	(103, 'ability_warrior_savageblow', 'Mortal Strike', 'DAMAGE', 0, 4000, 0, 0, 1500, 1, 6, 3000),
-	(104, 'ability_gouge', 'Rend', 'DAMAGE', 0, 1000, 0, 0, 500, 1, 0, 0),
-	(105, 'ability_thunderclap', 'ThunderClap', 'DAMAGE', 0, 1000, 0, 0, 500, 1, 0, 0),
-	(201, 'ability_impalingbolt', 'Arcane Shot', 'DAMAGE', 0, 2500, 0, 0, 1200, 1, 0, 0),
-	(202, 'ability_upgrademoonglaive', 'Multishot', 'DAMAGE', 0, 2500, 0, 0, 1500, 1, 0, 2000),
-	(203, 'ability_hunter_steadyshot', 'Steady Shot', 'DAMAGE', 0, 1500, 0, 0, 700, 1, 0, 2000),
-	(301, 'spell_fire_firebolt02', 'Fireball', 'DAMAGE', 0, 2500, 0, 0, 1200, 1, 0, 2000),
-	(302, 'spell_fire_selfdestruct', 'Flame Strike', 'DAMAGE', 0, 1500, 0, 0, 700, 1, 0, 2000),
-	(303, 'spell_fire_fireball02', 'Pyroblast', 'DAMAGE', 0, 3500, 0, 0, 2000, 1, 0, 4000),
-	(401, 'ability_monk_tigerpalm', 'Tiger Palm', 'DAMAGE', 0, 1500, 0, 0, 700, 1, 0, 0),
-	(402, 'ability_ghoulfrenzy', 'Tiger Strike', 'DAMAGE', 0, 1500, 0, 0, 700, 1, 0, 0),
-	(403, 'spell_shadow_unsummonbuilding', 'Touch Of Death', 'DAMAGE', 0, 6000, 0, 0, 3000, 1, 0, 0),
-	(501, 'spell_holy_holysmite', 'Cursader Strike', 'DAMAGE', 0, 2500, 0, 0, 1000, 1, 0, 0),
-	(502, 'spell_holy_righteousfury', 'Judgment', 'DAMAGE', 0, 1500, 0, 0, 800, 0, 0, 0),
-	(503, 'spell_holy_layonhands', 'Lay On Hands', 'HEAL', 15000, 0, 0, 0, 3000, 1, 0, 0),
-	(601, 'spell_holy_flashheal', 'Flash Heal', 'HEAL', 6000, 0, 0, 0, 2000, 1, 0, 2000),
-	(602, 'spell_holy_holynova', 'Holy Nova', 'DAMAGE', 0, 1500, 0, 0, 500, 1, 0, 0),
-	(603, 'spell_holy_penance', 'Penance', 'DAMAGE', 0, 1500, 0, 0, 700, 1, 0, 2000),
-	(701, 'ability_rogue_ambush', 'Ambush', 'DAMAGE', 0, 5000, 0, 0, 2000, 1, 0, 0),
-	(702, 'ability_rogue_eviscerate', 'Eviscerate', 'DAMAGE', 0, 2500, 0, 0, 1200, 1, 0, 0),
-	(703, 'spell_shadow_ritualofsacrifice', 'Sinister Strike', 'DAMAGE', 0, 1500, 0, 0, 700, 1, 0, 0),
-	(801, 'spell_nature_chainlightning', 'Chain Lightning', 'DAMAGE', 0, 2500, 0, 0, 1200, 1, 0, 200),
-	(802, 'spell_nature_healingway', 'Healing Surge', 'HEAL', 6000, 0, 0, 0, 2000, 1, 0, 3000),
-	(803, 'spell_nature_lightning', 'Lightning Bolt', 'DAMAGE', 0, 1500, 0, 0, 800, 1, 0, 2000),
-	(901, 'spell_shadow_abominationexplosion', 'Corruption', 'DAMAGE', 0, 1500, 0, 0, 800, 1, 0, 0),
-	(902, 'spell_fire_immolation', 'Immolation', 'DAMAGE', 0, 2500, 0, 0, 1000, 1, 0, 2000),
-	(903, 'spell_shadow_shadowbolt', 'Shadow Bolt', 'DAMAGE', 0, 3500, 0, 0, 2000, 1, 0, 4000),
-	(9999, 'ability_rogue_ambush', 'MJ', 'DAMAGE', 0, 999999, 0, 0, 1, 0, 0, 0);
+INSERT INTO `spell` (`id`, `sprite_id`, `name`, `tooltip`, `rank`, `effectValue`, `stun_duration`, `stun_rate`, `manacost`, `trigger_gcd`, `cd`, `cast_time`, `magical_school`, `is_magical`) VALUES
+	(-1, 'ability_meleedamage', 'Attack', '', 1, 0, 0, 0, 0, 0, 0, 0, 'FIRE', 0),
+	(1, 'spell_shadow_deathcoil', 'Death Coil', '', 1, 1500, 0, 0, 800, 1, 0, 0, 'FIRE', 0),
+	(2, 'spell_deathknight_butcher2', 'Death Strike', '', 1, 2500, 0, 0, 1200, 1, 0, 0, 'FIRE', 0),
+	(3, 'spell_deathknight_empowerruneblade', 'Plague Strike', '', 1, 2500, 0, 0, 1200, 1, 0, 0, 'FIRE', 0),
+	(101, 'ability_warrior_charge', 'Charge', '', 1, 1000, 0, 0, 500, 1, 0, 0, 'FIRE', 0),
+	(102, 'ability_rogue_ambush', 'Heroic Strike', '', 1, 2000, 0, 0, 1000, 1, 0, 2000, 'FIRE', 0),
+	(103, 'ability_warrior_savageblow', 'Mortal Strike', '', 1, 4000, 0, 0, 1500, 1, 6000, 1000, 'FIRE', 0),
+	(104, 'ability_gouge', 'Rend', '', 1, 1000, 0, 0, 500, 1, 0, 0, 'FIRE', 0),
+	(105, 'ability_thunderclap', 'ThunderClap', '', 1, 1000, 0, 0, 500, 1, 0, 0, 'FIRE', 0),
+	(201, 'ability_impalingbolt', 'Arcane Shot', '', 1, 2500, 0, 0, 1200, 1, 0, 0, 'FIRE', 0),
+	(202, 'ability_upgrademoonglaive', 'Multishot', '', 1, 2500, 0, 0, 1500, 1, 0, 2000, 'FIRE', 0),
+	(203, 'ability_hunter_steadyshot', 'Steady Shot', '', 1, 1500, 0, 0, 700, 1, 0, 2000, 'FIRE', 0),
+	(301, 'spell_fire_firebolt02', 'Fireball', '', 1, 2500, 0, 0, 1200, 1, 0, 2000, 'FIRE', 0),
+	(302, 'spell_fire_selfdestruct', 'Flame Strike', '', 1, 1500, 0, 0, 700, 1, 0, 2000, 'FIRE', 0),
+	(303, 'spell_fire_fireball02', 'Pyroblast', '', 1, 3500, 0, 0, 2000, 1, 0, 4000, 'FIRE', 0),
+	(401, 'ability_monk_tigerpalm', 'Tiger Palm', '', 1, 1500, 0, 0, 700, 1, 0, 0, 'FIRE', 0),
+	(402, 'ability_ghoulfrenzy', 'Tiger Strike', '', 1, 1500, 0, 0, 700, 1, 0, 0, 'FIRE', 0),
+	(403, 'spell_shadow_unsummonbuilding', 'Touch Of Death', '', 1, 6000, 0, 0, 3000, 1, 0, 0, 'FIRE', 0),
+	(501, 'spell_holy_holysmite', 'Cursader Strike', '', 1, 2500, 0, 0, 1000, 1, 0, 0, 'FIRE', 0),
+	(502, 'spell_holy_righteousfury', 'Judgment', '', 1, 1500, 0, 0, 800, 0, 0, 0, 'FIRE', 0),
+	(503, 'spell_holy_layonhands', 'Lay On Hands', '', 1, 0, 0, 0, 3000, 1, 0, 0, 'FIRE', 0),
+	(601, 'spell_holy_flashheal', 'Flash Heal', '', 1, 0, 0, 0, 2000, 1, 0, 2000, 'FIRE', 0),
+	(602, 'spell_holy_holynova', 'Holy Nova', '', 1, 1500, 0, 0, 500, 1, 0, 0, 'FIRE', 0),
+	(603, 'spell_holy_penance', 'Penance', '', 1, 1500, 0, 0, 700, 1, 0, 2000, 'FIRE', 0),
+	(701, 'ability_rogue_ambush', 'Ambush', '', 1, 5000, 0, 0, 2000, 1, 0, 0, 'FIRE', 0),
+	(702, 'ability_rogue_eviscerate', 'Eviscerate', '', 1, 2500, 0, 0, 1200, 1, 0, 0, 'FIRE', 0),
+	(703, 'spell_shadow_ritualofsacrifice', 'Sinister Strike', '', 1, 1500, 0, 0, 700, 1, 0, 0, 'FIRE', 0),
+	(801, 'spell_nature_chainlightning', 'Chain Lightning', '', 1, 2500, 0, 0, 1200, 1, 0, 200, 'FIRE', 0),
+	(802, 'spell_nature_healingway', 'Healing Surge', '', 1, 0, 0, 0, 2000, 1, 0, 3000, 'FIRE', 0),
+	(803, 'spell_nature_lightning', 'Lightning Bolt', '', 1, 1500, 0, 0, 800, 1, 0, 2000, 'FIRE', 0),
+	(901, 'spell_shadow_abominationexplosion', 'Corruption', '', 1, 1500, 0, 0, 800, 1, 0, 0, 'FIRE', 0),
+	(902, 'spell_fire_immolation', 'Immolation', '', 1, 2500, 0, 0, 1000, 1, 0, 2000, 'FIRE', 0),
+	(903, 'spell_shadow_shadowbolt', 'Shadow Bolt', '', 1, 3500, 0, 0, 2000, 1, 0, 4000, 'FIRE', 0),
+	(9999, 'spell_shadow_fingerofdeath', 'MJ', '', 1, 999999, 0, 0, 1, 0, 0, 0, 'FIRE', 0);
 /*!40000 ALTER TABLE `spell` ENABLE KEYS */;
 
 
