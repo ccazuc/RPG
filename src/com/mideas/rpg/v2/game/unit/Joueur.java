@@ -254,8 +254,8 @@ public class Joueur extends Unit {
 		}
 	}*/
 	
-	public void attackUI(Spell spell) {
-		/*double damage = Mideas.joueur2().getStrength()*ThreadLocalRandom.current().nextDouble(.9, 1.1);
+	/*public void attackUI(Spell spell) {
+		double damage = Mideas.joueur2().getStrength()*ThreadLocalRandom.current().nextDouble(.9, 1.1);
 		float rand = (float)Math.random();
 		if(rand < Mideas.joueur2().getCritical()/100.) {
 			damage*= 2;
@@ -283,8 +283,8 @@ public class Joueur extends Unit {
 				Mideas.joueur1().setStamina(Mideas.joueur1().getStamina()-damage);
 				LogChat.setStatusText2("Le joueur 2 a enlevée "+Math.round(damage)+" hp au "+Mideas.joueur1().getClasse()+", "+Mideas.joueur1().getStamina()+" hp restant");	
 			}
-		}*/
-	}
+		}
+	}*/
 	
 	/*public void loadStuff() {
 		int i = 0;

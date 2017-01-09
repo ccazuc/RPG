@@ -164,7 +164,7 @@ public class Buffer {
 	}
 	
 	public final Aura readAura() {
-		return new Aura(readInt(), readString(), readString(), readInt(), readInt(), readBoolean(), readInt(), readInt(), readBoolean(), readBoolean(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), readBoolean(), readBoolean(), readBoolean());
+		return new Aura(readInt(), readString(), readString(), readInt(), readInt(), readBoolean(), readByte(), readInt(), readBoolean(), readBoolean(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), readBoolean(), readBoolean(), readBoolean());
 	}
 	
 	public final void writeStuff(final Stuff stuff) {

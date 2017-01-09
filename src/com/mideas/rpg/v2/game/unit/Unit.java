@@ -41,6 +41,35 @@ public class Unit {
 		this.debuffList = new ArrayList<AppliedAura>();
 	}
 	
+	public void applyAura(AppliedAura aura) {
+		if(aura.getAura().isBuff()) {
+			this.buffList.add(aura);
+		}
+		else {
+			this.debuffList.add(aura);
+		}
+	}
+	
+	public AppliedAura getBuff(int auraID) {
+		int i = this.buffList.size();
+		while(--i >= 0) {
+			if(this.buffList.get(i).getAura().getId() == auraID) {
+				return this.buffList.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public AppliedAura getDebuff(int auraID) {
+		int i = this.debuffList.size();
+		while(--i >= 0) {
+			if(this.debuffList.get(i).getAura().getId() == auraID) {
+				return this.debuffList.get(i);
+			}
+		}
+		return null;
+	}
+	
 	public Texture getPortrait() {
 		return this.portraitFrame;
 	}
