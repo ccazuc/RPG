@@ -10,6 +10,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.command.CommandAddItem;
+import com.mideas.rpg.v2.command.CommandAura;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandFriend;
@@ -116,6 +117,7 @@ public class ConnectionManager {
 		commandList.put((int)SEND_GCD, new CommandSendGCD());
 		commandList.put((int)SEND_SPELL_CD, new CommandSendSpellCD());
 		commandList.put((int)SEND_TARGET, new CommandSendTarget());
+		commandList.put((int)AURA, new CommandAura());
 	}
 
 	public static final boolean connectAuthServer() {

@@ -70,6 +70,26 @@ public class Unit {
 		return null;
 	}
 	
+	public void removeBuff(int auraID) {
+		int i = this.buffList.size();
+		while(--i >= 0) {
+			if(this.buffList.get(i).getAura().getId() == auraID) {
+				this.buffList.remove(i);
+				return;
+			}
+		}
+ 	}
+	
+	public void removeDebuff(int auraID) {
+		int i = this.debuffList.size();
+		while(--i >= 0) {
+			if(this.debuffList.get(i).getAura().getId() == auraID) {
+				this.debuffList.remove(i);
+				return;
+			}
+		}
+ 	}
+	
 	public Texture getPortrait() {
 		return this.portraitFrame;
 	}

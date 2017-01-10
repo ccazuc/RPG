@@ -28,11 +28,15 @@ public class CommandAura extends Command {
 			}
 			unit.applyAura(new AppliedAura(aura, endTimer, numberStack));
 		}
-		else if(packetId == PacketID.AURA_UPDATE_STACK) {
+		else if(packetId == PacketID.AURA_UPDATE) {
 			int unitID = ConnectionManager.getConnection().readInt();
 			int auraID = ConnectionManager.getConnection().readInt();
+			long endTimer = ConnectionManager.getConnection().readLong();
 			byte numberStack = ConnectionManager.getConnection().readByte();
 			Aura aura = AuraMgr.getAura(auraID);
+			if(aura == null) {
+				return;
+			}
 			Unit unit = unitID == Mideas.joueur1().getId() ? Mideas.joueur1() : Mideas.joueur1().getTarget();
 			if(unit == null) {
 				return;
@@ -47,7 +51,25 @@ public class CommandAura extends Command {
 			if(applied == null) {
 				return;
 			}
-			applied.setNumberStack(numberStack);
+			applied.update(endTimer, numberStack);
+		}
+		else if(packetId == PacketID.AURA_CANCEL) {
+			int unitID = ConnectionManager.getConnection().readInt();
+			int auraID = ConnectionManager.getConnection().readInt();
+			Aura aura = AuraMgr.getAura(auraID);
+			if(aura == null) {
+				return;
+			}
+			Unit unit = unitID == Mideas.joueur1().getId() ? Mideas.joueur1() : Mideas.joueur1().getTarget();
+			if(unit == null) {
+				return;
+			}
+			if(aura.isBuff()) {
+				unit.removeBuff(auraID);
+			}
+			else {
+				unit.removeDebuff(auraID);
+			}
 		}
 	}
 }

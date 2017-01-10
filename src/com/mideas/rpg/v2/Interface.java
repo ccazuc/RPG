@@ -17,6 +17,7 @@ import com.mideas.rpg.v2.game.talent.Talent;
 import com.mideas.rpg.v2.game.unit.ClassType;
 import com.mideas.rpg.v2.game.unit.Unit;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
+import com.mideas.rpg.v2.hud.AuraFrame;
 import com.mideas.rpg.v2.hud.CastBar;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
@@ -134,7 +135,8 @@ public class Interface {
 				RedAlertFrame.draw();
 				SpellBarFrame.draw();
 				CastBar.event();
-				SpellLevel.addSpell();
+				//SpellLevel.addSpell();
+				AuraFrame.draw();
 				long time = System.nanoTime();
 				if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 					containerFrameActive = true;

@@ -7,7 +7,7 @@ public class AppliedAura {
 	private final Aura aura;
 	private long endTimer;
 	private byte numberStack;
-	private long lastTick;
+	//private long lastTick;
 	
 	public AppliedAura(Aura aura) {
 		this.aura = aura;
@@ -17,6 +17,11 @@ public class AppliedAura {
 	
 	public AppliedAura(Aura aura, long endTimer, byte numberStack) {
 		this.aura = aura;
+		this.endTimer = endTimer;
+		this.numberStack = numberStack;
+	}
+	
+	public void update(long endTimer, byte numberStack) {
 		this.endTimer = endTimer;
 		this.numberStack = numberStack;
 	}
