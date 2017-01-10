@@ -42,6 +42,7 @@ import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.task.TaskManager;
 import com.mideas.rpg.v2.game.unit.Joueur;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
+import com.mideas.rpg.v2.hud.AuraFrame;
 import com.mideas.rpg.v2.hud.ChangeBackGroundFrame;
 import com.mideas.rpg.v2.hud.CharacterFrame;
 import com.mideas.rpg.v2.hud.ContainerFrame;
@@ -286,6 +287,7 @@ public class Mideas {
 		PerformanceBarFrame.shouldUpdate();
 		PopupFrame.shouldUpdate();
 		SpellBarFrame.shouldUpdate();
+		AuraFrame.shouldUpdate();
 		if(joueur1 != null) {
 			if(joueur1.getFirstProfession() != null) {
 				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
@@ -536,6 +538,7 @@ public class Mideas {
 	}
 
 	public static void setJoueur1(Joueur joueur) {
+		System.out.println("Set joueur1 : "+joueur);
 		joueur1 = new Joueur(joueur);
 	}
 	

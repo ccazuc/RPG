@@ -7,6 +7,8 @@ public class AppliedAura {
 	private final Aura aura;
 	private long endTimer;
 	private byte numberStack;
+	private float opacity;
+	private boolean opacityAscending;
 	//private long lastTick;
 	
 	public AppliedAura(Aura aura) {
@@ -40,5 +42,21 @@ public class AppliedAura {
 	
 	public void setNumberStack(byte number) {
 		this.numberStack = number;
+	}
+	
+	public float getOpacity() {
+		return this.opacity;
+	}
+	
+	public void setOpacity(float opacity) {
+		this.opacity = opacity;
+	}
+	
+	public boolean isOpacityAscending() {
+		return this.opacityAscending;
+	}
+	
+	public void setOpacityAscending(boolean we) {
+		this.opacityAscending = we;
 	}
 }

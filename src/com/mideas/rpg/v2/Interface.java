@@ -14,8 +14,6 @@ import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.talent.Talent;
-import com.mideas.rpg.v2.game.unit.ClassType;
-import com.mideas.rpg.v2.game.unit.Unit;
 import com.mideas.rpg.v2.hud.AdminPanelFrame;
 import com.mideas.rpg.v2.hud.AuraFrame;
 import com.mideas.rpg.v2.hud.CastBar;
@@ -41,7 +39,6 @@ import com.mideas.rpg.v2.hud.ShortcutFrame;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
-import com.mideas.rpg.v2.hud.SpellLevel;
 import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.hud.social.OsefFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
@@ -116,14 +113,14 @@ public class Interface {
 					ProfessionManager.LoadAllCraft();
 					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
 					Talent.getTalent();
-					Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC));
+					//Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC));
 					isCharacterLoaded = true;
 				}
 				if(!isSpellbarFullyLoaded) {
 					//Mideas.joueur1().loadSpellbar();
 				}
 				if(Mideas.joueur1().getTarget() != null) {
-					PlayerPortraitFrame.draw(Mideas.joueur1().getTarget(), Window.getWidth()-243*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayYFactor());
+					PlayerPortraitFrame.draw(Mideas.joueur1().getTarget(), 320*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayYFactor());
 					PlayerPortraitFrame.draw(Mideas.joueur1(), 50*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayYFactor());
 					if((Mideas.joueur1().getStamina() <= 0 || Mideas.joueur1().getTarget().getStamina() <= 0) && !Dungeon.dungeonActive()) {
 						EndFightFrame.draw();
@@ -282,6 +279,7 @@ public class Interface {
 					return true;
 				}
 			}
+			AuraFrame.mouseEvent();
 			DragBagManager.openBag();
 			if(DragBagManager.mouseEvent()) {
 				return true;
@@ -367,8 +365,7 @@ public class Interface {
 				//System.out.println(Keyboard.getEventKey());
 				if(!Input.hasInputActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						Mideas.joueur1().setGCDStartTimer(Mideas.getLoopTickTimer());
-						Mideas.joueur1().setGCDEndTimer(Mideas.getLoopTickTimer()+1500);
+						System.out.println(Mideas.joueur1()+" "+Mideas.joueur1().getTarget());
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {

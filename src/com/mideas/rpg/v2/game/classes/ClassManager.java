@@ -4,9 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
-import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.game.unit.Joueur;
 import com.mideas.rpg.v2.jdo.JDOStatement;
@@ -18,7 +16,7 @@ public class ClassManager {
 	
 	public static void loadClasses() {
 		try {
-			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, tempId, wear, weapon_type, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana, exp_gained, gold_gained FROM player");
+			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, tempId, wear, weapon_type, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana FROM player");
 			statement.execute();
 			while(statement.fetch()) {
 				String id = statement.getString();
@@ -35,13 +33,8 @@ public class ClassManager {
 				int critical = statement.getInt();
 				int maxStamina = statement.getInt();
 				int maxMana = statement.getInt();
-				int expGained = statement.getInt();
-				int goldGained = statement.getInt();
-				Spell[] spellUnlocked = new Spell[49];
-				Spell[] spellUnlockeds = new Spell[49];
-				Stuff[] stuff = new Stuff[19];
-				playerList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellUnlocked, stuff));
-				iaList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana, expGained, goldGained, spellUnlockeds, stuff));
+				playerList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana));
+				iaList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana));
 				initTable(id);
 			}
 		}

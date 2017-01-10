@@ -157,6 +157,10 @@ public class Unit {
 	
 	public void setMaxStamina(int maxStamina) {
 		this.maxStamina = maxStamina;
+		if(this.stamina > this.maxStamina) {
+			this.stamina = this.maxStamina;
+		}
+		this.hasHpChanged = true;
 	}
 	
 	public int getMana() {

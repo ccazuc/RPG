@@ -357,9 +357,9 @@ public class SelectScreen {
 	
 	static void loadCharacterInfo() {
 		if(characterList[selectedCharacterIndex] != null) {
-			setPlayer();
-			Mideas.joueur1().setId(characterList[selectedCharacterIndex].getId());
-			Mideas.joueur1().setName(characterList[selectedCharacterIndex].getName());
+			//setPlayer();
+			//Mideas.joueur1().setId(characterList[selectedCharacterIndex].getId());
+			//Mideas.joueur1().setName(characterList[selectedCharacterIndex].getName());
 			CommandLoadCharacter.write(characterList[selectedCharacterIndex].getId());
 		}
 	}
@@ -379,7 +379,7 @@ public class SelectScreen {
 	}
 	
 	private static void setPlayer() {
-		if(characterList[selectedCharacterIndex].getClasse().equals("WARRIOR")) {
+		/*if(characterList[selectedCharacterIndex].getClasse().equals("WARRIOR")) {
 			Mideas.setJoueur1(ClassManager.getPlayerClone("Guerrier"));
 		}
 		if(characterList[selectedCharacterIndex].getClasse().equals("PALADIN")) {
@@ -402,7 +402,7 @@ public class SelectScreen {
 		}
 		if(characterList[selectedCharacterIndex].getClasse().equals("DRUID")) {
 			Mideas.setJoueur1(ClassManager.getPlayerClone("Druid"));
-		}
+		}*/
 	}
 	
 	private static void selectRace() {

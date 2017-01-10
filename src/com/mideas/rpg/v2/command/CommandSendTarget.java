@@ -12,10 +12,12 @@ public class CommandSendTarget extends Command {
 	public void read() {
 		int id = ConnectionManager.getConnection().readInt();
 		int stamina = ConnectionManager.getConnection().readInt();
+		int maxStamina= ConnectionManager.getConnection().readInt();
 		int mana = ConnectionManager.getConnection().readInt();
+		int maxMana = ConnectionManager.getConnection().readInt();
 		String name = ConnectionManager.getConnection().readString();
 		int level = ConnectionManager.getConnection().readInt();
-		Mideas.joueur1().setTarget(new Unit(id, stamina, stamina, mana, mana, level, name, ClassType.GUERRIER));
+		Mideas.joueur1().setTarget(new Unit(id, stamina, maxStamina, mana, maxMana, level, name, ClassType.GUERRIER));
 	}
 	
 	public static void requestNewTarget() {

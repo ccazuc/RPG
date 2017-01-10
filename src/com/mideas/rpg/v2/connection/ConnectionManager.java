@@ -27,6 +27,7 @@ import com.mideas.rpg.v2.command.CommandLogoutCharacter;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
+import com.mideas.rpg.v2.command.CommandSendPlayer;
 import com.mideas.rpg.v2.command.CommandSendRealmList;
 import com.mideas.rpg.v2.command.CommandSendRedAlert;
 import com.mideas.rpg.v2.command.CommandSendSingleBagItem;
@@ -118,6 +119,7 @@ public class ConnectionManager {
 		commandList.put((int)SEND_SPELL_CD, new CommandSendSpellCD());
 		commandList.put((int)SEND_TARGET, new CommandSendTarget());
 		commandList.put((int)AURA, new CommandAura());
+		commandList.put((int)SEND_PLAYER, new CommandSendPlayer());
 	}
 
 	public static final boolean connectAuthServer() {

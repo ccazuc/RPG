@@ -14,7 +14,7 @@ public class PerformanceBarFrame {
 	
 	private static boolean shouldUpdateSize;
 	private static boolean hoverPerformanceBar;
-	private static boolean topPerformanceBarActive = true;
+	private static boolean topPerformanceBarActive;
 	
 	private final static String usedRam = "used RAM : ";
 	private final static String fps = "Fps : ";

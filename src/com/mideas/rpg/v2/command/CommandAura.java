@@ -72,4 +72,13 @@ public class CommandAura extends Command {
 			}
 		}
 	}
+	
+	public static void cancelAura(int auraID) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.AURA);
+		ConnectionManager.getConnection().writeShort(PacketID.AURA_CANCEL);
+		ConnectionManager.getConnection().writeInt(auraID);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
+	}
 }

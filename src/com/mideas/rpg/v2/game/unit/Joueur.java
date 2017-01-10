@@ -54,9 +54,7 @@ public class Joueur extends Unit {
 	private int defaultArmor;
 	private long GCDEndTimer;
 	private int numberRedGem;
-	private int goldGained;
 	private Stuff[] stuff;
-	private int expGained;
 	private int critical;
 	private int strength;
 	private Unit target;
@@ -81,17 +79,15 @@ public class Joueur extends Unit {
 	private final static String warlock = "Warlock";
 	private final static String druid = "Druid";
 	
-	public Joueur(ClassType classType, int id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana, int expGained, int goldGained, Spell[] spellUnlocked, Stuff[] stuff) {
+	public Joueur(ClassType classType, int id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana) {
 		super(id, stamina, maxStamina, mana, maxMana, 1, "", classType);
 		this.strength = strength;
 		this.armor = armor;
 		this.defaultArmor = defaultArmor;
 		this.critical = critical;
-		this.expGained = expGained;
-		this.goldGained = goldGained;
-		this.spellUnlocked = spellUnlocked;
+		this.spellUnlocked = new Spell[49];
 		this.weaponType = weaponType;
-		this.stuff = stuff;
+		this.stuff = new Stuff[19];
 		this.wear = wear;
 		this.firstProfession = ProfessionManager.getProfession(0);
 		//this.classString = convClassTypeToString(this.classType);
@@ -174,21 +170,14 @@ public class Joueur extends Unit {
 		this.defaultArmor = joueur.defaultArmor;
 		this.classString = joueur.classString;
 		this.weaponType = joueur.weaponType;
-		this.goldGained = joueur.goldGained;
 		this.friendList = joueur.friendList;
 		this.ignoreList = joueur.ignoreList;
-		this.expGained = joueur.expGained;
 		this.strength = joueur.strength;
 		this.critical = joueur.critical;
 		this.stuff = joueur.stuff;
 		this.armor = joueur.armor;
 		this.mana = joueur.mana;
 		this.wear = joueur.wear;
-	}
-	
-	@Override
-	public String toString() {
-		return "|     [Player]     |\n[Hashcode = "+this.hashCode()+"]\n[Name = "+this.name+"]\n";
 	}
 	
 	/*public void tick() throws SQLException {
@@ -755,6 +744,7 @@ public class Joueur extends Unit {
 	}
 	
 	public void setTarget(Unit target) {
+		System.out.println("Set target : "+target);
 		this.target = target;
 	}
 	
@@ -956,10 +946,6 @@ public class Joueur extends Unit {
 		return this.baseExp;
 	}
 	
-	public int getExpGained() {
-		return this.expGained;
-	}
-	
 	public void setArmor(float number) {
 		this.armor = (Math.round(100*(this.armor+number))/100.f);
 	}
@@ -974,10 +960,6 @@ public class Joueur extends Unit {
 	
 	public void setGold(int gold) {
 		this.gold = gold;
-	}
-	
-	public int getGoldGained() {
-		return this.goldGained;
 	}
 	
 	public void setExp(int baseExp, int expGained ) {

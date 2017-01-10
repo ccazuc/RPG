@@ -11,10 +11,12 @@ public class CommandUpdateStats extends Command {
 	@Override
 	public void read() {
 		short packetID = ConnectionManager.getConnection().readShort();
-		int id = ConnectionManager.getConnection().readInt();
+		int unitID = ConnectionManager.getConnection().readInt();
 		int value = ConnectionManager.getConnection().readInt();
-		System.out.println(id+" value: "+value);
-		Unit unit = id == Mideas.joueur1().getId() ? (Joueur)Mideas.joueur1() : Mideas.joueur1().getTarget();
+		Unit unit = unitID == Mideas.joueur1().getId() ? (Joueur)Mideas.joueur1() : Mideas.joueur1().getTarget();
+		if(unit == null) {
+			return;
+		}
 		if(packetID == PacketID.UPDATE_STATS_STAMINA) {
 			unit.setStamina(value);
 		}
@@ -26,6 +28,9 @@ public class CommandUpdateStats extends Command {
 		}
 		else if(packetID == PacketID.UPDATE_STATS_EXPERIENCE) {
 			((Joueur)unit).setExp(value);
+		}
+		else if(packetID == PacketID.UPDATE_STATS_MAX_STAMINA) {
+			unit.setMaxStamina(value);
 		}
 	}
 }
