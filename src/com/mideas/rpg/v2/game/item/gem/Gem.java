@@ -11,6 +11,12 @@ public class Gem extends Item {
 	private int armor;
 	private int critical;
 	private GemColor color;
+	private GemBonusType stat1Type;
+	private int stat1Value;
+	private GemBonusType stat2Type;
+	private int stat2Value;
+	private GemBonusType stat3Type;
+	private int stat3Value;
 	private String gemStatsString;
 	private String gemSlotString;
 	
@@ -39,7 +45,7 @@ public class Gem extends Item {
 	private final static String and = " and ";
 	
 	public Gem(int id) {
-		super(id, empty, ItemType.GEM, empty, 0, 0, 1, 1);
+		super(id, empty, ItemType.GEM, empty, (byte)0, 0, 1, 1);
 		this.isLoaded = false;
 	}
 
@@ -55,14 +61,15 @@ public class Gem extends Item {
 		this.isLoaded = true;
 	}
 	
-	public Gem(int id, String sprite_id, String name, int quality, GemColor color, int strength, int stamina, int armor, int mana, int critical, int sellPrice) {
+	public Gem(int id, String sprite_id, String name, byte quality, GemColor color, int sellPrice, GemBonusType stat1Type, int stat1Value, GemBonusType stat2Type, int stat2Value, GemBonusType stat3Type, int stat3Value) {
 		super(id, sprite_id, ItemType.GEM, name, quality, sellPrice, 1, 1);
-		this.strength = strength;
-		this.critical = critical;
-		this.stamina = stamina;
-		this.armor = armor;
 		this.color = color;
-		this.mana = mana;
+		this.stat1Type = stat1Type;
+		this.stat1Value = stat1Value;
+		this.stat2Type = stat2Type;
+		this.stat2Value = stat2Value;
+		this.stat3Type = stat3Type;
+		this.stat3Value = stat3Value;
 		buildGemStatsString();
 		buildGemColorString();
 		this.isLoaded = true;

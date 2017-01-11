@@ -30,7 +30,7 @@ public class StuffManager {
 				String tempWear = statement.getString();
 				Wear wear = getWear(tempWear);
 				String sprite_id = statement.getString();
-				int quality = statement.getInt();
+				byte quality = statement.getByte();
 				String tempColor = statement.getString();
 				GemColor color1 = GemManager.convColor(tempColor);
 				tempColor = statement.getString();

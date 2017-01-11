@@ -31,7 +31,7 @@ public class WeaponManager {
 				WeaponType type = getType(tempType);
 				String tempSlot = statement.getString();
 				WeaponSlot slot = getSlot(tempSlot);
-				int quality = statement.getInt();
+				byte quality = statement.getByte();
 				String tempColor = statement.getString();
 				GemColor color1 = GemManager.convColor(tempColor);
 				tempColor = statement.getString();

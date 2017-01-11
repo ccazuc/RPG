@@ -21,7 +21,7 @@ public class Item implements Cloneable {
 	protected int sellPrice;
 	protected int maxStack;
 	protected String name;
-	protected int quality;
+	protected byte quality;
 	protected int id;
 	protected boolean isLoaded;
 	protected String deleteConfirm;
@@ -32,7 +32,7 @@ public class Item implements Cloneable {
 	
 	private final static String delete = "Voulez vous supprimer ";
 	
-	public Item(int id, String sprite_id, ItemType itemType, String name, int quality, int sellPrice, int maxStack, int amount) {
+	public Item(int id, String sprite_id, ItemType itemType, String name, byte quality, int sellPrice, int maxStack, int amount) {
 		this.sellPrice = sellPrice;
 		this.sprite_id = sprite_id;
 		this.maxStack = maxStack;
@@ -129,7 +129,7 @@ public class Item implements Cloneable {
 		return this.itemType == ItemType.ITEM || this.itemType == ItemType.POTION;
 	}
 	
-	public int getQuality() {
+	public byte getQuality() {
 		return this.quality;
 	}
 	

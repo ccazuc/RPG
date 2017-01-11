@@ -25,9 +25,10 @@ public class Aura {
 	private final int tickRate;
 	private final boolean isStackable;
 	private final boolean isMagical;
+	private final boolean dupliFromDifferentSource;
 	private final Texture texture;
 	
-	public Aura(int id, String name, String sprite_id, int spellTriggeredOnFade, int duration, boolean isStackable, byte defaultNumberStack, byte maximumStack, int tickRate, boolean lowDispellable, boolean highDispellable, AuraEffect effect1, int effectValue1, AuraEffect effect2, int effectValue2, AuraEffect effect3, int effectValue3, boolean isBuff, boolean isVisible, boolean isMagical) {
+	public Aura(int id, String name, String sprite_id, int spellTriggeredOnFade, int duration, boolean isStackable, byte defaultNumberStack, byte maximumStack, int tickRate, boolean lowDispellable, boolean highDispellable, AuraEffect effect1, int effectValue1, AuraEffect effect2, int effectValue2, AuraEffect effect3, int effectValue3, boolean isBuff, boolean isVisible, boolean isMagical, boolean dupliFromDifferentSource) {
 		this.id = id;
 		this.name = name;
 		this.sprite_id = sprite_id;
@@ -48,6 +49,7 @@ public class Aura {
 		this.tickRate = tickRate;
 		this.isStackable = isStackable;
 		this.isMagical = isMagical;
+		this.dupliFromDifferentSource = dupliFromDifferentSource;
 		this.texture = IconsManager.getSprite37(sprite_id);
 	}
 	

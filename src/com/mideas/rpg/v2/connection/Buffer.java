@@ -136,19 +136,19 @@ public class Buffer {
 	}
 	
 	public final Gem readGem() {
-		return new Gem(readInt(), readString(), readString(), readInt(), GemColor.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Gem(readInt(), readString(), readString(), readByte(), GemColor.values()[readByte()], readInt(), GemBonusType.values()[readByte()], readInt(), GemBonusType.values()[readByte()], readInt(), GemBonusType.values()[readByte()], readInt());
 	}
 	
 	public final Container readContainer() {
-		return new Container(readInt(), readString(), readString(), readInt(), readInt(), readInt());
+		return new Container(readInt(), readString(), readString(), readByte(), readByte(), readInt());
 	}
 	
 	public final Stuff readStuff() {
-		return new Stuff(StuffType.values()[readByte()], readClassType(), readString(), readInt(), readString(), readInt(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), Wear.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Stuff(StuffType.values()[readByte()], readClassType(), readString(), readInt(), readString(), readByte(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), Wear.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	public final Stuff readWeapon() {
-		return new Stuff(readInt(), readString(), readString(), readClassType(), WeaponType.values()[readByte()], WeaponSlot.values()[readByte()], readInt(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Stuff(readInt(), readString(), readString(), readClassType(), WeaponType.values()[readByte()], WeaponSlot.values()[readByte()], readByte(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	public final Potion readPotion() {
@@ -164,7 +164,7 @@ public class Buffer {
 	}
 	
 	public final Aura readAura() {
-		return new Aura(readInt(), readString(), readString(), readInt(), readInt(), readBoolean(), readByte(), readByte(), readInt(), readBoolean(), readBoolean(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), readBoolean(), readBoolean(), readBoolean());
+		return new Aura(readInt(), readString(), readString(), readInt(), readInt(), readBoolean(), readByte(), readByte(), readInt(), readBoolean(), readBoolean(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), readBoolean(), readBoolean(), readBoolean(), readBoolean());
 	}
 	
 	public final void writeStuff(final Stuff stuff) {
@@ -178,7 +178,7 @@ public class Buffer {
 		writeString(stuff.getSpriteId());
 		writeInt(stuff.getId());
 		writeString(stuff.getStuffName());
-		writeInt(stuff.getQuality());
+		writeByte(stuff.getQuality());
 		writeByte(stuff.getGemColor(0).getValue());
 		writeByte(stuff.getGemColor(1).getValue());
 		writeByte(stuff.getGemColor(2).getValue());
@@ -199,7 +199,7 @@ public class Buffer {
 		writeInt(gem.getId());
 		writeString(gem.getSpriteId());
 		writeString(gem.getStuffName());
-		writeInt(gem.getQuality());
+		writeByte(gem.getQuality());
 		writeByte(gem.getColor().getValue());
 		writeInt(gem.getStrength());
 		writeInt(gem.getStamina());
@@ -234,7 +234,7 @@ public class Buffer {
 		}
 		writeByte(weapon.getWeaponType().getValue());
 		writeByte(weapon.getWeaponSlot().getValue());
-		writeInt(weapon.getQuality());
+		writeByte(weapon.getQuality());
 		writeByte(weapon.getGemColor(0).getValue());
 		writeByte(weapon.getGemColor(1).getValue());
 		writeByte(weapon.getGemColor(2).getValue());
@@ -254,8 +254,8 @@ public class Buffer {
 		writeInt(bag.getId());
 		writeString(bag.getStuffName());
 		writeString(bag.getSpriteId());
-		writeInt(bag.getQuality());
-		writeInt(bag.getSize());
+		writeByte(bag.getQuality());
+		writeByte(bag.getSize());
 		writeInt(bag.getSellPrice());
 		this.written = true;
 	}

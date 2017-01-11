@@ -92,7 +92,6 @@ public class ItemCacheMgr {
 				i++;
 			}
 			int fileSize = readBufferHeader.readInt();
-			System.out.println(fileSize);
 			readBuffer = new Buffer(fileSize);
 			readBuffer.setOrder(ByteOrder.BIG_ENDIAN);
 			fc.read(readBuffer.getBuffer());
