@@ -12,8 +12,11 @@ public class CommandSelectScreenLoadCharacters extends Command {
 	public void read() {
 		if(ConnectionManager.getConnection().hasRemaining()) {
 			int i = 0;
-			while(ConnectionManager.getConnection().hasRemaining()) {
+			while(true) {
 				int id = ConnectionManager.getConnection().readInt();
+				if(id == -1) {
+					break;
+				}
 				String name = ConnectionManager.getConnection().readString();
 				int level = ConnectionManager.getConnection().readInt();
 				String classe = ConnectionManager.getConnection().readString();

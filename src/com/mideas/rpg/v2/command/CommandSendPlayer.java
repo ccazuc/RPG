@@ -2,6 +2,7 @@ package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.files.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.unit.ClassType;
@@ -13,6 +14,7 @@ public class CommandSendPlayer extends Command {
 	public void read() {
 		ClassType classType = ClassType.values()[ConnectionManager.getConnection().readByte()];
 		int id = ConnectionManager.getConnection().readInt();
+		String name = ConnectionManager.getConnection().readString();
 		Wear wear = Wear.values()[ConnectionManager.getConnection().readByte()];
 		WeaponType[] weaponType = new WeaponType[ConnectionManager.getConnection().readByte()];
 		int i = 0;
@@ -27,7 +29,8 @@ public class CommandSendPlayer extends Command {
 		int strength = ConnectionManager.getConnection().readInt();
 		int armor = ConnectionManager.getConnection().readInt();
 		int critical = ConnectionManager.getConnection().readInt();
-		Mideas.setJoueur1(new Joueur(classType, id, wear, weaponType, stamina, mana, strength, armor, armor, critical, maxStamina, maxMana));
+		Mideas.setJoueur1(new Joueur(classType, id, name, wear, weaponType, stamina, mana, strength, armor, armor, critical, maxStamina, maxMana));
+		ChatConfigManager.loadConfig();
 	}
 
 }

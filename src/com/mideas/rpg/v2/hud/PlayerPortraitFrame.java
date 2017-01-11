@@ -24,6 +24,7 @@ public class PlayerPortraitFrame {
 		drawHealthBar(joueur, (int)x, (int)y);
 		drawManaBar(joueur, (int)x, (int)y);
 		Draw.drawQuad(Sprites.playerUI, (int)x, (int)y);
+		drawPortait(joueur, (int)x, (int)y);
 		Draw.drawQuad(Sprites.level, x, y+45);
 		FontManager.get("FRIZQT", 12).drawStringShadow((int)(x+135*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 12).getWidth(joueur.getName())/2), (int)(15*Mideas.getDisplayYFactor()+y), joueur.getName(), Color.YELLOW, Color.BLACK, 1, 1, 1);    
 		FontManager.get("FRIZQT", 11).drawBegin();
@@ -31,7 +32,6 @@ public class PlayerPortraitFrame {
 		drawManaText(joueur, (int)x, (int)y);
 		FontManager.get("FRIZQT", 11).drawStringShadow(x+16-FontManager.get("FRIZQT", 11).getWidth(joueur.getLevelString())/2, y+55, joueur.getLevelString(), Color.YELLOW, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 11).drawEnd();
-		drawPortait(joueur, (int)x, (int)y);
 		if(Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(joueur)) {
 			Draw.drawQuad(Sprites.party_leader_crown, x+5, y+8);
 		}

@@ -95,7 +95,6 @@ public class AuraFrame {
 		else {
 			if(Mouse.getEventButton() == 1 && buffHovered == rightClickDownBuff && buffHovered != -1) {
 				CommandAura.cancelAura(Mideas.joueur1().getBuffList().get(rightClickDownBuff).getAura().getId());
-				System.out.println(rightClickDownBuff+" "+Mideas.joueur1().getBuffList().get(rightClickDownBuff).getAura().getId());
 			}
 		}
 	}

@@ -79,11 +79,12 @@ public class Joueur extends Unit {
 	private final static String warlock = "Warlock";
 	private final static String druid = "Druid";
 	
-	public Joueur(ClassType classType, int id, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana) {
+	public Joueur(ClassType classType, int id, String name, Wear wear, WeaponType[] weaponType, int stamina, int mana, int strength, int armor, int defaultArmor, int critical, int maxStamina, int maxMana) {
 		super(id, stamina, maxStamina, mana, maxMana, 1, "", classType);
 		this.strength = strength;
 		this.armor = armor;
 		this.defaultArmor = defaultArmor;
+		this.name = name;
 		this.critical = critical;
 		this.spellUnlocked = new Spell[49];
 		this.weaponType = weaponType;
@@ -744,7 +745,6 @@ public class Joueur extends Unit {
 	}
 	
 	public void setTarget(Unit target) {
-		System.out.println("Set target : "+target);
 		this.target = target;
 	}
 	

@@ -33,9 +33,9 @@ public class ClassManager {
 				int critical = statement.getInt();
 				int maxStamina = statement.getInt();
 				int maxMana = statement.getInt();
-				playerList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana));
-				iaList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana));
-				initTable(id);
+				//playerList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana));
+				//iaList.put(id, new Joueur(Joueur.convStringToClassType(id), tempId, wear, type, stamina, mana, strength, armor, defaultArmor, critical, maxStamina, maxMana));
+				//initTable(id);
 			}
 		}
 		catch(SQLException e) {

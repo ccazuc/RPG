@@ -14,7 +14,6 @@ import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.ShortcutType;
-import com.mideas.rpg.v2.game.shortcut.SpellShortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.DragManager;
@@ -36,8 +35,6 @@ public class ButtonSpellbar {
 	private int numberItem;
 	private String numberItemString;
 	private int numberItemStringWidth;
-	private int spellCooldownStart;
-	private int spellCooldownEnd;
 	private boolean isInFirstBar;
 	private String keyBindString;
 	private int keyBindStringWidth;

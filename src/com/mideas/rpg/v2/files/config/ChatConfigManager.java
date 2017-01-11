@@ -92,6 +92,14 @@ public class ChatConfigManager {
 			int j = 0;
 			String currentLine;
 			ConfigList list;
+			File folder = new File("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName()+'/');
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
+			File file = new File("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName()+'/'+FILE_NAME);
+			if(!file.exists()) {
+				file.createNewFile();
+			}
 			buffer = new BufferedReader(new FileReader("WTF/Account/"+Mideas.getAccountName()+'/'+ConnectionManager.getWorldServer().getRealmName()+'/'+Mideas.joueur1().getName()+'/'+FILE_NAME));
 			while((currentLine = buffer.readLine()) != null) {
 				list = configMap.get(currentLine);
@@ -101,6 +109,7 @@ public class ChatConfigManager {
 					continue;
 				}
 				while((currentLine = buffer.readLine()) != null) {
+					i = 0;
 					if(currentLine.equals("END")) {
 						break;
 					}
@@ -116,7 +125,7 @@ public class ChatConfigManager {
 						}
 					}
 					else {
-						System.out.println("Error load "+FILE_NAME+" on line "+j+" line value: \""+currentLine+"\"");
+						System.out.println("Error load "+FILE_NAME+" on line "+j+" line value: \""+currentLine+"\".");
 					}
 					j++;
 				}

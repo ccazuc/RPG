@@ -105,7 +105,6 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			loadCharacterInfo();
-			ChatConfigManager.loadConfig();
 			Arrays.fill(characterList, null);
 			characterLoaded = false;
 			Interface.setCharacterLoaded(false);

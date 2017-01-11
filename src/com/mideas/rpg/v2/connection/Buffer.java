@@ -136,7 +136,7 @@ public class Buffer {
 	}
 	
 	public final Gem readGem() {
-		return new Gem(readInt(), readString(), readString(), readInt(), GemColor.values()[ConnectionManager.getConnection().readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Gem(readInt(), readString(), readString(), readInt(), GemColor.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	public final Container readContainer() {

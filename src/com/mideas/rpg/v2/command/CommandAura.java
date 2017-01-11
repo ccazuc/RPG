@@ -71,6 +71,19 @@ public class CommandAura extends Command {
 				unit.removeDebuff(auraID);
 			}
 		}
+		else if(packetId == PacketID.AURA_INIT) {
+			int unitID = ConnectionManager.getConnection().readInt();
+			short length = ConnectionManager.getConnection().readShort();
+			Unit unit = unitID == Mideas.joueur1().getId() ? Mideas.joueur1() : Mideas.joueur1().getTarget();
+			int i = 0;
+			while(i < length) {
+				int auraID = ConnectionManager.getConnection().readInt();
+				long endTimer = ConnectionManager.getConnection().readLong();
+				byte numberStack = ConnectionManager.getConnection().readByte();
+				unit.applyAura(new AppliedAura(AuraMgr.getAura(auraID), endTimer, numberStack));
+				i++;
+			}
+		}
 	}
 	
 	public static void cancelAura(int auraID) {
