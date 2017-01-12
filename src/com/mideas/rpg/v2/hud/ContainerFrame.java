@@ -1214,30 +1214,30 @@ public class ContainerFrame {
 	}
 	
 	public static void updateBagFrameSize() {
-		bagSize[0] = (int)(Sprites.back_bag.getImageHeight()*Mideas.getDisplayXFactor());
+		bagSize[0] = (int)(Sprites.back_bag.getImageHeight()*Mideas.getDisplayYFactor());
 		if(Mideas.joueur1().bag().getEquippedBag(0) != null) {
-			bagSize[1] = (int)(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(0).getId()).getImageHeight()*Mideas.getDisplayXFactor());
+			bagSize[1] = (int)(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(0).getId()).getImageHeight()*Mideas.getDisplayYFactor());
 		}
 		else {
 			bagSize[1] = 0;
 			isBagOpen[1] = false;
 		}
 		if(Mideas.joueur1().bag().getEquippedBag(1) != null) {
-			bagSize[2] = (int)(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(1).getId()).getImageHeight()*Mideas.getDisplayXFactor());
+			bagSize[2] = (int)(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(1).getId()).getImageHeight()*Mideas.getDisplayYFactor());
 		}
 		else {
 			bagSize[2] = 0;
 			isBagOpen[2] = false;
 		}
 		if(Mideas.joueur1().bag().getEquippedBag(2) != null) {
-			bagSize[3] = (int)(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(2).getId()).getImageHeight()*Mideas.getDisplayXFactor());
+			bagSize[3] = (int)(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(2).getId()).getImageHeight()*Mideas.getDisplayYFactor());
 		}
 		else {
 			bagSize[3] = 0;
 			isBagOpen[3] = false;
 		}
 		if(Mideas.joueur1().bag().getEquippedBag(3) != null) {
-			bagSize[4] = (int)(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(3).getId()).getImageHeight()*Mideas.getDisplayXFactor());
+			bagSize[4] = (int)(ContainerManager.getBagsSprites().get(Mideas.joueur1().bag().getEquippedBag(3).getId()).getImageHeight()*Mideas.getDisplayYFactor());
 		}
 		else {
 			bagSize[4] = 0;

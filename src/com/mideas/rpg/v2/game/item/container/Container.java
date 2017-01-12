@@ -8,10 +8,11 @@ public class Container extends Item {
 
 	private byte size;
 	private int tooltip_maximum_size;
-	private String container_slot_string;
+	private String container_slot_string = "";
 	
-	public Container(int id) {
+	public Container(int id, byte size) {
 		super(id, "", ItemType.CONTAINER, "", (byte)0, 0, 1, 1);
+		this.size = size;
 	}
 	
 	public Container(Container bag) {

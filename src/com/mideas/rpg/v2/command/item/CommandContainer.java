@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.command.item;
+/*package com.mideas.rpg.v2.command.item;
 
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.connection.ConnectionManager;
@@ -22,4 +22,4 @@ public class CommandContainer extends Command {
 			ConnectionManager.getItemRequested().put(id, new Container(id));
 		}
 	}
-}
+}*/

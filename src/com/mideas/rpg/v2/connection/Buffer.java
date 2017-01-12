@@ -201,12 +201,13 @@ public class Buffer {
 		writeString(gem.getStuffName());
 		writeByte(gem.getQuality());
 		writeByte(gem.getColor().getValue());
-		writeInt(gem.getStrength());
-		writeInt(gem.getStamina());
-		writeInt(gem.getArmor());
-		writeInt(gem.getMana());
-		writeInt(gem.getCritical());
 		writeInt(gem.getSellPrice());
+		writeByte(gem.getBonus1Type().getValue());
+		writeInt(gem.getBonus1Value());
+		writeByte(gem.getBonus2Type().getValue());
+		writeInt(gem.getBonus2Value());
+		writeByte(gem.getBonus3Type().getValue());
+		writeInt(gem.getBonus3Value());
 		this.written = true;
 	}
 	

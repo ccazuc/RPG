@@ -7,6 +7,7 @@ import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.RequestItem;
+import com.mideas.rpg.v2.game.item.container.Container;
 
 public class CommandRequestItem extends Command {
 
@@ -64,6 +65,9 @@ public class CommandRequestItem extends Command {
 		}
 		else if(slotType == DragItem.GUILDBANK) {
 			
+		}
+		else if(slotType == DragItem.EQUIPPED_CONTAINER) {
+			Mideas.joueur1().bag().setEquippedBag(slot, (Container)item);
 		}
 		Item.storeItem(item);
 	}

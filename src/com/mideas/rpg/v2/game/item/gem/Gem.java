@@ -94,6 +94,30 @@ public class Gem extends Item {
 		return null;
 	}
 	
+	public GemBonusType getBonus1Type() {
+		return this.stat1Type;
+	}
+	
+	public int getBonus1Value() {
+		return this.stat1Value;
+	}
+	
+	public GemBonusType getBonus2Type() {
+		return this.stat2Type;
+	}
+	
+	public int getBonus2Value() {
+		return this.stat2Value;
+	}
+	
+	public GemBonusType getBonus3Type() {
+		return this.stat3Type;
+	}
+	
+	public int getBonus3Value() {
+		return this.stat3Value;
+	}
+	
 	public String getGemSlotString() {
 		return this.gemSlotString;
 	}

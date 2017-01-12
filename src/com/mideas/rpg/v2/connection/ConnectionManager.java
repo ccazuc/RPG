@@ -41,11 +41,10 @@ import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
 import com.mideas.rpg.v2.command.chat.CommandPlayerNotFound;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
-import com.mideas.rpg.v2.command.item.CommandContainer;
 import com.mideas.rpg.v2.command.item.CommandDeleteItem;
 import com.mideas.rpg.v2.command.item.CommandGem;
-import com.mideas.rpg.v2.command.item.CommandPotion;
 import com.mideas.rpg.v2.command.item.CommandRequestItem;
+import com.mideas.rpg.v2.command.item.CommandSendContainer;
 import com.mideas.rpg.v2.command.item.CommandSetItem;
 import com.mideas.rpg.v2.command.item.CommandStuff;
 import com.mideas.rpg.v2.command.item.CommandWeapon;
@@ -90,9 +89,9 @@ public class ConnectionManager {
 		commandList.put((int)STUFF, new CommandStuff());
 		commandList.put((int)WEAPON, new CommandWeapon());
 		commandList.put((int)GEM, new CommandGem());
-		commandList.put((int)CONTAINER, new CommandContainer());
+		//commandList.put((int)CONTAINER, new CommandContainer());
 		commandList.put((int)ADD_ITEM, new CommandAddItem());
-		commandList.put((int)POTION, new CommandPotion());
+		//commandList.put((int)POTION, new CommandPotion());
 		commandList.put((int)SEND_SINGLE_BAG_ITEM, new CommandSendSingleBagItem());
 		commandList.put((int)CHAT_LIST_PLAYER, new CommandListPlayer());
 		commandList.put((int)LOAD_STATS, new CommandLoadStats());
@@ -120,6 +119,7 @@ public class ConnectionManager {
 		commandList.put((int)SEND_TARGET, new CommandSendTarget());
 		commandList.put((int)AURA, new CommandAura());
 		commandList.put((int)SEND_PLAYER, new CommandSendPlayer());
+		commandList.put((int)SEND_EQUIPPED_CONTAINER, new CommandSendContainer());
 	}
 
 	public static final boolean connectAuthServer() {

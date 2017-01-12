@@ -118,8 +118,15 @@ public class ItemCacheMgr {
 				}
  			}
 		}
-		catch(IOException e) {
+		catch(RuntimeException e) {
+			System.out.println("READ ERROR IN "+FILE_PATH+", clearing file.");
 			e.printStackTrace();
+			clearFile();
+		}
+		catch(IOException e) {
+			System.out.println("READ ERROR IN "+FILE_PATH+", clearing file.");
+			e.printStackTrace();
+			clearFile();
 		}
 	}
 	
@@ -150,6 +157,7 @@ public class ItemCacheMgr {
 	private static void clearFile() {
 		FileChannel out;
 		writeBuffer.clear();
+		writeBuffer.flip();
 		checkFileStatus();
 		try {
 			FileOutputStream outputStream = new FileOutputStream(FILE_PATH);

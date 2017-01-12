@@ -326,8 +326,8 @@ public class SpellBarFrame {
 	
 
 	public static void createSpellbarButton() {
-		float x = Display.getWidth()/2+(-Sprites.final_spellbar.getImageWidth()/2+116)*Mideas.getDisplayXFactor();
-		float y = Display.getHeight()-41f*Mideas.getDisplayYFactor();
+		float x = Display.getWidth()/2+(-Sprites.final_spellbar.getImageWidth()/2+115)*Mideas.getDisplayXFactor();
+		float y = Display.getHeight()-40f*Mideas.getDisplayYFactor();
 		float yShift = 48*Mideas.getDisplayXFactor();
 		int i = 0;
 		int j = 0;
@@ -356,8 +356,8 @@ public class SpellBarFrame {
 			createSpellbarButton();
 			init = true;
 		}
-		float x = Display.getWidth()/2+(-Sprites.final_spellbar.getImageWidth()/2+117)*Mideas.getDisplayXFactor();
-		float y = Display.getHeight()-38f*Mideas.getDisplayYFactor();
+		float x = Display.getWidth()/2+(-Sprites.final_spellbar.getImageWidth()/2+115)*Mideas.getDisplayXFactor();
+		float y = Display.getHeight()-40f*Mideas.getDisplayYFactor();
 		float yShift = 48*Mideas.getDisplayXFactor();
 		int i = 0;
 		int j = 0;
@@ -476,6 +476,10 @@ public class SpellBarFrame {
 	
 	public static void updateEquippedItem(int id, boolean we) {
 		int i = 0;
+		if(!init) {
+			createSpellbarButton();
+			init = true;
+		}
 		while(i < buttonList.length) {
 			if(buttonList[i].getShortcut() != null) {
 				if(buttonList[i].getShortcut().getShortcutType() == ShortcutType.STUFF) {

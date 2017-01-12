@@ -108,7 +108,7 @@ public class Interface {
 			else if(Mideas.joueur1() != null) {
 				if(!isCharacterLoaded) {
 					SpellBarManager.loadSpellBar();
-					CharacterStuff.getEquippedBags();
+					//CharacterStuff.getEquippedBags();
 					//CharacterStuff.getBagItems();
 					ProfessionManager.LoadAllCraft();
 					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
