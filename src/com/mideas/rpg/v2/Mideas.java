@@ -92,7 +92,6 @@ public class Mideas {
 	private static SocketChannel socket;
 	private final static int PORT = 5720;
 	private final static String IP = "127.0.0.1";
-	private final static Pattern isInteger = Pattern.compile("-?[0-9]+");
 	public final static int FPS = 60;
 	private static boolean hover;
 	private static Thread authServerConnectionThread;
@@ -361,8 +360,15 @@ public class Mideas {
 		connection = connections;
 	}
 	
-	public static boolean isInteger(String string) {
-		return isInteger.matcher(string).matches();
+	public static boolean isInteger(String str) {
+		int i = -1;
+		while(++i < str.length()) {
+			char c = str.charAt(i);
+			if(c < '0' || c > '9') {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public static boolean isInteger(char c) {
