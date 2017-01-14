@@ -28,7 +28,6 @@ import com.mideas.rpg.v2.game.race.Race;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.social.Friend;
 import com.mideas.rpg.v2.game.social.Ignore;
-import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
@@ -44,7 +43,7 @@ public class Joueur extends Unit {
 	private Profession secondProfession;
 	private Profession firstProfession;
 	private WeaponType[] weaponType;
-	private Spell[] spellUnlocked;
+	private ArrayList<Integer> spellUnlockedList;
 	private int numberYellowGem;
 	private GuildRank guildRank;
 	private Bag bag = new Bag();
@@ -86,7 +85,7 @@ public class Joueur extends Unit {
 		this.defaultArmor = defaultArmor;
 		this.name = name;
 		this.critical = critical;
-		this.spellUnlocked = new Spell[49];
+		this.spellUnlockedList = new ArrayList<Integer>();
 		this.weaponType = weaponType;
 		this.stuff = new Stuff[19];
 		this.wear = wear;
@@ -167,7 +166,7 @@ public class Joueur extends Unit {
 	
 	public Joueur(Joueur joueur) {
 		super(joueur.id, joueur.stamina, joueur.maxStamina, joueur.mana, joueur.maxMana, joueur.level, joueur.name, joueur.classType);
-		this.spellUnlocked = joueur.spellUnlocked;
+		this.spellUnlockedList = joueur.spellUnlockedList;
 		this.defaultArmor = joueur.defaultArmor;
 		this.classString = joueur.classString;
 		this.weaponType = joueur.weaponType;
@@ -860,12 +859,22 @@ public class Joueur extends Unit {
 		SpellBarFrame.setShortcut(i, spell);
 	}
 	
-	public Spell[] getSpellUnlocked() {
-		return this.spellUnlocked;
+	public ArrayList<Integer> getSpellUnlocked() {
+		return this.spellUnlockedList;
 	}
 	
-	public Spell getSpellUnlocked(int i) {
-		return this.spellUnlocked[i];
+	public void addSpellUnlocked(int id) {
+		this.spellUnlockedList.add(id);
+	}
+	
+	public void removeSpellUnlocked(int id) {
+		int i = this.spellUnlockedList.size();
+		while(--i >= 0) {
+			if(this.spellUnlockedList.get(i) == id) {
+				this.spellUnlockedList.remove(i);
+				return;
+			}
+		}
 	}
 	
 	public Stuff[] getStuff() {
@@ -932,10 +941,6 @@ public class Joueur extends Unit {
 	
 	public Bag bag() {
 		return this.bag;
-	}
-
-	public void setSpellUnlocked(int i, Spell spell) {
-		this.spellUnlocked[i] = spell;
 	}
 	
 	public int getExp() {

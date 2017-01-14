@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.hud;
+/*package com.mideas.rpg.v2.hud;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.spell.SpellManager;
@@ -43,4 +43,4 @@ public class SpellLevel {
 		spell10 = false;
 		spell15 = false;
 	}
-}
+}*/

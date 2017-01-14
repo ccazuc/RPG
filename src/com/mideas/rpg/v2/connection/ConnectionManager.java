@@ -51,6 +51,7 @@ import com.mideas.rpg.v2.command.item.CommandWeapon;
 import com.mideas.rpg.v2.command.spell.CommandCast;
 import com.mideas.rpg.v2.command.spell.CommandSendGCD;
 import com.mideas.rpg.v2.command.spell.CommandSendSpellCD;
+import com.mideas.rpg.v2.command.spell.CommandSpellUnlocked;
 import com.mideas.rpg.v2.files.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.WorldServer;
 import com.mideas.rpg.v2.game.item.Item;
@@ -120,6 +121,7 @@ public class ConnectionManager {
 		commandList.put((int)AURA, new CommandAura());
 		commandList.put((int)SEND_PLAYER, new CommandSendPlayer());
 		commandList.put((int)SEND_EQUIPPED_CONTAINER, new CommandSendContainer());
+		commandList.put((int)SPELL_UNLOCKED, new CommandSpellUnlocked());
 	}
 
 	public static final boolean connectAuthServer() {
