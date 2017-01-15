@@ -64,28 +64,32 @@ CREATE TABLE IF NOT EXISTS `aura` (
   `spell_triggered_on_fade` mediumint(9) NOT NULL DEFAULT '0',
   `duration` mediumint(9) NOT NULL DEFAULT '0',
   `is_stackable` tinyint(4) NOT NULL DEFAULT '0',
-  `default_number_stack` smallint(6) NOT NULL DEFAULT '0',
+  `default_number_stack` tinyint(4) NOT NULL DEFAULT '1',
+  `max_stack` tinyint(4) NOT NULL DEFAULT '1',
   `tick_rate` smallint(6) NOT NULL DEFAULT '1',
   `low_dispellable` tinyint(4) NOT NULL DEFAULT '0',
   `high_dispellable` tinyint(4) NOT NULL DEFAULT '0',
-  `aura_effect1` enum('REDUCE_STAMINA','REDUCE_MAX_STAMINA','REDUCE_MANA','REDUCE_MAX_MANA','REDUCE_ARMOR','REDUCE_CARAC','REDUCE_STRENGTH','REDUCE_AGILITY','REDUCE_ATTACK_POWER','REDUCE_INTELLIGENCE','REDUCE_SPELL_POWER','REDUCE_ATTACK_SPEED','REDUCE_HASTE','REDUCE_SPELL_HASTE','REDUCE_CRITICAL','REDUCE_SPELL_CRITICAL','REDUCE_HEALING_POWER','REDUCE_HEALING_TAKEN','INCREASE_STAMINA','INCREASE_MAX_STAMINA','INCREASE_STRENGTH','INCREASE_AGILITY','INCREASE_MANA','INCREASE_MAX_MANA','INCREASE_ARMOR','INCREASE_CARAC','INCREASE_ATTACK_POWER','INCREASE_INTELLIGENCE','INCREASE_SPELL_POWER','INCREASE_ATTACK_SPEED','INCREAE_HASTE','INCREASE_SPELL_HASTE','INCREASE_CRITICAL','INCREASE_SPELL_CRITICAL','INCREASE_HEALING_POWER','INCREASE_HEALING_TAKEN','MOUNT','NONE','SPELL_MODIFIER','STUN','FEAR','SILENCE','IMMUNE_PHYSICAL','IMMUNE_MAGICAL','IMMUNE_ALL') NOT NULL DEFAULT 'NONE',
+  `aura_effect1` enum('PERIODIC_DAMAGE','REDUCE_MAX_STAMINA','REDUCE_MANA','REDUCE_MAX_MANA','REDUCE_ARMOR','REDUCE_CARAC','REDUCE_STRENGTH','REDUCE_AGILITY','REDUCE_ATTACK_POWER','REDUCE_INTELLIGENCE','REDUCE_SPELL_POWER','REDUCE_ATTACK_SPEED','REDUCE_HASTE','REDUCE_SPELL_HASTE','REDUCE_CRITICAL','REDUCE_SPELL_CRITICAL','REDUCE_HEALING_POWER','REDUCE_HEALING_TAKEN','PERIODIC_HEAL','INCREASE_MAX_STAMINA','INCREASE_STRENGTH','INCREASE_AGILITY','INCREASE_MANA','INCREASE_MAX_MANA','INCREASE_ARMOR','INCREASE_CARAC','INCREASE_ATTACK_POWER','INCREASE_INTELLIGENCE','INCREASE_SPELL_POWER','INCREASE_ATTACK_SPEED','INCREAE_HASTE','INCREASE_SPELL_HASTE','INCREASE_CRITICAL','INCREASE_SPELL_CRITICAL','INCREASE_HEALING_POWER','INCREASE_HEALING_TAKEN','MOUNT','NONE','SPELL_MODIFIER','STUN','FEAR','SILENCE','IMMUNE_PHYSICAL','IMMUNE_MAGICAL','IMMUNE_ALL') NOT NULL DEFAULT 'NONE',
   `aura_effect_value1` smallint(6) NOT NULL DEFAULT '0',
-  `aura_effect2` enum('REDUCE_STAMINA','REDUCE_MAX_STAMINA','REDUCE_MANA','REDUCE_MAX_MANA','REDUCE_ARMOR','REDUCE_CARAC','REDUCE_STRENGTH','REDUCE_AGILITY','REDUCE_ATTACK_POWER','REDUCE_INTELLIGENCE','REDUCE_SPELL_POWER','REDUCE_ATTACK_SPEED','REDUCE_HASTE','REDUCE_SPELL_HASTE','REDUCE_CRITICAL','REDUCE_SPELL_CRITICAL','REDUCE_HEALING_POWER','REDUCE_HEALING_TAKEN','INCREASE_STAMINA','INCREASE_MAX_STAMINA','INCREASE_STRENGTH','INCREASE_AGILITY','INCREASE_MANA','INCREASE_MAX_MANA','INCREASE_ARMOR','INCREASE_CARAC','INCREASE_ATTACK_POWER','INCREASE_INTELLIGENCE','INCREASE_SPELL_POWER','INCREASE_ATTACK_SPEED','INCREAE_HASTE','INCREASE_SPELL_HASTE','INCREASE_CRITICAL','INCREASE_SPELL_CRITICAL','INCREASE_HEALING_POWER','INCREASE_HEALING_TAKEN','MOUNT','NONE','SPELL_MODIFIER','STUN','FEAR','SILENCE','IMMUNE_PHYSICAL','IMMUNE_MAGICAL','IMMUNE_ALL') NOT NULL DEFAULT 'NONE',
+  `aura_effect2` enum('PERIODIC_DAMAGE','REDUCE_MAX_STAMINA','REDUCE_MANA','REDUCE_MAX_MANA','REDUCE_ARMOR','REDUCE_CARAC','REDUCE_STRENGTH','REDUCE_AGILITY','REDUCE_ATTACK_POWER','REDUCE_INTELLIGENCE','REDUCE_SPELL_POWER','REDUCE_ATTACK_SPEED','REDUCE_HASTE','REDUCE_SPELL_HASTE','REDUCE_CRITICAL','REDUCE_SPELL_CRITICAL','REDUCE_HEALING_POWER','REDUCE_HEALING_TAKEN','PERIODIC_HEAL','INCREASE_MAX_STAMINA','INCREASE_STRENGTH','INCREASE_AGILITY','INCREASE_MANA','INCREASE_MAX_MANA','INCREASE_ARMOR','INCREASE_CARAC','INCREASE_ATTACK_POWER','INCREASE_INTELLIGENCE','INCREASE_SPELL_POWER','INCREASE_ATTACK_SPEED','INCREAE_HASTE','INCREASE_SPELL_HASTE','INCREASE_CRITICAL','INCREASE_SPELL_CRITICAL','INCREASE_HEALING_POWER','INCREASE_HEALING_TAKEN','MOUNT','NONE','SPELL_MODIFIER','STUN','FEAR','SILENCE','IMMUNE_PHYSICAL','IMMUNE_MAGICAL','IMMUNE_ALL') NOT NULL DEFAULT 'NONE',
   `aura_effect_value2` smallint(6) NOT NULL DEFAULT '0',
-  `aura_effect3` enum('REDUCE_STAMINA','REDUCE_MAX_STAMINA','REDUCE_MANA','REDUCE_MAX_MANA','REDUCE_ARMOR','REDUCE_CARAC','REDUCE_STRENGTH','REDUCE_AGILITY','REDUCE_ATTACK_POWER','REDUCE_INTELLIGENCE','REDUCE_SPELL_POWER','REDUCE_ATTACK_SPEED','REDUCE_HASTE','REDUCE_SPELL_HASTE','REDUCE_CRITICAL','REDUCE_SPELL_CRITICAL','REDUCE_HEALING_POWER','REDUCE_HEALING_TAKEN','INCREASE_STAMINA','INCREASE_MAX_STAMINA','INCREASE_STRENGTH','INCREASE_AGILITY','INCREASE_MANA','INCREASE_MAX_MANA','INCREASE_ARMOR','INCREASE_CARAC','INCREASE_ATTACK_POWER','INCREASE_INTELLIGENCE','INCREASE_SPELL_POWER','INCREASE_ATTACK_SPEED','INCREAE_HASTE','INCREASE_SPELL_HASTE','INCREASE_CRITICAL','INCREASE_SPELL_CRITICAL','INCREASE_HEALING_POWER','INCREASE_HEALING_TAKEN','MOUNT','NONE','SPELL_MODIFIER','STUN','FEAR','SILENCE','IMMUNE_PHYSICAL','IMMUNE_MAGICAL','IMMUNE_ALL') NOT NULL DEFAULT 'NONE',
+  `aura_effect3` enum('PERIODIC_DAMAGE','REDUCE_MAX_STAMINA','REDUCE_MANA','REDUCE_MAX_MANA','REDUCE_ARMOR','REDUCE_CARAC','REDUCE_STRENGTH','REDUCE_AGILITY','REDUCE_ATTACK_POWER','REDUCE_INTELLIGENCE','REDUCE_SPELL_POWER','REDUCE_ATTACK_SPEED','REDUCE_HASTE','REDUCE_SPELL_HASTE','REDUCE_CRITICAL','REDUCE_SPELL_CRITICAL','REDUCE_HEALING_POWER','REDUCE_HEALING_TAKEN','PERIODIC_HEAL','INCREASE_MAX_STAMINA','INCREASE_STRENGTH','INCREASE_AGILITY','INCREASE_MANA','INCREASE_MAX_MANA','INCREASE_ARMOR','INCREASE_CARAC','INCREASE_ATTACK_POWER','INCREASE_INTELLIGENCE','INCREASE_SPELL_POWER','INCREASE_ATTACK_SPEED','INCREAE_HASTE','INCREASE_SPELL_HASTE','INCREASE_CRITICAL','INCREASE_SPELL_CRITICAL','INCREASE_HEALING_POWER','INCREASE_HEALING_TAKEN','MOUNT','NONE','SPELL_MODIFIER','STUN','FEAR','SILENCE','IMMUNE_PHYSICAL','IMMUNE_MAGICAL','IMMUNE_ALL') NOT NULL DEFAULT 'NONE',
   `aura_effect_value3` smallint(6) NOT NULL DEFAULT '0',
   `visible` tinyint(4) NOT NULL DEFAULT '1',
   `is_buff` tinyint(4) NOT NULL DEFAULT '0',
   `is_magical` tinyint(4) NOT NULL DEFAULT '0',
   `magical_school` enum('FIRE','FROST','ARCANE','NATURE','SHADOW','HOLY') NOT NULL DEFAULT 'FIRE',
+  `dupli_from_diff_source` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.aura: ~1 rows (environ)
+-- Export de données de la table rpg.aura: ~3 rows (environ)
 DELETE FROM `aura`;
 /*!40000 ALTER TABLE `aura` DISABLE KEYS */;
-INSERT INTO `aura` (`id`, `name`, `sprite_id`, `spell_triggered_on_fade`, `duration`, `is_stackable`, `default_number_stack`, `tick_rate`, `low_dispellable`, `high_dispellable`, `aura_effect1`, `aura_effect_value1`, `aura_effect2`, `aura_effect_value2`, `aura_effect3`, `aura_effect_value3`, `visible`, `is_buff`, `is_magical`, `magical_school`) VALUES
-	(1, 'TestAura', 'a', 0, 500, 0, 1, 1, 0, 0, 'NONE', 0, 'NONE', 0, 'NONE', 0, 1, 0, 0, 'FIRE');
+INSERT INTO `aura` (`id`, `name`, `sprite_id`, `spell_triggered_on_fade`, `duration`, `is_stackable`, `default_number_stack`, `max_stack`, `tick_rate`, `low_dispellable`, `high_dispellable`, `aura_effect1`, `aura_effect_value1`, `aura_effect2`, `aura_effect_value2`, `aura_effect3`, `aura_effect_value3`, `visible`, `is_buff`, `is_magical`, `magical_school`, `dupli_from_diff_source`) VALUES
+	(1, 'TestAura', 'a', 0, 500, 0, 1, 1, 1, 0, 0, 'NONE', 0, 'NONE', 0, 'NONE', 0, 1, 0, 0, 'FIRE', 1),
+	(2, 'Rénovation', 'spell_holy_renew', 0, 12000, 0, 1, 1, 3000, 1, 1, 'PERIODIC_HEAL', 1500, 'NONE', 0, 'NONE', 0, 1, 1, 1, 'HOLY', 1),
+	(3, 'Marque du fauve', 'spell_nature_regeneration', 0, 1800000, 0, 1, 1, 0, 1, 1, 'INCREASE_MAX_STAMINA', 1500, 'NONE', 0, 'NONE', 0, 1, 1, 1, 'NATURE', 1);
 /*!40000 ALTER TABLE `aura` ENABLE KEYS */;
 
 
@@ -612,8 +616,8 @@ CREATE TABLE IF NOT EXISTS `character` (
 DELETE FROM `character`;
 /*!40000 ALTER TABLE `character` DISABLE KEYS */;
 INSERT INTO `character` (`account_id`, `character_id`, `name`, `class`, `race`, `experience`, `gold`, `online`, `last_login_timer`) VALUES
-	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 1, 1483734516333),
-	(1, 2, 'Midelol', 'ROGUE', 'UNDEAD', 0, 0, 0, 0),
+	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 1, 1484412369936),
+	(1, 2, 'Midelol', 'ROGUE', 'UNDEAD', 0, 0, 0, 1484100252455),
 	(1, 5, 'Test', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
 	(1, 6, 'Bla', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
 	(1, 14, 'Blqk', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
@@ -623,6 +627,23 @@ INSERT INTO `character` (`account_id`, `character_id`, `name`, `class`, `race`, 
 	(3, 18, 'Jean-42', 'WARRIOR', 'UNDEAD', 82000, 1000000, 0, 0),
 	(1, 19, 'Mdr', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0);
 /*!40000 ALTER TABLE `character` ENABLE KEYS */;
+
+
+-- Export de la structure de table rpg. character_aura
+DROP TABLE IF EXISTS `character_aura`;
+CREATE TABLE IF NOT EXISTS `character_aura` (
+  `character_id` int(11) NOT NULL,
+  `aura_id` int(11) NOT NULL,
+  `caster_id` int(11) NOT NULL,
+  `time_left` bigint(20) NOT NULL,
+  `number_stack` tinyint(4) NOT NULL,
+  PRIMARY KEY (`character_id`,`aura_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Export de données de la table rpg.character_aura: ~0 rows (environ)
+DELETE FROM `character_aura`;
+/*!40000 ALTER TABLE `character_aura` DISABLE KEYS */;
+/*!40000 ALTER TABLE `character_aura` ENABLE KEYS */;
 
 
 -- Export de la structure de table rpg. character_banned
@@ -657,7 +678,7 @@ CREATE TABLE IF NOT EXISTS `character_containers` (
 DELETE FROM `character_containers`;
 /*!40000 ALTER TABLE `character_containers` DISABLE KEYS */;
 INSERT INTO `character_containers` (`character_id`, `slot1`, `slot2`, `slot3`, `slot4`) VALUES
-	(1, 0, 0, 0, 0),
+	(1, 100004, 100004, 100003, 0),
 	(2, 100004, 100004, 100004, 100003),
 	(5, 0, 0, 0, 0),
 	(6, 0, 0, 0, 0),
@@ -758,7 +779,7 @@ DELETE FROM `character_stuff`;
 /*!40000 ALTER TABLE `character_stuff` DISABLE KEYS */;
 INSERT INTO `character_stuff` (`character_id`, `head`, `head_gem1`, `head_gem2`, `head_gem3`, `necklace`, `necklace_gem1`, `necklace_gem2`, `necklace_gem3`, `shoulders`, `shoulders_gem1`, `shoulders_gem2`, `shoulders_gem3`, `back`, `back_gem1`, `back_gem2`, `back_gem3`, `chest`, `chest_gem1`, `chest_gem2`, `chest_gem3`, `useless`, `useless_gem1`, `useless_gem2`, `useless_gem3`, `useless2`, `useless2_gem1`, `useless2_gem2`, `useless2_gem3`, `wrists`, `wrists_gem1`, `wrists_gem2`, `wrists_gem3`, `gloves`, `gloves_gem1`, `gloves_gem2`, `gloves_gem3`, `belt`, `belt_gem1`, `belt_gem2`, `belt_gem3`, `leggings`, `leggings_gem1`, `leggings_gem2`, `leggings_gem3`, `boots`, `boots_gem1`, `boots_gem2`, `boots_gem3`, `ring`, `ring_gem1`, `ring_gem2`, `ring_gem3`, `ring2`, `ring2_gem1`, `ring2_gem2`, `ring2_gem3`, `trinket`, `trinket_gem1`, `trinket_gem2`, `trinket_gem3`, `trinket2`, `trinket2_gem1`, `trinket2_gem2`, `trinket2_gem3`, `mainhand`, `mainhand_gem1`, `mainhand_gem2`, `mainhand_gem3`, `offhand`, `offhand_gem1`, `offhand_gem2`, `offhand_gem3`, `ranged`, `ranged_gem1`, `ranged_gem2`, `ranged_gem3`) VALUES
 	(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-	(2, 1001, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -778,7 +799,7 @@ CREATE TABLE IF NOT EXISTS `chatlog` (
   PRIMARY KEY (`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.chatlog: ~2 545 rows (environ)
+-- Export de données de la table rpg.chatlog: ~2 565 rows (environ)
 DELETE FROM `chatlog`;
 /*!40000 ALTER TABLE `chatlog` DISABLE KEYS */;
 INSERT INTO `chatlog` (`date`, `message`) VALUES
@@ -792,6 +813,26 @@ INSERT INTO `chatlog` (`date`, `message`) VALUES
 	(100617628254770, 'Votre inventaire est pleins'),
 	(100706098990063, 'Votre inventaire est pleins'),
 	(100770913662681, 'Votre inventaire est pleins'),
+	(195416102395491, ''),
+	(195416126140971, ''),
+	(195417217835498, ''),
+	(195417218340231, ''),
+	(195417468132718, ''),
+	(195417487464056, ''),
+	(195417634637656, ''),
+	(195417635608028, ''),
+	(195417801806147, ''),
+	(195417802325540, ''),
+	(195417951668166, ''),
+	(195417952217927, ''),
+	(195418085099141, ''),
+	(195418085681015, ''),
+	(195418867836790, ''),
+	(195418868232269, ''),
+	(195419385095092, ''),
+	(195419399993437, ''),
+	(195419551763388, ''),
+	(195419552245781, ''),
 	(236296085663461, 'Votre inventaire est pleins'),
 	(236296205753722, 'Votre inventaire est pleins'),
 	(237984570059848, 'Votre inventaire est pleins'),
@@ -3545,9 +3586,9 @@ CREATE TABLE IF NOT EXISTS `item_container` (
   `id` mediumint(9) NOT NULL,
   `sprite_id` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `quality` tinyint(4) DEFAULT NULL,
+  `quality` tinyint(4) NOT NULL,
   `size` tinyint(4) NOT NULL,
-  `sellprice` mediumint(9) DEFAULT NULL,
+  `sellprice` mediumint(9) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -3580,7 +3621,7 @@ CREATE TABLE IF NOT EXISTS `item_gem` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.item_gem: ~2 rows (environ)
+-- Export de données de la table rpg.item_gem: ~3 rows (environ)
 DELETE FROM `item_gem`;
 /*!40000 ALTER TABLE `item_gem` DISABLE KEYS */;
 INSERT INTO `item_gem` (`id`, `sprite_id`, `name`, `quality`, `color`, `sellprice`, `stat1Type`, `stat1Value`, `stat2Type`, `stat2Value`, `stat3Type`, `stat3Value`) VALUES
@@ -3858,7 +3899,7 @@ CREATE TABLE IF NOT EXISTS `spell` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.spell: ~34 rows (environ)
+-- Export de données de la table rpg.spell: ~35 rows (environ)
 DELETE FROM `spell`;
 /*!40000 ALTER TABLE `spell` DISABLE KEYS */;
 INSERT INTO `spell` (`id`, `sprite_id`, `name`, `tooltip`, `rank`, `effectValue`, `stun_duration`, `stun_rate`, `manacost`, `trigger_gcd`, `cd`, `cast_time`, `magical_school`, `is_magical`) VALUES
@@ -3886,6 +3927,7 @@ INSERT INTO `spell` (`id`, `sprite_id`, `name`, `tooltip`, `rank`, `effectValue`
 	(601, 'spell_holy_flashheal', 'Flash Heal', '', 1, 0, 0, 0, 2000, 1, 0, 2000, 'FIRE', 0),
 	(602, 'spell_holy_holynova', 'Holy Nova', '', 1, 1500, 0, 0, 500, 1, 0, 0, 'FIRE', 0),
 	(603, 'spell_holy_penance', 'Penance', '', 1, 1500, 0, 0, 700, 1, 0, 2000, 'FIRE', 0),
+	(604, 'spell_holy_renew', 'Rénovation', ' ', 1, 1500, 0, 0, 1000, 1, 5000, 0, 'HOLY', 1),
 	(701, 'ability_rogue_ambush', 'Ambush', '', 1, 5000, 0, 0, 2000, 1, 0, 0, 'FIRE', 0),
 	(702, 'ability_rogue_eviscerate', 'Eviscerate', '', 1, 2500, 0, 0, 1200, 1, 0, 0, 'FIRE', 0),
 	(703, 'spell_shadow_ritualofsacrifice', 'Sinister Strike', '', 1, 1500, 0, 0, 700, 1, 0, 0, 'FIRE', 0),
@@ -3946,7 +3988,7 @@ CREATE TABLE IF NOT EXISTS `spellbar` (
 DELETE FROM `spellbar`;
 /*!40000 ALTER TABLE `spellbar` DISABLE KEYS */;
 INSERT INTO `spellbar` (`character_id`, `slot1`, `slot2`, `slot3`, `slot4`, `slot5`, `slot6`, `slot7`, `slot8`, `slot9`, `slot10`, `slot11`, `slot12`, `slot13`, `slot14`, `slot15`, `slot16`, `slot17`, `slot18`, `slot19`, `slot20`, `slot21`, `slot22`, `slot23`, `slot24`, `slot25`, `slot26`, `slot27`, `slot28`, `slot29`, `slot30`, `slot31`, `slot32`, `slot33`, `slot34`, `slot35`, `slot36`) VALUES
-	(1, -1, 1002, 4001, 1001, 103, 9999, 0, 0, 1, 1001, 0, 0, 1001, 0, 0, 15001, 103, 1001, 103, 1001, 1001, 103, 2001, 1001, 1002, 1, 1001, 1001, 3001, 2001, 1002, 1002, 1002, 15001, 0, 0),
+	(1, 604, 1002, 4001, 1001, 103, 9999, 0, 0, 1, 1001, 0, 604, 1001, 0, 0, 15001, 103, 1001, 103, 1001, 1001, 103, 2001, 1001, 1002, 1, 1001, 1001, 3001, 2001, 1002, 1002, 1002, 15001, 0, 0),
 	(2, -1, 1002, 4001, 1001, 103, 9999, 0, 0, 1, 1001, 0, 0, 1001, 0, 0, 15001, 103, 1001, 103, 1001, 1001, 103, 2001, 1001, 1002, 1, 1001, 1001, 3001, 2001, 1002, 1002, 1002, 15001, 0, 0),
 	(5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -3957,6 +3999,20 @@ INSERT INTO `spellbar` (`character_id`, `slot1`, `slot2`, `slot3`, `slot4`, `slo
 	(18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	(19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `spellbar` ENABLE KEYS */;
+
+
+-- Export de la structure de table rpg. spell_unlocked
+DROP TABLE IF EXISTS `spell_unlocked`;
+CREATE TABLE IF NOT EXISTS `spell_unlocked` (
+  `character_id` int(11) NOT NULL,
+  `spell_id` int(11) NOT NULL,
+  PRIMARY KEY (`character_id`,`spell_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Export de données de la table rpg.spell_unlocked: ~0 rows (environ)
+DELETE FROM `spell_unlocked`;
+/*!40000 ALTER TABLE `spell_unlocked` DISABLE KEYS */;
+/*!40000 ALTER TABLE `spell_unlocked` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

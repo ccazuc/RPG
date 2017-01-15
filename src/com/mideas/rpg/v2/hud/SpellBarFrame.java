@@ -225,6 +225,10 @@ public class SpellBarFrame {
 	
 	public static boolean keyboardEvent() {
 		int i = 0;
+		if(!init) {
+			createSpellbarButton();
+			init = true;
+		}
 		while(i < buttonList.length) {
 			buttonList[i].keyEvent();
 			i++;
