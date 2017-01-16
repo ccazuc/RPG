@@ -18,6 +18,7 @@ import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.IntegerInput;
+import com.mideas.rpg.v2.utils.StringUtils;
 import com.mideas.rpg.v2.utils.Tooltip;
 
 public class ContainerFrame {
@@ -765,7 +766,7 @@ public class ContainerFrame {
 	}
 	
 	private static void drawItemNumber(int x, int y) {
-		if(Mideas.isInteger(itemNumber.getText())) {
+		if(StringUtils.isInteger(itemNumber.getText())) {
 			numberItem = Integer.parseInt(itemNumber.getText());
 		}
 		else {

@@ -2,7 +2,6 @@ package com.mideas.rpg.v2.utils;
 
 import org.lwjgl.input.Keyboard;
 
-import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.TTF;
 
 public class IntegerInput {
@@ -52,7 +51,7 @@ public class IntegerInput {
 	}
 	
 	public void write(char c) {
-		if(!Mideas.isInteger(c)) {
+		if(!StringUtils.isInteger(c)) {
 			return;
 		}
 		if(Integer.parseInt(this.text+c) <= maximumValue()) {

@@ -1,6 +1,9 @@
-package com.mideas.rpg.v2.chat;
+package com.mideas.rpg.v2.chat.old;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.chat.MessageType;
 
 public class ChatCommandManager {
 

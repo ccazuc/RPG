@@ -16,6 +16,7 @@ import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
+import com.mideas.rpg.v2.command.chat.CommandChannel;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.InputBar;
@@ -363,15 +364,16 @@ public class ChatFrame {
 			if(chatActive) {
 				if(tempMessage.length() != 0) {
 					rawMessages.add(tempMessage);
-					if(!checkNewMessageType(tempMessage) || !ChatCommandManager.chatCommandManager(tempMessage)) {
+					if(tempMessage.length() > 0 && tempMessage.charAt(0) != '/') {
 						if(selectedType == MessageType.WHISPER) {
 							CommandSendMessage.writeWhisper(tempMessage, currentWhisper.substring(0, currentWhisper.length()-3));
 						}
 						else {
 							CommandSendMessage.write(tempMessage, selectedType);
-							//getNumberLineChar(tempMessage);
-							//getNumberLineDivide(tempMessage);
 						}
+					}
+					else {
+						ChatCommandMgr.handleChatCommand(tempMessage);
 					}
 					numberUpArrow = 1;
 					numberMessageSent++;
@@ -596,15 +598,33 @@ public class ChatFrame {
 		}
 	}*/
 	 
-	private static boolean checkNewMessageType(String msg) {
+	/*private static boolean checkNewMessageType(String msg) {
 		if(msg.length() >= 3 && msg.startsWith("/")) {
-			if(msg.startsWith("/i") && msg.length() >= 4) {
+			if(msg.length() >= 4 && msg.startsWith("/i")) {
 				msg = msg.trim();
 				CommandParty.invitePlayer(msg.substring(getDataWithoutSpace(3, msg)));
 				return true;
 			}
+			else if(msg.length() >= 7 && msg.startsWith("/join")) {
+				CommandChannel.joinChannel(getChannelNameWithoutSpace(6, msg));
+				return true;
+			}
 		}
 		return false;
+	}*/
+	
+	/*private static String getChannelNameWithoutSpace(int start, String str) {
+		while(start < str.length()) {
+			if(str.charAt(start) != ' ') {
+				break;
+			}
+			start++;
+		}
+		int beg = start;
+		while(start < str.length() && str.charAt(start) != ' ') {
+			start++;
+		}
+		return str.substring(beg, start);
 	}
 	
 	private static int getDataWithoutSpace(int start, String msg) {
@@ -615,7 +635,7 @@ public class ChatFrame {
 			start++;
 		}
 		return -1;
-	}
+	}*/
 	
 	private static void resetTempMessage() {
 		tempMessage = "";

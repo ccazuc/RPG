@@ -1,7 +1,10 @@
-package com.mideas.rpg.v2.chat;
+package com.mideas.rpg.v2.chat.old;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.command.CommandAddItem;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandTrade;
@@ -14,6 +17,7 @@ import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.ContainerFrame;
+import com.mideas.rpg.v2.utils.StringUtils;
 
 public class ChatCommandOther {
 
@@ -71,15 +75,15 @@ public class ChatCommandOther {
 			else if(datas[0].equals("/additem")) {
 				if(Mideas.getRank() >= 1) {
 					if(datas.length >= 2) {
-						if(Mideas.isInteger(datas[1])) {
+						if(StringUtils.isInteger(datas[1])) {
 							int number = 1;
 							int character_id = Mideas.joueur1().getId();
 							int item_id = Integer.parseInt(datas[1]);
 							if(datas.length >= 3) {
-								if(Mideas.isInteger(datas[2])) {
+								if(StringUtils.isInteger(datas[2])) {
 									number = Integer.parseInt(datas[2]);
 									if(datas.length >= 4) {
-										if(Mideas.isInteger(datas[3])) {
+										if(StringUtils.isInteger(datas[3])) {
 											character_id = Integer.parseInt(datas[3]);
 										}
 										else {

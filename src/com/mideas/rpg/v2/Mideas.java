@@ -8,7 +8,6 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.sql.SQLException;
-import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
@@ -21,6 +20,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
+import com.mideas.rpg.v2.chat.ChatCommandMgr;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
@@ -174,6 +174,7 @@ public class Mideas {
 		SpellDBC.readFile();
 		AuraDBC.readFile();
 		//PotionManager.loadPotions();
+		ChatCommandMgr.initCommandMap();
 		ContainerManager.loadBags();
 		ContainerManager.loadBagsSprites();
 		//StuffManager.loadStuffs();
@@ -358,21 +359,6 @@ public class Mideas {
 	
 	public static void setConnection(Connection connections) {
 		connection = connections;
-	}
-	
-	public static boolean isInteger(String str) {
-		int i = -1;
-		while(++i < str.length()) {
-			char c = str.charAt(i);
-			if(c < '0' || c > '9') {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public static boolean isInteger(char c) {
-		return c >= '0' && c <= '9';
 	}
 	
 	public static double getInterfaceDrawTime() {
