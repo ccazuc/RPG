@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.chat;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.command.CommandParty;
+import com.mideas.rpg.v2.command.chat.CommandChannel;
 import com.mideas.rpg.v2.utils.StringUtils;
 
 public class ChatCommandMgr {
@@ -42,15 +43,20 @@ public class ChatCommandMgr {
 			CommandParty.invitePlayer(command[1]);
 		}
 	};
-	private final static ChatCommand join = new ChatCommand("join", "Invite a player in your party.") {
+	private final static ChatCommand join = new ChatCommand("join", "Type /join [channel_name] [password] to join or create a channel.") {
 		
 		@Override
 		public void handle(String[] command) {
 			if(command.length == 1) {
-				ChatFrame.addMessage(new Message("Type /join [channel_name] [password] to join or create a channel.", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] in /join [channel_name] [password]", false, MessageType.SELF));
 				return;
 			}
-			
+			if(command.length == 2) {
+				CommandChannel.joinChannel(command[1]);
+			}
+			else {
+				CommandChannel.joinChannel(command[1], command[2]);
+			}
 		}
 	};
 	
@@ -58,6 +64,7 @@ public class ChatCommandMgr {
 		commandMap.put(invite.getName(), invite);
 		commandMap.put(invite_alias_i.getName(), invite_alias_i);
 		commandMap.put(invite_alias_inv.getName(), invite_alias_inv);
+		commandMap.put(join.getName(), join);
 	}
 	
 	public static void handleChatCommand(String str) {
