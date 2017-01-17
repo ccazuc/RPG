@@ -43,12 +43,30 @@ public class ChannelMgr {
 		channelMap.get(channelName).setLeader(id);
 	}
 	
+	public static String getChannelHeader(String channelName) {
+		return channelMap.get(channelName).getMessageHeader();
+	}
+	
+	public static int getChannelHeaderWidth(String channelName) {
+		return channelMap.get(channelName).getMessageHeaderWidth();
+	}
+	
+	public static ChatChannel getChannelByValue(int value) {
+		for(ChatChannel channel : channelMap.values()) {
+			if(channel.getValue() == value) {
+				return channel;
+			}
+		}
+		return null;
+	}
+	
 	private static int generateChannelID() {
-		int i = 0;
+		int i = 1;
 		while(i < 10) {
 			if(!isIDUsed(i)) {
 				break;
 			}
+			i++;
 		}
 		return i;
 	}

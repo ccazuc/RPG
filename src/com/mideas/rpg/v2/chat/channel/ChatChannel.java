@@ -2,6 +2,8 @@ package com.mideas.rpg.v2.chat.channel;
 
 import java.util.ArrayList;
 
+import com.mideas.rpg.v2.FontManager;
+
 public class ChatChannel {
 
 	private final String name;
@@ -9,12 +11,16 @@ public class ChatChannel {
 	private int value;
 	private final ArrayList<ChannelMember> playerList;
 	private int leaderID;
+	private String messageHeader;
+	private int messageHeaderWidth;
 	
 	public ChatChannel(String name, String password, int value) {
 		this.name = name;
 		this.password = password;
 		this.value = value;
 		this.playerList = new ArrayList<ChannelMember>();
+		this.messageHeader = "["+value+". "+this.name+"]";
+		this.messageHeaderWidth = FontManager.chat.getWidth(this.messageHeader);
 	}
 	
 	public void addMember(ChannelMember member) {
@@ -29,6 +35,14 @@ public class ChatChannel {
 				return;
 			}
 		}
+	}
+	
+	public String getMessageHeader() {
+		return this.messageHeader;
+	}
+	
+	public int getMessageHeaderWidth() {
+		return this.messageHeaderWidth;
 	}
 	
 	public void setLeader(int unitID) {

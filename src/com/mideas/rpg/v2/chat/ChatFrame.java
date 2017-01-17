@@ -13,11 +13,14 @@ import org.lwjgl.opengl.Display;
 import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.chat.channel.ChannelMgr;
+import com.mideas.rpg.v2.chat.channel.ChatChannel;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.InputBar;
+import com.mideas.rpg.v2.utils.StringUtils;
 import com.mideas.rpg.v2.utils.Color;
 
 public class ChatFrame {
@@ -36,8 +39,9 @@ public class ChatFrame {
 	private final static int MAXIMUM_MESSAGES = 128; //same as wow BC
 	private final static int FRAME_OPACITY_START_DECREASE_TIMER = 500;
 	private final static int FRAME_OPACITY_DECREASE_TIMER = 1000;
+	private static String currentMessageHeader = "";
 	private final static int MAXIMUM_LENGTH = 255;
-	private static String currentWhisper = "";
+	private static ChatChannel currentChannel;
 	private static int messageShowHeight = 4;
 	private static boolean hoverHeightResize;
 	private static boolean shouldUpdateSize;
@@ -90,14 +94,14 @@ public class ChatFrame {
 		Draw.drawQuad(Sprites.chat_button, 3, Display.getHeight()-268);
 		if(tempMessage.length() >= 1 || chatActive) {
 			inputBar.draw();
-			Draw.drawColorQuad(selectedStarts+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+6*Mideas.getDisplayYFactor(), selectedQuadLength, 20, selectedColors);
+			Draw.drawColorQuad(selectedStarts+FontManager.chat.getWidth(selectedType.getDefaultText()+currentMessageHeader), INPUT_BAR_Y+6*Mideas.getDisplayYFactor(), selectedQuadLength, 20, selectedColors);
 			FontManager.chat.drawBegin();
-			FontManager.chat.drawStringPart(44, INPUT_BAR_Y+7*Mideas.getDisplayYFactor(), selectedType.getDefaultText()+currentWhisper, selectedType.getColor());
-			FontManager.chat.drawStringPart(44+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+7*Mideas.getDisplayYFactor(), tempMessage.substring(tempLength), selectedType.getColor());
+			FontManager.chat.drawStringPart(44, INPUT_BAR_Y+7*Mideas.getDisplayYFactor(), selectedType.getDefaultText()+currentMessageHeader, selectedType.getColor());
+			FontManager.chat.drawStringPart(44+FontManager.chat.getWidth(selectedType.getDefaultText()+currentMessageHeader), INPUT_BAR_Y+7*Mideas.getDisplayYFactor(), tempMessage.substring(tempLength), selectedType.getColor());
 			FontManager.chat.drawEnd();
 		}
 		if(chatActive) {
-			if(FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper+tempMessage.substring(tempLength)) >= maxLength) {
+			if(FontManager.chat.getWidth(selectedType.getDefaultText()+currentMessageHeader+tempMessage.substring(tempLength)) >= maxLength) {
 				tempLength = tempMessage.length()-10;
 				cursorPosition = tempMessage.substring(tempLength).length();
 				cursorShift = FontManager.chat.getWidth(tempMessage.substring(tempLength));
@@ -108,7 +112,7 @@ public class ChatFrame {
 				cursorShift = FontManager.chat.getWidth(tempMessage.substring(tempLength));
 			}
 			if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-lastKeyPressedTimer <= 400) {
-				Draw.drawColorQuad(45+cursorShift+FontManager.chat.getWidth(selectedType.getDefaultText()+currentWhisper), INPUT_BAR_Y+9*Mideas.getDisplayYFactor(), 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
+				Draw.drawColorQuad(45+cursorShift+FontManager.chat.getWidth(selectedType.getDefaultText()+currentMessageHeader), INPUT_BAR_Y+9*Mideas.getDisplayYFactor(), 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
 			}
 		}
 		if((allResizing || widthResizing || heightResizing || hoverChatFrame) && bgColor.alpha() < FRAME_MAXIMUM_OPACITY && Mideas.getLoopTickTimer()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER) {
@@ -367,7 +371,10 @@ public class ChatFrame {
 					rawMessages.add(tempMessage);
 					if(tempMessage.length() > 0 && tempMessage.charAt(0) != '/') {
 						if(selectedType == MessageType.WHISPER) {
-							CommandSendMessage.writeWhisper(tempMessage, currentWhisper.substring(0, currentWhisper.length()-3));
+							CommandSendMessage.writeWhisper(tempMessage, currentMessageHeader.substring(0, currentMessageHeader.length()-3));
+						}
+						else if(selectedType == MessageType.CHANNEL) {
+							CommandSendMessage.writeChannel(tempMessage, currentChannel.getName());
 						}
 						else {
 							CommandSendMessage.write(tempMessage, selectedType);
@@ -483,7 +490,7 @@ public class ChatFrame {
 										Input.getSelectedInput().write(message.getAuthor());
 									}
 									else {
-										//display information in chat
+										//TODO: display information in chat
 									}
 								}
 								else {
@@ -492,7 +499,7 @@ public class ChatFrame {
 								}
 							}
 							else if(Mouse.getEventButton() == 1) {
-								
+								//TODO: open tooltip
 							}
 						}
 						x+= FontManager.chat.getWidth(message.getAuthorText());
@@ -512,7 +519,6 @@ public class ChatFrame {
 					if(y > Display.getHeight()-185 || !(i < messages.size())) {
 						break;
 					}
-					//System.out.println("MOUSE: "+Mideas.mouseY()+" Y: "+y);
 					y+= FontManager.chat.getLineHeight();
 					i++;
 				}
@@ -649,38 +655,48 @@ public class ChatFrame {
 		if(tempMessage.length() == 2 && tempMessage.startsWith("/") && c == ' ') {
 			if(tempMessage.startsWith("/s")) {
 				selectedType = MessageType.SAY;
-				currentWhisper = "";
+				currentMessageHeader = "";
 				return true;
 			}
 			if(tempMessage.startsWith("/p")) {
 				selectedType = MessageType.PARTY;
-				currentWhisper = "";
+				currentMessageHeader = "";
 				return true;
 			}
 			if(tempMessage.startsWith("/g")) {
 				selectedType = MessageType.GUILD;
-				currentWhisper = "";
+				currentMessageHeader = "";
 				return true;
 			}
 			else if(tempMessage.startsWith("/o")) {
 				selectedType = MessageType.OFFICER;
-				currentWhisper = "";
+				currentMessageHeader = "";
 				return true;
 			}
 			if(tempMessage.startsWith("/y")) {
 				selectedType = MessageType.YELL;
-				currentWhisper = "";
+				currentMessageHeader = "";
 				return true;
 			}
 			if(tempMessage.startsWith("/r") && previousWhisper != null) {
-				currentWhisper = previousWhisper+" : ";
+				currentMessageHeader = previousWhisper+" : ";
 				selectedType = MessageType.WHISPER;
+				return true;
+			}
+			if(StringUtils.isInteger(tempMessage.charAt(1))) {
+				ChatChannel channel = ChannelMgr.getChannelByValue((tempMessage.charAt(1)-'0'));
+				if(channel == null) {
+					return false;
+				}
+				currentMessageHeader = channel.getMessageHeader()+" : ";
+				selectedType = MessageType.CHANNEL;
+				currentChannel = channel;
 				return true;
 			}
 		}
 		else if(tempMessage.length() >= 2 && tempMessage.startsWith("/")) {
 			if(tempMessage.startsWith("/w ") && tempMessage.length() >= 4 && tempMessage.charAt(3) != ' ' && c == ' ') {
-				currentWhisper = tempMessage.substring(3)+" : ";
+				currentMessageHeader = tempMessage.substring(3)+" : ";
 				selectedType = MessageType.WHISPER;
 				return true;
 			}
@@ -689,7 +705,7 @@ public class ChatFrame {
 	}
 	
 	public static void setWhisper(String name) {
-		currentWhisper = name+" : ";
+		currentMessageHeader = name+" : ";
 		selectedType = MessageType.WHISPER;
 		tempMessage = "";
 		cursorPosition = 0;

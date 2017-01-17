@@ -1,5 +1,8 @@
 package com.mideas.rpg.v2.command.chat;
 
+import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.connection.ConnectionManager;
@@ -14,12 +17,12 @@ public class CommandChannel extends Command {
 			String channelName = ConnectionManager.getConnection().readString();
 			String password = ConnectionManager.getConnection().readString();
 			ChannelMgr.addChannel(channelName, password);
-			//TODO: send message in chat
+			ChatFrame.addMessage(new Message("Joined channel : ["+ChannelMgr.getChannelIndex(channelName)+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor()));
 		}
 		else if(packetId == PacketID.CHANNEL_LEAVE) {
 			String channelName = ConnectionManager.getConnection().readString();
 			ChannelMgr.leaveChannel(channelName);
-			//TODO: send message in chat
+			ChatFrame.addMessage(new Message("Left channel : ["+ChannelMgr.getChannelIndex(channelName)+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor()));
 		}
 		else if(packetId == PacketID.CHANNEL_SEND_MEMBERS) {
 			String channelName = ConnectionManager.getConnection().readString();

@@ -55,16 +55,15 @@ public class Message {
 		this.type = MessageType.CHANNEL;
 		this.isGM = isGM;
 		if(this.author.length() == 0) { //Debug
-			this.authorText = '['+StringUtils.value[3]+". "+channelName+"] ";
+			this.authorText = ChannelMgr.getChannelHeader(channelName)+" : ";
 		}
 		else if(isGM) {
-			String tmp = '['+StringUtils.value[3]+". "+channelName+']';
-			this.authorText = tmp+gmLogoSpace+"["+author+"] : ";
-			this.channelHeaderWidth = FontManager.chat.getWidth(tmp);
+			this.authorText = ChannelMgr.getChannelHeader(channelName)+gmLogoSpace+"["+author+"] : ";
+			this.channelHeaderWidth = (ChannelMgr.getChannelHeaderWidth(channelName));
 			this.author = null;
 		}
 		else {
-			this.authorText = '['+StringUtils.value[3]+". "+channelName+"] ["+author+"] : ";
+			this.authorText = ChannelMgr.getChannelHeader(channelName)+" ["+author+"] : ";
 		}
 		/*if(this.author.length() == 0) {
 			this.authorText = '['+StringUtils.value[ChannelMgr.getChannelIndex(channelName)]+". "+channelName+']';
