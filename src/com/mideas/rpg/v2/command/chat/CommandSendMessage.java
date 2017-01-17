@@ -36,6 +36,13 @@ public class CommandSendMessage extends Command {
 				ChatFrame.addMessage(new Message(message, author, false, type, color, false));
 			}
 		}
+		else if(type == MessageType.CHANNEL) {
+			String channelName = ConnectionManager.getConnection().readString();
+			String author = ConnectionManager.getConnection().readString();
+			boolean isGM = ConnectionManager.getConnection().readBoolean();
+			ChatFrame.addMessage(new Message(message, author, false, MessageType.CHANNEL, isGM));
+				
+		}
 		else if(type == MessageType.WHISPER) {
 			String name = ConnectionManager.getConnection().readString();
 			boolean isTarget = ConnectionManager.getConnection().readBoolean();

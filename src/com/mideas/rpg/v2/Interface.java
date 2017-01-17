@@ -7,9 +7,9 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
-import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.spell.SpellBarManager;
@@ -365,7 +365,9 @@ public class Interface {
 				//System.out.println(Keyboard.getEventKey());
 				if(!Input.hasInputActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						System.out.println(Mideas.joueur1()+" "+Mideas.joueur1().getTarget());
+						ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, false));
+						ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "", false, false));
+						ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, true));
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {

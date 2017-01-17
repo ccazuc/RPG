@@ -221,6 +221,9 @@ public class ChatFrame {
 				else if(message.getType() == MessageType.SAY || message.getType() == MessageType.YELL) {
 					Draw.drawQuadPart(Sprites.chat_logo_blizz, xDraw, yDraw, Sprites.chat_logo_blizz.getImageWidth(), Sprites.chat_logo_blizz.getImageHeight());
 				}
+				else if(message.getType() == MessageType.CHANNEL) {
+					Draw.drawQuadPart(Sprites.chat_logo_blizz, xDraw+message.getChannelHeaderWidth(), yDraw, Sprites.chat_logo_blizz.getImageWidth(), Sprites.chat_logo_blizz.getImageHeight());
+				}
 				else {
 					Draw.drawQuadPart(Sprites.chat_logo_blizz, xDraw+message.getType().getChatDisplayWidth(), yDraw, Sprites.chat_logo_blizz.getImageWidth(), Sprites.chat_logo_blizz.getImageHeight());
 				}

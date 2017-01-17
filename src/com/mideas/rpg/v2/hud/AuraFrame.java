@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.command.CommandAura;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.StringUtils;
 
 public class AuraFrame {
 
@@ -19,22 +20,12 @@ public class AuraFrame {
 	private static float Y_BUFF = 15*Mideas.getDisplayYFactor();
 	private static float X_SIZE = 30*Mideas.getDisplayXFactor();
 	private static float Y_SIZE = 28*Mideas.getDisplayYFactor();
-	private final static String[] value = new String[61];
-	private static boolean init;
 	private final static TTF FONT = FontManager.get("FRIZQT", 13);
 	private final static float MINIMUM_OPACITY = .3f;
 	private final static float OPACITY_TICK = .012f;
 	private static boolean shouldUpdate;
 	
 	public static void draw() {
-		if(!init) {
-			int j = 0;
-			while(j < value.length) {
-				value[j] = String.valueOf(j);
-				j++;
-			}
-			init = true;
-		}
 		if(shouldUpdate) {
 			updateSize();
 			shouldUpdate = false;
@@ -46,12 +37,12 @@ public class AuraFrame {
 				if(remaining >= 60000) {
 					remaining = remaining/60000;
 					Draw.drawQuad(Mideas.joueur1().getBuffList().get(i).getAura().getTexture(), X_BUFF+i*X_SHIFT_BUFF, Y_BUFF, X_SIZE, Y_SIZE);
-					FONT.drawStringShadow(X_BUFF+i*X_SHIFT_BUFF, Y_BUFF+27*Mideas.getDisplayYFactor(), value[(int)remaining+1]+" m", Color.YELLOW, Color.BLACK, 1, 0, 0);
+					FONT.drawStringShadow(X_BUFF+i*X_SHIFT_BUFF, Y_BUFF+27*Mideas.getDisplayYFactor(), StringUtils.value[(int)remaining+1]+" m", Color.YELLOW, Color.BLACK, 1, 0, 0);
 				}
 				else {
 					remaining = remaining/1000;
 					Draw.drawQuad(Mideas.joueur1().getBuffList().get(i).getAura().getTexture(), X_BUFF+i*X_SHIFT_BUFF, Y_BUFF, X_SIZE, Y_SIZE, Mideas.joueur1().getBuffList().get(i).getOpacity());
-					FONT.drawStringShadow(X_BUFF+i*X_SHIFT_BUFF, Y_BUFF+27*Mideas.getDisplayYFactor(), value[(int)remaining+1]+" s", Color.WHITE, Color.BLACK, 1, 0, 0, Mideas.joueur1().getBuffList().get(i).getOpacity());
+					FONT.drawStringShadow(X_BUFF+i*X_SHIFT_BUFF, Y_BUFF+27*Mideas.getDisplayYFactor(), StringUtils.value[(int)remaining+1]+" s", Color.WHITE, Color.BLACK, 1, 0, 0, Mideas.joueur1().getBuffList().get(i).getOpacity());
 					if(Mideas.joueur1().getBuffList().get(i).isOpacityAscending()) {
 						if(Mideas.joueur1().getBuffList().get(i).getOpacity() >= 1) {
 							Mideas.joueur1().getBuffList().get(i).setOpacityAscending(false);

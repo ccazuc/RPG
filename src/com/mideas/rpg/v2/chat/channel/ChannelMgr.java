@@ -31,6 +31,10 @@ public class ChannelMgr {
 		channelMap.get(channelName).addMember(new ChannelMember(name, id));
 	}
 	
+	public static int getChannelIndex(String channelName) {
+		return channelMap.get(channelName).getValue();
+	}
+	
 	public static void removeMember(String channelName, int id) {
 		channelMap.get(channelName).removeMember(id);
 	}

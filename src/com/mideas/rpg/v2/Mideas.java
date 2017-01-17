@@ -62,6 +62,7 @@ import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.StringUtils;
 
 public class Mideas {
 	
@@ -181,6 +182,7 @@ public class Mideas {
 		ShopManager.loadStuffs();
 		//SpellManager.loadSpells();
 		ClassManager.loadClasses();
+		StringUtils.initValues();
 		//GemManager.loadGemSprites();
 		ConfigManager.initConfigMap();
 		ConfigManager.loadConfig();

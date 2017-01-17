@@ -2,6 +2,16 @@ package com.mideas.rpg.v2.utils;
 
 public class StringUtils {
 	
+	public final static String[] value = new String[100];
+	
+	public static void initValues() {
+		int i = 0;
+		while(i < value.length) {
+			value[i] = Integer.toString(i);
+			i++;
+		}
+	}
+	
 	public static String removeSpaces(String str) {
 		StringBuilder builder = new StringBuilder();
 		int i = 0;

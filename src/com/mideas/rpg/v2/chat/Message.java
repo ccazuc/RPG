@@ -2,7 +2,10 @@ package com.mideas.rpg.v2.chat;
 
 import java.util.Calendar;
 
+import com.mideas.rpg.v2.FontManager;
+import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.utils.Color;
+import com.mideas.rpg.v2.utils.StringUtils;
 
 public class Message {
 
@@ -22,6 +25,7 @@ public class Message {
 	private int numberLine;
 	private boolean isTarget;
 	private boolean isGM;
+	private int channelHeaderWidth;
 	private final static String gmLogoSpace = "            ";
 	
 	public Message(String message, boolean displayHour, MessageType type) { //used for self message
@@ -35,6 +39,46 @@ public class Message {
 		this.displayHour = displayHour;
 		this.type = type;
 		this.opacity = 1;
+	}
+	
+	public Message(String message, String channelName, String author, boolean displayHour, boolean isGM) {
+		this.timer = System.currentTimeMillis();
+		this.lastSeenTimer = this.timer;
+		this.message = message;
+		this.hour = getMessageHour(this.timer);
+		this.minute = getMessageMinute(this.timer);
+		this.second = getMessageSecond(this.timer);
+		this.color = MessageType.CHANNEL.getColor();
+		this.displayHour = displayHour;
+		this.opacity = 1;
+		this.author = author;
+		this.type = MessageType.CHANNEL;
+		this.isGM = isGM;
+		if(this.author.length() == 0) { //Debug
+			this.authorText = '['+StringUtils.value[3]+". "+channelName+"] ";
+		}
+		else if(isGM) {
+			String tmp = '['+StringUtils.value[3]+". "+channelName+']';
+			this.authorText = tmp+gmLogoSpace+"["+author+"] : ";
+			this.channelHeaderWidth = FontManager.chat.getWidth(tmp);
+			this.author = null;
+		}
+		else {
+			this.authorText = '['+StringUtils.value[3]+". "+channelName+"] ["+author+"] : ";
+		}
+		/*if(this.author.length() == 0) {
+			this.authorText = '['+StringUtils.value[ChannelMgr.getChannelIndex(channelName)]+". "+channelName+']';
+		}
+		else if(isGM) {
+			String tmp = '['+StringUtils.value[ChannelMgr.getChannelIndex(channelName)]+". "+channelName+']';
+			this.authorText = tmp+gmLogoSpace+" ["+author+"] : ";
+			this.channelHeaderWidth = FontManager.chat.getWidth(tmp);
+			this.author = null;
+		}
+		else {
+			this.authorText = '['+StringUtils.value[ChannelMgr.getChannelIndex(channelName)]+". "+channelName+"] ["+author+"] : ";
+		}*/
+		
 	}
 	
 	public Message(String message, String author, String authorText, boolean displayHour, MessageType type, boolean isGM) { //used for self message
@@ -198,6 +242,10 @@ public class Message {
 	
 	public int getNumberLine() {
 		return this.numberLine;
+	}
+	
+	public int getChannelHeaderWidth() {
+		return this.channelHeaderWidth;
 	}
 	
 	public void setNumberLine(int number) {

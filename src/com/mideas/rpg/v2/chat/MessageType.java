@@ -11,7 +11,7 @@ public enum MessageType {
 	RAID((byte)3, new Color(1, 127/255f, 0), "Raid : ", "[Raid] "),
 	BATTLEGROUND((byte)4, Color.WHITE, "Battleground : ", "[Battleground] "),
 	YELL((byte)5, new Color(1, 63/255f, 64/255f), "Yell : ", " Yell : "),
-	CHANNEL((byte)6, new Color(1, 192/255f, 192/255f), "Channel : ", ""),
+	CHANNEL((byte)6, new Color(215/255f, 162/255f, 143/255f), "", ""),
 	SELF((byte)7, new Color(1, 1, 0), "", ""),
 	WHISPER((byte)8, new Color(1, 128/255f, 1), "Say to ", ""),
 	EMOTE((byte)9, new Color(1, 251/255f, 1), "", ""),
