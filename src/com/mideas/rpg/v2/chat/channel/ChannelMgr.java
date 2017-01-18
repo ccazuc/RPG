@@ -35,12 +35,20 @@ public class ChannelMgr {
 		return channelMap.get(channelName).getValue();
 	}
 	
+	public static String getMemberName(String channelName, int id) {
+		return channelMap.get(channelName).getMemberName(id);
+	}
+	
 	public static void removeMember(String channelName, int id) {
 		channelMap.get(channelName).removeMember(id);
 	}
 	
 	public static void setLeader(String channelName, int id) {
 		channelMap.get(channelName).setLeader(id);
+	}
+	
+	public static String getLeaderName(String channelName) {
+		return channelMap.get(channelName).getLeaderName();
 	}
 	
 	public static String getChannelHeader(String channelName) {

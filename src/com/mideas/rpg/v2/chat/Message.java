@@ -2,10 +2,8 @@ package com.mideas.rpg.v2.chat;
 
 import java.util.Calendar;
 
-import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.StringUtils;
 
 public class Message {
 
@@ -41,7 +39,7 @@ public class Message {
 		this.opacity = 1;
 	}
 	
-	public Message(String message, String channelName, String author, boolean displayHour, boolean isGM) {
+	public Message(String message, String channelName, String author, boolean displayHour, boolean isGM, boolean isMessage) {
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -55,15 +53,18 @@ public class Message {
 		this.type = MessageType.CHANNEL;
 		this.isGM = isGM;
 		if(this.author.length() == 0) { //Debug
-			this.authorText = ChannelMgr.getChannelHeader(channelName)+" : ";
+			this.authorText = ChannelMgr.getChannelHeader(channelName);
 		}
 		else if(isGM) {
-			this.authorText = ChannelMgr.getChannelHeader(channelName)+gmLogoSpace+"["+author+"] : ";
+			this.authorText = ChannelMgr.getChannelHeader(channelName)+gmLogoSpace+"["+author+']';
 			this.channelHeaderWidth = (ChannelMgr.getChannelHeaderWidth(channelName));
 			this.author = null;
 		}
 		else {
-			this.authorText = ChannelMgr.getChannelHeader(channelName)+" ["+author+"] : ";
+			this.authorText = ChannelMgr.getChannelHeader(channelName)+" ["+author+']';
+		}
+		if(isMessage) {
+			this.authorText+= " : ";
 		}
 		/*if(this.author.length() == 0) {
 			this.authorText = '['+StringUtils.value[ChannelMgr.getChannelIndex(channelName)]+". "+channelName+']';

@@ -37,18 +37,26 @@ public class CommandChannel extends Command {
 			int id = ConnectionManager.getConnection().readInt();
 			String name = ConnectionManager.getConnection().readString();
 			ChannelMgr.addMember(channelName, name, id);
-			//TODO: send message
+			ChatFrame.addMessage(new Message(" joined the channel.", channelName, name, false, false, false));
 		}
 		else if(packetId == PacketID.CHANNEL_MEMBER_LEFT) {
 			String channelName = ConnectionManager.getConnection().readString();
 			int id = ConnectionManager.getConnection().readInt();
 			ChannelMgr.removeMember(channelName, id);
-			//TODO: remove in channel list and send message
+			ChatFrame.addMessage(new Message(" left the channel.", channelName, ChannelMgr.getMemberName(channelName, id), false, false, false));
 		}
 		else if(packetId == PacketID.CHANNEL_SET_LEADER) {
 			String channelName = ConnectionManager.getConnection().readString();
 			int id = ConnectionManager.getConnection().readInt();
 			ChannelMgr.setLeader(channelName, id);
+			ChatFrame.addMessage(new Message("["+ChannelMgr.getChannelIndex(channelName)+". "+channelName+"] "+ChannelMgr.getLeaderName(channelName)+" is now the leader.", false, MessageType.SELF, MessageType.CHANNEL.getColor()));
+		}
+		else if(packetId == PacketID.CHANNEL_KICK_PLAYER) {
+			String channelName = ConnectionManager.getConnection().readString();
+			String kickerName = ConnectionManager.getConnection().readString();
+			int id = ConnectionManager.getConnection().readInt();
+			ChatFrame.addMessage(new Message(ChannelMgr.getChannelHeader(channelName)+" "+kickerName+" kicked "+ChannelMgr.getMemberName(channelName, id), false, MessageType.SELF, MessageType.CHANNEL.getColor()));
+			ChannelMgr.removeMember(channelName, id);
 		}
 	}
 	

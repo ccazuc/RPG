@@ -365,9 +365,10 @@ public class Interface {
 				//System.out.println(Keyboard.getEventKey());
 				if(!Input.hasInputActive() && hasLoggedInToAuth && Mideas.joueur1() != null) {
 					if(Keyboard.getEventKey() == Keyboard.KEY_X) {
-						ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, false));
-						ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "", false, false));
-						ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, true));
+						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, false, true));
+						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "", false, false, true));
+						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, true, true));
+						ChatFrame.addMessage(new Message("joined the channel.", "a", "Mideas", false, false, false));
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {
