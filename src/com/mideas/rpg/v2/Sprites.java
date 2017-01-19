@@ -352,6 +352,7 @@ public class Sprites {
 	public static Texture button_down_spellbar;
 	public static Texture button_hover_spellbar;
 	public static Texture chat_logo_blizz;
+	public static Texture chat_channel_button;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -457,6 +458,7 @@ public class Sprites {
 		button_down_spellbar = new Texture("sprite/interface/click_down.png");
 		button_hover_spellbar = new Texture("sprite/interface/OldButtonHilight-Square.png");
 		chat_logo_blizz = new Texture("sprite/interface/chat/blizzard_logo.png");
+		chat_channel_button = new Texture("sprite/interface/social/UI-AuctionFrame-FilterBg.png");
 		return true;
 	}
 	

@@ -19,7 +19,6 @@ import com.mideas.rpg.v2.utils.FrameTab;
 import com.mideas.rpg.v2.utils.ScrollBar;
 
 import static com.mideas.rpg.v2.hud.social.SocialFrame.Y_SOCIAL_FRAME;
-
 import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;
 
 public class FriendsFrame {
