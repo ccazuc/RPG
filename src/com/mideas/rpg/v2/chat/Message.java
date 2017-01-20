@@ -151,7 +151,7 @@ public class Message {
 			this.authorText = gmLogoSpace+"["+author+']';
 		}
 		else {
-			this.author = '['+author+']';
+			this.authorText = '['+author+']';
 		}
 		if(isGM) {
 			this.author = null;
@@ -197,7 +197,7 @@ public class Message {
 			this.authorText = gmLogoSpace+"["+author+']';
 		}
 		else {
-			this.author = '['+author+']';
+			this.authorText = '['+author+']';
 		}
 		if(isGM) {
 			this.author = null;

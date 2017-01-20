@@ -4,11 +4,18 @@ import java.util.ArrayList;
 
 public class ConfigList {
 
-	private ArrayList<Config> configList = new ArrayList<Config>();
-	private String name;
+	private final ArrayList<Config> configList;
+	private final String name;
+	private final ChatConfigType type;
 	
-	public ConfigList(String name) {
+	public ConfigList(String name, ChatConfigType type) {
 		this.name = name;
+		this.configList = new ArrayList<Config>();
+		this.type = type;
+	}
+	
+	public ChatConfigType getType() {
+		return this.type;
 	}
 	
 	public String getName() {

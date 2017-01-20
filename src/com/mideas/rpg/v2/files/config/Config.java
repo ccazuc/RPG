@@ -37,6 +37,8 @@ public class Config {
 		}
 		
 	}
+	
+	//To override
 	public String write() {
 		return null;
 	}

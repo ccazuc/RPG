@@ -2,6 +2,7 @@ package com.mideas.rpg.v2.chat;
 
 import java.util.HashMap;
 
+import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.chat.CommandChannel;
 import com.mideas.rpg.v2.utils.StringUtils;
@@ -51,11 +52,12 @@ public class ChatCommandMgr {
 				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] in /join [channel_name] [password]", false, MessageType.SELF));
 				return;
 			}
+			int channelValue = ChannelMgr.generateChannelID();
 			if(command.length == 2) {
-				CommandChannel.joinChannel(command[1]);
+				CommandChannel.joinChannel(command[1], channelValue);
 			}
 			else {
-				CommandChannel.joinChannel(command[1], command[2]);
+				CommandChannel.joinChannel(command[1], channelValue, command[2]);
 			}
 		}
 	};

@@ -10,8 +10,12 @@ import java.util.LinkedHashMap;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.MessageType;
+import com.mideas.rpg.v2.chat.channel.ChannelMgr;
+import com.mideas.rpg.v2.chat.channel.ChatChannel;
+import com.mideas.rpg.v2.command.chat.CommandChannel;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.utils.Color;
+import com.mideas.rpg.v2.utils.StringUtils;
 
 public class ChatConfigManager {
 
@@ -19,7 +23,7 @@ public class ChatConfigManager {
 	private final static boolean DEBUG_WRITE = false;
 	private final static LinkedHashMap<String, ConfigList> configMap = new LinkedHashMap<String, ConfigList>();
 	public final static String FILE_NAME = "chat-config.wtf";
-	private final static ConfigList COLORS = new ConfigList("COLORS");
+	private final static ConfigList COLORS = new ConfigList("COLORS", ChatConfigType.COLORS);
 	private final static Config SELF = new Config("SELF", MessageType.SELF);
 	private final static Config SAY = new Config("SAY", MessageType.SAY);
 	private final static Config PARTY = new Config("PARTY", MessageType.PARTY);
@@ -31,6 +35,7 @@ public class ChatConfigManager {
 	private final static Config EMOTE = new Config("EMOTE", MessageType.EMOTE);
 	private final static Config CHANNEL = new Config("CHANNEL", MessageType.CHANNEL);
 	private final static Config IGNORE = new Config("IGNORE", MessageType.IGNORE);
+	private final static ConfigList CHANNELS = new ConfigList("CHANNELS", ChatConfigType.CHANNELS);
 	
 	public static void initConfigMap() {
 		COLORS.add(SELF);
@@ -45,6 +50,7 @@ public class ChatConfigManager {
 		COLORS.add(CHANNEL);
 		COLORS.add(IGNORE);
 		configMap.put(COLORS.getName(), COLORS);
+		configMap.put(CHANNELS.getName(), CHANNELS);
 	}
 	
 	public static void saveConfig() {
@@ -64,17 +70,23 @@ public class ChatConfigManager {
 				file.createNewFile();
 			}
 			for(ConfigList configList : configMap.values()) {
+				ChatConfigType type = configList.getType();
 				content.append(configList.getName()+System.lineSeparator());
 				int i = 0;
-				while(i < configList.size()) {
-					if(configList.getName().equals(COLORS.getName())) {
-						if(DEBUG_WRITE) 
-							System.out.println(configList.get(i).writeChatColor());
-						content.append(configList.get(i).writeChatColor()+System.lineSeparator());
-					}
-					i++;
+				if(type == ChatConfigType.CHANNELS) {
+					content.append(writeChannels());
 				}
-				content.append("END"+System.lineSeparator());
+				else {
+					while(i < configList.size()) {
+						if(type == ChatConfigType.COLORS) {
+							if(DEBUG_WRITE) 
+								System.out.println(configList.get(i).writeChatColor());
+							content.append(configList.get(i).writeChatColor()+System.lineSeparator());
+						}
+						i++;
+					}
+				}
+				content.append("END"+System.lineSeparator()+System.lineSeparator());
 			}
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 			bw.write(content.toString());
@@ -120,9 +132,12 @@ public class ChatConfigManager {
 					if(list.contains(tmp)) {
 						if(DEBUG_READ)
 							System.out.println(tmp);
-						if(list.getName().equals(COLORS.getName())) {
+						if(list.getType() == ChatConfigType.COLORS) {
 							list.get(currentLine.substring(0, i)).readChatColor(currentLine);
 						}
+					}
+					else if(list.getType() == ChatConfigType.CHANNELS) {
+						readChannel(currentLine);
 					}
 					else {
 						System.out.println("Error load "+FILE_NAME+" on line "+j+" line value: \""+currentLine+"\".");
@@ -136,6 +151,36 @@ public class ChatConfigManager {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static int readChannel(String value) {
+		String[] list = value.split(" ");
+		if(list.length < 2) {
+			return -1;
+		}
+		String channelName = list[0];
+		String channelValueString = list[1];
+		if(!StringUtils.isInteger(channelValueString)) {
+			System.out.println(ChatConfigManager.FILE_NAME+" error on load : channelValue isn't an integer : "+channelValueString);
+			return -1;
+		}
+		int channelValue = Integer.parseInt(channelValueString);
+		if(list.length >= 3) {
+			CommandChannel.joinChannel(channelName, channelValue, list[2]);
+		}
+		else {
+			CommandChannel.joinChannel(channelName, channelValue);
+		}
+		return 0;
+ 	}
+	
+	private static String writeChannels() {
+		StringBuilder builder = new StringBuilder();
+		for(ChatChannel channel : ChannelMgr.getChannelMap().values()) {
+			builder.append(channel.getName()+" "+channel.getValue()+" "+channel.getPassword()+System.lineSeparator());
+		}
+		builder.append(System.lineSeparator());
+		return builder.toString();
 	}
 	
 	static int parseColor(String value, MessageType type) {

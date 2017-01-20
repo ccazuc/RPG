@@ -94,9 +94,15 @@ public class TooltipMenu {
 	
 	public void setName(String name) {
 		this.name = name;
+		int width = FontManager.get("FRIZQT", 14).getWidth(this.name);
+		if(width > this.tooltip.getWidth()) {
+			this.tooltip.setWidth(width+30*Mideas.getDisplayXFactor());
+			this.x_size = (int)(width+30*Mideas.getDisplayXFactor());
+		}
 	}
 	
 	public void clearMenu() {
+		this.tooltip.setWidth(40*Mideas.getDisplayXFactor());
 		this.tooltipHeight = 0;
 		this.tooltip.setHeight(0);
 		this.menuList.clear();
@@ -127,11 +133,11 @@ public class TooltipMenu {
 	public void updateSize(float x, float y, float x_size) {
 		this.x = (int)x;
 		this.y = (int)y;
-		this.tooltip.update(x, y, x_size, TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
+		this.tooltip.update(x, y, this.x_size, TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
 		this.tooltipHeight = (int)(TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
 		int i = 0;
 		while(i < this.menuList.size()) {
-			this.menuList.get(i).update(x+7*Mideas.getDisplayXFactor(), this.y-11*Mideas.getDisplayYFactor()+this.tooltipHeight, x_size-7*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayXFactor());
+			this.menuList.get(i).update(x+7*Mideas.getDisplayXFactor(), this.y-11*Mideas.getDisplayYFactor()+this.tooltipHeight, this.x_size-7*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayXFactor());
 			this.tooltipHeight+= SPACE_BETWEEN_MENU*Mideas.getDisplayYFactor();
 			i++;
 		}

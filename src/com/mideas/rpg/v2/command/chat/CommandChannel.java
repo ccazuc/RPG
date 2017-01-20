@@ -15,9 +15,10 @@ public class CommandChannel extends Command {
 		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.CHANNEL_JOIN) {
 			String channelName = ConnectionManager.getConnection().readString();
+			int channelValue = ConnectionManager.getConnection().readInt();
 			String password = ConnectionManager.getConnection().readString();
-			ChannelMgr.addChannel(channelName, password);
-			ChatFrame.addMessage(new Message("Joined channel : ["+ChannelMgr.getChannelIndex(channelName)+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor()));
+			ChannelMgr.addChannel(channelName, channelValue, password);
+			ChatFrame.addMessage(new Message("Joined channel : ["+channelValue+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor()));
 		}
 		else if(packetId == PacketID.CHANNEL_LEAVE) {
 			String channelName = ConnectionManager.getConnection().readString();
@@ -29,6 +30,7 @@ public class CommandChannel extends Command {
 			int id = 0;
 			while((id = ConnectionManager.getConnection().readInt()) != -1) {
 				String name = ConnectionManager.getConnection().readString();
+				System.out.println("Member name : "+name);
 				ChannelMgr.addMember(channelName, name, id);
 			}
 		}
@@ -42,8 +44,8 @@ public class CommandChannel extends Command {
 		else if(packetId == PacketID.CHANNEL_MEMBER_LEFT) {
 			String channelName = ConnectionManager.getConnection().readString();
 			int id = ConnectionManager.getConnection().readInt();
-			ChannelMgr.removeMember(channelName, id);
 			ChatFrame.addMessage(new Message(" left the channel.", channelName, ChannelMgr.getMemberName(channelName, id), false, false, false));
+			ChannelMgr.removeMember(channelName, id);
 		}
 		else if(packetId == PacketID.CHANNEL_SET_LEADER) {
 			String channelName = ConnectionManager.getConnection().readString();
@@ -60,15 +62,16 @@ public class CommandChannel extends Command {
 		}
 	}
 	
-	public static void joinChannel(String channelName) {
-		joinChannel(channelName, "");
+	public static void joinChannel(String channelName, int value) {
+		joinChannel(channelName, value, "");
 	}
 	
-	public static void joinChannel(String channelName, String password) {
+	public static void joinChannel(String channelName, int value, String password) {
 		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
 		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL_JOIN);
 		ConnectionManager.getConnection().writeString(channelName);
+		ConnectionManager.getConnection().writeInt(value);
 		ConnectionManager.getConnection().writeString(password);
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();

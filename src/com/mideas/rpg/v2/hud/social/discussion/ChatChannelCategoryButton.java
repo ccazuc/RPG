@@ -87,8 +87,9 @@ public class ChatChannelCategoryButton extends DiscussionFrameUI {
 					DiscussionFrameUI.incrementYDraw();
 					return true;
 				}
-				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				else if(Mouse.getEventButton() == 1) {
 					this.buttonDown = false;
+					return true;
 				}
 			}
 		}

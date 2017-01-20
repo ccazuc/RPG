@@ -22,14 +22,14 @@ public class ChatChannelButton extends DiscussionFrameUI {
 	@Override
 	public void draw() {
 		Draw.drawQuad(Sprites.chat_channel_button, this.x, DiscussionFrameUI.getYDraw(), DiscussionFrameUI.getXSize(), DiscussionFrameUI.getYSize(), .4f);
-		if(getSelectedChannel() == this || this.buttonHover) {
-			Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, DiscussionFrameUI.getYDraw(), DiscussionFrameUI.getXSize(), DiscussionFrameUI.getYSize());
-		}
 		if(this.buttonDown) {
 			DiscussionFrameUI.channelFont.drawStringShadow(this.x+10, DiscussionFrameUI.getYDraw()+2*Mideas.getDisplayYFactor(), this.channel.getChannelNameDisplayed(), Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		else {
 			DiscussionFrameUI.channelFont.drawStringShadow(this.x+8, DiscussionFrameUI.getYDraw(), this.channel.getChannelNameDisplayed(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		}
+		if(getSelectedChannel() == this || this.buttonHover) {
+			Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, DiscussionFrameUI.getYDraw(), DiscussionFrameUI.getXSize(), DiscussionFrameUI.getYSize());
 		}
 	}
 	
@@ -53,8 +53,10 @@ public class ChatChannelButton extends DiscussionFrameUI {
 					setSelectedChannel(this);
 					return true;
 				}
-				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				else if(Mouse.getEventButton() == 1) {
 					this.buttonDown = false;
+					DiscussionFrameUI.enableChannelTooltip(this.channel, Mideas.mouseX()-5, Mideas.mouseY()-5);
+					return true;
 				}
 			}
 		}

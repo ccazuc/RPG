@@ -8,10 +8,14 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF;
+import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.chat.channel.ChannelMember;
 import com.mideas.rpg.v2.chat.channel.ChatChannel;
+import com.mideas.rpg.v2.command.chat.CommandChannel;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.TextMenu;
+import com.mideas.rpg.v2.utils.TooltipMenu;
 
 public class DiscussionFrameUI {
 
@@ -43,6 +47,31 @@ public class DiscussionFrameUI {
 	private final static int Y_SHIFT = Sprites.chat_channel_button.getImageHeight()+1;
 	private final static int X_SIZE = 176;
 	private final static int Y_SIZE = Sprites.chat_channel_button.getImageHeight();
+	final static TooltipMenu tooltipMenu = new TooltipMenu(0, 0, 0);
+	static ChatChannel tooltipChannel;
+	static ChannelMember tooltipMember;
+	private final static TextMenu leaveChannelMenu = new TextMenu(0, 0, 0, "Leave", 12, 1, 0) {
+		
+		@Override
+		public void eventButtonClick() {
+			CommandChannel.leaveChannel(tooltipChannel.getName());
+		}
+	};
+	private final static TextMenu cancelMenu = new TextMenu(0, 0, 0, "Cancel", 12, 1, 0) {
+		
+		@Override
+		public void eventButtonClick() {
+			tooltipMenu.setActive(false);
+		}
+	};
+	private final static TextMenu whisperPlayerMenu = new TextMenu(0, 0, 0, "Whisper", 12, 1, 0) {
+		
+		@Override
+		public void eventButtonClick() {
+			ChatFrame.setWhisper(tooltipMember.getName());
+			ChatFrame.setChatActive(true);
+		}
+	};
 	
 	public DiscussionFrameUI(float x, float y) {
 		this.x = (int)x;
@@ -71,11 +100,13 @@ public class DiscussionFrameUI {
 			this.categoryList.get(i).draw();
 			i++;
 		}
+		tooltipMenu.draw();
 	}
 	
 	public boolean mouseEvent() {
 		int i = 0;
 		yDraw = this.y+buttonYOffset;
+		if(tooltipMenu.event()) return true;
 		while(i < this.categoryList.size()) {
 			if(this.categoryList.get(i).event()) {
 				return true;
@@ -187,6 +218,29 @@ public class DiscussionFrameUI {
 	
 	protected static void setSelectedChannel(ChatChannelButton channel) {
 		selectedChannel = channel;
+	}
+	
+	protected static void enableChannelTooltip(ChatChannel channel, float x, float y) {
+		tooltipMenu.clearMenu();
+		tooltipMenu.setName(channel.getName());
+		tooltipMenu.addMenu(leaveChannelMenu);
+		tooltipMenu.addMenu(cancelMenu);
+		tooltipMenu.updateSize(x, y, 40*Mideas.getDisplayXFactor());
+		tooltipMenu.setActive(true);
+		tooltipMember = null;
+		tooltipChannel = channel;
+	}
+	
+	protected static void enableMemberTooltip(ChannelMember member, float x, float y) {
+		tooltipMenu.clearMenu();
+		tooltipMenu.setName(member.getName());
+		tooltipMenu.addMenu(whisperPlayerMenu);
+		//TODO; add target menu
+		tooltipMenu.addMenu(cancelMenu);
+		tooltipMenu.updateSize(x, y, 40*Mideas.getDisplayXFactor());
+		tooltipMenu.setActive(true);
+		tooltipMember = member;
+		tooltipChannel = null;
 	}
 	
 	public void updateSize(float x, float y) {

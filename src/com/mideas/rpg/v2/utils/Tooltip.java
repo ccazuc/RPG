@@ -82,6 +82,10 @@ public class Tooltip {
 		this.x_size = (int)width;
 	}
 	
+	public int getWidth() {
+		return this.x_size;
+	}
+	
 	public void setHeight(float height) {
 		this.y_size = (int)height;
 	}
