@@ -353,6 +353,7 @@ public class Sprites {
 	public static Texture button_hover_spellbar;
 	public static Texture chat_logo_blizz;
 	public static Texture chat_channel_button;
+	public static Texture discussion_frame;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -717,6 +718,7 @@ public class Sprites {
 		frame_tab_inactive_left_part = new Texture("sprite/interface/frame_tab/inactive_left_part.png");
 		frame_tab_inactive_middle_part = new Texture("sprite/interface/frame_tab/inactive_middle_part.png");
 		frame_tab_inactive_right_part = new Texture("sprite/interface/frame_tab/inactive_right_part.png");
+		discussion_frame = new Texture("sprite/interface/social/discussion_frame.png");
 		return true;
 	}
 

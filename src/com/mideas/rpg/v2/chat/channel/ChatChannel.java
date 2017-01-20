@@ -28,7 +28,10 @@ public class ChatChannel {
 	
 	public void addMember(ChannelMember member) {
 		this.channelNameDisplayed = StringUtils.value[this.value]+". "+this.name+" ("+StringUtils.value[this.playerList.size()+1]+")";
-		this.playerList.add(member);
+		if(this.playerList.size() == 0) {
+			this.playerList.add(member);
+			return;
+		}
 		if(this.playerList.get(0).getName().compareTo(member.getName()) < 0) {
 			this.playerList.add(0, member);
 			return;

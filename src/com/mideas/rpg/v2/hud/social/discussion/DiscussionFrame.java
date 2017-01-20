@@ -1,46 +1,41 @@
 package com.mideas.rpg.v2.hud.social.discussion;
 
-import java.util.ArrayList;
+import static com.mideas.rpg.v2.hud.social.SocialFrame.Y_SOCIAL_FRAME;
+import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;
 
-import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.chat.channel.ChatChannel;
 
 public class DiscussionFrame {
 
-	private final ArrayList<ChatChannelCategoryButton> categoryList = new ArrayList<ChatChannelCategoryButton>();
-	private ChatChannelButton selectedChannel;
-	protected float x;
-	private float y;
-	protected float yDraw;
-	protected float yShift;
+	private final static DiscussionFrameUI frame = new DiscussionFrameUI(X_SOCIAL_FRAME, Y_SOCIAL_FRAME);
+	private static boolean shouldUpdate;
 	
-	public DiscussionFrame(float x, float y) {
-		this.x = (int)x;
-		this.y = (int)y;
-		this.yShift = 25*Mideas.getDisplayYFactor();
+	public static void draw() {
+		updateSize();
+		frame.draw();
 	}
 	
-	public DiscussionFrame() {}
+	public static boolean mouseEvent() {
+		return frame.mouseEvent();
+	}
 	
-	public void draw() {
-		int i = 0;
-		this.yDraw = this.y;
-		//draw discussion frame
-		while(i < this.categoryList.size()) {
-			this.categoryList.get(i).draw();
-			i++;
+	public static void addChannel(ChatChannel channel) {
+		frame.addChannel(channel);
+	}
+	
+	public static void removeChannel(ChatChannel channel) {
+		frame.removeChannel(channel);
+	}
+	
+	private static void updateSize() {
+		if(!shouldUpdate) {
+			return;
 		}
+		frame.updateSize(X_SOCIAL_FRAME, Y_SOCIAL_FRAME);
+		shouldUpdate = false;
 	}
-	
-	protected ChatChannelButton getSelectedChannel() {
-		return this.selectedChannel;
-	}
-	
-	protected void setSelectedChannel(ChatChannelButton channel) {
-		this.selectedChannel = channel;
-	}
-	
-	public void updateSize(float x, float y) {
-		this.x = (int)x;
-		this.y = (int)y;
+	 
+	public static void shouldUpdate() {
+		shouldUpdate = true;
 	}
 }

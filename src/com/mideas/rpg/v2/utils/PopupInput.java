@@ -31,7 +31,7 @@ public class PopupInput extends Popup {
 				PopupInput.this.isActive = false;
 			}
 		};
-		this.input = new Input(textFont, 30, false, x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor(), 15) {
+		this.input = new Input(textFont, 30, false, this.x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2+12*Mideas.getDisplayXFactor(), y+50*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor(), 15) {
 			
 			@Override
 			public boolean keyEvent(char c) {
@@ -109,15 +109,16 @@ public class PopupInput extends Popup {
 		if(activatedPopup != null && activatedPopup.isActive) {
 			activatedPopup.popupClosed();
 		}
-		if(input_bar_width*Mideas.getDisplayXFactor() > this.x_size-40*Mideas.getDisplayXFactor()) {
-			this.x_size = (int)(input_bar_width*Mideas.getDisplayXFactor()+45*Mideas.getDisplayXFactor());
+		if(input_bar_width*Mideas.getDisplayXFactor() > this.x_size) {
+			this.x_size = (int)(input_bar_width*Mideas.getDisplayXFactor()+40*Mideas.getDisplayXFactor());
 			this.x = Display.getWidth()/2-this.x_size/2;
-			this.x_size_save = (int)input_bar_width+45;
+			this.x_size_save = (int)input_bar_width+40;
 			this.background.update(this.x, this.y, this.x_size, this.y_size);
 		}
 		this.input.setMaxLength(inputMaxLength);
 		this.inputBar.setWidth(input_bar_width*Mideas.getDisplayXFactor());
 		this.inputBar.setX(Display.getWidth()/2-this.inputBar.getWidth()/2);
+		this.input.update(this.x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2+12*Mideas.getDisplayXFactor(), this.y+50*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor());
 		this.x_size_input_bar_save = (int)input_bar_width;
 		this.acceptButton = button;
 		updateAcceptButton();
@@ -142,7 +143,7 @@ public class PopupInput extends Popup {
 		this.x = Display.getWidth()/2-this.x_size/2;
 		this.y_size = (int)y_size;
 		this.inputBar.update(Display.getWidth()/2-this.x_size_input_bar_save*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), this.x_size_input_bar_save*Mideas.getDisplayXFactor());
-		this.input.update(Display.getWidth()/2-this.x_size_input_bar_save*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), this.x_size_input_bar_save*Mideas.getDisplayXFactor());
+		this.input.update(this.x+this.x_size/2-this.x_size_input_bar_save*Mideas.getDisplayXFactor()/2+12*Mideas.getDisplayXFactor(), y+50*Mideas.getDisplayYFactor(), this.x_size_input_bar_save*Mideas.getDisplayXFactor());
 		this.background.update(this.x, this.y, this.x_size, this.y_size);
 		this.cancelButton.update(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		updateAcceptButton();

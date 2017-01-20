@@ -17,8 +17,6 @@ import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.command.CommandSendRealmList;
 import com.mideas.rpg.v2.connection.ConnectionManager;
-import com.mideas.rpg.v2.files.config.ChatConfigManager;
-import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.classes.SelectScreenPlayer;
 import com.mideas.rpg.v2.game.race.Classe;
 import com.mideas.rpg.v2.game.race.NewCharacterRace;

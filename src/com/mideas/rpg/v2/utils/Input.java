@@ -46,6 +46,7 @@ public class Input {
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
 		setIsActive(isActive);
+		inputList.add(this);
 		this.xDefault = x;
 		this.font = font;
 		this.y = y;
@@ -56,6 +57,7 @@ public class Input {
 		this.multipleLine = multipleLine;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
+		inputList.add(this);
 		this.xDefault = x;
 		this.font = font;
 		this.y = y;
@@ -67,6 +69,7 @@ public class Input {
 		this.debugActive = debugActive;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
+		inputList.add(this);
 		this.xDefault = x;
 		this.font = font;
 		this.y = y;
@@ -349,16 +352,19 @@ public class Input {
 	
 	private void shiftTextRight() {
 		//System.out.println(this.cursorShift+" "+this.xDraw+" "+this.xDefault+" "+this.cursorPosition+" RIGHT "+(this.cursorShift+this.xDraw < 0));
-		if(this.cursorShift+this.xDraw < 0 && this.cursorPosition >= 0) {
+		if(this.cursorShift+this.xDraw < 0 && this.cursorPosition >= 0 && this.text.length() != 0) {
 			int i = this.cursorPosition;
 			float shiftWidth = this.maxWidth/2;
 			int shift = 0;
-			while(i >= 0 && shift < shiftWidth) {
+			while(i >= 0 && shift < shiftWidth && this.text.length() > 0) {
 				this.xDraw+= this.font.getWidth(this.text.charAt(i));
 				shift+= this.font.getWidth(this.text.charAt(i));
 				i--;
 			}
 			shiftTextRight();
+		}
+		else if(this.text.length() == 0) {
+			this.xDraw = 0;
 		}
 	}
 
@@ -396,8 +402,8 @@ public class Input {
 			selected = this.text.substring(this.cursorPosition-this.selectedLength, this.cursorPosition);
 		}
 		StringSelection selection = new StringSelection(selected);
-	    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-	    clipboard.setContents(selection, selection);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(selection, selection);
 	}
 	
 	private void deleteSelected() {
@@ -441,6 +447,7 @@ public class Input {
 		this.text = temp;
 		this.cursorPosition = 0;
 		this.cursorShift = 0;
+		shiftTextRight();
 		return false;
 	}
 	private void CTRLleftArrow() {

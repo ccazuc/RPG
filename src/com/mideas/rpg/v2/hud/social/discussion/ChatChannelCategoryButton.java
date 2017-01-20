@@ -6,24 +6,22 @@ import org.lwjgl.input.Mouse;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
+import com.mideas.rpg.v2.chat.channel.ChatChannel;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
-public class ChatChannelCategoryButton extends DiscussionFrame {
+public class ChatChannelCategoryButton extends DiscussionFrameUI {
 
 	private final ArrayList<ChatChannelButton> channelList;
 	private final String name;
-	private boolean isExpanded;
+	private boolean isExpanded = true;
 	private boolean buttonHover;
 	private boolean buttonDown;
-	private int x_size;
-	private int y_size;
 	
-	public ChatChannelCategoryButton(String name) {
+	public ChatChannelCategoryButton(String name, float x) {
 		this.channelList = new ArrayList<ChatChannelButton>();
 		this.name = name;
-		this.x_size = (int)(Sprites.chat_channel_button.getImageWidth()*Mideas.getDisplayXFactor());
-		this.y_size = (int)(Sprites.chat_channel_button.getImageHeight()*Mideas.getDisplayYFactor());
-		
+		this.x = x;
 	}
 	
 	public ArrayList<ChatChannelButton> getChannelList() {
@@ -36,29 +34,40 @@ public class ChatChannelCategoryButton extends DiscussionFrame {
 	
 	@Override
 	public void draw() {
-		Draw.drawQuad(Sprites.chat_channel_button, this.x, this.yDraw);
-		this.yDraw+= this.yShift;
-		if(this.channelList.size() > 0) {
-			if(this.isExpanded) {
-				
-			}
-			else {
-				
-			}
+		Draw.drawQuad(Sprites.chat_channel_button, this.x, DiscussionFrameUI.getYDraw(), DiscussionFrameUI.getXSize(), DiscussionFrameUI.getYSize());
+		if(this.buttonHover) {
+			Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, DiscussionFrameUI.getYDraw(), DiscussionFrameUI.getXSize(), DiscussionFrameUI.getYSize());
+		}
+		if(this.buttonDown) {
+			DiscussionFrameUI.channelFont.drawStringShadow(this.x+10, DiscussionFrameUI.getYDraw()+2*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+		}
+		else {
+			DiscussionFrameUI.channelFont.drawStringShadow(this.x+8, DiscussionFrameUI.getYDraw(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+		}
+		DiscussionFrameUI.incrementYDraw();
+		if(this.channelList.size() > 0 && this.isExpanded) {
+			//draw "-"
 			int i = 0;
 			while(i < this.channelList.size()) {
 				this.channelList.get(i).draw();
 				if(getSelectedChannel() == this.channelList.get(i) && this.isExpanded) {
-					//draw channel member list
+					drawMemberList(this.channelList.get(i));
 				}
-				this.yDraw+= this.yShift;
+				DiscussionFrameUI.incrementYDraw();
 				i++;
 			}
 		}
+		else if(!this.isExpanded) {
+			//draw "+"
+		}
 	}
 	
-	public boolean event(float y) {
-		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= y && Mideas.mouseY() <= y+this.y_size) {
+	public boolean event() {
+		if(this.channelList.size() == 0) {
+			DiscussionFrameUI.incrementYDraw();
+			return false;
+		}
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+DiscussionFrameUI.getXSize() && Mideas.mouseY() >= DiscussionFrameUI.getYDraw() && Mideas.mouseY() <= DiscussionFrameUI.getYDraw()+DiscussionFrameUI.getYShift()) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
 		}
@@ -75,6 +84,7 @@ public class ChatChannelCategoryButton extends DiscussionFrame {
 				if(Mouse.getEventButton() == 0) {
 					this.buttonDown = false;
 					this.isExpanded = !this.isExpanded;
+					DiscussionFrameUI.incrementYDraw();
 					return true;
 				}
 				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
@@ -87,20 +97,51 @@ public class ChatChannelCategoryButton extends DiscussionFrame {
 				this.buttonDown = false;
 			}
 		}
+		DiscussionFrameUI.incrementYDraw();
+		if(!this.isExpanded) {
+			return false;
+		}
+		int i = 0;
+		while(i < this.channelList.size()) {
+			if(this.channelList.get(i).event()) {
+				return true;
+			}
+			if(getSelectedChannel() == this.channelList.get(i)) {
+				if(memberListEvent(this.channelList.get(i))) {
+					return true;
+				}
+			}
+			DiscussionFrameUI.incrementYDraw();
+			i++;
+		}
 		return false;
 	}
 	
-	public void addChannel(ChatChannelButton channel) {
-		this.channelList.add(channel);
+	@Override
+	public void addChannel(ChatChannel channel) {
+		this.channelList.add(new ChatChannelButton(channel, this.x));
 	}
 	
-	public void removeChannel(ChatChannelButton channel) {
+	@Override
+	public void removeChannel(ChatChannel channel) {
 		int i = this.channelList.size();
 		while(--i >= 0) {
-			if(this.channelList.get(i) == channel) {
+			if(this.channelList.get(i).getChannel() == channel) {
+				if(getSelectedChannel() == this.channelList.get(i)) {
+					setSelectedChannel(null);
+				}
 				this.channelList.remove(i);
 				return;
 			}
+		}
+	}
+	
+	public void updateSize(float x) {
+		this.x = x;
+		int i = 0;
+		while(i < this.channelList.size()) {
+			this.channelList.get(i).updateSize(x);
+			i++;
 		}
 	}
 	

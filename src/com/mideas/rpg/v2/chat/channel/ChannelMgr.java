@@ -3,6 +3,8 @@ package com.mideas.rpg.v2.chat.channel;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.mideas.rpg.v2.hud.social.discussion.DiscussionFrame;
+
 public class ChannelMgr {
 
 	private final static HashMap<String, ChatChannel> channelMap = new HashMap<String, ChatChannel>();
@@ -20,10 +22,13 @@ public class ChannelMgr {
 			return;
 		}
 		int id = generateChannelID();
-		channelMap.put(channelName, new ChatChannel(channelName, password, id));
+		ChatChannel channel = new ChatChannel(channelName, password, id);
+		channelMap.put(channelName, channel);
+		DiscussionFrame.addChannel(channel);
 	}
 	
 	public static void leaveChannel(String channelName) {
+		DiscussionFrame.removeChannel(channelMap.get(channelName));
 		channelMap.remove(channelName);
 	}
 	

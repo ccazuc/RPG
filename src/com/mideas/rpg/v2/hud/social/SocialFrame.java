@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.hud.social;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.SocialFrameMenu;
+import com.mideas.rpg.v2.hud.social.discussion.DiscussionFrame;
 import com.mideas.rpg.v2.hud.social.friends.FriendsFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 import com.mideas.rpg.v2.hud.social.who.WhoFrame;
@@ -57,7 +58,7 @@ public class SocialFrame {
 		public void eventButtonClick() {
 			unselectAllButton();
 			this.setIsSelected(true);
-			//selectedMenu = SocialFrameMenu.DISCUSSION_FRAME;
+			selectedMenu = SocialFrameMenu.DISCUSSION_FRAME;
 		}
 	};
 	private static ButtonMenu raidButtonMenu = new ButtonMenu(X_SOCIAL_FRAME+285*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_Y*Mideas.getDisplayYFactor(), 49*Mideas.getDisplayXFactor(), BUTTON_MENU_Y_SIZE*Mideas.getDisplayYFactor(), "Raid", 10, 1, false) {
@@ -77,7 +78,7 @@ public class SocialFrame {
 			this.reset();
 		}
 	};
-	private static boolean draw = true;
+	private static boolean draw = true; //Used for debug
 	
 	public static void draw() {
 		updateSize();
@@ -91,7 +92,7 @@ public class SocialFrame {
 			GuildFrame.draw();
 		}
 		else if(selectedMenu == SocialFrameMenu.DISCUSSION_FRAME) {
-			//DiscussionFrame.draw();
+			DiscussionFrame.draw();
 		}
 		else if(selectedMenu == SocialFrameMenu.RAID_FRAME) {
 			//RaidFrame.draw();
@@ -123,7 +124,7 @@ public class SocialFrame {
 			return GuildFrame.mouseEvent();
 		}
 		else if(selectedMenu == SocialFrameMenu.DISCUSSION_FRAME) {
-			//return DiscussionFrame.mouseEvent();
+			return DiscussionFrame.mouseEvent();
 		}
 		else if(selectedMenu == SocialFrameMenu.RAID_FRAME) {
 			//return RaidFrame.mouseEvent();
@@ -154,6 +155,7 @@ public class SocialFrame {
 		WhoFrame.shouldUpdate();
 		GuildFrame.shouldUpdate();
 		FriendsFrame.shouldUpdate();
+		DiscussionFrame.shouldUpdate();
 		shouldUpdateSize = false;
 	}
 	
