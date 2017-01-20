@@ -134,12 +134,10 @@ public class PartyFrame {
 					displayMemberX = hoveredMemberX;
 					displayMemberY = hoveredMemberY;
 					if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
-						setTooltipLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 140*Mideas.getDisplayXFactor());
-						menuTooltip.setActive(true);
+						setTooltipLeader(Mideas.joueur1().getParty().getPartyMember(displayMember).getName(), displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor());
 					}
 					else if(Mideas.joueur1().getParty().getPartyMember(displayMember) != null) {
-						setTooltipNonLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor());
-						menuTooltip.setActive(true);
+						setTooltipNonLeader(Mideas.joueur1().getParty().getPartyMember(displayMember).getName(), displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor());
 					}
 					menuTooltip.setName(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
 				}
@@ -197,12 +195,7 @@ public class PartyFrame {
 			return;
 		}
 		if(displayMember != -1) {
-			if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader(Mideas.joueur1())) {
-				setTooltipLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 140*Mideas.getDisplayXFactor());
-			}
-			else if(Mideas.joueur1() != null && Mideas.joueur1().getParty() != null) {
-				setTooltipNonLeader(displayMemberX*Mideas.getDisplayXFactor()+50*Mideas.getDisplayXFactor(), Display.getHeight()/2+displayMemberY*Mideas.getDisplayYFactor()+50*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor());
-			}
+			menuTooltip.updateSize();
 			shouldUpdateSize = false;
 		}
 	}
@@ -215,8 +208,9 @@ public class PartyFrame {
 		displayMember = value;
 	}
 	
-	public static void setTooltipLeader(float x, float y, float x_size) {
+	public static void setTooltipLeader(String name, float x, float y) {
 		menuTooltip.clearMenu();
+		menuTooltip.setName(name);
 		menuTooltip.addMenu(whisper);
 		menuTooltip.addMenu(setLeader);
 		menuTooltip.addMenu(kick);
@@ -225,18 +219,21 @@ public class PartyFrame {
 		menuTooltip.addMenu(follow);
 		menuTooltip.addMenu(duel);
 		menuTooltip.addMenu(cancel);
-		menuTooltip.updateSize(x, y, x_size);
+		menuTooltip.setActive(true);
+		menuTooltip.updateSize(x, y);
 	}
 	
-	public static void setTooltipNonLeader(float x, float y, float x_size) {
+	public static void setTooltipNonLeader(String name, float x, float y) {
 		menuTooltip.clearMenu();
+		menuTooltip.setName(name);
 		menuTooltip.addMenu(whisper);
 		menuTooltip.addMenu(inspect);
 		menuTooltip.addMenu(trade);
 		menuTooltip.addMenu(follow);
 		menuTooltip.addMenu(duel);
 		menuTooltip.addMenu(cancel);
-		menuTooltip.updateSize(x, y, x_size);
+		menuTooltip.setActive(true);
+		menuTooltip.updateSize(x, y);
 		
 	}
 }

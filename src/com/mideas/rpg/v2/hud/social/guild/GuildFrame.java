@@ -872,45 +872,45 @@ public class GuildFrame {
 	
 	private static void buildMenuList() {
 		if(Mideas.joueur1().getGuild().isLeader(Mideas.joueur1().getId()) && memberMenu.getId() != Mideas.joueur1().getId()) {
-			buildMenuListLeader(hoveredMemberX, hoveredMemberY, 143*Mideas.getDisplayXFactor());
+			buildMenuListLeader(hoveredMemberX, hoveredMemberY);
 		}
 		else {
 			if(memberMenu.getId() == Mideas.joueur1().getId()) {
-				buildMenuListSelf(hoveredMemberX, hoveredMemberY, 118*Mideas.getDisplayXFactor());
+				buildMenuListSelf(hoveredMemberX, hoveredMemberY);
 			}
 			else {
-				buildMenuListNonLeader(hoveredMemberX, hoveredMemberY, 92*Mideas.getDisplayXFactor());
+				buildMenuListNonLeader(hoveredMemberX, hoveredMemberY);
 			}
 		}
 	}
 	
-	private static void buildMenuListSelf(float x, float y, float x_size) {
+	private static void buildMenuListSelf(float x, float y) {
 		displayedMemberMenu.clearMenu();
 		displayedMemberMenu.addMenu(whisperTextMenu);
 		displayedMemberMenu.addMenu(targetTextMenu);
 		displayedMemberMenu.addMenu(ignoreTextMenu);
 		displayedMemberMenu.addMenu(leaveGuildTextMenu);
 		displayedMemberMenu.addMenu(cancelTextMenu);
-		displayedMemberMenu.updateSize(x, y, x_size);
+		displayedMemberMenu.updateSize(x, y);
 	}
 	
-	private static void buildMenuListLeader(float x, float y, float x_size) {
+	private static void buildMenuListLeader(float x, float y) {
 		displayedMemberMenu.clearMenu();
 		displayedMemberMenu.addMenu(whisperTextMenu);
 		displayedMemberMenu.addMenu(targetTextMenu);
 		displayedMemberMenu.addMenu(ignoreTextMenu);
 		displayedMemberMenu.addMenu(setLeaderTextMenu);
 		displayedMemberMenu.addMenu(cancelTextMenu);
-		displayedMemberMenu.updateSize(x, y, x_size);
+		displayedMemberMenu.updateSize(x, y);
 	}
 	
-	private static void buildMenuListNonLeader(float x, float y, float x_size) {
+	private static void buildMenuListNonLeader(float x, float y) {
 		displayedMemberMenu.clearMenu();
 		displayedMemberMenu.addMenu(whisperTextMenu);
 		displayedMemberMenu.addMenu(targetTextMenu);
 		displayedMemberMenu.addMenu(ignoreTextMenu);
 		displayedMemberMenu.addMenu(cancelTextMenu);
-		displayedMemberMenu.updateSize(x, y, x_size);
+		displayedMemberMenu.updateSize(x, y);
 	}
 	
 	private static boolean isHoverMember(float x, float y) {
@@ -1233,7 +1233,7 @@ public class GuildFrame {
 		sortByNoteButton.update(X_SOCIAL_FRAME+198*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_SORT_Y*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor());
 		sortByLastOnlineButton.update(X_SOCIAL_FRAME+296*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_SORT_Y*Mideas.getDisplayYFactor(), 89*Mideas.getDisplayXFactor());
 		if(displayedMemberMenu.isActive()) {
-			buildMenuList();
+			displayedMemberMenu.updateSize();
 		}
 		shouldUpdateSize = false;
 	}

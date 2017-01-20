@@ -11,6 +11,8 @@ public class TooltipMenu {
 	private ArrayList<TextMenu> menuList;
 	private int x;
 	private int y;
+	private int defaultX;
+	private int defaultY;
 	private int x_size;
 	private String name;
 	private boolean isActive;
@@ -130,9 +132,13 @@ public class TooltipMenu {
 		this.menuList.add(menu);
 	}
 	
-	public void updateSize(float x, float y, float x_size) {
+	public void updateSize(float x, float y) {
 		this.x = (int)x;
+		this.defaultX = (int)(x/Mideas.getDisplayXFactor());
 		this.y = (int)y;
+		this.defaultY = (int)(y/Mideas.getDisplayYFactor());
+		int fontMaxLength = getMaxLengthText();
+		this.x_size = (int)(fontMaxLength+40*Mideas.getDisplayXFactor());
 		this.tooltip.update(x, y, this.x_size, TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
 		this.tooltipHeight = (int)(TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
 		int i = 0;
@@ -142,6 +148,41 @@ public class TooltipMenu {
 			i++;
 		}
 		this.tooltip.setHeight(this.tooltipHeight);
+	}
+	
+	public void updateSize() {
+		this.x = (int)(this.defaultX*Mideas.getDisplayXFactor());
+		this.y = (int)(this.defaultY*Mideas.getDisplayYFactor());
+		int fontMaxLength = getMaxLengthText();
+		this.x_size = (int)(fontMaxLength+40*Mideas.getDisplayXFactor());
+		this.tooltip.update(this.x, this.y, this.x_size, TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
+		this.tooltipHeight = (int)(TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
+		int i = 0;
+		while(i < this.menuList.size()) {
+			this.menuList.get(i).update(this.x+7*Mideas.getDisplayXFactor(), this.y-11*Mideas.getDisplayYFactor()+this.tooltipHeight, this.x_size-7*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayXFactor());
+			this.tooltipHeight+= SPACE_BETWEEN_MENU*Mideas.getDisplayYFactor();
+			i++;
+		}
+		this.tooltip.setHeight(this.tooltipHeight);
+	}
+	
+	private int getMaxLengthText() {
+		int maxLength = 0;
+		int i = 0;
+		while(i < this.menuList.size()) {
+			if(this.menuList.get(i).getTextWidth() > maxLength) {
+				maxLength = this.menuList.get(i).getTextWidth();
+			}
+			i++;
+		}
+		if(this.name == null) {
+			return maxLength;
+		}
+		int nameWidth = FontManager.get("FRIZQT", 14).getWidth(this.name);
+		if(nameWidth > maxLength) {
+			maxLength = nameWidth;
+		}
+		return maxLength;
 	}
 	
 	public int getX() {

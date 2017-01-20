@@ -55,6 +55,7 @@ public class DiscussionFrameUI {
 		@Override
 		public void eventButtonClick() {
 			CommandChannel.leaveChannel(tooltipChannel.getName());
+			tooltipMenu.setActive(false);
 		}
 	};
 	private final static TextMenu cancelMenu = new TextMenu(0, 0, 0, "Cancel", 12, 1, 0) {
@@ -70,6 +71,7 @@ public class DiscussionFrameUI {
 		public void eventButtonClick() {
 			ChatFrame.setWhisper(tooltipMember.getName());
 			ChatFrame.setChatActive(true);
+			tooltipMenu.setActive(false);
 		}
 	};
 	
@@ -225,7 +227,7 @@ public class DiscussionFrameUI {
 		tooltipMenu.setName(channel.getName());
 		tooltipMenu.addMenu(leaveChannelMenu);
 		tooltipMenu.addMenu(cancelMenu);
-		tooltipMenu.updateSize(x, y, 40*Mideas.getDisplayXFactor());
+		tooltipMenu.updateSize(x, y);
 		tooltipMenu.setActive(true);
 		tooltipMember = null;
 		tooltipChannel = channel;
@@ -237,7 +239,7 @@ public class DiscussionFrameUI {
 		tooltipMenu.addMenu(whisperPlayerMenu);
 		//TODO; add target menu
 		tooltipMenu.addMenu(cancelMenu);
-		tooltipMenu.updateSize(x, y, 40*Mideas.getDisplayXFactor());
+		tooltipMenu.updateSize(x, y);
 		tooltipMenu.setActive(true);
 		tooltipMember = member;
 		tooltipChannel = null;
@@ -256,6 +258,7 @@ public class DiscussionFrameUI {
 		memberYShift = MEMBER_Y_SHIFT*Mideas.getDisplayYFactor();
 		memberBorderWidth = MEMBER_BORDER_WIDTH_NOSCROLLBAR*Mideas.getDisplayXFactor();
 		memberYShift = MEMBER_Y_SHIFT*Mideas.getDisplayYFactor();
+		tooltipMenu.updateSize();
 		int i = 0;
 		while(i < this.categoryList.size()) {
 			this.categoryList.get(i).updateSize(this.x+buttonXOffset);

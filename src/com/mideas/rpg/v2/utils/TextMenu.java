@@ -13,6 +13,7 @@ public class TextMenu {
 	private int y;
 	private String text;
 	private TTF font;
+	private int textWidth;
 	private int shadow_size;
 	private boolean buttonHover;
 	private boolean buttonDown;
@@ -24,6 +25,7 @@ public class TextMenu {
 	public TextMenu(float x, float y, float x_size, String text, float font_size, int shadow_size, float textShift) {
 		this.font = FontManager.get("FRIZQT", font_size);
 		this.textShift = (int)textShift;
+		this.textWidth = this.font.getWidth(text);
 		this.shadow_size = shadow_size;
 		this.x_size = (int)x_size;
 		this.text = text;
@@ -34,6 +36,7 @@ public class TextMenu {
 	public TextMenu(float x, float y, float x_size, String text, float font_size, int shadow_size) {
 		this.font = FontManager.get("FRIZQT", font_size);
 		this.shadow_size = shadow_size;
+		this.textWidth = this.font.getWidth(text);
 		this.x_size = (int)x_size;
 		this.text = text;
 		this.x = (int)x;
@@ -175,6 +178,10 @@ public class TextMenu {
 	
 	public int getTextShift() {
 		return this.textShift;
+	}
+	
+	public int getTextWidth() {
+		return this.textWidth;
 	}
 	
 	public void update(float x, float y, float x_size, float textShift) {

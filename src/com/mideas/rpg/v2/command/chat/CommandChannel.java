@@ -22,8 +22,8 @@ public class CommandChannel extends Command {
 		}
 		else if(packetId == PacketID.CHANNEL_LEAVE) {
 			String channelName = ConnectionManager.getConnection().readString();
-			ChannelMgr.leaveChannel(channelName);
 			ChatFrame.addMessage(new Message("Left channel : ["+ChannelMgr.getChannelIndex(channelName)+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor()));
+			ChannelMgr.leaveChannel(channelName);
 		}
 		else if(packetId == PacketID.CHANNEL_SEND_MEMBERS) {
 			String channelName = ConnectionManager.getConnection().readString();
