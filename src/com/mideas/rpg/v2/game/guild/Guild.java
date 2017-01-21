@@ -65,6 +65,10 @@ public class Guild {
 		return this.eventList;
 	}
 	
+	public void addEvent(GuildEvent event) {
+		this.eventList.add(event);
+	}
+	
 	public void updateGuildTimer() {
 		int i = 0;
 		while(i < this.memberList.size()) {

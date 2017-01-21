@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.guild.Guild;
+import com.mideas.rpg.v2.game.guild.GuildEvent;
 import com.mideas.rpg.v2.game.guild.GuildJournalEventType;
 import com.mideas.rpg.v2.game.guild.GuildMember;
 import com.mideas.rpg.v2.game.guild.GuildRank;
@@ -212,6 +213,36 @@ public class CommandGuild extends Command {
 			}
 			if(type == GuildJournalEventType.MEMBER_DEMOTED || type == GuildJournalEventType.MEMBER_PROMOTED) {
 				rankID = ConnectionManager.getConnection().readInt();
+			}
+			GuildRank rank = Mideas.joueur1().getGuild().getRank(rankID);
+			String rankName;
+			if(rank == null) {
+				rankName = "Deleted rank";
+			}
+			else {
+				rankName = rank.getName();
+			}
+			Mideas.joueur1().getGuild().addEvent(new GuildEvent(timer, type, player1Name, player2Name, rankName));
+		}
+		else if(packetId == PacketID.GUILD_INIT_JOURNAL) {
+			short length = ConnectionManager.getConnection().readShort();
+			int i = 0;
+			while(i < length) {
+				GuildJournalEventType type = GuildJournalEventType.values()[ConnectionManager.getConnection().readByte()];
+				long timer = ConnectionManager.getConnection().readLong();
+				String player1Name = ConnectionManager.getConnection().readString();
+				String player2Name = ConnectionManager.getConnection().readString();
+				int rankID = ConnectionManager.getConnection().readInt();
+				String rankName = null;
+				GuildRank rank;
+				if((rank = Mideas.joueur1().getGuild().getRank(rankID)) != null) {
+					rankName = rank.getName();
+				}
+				else {
+					rankName = "Rank deleted";
+				}
+				Mideas.joueur1().getGuild().addEvent(new GuildEvent(timer, type, player1Name, player2Name, rankName));
+				i++;
 			}
 		}
 	}
