@@ -69,7 +69,7 @@ public class TaskManager {
 		
 		@Override
 		public void action() {
-			Mideas.joueur1().getGuild().updateLastLoginTimer();
+			Mideas.joueur1().getGuild().updateGuildTimer();
 		}
 	};
 	

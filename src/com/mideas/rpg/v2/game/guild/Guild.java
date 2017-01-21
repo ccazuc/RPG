@@ -7,17 +7,18 @@ import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
 
 public class Guild {
 
-	private int id;
+	private final int id;
 	private int leader_id;
-	private String name;
+	private final String name;
 	private String information;
 	private String motd;
 	private String tempMotd;
 	private String numberMembers;
 	private int numberOnlineMembers;
 	private String numberOnlineMembersString;
-	private ArrayList<GuildMember> memberList;
-	private ArrayList<GuildRank> rankList;
+	private final ArrayList<GuildMember> memberList;
+	private final ArrayList<GuildRank> rankList;
+	private final ArrayList<GuildEvent> eventList;
 	
 	public final static int MEMBER_NOTE_MAX_LENGTH = 50;
 	public final static int MEMBER_OFFICER_NOTE_MAX_LENGTH = 50;
@@ -32,6 +33,7 @@ public class Guild {
 		this.motd = motd;
 		this.tempMotd = motd;
 		this.id = id;
+		this.eventList = new ArrayList<GuildEvent>();
 		/*this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
 		this.memberList.add(new GuildMember(2, "LAST", 50, this.rankList.get(0), true, "", "", ClassType.ROGUE));
@@ -59,10 +61,19 @@ public class Guild {
 		initNumberOnlineMembers();
 	}
 	
-	public void updateLastLoginTimer() {
+	public ArrayList<GuildEvent> getGuildEventList() {
+		return this.eventList;
+	}
+	
+	public void updateGuildTimer() {
 		int i = 0;
 		while(i < this.memberList.size()) {
 			this.memberList.get(i).updateLastLoginTimerString();
+			i++;
+		}
+		i = 0;
+		while(i < this.eventList.size()) {
+			this.eventList.get(i).updateTimerString();
 			i++;
 		}
 	}

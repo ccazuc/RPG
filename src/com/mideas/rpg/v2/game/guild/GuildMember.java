@@ -5,6 +5,7 @@ import com.mideas.rpg.v2.game.unit.ClassType;
 import com.mideas.rpg.v2.game.unit.Joueur;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.utils.Color;
+import com.mideas.rpg.v2.utils.StringUtils;
 
 public class GuildMember {
 
@@ -25,12 +26,6 @@ public class GuildMember {
 	private long lastLoginTimer;
 	private String lastLoginTimerString;
 	
-	private final static long MS_IN_A_YEAR = 31536000000l;
-	private final static long MS_IN_A_MONTH = 1036800000l;
-	private final static long MS_IN_A_WEEK = 604800000l;
-	private final static long MS_IN_A_DAY = 86400000l;
-	private final static long MS_IN_AN_HOUR = 3600000l;
-	private final static long MS_IN_A_MINUTE = 60000l;
 	private final static String noNote = "Click here to write a public note";
 	private final static String noOfficerNote = "Click here to write an officer note";
 	
@@ -55,42 +50,7 @@ public class GuildMember {
 	public void updateLastLoginTimerString() {
 		if(!this.isOnline) {
 			long delta = System.currentTimeMillis()-this.lastLoginTimer;
-			if(delta >= MS_IN_A_YEAR) {
-				this.lastLoginTimerString = (delta/MS_IN_A_YEAR)+" year";
-				if(delta/MS_IN_A_YEAR > 1) {
-					this.lastLoginTimerString+= "s";
-				}
-			}
-			else if(delta >= MS_IN_A_MONTH) {
-				this.lastLoginTimerString = (delta/MS_IN_A_MONTH)+" month";
-				if(delta/MS_IN_A_MONTH > 1) {
-					this.lastLoginTimerString+= "s";
-				}
-			}
-			else if(delta >= MS_IN_A_WEEK) {
-				this.lastLoginTimerString = (delta/MS_IN_A_WEEK)+" week";
-				if(delta/MS_IN_A_WEEK > 1) {
-					this.lastLoginTimerString+= "s";
-				}
-			}
-			else if(delta >= MS_IN_A_DAY) {
-				this.lastLoginTimerString = (delta/MS_IN_A_DAY)+" day";
-				if(delta/MS_IN_A_DAY > 1) {
-					this.lastLoginTimerString+= "s";
-				}
-			}
-			else if(delta >= MS_IN_AN_HOUR) {
-				this.lastLoginTimerString = (delta/MS_IN_AN_HOUR)+" hour";
-				if(delta/MS_IN_AN_HOUR > 1) {
-					this.lastLoginTimerString+= "s";
-				}
-			}
-			else if(delta >= MS_IN_A_MINUTE) {
-				this.lastLoginTimerString = (delta/MS_IN_A_MINUTE)+" minute";
-				if(delta/MS_IN_A_MINUTE > 1) {
-					this.lastLoginTimerString+= "s";
-				}
-			}
+			this.lastLoginTimerString = StringUtils.convertTimeToStringimple(delta);
 		}
 		else {
 			this.lastLoginTimerString = "Online";

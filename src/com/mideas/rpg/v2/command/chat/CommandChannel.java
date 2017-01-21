@@ -28,12 +28,13 @@ public class CommandChannel extends Command {
 		}
 		else if(packetId == PacketID.CHANNEL_SEND_MEMBERS) {
 			String channelName = ConnectionManager.getConnection().readString();
+			int leaderID = ConnectionManager.getConnection().readInt();
 			int id = 0;
 			while((id = ConnectionManager.getConnection().readInt()) != -1) {
 				String name = ConnectionManager.getConnection().readString();
-				System.out.println("Member name : "+name);
 				ChannelMgr.addMember(channelName, name, id);
 			}
+			ChannelMgr.setLeader(channelName, id);
 		}
 		else if(packetId == PacketID.CHANNEL_MEMBER_JOINED) {
 			String channelName = ConnectionManager.getConnection().readString();

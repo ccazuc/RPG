@@ -81,7 +81,7 @@ public class CommandSendMessage extends Command {
 		ConnectionManager.getConnection().writeShort(PacketID.SEND_MESSAGE);
 		ConnectionManager.getConnection().writeString(message);
 		ConnectionManager.getConnection().writeByte(MessageType.CHANNEL.getValue());
-		ConnectionManager.getConnection().writeString(channelName);
+		ConnectionManager.getConnection().writeString(channelName+'a');
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}

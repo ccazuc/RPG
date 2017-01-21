@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.guild.Guild;
+import com.mideas.rpg.v2.game.guild.GuildJournalEventType;
 import com.mideas.rpg.v2.game.guild.GuildMember;
 import com.mideas.rpg.v2.game.guild.GuildRank;
 import com.mideas.rpg.v2.game.unit.ClassType;
@@ -199,6 +200,19 @@ public class CommandGuild extends Command {
 			int id = ConnectionManager.getConnection().readInt();
 			String officerNote = ConnectionManager.getConnection().readString();
 			Mideas.joueur1().getGuild().getMember(id).setOfficerNoteSave(officerNote);
+		}
+		else if(packetId == PacketID.GUILD_SET_JOURNAL) {
+			GuildJournalEventType type = GuildJournalEventType.values()[ConnectionManager.getConnection().readByte()];
+			long timer = ConnectionManager.getConnection().readLong();
+			String player1Name = ConnectionManager.getConnection().readString();
+			String player2Name = null;
+			int rankID = -1;
+			if(type == GuildJournalEventType.MEMBER_DEMOTED || type == GuildJournalEventType.MEMBER_INVITED || type == GuildJournalEventType.MEMBER_KICKED || type == GuildJournalEventType.MEMBER_PROMOTED) {
+				player2Name = ConnectionManager.getConnection().readString();
+			}
+			if(type == GuildJournalEventType.MEMBER_DEMOTED || type == GuildJournalEventType.MEMBER_PROMOTED) {
+				rankID = ConnectionManager.getConnection().readInt();
+			}
 		}
 	}
 	

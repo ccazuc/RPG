@@ -3,6 +3,12 @@ package com.mideas.rpg.v2.utils;
 public class StringUtils {
 	
 	public final static String[] value = new String[100];
+	public final static long MS_IN_A_YEAR = 31536000000l;
+	public final static long MS_IN_A_MONTH = 1036800000l;
+	public final static long MS_IN_A_WEEK = 604800000l;
+	public final static long MS_IN_A_DAY = 86400000l;
+	public final static long MS_IN_AN_HOUR = 3600000l;
+	public final static long MS_IN_A_MINUTE = 60000l;
 	
 	public static void initValues() {
 		int i = 0;
@@ -10,6 +16,50 @@ public class StringUtils {
 			value[i] = Integer.toString(i);
 			i++;
 		}
+	}
+	
+	public static String convertTimeToStringimple(long delta) {
+		String result = null;
+		if(delta >= MS_IN_A_YEAR) {
+			result = (delta/MS_IN_A_YEAR)+" year";
+			if(delta/MS_IN_A_YEAR > 1) {
+				result+= "s";
+			}
+		}
+		else if(delta >= MS_IN_A_MONTH) {
+			result = (delta/MS_IN_A_MONTH)+" month";
+			if(delta/MS_IN_A_MONTH > 1) {
+				result+= "s";
+			}
+		}
+		else if(delta >= MS_IN_A_WEEK) {
+			result = (delta/MS_IN_A_WEEK)+" week";
+			if(delta/MS_IN_A_WEEK > 1) {
+				result+= "s";
+			}
+		}
+		else if(delta >= MS_IN_A_DAY) {
+			result = (delta/MS_IN_A_DAY)+" day";
+			if(delta/MS_IN_A_DAY > 1) {
+				result+= "s";
+			}
+		}
+		else if(delta >= MS_IN_AN_HOUR) {
+			result = (delta/MS_IN_AN_HOUR)+" hour";
+			if(delta/MS_IN_AN_HOUR > 1) {
+				result+= "s";
+			}
+		}
+		else if(delta >= MS_IN_A_MINUTE) {
+			result = (delta/MS_IN_A_MINUTE)+" minute";
+			if(delta/MS_IN_A_MINUTE > 1) {
+				result+= "s";
+			}
+		}
+		else {
+			result = "Less than a minute ago";
+		}
+		return result;
 	}
 	
 	public static String removeSpaces(String str) {

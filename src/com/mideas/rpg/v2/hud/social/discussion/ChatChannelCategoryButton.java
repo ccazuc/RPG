@@ -35,14 +35,14 @@ public class ChatChannelCategoryButton extends DiscussionFrameUI {
 	@Override
 	public void draw() {
 		Draw.drawQuad(Sprites.chat_channel_button, this.x, DiscussionFrameUI.getYDraw(), DiscussionFrameUI.getXSize(), DiscussionFrameUI.getYSize());
-		if(this.buttonHover) {
-			Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, DiscussionFrameUI.getYDraw(), DiscussionFrameUI.getXSize(), DiscussionFrameUI.getYSize());
-		}
 		if(this.buttonDown) {
 			DiscussionFrameUI.channelFont.drawStringShadow(this.x+10, DiscussionFrameUI.getYDraw()+2*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		else {
 			DiscussionFrameUI.channelFont.drawStringShadow(this.x+8, DiscussionFrameUI.getYDraw(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+		}
+		if(this.buttonHover) {
+			Draw.drawQuadBlend(Sprites.button_menu_hover, this.x, DiscussionFrameUI.getYDraw(), DiscussionFrameUI.getXSize(), DiscussionFrameUI.getYSize());
 		}
 		DiscussionFrameUI.incrementYDraw();
 		if(this.channelList.size() > 0 && this.isExpanded) {
