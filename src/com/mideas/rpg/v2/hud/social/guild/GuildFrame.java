@@ -891,7 +891,7 @@ public class GuildFrame {
 		displayedMemberMenu.addMenu(ignoreTextMenu);
 		displayedMemberMenu.addMenu(leaveGuildTextMenu);
 		displayedMemberMenu.addMenu(cancelTextMenu);
-		displayedMemberMenu.updateSize(x, y);
+		displayedMemberMenu.updateSize(x, y, true);
 	}
 	
 	private static void buildMenuListLeader(float x, float y) {
@@ -901,7 +901,7 @@ public class GuildFrame {
 		displayedMemberMenu.addMenu(ignoreTextMenu);
 		displayedMemberMenu.addMenu(setLeaderTextMenu);
 		displayedMemberMenu.addMenu(cancelTextMenu);
-		displayedMemberMenu.updateSize(x, y);
+		displayedMemberMenu.updateSize(x, y, true);
 	}
 	
 	private static void buildMenuListNonLeader(float x, float y) {
@@ -910,7 +910,7 @@ public class GuildFrame {
 		displayedMemberMenu.addMenu(targetTextMenu);
 		displayedMemberMenu.addMenu(ignoreTextMenu);
 		displayedMemberMenu.addMenu(cancelTextMenu);
-		displayedMemberMenu.updateSize(x, y);
+		displayedMemberMenu.updateSize(x, y, true);
 	}
 	
 	private static boolean isHoverMember(float x, float y) {

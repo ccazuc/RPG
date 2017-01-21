@@ -231,182 +231,162 @@ public class Guild {
 	}
 	
 	public void sortMemberByNameAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if(this.memberList.get(i).getName().compareTo(this.memberList.get(j).getName()) >= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public void sortMemberByNameDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if(this.memberList.get(i).getName().compareTo(this.memberList.get(j).getName()) <= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public void sortMemberByRankAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if(this.memberList.get(i).getRank().getOrder() >= this.memberList.get(j).getRank().getOrder()) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public void sortMemberByRankDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if(this.memberList.get(i).getRank().getOrder() <= this.memberList.get(j).getRank().getOrder()) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public void sortMemberByLevelAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if(this.memberList.get(i).getLevel() >= this.memberList.get(j).getLevel()) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public void sortMemberByLevelDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if(this.memberList.get(i).getLevel() <= this.memberList.get(j).getLevel()) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public void sortMemberByNoteAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if(this.memberList.get(i).getNoteDisplayed().compareTo(this.memberList.get(j).getNoteDisplayed()) >= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public void sortMemberByNoteDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if(this.memberList.get(i).getNoteSave().compareTo(this.memberList.get(j).getNoteSave()) <= 0) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public void sortMemberByOnlineAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if((!this.memberList.get(i).isOnline() && this.memberList.get(j).isOnline()) || (!this.memberList.get(i).isOnline() && !this.memberList.get(j).isOnline() && this.memberList.get(i).getLastLoginTimer() >= this.memberList.get(j).getLastLoginTimer())) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public void sortMemberByOnlineDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		GuildMember temp;
-		while(i < this.memberList.size()) {
+		while(++i < this.memberList.size()) {
 			j = i;
-			while(j < this.memberList.size()) {
+			while(++j < this.memberList.size()) {
 				if((this.memberList.get(i).isOnline() && !this.memberList.get(j).isOnline()) || (!this.memberList.get(i).isOnline() && !this.memberList.get(j).isOnline() && this.memberList.get(i).getLastLoginTimer() <= this.memberList.get(j).getLastLoginTimer())) {
 					temp = this.memberList.get(j);
 					this.memberList.set(j, this.memberList.get(i));
 					this.memberList.set(i, temp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 }

@@ -22,6 +22,7 @@ public class TooltipMenu {
 	private final static int CLOSE_TIMER = 3000;
 	private final static int SPACE_BETWEEN_MENU = 18;
 	private final static int TOOLTIP_DEFAULT_HEIGHT = 50;
+	private final static int MENU_TEXT_OFFSET = 14;
 	
 	public TooltipMenu(float x, float y, float x_size) {
 		this.x = (int)x;
@@ -124,7 +125,7 @@ public class TooltipMenu {
 			this.tooltipHeight+= TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor();
 		}
 		menu.setX(this.x+7*Mideas.getDisplayXFactor());
-		menu.setTextShift(14*Mideas.getDisplayXFactor());
+		menu.setTextShift(MENU_TEXT_OFFSET*Mideas.getDisplayXFactor());
 		menu.setWidth(this.x_size-5*Mideas.getDisplayXFactor());
 		menu.setY(this.y-11*Mideas.getDisplayYFactor()+SPACE_BETWEEN_MENU*Mideas.getDisplayYFactor()*this.menuList.size());
 		this.tooltip.setHeight(this.tooltipHeight+SPACE_BETWEEN_MENU*Mideas.getDisplayYFactor());
@@ -132,18 +133,20 @@ public class TooltipMenu {
 		this.menuList.add(menu);
 	}
 	
-	public void updateSize(float x, float y) {
+	public void updateSize(float x, float y, boolean shouldSaveCoordinates) {
 		this.x = (int)x;
-		this.defaultX = (int)(x/Mideas.getDisplayXFactor());
 		this.y = (int)y;
-		this.defaultY = (int)(y/Mideas.getDisplayYFactor());
+		if(shouldSaveCoordinates) {
+			this.defaultX = (int)(x/Mideas.getDisplayXFactor());
+			this.defaultY = (int)(y/Mideas.getDisplayYFactor());
+		}
 		int fontMaxLength = getMaxLengthText();
 		this.x_size = (int)(fontMaxLength+40*Mideas.getDisplayXFactor());
 		this.tooltip.update(x, y, this.x_size, TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
 		this.tooltipHeight = (int)(TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
 		int i = 0;
 		while(i < this.menuList.size()) {
-			this.menuList.get(i).update(x+7*Mideas.getDisplayXFactor(), this.y-11*Mideas.getDisplayYFactor()+this.tooltipHeight, this.x_size-7*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayXFactor());
+			this.menuList.get(i).update(x+7*Mideas.getDisplayXFactor(), this.y-11*Mideas.getDisplayYFactor()+this.tooltipHeight, this.x_size-7*Mideas.getDisplayXFactor(), MENU_TEXT_OFFSET*Mideas.getDisplayXFactor());
 			this.tooltipHeight+= SPACE_BETWEEN_MENU*Mideas.getDisplayYFactor();
 			i++;
 		}
@@ -151,19 +154,7 @@ public class TooltipMenu {
 	}
 	
 	public void updateSize() {
-		this.x = (int)(this.defaultX*Mideas.getDisplayXFactor());
-		this.y = (int)(this.defaultY*Mideas.getDisplayYFactor());
-		int fontMaxLength = getMaxLengthText();
-		this.x_size = (int)(fontMaxLength+40*Mideas.getDisplayXFactor());
-		this.tooltip.update(this.x, this.y, this.x_size, TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
-		this.tooltipHeight = (int)(TOOLTIP_DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
-		int i = 0;
-		while(i < this.menuList.size()) {
-			this.menuList.get(i).update(this.x+7*Mideas.getDisplayXFactor(), this.y-11*Mideas.getDisplayYFactor()+this.tooltipHeight, this.x_size-7*Mideas.getDisplayXFactor(), 14*Mideas.getDisplayXFactor());
-			this.tooltipHeight+= SPACE_BETWEEN_MENU*Mideas.getDisplayYFactor();
-			i++;
-		}
-		this.tooltip.setHeight(this.tooltipHeight);
+		updateSize(this.defaultX*Mideas.getDisplayXFactor(), this.defaultY*Mideas.getDisplayYFactor(), false);
 	}
 	
 	private int getMaxLengthText() {

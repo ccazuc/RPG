@@ -11,7 +11,9 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF;
+import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandFriend;
+import com.mideas.rpg.v2.command.CommandIgnore;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandWho;
 import com.mideas.rpg.v2.game.race.Race;
@@ -25,6 +27,7 @@ import com.mideas.rpg.v2.utils.DropDownMenu;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.ScrollBar;
 import com.mideas.rpg.v2.utils.TextMenu;
+import com.mideas.rpg.v2.utils.TooltipMenu;
 
 public class WhoFrame {
 
@@ -39,6 +42,13 @@ public class WhoFrame {
 	static WhoSort sorted = WhoSort.NAME_ASCENDING;
 	static WhoDropDownDisplay dropDownDisplay = WhoDropDownDisplay.AREA;
 	final static ArrayList<WhoUnit> whoList = new ArrayList<WhoUnit>();
+	final static TooltipMenu tooltipMenu = new TooltipMenu(0, 0, 0) {
+		
+		@Override
+		public void onShow() {
+			dropDownMenu.setActive(false);
+		}
+	};
 	final static Input input = new Input(FontManager.get("FRIZQT", 13), 255, false, false) {
 		
 		@Override
@@ -54,7 +64,46 @@ public class WhoFrame {
 			return false;
 		}
 	};
-	private final static DropDownMenu dropDownMenu = new DropDownMenu(X_SOCIAL_FRAME+114*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 115*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+105*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+98*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor(), 13, .6f, 15, true) {
+	private final static TextMenu whisperMenu = new TextMenu(0, 0, 0, "Whisper", 12, 1, 0) {
+		
+		@Override
+		public void eventButtonClick() {
+			ChatFrame.setWhisper(whoList.get(selectedUnit).getName());
+			ChatFrame.setChatActive(true);
+			tooltipMenu.setActive(false);
+		}
+	};
+	private final static TextMenu inviteMenu = new TextMenu(0, 0, 0, "Invite", 12, 1, 0) {
+		
+		@Override
+		public void eventButtonClick() {
+			CommandParty.invitePlayer(whoList.get(selectedUnit).getName());
+			tooltipMenu.setActive(false);
+		}
+	};
+	private final static TextMenu targetMenu = new TextMenu(0, 0, 0, "Target", 12, 1, 0) {
+		
+		@Override
+		public void eventButtonClick() {
+			tooltipMenu.setActive(false);
+		}
+	};
+	private final static TextMenu ignoreMenu = new TextMenu(0, 0, 0, "Ignore", 12, 1, 0) {
+		
+		@Override
+		public void eventButtonClick() {
+			CommandIgnore.addIgnore(whoList.get(selectedUnit).getName());
+			tooltipMenu.setActive(false);
+		}
+	};
+	private final static TextMenu cancelMenu = new TextMenu(0, 0, 0, "Cancel", 12, 1, 0) {
+		
+		@Override
+		public void eventButtonClick() {
+			tooltipMenu.setActive(false);
+		}
+	};
+	final static DropDownMenu dropDownMenu = new DropDownMenu(X_SOCIAL_FRAME+114*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 115*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+105*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+98*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor(), 13, .6f, 15, true) {
 		
 		@Override
 		public void menuEventButtonClick() {
@@ -264,6 +313,7 @@ public class WhoFrame {
 		if(selectedUnit != -1 && selectedUnit != hoveredUnit && selectedUnit >= iOffset && selectedUnit < iOffset+MAXIMUM_UNIT_DISPLAYED) {
 			Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+25*Mideas.getDisplayXFactor(), y+(selectedUnit-iOffset)*yShift, width, 17*Mideas.getDisplayYFactor());
 		}
+		tooltipMenu.draw();
 		dropDownBackground.draw();
 		dropDownMenu.draw();	
 	}
@@ -276,6 +326,7 @@ public class WhoFrame {
 		if(sortByLevel.event()) return true;
 		if(dropDownMenu.event()) return true;
 		if(sortByClasse.event()) return true;
+		if(tooltipMenu.event()) return true;
 		int i = 0;
 		hoveredUnit = -1;
 		if(whoList.size() > MAXIMUM_UNIT_DISPLAYED) {
@@ -309,7 +360,8 @@ public class WhoFrame {
 					return true;
 				}
 				else if(Mouse.getEventButton() == 1) {
-					//draw tooltip
+					selectedUnit = hoveredUnit;
+					buildTooltipMenu();
 					unitDown = -1;
 					return true;
 				}
@@ -318,39 +370,47 @@ public class WhoFrame {
 		return false;
 	}
 	
+	private static void buildTooltipMenu() {
+		tooltipMenu.clearMenu();
+		tooltipMenu.setName(whoList.get(selectedUnit).getName());
+		tooltipMenu.addMenu(whisperMenu);
+		tooltipMenu.addMenu(inviteMenu);
+		tooltipMenu.addMenu(targetMenu);
+		tooltipMenu.addMenu(ignoreMenu);
+		tooltipMenu.addMenu(cancelMenu);
+		tooltipMenu.setActive(true);
+		tooltipMenu.updateSize(Mideas.mouseX(), Mideas.mouseY(), true);
+	}
+	
 	public static void sortByNameAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
-				if(whoList.get(i).getName().compareTo(whoList.get(j).getName()) >= 0) {
+			while(++j < whoList.size()) {
+				if(whoList.get(i).getName().compareTo(whoList.get(j).getName()) > 0) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public static void sortByNameDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
-				if(whoList.get(i).getName().compareTo(whoList.get(j).getName()) <= 0) {
+			while(++j < whoList.size()) {
+				if(whoList.get(i).getName().compareTo(whoList.get(j).getName()) < 0) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
@@ -359,146 +419,130 @@ public class WhoFrame {
 	}
 	
 	public static void sortByGuildAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
-				if(whoList.get(i).getGuildName().compareTo(whoList.get(j).getGuildName()) >= 0) {
+			while(++j < whoList.size()) {
+				if(whoList.get(i).getGuildName().compareTo(whoList.get(j).getGuildName()) > 0) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public static void sortByGuildDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
-				if(whoList.get(i).getGuildName().compareTo(whoList.get(j).getGuildName()) <= 0) {
+			while(++j < whoList.size()) {
+				if(whoList.get(i).getGuildName().compareTo(whoList.get(j).getGuildName()) < 0) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public static void sortByLevelAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
+			while(++j < whoList.size()) {
 				if(whoList.get(i).getLevel() >= whoList.get(j).getLevel()) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public static void sortByLevelDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
+			while(++j < whoList.size()) {
 				if(whoList.get(i).getLevel() <= whoList.get(j).getLevel()) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public static void sortByRaceAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
+			while(++j < whoList.size()) {
 				if(whoList.get(i).getRace().compareTo(whoList.get(j).getRace()) >= 0) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public static void sortByRaceDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
+			while(++j < whoList.size()) {
 				if(whoList.get(i).getRace().compareTo(whoList.get(j).getRace()) <= 0) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public static void sortByClasseAscending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
+			while(++j < whoList.size()) {
 				if(whoList.get(i).getClasse().compareTo(whoList.get(j).getClasse()) >= 0) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
 	public static void sortByClasseDescending() {
-		int i = 0;
-		int j = 0;
+		int i = -1;
+		int j = -1;
 		WhoUnit tmp;
-		while(i < whoList.size()) {
+		while(++i < whoList.size()) {
 			j = i;
-			while(j < whoList.size()) {
+			while(++j < whoList.size()) {
 				if(whoList.get(i).getClasse().compareTo(whoList.get(j).getClasse()) <= 0) {
 					tmp = whoList.get(j);
 					whoList.set(j, whoList.get(i));
 					whoList.set(i, tmp);
 				}
-				j++;
 			}
-			i++;
 		}
 	}
 	
@@ -521,6 +565,7 @@ public class WhoFrame {
 		updateButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
 		addFriendButton.update(X_SOCIAL_FRAME+119*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
 		inviteButton.update(X_SOCIAL_FRAME+253*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
+		tooltipMenu.updateSize();
 		shouldUpdateSize = false;
 	}
 	

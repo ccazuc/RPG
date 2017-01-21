@@ -374,7 +374,7 @@ public class ChatFrame {
 							CommandSendMessage.writeWhisper(tempMessage, currentMessageHeader.substring(0, currentMessageHeader.length()-3));
 						}
 						else if(selectedType == MessageType.CHANNEL) {
-							CommandSendMessage.writeChannel(tempMessage, currentChannel.getName());
+							CommandSendMessage.writeChannel(tempMessage, currentChannel.getID());
 						}
 						else {
 							CommandSendMessage.write(tempMessage, selectedType);

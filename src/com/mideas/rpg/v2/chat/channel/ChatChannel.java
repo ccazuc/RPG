@@ -9,6 +9,7 @@ public class ChatChannel {
 
 	private final String name;
 	private final String password;
+	private final String ID;
 	private int value;
 	private final ArrayList<ChannelMember> playerList;
 	private int leaderID;
@@ -16,8 +17,9 @@ public class ChatChannel {
 	private int messageHeaderWidth;
 	private String channelNameDisplayed;
 	
-	public ChatChannel(String name, String password, int value) {
+	public ChatChannel(String name, String ID, String password, int value) {
 		this.name = name;
+		this.ID = ID;
 		this.password = password;
 		this.value = value;
 		this.playerList = new ArrayList<ChannelMember>();
@@ -98,6 +100,10 @@ public class ChatChannel {
 	
 	public String getLeaderName() {
 		return getMemberName(this.leaderID);
+	}
+	
+	public String getID() {
+		return this.ID;
 	}
 	
 	public String getMemberName(int unitID) {

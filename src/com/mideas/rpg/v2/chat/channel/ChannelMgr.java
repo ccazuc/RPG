@@ -20,13 +20,13 @@ public class ChannelMgr {
 		return channelMap;
 	}
 	
-	public static void addChannel(String channelName, int value, String password) {
+	public static void addChannel(String channelName, String channelID, int value, String password) {
 		if(channelMap.containsKey(channelName)) {
 			System.out.println("ChannelMgr.addChannel error, channel already exists");
 			return;
 		}
-		ChatChannel channel = new ChatChannel(channelName, password, value);
-		channelMap.put(channelName, channel);
+		ChatChannel channel = new ChatChannel(channelName, channelID, password, value);
+		channelMap.put(channelID, channel);
 		DiscussionFrame.addChannel(channel);
 	}
 	
@@ -36,6 +36,10 @@ public class ChannelMgr {
 	}
 	
 	public static void addMember(String channelName, String name, int id) {
+		if(!channelMap.containsKey(channelName)) {
+			System.out.println("ChannelMgr.addMember error, channel doesn't exist, channelName : "+channelName+", playerName : "+name);
+			return;
+		}
 		channelMap.get(channelName).addMember(new ChannelMember(name, id));
 	}
 	

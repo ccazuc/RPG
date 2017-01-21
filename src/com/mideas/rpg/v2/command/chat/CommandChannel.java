@@ -15,9 +15,10 @@ public class CommandChannel extends Command {
 		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.CHANNEL_JOIN) {
 			String channelName = ConnectionManager.getConnection().readString();
+			String channelID = ConnectionManager.getConnection().readString();
 			int channelValue = ConnectionManager.getConnection().readInt();
 			String password = ConnectionManager.getConnection().readString();
-			ChannelMgr.addChannel(channelName, channelValue, password);
+			ChannelMgr.addChannel(channelName, channelID, channelValue, password);
 			ChatFrame.addMessage(new Message("Joined channel : ["+channelValue+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor()));
 		}
 		else if(packetId == PacketID.CHANNEL_LEAVE) {

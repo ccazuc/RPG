@@ -81,6 +81,7 @@ public class ConnectionManager {
 	
 	private static void initPacket() {
 		commandList.put((int)LOGIN, new CommandLogin());
+		commandList.put((int)LOGOUT, new CommandLogout());
 		commandList.put((int)SELECT_SCREEN_LOAD_CHARACTERS, new CommandSelectScreenLoadCharacters());
 		commandList.put((int)CREATE_CHARACTER, new CommandCreateCharacter());
 		commandList.put((int)DELETE_CHARACTER, new CommandDeleteCharacter());

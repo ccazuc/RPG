@@ -25,7 +25,8 @@ public class PartyFrame {
 	static int displayMember = -1;
 	private static float displayMemberX;
 	private static float displayMemberY;
-	private static TextMenu whisper = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), "Whisper", 12, 1, -8*Mideas.getDisplayXFactor()) {
+	private final static TextMenu whisper = new TextMenu(0, 0, 87*Mideas.getDisplayXFactor(), "Whisper", 12, 1, -8*Mideas.getDisplayXFactor()) {
+		
 		@Override
 		public void eventButtonClick() {
 			ChatFrame.setWhisper(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
@@ -34,7 +35,8 @@ public class PartyFrame {
 			menuTooltip.setActive(false);
 		}
 	};
-	private static TextMenu setLeader = new TextMenu(0, 0, 90*Mideas.getDisplayXFactor(), "Give leadership", 12, 1, -8*Mideas.getDisplayXFactor()) {
+	private final static TextMenu setLeader = new TextMenu(0, 0, 90*Mideas.getDisplayXFactor(), "Give leadership", 12, 1, -8*Mideas.getDisplayXFactor()) {
+		
 		@Override
 		public void eventButtonClick() {
 			CommandParty.setLeaderServer(Mideas.joueur1().getParty().getPartyMember(displayMember).getId());
@@ -42,7 +44,8 @@ public class PartyFrame {
 			menuTooltip.setActive(false);
 		}
 	};
-	private static TextMenu kick = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Kick player", 12, 1, -8*Mideas.getDisplayXFactor()) {
+	private final static TextMenu kick = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Kick player", 12, 1, -8*Mideas.getDisplayXFactor()) {
+		
 		@Override
 		public void eventButtonClick() {
 			CommandParty.kickPlayer(Mideas.joueur1().getParty().getPartyMember(displayMember).getId());
@@ -50,11 +53,13 @@ public class PartyFrame {
 			menuTooltip.setActive(false);
 		}
 	};
-	private static TextMenu inspect = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Inspect", 12, 1, -8*Mideas.getDisplayXFactor()) {
+	private final static TextMenu inspect = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Inspect", 12, 1, -8*Mideas.getDisplayXFactor()) {
+		
 		@Override
 		public boolean activateCondition() { return false; }
 	};
-	private static TextMenu trade = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Trade", 12, 1, -8*Mideas.getDisplayXFactor()) {
+	private final static TextMenu trade = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Trade", 12, 1, -8*Mideas.getDisplayXFactor()) {
+		
 		@Override
 		public void eventButtonClick() {
 			CommandTrade.requestNewTrade(Mideas.joueur1().getParty().getPartyMember(displayMember).getName());
@@ -62,22 +67,25 @@ public class PartyFrame {
 			menuTooltip.setActive(false);
 		}
 	};
-	private static TextMenu follow = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Follow", 12, 1, -8*Mideas.getDisplayXFactor()) {
+	private final static TextMenu follow = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Follow", 12, 1, -8*Mideas.getDisplayXFactor()) {
+		
 		@Override
 		public boolean activateCondition() { return false; }
 	};
-	private static TextMenu duel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Duel", 12, 1, -8*Mideas.getDisplayXFactor()) {
+	private final static TextMenu duel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Duel", 12, 1, -8*Mideas.getDisplayXFactor()) {
+		
 		@Override
 		public boolean activateCondition() { return false; }
 	};
-	private static TextMenu cancel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Cancel", 12, 1, -8*Mideas.getDisplayXFactor()) {
+	private final static TextMenu cancel = new TextMenu(0, 0, 80*Mideas.getDisplayXFactor(), "Cancel", 12, 1, -8*Mideas.getDisplayXFactor()) {
+		
 		@Override
 		public void eventButtonClick() {
 			this.reset();
 			menuTooltip.setActive(false);
 		}
 	};
-	static TooltipMenu menuTooltip = new TooltipMenu(0, 0, 0) {
+	final static TooltipMenu menuTooltip = new TooltipMenu(0, 0, 0) {
 		
 		@Override
 		public void onClose() {
@@ -220,7 +228,7 @@ public class PartyFrame {
 		menuTooltip.addMenu(duel);
 		menuTooltip.addMenu(cancel);
 		menuTooltip.setActive(true);
-		menuTooltip.updateSize(x, y);
+		menuTooltip.updateSize(x, y, true);
 	}
 	
 	public static void setTooltipNonLeader(String name, float x, float y) {
@@ -233,7 +241,7 @@ public class PartyFrame {
 		menuTooltip.addMenu(duel);
 		menuTooltip.addMenu(cancel);
 		menuTooltip.setActive(true);
-		menuTooltip.updateSize(x, y);
+		menuTooltip.updateSize(x, y, true);
 		
 	}
 }

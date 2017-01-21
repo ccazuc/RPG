@@ -54,7 +54,7 @@ public class DiscussionFrameUI {
 		
 		@Override
 		public void eventButtonClick() {
-			CommandChannel.leaveChannel(tooltipChannel.getName());
+			CommandChannel.leaveChannel(tooltipChannel.getID());
 			tooltipMenu.setActive(false);
 		}
 	};
@@ -71,6 +71,13 @@ public class DiscussionFrameUI {
 		public void eventButtonClick() {
 			ChatFrame.setWhisper(tooltipMember.getName());
 			ChatFrame.setChatActive(true);
+			tooltipMenu.setActive(false);
+		}
+	};
+	private final static TextMenu targetPlayerMenu = new TextMenu(0, 0, 0, "Target", 12, 1, 0) {
+		
+		@Override
+		public void eventButtonClick() {
 			tooltipMenu.setActive(false);
 		}
 	};
@@ -158,8 +165,7 @@ public class DiscussionFrameUI {
 			else {
 				if(Mouse.getEventButton() == 1) {
 					if(rightClickDownMember == hoveredMember) {
-						//open popup
-						System.out.println("Popup open");
+						enableMemberTooltip(channel.getChannel().getPlayerList().get(hoveredMember), Mideas.mouseX(), Mideas.mouseY());
 						return true;
 					}
 				}
@@ -227,7 +233,7 @@ public class DiscussionFrameUI {
 		tooltipMenu.setName(channel.getName());
 		tooltipMenu.addMenu(leaveChannelMenu);
 		tooltipMenu.addMenu(cancelMenu);
-		tooltipMenu.updateSize(x, y);
+		tooltipMenu.updateSize(x, y, true);
 		tooltipMenu.setActive(true);
 		tooltipMember = null;
 		tooltipChannel = channel;
@@ -237,9 +243,9 @@ public class DiscussionFrameUI {
 		tooltipMenu.clearMenu();
 		tooltipMenu.setName(member.getName());
 		tooltipMenu.addMenu(whisperPlayerMenu);
-		//TODO; add target menu
+		tooltipMenu.addMenu(targetPlayerMenu);
 		tooltipMenu.addMenu(cancelMenu);
-		tooltipMenu.updateSize(x, y);
+		tooltipMenu.updateSize(x, y, true);
 		tooltipMenu.setActive(true);
 		tooltipMember = member;
 		tooltipChannel = null;
