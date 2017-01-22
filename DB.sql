@@ -616,12 +616,12 @@ CREATE TABLE IF NOT EXISTS `character` (
 DELETE FROM `character`;
 /*!40000 ALTER TABLE `character` DISABLE KEYS */;
 INSERT INTO `character` (`account_id`, `character_id`, `name`, `class`, `race`, `experience`, `gold`, `online`, `last_login_timer`) VALUES
-	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 1, 1484412369936),
+	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 0, 1484974649247),
 	(1, 2, 'Midelol', 'ROGUE', 'UNDEAD', 0, 0, 0, 1484100252455),
 	(1, 5, 'Test', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
 	(1, 6, 'Bla', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
 	(1, 14, 'Blqk', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
-	(2, 15, 'Midetest', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 1482858796146),
+	(2, 15, 'Midetest', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 1484968792420),
 	(2, 16, 'Jukino', 'WARRIOR', 'ORC', 0, 1000000, 0, 0),
 	(3, 17, 'Windeal', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 1482590132519),
 	(3, 18, 'Jean-42', 'WARRIOR', 'UNDEAD', 82000, 1000000, 0, 0),
@@ -3505,13 +3505,14 @@ DELETE FROM `drop`;
 -- Export de la structure de table rpg. guild
 DROP TABLE IF EXISTS `guild`;
 CREATE TABLE IF NOT EXISTS `guild` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `leader_id` mediumint(9) NOT NULL,
   `information` text NOT NULL,
   `motd` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Export de données de la table rpg.guild: ~0 rows (environ)
 DELETE FROM `guild`;
@@ -3519,6 +3520,25 @@ DELETE FROM `guild`;
 INSERT INTO `guild` (`id`, `name`, `leader_id`, `information`, `motd`) VALUES
 	(1, 'On En Aggro', 1, 'Ceci est une informationaab\raabc', 'Ceci est un  message du jour');
 /*!40000 ALTER TABLE `guild` ENABLE KEYS */;
+
+
+-- Export de la structure de table rpg. guild_event
+DROP TABLE IF EXISTS `guild_event`;
+CREATE TABLE IF NOT EXISTS `guild_event` (
+  `event_id` int(11) NOT NULL AUTO_INCREMENT,
+  `guild_id` int(11) NOT NULL,
+  `event_type` tinyint(4) NOT NULL DEFAULT '0',
+  `player1_id` int(11) NOT NULL DEFAULT '0',
+  `player2_id` int(11) NOT NULL DEFAULT '0',
+  `date` bigint(20) NOT NULL DEFAULT '0',
+  `rank_id` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`event_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Export de données de la table rpg.guild_event: ~0 rows (environ)
+DELETE FROM `guild_event`;
+/*!40000 ALTER TABLE `guild_event` DISABLE KEYS */;
+/*!40000 ALTER TABLE `guild_event` ENABLE KEYS */;
 
 
 -- Export de la structure de table rpg. guild_member

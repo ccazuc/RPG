@@ -34,7 +34,7 @@ public class CommandChannel extends Command {
 				String name = ConnectionManager.getConnection().readString();
 				ChannelMgr.addMember(channelName, name, id);
 			}
-			ChannelMgr.setLeader(channelName, id);
+			ChannelMgr.setLeader(channelName, leaderID);
 		}
 		else if(packetId == PacketID.CHANNEL_MEMBER_JOINED) {
 			String channelName = ConnectionManager.getConnection().readString();

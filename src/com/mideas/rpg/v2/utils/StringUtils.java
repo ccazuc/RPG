@@ -11,10 +11,9 @@ public class StringUtils {
 	public final static long MS_IN_A_MINUTE = 60000l;
 	
 	public static void initValues() {
-		int i = 0;
-		while(i < value.length) {
+		int i = value.length;
+		while(--i >= 0) {
 			value[i] = Integer.toString(i);
-			i++;
 		}
 	}
 	
@@ -84,9 +83,9 @@ public class StringUtils {
 			return str;
 		}
 		final char[] table = new char[str.length()];
-		int i = -1;
+		int i = table.length;
 		char c;
-		while(++i < str.length()) {
+		while(--i >= 0) {
 			c = str.charAt(i);
 			if(c >= 'a' && c <= 'z') {
 				c-= 32;
@@ -101,9 +100,9 @@ public class StringUtils {
 			return str;
 		}
 		final char[] table = new char[str.length()];
-		int i = -1;
+		int i = table.length;
 		char c;
-		while(++i < str.length()) {
+		while(--i >= 0) {
 			c = str.charAt(i);
 			if(c >= 'A' && c <= 'Z') {
 				c+= 32;
