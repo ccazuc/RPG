@@ -25,6 +25,7 @@ public class Message {
 	private boolean isGM;
 	private int channelHeaderWidth;
 	private final static String gmLogoSpace = "            ";
+	private final static Calendar calendar = Calendar.getInstance();
 	
 	public Message(String message, boolean displayHour, MessageType type) { //used for self message
 		this.timer = System.currentTimeMillis();
@@ -56,12 +57,12 @@ public class Message {
 			this.authorText = ChannelMgr.getChannelHeader(channelName);
 		}
 		else if(isGM) {
-			this.authorText = ChannelMgr.getChannelHeader(channelName)+gmLogoSpace+"["+author+']';
-			this.channelHeaderWidth = (ChannelMgr.getChannelHeaderWidth(channelName));
+			this.authorText = new StringBuilder().append(ChannelMgr.getChannelHeader(channelName)).append(gmLogoSpace).append("[").append(author).append(']').toString();
+			this.channelHeaderWidth = ChannelMgr.getChannelHeaderWidth(channelName);
 			this.author = null;
 		}
 		else {
-			this.authorText = ChannelMgr.getChannelHeader(channelName)+" ["+author+']';
+			this.authorText = new StringBuilder().append(ChannelMgr.getChannelHeader(channelName)).append(" [").append(author).append(']').toString();
 		}
 		if(isMessage) {
 			this.authorText+= " : ";
@@ -113,7 +114,7 @@ public class Message {
 				this.authorText = type.getChatDisplay();
 			}
 			else {
-				this.authorText = '['+this.author+"] "+type.getChatDisplay();
+				this.authorText = new StringBuilder().append('[').append(this.author).append("] ").append(type.getChatDisplay()).toString();
 			}
 		}
 	}
@@ -133,25 +134,25 @@ public class Message {
 		this.opacity = 1;
 		if(type == MessageType.SAY || type == MessageType.YELL) {
 			if(isGM) {
-				this.authorText = gmLogoSpace+"["+author+"]"+type.getChatDisplay();
+				this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(author).append("]").append(type.getChatDisplay()).toString();
 			}
 			else {
-				this.authorText = "["+author+"]"+type.getChatDisplay();
+				this.authorText = new StringBuilder().append("[").append(author).append("]").append(type.getChatDisplay()).toString();
 			}
 		}
 		else if(type != MessageType.SELF) {
 			if(isGM) {
-				this.authorText = type.getChatDisplay()+gmLogoSpace+"["+author+"] : ";
+				this.authorText = new StringBuilder().append(type.getChatDisplay()).append(gmLogoSpace).append("[").append(author).append("] : ").toString();
 			}
 			else {
-				this.authorText = type.getChatDisplay()+"["+author+"] : ";
+				this.authorText = new StringBuilder().append(type.getChatDisplay()).append("[").append(author).append("] : ").toString();
 			}
 		}
 		else if(isGM) {
-			this.authorText = gmLogoSpace+"["+author+']';
+			this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(author).append(']').toString();
 		}
 		else {
-			this.authorText = '['+author+']';
+			this.authorText = new StringBuilder().append('[').append(author).append(']').toString();
 		}
 		if(isGM) {
 			this.author = null;
@@ -176,28 +177,28 @@ public class Message {
 				this.authorText = type.getChatDisplay();
 			}
 			else {
-				this.authorText = '['+this.author+"] "+type.getChatDisplay();
+				this.authorText = new StringBuilder().append('[').append(this.author).append("] ").append(type.getChatDisplay()).toString();
 			}
 			this.isGM = false;
 		}
 		else if(type == MessageType.SAY || type == MessageType.YELL) {
 			if(isGM) {
-				this.authorText = gmLogoSpace+"["+author+"]"+type.getChatDisplay();
+				this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(author).append("]").append(type.getChatDisplay()).toString();
 			}
 			else {
-				this.authorText = "["+author+"]"+type.getChatDisplay();
+				this.authorText = new StringBuilder().append("[").append(author).append("]").append(type.getChatDisplay()).toString();
 			}
 		}
 		else if(type != MessageType.SELF) {
 			if(isGM) {
-				this.authorText = type.getChatDisplay()+gmLogoSpace+"["+author+"] : ";
+				this.authorText = new StringBuilder().append(type.getChatDisplay()).append(gmLogoSpace).append("[").append(author).append("] : ").toString();
 			}
 		}
 		else if(isGM) {
-			this.authorText = gmLogoSpace+"["+author+']';
+			this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(author).append(']').toString();
 		}
 		else {
-			this.authorText = '['+author+']';
+			this.authorText = new StringBuilder().append('[').append(author).append(']').toString();
 		}
 		if(isGM) {
 			this.author = null;
@@ -220,18 +221,18 @@ public class Message {
 		this.isTarget = isTarget;
 		if(isTarget) {
 			if(isGM) {
-				this.authorText = gmLogoSpace+"["+this.author+"] whispers : ";
+				this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(this.author).append("] whispers : ").toString();
 			}
 			else {
-				this.authorText = '['+this.author+"] whispers : ";
+				this.authorText = new StringBuilder().append('[').append(this.author).append("] whispers : ").toString();
 			}
 		}
 		else {
 			if(isGM) {
-				this.authorText = "To"+gmLogoSpace+"["+this.author+"] : ";
+				this.authorText = new StringBuilder().append("To").append(gmLogoSpace).append("[").append(this.author).append("] : ").toString();
 			}
 			else {
-				this.authorText = "To ["+this.author+"] : ";
+				this.authorText = new StringBuilder().append("To [").append(this.author).append("] : ").toString();
 			}
 		}
 	}
@@ -321,26 +322,20 @@ public class Message {
 	}
 
 	private static int getMessageHour(long time) {
-		int hour;
-		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(time);
-		hour = (byte)calendar.get(Calendar.HOUR_OF_DAY);
+		int hour = (byte)calendar.get(Calendar.HOUR_OF_DAY);
 		return hour;
 	}
 	
 	private static int getMessageMinute(long time) {
-		int minute;
-		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(time);
-		minute = (byte)calendar.get(Calendar.MINUTE);
+		int minute = (byte)calendar.get(Calendar.MINUTE);
 		return minute;
 	}
 	
 	private static int getMessageSecond(long time) {
-		int second;
-		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(time);
-		second = (byte)calendar.get(Calendar.SECOND);
+		int second = (byte)calendar.get(Calendar.SECOND);
 		return second;
 	}
 }

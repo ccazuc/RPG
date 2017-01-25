@@ -24,7 +24,7 @@ public class CommandParty extends Command {
 		}
 		else if(packetId == PacketID.PARTY_DECLINE_REQUEST) {
 			String name = ConnectionManager.getConnection().readString();
-			ChatFrame.addMessage(new Message(name+" declined your request.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(name.concat(" declined your request."), false, MessageType.SELF));
 		}
 		else if(packetId == PacketID.PARTY_ACCEPT_REQUEST) {
 			

@@ -35,7 +35,7 @@ public class CommandGuild extends Command {
 			String player_name = ConnectionManager.getConnection().readString();
 			String guild_name = ConnectionManager.getConnection().readString();
 			PopupFrame.activateGuildInvitationPopup(player_name, guild_name);
-			ChatFrame.addMessage(new Message(" invited you to join "+guild_name, player_name, false, MessageType.SELF, false));
+			ChatFrame.addMessage(new Message(" invited you to join ".concat(guild_name), player_name, false, MessageType.SELF, false));
 		}
 		else if(packetId == PacketID.GUILD_INIT) {
 			int i = 0;
@@ -108,7 +108,7 @@ public class CommandGuild extends Command {
 			Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getMember(Mideas.joueur1().getId()).getRank());
 			Mideas.joueur1().getGuild().getMember(Mideas.joueur1().getId()).setOnlineStatus(true);
 			Mideas.joueur1().getGuild().initOnlineMembers();
-			ChatFrame.addMessage(new Message("[Guild Message Of The Day] : "+Mideas.joueur1().getGuild().getMotd(), false, MessageType.SELF, MessageType.GUILD.getColor()));
+			ChatFrame.addMessage(new Message("[Guild Message Of The Day] : ".concat(Mideas.joueur1().getGuild().getMotd()), false, MessageType.SELF, MessageType.GUILD.getColor()));
 		}
 		else if(packetId == PacketID.GUILD_NEW_MEMBER) {
 			int id = ConnectionManager.getConnection().readInt();
@@ -122,18 +122,18 @@ public class CommandGuild extends Command {
 			ClassType type = ClassType.values()[ConnectionManager.getConnection().readByte()];
 			long lastLoginTimer = ConnectionManager.getConnection().readLong();
 			Mideas.joueur1().getGuild().addMember(new GuildMember(id, name, level, rank, isOnline, note, officerNote, type, lastLoginTimer));
-			ChatFrame.addMessage(new Message(name+" joined the guild.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(name.concat(" joined the guild."), false, MessageType.SELF));
 		}
 		else if(packetId == PacketID.GUILD_KICK_MEMBER) {
 			String officerName = ConnectionManager.getConnection().readString();
 			int id = ConnectionManager.getConnection().readInt();
 			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
 			if(id != Mideas.joueur1().getId()) {
-				ChatFrame.addMessage(new Message(member.getName()+" has been kicked out of the guild by "+officerName, false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(new StringBuilder().append(member.getName()).append(" has been kicked out of the guild by ").append(officerName).toString(), false, MessageType.SELF));
 				Mideas.joueur1().getGuild().removeMember(id);
 			}
 			else {
-				ChatFrame.addMessage(new Message("you have been kicked out of the guild by "+officerName, false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("you have been kicked out of the guild by ".concat(officerName), false, MessageType.SELF));
 				Mideas.joueur1().setGuild(null);
 			}
 		}
@@ -160,14 +160,14 @@ public class CommandGuild extends Command {
 			member.setLastLoginTimer(Mideas.getLoopTickTimer());
 			member.updateLastLoginTimerString();
 			if(Mideas.joueur1().getFriend(id) == null) {
-				ChatFrame.addMessage(new Message(member.getName()+" is now offline.", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(member.getName().concat(" is now offline."), false, MessageType.SELF));
 			}
 			Mideas.joueur1().getGuild().memberLoggedOut();
 		}
 		else if(packetId == PacketID.GUILD_SET_MOTD) {
 			String msg = ConnectionManager.getConnection().readString();
 			Mideas.joueur1().getGuild().setMotd(msg);
-			ChatFrame.addMessage(new Message("[Guild Message Of The Day]: "+msg, false, MessageType.SELF, MessageType.GUILD.getColor()));
+			ChatFrame.addMessage(new Message("[Guild Message Of The Day]: ".concat(msg), false, MessageType.SELF, MessageType.GUILD.getColor()));
 		}
 		else if(packetId == PacketID.GUILD_SET_INFORMATION) {
 			String msg = ConnectionManager.getConnection().readString();
@@ -175,7 +175,7 @@ public class CommandGuild extends Command {
 		}
 		else if(packetId == PacketID.GUILD_MEMBER_LEFT) {
 			int id = ConnectionManager.getConnection().readInt();
-			ChatFrame.addMessage(new Message(Mideas.joueur1().getGuild().getMember(id).getName()+" left the guild.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(Mideas.joueur1().getGuild().getMember(id).getName().concat(" left the guild."), false, MessageType.SELF));
 			Mideas.joueur1().getGuild().removeMember(id);
 		}
 		else if(packetId == PacketID.GUILD_SET_LEADER) {
@@ -187,7 +187,7 @@ public class CommandGuild extends Command {
 			else if(id == Mideas.joueur1().getId()) {
 				Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getRankList().get(0));
 			}
-			ChatFrame.addMessage(new Message(leader.getName()+" has made "+Mideas.joueur1().getGuild().getMember(id).getName()+" the new Guild Master.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(new StringBuilder().append(leader.getName()).append(" has made ").append(Mideas.joueur1().getGuild().getMember(id).getName()).append(" the new Guild Master.").toString(), false, MessageType.SELF));
 			Mideas.joueur1().getGuild().getMember(id).setRank(Mideas.joueur1().getGuild().getRankList().get(0));
 			leader.setRank(Mideas.joueur1().getGuild().getRankList().get(1));
 			Mideas.joueur1().getGuild().setLeaderId(id);
