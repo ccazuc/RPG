@@ -9,7 +9,6 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
-import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.CheckBox;
@@ -65,7 +64,7 @@ public class LoginScreen {
 		
 		@Override
 		public void eventButtonClick() {
-			ConnectionManager.closeAuth();
+			AuthServerConnectionRunnable.cancelAuthConnection();
 		}
 	};
 	private final static Button okAlertButton = new Button(0, 0, 0, 0, "OK", 20, 2) {
@@ -118,7 +117,7 @@ public class LoginScreen {
 		//System.out.println(Keyboard.getEventKey());
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 			if(alert.isActive()) {
-				alert.setInactive();
+				alert.keyPressed();
 			}
 			else {
 				connectionEvent();

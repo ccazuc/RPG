@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.hud.social.discussion.DiscussionFrame;
+import com.mideas.rpg.v2.utils.StringUtils;
 
 public class ChannelMgr {
 
@@ -51,8 +52,8 @@ public class ChannelMgr {
 		return channelMap.get(channelName).getMemberName(id);
 	}
 	
-	public static void removeMember(String channelName, int id) {
-		channelMap.get(channelName).removeMember(id);
+	public static boolean removeMember(String channelName, int id) {
+		return channelMap.get(channelName).removeMember(id);
 	}
 	
 	public static void setLeader(String channelName, int id) {
@@ -71,6 +72,14 @@ public class ChannelMgr {
 		return channelMap.get(channelName).getMessageHeaderWidth();
 	}
 	
+	public static void setModerator(String channelName, int id, boolean isModerator) {
+		channelMap.get(channelName).setModerator(id, isModerator);
+	}
+	
+	public static int getMemberID(String channelName, String playerName) {
+		return channelMap.get(channelName).getMemberID(playerName);
+	}
+	
 	public static ChatChannel getChannelByValue(int value) {
 		for(ChatChannel channel : channelMap.values()) {
 			if(channel.getValue() == value) {
@@ -78,6 +87,18 @@ public class ChannelMgr {
 			}
 		}
 		return null;
+	}
+	
+	public static String findChannelName(String str) {
+		if(StringUtils.isInteger(str)) {
+			ChatChannel channel = null;
+			channel = getChannelByValue(Integer.parseInt(str));
+			if(channel == null) {
+				return str;
+			}
+			return channel.getID();
+		}
+		return str;
 	}
 	
 	public static int generateChannelID() {

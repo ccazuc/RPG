@@ -10,12 +10,14 @@ public class ChatChannel {
 	private final String name;
 	private final String password;
 	private final String ID;
-	private int value;
+	private final int value;
 	private final ArrayList<ChannelMember> playerList;
 	private int leaderID;
 	private String messageHeader;
 	private int messageHeaderWidth;
 	private String channelNameDisplayed;
+	private int numberModerator;
+	private final static StringBuilder builder = new StringBuilder();
 	
 	public ChatChannel(String name, String ID, String password, int value) {
 		this.name = name;
@@ -29,7 +31,8 @@ public class ChatChannel {
 	}
 	
 	public void addMember(ChannelMember member) {
-		this.channelNameDisplayed = StringUtils.value[this.value]+". "+this.name+" ("+StringUtils.value[this.playerList.size()+1]+")";
+		builder.setLength(0);
+		this.channelNameDisplayed = builder.append(StringUtils.value[this.value]).append(". ").append(this.name).append(" (").append(StringUtils.value[this.playerList.size()+1]).append(")").toString();
 		if(this.playerList.size() == 0) {
 			this.playerList.add(member);
 			return;
@@ -49,15 +52,17 @@ public class ChatChannel {
 		this.playerList.add(member);
 	}
 	
-	public void removeMember(int id) {
+	public boolean removeMember(int id) {
 		int i = this.playerList.size();
 		while(--i >= 0) {
 			if(this.playerList.get(i).getID() == id) {
 				this.playerList.remove(i);
-				this.channelNameDisplayed = StringUtils.value[this.value]+". "+this.name+" ("+StringUtils.value[this.playerList.size()]+")";
-				return;
+				builder.setLength(0);
+				this.channelNameDisplayed = builder.append(StringUtils.value[this.value]).append(". ").append(this.name).append(" (").append(StringUtils.value[this.playerList.size()]).append(")").toString();
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public void sortMemberList() {
@@ -76,6 +81,29 @@ public class ChatChannel {
 			}
 			i++;
 		}
+	}
+	
+	public void setModerator(int unitID, boolean isModerator) {
+		int i = this.playerList.size();
+		while(--i >= 0) {
+			if(this.playerList.get(i).getID() == unitID) {
+				if(this.leaderID == unitID) {
+					System.out.println("ERROR in ChatChannel.setModerator, member is already leader, channelName : ".concat(this.name));
+					return;
+				}
+				this.playerList.get(i).setModerator(isModerator);
+				if(isModerator) {
+					++this.numberModerator;
+				}
+				else {
+					--this.numberModerator;
+				}
+			}
+		}
+	}
+	
+	public int getNumberModerator() {
+		return this.numberModerator;
 	}
 	
 	public String getChannelNameDisplayed() {
@@ -114,6 +142,17 @@ public class ChatChannel {
 			}
 		}
 		return null;
+	}
+	
+	public int getMemberID(String name) {
+		name = StringUtils.formatPlayerName(name);
+		int i = this.playerList.size();
+		while(--i >= 0) {
+			if(this.playerList.get(i).getName().equals(name)) {
+				return this.playerList.get(i).getID();
+			}
+		}
+		return 0;
 	}
 	
 	public ArrayList<ChannelMember> getPlayerList() {

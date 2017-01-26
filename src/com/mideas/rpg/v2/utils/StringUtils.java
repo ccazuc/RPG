@@ -16,6 +16,28 @@ public class StringUtils {
 			value[i] = Integer.toString(i);
 		}
 	}
+
+	public static String formatPlayerName(String str) {
+		if(str.length() == 0) {
+			return str;
+		}
+		final char[] table = new char[str.length()];
+		int i = table.length;
+		table[0] = toUpperCase(str.charAt(0));
+		char tmp;
+		while(--i >= 1) {
+			tmp = str.charAt(i);
+			if(tmp >= 'A' && tmp <= 'Z') {
+				tmp+= 32;
+			}
+			table[i] = tmp;
+		}
+		return new String(table);
+	}
+	
+	public static char toUpperCase(char c) {
+		return c >= 'a' && c <= 'z' ? (char)(c-32) : c;
+	}
 	
 	public static String convertTimeToStringimple(long delta) {
 		String result = null;

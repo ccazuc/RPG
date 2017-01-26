@@ -44,12 +44,12 @@ public class ChatCommandMgr {
 			CommandParty.invitePlayer(command[1]);
 		}
 	};
-	private final static ChatCommand join = new ChatCommand("join", "Type /join [channel_name] [password] to join or create a channel.") {
+	private final static ChatCommand join = new ChatCommand("join", "Type /join [channel_name] [password(optionnal)] to join or create a channel.") {
 		
 		@Override
 		public void handle(String[] command) {
 			if(command.length == 1) {
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] in /join [channel_name] [password]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] in /join [channel_name] [password(optionnal)]", false, MessageType.SELF));
 				return;
 			}
 			int channelValue = ChannelMgr.generateChannelID();
@@ -61,12 +61,46 @@ public class ChatCommandMgr {
 			}
 		}
 	};
+	private final static ChatCommand leave = new ChatCommand("leave", "Type /leave [channel_name || channel_index] to leave the channel.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(command.length == 1) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name || channel_index] in /leave [channel_name || channel_index]", false, MessageType.SELF));
+				return;
+			}
+			String channelName = ChannelMgr.findChannelName(command[1]);
+			if(channelName != null) {
+				CommandChannel.leaveChannel(channelName);
+			}
+		}
+	};
+	private final static ChatCommand ban = new ChatCommand("ban", "Type /ban [channel_name] [player_name] to ban the player from the channel.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(command.length <= 2) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /ban [channel_name] [player_name]", false, MessageType.SELF));
+				return;
+			}
+			String channelName = ChannelMgr.findChannelName(command[1]);
+			if(channelName != null) {
+				int playerID = ChannelMgr.getMemberID(channelName, command[2]);
+				if(playerID == 0) {
+					return;
+				}
+				CommandChannel.banPlayer(channelName, playerID);
+			}
+		}
+	};
 	
 	public static void initCommandMap() {
-		commandMap.put(invite.getName(), invite);
-		commandMap.put(invite_alias_i.getName(), invite_alias_i);
-		commandMap.put(invite_alias_inv.getName(), invite_alias_inv);
-		commandMap.put(join.getName(), join);
+		addCommand(invite);
+		addCommand(invite_alias_i);
+		addCommand(invite_alias_inv);
+		addCommand(join);
+		addCommand(leave);
+		addCommand(ban);
 	}
 	
 	public static void handleChatCommand(String str) {
@@ -79,5 +113,9 @@ public class ChatCommandMgr {
 		else {
 			ChatFrame.addMessage(new Message("Unknown command, type /help for help.", false, MessageType.SELF));
 		}
+	}
+	
+	private static void addCommand(ChatCommand command) {
+		commandMap.put(command.getName(), command);
 	}
 }

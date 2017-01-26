@@ -26,6 +26,7 @@ public class Message {
 	private int channelHeaderWidth;
 	private final static String gmLogoSpace = "            ";
 	private final static Calendar calendar = Calendar.getInstance();
+	private final static StringBuilder builder = new StringBuilder();
 	
 	public Message(String message, boolean displayHour, MessageType type) { //used for self message
 		this.timer = System.currentTimeMillis();
@@ -57,12 +58,14 @@ public class Message {
 			this.authorText = ChannelMgr.getChannelHeader(channelName);
 		}
 		else if(isGM) {
-			this.authorText = new StringBuilder().append(ChannelMgr.getChannelHeader(channelName)).append(gmLogoSpace).append("[").append(author).append(']').toString();
+			builder.setLength(0);
+			this.authorText = builder.append(ChannelMgr.getChannelHeader(channelName)).append(gmLogoSpace).append("[").append(author).append(']').toString();
 			this.channelHeaderWidth = ChannelMgr.getChannelHeaderWidth(channelName);
 			this.author = null;
 		}
 		else {
-			this.authorText = new StringBuilder().append(ChannelMgr.getChannelHeader(channelName)).append(" [").append(author).append(']').toString();
+			builder.setLength(0);
+			this.authorText = builder.append(ChannelMgr.getChannelHeader(channelName)).append(" [").append(author).append(']').toString();
 		}
 		if(isMessage) {
 			this.authorText+= " : ";
@@ -114,7 +117,8 @@ public class Message {
 				this.authorText = type.getChatDisplay();
 			}
 			else {
-				this.authorText = new StringBuilder().append('[').append(this.author).append("] ").append(type.getChatDisplay()).toString();
+				builder.setLength(0);
+				this.authorText = builder.append('[').append(this.author).append("] ").append(type.getChatDisplay()).toString();
 			}
 		}
 	}
@@ -132,27 +136,28 @@ public class Message {
 		this.author = author;
 		this.isGM = isGM;
 		this.opacity = 1;
+		builder.setLength(0);
 		if(type == MessageType.SAY || type == MessageType.YELL) {
 			if(isGM) {
-				this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(author).append("]").append(type.getChatDisplay()).toString();
+				this.authorText = builder.append(gmLogoSpace).append("[").append(author).append("]").append(type.getChatDisplay()).toString();
 			}
 			else {
-				this.authorText = new StringBuilder().append("[").append(author).append("]").append(type.getChatDisplay()).toString();
+				this.authorText = builder.append("[").append(author).append("]").append(type.getChatDisplay()).toString();
 			}
 		}
 		else if(type != MessageType.SELF) {
 			if(isGM) {
-				this.authorText = new StringBuilder().append(type.getChatDisplay()).append(gmLogoSpace).append("[").append(author).append("] : ").toString();
+				this.authorText = builder.append(type.getChatDisplay()).append(gmLogoSpace).append("[").append(author).append("] : ").toString();
 			}
 			else {
-				this.authorText = new StringBuilder().append(type.getChatDisplay()).append("[").append(author).append("] : ").toString();
+				this.authorText = builder.append(type.getChatDisplay()).append("[").append(author).append("] : ").toString();
 			}
 		}
 		else if(isGM) {
-			this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(author).append(']').toString();
+			this.authorText = builder.append(gmLogoSpace).append("[").append(author).append(']').toString();
 		}
 		else {
-			this.authorText = new StringBuilder().append('[').append(author).append(']').toString();
+			this.authorText = builder.append('[').append(author).append(']').toString();
 		}
 		if(isGM) {
 			this.author = null;
@@ -172,33 +177,34 @@ public class Message {
 		this.author = author;
 		this.isGM = isGM;
 		this.opacity = 1;
+		builder.setLength(0);
 		if(type == MessageType.ANNOUNCE || type == MessageType.GM_ANNOUNCE) {
 			if(this.author == null) {
 				this.authorText = type.getChatDisplay();
 			}
 			else {
-				this.authorText = new StringBuilder().append('[').append(this.author).append("] ").append(type.getChatDisplay()).toString();
+				this.authorText = builder.append('[').append(this.author).append("] ").append(type.getChatDisplay()).toString();
 			}
 			this.isGM = false;
 		}
 		else if(type == MessageType.SAY || type == MessageType.YELL) {
 			if(isGM) {
-				this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(author).append("]").append(type.getChatDisplay()).toString();
+				this.authorText = builder.append(gmLogoSpace).append("[").append(author).append("]").append(type.getChatDisplay()).toString();
 			}
 			else {
-				this.authorText = new StringBuilder().append("[").append(author).append("]").append(type.getChatDisplay()).toString();
+				this.authorText = builder.append("[").append(author).append("]").append(type.getChatDisplay()).toString();
 			}
 		}
 		else if(type != MessageType.SELF) {
 			if(isGM) {
-				this.authorText = new StringBuilder().append(type.getChatDisplay()).append(gmLogoSpace).append("[").append(author).append("] : ").toString();
+				this.authorText = builder.append(type.getChatDisplay()).append(gmLogoSpace).append("[").append(author).append("] : ").toString();
 			}
 		}
 		else if(isGM) {
-			this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(author).append(']').toString();
+			this.authorText = builder.append(gmLogoSpace).append("[").append(author).append(']').toString();
 		}
 		else {
-			this.authorText = new StringBuilder().append('[').append(author).append(']').toString();
+			this.authorText = builder.append('[').append(author).append(']').toString();
 		}
 		if(isGM) {
 			this.author = null;
@@ -219,20 +225,21 @@ public class Message {
 		this.opacity = 1;
 		this.isGM = isGM;
 		this.isTarget = isTarget;
+		builder.setLength(0);
 		if(isTarget) {
 			if(isGM) {
-				this.authorText = new StringBuilder().append(gmLogoSpace).append("[").append(this.author).append("] whispers : ").toString();
+				this.authorText = builder.append(gmLogoSpace).append("[").append(this.author).append("] whispers : ").toString();
 			}
 			else {
-				this.authorText = new StringBuilder().append('[').append(this.author).append("] whispers : ").toString();
+				this.authorText = builder.append('[').append(this.author).append("] whispers : ").toString();
 			}
 		}
 		else {
 			if(isGM) {
-				this.authorText = new StringBuilder().append("To").append(gmLogoSpace).append("[").append(this.author).append("] : ").toString();
+				this.authorText = builder.append("To").append(gmLogoSpace).append("[").append(this.author).append("] : ").toString();
 			}
 			else {
-				this.authorText = new StringBuilder().append("To [").append(this.author).append("] : ").toString();
+				this.authorText = builder.append("To [").append(this.author).append("] : ").toString();
 			}
 		}
 	}

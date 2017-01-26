@@ -76,6 +76,7 @@ public class ConnectionManager {
 	private static boolean isLoggedOnWorldServer;
 	private static WorldServer loggedServer;
 	private static WorldServer lastLoggedRealm;
+	private static boolean authConnectionCanceled;
 	
 	private static void initPacket() {
 		commandList.put(LOGIN, new CommandLogin());
@@ -146,13 +147,18 @@ public class ConnectionManager {
 			}
 		}
 		catch(IOException e) {
-			e.printStackTrace();
-			LoginScreen.getAlert().setActive();
-			LoginScreen.getAlert().setText("Impossible de se connecter.");
-			LoginScreen.setAlertButtonOk();
-			Interface.setCharacterLoaded(false);
-			Interface.closeAllFrame();
-			close();
+			if(!authConnectionCanceled) {
+				e.printStackTrace();
+				LoginScreen.getAlert().setActive();
+				LoginScreen.getAlert().setText("Impossible de se connecter.");
+				LoginScreen.setAlertButtonOk();
+				Interface.setCharacterLoaded(false);
+				Interface.closeAllFrame();
+				close();
+			}
+			else {
+				authConnectionCanceled = false;
+			}
 		}
 		return false;
 	}
@@ -216,7 +222,9 @@ public class ConnectionManager {
 	}
 	
  	public static void closeAuth() {
+		Interface.setHasLoggedInToAuth(false);
  		if(authServerConnection != null) {
+ 			CommandLogout.write();
  			authServerConnection.close();
  		}
 		authSocket = null;
@@ -338,5 +346,9 @@ public class ConnectionManager {
 	 
 	public static WorldServer getWorldServer() {
 		return loggedServer;
+	}
+	
+	public static void setAuthConnectionCanceled(boolean we) {
+		authConnectionCanceled = we;
 	}
 }

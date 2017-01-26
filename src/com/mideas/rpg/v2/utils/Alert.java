@@ -153,6 +153,12 @@ public class Alert {
 		this.button.reset();
 	}
 	
+	public void keyPressed() {
+		if(this.button != null) {
+			this.button.eventButtonClick();
+		}
+	}
+	
 	public boolean isActive() {
 		return this.isActive;
 	}

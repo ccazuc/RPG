@@ -47,6 +47,13 @@ public class AuthServerConnectionRunnable implements Runnable {
 		run = we;
 	}
 	
+	public static void cancelAuthConnection() {
+		ConnectionManager.setAuthConnectionCanceled(true);
+		ConnectionManager.closeAuth();
+		LoginScreen.resetPassword();
+		LoginScreen.getAlert().setInactive();
+	}
+	
 	public static void connectToWorldServer(int realmId) {
 		shouldConnectToWorld = true;
 		AuthServerConnectionRunnable.realmId = realmId;

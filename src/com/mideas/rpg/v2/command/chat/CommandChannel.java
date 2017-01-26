@@ -46,8 +46,10 @@ public class CommandChannel extends Command {
 		else if(packetId == PacketID.CHANNEL_MEMBER_LEFT) {
 			String channelName = ConnectionManager.getConnection().readString();
 			int id = ConnectionManager.getConnection().readInt();
-			ChatFrame.addMessage(new Message(" left the channel.", channelName, ChannelMgr.getMemberName(channelName, id), false, false, false));
-			ChannelMgr.removeMember(channelName, id);
+			String memberName = ChannelMgr.getMemberName(channelName, id);
+			if(ChannelMgr.removeMember(channelName, id)) {
+				ChatFrame.addMessage(new Message(" left the channel.", channelName, memberName, false, false, false));
+			}
 		}
 		else if(packetId == PacketID.CHANNEL_SET_LEADER) {
 			String channelName = ConnectionManager.getConnection().readString();
@@ -59,8 +61,16 @@ public class CommandChannel extends Command {
 			String channelName = ConnectionManager.getConnection().readString();
 			String kickerName = ConnectionManager.getConnection().readString();
 			int id = ConnectionManager.getConnection().readInt();
-			ChatFrame.addMessage(new Message(ChannelMgr.getChannelHeader(channelName)+" "+kickerName+" kicked "+ChannelMgr.getMemberName(channelName, id), false, MessageType.SELF, MessageType.CHANNEL.getColor()));
-			ChannelMgr.removeMember(channelName, id);
+			String memberName = ChannelMgr.getMemberName(channelName, id);
+			if(ChannelMgr.removeMember(channelName, id)) {
+				ChatFrame.addMessage(new Message(ChannelMgr.getChannelHeader(channelName)+" "+kickerName+" kicked "+memberName, false, MessageType.SELF, MessageType.CHANNEL.getColor()));
+			}
+		}
+		else if(packetId == PacketID.CHANNEL_SET_MODERATOR) {
+			String channelName = ConnectionManager.getConnection().readString();
+			int id = ConnectionManager.getConnection().readInt();
+			boolean isModerator = ConnectionManager.getConnection().readBoolean();
+			ChannelMgr.setModerator(channelName, id, isModerator);
 		}
 	}
 	
@@ -75,6 +85,36 @@ public class CommandChannel extends Command {
 		ConnectionManager.getConnection().writeString(channelName);
 		ConnectionManager.getConnection().writeInt(value);
 		ConnectionManager.getConnection().writeString(password);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void banPlayer(String channelName, int playerID) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL_BAN_PLAYER);
+		ConnectionManager.getConnection().writeString(channelName);
+		ConnectionManager.getConnection().writeInt(playerID);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void unbanPlayer(String channelName, int playerID) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL_UNBAN_PLAYER);
+		ConnectionManager.getConnection().writeString(channelName);
+		ConnectionManager.getConnection().writeInt(playerID);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void kickPlayer(String channelName, int playerID) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL_KICK_PLAYER);
+		ConnectionManager.getConnection().writeString(channelName);
+		ConnectionManager.getConnection().writeInt(playerID);
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}
