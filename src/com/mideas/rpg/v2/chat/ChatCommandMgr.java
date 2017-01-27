@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.chat;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.chat.channel.ChannelMgr;
+import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.chat.CommandChannel;
 import com.mideas.rpg.v2.utils.StringUtils;
@@ -11,7 +12,7 @@ public class ChatCommandMgr {
 
 	private final static HashMap<String, ChatCommand> commandMap = new HashMap<String, ChatCommand>();
 	
-	private final static ChatCommand invite = new ChatCommand("invite", "Invite a player in your party.") {
+	final static ChatCommand invite = new ChatCommand("invite", "Invite a player in your party.") {
 		
 		@Override
 		public void handle(String[] command) {
@@ -26,25 +27,17 @@ public class ChatCommandMgr {
 		
 		@Override
 		public void handle(String[] command) {
-			if(command.length == 1) {
-				ChatFrame.addMessage(new Message("Invalid parameter for [name] in /inv [name].", false, MessageType.SELF));
-				return;
-			}
-			CommandParty.invitePlayer(command[1]);
+			invite.handle(command);
 		}
 	};
 	private final static ChatCommand invite_alias_i = new ChatCommand("i", "Invite a player in your party.") {
 		
 		@Override
 		public void handle(String[] command) {
-			if(command.length == 1) {
-				ChatFrame.addMessage(new Message("Invalid parameter for [name] in /i [name].", false, MessageType.SELF));
-				return;
-			}
-			CommandParty.invitePlayer(command[1]);
+			invite.handle(command);
 		}
 	};
-	private final static ChatCommand join = new ChatCommand("join", "Type /join [channel_name] [password(optionnal)] to join or create a channel.") {
+	private final static ChatCommand cjoin = new ChatCommand("join", "Type /join [channel_name] [password(optionnal)] to join or create a channel.") {
 		
 		@Override
 		public void handle(String[] command) {
@@ -61,7 +54,24 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	private final static ChatCommand leave = new ChatCommand("leave", "Type /leave [channel_name || channel_index] to leave the channel.") {
+	private final static ChatCommand chan = new ChatCommand("chan", "Type /chan [channel_name] [password(optionnal)] to join or create a channel.") {
+		
+		@Override
+		public void handle(String[] command) {
+			if(command.length == 1) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] in /chan [channel_name] [password(optionnal)]", false, MessageType.SELF));
+				return;
+			}
+			int channelValue = ChannelMgr.generateChannelID();
+			if(command.length == 2) {
+				CommandChannel.joinChannel(command[1], channelValue);
+			}
+			else {
+				CommandChannel.joinChannel(command[1], channelValue, command[2]);
+			}
+		}
+	};
+	private final static ChatCommand cleave = new ChatCommand("leave", "Type /leave [channel_name || channel_index] to leave the channel.") {
 	
 		@Override
 		public void handle(String[] command) {
@@ -75,7 +85,7 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	private final static ChatCommand ban = new ChatCommand("ban", "Type /ban [channel_name] [player_name] to ban the player from the channel.") {
+	private final static ChatCommand cban = new ChatCommand("ban", "Type /ban [channel_name] [player_name] to ban the player from the channel.") {
 	
 		@Override
 		public void handle(String[] command) {
@@ -93,14 +103,142 @@ public class ChatCommandMgr {
 			}
 		}
 	};
+	private final static ChatCommand cunban = new ChatCommand("unban", "Type /unban [channel_name] [player_name] to unban the player from the channel.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(command.length <= 2) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /unban [channel_name] [player_name]", false, MessageType.SELF));
+				return;
+			}
+			String channelName = ChannelMgr.findChannelName(command[1]);
+			if(channelName != null) {
+				int playerID = ChannelMgr.getMemberID(channelName, command[2]);
+				if(playerID == 0) {
+					return;
+				}
+				CommandChannel.unbanPlayer(channelName, playerID);
+			}
+		}
+	};
+	final static ChatCommand cmoderator = new ChatCommand("moderator", "Type /moderator [channel_name] [player_name] [true || false] to set wether the player should be moderator.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(command.length <= 3) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] [true || false] in /moderator [channel_name] [player_name] [true || false]", false, MessageType.SELF));
+				return;
+			}
+			String channelName = ChannelMgr.findChannelName(command[1]);
+			if(channelName != null) {
+				int playerID = ChannelMgr.getMemberID(channelName, command[2]);
+				if(playerID == 0) {
+					return;
+				}
+				boolean b = command[3].equals("true") ? true : false;
+				CommandChannel.setModerator(channelName, playerID, b);
+			}
+		}
+	};
+	private final static ChatCommand cmoderator_alias_mod = new ChatCommand("mod", "Type /mod [channel_name] [player_name] [true || false] to set wether the player should be moderator.") {
+	
+		@Override
+		public void handle(String[] command) {
+			cmoderator.handle(command);
+		}
+	};
+	private final static ChatCommand ckick = new ChatCommand("ckick", "Type /ckick [channel_name] [player_name] kick the player from the channel.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(command.length <= 2) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /ckick [channel_name] [player_name]", false, MessageType.SELF));
+				return;
+			}
+			String channelName = ChannelMgr.findChannelName(command[1]);
+			if(channelName != null) {
+				int playerID = ChannelMgr.getMemberID(channelName, command[2]);
+				if(playerID == 0) {
+					return;
+				}
+				CommandChannel.kickPlayer(channelName, playerID);
+			}
+		}
+	};
+	private final static ChatCommand clead = new ChatCommand("lead", "Type /lead [channel_name] [player_name] give the leadership.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(command.length <= 2) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /lead [channel_name] [player_name]", false, MessageType.SELF));
+				return;
+			}
+			String channelName = ChannelMgr.findChannelName(command[1]);
+			if(channelName != null) {
+				int playerID = ChannelMgr.getMemberID(channelName, command[2]);
+				if(playerID == 0) {
+					return;
+				}
+				CommandChannel.setLeader(channelName, playerID);
+			}
+		}
+	};
+	private final static ChatCommand gquit = new ChatCommand("gquit", "Leave your guild.") {
+	
+		@Override
+		public void handle(String[] command) {
+			CommandGuild.leaveGuild();
+		}
+	};
+	private final static ChatCommand guildquit = new ChatCommand("guildquit", "Leave your guild.") {
+	
+		@Override
+		public void handle(String[] command) {
+			CommandGuild.leaveGuild();
+		}
+	};
+	final static ChatCommand gmotd = new ChatCommand("gmotd", "/gmotd [motd] set the motd of your guild.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(command.length <= 1) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [motd] in /gmotd [motd]", false, MessageType.SELF));
+				return;
+			}
+			StringBuilder builder = new StringBuilder();
+			int i = 1;
+			while(i < command.length) {
+				builder.append(command[i]);
+				i++;
+			}
+			CommandGuild.setMotd(builder.toString());
+		}
+	};
+	private final static ChatCommand guildmotd = new ChatCommand("guildmotd", "/guildmotd [motd] set the motd of your guild.") {
+	
+		@Override
+		public void handle(String[] command) {
+			gmotd.handle(command);
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
 		addCommand(invite_alias_i);
 		addCommand(invite_alias_inv);
-		addCommand(join);
-		addCommand(leave);
-		addCommand(ban);
+		addCommand(cjoin);
+		addCommand(chan);
+		addCommand(cleave);
+		addCommand(cban);
+		addCommand(cunban);
+		addCommand(cmoderator);
+		addCommand(cmoderator_alias_mod);
+		addCommand(ckick);
+		addCommand(clead);
+		addCommand(gquit);
+		addCommand(guildquit);
+		addCommand(gmotd);
+		addCommand(guildmotd);
 	}
 	
 	public static void handleChatCommand(String str) {
@@ -116,6 +254,13 @@ public class ChatCommandMgr {
 	}
 	
 	private static void addCommand(ChatCommand command) {
+		if(commandMap.containsKey(command.getName())) {
+			System.out.println("**ERROR** in ChatCommandMgr.addCommand, map already contains key : "+command.getName());
+		}
 		commandMap.put(command.getName(), command);
+	}
+	
+	static ChatCommand getCommand(String name) {
+		return commandMap.get(name);
 	}
 }

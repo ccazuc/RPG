@@ -119,6 +119,27 @@ public class CommandChannel extends Command {
 		ConnectionManager.getConnection().send();
 	}
 	
+	public static void setModerator(String channelName, int playerID, boolean b) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL_SET_MODERATOR);
+		ConnectionManager.getConnection().writeString(channelName);
+		ConnectionManager.getConnection().writeInt(playerID);
+		ConnectionManager.getConnection().writeBoolean(b);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void setLeader(String channelName, int playerID) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL_SET_LEADER);
+		ConnectionManager.getConnection().writeString(channelName);
+		ConnectionManager.getConnection().writeInt(playerID);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
+	}
+	
 	public static void leaveChannel(String channelName) {
 		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
