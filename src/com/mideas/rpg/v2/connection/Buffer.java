@@ -27,7 +27,7 @@ import com.mideas.rpg.v2.utils.Color;
 
 public class Buffer {
 
-	private ByteBuffer buffer;	
+	private final ByteBuffer buffer;	
 	private boolean written;
 	private SocketChannel socket;
 	
@@ -77,6 +77,13 @@ public class Buffer {
 			return 1;
 		}
 		return 2;
+	}
+	
+	protected final void emptyClear() {
+		if(!this.buffer.hasRemaining()) {
+			this.buffer.clear();
+			this.buffer.flip();
+		}
 	}
 	
 	public final void flip() {

@@ -322,6 +322,7 @@ public class ConnectionManager {
 				System.out.println("Unknown World packet: "+packetId+", last readed packet: "+worldLastReadedPacket);
 			}
 		}
+		worldServerConnection.clearEmptyRBuffer();
 	}
 	
 	public static boolean isLoggedOnWorldServer() {

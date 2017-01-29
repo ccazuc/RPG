@@ -42,6 +42,10 @@ public class Connection {
 		this.rBuffer.clear();
 	}
 	
+	public final void clearEmptyRBuffer() {
+		this.rBuffer.emptyClear();
+	}
+	
 	public final byte read() throws IOException {
 		return this.rBuffer.read();
 	}

@@ -3460,7 +3460,7 @@ CREATE TABLE IF NOT EXISTS `craft_profession` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.craft_profession: ~0 rows (environ)
+-- Export de données de la table rpg.craft_profession: ~1 rows (environ)
 DELETE FROM `craft_profession`;
 /*!40000 ALTER TABLE `craft_profession` DISABLE KEYS */;
 INSERT INTO `craft_profession` (`id`, `name`, `category1`, `category2`, `category3`, `category4`, `category5`, `category6`, `category7`, `category8`) VALUES
@@ -3514,7 +3514,7 @@ CREATE TABLE IF NOT EXISTS `guild` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.guild: ~0 rows (environ)
+-- Export de données de la table rpg.guild: ~1 rows (environ)
 DELETE FROM `guild`;
 /*!40000 ALTER TABLE `guild` DISABLE KEYS */;
 INSERT INTO `guild` (`id`, `name`, `leader_id`, `information`, `motd`) VALUES
@@ -3546,7 +3546,7 @@ DROP TABLE IF EXISTS `guild_member`;
 CREATE TABLE IF NOT EXISTS `guild_member` (
   `guild_id` mediumint(9) NOT NULL,
   `member_id` mediumint(9) NOT NULL,
-  `rank` mediumint(9) NOT NULL,
+  `rank` tinyint(4) NOT NULL,
   `note` varchar(50) NOT NULL DEFAULT '',
   `officer_note` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`guild_id`,`member_id`)
@@ -3664,7 +3664,7 @@ CREATE TABLE IF NOT EXISTS `item_potion` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.item_potion: ~0 rows (environ)
+-- Export de données de la table rpg.item_potion: ~1 rows (environ)
 DELETE FROM `item_potion`;
 /*!40000 ALTER TABLE `item_potion` DISABLE KEYS */;
 INSERT INTO `item_potion` (`id`, `sprite_id`, `name`, `level`, `heal`, `mana`, `sellprice`) VALUES
