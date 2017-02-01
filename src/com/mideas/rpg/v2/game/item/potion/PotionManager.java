@@ -19,7 +19,7 @@ public class PotionManager {
 				int id = statement.getInt();
 				String sprite_id = statement.getString();
 				String name = statement.getString();
-				int level = statement.getInt();
+				byte level = statement.getByte();
 				int heal = statement.getInt();
 				int mana = statement.getInt();
 				int sellPrice = statement.getInt();

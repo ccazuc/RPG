@@ -11,12 +11,12 @@ public class Container extends Item {
 	private String container_slot_string = "";
 	
 	public Container(int id, byte size) {
-		super(id, "", ItemType.CONTAINER, "", (byte)0, 0, 1, 1);
+		super(id, "", ItemType.CONTAINER, "", (byte)1, (byte)0, 0, 1, 1);
 		this.size = size;
 	}
 	
 	public Container(Container bag) {
-		super(bag.id, bag.sprite_id, bag.itemType, bag.name, bag.quality, bag.sellPrice, bag.maxStack, 1);
+		super(bag.id, bag.sprite_id, bag.itemType, bag.name, bag.level, bag.quality, bag.sellPrice, bag.maxStack, 1);
 		this.sprite_id = bag.sprite_id;
 		this.name = bag.name;
 		this.size = bag.size;
@@ -26,7 +26,7 @@ public class Container extends Item {
 	}
 	
 	public Container(int id,  String name, String sprite_id, byte quality, byte size, int sellPrice) {
-		super(id, sprite_id, ItemType.CONTAINER, name, quality, sellPrice, 1, 1);
+		super(id, sprite_id, ItemType.CONTAINER, name, (byte)1, quality, sellPrice, 1, 1);
 		this.sprite_id = sprite_id;
 		this.name = name;
 		this.size = size;

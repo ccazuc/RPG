@@ -23,6 +23,7 @@ public class Item implements Cloneable {
 	protected String name;
 	protected byte quality;
 	protected int id;
+	protected byte level;
 	protected boolean isLoaded;
 	protected String deleteConfirm;
 	protected boolean isSelectable = true;
@@ -32,7 +33,7 @@ public class Item implements Cloneable {
 	
 	private final static String delete = "Voulez vous supprimer ";
 	
-	public Item(int id, String sprite_id, ItemType itemType, String name, byte quality, int sellPrice, int maxStack, int amount) {
+	public Item(int id, String sprite_id, ItemType itemType, String name, byte level, byte quality, int sellPrice, int maxStack, int amount) {
 		this.sellPrice = sellPrice;
 		this.sprite_id = sprite_id;
 		this.maxStack = maxStack;
@@ -41,6 +42,7 @@ public class Item implements Cloneable {
 		this.name = name;
 		this.id = id;
 		this.amount = amount;
+		this.level = level;
 		buildAllString();
 	}
 	

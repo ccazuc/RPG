@@ -151,15 +151,15 @@ public class Buffer {
 	}
 	
 	public final Stuff readStuff() {
-		return new Stuff(StuffType.values()[readByte()], readClassType(), readString(), readInt(), readString(), readByte(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), Wear.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Stuff(StuffType.values()[readByte()], readClassType(), readString(), readInt(), readString(), readByte(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readByte(), Wear.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	public final Stuff readWeapon() {
-		return new Stuff(readInt(), readString(), readString(), readClassType(), WeaponType.values()[readByte()], WeaponSlot.values()[readByte()], readByte(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Stuff(readInt(), readString(), readString(), readClassType(), WeaponType.values()[readByte()], WeaponSlot.values()[readByte()], readByte(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readByte(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	public final Potion readPotion() {
-		return new Potion(readInt(), readString(), readString(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Potion(readInt(), readString(), readString(), readByte(), readInt(), readInt(), readInt(), readInt());
 	}
 	
 	public final Color readColor() {

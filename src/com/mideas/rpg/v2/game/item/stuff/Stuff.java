@@ -43,7 +43,6 @@ public class Stuff extends Item {
 	private Wear wear;
 	private int price;
 	private int armor;
-	private int level;
 	private int mana;
 	
 	private final static String head = "Head";
@@ -109,12 +108,12 @@ public class Stuff extends Item {
 	private final static String strengthStrings = " Strength";
 	
 	public Stuff(int id) { //stuff created when waiting for the server to respond
-		super(id, empty, ItemType.STUFF, empty, (byte)0, 0, 1, 1);
+		super(id, empty, ItemType.STUFF, empty, (byte)1, (byte)0, 0, 1, 1);
 		this.sprite_id = empty;
 	}
 
 	public Stuff(Stuff stuff) {
-		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.quality, stuff.sellPrice, 1, 1);
+		super(stuff.id, stuff.sprite_id, stuff.itemType, stuff.name, stuff.level, stuff.quality, stuff.sellPrice, 1, 1);
 		this.socketBonusString = stuff.socketBonusString;
 		this.classRequirement = stuff.classRequirement;
 		this.criticalString = stuff.criticalString;
@@ -134,7 +133,6 @@ public class Stuff extends Item {
 		this.strength = stuff.strength;
 		this.gemColor = stuff.gemColor;
 		this.stamina = stuff.stamina;
-		this.level = stuff.level;
 		this.armor = stuff.armor;
 		this.type = stuff.type;
 		this.wear = stuff.wear;
@@ -142,8 +140,8 @@ public class Stuff extends Item {
 		this.isLoaded = true;
 	}
 	
-	public Stuff(StuffType type, ClassType[] classType, String sprite_id, int id, String name, byte quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, Wear wear, int critical, int strength, int stamina, int armor, int mana, int sellPrice) {
-		super(id, sprite_id, ItemType.STUFF, name, quality, sellPrice, 1, 1);
+	public Stuff(StuffType type, ClassType[] classType, String sprite_id, int id, String name, byte quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, byte level, Wear wear, int critical, int strength, int stamina, int armor, int mana, int sellPrice) {
+		super(id, sprite_id, ItemType.STUFF, name, level, quality, sellPrice, 1, 1);
 		this.gemBonusValue = gemBonusValue;
 		this.gemBonusType = gemBonusType;
 		this.classType = classType;
@@ -153,7 +151,6 @@ public class Stuff extends Item {
 		this.gemColor[0] = color1;
 		this.gemColor[1] = color2;
 		this.gemColor[2] = color3;
-		this.level = level;
 		this.armor = armor;
 		this.type = type;
 		this.wear = wear;
@@ -163,7 +160,7 @@ public class Stuff extends Item {
 	}
 
 	public Stuff(Stuff weapon, int i) { //weapon constructor
-		super(weapon.id, weapon.sprite_id, weapon.itemType, weapon.name, weapon.quality, weapon.sellPrice, 1, 1);
+		super(weapon.id, weapon.sprite_id, weapon.itemType, weapon.name, weapon.level, weapon.quality, weapon.sellPrice, 1, 1);
 		this.socketBonusString = weapon.socketBonusString;
 		this.classRequirement = weapon.classRequirement;
 		this.strengthString = weapon.strengthString;
@@ -185,7 +182,6 @@ public class Stuff extends Item {
 		this.strength = weapon.strength;
 		this.stamina = weapon.stamina;
 		this.gemColor = weapon.gemColor;
-		this.level = weapon.level;
 		this.armor = weapon.armor;
 		this.type = weapon.type;
 		this.mana = weapon.mana;
@@ -193,8 +189,8 @@ public class Stuff extends Item {
 		this.isLoaded = true;
 	}
 	
-	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, byte quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, int level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
-		super(id, sprite_id, ItemType.WEAPON, name, quality, sellPrice, 1, 1);
+	public Stuff(int id, String name, String sprite_id, ClassType[] classType, WeaponType weaponType, WeaponSlot weaponSlot, byte quality, GemColor color1, GemColor color2, GemColor color3, GemBonusType gemBonusType, int gemBonusValue, byte level, int armor, int stamina, int mana, int critical, int strength, int sellPrice) {
+		super(id, sprite_id, ItemType.WEAPON, name, level, quality, sellPrice, 1, 1);
 		this.gemBonusValue = gemBonusValue;
 		this.gemBonusType = gemBonusType;
 		this.weaponType = weaponType;
@@ -206,7 +202,6 @@ public class Stuff extends Item {
 		this.gemColor[0] = color1;
 		this.gemColor[1] = color2;
 		this.gemColor[2] = color3;
-		this.level = level;
 		this.armor = armor;
 		this.mana = mana;
 		this.isLoaded = true;
