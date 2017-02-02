@@ -9,6 +9,7 @@ import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.Party;
 import com.mideas.rpg.v2.game.SocialFrameMenu;
+import com.mideas.rpg.v2.game.auction.AuctionHouse;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.guild.Guild;
 import com.mideas.rpg.v2.game.guild.GuildRank;
@@ -42,6 +43,7 @@ public class Joueur extends Unit {
 	private ArrayList<Ignore> ignoreList;
 	private Profession secondProfession;
 	private Profession firstProfession;
+	private final AuctionHouse auctionHouse;
 	private WeaponType[] weaponType;
 	private ArrayList<Integer> spellUnlockedList;
 	private int numberYellowGem;
@@ -90,6 +92,7 @@ public class Joueur extends Unit {
 		this.stuff = new Stuff[19];
 		this.wear = wear;
 		this.firstProfession = ProfessionManager.getProfession(0);
+		this.auctionHouse = new AuctionHouse();
 		//this.classString = convClassTypeToString(this.classType);
 		this.friendList = new ArrayList<Friend>();
 		this.friendList.add(new Friend(5, "Test"));
@@ -167,6 +170,7 @@ public class Joueur extends Unit {
 	public Joueur(Joueur joueur) {
 		super(joueur.id, joueur.stamina, joueur.maxStamina, joueur.mana, joueur.maxMana, joueur.level, joueur.name, joueur.classType);
 		this.spellUnlockedList = joueur.spellUnlockedList;
+		this.auctionHouse = joueur.auctionHouse;
 		this.defaultArmor = joueur.defaultArmor;
 		this.classString = joueur.classString;
 		this.weaponType = joueur.weaponType;

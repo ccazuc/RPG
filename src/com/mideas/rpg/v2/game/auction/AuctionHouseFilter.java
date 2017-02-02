@@ -1,0 +1,120 @@
+package com.mideas.rpg.v2.game.auction;
+
+public enum AuctionHouseFilter {
+	
+	ERROR((byte)0),
+	NONE((byte)1),
+	WEAPON((byte)2),
+	WEAPON_ONE_HANDED_AXE((byte)3),
+	WEAPON_TWO_HANDED_AXE((byte)4),
+	WEAPON_BOW((byte)5),
+	WEAPON_GUN((byte)6),
+	WEAPON_ONE_HANDED_MACE((byte)7),
+	WEAPON_TWO_HANDED_MACE((byte)8),
+	WEAPON_POLEHARM((byte)9),
+	WEAPON_ONE_HANDED_SWORD((byte)10),
+	WEAPON_TWO_HANDED_SWORD((byte)11),
+	WEAPON_STAFF((byte)12),
+	WEAPON_FIST_WEAPON((byte)13),
+	WEAPON_MISCELLANEOUS((byte)14),
+	WEAPON_DAGGERS((byte)15),
+	WEAPON_THROW_WEAPON((byte)16),
+	WEAPON_CROSSBOW((byte)17),
+	WEAPON_WAND((byte)18),
+	WEAPON_FISHING_POLES((byte)19),
+	ARMOR((byte)20),
+	ARMOR_MISCELLANEOUS((byte)21),
+	ARMOR_CLOTH((byte)22),
+	ARMOR_LEATHER((byte)23),
+	ARMOR_MAIL((byte)24),
+	ARMOR_PLATE((byte)25),
+	ARMOR_SHIELDS((byte)26),
+	ARMOR_LIBRAMS((byte)27),
+	ARMOR_IDOLS((byte)28),
+	ARMOR_TOTEMS((byte)29),
+	CONTAINER((byte)30),
+	CONTAINER_BAG((byte)31),
+	CONTAINER_HERB_BAG((byte)32),
+	CONTAINER_ENCHANTING_BAG((byte)33),
+	CONTAINER_ENGINEERING_BAG((byte)34),
+	CONTAINER_GEM_BAG((byte)35),
+	CONTAINER_MINING_BAG((byte)36),
+	CONTAINER_LEATHERWORKING_BAG((byte)37),
+	CONTAINER_SOUL_BAG((byte)38),
+	CONSUMABLES((byte)39),
+	CONSUMABLES_FOOD_AND_DRINK((byte)40),
+	CONSUMABLES_POTION((byte)41),
+	CONSUMABLES_ELIXIR((byte)42),
+	CONSUMABLES_FLASK((byte)43),
+	CONSUMABLES_BANDAGE((byte)44),
+	CONSUMABLES_ITEMS_ENCHANCEMENTS((byte)45),
+	CONSUMABLES_PARCHEMIN((byte)46),
+	CONSUMABLES_MISCELLANEOUS((byte)47),
+	TRADE_GOOD((byte)48),
+	TRADE_GOOD_ELEMENTAL((byte)49),
+	TRADE_GOOD_CLOTH((byte)50),
+	TRADE_GOOD_LEATHER((byte)51),
+	TRADE_GOOD_METAL_AND_STONE((byte)52),
+	TRADE_GOOD_COOKING((byte)53),
+	TRADE_GOOD_HERB((byte)54),
+	TRADE_GOOD_ENCHANTING((byte)55),
+	TRADE_GOOD_JEWELCRAFTING((byte)56),
+	TRADE_GOOD_PARTS((byte)57),
+	TRADE_GOOD_MATERIALS((byte)58),
+	TRADE_GOOD_OTHER((byte)59),
+	PROJECTILE((byte)60),
+	PROJECTILE_ARROW((byte)61),
+	PROJECTILE_BULLET((byte)62),
+	QUIVER((byte)63),
+	QUIVER_QUIVER((byte)64),
+	QUIVER_GIBERNE((byte)65),
+	RECIPES((byte)66),
+	RECIPES_BOOK((byte)67),
+	RECIPES_LEATHERWORKING((byte)68),
+	RECIPES_TAILORING((byte)69),
+	RECIPES_ENGINEERING((byte)70),
+	RECIPES_BLACKSMITHING((byte)71),
+	RECIPES_COOKING((byte)72),
+	RECIPES_ALCHEMY((byte)73),
+	RECIPES_FIRST_AID((byte)74),
+	RECIPES_ENCHANTING((byte)75),
+	RECIPES_FISHING((byte)76),
+	RECIPES_JEWELCRAFTING((byte)77),
+	GEM((byte)78),
+	GEM_RED((byte)79),
+	GEM_BLUE((byte)80),
+	GEM_YELLOW((byte)81),
+	GEM_PURPLE((byte)82),
+	GEM_GREEN((byte)83),
+	GEM_ORANGE((byte)84),
+	GEM_META((byte)85),
+	GEM_SIMPLE((byte)86),
+	GEM_PRISMATIC((byte)87),
+	MISCELLANEOUS((byte)88),
+	MISCELLANEOUS_JUNK((byte)89),
+	MISCELLANEOUS_REAGENT((byte)90),
+	MISCELLANEOUS_COMPANION_PETS((byte)91),
+	MISCELLANEOUS_HOLIDAY((byte)92),
+	MISCELLANEOUS_MOUNT((byte)93),
+	MISCELLANEOUS_OTHER((byte)94),
+	QUESTS((byte)95),
+	
+	;
+	
+	private final byte value;
+	
+	private AuctionHouseFilter(byte value) {
+		this.value = value;
+	}
+	
+	public byte getValue() {
+		return this.value;
+	}
+	
+	public static AuctionHouseFilter getFilter(byte value) {
+		if(value >= 0 && value < values().length) {
+			return values()[value];
+		}
+		return ERROR;
+	}
+}
