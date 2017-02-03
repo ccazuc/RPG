@@ -635,10 +635,6 @@ public class Stuff extends Item {
 		return this.mana;
 	}
 	
-	public int getLevel() {
-		return this.level;
-	}
-	
 	public Wear getWear() {
 		return this.wear;
 	}

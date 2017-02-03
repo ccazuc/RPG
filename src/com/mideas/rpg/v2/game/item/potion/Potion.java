@@ -95,8 +95,4 @@ public class Potion extends Item {
 	public int getPotionMana() {
 		return this.doMana;
 	}
-	
-	public int getLevel() {
-		return this.level;
-	}
 }

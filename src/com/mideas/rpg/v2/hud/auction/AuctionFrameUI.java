@@ -377,8 +377,20 @@ public class AuctionFrameUI {
 		this.browseFilterY+= this.browseFilterYShift;
 	}
 	
+	protected short getBrowseItemX() {
+		return this.browseItemX;
+	}
+	
+	protected short getBrowseItemWidth() {
+		return this.browseItemWidth;
+	}
+	
 	protected short getBrowseItemY() {
 		return this.browseItemY;
+	}
+	
+	protected short getBrowseItemHeight() {
+		return this.browseItemHeight;
 	}
 	
 	protected void incrementBrowseItemY() {

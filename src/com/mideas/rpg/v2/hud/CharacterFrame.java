@@ -200,7 +200,7 @@ public class CharacterFrame {
 			}
 			Draw.drawColorQuad(Display.getWidth()/2+x-1, Display.getHeight()/2+z-2+yAnchor, 5+xShift, y, bgColor);
 			Draw.drawColorQuadBorder(Display.getWidth()/2+x-1, Display.getHeight()/2+z-2+yAnchor, 6+xShift, y, borderColor);
-			FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+yAnchor, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.BLACK, 1);
+			FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+yAnchor, item.getStuffName(), item.getNameColor(), Color.BLACK, 1);
 			FontManager.get("FRIZQT", 15).drawBegin();
 			FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+x+5, Display.getHeight()/2+z+y+23+yAnchor, item.convStuffTypeToString(), Color.WHITE, Color.BLACK, 1);
 			if(Mideas.joueur1().canWear(item)) {

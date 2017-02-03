@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.shortcut.PotionShortcut;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.StuffShortcut;
+import com.mideas.rpg.v2.utils.Color;
 
 public class Item implements Cloneable {
 
@@ -31,8 +32,12 @@ public class Item implements Cloneable {
 	protected int amount;
 	protected String amountString = "";
 	protected int draggedAmount = -1;
+	protected Color nameColor;
 	
 	private final static String delete = "Voulez vous supprimer ";
+	private final static Color BLUE = Color.decode("#0268CC");
+	private final static Color PURPLE = Color.decode("#822CB7");
+	private final static Color LEGENDARY = Color.decode("#FF800D");
 	
 	public Item(int id, String sprite_id, ItemType itemType, String name, byte level, byte quality, int sellPrice, int maxStack, int amount) {
 		this.sellPrice = sellPrice;
@@ -44,6 +49,7 @@ public class Item implements Cloneable {
 		this.id = id;
 		this.amount = amount;
 		this.level = level;
+		this.nameColor = getItemNameColor(this);
 		buildAllString();
 	}
 	
@@ -56,6 +62,10 @@ public class Item implements Cloneable {
 
 	private void buildAllString() {
 		buildDeleteConfirm();
+	}
+	
+	public Color getNameColor() {
+		return this.nameColor;
 	}
 	
 	public int getDraggedAmount() {
@@ -123,6 +133,10 @@ public class Item implements Cloneable {
 		return this.name;
 	}
 	
+	public byte getLevel() {
+		return this.level;
+	}
+	
 	public static void requestItem(int id) {
 		ConnectionManager.getConnection().writeShort(PacketID.REQUEST_ITEM);
 		ConnectionManager.getConnection().writeInt(id);
@@ -185,6 +199,28 @@ public class Item implements Cloneable {
 			return PotionManager.getClone(id);
 		}
 		return null;
+	}
+	
+	public static Color getItemNameColor(Item item) {
+		if(item.getQuality() == 0) {
+			return Color.GREY;
+		}
+		if(item.getQuality() == 1) {
+			return Color.WHITE;
+		}
+		if(item.getQuality() == 2) {
+			return Color.GREEN;
+		}
+		if(item.getQuality() == 3) {
+			return BLUE;
+		}
+		if(item.getQuality() == 4) {
+			return PURPLE;
+		}
+		if(item.getQuality() == 5) {
+			return LEGENDARY;
+		}
+		return Color.WHITE;
 	}
 	
 	public static Item getStoredItem(int id) {

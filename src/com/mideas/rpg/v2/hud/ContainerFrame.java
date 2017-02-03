@@ -25,9 +25,6 @@ public class ContainerFrame {
 	
 	private static int hoveredSlot = -1;
 	private final static Color bgColor = new Color(0, 0, 0, .6f); 
-	private final static Color BLUE = Color.decode("#0268CC");
-	private final static Color PURPLE = Color.decode("#822CB7");
-	private final static Color LEGENDARY = Color.decode("#FF800D");
 	private static int x;
 	private static int xShift;
 	private static int y;
@@ -861,7 +858,7 @@ public class ContainerFrame {
 		}
 		itemHoverTooltip.draw();
 		y =  -65;
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, gem.getStuffName(), getItemNameColor(gem), Color.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, gem.getStuffName(), gem.getNameColor(), Color.BLACK, 1, 1, 1);
 		shift+= 25;
 		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, gem.getGemSlotString(), Color.YELLOW, Color.BLACK, 1, 1, 1);
 		calcCoinContainer(Mideas.joueur1().bag().getBag(i).getSellPrice(), x-55, z+y+shift-5);
@@ -879,7 +876,7 @@ public class ContainerFrame {
 		}
 		itemHoverTooltip.draw();
 		y =  -65;
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, potion.getStuffName(), getItemNameColor(potion), Color.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, potion.getStuffName(), potion.getNameColor(), Color.BLACK, 1, 1, 1);
 		shift+= 25;
 		if(potion.getPotionHeal() > 0) {
 			FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+shift, potion.getDoHealString(), Color.GREEN, Color.BLACK, 1, 1, 1);
@@ -911,7 +908,7 @@ public class ContainerFrame {
 			itemHoverTooltip.update(Display.getWidth()+x-15-xShift, Display.getHeight()+z-10+y, 28+Math.abs(xShift), Math.abs(y)+15);
 		}
 		itemHoverTooltip.draw();
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, item.getStuffName(), getItemNameColor(item), Color.BLACK, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, item.getStuffName(), item.getNameColor(), Color.BLACK, 1);
 		FontManager.get("FRIZQT", 15).drawBegin();
 		FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y+23, item.convStuffTypeToString(), Color.WHITE, Color.BLACK, 1);
 		if(Mideas.joueur1().canWear(item)) {
@@ -1020,7 +1017,7 @@ public class ContainerFrame {
 		itemHoverTooltip.draw();
 		//Draw.drawColorQuad(Display.getWidth()+x-1, Display.getHeight()+z-2, -5-xShift, y, bgColor);
 		//Draw.drawColorQuadBorder(Display.getWidth()+x-1, Display.getHeight()+z-2, -6-xShift, y, borderColor);
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.joueur1().bag().getBag(i).getStuffName(), getItemNameColor(item), Color.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()+x-2-xShift, Display.getHeight()+z+y, Mideas.joueur1().bag().getBag(i).getStuffName(), item.getNameColor(), Color.BLACK, 1, 1, 1);
 		if(Mideas.joueur1().canWear(item)) {
 			temp = Color.WHITE;
 		}
@@ -1100,28 +1097,6 @@ public class ContainerFrame {
 			i++;
 		}
 		return i;
-	}
-	
-	public static Color getItemNameColor(Item item) {
-		if(item.getQuality() == 0) {
-			return Color.GREY;
-		}
-		if(item.getQuality() == 1) {
-			return Color.WHITE;
-		}
-		if(item.getQuality() == 2) {
-			return Color.GREEN;
-		}
-		if(item.getQuality() == 3) {
-			return BLUE;
-		}
-		if(item.getQuality() == 4) {
-			return PURPLE;
-		}
-		if(item.getQuality() == 5) {
-			return LEGENDARY;
-		}
-		return Color.WHITE;
 	}
 	
 	public static int getSlotItem(Item item) {

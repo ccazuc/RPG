@@ -327,7 +327,7 @@ public class ShopManager {
 					Draw.drawColorQuad(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, 285, 40+FontManager.get("FRIZQT", 15).getLineHeight()*2, bgColors);
 					Draw.drawColorQuadBorder(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, 287, 40+FontManager.get("FRIZQT", 15).getLineHeight()*2, borderColors);
 					x_item+= 10;
-					FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.BLACK, 1, 1, 1);
+					FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, item.getStuffName(), item.getNameColor(), Color.BLACK, 1, 1, 1);
 					if(((Potion)item).getPotionHeal() > 0) {
 						FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+shift, "Restores "+((Potion)item).getPotionHeal()+" Hp", Color.GREEN, Color.BLACK, 1, 1, 1);
 						shift+= 20;
@@ -346,7 +346,7 @@ public class ShopManager {
 				else if(item.isContainer()) {
 					Draw.drawColorQuad(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, 285, 40+FontManager.get("FRIZQT", 15).getLineHeight(), bgColors);
 					Draw.drawColorQuadBorder(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, 287, 40+FontManager.get("FRIZQT", 15).getLineHeight(), borderColors);
-					FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.BLACK, 1, 1, 1);
+					FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item, item.getStuffName(), item.getNameColor(), Color.BLACK, 1, 1, 1);
 					FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+20, "Container "+((Container)item).getSize()+" slots", Color.WHITE, Color.BLACK, 1, 1, 1);
 				}
 			}
@@ -378,7 +378,7 @@ public class ShopManager {
 		}
 		Draw.drawColorQuad(Display.getWidth()/2+x_item-15, Display.getHeight()/2+30+y_item, -5-xShift, 75+FontManager.get("FRIZQT", 15).getLineHeight()*ContainerFrame.getNumberStats((Stuff)item), bgColors);
 		Draw.drawColorQuadBorder(Display.getWidth()/2+x_item-14, Display.getHeight()/2+30+y_item, -7-xShift, 75+FontManager.get("FRIZQT", 15).getLineHeight()*ContainerFrame.getNumberStats((Stuff)item), borderColors);
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x_item-10-xShift, Display.getHeight()/2+y_item+33, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x_item-10-xShift, Display.getHeight()/2+y_item+33, item.getStuffName(), item.getNameColor(), Color.BLACK, 1, 1, 1);
 		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x_item-10-xShift, Display.getHeight()/2+y_item+55, ((Stuff)item).convStuffTypeToString(), Color.WHITE, Color.BLACK, 1, 1, 1);
 		if(Mideas.joueur1().canWear((Stuff)item)) {
 			temp = Color.WHITE;
@@ -450,7 +450,7 @@ public class ShopManager {
 		Draw.drawColorQuad(Display.getWidth()/2+x_item, Display.getHeight()/2+30+y_item, xShift, 75+FontManager.get("FRIZQT", 15).getLineHeight()*ContainerFrame.getNumberStats((Stuff)item), bgColors);
 		Draw.drawColorQuadBorder(Display.getWidth()/2+x_item, Display.getHeight()/2+30+y_item, xShift, 75+FontManager.get("FRIZQT", 15).getLineHeight()*ContainerFrame.getNumberStats((Stuff)item), borderColors);
 		x_item+= 10;
-		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+33, item.getStuffName(), ContainerFrame.getItemNameColor(item), Color.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 20).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+33, item.getStuffName(), item.getNameColor(), Color.BLACK, 1, 1, 1);
 		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+x_item, Display.getHeight()/2+y_item+55, ((Stuff)item).convStuffTypeToString(), Color.WHITE, Color.BLACK, 1, 1, 1);
 		if(Mideas.joueur1().canWear((Stuff)item)) {
 			temp = Color.WHITE;
