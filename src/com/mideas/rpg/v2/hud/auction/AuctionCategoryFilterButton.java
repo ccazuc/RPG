@@ -10,7 +10,7 @@ import com.mideas.rpg.v2.game.auction.AuctionHouseFilter;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
-public class AuctionCategoryFilterButton extends AuctionFrameUI {
+public class AuctionCategoryFilterButton {
 
 	private final ArrayList<AuctionHouseFilterButton> filterList;
 	private final AuctionFrameUI frame;
@@ -27,17 +27,22 @@ public class AuctionCategoryFilterButton extends AuctionFrameUI {
 		this.filterList = new ArrayList<AuctionHouseFilterButton>();
 	}
 	
-	@Override
 	public void draw() {
 		Draw.drawQuad(Sprites.chat_channel_button, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
-		if(this.buttonDown) {
-			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+10, this.frame.getBrowseFilterY()+2*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+		if(this.frame.getSelectedCategoryFilter() == this.filter || this.buttonHover) {
+			if(this.buttonDown) {
+				this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			}
+			else {
+				this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			}
+			Draw.drawQuadBlend(Sprites.button_menu_hover, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
+		}
+		else if(this.buttonDown) {
+			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+8, this.frame.getBrowseFilterY(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
-		}
-		if(getSelectedCategoryFilter() == this.filter || this.buttonHover) {
-			Draw.drawQuadBlend(Sprites.button_menu_hover, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
+			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		this.frame.incrementBrowseFilterY();
 		if(!this.isExpanded) {
@@ -46,6 +51,7 @@ public class AuctionCategoryFilterButton extends AuctionFrameUI {
 		int i = -1;
 		while(++i < this.filterList.size()) {
 			this.filterList.get(i).draw();
+			this.frame.incrementBrowseFilterY();
 		}
 	}
 	
@@ -57,6 +63,7 @@ public class AuctionCategoryFilterButton extends AuctionFrameUI {
 		else {
 			this.buttonHover = false;
 		}
+		this.frame.incrementBrowseFilterY();
 		if(this.buttonHover) {
 			if(Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
@@ -66,12 +73,13 @@ public class AuctionCategoryFilterButton extends AuctionFrameUI {
 			else if(this.buttonDown) {
 				if(Mouse.getEventButton() == 0) {
 					if(this.isExpanded) {
-						setSelectedCategoryFilter(AuctionHouseFilter.NONE);
+						this.frame.setSelectedCategoryFilter(AuctionHouseFilter.NONE);
 					}
 					else {
-						setSelectedCategoryFilter(this.filter);
+						this.frame.unexpandAllCategoryFilter();
+						this.frame.setSelectedCategoryFilter(this.filter);
 					}
-					setSelectedFilter(AuctionHouseFilter.NONE);
+					this.frame.setSelectedFilter(AuctionHouseFilter.NONE);
 					this.buttonDown = false;
 					this.isExpanded = !this.isExpanded;
 					this.frame.checkBrowseFilterScrollbar();
@@ -108,7 +116,7 @@ public class AuctionCategoryFilterButton extends AuctionFrameUI {
 		return this.isExpanded ? this.filterList.size()+1 : 1;
 	}
 	
-	protected boolean isHover() {
-		return this.buttonHover;
+	protected void unexpand() {
+		this.isExpanded = false;
 	}
 }

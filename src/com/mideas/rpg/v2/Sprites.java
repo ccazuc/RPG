@@ -556,7 +556,7 @@ public class Sprites {
 		auction_auctions_frame = new Texture("sprite/interface/auction/auctions_frame.png");
 		auction_browse_item_left_border = new Texture("sprite/interface/auction/browse_item_left_border.png");
 		auction_browse_item_middle_border = new Texture("sprite/interface/auction/browse_item_middle_border.png");
-		auction_browse_item_right_border = new Texture("sprite/interface/auction/browse_item_rightborder.png");
+		auction_browse_item_right_border = new Texture("sprite/interface/auction/browse_item_right_border.png");
 		return true;
 	}
 		

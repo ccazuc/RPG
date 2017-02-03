@@ -9,13 +9,11 @@ public class AuctionBrowseItemBorder {
 	private final AuctionFrameUI frame;
 	private short x;
 	private short width;
-	private short height;
 	
-	public AuctionBrowseItemBorder(AuctionFrameUI frame, short x, short width, short height) {
+	public AuctionBrowseItemBorder(AuctionFrameUI frame, short x, short width) {
 		this.frame = frame;
 		this.x = x;
 		this.width = width;
-		this.height = height;
 	}
 	
 	public void draw() {
@@ -24,9 +22,8 @@ public class AuctionBrowseItemBorder {
 		Draw.drawQuad(Sprites.auction_browse_item_right_border, this.x+Sprites.auction_browse_item_left_border.getImageWidth()+this.width, this.frame.getBrowseItemY(), Sprites.auction_browse_item_right_border.getImageWidth(), Sprites.auction_browse_item_right_border.getImageHeight()*Mideas.getDisplayYFactor());
 	}
 	
-	public void updateSize(short x, short width, short height) {
+	public void updateSize(short x, short width) {
 		this.x = x;
 		this.width = width;
-		this.height = height;
 	}
 }

@@ -8,7 +8,7 @@ import com.mideas.rpg.v2.game.auction.AuctionHouseFilter;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
 
-public class AuctionHouseFilterButton extends AuctionFrameUI {
+public class AuctionHouseFilterButton {
 
 	private final AuctionFrameUI frame;
 	private final String name;
@@ -22,16 +22,15 @@ public class AuctionHouseFilterButton extends AuctionFrameUI {
 		this.frame = frame;
 	}
 	
-	@Override
 	public void draw() {
 		Draw.drawQuad(Sprites.chat_channel_button, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight(), .4f);
 		if(this.buttonDown) {
-			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+10, this.frame.getBrowseFilterY()+2*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+15*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+8, this.frame.getBrowseFilterY(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+13*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
-		if(this.buttonHover) {
+		if(this.buttonHover || this.frame.getSelectedFilter() == this.filter) {
 			Draw.drawQuadBlend(Sprites.button_menu_hover, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
 		}
 	}
@@ -44,6 +43,7 @@ public class AuctionHouseFilterButton extends AuctionFrameUI {
 		else {
 			this.buttonHover = false;
 		}
+		this.frame.incrementBrowseFilterY();
 		if(this.buttonHover) {
 			if(Mouse.getEventButtonState()) {
 				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {

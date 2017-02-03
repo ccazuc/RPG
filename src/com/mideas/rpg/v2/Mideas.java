@@ -57,6 +57,7 @@ import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
+import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
@@ -290,6 +291,7 @@ public class Mideas {
 		PopupFrame.shouldUpdate();
 		SpellBarFrame.shouldUpdate();
 		AuraFrame.shouldUpdate();
+		AuctionHouseFrame.shouldUpdate();
 		if(joueur1 != null) {
 			if(joueur1.getFirstProfession() != null) {
 				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);

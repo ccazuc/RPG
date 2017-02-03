@@ -45,7 +45,7 @@ public class AuctionBrowseQueryButton {
 	
 	public AuctionBrowseQueryButton(AuctionFrameUI frame) {
 		this.frame = frame;
-		this.border = new AuctionBrowseItemBorder(this.frame, (short)(this.frame.getBrowseItemX()+BORDER_X_OFFSET), this.frame.getBrowseItemWidth(), this.frame.getBrowseItemHeight());
+		this.border = new AuctionBrowseItemBorder(this.frame, (short)(this.frame.getBrowseItemX()+BORDER_X_OFFSET), this.frame.getBrowseItemWidth());
 	}
 	
 	public void draw() {
@@ -124,6 +124,10 @@ public class AuctionBrowseQueryButton {
 	}
 	
 	public void setEntry(AuctionEntry entry) {
+		if(entry == null) {
+			this.entry = null;
+			return;
+		}
 		this.entry = entry;
 		this.item = entry.getItem();
 		this.sellerName = entry.getSellerName();
@@ -160,5 +164,9 @@ public class AuctionBrowseQueryButton {
 			this.itemNameYOffsetSave = 5;
 		}
 		return builder.toString();
+	}
+	
+	protected AuctionEntry getEntry() {
+		return this.entry;
 	}
 }

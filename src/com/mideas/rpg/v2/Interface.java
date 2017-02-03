@@ -378,7 +378,7 @@ public class Interface {
 						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, false, true));
 						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "", false, false, true));
 						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, true, true));
-						ChatFrame.addMessage(new Message("joined the channel.", "a", "Mideas", false, false, false));
+						auctionFrameActive = !auctionFrameActive;
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {

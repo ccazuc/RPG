@@ -5,18 +5,43 @@ import java.util.ArrayList;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.command.item.CommandAuction;
 import com.mideas.rpg.v2.game.auction.AuctionEntry;
 import com.mideas.rpg.v2.game.auction.AuctionHouseFilter;
 import com.mideas.rpg.v2.utils.Button;
+import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.ScrollBar;
 
 public class AuctionFrameUI {
 
-	private short x_frame;
-	private short y_frame;
+
+	private final short BROWSE_FILTER_SCROLLBAR_X = 153;
+	private final short BROWSE_FILTER_SCROLLBAR_WIDTH = 170;
+	private final short BROWSE_FILTER_SCROLLBAR_HEIGHT = 290;
+	private final short BROWSE_FILTER_SCROLLBAR_Y = 100;
+	private final short BROWSE_FILTER_X = 21;
+	private final short BROWSE_FILTER_Y = 103;
+	private final short BROWSE_FILTER_Y_SHIFT = 20;
+	private final short BROWSE_FILTER_WIDTH_NO_SCROLLBAR = 156;
+	private final short BROWSE_FILTER_WIDTH_SCROLLBAR = 136;
+	private final short BROWSE_FILTER_HEIGHT = 20;
+	private final short X_FRAME = 18;
+	private final short Y_FRAME = 118;
+	
+	private final short BROWSE_CLOSE_BUTTON_X = 744;
+	private final short BROWSE_CLOSE_BUTTON_Y = 407;
+	private final short BROWSE_BUYOUT_BUTTON_X = 663;
+	private final short BROWSE_BID_BUTTON_X = 584;
+	private final short BROWSE_BUTTON_WIDTH = 75;
+	private final short BROWSE_BUTTON_HEIGHT = 25;
+	
+	private short x_frame = (short)(this.X_FRAME*Mideas.getDisplayXFactor());
+	private short y_frame = (short)(this.Y_FRAME*Mideas.getDisplayYFactor());
 	private AuctionFrameTab selectedTab = AuctionFrameTab.BROWSE;
 	private final ArrayList<AuctionCategoryFilterButton> browseCategoryList;
+	private final ArrayList<AuctionBrowseQueryButton> queryButtonList;
 	AuctionEntry browseSelectedEntry;
 	private AuctionHouseFilter selectedFilter;
 	private AuctionHouseFilter selectedCategoryFilter;
@@ -27,23 +52,27 @@ public class AuctionFrameUI {
 	private short browseFilterYShift;
 	private short browseFilterWidth;
 	private short browseFilterHeight;
+	short browserFilterScrollbarOffset;
 	private short browseItemY;
 	private short browseItemX;
 	private short browseItemWidth;
 	private short browseItemHeight;
 	private short browseItemYSave;
 	private short browseItemYShift;
+	byte browserFilterNumberLine;
 	private boolean shouldUpdate;
 	private boolean browseFilterScrollbarEnabled;
-
-	private final short BROWSE_FILTER_X = 50;
-	private final short BROWSE_FILTER_WIDTH = 100;
-	private final short BROWSE_FILTER_Y = 150;
-	private final short BROWSE_FILTER_Y_SHIFT = 20;
-	private final short BROWSER_FILTER_WIDTH_NO_SCROLLBAR = 110;
-	private final short BROWSER_FILTER_WIDTH_SCROLLBAR = 90;
-	
-	private final Button browseBidButton = new Button(this.x_frame, this.y_frame, 80*Mideas.getDisplayXFactor(), 22*Mideas.getDisplayYFactor(), "Bid", 12, 1) {
+	private boolean hasSearched;
+	final ScrollBar browseFilterScrollbar = new ScrollBar(this.x_frame+this.BROWSE_FILTER_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_FILTER_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), false, this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor()) {
+		
+		@Override
+		public void onScroll() {
+			System.out.println("Before : "+AuctionFrameUI.this.browserFilterScrollbarOffset+" "+AuctionFrameUI.this.browseFilterScrollbar.getScrollPercentage()+" "+AuctionFrameUI.this.browserFilterNumberLine);
+			AuctionFrameUI.this.browserFilterScrollbarOffset = (short)(AuctionFrameUI.this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor()*(AuctionFrameUI.this.browserFilterNumberLine-15)*AuctionFrameUI.this.browseFilterScrollbar.getScrollPercentage());
+			System.out.println("After : "+AuctionFrameUI.this.browserFilterScrollbarOffset+" "+AuctionFrameUI.this.browseFilterScrollbar.getScrollPercentage()+" "+AuctionFrameUI.this.browserFilterNumberLine);
+		}
+	};
+	private final Button browseBidButton = new Button(this.x_frame+this.BROWSE_BID_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Bid", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
@@ -55,7 +84,7 @@ public class AuctionFrameUI {
 			return AuctionFrameUI.this.browseSelectedEntry != null && AuctionFrameUI.this.browseSelectedEntry.canBeBuy();
 		}
 	};
-	private final Button browseBuyoutButton = new Button(this.x_frame, this.y_frame, 80*Mideas.getDisplayXFactor(), 22*Mideas.getDisplayYFactor(), "Buyout", 12, 1) {
+	private final Button browseBuyoutButton = new Button(this.x_frame+this.BROWSE_BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Buyout", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
@@ -67,26 +96,27 @@ public class AuctionFrameUI {
 			return AuctionFrameUI.this.browseSelectedEntry != null;
 		}
 	};
-	private final Button browseClose = new Button(this.x_frame, this.y_frame, 80*Mideas.getDisplayXFactor(), 22*Mideas.getDisplayYFactor(), "Close", 12, 1) {
+	private final Button browseClose = new Button(this.x_frame+this.BROWSE_CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Close", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
 			Interface.closeAuctionFrame();
+			this.reset();
 		}
 	};
 	
 	public AuctionFrameUI() {
+		this.queryButtonList = new ArrayList<AuctionBrowseQueryButton>();
 		this.browseCategoryList = new ArrayList<AuctionCategoryFilterButton>();
-		this.browseFilterX = (short)(this.BROWSE_FILTER_X*Mideas.getDisplayXFactor());
-		this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH*Mideas.getDisplayXFactor());
-		this.browseFilterYSave = (short)(this.BROWSE_FILTER_Y*Mideas.getDisplayYFactor());
-		this.browseFilterYShift = (short)(this.BROWSE_FILTER_Y_SHIFT*Mideas.getDisplayYFactor());
-		this.browseFilterFont = FontManager.get("FRIZQT", 12);
+		this.shouldUpdate = true;
+		updateSize();
+		this.browseFilterFont = FontManager.get("FRIZQT", 11);
 		buildBrowseFilterMenu();
 	}
 	
 	public void sendSearchQuery() {
 		//CommandAuction.sendSearchQuery()
+		this.hasSearched = true;
 	}
 	
 	public void draw() {
@@ -103,32 +133,53 @@ public class AuctionFrameUI {
 	}
 	
 	private void drawBrowseFrame() {
-		this.browseFilterY = this.browseFilterYSave;
+		Draw.drawQuad(Sprites.auction_browse_frame, this.x_frame, this.y_frame);
+		this.browseFilterY = (short)(this.browseFilterYSave-this.browserFilterScrollbarOffset);
 		this.browseBidButton.draw();
 		this.browseBuyoutButton.draw();
 		this.browseClose.draw();
+		Draw.glScissorBegin(0, 495*Mideas.getDisplayYFactor(), 500, 305*Mideas.getDisplayYFactor());
 		int i = -1;
 		while(++i < this.browseCategoryList.size()) {
 			this.browseCategoryList.get(i).draw();
 		}
+		Draw.glScissorEnd();
 		drawBrowseItem();
+		if(this.browseFilterScrollbarEnabled) {
+			this.browseFilterScrollbar.draw();
+		}
+	}
+	
+	public void updateQueryButtonList() {
+		ArrayList<AuctionEntry> list = Mideas.joueur1().getAuctionHouse().getQueryList();
+		int i = -1;
+		while(++i < 50) {
+			if(i < list.size()) {
+				this.queryButtonList.get(i).setEntry(list.get(i));
+			}
+			else {
+				this.queryButtonList.get(i).setEntry(null);
+			}
+		}
 	}
 	
 	private void drawBrowseItem() {
 		ArrayList<AuctionEntry> list = Mideas.joueur1().getAuctionHouse().getQueryList();
 		if(list.size() == 0) {
-			//TODO: write "no item found" or smth
+			if(this.hasSearched) {
+				
+			}
+			else {
+				
+			}
 			return;
 		}
 		this.browseItemY = this.browseItemYSave;
 		int i = -1;
-		while(++i < list.size()) {
-			drawQueryItem(list.get(i));
+		AuctionEntry entry;
+		while(++i < this.queryButtonList.size() && (entry = this.queryButtonList.get(i).getEntry()) != null) {
+			this.queryButtonList.get(i).draw();
 		}
-	}
-	
-	private static void drawQueryItem(AuctionEntry entry) {
-		
 	}
 	
 	private void drawBidsFrame() {
@@ -156,6 +207,16 @@ public class AuctionFrameUI {
 		if(this.browseBidButton.event()) return true;
 		if(this.browseBuyoutButton.event()) return true;
 		if(this.browseClose.event()) return true;
+		if(this.browseFilterScrollbarEnabled) {
+			if(this.browseFilterScrollbar.event()) return true;
+		}
+		int i = -1;
+		this.browseFilterY = (short)(this.browseFilterYSave-this.browserFilterScrollbarOffset);
+		while(++i < this.browseCategoryList.size()) {
+			if(this.browseCategoryList.get(i).event()) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -197,11 +258,37 @@ public class AuctionFrameUI {
 			return;
 		}
 		if(this.browseFilterScrollbarEnabled) {
-			this.browseFilterWidth = (short)(this.BROWSER_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
 		}
 		else {
-			this.browseFilterWidth = (short)(this.BROWSER_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
 		}
+		this.x_frame = (short)(this.X_FRAME*Mideas.getDisplayXFactor());
+		this.y_frame = (short)(this.Y_FRAME*Mideas.getDisplayYFactor());
+		this.browseFilterHeight = (short)(this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor());
+		this.browseFilterX = (short)(this.x_frame+this.BROWSE_FILTER_X*Mideas.getDisplayXFactor());
+		this.browseFilterYSave = (short)(this.y_frame+this.BROWSE_FILTER_Y*Mideas.getDisplayYFactor());
+		this.browseFilterYShift = (short)(this.BROWSE_FILTER_Y_SHIFT*Mideas.getDisplayYFactor());
+		this.browseBidButton.update(this.x_frame+this.BROWSE_BID_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.browseBuyoutButton.update(this.x_frame+this.BROWSE_BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.browseClose.update(this.x_frame+this.BROWSE_CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.browseFilterScrollbar.update(this.x_frame+this.BROWSE_FILTER_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_FILTER_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor());
+		this.shouldUpdate = false;
+	}
+	
+	protected void unexpandAllCategoryFilter() {
+		int i = -1;
+		while(++i < this.browseCategoryList.size()) {
+			this.browseCategoryList.get(i).unexpand();
+		}
+	}
+	
+	public boolean hasSearched() {
+		return this.hasSearched;
+	}
+	
+	public void setHasSearched(boolean we) {
+		this.hasSearched = we;
 	}
 	
 	public void setSelectedBrowseEntry(AuctionEntry entry) {
@@ -222,6 +309,8 @@ public class AuctionFrameUI {
 		while(++i < this.browseCategoryList.size()) {
 			count+= this.browseCategoryList.get(i).getNumberLine();
 		}
+		this.browserFilterNumberLine = (byte)count;
+		this.browseFilterScrollbar.onScroll();
 		if(this.browseFilterScrollbarEnabled) {
 			if(count > 15) {
 				return;
@@ -239,11 +328,11 @@ public class AuctionFrameUI {
 	}
 	
 	private void hideBrowseFilterScrollbar() {
-		this.browseFilterWidth = (short)(this.BROWSER_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
 	}
 	
 	private void showBrowseFilterScrollbar() {
-		this.browseFilterWidth = (short)(this.BROWSER_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
 	}
 	
 	private void buildBrowseFilterMenu() {
@@ -355,6 +444,7 @@ public class AuctionFrameUI {
 	
 	protected void frameClosed() {
 		Mideas.joueur1().getAuctionHouse().clearQueryList();
+		this.hasSearched = false;
 	}
 	
 	protected AuctionHouseFilter getSelectedFilter() {
