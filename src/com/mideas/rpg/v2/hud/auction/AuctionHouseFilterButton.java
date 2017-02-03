@@ -24,20 +24,20 @@ public class AuctionHouseFilterButton extends AuctionFrameUI {
 	
 	@Override
 	public void draw() {
-		Draw.drawQuad(Sprites.chat_channel_button, this.frame.getBrowseCategoryX(), this.frame.getBrowseCategoryY(), this.frame.getBrowseCategoryWidth(), this.frame.getBrowseCategoryHeight());
+		Draw.drawQuad(Sprites.chat_channel_button, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight(), .4f);
 		if(this.buttonDown) {
-			this.frame.browseCategoryFont.drawStringShadow(this.frame.getBrowseCategoryX()+10, this.frame.getBrowseCategoryY()+2*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+10, this.frame.getBrowseFilterY()+2*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.frame.browseCategoryFont.drawStringShadow(this.frame.getBrowseCategoryX()+8, this.frame.getBrowseCategoryY(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+8, this.frame.getBrowseFilterY(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		if(this.buttonHover) {
-			Draw.drawQuadBlend(Sprites.button_menu_hover, this.frame.getBrowseCategoryX(), this.frame.getBrowseCategoryY(), this.frame.getBrowseCategoryWidth(), this.frame.getBrowseCategoryHeight());
+			Draw.drawQuadBlend(Sprites.button_menu_hover, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
 		}
 	}
 	
 	public boolean event() {
-		if(Mideas.getHover() && Mideas.mouseX() >= this.frame.getBrowseCategoryX() && Mideas.mouseX() <= this.frame.getBrowseCategoryX()+this.frame.getBrowseCategoryWidth() && Mideas.mouseY() >= this.frame.getBrowseCategoryY() && Mideas.mouseY() <= this.frame.getBrowseCategoryY()+this.frame.getBrowseCategoryHeight()) {
+		if(Mideas.getHover() && Mideas.mouseX() >= this.frame.getBrowseFilterX() && Mideas.mouseX() <= this.frame.getBrowseFilterX()+this.frame.getBrowseFilterWidth() && Mideas.mouseY() >= this.frame.getBrowseFilterY() && Mideas.mouseY() <= this.frame.getBrowseFilterY()+this.frame.getBrowseFilterHeight()) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
 		}
@@ -52,8 +52,13 @@ public class AuctionHouseFilterButton extends AuctionFrameUI {
 			}
 			else if(this.buttonDown) {
 				if(Mouse.getEventButton() == 0) {
+					if(this.frame.getSelectedFilter() == this.filter) {
+						this.frame.setSelectedFilter(AuctionHouseFilter.NONE);
+					}
+					else {
+						this.frame.setSelectedFilter(this.filter);
+					}
 					this.buttonDown = false;
-					this.frame.setSelectedFilter(this.filter);
 					return true;
 				}
 				else if(Mouse.getEventButton() == 1) {

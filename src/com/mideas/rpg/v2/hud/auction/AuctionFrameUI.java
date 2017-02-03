@@ -13,49 +13,58 @@ import com.mideas.rpg.v2.utils.Button;
 
 public class AuctionFrameUI {
 
-	private int x_frame;
-	private int y_frame;
+	private short x_frame;
+	private short y_frame;
 	private AuctionFrameTab selectedTab = AuctionFrameTab.BROWSE;
 	private final ArrayList<AuctionCategoryFilterButton> browseCategoryList;
-	int browseSelectedItem = -1;
-	private int browseHoveredItem = -1;
+	AuctionEntry browseSelectedEntry;
 	private AuctionHouseFilter selectedFilter;
 	private AuctionHouseFilter selectedCategoryFilter;
-	protected final TTF browseCategoryFont;
-	private int browseCategoryX;
-	private int browseCategoryY;
-	private int browseCategoryYShift;
-	private int browseCategoryWidth;
-	private int browseCategoryHeight;
+	protected final TTF browseFilterFont;
+	private short browseFilterX;
+	private short browseFilterY;
+	private short browseFilterYSave;
+	private short browseFilterYShift;
+	private short browseFilterWidth;
+	private short browseFilterHeight;
+	private short browseItemY;
+	private short browseItemX;
+	private short browseItemWidth;
+	private short browseItemHeight;
+	private short browseItemYSave;
+	private short browseItemYShift;
 	private boolean shouldUpdate;
 	private boolean browseFilterScrollbarEnabled;
-	
-	private final int BROWSER_FILTER_WIDTH_NO_SCROLLBAR = 110;
-	private final int BROWSER_FILTER_WIDTH_SCROLLBAR = 90;
+
+	private final short BROWSE_FILTER_X = 50;
+	private final short BROWSE_FILTER_WIDTH = 100;
+	private final short BROWSE_FILTER_Y = 150;
+	private final short BROWSE_FILTER_Y_SHIFT = 20;
+	private final short BROWSER_FILTER_WIDTH_NO_SCROLLBAR = 110;
+	private final short BROWSER_FILTER_WIDTH_SCROLLBAR = 90;
 	
 	private final Button browseBidButton = new Button(this.x_frame, this.y_frame, 80*Mideas.getDisplayXFactor(), 22*Mideas.getDisplayYFactor(), "Bid", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
-			CommandAuction.makeABid(Mideas.joueur1().getAuctionHouse().getQueryEntry(AuctionFrameUI.this.browseSelectedItem), 1); //TODO: use input values
+			CommandAuction.makeABid(AuctionFrameUI.this.browseSelectedEntry, 1); //TODO: use input values
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			AuctionEntry entry = Mideas.joueur1().getAuctionHouse().getQueryEntry(AuctionFrameUI.this.browseSelectedItem);
-			return entry != null && entry.canBeBuy();
+			return AuctionFrameUI.this.browseSelectedEntry != null && AuctionFrameUI.this.browseSelectedEntry.canBeBuy();
 		}
 	};
 	private final Button browseBuyoutButton = new Button(this.x_frame, this.y_frame, 80*Mideas.getDisplayXFactor(), 22*Mideas.getDisplayYFactor(), "Buyout", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
-			CommandAuction.buyout(Mideas.joueur1().getAuctionHouse().getQueryEntry(AuctionFrameUI.this.browseSelectedItem));
+			CommandAuction.buyout(AuctionFrameUI.this.browseSelectedEntry);
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return AuctionFrameUI.this.browseSelectedItem != -1;
+			return AuctionFrameUI.this.browseSelectedEntry != null;
 		}
 	};
 	private final Button browseClose = new Button(this.x_frame, this.y_frame, 80*Mideas.getDisplayXFactor(), 22*Mideas.getDisplayYFactor(), "Close", 12, 1) {
@@ -68,8 +77,16 @@ public class AuctionFrameUI {
 	
 	public AuctionFrameUI() {
 		this.browseCategoryList = new ArrayList<AuctionCategoryFilterButton>();
-		this.browseCategoryFont = FontManager.get("FRIZQT", 12);
+		this.browseFilterX = (short)(this.BROWSE_FILTER_X*Mideas.getDisplayXFactor());
+		this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH*Mideas.getDisplayXFactor());
+		this.browseFilterYSave = (short)(this.BROWSE_FILTER_Y*Mideas.getDisplayYFactor());
+		this.browseFilterYShift = (short)(this.BROWSE_FILTER_Y_SHIFT*Mideas.getDisplayYFactor());
+		this.browseFilterFont = FontManager.get("FRIZQT", 12);
 		buildBrowseFilterMenu();
+	}
+	
+	public void sendSearchQuery() {
+		//CommandAuction.sendSearchQuery()
 	}
 	
 	public void draw() {
@@ -86,6 +103,7 @@ public class AuctionFrameUI {
 	}
 	
 	private void drawBrowseFrame() {
+		this.browseFilterY = this.browseFilterYSave;
 		this.browseBidButton.draw();
 		this.browseBuyoutButton.draw();
 		this.browseClose.draw();
@@ -93,6 +111,24 @@ public class AuctionFrameUI {
 		while(++i < this.browseCategoryList.size()) {
 			this.browseCategoryList.get(i).draw();
 		}
+		drawBrowseItem();
+	}
+	
+	private void drawBrowseItem() {
+		ArrayList<AuctionEntry> list = Mideas.joueur1().getAuctionHouse().getQueryList();
+		if(list.size() == 0) {
+			//TODO: write "no item found" or smth
+			return;
+		}
+		this.browseItemY = this.browseItemYSave;
+		int i = -1;
+		while(++i < list.size()) {
+			drawQueryItem(list.get(i));
+		}
+	}
+	
+	private static void drawQueryItem(AuctionEntry entry) {
+		
 	}
 	
 	private void drawBidsFrame() {
@@ -161,11 +197,19 @@ public class AuctionFrameUI {
 			return;
 		}
 		if(this.browseFilterScrollbarEnabled) {
-			this.browseCategoryWidth = (int)(this.BROWSER_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.browseFilterWidth = (short)(this.BROWSER_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
 		}
 		else {
-			this.browseCategoryWidth = (int)(this.BROWSER_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.browseFilterWidth = (short)(this.BROWSER_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
 		}
+	}
+	
+	public void setSelectedBrowseEntry(AuctionEntry entry) {
+		this.browseSelectedEntry = entry;
+	}
+	
+	public AuctionEntry getSelectedBrowseEntry() {
+		return this.browseSelectedEntry;
 	}
 	
 	public void shouldUpdate() {
@@ -195,11 +239,11 @@ public class AuctionFrameUI {
 	}
 	
 	private void hideBrowseFilterScrollbar() {
-		this.browseCategoryWidth = (int)(this.BROWSER_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.browseFilterWidth = (short)(this.BROWSER_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
 	}
 	
 	private void showBrowseFilterScrollbar() {
-		this.browseCategoryWidth = (int)(this.BROWSER_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.browseFilterWidth = (short)(this.BROWSER_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
 	}
 	
 	private void buildBrowseFilterMenu() {
@@ -329,27 +373,35 @@ public class AuctionFrameUI {
 		this.selectedCategoryFilter = filter;
 	}
 	
-	protected void incrementBrowseCateogryY() {
-		this.browseCategoryY+= this.browseCategoryYShift;
+	protected void incrementBrowseFilterY() {
+		this.browseFilterY+= this.browseFilterYShift;
 	}
 	
-	protected int getBrowseCategoryY() {
-		return this.browseCategoryY;
+	protected short getBrowseItemY() {
+		return this.browseItemY;
 	}
 	
-	protected int getBrowseCategoryX() {
-		return this.browseCategoryX;
+	protected void incrementBrowseItemY() {
+		this.browseItemY+= this.browseItemYShift;
 	}
 	
-	protected int getBrowseCategoryYShift() {
-		return this.browseCategoryYShift;
+	protected short getBrowseFilterY() {
+		return this.browseFilterY;
 	}
 	
-	protected int getBrowseCategoryWidth() {
-		return this.browseCategoryWidth;
+	protected short getBrowseFilterX() {
+		return this.browseFilterX;
 	}
 	
-	protected int getBrowseCategoryHeight() {
-		return this.browseCategoryHeight;
+	protected short getBrowseFilterYShift() {
+		return this.browseFilterYShift;
+	}
+	
+	protected short getBrowseFilterWidth() {
+		return this.browseFilterWidth;
+	}
+	
+	protected short getBrowseFilterHeight() {
+		return this.browseFilterHeight;
 	}
 }

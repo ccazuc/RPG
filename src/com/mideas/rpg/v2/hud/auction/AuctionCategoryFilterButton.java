@@ -29,17 +29,17 @@ public class AuctionCategoryFilterButton extends AuctionFrameUI {
 	
 	@Override
 	public void draw() {
-		Draw.drawQuad(Sprites.chat_channel_button, this.frame.getBrowseCategoryX(), this.frame.getBrowseCategoryY(), this.frame.getBrowseCategoryWidth(), this.frame.getBrowseCategoryHeight(), .4f);
+		Draw.drawQuad(Sprites.chat_channel_button, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
 		if(this.buttonDown) {
-			this.frame.browseCategoryFont.drawStringShadow(this.frame.getBrowseCategoryX()+10, this.frame.getBrowseCategoryY()+2*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+10, this.frame.getBrowseFilterY()+2*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.frame.browseCategoryFont.drawStringShadow(this.frame.getBrowseCategoryX()+8, this.frame.getBrowseCategoryY(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+8, this.frame.getBrowseFilterY(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		if(getSelectedCategoryFilter() == this.filter || this.buttonHover) {
-			Draw.drawQuadBlend(Sprites.button_menu_hover, this.frame.getBrowseCategoryX(), this.frame.getBrowseCategoryY(), this.frame.getBrowseCategoryWidth(), this.frame.getBrowseCategoryHeight());
+			Draw.drawQuadBlend(Sprites.button_menu_hover, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
 		}
-		this.frame.incrementBrowseCateogryY();
+		this.frame.incrementBrowseFilterY();
 		if(!this.isExpanded) {
 			return;
 		}
@@ -50,7 +50,7 @@ public class AuctionCategoryFilterButton extends AuctionFrameUI {
 	}
 	
 	protected boolean event() {
-		if(Mideas.getHover() && Mideas.mouseX() >= this.frame.getBrowseCategoryX() && Mideas.mouseX() <= this.frame.getBrowseCategoryX()+this.frame.getBrowseCategoryWidth() && Mideas.mouseY() >= this.frame.getBrowseCategoryY() && Mideas.mouseY() <= this.frame.getBrowseCategoryY()+this.frame.getBrowseCategoryYShift()) {
+		if(Mideas.getHover() && Mideas.mouseX() >= this.frame.getBrowseFilterX() && Mideas.mouseX() <= this.frame.getBrowseFilterX()+this.frame.getBrowseFilterWidth() && Mideas.mouseY() >= this.frame.getBrowseFilterY() && Mideas.mouseY() <= this.frame.getBrowseFilterY()+this.frame.getBrowseFilterYShift()) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
 		}

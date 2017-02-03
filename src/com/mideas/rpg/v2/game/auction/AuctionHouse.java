@@ -30,6 +30,10 @@ public class AuctionHouse {
 		return this.queryList.get(slot);
 	}
 	
+	public ArrayList<AuctionEntry> getQueryList() {
+		return this.queryList;
+	}
+	
 	public void addSoldItem(AuctionEntry entry) {
 		this.soldItemList.add(entry);
 	}

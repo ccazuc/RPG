@@ -354,6 +354,12 @@ public class Sprites {
 	public static Texture chat_logo_blizz;
 	public static Texture chat_channel_button;
 	public static Texture discussion_frame;
+	public static Texture auction_browse_frame;
+	public static Texture auction_bids_frame;
+	public static Texture auction_auctions_frame;
+	public static Texture auction_browse_item_left_border;
+	public static Texture auction_browse_item_middle_border;
+	public static Texture auction_browse_item_right_border;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -545,6 +551,12 @@ public class Sprites {
 		horizontal_bar_middle = new Texture("sprite/interface/horizontal_bar/middle_part.png");
 		horizontal_bar_right = new Texture("sprite/interface/horizontal_bar/right_part.png");
 		who_frame = new Texture("sprite/interface/social/who_frame.png");
+		auction_browse_frame = new Texture("sprite/interface/auction/browse_frame.png");
+		auction_bids_frame = new Texture("sprite/interface/auction/bids_frame.png");
+		auction_auctions_frame = new Texture("sprite/interface/auction/auctions_frame.png");
+		auction_browse_item_left_border = new Texture("sprite/interface/auction/browse_item_left_border.png");
+		auction_browse_item_middle_border = new Texture("sprite/interface/auction/browse_item_middle_border.png");
+		auction_browse_item_right_border = new Texture("sprite/interface/auction/browse_item_rightborder.png");
 		return true;
 	}
 		
