@@ -16,21 +16,30 @@ public class Container extends Item {
 	}
 	
 	public Container(Container bag) {
-		super(bag.id, bag.sprite_id, bag.itemType, bag.name, bag.level, bag.quality, bag.sellPrice, bag.maxStack, 1);
-		this.sprite_id = bag.sprite_id;
-		this.name = bag.name;
+		super(bag.id, bag.sprite_id, ItemType.CONTAINER, bag.name, bag.level, bag.quality, bag.sellPrice, bag.maxStack, 1);
 		this.size = bag.size;
-		this.id = bag.id;
-		this.container_slot_string = "Container "+Integer.toString(this.size)+" slots";
-		this.tooltip_maximum_size = Math.max(FontManager.get("FRIZQT", 14).getWidth(this.name), FontManager.get("FRIZQT", 14).getWidth(this.container_slot_string));
+		buildString();
 	}
 	
 	public Container(int id,  String name, String sprite_id, byte quality, byte size, int sellPrice) {
 		super(id, sprite_id, ItemType.CONTAINER, name, (byte)1, quality, sellPrice, 1, 1);
-		this.sprite_id = sprite_id;
-		this.name = name;
 		this.size = size;
-		this.id = id;
+		buildString();
+	}
+	
+	public void updateContainer(Container container) {
+		this.id = container.id;
+		this.sprite_id = container.sprite_id;
+		this.name = container.name;
+		this.level = container.level;
+		this.quality = container.quality;
+		this.sellPrice = container.sellPrice;
+		this.maxStack = container.maxStack;
+		this.size = container.size;
+		buildString();
+	}
+	
+	private void buildString() {
 		this.container_slot_string = "Container "+Integer.toString(this.size)+" slots";
 		this.tooltip_maximum_size = Math.max(FontManager.get("FRIZQT", 14).getWidth(this.name), FontManager.get("FRIZQT", 14).getWidth(this.container_slot_string));
 	}

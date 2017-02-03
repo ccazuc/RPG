@@ -728,6 +728,10 @@ public class Joueur extends Unit {
 		}
 	}
 	
+	public AuctionHouse getAuctionHouse() {
+		return this.auctionHouse;
+	}
+	
 	public void setParty(Party party) {
 		if(party == null) {
 			PartyFrame.setDisplayMember(-1);

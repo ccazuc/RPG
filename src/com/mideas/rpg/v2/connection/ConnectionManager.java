@@ -135,7 +135,7 @@ public class ConnectionManager {
 			authSocket = SocketChannel.open();
 			authSocket.socket().connect(new InetSocketAddress(IP, AUTH_PORT), 5000);
 			if(authSocket.isConnected()) {
-				authSocket.socket().setTcpNoDelay(false);
+				authSocket.socket().setTcpNoDelay(true);
 				authSocket.configureBlocking(false);
 				if(authServerConnection == null) {
 					authServerConnection = new Connection(authSocket);
@@ -168,7 +168,7 @@ public class ConnectionManager {
 			socket = SocketChannel.open();
 			socket.socket().connect(new InetSocketAddress(IP, port), 5000);
 			if(socket.isConnected()) {
-				socket.socket().setTcpNoDelay(false);
+				socket.socket().setTcpNoDelay(true);
 				socket.configureBlocking(false);
 				if(worldServerConnection == null) {
 					worldServerConnection = new Connection(socket);

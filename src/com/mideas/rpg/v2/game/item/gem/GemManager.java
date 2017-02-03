@@ -49,7 +49,13 @@ public class GemManager {
 	
 	public static void storeNewPiece(Gem gem) {
 		if(gem != null) {
-			gemList.put(gem.getId(), gem);
+			Gem tmp = gemList.get(gem.getId());
+			if(tmp != null && !tmp.getIsLoaded()) {
+				tmp.updateGem(gem);
+			}
+			else {
+				gemList.put(gem.getId(), gem);
+			}
 		}
 	}
 	

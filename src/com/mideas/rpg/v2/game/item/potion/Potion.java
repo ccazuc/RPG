@@ -42,6 +42,22 @@ public class Potion extends Item {
 		this.isLoaded = true;
 	}
 	
+	public void updatePotion(Potion potion) {
+		this.id = potion.id;
+		this.sprite_id = potion.sprite_id;
+		this.name = potion.name;
+		this.level = potion.level;
+		this.sellPrice = potion.sellPrice;
+		this.maxStack = potion.maxStack;
+		this.amount = potion.amount;
+		this.doHealString = potion.doHealString;
+		this.doManaString = potion.doManaString;
+		this.levelString = potion.levelString;
+		this.doHeal = potion.doHeal;
+		this.doMana = potion.doMana;
+		this.isLoaded = true;
+	}
+	
 	public void buildAllString() {
 		buildDoHealString();
 		buildDoManaString();

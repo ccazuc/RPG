@@ -47,7 +47,7 @@ public class CommandTrade extends Command {
 				int amount = ConnectionManager.getConnection().readInt();
 				int itemId = ConnectionManager.getConnection().readInt();
 				boolean hasGem = ConnectionManager.getConnection().readBoolean();
-				Item item = Item.getItem(itemId);
+				Item item = Item.getItem(itemId); //TODO: send ItemType and create corresponding temp item
 				if(hasGem) {
 					if(item == null) {
 						item = new Stuff(itemId);

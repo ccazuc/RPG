@@ -87,7 +87,7 @@ public class CommandLoadBagItems extends Command {
 			Mideas.joueur1().bag().setBag(index, WeaponManager.getClone(id));
 		}
 		else if(id != 0) {
-			Mideas.joueur1().bag().setBag(index, new Stuff(id));
+			Mideas.joueur1().bag().setBag(index, new Stuff(id, 0));
 			CommandRequestItem.write(new RequestItem(id, DragItem.BAG, index));
 		}
 		equipGem(index, 0, gem1Id);

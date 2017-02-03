@@ -107,9 +107,13 @@ public class Stuff extends Item {
 	private final static String staminaStrings = " Stamina";
 	private final static String strengthStrings = " Strength";
 	
-	public Stuff(int id) { //stuff created when waiting for the server to respond
+	public Stuff(int id) { //stuff created when waiting for the server to send stuff
 		super(id, empty, ItemType.STUFF, empty, (byte)1, (byte)0, 0, 1, 1);
 		this.sprite_id = empty;
+	}
+	
+	public Stuff(int id, int i) {
+		super(id, empty, ItemType.WEAPON, empty, (byte)1, (byte)0, 0, 1, 1);
 	}
 
 	public Stuff(Stuff stuff) {
@@ -137,6 +141,7 @@ public class Stuff extends Item {
 		this.type = stuff.type;
 		this.wear = stuff.wear;
 		this.mana = stuff.mana;
+		buildAllString();
 		this.isLoaded = true;
 	}
 	
@@ -222,6 +227,70 @@ public class Stuff extends Item {
 		buildCriticalString();
 		buildLevelString();
 		buildSellPriceString();
+	}
+	
+	public void updateStuff(Stuff stuff) {
+		if(stuff.isStuff()) {
+			this.socketBonusString = stuff.socketBonusString;
+			this.classRequirement = stuff.classRequirement;
+			this.criticalString = stuff.criticalString;
+			this.strengthString = stuff.strengthString;
+			this.staminaString = stuff.staminaString;
+			this.gemBonusValue = stuff.gemBonusValue;
+			this.numberGemSlot = stuff.numberGemSlot;
+			this.gemBonusType = stuff.gemBonusType;
+			this.armorString = stuff.armorString;
+			this.levelString = stuff.levelString;
+			this.gem1String = stuff.gem1String;
+			this.gem2String = stuff.gem2String;
+			this.gem3String = stuff.gem3String;
+			this.manaString = stuff.manaString;
+			this.classType = stuff.classType;
+			this.critical = stuff.critical;
+			this.strength = stuff.strength;
+			this.gemColor = stuff.gemColor;
+			this.stamina = stuff.stamina;
+			this.armor = stuff.armor;
+			this.type = stuff.type;
+			this.wear = stuff.wear;
+			this.mana = stuff.mana;
+			this.isLoaded = true;
+			buildAllString();
+		}
+		else if(stuff.isWeapon()) {
+			this.socketBonusString = stuff.socketBonusString;
+			this.classRequirement = stuff.classRequirement;
+			this.strengthString = stuff.strengthString;
+			this.criticalString = stuff.criticalString;
+			this.gemBonusValue = stuff.gemBonusValue;
+			this.numberGemSlot = stuff.numberGemSlot;
+			this.staminaString = stuff.staminaString;
+			this.gemBonusType = stuff.gemBonusType;
+			this.levelString = stuff.levelString;
+			this.armorString = stuff.armorString;
+			this.manaString = stuff.manaString;
+			this.gem1String = stuff.gem1String;
+			this.gem2String = stuff.gem2String;
+			this.gem3String = stuff.gem3String;
+			this.weaponType = stuff.weaponType;
+			this.weaponSlot = stuff.weaponSlot;
+			this.classType = stuff.classType;
+			this.critical = stuff.critical;
+			this.strength = stuff.strength;
+			this.stamina = stuff.stamina;
+			this.gemColor = stuff.gemColor;
+			this.armor = stuff.armor;
+			this.type = stuff.type;
+			this.mana = stuff.mana;
+			this.wear = stuff.wear;
+			this.isLoaded = true;
+		}
+		this.id = stuff.id;
+		this.sprite_id = stuff.sprite_id;
+		this.name = stuff.name;
+		this.level = stuff.level;
+		this.quality = stuff.quality;
+		this.sellPrice = stuff.sellPrice;
 	}
 
 	public boolean canWearWeapon() {

@@ -69,6 +69,9 @@ public class CommandRequestItem extends Command {
 		else if(slotType == DragItem.EQUIPPED_CONTAINER) {
 			Mideas.joueur1().bag().setEquippedBag(slot, (Container)item);
 		}
+		else if(slotType == DragItem.NONE) {
+			//do nothing
+		}
 		Item.storeItem(item);
 	}
 	

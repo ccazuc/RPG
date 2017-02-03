@@ -35,7 +35,13 @@ public class PotionManager {
 	
 	public static void storeNewPiece(Potion potion) {
 		if(potion != null) {
-			potionList.put(potion.getId(), potion);
+			Potion tmp = potionList.get(potion.getId());
+			if(tmp != null && !tmp.getIsLoaded()) {
+				tmp.updatePotion(potion);
+			}
+			else {
+				potionList.put(potion.getId(), potion);
+			}
 		}
 	}
 	

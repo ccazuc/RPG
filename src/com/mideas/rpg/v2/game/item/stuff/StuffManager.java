@@ -73,7 +73,13 @@ public class StuffManager {
 	
 	public static void storeNewPiece(Stuff stuff) {
 		if(stuff != null) {
-			stuffList.put(stuff.getId(), stuff);
+			Stuff tmp = stuffList.get(stuff.getId());
+			if(tmp != null && !tmp.getIsLoaded()) {
+				tmp.updateStuff(stuff);
+			}
+			else {
+				stuffList.put(stuff.getId(), stuff);
+			}
 		}
 	}
 	

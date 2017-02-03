@@ -8,6 +8,8 @@ public enum DragItem {
 	GUILDBANK((byte)3),
 	TRADE((byte)4),
 	EQUIPPED_CONTAINER((byte)5),
+	NONE((byte)6),
+	
 	;
 	
 	private final byte value;

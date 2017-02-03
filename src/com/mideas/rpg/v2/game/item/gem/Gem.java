@@ -5,11 +5,6 @@ import com.mideas.rpg.v2.game.item.ItemType;
 
 public class Gem extends Item {
 	
-	private int strength;
-	private int stamina;
-	private int mana;
-	private int armor;
-	private int critical;
 	private GemColor color;
 	private GemBonusType stat1Type;
 	private int stat1Value;
@@ -50,14 +45,17 @@ public class Gem extends Item {
 	}
 
 	public Gem(Gem gem) {
-		super(gem.id, gem.sprite_id, gem.itemType, gem.name, gem.level, gem.quality, gem.sellPrice, 1, 1);
+		super(gem.id, gem.sprite_id, ItemType.GEM, gem.name, gem.level, gem.quality, gem.sellPrice, 1, 1);
 		this.gemStatsString = gem.gemStatsString;
-		this.strength = gem.strength;
-		this.critical = gem.critical;
-		this.stamina = gem.stamina;
-		this.armor = gem.armor;
+		this.stat1Type = gem.stat1Type;
+		this.stat1Value = gem.stat1Value;
+		this.stat2Type = gem.stat2Type;
+		this.stat2Value = gem.stat2Value;
+		this.stat3Type = gem.stat3Type;
+		this.stat3Value = gem.stat3Value;
 		this.color = gem.color;
-		this.mana = gem.mana;
+		buildGemStatsString();
+		buildGemColorString();
 		this.isLoaded = true;
 	}
 	
@@ -73,6 +71,24 @@ public class Gem extends Item {
 		buildGemStatsString();
 		buildGemColorString();
 		this.isLoaded = true;
+	}
+	
+	public void updateGem(Gem gem) {
+		this.id = gem.id;
+		this.sprite_id = gem.sprite_id;
+		this.name = gem.name;
+		this.quality = gem.quality;
+		this.sellPrice = gem.sellPrice;
+		this.color = gem.color;
+		this.gemStatsString = gem.gemStatsString;
+		this.stat1Type = gem.stat1Type;
+		this.stat1Value = gem.stat1Value;
+		this.stat2Type = gem.stat2Type;
+		this.stat2Value = gem.stat2Value;
+		this.stat3Type = gem.stat3Type;
+		this.stat3Value = gem.stat3Value;
+		buildGemStatsString();
+		buildGemColorString();
 	}
 
 	public static String convGemBonusTypeToString(GemBonusType bonus) {
@@ -151,7 +167,7 @@ public class Gem extends Item {
 	private void buildGemStatsString() {
 		boolean stats = false;
 		StringBuilder result = new StringBuilder();
-		if(this.armor > 0) {
+		/*if(this.armor > 0) {
 			result.append(plus+this.armor+gemStatsArmor);
 			stats = true;
 		}
@@ -182,7 +198,7 @@ public class Gem extends Item {
 			}
 			result.append(plus+this.mana+gemStatsMana);
 			stats = true;
-		}
+		}*/
 		this.gemStatsString = result.toString();
 	}
 	
@@ -213,26 +229,6 @@ public class Gem extends Item {
 			return yellow;
 		}
 		return null;
-	}
-	
-	public int getStrength() {
-		return this.strength;
-	}
-	
-	public int getStamina() {
-		return this.stamina;
-	}
-	
-	public int getArmor() {
-		return this.armor;
-	}
-	
-	public int getMana() {
-		return this.mana;
-	}
-	
-	public int getCritical() {
-		return this.critical;
 	}
 	
 	public GemColor getColor() {

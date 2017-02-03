@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.command;
+/*package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
@@ -78,4 +78,4 @@ public class CommandLoadSpellbar extends Command {
 			CommandPotion.write(id);
 		}
 	}
-}
+}*/

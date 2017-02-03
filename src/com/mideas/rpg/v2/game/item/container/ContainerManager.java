@@ -36,7 +36,13 @@ public class ContainerManager {
 	
 	public static void storeNewPiece(Container container) {
 		if(container != null) {
-			containerList.put(container.getId(), container);
+			Container tmp = containerList.get(container.getId());
+			if(tmp != null && !tmp.getIsLoaded()) {
+				tmp.updateContainer(container);
+			}
+			else {
+				containerList.put(container.getId(), container);
+			}
 		}
 	}
 	

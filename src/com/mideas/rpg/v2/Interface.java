@@ -40,6 +40,7 @@ import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
+import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
 import com.mideas.rpg.v2.hud.social.OsefFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
@@ -71,6 +72,7 @@ public class Interface {
 	private static long dragMouseEventTime;
 	private static boolean hasLoggedInToAuth;
 	private static boolean isSpellbarFullyLoaded = true;
+	private static boolean auctionFrameActive;
 	private static boolean socketingFrameActive;
 	private static boolean socialFrameActive;
 	private static long time;
@@ -182,6 +184,9 @@ public class Interface {
 				if(tradeFrameActive) {
 					TradeFrame.draw();
 				}
+				if(auctionFrameActive) {
+					AuctionHouseFrame.draw();
+				}
 				ShortcutFrame.draw();
 				if(characterFrameActive) {
 					CharacterFrame.draw();
@@ -286,6 +291,11 @@ public class Interface {
 			}
 			if(PartyFrame.mouseEvent()) {
 				return true;
+			}
+			if(auctionFrameActive) {
+				if(AuctionHouseFrame.mouseEvent()) {
+					return true;
+				}
 			}
 			if(tradeFrameActive) {
 				if(TradeFrame.mouseEvent()) {
@@ -505,6 +515,11 @@ public class Interface {
 							return true;
 						}
 					}
+					if(auctionFrameActive) {
+						if(AuctionHouseFrame.keyboardEvent()) {
+							return true;
+						}
+					}
 					if(PopupFrame.keyEvent()) {
 						return true;
 					}
@@ -526,6 +541,13 @@ public class Interface {
 			}
 		}
 		return false;
+	}
+	
+	public static void closeAuctionFrame() {
+		if(auctionFrameActive) {
+			AuctionHouseFrame.frameClosed();
+		}
+		auctionFrameActive = false;
 	}
 	
 	public static boolean getTradeStatus() {

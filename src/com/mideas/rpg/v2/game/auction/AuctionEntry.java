@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.game.auction;
 
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.item.Item;
 
 public class AuctionEntry {
@@ -19,7 +20,7 @@ public class AuctionEntry {
 		this.item = item;
 		this.buyoutPrice = buyoutPrice;
 		this.bidPrice = bidPrice;
-		this.canBeBuy = buyoutPrice > 0;
+		this.canBeBuy = buyoutPrice > 0 && !sellerName.equals(Mideas.joueur1().getName());
 		this.duration = duration;
 	}
 	

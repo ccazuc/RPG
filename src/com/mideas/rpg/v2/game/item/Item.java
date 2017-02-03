@@ -2,6 +2,7 @@ package com.mideas.rpg.v2.game.item;
 
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
+import com.mideas.rpg.v2.game.item.container.Container;
 import com.mideas.rpg.v2.game.item.container.ContainerManager;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemManager;
@@ -186,25 +187,64 @@ public class Item implements Cloneable {
 		return null;
 	}
 	
+	public static Item getStoredItem(int id) {
+		if(ContainerManager.exists(id)) {
+			return ContainerManager.getContainer(id);
+		}
+		if(StuffManager.exists(id)) {
+			return StuffManager.getStuff(id);
+		}
+		if(WeaponManager.exists(id)) {
+			return WeaponManager.getWeapon(id);
+		}
+		if(GemManager.exists(id)) {
+			return GemManager.getGem(id);
+		}
+		if(PotionManager.exists(id)) {
+			return PotionManager.getPotion(id);
+		}
+		return null;
+	}
+	
 	public static void storeItem(Item item) {
 		if(item.isStuff()) {
 			StuffManager.storeNewPiece(new Stuff((Stuff)item));
-			return;
 		}
-		if(item.isWeapon()) {
+		else if(item.isWeapon()) {
 			WeaponManager.storeNewPiece(new Stuff((Stuff)item, 0));
-			return;
 		}
-		if(item.isGem()) {
+		else if(item.isGem()) {
 			GemManager.storeNewPiece(new Gem((Gem)item));
-			return;
 		}
-		if(item.isPotion()) {
+		else if(item.isPotion()) {
 			PotionManager.storeNewPiece(new Potion((Potion)item));
-			return;
 		}
-		if(item.isItem()) {
+		else if(item.isItem()) {
 			
+		}
+		else if(item.isContainer()) {
+			ContainerManager.storeNewPiece(new Container((Container)item));
+		}
+	}
+	
+	public static void storeTempItem(ItemType type, int itemID) {
+		if(type == ItemType.STUFF) {
+			StuffManager.storeNewPiece(new Stuff(itemID));
+		}
+		else if(type == ItemType.GEM) {
+			GemManager.storeNewPiece(new Gem(itemID));
+		}
+		else if(type == ItemType.ITEM) {
+			
+		}
+		else if(type == ItemType.POTION) {
+			PotionManager.storeNewPiece(new Potion(itemID));
+		}
+		else if(type == ItemType.WEAPON) {
+			WeaponManager.storeNewPiece(new Stuff(itemID, 0));
+		}
+		else if(type == ItemType.CONTAINER) {
+			ContainerManager.storeNewPiece(new Container(itemID, (byte)0));
 		}
 	}
 	

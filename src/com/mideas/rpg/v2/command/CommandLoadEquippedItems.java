@@ -81,7 +81,7 @@ public class CommandLoadEquippedItems extends Command {
 			gem3Id = ConnectionManager.getConnection().readInt();
 		}
 		if(!WeaponManager.exists(id) && id != 0) {
-			Mideas.joueur1().setStuff(index, new Stuff(id));
+			Mideas.joueur1().setStuff(index, new Stuff(id, 0));
 			CommandRequestItem.write(new RequestItem(id, DragItem.INVENTORY, index));
 		}
 		else if(id != 0) {
