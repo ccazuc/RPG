@@ -67,9 +67,7 @@ public class AuctionFrameUI {
 		
 		@Override
 		public void onScroll() {
-			System.out.println("Before : "+AuctionFrameUI.this.browserFilterScrollbarOffset+" "+AuctionFrameUI.this.browseFilterScrollbar.getScrollPercentage()+" "+AuctionFrameUI.this.browserFilterNumberLine);
 			AuctionFrameUI.this.browserFilterScrollbarOffset = (short)(AuctionFrameUI.this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor()*(AuctionFrameUI.this.browserFilterNumberLine-15)*AuctionFrameUI.this.browseFilterScrollbar.getScrollPercentage());
-			System.out.println("After : "+AuctionFrameUI.this.browserFilterScrollbarOffset+" "+AuctionFrameUI.this.browseFilterScrollbar.getScrollPercentage()+" "+AuctionFrameUI.this.browserFilterNumberLine);
 		}
 	};
 	private final Button browseBidButton = new Button(this.x_frame+this.BROWSE_BID_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Bid", 12, 1) {
@@ -176,8 +174,7 @@ public class AuctionFrameUI {
 		}
 		this.browseItemY = this.browseItemYSave;
 		int i = -1;
-		AuctionEntry entry;
-		while(++i < this.queryButtonList.size() && (entry = this.queryButtonList.get(i).getEntry()) != null) {
+		while(++i < this.queryButtonList.size() && this.queryButtonList.get(i).getEntry() != null) {
 			this.queryButtonList.get(i).draw();
 		}
 	}

@@ -55,6 +55,27 @@ DELETE FROM `account_banned`;
 /*!40000 ALTER TABLE `account_banned` ENABLE KEYS */;
 
 
+-- Export de la structure de table rpg. auction_entry
+DROP TABLE IF EXISTS `auction_entry`;
+CREATE TABLE IF NOT EXISTS `auction_entry` (
+  `entry_id` int(11) NOT NULL,
+  `faction` tinyint(4) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL,
+  `buyout_price` int(11) NOT NULL,
+  `bid_price` int(11) NOT NULL,
+  `initial_bid_price` int(11) NOT NULL,
+  `time_left` int(11) NOT NULL,
+  `last_bidder_id` int(11) NOT NULL,
+  PRIMARY KEY (`entry_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Export de données de la table rpg.auction_entry: ~0 rows (environ)
+DELETE FROM `auction_entry`;
+/*!40000 ALTER TABLE `auction_entry` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auction_entry` ENABLE KEYS */;
+
+
 -- Export de la structure de table rpg. aura
 DROP TABLE IF EXISTS `aura`;
 CREATE TABLE IF NOT EXISTS `aura` (
@@ -616,7 +637,7 @@ CREATE TABLE IF NOT EXISTS `character` (
 DELETE FROM `character`;
 /*!40000 ALTER TABLE `character` DISABLE KEYS */;
 INSERT INTO `character` (`account_id`, `character_id`, `name`, `class`, `race`, `experience`, `gold`, `online`, `last_login_timer`) VALUES
-	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 0, 1484974649247),
+	(1, 1, 'Mideas', 'WARRIOR', 'UNDEAD', 900000, 666, 1, 1486132250368),
 	(1, 2, 'Midelol', 'ROGUE', 'UNDEAD', 0, 0, 0, 1484100252455),
 	(1, 5, 'Test', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
 	(1, 6, 'Bla', 'WARRIOR', 'UNDEAD', 0, 1000000, 0, 0),
@@ -3460,7 +3481,7 @@ CREATE TABLE IF NOT EXISTS `craft_profession` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.craft_profession: ~1 rows (environ)
+-- Export de données de la table rpg.craft_profession: ~0 rows (environ)
 DELETE FROM `craft_profession`;
 /*!40000 ALTER TABLE `craft_profession` DISABLE KEYS */;
 INSERT INTO `craft_profession` (`id`, `name`, `category1`, `category2`, `category3`, `category4`, `category5`, `category6`, `category7`, `category8`) VALUES
@@ -3514,7 +3535,7 @@ CREATE TABLE IF NOT EXISTS `guild` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.guild: ~1 rows (environ)
+-- Export de données de la table rpg.guild: ~0 rows (environ)
 DELETE FROM `guild`;
 /*!40000 ALTER TABLE `guild` DISABLE KEYS */;
 INSERT INTO `guild` (`id`, `name`, `leader_id`, `information`, `motd`) VALUES
@@ -3546,7 +3567,7 @@ DROP TABLE IF EXISTS `guild_member`;
 CREATE TABLE IF NOT EXISTS `guild_member` (
   `guild_id` mediumint(9) NOT NULL,
   `member_id` mediumint(9) NOT NULL,
-  `rank` tinyint(4) NOT NULL,
+  `rank` mediumint(9) NOT NULL,
   `note` varchar(50) NOT NULL DEFAULT '',
   `officer_note` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`guild_id`,`member_id`)
@@ -3664,7 +3685,7 @@ CREATE TABLE IF NOT EXISTS `item_potion` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Export de données de la table rpg.item_potion: ~1 rows (environ)
+-- Export de données de la table rpg.item_potion: ~0 rows (environ)
 DELETE FROM `item_potion`;
 /*!40000 ALTER TABLE `item_potion` DISABLE KEYS */;
 INSERT INTO `item_potion` (`id`, `sprite_id`, `name`, `level`, `heal`, `mana`, `sellprice`) VALUES
