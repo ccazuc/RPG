@@ -776,13 +776,13 @@ public class ChatFrame {
 			x+= FontManager.chat.getWidth(text.charAt(i));
 			if(text.charAt(i) == '\n') {
 				line++;
-				x = 0;
+				x = 10;
 			}
 			//System.out.println("Char : "+text.charAt(i)+" "+x+" "+(maxLength-10));
 			if(x > maxLength-10) {
 				//System.out.println(text.charAt(i));
 				int previousSpace = checkPreviousSpace(message.getMessage(), i, lastSubStr);
-				if(previousSpace == -1) {
+				if(previousSpace == -1) {								//Case where the message is a long line without any space in it
 					builder.append('\n');
 					builder.append(getMessageThreeDots(message.getMessage(), lastSubStr));
 					message.setDrawMessage(builder.toString());
@@ -796,7 +796,7 @@ public class ChatFrame {
 					//System.out.println("SubSequence : "+builder.subSequence(lastSubStr-1, lastSubStr)+" "+builder.subSequence(lastSubStr, lastSubStr+1));
 					String tmp = builder.toString();
 					//System.out.println((tmp.charAt(lastSubStr) == '\n')+" "+(tmp.charAt(lastSubStr-1) == '\n')+" "+(tmp.charAt(lastSubStr+1) == '\n'));
-					if(tmp.charAt(lastSubStr) != '\n' && tmp.charAt(lastSubStr+1) != '\n') {
+					if(tmp.charAt(lastSubStr) != '\n' && lastSubStr+1 < tmp.length() && tmp.charAt(lastSubStr+1) != '\n') {
 						builder.append('\n');
 						line++;
 					}
@@ -811,7 +811,7 @@ public class ChatFrame {
 					builder.append('\n');
 					line++;
 				}
-				x = FontManager.chat.getWidth(text.substring(previousSpace, i));
+				x = FontManager.chat.getWidth(text.substring(previousSpace, i))+10;
 			}
 			i++;
 		}
