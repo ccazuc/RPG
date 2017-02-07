@@ -633,9 +633,9 @@ public class Sprites {
 		guild_frame = new Texture("sprite/interface/social/guild_frame.png");
 		guild_close_information_button_border = new Texture("sprite/interface/social/guild_close_information_button_border.png");
 		guild_member_display_button_border = new Texture("sprite/interface/social/guild_member_display_button_border.png");
-		edit_box_left_border = new Texture("sprite/interface/edit_box/left_border.png");
-		edit_box_middle_border = new Texture("sprite/interface/edit_box/middle_border.png");
-		edit_box_right_border = new Texture("sprite/interface/edit_box/right_border.png");
+		edit_box_left_border = new Texture("sprite/interface/edit_box/left_border_good.png");
+		edit_box_middle_border = new Texture("sprite/interface/edit_box/middle_border_good.png");
+		edit_box_right_border = new Texture("sprite/interface/edit_box/right_border_good.png");
 		button_menu_sort_left_part = new Texture("sprite/interface/button_menu_sort/left_part.png");
 		button_menu_sort_middle_part = new Texture("sprite/interface/button_menu_sort/middle_part.png");
 		button_menu_sort_right_part = new Texture("sprite/interface/button_menu_sort/right_part.png");

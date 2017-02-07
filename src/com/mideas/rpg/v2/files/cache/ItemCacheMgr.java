@@ -77,15 +77,17 @@ public class ItemCacheMgr {
 	}
 	
 	public static void readItemCache() {
+		FileChannel fc = null;
 		try {
 			checkFileStatus();
-			FileChannel fc = (FileChannel) Files.newByteChannel(Paths.get(FILE_PATH), StandardOpenOption.READ);
+			fc = (FileChannel) Files.newByteChannel(Paths.get(FILE_PATH), StandardOpenOption.READ);
 			readBufferHeader.setOrder(ByteOrder.BIG_ENDIAN);
 			fc.read(readBufferHeader.getBuffer());
 			readBufferHeader.flip();
 			int i = 0;
 			while(i < HEADER_SIGNATURE.length) {
 				if(readBufferHeader.readByte() != HEADER_SIGNATURE[i]) {
+					fc.close();
 					clearFile();
 					return;
 				}
@@ -115,8 +117,12 @@ public class ItemCacheMgr {
 				}
 				else {
 					System.out.println("Error type not found on read "+FILE_PATH);
+					fc.close();
+					clearFile();
+					return;
 				}
  			}
+			fc.close();
 		}
 		catch(RuntimeException e) {
 			System.out.println("READ ERROR IN "+FILE_PATH+", clearing file.");
@@ -127,6 +133,16 @@ public class ItemCacheMgr {
 			System.out.println("READ ERROR IN "+FILE_PATH+", clearing file.");
 			e.printStackTrace();
 			clearFile();
+		}
+		finally {
+			if(fc != null) {
+				try {
+					fc.close();
+				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -157,9 +173,11 @@ public class ItemCacheMgr {
 	private static void clearFile() {
 		FileChannel out;
 		writeBuffer.clear();
-		writeBuffer.flip();
-		checkFileStatus();
 		try {
+			writeHeader();
+			writeBuffer.writeInt(writeBuffer.position());
+			writeBuffer.flip();
+			writeBuffer.setOrder(ByteOrder.LITTLE_ENDIAN);
 			FileOutputStream outputStream = new FileOutputStream(FILE_PATH);
 			out = outputStream.getChannel();
 			out.write(writeBuffer.getBuffer());
@@ -170,33 +188,4 @@ public class ItemCacheMgr {
 			e.printStackTrace();
 		}
 	}
-	
-	/*private static int getStuffSize(Stuff stuff) {
-		int size = 50+stuff.getClassType().length+getStringSize(stuff.getStuffName())+getStringSize(stuff.getSpriteId());
-		return size;
-	}
-	
-	private static int getWeaponSize(Stuff weapon) {
-		int size = 50+weapon.getClassType().length+getStringSize(weapon.getStuffName())+getStringSize(weapon.getSpriteId());
-		return size;
-	}
-	
-	private static int getPotionSize(Potion potion) {
-		int size = 24+getStringSize(potion.getStuffName())+getStringSize(potion.getSpriteId());
-		return size;
-	}
-	
-	private static int getContainerSize(Container container) {
-		int size = 16+getStringSize(container.getStuffName())+getStringSize(container.getSpriteId());
-		return size;
-	}
-	
-	private static int getGemSize(Gem gem) {
-		int size = 34+getStringSize(gem.getStuffName())+getStringSize(gem.getSpriteId());
-		return size;
-	}
-	
-	private static int getStringSize(String str) {
-		return 2+str.length()*2;
-	}*/
 }

@@ -71,12 +71,12 @@ public final class TTF {
 	
 	private final void loadFontMetrics() {
 		final Graphics2D graphics = (Graphics2D)new BufferedImage(1, 1, BufferedImage.TYPE_BYTE_GRAY/*TYPE_INT_ARGB*/).getGraphics();
+		graphics.setFont(this.font);
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	   	graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 	   	graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 	   	graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 	   	graphics.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-		graphics.setFont(this.font);
 		this.fontMetrics = graphics.getFontMetrics();
 	}
 	
@@ -84,13 +84,13 @@ public final class TTF {
 		try {
 			final BufferedImage imgTemp = new BufferedImage(this.textureWidth, this.textureHeight, BufferedImage.TYPE_BYTE_GRAY/*.TYPE_INT_ARGB*/);
 			final Graphics2D graphics = (Graphics2D)imgTemp.getGraphics();
+		   	graphics.setFont(this.font);
+		   	graphics.setColor(java.awt.Color.WHITE);
 		   	graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		   	graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		   	graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		   	graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 		   	graphics.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-		   	graphics.setFont(this.font);
-		   	graphics.setColor(java.awt.Color.WHITE);
 			int positionX = 0;
 			int positionY = 0;
 			int i = -1;

@@ -92,6 +92,10 @@ public class SpellBarFrame {
 	}
 	
 	public static boolean mouseEvent() {
+		if(!init) {
+			createSpellbarButton();
+			init = true;
+		}
 		int i = 0;
 		while(i < buttonList.length) {
 			if(buttonList[i].mouseEvent()) {

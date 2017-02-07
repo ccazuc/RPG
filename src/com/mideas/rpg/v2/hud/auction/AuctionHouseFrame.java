@@ -20,7 +20,15 @@ public class AuctionHouseFrame {
 		frame.frameClosed();
 	}
 	
+	public static void queryReceived() {
+		frame.queryReceived();
+	}
+	
 	public static void shouldUpdate() {
 		frame.shouldUpdate();
+	}
+	
+	public static void buildResultString(byte result, int totalResult, short page) {
+		frame.buildResultString(result, totalResult, page);
 	}
 }

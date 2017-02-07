@@ -10,7 +10,7 @@ public class Color {
 	public final static Color LIGHTGREY = new Color(.75f, .75f, .75f);
 	//public final static Color GREY = new Color(.5f, .5f, .5f);
 	public final static Color GREY = new Color(.5f, .5f, .5f);
-	public final static Color DARKGREY = new Color(.25f, .25f, .25f);
+	public final static Color DARKGREY = new Color(.3f, .3f, .3f);
 	public final static Color BLACK = new Color(0, 0, 0);
 	public final static Color LIGHTRED = new Color(1, .25f, .25f);
 	public final static Color RED = new Color(1, 0, 0);

@@ -4,20 +4,23 @@ import org.lwjgl.input.Keyboard;
 
 import com.mideas.rpg.v2.TTF;
 
-public class IntegerInput {
-
-	private String text = "";
-	private int cursorPosition;
-	private int cursorShift;
-	private TTF font;
-	private int maxLength;
+public class IntegerInput extends Input {
+	
+	private int textValue;
 	
 	public IntegerInput(TTF font, int maxLength) {
-		this.font = font;
-		this.maxLength = maxLength;
+		super(font, maxLength, false, false);
 	}
 	
+	public IntegerInput(TTF font, float x, float y, int maxLength, float maxWidth, float cursorWidth, float cursorHeight) {
+		super(font, maxLength, false, x, y, maxWidth, cursorWidth, cursorHeight, "");
+	}
+	
+	@Override
 	public boolean event() {
+		if(!this.isActive) {
+			return false;
+		}
 		if(Keyboard.getEventKey() == 0) {
 			return false;
 		}
@@ -46,28 +49,28 @@ public class IntegerInput {
 		return false;
 	}
 	
-	public int maximumValue() {
-		return 99;
-	}
+	public boolean checkValue(int value) {return true;}
 	
 	public void write(char c) {
 		if(!StringUtils.isInteger(c)) {
 			return;
+		} 
+		String tmp;
+		System.out.println(this.cursorPosition+" "+this.text.length()+" "+this.text);
+		if(this.cursorPosition != this.text.length() && this.text.length() > 0) {
+			tmp = this.text.substring(0, this.cursorPosition)+c+this.text.substring(this.cursorPosition);
 		}
-		if(Integer.parseInt(this.text+c) <= maximumValue()) {
-			if(this.cursorPosition != this.text.length()) {
-				this.text = this.text.substring(0, this.cursorPosition)+c+this.text.substring(this.cursorPosition);
-			}
-			else {
-				this.text+= c;
-			}
+		else {
+			tmp = this.text+c;
+		}
+		System.out.println(tmp);
+		int tmpValue = Integer.parseInt(tmp);
+		if(checkValue(tmpValue)) {
+			this.text = tmp;
+			this.textValue = tmpValue;
 			this.cursorPosition++;
-			this.cursorShift+= this.font.getWidth(c);
+			this.cursorShift = this.font.getWidth(tmp);
 		}
-	}
-	
-	public String getText() {
-		return this.text;
 	}
 	
 	public void setText(char c) {
@@ -76,6 +79,7 @@ public class IntegerInput {
 		this.cursorPosition = this.text.length();
 	}
 	
+	@Override
 	public void setText(String s) {
 		this.text = s;
 		checkLength();
@@ -88,14 +92,15 @@ public class IntegerInput {
 		this.cursorPosition = this.text.length();
 	}
 	
-	public int getCursorShift() {
-		return this.cursorShift;
-	}
-	
 	private void checkLength() {
 		if(this.text.length() > this.maxLength) {
 			this.text = this.text.substring(0, this.maxLength);
 		}
+	}
+	
+	@Override
+	public int getTextValue() {
+		return this.textValue;
 	}
 	
 	private void delete() {

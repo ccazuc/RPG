@@ -15,27 +15,29 @@ import com.mideas.rpg.v2.chat.ChatFrame;
 
 public class Input {
 
-	private String text = "";
-	private int cursorPosition;
-	private int cursorShift;
-	private int tempLength;
-	private int selectedLength;
-	private int selectedQuadLength;
-	private int selectedStarts;
-	private int cursorHeight;
-	private TTF font;
-	private int maxLength;
-	private boolean isActive;
-	private boolean multipleLine;
-	private boolean debugActive;
-	private float xDefault;
-	private float xDraw;
-	private long lastWrite;
-	private long writeTickTimerActivation = 500;
-	private float y;
-	private float maxWidth = 100;
+	protected final String defaultText;
+	protected String text = "";
+	protected int cursorPosition;
+	protected int cursorShift;
+	protected int tempLength;
+	protected int selectedLength;
+	protected int selectedQuadLength;
+	protected int selectedStarts;
+	protected int cursorHeight;
+	protected int cursorWidth;
+	protected TTF font;
+	protected int maxLength;
+	protected boolean isActive;
+	protected boolean multipleLine;
+	protected boolean debugActive;
+	protected float xDefault;
+	protected float xDraw;
+	protected long lastWrite;
+	protected long writeTickTimerActivation = 500;
+	protected float y;
+	protected float maxWidth = 100;
 	private final static ArrayList<Input> inputList = new ArrayList<Input>();
-	private static Input activatedInput;
+	protected static Input activatedInput;
 	
 	public final static int ESCAPE_CHAR_VALUE = 27;
 	public final static int ENTER_CHAR_VALUE = 13;
@@ -50,16 +52,19 @@ public class Input {
 		this.xDefault = x;
 		this.font = font;
 		this.y = y;
+		this.defaultText = "";
 	}
 	
-	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, int cursorHeight) {
-		this.cursorHeight = cursorHeight;
+	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, float cursorWidth, float cursorHeight, String defaultText) {
+		this.cursorHeight = (int)cursorHeight;
+		this.cursorWidth = (int)cursorWidth;
 		this.multipleLine = multipleLine;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
 		inputList.add(this);
 		this.xDefault = x;
 		this.font = font;
+		this.defaultText = defaultText;
 		this.y = y;
 	}
 	
@@ -72,6 +77,7 @@ public class Input {
 		inputList.add(this);
 		this.xDefault = x;
 		this.font = font;
+		this.defaultText = "";
 		this.y = y;
 	}
 	
@@ -82,6 +88,7 @@ public class Input {
 		setIsActive(isActive);
 		inputList.add(this);
 		this.font = font;
+		this.defaultText = "";
 	}
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, boolean debugActive) {
@@ -100,7 +107,11 @@ public class Input {
 		else {
 			float x = this.xDraw+this.xDefault;
 			this.font.drawBegin();
-			while(i < this.text.length()) {
+			if(this.text.length() == 0) {
+				this.font.drawStringShadowPart(x, this.y, this.defaultText, Color.DARKGREY, Color.BLACK, 1, 0, 0);
+			}
+			else {
+				while(i < this.text.length()) {
 				if(x >= this.xDefault) {
 					this.font.drawCharPart(x+1, this.y, this.text.charAt(i), Color.BLACK);
 					this.font.drawCharPart(x, this.y, this.text.charAt(i), Color.WHITE);
@@ -110,13 +121,14 @@ public class Input {
 					break;
 				}
 				i++;
+				}
 			}
 			this.font.drawEnd();
 			if(!this.isActive) {
 				return;
 			}
 			if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) {
-				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y, 6*Mideas.getDisplayXFactor(), this.cursorHeight*Mideas.getDisplayYFactor(), Color.WHITE);
+				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y+1, this.cursorWidth, this.cursorHeight, Color.WHITE);
 			}
 		}
 	}
@@ -240,6 +252,14 @@ public class Input {
 		this.maxWidth = maxWidth;
 	}
 	
+	public void update(float x, float y, float maxWidth, float cursorWidth, float cursorHeight) {
+		this.xDefault = x;
+		this.y = y;
+		this.maxWidth = maxWidth;
+		this.cursorWidth = (int)cursorWidth;
+		this.cursorHeight = (int)cursorHeight;
+	}
+	
 	public void setMaxLength(int maxLength) {
 		this.maxLength = maxLength;
 	}
@@ -304,6 +324,10 @@ public class Input {
 		shiftTextLeft();
 	}
 	
+	public int getTextValue() {
+		return 0;
+	}
+	
 	public void resetText() {
 		this.text = "";
 		this.cursorPosition = 0;
@@ -339,27 +363,28 @@ public class Input {
 	private void shiftTextLeft() {
 		if(this.cursorShift+this.xDraw > this.maxWidth && this.cursorPosition <= this.text.length()) {
 			float shiftWidth = this.maxWidth/2;
-			int i = this.cursorPosition-1;
+			int i = this.cursorPosition;
 			int shift = 0;
-			while(i >= 0 && shift < shiftWidth) {
+			while(--i >= 0 && shift < shiftWidth) {
 				this.xDraw-= this.font.getWidth(this.text.charAt(i));
 				shift+= this.font.getWidth(this.text.charAt(i));
-				i--;
 			}
 			shiftTextLeft();
+		}
+		else if(this.text.length() == 0) {
+			this.xDraw = 0;
 		}
 	}
 	
 	private void shiftTextRight() {
 		//System.out.println(this.cursorShift+" "+this.xDraw+" "+this.xDefault+" "+this.cursorPosition+" RIGHT "+(this.cursorShift+this.xDraw < 0));
-		if(this.cursorShift+this.xDraw < 0 && this.cursorPosition >= 0 && this.text.length() != 0) {
+		if(this.cursorShift+this.xDraw < 0 && this.cursorPosition > 0 && this.text.length() != 0) {
 			int i = this.cursorPosition;
 			float shiftWidth = this.maxWidth/2;
 			int shift = 0;
-			while(i >= 0 && shift < shiftWidth && this.text.length() > 0) {
+			while(--i >= 0 && shift < shiftWidth) {
 				this.xDraw+= this.font.getWidth(this.text.charAt(i));
 				shift+= this.font.getWidth(this.text.charAt(i));
-				i--;
 			}
 			shiftTextRight();
 		}

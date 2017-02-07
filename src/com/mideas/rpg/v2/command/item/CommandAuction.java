@@ -6,10 +6,14 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.auction.AuctionEntry;
 import com.mideas.rpg.v2.game.auction.AuctionHouseLeftDuration;
+import com.mideas.rpg.v2.game.auction.AuctionHouseSort;
+import com.mideas.rpg.v2.game.auction.AuctionHouseFilter;
+import com.mideas.rpg.v2.game.auction.AuctionHouseQualityFilter;
 import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.RequestItem;
+import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
 
 public class CommandAuction extends Command {
 
@@ -17,12 +21,16 @@ public class CommandAuction extends Command {
 	public void read() {
 		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.AUCTION_SEARCH_QUERY) {
-			Mideas.joueur1().getAuctionHouse().clearQueryList();
+			System.out.println("Query received");
+			Mideas.joueur1().getAuctionHouse().queryReceived();
 			boolean itemFound = ConnectionManager.getConnection().readBoolean();
 			if(!itemFound) {
 				return;
 			}
+			int amountTotalResult = ConnectionManager.getConnection().readInt();
+			short page = ConnectionManager.getConnection().readShort();
 			byte amountResult = ConnectionManager.getConnection().readByte();
+			AuctionHouseFrame.buildResultString(amountResult, amountTotalResult, page);
 			int i = -1;
 			while(++i < amountResult) {
 				int entryID = ConnectionManager.getConnection().readInt();
@@ -71,6 +79,23 @@ public class CommandAuction extends Command {
 				Mideas.joueur1().getAuctionHouse().addSoldItem(new AuctionEntry(entryID, buyerName, item, buyoutPrice, bidPrice, duration));
 			}
 		}
+	}
+	
+	public static void sendQuery(AuctionHouseFilter filter, AuctionHouseSort sort, AuctionHouseQualityFilter qualityFilter, String word, short page, boolean isUsable, short minLevel, short maxLevel, boolean exactWord) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.AUCTION);
+		ConnectionManager.getConnection().writeShort(PacketID.AUCTION_SEARCH_QUERY);
+		ConnectionManager.getConnection().writeByte(filter.getValue());
+		ConnectionManager.getConnection().writeByte(qualityFilter.getValue());
+		ConnectionManager.getConnection().writeByte(sort.getValue());
+		ConnectionManager.getConnection().writeShort(page);
+		ConnectionManager.getConnection().writeBoolean(isUsable);
+		ConnectionManager.getConnection().writeShort(minLevel);
+		ConnectionManager.getConnection().writeShort(maxLevel);
+		ConnectionManager.getConnection().writeBoolean(exactWord);
+		ConnectionManager.getConnection().writeString(word);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
 	}
 	
  	public static void makeABid(AuctionEntry entry, int bid) {

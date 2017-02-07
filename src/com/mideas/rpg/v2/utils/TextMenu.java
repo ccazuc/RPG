@@ -71,14 +71,14 @@ public class TextMenu {
 	
 	private void draw(float x, float y) {
 		if(!activateCondition()) {
-			this.font.drawStringShadow(x+this.textShift, y, this.text, Color.GREY, Color.BLACK, this.shadow_size, 0, 0);
+			this.font.drawStringShadow(x+this.textShift, y+2, this.text, Color.GREY, Color.BLACK, this.shadow_size, 0, 0);
 			return;
 		}
 		if(this.buttonDown) {
-			this.font.drawStringShadow(x+2+this.textShift, y+2, this.text, Color.WHITE, Color.BLACK, this.shadow_size, 0, 0);
+			this.font.drawStringShadow(x+2+this.textShift, y+4, this.text, Color.WHITE, Color.BLACK, this.shadow_size, 0, 0);
 		}
 		else {
-			this.font.drawStringShadow(x+this.textShift, y, this.text, Color.WHITE, Color.BLACK, this.shadow_size, 0, 0);
+			this.font.drawStringShadow(x+this.textShift, y+2, this.text, Color.WHITE, Color.BLACK, this.shadow_size, 0, 0);
 		}
 		if(this.buttonHover) {
 			Draw.drawQuadBlend(Sprites.text_menu_hover, x, y+2, this.x_size, Sprites.text_menu_hover.getImageHeight()*Mideas.getDisplayYFactor());
@@ -102,7 +102,7 @@ public class TextMenu {
 	}
 	
 	private boolean eventHandler(int x, int y) {
-		if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+this.x_size && Mideas.mouseY() >= y && Mideas.mouseY() <= y+this.font.getLineHeight()+1) {
+		if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+this.x_size && Mideas.mouseY() >= y+2 && Mideas.mouseY() <= y+Sprites.text_menu_hover.getImageHeight()*Mideas.getDisplayYFactor()+3) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
 		}

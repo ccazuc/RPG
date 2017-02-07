@@ -2,6 +2,8 @@ package com.mideas.rpg.v2.game.auction;
 
 import java.util.ArrayList;
 
+import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
+
 public class AuctionHouse {
 
 	private final ArrayList<AuctionEntry> queryList;
@@ -16,6 +18,11 @@ public class AuctionHouse {
 	
 	public void clearQueryList() {
 		this.queryList.clear();
+	}
+	
+	public void queryReceived() {
+		clearQueryList();
+		AuctionHouseFrame.queryReceived();
 	}
 	
 	public void clearSoldItemList() {

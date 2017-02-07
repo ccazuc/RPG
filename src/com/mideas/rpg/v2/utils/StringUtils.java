@@ -39,6 +39,10 @@ public class StringUtils {
 		return c >= 'a' && c <= 'z' ? (char)(c-32) : c;
 	}
 	
+	public static int charToInt(char c) {
+		return c-48;
+	}
+	
 	public static String convertTimeToStringimple(long delta) {
 		String result = null;
 		if(delta >= MS_IN_A_YEAR) {

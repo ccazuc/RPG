@@ -113,7 +113,7 @@ public class GuildFrame {
 			return false;
 		}
 	};
-	final static EditBox rankNameEditBox = new EditBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, FontManager.get("FRIZQT", 13), .5f) {
+	final static EditBox rankNameEditBox = new EditBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, 3, 100*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 13), false) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -1225,7 +1225,7 @@ public class GuildFrame {
 		canEditOfficerNoteCheckBox.update(X_SOCIAL_FRAME+MANAGE_FRAME_CHECKBOX_RIGHT_SIDE*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+241*Mideas.getDisplayYFactor(), 15*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 		memberScrollBar.update(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 240*Mideas.getDisplayYFactor(), 365*Mideas.getDisplayXFactor(), 260*Mideas.getDisplayYFactor(), 18*Mideas.getDisplayYFactor());
 		manageRankDropDownMenu.update(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor());
-		rankNameEditBox.update(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor());
+		rankNameEditBox.update(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor());
 		manageRankAcceptButton.update(X_SOCIAL_FRAME+537*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor(), 88*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor());
 		manageRankCloseFrameButton.update(X_SOCIAL_FRAME+630*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor(), 84*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor());
 		sortByNameButton.update(X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_SORT_Y*Mideas.getDisplayYFactor(), 94*Mideas.getDisplayXFactor());

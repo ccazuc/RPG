@@ -8,41 +8,65 @@ import org.lwjgl.input.Mouse;
 
 public class EditBox {
 
-	protected Input input;
+	private final short textOffset;
+	private final short cursorWidth;
+	private final short cursorHeight;
+	private final short inputMaxWidth;
+	private final short xSizeSave;
+	protected final Input input;
 	private int x;
 	private int y;
 	private int x_size;
-	private TTF font;
 	private boolean buttonDown;
 	private boolean buttonHover;
-	private Color bgColor;
 	
-	public EditBox(float x, float y, float x_size, int maxLength, TTF font, float opacity) {
+	public EditBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText) {
 		this.x = (int)x;
 		this.y = (int)y;
-		this.x_size = (int)x_size;
-		this.input = new Input(font, maxLength, false, false) {
-			
-			@Override
-			public boolean keyEvent(char c) {
-				return EditBox.this.keyEvent(c);
-			}
-		};
-		this.font = font;
-		this.bgColor = new Color(0, 0, 0, opacity);
+		this.xSizeSave = (short)x_size;
+		this.x_size = (int)(x_size*Mideas.getDisplayXFactor());
+		this.textOffset = (short)textOffset;
+		this.cursorWidth = (short)cursorWidth;
+		this.cursorHeight = (short)cursorHeight;
+		this.inputMaxWidth = (short)inputMaxWidth;
+		if(isIntegerInput) {
+			this.input = new IntegerInput(font, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth*Mideas.getDisplayXFactor(), cursorHeight*Mideas.getDisplayYFactor()) {
+				
+				@Override
+				public boolean checkValue(int value) {
+					return EditBox.this.checkValue(value);
+				}
+				
+				@Override
+				public boolean keyEvent(char c) {
+					return EditBox.this.keyEvent(c);
+				}
+			};
+		}
+		else {
+			this.input = new Input(font, inputMaxLength, false, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth*Mideas.getDisplayXFactor(), cursorHeight*Mideas.getDisplayYFactor(), defaultText) {
+				
+				@Override
+				public boolean keyEvent(char c) {
+					return EditBox.this.keyEvent(c);
+				}
+			};
+		}
+	}
+	
+	public EditBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput) {
+		this(x, y, x_size, inputMaxLength, textOffset, inputMaxWidth, font, isIntegerInput, 2, 13, "");
 	}
 	
 	public void draw() {
 		int imageWidth = Sprites.edit_box_left_border.getImageWidth();
 		int imageHeight = (int)(Sprites.edit_box_left_border.getImageHeight()*Mideas.getDisplayYFactor());
-		Draw.drawColorQuad(this.x, this.y, this.x_size, imageHeight, this.bgColor);
+		//Draw.drawColorQuad(this.x, this.y, this.x_size, imageHeight, this.bgColor);
 		Draw.drawQuad(Sprites.edit_box_left_border, this.x, this.y, imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.edit_box_middle_border, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.edit_box_right_border, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight);
-		this.font.drawStringShadow(this.x+6, this.y+2, this.input.getText(), Color.WHITE, Color.BLACK, 1, 0, 0);
-		if(this.input.isActive() && System.currentTimeMillis()%1000 < 500) {
-			Draw.drawColorQuad(this.x+this.font.getWidth(this.input.getText())+6, this.y+3, 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), Color.WHITE);
-		}
+		//this.font.drawStringShadow(this.x+6, this.y+2, this.input.getText(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		this.input.draw();
 	}
 	
 	public boolean mouseEvent() {
@@ -91,10 +115,17 @@ public class EditBox {
 		this.input.setIsActive(we);
 	}
 	
-	public void update(float x, float y, float x_size) {
+	public int getValue() {
+		return this.input.getTextValue();
+	}
+	
+	public boolean checkValue(int value) {return true;}
+	
+	public void update(float x, float y) {
 		this.x = (int)x;
 		this.y = (int)y;
-		this.x_size = (int)x_size;
+		this.x_size = (int)(this.xSizeSave*Mideas.getDisplayXFactor());
+		this.input.update(this.x+this.textOffset*Mideas.getDisplayXFactor(), this.y+3, this.inputMaxWidth*Mideas.getDisplayXFactor(), this.cursorWidth*Mideas.getDisplayXFactor(), this.cursorHeight*Mideas.getDisplayYFactor());
 	}
 	
 	protected boolean keyEvent(@SuppressWarnings("unused") char c) {return false;}

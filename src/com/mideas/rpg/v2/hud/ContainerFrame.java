@@ -86,12 +86,13 @@ public class ContainerFrame {
 	};
 	
 	private static IntegerInput itemNumber = new IntegerInput(FontManager.get("FRIZQT", 13), 3) {
+		
 		@Override
-		public int maximumValue() {
+		public boolean checkValue(int value) {
 			if(iItemNumber != -1) {
-				return Mideas.joueur1().bag().getBag(iItemNumber).getAmount();
+				return value <= Mideas.joueur1().bag().getBag(iItemNumber).getAmount();
 			}
-			return 1;
+			return false;
 		}
 	};
  	

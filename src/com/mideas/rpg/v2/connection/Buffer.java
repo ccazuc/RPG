@@ -191,7 +191,7 @@ public class Buffer {
 		writeByte(stuff.getGemColor(2).getValue());
 		writeByte(stuff.getGemBonusType().getValue());
 		writeInt(stuff.getGemBonusValue());
-		writeInt(stuff.getLevel());
+		writeByte(stuff.getLevel());
 		writeByte(stuff.getWear().getValue());
 		writeInt(stuff.getCritical());
 		writeInt(stuff.getStrength());

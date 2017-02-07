@@ -11,8 +11,8 @@ public enum AuctionHouseSort {
 	TIME_LEFT_DESCENDING((byte)6),
 	VENDOR_ASCENDING((byte)7),
 	VENDOR_DESCENDING((byte)8),
-	BID_ASCENDING((byte)9),
-	BID_DESCENDING((byte)10),
+	PRICE_PER_UNIT_ASCENDING((byte)9),
+	PRICE_PER_UNIT_DESCENDING((byte)10),
 	
 	;
 	

@@ -73,6 +73,10 @@ public class Button {
 			this.texture = Sprites.button;
 			this.color = this.baseColor;
 		}
+		else if(!this.buttonDown && this.buttonHover) {
+			this.texture = Sprites.button_hover;
+			this.color = this.hoveredColor;
+		}
 		else if(hoverSpriteActivateCondition()) {
 			this.color = this.hoveredColor;
 		}
@@ -111,8 +115,6 @@ public class Button {
 	
 	public boolean event() {
 		if(!(this.isEnable && activateCondition())) {
-			this.texture = Sprites.button_disabled;
-			this.color = GREY;
 			return false;
 		}
 		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
