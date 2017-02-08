@@ -65,10 +65,13 @@ public class Joueur extends Unit {
 	private Guild guild;
 	private Wear wear;
 	private int gold;
+	private int copperPiece;
+	private String copperPieceString;
+	private int silverPiece;
+	private String silverPieceString;
+	private int goldPiece;
+	private String goldPieceString;
 	private int exp;
-	public int x;
-	public static int y;
-	public static int z;
 
 	private final static String warrior = "Guerrier";
 	private final static String hunter = "Hunter";
@@ -850,10 +853,6 @@ public class Joueur extends Unit {
 	public int getStrength() {
 		return this.strength;
 	}
-	
-	public int getX() {
-		return this.x;
-	}
 
 	public int getSpellsListSize() {
 		return SpellBarFrame.getButtonList().length;
@@ -973,6 +972,48 @@ public class Joueur extends Unit {
 	
 	public void setGold(int gold) {
 		this.gold = gold;
+		calcGoldPiece();
+		calcSilverPiece();
+		calcCopperPiece();
+	}
+	
+	private void calcGoldPiece() {
+		this.goldPiece = Math.floorDiv(this.gold, 10000);
+		this.goldPieceString = String.valueOf(this.goldPiece);
+	}
+	
+	private void calcSilverPiece() {
+		this.silverPiece = Math.floorDiv(this.gold%10000, 100);
+		this.silverPieceString = String.valueOf(this.silverPiece);
+	}
+	
+	private void calcCopperPiece() {
+		this.copperPiece = this.gold%100;
+		this.copperPieceString = String.valueOf(this.copperPiece);
+	}
+	
+	public int getGoldPiece() {
+		return this.goldPiece;
+	}
+	
+	public String getGoldPieceString() {
+		return this.goldPieceString;
+	}
+	
+	public int getSilverPiece() {
+		return this.silverPiece;
+	}
+	
+	public String getSilverPieceString() {
+		return this.silverPieceString;
+	}
+	
+	public int getCopperPiece() {
+		return this.copperPiece;
+	}
+	
+	public String getCoppierPieceString() {
+		return this.copperPieceString;
 	}
 	
 	public void setExp(int baseExp, int expGained ) {

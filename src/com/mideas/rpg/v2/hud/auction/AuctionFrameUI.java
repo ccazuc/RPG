@@ -46,11 +46,11 @@ public class AuctionFrameUI {
 	private final short BROWSE_FILTER_WIDTH_SCROLLBAR = 136;
 	private final short BROWSE_FILTER_HEIGHT = 20;
 	private final short BROWSE_CLOSE_BUTTON_X = 744;
-	private final short BROWSE_CLOSE_BUTTON_Y = 407;
+	private final short BROWSE_CLOSE_BUTTON_Y = 409;
 	private final short BROWSE_BUYOUT_BUTTON_X = 663;
 	private final short BROWSE_BID_BUTTON_X = 584;
 	private final short BROWSE_BUTTON_WIDTH = 75;
-	private final short BROWSE_BUTTON_HEIGHT = 25;
+	private final short BROWSE_BUTTON_HEIGHT = 22;
 	private final short BROWSE_SORT_BUTTON_Y = 80;
 	private final short BROWSE_SORT_BUTTON_HEIGHT = 21;
 	private final short BROWSE_SORT_RARITY_BUTTON_WIDTH = 214;
@@ -77,7 +77,7 @@ public class AuctionFrameUI {
 	private final short BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH = 30;
 	private final short BROWSE_QUALITY_FILTER_DROP_DOWN_X = 305;
 	private final short BROWSE_QUALITY_FILTER_DROP_DOWN_Y = 49;
-	private final short BROWSE_QUALITY_FILTER_DROP_DOWN_BAR_WIDTH = 150;
+	private final short BROWSE_QUALITY_FILTER_DROP_DOWN_BAR_WIDTH = 131;
 	private final short BROWSE_QUALITY_FILTER_DROP_DOWN_MENU_WIDTH = 155;
 	private final short BROWSE_QUERY_BUTTON_NO_SCROLLBAR_WIDTH = 590;
 	private final short BROWSE_QUERY_BUTTON_SCROLLBAR_WIDTH = 400;
@@ -384,7 +384,20 @@ public class AuctionFrameUI {
 		font.drawStringShadowPart(this.x_frame+229*Mideas.getDisplayXFactor(), this.y_frame+34*Mideas.getDisplayYFactor(), "Level Range", Color.WHITE, Color.BLACK, 1, 0, 0);
 		font.drawStringShadowPart(this.x_frame+257*Mideas.getDisplayXFactor(), this.y_frame+50*Mideas.getDisplayYFactor(), "-", Color.WHITE, Color.BLACK, 1, 0, 0);
 		font.drawStringShadowPart(this.x_frame+308*Mideas.getDisplayXFactor(), this.y_frame+34*Mideas.getDisplayYFactor(), "Rarity", Color.WHITE, Color.BLACK, 1, 0, 0);
+		font.drawStringShadowPart(this.x_frame+288*Mideas.getDisplayXFactor(), this.y_frame+410*Mideas.getDisplayYFactor(), "Bid", Color.WHITE, Color.BLACK, 1, 0, 0);
 		font.drawEnd();
+		font = FontManager.get("ARIALN", 14);
+		font.drawBegin();
+		font.drawStringShadowPart(this.x_frame+138*Mideas.getDisplayXFactor(), this.y_frame+409*Mideas.getDisplayYFactor(), Mideas.joueur1().getCoppierPieceString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		font.drawStringShadowPart(this.x_frame+102*Mideas.getDisplayXFactor(), this.y_frame+409*Mideas.getDisplayYFactor(), Mideas.joueur1().getSilverPieceString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		font.drawStringShadowPart(this.x_frame+78*Mideas.getDisplayXFactor()-font.getWidth(Mideas.joueur1().getGoldPieceString()), this.y_frame+409*Mideas.getDisplayYFactor(), Mideas.joueur1().getGoldPieceString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		font.drawEnd();
+		Draw.drawQuad(Sprites.copper_coin, this.x_frame+153*Mideas.getDisplayXFactor(), this.y_frame+412*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
+		Draw.drawQuad(Sprites.copper_coin, this.x_frame+463*Mideas.getDisplayXFactor(), this.y_frame+413*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
+		Draw.drawQuad(Sprites.silver_coin, this.x_frame+118*Mideas.getDisplayXFactor(), this.y_frame+412*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
+		Draw.drawQuad(Sprites.silver_coin, this.x_frame+415*Mideas.getDisplayXFactor(), this.y_frame+413*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
+		Draw.drawQuad(Sprites.gold_coin, this.x_frame+83*Mideas.getDisplayXFactor(), this.y_frame+412*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
+		Draw.drawQuad(Sprites.gold_coin, this.x_frame+367*Mideas.getDisplayXFactor(), this.y_frame+413*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 		Draw.glScissorBegin(0, 495*Mideas.getDisplayYFactor(), 500, 305*Mideas.getDisplayYFactor());
 		int i = -1;
 		while(++i < this.browseCategoryList.size()) {
