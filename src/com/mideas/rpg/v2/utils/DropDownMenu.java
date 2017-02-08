@@ -35,7 +35,7 @@ public class DropDownMenu {
 		this.x_bar = (int)x_bar;
 		this.y_bar = (int)y_bar;
 		this.x_size_bar = (int)x_size_bar;
-		this.background = new AlertBackground(x_alert, y_alert, x_size_alert, 0, opacity);
+		this.background = new AlertBackground(x_bar-10*Mideas.getDisplayXFactor(), y_alert, x_size_alert, 0, opacity);
 		this.menuList = new ArrayList<TextMenu>();
 		this.arrow = new Arrow(this.x_bar+this.x_size_bar-ARROW_WIDTH*Mideas.getDisplayXFactor()-2, this.y_bar+2, ARROW_WIDTH*Mideas.getDisplayXFactor(), ARROW_HEIGHT*Mideas.getDisplayYFactor(), ArrowDirection.BOT) {
 			
@@ -194,7 +194,7 @@ public class DropDownMenu {
 		this.x_bar = (int)x_bar;
 		this.y_bar = (int)y_bar;
 		this.x_size_bar = (int)x_size_bar;
-		this.background.update(x_alert, y_alert, x_size_alert, (23*Mideas.getDisplayYFactor())*this.menuList.size()+this.backgroundDefaultHeight*Mideas.getDisplayYFactor());
+		this.background.update(x_bar-10*Mideas.getDisplayXFactor(), y_alert, x_size_alert, (23*Mideas.getDisplayYFactor())*this.menuList.size()+this.backgroundDefaultHeight*Mideas.getDisplayYFactor());
 		this.arrow.update(this.x_bar+this.x_size_bar-ARROW_WIDTH*Mideas.getDisplayXFactor()-2, this.y_bar+2, ARROW_WIDTH*Mideas.getDisplayXFactor(), ARROW_HEIGHT*Mideas.getDisplayYFactor());
 		int i = 0;
 		float yShift = 18*Mideas.getDisplayYFactor();

@@ -31,4 +31,8 @@ public class AuctionHouseFrame {
 	public static void buildResultString(byte result, int totalResult, short page) {
 		frame.buildResultString(result, totalResult, page);
 	}
+	
+	public static void updateQueryButtonList() {
+		frame.updateQueryButtonList();
+	}
 }

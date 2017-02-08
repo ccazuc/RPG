@@ -50,6 +50,7 @@ public class CommandAuction extends Command {
 				item.setAmount(amount);
 				Mideas.joueur1().getAuctionHouse().addQueryItem(new AuctionEntry(entryID, sellerName, item, buyoutPrice, bidPrice, duration));
 			}
+			AuctionHouseFrame.updateQueryButtonList();
 		}
 		else if(packetId == PacketID.AUCTION_CANCEL_SELL) {
 			int entryID = ConnectionManager.getConnection().readInt();

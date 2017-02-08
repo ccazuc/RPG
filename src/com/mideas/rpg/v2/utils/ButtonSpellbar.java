@@ -44,8 +44,8 @@ public class ButtonSpellbar {
 	private final static Color CD_COLOR = new Color(0, 0, 0, .8f);
 	private final static int MOUSE_MOVE_TRIGGER_RANGE = 15;
 	private int keyBind;
-	private static int borderWidth = (int)(42*Mideas.getDisplayXFactor());
-	private static int borderHeight = (int)(40*Mideas.getDisplayYFactor());
+	private static int borderWidth = (int)(44*Mideas.getDisplayXFactor());
+	private static int borderHeight = (int)(41*Mideas.getDisplayYFactor());
 	
 	public ButtonSpellbar(float x, float y, int keyBind, boolean isInFirstBar) {
 		this.x = (int)x;
