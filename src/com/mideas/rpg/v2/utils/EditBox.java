@@ -103,6 +103,10 @@ public class EditBox {
 		this.input.setText(text);
 	}
 	
+	public void resetText() {
+		this.input.resetText();
+	}
+	
 	public String getText() {
 		return this.input.getText();
 	}

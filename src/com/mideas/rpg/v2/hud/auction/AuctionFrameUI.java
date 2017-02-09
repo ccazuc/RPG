@@ -64,6 +64,7 @@ public class AuctionFrameUI {
 	private final short BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X = 614;
 	private final short BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH = 184;
 	private final short BROWSE_SEND_QUERY_BUTTON_X = 659;
+	private final short BROWSE_RESET_BUTTON_X = 744;
 	private final short BROWSE_SEND_QUERY_BUTTON_WIDTH = 78;
 	private final short BROWSE_SEND_QUERY_BUTTON_Y = 33;
 	private final short BROWSE_SEND_QUERY_BUTTON_HEIGHT = 22;
@@ -84,6 +85,12 @@ public class AuctionFrameUI {
 	private final short BROWSE_ITEM_Y = 108;
 	private final short BROWSE_ITEM_HEIGHT = 40;
 	private final short BROWSE_ITEM_X = 194;
+	private final short BROWSE_BID_COPPER_EDIT_BOX_X = 437;
+	private final short BROWSE_BID_SILVER_EDIT_BOX_X = 389;
+	private final short BROWSE_BID_GOLD_EDIT_BOX_X = 309;
+	private final short BROWSE_BID_EDIT_BOX_Y = 409;
+	private final short BROWSE_BID_COPPER_EDIT_BOX_WIDTH = 43;
+	private final short BROWSE_BID_GOLD_EDIT_BOX_WIDTH = 75;
 	
 	
 	private AuctionFrameTab selectedTab = AuctionFrameTab.BROWSE;
@@ -93,7 +100,7 @@ public class AuctionFrameUI {
 	AuctionHouseFilter selectedFilter = AuctionHouseFilter.NONE;
 	AuctionHouseFilter selectedCategoryFilter = AuctionHouseFilter.NONE;
 	AuctionHouseSort selectedSort;
-	AuctionHouseQualityFilter qualityFilter;
+	AuctionHouseQualityFilter qualityFilter = AuctionHouseQualityFilter.ALL;
 	protected final TTF browseFilterFont;
 	private short browseFilterX;
 	private short browseFilterY;
@@ -141,7 +148,7 @@ public class AuctionFrameUI {
 		
 		@Override
 		public boolean activateCondition() {
-			return AuctionFrameUI.this.browseSelectedEntry != null && AuctionFrameUI.this.browseSelectedEntry.canBeBuy();
+			return AuctionFrameUI.this.browseSelectedEntry != null;
 		}
 	};
 	private final Button browseBuyoutButton = new Button(this.x_frame+this.BROWSE_BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Buyout", 12, 1) {
@@ -153,7 +160,7 @@ public class AuctionFrameUI {
 		
 		@Override
 		public boolean activateCondition() {
-			return AuctionFrameUI.this.browseSelectedEntry != null;
+			return AuctionFrameUI.this.browseSelectedEntry != null && AuctionFrameUI.this.browseSelectedEntry.canBeBuy();
 		}
 	};
 	private final Button browseClose = new Button(this.x_frame+this.BROWSE_CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Close", 12, 1) {
@@ -176,19 +183,19 @@ public class AuctionFrameUI {
 			return !AuctionFrameUI.this.querySent;
 		}
 	};
-	private final Button browseResetButton = new Button(this.x_frame+this.BROWSE_SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Search", 12, 1) {
+	private final Button browseResetButton = new Button(this.x_frame+this.BROWSE_RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Reset", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
-			//resetBrowseOptions(); TODO: create function
+			resetBrowseOptions();
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return AuctionFrameUI.this.selectedCategoryFilter != AuctionHouseFilter.NONE || AuctionFrameUI.this.selectedFilter != AuctionHouseFilter.NONE;
+			return AuctionFrameUI.this.selectedCategoryFilter != AuctionHouseFilter.NONE || AuctionFrameUI.this.selectedFilter != AuctionHouseFilter.NONE || AuctionFrameUI.this.qualityFilter != AuctionHouseQualityFilter.ALL || AuctionFrameUI.this.browseSearchEditBox.getText().length() != 0 || AuctionFrameUI.this.browseMinLevelEditBox.getText().length() != 0 || AuctionFrameUI.this.browseMaxLevelEditBox.getText().length() != 0;
 		}
 	};
-	private final EditBox browseSearchEditBox = new EditBox(this.x_frame+this.BROWSE_SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEARCH_EDIT_BOX_WIDTH*Mideas.getDisplayXFactor(), 63, 21, this.BROWSE_SEARCH_EDIT_BOX_INPUT_WIDTH*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 11), false, 2, 13, "Search") {
+	final EditBox browseSearchEditBox = new EditBox(this.x_frame+this.BROWSE_SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEARCH_EDIT_BOX_WIDTH*Mideas.getDisplayXFactor(), 63, 21, this.BROWSE_SEARCH_EDIT_BOX_INPUT_WIDTH*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 11), false, 2, 13, "Search") {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -201,15 +208,24 @@ public class AuctionFrameUI {
 				this.input.setIsActive(false);
 				return true;
 			}
+			if(c == Input.TAB_CHAR_VALUE) {
+				AuctionFrameUI.this.browseMinLevelEditBox.setActive(true);
+				return true;
+			}
 			return false;
 		}
 	};
-	private final EditBox browseMinLevelEditBox = new EditBox(this.x_frame+this.BROWSE_MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_LEVEL_EDIT_BOX_WIDTH, 3, 5, this.BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final EditBox browseMinLevelEditBox = new EditBox(this.x_frame+this.BROWSE_MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_LEVEL_EDIT_BOX_WIDTH, 3, 5, this.BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
 			if(c == Input.ENTER_CHAR_VALUE || c == Input.ESCAPE_CHAR_VALUE) {
 				this.input.setIsActive(false);
+				return true;
+			}
+			if(c == Input.TAB_CHAR_VALUE) {
+				AuctionFrameUI.this.browseMaxLevelEditBox.setActive(true);
+				System.out.println('a');
 				return true;
 			}
 			return false;
@@ -220,12 +236,16 @@ public class AuctionFrameUI {
 			return value <= 999;
 		}
 	};
-	private final EditBox browseMaxLevelEditBox = new EditBox(this.x_frame+this.BROWSE_MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_LEVEL_EDIT_BOX_WIDTH, 3, 5, this.BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 12), true) {
+	final EditBox browseMaxLevelEditBox = new EditBox(this.x_frame+this.BROWSE_MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_LEVEL_EDIT_BOX_WIDTH, 3, 5, this.BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 12), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
 			if(c == Input.ENTER_CHAR_VALUE || c == Input.ESCAPE_CHAR_VALUE) {
 				this.input.setIsActive(false);
+				return true;
+			}
+			if(c == Input.TAB_CHAR_VALUE) {
+				AuctionFrameUI.this.browseGoldBidEditBox.setActive(true);
 				return true;
 			}
 			return false;
@@ -234,6 +254,66 @@ public class AuctionFrameUI {
 		@Override
 		public boolean checkValue(int value) {
 			return value <= 999;
+		}
+	};
+	final EditBox browseGoldBidEditBox = new EditBox(this.x_frame+this.BROWSE_BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_GOLD_EDIT_BOX_WIDTH, 6, 5, this.BROWSE_BID_GOLD_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 12), true) {
+		
+		@Override
+		public boolean keyEvent(char c) {
+			if(c == Input.ESCAPE_CHAR_VALUE) {
+				this.input.setIsActive(false);
+				return true;
+			}
+			if(c == Input.TAB_CHAR_VALUE || c == Input.ENTER_CHAR_VALUE) {
+				AuctionFrameUI.this.browseSilverBidEditBox.setActive(true);
+				return true;
+			}
+			return false;
+		}
+		
+		@Override
+		public boolean checkValue(int value) {
+			return value <= 999999;
+		}
+	};
+	final EditBox browseSilverBidEditBox = new EditBox(this.x_frame+this.BROWSE_BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 12), true) {
+		
+		@Override
+		public boolean keyEvent(char c) {
+			if(c == Input.ESCAPE_CHAR_VALUE) {
+				this.input.setIsActive(false);
+				return true;
+			}
+			if(c == Input.TAB_CHAR_VALUE || c == Input.ENTER_CHAR_VALUE) {
+				AuctionFrameUI.this.browseCopperBidEditBox.setActive(true);
+				return true;
+			}
+			return false;
+		}
+		
+		@Override
+		public boolean checkValue(int value) {
+			return value <= 99;
+		}
+	};
+	final EditBox browseCopperBidEditBox = new EditBox(this.x_frame+this.BROWSE_BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 12), true) {
+		
+		@Override
+		public boolean keyEvent(char c) {
+			if(c == Input.ESCAPE_CHAR_VALUE) {
+				this.input.setIsActive(false);
+				return true;
+			}
+			if(c == Input.TAB_CHAR_VALUE || c == Input.ENTER_CHAR_VALUE) {
+				AuctionFrameUI.this.browseSearchEditBox.setActive(true);
+				return true;
+			}
+			return false;
+		}
+		
+		@Override
+		public boolean checkValue(int value) {
+			return value <= 99;
 		}
 	};
 	private final ButtonMenuSort browseSortByRarityButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_RARITY_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_RARITY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Rarity", 11) {
@@ -341,11 +421,19 @@ public class AuctionFrameUI {
 		this.querySent = true;
 	}
 	
-	void resetBrowseOption() {
+	void resetBrowseOptions() {
 		int i = this.browseCategoryList.size();
 		while(--i >= 0) {
 			this.browseCategoryList.get(i).unexpand();
 		}
+		this.browseFilterScrollbar.resetScroll();
+		this.browseFilterScrollbarOffset = 0;
+		checkBrowseFilterScrollbar();
+		this.browseSearchEditBox.resetText();
+		this.browseMinLevelEditBox.resetText();
+		this.browseMaxLevelEditBox.resetText();
+		this.browseRarityDropDownmenu.setValue(0);
+		this.qualityFilter = AuctionHouseQualityFilter.ALL;
 		this.selectedCategoryFilter = AuctionHouseFilter.NONE;
 		this.selectedFilter = AuctionHouseFilter.NONE;
 	}
@@ -378,6 +466,10 @@ public class AuctionFrameUI {
 		this.browseSearchEditBox.draw();
 		this.browseMinLevelEditBox.draw();
 		this.browseMaxLevelEditBox.draw();
+		this.browseGoldBidEditBox.draw();
+		this.browseSilverBidEditBox.draw();
+		this.browseCopperBidEditBox.draw();
+		this.browseResetButton.draw();
 		TTF font = FontManager.get("FRIZQT", 11);
 		font.drawBegin();
 		font.drawStringShadowPart(this.x_frame+80*Mideas.getDisplayXFactor(), this.y_frame+34*Mideas.getDisplayYFactor(), "Name", Color.WHITE, Color.BLACK, 1, 0, 0);
@@ -504,6 +596,10 @@ public class AuctionFrameUI {
 		if(this.browseSearchEditBox.mouseEvent()) return true;
 		if(this.browseMinLevelEditBox.mouseEvent()) return true;
 		if(this.browseMaxLevelEditBox.mouseEvent()) return true;
+		if(this.browseGoldBidEditBox.mouseEvent()) return true;
+		if(this.browseSilverBidEditBox.mouseEvent()) return true;
+		if(this.browseCopperBidEditBox.mouseEvent()) return true;
+		if(this.browseResetButton.event()) return true;
 		if(this.browseFilterScrollbarEnabled) {
 			if(this.browseFilterScrollbar.event()) return true;
 		}
@@ -551,6 +647,9 @@ public class AuctionFrameUI {
 		if(this.browseSearchEditBox.keyboardEvent()) return true;
 		if(this.browseMinLevelEditBox.keyboardEvent()) return true;
 		if(this.browseMaxLevelEditBox.keyboardEvent()) return true;
+		if(this.browseGoldBidEditBox.keyboardEvent()) return true;
+		if(this.browseSilverBidEditBox.keyboardEvent()) return true;
+		if(this.browseCopperBidEditBox.keyboardEvent()) return true;
 		return false;
 	}
 	
@@ -591,10 +690,14 @@ public class AuctionFrameUI {
 		this.browseSortBySellerButton.update(this.x_frame+this.BROWSE_SORT_SELLER_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_SELLER_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		this.browseSortByPricePerUnitButton.update(this.x_frame+this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		this.browseSendQueryButton.update(this.x_frame+this.BROWSE_SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.browseResetButton.update(this.x_frame+this.BROWSE_RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		this.browseSearchEditBox.update(this.x_frame+this.BROWSE_SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
 		this.browseMinLevelEditBox.update(this.x_frame+this.BROWSE_MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
 		this.browseMaxLevelEditBox.update(this.x_frame+this.BROWSE_MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
 		this.browseRarityDropDownmenu.update(this.x_frame+this.BROWSE_QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_QUALITY_FILTER_DROP_DOWN_Y*Mideas.getDisplayXFactor(), this.BROWSE_QUALITY_FILTER_DROP_DOWN_BAR_WIDTH*Mideas.getDisplayXFactor(), this.x_frame+this.BROWSE_QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), this.y_frame+(this.BROWSE_QUALITY_FILTER_DROP_DOWN_Y+20)*Mideas.getDisplayYFactor(), this.BROWSE_QUALITY_FILTER_DROP_DOWN_MENU_WIDTH*Mideas.getDisplayXFactor());
+		this.browseGoldBidEditBox.update(this.x_frame+this.BROWSE_BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
+		this.browseSilverBidEditBox.update(this.x_frame+this.BROWSE_BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
+		this.browseCopperBidEditBox.update(this.x_frame+this.BROWSE_BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
 		int i = -1;
 		while(++i < this.queryButtonList.size()) {
 			this.queryButtonList.get(i).updateSize();

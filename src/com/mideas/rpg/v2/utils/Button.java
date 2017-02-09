@@ -115,6 +115,7 @@ public class Button {
 	
 	public boolean event() {
 		if(!(this.isEnable && activateCondition())) {
+			this.buttonHover = false;
 			return false;
 		}
 		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {

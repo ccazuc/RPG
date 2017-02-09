@@ -41,6 +41,7 @@ public class Input {
 	
 	public final static int ESCAPE_CHAR_VALUE = 27;
 	public final static int ENTER_CHAR_VALUE = 13;
+	public final static int TAB_CHAR_VALUE = 9;
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, boolean isActive, int cursorHeight) {
 		this.multipleLine = multipleLine;
@@ -211,7 +212,7 @@ public class Input {
 			resetSelectedPosition();
 			return true;
 		}
-		if(!(Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT && Keyboard.getEventKey() != Keyboard.KEY_TAB)) { //write
+		if(!(Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT)) {
 			return false;
 		}
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156 || Keyboard.getEventKey() == 28) {
@@ -274,6 +275,7 @@ public class Input {
 		if(we) {
 			setInactiveAllInput();
 			activatedInput = this;
+			this.lastWrite = Mideas.getLoopTickTimer();
 		}
 		this.isActive = we;
 	}

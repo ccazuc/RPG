@@ -113,8 +113,6 @@ public class LoginScreen {
 	}
 	
 	public static void event() {
-		//System.out.println((int)Keyboard.getEventCharacter());
-		//System.out.println(Keyboard.getEventKey());
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
 			if(alert.isActive()) {
 				alert.keyPressed();

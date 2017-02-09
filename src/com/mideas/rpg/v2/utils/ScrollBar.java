@@ -195,6 +195,10 @@ public class ScrollBar {
 		Draw.drawQuad(Sprites.ascensor, this.x+3, this.y+this.y_ascensor+22*Mideas.getDisplayYFactor());
 	}
 	
+	public void resetScroll() {
+		this.y_ascensor = 0;
+	}
+	
 	public float getX() {
 		return this.x;
 	}

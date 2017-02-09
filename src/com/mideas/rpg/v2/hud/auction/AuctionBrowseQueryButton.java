@@ -27,6 +27,9 @@ public class AuctionBrowseQueryButton {
 	private short levelX;
 	private short durationX;
 	private short sellerNameX;
+	private short goldX;
+	private short silverX;
+	private short copperX;
 	private String sellerName;
 	private String itemName;
 	private String duration;
@@ -49,6 +52,7 @@ public class AuctionBrowseQueryButton {
 	private final static short BORDER_X_OFFSET = 33;
 	private final static short ITEM_WIDTH = 32;
 	private final static short ITEM_HEIGHT = 32;
+	private final static short GOLD_X = 350;
 	
 	public AuctionBrowseQueryButton(AuctionFrameUI frame) {
 		this.frame = frame;
@@ -81,6 +85,22 @@ public class AuctionBrowseQueryButton {
 		DURATION_FONT.drawStringShadowPart(this.levelX, this.frame.getBrowseItemY()+this.stringY, this.level, Color.WHITE, Color.BLACK, 1, 0, 0);
 		DURATION_FONT.drawStringShadowPart(this.durationX, this.frame.getBrowseItemY()+this.stringY, this.duration, Color.WHITE, Color.BLACK, 1, 0, 0);
 		DURATION_FONT.drawStringShadowPart(this.sellerNameX, this.frame.getBrowseItemY()+this.stringY, this.sellerName, Color.WHITE, Color.BLACK, 1, 0, 0);
+	}
+	
+	public void drawGoldString() {
+		
+	}
+	
+	public void drawGoldTexture() {
+		Draw.drawQuad(Sprites.gold_coin, this.gold_x, this.frame.getBrowseItemY());
+	}
+	
+	public void drawSilverTexture() {
+		
+	}
+	
+	public void drawCopperTexture() {
+		
 	}
 	
 	public void drawGoldPiece() {
@@ -131,6 +151,9 @@ public class AuctionBrowseQueryButton {
 		else if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 				this.buttonDown = false;
+				if(this.frame.getSelectedBrowseEntry() == this.entry) {
+					this.frame.setSelectedBrowseEntry(null);
+				}
 				return true;
 			}
 		}
