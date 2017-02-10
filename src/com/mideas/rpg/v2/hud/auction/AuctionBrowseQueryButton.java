@@ -27,9 +27,9 @@ public class AuctionBrowseQueryButton {
 	private short levelX;
 	private short durationX;
 	private short sellerNameX;
-	private short goldX;
-	private short silverX;
-	private short copperX;
+	private short goldTextureX;
+	private short silverTextureX;
+	private short copperTextureX;
 	private String sellerName;
 	private String itemName;
 	private String duration;
@@ -44,6 +44,7 @@ public class AuctionBrowseQueryButton {
 	private final static short ITEM_NAME_MAX_WIDTH = 190;
 	public final static TTF DURATION_FONT = FontManager.get("FRIZQT", 11);
 	public final static TTF ITEM_NAME_FONT = FontManager.get("FRIZQT", 15);
+	public final static TTF GOLD_FONT = FontManager.get("ARIALN", 15);
 	private final static short DURATION_X_OFFSET = 271;
 	private final static short LEVEL_X_OFFSET = 223;
 	private final static short SELLER_NAME_X_OFFSET = 383;
@@ -53,6 +54,8 @@ public class AuctionBrowseQueryButton {
 	private final static short ITEM_WIDTH = 32;
 	private final static short ITEM_HEIGHT = 32;
 	private final static short GOLD_X = 350;
+	private final static short SILVER_X = 350;
+	private final static short COPPER_X = 350;
 	
 	public AuctionBrowseQueryButton(AuctionFrameUI frame) {
 		this.frame = frame;
@@ -63,6 +66,9 @@ public class AuctionBrowseQueryButton {
 		this.levelX = (short)(this.frame.getBrowseItemX()+LEVEL_X_OFFSET*Mideas.getDisplayXFactor());
 		this.stringY = (short)(TEXT_Y_OFFSET*Mideas.getDisplayYFactor());
 		this.itemNameX = (short)(this.frame.getBrowseItemX()+ITEM_NAME_X_OFFSET*Mideas.getDisplayXFactor());
+		this.goldTextureX = (short)(this.frame.getBrowseItemX()+GOLD_X*Mideas.getDisplayXFactor());
+		this.silverTextureX = (short)(this.frame.getBrowseItemX()+SILVER_X*Mideas.getDisplayXFactor());
+		this.copperTextureX = (short)(this.frame.getBrowseItemX()+COPPER_X*Mideas.getDisplayXFactor());
 	}
 	
 	public void draw() {
@@ -92,27 +98,15 @@ public class AuctionBrowseQueryButton {
 	}
 	
 	public void drawGoldTexture() {
-		Draw.drawQuad(Sprites.gold_coin, this.gold_x, this.frame.getBrowseItemY());
+		Draw.drawQuadPart(Sprites.gold_coin, this.goldTextureX, this.frame.getBrowseItemY());
 	}
 	
 	public void drawSilverTexture() {
-		
+		Draw.drawQuadPart(Sprites.silver_coin, this.silverTextureX, this.frame.getBrowseItemY());
 	}
 	
 	public void drawCopperTexture() {
-		
-	}
-	
-	public void drawGoldPiece() {
-		
-	}
-	
-	public void drawSilverPiece() {
-		
-	}
-	
-	public void drawCopperPiece() {
-		
+		Draw.drawQuadPart(Sprites.copper_coin, this.copperTextureX, this.frame.getBrowseItemY());
 	}
 	
 	public boolean mouseEvent() {

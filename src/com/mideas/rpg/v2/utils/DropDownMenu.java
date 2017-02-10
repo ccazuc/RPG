@@ -195,7 +195,7 @@ public class DropDownMenu {
 		this.y_bar = (int)y_bar;
 		this.x_size_bar = (int)x_size_bar;
 		this.background.update(x_bar-10*Mideas.getDisplayXFactor(), y_alert, x_size_alert, (23*Mideas.getDisplayYFactor())*this.menuList.size()+this.backgroundDefaultHeight*Mideas.getDisplayYFactor());
-		this.arrow.update(this.x_bar+this.x_size_bar-ARROW_WIDTH*Mideas.getDisplayXFactor()-2, this.y_bar+2, ARROW_WIDTH*Mideas.getDisplayXFactor(), ARROW_HEIGHT*Mideas.getDisplayYFactor());
+		this.arrow.update(this.x_bar+this.x_size_bar-ARROW_WIDTH*Mideas.getDisplayXFactor()-2, this.y_bar+2);
 		int i = 0;
 		float yShift = 18*Mideas.getDisplayYFactor();
 		//System.out.println(this.background.getWidth()/2-this.menuList.get(0).getFont().getWidth(this.menuList.get(i).getText())/2+"  "+(23*Mideas.getDisplayXFactor()-this.menuList.get(i).getFont().getWidth(this.menuList.get(i).getText())/2));

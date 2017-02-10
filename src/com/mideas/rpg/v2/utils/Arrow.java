@@ -8,10 +8,12 @@ import com.mideas.rpg.v2.Sprites;
 public class Arrow {
 
 
-	private int x;
-	private int y;
-	private int x_size = (int)(Sprites.arrow_top.getImageWidth()*Mideas.getDisplayXFactor());
-	private int y_size = (int)(Sprites.arrow_top.getImageHeight()*Mideas.getDisplayYFactor());
+	private short x;
+	private short y;
+	private short x_size;
+	private short y_size;
+	private short x_size_save;
+	private short y_size_save;
 	private Texture texture;
 	private Texture hoverTexture = Sprites.arrow_hover;
 	private Texture downTexture;
@@ -21,11 +23,13 @@ public class Arrow {
 	private boolean hasClicked;
 	
 	public Arrow(float x, float y, float x_size, float y_size, ArrowDirection direction) {
-		this.x = (int)x;
-		this.y = (int)y;
-		this.x_size = (int)x_size;
-		this.y_size = (int)y_size;
 		initSprite(direction);
+		this.x = (short)x;
+		this.y = (short)y;
+		this.x_size_save = (short)x_size;
+		this.x_size = (short)(x_size*Mideas.getDisplayXFactor());
+		this.y_size_save = (short)y_size;
+		this.y_size = (short)(y_size*Mideas.getDisplayYFactor());
 	}
 
 	public Arrow(float x, float y, ArrowDirection direction) {
@@ -88,11 +92,11 @@ public class Arrow {
 	}
 	
 	public void setX(float x) {
-		this.x = (int)x;
+		this.x = (short)x;
 	}
 	
 	public void setY(float y) {
-		this.y = (int)y;
+		this.y = (short)y;
 	}
 	
 	public void setHoverFalse() {
@@ -100,11 +104,13 @@ public class Arrow {
 	}
 	
 	public void setButtonWidth(float width) {
-		this.x_size = (int)width;
+		this.x_size = (short)width;
+		this.x_size_save = (short)width;
 	}
 	
 	public void setButtonHeight(float height) {
-		this.y_size = (int)(height);
+		this.y_size = (short)height;
+		this.y_size_save = (short)height;
 	}
 	
 	protected void eventButtonClick() {}
@@ -127,19 +133,20 @@ public class Arrow {
 		if(direction == ArrowDirection.TOP) {
 			this.defaultTexture = Sprites.arrow_top;
 			this.downTexture = Sprites.arrow_top_down;
-			this.texture = this.defaultTexture;
 		}
 		else if(direction == ArrowDirection.BOT) {
 			this.defaultTexture = Sprites.arrow_bot;
 			this.downTexture = Sprites.arrow_bot_down;
-			this.texture = this.defaultTexture;
 		}
 		else if(direction == ArrowDirection.LEFT) {
-			
+			this.defaultTexture = Sprites.arrow_left;
+			this.downTexture = Sprites.arrow_left_down;
 		}
 		else if(direction == ArrowDirection.RIGHT) {
-			
+			this.defaultTexture = Sprites.arrow_right;
+			this.downTexture = Sprites.arrow_right_down;
 		}
+		this.texture = this.defaultTexture;
 	}
 	
 	public void reset() {
@@ -149,17 +156,10 @@ public class Arrow {
 		this.texture = this.defaultTexture;
 	}
 	
-	public void update(float x, float y, float x_size, float y_size) {
-		this.x = (int)x;
-		this.y = (int)y;
-		this.x_size = (int)x_size;
-		this.y_size = (int)y_size;
-	}
-	
 	public void update(float x, float y) {
-		this.x = (int)x;
-		this.y = (int)y;
-		this.x_size = (int)(Sprites.arrow_bot.getImageWidth()*Mideas.getDisplayXFactor());
-		this.y_size = (int)(Sprites.arrow_bot.getImageHeight()*Mideas.getDisplayYFactor());
+		this.x = (short)x;
+		this.y = (short)y;
+		this.x_size = (short)(this.x_size_save*Mideas.getDisplayXFactor());
+		this.y_size = (short)(this.y_size_save*Mideas.getDisplayYFactor());
 	}
 }
