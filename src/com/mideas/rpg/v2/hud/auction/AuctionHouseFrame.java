@@ -28,11 +28,15 @@ public class AuctionHouseFrame {
 		frame.shouldUpdate();
 	}
 	
-	public static void buildResultString(byte result, int totalResult, short page) {
-		frame.buildResultString(result, totalResult, page);
+	public static void buildResultString(byte result, int totalResult, short page, short totalPage) {
+		frame.buildResultString(result, totalResult, page, totalPage);
 	}
 	
 	public static void updateQueryButtonList() {
 		frame.updateQueryButtonList();
+	}
+	
+	public static void updateUnloadedBrowseItem(int itemID) {
+		frame.updateUnloadedBrowseItem(itemID);
 	}
 }

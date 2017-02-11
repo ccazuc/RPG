@@ -21,7 +21,6 @@ public class CommandAuction extends Command {
 	public void read() {
 		short packetId = ConnectionManager.getConnection().readShort();
 		if(packetId == PacketID.AUCTION_SEARCH_QUERY) {
-			System.out.println("Query received");
 			Mideas.joueur1().getAuctionHouse().queryReceived();
 			boolean itemFound = ConnectionManager.getConnection().readBoolean();
 			if(!itemFound) {
@@ -30,7 +29,7 @@ public class CommandAuction extends Command {
 			int amountTotalResult = ConnectionManager.getConnection().readInt();
 			short page = ConnectionManager.getConnection().readShort();
 			byte amountResult = ConnectionManager.getConnection().readByte();
-			AuctionHouseFrame.buildResultString(amountResult, amountTotalResult, page);
+			AuctionHouseFrame.buildResultString(amountResult, amountTotalResult, page, (short)Math.ceil(amountTotalResult/50));
 			int i = -1;
 			while(++i < amountResult) {
 				int entryID = ConnectionManager.getConnection().readInt();
@@ -45,7 +44,7 @@ public class CommandAuction extends Command {
 				if((item = Item.getStoredItem(itemID)) == null) {
 					Item.storeTempItem(type, itemID);
 					item = Item.getStoredItem(itemID);
-					CommandRequestItem.write(new RequestItem(itemID, DragItem.NONE, 0));
+					CommandRequestItem.write(new RequestItem(itemID, DragItem.AUCTION_HOUSE_BROWSE, 0));
 				}
 				item.setAmount(amount);
 				Mideas.joueur1().getAuctionHouse().addQueryItem(new AuctionEntry(entryID, sellerName, item, buyoutPrice, bidPrice, duration));

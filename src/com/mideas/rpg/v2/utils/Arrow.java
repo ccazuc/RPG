@@ -18,6 +18,7 @@ public class Arrow {
 	private Texture hoverTexture = Sprites.arrow_hover;
 	private Texture downTexture;
 	private Texture defaultTexture;
+	private Texture disabledTexture;
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private boolean hasClicked;
@@ -38,7 +39,8 @@ public class Arrow {
 	
 	public void draw() {
 		if(!activateCondition()) {
-			//this.texture = Sprites.button_disabled;
+			Draw.drawQuad(this.disabledTexture, this.x, this.y, this.x_size, this.y_size);
+			return;
 		}
 		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
 		if(this.buttonHover) {
@@ -48,7 +50,6 @@ public class Arrow {
 	
 	public boolean event() {
 		if(!activateCondition()) {
-			this.texture = Sprites.button_disabled;
 			return false;
 		}
 		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
@@ -141,10 +142,12 @@ public class Arrow {
 		else if(direction == ArrowDirection.LEFT) {
 			this.defaultTexture = Sprites.arrow_left;
 			this.downTexture = Sprites.arrow_left_down;
+			this.disabledTexture = Sprites.arrow_left_disabled;
 		}
 		else if(direction == ArrowDirection.RIGHT) {
 			this.defaultTexture = Sprites.arrow_right;
 			this.downTexture = Sprites.arrow_right_down;
+			this.disabledTexture = Sprites.arrow_right_disabled;
 		}
 		this.texture = this.defaultTexture;
 	}

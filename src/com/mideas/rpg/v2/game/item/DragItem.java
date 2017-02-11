@@ -9,7 +9,7 @@ public enum DragItem {
 	TRADE((byte)4),
 	EQUIPPED_CONTAINER((byte)5),
 	NONE((byte)6),
-	
+	AUCTION_HOUSE_BROWSE((byte)7),
 	;
 	
 	private final byte value;

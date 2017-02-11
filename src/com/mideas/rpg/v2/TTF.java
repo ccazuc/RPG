@@ -246,6 +246,26 @@ public final class TTF {
 		}
 	}
 	
+	public final void drawStringPartReversed(final float x, final float y, final String text, final Color color, final float scaleX, final float scaleY, final float opacity) {
+		Char charObject;
+		float totalHeight = 0;
+		float totalWidth = 0;
+		char currentChar;
+		int i = text.length();
+		OpenGL.glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()*opacity);
+		while(--i >= 0) {
+			currentChar = text.charAt(i);
+			if(currentChar == '\n') {
+				totalHeight+= this.lineHeight*scaleY;
+				totalWidth = 0;
+			}
+			else if(currentChar > 0 && (charObject = this.charArray[currentChar]) != null) {
+				totalWidth-= (charObject.width)*scaleX;
+				drawCharPart(totalWidth+x, totalHeight+y, currentChar, scaleX, scaleY);
+			}
+		}
+	}
+	
 	public final void drawStringPart(final float x, final float y, final String text, final Color color, final float scaleX, final float scaleY, final double opacity) {
 		Char charObject;
 		float totalHeight = 0;
@@ -366,6 +386,19 @@ public final class TTF {
 			}
 		}
 		drawStringPart(x, y, text, color, scaleX, scaleY, opacity);
+	}
+	
+	public final void drawStringShadowPartReversed(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY) {
+		float i = x-shadowSize+shadowX-1;
+		while(++i <= x+shadowSize+shadowX) {
+			float ii = y-shadowSize+shadowY-1;
+			while(++ii <= y+shadowSize+shadowY) {
+				if(Math.abs(i-x-shadowX) != Math.abs(ii-y-shadowY)) {
+					drawStringPartReversed(i, ii, text, shadowColor, 1, 1, 1);
+				}
+			}
+		}
+		drawStringPartReversed(x, y, text, color, 1, 1, 1);
 	}
 	
 	private static final int loadImage(final BufferedImage bufferedImage) {

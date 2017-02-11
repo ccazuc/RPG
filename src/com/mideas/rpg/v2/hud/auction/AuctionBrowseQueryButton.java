@@ -30,6 +30,11 @@ public class AuctionBrowseQueryButton {
 	private short goldTextureX;
 	private short silverTextureX;
 	private short copperTextureX;
+	private short goldStringX;
+	private short silverStringX;
+	private short copperStringX;
+	private short coinWidth;
+	private short coinHeight;
 	private String sellerName;
 	private String itemName;
 	private String duration;
@@ -41,11 +46,12 @@ public class AuctionBrowseQueryButton {
 	private boolean durationHovered;
 	private short itemWidth;
 	private short itemHeight;
-	private final static short ITEM_NAME_MAX_WIDTH = 190;
+	private boolean lastItemScrollbarState;
+	private final static short ITEM_NAME_MAX_WIDTH = 150;
 	public final static TTF DURATION_FONT = FontManager.get("FRIZQT", 11);
-	public final static TTF ITEM_NAME_FONT = FontManager.get("FRIZQT", 15);
-	public final static TTF GOLD_FONT = FontManager.get("ARIALN", 15);
-	private final static short DURATION_X_OFFSET = 271;
+	public final static TTF ITEM_NAME_FONT = FontManager.get("FRIZQT", 13);
+	public final static TTF GOLD_FONT = FontManager.get("ARIALN", 14);
+	private final static short DURATION_X_OFFSET = 295;
 	private final static short LEVEL_X_OFFSET = 223;
 	private final static short SELLER_NAME_X_OFFSET = 383;
 	private final static short ITEM_NAME_X_OFFSET = 43;
@@ -53,9 +59,20 @@ public class AuctionBrowseQueryButton {
 	private final static short BORDER_X_OFFSET = 33;
 	private final static short ITEM_WIDTH = 32;
 	private final static short ITEM_HEIGHT = 32;
-	private final static short GOLD_X = 350;
-	private final static short SILVER_X = 350;
-	private final static short COPPER_X = 350;
+	private final static short GOLD_STRING_X_NO_SCROLLBAR = 533;
+	private final static short GOLD_STRING_X_SCROLLBAR = 508;
+	private final static short GOLD_TEXTURE_X_NO_SCROLLBAR = 536;
+	private final static short GOLD_TEXTURE_X_SCROLLBAR = 511;
+	private final static short SILVER_TEXTURE_X_NO_SCROLLBAR = 572;
+	private final static short SILVER_TEXTURE_X_SCROLLBAR = 547;
+	private final static short SILVER_STRING_X_NO_SCROLLBAR = 569;
+	private final static short SILVER_STRING_X_SCROLLBAR = 544;
+	private final static short COPPER_TEXTURE_X_NO_SCROLLBAR = 608;
+	private final static short COPPER_TEXTURE_X_SCROLLBAR = 583;
+	private final static short COPPER_STRING_X_NO_SCROLLBAR = 605;
+	private final static short COPPER_STRING_X_SCROLLBAR = 580;
+	private final static short COIN_WIDTH = 13;
+	private final static short COIN_HEIGHT = 13;
 	
 	public AuctionBrowseQueryButton(AuctionFrameUI frame) {
 		this.frame = frame;
@@ -66,9 +83,15 @@ public class AuctionBrowseQueryButton {
 		this.levelX = (short)(this.frame.getBrowseItemX()+LEVEL_X_OFFSET*Mideas.getDisplayXFactor());
 		this.stringY = (short)(TEXT_Y_OFFSET*Mideas.getDisplayYFactor());
 		this.itemNameX = (short)(this.frame.getBrowseItemX()+ITEM_NAME_X_OFFSET*Mideas.getDisplayXFactor());
-		this.goldTextureX = (short)(this.frame.getBrowseItemX()+GOLD_X*Mideas.getDisplayXFactor());
-		this.silverTextureX = (short)(this.frame.getBrowseItemX()+SILVER_X*Mideas.getDisplayXFactor());
-		this.copperTextureX = (short)(this.frame.getBrowseItemX()+COPPER_X*Mideas.getDisplayXFactor());
+		this.goldTextureX = (short)(this.frame.getBrowseItemX()+GOLD_TEXTURE_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.silverTextureX = (short)(this.frame.getBrowseItemX()+SILVER_TEXTURE_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.copperTextureX = (short)(this.frame.getBrowseItemX()+COPPER_TEXTURE_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.goldStringX = (short)(this.frame.getBrowseItemX()+GOLD_STRING_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.silverStringX = (short)(this.frame.getBrowseItemX()+SILVER_STRING_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.copperStringX = (short)(this.frame.getBrowseItemX()+COPPER_STRING_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.coinWidth = (short)(COIN_WIDTH*Mideas.getDisplayXFactor());
+		this.coinHeight = (short)(COIN_HEIGHT*Mideas.getDisplayYFactor());
+		this.duration = "";
 	}
 	
 	public void draw() {
@@ -80,7 +103,6 @@ public class AuctionBrowseQueryButton {
 		if(this.durationHovered) {
 			//DURATION_FONT.drawStringShadow(this.durationX, this., text, color, shadowColor, shadowSize, shadowX, shadowY, scaleX, scaleY);
 		}
-		this.frame.incrementBrowseItemY();
 	}
 	
 	public void drawItemName() {
@@ -94,19 +116,47 @@ public class AuctionBrowseQueryButton {
 	}
 	
 	public void drawGoldString() {
-		
+		if(this.entry.canBeBuyout()) {
+			GOLD_FONT.drawStringShadowPartReversed(this.goldStringX, this.frame.getBrowseItemY(), this.entry.getBidGoldString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+			GOLD_FONT.drawStringShadowPartReversed(this.goldStringX, this.frame.getBrowseItemY()+14*Mideas.getDisplayYFactor(), this.entry.getBuyoutGoldString(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+			GOLD_FONT.drawStringShadowPartReversed(this.silverStringX, this.frame.getBrowseItemY(), this.entry.getBidSilverString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+			GOLD_FONT.drawStringShadowPartReversed(this.silverStringX, this.frame.getBrowseItemY()+14*Mideas.getDisplayYFactor(), this.entry.getBuyoutSilverString(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+			GOLD_FONT.drawStringShadowPartReversed(this.copperStringX, this.frame.getBrowseItemY(), this.entry.getBidCopperString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+			GOLD_FONT.drawStringShadowPartReversed(this.copperStringX, this.frame.getBrowseItemY()+14*Mideas.getDisplayYFactor(), this.entry.getBuyoutCopperString(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+		}
+		else  {
+			GOLD_FONT.drawStringShadowPartReversed(this.goldStringX, this.frame.getBrowseItemY()+14*Mideas.getDisplayYFactor(), this.entry.getBuyoutPriceString(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+		}
 	}
 	
 	public void drawGoldTexture() {
-		Draw.drawQuadPart(Sprites.gold_coin, this.goldTextureX, this.frame.getBrowseItemY());
+		if(this.entry.canBeBuyout()) {
+			Draw.drawQuadPart(Sprites.gold_coin, this.goldTextureX, this.frame.getBrowseItemY()+2*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+			Draw.drawQuadPart(Sprites.gold_coin, this.goldTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+		}
+		else {
+			Draw.drawQuadPart(Sprites.gold_coin, this.goldTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+		}
 	}
 	
 	public void drawSilverTexture() {
-		Draw.drawQuadPart(Sprites.silver_coin, this.silverTextureX, this.frame.getBrowseItemY());
+		if(this.entry.canBeBuyout()) {
+			Draw.drawQuadPart(Sprites.silver_coin, this.silverTextureX, this.frame.getBrowseItemY()+2*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+			Draw.drawQuadPart(Sprites.silver_coin, this.silverTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+		}
+		else {
+			Draw.drawQuadPart(Sprites.silver_coin, this.silverTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+		}
 	}
 	
 	public void drawCopperTexture() {
-		Draw.drawQuadPart(Sprites.copper_coin, this.copperTextureX, this.frame.getBrowseItemY());
+		if(this.entry.canBeBuyout()) {
+			Draw.drawQuadPart(Sprites.copper_coin, this.copperTextureX, this.frame.getBrowseItemY()+2*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+			Draw.drawQuadPart(Sprites.copper_coin, this.copperTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+		}
+		else {
+			Draw.drawQuadPart(Sprites.copper_coin, this.copperTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+		}
 	}
 	
 	public boolean mouseEvent() {
@@ -145,10 +195,9 @@ public class AuctionBrowseQueryButton {
 		else if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 				this.buttonDown = false;
-				if(this.frame.getSelectedBrowseEntry() == this.entry) {
+				if(Mouse.getEventButton() == 0 && this.frame.getSelectedBrowseEntry() == this.entry) {
 					this.frame.setSelectedBrowseEntry(null);
 				}
-				return true;
 			}
 		}
 		return false;
@@ -157,6 +206,12 @@ public class AuctionBrowseQueryButton {
 	public void setEntry(AuctionEntry entry) {
 		if(entry == null) {
 			this.entry = null;
+			this.item = null;
+			this.sellerName = null;
+			this.duration = "";
+			this.durationWidth = 0;
+			this.itemName = null;
+			this.level = null;
 			return;
 		}
 		this.entry = entry;
@@ -167,6 +222,11 @@ public class AuctionBrowseQueryButton {
 		this.itemName = formatItemName(entry.getItem().getStuffName());
 		this.level = StringUtils.value[this.entry.getItem().getLevel()];
 		this.sellerNameX = (short)(this.frame.getBrowseItemX()+SELLER_NAME_X_OFFSET*Mideas.getDisplayXFactor()-DURATION_FONT.getWidth(this.sellerName)/2);
+		this.durationX = (short)(this.frame.getBrowseItemX()+DURATION_X_OFFSET*Mideas.getDisplayXFactor()-DURATION_FONT.getWidth(this.duration)/2);
+		if(this.lastItemScrollbarState != this.frame.browseItemScrollbarEnabled()) {
+			updateGoldSize();
+			this.lastItemScrollbarState = this.frame.browseItemScrollbarEnabled();
+		}
 	}
 	
 	protected void setWidth(short width) {
@@ -181,18 +241,46 @@ public class AuctionBrowseQueryButton {
 		this.border.updateSize((short)(this.frame.getBrowseItemX()+BORDER_X_OFFSET*Mideas.getDisplayXFactor()), this.buttonWidth);
 		this.itemWidth = (short)(ITEM_WIDTH*Mideas.getDisplayXFactor());
 		this.itemHeight = (short)(ITEM_HEIGHT*Mideas.getDisplayYFactor());
-		this.durationX = (short)(this.frame.getBrowseItemX()+DURATION_X_OFFSET*Mideas.getDisplayXFactor());
+		this.durationX = (short)(this.frame.getBrowseItemX()+DURATION_X_OFFSET*Mideas.getDisplayXFactor()-DURATION_FONT.getWidth(this.duration)/2);
 		this.levelX = (short)(this.frame.getBrowseItemX()+LEVEL_X_OFFSET*Mideas.getDisplayXFactor());
 		this.stringY = (short)(TEXT_Y_OFFSET*Mideas.getDisplayYFactor());
 		this.itemNameX = (short)(this.frame.getBrowseItemX()+ITEM_NAME_X_OFFSET*Mideas.getDisplayXFactor());
 		this.itemNameYOffset = (short)(this.itemNameYOffsetSave*Mideas.getDisplayYFactor());
+		this.coinWidth = (short)(COIN_WIDTH*Mideas.getDisplayXFactor());
+		this.coinHeight = (short)(COIN_HEIGHT*Mideas.getDisplayYFactor());
+		updateGoldSize();
 		if(this.sellerName != null) {
 			this.sellerNameX = (short)(this.frame.getBrowseItemX()+SELLER_NAME_X_OFFSET*Mideas.getDisplayXFactor()-DURATION_FONT.getWidth(this.sellerName)/2);
 		}
 	}
 	
+	private void updateGoldSize() {
+		if(!this.frame.browseItemScrollbarEnabled()) {
+			this.goldTextureX = (short)(this.frame.getBrowseItemX()+GOLD_TEXTURE_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.silverTextureX = (short)(this.frame.getBrowseItemX()+SILVER_TEXTURE_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.copperTextureX = (short)(this.frame.getBrowseItemX()+COPPER_TEXTURE_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.goldStringX = (short)(this.frame.getBrowseItemX()+GOLD_STRING_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.silverStringX = (short)(this.frame.getBrowseItemX()+SILVER_STRING_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.copperStringX = (short)(this.frame.getBrowseItemX()+COPPER_STRING_X_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		}
+		else {
+			this.goldTextureX = (short)(this.frame.getBrowseItemX()+GOLD_TEXTURE_X_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.silverTextureX = (short)(this.frame.getBrowseItemX()+SILVER_TEXTURE_X_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.copperTextureX = (short)(this.frame.getBrowseItemX()+COPPER_TEXTURE_X_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.goldStringX = (short)(this.frame.getBrowseItemX()+GOLD_STRING_X_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.silverStringX = (short)(this.frame.getBrowseItemX()+SILVER_STRING_X_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.copperStringX = (short)(this.frame.getBrowseItemX()+COPPER_STRING_X_SCROLLBAR*Mideas.getDisplayXFactor());
+		}
+	}
+	
+	protected void updateUnloadedItem(int itemID) {
+		if(this.entry != null && this.entry.getItem().getId() == itemID) {
+			this.itemName = formatItemName(this.entry.getItem().getStuffName());
+		}
+	}
+	
 	private String formatItemName(String name) {
-		short nameMaxWidth = (short)(ITEM_NAME_MAX_WIDTH*Mideas.getDisplayXFactor());
+		short nameMaxWidth = ITEM_NAME_MAX_WIDTH;
 		StringBuilder builder = new StringBuilder();
 		int width = 0;
 		int numberLine = 1;
@@ -203,8 +291,8 @@ public class AuctionBrowseQueryButton {
 			if(width > nameMaxWidth && i < name.length()) {
 				lastLine = checkPreviousSpace(name, i);
 				builder.append(name.substring(0, lastLine)+'\n'+name.substring(lastLine+1));
-				this.itemNameYOffset = (short)(5*Mideas.getDisplayYFactor());
-				this.itemNameYOffsetSave = 5;
+				this.itemNameYOffset = (short)(-2*Mideas.getDisplayYFactor());
+				this.itemNameYOffsetSave = -2;
 				return builder.toString();
 			}
 		}

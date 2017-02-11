@@ -427,7 +427,9 @@ public final class Draw {
 	}
 	
 	public final static void drawQuad(final Texture texture, final float x, final float y, final float width, final float height) {
-		drawQuad(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight(), 1);
+		if(texture != null) {
+			drawQuad(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight(), 1);
+		}
 	}
 	
 	public final static void drawQuadCentered(final Texture texture, final float x, final float y, final float width, final float height) {

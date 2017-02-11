@@ -323,8 +323,10 @@ public class Sprites {
 	public static Texture arrow_top;
 	public static Texture arrow_right_down;
 	public static Texture arrow_right;
+	public static Texture arrow_right_disabled;
 	public static Texture arrow_left_down;
 	public static Texture arrow_left;
+	public static Texture arrow_left_disabled;
 	public static Texture arrow_bot_down;
 	public static Texture arrow_bot;
 	public static Texture arrow_hover;
@@ -455,8 +457,10 @@ public class Sprites {
 		arrow_bot = new Texture("sprite/interface/arrow/UI-ChatIcon-ScrollDown-Up.png");
 		arrow_bot_down = new Texture("sprite/interface/arrow/UI-ChatIcon-ScrollDown-Down.png");
 		arrow_right = new Texture("sprite/interface/arrow/UI-SpellbookIcon-NextPage-Up.png");
+		arrow_right_disabled = new Texture("sprite/interface/arrow/UI-SpellbookIcon-NextPage-Disabled.png");
 		arrow_right_down = new Texture("sprite/interface/arrow/UI-SpellbookIcon-NextPage-Down.png");
 		arrow_left = new Texture("sprite/interface/arrow/UI-SpellbookIcon-PrevPage-Up.png");
+		arrow_left_disabled = new Texture("sprite/interface/arrow/UI-SpellbookIcon-PrevPage-Disabled.png");
 		arrow_left_down = new Texture("sprite/interface/arrow/UI-SpellbookIcon-PrevPage-Down.png");
 		arrow_hover = new Texture("sprite/interface/arrow/UI-Common-MouseHilight.png");
 		drop_down_menu_left_border = new Texture("sprite/interface/drop_down_menu/left_border.png");

@@ -429,25 +429,33 @@ public class ScrollBar {
 		}*/
 		//System.out.println("y_ascensor: "+(this.y_ascensor)/(this.y_size-45*Mideas.getDisplayYFactor()));
 		//return (this.y_ascensor)/(this.y_size-2*Sprites.ascensor.getImageHeight()*Mideas.getDisplayYFactor());
-		return (this.y_ascensor)/(this.y_size-45*Mideas.getDisplayYFactor());
+		return this.y_ascensor/this.Y_ASCENSOR_DOWN_SHIFT;
 	}
 	
 	public void update(float x, float y, float y_size, float scroll_tick_size) {
 		this.x = (int)x;
 		this.y = (int)y;
+		boolean resize = this.y_ascensor == this.Y_ASCENSOR_DOWN_SHIFT;
 		this.y_size = (int)y_size;
 		this.scroll_tick_size = (int)scroll_tick_size;
 		this.Y_ASCENSOR_DOWN_SHIFT = this.y_size-45*Mideas.getDisplayYFactor();
+		if(resize) {
+			this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
+		}
 	}
 	
 	public void update(float x, float y, float y_size, float x_frame_size, float y_frame_size, float scroll_tick_size) {
 		this.x = (int)x;
 		this.y = (int)y;
+		boolean resize = this.y_ascensor == this.Y_ASCENSOR_DOWN_SHIFT;
 		this.y_size = (int)y_size;
 		this.x_frame_size = (int)x_frame_size;
 		this.y_frame_size = (int)y_frame_size;
 		this.scroll_tick_size = (int)scroll_tick_size;
 		this.Y_ASCENSOR_DOWN_SHIFT = this.y_size-45*Mideas.getDisplayYFactor();
+		if(resize) {
+			this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
+		}
 	}
 	
 	public void onScroll() {}

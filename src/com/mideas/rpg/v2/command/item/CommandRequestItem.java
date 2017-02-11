@@ -8,6 +8,7 @@ import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.RequestItem;
 import com.mideas.rpg.v2.game.item.container.Container;
+import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
 
 public class CommandRequestItem extends Command {
 
@@ -30,6 +31,7 @@ public class CommandRequestItem extends Command {
 			setGem(item, slotType, slot, gemSlot);
 			return;
 		}
+		System.out.println(slotType+" Command");
 		setItem(item, slotType, slot);
 	}
 	
@@ -69,8 +71,8 @@ public class CommandRequestItem extends Command {
 		else if(slotType == DragItem.EQUIPPED_CONTAINER) {
 			Mideas.joueur1().bag().setEquippedBag(slot, (Container)item);
 		}
-		else if(slotType == DragItem.NONE) {
-			//do nothing
+		else if(slotType == DragItem.AUCTION_HOUSE_BROWSE) {
+			AuctionHouseFrame.updateUnloadedBrowseItem(item.getId());
 		}
 		Item.storeItem(item);
 	}

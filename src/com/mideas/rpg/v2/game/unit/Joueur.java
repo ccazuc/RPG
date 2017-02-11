@@ -992,6 +992,18 @@ public class Joueur extends Unit {
 		this.copperPieceString = String.valueOf(this.copperPiece);
 	}
 	
+	public static int getGoldPiece(int gold) {
+		return Math.floorDiv(gold, 10000);
+	}
+	
+	public static int getSilverPiece(int gold) {
+		return Math.floorDiv(gold%10000, 100);
+	}
+	
+	public static int getCopperPiece(int gold) {
+		return gold%100;
+	}
+	
 	public int getGoldPiece() {
 		return this.goldPiece;
 	}

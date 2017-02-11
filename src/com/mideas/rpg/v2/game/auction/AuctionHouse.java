@@ -29,6 +29,10 @@ public class AuctionHouse {
 		this.soldItemList.clear();
 	}
 	
+	public void addBidEntry(AuctionEntry entry) {
+		this.bidList.add(entry);
+	}
+	
 	public void addQueryItem(AuctionEntry entry) {
 		this.queryList.add(entry);
 	}
