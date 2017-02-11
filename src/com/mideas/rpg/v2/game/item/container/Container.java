@@ -36,6 +36,7 @@ public class Container extends Item {
 		this.sellPrice = container.sellPrice;
 		this.maxStack = container.maxStack;
 		this.size = container.size;
+		this.nameColor = getItemNameColor(this);
 		buildString();
 	}
 	

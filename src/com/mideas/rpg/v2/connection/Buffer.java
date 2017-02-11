@@ -143,35 +143,127 @@ public class Buffer {
 	}
 	
 	public final Gem readGem() {
-		return new Gem(readInt(), readString(), readString(), readByte(), GemColor.values()[readByte()], readInt(), GemBonusType.values()[readByte()], readInt(), GemBonusType.values()[readByte()], readInt(), GemBonusType.values()[readByte()], readInt());
+		return new Gem(readInt(), 
+				readString(), 
+				readString(), 
+				readByte(), 
+				GemColor.values()[readByte()], 
+				readInt(), 
+				GemBonusType.values()[readByte()], 
+				readInt(), 
+				GemBonusType.values()[readByte()], 
+				readInt(), 
+				GemBonusType.values()[readByte()], 
+				readInt());
 	}
 	
 	public final Container readContainer() {
-		return new Container(readInt(), readString(), readString(), readByte(), readByte(), readInt());
+		return new Container(readInt(), 
+				readString(), 
+				readString(), 
+				readByte(), 
+				readByte(), 
+				readInt());
 	}
 	
 	public final Stuff readStuff() {
-		return new Stuff(StuffType.values()[readByte()], readClassType(), readString(), readInt(), readString(), readByte(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readByte(), Wear.values()[readByte()], readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Stuff(StuffType.values()[readByte()], 
+				readClassType(), readString(), 
+				readInt(), readString(), 
+				readByte(), 
+				GemColor.values()[readByte()], 
+				GemColor.values()[readByte()], 
+				GemColor.values()[readByte()], 
+				GemBonusType.values()[readByte()], 
+				readInt(), 
+				readByte(), 
+				Wear.values()[readByte()], 
+				readInt(), 
+				readInt(), 
+				readInt(), 
+				readInt(), 
+				readInt(), 
+				readInt());
 	}
 	
 	public final Stuff readWeapon() {
-		return new Stuff(readInt(), readString(), readString(), readClassType(), WeaponType.values()[readByte()], WeaponSlot.values()[readByte()], readByte(), GemColor.values()[readByte()], GemColor.values()[readByte()], GemColor.values()[readByte()], GemBonusType.values()[readByte()], readInt(), readByte(), readInt(), readInt(), readInt(), readInt(), readInt(), readInt());
+		return new Stuff(readInt(), 
+				readString(),
+				readString(), 
+				readClassType(), 
+				WeaponType.values()[readByte()], 
+				WeaponSlot.values()[readByte()], 
+				readByte(), GemColor.values()[readByte()],
+				GemColor.values()[readByte()], 
+				GemColor.values()[readByte()], 
+				GemBonusType.values()[readByte()], 
+				readInt(), 
+				readByte(), 
+				readInt(), 
+				readInt(), 
+				readInt(), 
+				readInt(), 
+				readInt(), 
+				readInt());
 	}
 	
 	public final Potion readPotion() {
-		return new Potion(readInt(), readString(), readString(), readByte(), readInt(), readInt(), readInt(), readInt());
+		return new Potion(readInt(), 
+				readString(), 
+				readString(), 
+				readByte(), 
+				readInt(), 
+				readInt(), 
+				readInt(), 
+				readInt());
 	}
 	
 	public final Color readColor() {
-		return new Color(readFloat(), readFloat(), readFloat(), readFloat());
+		return new Color(readFloat(), 
+				readFloat(), 
+				readFloat(), 
+				readFloat());
 	}
 	
 	public final Spell readSpell() {
-		return new Spell(readInt(), readString(), readString(), readString(), readByte(), readInt(), readInt(), readFloat(), readInt(), readInt(), readInt(), readBoolean(), SpellMagicalSchool.values()[readByte()], readBoolean());
+		return new Spell(readInt(), 
+				readString(), 
+				readString(), 
+				readString(), 
+				readByte(), 
+				readInt(), 
+				readInt(), 
+				readFloat(), 
+				readInt(), 
+				readInt(), 
+				readInt(), 
+				readBoolean(), 
+				SpellMagicalSchool.values()[readByte()], 
+				readBoolean());
 	}
 	
 	public final Aura readAura() {
-		return new Aura(readInt(), readString(), readString(), readInt(), readInt(), readBoolean(), readByte(), readByte(), readInt(), readBoolean(), readBoolean(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), AuraEffect.values()[readByte()], readInt(), readBoolean(), readBoolean(), readBoolean(), readBoolean());
+		return new Aura(readInt(), 
+				readString(), 
+				readString(), 
+				readInt(), 
+				readInt(), 
+				readBoolean(), 
+				readByte(), 
+				readByte(), 
+				readInt(), 
+				readBoolean(), 
+				readBoolean(), 
+				AuraEffect.values()[readByte()], 
+				readInt(), 
+				AuraEffect.values()[readByte()], 
+				readInt(), 
+				AuraEffect.values()[readByte()], 
+				readInt(), 
+				readBoolean(), 
+				readBoolean(), 
+				readBoolean(), 
+				readBoolean());
 	}
 	
 	public final void writeStuff(final Stuff stuff) {
@@ -222,7 +314,7 @@ public class Buffer {
 		writeInt(potion.getId());
 		writeString(potion.getSpriteId());
 		writeString(potion.getStuffName());
-		writeInt(potion.getLevel());
+		writeByte(potion.getLevel());
 		writeInt(potion.getPotionHeal());
 		writeInt(potion.getPotionMana());
 		writeInt(potion.getSellPrice());
@@ -248,7 +340,7 @@ public class Buffer {
 		writeByte(weapon.getGemColor(2).getValue());
 		writeByte(weapon.getGemBonusType().getValue());
 		writeInt(weapon.getGemBonusValue());
-		writeInt(weapon.getLevel());
+		writeByte(weapon.getLevel());
 		writeInt(weapon.getArmor());
 		writeInt(weapon.getStamina());
 		writeInt(weapon.getMana());

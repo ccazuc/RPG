@@ -31,7 +31,6 @@ public class CommandRequestItem extends Command {
 			setGem(item, slotType, slot, gemSlot);
 			return;
 		}
-		System.out.println(slotType+" Command");
 		setItem(item, slotType, slot);
 	}
 	
@@ -53,6 +52,7 @@ public class CommandRequestItem extends Command {
 	}
 	
 	private static void setItem(Item item, DragItem slotType, int slot) {
+		Item.storeItem(item);
 		if(slotType == DragItem.BANK) {
 			
 		}
@@ -74,7 +74,6 @@ public class CommandRequestItem extends Command {
 		else if(slotType == DragItem.AUCTION_HOUSE_BROWSE) {
 			AuctionHouseFrame.updateUnloadedBrowseItem(item.getId());
 		}
-		Item.storeItem(item);
 	}
 	
 	private static void setGem(Item item, DragItem slotType, int slot, int gemSlot) {

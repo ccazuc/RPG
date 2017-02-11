@@ -230,6 +230,13 @@ public class Stuff extends Item {
 	}
 	
 	public void updateStuff(Stuff stuff) {
+		this.id = stuff.id;
+		this.sprite_id = stuff.sprite_id;
+		this.name = stuff.name;
+		this.level = stuff.level;
+		this.quality = stuff.quality;
+		this.sellPrice = stuff.sellPrice;
+		this.nameColor = getItemNameColor(this);
 		if(stuff.isStuff()) {
 			this.socketBonusString = stuff.socketBonusString;
 			this.classRequirement = stuff.classRequirement;
@@ -285,12 +292,6 @@ public class Stuff extends Item {
 			this.wear = stuff.wear;
 			this.isLoaded = true;
 		}
-		this.id = stuff.id;
-		this.sprite_id = stuff.sprite_id;
-		this.name = stuff.name;
-		this.level = stuff.level;
-		this.quality = stuff.quality;
-		this.sellPrice = stuff.sellPrice;
 	}
 
 	public boolean canWearWeapon() {

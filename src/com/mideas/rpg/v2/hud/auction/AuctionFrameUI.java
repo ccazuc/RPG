@@ -38,7 +38,7 @@ public class AuctionFrameUI {
 	private final short BROWSE_FILTER_SCROLLBAR_HEIGHT = 290;
 	private final short BROWSE_FILTER_SCROLLBAR_Y = 100;
 	private final short BROWSE_ITEM_SCROLLBAR_X = 794;
-	private final short BROWSE_ITEM_SCROLLBAR_WIDTH = 170;
+	private final short BROWSE_ITEM_SCROLLBAR_WIDTH = 640;
 	private final short BROWSE_ITEM_SCROLLBAR_HEIGHT = 290;
 	private final short BROWSE_ITEM_SCROLLBAR_Y = 100;
 	private final short BROWSE_FILTER_X = 21;
@@ -141,7 +141,7 @@ public class AuctionFrameUI {
 			AuctionFrameUI.this.browseFilterScrollbarOffset = (short)(AuctionFrameUI.this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor()*(AuctionFrameUI.this.browserFilterNumberLine-15)*getScrollPercentage());
 		}
 	};
-	final ScrollBar browseItemScrollbar = new ScrollBar(this.x_frame+this.BROWSE_ITEM_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_ITEM_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), false, this.browseItemYShift*Mideas.getDisplayYFactor()) {
+	final ScrollBar browseItemScrollbar = new ScrollBar(this.x_frame+this.BROWSE_ITEM_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_ITEM_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), (this.BROWSE_ITEM_SCROLLBAR_HEIGHT+15)*Mideas.getDisplayYFactor(), false, this.browseItemYShift*Mideas.getDisplayYFactor()) {
 		
 		@Override
 		public void onScroll() {
@@ -817,7 +817,7 @@ public class AuctionFrameUI {
 		this.browseCopperBidEditBox.update(this.x_frame+this.BROWSE_BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
 		this.browseNextPageArrow.update(this.x_frame+this.BROWSE_NEXT_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_PAGE_ARROW_Y*Mideas.getDisplayYFactor());
 		this.browsePreviousPageArrow.update(this.x_frame+this.BROWSE_PREVIOUS_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_PAGE_ARROW_Y*Mideas.getDisplayYFactor());
-		this.browseItemScrollbar.update(this.x_frame+this.BROWSE_ITEM_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_ITEM_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.browseItemYShift*Mideas.getDisplayYFactor());
+		this.browseItemScrollbar.update(this.x_frame+this.BROWSE_ITEM_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_ITEM_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), (this.BROWSE_ITEM_SCROLLBAR_HEIGHT+15)*Mideas.getDisplayYFactor(), this.browseItemYShift*Mideas.getDisplayYFactor());
 		int i = -1;
 		while(++i < this.queryButtonList.size()) {
 			this.queryButtonList.get(i).updateSize();

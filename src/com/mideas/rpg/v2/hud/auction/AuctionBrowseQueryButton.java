@@ -214,6 +214,9 @@ public class AuctionBrowseQueryButton {
 			this.level = null;
 			return;
 		}
+		if(!entry.getItem().getIsLoaded()) {
+			
+		}
 		this.entry = entry;
 		this.item = entry.getItem();
 		this.sellerName = entry.getSellerName();
@@ -274,7 +277,7 @@ public class AuctionBrowseQueryButton {
 	}
 	
 	protected void updateUnloadedItem(int itemID) {
-		if(this.entry != null && this.entry.getItem().getId() == itemID) {
+		if(this.entry != null && this.entry.getItemID() == itemID) {
 			this.itemName = formatItemName(this.entry.getItem().getStuffName());
 		}
 	}

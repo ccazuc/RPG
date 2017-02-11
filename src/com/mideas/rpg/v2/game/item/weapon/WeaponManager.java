@@ -84,7 +84,13 @@ public class WeaponManager {
 	
 	public static void storeNewPiece(Stuff weapon) {
 		if(weapon != null) {
-			weaponList.put(weapon.getId(), weapon);
+			Stuff tmp = weaponList.get(weapon.getId());
+			if(tmp != null && !tmp.getIsLoaded()) {
+				tmp.updateStuff(weapon);
+			}
+			else {
+				weaponList.put(weapon.getId(), weapon);
+			}
 		}
 	}
 	

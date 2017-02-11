@@ -220,6 +220,7 @@ public class DropDownMenu {
 	
 	public void setValue(int value) {
 		this.selectedMenuValue = value;
+		this.selectedMenuText = this.menuList.get(value).getText();
 	}
 	
 	protected void menuEventButtonClick() {}

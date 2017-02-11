@@ -87,6 +87,7 @@ public class Gem extends Item {
 		this.stat2Value = gem.stat2Value;
 		this.stat3Type = gem.stat3Type;
 		this.stat3Value = gem.stat3Value;
+		this.nameColor = getItemNameColor(this);
 		buildGemStatsString();
 		buildGemColorString();
 	}
