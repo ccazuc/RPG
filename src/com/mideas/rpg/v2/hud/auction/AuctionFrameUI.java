@@ -230,7 +230,7 @@ public class AuctionFrameUI {
 			return !AuctionFrameUI.this.querySent && AuctionFrameUI.this.browsePage > 1;
 		}
 	};
-	final EditBox browseSearchEditBox = new EditBox(this.x_frame+this.BROWSE_SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEARCH_EDIT_BOX_WIDTH*Mideas.getDisplayXFactor(), 63, 21, this.BROWSE_SEARCH_EDIT_BOX_INPUT_WIDTH*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 11), false, 2, 13, "Search") {
+	final EditBox browseSearchEditBox = new EditBox(this.x_frame+this.BROWSE_SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEARCH_EDIT_BOX_WIDTH*Mideas.getDisplayXFactor(), 63, 21, this.BROWSE_SEARCH_EDIT_BOX_INPUT_WIDTH*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 11), false, 2, 13, "Search", true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -271,7 +271,7 @@ public class AuctionFrameUI {
 			return value <= 999;
 		}
 	};
-	final EditBox browseMaxLevelEditBox = new EditBox(this.x_frame+this.BROWSE_MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_LEVEL_EDIT_BOX_WIDTH, 3, 5, this.BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 12), true) {
+	final EditBox browseMaxLevelEditBox = new EditBox(this.x_frame+this.BROWSE_MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_LEVEL_EDIT_BOX_WIDTH, 3, 5, this.BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -291,7 +291,7 @@ public class AuctionFrameUI {
 			return value <= 999;
 		}
 	};
-	final EditBox browseGoldBidEditBox = new EditBox(this.x_frame+this.BROWSE_BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_GOLD_EDIT_BOX_WIDTH, 6, 5, this.BROWSE_BID_GOLD_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 12), true) {
+	final EditBox browseGoldBidEditBox = new EditBox(this.x_frame+this.BROWSE_BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_GOLD_EDIT_BOX_WIDTH, 6, 5, this.BROWSE_BID_GOLD_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -311,7 +311,7 @@ public class AuctionFrameUI {
 			return value <= 999999;
 		}
 	};
-	final EditBox browseSilverBidEditBox = new EditBox(this.x_frame+this.BROWSE_BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 12), true) {
+	final EditBox browseSilverBidEditBox = new EditBox(this.x_frame+this.BROWSE_BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -331,7 +331,7 @@ public class AuctionFrameUI {
 			return value <= 99;
 		}
 	};
-	final EditBox browseCopperBidEditBox = new EditBox(this.x_frame+this.BROWSE_BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 12), true) {
+	final EditBox browseCopperBidEditBox = new EditBox(this.x_frame+this.BROWSE_BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -451,7 +451,7 @@ public class AuctionFrameUI {
 		if(this.selectedFilter == AuctionHouseFilter.NONE) {
 			filter = this.selectedCategoryFilter;
 		}
-		CommandAuction.sendQuery(filter, this.selectedSort, this.qualityFilter, this.browseSearchEditBox.getText().toLowerCase(), this.browsePage, false, (short)this.browseMinLevelEditBox.getValue(), (short)this.browseMaxLevelEditBox.getValue(), false);
+		CommandAuction.sendQuery(filter, this.selectedSort, this.qualityFilter, this.browseSearchEditBox.getText(), this.browsePage, false, (short)this.browseMinLevelEditBox.getValue(), (short)this.browseMaxLevelEditBox.getValue(), false);
 		this.hasSearched = true;
 		this.querySent = true;
 	}
@@ -488,7 +488,6 @@ public class AuctionFrameUI {
 	
 	private void drawBrowseFrame() {
 		Draw.drawQuad(Sprites.auction_browse_frame, this.x_frame, this.y_frame);
-		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
 		this.browseBidButton.draw();
 		this.browseBuyoutButton.draw();
 		this.browseClose.draw();
@@ -498,12 +497,26 @@ public class AuctionFrameUI {
 		this.browseSortBySellerButton.draw();
 		this.browseSortByPricePerUnitButton.draw();
 		this.browseSendQueryButton.draw();
-		this.browseSearchEditBox.draw();
+		/*this.browseSearchEditBox.draw();
 		this.browseMinLevelEditBox.draw();
 		this.browseMaxLevelEditBox.draw();
 		this.browseGoldBidEditBox.draw();
 		this.browseSilverBidEditBox.draw();
-		this.browseCopperBidEditBox.draw();
+		this.browseCopperBidEditBox.draw();*/
+		Sprites.edit_box.drawBegin();
+		this.browseSearchEditBox.drawTexturePart();
+		this.browseMinLevelEditBox.drawTexturePart();
+		this.browseMaxLevelEditBox.drawTexturePart();
+		this.browseGoldBidEditBox.drawTexturePart();
+		this.browseSilverBidEditBox.drawTexturePart();
+		this.browseCopperBidEditBox.drawTexturePart();
+		Sprites.edit_box.drawEnd();
+		this.browseSearchEditBox.drawString();
+		this.browseMinLevelEditBox.drawString();
+		this.browseMaxLevelEditBox.drawString();
+		this.browseGoldBidEditBox.drawString();
+		this.browseSilverBidEditBox.drawString();
+		this.browseCopperBidEditBox.drawString();
 		this.browseResetButton.draw();
 		this.browseNextPageArrow.draw();
 		this.browsePreviousPageArrow.draw();
@@ -535,9 +548,26 @@ public class AuctionFrameUI {
 		Sprites.gold_coin.drawEnd();
 		Draw.glScissorBegin(0, 495*Mideas.getDisplayYFactor(), 500, 305*Mideas.getDisplayYFactor());
 		int i = -1;
+		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
+		Sprites.chat_channel_button.drawBegin();
 		while(++i < this.browseCategoryList.size()) {
-			this.browseCategoryList.get(i).draw();
+			this.browseCategoryList.get(i).drawTexturePart();
 		}
+		Sprites.chat_channel_button.drawEnd();
+		i = -1;
+		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
+		this.browseFilterFont.drawBegin();
+		while(++i < this.browseCategoryList.size()) {
+			this.browseCategoryList.get(i).drawStringPart();
+		}
+		this.browseFilterFont.drawEnd();
+		i = -1;
+		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
+		Sprites.button_menu_hover.drawBlendBegin();
+		while(++i < this.browseCategoryList.size()) {
+			this.browseCategoryList.get(i).drawHoverPart();
+		}
+		Sprites.button_menu_hover.drawBlendEnd();
 		Draw.glScissorEnd();
 		if(this.browseItemScrollbarEnabled) {
 			this.browseItemScrollbar.draw();
@@ -849,6 +879,11 @@ public class AuctionFrameUI {
 	
 	public void setSelectedBrowseEntry(AuctionEntry entry) {
 		this.browseSelectedEntry = entry;
+		if(entry != null) {
+			this.browseCopperBidEditBox.setText(entry.getBidCopperString());
+			this.browseSilverBidEditBox.setText(entry.getBidSilverString());
+			this.browseGoldBidEditBox.setText(entry.getBidGoldString());
+		}
 	}
 	
 	public AuctionEntry getSelectedBrowseEntry() {

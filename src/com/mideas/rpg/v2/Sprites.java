@@ -366,6 +366,9 @@ public class Sprites {
 	public static Texture auction_browse_item_left_border;
 	public static Texture auction_browse_item_middle_border;
 	public static Texture auction_browse_item_right_border;
+	public static Texture edit_box_cross_button;
+	public static Texture edit_box_cross_button_hover;
+	public static Texture edit_box;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -478,6 +481,8 @@ public class Sprites {
 		button_hover_spellbar = new Texture("sprite/interface/OldButtonHilight-Square.png");
 		chat_logo_blizz = new Texture("sprite/interface/chat/blizzard_logo.png");
 		chat_channel_button = new Texture("sprite/interface/social/UI-AuctionFrame-FilterBg.png");
+		edit_box_cross_button = new Texture("sprite/interface/edit_box/cross_button.png");
+		edit_box_cross_button_hover = new Texture("sprite/interface/edit_box/cross_button_hover.png");
 		return true;
 	}
 	
@@ -648,6 +653,7 @@ public class Sprites {
 		edit_box_left_border = new Texture("sprite/interface/edit_box/left_border_good.png");
 		edit_box_middle_border = new Texture("sprite/interface/edit_box/middle_border_good.png");
 		edit_box_right_border = new Texture("sprite/interface/edit_box/right_border_good.png");
+		edit_box = new Texture("sprite/interface/edit_box/edit_box_good.png");
 		button_menu_sort_left_part = new Texture("sprite/interface/button_menu_sort/left_part.png");
 		button_menu_sort_middle_part = new Texture("sprite/interface/button_menu_sort/middle_part.png");
 		button_menu_sort_right_part = new Texture("sprite/interface/button_menu_sort/right_part.png");

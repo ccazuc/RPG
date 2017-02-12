@@ -59,14 +59,12 @@ public class IntegerInput extends Input {
 			return;
 		} 
 		String tmp;
-		System.out.println(this.cursorPosition+" "+this.text.length()+" "+this.text);
 		if(this.cursorPosition != this.text.length() && this.text.length() > 0) {
 			tmp = this.text.substring(0, this.cursorPosition)+c+this.text.substring(this.cursorPosition);
 		}
 		else {
 			tmp = this.text+c;
 		}
-		System.out.println(tmp);
 		int tmpValue = Integer.parseInt(tmp);
 		if(checkValue(tmpValue)) {
 			this.text = tmp;
@@ -77,20 +75,31 @@ public class IntegerInput extends Input {
 	}
 	
 	public void setText(char c) {
+		if(!StringUtils.isInteger(c)) {
+			System.out.println("IntegerInput.setText error, c in not an integer.");
+			return;
+		}
 		this.text = String.valueOf(c);
+		this.textValue = c-'0';
 		checkLength();
 		this.cursorPosition = this.text.length();
 	}
 	
 	@Override
 	public void setText(String s) {
+		if(!StringUtils.isInteger(s)) {
+			System.out.println("IntegerInput.setText error, s in not an integer.");
+			return;
+		}
 		this.text = s;
+		this.textValue = Integer.parseInt(s);
 		checkLength();
 		this.cursorPosition = this.text.length();
 	}
 	
 	public void setText(int i) {
 		this.text = Integer.toString(i);
+		this.textValue = i;
 		checkLength();
 		this.cursorPosition = this.text.length();
 	}

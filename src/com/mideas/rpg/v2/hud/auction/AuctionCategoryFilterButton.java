@@ -27,6 +27,60 @@ public class AuctionCategoryFilterButton {
 		this.filterList = new ArrayList<AuctionHouseFilterButton>();
 	}
 	
+	public void drawTexturePart() {
+		Draw.drawQuadPart(Sprites.chat_channel_button, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
+		this.frame.incrementBrowseFilterY();
+		if(!this.isExpanded) {
+			return;
+		}
+		int i = -1;
+		while(++i < this.filterList.size()) {
+			this.filterList.get(i).drawTexturePart();
+			this.frame.incrementBrowseFilterY();
+		}
+	}
+	
+	public void drawStringPart() {
+		if(this.frame.getSelectedCategoryFilter() == this.filter || this.buttonHover) {
+			if(this.buttonDown) {
+				this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			}
+			else {
+				this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			}
+		}
+		else if(this.buttonDown) {
+			this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+		}
+		else {
+			this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+		}
+		this.frame.incrementBrowseFilterY();
+		if(!this.isExpanded) {
+			return;
+		}
+		int i = -1;
+		while(++i < this.filterList.size()) {
+			this.filterList.get(i).drawStringPart();
+			this.frame.incrementBrowseFilterY();
+		}
+	}
+	
+	public void drawHoverPart() {
+		if(this.frame.getSelectedCategoryFilter() == this.filter || this.buttonHover) {
+			Draw.drawQuadBlendPart(Sprites.button_menu_hover, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
+		}
+		this.frame.incrementBrowseFilterY();
+		if(!this.isExpanded) {
+			return;
+		}
+		int i = -1;
+		while(++i < this.filterList.size()) {
+			this.filterList.get(i).drawHoverPart();
+			this.frame.incrementBrowseFilterY();
+		}
+	}
+	
 	public void draw() {
 		Draw.drawQuad(Sprites.chat_channel_button, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
 		if(this.frame.getSelectedCategoryFilter() == this.filter || this.buttonHover) {

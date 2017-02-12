@@ -1,5 +1,13 @@
 package com.mideas.rpg.v2.utils;
 
+import static org.lwjgl.opengl.GL11.GL_DST_COLOR;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_COLOR;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL14.GL_FUNC_ADD;
+import static org.lwjgl.opengl.GL14.glBlendFuncSeparate;
+import static org.lwjgl.opengl.GL20.glBlendEquationSeparate;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +44,8 @@ public final class Texture {
 			OpenGL.glBindTexture(OpenGL.GL_TEXTURE_2D, this.textureID);
 			OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
 			OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
+			//OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_NEAREST);
+			//OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_NEAREST);
 			OpenGL.glTexImage2D(OpenGL.GL_TEXTURE_2D, 0, OpenGL.GL_RGBA8, width, height, 0, OpenGL.GL_RGBA, OpenGL.GL_UNSIGNED_BYTE, buffer);
 			this.height = height;
 			this.width = width;
@@ -83,12 +93,23 @@ public final class Texture {
 
 	public final void drawBegin() {
 		bind();
-		OpenGL.glColor3f(1, 1, 1);
+		OpenGL.glColor4f(1, 1, 1, 1);
 		OpenGL.glBegin(OpenGL.GL_QUADS);
 	}
 	
 	public final void drawEnd() {
 		OpenGL.glEnd();
+	}
+	
+	public final void drawBlendBegin() {
+		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR, GL_SRC_ALPHA, GL_DST_COLOR);
+		glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+		drawBegin();
+	}
+	
+	public final void drawBlendEnd() {
+		drawEnd();
+		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	public final void bind() {

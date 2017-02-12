@@ -23,6 +23,9 @@ public class AuctionEntry {
 	private final String bidGoldString;
 	private final String bidSilverString;
 	private final String bidCopperString;
+	private final int bidGold;
+	private final byte bidSilver;
+	private final byte bidCopper;
 	private boolean locked;
 	
 	public AuctionEntry(int entryID, String sellerName, Item item, int buyoutPrice, int bidPrice, AuctionHouseLeftDuration duration) {
@@ -39,9 +42,24 @@ public class AuctionEntry {
 		this.buyoutGoldString = String.valueOf(Joueur.getGoldPiece(this.buyoutPrice));
 		this.buyoutSilverString = StringUtils.value[Joueur.getSilverPiece(this.buyoutPrice)];
 		this.buyoutCopperString = StringUtils.value[Joueur.getCopperPiece(this.buyoutPrice)];
-		this.bidGoldString = String.valueOf(Joueur.getGoldPiece(this.bidPrice));
-		this.bidSilverString = StringUtils.value[Joueur.getSilverPiece(this.bidPrice)];
-		this.bidCopperString = StringUtils.value[Joueur.getCopperPiece(this.bidPrice)];
+		this.bidGold = Joueur.getGoldPiece(this.bidPrice);
+		this.bidGoldString = String.valueOf(this.bidGold);
+		this.bidSilver = (byte)Joueur.getSilverPiece(this.bidPrice);
+		this.bidSilverString = StringUtils.value[this.bidSilver];
+		this.bidCopper = (byte)Joueur.getCopperPiece(this.bidPrice);
+		this.bidCopperString = StringUtils.value[this.bidCopper];
+	}
+	
+	public int getBidGold() {
+		return this.bidGold;
+	}
+	
+	public byte getBidSilver() {
+		return this.bidSilver;
+	}
+	
+	public byte getBidCopper() {
+		return this.bidCopper;
 	}
 	
 	public String getBuyoutGoldString() {

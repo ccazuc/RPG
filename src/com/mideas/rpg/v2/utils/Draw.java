@@ -159,6 +159,22 @@ public final class Draw {
 		glVertex2f(x+width, y);
 	}
 	
+	public final static void drawQuadPart(final Texture texture, final float x, final float y, final float width, final float height, final float alpha) {
+		final float xFrom = 0;
+		final float xTo = 1;
+		final float yFrom = 0;
+		final float yTo = 1;
+		glColor4f(1, 1, 1, alpha);
+		glTexCoord2f(xFrom, yFrom);
+		glVertex2f(x, y);
+		glTexCoord2f(xFrom, yTo);
+		glVertex2f(x, y+height);
+		glTexCoord2f(xTo, yTo);
+		glVertex2f(x+width, y+height);
+		glTexCoord2f(xTo, yFrom);
+		glVertex2f(x+width, y);
+	}
+	
 	public final static void drawQuadPart(final Texture texture, final float x, final float y, final float width, final float height) {
 		final float xFrom = 0;
 		final float xTo = 1;
@@ -215,6 +231,12 @@ public final class Draw {
 			drawQuadPart(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight());
 			OpenGL.glEnd();
 			glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
+	}
+	
+	public final static void drawQuadBlendPart(final Texture texture, final float x, final float y, final float width, final float height) {
+		if(texture != null) {
+			drawQuadPart(texture, x, y, width, height, 0, 0, texture.getWidth(), texture.getHeight());
 		}
 	}
 	
