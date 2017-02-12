@@ -109,6 +109,7 @@ public class AuctionFrameUI {
 	AuctionHouseSort selectedSort = AuctionHouseSort.LEVEL_ASCENDING;
 	AuctionHouseQualityFilter qualityFilter = AuctionHouseQualityFilter.ALL;
 	protected final TTF browseFilterFont;
+	protected final TTF browseSortFont = FontManager.get("FRIZQT", 11);
 	private short browseFilterX;
 	private short browseFilterY;
 	private short browseFilterYSave;
@@ -157,7 +158,7 @@ public class AuctionFrameUI {
 		
 		@Override
 		public boolean activateCondition() {
-			return AuctionFrameUI.this.browseSelectedEntry != null;
+			return AuctionFrameUI.this.browseSelectedEntry != null && AuctionFrameUI.this.browseSelectedEntry.canBeBuy();
 		}
 	};
 	private final Button browseBuyoutButton = new Button(this.x_frame+this.BROWSE_BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Buyout", 12, 1) {
@@ -351,7 +352,7 @@ public class AuctionFrameUI {
 			return value <= 99;
 		}
 	};
-	private final ButtonMenuSort browseSortByRarityButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_RARITY_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_RARITY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Rarity", 11) {
+	private final ButtonMenuSort browseSortByRarityButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_RARITY_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_RARITY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Rarity", this.browseSortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -364,7 +365,7 @@ public class AuctionFrameUI {
 			sendSearchQuery();
 		}
 	};
-	private final ButtonMenuSort browseSortByLevelButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_LEVEL_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_LEVEL_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Lvl", 11) {
+	private final ButtonMenuSort browseSortByLevelButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_LEVEL_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_LEVEL_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Lvl", this.browseSortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -377,7 +378,7 @@ public class AuctionFrameUI {
 			sendSearchQuery();
 		}
 	};
-	private final ButtonMenuSort browseSortByTimeLeftButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_TIME_LEFT_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_TIME_LEFT_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Time Left", 11) {
+	private final ButtonMenuSort browseSortByTimeLeftButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_TIME_LEFT_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_TIME_LEFT_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Time Left", this.browseSortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -390,7 +391,7 @@ public class AuctionFrameUI {
 			sendSearchQuery();
 		}
 	};
-	private final ButtonMenuSort browseSortBySellerButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_SELLER_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_SELLER_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Seller", 11) {
+	private final ButtonMenuSort browseSortBySellerButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_SELLER_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_SELLER_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Seller", this.browseSortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -403,7 +404,7 @@ public class AuctionFrameUI {
 			sendSearchQuery();
 		}
 	};
-	private final ButtonMenuSort browseSortByPricePerUnitButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Price Per Unit", 11) {
+	private final ButtonMenuSort browseSortByPricePerUnitButton = new ButtonMenuSort(this.x_frame+this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.y_frame+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Price Per Unit", this.browseSortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -451,6 +452,7 @@ public class AuctionFrameUI {
 		if(this.selectedFilter == AuctionHouseFilter.NONE) {
 			filter = this.selectedCategoryFilter;
 		}
+		this.browseItemScrollbar.resetScroll();
 		CommandAuction.sendQuery(filter, this.selectedSort, this.qualityFilter, this.browseSearchEditBox.getText(), this.browsePage, false, (short)this.browseMinLevelEditBox.getValue(), (short)this.browseMaxLevelEditBox.getValue(), false);
 		this.hasSearched = true;
 		this.querySent = true;
@@ -462,7 +464,6 @@ public class AuctionFrameUI {
 			this.browseCategoryList.get(i).unexpand();
 		}
 		this.browseFilterScrollbar.resetScroll();
-		this.browseFilterScrollbarOffset = 0;
 		checkBrowseFilterScrollbar();
 		this.browseSearchEditBox.resetText();
 		this.browseMinLevelEditBox.resetText();
@@ -484,6 +485,9 @@ public class AuctionFrameUI {
 		else if(this.selectedTab == AuctionFrameTab.AUCTIONS) {
 			drawAuctionsFrame();
 		}
+		else {
+			System.out.println("AuctionFrameUI.draw error, no tab selected");
+		}
 	}
 	
 	private void drawBrowseFrame() {
@@ -491,11 +495,36 @@ public class AuctionFrameUI {
 		this.browseBidButton.draw();
 		this.browseBuyoutButton.draw();
 		this.browseClose.draw();
-		this.browseSortByRarityButton.draw();
+		
+		Sprites.button_menu_sort.drawBegin();
+		this.browseSortByRarityButton.drawTexturePart();
+		this.browseSortByLevelButton.drawTexturePart();
+		this.browseSortByTimeLeftButton.drawTexturePart();
+		this.browseSortBySellerButton.drawTexturePart();
+		this.browseSortByPricePerUnitButton.drawTexturePart();
+		Sprites.button_menu_sort.drawEnd();
+
+		this.browseSortFont.drawBegin();
+		this.browseSortByRarityButton.drawStringPart();
+		this.browseSortByLevelButton.drawStringPart();
+		this.browseSortByTimeLeftButton.drawStringPart();
+		this.browseSortBySellerButton.drawStringPart();
+		this.browseSortByPricePerUnitButton.drawStringPart();
+		this.browseSortFont.drawEnd();
+		
+		Sprites.button_menu_hover.drawBlendBegin();
+		this.browseSortByRarityButton.drawHoverPart();
+		this.browseSortByLevelButton.drawHoverPart();
+		this.browseSortByTimeLeftButton.drawHoverPart();
+		this.browseSortBySellerButton.drawHoverPart();
+		this.browseSortByPricePerUnitButton.drawHoverPart();
+		Sprites.button_menu_hover.drawBlendEnd();
+		
+		/*this.browseSortByRarityButton.draw();
 		this.browseSortByLevelButton.draw();
 		this.browseSortByTimeLeftButton.draw();
 		this.browseSortBySellerButton.draw();
-		this.browseSortByPricePerUnitButton.draw();
+		this.browseSortByPricePerUnitButton.draw();*/
 		this.browseSendQueryButton.draw();
 		/*this.browseSearchEditBox.draw();
 		this.browseMinLevelEditBox.draw();
@@ -547,34 +576,13 @@ public class AuctionFrameUI {
 		Draw.drawQuadPart(Sprites.gold_coin, this.x_frame+367*Mideas.getDisplayXFactor(), this.y_frame+413*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 		Sprites.gold_coin.drawEnd();
 		Draw.glScissorBegin(0, 495*Mideas.getDisplayYFactor(), 500, 305*Mideas.getDisplayYFactor());
-		int i = -1;
-		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
-		Sprites.chat_channel_button.drawBegin();
-		while(++i < this.browseCategoryList.size()) {
-			this.browseCategoryList.get(i).drawTexturePart();
-		}
-		Sprites.chat_channel_button.drawEnd();
-		i = -1;
-		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
-		this.browseFilterFont.drawBegin();
-		while(++i < this.browseCategoryList.size()) {
-			this.browseCategoryList.get(i).drawStringPart();
-		}
-		this.browseFilterFont.drawEnd();
-		i = -1;
-		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
-		Sprites.button_menu_hover.drawBlendBegin();
-		while(++i < this.browseCategoryList.size()) {
-			this.browseCategoryList.get(i).drawHoverPart();
-		}
-		Sprites.button_menu_hover.drawBlendEnd();
-		Draw.glScissorEnd();
-		if(this.browseItemScrollbarEnabled) {
-			this.browseItemScrollbar.draw();
-		}
+		drawBrowseFilter();
 		drawBrowseItem();
 		if(this.browseFilterScrollbarEnabled) {
 			this.browseFilterScrollbar.draw();
+		}
+		if(this.browseItemScrollbarEnabled) {
+			this.browseItemScrollbar.draw();
 		}
 		this.browseRarityDropDownmenu.draw();
 	}
@@ -600,6 +608,31 @@ public class AuctionFrameUI {
 			}
 			this.queryButtonList.get(i).setWidth(width);
 		}
+	}
+	
+	private void drawBrowseFilter() {
+		int i = -1;
+		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
+		Sprites.chat_channel_button.drawBegin();
+		while(++i < this.browseCategoryList.size()) {
+			this.browseCategoryList.get(i).drawTexturePart();
+		}
+		Sprites.chat_channel_button.drawEnd();
+		i = -1;
+		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
+		this.browseFilterFont.drawBegin();
+		while(++i < this.browseCategoryList.size()) {
+			this.browseCategoryList.get(i).drawStringPart();
+		}
+		this.browseFilterFont.drawEnd();
+		i = -1;
+		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
+		Sprites.button_menu_hover.drawBlendBegin();
+		while(++i < this.browseCategoryList.size()) {
+			this.browseCategoryList.get(i).drawHoverPart();
+		}
+		Sprites.button_menu_hover.drawBlendEnd();
+		Draw.glScissorEnd();
 	}
 	
 	private void drawBrowseItem() {
@@ -704,6 +737,7 @@ public class AuctionFrameUI {
 		else if(this.selectedTab == AuctionFrameTab.AUCTIONS) {
 			return auctionsFrameMouseEvent();
 		}
+		System.out.println("AuctionFrameUI.mouseEvent error, no tab selected");
 		return false;
 	}
 	
@@ -770,6 +804,7 @@ public class AuctionFrameUI {
 		else if(this.selectedTab == AuctionFrameTab.AUCTIONS) {
 			return auctionsFrameKeyboardEvent();
 		}
+		System.out.println("AuctionFrameUI.keyboardEvent error, no tab selected");
 		return false;
 	}
 	
@@ -1062,6 +1097,12 @@ public class AuctionFrameUI {
 	protected void frameClosed() {
 		Mideas.joueur1().getAuctionHouse().clearQueryList();
 		this.hasSearched = false;
+		this.browseGoldBidEditBox.setActive(false);
+		this.browseSilverBidEditBox.setActive(false);
+		this.browseCopperBidEditBox.setActive(false);
+		this.browseSearchEditBox.setActive(false);
+		this.browseMinLevelEditBox.setActive(false);
+		this.browseMaxLevelEditBox.setActive(false);
 	}
 	
 	protected AuctionHouseFilter getSelectedFilter() {

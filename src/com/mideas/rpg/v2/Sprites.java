@@ -369,6 +369,7 @@ public class Sprites {
 	public static Texture edit_box_cross_button;
 	public static Texture edit_box_cross_button_hover;
 	public static Texture edit_box;
+	public static Texture button_menu_sort;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -483,6 +484,7 @@ public class Sprites {
 		chat_channel_button = new Texture("sprite/interface/social/UI-AuctionFrame-FilterBg.png");
 		edit_box_cross_button = new Texture("sprite/interface/edit_box/cross_button.png");
 		edit_box_cross_button_hover = new Texture("sprite/interface/edit_box/cross_button_hover.png");
+		button_menu_sort = new Texture("sprite/interface/button_menu_sort/button_menu_sort.png");
 		return true;
 	}
 	

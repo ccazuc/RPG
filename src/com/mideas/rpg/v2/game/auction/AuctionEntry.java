@@ -34,8 +34,8 @@ public class AuctionEntry {
 		this.item = item;
 		this.buyoutPrice = buyoutPrice;
 		this.bidPrice = bidPrice;
-		this.canBeBuy = buyoutPrice > 0 && !sellerName.equals(Mideas.joueur1().getName());
-		this.canBeBuyout = buyoutPrice > 0;
+		this.canBeBuy = !sellerName.equals(Mideas.joueur1().getName());
+		this.canBeBuyout = buyoutPrice > 0 && !sellerName.equals(Mideas.joueur1().getName());
 		this.duration = duration;
 		this.buyoutPriceString = String.valueOf(this.buyoutPrice);
 		this.bidPriceString = String.valueOf(this.bidPrice);
