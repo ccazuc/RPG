@@ -26,7 +26,6 @@ public class AuctionEntry {
 	private final int bidGold;
 	private final byte bidSilver;
 	private final byte bidCopper;
-	private boolean locked;
 	
 	public AuctionEntry(int entryID, String sellerName, Item item, int buyoutPrice, int bidPrice, AuctionHouseLeftDuration duration) {
 		this.entryID = entryID;
@@ -50,91 +49,83 @@ public class AuctionEntry {
 		this.bidCopperString = StringUtils.value[this.bidCopper];
 	}
 	
-	public int getBidGold() {
+	public final int getBidGold() {
 		return this.bidGold;
 	}
 	
-	public byte getBidSilver() {
+	public final byte getBidSilver() {
 		return this.bidSilver;
 	}
 	
-	public byte getBidCopper() {
+	public final byte getBidCopper() {
 		return this.bidCopper;
 	}
 	
-	public String getBuyoutGoldString() {
+	public final String getBuyoutGoldString() {
 		return this.buyoutGoldString;
 	}
 	
-	public String getBuyoutSilverString() {
+	public final String getBuyoutSilverString() {
 		return this.buyoutSilverString;
 	}
 	
-	public String getBuyoutCopperString() {
+	public final String getBuyoutCopperString() {
 		return this.buyoutCopperString;
 	}
 	
-	public String getBidGoldString() {
+	public final String getBidGoldString() {
 		return this.bidGoldString;
 	}
 	
-	public String getBidSilverString() {
+	public final String getBidSilverString() {
 		return this.bidSilverString;
 	}
 	
-	public String getBidCopperString() {
+	public final String getBidCopperString() {
 		return this.bidCopperString;
 	}
 	
-	public boolean canBeBuy() {
+	public final boolean canBeBuy() {
 		return this.canBeBuy;
 	}
 	
-	public boolean canBeBuyout() {
+	public final boolean canBeBuyout() {
 		return this.canBeBuyout;
 	}
 	
-	public void lock() {
-		this.locked = true;
-	}
-	
-	public boolean isLocked() {
-		return this.locked;
-	}
-	
-	public AuctionHouseLeftDuration getDuration() {
+	public final AuctionHouseLeftDuration getDuration() {
 		return this.duration;
 	}
 	
-	public int getEntryID() {
+	public final int getEntryID() {
 		return this.entryID;
 	}
 	
-	public String getSellerName() {
+	public final String getSellerName() {
 		return this.sellerName;
 	}
 	
-	public int getItemID() {
+	public final int getItemID() {
 		return this.item.getId();
 	}
 	
-	public Item getItem() {
+	public final Item getItem() {
 		return this.item;
 	}
 	
-	public int getBuyoutPrice() {
+	public final int getBuyoutPrice() {
 		return this.buyoutPrice;
 	}
 	
-	public int getBidPrice() {
+	public final int getBidPrice() {
 		return this.bidPrice;
 	}
 	
-	public String getBuyoutPriceString() {
+	public final String getBuyoutPriceString() {
 		return this.buyoutPriceString;
 	}
 	
-	public String getBidPriceString() {
+	public final String getBidPriceString() {
 		return this.bidPriceString;
 	}
 }
