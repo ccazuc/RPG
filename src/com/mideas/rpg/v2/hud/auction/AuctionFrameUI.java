@@ -131,7 +131,6 @@ public class AuctionFrameUI {
 	private boolean browseItemScrollbarEnabled;
 	short browsePage = 1;
 	short browseTotalPage;
-	private int browseNumberTotalResult;
 	private String browseResultString;
 	private short browseResultStringWidth;
 	boolean querySent;
@@ -185,6 +184,7 @@ public class AuctionFrameUI {
 	
 		@Override
 		public void eventButtonClick() {
+			AuctionFrameUI.this.browsePage = 1;
 			sendSearchQuery();
 		}
 		
@@ -575,7 +575,6 @@ public class AuctionFrameUI {
 		Draw.drawQuadPart(Sprites.gold_coin, this.x_frame+83*Mideas.getDisplayXFactor(), this.y_frame+412*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 		Draw.drawQuadPart(Sprites.gold_coin, this.x_frame+367*Mideas.getDisplayXFactor(), this.y_frame+413*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 		Sprites.gold_coin.drawEnd();
-		Draw.glScissorBegin(0, 495*Mideas.getDisplayYFactor(), 500, 305*Mideas.getDisplayYFactor());
 		drawBrowseFilter();
 		drawBrowseItem();
 		if(this.browseFilterScrollbarEnabled) {
@@ -612,6 +611,7 @@ public class AuctionFrameUI {
 	
 	private void drawBrowseFilter() {
 		int i = -1;
+		Draw.glScissorBegin(0, 495*Mideas.getDisplayYFactor(), 500, 305*Mideas.getDisplayYFactor());
 		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
 		Sprites.chat_channel_button.drawBegin();
 		while(++i < this.browseCategoryList.size()) {
@@ -654,7 +654,7 @@ public class AuctionFrameUI {
 		}
 		this.browseItemY = this.browseItemYSave;
 		int i = this.browseItemStartIndex;
-		int end = this.browseItemStartIndex+this.BROWSE_MAXIMUM_ITEM_DISPLAYED;
+		int end = Math.min(this.browseItemStartIndex+this.BROWSE_MAXIMUM_ITEM_DISPLAYED, this.queryButtonList.size());
 		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			this.queryButtonList.get(i).draw();
 			incrementBrowseItemY();
@@ -760,6 +760,7 @@ public class AuctionFrameUI {
 		if(this.browseCopperBidEditBox.mouseEvent()) return true;
 		if(this.browseResetButton.event()) return true;
 		if(this.browseNextPageArrow.event()) return true;
+		if(this.browsePreviousPageArrow.event()) return true;
 		if(this.browseItemScrollbarEnabled) {
 			if(this.browseItemScrollbar.event()) return true;
 		}
@@ -776,7 +777,7 @@ public class AuctionFrameUI {
 		this.browseItemY = this.browseItemYSave;
 		i = this.browseItemStartIndex;
 		int end = this.browseItemStartIndex+this.BROWSE_MAXIMUM_ITEM_DISPLAYED;
-		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
+		while(i < this.queryButtonList.size() && i < end && this.queryButtonList.get(i).getEntry() != null) {
 			if(this.queryButtonList.get(i).mouseEvent()) {
 				return true;
 			}
@@ -1084,7 +1085,6 @@ public class AuctionFrameUI {
 	}
 	
 	protected void buildResultString(byte result, int totalResult, short page, short numberPage) {
-		this.browseNumberTotalResult = totalResult;
 		this.browsePage = page;
 		this.browseTotalPage = numberPage;
 		if(result == 0 ) {

@@ -93,7 +93,7 @@ public class SelectScreen {
 			ConnectionManager.setIsLoggedOnWorldServer(false);
 			ConnectionManager.setWorldServer(null);
 			alert.setInactive();
-			SelectScreen.selectedCharacterIndex = 0;
+			selectedCharacterIndex = 0;
 			LoginScreen.mouseEvent();
 			Arrays.fill(characterList, null);
 			this.reset();
