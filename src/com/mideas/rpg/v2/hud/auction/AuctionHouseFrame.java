@@ -36,6 +36,10 @@ public class AuctionHouseFrame {
 		frame.updateQueryButtonList();
 	}
 	
+	public static void noItemFound() {
+		frame.noItemFound();
+	}
+	
 	public static void updateUnloadedBrowseItem(int itemID) {
 		frame.updateUnloadedBrowseItem(itemID);
 	}

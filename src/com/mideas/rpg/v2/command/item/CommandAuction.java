@@ -24,6 +24,7 @@ public class CommandAuction extends Command {
 			Mideas.joueur1().getAuctionHouse().queryReceived();
 			boolean itemFound = ConnectionManager.getConnection().readBoolean();
 			if(!itemFound) {
+				AuctionHouseFrame.noItemFound();
 				return;
 			}
 			int amountTotalResult = ConnectionManager.getConnection().readInt();

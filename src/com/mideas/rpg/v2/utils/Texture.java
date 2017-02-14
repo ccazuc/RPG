@@ -97,6 +97,7 @@ public final class Texture {
 		OpenGL.glBegin(OpenGL.GL_QUADS);
 	}
 	
+	@SuppressWarnings("static-method")
 	public final void drawEnd() {
 		OpenGL.glEnd();
 	}

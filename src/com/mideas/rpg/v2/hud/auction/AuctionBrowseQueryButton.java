@@ -125,7 +125,9 @@ public class AuctionBrowseQueryButton {
 			GOLD_FONT.drawStringShadowPartReversed(this.copperStringX, this.frame.getBrowseItemY()+14*Mideas.getDisplayYFactor(), this.entry.getBuyoutCopperString(), Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		else  {
-			GOLD_FONT.drawStringShadowPartReversed(this.goldStringX, this.frame.getBrowseItemY()+14*Mideas.getDisplayYFactor(), this.entry.getBuyoutPriceString(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+			GOLD_FONT.drawStringShadowPartReversed(this.goldStringX, this.frame.getBrowseItemY()+7*Mideas.getDisplayYFactor(), this.entry.getBuyoutGoldString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+			GOLD_FONT.drawStringShadowPartReversed(this.silverStringX, this.frame.getBrowseItemY()+7*Mideas.getDisplayYFactor(), this.entry.getBuyoutSilverString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+			GOLD_FONT.drawStringShadowPartReversed(this.copperStringX, this.frame.getBrowseItemY()+7*Mideas.getDisplayYFactor(), this.entry.getBuyoutCopperString(), Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 	}
 	
@@ -135,7 +137,7 @@ public class AuctionBrowseQueryButton {
 			Draw.drawQuadPart(Sprites.gold_coin, this.goldTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
 		}
 		else {
-			Draw.drawQuadPart(Sprites.gold_coin, this.goldTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+			Draw.drawQuadPart(Sprites.gold_coin, this.goldTextureX, this.frame.getBrowseItemY()+9*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
 		}
 	}
 	
@@ -145,7 +147,7 @@ public class AuctionBrowseQueryButton {
 			Draw.drawQuadPart(Sprites.silver_coin, this.silverTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
 		}
 		else {
-			Draw.drawQuadPart(Sprites.silver_coin, this.silverTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+			Draw.drawQuadPart(Sprites.silver_coin, this.silverTextureX, this.frame.getBrowseItemY()+9*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
 		}
 	}
 	
@@ -155,7 +157,7 @@ public class AuctionBrowseQueryButton {
 			Draw.drawQuadPart(Sprites.copper_coin, this.copperTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
 		}
 		else {
-			Draw.drawQuadPart(Sprites.copper_coin, this.copperTextureX, this.frame.getBrowseItemY()+16*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
+			Draw.drawQuadPart(Sprites.copper_coin, this.copperTextureX, this.frame.getBrowseItemY()+9*Mideas.getDisplayYFactor(), this.coinWidth, this.coinHeight);
 		}
 	}
 	

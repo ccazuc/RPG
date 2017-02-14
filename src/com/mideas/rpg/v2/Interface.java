@@ -748,6 +748,7 @@ public class Interface {
 		interfaceFrameActive = false;
 		dungeonFrameActive = false;
 		craftFrameActive = false;
+		closeAuctionFrame();
 		ContainerFrame.setBagOpen(0, false);
 		ContainerFrame.setBagOpen(1, false);
 		ContainerFrame.setBagOpen(2, false);

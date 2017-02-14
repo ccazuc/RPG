@@ -281,6 +281,7 @@ public class ConnectionManager {
 		SelectScreen.resetScreen();
 		isLoggedOnWorldServer = false;
 		RealmListFrame.clearRealmList();
+		Interface.closeAllFrame();
 		Mideas.setJoueur1Null();
 		Mideas.setAccountId(0);
 		ChatFrame.clearChat();

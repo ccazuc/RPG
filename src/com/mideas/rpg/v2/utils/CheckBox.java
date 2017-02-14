@@ -20,6 +20,7 @@ public class CheckBox {
 	private Color color;
 	private TTF font;
 	private int textWidth;
+	private boolean state;
 	
 	public CheckBox(float x, float y, String text, String tooltip_text, Color color, float font_size) {
 		this.x = x;
@@ -134,7 +135,12 @@ public class CheckBox {
 		this.y_size = (int)(y_size);
 	}
 	
-	protected void set() {}
-	protected boolean get() {return false;}
+	protected void set() {
+		this.state = !this.state;
+	}
+	
+	protected boolean get() {
+		return this.state;
+	}
 	protected boolean activateCondition() {return true;}
 }

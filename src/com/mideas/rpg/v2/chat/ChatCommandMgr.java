@@ -221,6 +221,22 @@ public class ChatCommandMgr {
 			gmotd.handle(command);
 		}
 	};
+	private final static ChatCommand ram = new ChatCommand("ram", "/ram display the ram used by the game.") {
+	
+		@Override
+		public void handle(String[] command) {
+			ChatFrame.addMessage(new Message("The game is using "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF));
+		}
+	};
+	private final static ChatCommand gc = new ChatCommand("gc", "/gc Run a gc.") {
+	
+		@Override
+		public void handle(String[] command) {
+			ChatFrame.addMessage(new Message("Ram used before gc : "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF));
+			System.gc();
+			ChatFrame.addMessage(new Message("Ram used after gc : "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF));
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
@@ -239,6 +255,8 @@ public class ChatCommandMgr {
 		addCommand(guildquit);
 		addCommand(gmotd);
 		addCommand(guildmotd);
+		addCommand(ram);
+		addCommand(gc);
 	}
 	
 	public static void handleChatCommand(String str) {

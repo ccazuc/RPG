@@ -609,6 +609,12 @@ public class AuctionFrameUI {
 		}
 	}
 	
+	public void noItemFound() {
+		disableBrowseItemScrollbar();
+		this.browsePage = 1;
+		this.browseTotalPage = 0;
+	}
+	
 	private void drawBrowseFilter() {
 		int i = -1;
 		Draw.glScissorBegin(0, 495*Mideas.getDisplayYFactor(), 500, 305*Mideas.getDisplayYFactor());
@@ -776,8 +782,8 @@ public class AuctionFrameUI {
 		}
 		this.browseItemY = this.browseItemYSave;
 		i = this.browseItemStartIndex;
-		int end = this.browseItemStartIndex+this.BROWSE_MAXIMUM_ITEM_DISPLAYED;
-		while(i < this.queryButtonList.size() && i < end && this.queryButtonList.get(i).getEntry() != null) {
+		int end = Math.min(this.browseItemStartIndex+this.BROWSE_MAXIMUM_ITEM_DISPLAYED, this.queryButtonList.size());
+		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			if(this.queryButtonList.get(i).mouseEvent()) {
 				return true;
 			}
@@ -1097,6 +1103,10 @@ public class AuctionFrameUI {
 	protected void frameClosed() {
 		Mideas.joueur1().getAuctionHouse().clearQueryList();
 		this.hasSearched = false;
+		disableBrowseItemScrollbar();
+		this.browsePage = 1;
+		this.browseTotalPage = 0;
+		this.browseRarityDropDownmenu.setValue(0);
 		this.browseGoldBidEditBox.setActive(false);
 		this.browseSilverBidEditBox.setActive(false);
 		this.browseCopperBidEditBox.setActive(false);
