@@ -55,7 +55,7 @@ public class Message {
 		this.type = MessageType.CHANNEL;
 		this.isGM = isGM;
 		if(this.author.length() == 0) { //Debug
-			this.authorText = ChannelMgr.getChannelHeader(channelName);
+			this.authorText = ChannelMgr.getChannelHeader(channelName).concat(" ");
 		}
 		else if(isGM) {
 			builder.setLength(0);

@@ -13,7 +13,7 @@ public class AlertBackground {
 	private String title;
 	private int titleWidth;
 	private int titleBorderWidth;
-	//private Color bgColor;
+	private Color bgColor;
 	
 	public AlertBackground(float x, float y, float x_size, float y_size, float opacity, String title, float titleBorderWidth) {
 		this.x = (int)x;
@@ -22,7 +22,7 @@ public class AlertBackground {
 		this.y_size = (int)y_size;
 		this.title = title;
 		this.titleWidth = FontManager.get("FRIZQT", 14).getWidth(this.title);
-		//this.bgColor = new Color(0, 0, 0, opacity);
+		this.bgColor = new Color(0, 0, 0, opacity);
 		this.titleBorderWidth = (int)titleBorderWidth;
 	}
 	
@@ -31,7 +31,7 @@ public class AlertBackground {
 		this.y = (int)y;
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;
-		//this.bgColor = new Color(0, 0, 0, opacity);
+		this.bgColor = new Color(0, 0, 0, opacity);
 	}
 	
 	public void draw() {
@@ -39,10 +39,9 @@ public class AlertBackground {
 		float yFac = Mideas.getDisplayYFactor();
 		int imageWidth = (int)(Sprites.top_left_corner_alert.getImageWidth()*xFac);
 		int imageHeight = (int)(Sprites.top_left_corner_alert.getImageHeight()*yFac);
-		/*int borderWidthShift = (int)(13*Mideas.getDisplayXFactor());
+		int borderWidthShift = (int)(13*Mideas.getDisplayXFactor());
 		int borderHeightShift = (int)(13*Mideas.getDisplayYFactor());
-		Draw.drawColorQuad(this.x+borderWidthShift, this.y+borderHeightShift, this.x_size-2*borderWidthShift, this.y_size-2*borderHeightShift+1, this.bgColor);
-		Draw.drawQuad(Sprites.top_left_corner_alert, this.x, this.y, imageWidth, imageHeight);
+		/*Draw.drawQuad(Sprites.top_left_corner_alert, this.x, this.y, imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.width_top_border_alert, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight);
 		Draw.drawQuad(Sprites.top_right_corner_alert, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight);
 		
@@ -52,6 +51,7 @@ public class AlertBackground {
 		
 		Draw.drawQuad(Sprites.height_left_border_alert, this.x, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
 		Draw.drawQuad(Sprites.height_right_border_alert, this.x+this.x_size-imageWidth, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);*/
+		Draw.drawColorQuad(this.x+borderWidthShift, this.y+borderHeightShift, this.x_size-2*borderWidthShift, this.y_size-2*borderHeightShift+1, this.bgColor);
 		if(this.title != null) {
 			imageWidth = (int)(Sprites.alert_title_left_border.getImageWidth()*Mideas.getDisplayXFactor());
 			Draw.drawQuad(Sprites.alert_title_left_border, this.x+this.x_size/2-this.titleBorderWidth/2, this.y-15*Mideas.getDisplayXFactor(), imageWidth, Sprites.alert_title_left_border.getImageHeight()*Mideas.getDisplayYFactor());

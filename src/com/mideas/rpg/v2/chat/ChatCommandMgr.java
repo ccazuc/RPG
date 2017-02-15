@@ -2,6 +2,7 @@ package com.mideas.rpg.v2.chat;
 
 import java.util.HashMap;
 
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandParty;
@@ -121,6 +122,56 @@ public class ChatCommandMgr {
 			}
 		}
 	};
+	final static ChatCommand cmute = new ChatCommand("mute", "Type /mute [channel_name] [player_name] to mute the player from the channel.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(command.length <= 2) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /mute [channel_name] [player_name]", false, MessageType.SELF));
+				return;
+			}
+			String channelName = ChannelMgr.findChannelName(command[1]);
+			if(channelName != null) {
+				int playerID = ChannelMgr.getMemberID(channelName, command[2]);
+				if(playerID == 0) {
+					return;
+				}
+				CommandChannel.mutePlayer(channelName, playerID);
+			}
+		}
+	};
+	private final static ChatCommand csilence = new ChatCommand("silence", "Type /silence [channel_name] [player_name] to mute the player from the channel.") {
+	
+		@Override
+		public void handle(String[] command) {
+			cmute.handle(command);
+		}
+	};
+	final static ChatCommand cunmute = new ChatCommand("unmute", "Type /unmute [channel_name] [player_name] to mute the player from the channel.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(command.length <= 2) {
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /unmute [channel_name] [player_name]", false, MessageType.SELF));
+				return;
+			}
+			String channelName = ChannelMgr.findChannelName(command[1]);
+			if(channelName != null) {
+				int playerID = ChannelMgr.getMemberID(channelName, command[2]);
+				if(playerID == 0) {
+					return;
+				}
+				CommandChannel.unmutePlayer(channelName, playerID);
+			}
+		}
+	};
+	private final static ChatCommand cunsilence = new ChatCommand("unsilence", "Type /unsilence [channel_name] [player_name] to mute the player from the channel.") {
+	
+		@Override
+		public void handle(String[] command) {
+			cunmute.handle(command);
+		}
+	};
 	final static ChatCommand cmoderator = new ChatCommand("moderator", "Type /moderator [channel_name] [player_name] [true || false] to set wether the player should be moderator.") {
 	
 		@Override
@@ -237,6 +288,18 @@ public class ChatCommandMgr {
 			ChatFrame.addMessage(new Message("Ram used after gc : "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF));
 		}
 	};
+	private final static ChatCommand ah = new ChatCommand("ah", "/ah Open or close the AuctionHouse.") {
+	
+		@Override
+		public void handle(String[] command) {
+			if(Interface.isAuctionFrameOpen()) {
+				Interface.openAuctionFrame();
+			}
+			else {
+				Interface.closeAuctionFrame();
+			}
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
@@ -257,6 +320,11 @@ public class ChatCommandMgr {
 		addCommand(guildmotd);
 		addCommand(ram);
 		addCommand(gc);
+		addCommand(ah);
+		addCommand(cmute);
+		addCommand(csilence);
+		addCommand(cunmute);
+		addCommand(cunsilence);
 	}
 	
 	public static void handleChatCommand(String str) {

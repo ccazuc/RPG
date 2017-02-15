@@ -63,6 +63,21 @@ public final class Draw {
 		drawColorQuad(x, y, width, height, Colors, Colors, Colors, Colors);
 	}
 	
+	public final static void drawColorQuadPart(final float x, final float y, final float width, final float height, final Color Colors) {
+		drawColorQuadPart(x, y, width, height, Colors, Colors, Colors, Colors);
+	}
+	
+	public final static void drawColorQuadPart(final float x, final float y, final float width, final float height, final Color topLeft, final Color topRight, final Color bottomRight, final Color bottomLeft) {
+		glColor4f(topLeft.red(), topLeft.green(), topLeft.blue(), topLeft.alpha());
+		glVertex2f(x, y);
+		glColor4f(topRight.red(), topRight.green(), topRight.blue(), topRight.alpha());
+		glVertex2f(x+width, y);
+		glColor4f(bottomRight.red(), bottomRight.green(), bottomRight.blue(), bottomRight.alpha());
+		glVertex2f(x+width, y+height);
+		glColor4f(bottomLeft.red(), bottomLeft.green(), bottomLeft.blue(), bottomLeft.alpha());
+		glVertex2f(x, y+height);;
+	}
+	
 	public final static void drawColorQuad(final float x, final float y, final float width, final float height, final Color topLeft, final Color topRight, final Color bottomRight, final Color bottomLeft) {
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
@@ -76,23 +91,6 @@ public final class Draw {
 		glVertex2f(x, y+height);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
-	}
-	
-	public final static void drawColorQuadPart(final float x, final float y, final float width, final float height, final Color topLeft, final Color topRight, final Color bottomRight, final Color bottomLeft) {
-		glDisable(GL_TEXTURE_2D);
-		glColor4f(topLeft.getRed(), topLeft.getGreen(), topLeft.getBlue(), topLeft.getAlpha());
-		glVertex2f(x, y);
-		glColor4f(topRight.getRed(), topRight.getGreen(), topRight.getBlue(), topRight.getAlpha());
-		glVertex2f(x+width, y);
-		glColor4f(bottomRight.getRed(), bottomRight.getGreen(), bottomRight.getBlue(), bottomRight.getAlpha());
-		glVertex2f(x+width, y+height);
-		glColor4f(bottomLeft.getRed(), bottomLeft.getGreen(), bottomLeft.getBlue(), bottomLeft.getAlpha());
-		glVertex2f(x, y+height);
-		glEnable(GL_TEXTURE_2D);
-	}
-	
-	public final static void drawColorQuadPart(final float x, final float y, final float width, final float height, final Color Colors) {
-		drawColorQuadPart(x, y, width, height, Colors, Colors, Colors, Colors);
 	}
 	
 	public final static void drawColorQuadBorder(final float x, final float y, final float width, final float height, final Color Colors) {

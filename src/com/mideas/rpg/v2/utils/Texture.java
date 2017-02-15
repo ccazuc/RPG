@@ -3,7 +3,13 @@ package com.mideas.rpg.v2.utils;
 import static org.lwjgl.opengl.GL11.GL_DST_COLOR;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_COLOR;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL14.GL_FUNC_ADD;
 import static org.lwjgl.opengl.GL14.glBlendFuncSeparate;
 import static org.lwjgl.opengl.GL20.glBlendEquationSeparate;
@@ -111,6 +117,16 @@ public final class Texture {
 	public final void drawBlendEnd() {
 		drawEnd();
 		glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+	
+	public final static void drawColorQuadBegin() {
+		glDisable(GL_TEXTURE_2D);
+		glBegin(GL_QUADS);
+	}
+	
+	public final static void drawColorQuadEnd() {
+		glEnd();
+		glEnable(GL_TEXTURE_2D);
 	}
 
 	public final void bind() {

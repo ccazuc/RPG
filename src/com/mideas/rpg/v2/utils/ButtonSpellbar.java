@@ -39,7 +39,7 @@ public class ButtonSpellbar {
 	private String keyBindString;
 	private int keyBindStringWidth;
 	private final static TTF numberItemFont = FontManager.get("FRIZQT", 15);
-	private final static TTF keyBindFont = FontManager.get("FRIZQT", 15);
+	public final static TTF keyBindFont = FontManager.get("FRIZQT", 15);
 	private final static Color BACKGROUND_COLOR = new Color(0, 0, 0, .65f);
 	private final static Color CD_COLOR = new Color(0, 0, 0, .8f);
 	private final static int MOUSE_MOVE_TRIGGER_RANGE = 15;
@@ -63,13 +63,31 @@ public class ButtonSpellbar {
 		setKeyBind(keyBind);
 	}
 	
+	public void drawSpellCase() {
+		if((this.shortcut == null && !this.isInFirstBar) || (this.shortcut != null && !this.isInFirstBar && !this.buttonDown && !this.keyDown)) {
+        		Draw.drawQuadPart(Sprites.spellbar_case, this.x, this.y-1, 44*Mideas.getDisplayXFactor(), 41*Mideas.getDisplayYFactor(), .5f);
+		}
+	}
+	
+	public void drawStuffColorQuad() {
+		if(this.shortcut != null && this.shortcut.getShortcutType() == ShortcutType.STUFF && !this.itemIsInBag && !this.itemIsEquipped) {
+			Draw.drawColorQuadPart(this.x+3, this.y+1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), BACKGROUND_COLOR);
+		}
+	}
+	
+	public void drawKeybind() {
+		if(this.keyBind >= 0 && ((this.shortcut == null && !this.isInFirstBar) || this.shortcut != null || DragManager.getDraggedItem() != null || DragSpellManager.getDraggedSpell() != null)) {
+			keyBindFont.drawStringShadowPart(this.x+40*Mideas.getDisplayXFactor()-this.keyBindStringWidth, this.y, this.keyBindString, Color.GREY, Color.BLACK, 1, 0, 0);
+		}
+	}
+	
 	public void draw() {
-		if(Display.wasResized() && this.keyBind >= 0) {
+		if(this.keyBind >= 0 && Display.wasResized()) {
 			setKeyBind(this.keyBind);
 		}
-		if((this.shortcut == null && !this.isInFirstBar) || (this.shortcut != null && !this.isInFirstBar && !this.buttonDown && !this.keyDown)) {
+		/*if((this.shortcut == null && !this.isInFirstBar) || (this.shortcut != null && !this.isInFirstBar && !this.buttonDown && !this.keyDown)) {
         		Draw.drawQuad(Sprites.spellbar_case, this.x, this.y-1, 44*Mideas.getDisplayXFactor(), 41*Mideas.getDisplayYFactor(), .5f);
-		}
+		}*/
 		if(this.shortcut != null) {
 			Draw.drawQuad(this.shortcut.getSprite(), this.x+3, this.y+1); //TODO: check la bordure sur wow
 			//Draw.drawQuad(Sprites.spell_border, this.x+3, this.y+1, borderWidth, borderHeight);
@@ -79,9 +97,9 @@ public class ButtonSpellbar {
 			if(this.numberItem >= 0) {
 				numberItemFont.drawStringShadow(this.x+40*Mideas.getDisplayXFactor()-this.numberItemStringWidth, this.y+16*Mideas.getDisplayYFactor(), this.numberItemString, Color.WHITE, Color.BLACK, 1, 0, 0);
 			}
-			if(this.shortcut.getShortcutType() == ShortcutType.STUFF && !this.itemIsInBag && !this.itemIsEquipped) {
+			/*if(this.shortcut.getShortcutType() == ShortcutType.STUFF && !this.itemIsInBag && !this.itemIsEquipped) {
 				Draw.drawColorQuad(this.x+3, this.y+1, 37*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor(), BACKGROUND_COLOR);
-			}
+			}*/
 			if(this.shortcut.getShortcutType() == ShortcutType.SPELL) {
 				if(Mideas.joueur1().getGCDEndTimer() > Mideas.getLoopTickTimer()) {
 					Draw.glScissorBegin(this.x+3, Display.getHeight()-this.y-37*Mideas.getDisplayYFactor(), 38*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
@@ -107,9 +125,9 @@ public class ButtonSpellbar {
 			if(this.buttonHover) {
 				Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.x+1, this.y, borderWidth, borderHeight);
 			}
-			if(this.keyBind >= 0) {
+			/*if(this.keyBind >= 0) {
 				keyBindFont.drawStringShadow(this.x+40*Mideas.getDisplayXFactor()-this.keyBindStringWidth, this.y, this.keyBindString, Color.GREY, Color.BLACK, 1, 0, 0);
-			}
+			}*/
 		}
 	}
 	

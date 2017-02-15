@@ -14,6 +14,7 @@ import com.mideas.rpg.v2.game.shortcut.ShortcutType;
 import com.mideas.rpg.v2.utils.ButtonSpellbar;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.utils.Tooltip;
 
 public class SpellBarFrame {
@@ -44,14 +45,33 @@ public class SpellBarFrame {
 			float e = ((float)Mideas.joueur1().getExp()/Mideas.getExpNeeded(Mideas.joueur1().getLevel()));
 			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor()/2+110*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor()+24*Mideas.getDisplayXFactor(), 1165*e*Mideas.getDisplayXFactor(), 8);
 		}
-		//TTF2.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+5-TTF2.get("FRIZQT", 15).getWidth(Mideas.getFps()), Display.getHeight()-180, Mideas.getFps(), Colors.yellow, Colors.BLACK, 1);
+		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+5, Display.getHeight()-180, String.valueOf(Mideas.getFps()), Color.YELLOW, Color.BLACK, 1, 0, 0);
 		Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor());
 		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+557*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(numberFreeSlotBag)/2, Display.getHeight()-22, numberFreeSlotBag, Color.WHITE, Color.BLACK, 1, 1, 1);
-		int i = 0;
-		while(i < buttonList.length) {
-			buttonList[i].draw();
-			i++;
+		int i = -1;
+		//long timer = System.nanoTime();
+		Sprites.spellbar_case.drawBegin();
+		while(++i < buttonList.length) {
+			buttonList[i].drawSpellCase();
 		}
+		Sprites.spellbar_case.drawEnd();
+		i = -1;
+		while(++i < buttonList.length) {
+			buttonList[i].draw();
+		}
+		i = -1;
+		Texture.drawColorQuadBegin();
+		while(++i < buttonList.length) {
+			buttonList[i].drawStuffColorQuad();
+		}
+		Texture.drawColorQuadEnd();
+		i = -1;
+		ButtonSpellbar.keyBindFont.drawBegin();
+		while(++i < buttonList.length) {
+			buttonList[i].drawKeybind();
+		}
+		ButtonSpellbar.keyBindFont.drawEnd();
+		//Mideas.nTime(timer, "Spellbar draw time");
 		i = 0;
 		float xBag = 489*Mideas.getDisplayXFactor();
 		float xBagShift = -48.2f*Mideas.getDisplayXFactor();

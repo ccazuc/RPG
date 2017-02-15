@@ -38,9 +38,15 @@ public class CommandSendMessage extends Command {
 		}
 		else if(type == MessageType.CHANNEL) {
 			String channelName = ConnectionManager.getConnection().readString();
+			boolean hasAuthor = ConnectionManager.getConnection().readBoolean();
+			if(hasAuthor) {
 			String author = ConnectionManager.getConnection().readString();
 			boolean isGM = ConnectionManager.getConnection().readBoolean();
-			ChatFrame.addMessage(new Message(message, channelName, author, false, isGM, true));
+				ChatFrame.addMessage(new Message(message, channelName, author, false, isGM, true));
+			}
+			else {
+				ChatFrame.addMessage(new Message(message, channelName, "", false, false, false));
+			}
 				
 		}
 		else if(type == MessageType.WHISPER) {
@@ -81,7 +87,7 @@ public class CommandSendMessage extends Command {
 		ConnectionManager.getConnection().writeShort(PacketID.SEND_MESSAGE);
 		ConnectionManager.getConnection().writeString(message);
 		ConnectionManager.getConnection().writeByte(MessageType.CHANNEL.getValue());
-		ConnectionManager.getConnection().writeString(channelName+'a');
+		ConnectionManager.getConnection().writeString(channelName);
 		ConnectionManager.getConnection().endPacket();
 		ConnectionManager.getConnection().send();
 	}

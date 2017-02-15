@@ -543,6 +543,14 @@ public class Interface {
 		return false;
 	}
 	
+	public static boolean isAuctionFrameOpen() {
+		return auctionFrameActive;
+	}
+	
+	public static void openAuctionFrame() {
+		auctionFrameActive = true;
+	}
+	
 	public static void closeAuctionFrame() {
 		if(auctionFrameActive) {
 			AuctionHouseFrame.frameClosed();

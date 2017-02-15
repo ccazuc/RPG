@@ -55,7 +55,7 @@ public class CommandChannel extends Command {
 			String channelName = ConnectionManager.getConnection().readString();
 			int id = ConnectionManager.getConnection().readInt();
 			ChannelMgr.setLeader(channelName, id);
-			ChatFrame.addMessage(new Message("["+ChannelMgr.getChannelIndex(channelName)+". "+channelName+"] "+ChannelMgr.getLeaderName(channelName)+" is now the leader.", false, MessageType.SELF, MessageType.CHANNEL.getColor()));
+			ChatFrame.addMessage(new Message(ChannelMgr.getLeaderName(channelName)+" is now the leader.", channelName, "", false, false, false));
 		}
 		else if(packetId == PacketID.CHANNEL_KICK_PLAYER) {
 			String channelName = ConnectionManager.getConnection().readString();
@@ -71,6 +71,12 @@ public class CommandChannel extends Command {
 			int id = ConnectionManager.getConnection().readInt();
 			boolean isModerator = ConnectionManager.getConnection().readBoolean();
 			ChannelMgr.setModerator(channelName, id, isModerator);
+		}
+		else if(packetId == PacketID.CHANNEL_CHANGE_PASSWORD) {
+			String channelName = ConnectionManager.getConnection().readString();
+			int playerID = ConnectionManager.getConnection().readInt();
+			String playerName = ChannelMgr.getMemberName(channelName, playerID);
+			ChatFrame.addMessage(new Message("Password changed by "+playerName, channelName, "", false, false, false));
 		}
 	}
 	
@@ -113,6 +119,26 @@ public class CommandChannel extends Command {
 		ConnectionManager.getConnection().startPacket();
 		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
 		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL_KICK_PLAYER);
+		ConnectionManager.getConnection().writeString(channelName);
+		ConnectionManager.getConnection().writeInt(playerID);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void mutePlayer(String channelName, int playerID) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL_MUTE_PLAYER);
+		ConnectionManager.getConnection().writeString(channelName);
+		ConnectionManager.getConnection().writeInt(playerID);
+		ConnectionManager.getConnection().endPacket();
+		ConnectionManager.getConnection().send();
+	}
+	
+	public static void unmutePlayer(String channelName, int playerID) {
+		ConnectionManager.getConnection().startPacket();
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL);
+		ConnectionManager.getConnection().writeShort(PacketID.CHANNEL_UNMUTE_PLAYER);
 		ConnectionManager.getConnection().writeString(channelName);
 		ConnectionManager.getConnection().writeInt(playerID);
 		ConnectionManager.getConnection().endPacket();

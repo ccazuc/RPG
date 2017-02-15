@@ -22,48 +22,46 @@ public class AuraFrame {
 	private static float Y_SIZE = 28*Mideas.getDisplayYFactor();
 	private final static TTF FONT = FontManager.get("FRIZQT", 13);
 	private final static float MINIMUM_OPACITY = .3f;
-	private final static float OPACITY_TICK = .012f;
+	private static float OPACITY_TICK;
 	private static boolean shouldUpdate;
 	
 	public static void draw() {
-		if(shouldUpdate) {
-			updateSize();
-			shouldUpdate = false;
-		}
-		int i = 0;
-		while(i < Mideas.joueur1().getBuffList().size()) {
-			if(Mideas.joueur1().getBuffList().get(i).getAura().isVisible()) {
-				long remaining = (Mideas.joueur1().getBuffList().get(i).getEndTimer()-Mideas.getLoopTickTimer());
-				if(remaining >= 60000) {
-					remaining = remaining/60000;
-					Draw.drawQuad(Mideas.joueur1().getBuffList().get(i).getAura().getTexture(), X_BUFF+i*X_SHIFT_BUFF, Y_BUFF, X_SIZE, Y_SIZE);
-					FONT.drawStringShadow(X_BUFF+i*X_SHIFT_BUFF, Y_BUFF+27*Mideas.getDisplayYFactor(), StringUtils.value[(int)remaining+1]+" m", Color.YELLOW, Color.BLACK, 1, 0, 0);
-				}
-				else {
-					remaining = remaining/1000;
-					Draw.drawQuad(Mideas.joueur1().getBuffList().get(i).getAura().getTexture(), X_BUFF+i*X_SHIFT_BUFF, Y_BUFF, X_SIZE, Y_SIZE, Mideas.joueur1().getBuffList().get(i).getOpacity());
-					FONT.drawStringShadow(X_BUFF+i*X_SHIFT_BUFF, Y_BUFF+27*Mideas.getDisplayYFactor(), StringUtils.value[(int)remaining+1]+" s", Color.WHITE, Color.BLACK, 1, 0, 0, Mideas.joueur1().getBuffList().get(i).getOpacity());
-					if(Mideas.joueur1().getBuffList().get(i).isOpacityAscending()) {
-						if(Mideas.joueur1().getBuffList().get(i).getOpacity() >= 1) {
-							Mideas.joueur1().getBuffList().get(i).setOpacityAscending(false);
-							Mideas.joueur1().getBuffList().get(i).setOpacity(Mideas.joueur1().getBuffList().get(i).getOpacity()-OPACITY_TICK);
-						}
-						else {
-							Mideas.joueur1().getBuffList().get(i).setOpacity(Mideas.joueur1().getBuffList().get(i).getOpacity()+OPACITY_TICK);
-						}
+		updateSize();
+		int i = -1;
+		OPACITY_TICK = .9f/Mideas.getFps();
+		while(++i < Mideas.joueur1().getBuffList().size()) {
+			if(!Mideas.joueur1().getBuffList().get(i).getAura().isVisible()) {
+				continue;
+			}
+			long remaining = (Mideas.joueur1().getBuffList().get(i).getEndTimer()-Mideas.getLoopTickTimer());
+			if(remaining >= 60000) {
+				remaining = remaining/60000;
+				Draw.drawQuad(Mideas.joueur1().getBuffList().get(i).getAura().getTexture(), X_BUFF+i*X_SHIFT_BUFF, Y_BUFF, X_SIZE, Y_SIZE);
+				FONT.drawStringShadow(X_BUFF+i*X_SHIFT_BUFF, Y_BUFF+27*Mideas.getDisplayYFactor(), StringUtils.value[(int)remaining+1]+" m", Color.YELLOW, Color.BLACK, 1, 0, 0);
+			}
+			else {
+				remaining = remaining/1000;
+				Draw.drawQuad(Mideas.joueur1().getBuffList().get(i).getAura().getTexture(), X_BUFF+i*X_SHIFT_BUFF, Y_BUFF, X_SIZE, Y_SIZE, Mideas.joueur1().getBuffList().get(i).getOpacity());
+				FONT.drawStringShadow(X_BUFF+i*X_SHIFT_BUFF, Y_BUFF+27*Mideas.getDisplayYFactor(), StringUtils.value[(int)remaining+1]+" s", Color.WHITE, Color.BLACK, 1, 0, 0, Mideas.joueur1().getBuffList().get(i).getOpacity());
+				if(Mideas.joueur1().getBuffList().get(i).isOpacityAscending()) {
+					if(Mideas.joueur1().getBuffList().get(i).getOpacity() >= 1) {
+						Mideas.joueur1().getBuffList().get(i).setOpacityAscending(false);
+						Mideas.joueur1().getBuffList().get(i).setOpacity(Mideas.joueur1().getBuffList().get(i).getOpacity()-OPACITY_TICK);
 					}
 					else {
-						if(Mideas.joueur1().getBuffList().get(i).getOpacity() <= MINIMUM_OPACITY) {
-							Mideas.joueur1().getBuffList().get(i).setOpacityAscending(true);
-							Mideas.joueur1().getBuffList().get(i).setOpacity(Mideas.joueur1().getBuffList().get(i).getOpacity()+OPACITY_TICK);
-						}
-						else {
-							Mideas.joueur1().getBuffList().get(i).setOpacity(Mideas.joueur1().getBuffList().get(i).getOpacity()-OPACITY_TICK);
-						}
+						Mideas.joueur1().getBuffList().get(i).setOpacity(Mideas.joueur1().getBuffList().get(i).getOpacity()+OPACITY_TICK);
+					}
+				}
+				else {
+					if(Mideas.joueur1().getBuffList().get(i).getOpacity() <= MINIMUM_OPACITY) {
+						Mideas.joueur1().getBuffList().get(i).setOpacityAscending(true);
+						Mideas.joueur1().getBuffList().get(i).setOpacity(Mideas.joueur1().getBuffList().get(i).getOpacity()+OPACITY_TICK);
+					}
+					else {
+						Mideas.joueur1().getBuffList().get(i).setOpacity(Mideas.joueur1().getBuffList().get(i).getOpacity()-OPACITY_TICK);
 					}
 				}
 			}
-			i++;
 		}
 	}
 	
@@ -95,10 +93,14 @@ public class AuraFrame {
 	}
 	
 	public static void updateSize() {
+		if(!shouldUpdate) {
+			return;
+		}
 		X_BUFF = Display.getWidth()-100*Mideas.getDisplayXFactor();
 		X_SHIFT_BUFF = -40*Mideas.getDisplayXFactor();
 		Y_BUFF = 15*Mideas.getDisplayYFactor();
 		X_SIZE = 30*Mideas.getDisplayXFactor();
 		Y_SIZE = 28*Mideas.getDisplayYFactor();
+		shouldUpdate = false;
 	}
 }
