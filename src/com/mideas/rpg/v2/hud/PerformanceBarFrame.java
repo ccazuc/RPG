@@ -42,7 +42,7 @@ public class PerformanceBarFrame {
 			TTF font = FontManager.get("FRIZQT", 15);
 			font.drawBegin();
 			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y, usedRam+Long.toString(Mideas.getUsedRAM()/(1024l*1024l))+mo, Color.WHITE, Color.BLACK, 1);
-			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+yShift, fps+Mideas.getFps(), Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+yShift, fps.concat(Mideas.getFPSString()), Color.WHITE, Color.BLACK, 1);
 			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+2*yShift, ping+Mideas.getPing(), Color.WHITE, Color.BLACK, 1);
 			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+3*yShift, drawTime, Color.WHITE, Color.BLACK, 1);
 			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+µs, Color.WHITE, Color.BLACK, 1);

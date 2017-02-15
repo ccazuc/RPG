@@ -25,6 +25,7 @@ public class SpellBarFrame {
 	private final static ButtonSpellbar[] buttonList = new ButtonSpellbar[36];
 	
 	private static String numberFreeSlotBag = "";
+	private static byte numberFreeSlotBagWidth;
 	private static boolean init;
 	private static boolean shouldUpdateSize;
 	
@@ -45,9 +46,11 @@ public class SpellBarFrame {
 			float e = ((float)Mideas.joueur1().getExp()/Mideas.getExpNeeded(Mideas.joueur1().getLevel()));
 			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor()/2+110*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor()+24*Mideas.getDisplayXFactor(), 1165*e*Mideas.getDisplayXFactor(), 8);
 		}
-		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+5, Display.getHeight()-180, String.valueOf(Mideas.getFps()), Color.YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 15).drawBegin();
+		FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+5, Display.getHeight()-180, Mideas.getFPSString(), Color.YELLOW, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 15).drawStringShadowPart(Display.getWidth()/2+557*Mideas.getDisplayXFactor()-numberFreeSlotBagWidth, Display.getHeight()-22, numberFreeSlotBag, Color.WHITE, Color.BLACK, 1, 1, 1);
+		FontManager.get("FRIZQT", 15).drawEnd();
 		Draw.drawQuad(Sprites.final_spellbar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()/2*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor());
-		FontManager.get("FRIZQT", 15).drawStringShadow(Display.getWidth()/2+557*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(numberFreeSlotBag)/2, Display.getHeight()-22, numberFreeSlotBag, Color.WHITE, Color.BLACK, 1, 1, 1);
 		int i = -1;
 		//long timer = System.nanoTime();
 		Sprites.spellbar_case.drawBegin();
@@ -304,5 +307,6 @@ public class SpellBarFrame {
 	
 	public static void setNumberFreeSlotBag(int number) {
 		numberFreeSlotBag = "("+Integer.toString(number)+")";
+		numberFreeSlotBagWidth = (byte)(FontManager.get("FRIZQT", 15).getWidth(numberFreeSlotBag)/2);
 	}
 }

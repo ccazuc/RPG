@@ -92,6 +92,7 @@ public class Mideas {
 	private static long last;
 	private static int count;
 	private static int fps;
+	private static String fpsString;
 	private static int i;
 	private static int k;
 	static long usedRAM;
@@ -141,7 +142,7 @@ public class Mideas {
 		Display.create();
 		Display.setResizable(true);
 		Display.setDisplayMode(new DisplayMode(1700, 930));
-		Display.setVSyncEnabled(true);
+		//Display.setVSyncEnabled(true);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	        GL11.glEnable(GL11.GL_BLEND);
 		FontManager.init();
@@ -323,9 +324,16 @@ public class Mideas {
 		count++;
 		if(System.currentTimeMillis()-last >= 1000) {
 			last = System.currentTimeMillis();
-			fps = count;
+			if(count != fps) {
+				fps = count;
+				fpsString = String.valueOf(fps);
+			}
 			count = 0;
 		}
+	}
+	
+	public static String getFPSString() {
+		return fpsString;
 	}
 	
 	public static void setUsedRam(long ram) {
