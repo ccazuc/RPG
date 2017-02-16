@@ -135,18 +135,18 @@ public class Mideas {
 		final String[] ICON_PATHS = {"sprite/interface/icon_32.png", "sprite/interface/icon_128.png"};
 		final ByteBuffer[] icon_array = new ByteBuffer[ICON_PATHS.length];
 		int i = ICON_PATHS.length;
-		while(--i > -1) {
+		while(--i >= 0) {
 			icon_array[i] = PNGDecoder.decode(new File(ICON_PATHS[i]));
 		}
 		Display.setIcon(icon_array);
 		Display.create();
 		Display.setResizable(true);
 		Display.setDisplayMode(new DisplayMode(1700, 930));
-		//Display.setVSyncEnabled(true);
+		Display.setVSyncEnabled(true);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	        GL11.glEnable(GL11.GL_BLEND);
 		FontManager.init();
-		double time = System.currentTimeMillis();
+		long time = System.currentTimeMillis();
 		loadingScreen();
 		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
@@ -156,7 +156,7 @@ public class Mideas {
 		final ByteBuffer cursor_buffer = BufferUtils.createByteBuffer(cursor_width*cursor_height*4);
 		cursor_image.getRGB(0, 0, cursor_width, cursor_height, cursor_pixels, 0, cursor_width);
 		int cursor_y = 32;
-		while(--cursor_y > -1) {
+		while(--cursor_y >= 0) {
 			int cursor_x = -1;
 			while(++cursor_x < 32) {
 				int j = cursor_y*32+cursor_x;
@@ -218,7 +218,7 @@ public class Mideas {
 					}
 				}
 				if(LOOP_TICK_TIMER-LAST_MOUSE_EVENT_TIMER >= MOUSE_EVENT_UPDATE_FREQUENCE) {
-					mouseEventTime = (float)(System.nanoTime()-time);
+					mouseEventTime = System.nanoTime()-time;
 					LAST_MOUSE_EVENT_TIMER = LOOP_TICK_TIMER;
 				}
 				while(Keyboard.next()) {
