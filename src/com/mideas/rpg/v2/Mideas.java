@@ -542,7 +542,6 @@ public class Mideas {
 	}
 
 	public static void setJoueur1(Joueur joueur) {
-		System.out.println("Set joueur1 : "+joueur);
 		joueur1 = new Joueur(joueur);
 	}
 	
