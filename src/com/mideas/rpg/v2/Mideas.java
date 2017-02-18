@@ -569,7 +569,6 @@ public class Mideas {
 		Sprites.initBG();
 		context2D();
 		int barWidth = (int)(850*Mideas.getDisplayXFactor());
-		
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		Draw.drawQuadBG(Sprites.loading_screen);
 		Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth()/2-barWidth/2, Display.getHeight()/2+350*Mideas.getDisplayYFactor(), barWidth, 40*Mideas.getDisplayYFactor());
@@ -594,7 +593,6 @@ public class Mideas {
 			updateDisplayFactor();
 			barWidth = (int)(850*Mideas.getDisplayXFactor());
 		}
-		
 		Sprites.sprite2();
 		context2D();
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
