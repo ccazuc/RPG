@@ -15,7 +15,7 @@ import com.mideas.rpg.v2.utils.StringUtils;
 
 public class AuctionBrowseQueryButton {
 
-	private final AuctionFrameUI frame;
+	private final AuctionFrameBrowseUI frame;
 	private final AuctionBrowseItemBorder border;
 	private AuctionEntry entry;
 	private short buttonWidth;
@@ -74,7 +74,7 @@ public class AuctionBrowseQueryButton {
 	private final static short COIN_WIDTH = 13;
 	private final static short COIN_HEIGHT = 13;
 	
-	public AuctionBrowseQueryButton(AuctionFrameUI frame) {
+	public AuctionBrowseQueryButton(AuctionFrameBrowseUI frame) {
 		this.frame = frame;
 		this.border = new AuctionBrowseItemBorder(this.frame, (short)(this.frame.getBrowseItemX()+BORDER_X_OFFSET*Mideas.getDisplayXFactor()), this.frame.getBrowseItemWidth());
 		this.itemWidth = (short)(ITEM_WIDTH*Mideas.getDisplayXFactor());

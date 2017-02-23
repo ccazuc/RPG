@@ -10,13 +10,13 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class AuctionHouseFilterButton {
 
-	private final AuctionFrameUI frame;
+	private final AuctionFrameBrowseUI frame;
 	private final String name;
 	private boolean buttonHover;
 	private boolean buttonDown;
 	private final AuctionHouseFilter filter;
 	
-	public AuctionHouseFilterButton(AuctionFrameUI frame, AuctionHouseFilter filter) {
+	public AuctionHouseFilterButton(AuctionFrameBrowseUI frame, AuctionHouseFilter filter) {
 		this.name = filter.getName();
 		this.filter = filter;
 		this.frame = frame;

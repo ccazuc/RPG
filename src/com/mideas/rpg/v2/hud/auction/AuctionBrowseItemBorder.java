@@ -6,12 +6,12 @@ import com.mideas.rpg.v2.utils.Draw;
 
 public class AuctionBrowseItemBorder {
 
-	private final AuctionFrameUI frame;
+	private final AuctionFrameBrowseUI frame;
 	private short x;
 	private short width;
 	private short height;
 	
-	public AuctionBrowseItemBorder(AuctionFrameUI frame, short x, short width) {
+	public AuctionBrowseItemBorder(AuctionFrameBrowseUI frame, short x, short width) {
 		this.frame = frame;
 		this.x = x;
 		this.width = width;
