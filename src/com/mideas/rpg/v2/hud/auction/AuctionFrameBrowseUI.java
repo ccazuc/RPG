@@ -26,148 +26,148 @@ import com.mideas.rpg.v2.utils.TextMenu;
 
 public class AuctionFrameBrowseUI {
 	
-	final byte BROWSE_MAXIMUM_ITEM_DISPLAYED = 8;
+	final byte MAXIMUM_ITEM_DISPLAYED = 8;
 	
-	private final short BROWSE_FILTER_SCROLLBAR_X = 153;
-	private final short BROWSE_FILTER_SCROLLBAR_WIDTH = 170;
-	private final short BROWSE_FILTER_SCROLLBAR_HEIGHT = 290;
-	private final short BROWSE_FILTER_SCROLLBAR_Y = 100;
-	private final short BROWSE_ITEM_SCROLLBAR_X = 794;
-	private final short BROWSE_ITEM_SCROLLBAR_WIDTH = 640;
-	private final short BROWSE_ITEM_SCROLLBAR_HEIGHT = 290;
-	private final short BROWSE_ITEM_SCROLLBAR_Y = 100;
-	private final short BROWSE_FILTER_X = 21;
-	private final short BROWSE_FILTER_Y = 103;
-	private final short BROWSE_FILTER_Y_SHIFT = 20;
-	private final short BROWSE_FILTER_WIDTH_NO_SCROLLBAR = 156;
-	private final short BROWSE_FILTER_WIDTH_SCROLLBAR = 136;
-	private final short BROWSE_FILTER_HEIGHT = 20;
-	private final short BROWSE_CLOSE_BUTTON_X = 744;
-	private final short BROWSE_CLOSE_BUTTON_Y = 409;
-	private final short BROWSE_BUYOUT_BUTTON_X = 663;
-	private final short BROWSE_BID_BUTTON_X = 584;
-	private final short BROWSE_BUTTON_WIDTH = 75;
-	private final short BROWSE_BUTTON_HEIGHT = 22;
-	private final short BROWSE_SORT_BUTTON_Y = 80;
-	private final short BROWSE_SORT_BUTTON_HEIGHT = 21;
-	private final short BROWSE_SORT_RARITY_BUTTON_WIDTH = 214;
-	private final short BROWSE_SORT_RARITY_BUTTON_X = 184;
-	private final short BROWSE_SORT_LEVEL_BUTTON_X = 396;
-	private final short BROWSE_SORT_LEVEL_BUTTON_WIDTH = 57;
-	private final short BROWSE_SORT_TIME_LEFT_BUTTON_X = 451;
-	private final short BROWSE_SORT_TIME_LEFT_BUTTON_WIDTH = 91;
-	private final short BROWSE_SORT_SELLER_BUTTON_X = 540;
-	private final short BROWSE_SORT_SELLER_BUTTON_WIDTH = 76;
-	private final short BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X = 614;
-	private final short BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH_SCROLLBAR = 184;
-	private final short BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR = 207;
-	private final short BROWSE_SEND_QUERY_BUTTON_X = 659;
-	private final short BROWSE_RESET_BUTTON_X = 744;
-	private final short BROWSE_SEND_QUERY_BUTTON_WIDTH = 78;
-	private final short BROWSE_SEND_QUERY_BUTTON_Y = 33;
-	private final short BROWSE_SEND_QUERY_BUTTON_HEIGHT = 22;
-	private final short BROWSE_SEARCH_EDIT_BOX_X = 76;
-	private final short BROWSE_SEARCH_EDIT_BOX_WIDTH = 164;
-	private final short BROWSE_SEARCH_EDIT_BOX_INPUT_WIDTH = 105;
-	private final short BROWSE_SEARCH_EDIT_BOX_Y = 49;
-	private final short BROWSE_MIN_LEVEL_EDIT_BOX_X = 226;
-	private final short BROWSE_MAX_LEVEL_EDIT_BOX_X = 263;
-	private final short BROWSE_LEVEL_EDIT_BOX_WIDTH = 30;
-	private final short BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH = 30;
-	private final short BROWSE_QUALITY_FILTER_DROP_DOWN_X = 305;
-	private final short BROWSE_QUALITY_FILTER_DROP_DOWN_Y = 49;
-	private final short BROWSE_QUALITY_FILTER_DROP_DOWN_BAR_WIDTH = 131;
-	private final short BROWSE_QUALITY_FILTER_DROP_DOWN_MENU_WIDTH = 155;
-	private final short BROWSE_QUERY_BUTTON_NO_SCROLLBAR_WIDTH = 590;
-	private final short BROWSE_QUERY_BUTTON_SCROLLBAR_WIDTH = 566;
-	private final short BROWSE_ITEM_Y = 108;
-	private final short BROWSE_ITEM_Y_SHIFT = 37;
-	private final short BROWSE_ITEM_HEIGHT = 40;
-	private final short BROWSE_ITEM_X = 194;
-	private final short BROWSE_BID_COPPER_EDIT_BOX_X = 437;
-	private final short BROWSE_BID_SILVER_EDIT_BOX_X = 389;
-	private final short BROWSE_BID_GOLD_EDIT_BOX_X = 309;
-	private final short BROWSE_BID_EDIT_BOX_Y = 409;
-	private final short BROWSE_BID_COPPER_EDIT_BOX_WIDTH = 43;
-	private final short BROWSE_BID_GOLD_EDIT_BOX_WIDTH = 75;
-	private final short BROWSE_NEXT_PAGE_ARROW_X = 796;
-	private final short BROWSE_PREVIOUS_PAGE_ARROW_X = 700;
-	private final short BROWSE_PAGE_ARROW_Y = 54;
+	private final short FILTER_SCROLLBAR_X = 153;
+	private final short FILTER_SCROLLBAR_WIDTH = 170;
+	private final short FILTER_SCROLLBAR_HEIGHT = 290;
+	private final short FILTER_SCROLLBAR_Y = 100;
+	private final short ITEM_SCROLLBAR_X = 794;
+	private final short ITEM_SCROLLBAR_WIDTH = 640;
+	private final short ITEM_SCROLLBAR_HEIGHT = 290;
+	private final short ITEM_SCROLLBAR_Y = 100;
+	private final short FILTER_X = 21;
+	private final short FILTER_Y = 103;
+	private final short FILTER_Y_SHIFT = 20;
+	private final short FILTER_WIDTH_NO_SCROLLBAR = 156;
+	private final short FILTER_WIDTH_SCROLLBAR = 136;
+	private final short FILTER_HEIGHT = 20;
+	private final short CLOSE_BUTTON_X = 744;
+	private final short CLOSE_BUTTON_Y = 409;
+	private final short BUYOUT_BUTTON_X = 663;
+	private final short BID_BUTTON_X = 584;
+	private final short BUTTON_WIDTH = 75;
+	private final short BUTTON_HEIGHT = 22;
+	private final short SORT_BUTTON_Y = 80;
+	private final short SORT_BUTTON_HEIGHT = 21;
+	private final short SORT_RARITY_BUTTON_WIDTH = 214;
+	private final short SORT_RARITY_BUTTON_X = 184;
+	private final short SORT_LEVEL_BUTTON_X = 396;
+	private final short SORT_LEVEL_BUTTON_WIDTH = 57;
+	private final short SORT_TIME_LEFT_BUTTON_X = 451;
+	private final short SORT_TIME_LEFT_BUTTON_WIDTH = 91;
+	private final short SORT_SELLER_BUTTON_X = 540;
+	private final short SORT_SELLER_BUTTON_WIDTH = 76;
+	private final short SORT_PRICE_PER_UNIT_BUTTON_X = 614;
+	private final short SORT_PRICE_PER_UNIT_BUTTON_WIDTH_SCROLLBAR = 184;
+	private final short SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR = 207;
+	private final short SEND_QUERY_BUTTON_X = 659;
+	private final short RESET_BUTTON_X = 744;
+	private final short SEND_QUERY_BUTTON_WIDTH = 78;
+	private final short SEND_QUERY_BUTTON_Y = 33;
+	private final short SEND_QUERY_BUTTON_HEIGHT = 22;
+	private final short SEARCH_EDIT_BOX_X = 76;
+	private final short SEARCH_EDIT_BOX_WIDTH = 164;
+	private final short SEARCH_EDIT_BOX_INPUT_WIDTH = 105;
+	private final short SEARCH_EDIT_BOX_Y = 49;
+	private final short MIN_LEVEL_EDIT_BOX_X = 226;
+	private final short MAX_LEVEL_EDIT_BOX_X = 263;
+	private final short LEVEL_EDIT_BOX_WIDTH = 30;
+	private final short LEVEL_EDIT_BOX_INPUT_WIDTH = 30;
+	private final short QUALITY_FILTER_DROP_DOWN_X = 305;
+	private final short QUALITY_FILTER_DROP_DOWN_Y = 49;
+	private final short QUALITY_FILTER_DROP_DOWN_BAR_WIDTH = 131;
+	private final short QUALITY_FILTER_DROP_DOWN_MENU_WIDTH = 155;
+	private final short QUERY_BUTTON_NO_SCROLLBAR_WIDTH = 590;
+	private final short QUERY_BUTTON_SCROLLBAR_WIDTH = 566;
+	private final short ITEM_Y = 108;
+	private final short ITEM_Y_SHIFT = 37;
+	private final short ITEM_HEIGHT = 40;
+	private final short ITEM_X = 194;
+	private final short BID_COPPER_EDIT_BOX_X = 437;
+	private final short BID_SILVER_EDIT_BOX_X = 389;
+	private final short BID_GOLD_EDIT_BOX_X = 309;
+	private final short BID_EDIT_BOX_Y = 409;
+	private final short BID_COPPER_EDIT_BOX_WIDTH = 43;
+	private final short BID_GOLD_EDIT_BOX_WIDTH = 75;
+	private final short NEXT_PAGE_ARROW_X = 796;
+	private final short PREVIOUS_PAGE_ARROW_X = 700;
+	private final short PAGE_ARROW_Y = 54;
 	
 	
 	private final AuctionFrameUI frame;
-	private final ArrayList<AuctionCategoryFilterButton> browseCategoryList;
+	private final ArrayList<AuctionCategoryFilterButton> categoryList;
 	private final ArrayList<AuctionBrowseQueryButton> queryButtonList;
-	AuctionEntry browseSelectedEntry;
+	AuctionEntry selectedEntry;
 	AuctionHouseFilter selectedFilter = AuctionHouseFilter.NONE;
 	AuctionHouseFilter selectedCategoryFilter = AuctionHouseFilter.NONE;
 	AuctionHouseSort selectedSort = AuctionHouseSort.LEVEL_ASCENDING;
 	AuctionHouseQualityFilter qualityFilter = AuctionHouseQualityFilter.ALL;
-	protected final TTF browseFilterFont;
-	protected final TTF browseSortFont = FontManager.get("FRIZQT", 11);
-	private short browseFilterX;
-	private short browseFilterY;
-	private short browseFilterYSave;
-	private short browseFilterYShift;
-	private short browseFilterWidth;
-	private short browseFilterHeight;
-	short browseFilterScrollbarOffset;
-	private short browseItemX;
-	private short browseItemY;
-	private short browseItemWidth;
-	private short browseItemHeight;
-	private short browseItemYSave;
-	private short browseItemYShift;
-	short browseItemStartIndex;
-	byte browserFilterNumberLine;
+	protected final TTF filterFont;
+	protected final TTF sortFont = FontManager.get("FRIZQT", 11);
+	private short filterX;
+	private short filterY;
+	private short filterYSave;
+	private short filterYShift;
+	private short filterWidth;
+	private short filterHeight;
+	short filterScrollbarOffset;
+	private short itemX;
+	private short itemY;
+	private short itemWidth;
+	private short itemHeight;
+	private short itemYSave;
+	private short itemYShift;
+	short itemStartIndex;
+	byte filterNumberLine;
 	private boolean shouldUpdate;
-	private boolean browseFilterScrollbarEnabled;
+	private boolean filterScrollbarEnabled;
 	private boolean hasSearched;
-	private boolean browseItemScrollbarEnabled;
-	short browsePage = 1;
-	short browseTotalPage;
-	private String browseResultString;
-	private short browseResultStringWidth;
+	private boolean itemScrollbarEnabled;
+	short page = 1;
+	short totalPage;
+	private String resultString;
+	private short resultStringWidth;
 	boolean querySent;
-	final ScrollBar browseFilterScrollbar = new ScrollBar(this.BROWSE_FILTER_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.BROWSE_FILTER_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), false, this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor()) {
+	final ScrollBar filterScrollbar = new ScrollBar(this.FILTER_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.FILTER_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.FILTER_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), false, this.FILTER_HEIGHT*Mideas.getDisplayYFactor()) {
 		
 		@Override
 		public void onScroll() {
-			AuctionFrameBrowseUI.this.browseFilterScrollbarOffset = (short)(AuctionFrameBrowseUI.this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor()*(AuctionFrameBrowseUI.this.browserFilterNumberLine-15)*getScrollPercentage());
+			AuctionFrameBrowseUI.this.filterScrollbarOffset = (short)(AuctionFrameBrowseUI.this.FILTER_HEIGHT*Mideas.getDisplayYFactor()*(AuctionFrameBrowseUI.this.filterNumberLine-15)*getScrollPercentage());
 		}
 	};
-	final ScrollBar browseItemScrollbar = new ScrollBar(this.BROWSE_ITEM_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.BROWSE_ITEM_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), (this.BROWSE_ITEM_SCROLLBAR_HEIGHT+15)*Mideas.getDisplayYFactor(), false, this.browseItemYShift*Mideas.getDisplayYFactor()) {
+	final ScrollBar itemScrollbar = new ScrollBar(this.ITEM_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.ITEM_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.ITEM_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), (this.ITEM_SCROLLBAR_HEIGHT+15)*Mideas.getDisplayYFactor(), false, this.itemYShift*Mideas.getDisplayYFactor()) {
 		
 		@Override
 		public void onScroll() {
-			AuctionFrameBrowseUI.this.browseItemStartIndex = (short)((Mideas.joueur1().getAuctionHouse().getQueryList().size()+1-AuctionFrameBrowseUI.this.BROWSE_MAXIMUM_ITEM_DISPLAYED)*getScrollPercentage());
+			AuctionFrameBrowseUI.this.itemStartIndex = (short)((Mideas.joueur1().getAuctionHouse().getQueryList().size()+1-AuctionFrameBrowseUI.this.MAXIMUM_ITEM_DISPLAYED)*getScrollPercentage());
 		}
 	};
-	private final Button browseBidButton = new Button(this.BROWSE_BID_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Bid", 12, 1) {
+	private final Button bidButton = new Button(this.BID_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Bid", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
-			CommandAuction.makeABid(AuctionFrameBrowseUI.this.browseSelectedEntry, AuctionFrameBrowseUI.this.browseGoldBidEditBox.getValue()*10000+AuctionFrameBrowseUI.this.browseSilverBidEditBox.getValue()*100+AuctionFrameBrowseUI.this.browseCopperBidEditBox.getValue());
+			CommandAuction.makeABid(AuctionFrameBrowseUI.this.selectedEntry, AuctionFrameBrowseUI.this.goldBidEditBox.getValue()*10000+AuctionFrameBrowseUI.this.silverBidEditBox.getValue()*100+AuctionFrameBrowseUI.this.copperBidEditBox.getValue());
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return AuctionFrameBrowseUI.this.browseSelectedEntry != null && AuctionFrameBrowseUI.this.browseSelectedEntry.canBeBuy();
+			return AuctionFrameBrowseUI.this.selectedEntry != null && AuctionFrameBrowseUI.this.selectedEntry.canBeBuy();
 		}
 	};
-	private final Button browseBuyoutButton = new Button(this.BROWSE_BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Buyout", 12, 1) {
+	private final Button buyoutButton = new Button(this.BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Buyout", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
-			CommandAuction.buyout(AuctionFrameBrowseUI.this.browseSelectedEntry);
+			CommandAuction.buyout(AuctionFrameBrowseUI.this.selectedEntry);
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return AuctionFrameBrowseUI.this.browseSelectedEntry != null && AuctionFrameBrowseUI.this.browseSelectedEntry.canBeBuy();
+			return AuctionFrameBrowseUI.this.selectedEntry != null && AuctionFrameBrowseUI.this.selectedEntry.canBeBuy();
 		}
 	};
-	private final Button browseClose = new Button(this.BROWSE_CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Close", 12, 1) {
+	private final Button closeButton = new Button(this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Close", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
@@ -175,11 +175,11 @@ public class AuctionFrameBrowseUI {
 			this.reset();
 		}
 	};
-	private final Button browseSendQueryButton = new Button(this.BROWSE_SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Search", 12, 1) {
+	private final Button sendQueryButton = new Button(this.SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Search", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
-			AuctionFrameBrowseUI.this.browsePage = 1;
+			AuctionFrameBrowseUI.this.page = 1;
 			sendSearchQuery();
 		}
 		
@@ -188,7 +188,7 @@ public class AuctionFrameBrowseUI {
 			return !AuctionFrameBrowseUI.this.querySent;
 		}
 	};
-	private final Button browseResetButton = new Button(this.BROWSE_RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Reset", 12, 1) {
+	private final Button resetButton = new Button(this.RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Reset", 12, 1) {
 	
 		@Override
 		public void eventButtonClick() {
@@ -197,36 +197,36 @@ public class AuctionFrameBrowseUI {
 		
 		@Override
 		public boolean activateCondition() {
-			return AuctionFrameBrowseUI.this.selectedCategoryFilter != AuctionHouseFilter.NONE || AuctionFrameBrowseUI.this.selectedFilter != AuctionHouseFilter.NONE || AuctionFrameBrowseUI.this.qualityFilter != AuctionHouseQualityFilter.ALL || AuctionFrameBrowseUI.this.browseSearchEditBox.getText().length() != 0 || AuctionFrameBrowseUI.this.browseMinLevelEditBox.getText().length() != 0 || AuctionFrameBrowseUI.this.browseMaxLevelEditBox.getText().length() != 0;
+			return AuctionFrameBrowseUI.this.selectedCategoryFilter != AuctionHouseFilter.NONE || AuctionFrameBrowseUI.this.selectedFilter != AuctionHouseFilter.NONE || AuctionFrameBrowseUI.this.qualityFilter != AuctionHouseQualityFilter.ALL || AuctionFrameBrowseUI.this.searchEditBox.getText().length() != 0 || AuctionFrameBrowseUI.this.minLevelEditBox.getText().length() != 0 || AuctionFrameBrowseUI.this.maxLevelEditBox.getText().length() != 0;
 		}
 	};
-	private final Arrow browseNextPageArrow = new Arrow(this.BROWSE_NEXT_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.BROWSE_PAGE_ARROW_Y*Mideas.getDisplayYFactor(), 27, 26, ArrowDirection.RIGHT) {
+	private final Arrow nextPageArrow = new Arrow(this.NEXT_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.PAGE_ARROW_Y*Mideas.getDisplayYFactor(), 27, 26, ArrowDirection.RIGHT) {
 		
 		@Override
 		public void eventButtonClick() {
-			AuctionFrameBrowseUI.this.browsePage++;
+			AuctionFrameBrowseUI.this.page++;
 			sendSearchQuery();
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return !AuctionFrameBrowseUI.this.querySent && AuctionFrameBrowseUI.this.browsePage < AuctionFrameBrowseUI.this.browseTotalPage;
+			return !AuctionFrameBrowseUI.this.querySent && AuctionFrameBrowseUI.this.page < AuctionFrameBrowseUI.this.totalPage;
 		}
 	};
-	private final Arrow browsePreviousPageArrow = new Arrow(this.BROWSE_PREVIOUS_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.BROWSE_PAGE_ARROW_Y*Mideas.getDisplayYFactor(), 27, 26, ArrowDirection.LEFT) {
+	private final Arrow previousPageArrow = new Arrow(this.PREVIOUS_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.PAGE_ARROW_Y*Mideas.getDisplayYFactor(), 27, 26, ArrowDirection.LEFT) {
 		
 		@Override
 		public void eventButtonClick() {
-			AuctionFrameBrowseUI.this.browsePage--;
+			AuctionFrameBrowseUI.this.page--;
 			sendSearchQuery();
 		}
 		
 		@Override
 		public boolean activateCondition() {
-			return !AuctionFrameBrowseUI.this.querySent && AuctionFrameBrowseUI.this.browsePage > 1;
+			return !AuctionFrameBrowseUI.this.querySent && AuctionFrameBrowseUI.this.page > 1;
 		}
 	};
-	final EditBox browseSearchEditBox = new EditBox(this.BROWSE_SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEARCH_EDIT_BOX_WIDTH*Mideas.getDisplayXFactor(), 63, 21, this.BROWSE_SEARCH_EDIT_BOX_INPUT_WIDTH*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 11), false, 2, 13, "Search", true) {
+	final EditBox searchEditBox = new EditBox(this.SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.SEARCH_EDIT_BOX_WIDTH*Mideas.getDisplayXFactor(), 63, 21, this.SEARCH_EDIT_BOX_INPUT_WIDTH*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 11), false, 2, 13, "Search", true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -240,13 +240,13 @@ public class AuctionFrameBrowseUI {
 				return true;
 			}
 			if(c == Input.TAB_CHAR_VALUE) {
-				AuctionFrameBrowseUI.this.browseMinLevelEditBox.setActive(true);
+				AuctionFrameBrowseUI.this.minLevelEditBox.setActive(true);
 				return true;
 			}
 			return false;
 		}
 	};
-	final EditBox browseMinLevelEditBox = new EditBox(this.BROWSE_MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_LEVEL_EDIT_BOX_WIDTH, 3, 5, this.BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final EditBox minLevelEditBox = new EditBox(this.MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.LEVEL_EDIT_BOX_WIDTH, 3, 5, this.LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -255,8 +255,7 @@ public class AuctionFrameBrowseUI {
 				return true;
 			}
 			if(c == Input.TAB_CHAR_VALUE) {
-				AuctionFrameBrowseUI.this.browseMaxLevelEditBox.setActive(true);
-				System.out.println('a');
+				AuctionFrameBrowseUI.this.maxLevelEditBox.setActive(true);
 				return true;
 			}
 			return false;
@@ -267,7 +266,7 @@ public class AuctionFrameBrowseUI {
 			return value <= 999;
 		}
 	};
-	final EditBox browseMaxLevelEditBox = new EditBox(this.BROWSE_MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_LEVEL_EDIT_BOX_WIDTH, 3, 5, this.BROWSE_LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final EditBox maxLevelEditBox = new EditBox(this.MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.LEVEL_EDIT_BOX_WIDTH, 3, 5, this.LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -276,7 +275,7 @@ public class AuctionFrameBrowseUI {
 				return true;
 			}
 			if(c == Input.TAB_CHAR_VALUE) {
-				AuctionFrameBrowseUI.this.browseGoldBidEditBox.setActive(true);
+				AuctionFrameBrowseUI.this.goldBidEditBox.setActive(true);
 				return true;
 			}
 			return false;
@@ -287,7 +286,7 @@ public class AuctionFrameBrowseUI {
 			return value <= 999;
 		}
 	};
-	final EditBox browseGoldBidEditBox = new EditBox(this.BROWSE_BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_GOLD_EDIT_BOX_WIDTH, 6, 5, this.BROWSE_BID_GOLD_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final EditBox goldBidEditBox = new EditBox(this.BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BID_GOLD_EDIT_BOX_WIDTH, 6, 5, this.BID_GOLD_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -296,7 +295,7 @@ public class AuctionFrameBrowseUI {
 				return true;
 			}
 			if(c == Input.TAB_CHAR_VALUE || c == Input.ENTER_CHAR_VALUE) {
-				AuctionFrameBrowseUI.this.browseSilverBidEditBox.setActive(true);
+				AuctionFrameBrowseUI.this.silverBidEditBox.setActive(true);
 				return true;
 			}
 			return false;
@@ -307,7 +306,7 @@ public class AuctionFrameBrowseUI {
 			return value <= 999999;
 		}
 	};
-	final EditBox browseSilverBidEditBox = new EditBox(this.BROWSE_BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final EditBox silverBidEditBox = new EditBox(this.BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -316,7 +315,7 @@ public class AuctionFrameBrowseUI {
 				return true;
 			}
 			if(c == Input.TAB_CHAR_VALUE || c == Input.ENTER_CHAR_VALUE) {
-				AuctionFrameBrowseUI.this.browseCopperBidEditBox.setActive(true);
+				AuctionFrameBrowseUI.this.copperBidEditBox.setActive(true);
 				return true;
 			}
 			return false;
@@ -327,7 +326,7 @@ public class AuctionFrameBrowseUI {
 			return value <= 99;
 		}
 	};
-	final EditBox browseCopperBidEditBox = new EditBox(this.BROWSE_BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BROWSE_BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final EditBox copperBidEditBox = new EditBox(this.BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BID_COPPER_EDIT_BOX_WIDTH, 2, 5, this.BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -336,7 +335,7 @@ public class AuctionFrameBrowseUI {
 				return true;
 			}
 			if(c == Input.TAB_CHAR_VALUE || c == Input.ENTER_CHAR_VALUE) {
-				AuctionFrameBrowseUI.this.browseSearchEditBox.setActive(true);
+				AuctionFrameBrowseUI.this.searchEditBox.setActive(true);
 				return true;
 			}
 			return false;
@@ -347,7 +346,7 @@ public class AuctionFrameBrowseUI {
 			return value <= 99;
 		}
 	};
-	private final ButtonMenuSort browseSortByRarityButton = new ButtonMenuSort(this.BROWSE_SORT_RARITY_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_RARITY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Rarity", this.browseSortFont) {
+	private final ButtonMenuSort sortByRarityButton = new ButtonMenuSort(this.SORT_RARITY_BUTTON_X*Mideas.getDisplayXFactor(), this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_RARITY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Rarity", this.sortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -360,7 +359,7 @@ public class AuctionFrameBrowseUI {
 			sendSearchQuery();
 		}
 	};
-	private final ButtonMenuSort browseSortByLevelButton = new ButtonMenuSort(this.BROWSE_SORT_LEVEL_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_LEVEL_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Lvl", this.browseSortFont) {
+	private final ButtonMenuSort sortByLevelButton = new ButtonMenuSort(this.SORT_LEVEL_BUTTON_X*Mideas.getDisplayXFactor(), this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_LEVEL_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Lvl", this.sortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -373,7 +372,7 @@ public class AuctionFrameBrowseUI {
 			sendSearchQuery();
 		}
 	};
-	private final ButtonMenuSort browseSortByTimeLeftButton = new ButtonMenuSort(this.BROWSE_SORT_TIME_LEFT_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_TIME_LEFT_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Time Left", this.browseSortFont) {
+	private final ButtonMenuSort sortByTimeLeftButton = new ButtonMenuSort(this.SORT_TIME_LEFT_BUTTON_X*Mideas.getDisplayXFactor(), this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_TIME_LEFT_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Time Left", this.sortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -386,7 +385,7 @@ public class AuctionFrameBrowseUI {
 			sendSearchQuery();
 		}
 	};
-	private final ButtonMenuSort browseSortBySellerButton = new ButtonMenuSort(this.BROWSE_SORT_SELLER_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_SELLER_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Seller", this.browseSortFont) {
+	private final ButtonMenuSort sortBySellerButton = new ButtonMenuSort(this.SORT_SELLER_BUTTON_X*Mideas.getDisplayXFactor(), this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_SELLER_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Seller", this.sortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -399,7 +398,7 @@ public class AuctionFrameBrowseUI {
 			sendSearchQuery();
 		}
 	};
-	private final ButtonMenuSort browseSortByPricePerUnitButton = new ButtonMenuSort(this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Price Per Unit", this.browseSortFont) {
+	private final ButtonMenuSort sortByPricePerUnitButton = new ButtonMenuSort(this.SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Price Per Unit", this.sortFont) {
 		
 		@Override
 		public void eventButtonClick() {
@@ -412,25 +411,25 @@ public class AuctionFrameBrowseUI {
 			sendSearchQuery();
 		}
 	};
-	private final DropDownMenu browseRarityDropDownmenu = new DropDownMenu(this.BROWSE_QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), this.BROWSE_QUALITY_FILTER_DROP_DOWN_Y*Mideas.getDisplayXFactor(), this.BROWSE_QUALITY_FILTER_DROP_DOWN_BAR_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), (this.BROWSE_QUALITY_FILTER_DROP_DOWN_Y+20)*Mideas.getDisplayYFactor(), this.BROWSE_QUALITY_FILTER_DROP_DOWN_MENU_WIDTH*Mideas.getDisplayXFactor(), 12, .6f) {
+	private final DropDownMenu rarityDropDownmenu = new DropDownMenu(this.QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), this.QUALITY_FILTER_DROP_DOWN_Y*Mideas.getDisplayXFactor(), this.QUALITY_FILTER_DROP_DOWN_BAR_WIDTH*Mideas.getDisplayXFactor(), this.QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), (this.QUALITY_FILTER_DROP_DOWN_Y+20)*Mideas.getDisplayYFactor(), this.QUALITY_FILTER_DROP_DOWN_MENU_WIDTH*Mideas.getDisplayXFactor(), 12, .6f) {
 		
 		@Override
 		public void menuEventButtonClick() {
 			AuctionFrameBrowseUI.this.qualityFilter = AuctionHouseQualityFilter.values()[this.selectedMenuValue+1];
 		}
 	};
-	private final TextMenu browseRarityAllTextMenu = new TextMenu(0, 0, 0, "All", 11, 1);
-	private final TextMenu browseRarityPoorTextMenu = new TextMenu(0, 0, 0, "Poor", 11, 1);
-	private final TextMenu browseRarityCommonTextMenu = new TextMenu(0, 0, 0, "Common", 11, 1);
-	private final TextMenu browseRarityUncommonTextMenu = new TextMenu(0, 0, 0, "Uncommon", 11, 1);
-	private final TextMenu browseRarityRareTextMenu = new TextMenu(0, 0, 0, "Rare", 11, 1);
-	private final TextMenu browseRarityEpicTextMenu = new TextMenu(0, 0, 0, "Epic", 11, 1);
-	private final TextMenu browseRarityLegendaryTextMenu = new TextMenu(0, 0, 0, "Legendary", 11, 1);
+	private final TextMenu rarityAllTextMenu = new TextMenu(0, 0, 0, "All", 11, 1);
+	private final TextMenu rarityPoorTextMenu = new TextMenu(0, 0, 0, "Poor", 11, 1);
+	private final TextMenu rarityCommonTextMenu = new TextMenu(0, 0, 0, "Common", 11, 1);
+	private final TextMenu rarityUncommonTextMenu = new TextMenu(0, 0, 0, "Uncommon", 11, 1);
+	private final TextMenu rarityRareTextMenu = new TextMenu(0, 0, 0, "Rare", 11, 1);
+	private final TextMenu rarityEpicTextMenu = new TextMenu(0, 0, 0, "Epic", 11, 1);
+	private final TextMenu rarityLegendaryTextMenu = new TextMenu(0, 0, 0, "Legendary", 11, 1);
 
 	public AuctionFrameBrowseUI(AuctionFrameUI frame) {
 		this.frame = frame;
 		this.queryButtonList = new ArrayList<AuctionBrowseQueryButton>();
-		this.browseCategoryList = new ArrayList<AuctionCategoryFilterButton>();
+		this.categoryList = new ArrayList<AuctionCategoryFilterButton>();
 		this.shouldUpdate = true;
 		updateSize();
 		int i = 0;
@@ -438,7 +437,7 @@ public class AuctionFrameBrowseUI {
 			this.queryButtonList.add(new AuctionBrowseQueryButton(this));
 			i++;
 		}
-		this.browseFilterFont = FontManager.get("FRIZQT", 11);
+		this.filterFont = FontManager.get("FRIZQT", 11);
 		buildBrowseFilterQualityMenu();
 		buildBrowseFilterMenu();
 	}
@@ -448,23 +447,23 @@ public class AuctionFrameBrowseUI {
 		if(this.selectedFilter == AuctionHouseFilter.NONE) {
 			filter = this.selectedCategoryFilter;
 		}
-		this.browseItemScrollbar.resetScroll();
-		CommandAuction.sendQuery(filter, this.selectedSort, this.qualityFilter, this.browseSearchEditBox.getText(), this.browsePage, false, (short)this.browseMinLevelEditBox.getValue(), (short)this.browseMaxLevelEditBox.getValue(), false);
+		this.itemScrollbar.resetScroll();
+		CommandAuction.sendQuery(filter, this.selectedSort, this.qualityFilter, this.searchEditBox.getText(), this.page, false, (short)this.minLevelEditBox.getValue(), (short)this.maxLevelEditBox.getValue(), false);
 		this.hasSearched = true;
 		this.querySent = true;
 	}
 	
 	void resetBrowseOptions() {
-		int i = this.browseCategoryList.size();
+		int i = this.categoryList.size();
 		while(--i >= 0) {
-			this.browseCategoryList.get(i).unexpand();
+			this.categoryList.get(i).unexpand();
 		}
-		this.browseFilterScrollbar.resetScroll();
+		this.filterScrollbar.resetScroll();
 		checkBrowseFilterScrollbar();
-		this.browseSearchEditBox.resetText();
-		this.browseMinLevelEditBox.resetText();
-		this.browseMaxLevelEditBox.resetText();
-		this.browseRarityDropDownmenu.setValue(0);
+		this.searchEditBox.resetText();
+		this.minLevelEditBox.resetText();
+		this.maxLevelEditBox.resetText();
+		this.rarityDropDownmenu.setValue(0);
 		this.qualityFilter = AuctionHouseQualityFilter.ALL;
 		this.selectedCategoryFilter = AuctionHouseFilter.NONE;
 		this.selectedFilter = AuctionHouseFilter.NONE;
@@ -473,32 +472,32 @@ public class AuctionFrameBrowseUI {
 	protected void draw() {
 		updateSize();
 		Draw.drawQuad(Sprites.auction_browse_frame, this.frame.getXFrame(), this.frame.getYFrame());
-		this.browseBidButton.draw();
-		this.browseBuyoutButton.draw();
-		this.browseClose.draw();
+		this.bidButton.draw();
+		this.buyoutButton.draw();
+		this.closeButton.draw();
 		
 		Sprites.button_menu_sort.drawBegin();
-		this.browseSortByRarityButton.drawTexturePart();
-		this.browseSortByLevelButton.drawTexturePart();
-		this.browseSortByTimeLeftButton.drawTexturePart();
-		this.browseSortBySellerButton.drawTexturePart();
-		this.browseSortByPricePerUnitButton.drawTexturePart();
+		this.sortByRarityButton.drawTexturePart();
+		this.sortByLevelButton.drawTexturePart();
+		this.sortByTimeLeftButton.drawTexturePart();
+		this.sortBySellerButton.drawTexturePart();
+		this.sortByPricePerUnitButton.drawTexturePart();
 		Sprites.button_menu_sort.drawEnd();
 
-		this.browseSortFont.drawBegin();
-		this.browseSortByRarityButton.drawStringPart();
-		this.browseSortByLevelButton.drawStringPart();
-		this.browseSortByTimeLeftButton.drawStringPart();
-		this.browseSortBySellerButton.drawStringPart();
-		this.browseSortByPricePerUnitButton.drawStringPart();
-		this.browseSortFont.drawEnd();
+		this.sortFont.drawBegin();
+		this.sortByRarityButton.drawStringPart();
+		this.sortByLevelButton.drawStringPart();
+		this.sortByTimeLeftButton.drawStringPart();
+		this.sortBySellerButton.drawStringPart();
+		this.sortByPricePerUnitButton.drawStringPart();
+		this.sortFont.drawEnd();
 		
 		Sprites.button_menu_hover.drawBlendBegin();
-		this.browseSortByRarityButton.drawHoverPart();
-		this.browseSortByLevelButton.drawHoverPart();
-		this.browseSortByTimeLeftButton.drawHoverPart();
-		this.browseSortBySellerButton.drawHoverPart();
-		this.browseSortByPricePerUnitButton.drawHoverPart();
+		this.sortByRarityButton.drawHoverPart();
+		this.sortByLevelButton.drawHoverPart();
+		this.sortByTimeLeftButton.drawHoverPart();
+		this.sortBySellerButton.drawHoverPart();
+		this.sortByPricePerUnitButton.drawHoverPart();
 		Sprites.button_menu_hover.drawBlendEnd();
 		
 		/*this.browseSortByRarityButton.draw();
@@ -506,7 +505,7 @@ public class AuctionFrameBrowseUI {
 		this.browseSortByTimeLeftButton.draw();
 		this.browseSortBySellerButton.draw();
 		this.browseSortByPricePerUnitButton.draw();*/
-		this.browseSendQueryButton.draw();
+		this.sendQueryButton.draw();
 		/*this.browseSearchEditBox.draw();
 		this.browseMinLevelEditBox.draw();
 		this.browseMaxLevelEditBox.draw();
@@ -514,22 +513,22 @@ public class AuctionFrameBrowseUI {
 		this.browseSilverBidEditBox.draw();
 		this.browseCopperBidEditBox.draw();*/
 		Sprites.edit_box.drawBegin();
-		this.browseSearchEditBox.drawTexturePart();
-		this.browseMinLevelEditBox.drawTexturePart();
-		this.browseMaxLevelEditBox.drawTexturePart();
-		this.browseGoldBidEditBox.drawTexturePart();
-		this.browseSilverBidEditBox.drawTexturePart();
-		this.browseCopperBidEditBox.drawTexturePart();
+		this.searchEditBox.drawTexturePart();
+		this.minLevelEditBox.drawTexturePart();
+		this.maxLevelEditBox.drawTexturePart();
+		this.goldBidEditBox.drawTexturePart();
+		this.silverBidEditBox.drawTexturePart();
+		this.copperBidEditBox.drawTexturePart();
 		Sprites.edit_box.drawEnd();
-		this.browseSearchEditBox.drawString();
-		this.browseMinLevelEditBox.drawString();
-		this.browseMaxLevelEditBox.drawString();
-		this.browseGoldBidEditBox.drawString();
-		this.browseSilverBidEditBox.drawString();
-		this.browseCopperBidEditBox.drawString();
-		this.browseResetButton.draw();
-		this.browseNextPageArrow.draw();
-		this.browsePreviousPageArrow.draw();
+		this.searchEditBox.drawString();
+		this.minLevelEditBox.drawString();
+		this.maxLevelEditBox.drawString();
+		this.goldBidEditBox.drawString();
+		this.silverBidEditBox.drawString();
+		this.copperBidEditBox.drawString();
+		this.resetButton.draw();
+		this.nextPageArrow.draw();
+		this.previousPageArrow.draw();
 		TTF font = FontManager.get("FRIZQT", 11);
 		font.drawBegin();
 		font.drawStringShadowPart(this.frame.getXFrame()+80*Mideas.getDisplayXFactor(), this.frame.getYFrame()+34*Mideas.getDisplayYFactor(), "Name", Color.WHITE, Color.BLACK, 1, 0, 0);
@@ -558,24 +557,24 @@ public class AuctionFrameBrowseUI {
 		Sprites.gold_coin.drawEnd();
 		drawBrowseFilter();
 		drawBrowseItem();
-		if(this.browseFilterScrollbarEnabled) {
-			this.browseFilterScrollbar.draw();
+		if(this.filterScrollbarEnabled) {
+			this.filterScrollbar.draw();
 		}
-		if(this.browseItemScrollbarEnabled) {
-			this.browseItemScrollbar.draw();
+		if(this.itemScrollbarEnabled) {
+			this.itemScrollbar.draw();
 		}
-		this.browseRarityDropDownmenu.draw();
+		this.rarityDropDownmenu.draw();
 	}
 	
 	public void updateQueryButtonList() {
 		ArrayList<AuctionEntry> list = Mideas.joueur1().getAuctionHouse().getQueryList();
 		short width;
 		if(list.size() > 8) {
-			width = this.BROWSE_QUERY_BUTTON_SCROLLBAR_WIDTH;
+			width = this.QUERY_BUTTON_SCROLLBAR_WIDTH;
 			enableBrowseItemScrollbar();
 		}
 		else {
-			width = this.BROWSE_QUERY_BUTTON_NO_SCROLLBAR_WIDTH;
+			width = this.QUERY_BUTTON_NO_SCROLLBAR_WIDTH;
 			disableBrowseItemScrollbar();
 		}
 		int i = -1;
@@ -592,31 +591,31 @@ public class AuctionFrameBrowseUI {
 	
 	public void noItemFound() {
 		disableBrowseItemScrollbar();
-		this.browsePage = 1;
-		this.browseTotalPage = 0;
+		this.page = 1;
+		this.totalPage = 0;
 	}
 	
 	private void drawBrowseFilter() {
 		int i = -1;
 		Draw.glScissorBegin(0, 495*Mideas.getDisplayYFactor(), 500, 305*Mideas.getDisplayYFactor());
-		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
+		this.filterY = (short)(this.filterYSave-this.filterScrollbarOffset);
 		Sprites.chat_channel_button.drawBegin();
-		while(++i < this.browseCategoryList.size()) {
-			this.browseCategoryList.get(i).drawTexturePart();
+		while(++i < this.categoryList.size()) {
+			this.categoryList.get(i).drawTexturePart();
 		}
 		Sprites.chat_channel_button.drawEnd();
 		i = -1;
-		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
-		this.browseFilterFont.drawBegin();
-		while(++i < this.browseCategoryList.size()) {
-			this.browseCategoryList.get(i).drawStringPart();
+		this.filterY = (short)(this.filterYSave-this.filterScrollbarOffset);
+		this.filterFont.drawBegin();
+		while(++i < this.categoryList.size()) {
+			this.categoryList.get(i).drawStringPart();
 		}
-		this.browseFilterFont.drawEnd();
+		this.filterFont.drawEnd();
 		i = -1;
-		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
+		this.filterY = (short)(this.filterYSave-this.filterScrollbarOffset);
 		Sprites.button_menu_hover.drawBlendBegin();
-		while(++i < this.browseCategoryList.size()) {
-			this.browseCategoryList.get(i).drawHoverPart();
+		while(++i < this.categoryList.size()) {
+			this.categoryList.get(i).drawHoverPart();
 		}
 		Sprites.button_menu_hover.drawBlendEnd();
 		Draw.glScissorEnd();
@@ -639,16 +638,16 @@ public class AuctionFrameBrowseUI {
 		if(this.querySent) {
 			return;
 		}
-		this.browseItemY = this.browseItemYSave;
-		int i = this.browseItemStartIndex;
-		int end = Math.min(this.browseItemStartIndex+this.BROWSE_MAXIMUM_ITEM_DISPLAYED, this.queryButtonList.size());
+		this.itemY = this.itemYSave;
+		int i = this.itemStartIndex;
+		int end = Math.min(this.itemStartIndex+this.MAXIMUM_ITEM_DISPLAYED, this.queryButtonList.size());
 		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			this.queryButtonList.get(i).draw();
 			incrementBrowseItemY();
 			i++;
 		}
-		this.browseItemY = this.browseItemYSave;
-		i = this.browseItemStartIndex;
+		this.itemY = this.itemYSave;
+		i = this.itemStartIndex;
 		AuctionBrowseQueryButton.ITEM_NAME_FONT.drawBegin();
 		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			this.queryButtonList.get(i).drawItemName();
@@ -656,8 +655,8 @@ public class AuctionFrameBrowseUI {
 			i++;
 		}
 		AuctionBrowseQueryButton.ITEM_NAME_FONT.drawEnd();
-		this.browseItemY = this.browseItemYSave;
-		i = this.browseItemStartIndex;
+		this.itemY = this.itemYSave;
+		i = this.itemStartIndex;
 		AuctionBrowseQueryButton.DURATION_FONT.drawBegin();
 		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			this.queryButtonList.get(i).drawString();
@@ -665,8 +664,8 @@ public class AuctionFrameBrowseUI {
 			i++;
 		}
 		AuctionBrowseQueryButton.DURATION_FONT.drawEnd();
-		this.browseItemY = this.browseItemYSave;
-		i = this.browseItemStartIndex;
+		this.itemY = this.itemYSave;
+		i = this.itemStartIndex;
 		Sprites.gold_coin.drawBegin();
 		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			this.queryButtonList.get(i).drawGoldTexture();
@@ -674,8 +673,8 @@ public class AuctionFrameBrowseUI {
 			i++;
 		}
 		Sprites.gold_coin.drawEnd();
-		this.browseItemY = this.browseItemYSave;
-		i = this.browseItemStartIndex;
+		this.itemY = this.itemYSave;
+		i = this.itemStartIndex;
 		Sprites.silver_coin.drawBegin();
 		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			this.queryButtonList.get(i).drawSilverTexture();
@@ -683,8 +682,8 @@ public class AuctionFrameBrowseUI {
 			i++;
 		}
 		Sprites.silver_coin.drawEnd();
-		this.browseItemY = this.browseItemYSave;
-		i = this.browseItemStartIndex;
+		this.itemY = this.itemYSave;
+		i = this.itemStartIndex;
 		Sprites.copper_coin.drawBegin();
 		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			this.queryButtonList.get(i).drawCopperTexture();
@@ -692,8 +691,8 @@ public class AuctionFrameBrowseUI {
 			i++;
 		}
 		Sprites.copper_coin.drawEnd();
-		this.browseItemY = this.browseItemYSave;
-		i = this.browseItemStartIndex;
+		this.itemY = this.itemYSave;
+		i = this.itemStartIndex;
 		AuctionBrowseQueryButton.GOLD_FONT.drawBegin();
 		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			this.queryButtonList.get(i).drawGoldString();
@@ -701,47 +700,47 @@ public class AuctionFrameBrowseUI {
 			i++;
 		}
 		AuctionBrowseQueryButton.GOLD_FONT.drawEnd();
-		if(this.browseItemScrollbar.getScrollPercentage() == 1f) {
-			FontManager.get("FRIZQT", 11).drawStringShadow(this.frame.getXFrame()+(570-this.browseResultStringWidth)*Mideas.getDisplayXFactor(), this.frame.getYFrame()+375*Mideas.getDisplayYFactor(), this.browseResultString, Color.WHITE, Color.BLACK, 1, 0, 0);
+		if(this.itemScrollbar.getScrollPercentage() == 1f) {
+			FontManager.get("FRIZQT", 11).drawStringShadow(this.frame.getXFrame()+(570-this.resultStringWidth)*Mideas.getDisplayXFactor(), this.frame.getYFrame()+375*Mideas.getDisplayYFactor(), this.resultString, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 	}
 	
 	protected boolean mouseEvent() {
-		if(this.browseRarityDropDownmenu.event()) return true;
-		if(this.browseBidButton.event()) return true;
-		if(this.browseBuyoutButton.event()) return true;
-		if(this.browseClose.event()) return true;
-		if(this.browseSortByRarityButton.event()) return true;
-		if(this.browseSortByLevelButton.event()) return true;
-		if(this.browseSortByTimeLeftButton.event()) return true;
-		if(this.browseSortBySellerButton.event()) return true;
-		if(this.browseSortByPricePerUnitButton.event()) return true;
-		if(this.browseSendQueryButton.event()) return true;
-		if(this.browseSearchEditBox.mouseEvent()) return true;
-		if(this.browseMinLevelEditBox.mouseEvent()) return true;
-		if(this.browseMaxLevelEditBox.mouseEvent()) return true;
-		if(this.browseGoldBidEditBox.mouseEvent()) return true;
-		if(this.browseSilverBidEditBox.mouseEvent()) return true;
-		if(this.browseCopperBidEditBox.mouseEvent()) return true;
-		if(this.browseResetButton.event()) return true;
-		if(this.browseNextPageArrow.event()) return true;
-		if(this.browsePreviousPageArrow.event()) return true;
-		if(this.browseItemScrollbarEnabled) {
-			if(this.browseItemScrollbar.event()) return true;
+		if(this.rarityDropDownmenu.event()) return true;
+		if(this.bidButton.event()) return true;
+		if(this.buyoutButton.event()) return true;
+		if(this.closeButton.event()) return true;
+		if(this.sortByRarityButton.event()) return true;
+		if(this.sortByLevelButton.event()) return true;
+		if(this.sortByTimeLeftButton.event()) return true;
+		if(this.sortBySellerButton.event()) return true;
+		if(this.sortByPricePerUnitButton.event()) return true;
+		if(this.sendQueryButton.event()) return true;
+		if(this.searchEditBox.mouseEvent()) return true;
+		if(this.minLevelEditBox.mouseEvent()) return true;
+		if(this.maxLevelEditBox.mouseEvent()) return true;
+		if(this.goldBidEditBox.mouseEvent()) return true;
+		if(this.silverBidEditBox.mouseEvent()) return true;
+		if(this.copperBidEditBox.mouseEvent()) return true;
+		if(this.resetButton.event()) return true;
+		if(this.nextPageArrow.event()) return true;
+		if(this.previousPageArrow.event()) return true;
+		if(this.itemScrollbarEnabled) {
+			if(this.itemScrollbar.event()) return true;
 		}
-		if(this.browseFilterScrollbarEnabled) {
-			if(this.browseFilterScrollbar.event()) return true;
+		if(this.filterScrollbarEnabled) {
+			if(this.filterScrollbar.event()) return true;
 		}
 		int i = -1;
-		this.browseFilterY = (short)(this.browseFilterYSave-this.browseFilterScrollbarOffset);
-		while(++i < this.browseCategoryList.size()) {
-			if(this.browseCategoryList.get(i).event()) {
+		this.filterY = (short)(this.filterYSave-this.filterScrollbarOffset);
+		while(++i < this.categoryList.size()) {
+			if(this.categoryList.get(i).event()) {
 				return true;
 			}
 		}
-		this.browseItemY = this.browseItemYSave;
-		i = this.browseItemStartIndex;
-		int end = Math.min(this.browseItemStartIndex+this.BROWSE_MAXIMUM_ITEM_DISPLAYED, this.queryButtonList.size());
+		this.itemY = this.itemYSave;
+		i = this.itemStartIndex;
+		int end = Math.min(this.itemStartIndex+this.MAXIMUM_ITEM_DISPLAYED, this.queryButtonList.size());
 		while(i < end && this.queryButtonList.get(i).getEntry() != null) {
 			if(this.queryButtonList.get(i).mouseEvent()) {
 				return true;
@@ -753,70 +752,70 @@ public class AuctionFrameBrowseUI {
 	}
 	
 	protected boolean keyboardEvent() {
-		if(this.browseSearchEditBox.keyboardEvent()) return true;
-		if(this.browseMinLevelEditBox.keyboardEvent()) return true;
-		if(this.browseMaxLevelEditBox.keyboardEvent()) return true;
-		if(this.browseGoldBidEditBox.keyboardEvent()) return true;
-		if(this.browseSilverBidEditBox.keyboardEvent()) return true;
-		if(this.browseCopperBidEditBox.keyboardEvent()) return true;
+		if(this.searchEditBox.keyboardEvent()) return true;
+		if(this.minLevelEditBox.keyboardEvent()) return true;
+		if(this.maxLevelEditBox.keyboardEvent()) return true;
+		if(this.goldBidEditBox.keyboardEvent()) return true;
+		if(this.silverBidEditBox.keyboardEvent()) return true;
+		if(this.copperBidEditBox.keyboardEvent()) return true;
 		return false;
 	}
 	
 	private void enableBrowseItemScrollbar() {
-		this.browseItemScrollbarEnabled = true;
-		this.browseSortByPricePerUnitButton.update(this.frame.getXFrame()+this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.itemScrollbarEnabled = true;
+		this.sortByPricePerUnitButton.update(this.frame.getXFrame()+this.SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_PRICE_PER_UNIT_BUTTON_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 	}
 	
 	private void disableBrowseItemScrollbar() {
-		this.browseItemScrollbarEnabled = false;
-		this.browseSortByPricePerUnitButton.update(this.frame.getXFrame()+this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.itemScrollbarEnabled = false;
+		this.sortByPricePerUnitButton.update(this.frame.getXFrame()+this.SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 	}
 	
 	private void updateSize() {
 		if(!this.shouldUpdate) {
 			return;
 		}
-		if(this.browseFilterScrollbarEnabled) {
-			this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
+		if(this.filterScrollbarEnabled) {
+			this.filterWidth = (short)(this.FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
 		}
 		else {
-			this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+			this.filterWidth = (short)(this.FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
 		}
-		this.browseFilterHeight = (short)(this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseFilterX = (short)(this.frame.getXFrame()+this.BROWSE_FILTER_X*Mideas.getDisplayXFactor());
-		this.browseFilterYSave = (short)(this.frame.getYFrame()+this.BROWSE_FILTER_Y*Mideas.getDisplayYFactor());
-		this.browseFilterYShift = (short)(this.BROWSE_FILTER_Y_SHIFT*Mideas.getDisplayYFactor());
-		this.browseItemYSave = (short)(this.frame.getYFrame()+this.BROWSE_ITEM_Y*Mideas.getDisplayYFactor());
-		this.browseItemX = (short)(this.frame.getXFrame()+this.BROWSE_ITEM_X*Mideas.getDisplayXFactor());
-		this.browseItemHeight = (short)(this.BROWSE_ITEM_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseItemYShift =  (short)(this.BROWSE_ITEM_Y_SHIFT*Mideas.getDisplayYFactor());
-		this.browseBidButton.update(this.frame.getXFrame()+this.BROWSE_BID_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseBuyoutButton.update(this.frame.getXFrame()+this.BROWSE_BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseClose.update(this.frame.getXFrame()+this.BROWSE_CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseFilterScrollbar.update(this.frame.getXFrame()+this.BROWSE_FILTER_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_FILTER_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_FILTER_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseSortByRarityButton.update(this.frame.getXFrame()+this.BROWSE_SORT_RARITY_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_RARITY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseSortByLevelButton.update(this.frame.getXFrame()+this.BROWSE_SORT_LEVEL_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_LEVEL_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseSortByTimeLeftButton.update(this.frame.getXFrame()+this.BROWSE_SORT_TIME_LEFT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_TIME_LEFT_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseSortBySellerButton.update(this.frame.getXFrame()+this.BROWSE_SORT_SELLER_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_SELLER_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		if(this.browseItemScrollbarEnabled) {
-			this.browseSortByPricePerUnitButton.update(this.frame.getXFrame()+this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.filterHeight = (short)(this.FILTER_HEIGHT*Mideas.getDisplayYFactor());
+		this.filterX = (short)(this.frame.getXFrame()+this.FILTER_X*Mideas.getDisplayXFactor());
+		this.filterYSave = (short)(this.frame.getYFrame()+this.FILTER_Y*Mideas.getDisplayYFactor());
+		this.filterYShift = (short)(this.FILTER_Y_SHIFT*Mideas.getDisplayYFactor());
+		this.itemYSave = (short)(this.frame.getYFrame()+this.ITEM_Y*Mideas.getDisplayYFactor());
+		this.itemX = (short)(this.frame.getXFrame()+this.ITEM_X*Mideas.getDisplayXFactor());
+		this.itemHeight = (short)(this.ITEM_HEIGHT*Mideas.getDisplayYFactor());
+		this.itemYShift =  (short)(this.ITEM_Y_SHIFT*Mideas.getDisplayYFactor());
+		this.bidButton.update(this.frame.getXFrame()+this.BID_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.buyoutButton.update(this.frame.getXFrame()+this.BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.closeButton.update(this.frame.getXFrame()+this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.filterScrollbar.update(this.frame.getXFrame()+this.FILTER_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.FILTER_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.FILTER_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.FILTER_HEIGHT*Mideas.getDisplayYFactor());
+		this.sortByRarityButton.update(this.frame.getXFrame()+this.SORT_RARITY_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_RARITY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.sortByLevelButton.update(this.frame.getXFrame()+this.SORT_LEVEL_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_LEVEL_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.sortByTimeLeftButton.update(this.frame.getXFrame()+this.SORT_TIME_LEFT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_TIME_LEFT_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.sortBySellerButton.update(this.frame.getXFrame()+this.SORT_SELLER_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_SELLER_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		if(this.itemScrollbarEnabled) {
+			this.sortByPricePerUnitButton.update(this.frame.getXFrame()+this.SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_PRICE_PER_UNIT_BUTTON_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		}
 		else {
-			this.browseSortByPricePerUnitButton.update(this.frame.getXFrame()+this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor(), this.BROWSE_SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+			this.sortByPricePerUnitButton.update(this.frame.getXFrame()+this.SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 			
 		}
-		this.browseSendQueryButton.update(this.frame.getXFrame()+this.BROWSE_SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseResetButton.update(this.frame.getXFrame()+this.BROWSE_RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.BROWSE_SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BROWSE_SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.browseSearchEditBox.update(this.frame.getXFrame()+this.BROWSE_SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
-		this.browseMinLevelEditBox.update(this.frame.getXFrame()+this.BROWSE_MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
-		this.browseMaxLevelEditBox.update(this.frame.getXFrame()+this.BROWSE_MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
-		this.browseRarityDropDownmenu.update(this.frame.getXFrame()+this.BROWSE_QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_QUALITY_FILTER_DROP_DOWN_Y*Mideas.getDisplayXFactor(), this.BROWSE_QUALITY_FILTER_DROP_DOWN_BAR_WIDTH*Mideas.getDisplayXFactor(), this.frame.getXFrame()+this.BROWSE_QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+(this.BROWSE_QUALITY_FILTER_DROP_DOWN_Y+20)*Mideas.getDisplayYFactor(), this.BROWSE_QUALITY_FILTER_DROP_DOWN_MENU_WIDTH*Mideas.getDisplayXFactor());
-		this.browseGoldBidEditBox.update(this.frame.getXFrame()+this.BROWSE_BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
-		this.browseSilverBidEditBox.update(this.frame.getXFrame()+this.BROWSE_BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
-		this.browseCopperBidEditBox.update(this.frame.getXFrame()+this.BROWSE_BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
-		this.browseNextPageArrow.update(this.frame.getXFrame()+this.BROWSE_NEXT_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_PAGE_ARROW_Y*Mideas.getDisplayYFactor());
-		this.browsePreviousPageArrow.update(this.frame.getXFrame()+this.BROWSE_PREVIOUS_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_PAGE_ARROW_Y*Mideas.getDisplayYFactor());
-		this.browseItemScrollbar.update(this.frame.getXFrame()+this.BROWSE_ITEM_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BROWSE_ITEM_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.BROWSE_ITEM_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), (this.BROWSE_ITEM_SCROLLBAR_HEIGHT+15)*Mideas.getDisplayYFactor(), this.browseItemYShift*Mideas.getDisplayYFactor());
+		this.sendQueryButton.update(this.frame.getXFrame()+this.SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.resetButton.update(this.frame.getXFrame()+this.RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.searchEditBox.update(this.frame.getXFrame()+this.SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
+		this.minLevelEditBox.update(this.frame.getXFrame()+this.MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
+		this.maxLevelEditBox.update(this.frame.getXFrame()+this.MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
+		this.rarityDropDownmenu.update(this.frame.getXFrame()+this.QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.QUALITY_FILTER_DROP_DOWN_Y*Mideas.getDisplayXFactor(), this.QUALITY_FILTER_DROP_DOWN_BAR_WIDTH*Mideas.getDisplayXFactor(), this.frame.getXFrame()+this.QUALITY_FILTER_DROP_DOWN_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+(this.QUALITY_FILTER_DROP_DOWN_Y+20)*Mideas.getDisplayYFactor(), this.QUALITY_FILTER_DROP_DOWN_MENU_WIDTH*Mideas.getDisplayXFactor());
+		this.goldBidEditBox.update(this.frame.getXFrame()+this.BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
+		this.silverBidEditBox.update(this.frame.getXFrame()+this.BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
+		this.copperBidEditBox.update(this.frame.getXFrame()+this.BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor());
+		this.nextPageArrow.update(this.frame.getXFrame()+this.NEXT_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.PAGE_ARROW_Y*Mideas.getDisplayYFactor());
+		this.previousPageArrow.update(this.frame.getXFrame()+this.PREVIOUS_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.PAGE_ARROW_Y*Mideas.getDisplayYFactor());
+		this.itemScrollbar.update(this.frame.getXFrame()+this.ITEM_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.ITEM_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.ITEM_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), (this.ITEM_SCROLLBAR_HEIGHT+15)*Mideas.getDisplayYFactor(), this.itemYShift*Mideas.getDisplayYFactor());
 		int i = -1;
 		while(++i < this.queryButtonList.size()) {
 			this.queryButtonList.get(i).updateSize();
@@ -826,8 +825,8 @@ public class AuctionFrameBrowseUI {
 	
 	protected void unexpandAllCategoryFilter() {
 		int i = -1;
-		while(++i < this.browseCategoryList.size()) {
-			this.browseCategoryList.get(i).unexpand();
+		while(++i < this.categoryList.size()) {
+			this.categoryList.get(i).unexpand();
 		}
 	}
 	
@@ -847,16 +846,16 @@ public class AuctionFrameBrowseUI {
 	}
 	
 	public void setSelectedBrowseEntry(AuctionEntry entry) {
-		this.browseSelectedEntry = entry;
+		this.selectedEntry = entry;
 		if(entry != null) {
-			this.browseCopperBidEditBox.setText(entry.getBidCopperString());
-			this.browseSilverBidEditBox.setText(entry.getBidSilverString());
-			this.browseGoldBidEditBox.setText(entry.getBidGoldString());
+			this.copperBidEditBox.setText(entry.getBidCopperString());
+			this.silverBidEditBox.setText(entry.getBidSilverString());
+			this.goldBidEditBox.setText(entry.getBidGoldString());
 		}
 	}
 	
 	public AuctionEntry getSelectedBrowseEntry() {
-		return this.browseSelectedEntry;
+		return this.selectedEntry;
 	}
 	
 	public void shouldUpdate() {
@@ -870,18 +869,18 @@ public class AuctionFrameBrowseUI {
 	protected void checkBrowseFilterScrollbar() {
 		int count = 0;
 		int i = -1;
-		while(++i < this.browseCategoryList.size()) {
-			count+= this.browseCategoryList.get(i).getNumberLine();
+		while(++i < this.categoryList.size()) {
+			count+= this.categoryList.get(i).getNumberLine();
 		}
-		this.browserFilterNumberLine = (byte)count;
-		this.browseFilterScrollbar.onScroll();
-		if(this.browseFilterScrollbarEnabled) {
+		this.filterNumberLine = (byte)count;
+		this.filterScrollbar.onScroll();
+		if(this.filterScrollbarEnabled) {
 			if(count > 15) {
 				return;
 			}
 			hideBrowseFilterScrollbar();
 		}
-		else if(!this.browseFilterScrollbarEnabled) {
+		else if(!this.filterScrollbarEnabled) {
 			if(count < 15) {
 				return;
 			}
@@ -890,156 +889,156 @@ public class AuctionFrameBrowseUI {
 	}
 	
 	private void hideBrowseFilterScrollbar() {
-		this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
-		this.browseFilterScrollbarEnabled = false;
+		this.filterWidth = (short)(this.FILTER_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.filterScrollbarEnabled = false;
 	}
 	
 	private void showBrowseFilterScrollbar() {
-		this.browseFilterWidth = (short)(this.BROWSE_FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
-		this.browseFilterScrollbarEnabled = true;
+		this.filterWidth = (short)(this.FILTER_WIDTH_SCROLLBAR*Mideas.getDisplayXFactor());
+		this.filterScrollbarEnabled = true;
 	}
 	
 	private void buildBrowseFilterQualityMenu() {
-		this.browseRarityDropDownmenu.resetMenuList();
-		this.browseRarityDropDownmenu.addMenu(this.browseRarityAllTextMenu);
-		this.browseRarityDropDownmenu.addMenu(this.browseRarityPoorTextMenu);
-		this.browseRarityDropDownmenu.addMenu(this.browseRarityCommonTextMenu);
-		this.browseRarityDropDownmenu.addMenu(this.browseRarityUncommonTextMenu);
-		this.browseRarityDropDownmenu.addMenu(this.browseRarityRareTextMenu);
-		this.browseRarityDropDownmenu.addMenu(this.browseRarityEpicTextMenu);
-		this.browseRarityDropDownmenu.addMenu(this.browseRarityLegendaryTextMenu);
+		this.rarityDropDownmenu.resetMenuList();
+		this.rarityDropDownmenu.addMenu(this.rarityAllTextMenu);
+		this.rarityDropDownmenu.addMenu(this.rarityPoorTextMenu);
+		this.rarityDropDownmenu.addMenu(this.rarityCommonTextMenu);
+		this.rarityDropDownmenu.addMenu(this.rarityUncommonTextMenu);
+		this.rarityDropDownmenu.addMenu(this.rarityRareTextMenu);
+		this.rarityDropDownmenu.addMenu(this.rarityEpicTextMenu);
+		this.rarityDropDownmenu.addMenu(this.rarityLegendaryTextMenu);
 	}
 	
 	private void buildBrowseFilterMenu() {
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.WEAPON));
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_ONE_HANDED_AXE);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_TWO_HANDED_AXE);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_BOW);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_GUN);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_ONE_HANDED_MACE);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_TWO_HANDED_MACE);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_POLEARM);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_ONE_HANDED_SWORD);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_TWO_HANDED_SWORD);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_STAFF);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_FIST_WEAPON);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_MISCELLANEOUS);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_DAGGERS);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_THROW_WEAPON);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_CROSSBOW);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_WAND);
-		this.browseCategoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_FISHING_POLES);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.WEAPON));
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_ONE_HANDED_AXE);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_TWO_HANDED_AXE);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_BOW);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_GUN);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_ONE_HANDED_MACE);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_TWO_HANDED_MACE);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_POLEARM);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_ONE_HANDED_SWORD);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_TWO_HANDED_SWORD);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_STAFF);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_FIST_WEAPON);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_MISCELLANEOUS);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_DAGGERS);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_THROW_WEAPON);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_CROSSBOW);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_WAND);
+		this.categoryList.get(0).addFilter(AuctionHouseFilter.WEAPON_FISHING_POLES);
 
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.ARMOR));
-		this.browseCategoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_MISCELLANEOUS);
-		this.browseCategoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_CLOTH);
-		this.browseCategoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_LEATHER);
-		this.browseCategoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_MAIL);
-		this.browseCategoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_PLATE);
-		this.browseCategoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_SHIELDS);
-		this.browseCategoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_LIBRAMS);
-		this.browseCategoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_IDOLS);
-		this.browseCategoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_TOTEMS);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.ARMOR));
+		this.categoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_MISCELLANEOUS);
+		this.categoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_CLOTH);
+		this.categoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_LEATHER);
+		this.categoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_MAIL);
+		this.categoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_PLATE);
+		this.categoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_SHIELDS);
+		this.categoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_LIBRAMS);
+		this.categoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_IDOLS);
+		this.categoryList.get(1).addFilter(AuctionHouseFilter.ARMOR_TOTEMS);
 
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.CONTAINER));
-		this.browseCategoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_BAG);
-		this.browseCategoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_SOUL_BAG);
-		this.browseCategoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_HERB_BAG);
-		this.browseCategoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_ENCHANTING_BAG);
-		this.browseCategoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_ENGINEERING_BAG);
-		this.browseCategoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_GEM_BAG);
-		this.browseCategoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_MINING_BAG);
-		this.browseCategoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_LEATHERWORKING_BAG);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.CONTAINER));
+		this.categoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_BAG);
+		this.categoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_SOUL_BAG);
+		this.categoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_HERB_BAG);
+		this.categoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_ENCHANTING_BAG);
+		this.categoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_ENGINEERING_BAG);
+		this.categoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_GEM_BAG);
+		this.categoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_MINING_BAG);
+		this.categoryList.get(2).addFilter(AuctionHouseFilter.CONTAINER_LEATHERWORKING_BAG);
 
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.CONSUMABLES));
-		this.browseCategoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_FOOD_AND_DRINK);
-		this.browseCategoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_POTION);
-		this.browseCategoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_ELIXIR);
-		this.browseCategoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_FLASK);
-		this.browseCategoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_BANDAGE);
-		this.browseCategoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_ITEMS_ENCHANCEMENTS);
-		this.browseCategoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_PARCHEMIN);
-		this.browseCategoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_MISCELLANEOUS);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.CONSUMABLES));
+		this.categoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_FOOD_AND_DRINK);
+		this.categoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_POTION);
+		this.categoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_ELIXIR);
+		this.categoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_FLASK);
+		this.categoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_BANDAGE);
+		this.categoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_ITEMS_ENCHANCEMENTS);
+		this.categoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_PARCHEMIN);
+		this.categoryList.get(3).addFilter(AuctionHouseFilter.CONSUMABLES_MISCELLANEOUS);
 
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.TRADE_GOOD));
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_ELEMENTAL);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_CLOTH);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_LEATHER);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_METAL_AND_STONE);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_COOKING);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_HERB);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_ENCHANTING);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_JEWELCRAFTING);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_PARTS);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_MATERIALS);
-		this.browseCategoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_OTHER);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.TRADE_GOOD));
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_ELEMENTAL);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_CLOTH);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_LEATHER);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_METAL_AND_STONE);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_COOKING);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_HERB);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_ENCHANTING);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_JEWELCRAFTING);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_PARTS);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_MATERIALS);
+		this.categoryList.get(4).addFilter(AuctionHouseFilter.TRADE_GOOD_OTHER);
 
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.PROJECTILE));
-		this.browseCategoryList.get(5).addFilter(AuctionHouseFilter.PROJECTILE_ARROW);
-		this.browseCategoryList.get(5).addFilter(AuctionHouseFilter.PROJECTILE_BULLET);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.PROJECTILE));
+		this.categoryList.get(5).addFilter(AuctionHouseFilter.PROJECTILE_ARROW);
+		this.categoryList.get(5).addFilter(AuctionHouseFilter.PROJECTILE_BULLET);
 		
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.QUIVER));
-		this.browseCategoryList.get(6).addFilter(AuctionHouseFilter.QUIVER_QUIVER);
-		this.browseCategoryList.get(6).addFilter(AuctionHouseFilter.QUIVER_GIBERNE);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.QUIVER));
+		this.categoryList.get(6).addFilter(AuctionHouseFilter.QUIVER_QUIVER);
+		this.categoryList.get(6).addFilter(AuctionHouseFilter.QUIVER_GIBERNE);
 
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.RECIPES));
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_BOOK);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_LEATHERWORKING);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_TAILORING);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_ENGINEERING);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_BLACKSMITHING);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_COOKING);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_ALCHEMY);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_FIRST_AID);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_ENCHANTING);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_FISHING);
-		this.browseCategoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_JEWELCRAFTING);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.RECIPES));
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_BOOK);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_LEATHERWORKING);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_TAILORING);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_ENGINEERING);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_BLACKSMITHING);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_COOKING);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_ALCHEMY);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_FIRST_AID);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_ENCHANTING);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_FISHING);
+		this.categoryList.get(7).addFilter(AuctionHouseFilter.RECIPES_JEWELCRAFTING);
 
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.GEM));
-		this.browseCategoryList.get(8).addFilter(AuctionHouseFilter.GEM_RED);
-		this.browseCategoryList.get(8).addFilter(AuctionHouseFilter.GEM_BLUE);
-		this.browseCategoryList.get(8).addFilter(AuctionHouseFilter.GEM_YELLOW);
-		this.browseCategoryList.get(8).addFilter(AuctionHouseFilter.GEM_PURPLE);
-		this.browseCategoryList.get(8).addFilter(AuctionHouseFilter.GEM_GREEN);
-		this.browseCategoryList.get(8).addFilter(AuctionHouseFilter.GEM_ORANGE);
-		this.browseCategoryList.get(8).addFilter(AuctionHouseFilter.GEM_META);
-		this.browseCategoryList.get(8).addFilter(AuctionHouseFilter.GEM_SIMPLE);
-		this.browseCategoryList.get(8).addFilter(AuctionHouseFilter.GEM_PRISMATIC);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.GEM));
+		this.categoryList.get(8).addFilter(AuctionHouseFilter.GEM_RED);
+		this.categoryList.get(8).addFilter(AuctionHouseFilter.GEM_BLUE);
+		this.categoryList.get(8).addFilter(AuctionHouseFilter.GEM_YELLOW);
+		this.categoryList.get(8).addFilter(AuctionHouseFilter.GEM_PURPLE);
+		this.categoryList.get(8).addFilter(AuctionHouseFilter.GEM_GREEN);
+		this.categoryList.get(8).addFilter(AuctionHouseFilter.GEM_ORANGE);
+		this.categoryList.get(8).addFilter(AuctionHouseFilter.GEM_META);
+		this.categoryList.get(8).addFilter(AuctionHouseFilter.GEM_SIMPLE);
+		this.categoryList.get(8).addFilter(AuctionHouseFilter.GEM_PRISMATIC);
 
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.MISCELLANEOUS));
-		this.browseCategoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_JUNK);
-		this.browseCategoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_REAGENT);
-		this.browseCategoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_COMPANION_PETS);
-		this.browseCategoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_HOLIDAY);
-		this.browseCategoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_OTHER);
-		this.browseCategoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_MOUNT);
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.MISCELLANEOUS));
+		this.categoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_JUNK);
+		this.categoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_REAGENT);
+		this.categoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_COMPANION_PETS);
+		this.categoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_HOLIDAY);
+		this.categoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_OTHER);
+		this.categoryList.get(9).addFilter(AuctionHouseFilter.MISCELLANEOUS_MOUNT);
 
-		this.browseCategoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.QUESTS));
+		this.categoryList.add(new AuctionCategoryFilterButton(this, AuctionHouseFilter.QUESTS));
 	}
 	
 	protected void buildResultString(byte result, int totalResult, short page, short numberPage) {
-		this.browsePage = page;
-		this.browseTotalPage = numberPage;
+		this.page = page;
+		this.totalPage = numberPage;
 		if(result == 0 ) {
 			return;
 		}
-		this.browseResultString = "Items "+(1+(page-1)*50)+" - "+(page*50)+" ( "+totalResult+" total )";
-		this.browseResultStringWidth = (short)FontManager.get("FRIZQT", 11).getWidth(this.browseResultString);
+		this.resultString = "Items "+(1+(page-1)*50)+" - "+(page*50)+" ( "+totalResult+" total )";
+		this.resultStringWidth = (short)FontManager.get("FRIZQT", 11).getWidth(this.resultString);
 	}
 	
 	protected void frameClosed() {
 		Mideas.joueur1().getAuctionHouse().clearQueryList();
 		this.hasSearched = false;
 		disableBrowseItemScrollbar();
-		this.browsePage = 1;
-		this.browseTotalPage = 0;
-		this.browseRarityDropDownmenu.setValue(0);
-		this.browseGoldBidEditBox.setActive(false);
-		this.browseSilverBidEditBox.setActive(false);
-		this.browseCopperBidEditBox.setActive(false);
-		this.browseSearchEditBox.setActive(false);
-		this.browseMinLevelEditBox.setActive(false);
-		this.browseMaxLevelEditBox.setActive(false);
+		this.page = 1;
+		this.totalPage = 0;
+		this.rarityDropDownmenu.setValue(0);
+		this.goldBidEditBox.setActive(false);
+		this.silverBidEditBox.setActive(false);
+		this.copperBidEditBox.setActive(false);
+		this.searchEditBox.setActive(false);
+		this.minLevelEditBox.setActive(false);
+		this.maxLevelEditBox.setActive(false);
 	}
 	
 	protected AuctionHouseFilter getSelectedFilter() {
@@ -1059,50 +1058,50 @@ public class AuctionFrameBrowseUI {
 	}
 	
 	protected void incrementBrowseFilterY() {
-		this.browseFilterY+= this.browseFilterYShift;
+		this.filterY+= this.filterYShift;
 	}
 	
 	protected boolean browseItemScrollbarEnabled() {
-		return this.browseItemScrollbarEnabled;
+		return this.itemScrollbarEnabled;
 	}
 	
 	protected short getBrowseItemX() {
-		return this.browseItemX;
+		return this.itemX;
 	}
 	
 	protected short getBrowseItemWidth() {
-		return this.browseItemWidth;
+		return this.itemWidth;
 	}
 	
 	protected short getBrowseItemY() {
-		return this.browseItemY;
+		return this.itemY;
 	}
 	
 	protected short getBrowseItemHeight() {
-		return this.browseItemHeight;
+		return this.itemHeight;
 	}
 	
 	protected void incrementBrowseItemY() {
-		this.browseItemY+= this.browseItemYShift;
+		this.itemY+= this.itemYShift;
 	}
 	
 	protected short getBrowseFilterY() {
-		return this.browseFilterY;
+		return this.filterY;
 	}
 	
 	protected short getBrowseFilterX() {
-		return this.browseFilterX;
+		return this.filterX;
 	}
 	
 	protected short getBrowseFilterYShift() {
-		return this.browseFilterYShift;
+		return this.filterYShift;
 	}
 	
 	protected short getBrowseFilterWidth() {
-		return this.browseFilterWidth;
+		return this.filterWidth;
 	}
 	
 	protected short getBrowseFilterHeight() {
-		return this.browseFilterHeight;
+		return this.filterHeight;
 	}
 }

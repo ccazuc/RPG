@@ -43,17 +43,17 @@ public class AuctionCategoryFilterButton {
 	public void drawStringPart() {
 		if(this.frame.getSelectedCategoryFilter() == this.filter || this.buttonHover) {
 			if(this.buttonDown) {
-				this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+				this.frame.filterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 			}
 			else {
-				this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+				this.frame.filterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 			}
 		}
 		else if(this.buttonDown) {
-			this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+			this.frame.filterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+			this.frame.filterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		this.frame.incrementBrowseFilterY();
 		if(!this.isExpanded) {
@@ -85,18 +85,18 @@ public class AuctionCategoryFilterButton {
 		Draw.drawQuad(Sprites.chat_channel_button, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
 		if(this.frame.getSelectedCategoryFilter() == this.filter || this.buttonHover) {
 			if(this.buttonDown) {
-				this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+				this.frame.filterFont.drawStringShadow(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 			}
 			else {
-				this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+				this.frame.filterFont.drawStringShadow(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 			}
 			Draw.drawQuadBlend(Sprites.button_menu_hover, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
 		}
 		else if(this.buttonDown) {
-			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+			this.frame.filterFont.drawStringShadow(this.frame.getBrowseFilterX()+7, this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
+			this.frame.filterFont.drawStringShadow(this.frame.getBrowseFilterX()+5, this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
 		}
 		this.frame.incrementBrowseFilterY();
 		if(!this.isExpanded) {

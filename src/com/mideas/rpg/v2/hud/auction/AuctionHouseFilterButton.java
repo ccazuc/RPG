@@ -28,10 +28,10 @@ public class AuctionHouseFilterButton {
 	
 	public void drawStringPart() {
 		if(this.buttonDown) {
-			this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+15*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.frame.filterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+15*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.frame.browseFilterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+13*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.frame.filterFont.drawStringShadowPart(this.frame.getBrowseFilterX()+13*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 	}
 	
@@ -44,10 +44,10 @@ public class AuctionHouseFilterButton {
 	public void draw() {
 		Draw.drawQuad(Sprites.chat_channel_button, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight(), .4f);
 		if(this.buttonDown) {
-			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+15*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.frame.filterFont.drawStringShadow(this.frame.getBrowseFilterX()+15*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+5*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.frame.browseFilterFont.drawStringShadow(this.frame.getBrowseFilterX()+13*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.frame.filterFont.drawStringShadow(this.frame.getBrowseFilterX()+13*Mideas.getDisplayXFactor(), this.frame.getBrowseFilterY()+3*Mideas.getDisplayYFactor(), this.name, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		if(this.buttonHover || this.frame.getSelectedFilter() == this.filter) {
 			Draw.drawQuadBlend(Sprites.button_menu_hover, this.frame.getBrowseFilterX(), this.frame.getBrowseFilterY(), this.frame.getBrowseFilterWidth(), this.frame.getBrowseFilterHeight());
