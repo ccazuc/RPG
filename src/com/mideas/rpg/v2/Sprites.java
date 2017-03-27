@@ -485,6 +485,9 @@ public class Sprites {
 		edit_box_cross_button = new Texture("sprite/interface/edit_box/cross_button.png");
 		edit_box_cross_button_hover = new Texture("sprite/interface/edit_box/cross_button_hover.png");
 		button_menu_sort = new Texture("sprite/interface/button_menu_sort/button_menu_sort.png");
+		auction_browse_item_left_border = new Texture("sprite/interface/auction/browse_item_left_border.png");
+		auction_browse_item_middle_border = new Texture("sprite/interface/auction/browse_item_middle_border.png");
+		auction_browse_item_right_border = new Texture("sprite/interface/auction/browse_item_right_border.png");
 		return true;
 	}
 	
@@ -573,9 +576,6 @@ public class Sprites {
 		auction_browse_frame = new Texture("sprite/interface/auction/browse_frame.png");
 		auction_bids_frame = new Texture("sprite/interface/auction/bids_frame.png");
 		auction_auctions_frame = new Texture("sprite/interface/auction/auctions_frame.png");
-		auction_browse_item_left_border = new Texture("sprite/interface/auction/browse_item_left_border.png");
-		auction_browse_item_middle_border = new Texture("sprite/interface/auction/browse_item_middle_border.png");
-		auction_browse_item_right_border = new Texture("sprite/interface/auction/browse_item_right_border.png");
 		return true;
 	}
 		

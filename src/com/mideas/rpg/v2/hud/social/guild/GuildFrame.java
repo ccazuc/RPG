@@ -200,6 +200,13 @@ public class GuildFrame {
 			closeGuildInformationFrame();
 			closeMemberInformationFrame();
 			manageFrameOpen = !manageFrameOpen;
+			if(!dropDownMenuInit) {
+				fillDropDownMenuWithRank();
+				manageRankDropDownMenu.update(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor());
+				rankNameEditBox.setText(selectedRank.getName());
+				dropDownMenuInit = true;
+				manageRankDropDownMenu.setActive(true);
+			}
 			if(manageFrameOpen) {
 				openManageFrame();
 			}
@@ -919,13 +926,6 @@ public class GuildFrame {
 	
 	private static void drawManageFrame() {
 		if(manageFrameOpen) {
-			if(!dropDownMenuInit) {
-				fillDropDownMenuWithRank();
-				manageRankDropDownMenu.update(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor());
-				rankNameEditBox.setText(selectedRank.getName());
-				dropDownMenuInit = true;
-				manageRankDropDownMenu.setActive(true);
-			}
 			informationBackground.draw();
 			Draw.drawQuad(Sprites.guild_manage_frame_bot_border, X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+433*Mideas.getDisplayYFactor());
 			//Draw.drawQuad(Sprites.guild_manage_rank_horizontal_bar, X_SOCIAL_FRAME+399*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+65*Mideas.getDisplayYFactor());

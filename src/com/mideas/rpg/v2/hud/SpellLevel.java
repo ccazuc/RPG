@@ -1,4 +1,4 @@
-/*package com.mideas.rpg.v2.hud;
+package com.mideas.rpg.v2.hud;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.spell.SpellManager;
@@ -12,7 +12,7 @@ public class SpellLevel {
 	private static boolean spell15;
 
 	public static void addSpell() {
-		if(Mideas.joueur1().getClasseString().equals("Guerrier")) {
+		/*if(Mideas.joueur1().getClasseString().equals("Guerrier")) {
 			if(!spell1 && Mideas.joueur1().getLevel() >= 1) {
 				Mideas.joueur1().setSpellUnlocked(0, SpellManager.getSpell(102));
 				spell1 = true;
@@ -33,7 +33,7 @@ public class SpellLevel {
 				Mideas.joueur1().setSpellUnlocked(4, SpellManager.getSpell(103));
 				spell15 = true;
 			}	
-		}
+		}*/
 	}
 	
 	public static void setSpellLevelFalse() {
@@ -43,4 +43,4 @@ public class SpellLevel {
 		spell10 = false;
 		spell15 = false;
 	}
-}*/
+}
