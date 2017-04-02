@@ -129,6 +129,7 @@ public class AuctionFrameBrowseUI {
 	private String resultString;
 	private short resultStringWidth;
 	boolean querySent;
+	//No this.xframe+this.button_x to avoid NullPointerException caused by frame = null
 	final ScrollBar filterScrollbar = new ScrollBar(this.FILTER_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.FILTER_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.FILTER_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), false, this.FILTER_HEIGHT*Mideas.getDisplayYFactor()) {
 		
 		@Override
@@ -539,9 +540,9 @@ public class AuctionFrameBrowseUI {
 		font.drawEnd();
 		font = FontManager.get("ARIALN", 14);
 		font.drawBegin();
-		font.drawStringShadowPart(this.frame.getXFrame()+138*Mideas.getDisplayXFactor(), this.frame.getYFrame()+409*Mideas.getDisplayYFactor(), Mideas.joueur1().getCoppierPieceString(), Color.WHITE, Color.BLACK, 1, 0, 0);
-		font.drawStringShadowPart(this.frame.getXFrame()+102*Mideas.getDisplayXFactor(), this.frame.getYFrame()+409*Mideas.getDisplayYFactor(), Mideas.joueur1().getSilverPieceString(), Color.WHITE, Color.BLACK, 1, 0, 0);
-		font.drawStringShadowPart(this.frame.getXFrame()+78*Mideas.getDisplayXFactor()-font.getWidth(Mideas.joueur1().getGoldPieceString()), this.frame.getYFrame()+409*Mideas.getDisplayYFactor(), Mideas.joueur1().getGoldPieceString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		font.drawStringShadowPartReversed(this.frame.getXFrame()+150*Mideas.getDisplayXFactor(), this.frame.getYFrame()+409*Mideas.getDisplayYFactor(), Mideas.joueur1().getCoppierPieceString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		font.drawStringShadowPartReversed(this.frame.getXFrame()+115*Mideas.getDisplayXFactor(), this.frame.getYFrame()+409*Mideas.getDisplayYFactor(), Mideas.joueur1().getSilverPieceString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+		font.drawStringShadowPartReversed(this.frame.getXFrame()+77*Mideas.getDisplayXFactor(), this.frame.getYFrame()+409*Mideas.getDisplayYFactor(), Mideas.joueur1().getGoldPieceString(), Color.WHITE, Color.BLACK, 1, 0, 0);
 		font.drawEnd();
 		Sprites.copper_coin.drawBegin();
 		Draw.drawQuadPart(Sprites.copper_coin, this.frame.getXFrame()+153*Mideas.getDisplayXFactor(), this.frame.getYFrame()+412*Mideas.getDisplayYFactor(), 13*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
