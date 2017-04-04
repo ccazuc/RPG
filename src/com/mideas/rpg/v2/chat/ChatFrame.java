@@ -192,6 +192,9 @@ public class ChatFrame {
 					if(message.getDrawMessage().charAt(j) == '\n') {
 						yDraw+= FontManager.chat.getLineHeight();
 						xDraw = 50;
+						if(yDraw > Display.getHeight()-185) {
+							break;
+						}
 					}
 					if(message.getOpacity() > 0 && yDraw >= Display.getHeight()-310-yResize) {
 						FontManager.chat.drawCharPart(xDraw+1, yDraw, message.getDrawMessage().charAt(j), Color.BLACK, message.getOpacity());
@@ -202,6 +205,9 @@ public class ChatFrame {
 					if(xDraw-40 > maxLength-10 && j < message.getDrawMessage().length()) {
 						yDraw+= FontManager.chat.getLineHeight();
 						xDraw = 50;
+						if(yDraw > Display.getHeight()-185) {
+							break;
+						}
 					}
 				}
 			}
@@ -394,15 +400,15 @@ public class ChatFrame {
 			}
 			chatActive = !chatActive;
 		}
-        else if(Keyboard.getEventKey() == 201 && !chatActive) {  //scroll up
-        	scrollUp();
+	        else if(Keyboard.getEventKey() == 201 && !chatActive) {  //scroll up
+	        	scrollUp();
 			return true;
-        }
-        else if(Keyboard.getEventKey() == 209 && !chatActive) {  //scroll down
-        	scrollDown();
+	        }
+	        else if(Keyboard.getEventKey() == 209 && !chatActive) {  //scroll down
+	        	scrollDown();
 			return true;
-        }
-        return false;
+	        }
+	        return false;
 	}
 	
 	private static boolean isValidCharacter(char c) {
@@ -774,7 +780,7 @@ public class ChatFrame {
 		StringBuilder builder = new StringBuilder();
 		while(i < text.length()) {
 			x+= FontManager.chat.getWidth(text.charAt(i));
-			if(text.charAt(i) == '\n') {
+			if(text.charAt(i) == '\n' && i != text.length()-1) {
 				line++;
 				x = 10;
 			}
@@ -1069,7 +1075,7 @@ public class ChatFrame {
 	}
 	
 	private static void scrollUp() {
-	    	if(xShift/FontManager.chat.getLineHeight() <= totalNumberLine-messageShowHeight-2) {
+	    	if(xShift/FontManager.chat.getLineHeight() <= totalNumberLine-messageShowHeight-3) {
 	    		xShift+= FontManager.chat.getLineHeight();
 	    	}
 	    	resetMessagesOpacity();
@@ -1084,7 +1090,7 @@ public class ChatFrame {
 	
 	private static void resetMessagesOpacity() {
 		int i = 0;
-		long time = Mideas.getLoopTickTimer();
+		final long time = Mideas.getLoopTickTimer();
 		while(i < messages.size()) {
 			messages.get(i).setOpacity(1);
 			messages.get(i).setLastSeenTimer(time);
@@ -1094,7 +1100,7 @@ public class ChatFrame {
 	
 	private static boolean CTRLDelete() {
 		int i = cursorPosition;
-		String temp = tempMessage.substring(cursorPosition);
+		final String temp = tempMessage.substring(cursorPosition);
 		if(tempMessage.length() != 0) {
 			if(tempMessage.charAt(tempMessage.length()-1) == ' ' || tempMessage.charAt(tempMessage.length()-1) == ',') {
 				tempMessage = tempMessage.substring(0, tempMessage.length()-1);

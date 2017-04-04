@@ -2,6 +2,8 @@ package com.mideas.rpg.v2.utils;
 
 import java.util.ArrayList;
 
+import org.lwjgl.input.Mouse;
+
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 
@@ -38,6 +40,7 @@ public class TooltipMenu {
 		}
 		if(System.currentTimeMillis()-this.lastHover > CLOSE_TIMER && !this.tooltip.isHover()) {
 			setActive(false);
+			return;
 		}
 		this.tooltip.draw();
 		FontManager.get("FRIZQT", 14).drawStringShadow(this.x+21*Mideas.getDisplayXFactor(), this.y+15*Mideas.getDisplayYFactor(), this.name, Color.YELLOW, Color.BLACK, 1, 0, 0);
@@ -64,6 +67,13 @@ public class TooltipMenu {
 			if(this.tooltip.isHover()) {
 				this.lastHover = System.currentTimeMillis();
 				Mideas.setHover(false);
+			}
+			else if(!Mouse.getEventButtonState()) {
+				if(Mouse.getEventButton() == 0) {
+					this.lastHover = System.currentTimeMillis();
+					this.isActive = false;
+					return true;
+				}
 			}
 		}
 		return false;

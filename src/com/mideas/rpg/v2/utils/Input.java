@@ -23,8 +23,10 @@ public class Input {
 	protected int selectedLength;
 	protected int selectedQuadLength;
 	protected int selectedStarts;
-	protected int cursorHeight;
-	protected int cursorWidth;
+	protected byte cursorHeight;
+	protected byte cursorWidth;
+	protected byte cursorHeightSave;
+	protected byte cursorWidthSave;
 	protected TTF font;
 	protected int maxLength;
 	protected boolean isActive;
@@ -43,9 +45,12 @@ public class Input {
 	public final static int ENTER_CHAR_VALUE = 13;
 	public final static int TAB_CHAR_VALUE = 9;
 	
-	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, boolean isActive, int cursorHeight) {
+	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, boolean isActive, int cursorWidth, int cursorHeight) {
 		this.multipleLine = multipleLine;
-		this.cursorHeight = cursorHeight;
+		this.cursorHeight = (byte)(cursorHeight*Mideas.getDisplayYFactor());
+		this.cursorWidth = (byte)(cursorWidth*Mideas.getDisplayXFactor());
+		this.cursorHeightSave = (byte)cursorHeight;
+		this.cursorWidthSave = (byte)cursorWidth;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
 		setIsActive(isActive);
@@ -57,8 +62,8 @@ public class Input {
 	}
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, float cursorWidth, float cursorHeight, String defaultText) {
-		this.cursorHeight = (int)cursorHeight;
-		this.cursorWidth = (int)cursorWidth;
+		this.cursorHeight = (byte)cursorHeight;
+		this.cursorWidth = (byte)cursorWidth;
 		this.multipleLine = multipleLine;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
@@ -71,7 +76,7 @@ public class Input {
 	
 	public Input(TTF font, int maxLength, boolean debugActive, boolean multipleLine, float x, float y, float maxWidth, int cursorHeight) {
 		this.multipleLine = multipleLine;
-		this.cursorHeight = cursorHeight;
+		this.cursorHeight = (byte)cursorHeight;
 		this.debugActive = debugActive;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
@@ -251,14 +256,8 @@ public class Input {
 		this.xDefault = x;
 		this.y = y;
 		this.maxWidth = maxWidth;
-	}
-	
-	public void update(float x, float y, float maxWidth, float cursorWidth, float cursorHeight) {
-		this.xDefault = x;
-		this.y = y;
-		this.maxWidth = maxWidth;
-		this.cursorWidth = (int)cursorWidth;
-		this.cursorHeight = (int)cursorHeight;
+		this.cursorHeight = (byte)(this.cursorHeightSave*Mideas.getDisplayYFactor());
+		this.cursorWidth = (byte)(this.cursorWidthSave*Mideas.getDisplayXFactor());
 	}
 	
 	public void setMaxLength(int maxLength) {
@@ -344,6 +343,7 @@ public class Input {
 	public void setText(String text) {
 		resetText();
 		write(text);
+		this.xDraw = 0;
 	}
 	
 	private void write(char add) {
@@ -390,7 +390,7 @@ public class Input {
 			}
 			shiftTextRight();
 		}
-		else if(this.text.length() == 0) {
+		else if(this.text.length() == 0 || this.cursorPosition == 0) {
 			this.xDraw = 0;
 		}
 	}

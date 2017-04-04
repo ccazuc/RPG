@@ -9,8 +9,6 @@ import org.lwjgl.input.Mouse;
 public class EditBox {
 
 	private final short textOffset;
-	private final short cursorWidth;
-	private final short cursorHeight;
 	private final short inputMaxWidth;
 	private final short xSizeSave;
 	protected final Input input;
@@ -29,11 +27,9 @@ public class EditBox {
 		this.xSizeSave = (short)x_size;
 		this.x_size = (int)(x_size*Mideas.getDisplayXFactor());
 		this.textOffset = (short)textOffset;
-		this.cursorWidth = (short)cursorWidth;
-		this.cursorHeight = (short)cursorHeight;
 		this.inputMaxWidth = (short)inputMaxWidth;
 		if(isIntegerInput) {
-			this.input = new IntegerInput(font, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth*Mideas.getDisplayXFactor(), cursorHeight*Mideas.getDisplayYFactor()) {
+			this.input = new IntegerInput(font, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight) {
 				
 				@Override
 				public boolean checkValue(int value) {
@@ -47,7 +43,7 @@ public class EditBox {
 			};
 		}
 		else {
-			this.input = new Input(font, inputMaxLength, false, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth*Mideas.getDisplayXFactor(), cursorHeight*Mideas.getDisplayYFactor(), defaultText) {
+			this.input = new Input(font, inputMaxLength, false, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText) {
 				
 				@Override
 				public boolean keyEvent(char c) {
@@ -169,13 +165,14 @@ public class EditBox {
 		return this.input.getTextValue();
 	}
 	
+	@SuppressWarnings("unused")
 	public boolean checkValue(int value) {return true;}
 	
 	public void update(float x, float y) {
 		this.x = (int)x;
 		this.y = (int)y;
 		this.x_size = (int)(this.xSizeSave*Mideas.getDisplayXFactor());
-		this.input.update(this.x+this.textOffset*Mideas.getDisplayXFactor(), this.y+3, this.inputMaxWidth*Mideas.getDisplayXFactor(), this.cursorWidth*Mideas.getDisplayXFactor(), this.cursorHeight*Mideas.getDisplayYFactor());
+		this.input.update(this.x+this.textOffset*Mideas.getDisplayXFactor(), this.y+3, this.inputMaxWidth*Mideas.getDisplayXFactor());
 		if(this.crossButton != null) {
 			this.crossButton.update(this.x+this.x_size-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor());
 		}

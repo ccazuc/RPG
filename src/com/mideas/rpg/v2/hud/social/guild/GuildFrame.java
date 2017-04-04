@@ -684,7 +684,7 @@ public class GuildFrame {
 		FontManager.get("FRIZQT", 15).drawStringShadow(X_SOCIAL_FRAME+220*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 15).getWidth(Mideas.joueur1().getGuildTitle())/2, Y_SOCIAL_FRAME+14*Mideas.getDisplayYFactor(), Mideas.joueur1().getGuildTitle(), YELLOW, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 12).drawBegin();
 		FontManager.get("FRIZQT", 12).drawStringShadowPart(X_SOCIAL_FRAME+23*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+368*Mideas.getDisplayYFactor(), "Guild Message Of The Day:", YELLOW, Color.BLACK, 1, 0, 0);
-		FontManager.get("FRIZQT", 12).drawStringShadowPart(X_SOCIAL_FRAME+210*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), "Show Offline Members", Color.WHITE, Color.BLACK, 1, 0, 0);
+		FontManager.get("FRIZQT", 12).drawStringShadowPartReversed(X_SOCIAL_FRAME+338*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+43*Mideas.getDisplayYFactor(), "Show Offline Members", Color.WHITE, Color.BLACK, 1, 0, 0);
 		FontManager.get("FRIZQT", 12).drawEnd();
 		drawNumberMember();
 		drawMotd();
@@ -789,9 +789,7 @@ public class GuildFrame {
 			}
 			i++;
 		}
-		if(memberMenu != null) {
-			displayedMemberMenu.draw();
-		}
+		displayedMemberMenu.draw();
 	}
 	
 	private static boolean mouseEventMembers() {

@@ -19,7 +19,7 @@ import com.mideas.rpg.v2.utils.Input;
 public class LoginScreen {
 
 	private static boolean shouldUpdateSize;
-	private final static Input account = new Input(FontManager.get("ARIALN", 21), 50, false, Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor(), true, 24);
+	private final static Input account = new Input(FontManager.get("ARIALN", 21), 50, false, Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 187*Mideas.getDisplayXFactor(), true, 6, 24);
 	private final static Input password = new Input(FontManager.get("ARIALN", 16), 19, false, false);
 	private static String passwordText = "";
 	final static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 21, "OK");

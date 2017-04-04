@@ -347,6 +347,17 @@ public final class TTF {
 		OpenGL.glEnd();
 	}
 	
+	public final void drawStringShadowReversed(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY) {
+		drawStringShadowReversed(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, 1, 1, 1);
+	}
+	
+	public final void drawStringShadowReversed(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity, final float scaleX, final float scaleY) {
+		bind();
+		OpenGL.glBegin(OpenGL.GL_QUADS);
+		drawStringShadowPartReversed(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, opacity, scaleX, scaleY);
+		OpenGL.glEnd();
+	}
+	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize) {
 		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, 0, 0, 1, 1, 1);
 	}
@@ -386,6 +397,19 @@ public final class TTF {
 			}
 		}
 		drawStringPart(x, y, text, color, scaleX, scaleY, opacity);
+	}
+	
+	public final void drawStringShadowPartReversed(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity, final float scaleX, final float scaleY) {
+		float i = x-shadowSize+shadowX-1;
+		while(++i <= x+shadowSize+shadowX) {
+			float ii = y-shadowSize+shadowY-1;
+			while(++ii <= y+shadowSize+shadowY) {
+				if(Math.abs(i-x-shadowX) != Math.abs(ii-y-shadowY)) {
+					drawStringPartReversed(i, ii, text, shadowColor, scaleX, scaleY, opacity);
+				}
+			}
+		}
+		drawStringPartReversed(x, y, text, color, scaleX, scaleY, opacity);
 	}
 	
 	public final void drawStringShadowPartReversed(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY) {
