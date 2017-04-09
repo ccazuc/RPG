@@ -52,13 +52,6 @@ public class AlertBackground {
 		Draw.drawQuad(Sprites.height_left_border_alert, this.x, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);
 		Draw.drawQuad(Sprites.height_right_border_alert, this.x+this.x_size-imageWidth, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight);*/
 		Draw.drawColorQuad(this.x+borderWidthShift, this.y+borderHeightShift, this.x_size-2*borderWidthShift, this.y_size-2*borderHeightShift+1, this.bgColor);
-		if(this.title != null) {
-			imageWidth = (int)(Sprites.alert_title_left_border.getImageWidth()*Mideas.getDisplayXFactor());
-			Draw.drawQuad(Sprites.alert_title_left_border, this.x+this.x_size/2-this.titleBorderWidth/2, this.y-15*Mideas.getDisplayXFactor(), imageWidth, Sprites.alert_title_left_border.getImageHeight()*Mideas.getDisplayYFactor());
-			Draw.drawQuad(Sprites.alert_title_middle_border, this.x+this.x_size/2-this.titleBorderWidth/2+imageWidth, this.y-15*Mideas.getDisplayXFactor(), this.titleBorderWidth-2*imageWidth, Sprites.alert_title_middle_border.getImageHeight()*Mideas.getDisplayYFactor());
-			Draw.drawQuad(Sprites.alert_title_right_border, this.x+this.x_size/2+this.titleBorderWidth/2-imageWidth, this.y-15*Mideas.getDisplayXFactor(), imageWidth, Sprites.alert_title_right_border.getImageHeight()*Mideas.getDisplayYFactor());
-			FontManager.get("FRIZQT", 14).drawStringShadow(this.x+this.x_size/2-this.titleWidth/2, this.y-8*Mideas.getDisplayYFactor(), this.title, Color.YELLOW, Color.BLACK, 1, 0, 0);
-		}
 		
 		
 		/*Sprites.alert_background.drawBegin();
@@ -86,6 +79,14 @@ public class AlertBackground {
 		Draw.drawQuadPart(Sprites.alert_background, this.x, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight, 0, 24, 27, 2);					//left_border
 		Draw.drawQuadPart(Sprites.alert_background, this.x+this.x_size-imageWidth, this.y+imageHeight, imageWidth, this.y_size-2*imageHeight, 27, 24, 27, 2);		//right_border
 		Sprites.alert_background.drawEnd();
+
+		if(this.title != null) {
+			imageWidth = (int)(Sprites.alert_title_left_border.getImageWidth()*Mideas.getDisplayXFactor());
+			Draw.drawQuad(Sprites.alert_title_left_border, this.x+this.x_size/2-this.titleBorderWidth/2, this.y-15*Mideas.getDisplayXFactor(), imageWidth, Sprites.alert_title_left_border.getImageHeight()*Mideas.getDisplayYFactor());
+			Draw.drawQuad(Sprites.alert_title_middle_border, this.x+this.x_size/2-this.titleBorderWidth/2+imageWidth, this.y-15*Mideas.getDisplayXFactor(), this.titleBorderWidth-2*imageWidth, Sprites.alert_title_middle_border.getImageHeight()*Mideas.getDisplayYFactor());
+			Draw.drawQuad(Sprites.alert_title_right_border, this.x+this.x_size/2+this.titleBorderWidth/2-imageWidth, this.y-15*Mideas.getDisplayXFactor(), imageWidth, Sprites.alert_title_right_border.getImageHeight()*Mideas.getDisplayYFactor());
+			FontManager.get("FRIZQT", 14).drawStringShadow(this.x+this.x_size/2-this.titleWidth/2, this.y-8*Mideas.getDisplayYFactor(), this.title, Color.YELLOW, Color.BLACK, 1, 0, 0);
+		}
 	}
 	
 	public boolean isHover() {

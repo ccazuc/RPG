@@ -6,7 +6,7 @@ import com.mideas.rpg.v2.utils.ButtonMenu;
 public class AuctionFrameUI {
 
 
-	private final short X_FRAME = 18;
+	private final short X_FRAME = 20;
 	private final short Y_FRAME = 118;
 	private short x_frame = (short)(this.X_FRAME*Mideas.getDisplayXFactor());
 	private short y_frame = (short)(this.Y_FRAME*Mideas.getDisplayYFactor());

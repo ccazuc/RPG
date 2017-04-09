@@ -27,28 +27,28 @@ public class LoginScreen {
 	static boolean rememberAccountName;
 	private static String realmName = "";
 	private static int realmNameWidth;
-	private static Button leaveButton = new Button(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+426*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Quit", 16, 2) {
+	private final static Button leaveButton = new Button(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+426*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Quit", 16, 2) {
 		
 		@Override
 		public void eventButtonClick() {
 			Mideas.closeGame();
 		}
 	};
-	private static Button connectionButton = new Button(Display.getWidth()/2-95*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 197*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor(), "Login", 20, 2) {
+	private final static Button connectionButton = new Button(Display.getWidth()/2-95*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 197*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor(), "Login", 20, 2) {
 		
 		@Override
 		public void eventButtonClick() {
 			connectionEvent();
 		}
 	};
-	private static Button officialWebsiteButton = new Button(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor(), "Official Site", 16, 2) {
+	private final static Button officialWebsiteButton = new Button(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor(), "Official Site", 16, 2) {
 		
 		@Override
 		public void eventButtonClick() {
 			Sys.openURL("https://github.com/ccazuc/RPG");
 		}
 	};
-	private static CheckBox rememberAccountNameCheckBox = new CheckBox(27*Mideas.getDisplayXFactor(), Display.getHeight()-167*Mideas.getDisplayYFactor(), 22*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor()) {
+	private final static CheckBox rememberAccountNameCheckBox = new CheckBox(27*Mideas.getDisplayXFactor(), Display.getHeight()-167*Mideas.getDisplayYFactor(), 22*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor()) {
 		
 		@Override
 		public boolean get() {

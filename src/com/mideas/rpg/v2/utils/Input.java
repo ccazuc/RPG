@@ -62,8 +62,10 @@ public class Input {
 	}
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, float cursorWidth, float cursorHeight, String defaultText) {
-		this.cursorHeight = (byte)cursorHeight;
-		this.cursorWidth = (byte)cursorWidth;
+		this.cursorHeight = (byte)(cursorHeight*Mideas.getDisplayYFactor());
+		this.cursorWidth = (byte)(cursorWidth*Mideas.getDisplayXFactor());
+		this.cursorHeightSave = (byte)cursorHeight;
+		this.cursorWidthSave = (byte)cursorWidth;
 		this.multipleLine = multipleLine;
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth;
@@ -134,6 +136,7 @@ public class Input {
 				return;
 			}
 			if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) {
+				System.out.println('a');
 				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y+1, this.cursorWidth, this.cursorHeight, Color.WHITE);
 			}
 		}
