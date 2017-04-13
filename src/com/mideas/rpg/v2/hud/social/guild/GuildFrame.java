@@ -76,7 +76,7 @@ public class GuildFrame {
 	private final static Color GREEN = new Color(64/255f, 251/255f, 64f/255f);
 	static boolean displayGuildInformation;
 	private static boolean inputInit;
-	private static boolean dropDownMenuInit;
+	static boolean dropDownMenuInit;
 	private final static HorizontalBar manageFrameHorizontalBar = new HorizontalBar(X_SOCIAL_FRAME+402*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+65*Mideas.getDisplayYFactor(), 300*Mideas.getDisplayXFactor());
 	private final static ScrollBar memberScrollBar = new ScrollBar(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 240*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 270*Mideas.getDisplayYFactor(), false, 18*Mideas.getDisplayYFactor());
 	private final static CheckBox showOfflineMembersCheckBox = new CheckBox(X_SOCIAL_FRAME+353*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), 17*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor()) {
@@ -102,7 +102,7 @@ public class GuildFrame {
 			return false;
 		}
 	};
-	final static Input rankNameInput = new Input(FontManager.get("FRIZQT", 13), 300, true, false) {
+	/*final static Input rankNameInput = new Input(FontManager.get("FRIZQT", 13), 300, true, false) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -112,8 +112,8 @@ public class GuildFrame {
 			}
 			return false;
 		}
-	};
-	final static EditBox rankNameEditBox = new EditBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, 3, 100*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 13), false) {
+	};*/
+	final static EditBox rankNameEditBox = new EditBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, 3, 140*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 12), false) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -1260,9 +1260,9 @@ public class GuildFrame {
 		if(selectedRank != null) {
 			selectedRank.resetTempRank();
 			rankNameEditBox.setText(selectedRank.getName());
-			rankNameInput.setText(selectedRank.getName());
+			//rankNameInput.setText(selectedRank.getName());
 		}
-		rankNameInput.setIsActive(false);
+		//rankNameInput.setIsActive(false);
 		manageFrameChangeMade = false;
 		manageRankCloseFrameButton.disable();
 		manageRankAcceptButton.disable();
@@ -1272,7 +1272,7 @@ public class GuildFrame {
 	
 	static void openManageFrame() {
 		manageFrameOpen = true;
-		rankNameInput.setText(selectedRank.getName());
+		//rankNameInput.setText(selectedRank.getName());
 		manageRankCloseFrameButton.enable();
 		manageRankAcceptButton.enable();
 		manageRankDropDownMenu.setActive(true);

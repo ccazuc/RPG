@@ -12,9 +12,9 @@ public class EditBox {
 	private final short inputMaxWidth;
 	private final short xSizeSave;
 	protected final Input input;
-	private int x;
-	private int y;
-	private int x_size;
+	private short x;
+	private short y;
+	private short x_size;
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private final EditBoxCrossButton crossButton;
@@ -22,10 +22,10 @@ public class EditBox {
 	private final static byte CROSS_BUTTON_Y_OFFSET = 4;
 	
 	public EditBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton) {
-		this.x = (int)x;
-		this.y = (int)y;
+		this.x = (short)x;
+		this.y = (short)y;
 		this.xSizeSave = (short)x_size;
-		this.x_size = (int)(x_size*Mideas.getDisplayXFactor());
+		this.x_size = (short)(x_size*Mideas.getDisplayXFactor());
 		this.textOffset = (short)textOffset;
 		this.inputMaxWidth = (short)inputMaxWidth;
 		if(isIntegerInput) {
@@ -69,6 +69,7 @@ public class EditBox {
 		else {
 			this.crossButton = null;
 		}
+		System.out.println("Edit xsave : "+this.xSizeSave);
 	}
 	
 	public EditBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput) {
@@ -169,13 +170,17 @@ public class EditBox {
 	public boolean checkValue(int value) {return true;}
 	
 	public void update(float x, float y) {
-		this.x = (int)x;
-		this.y = (int)y;
-		this.x_size = (int)(this.xSizeSave*Mideas.getDisplayXFactor());
+		this.x = (short)x;
+		this.y = (short)y;
+		this.x_size = (short)(this.xSizeSave*Mideas.getDisplayXFactor());
 		this.input.update(this.x+this.textOffset*Mideas.getDisplayXFactor(), this.y+3, this.inputMaxWidth*Mideas.getDisplayXFactor());
 		if(this.crossButton != null) {
 			this.crossButton.update(this.x+this.x_size-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor());
 		}
+	}
+	
+	public short getWidth() {
+		return this.x_size;
 	}
 	
 	protected boolean keyEvent(@SuppressWarnings("unused") char c) {return false;}

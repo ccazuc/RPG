@@ -67,7 +67,7 @@ public class AuctionFrameBrowseUI {
 	private final short SEND_QUERY_BUTTON_Y = 33;
 	private final short SEND_QUERY_BUTTON_HEIGHT = 22;
 	private final short SEARCH_EDIT_BOX_X = 76;
-	private final short SEARCH_EDIT_BOX_WIDTH = 164;
+	private final short SEARCH_EDIT_BOX_WIDTH = 145;
 	private final short SEARCH_EDIT_BOX_INPUT_WIDTH = 105;
 	private final short SEARCH_EDIT_BOX_Y = 49;
 	private final short MIN_LEVEL_EDIT_BOX_X = 226;
@@ -227,7 +227,7 @@ public class AuctionFrameBrowseUI {
 			return !AuctionFrameBrowseUI.this.querySent && AuctionFrameBrowseUI.this.page > 1;
 		}
 	};
-	final EditBox searchEditBox = new EditBox(this.SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.SEARCH_EDIT_BOX_WIDTH*Mideas.getDisplayXFactor(), 63, 21, this.SEARCH_EDIT_BOX_INPUT_WIDTH*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 11), false, 2, 13, "Search", true) {
+	final EditBox searchEditBox = new EditBox(this.SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.SEARCH_EDIT_BOX_WIDTH, 63, 21, this.SEARCH_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), false, 2, 13, "Search", true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -818,6 +818,7 @@ public class AuctionFrameBrowseUI {
 		this.previousPageArrow.update(this.frame.getXFrame()+this.PREVIOUS_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.PAGE_ARROW_Y*Mideas.getDisplayYFactor());
 		this.itemScrollbar.update(this.frame.getXFrame()+this.ITEM_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.ITEM_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.ITEM_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.ITEM_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), (this.ITEM_SCROLLBAR_HEIGHT+15)*Mideas.getDisplayYFactor(), this.itemYShift*Mideas.getDisplayYFactor());
 		int i = -1;
+		System.out.println("Search size : "+this.searchEditBox.getWidth());
 		while(++i < this.queryButtonList.size()) {
 			this.queryButtonList.get(i).updateSize();
 		}

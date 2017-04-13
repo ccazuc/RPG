@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.chat;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Interface;
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandParty;
@@ -300,6 +301,13 @@ public class ChatCommandMgr {
 			}
 		}
 	};
+	private final static ChatCommand reload = new ChatCommand("reload", "/reload to reload the UI.") {
+		
+		@Override
+		public void handle(String[] command) {
+			Mideas.loadingScreen();
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
@@ -325,6 +333,7 @@ public class ChatCommandMgr {
 		addCommand(csilence);
 		addCommand(cunmute);
 		addCommand(cunsilence);
+		addCommand(reload);
 	}
 	
 	public static void handleChatCommand(String str) {
