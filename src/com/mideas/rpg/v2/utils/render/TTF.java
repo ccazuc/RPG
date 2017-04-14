@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2;
+package com.mideas.rpg.v2.utils.render;
 
 import java.awt.Font;
 import java.awt.FontMetrics;

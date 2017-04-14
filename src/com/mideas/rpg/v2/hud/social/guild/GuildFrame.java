@@ -3,8 +3,6 @@ package com.mideas.rpg.v2.hud.social.guild;
 import org.lwjgl.input.Mouse;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandGuild;
@@ -20,7 +18,6 @@ import com.mideas.rpg.v2.utils.ButtonMenuSort;
 import com.mideas.rpg.v2.utils.CheckBox;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.CrossButton;
-import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.DropDownMenu;
 import com.mideas.rpg.v2.utils.EditBox;
 import com.mideas.rpg.v2.utils.HorizontalBar;
@@ -29,6 +26,9 @@ import com.mideas.rpg.v2.utils.ScrollBar;
 import com.mideas.rpg.v2.utils.TextMenu;
 import com.mideas.rpg.v2.utils.Tooltip;
 import com.mideas.rpg.v2.utils.TooltipMenu;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.utils.render.TTF;
 
 import static com.mideas.rpg.v2.hud.social.SocialFrame.Y_SOCIAL_FRAME;
 import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;

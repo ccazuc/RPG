@@ -1,8 +1,8 @@
 package com.mideas.rpg.v2.utils;
 
 import com.mideas.rpg.v2.ClassColor;
-import com.mideas.rpg.v2.OpenGL;
 import com.mideas.rpg.v2.game.unit.ClassType;
+import com.mideas.rpg.v2.utils.render.OpenGL;
 
 public class Color {
 	

@@ -9,8 +9,6 @@ import org.lwjgl.input.Mouse;
 
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandFriend;
 import com.mideas.rpg.v2.command.CommandIgnore;
@@ -22,12 +20,14 @@ import com.mideas.rpg.v2.game.unit.ClassType;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.ButtonMenuSort;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.DropDownMenu;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.ScrollBar;
 import com.mideas.rpg.v2.utils.TextMenu;
 import com.mideas.rpg.v2.utils.TooltipMenu;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.utils.render.TTF;
 
 public class WhoFrame {
 

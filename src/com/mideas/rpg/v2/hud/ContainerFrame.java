@@ -4,7 +4,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
@@ -16,10 +15,11 @@ import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.CrossButton;
-import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.IntegerInput;
 import com.mideas.rpg.v2.utils.StringUtils;
 import com.mideas.rpg.v2.utils.Tooltip;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class ContainerFrame {
 	

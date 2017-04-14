@@ -1,11 +1,11 @@
-package com.mideas.rpg.v2.utils;
+package com.mideas.rpg.v2.utils.render;
 
 
 import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.OpenGL;
 import com.mideas.rpg.v2.utils.Color;
+import com.mideas.rpg.v2.utils.Texture;
 
 import static org.lwjgl.opengl.GL11.glScissor;
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
@@ -20,6 +20,7 @@ import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL14.glBlendFuncSeparate;
 import static org.lwjgl.opengl.GL20.glBlendEquationSeparate;
+import static org.lwjgl.opengl.GL11.glDrawElements;
 
 import org.lwjgl.opengl.Display;
 
@@ -75,7 +76,7 @@ public final class Draw {
 		glColor4f(bottomRight.red(), bottomRight.green(), bottomRight.blue(), bottomRight.alpha());
 		glVertex2f(x+width, y+height);
 		glColor4f(bottomLeft.red(), bottomLeft.green(), bottomLeft.blue(), bottomLeft.alpha());
-		glVertex2f(x, y+height);;
+		glVertex2f(x, y+height);
 	}
 	
 	public final static void drawColorQuad(final float x, final float y, final float width, final float height, final Color topLeft, final Color topRight, final Color bottomRight, final Color bottomLeft) {

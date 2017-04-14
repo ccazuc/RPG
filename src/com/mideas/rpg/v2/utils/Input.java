@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
-import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.TTF;
 
 public class Input {
 
@@ -136,7 +137,6 @@ public class Input {
 				return;
 			}
 			if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) {
-				System.out.println('a');
 				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y+1, this.cursorWidth, this.cursorHeight, Color.WHITE);
 			}
 		}

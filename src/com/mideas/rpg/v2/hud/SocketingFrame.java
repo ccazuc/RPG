@@ -5,15 +5,15 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.gem.Gem;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.CrossButton;
-import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Texture;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class SocketingFrame {
 

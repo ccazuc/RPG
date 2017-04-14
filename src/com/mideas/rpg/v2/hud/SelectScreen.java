@@ -8,7 +8,6 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
@@ -23,8 +22,9 @@ import com.mideas.rpg.v2.game.race.NewCharacterRace;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class SelectScreen {
 

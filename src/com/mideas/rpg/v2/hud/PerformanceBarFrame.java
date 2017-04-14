@@ -4,11 +4,11 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Tooltip;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.TTF;
 
 public class PerformanceBarFrame {
 	

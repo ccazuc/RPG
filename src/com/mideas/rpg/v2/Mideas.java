@@ -62,8 +62,10 @@ import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
-import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.StringUtils;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.PNGDecoder;
+import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class Mideas {
 	

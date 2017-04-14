@@ -2,9 +2,9 @@ package com.mideas.rpg.v2.game.unit;
 
 import java.util.ArrayList;
 
-import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.game.aura.AppliedAura;
 import com.mideas.rpg.v2.utils.Texture;
+import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class Unit {
 

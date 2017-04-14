@@ -12,15 +12,15 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.ClassColor;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.chat.channel.ChatChannel;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
-import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.InputBar;
 import com.mideas.rpg.v2.utils.StringUtils;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.utils.Color;
 
 public class ChatFrame {

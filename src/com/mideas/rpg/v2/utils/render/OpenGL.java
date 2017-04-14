@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2;
+package com.mideas.rpg.v2.utils.render;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;

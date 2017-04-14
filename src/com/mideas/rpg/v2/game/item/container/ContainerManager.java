@@ -4,9 +4,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.utils.Texture;
-
+import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class ContainerManager {

@@ -44,8 +44,9 @@ import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
 import com.mideas.rpg.v2.hud.social.OsefFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
-import com.mideas.rpg.v2.utils.Draw;
 import com.mideas.rpg.v2.utils.Input;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class Interface {
 	

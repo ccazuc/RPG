@@ -6,8 +6,6 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
@@ -19,6 +17,9 @@ import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.utils.render.TTF;
 
 public class ButtonSpellbar {
 

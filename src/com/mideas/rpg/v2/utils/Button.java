@@ -3,8 +3,9 @@ package com.mideas.rpg.v2.utils;
 import org.lwjgl.input.Mouse;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.utils.render.TTF;
 import com.mideas.rpg.v2.FontManager;
 
 public class Button {

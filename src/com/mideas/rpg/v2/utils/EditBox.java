@@ -1,8 +1,9 @@
 package com.mideas.rpg.v2.utils;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.utils.render.TTF;
 
 import org.lwjgl.input.Mouse;
 
@@ -69,7 +70,6 @@ public class EditBox {
 		else {
 			this.crossButton = null;
 		}
-		System.out.println("Edit xsave : "+this.xSizeSave);
 	}
 	
 	public EditBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput) {

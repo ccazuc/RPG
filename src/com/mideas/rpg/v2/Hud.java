@@ -4,7 +4,8 @@ import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.Draw;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class Hud { 
 	

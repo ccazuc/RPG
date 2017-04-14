@@ -5,6 +5,8 @@ import org.lwjgl.opengl.Drawable;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.GLSync;
 
+import com.mideas.rpg.v2.utils.render.Sprites;
+
 import java.nio.ByteBuffer;
 import java.util.concurrent.locks.ReentrantLock;
 

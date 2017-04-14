@@ -2,7 +2,8 @@ package com.mideas.rpg.v2.utils;
 
 import org.lwjgl.input.Keyboard;
 
-import com.mideas.rpg.v2.TTF;
+import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.utils.render.TTF;
 
 public class IntegerInput extends Input {
 	
@@ -44,9 +45,7 @@ public class IntegerInput extends Input {
 			if(keyEvent(Keyboard.getEventCharacter())) {
 				return true;
 			}
-			if(this.text.length() < this.maxLength) {
-				write(Keyboard.getEventCharacter());
-			}
+			write(Keyboard.getEventCharacter());
 			return true;
 		}
 		return false;
@@ -57,7 +56,11 @@ public class IntegerInput extends Input {
 	public void write(char c) {
 		if(!StringUtils.isInteger(c)) {
 			return;
-		} 
+		}
+		this.lastWrite = Mideas.getLoopTickTimer();
+		if(this.text.length() >= this.maxLength) {
+			return;
+		}
 		String tmp;
 		if(this.cursorPosition != this.text.length() && this.text.length() > 0) {
 			tmp = this.text.substring(0, this.cursorPosition)+c+this.text.substring(this.cursorPosition);
@@ -71,12 +74,12 @@ public class IntegerInput extends Input {
 			this.textValue = tmpValue;
 			this.cursorPosition++;
 			this.cursorShift = this.font.getWidth(tmp);
+			checkLength();
 		}
 	}
 	
 	public void setText(char c) {
 		if(!StringUtils.isInteger(c)) {
-			System.out.println("IntegerInput.setText error, c in not an integer.");
 			return;
 		}
 		this.text = String.valueOf(c);
@@ -91,9 +94,12 @@ public class IntegerInput extends Input {
 			System.out.println("IntegerInput.setText error, s in not an integer.");
 			return;
 		}
-		this.text = s;
-		this.textValue = Integer.parseInt(s);
-		checkLength();
+		int tmpValue = Integer.parseInt(s);
+		if(checkValue(tmpValue)) {
+			this.text = s;
+			this.textValue = tmpValue;
+			checkLength();
+		}
 		this.cursorPosition = this.text.length();
 	}
 	

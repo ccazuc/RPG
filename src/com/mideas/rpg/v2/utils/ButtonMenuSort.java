@@ -3,8 +3,9 @@ package com.mideas.rpg.v2.utils;
 import org.lwjgl.input.Mouse;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.Sprites;
-import com.mideas.rpg.v2.TTF;
+import com.mideas.rpg.v2.utils.render.Draw;
+import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.utils.render.TTF;
 import com.mideas.rpg.v2.FontManager;
 
 public class ButtonMenuSort {
@@ -13,6 +14,8 @@ public class ButtonMenuSort {
 	private short y;
 	private short x_size;
 	private short y_size;
+	private short x_size_save;
+	private short y_size_save;
 	private String text;
 	private boolean buttonHover;
 	private boolean buttonDown;
@@ -21,6 +24,8 @@ public class ButtonMenuSort {
 	public ButtonMenuSort(float x, float y, float x_size, float y_size, String text, TTF font) {
 		this.x = (short)x;
 		this.y = (short)y;
+		this.x_size_save = (short)x_size;
+		this.y_size_save = (short)y_size;
 		this.y_size = (short)y_size;
 		this.x_size = (short)x_size;
 		this.text = text;
@@ -111,6 +116,10 @@ public class ButtonMenuSort {
 			}
 		}
 		return false;
+	}
+	
+	public void update(float x, float y) {
+		update(x, y, this.x_size_save*Mideas.getDisplayXFactor(), this.y_size_save*Mideas.getDisplayYFactor());
 	}
 	
 	public void update(float x, float y, float x_size) {

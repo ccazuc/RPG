@@ -22,7 +22,7 @@ import java.nio.ByteOrder;
 
 import javax.imageio.ImageIO;
 
-import com.mideas.rpg.v2.OpenGL;
+import com.mideas.rpg.v2.utils.render.OpenGL;
 
 public final class Texture {
 
