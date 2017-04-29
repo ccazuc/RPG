@@ -1029,7 +1029,9 @@ public class AuctionFrameBrowseUI {
 	}
 	
 	protected void frameClosed() {
-		Mideas.joueur1().getAuctionHouse().clearQueryList();
+		if(Mideas.joueur1() != null) {
+			Mideas.joueur1().getAuctionHouse().clearQueryList();
+		}
 		this.hasSearched = false;
 		disableBrowseItemScrollbar();
 		this.page = 1;
