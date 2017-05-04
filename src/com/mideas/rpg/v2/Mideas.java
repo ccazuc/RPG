@@ -103,7 +103,9 @@ public class Mideas {
 	public final static int FPS = 60;
 	private static boolean hover;
 	private static long LOOP_TICK_TIMER;
+	private static short mouseScrolledTick;
 
+	public final static short SCROLL_TICK_VALUE = 120;
 	public final static int TIMEOUT_TIMER = 15000;
 	public final static int PING_FREQUENCE = 10000;
 	public final static int GC_FREQUENCE = 30000;
@@ -215,6 +217,7 @@ public class Mideas {
 				}
 				time = System.nanoTime();
 				while(Mouse.next()) {
+					mouseScrolledTick = (short)Mouse.getDWheel();
 					if(Interface.mouseEvent()) {
 						continue;
 					}
@@ -344,6 +347,10 @@ public class Mideas {
 	
 	public static void setPing(double pings) {
 		ping = pings;
+	}
+	
+	public static short getMouseScrolledTick() {
+		return mouseScrolledTick;
 	}
 	
 	public static double getPing() {

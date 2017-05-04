@@ -205,7 +205,7 @@ public class ScrollBar {
 	}
 	
 	public boolean event() {
-		this.mouseWheel = Mouse.getDWheel()/12;
+		this.mouseWheel = Mideas.getMouseScrolledTick()/12;
 		if(mouseDragEvent()) return true;
 		if(topArrowEvent()) return true;
 		if(botArrowEvent()) return true;
