@@ -31,18 +31,20 @@ public class PopupInput extends Popup {
 				PopupInput.this.isActive = false;
 			}
 		};
-		this.input = new Input(textFont, 30, false, this.x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2+12*Mideas.getDisplayXFactor(), y+50*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor(), 15, 15, "") {
+		this.input = new Input(textFont, 30, false, this.x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2+12*Mideas.getDisplayXFactor(), y+50*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor(), 4, 15, "") {
 			
 			@Override
 			public boolean keyEvent(char c) {
 				if(c == Input.ENTER_CHAR_VALUE) {
 					PopupInput.this.acceptButton.eventButtonClick();
 					PopupInput.this.isActive = false;
+					setIsActive(false);
 					return true;
 				}
 				else if(c == Input.ESCAPE_CHAR_VALUE) {
 					PopupInput.this.acceptButton.popupClosed();
 					PopupInput.this.isActive = false;
+					setIsActive(false);
 					return true;
 				}
  				return false;
