@@ -106,7 +106,7 @@ public class AuctionBrowseQueryButton {
 	}
 	
 	public void drawItemName() {
-		ITEM_NAME_FONT.drawStringShadowPart(this.itemNameX, this.frame.getBrowseItemY()+this.itemNameYOffset, this.itemName, this.entry.getItem().getNameColor(), Color.BLACK, 1, 0, 0);
+		ITEM_NAME_FONT.drawStringShadowPart(this.itemNameX, this.frame.getBrowseItemY()+this.itemNameYOffset, this.itemName, this.entry.getItem().getNameColor(), Color.BLACK, 1, 0, 0, 1, .4f);
 	}
 	
 	public void drawString() {

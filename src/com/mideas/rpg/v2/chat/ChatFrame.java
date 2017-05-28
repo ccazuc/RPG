@@ -462,6 +462,22 @@ public class ChatFrame {
 			}
 		}
 		if(Mideas.mouseX() >= 40 && Mideas.mouseX() <= 535+xResize && Mideas.mouseY() >= Display.getHeight()-285-yResize && Mideas.mouseY() <= Display.getHeight()-173) {
+			int scroll = Mideas.getMouseScrolledTick()/Mideas.SCROLL_TICK_VALUE;
+			if(scroll != 0) {
+				if(scroll > 0) {
+					int i = -1;
+					while(++i < scroll) {
+						scrollUp();
+					}
+				}
+				else {
+					int i = 1;
+					while(--i > scroll) {
+						scrollDown();
+					}
+				}
+			}
+			System.out.println(scroll);
 			if(!Mouse.getEventButtonState()) {
 				int i = 0;
 				int j = 0;

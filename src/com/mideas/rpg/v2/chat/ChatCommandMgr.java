@@ -305,7 +305,9 @@ public class ChatCommandMgr {
 		
 		@Override
 		public void handle(String[] command) {
+			long timer = System.currentTimeMillis();
 			Mideas.loadingScreen();
+			ChatFrame.addMessage(new Message("UI reloaded in "+(System.currentTimeMillis()-timer)/1000f+"s.", false, MessageType.SELF));
 		}
 	};
 	
