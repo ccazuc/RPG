@@ -8,6 +8,7 @@ public class CommandLogout extends Command {
 
 	@Override
 	public void read() {
+		System.out.println("Logout received");
 		ConnectionManager.disconnect();
 	}
 	

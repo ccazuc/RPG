@@ -232,6 +232,15 @@ public class ConnectionManager {
 		authSocket = null;
 		authServerConnection = null;
 	}
+ 	
+ 	public static void authCloseRequested() {
+		Interface.setHasLoggedInToAuth(false);
+ 		if(authServerConnection != null) {
+ 			authServerConnection.close();
+ 		}
+		authSocket = null;
+		authServerConnection = null;
+ 	}
 	
 	public static void read() {
 		if(socket.isConnected()) {
@@ -325,7 +334,9 @@ public class ConnectionManager {
 				System.out.println("Unknown World packet: "+packetId+", last readed packet: "+worldLastReadedPacket);
 			}
 		}
-		worldServerConnection.clearEmptyRBuffer();
+		if(worldServerConnection != null) {
+			worldServerConnection.clearEmptyRBuffer();
+		}
 	}
 	
 	public static boolean isLoggedOnWorldServer() {
