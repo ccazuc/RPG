@@ -12,24 +12,21 @@ public class StringUtils {
 	
 	public static void initValues() {
 		int i = value.length;
-		while(--i >= 0) {
+		while(--i >= 0)
 			value[i] = Integer.toString(i);
-		}
 	}
 
 	public static String formatPlayerName(String str) {
-		if(str.length() == 0) {
+		if(str.length() == 0)
 			return str;
-		}
 		final char[] table = new char[str.length()];
 		int i = table.length;
 		table[0] = toUpperCase(str.charAt(0));
 		char tmp;
 		while(--i >= 1) {
 			tmp = str.charAt(i);
-			if(tmp >= 'A' && tmp <= 'Z') {
+			if(tmp >= 'A' && tmp <= 'Z')
 				tmp+= 32;
-			}
 			table[i] = tmp;
 		}
 		return new String(table);
@@ -40,50 +37,43 @@ public class StringUtils {
 	}
 	
 	public static int charToInt(char c) {
-		return c-48;
+		return c - 48;
 	}
 	
 	public static String convertTimeToStringimple(long delta) {
 		String result = null;
 		if(delta >= MS_IN_A_YEAR) {
 			result = (delta/MS_IN_A_YEAR)+" year";
-			if(delta/MS_IN_A_YEAR > 1) {
-				result+= "s";
-			}
+			if(delta/MS_IN_A_YEAR > 1)
+				result += "s";
 		}
 		else if(delta >= MS_IN_A_MONTH) {
 			result = (delta/MS_IN_A_MONTH)+" month";
-			if(delta/MS_IN_A_MONTH > 1) {
-				result+= "s";
-			}
+			if(delta/MS_IN_A_MONTH > 1)
+				result += "s";
 		}
 		else if(delta >= MS_IN_A_WEEK) {
 			result = (delta/MS_IN_A_WEEK)+" week";
-			if(delta/MS_IN_A_WEEK > 1) {
-				result+= "s";
-			}
+			if(delta/MS_IN_A_WEEK > 1)
+				result += "s";
 		}
 		else if(delta >= MS_IN_A_DAY) {
 			result = (delta/MS_IN_A_DAY)+" day";
-			if(delta/MS_IN_A_DAY > 1) {
-				result+= "s";
-			}
+			if(delta/MS_IN_A_DAY > 1)
+				result += "s";
 		}
 		else if(delta >= MS_IN_AN_HOUR) {
 			result = (delta/MS_IN_AN_HOUR)+" hour";
-			if(delta/MS_IN_AN_HOUR > 1) {
-				result+= "s";
-			}
+			if(delta/MS_IN_AN_HOUR > 1)
+				result += "s";
 		}
 		else if(delta >= MS_IN_A_MINUTE) {
 			result = (delta/MS_IN_A_MINUTE)+" minute";
-			if(delta/MS_IN_A_MINUTE > 1) {
-				result+= "s";
-			}
+			if(delta/MS_IN_A_MINUTE > 1)
+				result += "s";
 		}
-		else {
+		else
 			result = "Less than a minute ago";
-		}
 		return result;
 	}
 	
