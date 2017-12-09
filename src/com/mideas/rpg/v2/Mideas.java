@@ -120,15 +120,15 @@ public class Mideas {
 	private static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
 		GL11.glClearColor(0f, 0f, 0f, 0f);                
-	        GL11.glClearDepth(1f);     
-	        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-	        GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
-	        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-	        GL11.glMatrixMode(GL11.GL_PROJECTION);
-	        GL11.glLoadIdentity();
-	        GL11.glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
-	        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-	        GL11.glLoadIdentity();
+		GL11.glClearDepth(1f);     
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glLoadIdentity();
 	}
 	
 	private static void loop() throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException {
@@ -150,7 +150,7 @@ public class Mideas {
 		Display.setDisplayMode(new DisplayMode(1700, 930));
 		Display.setVSyncEnabled(true);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-	        GL11.glEnable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_BLEND);
 		FontManager.init();
 		long time = System.currentTimeMillis();
 		loadingScreen();
