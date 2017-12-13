@@ -253,10 +253,10 @@ public class Mideas {
 		catch(IllegalStateException e) {
 			e.printStackTrace();
 		}
+		ChatConfigManager.saveConfig();
 		CommandLogout.write();
 		ConnectionManager.close();
 		ConfigManager.saveConfig();
-		ChatConfigManager.saveConfig();
 		ItemCacheMgr.writeItemCache();
 		authServerConnectionRunnable.setRun(false);
 		
