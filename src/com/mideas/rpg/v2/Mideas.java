@@ -89,7 +89,7 @@ public class Mideas {
 	private static String accountName;
 	private static Joueur joueur1;
 	private static int expNeeded;
-	private static int gold_calc;
+	private static long gold_calc;
 	private static double ping;
 	private static JDO jdo;
 	//private static String cursor;
@@ -519,7 +519,7 @@ public class Mideas {
 		return k;
 	}
 	
-	public static int calcGoldCoinCost(int cost) {
+	public static int calcGoldCoinCost(long cost) {
 		i = 0;
 		while(cost-10000 >= 0) {
 			cost-= 10000;
@@ -528,7 +528,7 @@ public class Mideas {
 		return i;
 	}
 	
-	public static int calcSilverCoinCost(int cost) {
+	public static int calcSilverCoinCost(long cost) {
 		k = 0;
 		cost-= calcGoldCoinCost(cost)*10000;
 		while(cost-100 >= 0) {
@@ -744,7 +744,7 @@ public class Mideas {
 		gameState = state;
 	}
 	
-	public static int getLevel(int exp) {
+	public static int getLevel(long exp) {
 		if(exp <= 400) {
 			return 1;
 		}

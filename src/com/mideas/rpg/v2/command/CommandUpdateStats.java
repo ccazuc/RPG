@@ -23,10 +23,10 @@ public class CommandUpdateStats extends Command {
 		else if(packetID == PacketID.UPDATE_STATS_MANA) {
 			unit.setMana(value);
 		}
-		else if(packetID == PacketID.UPDATE_STATS_GOLD) {
+		else if(packetID == PacketID.CHANGE_GOLD) {
 			((Joueur)unit).setGold(value);
 		}
-		else if(packetID == PacketID.UPDATE_STATS_EXPERIENCE) {
+		else if(packetID == PacketID.CHANGE_EXPERIENCE) {
 			((Joueur)unit).setExp(value);
 		}
 		else if(packetID == PacketID.UPDATE_STATS_MAX_STAMINA) {

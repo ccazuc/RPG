@@ -8,8 +8,8 @@ public class CommandLoadStats extends Command {
 	@Override
 	public void read() {
 		Mideas.joueur1().setId(ConnectionManager.getConnection().readInt());
-		Mideas.joueur1().setExp(ConnectionManager.getConnection().readInt());
-		Mideas.joueur1().setGold(ConnectionManager.getConnection().readInt());
+		Mideas.joueur1().setExp(ConnectionManager.getConnection().readLong());
+		Mideas.joueur1().setGold(ConnectionManager.getConnection().readLong());
 		Mideas.setRank(ConnectionManager.getConnection().readInt());
 	}
 }

@@ -509,7 +509,7 @@ public class ShopManager {
 		}
 	}
 	
-	public static boolean calcCoin(int cost, int x, int y) {
+	public static boolean calcCoin(long cost, int x, int y) {
 		if(Mideas.calcGoldCoinCost(cost) > 0 && Mideas.calcSilverCoinCost(cost) > 0 && cost-Mideas.calcGoldCoinCost(cost)*10000-Mideas.calcSilverCoinCost(cost)*100 > 0) {
 			FontManager.get("FRIZQT", 11).drawStringShadow(Display.getWidth()/2+x, Display.getHeight()/2+y, String.valueOf(Mideas.calcGoldCoinCost(cost)), Color.WHITE, Color.BLACK, 1, 1, 1);
 			Draw.drawQuad(Sprites.gold_coin, Display.getWidth()/2+x+1+FontManager.get("FRIZQT", 11).getWidth(String.valueOf(Mideas.calcGoldCoinCost(cost))), Display.getHeight()/2+y);

@@ -64,14 +64,14 @@ public class Joueur extends Unit {
 	private float armor;
 	private Guild guild;
 	private Wear wear;
-	private int gold;
+	private long gold;
 	private int copperPiece;
 	private String copperPieceString;
 	private int silverPiece;
 	private String silverPieceString;
 	private int goldPiece;
 	private String goldPieceString;
-	private int exp;
+	private long exp;
 
 	private final static String warrior = "Guerrier";
 	private final static String hunter = "Hunter";
@@ -950,7 +950,7 @@ public class Joueur extends Unit {
 		return this.bag;
 	}
 	
-	public int getExp() {
+	public long getExp() {
 		return this.exp;
 	}
 	
@@ -966,11 +966,11 @@ public class Joueur extends Unit {
 		return this.defaultArmor;
 	}
 	
-	public int getGold() {
+	public long getGold() {
 		return this.gold;
 	}
 	
-	public void setGold(int gold) {
+	public void setGold(long gold) {
 		this.gold = gold;
 		calcGoldPiece();
 		calcSilverPiece();
@@ -978,17 +978,17 @@ public class Joueur extends Unit {
 	}
 	
 	private void calcGoldPiece() {
-		this.goldPiece = Math.floorDiv(this.gold, 10000);
+		this.goldPiece = (int)Math.floorDiv(this.gold, 10000);
 		this.goldPieceString = String.valueOf(this.goldPiece);
 	}
 	
 	private void calcSilverPiece() {
-		this.silverPiece = Math.floorDiv(this.gold%10000, 100);
+		this.silverPiece = (int)Math.floorDiv(this.gold % 10000, 100);
 		this.silverPieceString = String.valueOf(this.silverPiece);
 	}
 	
 	private void calcCopperPiece() {
-		this.copperPiece = this.gold%100;
+		this.copperPiece = (int)this.gold % 100;
 		this.copperPieceString = String.valueOf(this.copperPiece);
 	}
 	
@@ -1032,7 +1032,7 @@ public class Joueur extends Unit {
 		this.exp = baseExp+expGained;
 	}
 	
-	public void setExp(int exp) {
+	public void setExp(long exp) {
 		this.exp = exp;
 		this.level = Mideas.getLevel(this.exp);
 	}

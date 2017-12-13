@@ -16,7 +16,7 @@ public class PacketID {
 	public final static short ERROR_NAME_LENGTH = 12;
 	public final static short CHARACTER_CREATED = 13;
 	public final static short DELETE_CHARACTER = 14;
-	public final static short LOAD_CHARACTER = 15;
+	public final static short CHARACTER_LOGIN = 15;
 	public final static short LOAD_EQUIPPED_ITEMS = 16;
 	public final static short LOAD_BAG_ITEMS = 17;
 	public final static short LOAD_SPELLBAR = 18;
@@ -59,8 +59,8 @@ public class PacketID {
 	public final static short UPDATE_STATS_STAMINA = 55;
 	public final static short UPDATE_STATS_MANA = 56;
 	public final static short CHARACTER_LOGOUT = 57;
-	public final static short UPDATE_STATS_EXPERIENCE = 58;
-	public final static short UPDATE_STATS_GOLD = 59;
+	public final static short CHANGE_EXPERIENCE = 58;
+	public final static short CHANGE_GOLD = 59;
 	public final static short TRADE = 60;
 	public final static short TRADE_NEW = 61;
 	public final static short TRADE_ADD_ITEM = 62;
@@ -148,7 +148,7 @@ public class PacketID {
 	public final static short SEND_TARGET = 144;
 	public final static short AURA = 145;
 	public final static short AURA_SEND = 146;
-	public final static short AURA_UPDATE= 147;
+	public final static short AURA_UPDATE = 147;
 	public final static short AURA_CANCEL = 148;
 	public final static short SEND_PLAYER = 149;
 	public final static short UPDATE_STATS_MAX_STAMINA = 150;
@@ -182,4 +182,22 @@ public class PacketID {
 	public final static short AUCTION_CANCEL_SELL = 178;
 	public final static short AUCTION_INIT_BID = 179;
 	public final static short AUCTION_INIT_SELL_ITEM = 180;
+	public final static short MAIL = 181;
+	public final static short MAIL_INIT = 182;
+	public final static short MAIL_SEND = 183;
+	public final static short MAIL_OPENED = 184;
+	public final static short MAIL_PAY_CR = 185;
+	public final static short MAIL_DELETE = 186;
+	public final static short MAIL_TAKE_ITEM = 187;
+	public final static short QUEST = 188;
+	public final static short QUEST_INIT = 189;
+	public final static short QUEST_UPDATE_OBJECTIVE = 190;
+	public final static short QUEST_COMPLETED = 191;
+	public final static short QUEST_COMPLETE_REQUEST = 192;
+	public final static short QUEST_ACCEPT = 193;
+	public final static short QUEST_CANCEL = 194;
+	public final static short CHARACTER_LOGIN_BANNED = 195;
+	public final static short CHARACTER_LOGIN_SUCCESS = 196;
+	public final static short CHARACTER_LOGIN_FAILED = 197;
+	public final static short CHARACTER_LOAD_FINISHED = 198;
 }

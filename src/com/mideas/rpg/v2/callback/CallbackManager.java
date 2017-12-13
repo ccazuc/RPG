@@ -8,9 +8,8 @@ public class CallbackManager {
 	
 	public static void initCallbackList() {
 		int i = -1;
-		while (++i < callbackArray.length) {
+		while (++i < callbackArray.length)
 			callbackArray[i] = new ArrayList<Callback>();
-		}
 	}
 	
 	public static void registerCallback(CallbackType type, Callback callback) {
@@ -27,7 +26,6 @@ public class CallbackManager {
 	public static void executeCallback(CallbackType type, Object ...obj) {
 		int i = -1;
 		while (++i < callbackArray[type.getValue()].size())
-				callbackArray[type.getValue()].get(i).handleCallback(obj);;
-		
+			callbackArray[type.getValue()].get(i).handleCallback(obj);
 	}
 }

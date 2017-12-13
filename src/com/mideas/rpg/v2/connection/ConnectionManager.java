@@ -87,7 +87,7 @@ public class ConnectionManager {
 		commandList.put(DELETE_CHARACTER, new CommandDeleteCharacter());
 		commandList.put(LOAD_EQUIPPED_ITEMS, new CommandLoadEquippedItems());
 		commandList.put(LOAD_BAG_ITEMS, new CommandLoadBagItems());
-		commandList.put(LOAD_CHARACTER, new CommandLoadCharacter());
+		commandList.put(CHARACTER_LOGIN, new CommandLoadCharacter());
 		commandList.put(PING, new CommandPing());
 		commandList.put(STUFF, new CommandStuff());
 		commandList.put(WEAPON, new CommandWeapon());
@@ -221,6 +221,8 @@ public class ConnectionManager {
  		}
 		socket = null;
 		worldServerConnection = null;
+		loggedServer = null;
+		isLoggedOnWorldServer = false;
 	}
 	
  	public static void closeAuth() {
@@ -243,7 +245,7 @@ public class ConnectionManager {
  	}
 	
 	public static void read() {
-		if(socket.isConnected()) {
+		if(worldServerConnection != null && socket.isConnected()) {
 			try {
 				if(worldServerConnection.read() == 1) {
 					readPacket();
@@ -354,7 +356,7 @@ public class ConnectionManager {
 			LoginScreen.setRealmName(server.getRealmName());
 		}
 	}
-	
+		
 	public static WorldServer getLastLoggedWorldServer() {
 		return lastLoggedRealm;
 	}

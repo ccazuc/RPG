@@ -36,9 +36,6 @@ public class DragManager {
 	private static boolean inventoryLeftClickDown;
 	private static boolean bagLeftClickDown;
 	private static boolean tradeLeftClickDown;
-	private static boolean inventoryRightClickDown;
-	private static boolean bagRightClickDown;
-
 	private static int mouseXDown;
 	private static int mouseYDown;
 	static Item draggedItem;

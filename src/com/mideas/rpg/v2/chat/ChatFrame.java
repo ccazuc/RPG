@@ -115,10 +115,10 @@ public class ChatFrame {
 				Draw.drawColorQuad(45+cursorShift+FontManager.chat.getWidth(selectedType.getDefaultText()+currentMessageHeader), INPUT_BAR_Y+9*Mideas.getDisplayYFactor(), 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
 			}
 		}
-		if((allResizing || widthResizing || heightResizing || hoverChatFrame) && bgColor.alpha() < FRAME_MAXIMUM_OPACITY && Mideas.getLoopTickTimer()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER) {
+		if((Mideas.getHover() && (allResizing || widthResizing || heightResizing || hoverChatFrame)) && bgColor.alpha() < FRAME_MAXIMUM_OPACITY && Mideas.getLoopTickTimer()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER) {
 			bgColor.setAlpha(bgColor.alpha()+1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
 		}
-		else if(!hoverChatFrame && !allResizing && !widthResizing && !heightResizing && bgColor.alpha() > 0) {
+		else if((!Mideas.getHover() && (!hoverChatFrame && !allResizing && !widthResizing && !heightResizing)) && bgColor.alpha() > 0) {
 			bgColor.setAlpha(bgColor.alpha()-1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
 		}
 		if(messages.size() > MAXIMUM_MESSAGES) {

@@ -6,7 +6,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
@@ -84,14 +83,13 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			CommandLogout.write();
-			Interface.setHasLoggedInToAuth(false);
+			ConnectionManager.close();
+			ConnectionManager.closeAuth();
 			Mideas.setJoueur1Null();
 			Mideas.setAccountId(0);
 			LoginScreen.resetMenuState();
 			characterLoaded = false;
 			realmScreenActive = false;
-			ConnectionManager.setIsLoggedOnWorldServer(false);
-			ConnectionManager.setWorldServer(null);
 			alert.setInactive();
 			selectedCharacterIndex = 0;
 			LoginScreen.mouseEvent();
@@ -103,9 +101,9 @@ public class SelectScreen {
 		@Override
 		public void eventButtonClick() {
 			loadCharacterInfo();
-			Arrays.fill(characterList, null);
+			/*Arrays.fill(characterList, null);
 			characterLoaded = false;
-			Interface.setCharacterLoaded(false);
+			Interface.setCharacterLoaded(false);*/
 			this.reset();
 		}
 		
@@ -344,7 +342,10 @@ public class SelectScreen {
 						}
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
-						loadCharacterInfo();
+						if (alert.isActive())
+							alert.setInactive();
+						else
+							loadCharacterInfo();
 					}
 				}
 			}
@@ -373,33 +374,6 @@ public class SelectScreen {
 		selectedCharacterIndex = 0;
 		selectedCharacter[0] = true;
 		deleteCharacter.resetText();
-	}
-	
-	private static void setPlayer() {
-		/*if(characterList[selectedCharacterIndex].getClasse().equals("WARRIOR")) {
-			Mideas.setJoueur1(ClassManager.getPlayerClone("Guerrier"));
-		}
-		if(characterList[selectedCharacterIndex].getClasse().equals("PALADIN")) {
-			Mideas.setJoueur1(ClassManager.getPlayerClone("Paladin"));
-		}
-		if(characterList[selectedCharacterIndex].getClasse().equals("ROGUE")) {
-			Mideas.setJoueur1(ClassManager.getPlayerClone("Rogue"));
-		}
-		if(characterList[selectedCharacterIndex].getClasse().equals("WARLOCK")) {
-			Mideas.setJoueur1(ClassManager.getPlayerClone("Warlock"));
-		}
-		if(characterList[selectedCharacterIndex].getClasse().equals("MAGE")) {
-			Mideas.setJoueur1(ClassManager.getPlayerClone("Mage"));
-		}
-		if(characterList[selectedCharacterIndex].getClasse().equals("HUNTER")) {
-			Mideas.setJoueur1(ClassManager.getPlayerClone("Hunter"));
-		}
-		if(characterList[selectedCharacterIndex].getClasse().equals("PRIEST")) {
-			Mideas.setJoueur1(ClassManager.getPlayerClone("Priest"));
-		}
-		if(characterList[selectedCharacterIndex].getClasse().equals("DRUID")) {
-			Mideas.setJoueur1(ClassManager.getPlayerClone("Druid"));
-		}*/
 	}
 	
 	private static void selectRace() {

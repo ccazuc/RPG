@@ -16,7 +16,7 @@ public class GoldFrame {
 			float y = -174*Mideas.getDisplayYFactor();
 			int gold = Mideas.calcGoldCoin();
 			int silver = Mideas.calcSilverCoin();
-			int copper = Mideas.joueur1().getGold()-Mideas.calcGoldCoin()*10000-Mideas.calcSilverCoin()*100;
+			int copper = (int)(Mideas.joueur1().getGold()-Mideas.calcGoldCoin()*10000-Mideas.calcSilverCoin()*100);
 			Draw.drawQuad(Sprites.copper_coin, Display.getWidth()+x, Display.getHeight()+y);
 			x-= FontManager.get("FRIZQT", 11).getWidth(String.valueOf(copper))+2;
 			FontManager.get("FRIZQT", 11).drawStringShadow(Display.getWidth()+x, Display.getHeight()+y+1, String.valueOf(copper), Color.WHITE, Color.BLACK, 1, 0, 0);
