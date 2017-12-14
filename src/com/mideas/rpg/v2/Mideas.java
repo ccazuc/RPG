@@ -448,7 +448,7 @@ public class Mideas {
 	public static void setConfig() {
 		try {
 			JDOStatement statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
-			statement.putString(ChangeBackGroundFrame.getCurrentBackground());
+			statement.putString("bg");
 			statement.putString("background");
 			statement.execute();
 	

@@ -61,6 +61,11 @@ public class SelectScreen {
 			character.setIsActive(true);
 			this.reset();
 		}
+		
+		@Override
+		public boolean activateCondition() {
+			return (ConnectionManager.isLoggedOnWorldServer());
+		}
 	};	
 	static Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Accept", 16, 2) {
 		@Override

@@ -244,13 +244,10 @@ public class WhoFrame {
 			initDropDownMenu = true;
 		}
 		if(updateString) {
-			if(whoList.size() > 1) {
+			if(whoList.size() > 1)
 				numberPeopleFound = whoList.size()+" players found";
-			}
-			else {
+			else
 				numberPeopleFound = whoList.size()+" player found";
-				
-			}
 			peopleFoundWidth = FontManager.get("FRIZQT", 12).getWidth(numberPeopleFound);
 			updateString = false;
 		}
@@ -281,38 +278,30 @@ public class WhoFrame {
 		while(i < whoList.size()) {
 			WhoUnit unit = whoList.get(i);
 			font.drawStringShadowPart(X_SOCIAL_FRAME+30*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
-			if(dropDownDisplay == WhoDropDownDisplay.AREA) {
-				font.drawStringShadowPart(X_SOCIAL_FRAME+140*Mideas.getDisplayXFactor(), y+yShiftHeight, "Area", Color.WHITE, Color.BLACK, 1, 0, 0);
-			}
-			else if(dropDownDisplay == WhoDropDownDisplay.GUILD) {
-				font.drawStringShadowPart(X_SOCIAL_FRAME+140*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getGuildName(), Color.WHITE, Color.BLACK, 1, 0, 0);
-			}
-			else if(dropDownDisplay == WhoDropDownDisplay.RACE) {
-				font.drawStringShadowPart(X_SOCIAL_FRAME+140*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getRace(), Color.WHITE, Color.BLACK, 1, 0, 0);
-			}
-			font.drawStringShadowPart(X_SOCIAL_FRAME+230*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getLevelString(), Color.WHITE, Color.BLACK, 1, 0, 0);
-			font.drawStringShadowPart(X_SOCIAL_FRAME+310*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getClasse(), unit.getColor(), Color.BLACK, 1, 0, 0);
+			if(dropDownDisplay == WhoDropDownDisplay.AREA)
+				font.drawStringShadowPart(X_SOCIAL_FRAME+120*Mideas.getDisplayXFactor(), y+yShiftHeight, "Area", Color.WHITE, Color.BLACK, 1, 0, 0);
+			else if(dropDownDisplay == WhoDropDownDisplay.GUILD)
+				font.drawStringShadowPart(X_SOCIAL_FRAME+120*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getGuildName(), Color.WHITE, Color.BLACK, 1, 0, 0);
+			else if(dropDownDisplay == WhoDropDownDisplay.RACE)
+				font.drawStringShadowPart(X_SOCIAL_FRAME+120*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getRace(), Color.WHITE, Color.BLACK, 1, 0, 0);
+			font.drawStringShadowPart(X_SOCIAL_FRAME+240*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getLevelString(), Color.WHITE, Color.BLACK, 1, 0, 0);
+			font.drawStringShadowPart(X_SOCIAL_FRAME+280*Mideas.getDisplayXFactor(), y+yShiftHeight, unit.getClasse(), unit.getColor(), Color.BLACK, 1, 0, 0);
 			yShiftHeight+= yShift;
-			if(yShiftHeight >= 280*Mideas.getDisplayYFactor()) {
+			if(yShiftHeight >= 280*Mideas.getDisplayYFactor())
 				break;
-			}
 			i++;
 		}
 		font.drawEnd();
 		i = iOffset;
 		float width;
-		if(whoList.size() > MAXIMUM_UNIT_DISPLAYED) {
+		if(whoList.size() > MAXIMUM_UNIT_DISPLAYED)
 			width = 325*Mideas.getDisplayXFactor();
-		}
-		else {
+		else
 			width = 345*Mideas.getDisplayXFactor();
-		}
-		if(hoveredUnit != -1 && hoveredUnit >= iOffset && hoveredUnit < iOffset+MAXIMUM_UNIT_DISPLAYED) {
+		if(hoveredUnit != -1 && hoveredUnit >= iOffset && hoveredUnit < iOffset+MAXIMUM_UNIT_DISPLAYED)
 			Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+25*Mideas.getDisplayXFactor(), y+(hoveredUnit-iOffset)*yShift, width, 17*Mideas.getDisplayYFactor());
-		}
-		if(selectedUnit != -1 && selectedUnit != hoveredUnit && selectedUnit >= iOffset && selectedUnit < iOffset+MAXIMUM_UNIT_DISPLAYED) {
+		if(selectedUnit != -1 && selectedUnit != hoveredUnit && selectedUnit >= iOffset && selectedUnit < iOffset+MAXIMUM_UNIT_DISPLAYED)
 			Draw.drawQuadBlend(Sprites.friend_border, X_SOCIAL_FRAME+25*Mideas.getDisplayXFactor(), y+(selectedUnit-iOffset)*yShift, width, 17*Mideas.getDisplayYFactor());
-		}
 		tooltipMenu.draw();
 		dropDownBackground.draw();
 		dropDownMenu.draw();	
@@ -330,9 +319,8 @@ public class WhoFrame {
 		int i = 0;
 		hoveredUnit = -1;
 		if(whoList.size() > MAXIMUM_UNIT_DISPLAYED) {
-			if(scrollBar.event()) { 
+			if(scrollBar.event()) 
 				return true;
-			}
 			i  = (int)((whoList.size()-MAXIMUM_UNIT_DISPLAYED)*scrollBar.getScrollPercentage());
 		}
 		float y = Y_SOCIAL_FRAME+103*Mideas.getDisplayYFactor();
@@ -349,9 +337,8 @@ public class WhoFrame {
 		}
 		if(hoveredUnit != -1) {
 			if(Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)
 					unitDown = hoveredUnit;
-				}
 			}
 			else if(hoveredUnit == unitDown) {
 				if(Mouse.getEventButton() == 0) {
@@ -553,9 +540,8 @@ public class WhoFrame {
 	}
 	
 	public static void updateSize() {
-		if(!shouldUpdateSize) {
+		if(!shouldUpdateSize)
 			return;
-		}
 		dropDownMenu.update(X_SOCIAL_FRAME+114*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 115*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+105*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+98*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor());
 		dropDownBackground.update(X_SOCIAL_FRAME+112*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 125*Mideas.getDisplayXFactor());
 		sortByClasse.update(X_SOCIAL_FRAME+272*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 80*Mideas.getDisplayXFactor());

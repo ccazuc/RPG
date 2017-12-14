@@ -30,10 +30,8 @@ public class SpellBarFrame {
 	private static boolean shouldUpdateSize;
 	
 	public static boolean draw() {
-		if(!init) {
+		if(!init)
 			createSpellbarButton();
-			init = true;
-		}
 		updateSize();
 		if(Mideas.joueur1().getLevel() >= 70) {
 			Draw.drawQuad(Sprites.exp_bar, Display.getWidth()/2-Sprites.final_spellbar.getImageWidth()*Mideas.getDisplayXFactor()/2+110*Mideas.getDisplayXFactor(), Display.getHeight()-Sprites.final_spellbar.getImageHeight()*Mideas.getDisplayYFactor()+24*Mideas.getDisplayXFactor(), 1165*Mideas.getDisplayXFactor(), 8);
@@ -54,25 +52,21 @@ public class SpellBarFrame {
 		int i = -1;
 		//long timer = System.nanoTime();
 		Sprites.spellbar_case.drawBegin();
-		while(++i < buttonList.length) {
+		while(++i < buttonList.length)
 			buttonList[i].drawSpellCase();
-		}
 		Sprites.spellbar_case.drawEnd();
 		i = -1;
-		while(++i < buttonList.length) {
+		while(++i < buttonList.length)
 			buttonList[i].draw();
-		}
 		i = -1;
 		Texture.drawColorQuadBegin();
-		while(++i < buttonList.length) {
+		while(++i < buttonList.length)
 			buttonList[i].drawStuffColorQuad();
-		}
 		Texture.drawColorQuadEnd();
 		i = -1;
 		ButtonSpellbar.keyBindFont.drawBegin();
-		while(++i < buttonList.length) {
+		while(++i < buttonList.length)
 			buttonList[i].drawKeybind();
-		}
 		ButtonSpellbar.keyBindFont.drawEnd();
 		//Mideas.nTime(timer, "Spellbar draw time");
 		i = 0;
@@ -84,16 +78,14 @@ public class SpellBarFrame {
 				Draw.drawQuad(IconsManager.getSprite37(Mideas.joueur1().bag().getSpriteId(i)), Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
 				if(DragBagManager.getHoverBag(i)) {
 					Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
-					if(tooltip.getHashcode() != Mideas.joueur1().bag().getEquippedBag(i).hashCode()) {
+					if(tooltip.getHashcode() != Mideas.joueur1().bag().getEquippedBag(i).hashCode())
 						tooltip.update(Display.getWidth()/2+xBag+i*xBagShift-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-25*Mideas.getDisplayXFactor(),  Display.getHeight()-100*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()+25*Mideas.getDisplayXFactor(), 60*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).hashCode());
-					}
 					tooltip.draw();
 					FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-15*Mideas.getDisplayXFactor(), Display.getHeight()-90*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getStuffName(), Color.WHITE, Color.BLACK, 1, 1, 1);
 					FontManager.get("FRIZQT", 14).drawStringShadow(Display.getWidth()/2+xBag+xBagShift*i-Mideas.joueur1().bag().getEquippedBag(i).getMaximumTooltipSize()-15*Mideas.getDisplayXFactor(), Display.getHeight()-70*Mideas.getDisplayYFactor(), Mideas.joueur1().bag().getEquippedBag(i).getSlotTooltipString(), Color.WHITE, Color.BLACK, 1, 1, 1);
 				}
-				if(DragBagManager.getClickBag(i)) {
+				if(DragBagManager.getClickBag(i))
 					Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag);
-				}
 				if(ContainerFrame.getBagOpen(i+1)) {
 					Draw.drawQuadBlend(Sprites.bag_open_border, Display.getWidth()/2+xBag+xBagShift*i, Display.getHeight()+yBag, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
 					i++;
@@ -102,44 +94,34 @@ public class SpellBarFrame {
 			}
 			i++;
 		}
-		if(Mideas.mouseX() >= Display.getWidth()/2+539.2f*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+(539.2+48.2f)*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()+yBag && Mideas.mouseY() <= Display.getHeight()-3*Mideas.getDisplayYFactor()) {
+		if(Mideas.mouseX() >= Display.getWidth()/2+539.2f*Mideas.getDisplayXFactor() && Mideas.mouseX() <= Display.getWidth()/2+(539.2+48.2f)*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Display.getHeight()+yBag && Mideas.mouseY() <= Display.getHeight()-3*Mideas.getDisplayYFactor())
 			Draw.drawQuad(Sprites.bag_hover, Display.getWidth()/2+537*Mideas.getDisplayXFactor(), Display.getHeight()+yBag);
-		}
 		/*if(DragBagManager.getClickBag(0)) {
 			Draw.drawQuad(Sprites.bag_click_hover, Display.getWidth()/2+539.2f, Display.getHeight()-41);
 		}*/
-		if(ContainerFrame.getBagOpen(0)) {
+		if(ContainerFrame.getBagOpen(0))
 			Draw.drawQuadBlend(Sprites.bag_open_border, Display.getWidth()/2+536.2f*Mideas.getDisplayXFactor(), Display.getHeight()+yBag, 40*Mideas.getDisplayXFactor(), 37*Mideas.getDisplayYFactor());
-		}
-		return false;
+		return (false);
 	}
 	
 	public static boolean mouseEvent() {
-		if(!init) {
+		if(!init)
 			createSpellbarButton();
-			init = true;
-		}
-		int i = 0;
-		while(i < buttonList.length) {
-			if(buttonList[i].mouseEvent()) {
-				return true;
-			}
-			i++;
-		}
-		return false;
+		int i = -1;
+		while(++i < buttonList.length)
+			if(buttonList[i].mouseEvent())
+				return (true);
+		return (false);
 	}
 	
 	public static boolean keyboardEvent() {
-		int i = 0;
-		if(!init) {
+		if(!init)
 			createSpellbarButton();
-			init = true;
-		}
-		while(i < buttonList.length) {
-			buttonList[i].keyEvent();
-			i++;
-		}
-		return false;
+		int i = -1;
+		while(++i < buttonList.length)
+			if (buttonList[i].keyEvent())
+				return (true);
+		return (false);
 	}
 	
 	public static void setIsCastingSpell(boolean we) {
@@ -158,12 +140,10 @@ public class SpellBarFrame {
 		int i = 0;
 		int j = 0;
 		while(i < 36) {
-			if(i < 12) {
-				buttonList[i] = new ButtonSpellbar(x+j*yShift, y, i+1, true);
-			}
-			else {
+			if(i < 12)
+				buttonList[i] = new ButtonSpellbar(x+j*yShift, y, i+2, true);
+			else
 				buttonList[i] = new ButtonSpellbar(x+j*yShift, y, -1, false);
-			}
 			i++;
 			j++;
 			if(i == 12) {
@@ -175,13 +155,10 @@ public class SpellBarFrame {
 	}
 	
 	public static void updateSize() {
-		if(!shouldUpdateSize) {
+		if(!shouldUpdateSize)
 			return;
-		}
-		if(!init) {
+		if(!init)
 			createSpellbarButton();
-			init = true;
-		}
 		float x = Display.getWidth()/2+(-Sprites.final_spellbar.getImageWidth()/2+115)*Mideas.getDisplayXFactor();
 		float y = Display.getHeight()-40f*Mideas.getDisplayYFactor();
 		float yShift = 48*Mideas.getDisplayXFactor();
@@ -193,7 +170,7 @@ public class SpellBarFrame {
 			j++;
 			if(i == 12) {
 				j = 0;
-				y-= 61*Mideas.getDisplayYFactor();
+				y -= 61*Mideas.getDisplayYFactor();
 			}
 		}
 		shouldUpdateSize = false;
@@ -215,6 +192,7 @@ public class SpellBarFrame {
 		buttonList[slot].setShortcut(shortcut);
 	}
 	
+	//TODO: à dégager
 	public static boolean doHealingPotion(Potion item) {
 		if(item != null && item.getItemType() == ItemType.POTION) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
@@ -253,9 +231,8 @@ public class SpellBarFrame {
 			if(buttonList[i].getShortcut().getShortcutType() == ShortcutType.STUFF || buttonList[i].getShortcut().getShortcutType() == ShortcutType.POTION) {
 				buttonList[i].setItemIsEquipped(isEquippedItem(buttonList[i].getShortcut().getItem().getId()));
 				buttonList[i].setIsInBag(isInBag(buttonList[i].getShortcut().getItem().getId()));
-				if(buttonList[i].getShortcut().getShortcutType() == ShortcutType.POTION) {
+				if(buttonList[i].getShortcut().getShortcutType() == ShortcutType.POTION)
 					buttonList[i].setNumberItem(Mideas.joueur1().bag().getNumberItemInBags(buttonList[i].getShortcut().getId()));
-				}
 			}
 			i++;
 		}
@@ -266,47 +243,32 @@ public class SpellBarFrame {
 	}
 	
 	public static boolean isInBag(int id) {
-		int i = 0;
-		while(i < Mideas.joueur1().bag().getBag().length) {
-			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == id) {
-				return true;
-			}
-			i++;
-		}
-		return false;
+		int i = -1;
+		while(++i < Mideas.joueur1().bag().getBag().length)
+			if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == id)
+				return (true);
+		return (false);
 	}
 	
 	public static boolean isEquippedItem(int id) {
-		int i = 0;
-		while(i < Mideas.joueur1().getStuff().length) {
-			if(Mideas.joueur1().getStuff(i) != null && Mideas.joueur1().getStuff(i).getId() == id) {
-				return true;
-			}
-			i++;
-		}
-		return false;
+		int i = -1;
+		while(++i < Mideas.joueur1().getStuff().length)
+			if(Mideas.joueur1().getStuff(i) != null && Mideas.joueur1().getStuff(i).getId() == id)
+				return (true);
+		return (false);
 	}
 	
 	public static void updateEquippedItem(int id, boolean we) {
-		int i = 0;
-		if(!init) {
+		if(!init)
 			createSpellbarButton();
-			init = true;
-		}
-		while(i < buttonList.length) {
-			if(buttonList[i].getShortcut() != null) {
-				if(buttonList[i].getShortcut().getShortcutType() == ShortcutType.STUFF) {
-					if(buttonList[i].getShortcut().getId() == id)  {
-						buttonList[i].setItemIsEquipped(we);
-					}
-				}
-			}
-			i++;
-		}
+		int i = -1;
+		while(++i < buttonList.length)
+			if(buttonList[i].getShortcut() != null && buttonList[i].getShortcut().getShortcutType() == ShortcutType.STUFF && buttonList[i].getShortcut().getId() == id)
+				buttonList[i].setItemIsEquipped(we);
 	}
 	
 	public static void setNumberFreeSlotBag(int number) {
-		numberFreeSlotBag = "("+Integer.toString(number)+")";
+		numberFreeSlotBag = "(" + number + ")";
 		numberFreeSlotBagWidth = (byte)(FontManager.get("FRIZQT", 15).getWidth(numberFreeSlotBag)/2);
 	}
 }

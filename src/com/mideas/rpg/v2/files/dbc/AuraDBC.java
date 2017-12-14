@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+import org.lwjgl.Sys;
+
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.Buffer;
 import com.mideas.rpg.v2.game.aura.AuraMgr;
@@ -25,6 +27,7 @@ public class AuraDBC {
 		try {
 			if(!checkFileStatus()) {
 				System.out.println("**ERROR** "+FILE_PATH+" not found, the game will now exit.");
+				Sys.alert("Error", FILE_PATH + "not found, the game will now exit.");
 				Mideas.closeGame();
 				return;
 			}
@@ -36,6 +39,7 @@ public class AuraDBC {
 			while(i < HEADER_SIGNATURE.length) {
 				if(readBufferHeader.readByte() != HEADER_SIGNATURE[i]) {
 					System.out.println("**ERROR** "+FILE_PATH+" invalid signature, the game will now exit.");
+					Sys.alert("Error", FILE_PATH + "'s header is corrupted, the game will now exit.");
 					Mideas.closeGame();
 					return;
 				}
