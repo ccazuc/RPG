@@ -12,11 +12,11 @@ public class CommandSendContainer extends Command {
 	
 	@Override
 	public void read() {
-		byte length = ConnectionManager.getConnection().readByte();
+		byte length = ConnectionManager.getWorldServerConnection().readByte();
 		int i = 0;
 		while(i < length) {
-			byte size = ConnectionManager.getConnection().readByte();
-			int id = ConnectionManager.getConnection().readInt();
+			byte size = ConnectionManager.getWorldServerConnection().readByte();
+			int id = ConnectionManager.getWorldServerConnection().readInt();
 			if(ContainerManager.exists(id)) {
 				Mideas.joueur1().bag().setEquippedBag(i, ContainerManager.getClone(id));
 			}

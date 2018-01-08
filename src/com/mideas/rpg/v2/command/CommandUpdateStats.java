@@ -10,9 +10,9 @@ public class CommandUpdateStats extends Command {
 
 	@Override
 	public void read() {
-		short packetID = ConnectionManager.getConnection().readShort();
-		int unitID = ConnectionManager.getConnection().readInt();
-		int value = ConnectionManager.getConnection().readInt();
+		short packetID = ConnectionManager.getWorldServerConnection().readShort();
+		int unitID = ConnectionManager.getWorldServerConnection().readInt();
+		int value = ConnectionManager.getWorldServerConnection().readInt();
 		Unit unit = unitID == Mideas.joueur1().getId() ? (Joueur)Mideas.joueur1() : Mideas.joueur1().getTarget();
 		if(unit == null) {
 			return;

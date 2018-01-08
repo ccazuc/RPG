@@ -9,7 +9,7 @@ public class CommandLoginRealm extends Command {
 
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetId == PacketID.LOGIN_REALM_SUCCESS) {
 			System.out.println("LOGIN:LOGIN_REALM_SUCCESS");
 			ConnectionManager.setIsLoggedOnWorldServer(true);

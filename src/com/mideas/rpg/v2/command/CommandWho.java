@@ -12,25 +12,25 @@ public class CommandWho extends Command {
 	@Override
 	public void read() {
 		WhoFrame.clearList();
-		while(ConnectionManager.getConnection().hasRemaining()) {
-			int id = ConnectionManager.getConnection().readInt();
+		while(ConnectionManager.getWorldServerConnection().hasRemaining()) {
+			int id = ConnectionManager.getWorldServerConnection().readInt();
 			if(id == -1) {
 				return;
 			}
-			String name = ConnectionManager.getConnection().readString();
-			String guildName = ConnectionManager.getConnection().readString();
-			Race race = Race.values()[ConnectionManager.getConnection().readByte()];
-			int level = ConnectionManager.getConnection().readInt();
-			ClassType classe = ClassType.values()[ConnectionManager.getConnection().readByte()];
+			String name = ConnectionManager.getWorldServerConnection().readString();
+			String guildName = ConnectionManager.getWorldServerConnection().readString();
+			Race race = Race.values()[ConnectionManager.getWorldServerConnection().readByte()];
+			int level = ConnectionManager.getWorldServerConnection().readInt();
+			ClassType classe = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			WhoFrame.addToList(new WhoUnit(id, name, guildName, level, classe, race));
 		}
 	}
 	
 	public static void write(String word) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.WHO);
-		ConnectionManager.getConnection().writeString(word);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.WHO);
+		ConnectionManager.getWorldServerConnection().writeString(word);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

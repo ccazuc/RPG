@@ -8,15 +8,15 @@ public class CommandContainer extends Command {
 	
 	@Override
 	public void read() {
-		ContainerManager.storeNewPiece(ConnectionManager.getConnection().readContainer());
+		ContainerManager.storeNewPiece(ConnectionManager.getWorldServerConnection().readContainer());
 	}
 
 	@Deprecated
 	public static void write(int id) {
 		/*if(!ConnectionManager.getItemRequested().containsKey(id)) {
-			ConnectionManager.getConnection().writeShort(PacketID.CONTAINER);
-			ConnectionManager.getConnection().writeInt(id);
-			ConnectionManager.getConnection().send();
+			ConnectionManager.getWorldServerConnection().writeShort(PacketID.CONTAINER);
+			ConnectionManager.getWorldServerConnection().writeInt(id);
+			ConnectionManager.getWorldServerConnection().send();
 			ConnectionManager.getItemRequested().put(id, new Container(id));
 		}*/
 	}

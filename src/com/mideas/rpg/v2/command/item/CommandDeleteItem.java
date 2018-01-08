@@ -10,8 +10,8 @@ public class CommandDeleteItem extends Command {
 
 	@Override
 	public void read() {
-		DragItem type = DragItem.values()[ConnectionManager.getConnection().readByte()];
-		int slot = ConnectionManager.getConnection().readInt();
+		DragItem type = DragItem.values()[ConnectionManager.getWorldServerConnection().readByte()];
+		int slot = ConnectionManager.getWorldServerConnection().readInt();
 		if(type == DragItem.BAG) {
 			Mideas.joueur1().bag().setBag(slot, null);
 		}
@@ -21,11 +21,11 @@ public class CommandDeleteItem extends Command {
 	}
 	
 	public static void deleteItem(DragItem slotType, int slot) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.DELETE_ITEM);
-		ConnectionManager.getConnection().writeByte(slotType.getValue());
-		ConnectionManager.getConnection().writeInt(slot);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.DELETE_ITEM);
+		ConnectionManager.getWorldServerConnection().writeByte(slotType.getValue());
+		ConnectionManager.getWorldServerConnection().writeInt(slot);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

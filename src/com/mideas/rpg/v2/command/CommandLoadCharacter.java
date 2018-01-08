@@ -10,15 +10,15 @@ public class CommandLoadCharacter extends Command {
 
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if (packetId == PacketID.CHARACTER_LOGIN_BANNED)
 		{
-			boolean permanentBan = ConnectionManager.getConnection().readBoolean();
+			boolean permanentBan = ConnectionManager.getWorldServerConnection().readBoolean();
 			if (permanentBan)
 				SelectScreen.setAlert("This character is permanently banned.");
 			else
 			{
-				long duration = Mideas.getLoopTickTimer() - ConnectionManager.getConnection().readLong();
+				long duration = Mideas.getLoopTickTimer() - ConnectionManager.getWorldServerConnection().readLong();
 				SelectScreen.setAlert("This character is banned for "+StringUtils.convertTimeToStringimple(duration));
 			}
 		}
@@ -34,10 +34,10 @@ public class CommandLoadCharacter extends Command {
 	}
 	
 	public static void write(int id) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.CHARACTER_LOGIN);
-		ConnectionManager.getConnection().writeInt(id);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.CHARACTER_LOGIN);
+		ConnectionManager.getWorldServerConnection().writeInt(id);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

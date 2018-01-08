@@ -138,8 +138,8 @@ public class Item implements Cloneable {
 	}
 	
 	public static void requestItem(int id) {
-		ConnectionManager.getConnection().writeShort(PacketID.REQUEST_ITEM);
-		ConnectionManager.getConnection().writeInt(id);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.REQUEST_ITEM);
+		ConnectionManager.getWorldServerConnection().writeInt(id);
 	}
 	
 	public boolean isStackable() {

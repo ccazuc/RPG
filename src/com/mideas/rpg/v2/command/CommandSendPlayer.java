@@ -12,23 +12,23 @@ public class CommandSendPlayer extends Command {
 	
 	@Override
 	public void read() {
-		ClassType classType = ClassType.values()[ConnectionManager.getConnection().readByte()];
-		int id = ConnectionManager.getConnection().readInt();
-		String name = ConnectionManager.getConnection().readString();
-		Wear wear = Wear.values()[ConnectionManager.getConnection().readByte()];
-		WeaponType[] weaponType = new WeaponType[ConnectionManager.getConnection().readByte()];
+		ClassType classType = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
+		int id = ConnectionManager.getWorldServerConnection().readInt();
+		String name = ConnectionManager.getWorldServerConnection().readString();
+		Wear wear = Wear.values()[ConnectionManager.getWorldServerConnection().readByte()];
+		WeaponType[] weaponType = new WeaponType[ConnectionManager.getWorldServerConnection().readByte()];
 		int i = 0;
 		while(i < weaponType.length) {
-			weaponType[i] = WeaponType.values()[ConnectionManager.getConnection().readByte()];
+			weaponType[i] = WeaponType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			i++;
 		}
-		int stamina = ConnectionManager.getConnection().readInt();
-		int maxStamina = ConnectionManager.getConnection().readInt();
-		int mana = ConnectionManager.getConnection().readInt();
-		int maxMana = ConnectionManager.getConnection().readInt();
-		int strength = ConnectionManager.getConnection().readInt();
-		int armor = ConnectionManager.getConnection().readInt();
-		int critical = ConnectionManager.getConnection().readInt();
+		int stamina = ConnectionManager.getWorldServerConnection().readInt();
+		int maxStamina = ConnectionManager.getWorldServerConnection().readInt();
+		int mana = ConnectionManager.getWorldServerConnection().readInt();
+		int maxMana = ConnectionManager.getWorldServerConnection().readInt();
+		int strength = ConnectionManager.getWorldServerConnection().readInt();
+		int armor = ConnectionManager.getWorldServerConnection().readInt();
+		int critical = ConnectionManager.getWorldServerConnection().readInt();
 		Mideas.setJoueur1(new Joueur(classType, id, name, wear, weaponType, stamina, mana, strength, armor, armor, critical, maxStamina, maxMana));
 		ChatConfigManager.loadConfig();
 	}

@@ -14,7 +14,7 @@ public class CommandCreateCharacter extends Command {
 	
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetId == CHARACTER_CREATED) {
 			CommandSelectScreenLoadCharacters.write();
 			SelectScreen.setCreatingCharacter(false);
@@ -40,13 +40,13 @@ public class CommandCreateCharacter extends Command {
 	public static void write(String name) {
 		if(name.length() >= 2 && name.length() <= 10) {
 			if(ConnectionManager.isConnected()) {
-				ConnectionManager.getConnection().startPacket();
-				ConnectionManager.getConnection().writeShort(CREATE_CHARACTER);
-				ConnectionManager.getConnection().writeString(name);
-				ConnectionManager.getConnection().writeString(SelectScreen.getSelectedClasse());
-				ConnectionManager.getConnection().writeString(SelectScreen.getSelectedRace());
-				ConnectionManager.getConnection().endPacket();
-				ConnectionManager.getConnection().send();
+				ConnectionManager.getWorldServerConnection().startPacket();
+				ConnectionManager.getWorldServerConnection().writeShort(CREATE_CHARACTER);
+				ConnectionManager.getWorldServerConnection().writeString(name);
+				ConnectionManager.getWorldServerConnection().writeString(SelectScreen.getSelectedClasse());
+				ConnectionManager.getWorldServerConnection().writeString(SelectScreen.getSelectedRace());
+				ConnectionManager.getWorldServerConnection().endPacket();
+				ConnectionManager.getWorldServerConnection().send();
 			}
 		}
 		else {

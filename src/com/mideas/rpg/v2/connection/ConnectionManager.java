@@ -69,8 +69,8 @@ public class ConnectionManager {
 	private static SocketChannel authSocket;
 	private static SocketChannel socket;
 	private static HashMap<Short, Command> commandList = new HashMap<Short, Command>();
-	private static final String IP = "127.0.0.1";
-	private static final int AUTH_PORT = 5725;
+	public static final String IP = "127.0.0.1";
+	public static final int AUTH_PORT = 5725;
 	private static boolean init;
 	private static short worldLastReadedPacket;
 	private static short authLastReadedPacket;
@@ -193,7 +193,7 @@ public class ConnectionManager {
 		return false;
 	}
 	
-	public static Connection getConnection() {
+	public static Connection getWorldServerConnection() {
 		return worldServerConnection;
 	}
 	

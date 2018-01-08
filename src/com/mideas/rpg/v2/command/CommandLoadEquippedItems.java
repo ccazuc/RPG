@@ -32,15 +32,15 @@ public class CommandLoadEquippedItems extends Command {
 	}
 	
 	private static void loadStuff(int index) {
-		int id = ConnectionManager.getConnection().readInt();
-		boolean hasGem = ConnectionManager.getConnection().readBoolean();
+		int id = ConnectionManager.getWorldServerConnection().readInt();
+		boolean hasGem = ConnectionManager.getWorldServerConnection().readBoolean();
 		int gem1Id = 0;
 		int gem2Id = 0;
 		int gem3Id = 0;
 		if(hasGem) {
-			gem1Id = ConnectionManager.getConnection().readInt();
-			gem2Id = ConnectionManager.getConnection().readInt();
-			gem3Id = ConnectionManager.getConnection().readInt();
+			gem1Id = ConnectionManager.getWorldServerConnection().readInt();
+			gem2Id = ConnectionManager.getWorldServerConnection().readInt();
+			gem3Id = ConnectionManager.getWorldServerConnection().readInt();
 		}
 		if(id != 0 && !StuffManager.exists(id)) {
 			Mideas.joueur1().setStuff(index, new Stuff(id));
@@ -59,7 +59,7 @@ public class CommandLoadEquippedItems extends Command {
 	}
 	
 	private static void loadItem(int index) {
-		int id = ConnectionManager.getConnection().readInt();
+		int id = ConnectionManager.getWorldServerConnection().readInt();
 		if(!StuffManager.exists(id) && id != 0) {
 			Mideas.joueur1().setStuff(index, new Stuff(id));
 			CommandRequestItem.write(new RequestItem(id, DragItem.INVENTORY, index));
@@ -70,15 +70,15 @@ public class CommandLoadEquippedItems extends Command {
 	}
 	
 	private static void loadWeapon(int index) {
-		int id = ConnectionManager.getConnection().readInt();
-		boolean hasGem = ConnectionManager.getConnection().readBoolean();
+		int id = ConnectionManager.getWorldServerConnection().readInt();
+		boolean hasGem = ConnectionManager.getWorldServerConnection().readBoolean();
 		int gem1Id = 0;
 		int gem2Id = 0;
 		int gem3Id = 0;
 		if(hasGem) {
-			gem1Id = ConnectionManager.getConnection().readInt();
-			gem2Id = ConnectionManager.getConnection().readInt();
-			gem3Id = ConnectionManager.getConnection().readInt();
+			gem1Id = ConnectionManager.getWorldServerConnection().readInt();
+			gem2Id = ConnectionManager.getWorldServerConnection().readInt();
+			gem3Id = ConnectionManager.getWorldServerConnection().readInt();
 		}
 		if(!WeaponManager.exists(id) && id != 0) {
 			Mideas.joueur1().setStuff(index, new Stuff(id, 0));

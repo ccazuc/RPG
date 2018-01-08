@@ -13,18 +13,18 @@ public class CommandListPlayer extends Command {
 	
 	@Override
 	public void read() {
-		int number = ConnectionManager.getConnection().readInt();
+		int number = ConnectionManager.getWorldServerConnection().readInt();
 		int i = 0;
 		while(i < number) {
-			ChatFrame.addMessage(new Message(ConnectionManager.getConnection().readString(), false, MessageType.SELF, Color.convClassTypeToColor(ClassType.values()[ConnectionManager.getConnection().readChar()])));
+			ChatFrame.addMessage(new Message(ConnectionManager.getWorldServerConnection().readString(), false, MessageType.SELF, Color.convClassTypeToColor(ClassType.values()[ConnectionManager.getWorldServerConnection().readChar()])));
 			i++;
 		}
 	}
 	
 	public static void write() {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.CHAT_LIST_PLAYER);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.CHAT_LIST_PLAYER);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

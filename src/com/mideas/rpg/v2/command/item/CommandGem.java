@@ -8,15 +8,15 @@ public class CommandGem extends Command {
 	
 	@Override
 	public void read() {
-		GemManager.storeNewPiece(ConnectionManager.getConnection().readGem());
+		GemManager.storeNewPiece(ConnectionManager.getWorldServerConnection().readGem());
 	}
 
 	@Deprecated
 	public static void write(int id) {
 		/*if(!ConnectionManager.getItemRequested().containsKey(id)) {
-			ConnectionManager.getConnection().writeShort(PacketID.GEM);
-			ConnectionManager.getConnection().writeInt(id);
-			ConnectionManager.getConnection().send();
+			ConnectionManager.getWorldServerConnection().writeShort(PacketID.GEM);
+			ConnectionManager.getWorldServerConnection().writeInt(id);
+			ConnectionManager.getWorldServerConnection().send();
 			ConnectionManager.getItemRequested().put(id, new Gem(id));
 		}*/
 	}

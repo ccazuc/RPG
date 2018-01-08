@@ -8,15 +8,15 @@ public class CommandWeapon extends Command {
 	
 	@Override
 	public void read() {
-		WeaponManager.storeNewPiece(ConnectionManager.getConnection().readWeapon());
+		WeaponManager.storeNewPiece(ConnectionManager.getWorldServerConnection().readWeapon());
 	}
 
 	@Deprecated
 	public static void write(int id) {
 		/*if(!ConnectionManager.getItemRequested().containsKey(id)) {
-			ConnectionManager.getConnection().writeShort(PacketID.WEAPON);
-			ConnectionManager.getConnection().writeInt(id);
-			ConnectionManager.getConnection().send();
+			ConnectionManager.getWorldServerConnection().writeShort(PacketID.WEAPON);
+			ConnectionManager.getWorldServerConnection().writeInt(id);
+			ConnectionManager.getWorldServerConnection().send();
 			ConnectionManager.getItemRequested().put(id, new Stuff(id));
 		}*/
 	}

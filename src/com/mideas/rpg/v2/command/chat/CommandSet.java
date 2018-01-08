@@ -12,11 +12,11 @@ public class CommandSet extends Command {
 
 	public static void write(short packetID, int playerID, int value, int rank) {
 		if(Mideas.getRank() >= rank) {
-			ConnectionManager.getConnection().writeShort(PacketID.CHAT_SET);
-			ConnectionManager.getConnection().writeShort(packetID);
-			ConnectionManager.getConnection().writeInt(playerID);
-			ConnectionManager.getConnection().writeInt(value);
-			ConnectionManager.getConnection().send();
+			ConnectionManager.getWorldServerConnection().writeShort(PacketID.CHAT_SET);
+			ConnectionManager.getWorldServerConnection().writeShort(packetID);
+			ConnectionManager.getWorldServerConnection().writeInt(playerID);
+			ConnectionManager.getWorldServerConnection().writeInt(value);
+			ConnectionManager.getWorldServerConnection().send();
 		}
 		else {
 			ChatFrame.addMessage(new Message("You don't have the right to do this.", false, MessageType.SELF));

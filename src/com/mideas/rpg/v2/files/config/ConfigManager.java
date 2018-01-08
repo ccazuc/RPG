@@ -21,7 +21,7 @@ public class ConfigManager {
 		@Override
 		public void read(String value, int i) {
 			while(i < value.length()) {
-				if(value.charAt(i) == '"') {
+				if(value.charAt(i) == '"' && i + 1 < value.length()) {
 					LoginScreen.setRememberAccountName(readBoolean(value.charAt(i+1)));
 					return;
 				}
@@ -38,6 +38,9 @@ public class ConfigManager {
 		
 		@Override
 		public void  read(String value, int i) {
+			if(!LoginScreen.getRememberAccountName()) {
+				return;
+			}
 			while(i < value.length()) {
 				if(value.charAt(i) != '"') {
 					i++;
@@ -47,9 +50,6 @@ public class ConfigManager {
 				int j = i;
 				while(j < value.length()) {
 					if(value.charAt(j) == '"') {
-						if(!LoginScreen.getRememberAccountName()) {
-							return;
-						}
 						LoginScreen.setAccountName(value.substring(i, j));
 						return;
 					}

@@ -8,15 +8,15 @@ public class CommandPotion extends Command {
 	
 	@Override
 	public void read() {
-		PotionManager.storeNewPiece(ConnectionManager.getConnection().readPotion());
+		PotionManager.storeNewPiece(ConnectionManager.getWorldServerConnection().readPotion());
 	}
 
 	@Deprecated
 	public static void write(int id) {
 		/*if(!ConnectionManager.getItemRequested().containsKey(id)) {
-			ConnectionManager.getConnection().writeShort(PacketID.POTION);
-			ConnectionManager.getConnection().writeInt(id);
-			ConnectionManager.getConnection().send();
+			ConnectionManager.getWorldServerConnection().writeShort(PacketID.POTION);
+			ConnectionManager.getWorldServerConnection().writeInt(id);
+			ConnectionManager.getWorldServerConnection().send();
 			ConnectionManager.getItemRequested().put(id, new Potion(id));
 		}*/
 	}

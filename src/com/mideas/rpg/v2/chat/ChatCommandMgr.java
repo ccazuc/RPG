@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.chat;
 
+import java.awt.SystemTray;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Interface;
@@ -39,7 +40,7 @@ public class ChatCommandMgr {
 			invite.handle(command);
 		}
 	};
-	private final static ChatCommand cjoin = new ChatCommand("join", "Type /join [channel_name] [password(optionnal)] to join or create a channel.") {
+	private final static ChatCommand channel_join = new ChatCommand("join", "Type /join [channel_name] [password(optionnal)] to join or create a channel.") {
 		
 		@Override
 		public void handle(String[] command) {
@@ -73,7 +74,7 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	private final static ChatCommand cleave = new ChatCommand("leave", "Type /leave [channel_name || channel_index] to leave the channel.") {
+	private final static ChatCommand channel_leave = new ChatCommand("leave", "Type /leave [channel_name || channel_index] to leave the channel.") {
 	
 		@Override
 		public void handle(String[] command) {
@@ -87,7 +88,7 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	private final static ChatCommand cban = new ChatCommand("ban", "Type /ban [channel_name] [player_name] to ban the player from the channel.") {
+	private final static ChatCommand channel_ban = new ChatCommand("ban", "Type /ban [channel_name] [player_name] to ban the player from the channel.") {
 	
 		@Override
 		public void handle(String[] command) {
@@ -105,7 +106,7 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	private final static ChatCommand cunban = new ChatCommand("unban", "Type /unban [channel_name] [player_name] to unban the player from the channel.") {
+	private final static ChatCommand channel_unban = new ChatCommand("unban", "Type /unban [channel_name] [player_name] to unban the player from the channel.") { //TODO: send player name to server, you can't unban someone who's not in the channel with player id
 	
 		@Override
 		public void handle(String[] command) {
@@ -123,7 +124,7 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	final static ChatCommand cmute = new ChatCommand("mute", "Type /mute [channel_name] [player_name] to mute the player from the channel.") {
+	final static ChatCommand channel_mute = new ChatCommand("mute", "Type /mute [channel_name] [player_name] to mute the player from the channel.") {
 	
 		@Override
 		public void handle(String[] command) {
@@ -141,14 +142,14 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	private final static ChatCommand csilence = new ChatCommand("silence", "Type /silence [channel_name] [player_name] to mute the player from the channel.") {
+	private final static ChatCommand channel_silence = new ChatCommand("silence", "Type /silence [channel_name] [player_name] to mute the player from the channel.") {
 	
 		@Override
 		public void handle(String[] command) {
-			cmute.handle(command);
+			channel_mute.handle(command);
 		}
 	};
-	final static ChatCommand cunmute = new ChatCommand("unmute", "Type /unmute [channel_name] [player_name] to mute the player from the channel.") {
+	final static ChatCommand channel_unmute = new ChatCommand("unmute", "Type /unmute [channel_name] [player_name] to mute the player from the channel.") {
 	
 		@Override
 		public void handle(String[] command) {
@@ -166,14 +167,14 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	private final static ChatCommand cunsilence = new ChatCommand("unsilence", "Type /unsilence [channel_name] [player_name] to mute the player from the channel.") {
+	private final static ChatCommand channel_unsilence = new ChatCommand("unsilence", "Type /unsilence [channel_name] [player_name] to mute the player from the channel.") {
 	
 		@Override
 		public void handle(String[] command) {
-			cunmute.handle(command);
+			channel_unmute.handle(command);
 		}
 	};
-	final static ChatCommand cmoderator = new ChatCommand("moderator", "Type /moderator [channel_name] [player_name] [true || false] to set wether the player should be moderator.") {
+	final static ChatCommand channel_moderator = new ChatCommand("moderator", "Type /moderator [channel_name] [player_name] [true || false] to set wether the player should be moderator.") {
 	
 		@Override
 		public void handle(String[] command) {
@@ -192,14 +193,14 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	private final static ChatCommand cmoderator_alias_mod = new ChatCommand("mod", "Type /mod [channel_name] [player_name] [true || false] to set wether the player should be moderator.") {
+	private final static ChatCommand channel_moderator_alias_mod = new ChatCommand("mod", "Type /mod [channel_name] [player_name] [true || false] to set wether the player should be moderator.") {
 	
 		@Override
 		public void handle(String[] command) {
-			cmoderator.handle(command);
+			channel_moderator.handle(command);
 		}
 	};
-	private final static ChatCommand ckick = new ChatCommand("ckick", "Type /ckick [channel_name] [player_name] kick the player from the channel.") {
+	private final static ChatCommand channel_kick = new ChatCommand("ckick", "Type /ckick [channel_name] [player_name] kick the player from the channel.") {
 	
 		@Override
 		public void handle(String[] command) {
@@ -217,7 +218,7 @@ public class ChatCommandMgr {
 			}
 		}
 	};
-	private final static ChatCommand clead = new ChatCommand("lead", "Type /lead [channel_name] [player_name] give the leadership.") {
+	private final static ChatCommand channel_lead = new ChatCommand("lead", "Type /lead [channel_name] [player_name] give the leadership.") {
 	
 		@Override
 		public void handle(String[] command) {
@@ -315,15 +316,15 @@ public class ChatCommandMgr {
 		addCommand(invite);
 		addCommand(invite_alias_i);
 		addCommand(invite_alias_inv);
-		addCommand(cjoin);
+		addCommand(channel_join);
 		addCommand(chan);
-		addCommand(cleave);
-		addCommand(cban);
-		addCommand(cunban);
-		addCommand(cmoderator);
-		addCommand(cmoderator_alias_mod);
-		addCommand(ckick);
-		addCommand(clead);
+		addCommand(channel_leave);
+		addCommand(channel_ban);
+		addCommand(channel_unban);
+		addCommand(channel_moderator);
+		addCommand(channel_moderator_alias_mod);
+		addCommand(channel_kick);
+		addCommand(channel_lead);
 		addCommand(gquit);
 		addCommand(guildquit);
 		addCommand(gmotd);
@@ -331,29 +332,30 @@ public class ChatCommandMgr {
 		addCommand(ram);
 		addCommand(gc);
 		addCommand(ah);
-		addCommand(cmute);
-		addCommand(csilence);
-		addCommand(cunmute);
-		addCommand(cunsilence);
+		addCommand(channel_mute);
+		addCommand(channel_silence);
+		addCommand(channel_unmute);
+		addCommand(channel_unsilence);
 		addCommand(reload);
 	}
 	
 	public static void handleChatCommand(String str) {
 		str = StringUtils.removeSpaces(str);
 		String[] value = str.split(" ");
+		if (value.length == 0)
+			return;
 		String command = value[0].substring(1);
-		if(commandMap.containsKey(command)) {
+		if (command.length() == 0)
+			return;
+		if(commandMap.containsKey(command))
 			commandMap.get(command).handle(value);
-		}
-		else {
+		else
 			ChatFrame.addMessage(new Message("Unknown command, type /help for help.", false, MessageType.SELF));
-		}
 	}
 	
 	private static void addCommand(ChatCommand command) {
-		if(commandMap.containsKey(command.getName())) {
+		if(commandMap.containsKey(command.getName()))
 			System.out.println("**ERROR** in ChatCommandMgr.addCommand, map already contains key : "+command.getName());
-		}
 		commandMap.put(command.getName(), command);
 	}
 	

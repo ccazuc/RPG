@@ -8,13 +8,13 @@ public class CommandSendRedAlert extends Command {
 
 	@Override
 	public void read() {
-		boolean isKnown = ConnectionManager.getConnection().readBoolean();
+		boolean isKnown = ConnectionManager.getWorldServerConnection().readBoolean();
 		if(isKnown) {
-			DefaultRedAlert alert = DefaultRedAlert.values()[ConnectionManager.getConnection().readByte()];
+			DefaultRedAlert alert = DefaultRedAlert.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			RedAlertFrame.addNewAlert(alert);
 		}
 		else {
-			String text = ConnectionManager.getConnection().readString();
+			String text = ConnectionManager.getWorldServerConnection().readString();
 			RedAlertFrame.addNewAlert(text);
 		}
 	}

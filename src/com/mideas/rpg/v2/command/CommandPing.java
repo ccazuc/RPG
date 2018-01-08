@@ -12,18 +12,18 @@ public class CommandPing extends Command {
 	@Override
 	public void read() {
 		Mideas.setPing((System.currentTimeMillis()-timer));
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.PING_CONFIRMED);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PING_CONFIRMED);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 		pingSent = false;
 	}
 	
 	public static void write() {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.PING);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PING);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 		timer = System.currentTimeMillis();
 		pingSent = true;
 	}

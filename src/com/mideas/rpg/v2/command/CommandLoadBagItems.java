@@ -22,7 +22,7 @@ public class CommandLoadBagItems extends Command {
 	public void read() {
 		System.out.println("Bag items loaded (CommandLoadBagItems)");
 		int i = 0;
-		int amount = ConnectionManager.getConnection().readInt();
+		int amount = ConnectionManager.getWorldServerConnection().readInt();
 		while(i < amount) {
 			loadItem();
 			i++;
@@ -36,24 +36,24 @@ public class CommandLoadBagItems extends Command {
 		int gem1Id = 0;
 		int gem2Id = 0;
 		int gem3Id = 0;
-		int slot = ConnectionManager.getConnection().readInt();
-		int id = ConnectionManager.getConnection().readInt();
-		ItemType type = ItemType.values()[ConnectionManager.getConnection().readByte()];
+		int slot = ConnectionManager.getWorldServerConnection().readInt();
+		int id = ConnectionManager.getWorldServerConnection().readInt();
+		ItemType type = ItemType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 		if(type == ItemType.STUFF) {
-			boolean hasGem = ConnectionManager.getConnection().readBoolean();
+			boolean hasGem = ConnectionManager.getWorldServerConnection().readBoolean();
 			if(hasGem) {
-				gem1Id = ConnectionManager.getConnection().readInt();
-				gem2Id = ConnectionManager.getConnection().readInt();
-				gem3Id = ConnectionManager.getConnection().readInt();
+				gem1Id = ConnectionManager.getWorldServerConnection().readInt();
+				gem2Id = ConnectionManager.getWorldServerConnection().readInt();
+				gem3Id = ConnectionManager.getWorldServerConnection().readInt();
 			}
 			loadStuff(slot, id, gem1Id, gem2Id, gem3Id);
 		}
 		else if(type == ItemType.WEAPON) {
-			boolean hasGem = ConnectionManager.getConnection().readBoolean();
+			boolean hasGem = ConnectionManager.getWorldServerConnection().readBoolean();
 			if(hasGem) {
-				gem1Id = ConnectionManager.getConnection().readInt();
-				gem2Id = ConnectionManager.getConnection().readInt();
-				gem3Id = ConnectionManager.getConnection().readInt();
+				gem1Id = ConnectionManager.getWorldServerConnection().readInt();
+				gem2Id = ConnectionManager.getWorldServerConnection().readInt();
+				gem3Id = ConnectionManager.getWorldServerConnection().readInt();
 			}
 			loadWeapon(slot, id, gem1Id, gem2Id, gem3Id);
 		}
@@ -64,7 +64,7 @@ public class CommandLoadBagItems extends Command {
 			loadContainer(slot, id);
 		}
 		else if(type == ItemType.POTION) {
-			number = ConnectionManager.getConnection().readInt();
+			number = ConnectionManager.getWorldServerConnection().readInt();
 			loadPotion(slot, id, number);
 		}
 	}

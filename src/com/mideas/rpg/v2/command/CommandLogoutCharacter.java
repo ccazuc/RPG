@@ -6,9 +6,9 @@ import com.mideas.rpg.v2.connection.PacketID;
 public class CommandLogoutCharacter extends Command {
 
 	public static void write() {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.CHARACTER_LOGOUT);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.CHARACTER_LOGOUT);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

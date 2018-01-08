@@ -13,24 +13,24 @@ public class CommandDragItems extends Command {
 	}
 	
 	/*public static void write(DragItem sourceType, int source, DragItem destinationType, int destination) {
-		ConnectionManager.getConnection().writeShort(PacketID.DRAG_ITEM);
-		ConnectionManager.getConnection().writeByte(sourceType.getValue());
-		ConnectionManager.getConnection().writeInt(source);
-		ConnectionManager.getConnection().writeByte(destinationType.getValue());
-		ConnectionManager.getConnection().writeInt(destination);
-		ConnectionManager.getConnection().writeInt(0);
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.DRAG_ITEM);
+		ConnectionManager.getWorldServerConnection().writeByte(sourceType.getValue());
+		ConnectionManager.getWorldServerConnection().writeInt(source);
+		ConnectionManager.getWorldServerConnection().writeByte(destinationType.getValue());
+		ConnectionManager.getWorldServerConnection().writeInt(destination);
+		ConnectionManager.getWorldServerConnection().writeInt(0);
+		ConnectionManager.getWorldServerConnection().send();
 	}*/
 	
 	public static void write(DragItem sourceType, int source, DragItem destinationType, int destination, int amount) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.DRAG_ITEM);
-		ConnectionManager.getConnection().writeByte(sourceType.getValue());
-		ConnectionManager.getConnection().writeInt(source);
-		ConnectionManager.getConnection().writeByte(destinationType.getValue());
-		ConnectionManager.getConnection().writeInt(destination);
-		ConnectionManager.getConnection().writeInt(amount);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.DRAG_ITEM);
+		ConnectionManager.getWorldServerConnection().writeByte(sourceType.getValue());
+		ConnectionManager.getWorldServerConnection().writeInt(source);
+		ConnectionManager.getWorldServerConnection().writeByte(destinationType.getValue());
+		ConnectionManager.getWorldServerConnection().writeInt(destination);
+		ConnectionManager.getWorldServerConnection().writeInt(amount);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

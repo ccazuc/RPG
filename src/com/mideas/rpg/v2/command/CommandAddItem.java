@@ -10,41 +10,41 @@ public class CommandAddItem extends Command {
 
 	@Override
 	public void read() {
-		short packetID = ConnectionManager.getConnection().readShort();
+		short packetID = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetID == PacketID.KNOWN_ITEM) {
-			int id = ConnectionManager.getConnection().readInt();
-			int number = ConnectionManager.getConnection().readInt();
+			int id = ConnectionManager.getWorldServerConnection().readInt();
+			int number = ConnectionManager.getWorldServerConnection().readInt();
 			Item item = Item.getItem(id);
 			Mideas.joueur1().addItem(item, number);
 		}
 		else if(packetID == PacketID.UNKNOWN_ITEM) {
-			int number = ConnectionManager.getConnection().readInt();
-			ItemType type = ItemType.values()[ConnectionManager.getConnection().readByte()];
+			int number = ConnectionManager.getWorldServerConnection().readInt();
+			ItemType type = ItemType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			if(type == ItemType.CONTAINER) {
-				Mideas.joueur1().addItem(ConnectionManager.getConnection().readContainer(), number);
+				Mideas.joueur1().addItem(ConnectionManager.getWorldServerConnection().readContainer(), number);
 			}
 			else if(type == ItemType.GEM) {
-				Mideas.joueur1().addItem(ConnectionManager.getConnection().readGem(), number);
+				Mideas.joueur1().addItem(ConnectionManager.getWorldServerConnection().readGem(), number);
 			}
 			else if(type == ItemType.STUFF) {
-				Mideas.joueur1().addItem(ConnectionManager.getConnection().readStuff(), number);
+				Mideas.joueur1().addItem(ConnectionManager.getWorldServerConnection().readStuff(), number);
 			}
 			else if(type == ItemType.WEAPON) {
-				Mideas.joueur1().addItem(ConnectionManager.getConnection().readWeapon(), number);
+				Mideas.joueur1().addItem(ConnectionManager.getWorldServerConnection().readWeapon(), number);
 			}
 			else if(type == ItemType.POTION) {
-				Mideas.joueur1().addItem(ConnectionManager.getConnection().readPotion(), number);
+				Mideas.joueur1().addItem(ConnectionManager.getWorldServerConnection().readPotion(), number);
 			}
 		}
 	}
 	
 	public static void write(int character_id, int item_id, int number) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.ADD_ITEM);
-		ConnectionManager.getConnection().writeInt(character_id);
-		ConnectionManager.getConnection().writeInt(item_id);
-		ConnectionManager.getConnection().writeInt(number);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.ADD_ITEM);
+		ConnectionManager.getWorldServerConnection().writeInt(character_id);
+		ConnectionManager.getWorldServerConnection().writeInt(item_id);
+		ConnectionManager.getWorldServerConnection().writeInt(number);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

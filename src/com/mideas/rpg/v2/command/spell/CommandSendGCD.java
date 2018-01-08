@@ -8,8 +8,8 @@ public class CommandSendGCD extends Command {
 
 	@Override
 	public void read() {
-		long startTimer = ConnectionManager.getConnection().readLong();
-		long endTimer = ConnectionManager.getConnection().readLong();
+		long startTimer = ConnectionManager.getWorldServerConnection().readLong();
+		long endTimer = ConnectionManager.getWorldServerConnection().readLong();
 		Mideas.joueur1().setGCDStartTimer(startTimer);
 		Mideas.joueur1().setGCDEndTimer(endTimer);
 	}

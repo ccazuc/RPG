@@ -17,17 +17,17 @@ public class CommandTrade extends Command {
 
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetId == PacketID.TRADE_NEW_CONFIRM) {
 			Interface.setTradeFrameStatus(true);
 			System.out.println("Trade confirmed");
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM) {
-			boolean self = ConnectionManager.getConnection().readBoolean();
+			boolean self = ConnectionManager.getWorldServerConnection().readBoolean();
 			if(self) {
-				DragItem type = DragItem.values()[ConnectionManager.getConnection().readByte()];
-				int itemSlot = ConnectionManager.getConnection().readInt();
-				int tradeSlot = ConnectionManager.getConnection().readInt();
+				DragItem type = DragItem.values()[ConnectionManager.getWorldServerConnection().readByte()];
+				int itemSlot = ConnectionManager.getWorldServerConnection().readInt();
+				int tradeSlot = ConnectionManager.getWorldServerConnection().readInt();
 				Item item = null;
 				if(type == DragItem.BAG) {
 					item = Mideas.joueur1().bag().getBag(itemSlot);
@@ -43,19 +43,19 @@ public class CommandTrade extends Command {
 				TradeFrame.addItem(item, tradeSlot);
 			}
 			else {
-				int tradeSlot = ConnectionManager.getConnection().readInt();
-				int amount = ConnectionManager.getConnection().readInt();
-				int itemId = ConnectionManager.getConnection().readInt();
-				boolean hasGem = ConnectionManager.getConnection().readBoolean();
+				int tradeSlot = ConnectionManager.getWorldServerConnection().readInt();
+				int amount = ConnectionManager.getWorldServerConnection().readInt();
+				int itemId = ConnectionManager.getWorldServerConnection().readInt();
+				boolean hasGem = ConnectionManager.getWorldServerConnection().readBoolean();
 				Item item = Item.getItem(itemId); //TODO: send ItemType and create corresponding temp item
 				if(hasGem) {
 					if(item == null) {
 						item = new Stuff(itemId);
 						CommandRequestItem.write(new RequestItem(itemId, DragItem.TRADE, tradeSlot));
 					}
-					int gem1Id = ConnectionManager.getConnection().readInt();
-					int gem2Id = ConnectionManager.getConnection().readInt();
-					int gem3Id = ConnectionManager.getConnection().readInt();
+					int gem1Id = ConnectionManager.getWorldServerConnection().readInt();
+					int gem2Id = ConnectionManager.getWorldServerConnection().readInt();
+					int gem3Id = ConnectionManager.getWorldServerConnection().readInt();
 					setGem(item, gem1Id, tradeSlot, 0);
 					setGem(item, gem2Id, tradeSlot, 1);
 					setGem(item, gem3Id, tradeSlot, 2);
@@ -72,7 +72,7 @@ public class CommandTrade extends Command {
 		}
 		else if(packetId == PacketID.TRADE_REQUEST) {
 			//check if windows are open etc
-			String name = ConnectionManager.getConnection().readString();
+			String name = ConnectionManager.getWorldServerConnection().readString();
 			TradeFrame.setName(name);
 			PopupFrame.activateTradePopup(name);
 		}
@@ -83,7 +83,7 @@ public class CommandTrade extends Command {
 			TradeFrame.setTraceAcceptedOther(false);
 		}
 		else if(packetId == PacketID.TRADE_REMOVE_ITEM) {
-			int slot = ConnectionManager.getConnection().readInt();
+			int slot = ConnectionManager.getWorldServerConnection().readInt();
 			if(slot >= 0 && slot <= 6) {
 				if(TradeFrame.getItem(slot) != null) {
 					TradeFrame.getItem(slot).setIsSelectable(true);
@@ -104,7 +104,7 @@ public class CommandTrade extends Command {
 			Interface.setTradeFrameStatus(false);
 		}
 		else if(packetId == PacketID.TRADE_ADD_ITEM_ERROR) {
-			int slot = ConnectionManager.getConnection().readInt();
+			int slot = ConnectionManager.getWorldServerConnection().readInt();
 			TradeFrame.getItem(slot).setIsSelectable(true);
 			TradeFrame.addItem(null, slot);
 		}
@@ -117,18 +117,18 @@ public class CommandTrade extends Command {
 			int amount;
 			Item item;
 			while(i < 6) {
-				packetID = ConnectionManager.getConnection().readShort();
+				packetID = ConnectionManager.getWorldServerConnection().readShort();
 				if(packetID == PacketID.KNOWN_ITEM) {
-					id = ConnectionManager.getConnection().readInt();
-					amount = ConnectionManager.getConnection().readInt();
+					id = ConnectionManager.getWorldServerConnection().readInt();
+					amount = ConnectionManager.getWorldServerConnection().readInt();
 					if(Item.exists(id)) {
 						Mideas.joueur1().addItem(Item.getItem(id), amount);
 					}
 				}
 				else if(packetID == PacketID.UNKNOWN_ITEM) {
-					item = ConnectionManager.getConnection().readItem();
+					item = ConnectionManager.getWorldServerConnection().readItem();
 					System.out.println(item.getStuffName());
-					amount = ConnectionManager.getConnection().readInt();
+					amount = ConnectionManager.getWorldServerConnection().readInt();
 					Mideas.joueur1().addItem(item, amount);
 				}
 				i++;
@@ -137,91 +137,91 @@ public class CommandTrade extends Command {
 	}
 	
 	/*public static void writeAddItem(Item item, int slot, int amount) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE_ADD_ITEM);
-		ConnectionManager.getConnection().writeInt(item.getId());
-		ConnectionManager.getConnection().writeInt(slot);
-		ConnectionManager.getConnection().writeInt(amount);
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE_ADD_ITEM);
+		ConnectionManager.getWorldServerConnection().writeInt(item.getId());
+		ConnectionManager.getWorldServerConnection().writeInt(slot);
+		ConnectionManager.getWorldServerConnection().writeInt(amount);
 		if(item.isStuff() || item.isWeapon()) {
 			Stuff stuff = (Stuff)item;
 			if(stuff.getEquippedGem(1) != null || stuff.getEquippedGem(2) != null || stuff.getEquippedGem(3) != null) {
-				ConnectionManager.getConnection().writeBoolean(true);
+				ConnectionManager.getWorldServerConnection().writeBoolean(true);
 				sendGem(stuff, 1);
 				sendGem(stuff, 2);
 				sendGem(stuff, 3);
 			}
 			else {
-				ConnectionManager.getConnection().writeBoolean(false);
+				ConnectionManager.getWorldServerConnection().writeBoolean(false);
 			}
 		}
 		else {
-			ConnectionManager.getConnection().writeBoolean(false);
+			ConnectionManager.getWorldServerConnection().writeBoolean(false);
 		}
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}*/
 	
 	/*private static void sendGem(Stuff stuff, int slot) {
 		if(stuff.getEquippedGem(slot) != null) {
-			ConnectionManager.getConnection().writeInt(stuff.getEquippedGem(slot).getId());
+			ConnectionManager.getWorldServerConnection().writeInt(stuff.getEquippedGem(slot).getId());
 		}
 		else {
-			ConnectionManager.getConnection().writeInt(0);
+			ConnectionManager.getWorldServerConnection().writeInt(0);
 		}
 	}*/
 	
 	public static void requestNewTrade(String name) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE_NEW);
-		ConnectionManager.getConnection().writeString(name);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE_NEW);
+		ConnectionManager.getWorldServerConnection().writeString(name);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void writeAccept() {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE_ACCEPT);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE_ACCEPT);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void writeRemovedItem(int i) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE_REMOVE_ITEM);
-		ConnectionManager.getConnection().writeInt(i);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE_REMOVE_ITEM);
+		ConnectionManager.getWorldServerConnection().writeInt(i);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void writeCloseTrade() {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE_CLOSE);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE_CLOSE);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void writeConfirm() {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE_NEW_CONFIRM);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE_NEW_CONFIRM);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void addItem(DragItem slotType, int bagSlot, int tradeSlot) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE);
-		ConnectionManager.getConnection().writeShort(PacketID.TRADE_ADD_ITEM);
-		ConnectionManager.getConnection().writeByte(slotType.getValue());
-		ConnectionManager.getConnection().writeInt(bagSlot);
-		ConnectionManager.getConnection().writeInt(tradeSlot);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.TRADE_ADD_ITEM);
+		ConnectionManager.getWorldServerConnection().writeByte(slotType.getValue());
+		ConnectionManager.getWorldServerConnection().writeInt(bagSlot);
+		ConnectionManager.getWorldServerConnection().writeInt(tradeSlot);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void setGem(Item item, int gemID, int tradeSlot, int gemSlot) {

@@ -8,9 +8,9 @@ public class CommandSendSpellCD extends Command {
 
 	@Override
 	public void read() {
-		int id = ConnectionManager.getConnection().readInt();
-		int cd = ConnectionManager.getConnection().readInt();
-		long cdStart = ConnectionManager.getConnection().readLong();
+		int id = ConnectionManager.getWorldServerConnection().readInt();
+		int cd = ConnectionManager.getWorldServerConnection().readInt();
+		long cdStart = ConnectionManager.getWorldServerConnection().readLong();
 		SpellManager.setCd(id, cdStart, cd);
 	}
 }

@@ -10,7 +10,7 @@ public class CommandPlayerNotFound extends Command {
 	
 	@Override
 	public void read() {
-		String name = ConnectionManager.getConnection().readString();
+		String name = ConnectionManager.getWorldServerConnection().readString();
 		ChatFrame.addMessage(new Message("Player "+name+" not found.", false, MessageType.SELF));
 	}
 }

@@ -13,14 +13,14 @@ public class CommandCast extends Command {
 
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetId == PacketID.SPELL_CAST_SUCCEED) {
 			
 		}
 		else if(packetId == PacketID.SPELL_CAST_START) {
-			int spellID = ConnectionManager.getConnection().readInt();
-			long startCastTimer = ConnectionManager.getConnection().readLong();
-			int castLength = ConnectionManager.getConnection().readInt();
+			int spellID = ConnectionManager.getWorldServerConnection().readInt();
+			long startCastTimer = ConnectionManager.getWorldServerConnection().readLong();
+			int castLength = ConnectionManager.getWorldServerConnection().readInt();
 			Spell spell = SpellManager.getSpell(spellID);
 			if(spell == null) {
 				System.out.println("Error in CommandCast:CAST_START_SUCCEED, spell not found, id : "+spellID);
@@ -32,13 +32,13 @@ public class CommandCast extends Command {
 	}
 	
 	public static void cast(int spellId) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.SPELL_CAST);
-		ConnectionManager.getConnection().writeShort(PacketID.SPELL_CAST_REQUEST);
-		ConnectionManager.getConnection().writeInt(spellId);
-		ConnectionManager.getConnection().writeByte(TargetType.TARGET.getValue());
-		ConnectionManager.getConnection().writeByte((byte)1);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.SPELL_CAST);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.SPELL_CAST_REQUEST);
+		ConnectionManager.getWorldServerConnection().writeInt(spellId);
+		ConnectionManager.getWorldServerConnection().writeByte(TargetType.TARGET.getValue());
+		ConnectionManager.getWorldServerConnection().writeByte((byte)1);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

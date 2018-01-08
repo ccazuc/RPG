@@ -14,20 +14,20 @@ public class CommandRequestItem extends Command {
 
 	@Override
 	public void read() {
-		boolean knownItem = ConnectionManager.getConnection().readBoolean();
+		boolean knownItem = ConnectionManager.getWorldServerConnection().readBoolean();
 		Item item = null;
 		if(knownItem) {
-			item = Item.getItem(ConnectionManager.getConnection().readInt());
+			item = Item.getItem(ConnectionManager.getWorldServerConnection().readInt());
 		}
 		else {
-			item = ConnectionManager.getConnection().readItem();
+			item = ConnectionManager.getWorldServerConnection().readItem();
 		}
-		DragItem slotType = DragItem.values()[ConnectionManager.getConnection().readByte()];
-		int slot = ConnectionManager.getConnection().readInt();
-		boolean isGem = ConnectionManager.getConnection().readBoolean();
+		DragItem slotType = DragItem.values()[ConnectionManager.getWorldServerConnection().readByte()];
+		int slot = ConnectionManager.getWorldServerConnection().readInt();
+		boolean isGem = ConnectionManager.getWorldServerConnection().readBoolean();
 		int gemSlot = 0;
 		if(isGem) {
-			gemSlot = ConnectionManager.getConnection().readInt();
+			gemSlot = ConnectionManager.getWorldServerConnection().readInt();
 			setGem(item, slotType, slot, gemSlot);
 			return;
 		}
@@ -35,20 +35,20 @@ public class CommandRequestItem extends Command {
 	}
 	
 	public static void write(RequestItem item) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.REQUEST_ITEM);
-		ConnectionManager.getConnection().writeInt(item.getId());
-		ConnectionManager.getConnection().writeByte(item.getSlotType().getValue());
-		ConnectionManager.getConnection().writeInt(item.getSlot());
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.REQUEST_ITEM);
+		ConnectionManager.getWorldServerConnection().writeInt(item.getId());
+		ConnectionManager.getWorldServerConnection().writeByte(item.getSlotType().getValue());
+		ConnectionManager.getWorldServerConnection().writeInt(item.getSlot());
 		if(item.getGemSlot() == -1) {
-			ConnectionManager.getConnection().writeBoolean(false);
+			ConnectionManager.getWorldServerConnection().writeBoolean(false);
 		}
 		else {
-			ConnectionManager.getConnection().writeBoolean(true);
-			ConnectionManager.getConnection().writeInt(item.getGemSlot());
+			ConnectionManager.getWorldServerConnection().writeBoolean(true);
+			ConnectionManager.getWorldServerConnection().writeInt(item.getGemSlot());
 		}
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	private static void setItem(Item item, DragItem slotType, int slot) {

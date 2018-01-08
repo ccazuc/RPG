@@ -15,21 +15,21 @@ public class CommandFriend extends Command {
 
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetId == PacketID.FRIEND_SEND_INFO) {
 			
 		}
 		else if(packetId == PacketID.FRIEND_ADD) {
-			boolean online = ConnectionManager.getConnection().readBoolean();
+			boolean online = ConnectionManager.getWorldServerConnection().readBoolean();
 			if(online) {
-				Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readInt(), ConnectionManager.getConnection().readString(), ConnectionManager.getConnection().readInt(), Race.values()[ConnectionManager.getConnection().readByte()], ClassType.values()[ConnectionManager.getConnection().readByte()]));
+				Mideas.joueur1().addFriend(new Friend(ConnectionManager.getWorldServerConnection().readInt(), ConnectionManager.getWorldServerConnection().readString(), ConnectionManager.getWorldServerConnection().readInt(), Race.values()[ConnectionManager.getWorldServerConnection().readByte()], ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()]));
 			}
 			else {
-				Mideas.joueur1().addFriend(new Friend(ConnectionManager.getConnection().readInt(), ConnectionManager.getConnection().readString()));
+				Mideas.joueur1().addFriend(new Friend(ConnectionManager.getWorldServerConnection().readInt(), ConnectionManager.getWorldServerConnection().readString()));
 			}
 		}
 		else if(packetId == PacketID.FRIEND_OFFLINE) {
-			int id = ConnectionManager.getConnection().readInt();
+			int id = ConnectionManager.getWorldServerConnection().readInt();
 			int i = 0;
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
@@ -41,11 +41,11 @@ public class CommandFriend extends Command {
 			}
 		}
 		else if(packetId == PacketID.FRIEND_ONLINE) {
-			int id = ConnectionManager.getConnection().readInt();
-			String name = ConnectionManager.getConnection().readString();
-			int level = ConnectionManager.getConnection().readInt();
-			Race race = Race.values()[ConnectionManager.getConnection().readByte()];
-			ClassType classe = ClassType.values()[ConnectionManager.getConnection().readByte()];
+			int id = ConnectionManager.getWorldServerConnection().readInt();
+			String name = ConnectionManager.getWorldServerConnection().readString();
+			int level = ConnectionManager.getWorldServerConnection().readInt();
+			Race race = Race.values()[ConnectionManager.getWorldServerConnection().readByte()];
+			ClassType classe = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			int i = 0;
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
@@ -58,15 +58,15 @@ public class CommandFriend extends Command {
 		}
 		else if(packetId == PacketID.FRIEND_LOAD_ALL) {
 			int i = 0;
-			int length = ConnectionManager.getConnection().readInt();
+			int length = ConnectionManager.getWorldServerConnection().readInt();
 			while(i < length) {
-				int id = ConnectionManager.getConnection().readInt();
-				boolean isOnline = ConnectionManager.getConnection().readBoolean();
-				String name = ConnectionManager.getConnection().readString();
+				int id = ConnectionManager.getWorldServerConnection().readInt();
+				boolean isOnline = ConnectionManager.getWorldServerConnection().readBoolean();
+				String name = ConnectionManager.getWorldServerConnection().readString();
 				if(isOnline) {
-					int level = ConnectionManager.getConnection().readInt();
-					Race race = Race.values()[ConnectionManager.getConnection().readByte()];
-					ClassType classe = ClassType.values()[ConnectionManager.getConnection().readByte()];
+					int level = ConnectionManager.getWorldServerConnection().readInt();
+					Race race = Race.values()[ConnectionManager.getWorldServerConnection().readByte()];
+					ClassType classe = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 					Mideas.joueur1().addFriendNoSort(new Friend(id, name, level, race, classe));
 				}
 				else {
@@ -77,7 +77,7 @@ public class CommandFriend extends Command {
 			Mideas.joueur1().sortFriendList();
 		}
 		else if(packetId == PacketID.FRIEND_REMOVE) {
-			int id = ConnectionManager.getConnection().readInt();
+			int id = ConnectionManager.getWorldServerConnection().readInt();
 			Mideas.joueur1().removeFriend(id);
 		}
 	}
@@ -85,12 +85,12 @@ public class CommandFriend extends Command {
 	public static void addFriend(String name) {
 		if(Mideas.joueur1().getFriendList().size() < Joueur.MAXIMUM_AMOUNT_FRIENDS) {
 			if(!name.equals(Mideas.joueur1().getName())) {
-				ConnectionManager.getConnection().startPacket();
-				ConnectionManager.getConnection().writeShort(PacketID.FRIEND);
-				ConnectionManager.getConnection().writeShort(PacketID.FRIEND_ADD);
-				ConnectionManager.getConnection().writeString(name);
-				ConnectionManager.getConnection().endPacket();
-				ConnectionManager.getConnection().send();
+				ConnectionManager.getWorldServerConnection().startPacket();
+				ConnectionManager.getWorldServerConnection().writeShort(PacketID.FRIEND);
+				ConnectionManager.getWorldServerConnection().writeShort(PacketID.FRIEND_ADD);
+				ConnectionManager.getWorldServerConnection().writeString(name);
+				ConnectionManager.getWorldServerConnection().endPacket();
+				ConnectionManager.getWorldServerConnection().send();
 			}
 			else {
 				ChatFrame.addMessage(new Message("Can't add yourself as friend.", false, MessageType.SELF));
@@ -102,11 +102,11 @@ public class CommandFriend extends Command {
 	}
 	
 	public static void removeFriend(int id) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.FRIEND);
-		ConnectionManager.getConnection().writeShort(PacketID.FRIEND_REMOVE);
-		ConnectionManager.getConnection().writeInt(id);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.FRIEND);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.FRIEND_REMOVE);
+		ConnectionManager.getWorldServerConnection().writeInt(id);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

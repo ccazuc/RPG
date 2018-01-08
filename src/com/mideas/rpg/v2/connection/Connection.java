@@ -38,6 +38,11 @@ public class Connection {
 		this.socket = socket;
 	}
 	
+	public SocketChannel getSocket()
+	{
+		return (this.socket);
+	}
+
 	public final void clearRBuffer() {
 		this.rBuffer.clear();
 	}

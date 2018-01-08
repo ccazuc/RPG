@@ -8,15 +8,15 @@ public class CommandStuff extends Command {
 	
 	@Override
 	public void read() {
-		StuffManager.storeNewPiece(ConnectionManager.getConnection().readStuff());
+		StuffManager.storeNewPiece(ConnectionManager.getWorldServerConnection().readStuff());
 	}
 	
 	@Deprecated
 	public static void write(int id) {
 		/*if(!ConnectionManager.getItemRequested().containsKey(id)) {
-			ConnectionManager.getConnection().writeShort(PacketID.STUFF);
-			ConnectionManager.getConnection().writeInt(id);
-			ConnectionManager.getConnection().send();
+			ConnectionManager.getWorldServerConnection().writeShort(PacketID.STUFF);
+			ConnectionManager.getWorldServerConnection().writeInt(id);
+			ConnectionManager.getWorldServerConnection().send();
 			ConnectionManager.getItemRequested().put(id, new Stuff(id));
 		}*/
 	}

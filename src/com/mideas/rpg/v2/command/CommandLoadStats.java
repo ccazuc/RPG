@@ -7,9 +7,9 @@ public class CommandLoadStats extends Command {
 
 	@Override
 	public void read() {
-		Mideas.joueur1().setId(ConnectionManager.getConnection().readInt());
-		Mideas.joueur1().setExp(ConnectionManager.getConnection().readLong());
-		Mideas.joueur1().setGold(ConnectionManager.getConnection().readLong());
-		Mideas.setRank(ConnectionManager.getConnection().readInt());
+		Mideas.joueur1().setId(ConnectionManager.getWorldServerConnection().readInt());
+		Mideas.joueur1().setExp(ConnectionManager.getWorldServerConnection().readLong());
+		Mideas.joueur1().setGold(ConnectionManager.getWorldServerConnection().readLong());
+		Mideas.setRank(ConnectionManager.getWorldServerConnection().readInt());
 	}
 }

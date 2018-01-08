@@ -12,14 +12,14 @@ public class CommandDefaultMessage extends Command {
 
 	@Override
 	public void read() {
-		DefaultMessage value = DefaultMessage.values()[ConnectionManager.getConnection().readByte()];
-		boolean knownColor = ConnectionManager.getConnection().readBoolean();
+		DefaultMessage value = DefaultMessage.values()[ConnectionManager.getWorldServerConnection().readByte()];
+		boolean knownColor = ConnectionManager.getWorldServerConnection().readBoolean();
 		Color color;
 		if(knownColor) {
-			color = MessageColor.values()[ConnectionManager.getConnection().readChar()].getColor();
+			color = MessageColor.values()[ConnectionManager.getWorldServerConnection().readChar()].getColor();
 		}
 		else {
-			color = ConnectionManager.getConnection().readColor();
+			color = ConnectionManager.getWorldServerConnection().readColor();
 		}
 		ChatFrame.addMessage(new Message(value.getMessage(), false, MessageType.SELF, color));
 	}

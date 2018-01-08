@@ -11,30 +11,30 @@ public class CommandGet extends Command {
 	
 	@Override
 	public void read() {
-		short type = ConnectionManager.getConnection().readShort();
+		short type = ConnectionManager.getWorldServerConnection().readShort();
 		if(type == PacketID.INT) {
-			ChatFrame.addMessage(new Message(Integer.toString(ConnectionManager.getConnection().readInt()), false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(Integer.toString(ConnectionManager.getWorldServerConnection().readInt()), false, MessageType.SELF));
 		}
 		else if(type == PacketID.STRING) {
-			ChatFrame.addMessage(new Message(ConnectionManager.getConnection().readString(), false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(ConnectionManager.getWorldServerConnection().readString(), false, MessageType.SELF));
 		}
 	}
 	
 	public static void write(short packetID, int playerID) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.CHAT_GET);
-		ConnectionManager.getConnection().writeShort(packetID);
-		ConnectionManager.getConnection().writeInt(playerID);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.CHAT_GET);
+		ConnectionManager.getWorldServerConnection().writeShort(packetID);
+		ConnectionManager.getWorldServerConnection().writeInt(playerID);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void write(short packetID, String string) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.CHAT_GET);
-		ConnectionManager.getConnection().writeShort(packetID);
-		ConnectionManager.getConnection().writeString(string);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.CHAT_GET);
+		ConnectionManager.getWorldServerConnection().writeShort(packetID);
+		ConnectionManager.getWorldServerConnection().writeString(string);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

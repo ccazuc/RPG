@@ -9,21 +9,21 @@ public class CommandSpellUnlocked extends Command {
 
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetId == PacketID.SPELL_UNLOCKED_ADD) {
-			int id = ConnectionManager.getConnection().readInt();
+			int id = ConnectionManager.getWorldServerConnection().readInt();
 			Mideas.joueur1().addSpellUnlocked(id);
 		}
 		else if(packetId ==  PacketID.SPELL_UNLOCKED_INIT) {
-			short length = ConnectionManager.getConnection().readShort();
+			short length = ConnectionManager.getWorldServerConnection().readShort();
 			int i = 0;
 			while(i < length) {
-				Mideas.joueur1().addSpellUnlocked(ConnectionManager.getConnection().readInt());
+				Mideas.joueur1().addSpellUnlocked(ConnectionManager.getWorldServerConnection().readInt());
 				i++;
 			}
 		}
 		else if(packetId == PacketID.SPELL_UNLOCKED_REMOVE) {
-			int id = ConnectionManager.getConnection().readInt();
+			int id = ConnectionManager.getWorldServerConnection().readInt();
 			Mideas.joueur1().removeSpellUnlocked(id);
 		}
 	}

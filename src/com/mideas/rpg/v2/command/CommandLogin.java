@@ -62,13 +62,13 @@ public class CommandLogin extends Command {
 			int port = ConnectionManager.getAuthConnection().readInt();
 			ConnectionManager.connectWorldServer(port);
 			if(ConnectionManager.isConnected()) {
-				ConnectionManager.getConnection().startPacket();
-				ConnectionManager.getConnection().writeShort(PacketID.LOGIN_REALM);
-				ConnectionManager.getConnection().writeShort(PacketID.LOGIN_REALM_REQUEST);
-				ConnectionManager.getConnection().writeDouble(key);
-				ConnectionManager.getConnection().writeInt(Mideas.getAccountId());
-				ConnectionManager.getConnection().endPacket();
-				ConnectionManager.getConnection().send();
+				ConnectionManager.getWorldServerConnection().startPacket();
+				ConnectionManager.getWorldServerConnection().writeShort(PacketID.LOGIN_REALM);
+				ConnectionManager.getWorldServerConnection().writeShort(PacketID.LOGIN_REALM_REQUEST);
+				ConnectionManager.getWorldServerConnection().writeDouble(key);
+				ConnectionManager.getWorldServerConnection().writeInt(Mideas.getAccountId());
+				ConnectionManager.getWorldServerConnection().endPacket();
+				ConnectionManager.getWorldServerConnection().send();
 				System.out.println("LOGINr:LOGIN_REALM_ACCEPTED");
 			}
 			else {

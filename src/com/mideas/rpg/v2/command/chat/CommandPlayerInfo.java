@@ -11,18 +11,18 @@ public class CommandPlayerInfo extends Command {
 
 	@Override
 	public void read() {
-		String name = ConnectionManager.getConnection().readString();
-		int id = ConnectionManager.getConnection().readInt();
-		int rank = ConnectionManager.getConnection().readInt();
-		String adress = ConnectionManager.getConnection().readString();
+		String name = ConnectionManager.getWorldServerConnection().readString();
+		int id = ConnectionManager.getWorldServerConnection().readInt();
+		int rank = ConnectionManager.getWorldServerConnection().readInt();
+		String adress = ConnectionManager.getWorldServerConnection().readString();
 		ChatFrame.addMessage(new Message((name+": id = "+id+", rank = "+rank+", ip = "+adress), false, MessageType.SELF));
 	}
 	
 	public static void write(int id) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.CHAT_PLAYER_INFO);
-		ConnectionManager.getConnection().writeInt(id);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.CHAT_PLAYER_INFO);
+		ConnectionManager.getWorldServerConnection().writeInt(id);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

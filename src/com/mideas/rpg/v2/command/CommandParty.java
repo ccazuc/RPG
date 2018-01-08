@@ -16,40 +16,40 @@ public class CommandParty extends Command {
 	
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetId == PacketID.PARTY_ADD_MEMBER) {
-			String name = ConnectionManager.getConnection().readString();
+			String name = ConnectionManager.getWorldServerConnection().readString();
 			PopupFrame.activatePartyInvitationPopup(name);
 			ChatFrame.addMessage(new Message(" invited you to join a party.", name, false, MessageType.SELF, false));
 		}
 		else if(packetId == PacketID.PARTY_DECLINE_REQUEST) {
-			String name = ConnectionManager.getConnection().readString();
+			String name = ConnectionManager.getWorldServerConnection().readString();
 			ChatFrame.addMessage(new Message(name.concat(" declined your request."), false, MessageType.SELF));
 		}
 		else if(packetId == PacketID.PARTY_ACCEPT_REQUEST) {
 			
 		}
 		else if(packetId == PacketID.PARTY_MEMBER_JOINED) {
-			String name = ConnectionManager.getConnection().readString();
-			int stamina = ConnectionManager.getConnection().readInt();
-			int maxStamina = ConnectionManager.getConnection().readInt();
-			int mana = ConnectionManager.getConnection().readInt();
-			int maxMana = ConnectionManager.getConnection().readInt();
-			int level = ConnectionManager.getConnection().readInt();
-			int id = ConnectionManager.getConnection().readInt();
-			ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
+			String name = ConnectionManager.getWorldServerConnection().readString();
+			int stamina = ConnectionManager.getWorldServerConnection().readInt();
+			int maxStamina = ConnectionManager.getWorldServerConnection().readInt();
+			int mana = ConnectionManager.getWorldServerConnection().readInt();
+			int maxMana = ConnectionManager.getWorldServerConnection().readInt();
+			int level = ConnectionManager.getWorldServerConnection().readInt();
+			int id = ConnectionManager.getWorldServerConnection().readInt();
+			ClassType type = ClassType.values()[ConnectionManager.getWorldServerConnection().readChar()];
 			Mideas.joueur1().getParty().addMember(new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type));
 		}
 		else if(packetId == PacketID.PARTY_NEW) {
-			boolean isLeader = ConnectionManager.getConnection().readBoolean();
-			String name = ConnectionManager.getConnection().readString();
-			int stamina = ConnectionManager.getConnection().readInt();
-			int maxStamina = ConnectionManager.getConnection().readInt();
-			int mana = ConnectionManager.getConnection().readInt();
-			int maxMana = ConnectionManager.getConnection().readInt();
-			int level = ConnectionManager.getConnection().readInt();
-			int id = ConnectionManager.getConnection().readInt();
-			ClassType type = ClassType.values()[ConnectionManager.getConnection().readChar()];
+			boolean isLeader = ConnectionManager.getWorldServerConnection().readBoolean();
+			String name = ConnectionManager.getWorldServerConnection().readString();
+			int stamina = ConnectionManager.getWorldServerConnection().readInt();
+			int maxStamina = ConnectionManager.getWorldServerConnection().readInt();
+			int mana = ConnectionManager.getWorldServerConnection().readInt();
+			int maxMana = ConnectionManager.getWorldServerConnection().readInt();
+			int level = ConnectionManager.getWorldServerConnection().readInt();
+			int id = ConnectionManager.getWorldServerConnection().readInt();
+			ClassType type = ClassType.values()[ConnectionManager.getWorldServerConnection().readChar()];
 			//System.out.println(name+" "+stamina+" "+maxStamina+" "+mana+" "+maxMana+" "+level+" "+id+" "+isLeader);
 			Unit member = new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type);
 			Unit leader = isLeader ? Mideas.joueur1() : member;
@@ -61,7 +61,7 @@ public class CommandParty extends Command {
 		}
 		else if(packetId == PacketID.PARTY_MEMBER_LEFT) {
 			if(Mideas.joueur1().getParty() != null) {
-				Mideas.joueur1().getParty().removeMember(ConnectionManager.getConnection().readInt());
+				Mideas.joueur1().getParty().removeMember(ConnectionManager.getWorldServerConnection().readInt());
 				Mideas.joueur1().getParty().updateMemberPosition();
 			}
 		}
@@ -69,7 +69,7 @@ public class CommandParty extends Command {
 			Mideas.joueur1().setParty(null);
 		}
 		else if(packetId == PacketID.PARTY_SET_LEADER) {
-			setLeader(ConnectionManager.getConnection().readInt());
+			setLeader(ConnectionManager.getWorldServerConnection().readInt());
 		}
 	}
 	
@@ -93,12 +93,12 @@ public class CommandParty extends Command {
 	public static void invitePlayer(String name) {
 		if(!name.equals(Mideas.joueur1().getName())) {
 			//if(Mideas.joueur1().getParty() == null || (Mideas.joueur1().getParty() != null && Mideas.joueur1().getParty().isPartyLeader())) {
-				ConnectionManager.getConnection().startPacket();
-				ConnectionManager.getConnection().writeShort(PacketID.PARTY);
-				ConnectionManager.getConnection().writeShort(PacketID.PARTY_ADD_MEMBER);
-				ConnectionManager.getConnection().writeString(name);
-				ConnectionManager.getConnection().endPacket();
-				ConnectionManager.getConnection().send();
+				ConnectionManager.getWorldServerConnection().startPacket();
+				ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY);
+				ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY_ADD_MEMBER);
+				ConnectionManager.getWorldServerConnection().writeString(name);
+				ConnectionManager.getWorldServerConnection().endPacket();
+				ConnectionManager.getWorldServerConnection().send();
 			//}
 			//else if(Mideas.joueur1().getParty() != null && !Mideas.joueur1().getParty().isPartyLeader()) {
 				//ChatFrame.addMessage(new Message("You are not the party leader.", false, MessageType.SELF));
@@ -110,36 +110,36 @@ public class CommandParty extends Command {
 	}
 	
 	public static void setLeaderServer(int id) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.PARTY);
-		ConnectionManager.getConnection().writeShort(PacketID.PARTY_SET_LEADER);
-		ConnectionManager.getConnection().writeInt(id);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY_SET_LEADER);
+		ConnectionManager.getWorldServerConnection().writeInt(id);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void kickPlayer(int id) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.PARTY);
-		ConnectionManager.getConnection().writeShort(PacketID.PARTY_KICK_PLAYER);
-		ConnectionManager.getConnection().writeInt(id);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY_KICK_PLAYER);
+		ConnectionManager.getWorldServerConnection().writeInt(id);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void declineRequest() {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.PARTY);
-		ConnectionManager.getConnection().writeShort(PacketID.PARTY_DECLINE_REQUEST);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY_DECLINE_REQUEST);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void acceptRequest() {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.PARTY);
-		ConnectionManager.getConnection().writeShort(PacketID.PARTY_ACCEPT_REQUEST);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY_ACCEPT_REQUEST);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

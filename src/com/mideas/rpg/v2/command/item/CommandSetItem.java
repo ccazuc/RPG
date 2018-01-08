@@ -13,11 +13,11 @@ public class CommandSetItem extends Command {
 
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetId == PacketID.SET_ITEM_AMOUNT) {
-			DragItem type = DragItem.values()[ConnectionManager.getConnection().readByte()];
-			int slot = ConnectionManager.getConnection().readInt();
-			int amount = ConnectionManager.getConnection().readInt();
+			DragItem type = DragItem.values()[ConnectionManager.getWorldServerConnection().readByte()];
+			int slot = ConnectionManager.getWorldServerConnection().readInt();
+			int amount = ConnectionManager.getWorldServerConnection().readInt();
 			if(type == DragItem.BAG) {
 				Mideas.joueur1().bag().getBag(slot).setAmount(amount);
 				Mideas.joueur1().bag().getBag(slot).setIsSelectable(true);
@@ -33,8 +33,8 @@ public class CommandSetItem extends Command {
 			}
 		}
 		else if(packetId == PacketID.SET_ITEM_NULL) {
-			DragItem type = DragItem.values()[ConnectionManager.getConnection().readByte()];
-			int slot = ConnectionManager.getConnection().readInt();
+			DragItem type = DragItem.values()[ConnectionManager.getWorldServerConnection().readByte()];
+			int slot = ConnectionManager.getWorldServerConnection().readInt();
 			if(type == DragItem.BAG) {
 				if(DragManager.getDraggedItem() == Mideas.joueur1().bag().getBag(slot)) {
 					DragManager.setDraggedItem(null);
@@ -55,10 +55,10 @@ public class CommandSetItem extends Command {
 			}
 		}
 		else if(packetId == PacketID.SET_ITEM_SWAP) {
-			DragItem sourceType = DragItem.values()[ConnectionManager.getConnection().readByte()];
-			int source = ConnectionManager.getConnection().readInt();
-			DragItem destinationType = DragItem.values()[ConnectionManager.getConnection().readByte()];
-			int destination = ConnectionManager.getConnection().readInt();
+			DragItem sourceType = DragItem.values()[ConnectionManager.getWorldServerConnection().readByte()];
+			int source = ConnectionManager.getWorldServerConnection().readInt();
+			DragItem destinationType = DragItem.values()[ConnectionManager.getWorldServerConnection().readByte()];
+			int destination = ConnectionManager.getWorldServerConnection().readInt();
 			if(sourceType == DragItem.BAG) {
 				if(destinationType  == DragItem.BAG) {
 					swapBagToBagItems(source, destination);
@@ -84,8 +84,8 @@ public class CommandSetItem extends Command {
 			}
 		}
 		else if(packetId == PacketID.SET_ITEM_SELECTABLE) {
-			DragItem type = DragItem.values()[ConnectionManager.getConnection().readByte()];
-			int slot = ConnectionManager.getConnection().readInt();
+			DragItem type = DragItem.values()[ConnectionManager.getWorldServerConnection().readByte()];
+			int slot = ConnectionManager.getWorldServerConnection().readInt();
 			if(type == DragItem.BAG) {
 				if(Mideas.joueur1().bag().getBag(slot) != null) {
 					Mideas.joueur1().bag().getBag(slot).setIsSelectable(true);
@@ -104,10 +104,10 @@ public class CommandSetItem extends Command {
 			}
 		}
 		else if(packetId == PacketID.SET_ITEM_ADD) {
-			DragItem type = DragItem.values()[ConnectionManager.getConnection().readByte()];
-			int id = ConnectionManager.getConnection().readInt();
-			int slot = ConnectionManager.getConnection().readInt();
-			int amount = ConnectionManager.getConnection().readInt();
+			DragItem type = DragItem.values()[ConnectionManager.getWorldServerConnection().readByte()];
+			int id = ConnectionManager.getWorldServerConnection().readInt();
+			int slot = ConnectionManager.getWorldServerConnection().readInt();
+			int amount = ConnectionManager.getWorldServerConnection().readInt();
 			addItem(type, id, slot, amount);
 		}
 	}

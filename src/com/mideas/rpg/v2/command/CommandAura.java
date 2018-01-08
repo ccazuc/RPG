@@ -12,12 +12,12 @@ public class CommandAura extends Command {
 
 	@Override
 	public void read() {
-		short packetId = ConnectionManager.getConnection().readShort();
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if(packetId == PacketID.AURA_SEND) {
-			int unitID = ConnectionManager.getConnection().readInt();
-			int auraID = ConnectionManager.getConnection().readInt();
-			long endTimer = ConnectionManager.getConnection().readLong();
-			byte numberStack = ConnectionManager.getConnection().readByte();
+			int unitID = ConnectionManager.getWorldServerConnection().readInt();
+			int auraID = ConnectionManager.getWorldServerConnection().readInt();
+			long endTimer = ConnectionManager.getWorldServerConnection().readLong();
+			byte numberStack = ConnectionManager.getWorldServerConnection().readByte();
 			Aura aura = AuraMgr.getAura(auraID);
 			if(aura == null) {
 				return;
@@ -29,10 +29,10 @@ public class CommandAura extends Command {
 			unit.applyAura(new AppliedAura(aura, endTimer, numberStack));
 		}
 		else if(packetId == PacketID.AURA_UPDATE) {
-			int unitID = ConnectionManager.getConnection().readInt();
-			int auraID = ConnectionManager.getConnection().readInt();
-			long endTimer = ConnectionManager.getConnection().readLong();
-			byte numberStack = ConnectionManager.getConnection().readByte();
+			int unitID = ConnectionManager.getWorldServerConnection().readInt();
+			int auraID = ConnectionManager.getWorldServerConnection().readInt();
+			long endTimer = ConnectionManager.getWorldServerConnection().readLong();
+			byte numberStack = ConnectionManager.getWorldServerConnection().readByte();
 			Aura aura = AuraMgr.getAura(auraID);
 			if(aura == null) {
 				return;
@@ -54,8 +54,8 @@ public class CommandAura extends Command {
 			applied.update(endTimer, numberStack);
 		}
 		else if(packetId == PacketID.AURA_CANCEL) {
-			int unitID = ConnectionManager.getConnection().readInt();
-			int auraID = ConnectionManager.getConnection().readInt();
+			int unitID = ConnectionManager.getWorldServerConnection().readInt();
+			int auraID = ConnectionManager.getWorldServerConnection().readInt();
 			Aura aura = AuraMgr.getAura(auraID);
 			if(aura == null) {
 				return;
@@ -72,14 +72,14 @@ public class CommandAura extends Command {
 			}
 		}
 		else if(packetId == PacketID.AURA_INIT) {
-			int unitID = ConnectionManager.getConnection().readInt();
-			short length = ConnectionManager.getConnection().readShort();
+			int unitID = ConnectionManager.getWorldServerConnection().readInt();
+			short length = ConnectionManager.getWorldServerConnection().readShort();
 			Unit unit = unitID == Mideas.joueur1().getId() ? Mideas.joueur1() : Mideas.joueur1().getTarget();
 			int i = 0;
 			while(i < length) {
-				int auraID = ConnectionManager.getConnection().readInt();
-				long endTimer = ConnectionManager.getConnection().readLong();
-				byte numberStack = ConnectionManager.getConnection().readByte();
+				int auraID = ConnectionManager.getWorldServerConnection().readInt();
+				long endTimer = ConnectionManager.getWorldServerConnection().readLong();
+				byte numberStack = ConnectionManager.getWorldServerConnection().readByte();
 				unit.applyAura(new AppliedAura(AuraMgr.getAura(auraID), endTimer, numberStack));
 				i++;
 			}
@@ -87,11 +87,11 @@ public class CommandAura extends Command {
 	}
 	
 	public static void cancelAura(int auraID) {
-		ConnectionManager.getConnection().startPacket();
-		ConnectionManager.getConnection().writeShort(PacketID.AURA);
-		ConnectionManager.getConnection().writeShort(PacketID.AURA_CANCEL);
-		ConnectionManager.getConnection().writeInt(auraID);
-		ConnectionManager.getConnection().endPacket();
-		ConnectionManager.getConnection().send();
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.AURA);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.AURA_CANCEL);
+		ConnectionManager.getWorldServerConnection().writeInt(auraID);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

@@ -10,17 +10,17 @@ public class CommandSelectScreenLoadCharacters extends Command {
 	
 	@Override
 	public void read() {
-		if(ConnectionManager.getConnection().hasRemaining()) {
+		if(ConnectionManager.getWorldServerConnection().hasRemaining()) {
 			int i = 0;
 			while(true) {
-				int id = ConnectionManager.getConnection().readInt();
+				int id = ConnectionManager.getWorldServerConnection().readInt();
 				if(id == -1) {
 					break;
 				}
-				String name = ConnectionManager.getConnection().readString();
-				int level = ConnectionManager.getConnection().readInt();
-				String classe = ConnectionManager.getConnection().readString();
-				String race = ConnectionManager.getConnection().readString();
+				String name = ConnectionManager.getWorldServerConnection().readString();
+				int level = ConnectionManager.getWorldServerConnection().readInt();
+				String classe = ConnectionManager.getWorldServerConnection().readString();
+				String race = ConnectionManager.getWorldServerConnection().readString();
 				SelectScreen.setCharacterList(new SelectScreenPlayer(id, name, level, classe, race), i);
 				i++;
 			}
@@ -33,10 +33,10 @@ public class CommandSelectScreenLoadCharacters extends Command {
 	public static void write() {
 		if(ConnectionManager.isConnected()) {
 			System.out.println("Load character requested");
-			ConnectionManager.getConnection().startPacket();
-			ConnectionManager.getConnection().writeShort(SELECT_SCREEN_LOAD_CHARACTERS);
-			ConnectionManager.getConnection().endPacket();
-			ConnectionManager.getConnection().send();
+			ConnectionManager.getWorldServerConnection().startPacket();
+			ConnectionManager.getWorldServerConnection().writeShort(SELECT_SCREEN_LOAD_CHARACTERS);
+			ConnectionManager.getWorldServerConnection().endPacket();
+			ConnectionManager.getWorldServerConnection().send();
 		}
 	}
 }

@@ -16,6 +16,7 @@ import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.chat.channel.ChatChannel;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.InputBar;
 import com.mideas.rpg.v2.utils.StringUtils;
@@ -383,7 +384,7 @@ public class ChatFrame {
 							CommandSendMessage.writeChannel(tempMessage, currentChannel.getID());
 						}
 						else {
-							CommandSendMessage.write(tempMessage, selectedType);
+							CommandSendMessage.write(tempMessage, selectedType, ConnectionManager.getWorldServerConnection());
 						}
 					}
 					else {
