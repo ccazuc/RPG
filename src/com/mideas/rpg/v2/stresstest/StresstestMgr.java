@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.command.CommandLogout;
-import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.utils.Hash;
 
@@ -18,6 +17,8 @@ public class StresstestMgr {
 	public static void initCommandMap()
 	{
 		commandMap.put(PacketID.LOGIN, new CommandLogin());
+		commandMap.put(PacketID.LOGIN_REALM, new CommandLoginRealm());
+		commandMap.put(PacketID.CHARACTER_LOGIN, new CommandLoadCharacter());
 	}
 	
 	public static void clearClient()
@@ -56,7 +57,7 @@ public class StresstestMgr {
 	{
 		int i = -1;
 		while (++i < clientList.size())
-			CommandSendMessage.write(msg, MessageType.SAY, clientList.get(i).getWorldServerConnection());
+			CommandSendMessage.write(clientList.get(i), msg, MessageType.SAY);
 	}
 	
 	public static int generateClientId()

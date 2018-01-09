@@ -45,6 +45,7 @@ public class CommandLogin implements Command {
 			client.getConnectionMgr().connectWorldServer(port);
 			System.out.println("Key received : " + key);
 			if(client.getConnectionMgr().isConnected()) {
+				System.out.println("Client " + client.getId() + " sent a login realm request");
 				client.getWorldServerConnection().startPacket();
 				client.getWorldServerConnection().writeShort(PacketID.LOGIN_REALM);
 				client.getWorldServerConnection().writeShort(PacketID.LOGIN_REALM_REQUEST);

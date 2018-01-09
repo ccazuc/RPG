@@ -32,12 +32,12 @@ public class Buffer {
 	private SocketChannel socket;
 	
 	public Buffer(SocketChannel socket) {
-		this.buffer = ByteBuffer.allocateDirect(16000);
+		this.buffer = ByteBuffer.allocateDirect(160000);
 		this.socket = socket;
 	}
 	
 	public Buffer() {
-		this.buffer = ByteBuffer.allocateDirect(16000);
+		this.buffer = ByteBuffer.allocateDirect(160000);
 	}
 	
 	public Buffer(int capacity) {

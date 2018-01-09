@@ -350,7 +350,7 @@ public class ChatCommandMgr {
 			ChatFrame.addMessage(new Message("Added " + command[2] + " clients.", false, MessageType.SELF));
 		}
 	};
-	private final static ChatSubCommand stresstest_clear = new ChatSubCommand("clear", "stresstest", "/stresstest to display available command.")
+	private final static ChatSubCommand stresstest_clear = new ChatSubCommand("clear", "stresstest", "/stresstest clear removes all clients.")
 	{
 	
 		@Override
@@ -358,6 +358,79 @@ public class ChatCommandMgr {
 		{
 			StresstestMgr.clearClient();
 			ChatFrame.addMessage(new Message("Removed all clients.", false, MessageType.SELF));
+		}
+	};
+	private final static ChatSubCommand stresstest_msg = new ChatSubCommand("msg", "stresstest", "/stresstest msg [msg] to send a message from all clients.")
+	{
+	
+		@Override
+		public void handle(String[] command)
+		{
+			if (command.length < 3)
+			{
+				this.printHelpMessage();
+				return;
+			}
+			StringBuilder builder = new StringBuilder();
+			int i = 1;
+			while (++i < command.length)
+				builder.append(command[i]);
+			StresstestMgr.sendMessage(builder.toString());
+		}
+	};
+	private final static ChatCommand help = new ChatCommand("help", "Syntax: /help [command] \n\nDisplay usage instructions for the given command. If no command provided show list of available commands.") {
+
+		@Override
+		public void handle(String[] command) {
+			if (command.length == 1) {
+				StringBuilder builder = new StringBuilder();
+				builder.append("Available commands:");
+				for (ChatCommand chatCommand : getCommandMap().values()) {
+					builder.append("\n").append(chatCommand.getName());
+				}
+				ChatFrame.addMessage(new Message(builder.toString(), false, MessageType.SELF));
+				return;
+			}
+			if (getCommand(command[1]) == null)
+			{
+				ChatFrame.addMessage(new Message("This command doesn't exist", false, MessageType.SELF));
+				return;
+			}
+			if (command.length > 2 && getCommand(command[1]).subCommandList != null) {
+				int i = -1;
+				while (i < getCommand(command[1]).subCommandList.size())
+					if (getCommand(command[1]).subCommandList.get(i).getName().equalsIgnoreCase(command[2])) {
+						if(command.length > 3 && getCommand(command[1]).subCommandList.get(i).commandList != null) {
+							int j = 0;
+							while (j < getCommand(command[1]).subCommandList.get(i).commandList.size()) {
+								if (getCommand(command[1]).subCommandList.get(i).commandList.get(j).getName().equalsIgnoreCase(command[3])) {
+									ChatFrame.addMessage(new Message(getCommand(command[1]).subCommandList.get(i).commandList.get(j).helpMessage, false, MessageType.SELF));
+									return;
+								}
+								j++;
+							}
+							ChatFrame.addMessage(new Message("This command doesn't exist.", false, MessageType.SELF));
+							return;
+						}
+						ChatFrame.addMessage(new Message(getCommand(command[1]).subCommandList.get(i).printHelpMessage(), false, MessageType.SELF));
+						return;
+					}
+				ChatFrame.addMessage(new Message("This command doesn't exist.", false, MessageType.SELF));
+				return;
+			}
+			if (getCommand(command[1]).subCommandList != null)
+				ChatFrame.addMessage(new Message(getCommand(command[1]).printHelpMessage(), false, MessageType.SELF));
+			else
+				ChatFrame.addMessage(new Message(getCommand(command[1]).printHelpMessage(), false, MessageType.SELF));
+		}
+	};
+	private final static ChatCommand quit = new ChatCommand("quit", "/quit to quit the game.")
+	{
+	
+		@Override
+		public void handle(String[] command)
+		{
+			Mideas.closeGame();
 		}
 	};
 	
@@ -388,7 +461,10 @@ public class ChatCommandMgr {
 		addCommand(reload);
 		stresstest.addSubCommand(stresstest_add);
 		stresstest.addSubCommand(stresstest_clear);
+		stresstest.addSubCommand(stresstest_msg);
 		addCommand(stresstest);
+		addCommand(help);
+		addCommand(quit);
 	}
 	
 	public static void handleChatCommand(String str) {
@@ -413,5 +489,10 @@ public class ChatCommandMgr {
 	
 	static ChatCommand getCommand(String name) {
 		return commandMap.get(name);
+	}
+	
+	static HashMap<String, ChatCommand> getCommandMap()
+	{
+		return (commandMap);
 	}
 }
