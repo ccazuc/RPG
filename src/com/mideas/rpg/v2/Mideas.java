@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
@@ -64,6 +65,9 @@ import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
+import com.mideas.rpg.v2.stresstest.StresstestConnectionMgr;
+import com.mideas.rpg.v2.stresstest.StresstestMgr;
+import com.mideas.rpg.v2.utils.Hash;
 import com.mideas.rpg.v2.utils.StringUtils;
 import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.PNGDecoder;
@@ -197,6 +201,8 @@ public class Mideas {
 		CallbackManager.initCallbackList();
 		PlayerPortraitFrame.initCallback();
 		ChatConfigManager.initConfigMap();
+		StresstestMgr.initCommandMap();
+		StresstestConnectionMgr.initPacket();
 		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		authServerConnectionRunnable = new AuthServerConnectionRunnable();
 		authServerConnectionThread = new Thread(authServerConnectionRunnable);
@@ -239,6 +245,7 @@ public class Mideas {
 					context2D();
 					updateDisplayFactor();
 				}
+				StresstestMgr.readClient();
 				TaskManager.executeTask();
 				time = System.nanoTime();
 				Interface.draw();

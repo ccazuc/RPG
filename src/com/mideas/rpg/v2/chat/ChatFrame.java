@@ -478,7 +478,6 @@ public class ChatFrame {
 					}
 				}
 			}
-			System.out.println(scroll);
 			if(!Mouse.getEventButtonState()) {
 				int i = 0;
 				int j = 0;

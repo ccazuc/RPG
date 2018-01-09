@@ -14,6 +14,8 @@ import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
+import com.mideas.rpg.v2.stresstest.Stresstest;
+import com.mideas.rpg.v2.stresstest.StresstestConnectionMgr;
 
 public class CommandLogin extends Command {
 
@@ -87,6 +89,17 @@ public class CommandLogin extends Command {
 			ConnectionManager.getAuthConnection().writeString(password);
 			ConnectionManager.getAuthConnection().endPacket();
 			ConnectionManager.getAuthConnection().send();
+		}
+	}
+	
+	public static void write(String account, String password, Stresstest client) {
+		if(client.isAuthServerConnected()) {
+			client.getAuthConnection().startPacket();
+			client.getAuthConnection().writeShort(LOGIN);
+			client.getAuthConnection().writeString(account);
+			client.getAuthConnection().writeString(password);
+			client.getAuthConnection().endPacket();
+			client.getAuthConnection().send();
 		}
 	}
 	

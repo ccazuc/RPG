@@ -1,6 +1,5 @@
 package com.mideas.rpg.v2.chat;
 
-import java.awt.SystemTray;
 import java.util.HashMap;
 
 import com.mideas.rpg.v2.Interface;
@@ -9,6 +8,7 @@ import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.chat.CommandChannel;
+import com.mideas.rpg.v2.stresstest.StresstestMgr;
 import com.mideas.rpg.v2.utils.StringUtils;
 
 public class ChatCommandMgr {
@@ -311,6 +311,55 @@ public class ChatCommandMgr {
 			ChatFrame.addMessage(new Message("UI reloaded in "+(System.currentTimeMillis()-timer)/1000f+"s.", false, MessageType.SELF));
 		}
 	};
+	private final static ChatCommand stresstest = new ChatCommand("stresstest", "Stresstest is a command used to create client to test server performance.") {
+		
+		@Override
+		public void handle(String[] command) {
+			if(command.length < 2) {
+				ChatFrame.addMessage(new Message(this.printHelpMessage(), false, MessageType.SELF));
+				return;
+			}
+			int i = 0;
+			while(i < this.subCommandList.size()) {
+				if(this.subCommandList.get(i).getName().equalsIgnoreCase(command[1])) {
+					this.subCommandList.get(i).handle(command);
+					return;
+				}
+				i++;
+			}
+			ChatFrame.addMessage(new Message(this.helpMessage, false, MessageType.SELF));
+		}
+	};
+	private final static ChatSubCommand stresstest_add = new ChatSubCommand("add", "stresstest", "/stresstest add [int] to add client.")
+	{
+	
+		@Override
+		public void handle(String[] command)
+		{
+			if (command.length < 3)
+			{
+				ChatFrame.addMessage(new Message(this.helpMessage, false, MessageType.SELF));
+				return;
+			}
+			if (!StringUtils.isInteger(command[2]))
+			{
+				ChatFrame.addMessage(new Message("Incorrect value, you must specify an integer.", false, MessageType.SELF));
+				return;
+			}
+			StresstestMgr.addClient(Integer.parseInt(command[2]));
+			ChatFrame.addMessage(new Message("Added " + command[2] + " clients.", false, MessageType.SELF));
+		}
+	};
+	private final static ChatSubCommand stresstest_clear = new ChatSubCommand("clear", "stresstest", "/stresstest to display available command.")
+	{
+	
+		@Override
+		public void handle(String[] command)
+		{
+			StresstestMgr.clearClient();
+			ChatFrame.addMessage(new Message("Removed all clients.", false, MessageType.SELF));
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
@@ -337,6 +386,9 @@ public class ChatCommandMgr {
 		addCommand(channel_unmute);
 		addCommand(channel_unsilence);
 		addCommand(reload);
+		stresstest.addSubCommand(stresstest_add);
+		stresstest.addSubCommand(stresstest_clear);
+		addCommand(stresstest);
 	}
 	
 	public static void handleChatCommand(String str) {
