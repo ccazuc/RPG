@@ -17,5 +17,10 @@ public class CommandLoginRealm extends Command {
 			SelectScreen.getAlert().setText("Loading characters...");
 			//SelectScreen.setRealmScreenActive(false);
 		}
+		else if (packetId == PacketID.LOGIN_REALM_DOESNT_ACCEPT_CONNECTION)
+		{
+			
+		}
+		//else if (packetId == PacketID.)
 	}
 }

@@ -92,17 +92,6 @@ public class CommandLogin extends Command {
 		}
 	}
 	
-	public static void write(String account, String password, Stresstest client) {
-		if(client.isAuthServerConnected()) {
-			client.getAuthConnection().startPacket();
-			client.getAuthConnection().writeShort(LOGIN);
-			client.getAuthConnection().writeString(account);
-			client.getAuthConnection().writeString(password);
-			client.getAuthConnection().endPacket();
-			client.getAuthConnection().send();
-		}
-	}
-	
 	public static void loginRealm(int id) {
 		ConnectionManager.getAuthConnection().startPacket();
 		ConnectionManager.getAuthConnection().writeShort(PacketID.LOGIN_REALM);

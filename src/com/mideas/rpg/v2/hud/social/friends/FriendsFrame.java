@@ -383,4 +383,9 @@ public class FriendsFrame {
 	public static void shouldUpdate() {
 		shouldUpdateSize = true;
 	}
+	
+	public static int getSelectedFriend()
+	{
+		return (selectedFriend);
+	}
 }

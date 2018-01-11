@@ -618,7 +618,7 @@ public class Joueur extends Unit {
 			if(friend.getCharacterId() == id) {
 				ChatFrame.addMessage(new Message(friend.getName()+" is no longer in your friend list.", false, MessageType.SELF));
 				this.friendList.remove(i);
-				if(this.friendList.size() == 0) {
+				if(this.friendList.size() == 0 || FriendsFrame.getSelectedFriend() == i) {
 					FriendsFrame.resetSelectedFriend();
 				}
 				return;
