@@ -10,24 +10,21 @@ public class CommandSelectScreenLoadCharacters extends Command {
 	
 	@Override
 	public void read() {
-		if(ConnectionManager.getWorldServerConnection().hasRemaining()) {
-			int i = 0;
-			while(true) {
-				int id = ConnectionManager.getWorldServerConnection().readInt();
-				if(id == -1) {
-					break;
-				}
-				String name = ConnectionManager.getWorldServerConnection().readString();
-				int level = ConnectionManager.getWorldServerConnection().readInt();
-				String classe = ConnectionManager.getWorldServerConnection().readString();
-				String race = ConnectionManager.getWorldServerConnection().readString();
-				SelectScreen.setCharacterList(new SelectScreenPlayer(id, name, level, classe, race), i);
-				i++;
+		int i = 0;
+		while(true) {
+			int id = ConnectionManager.getWorldServerConnection().readInt();
+			if(id == -1) {
+				break;
 			}
-			SelectScreen.setTotalCharacter(i);
+			String name = ConnectionManager.getWorldServerConnection().readString();
+			int level = ConnectionManager.getWorldServerConnection().readInt();
+			String classe = ConnectionManager.getWorldServerConnection().readString();
+			String race = ConnectionManager.getWorldServerConnection().readString();
+			SelectScreen.setCharacterList(new SelectScreenPlayer(id, name, level, classe, race), i);
+			i++;
 		}
+			SelectScreen.setTotalCharacter(i);
 		SelectScreen.getAlert().setInactive();
-		System.out.println("Select screen character loaded");
 	}
 	
 	public static void write() {

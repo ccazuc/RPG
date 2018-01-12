@@ -47,12 +47,13 @@ public class Alert {
 		}
 		else {
 			while(i < this.formatedText.length) {
-				if(i == this.formatedText.length-1) {
+				/*if(i == this.formatedText.length-1) {
 					font.drawStringShadowPart(this.x+this.x_size_alert/2-font.getWidth(this.formatedText[i])/2, this.y+14*Mideas.getDisplayYFactor()+y_shift, this.formatedText[i], Color.YELLOW, Color.BLACK, 2, 2, 1);
 				}
 				else {
 					font.drawStringShadowPart(this.x+10, this.y+14*Mideas.getDisplayYFactor()+y_shift, this.formatedText[i], Color.YELLOW, Color.BLACK, 2, 2, 1);
-				}
+				}*/
+				font.drawStringShadowPart(this.x+this.x_size_alert/2-font.getWidth(this.formatedText[i])/2, this.y+14*Mideas.getDisplayYFactor()+y_shift, this.formatedText[i], Color.YELLOW, Color.BLACK, 2, 2, 1, true);
 				y_shift+= font.getLineHeight()+3;
 				i++;
 			}
@@ -68,6 +69,7 @@ public class Alert {
 		if(this.button.event()) {
 			this.button.reset();
 			this.isActive = false;
+			onClose();
 			return true;
 		}
 		return false;
@@ -92,12 +94,25 @@ public class Alert {
 		int j = 0;
 		int k = 0;
 		int width = 0;
-		float lineNumber = (font.getWidth(this.text)/(this.background.getWidth()-30f));
-		this.formatedText = new String[(int)Math.ceil(lineNumber)];
+		//float lineNumber = (font.getWidth(this.text)/(this.background.getWidth()-30f));
+		int lineNumber = 1;
+		i = -1;
+		while (++i < this.text.length())
+		{
+			if (width >= this.background.getWidth() - 30 || this.text.charAt(i) == '\n')
+			{
+				++lineNumber;
+				width = 0;
+			}
+			width += font.getWidth(this.text.charAt(i));
+		}
+		this.formatedText = new String[lineNumber];
 		if(lineNumber > 1) {
+			i = 0;
+			width = 0;
 			while(i < this.text.length()) {
-				if(width >= this.background.getWidth()-30) {
-					if(this.text.charAt(i) != ' ') {
+				if(width >= this.background.getWidth()-30 || this.text.charAt(i) == '\n') {
+					if(this.text.charAt(i) != ' ' && this.text.charAt(i) != '\n') {
 						i = checkSpace(this.text, i);
 						this.formatedText[k] = this.text.substring(j, i);
 						j = i;
@@ -118,10 +133,6 @@ public class Alert {
 		}
 		if(k < lineNumber) {
 			this.formatedText[k] = this.text.substring(j);
-		}
-		i = 0;
-		while(i < this.formatedText.length) {
-			i++;
 		}
 		this.background.setHeight(110*Mideas.getDisplayYFactor()+(font.getLineHeight()+3)*lineNumber);
 		this.button.setY(this.background.getY()+this.background.getHeight()-70*Mideas.getDisplayYFactor());
@@ -149,8 +160,11 @@ public class Alert {
 	}
 	
 	public void setInactive() {
+		if (!this.isActive)
+			return;
 		this.isActive = false;
 		this.button.reset();
+		onClose();
 	}
 	
 	public void keyPressed() {
@@ -166,6 +180,8 @@ public class Alert {
 	public float getWidth() {
 		return this.background.getWidth();
 	}
+	
+	public void onClose() {}
 	
 	private static int checkSpace(String text, int i) {
 		while(i > 0 && text.charAt(i) != ' ' && text.charAt(i) != ',') {

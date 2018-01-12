@@ -327,7 +327,7 @@ public class ChatCommandMgr {
 				}
 				i++;
 			}
-			ChatFrame.addMessage(new Message(this.helpMessage, false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("Stresstest has no such subcommand.", false, MessageType.SELF));
 		}
 	};
 	private final static ChatSubCommand stresstest_add = new ChatSubCommand("add", "stresstest", "/stresstest add [int] to add client.")
@@ -348,6 +348,26 @@ public class ChatCommandMgr {
 			}
 			StresstestMgr.addClient(Integer.parseInt(command[2]));
 			ChatFrame.addMessage(new Message("Added " + command[2] + " clients.", false, MessageType.SELF));
+		}
+	};
+	private final static ChatSubCommand stresstest_remove = new ChatSubCommand("remove", "stresstest", "/stresstest remove [int] to remove client.")
+	{
+	
+		@Override
+		public void handle(String[] command)
+		{
+			if (command.length < 3)
+			{
+				ChatFrame.addMessage(new Message(this.helpMessage, false, MessageType.SELF));
+				return;
+			}
+			if (!StringUtils.isInteger(command[2]))
+			{
+				ChatFrame.addMessage(new Message("Incorrect value, you must specify an integer.", false, MessageType.SELF));
+				return;
+			}
+			StresstestMgr.removeClient(Integer.parseInt(command[2]));
+			ChatFrame.addMessage(new Message("Removed " + command[2] + " clients.", false, MessageType.SELF));
 		}
 	};
 	private final static ChatSubCommand stresstest_clear = new ChatSubCommand("clear", "stresstest", "/stresstest clear removes all clients.")
@@ -462,6 +482,7 @@ public class ChatCommandMgr {
 		stresstest.addSubCommand(stresstest_add);
 		stresstest.addSubCommand(stresstest_clear);
 		stresstest.addSubCommand(stresstest_msg);
+		stresstest.addSubCommand(stresstest_remove);
 		addCommand(stresstest);
 		addCommand(help);
 		addCommand(quit);

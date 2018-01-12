@@ -21,6 +21,7 @@ import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLoadEquippedItems;
 import com.mideas.rpg.v2.command.CommandLoadStats;
 import com.mideas.rpg.v2.command.CommandLogin;
+import com.mideas.rpg.v2.command.CommandLoginQueue;
 import com.mideas.rpg.v2.command.CommandLoginRealm;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandLogoutCharacter;
@@ -126,6 +127,7 @@ public class ConnectionManager {
 		commandList.put(SPELL_UNLOCKED, new CommandSpellUnlocked());
 		commandList.put(CHANNEL, new CommandChannel());
 		commandList.put(AUCTION, new CommandAuction());
+		commandList.put(LOGIN_QUEUE, new CommandLoginQueue());
 	}
 
 	public static final boolean connectAuthServer() {

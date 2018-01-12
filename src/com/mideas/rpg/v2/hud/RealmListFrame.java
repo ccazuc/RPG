@@ -8,7 +8,9 @@ import org.lwjgl.opengl.Display;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Window;
+import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
+import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.WorldServer;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
@@ -130,6 +132,11 @@ public class RealmListFrame {
 	}
 	
 	static void connectToWorldServer() {
+		if (ConnectionManager.getWorldServer() != null)
+		{
+			CommandLogout.logoutWorldServer();
+			ConnectionManager.close();
+		}
 		SelectScreen.setRealmScreenActive(false);
 		SelectScreen.setAlert("Connecting to server...");
 		AuthServerConnectionRunnable.connectToWorldServer(selectedRealm.getRealmId());

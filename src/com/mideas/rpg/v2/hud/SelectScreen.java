@@ -12,7 +12,6 @@ import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandLoadCharacter;
 import com.mideas.rpg.v2.command.CommandLogout;
-import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
 import com.mideas.rpg.v2.command.CommandSendRealmList;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.SelectScreenPlayer;
@@ -21,7 +20,9 @@ import com.mideas.rpg.v2.game.race.NewCharacterRace;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
+import com.mideas.rpg.v2.utils.DebugUtils;
 import com.mideas.rpg.v2.utils.Input;
+import com.mideas.rpg.v2.utils.StringUtils;
 import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 
@@ -49,12 +50,30 @@ public class SelectScreen {
 	private static float y_selected_race = -340+66;
 	private static float x_selected_classe = -868;
 	private static float y_selected_classe = 99;
+	private static int loginQueuePosition;
+	private static String loginQueuePositionString;
+	private static int loginQueueSize;
+	private static String loginQueueTimeInQueueString;
+	private static String loginQueueSizeString;
+	private static long loginQueueJoinTimer;
+	private static long loginQueueLastTimerUpdate;
 	private static Color bgColors = new Color(0, 0, 0, .35f);
-	static Input character = new Input(FontManager.get("FRIZQT", 21), 12, false, false);
-	static Input deleteCharacter = new Input(FontManager.get("FRIZQT", 21), 8, false, false);
+	final static Input character = new Input(FontManager.get("FRIZQT", 21), 12, false, false);
+	final static Input deleteCharacter = new Input(FontManager.get("FRIZQT", 21), 8, false, false);
 	static boolean realmScreenActive = true;
-	static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 20, "Ok");
-	private static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor(), 278*Mideas.getDisplayXFactor(), 36*Mideas.getDisplayYFactor(), "Create new character", 16, 2) {
+	private final static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 20, "Ok");
+	static Alert currentAlert = alert;
+	private final static Alert loginQueueAlert = new Alert("", -355 * Mideas.getDisplayXFactor(), -80 * Mideas.getDisplayYFactor(), 700 * Mideas.getDisplayXFactor(), 20, "Change realm")
+	{
+		
+		@Override
+		public void onClose()
+		{
+			if (ConnectionManager.getWorldServer() == null)
+				setRealmScreenActive(true);
+		}
+	}; 
+	private final static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor(), 278*Mideas.getDisplayXFactor(), 36*Mideas.getDisplayYFactor(), "Create new character", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			creatingCharacter = true;
@@ -67,7 +86,7 @@ public class SelectScreen {
 			return (ConnectionManager.isLoggedOnWorldServer());
 		}
 	};	
-	static Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Accept", 16, 2) {
+	static final Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Accept", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			SelectScreen.createCharacter();
@@ -75,7 +94,7 @@ public class SelectScreen {
 			this.reset();
 		}
 	};	
-	static Button returnCharacterButton = new Button(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Return", 16, 2) {
+	static final Button returnCharacterButton = new Button(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Return", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			creatingCharacter = false;
@@ -84,7 +103,7 @@ public class SelectScreen {
 			SelectScreen.mouseEvent();
 		}
 	};
-	private static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Return", 16, 2) {
+	private final static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Return", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			CommandLogout.write();
@@ -95,14 +114,14 @@ public class SelectScreen {
 			LoginScreen.resetMenuState();
 			characterLoaded = false;
 			realmScreenActive = false;
-			alert.setInactive();
+			currentAlert.setInactive();
 			selectedCharacterIndex = 0;
 			LoginScreen.mouseEvent();
 			Arrays.fill(characterList, null);
 			this.reset();
 		}
 	};
-	private static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250*Mideas.getDisplayXFactor(), 50*Mideas.getDisplayYFactor(), "Enter game", 19, 2) {
+	private final static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250*Mideas.getDisplayXFactor(), 50*Mideas.getDisplayYFactor(), "Enter game", 19, 2) {
 		@Override
 		public void eventButtonClick() {
 			loadCharacterInfo();
@@ -118,11 +137,11 @@ public class SelectScreen {
 		}
 		
 	};
-	private static Button changeRealmButton = new Button(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Change Realm", 16, 2) {
+	private final static Button changeRealmButton = new Button(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Change Realm", 16, 2) {
 		@Override
 		public void eventButtonClick() {
-			alert.setActive();
-			alert.setText("Loading realm...");
+			currentAlert.setActive();
+			currentAlert.setText("Loading realm...");
 			CommandSendRealmList.requestRealm();
 			this.reset();
 			ConnectionManager.setIsLoggedOnWorldServer(false);
@@ -131,7 +150,7 @@ public class SelectScreen {
 		}
 		
 	};
-	private static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Delete character", 16, 2) {
+	private final static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Delete character", 16, 2) {
 		@Override
 		public void eventButtonClick() {
 			deletingCharacter = true;
@@ -144,7 +163,7 @@ public class SelectScreen {
 			return characterList[selectedCharacterIndex] != null;
 		}
 	};
-	private static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor(), "OK", 20, 2) {
+	private final static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor(), "OK", 20, 2) {
 		@Override
 		public void eventButtonClick() {
 			deleteCharacter();
@@ -159,7 +178,7 @@ public class SelectScreen {
 			return false;
 		}
 	};
-	private static Button cancelDeleteCharacterButton = new Button(Display.getWidth()/2+23*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor(), "Annuler", 20, 2) {
+	private final static Button cancelDeleteCharacterButton = new Button(Display.getWidth()/2+23*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor(), "Annuler", 20, 2) {
 		@Override
 		public void eventButtonClick() {
 			deletingCharacter = false;
@@ -170,7 +189,6 @@ public class SelectScreen {
 	public static void draw() {
 		updateSize();
 		if(ConnectionManager.isLoggedOnWorldServer() && !characterLoaded) {
-			loadCharacter();
 			selectedCharacter[0] = true;
 			characterLoaded = true;
 		}
@@ -200,7 +218,8 @@ public class SelectScreen {
 			if(characterList[selectedCharacterIndex] != null) {
 				FontManager.get("FRIZQT", 30).drawStringShadow(Display.getWidth()/2-FontManager.get("FRIZQT", 30).getWidth(characterList[selectedCharacterIndex].getName())/2, Display.getHeight()-170*Mideas.getDisplayYFactor(), characterList[selectedCharacterIndex].getName(), Color.YELLOW, Color.BLACK, 2, 2, 2);
 			}
-			alert.draw();
+			updateLoginQueueTimer();
+			currentAlert.draw();
 			newCharacterButton.draw();
 			returnButton.draw();
 			enterGameButton.draw();
@@ -209,7 +228,7 @@ public class SelectScreen {
 		}
 		else {
 			Draw.drawQuadBG(Sprites.create_character_background);
-			alert.draw();
+			currentAlert.draw();
 			FontManager.get("FRIZQT", 21).drawStringShadow(Display.getWidth()/2-77*Mideas.getDisplayXFactor(), Display.getHeight()/2+405*Mideas.getDisplayYFactor(), character.getText(), Color.WHITE, Color.BLACK, 1, 1, 2);
 			acceptCharacterButton.draw();
 			returnCharacterButton.draw();
@@ -279,10 +298,10 @@ public class SelectScreen {
 						}
 					}
 				}
-				if(alert.event()) return true;
+				if(currentAlert.event()) return true;
 			}
 			else {
-				alert.event();
+				currentAlert.event();
 				acceptCharacterButton.event();
 				returnCharacterButton.event();
 				hoveredRace = null;
@@ -347,8 +366,8 @@ public class SelectScreen {
 						}
 					}
 					else if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156) {
-						if (alert.isActive())
-							alert.setInactive();
+						if (currentAlert.isActive())
+							currentAlert.setInactive();
 						else
 							loadCharacterInfo();
 					}
@@ -466,10 +485,6 @@ public class SelectScreen {
 		return totalCharacter;
 	}
 	
-	public static void loadCharacter() {
-		CommandSelectScreenLoadCharacters.write();
-	}
-	
 	public static void setCharacterList(SelectScreenPlayer player, int i) {
 		if(i < characterList.length) {
 			characterList[i] = player;
@@ -553,11 +568,20 @@ public class SelectScreen {
 		hoveredCharacter = -1;
 		characterLoaded = false;
 		character.setIsActive(false);
-		alert.setInactive();
+		currentAlert.setInactive();
 	}
 	
 	public static Alert getAlert() {
 		return alert;
+	}
+	
+	public static void setAlertLoadingCharacter()
+	{
+		if (currentAlert == loginQueueAlert)
+			loginQueueAlert.setInactive();
+		currentAlert = alert;
+		currentAlert.setText("Loading characters...");
+		currentAlert.setActive();
 	}
 	
 	public static void setAlert(String text) {
@@ -575,5 +599,45 @@ public class SelectScreen {
 	
 	public static void resetCharacterList() {
 		Arrays.fill(characterList, null);
+	}
+	
+	public static void joinedLoginQueue(int size)
+	{
+		loginQueuePosition = size;
+		loginQueueSize = size;
+		loginQueueJoinTimer = Mideas.getLoopTickTimer() - 1000;
+		loginQueuePositionString = Integer.toString(loginQueuePosition);
+		loginQueueSizeString = Integer.toString(loginQueueSize);
+		updateLoginQueueTimer();
+		updateLoginQueueAlertText();
+		loginQueueAlert.setActive();
+		if (currentAlert == alert)
+			alert.setInactive();
+		currentAlert = loginQueueAlert;
+	}
+	
+	public static void updateLoginQueueTimer()
+	{
+		if (loginQueueAlert.isActive() && loginQueueLastTimerUpdate + 1000 <= Mideas.getLoopTickTimer())
+		{
+			loginQueueTimeInQueueString = StringUtils.convertTimeToStringimple(Mideas.getLoopTickTimer() - loginQueueJoinTimer);
+			loginQueueLastTimerUpdate = Mideas.getLoopTickTimer();
+			updateLoginQueueAlertText();
+		}
+	}
+	
+	public static void updateLoginQueueAlertText()
+	{
+		loginQueueAlert.setText("Server is Full\nPosition in queue: " + loginQueuePositionString + "/" + loginQueueSizeString + "\nTime in queue: " + loginQueueTimeInQueueString);
+	}
+	
+	public static void updateLoginQueuePosition(int position, int size)
+	{
+		loginQueuePosition = position;
+		loginQueueSize = size;
+		loginQueuePositionString = Integer.toString(loginQueuePosition);
+		loginQueueSizeString = Integer.toString(loginQueueSize);
+		System.out.println("Login queue position updated " + position + ", " + size);
+		updateLoginQueueAlertText();		
 	}
 }

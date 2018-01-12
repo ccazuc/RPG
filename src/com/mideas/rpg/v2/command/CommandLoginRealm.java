@@ -15,6 +15,7 @@ public class CommandLoginRealm extends Command {
 			ConnectionManager.setIsLoggedOnWorldServer(true);
 			ConnectionManager.setWorldServer(RealmListFrame.getSelectedRealm());
 			SelectScreen.getAlert().setText("Loading characters...");
+			CommandSelectScreenLoadCharacters.write();
 			//SelectScreen.setRealmScreenActive(false);
 		}
 		else if (packetId == PacketID.LOGIN_REALM_DOESNT_ACCEPT_CONNECTION)

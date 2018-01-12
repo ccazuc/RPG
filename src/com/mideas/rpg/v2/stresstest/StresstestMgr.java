@@ -43,6 +43,18 @@ public class StresstestMgr {
 		}
 	}
 	
+	public static void removeClient(int number)
+	{
+		System.out.println("Client list size before: " + clientList.size());
+		int i = clientList.size();
+		while (--i >= 0 && --number >= 0 && -- currentClientId >= -1)
+		{
+			CommandLogout.write(clientList.get(i));
+			clientList.remove(i);
+		}
+		System.out.println("Client list size after: " + clientList.size());
+	}
+	
 	public static void readClient()
 	{
 		int i = -1;

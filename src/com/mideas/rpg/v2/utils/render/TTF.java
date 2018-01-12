@@ -226,7 +226,7 @@ public final class TTF {
 		drawStringPart(x, y, text, color, scaleX, scaleY, 1);
 	}
 	
-	public final void drawStringPart(final float x, final float y, final String text, final Color color, final float scaleX, final float scaleY, final float opacity) {
+	public final void drawStringPart(final float x, final float y, final String text, final Color color, final float scaleX, final float scaleY, final float opacity, final boolean ignoreNewLine) {
 		Char charObject;
 		float totalHeight = 0;
 		float totalWidth = 0;
@@ -235,7 +235,7 @@ public final class TTF {
 		OpenGL.glColor4f(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()*opacity);
 		while(++i < text.length()) {
 			currentChar = text.charAt(i);
-			if(currentChar == '\n') {
+			if(currentChar == '\n' && !ignoreNewLine) {
 				totalHeight+= this.lineHeight*scaleY;
 				totalWidth = 0;
 			}
@@ -343,7 +343,7 @@ public final class TTF {
 	public final void drawStringShadow(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity, final float scaleX, final float scaleY) {
 		bind();
 		OpenGL.glBegin(OpenGL.GL_QUADS);
-		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, opacity, 1, scaleX, scaleY);
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, opacity, 1, scaleX, scaleY, false);
 		OpenGL.glEnd();
 	}
 	
@@ -359,48 +359,52 @@ public final class TTF {
 	}
 	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize) {
-		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, 0, 0, 1, 1, 1, 1);
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, 0, 0, 1, 1, 1, 1, false);
 	}
 	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final float scaleX, final float scaleY) {
-		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, 0, 0, 1, 1, scaleX, scaleY);
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, 0, 0, 1, 1, scaleX, scaleY, false);
 	}
 	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final float opacity) {
-		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, 0, 0, opacity, 1, 1, 1);
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, 0, 0, opacity, 1, 1, 1, false);
 	}
 	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY) {
-		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, 1, 1, 1, 1);
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, 1, 1, 1, 1, false);
+	}
+	
+	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final boolean ignoreNewLine) {
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, 1, 1, 1, 1, ignoreNewLine);
 	}
 	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity, final float shadowOpacity) {
-		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, opacity, shadowOpacity, 1, 1);
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, opacity, shadowOpacity, 1, 1, false);
 	}
 	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final float opacity, final float scaleX, final float scaleY) {
-		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, 0, 0, opacity, 1, scaleX, scaleY);
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, 0, 0, opacity, 1, scaleX, scaleY, false);
 	}
 	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity) {
-		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, opacity, 1, 1, 1);
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, opacity, 1, 1, 1, false);
 	}
 	
 	/*public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float scaleX, final float scaleY) {
 		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, 1, 1, scaleX, scaleY);
 	}*/
 	
-	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity, final float shadowOpacity, final float scaleX, final float scaleY) {
+	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity, final float shadowOpacity, final float scaleX, final float scaleY, final boolean ignoreNewLine) {
 		float i = x-shadowSize+shadowX-1;
 		while(++i <= x+shadowSize+shadowX) {
 			float ii = y-shadowSize+shadowY-1;
 			while(++ii <= y+shadowSize+shadowY) {
 				if(Math.abs(i-x-shadowX) != Math.abs(ii-y-shadowY)) {
-					drawStringPart(i, ii, text, shadowColor, scaleX, scaleY, shadowOpacity);
+					drawStringPart(i, ii, text, shadowColor, scaleX, scaleY, shadowOpacity, ignoreNewLine);
 				}
 			}
 		}
-		drawStringPart(x, y, text, color, scaleX, scaleY, opacity);
+		drawStringPart(x, y, text, color, scaleX, scaleY, opacity, ignoreNewLine);
 	}
 	
 	public final void drawStringShadowPartReversed(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity, final float scaleX, final float scaleY) {

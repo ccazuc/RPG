@@ -30,6 +30,14 @@ public class CommandLogout extends Command {
 		}
 	}
 	
+	public static void logoutWorldServer()
+	{
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(LOGOUT);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
+	}
+	
 	public static void write(Stresstest client)
 	{
 		Connection worldConnection = client.getWorldServerConnection();
