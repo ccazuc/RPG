@@ -36,6 +36,7 @@ public class CommandLogout extends Command {
 		ConnectionManager.getWorldServerConnection().writeShort(LOGOUT);
 		ConnectionManager.getWorldServerConnection().endPacket();
 		ConnectionManager.getWorldServerConnection().send();
+		System.out.println("Logout sent to wordl server.");
 	}
 	
 	public static void write(Stresstest client)

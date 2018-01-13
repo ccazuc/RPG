@@ -13,13 +13,11 @@ public class CommandLoginQueue extends Command {
 		short packetId = ConnectionManager.getWorldServerConnection().readShort();
 		if (packetId == PacketID.LOGIN_QUEUE_JOINED)
 		{
-			System.out.println("Joined login queue");
 			int size =  ConnectionManager.getWorldServerConnection().readInt();
 			SelectScreen.joinedLoginQueue(size);
 		}
 		else if (packetId == PacketID.LOGIN_QUEUE_UPDATE_POSITION)
 		{
-			System.out.println("Login queue position updated");
 			int position = ConnectionManager.getWorldServerConnection().readInt();
 			int size = ConnectionManager.getWorldServerConnection().readInt();
 			SelectScreen.updateLoginQueuePosition(position, size);

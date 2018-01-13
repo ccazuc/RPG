@@ -132,7 +132,7 @@ public class RealmListFrame {
 	}
 	
 	static void connectToWorldServer() {
-		if (ConnectionManager.getWorldServer() != null)
+		if (ConnectionManager.getWorldServerConnection() != null)
 		{
 			CommandLogout.logoutWorldServer();
 			ConnectionManager.close();

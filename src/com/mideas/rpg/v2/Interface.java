@@ -43,6 +43,7 @@ import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
 import com.mideas.rpg.v2.hud.social.OsefFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
+import com.mideas.rpg.v2.stresstest.StresstestMgr;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
@@ -146,6 +147,9 @@ public class Interface {
 					containerDrawTime = System.nanoTime()-time;
 					LAST_CONTAINER_TIMER = System.currentTimeMillis();
 				}
+				if(chatFrameActive) {
+					ChatFrame.draw();
+				}
 				time = System.nanoTime();
 				if(socialFrameActive) {
 					SocialFrame.draw();
@@ -174,9 +178,6 @@ public class Interface {
 				}
 				if(BlackTemple.getBlackTempleStatus()) {
 					Dungeon.event();
-				}
-				if(chatFrameActive) {
-					ChatFrame.draw();
 				}
 				if(socketingFrameActive) {
 					SocketingFrame.draw();
@@ -379,6 +380,16 @@ public class Interface {
 						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "", false, false, true));
 						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, true, true));
 						auctionFrameActive = !auctionFrameActive;
+						return true;
+					}
+					if (Keyboard.getEventKey() == Keyboard.KEY_H)
+					{
+						StresstestMgr.addClient(100);
+						return true;
+					}
+					if (Keyboard.getEventKey() == Keyboard.KEY_J)
+					{
+						StresstestMgr.clearClient();
 						return true;
 					}
 					if(Keyboard.getEventKey() == Keyboard.KEY_C && !escapeFrameActive) {

@@ -145,7 +145,7 @@ public class CommandGuild extends Command {
 			}
 			member.setOnlineStatus(true);
 			member.updateLastLoginTimerString();
-			if(Mideas.joueur1().getFriend(id) == null) {
+			if(Mideas.joueur1().getFriend(id) == null && id != Mideas.joueur1().getId()) {
 				ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF, false));
 			}
 			Mideas.joueur1().getGuild().memberLoggedIn();

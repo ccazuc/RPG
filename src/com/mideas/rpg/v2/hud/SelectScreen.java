@@ -61,9 +61,9 @@ public class SelectScreen {
 	final static Input character = new Input(FontManager.get("FRIZQT", 21), 12, false, false);
 	final static Input deleteCharacter = new Input(FontManager.get("FRIZQT", 21), 8, false, false);
 	static boolean realmScreenActive = true;
-	private final static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 20, "Ok");
+	final static Alert alert = new Alert("", -355*Mideas.getDisplayXFactor(), -60*Mideas.getDisplayYFactor(), 700*Mideas.getDisplayXFactor(), 20, "Ok");
 	static Alert currentAlert = alert;
-	private final static Alert loginQueueAlert = new Alert("", -355 * Mideas.getDisplayXFactor(), -80 * Mideas.getDisplayYFactor(), 700 * Mideas.getDisplayXFactor(), 20, "Change realm")
+	final static Alert loginQueueAlert = new Alert("", -355 * Mideas.getDisplayXFactor(), -80 * Mideas.getDisplayYFactor(), 700 * Mideas.getDisplayXFactor(), 20, "Change realm")
 	{
 		
 		@Override
@@ -140,6 +140,11 @@ public class SelectScreen {
 	private final static Button changeRealmButton = new Button(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Change Realm", 16, 2) {
 		@Override
 		public void eventButtonClick() {
+			if (currentAlert == loginQueueAlert)
+			{
+				currentAlert = alert;
+				loginQueueAlert.setInactive();
+			}
 			currentAlert.setActive();
 			currentAlert.setText("Loading realm...");
 			CommandSendRealmList.requestRealm();
@@ -637,7 +642,6 @@ public class SelectScreen {
 		loginQueueSize = size;
 		loginQueuePositionString = Integer.toString(loginQueuePosition);
 		loginQueueSizeString = Integer.toString(loginQueueSize);
-		System.out.println("Login queue position updated " + position + ", " + size);
 		updateLoginQueueAlertText();		
 	}
 }

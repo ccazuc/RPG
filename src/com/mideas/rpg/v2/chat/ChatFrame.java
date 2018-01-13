@@ -116,10 +116,10 @@ public class ChatFrame {
 				Draw.drawColorQuad(45+cursorShift+FontManager.chat.getWidth(selectedType.getDefaultText()+currentMessageHeader), INPUT_BAR_Y+9*Mideas.getDisplayYFactor(), 4*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor(), selectedType.getColor());
 			}
 		}
-		if((Mideas.getHover() && (allResizing || widthResizing || heightResizing || hoverChatFrame)) && bgColor.alpha() < FRAME_MAXIMUM_OPACITY && Mideas.getLoopTickTimer()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER) {
+		if((allResizing || widthResizing || heightResizing || hoverChatFrame || hoverHeightResize || hoverWidthResize || hoverAllResize) && bgColor.alpha() < FRAME_MAXIMUM_OPACITY && Mideas.getLoopTickTimer()-lastHoverChatFrame >= FRAME_OPACITY_START_DECREASE_TIMER) {
 			bgColor.setAlpha(bgColor.alpha()+1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
 		}
-		else if((!Mideas.getHover() && (!hoverChatFrame && !allResizing && !widthResizing && !heightResizing)) && bgColor.alpha() > 0) {
+		else if(!hoverChatFrame && !allResizing && !widthResizing && !heightResizing && !hoverAllResize && !hoverHeightResize && !hoverWidthResize && bgColor.alpha() > 0) {
 			bgColor.setAlpha(bgColor.alpha()-1/(Mideas.FPS*FRAME_OPACITY_DECREASE_TIMER/1000f*FRAME_MAXIMUM_OPACITY));
 		}
 		if(messages.size() > MAXIMUM_MESSAGES) {
@@ -445,10 +445,12 @@ public class ChatFrame {
 		}
 		else if(Mideas.getHover() && Mideas.mouseX() >= 535+xResize && Mideas.mouseX() <= 545+xResize && Mideas.mouseY() >= Display.getHeight()-280-yResize && Mideas.mouseY() <= Display.getHeight()-150) {
 			hoverWidthResize = true;
+			Mideas.setHover(false);
 		}
-		else if(Mideas.mouseX() >= 30 && Mideas.mouseX() <= 545+xResize && Mideas.mouseY() >= Display.getHeight()-280-yResize && Mideas.mouseY() <= Display.getHeight()-165) {
+		else if(Mideas.getHover() && Mideas.mouseX() >= 30 && Mideas.mouseX() <= 545+xResize && Mideas.mouseY() >= Display.getHeight()-280-yResize && Mideas.mouseY() <= Display.getHeight()-165) {
 			lastHoverChatFrame = Mideas.getLoopTickTimer();
 			hoverChatFrame = true;
+			Mideas.setHover(false);
 		}
 		else {
 			hoverChatFrame = false;
@@ -1079,6 +1081,8 @@ public class ChatFrame {
 		if(numberUpArrow > 1) {
 			numberUpArrow--;
 			tempMessage = rawMessages.get(numberMessageSent-numberUpArrow);
+			cursorPosition = tempMessage.length();
+			cursorShift = FontManager.chat.getWidth(tempMessage);
 		}
 	}
 	
