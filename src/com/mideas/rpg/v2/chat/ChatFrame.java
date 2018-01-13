@@ -308,7 +308,7 @@ public class ChatFrame {
 					write(cc);
 					cursorPosition+= cc.length();
 					return true;
-	            }
+				}
 				else if(Keyboard.getEventKey() == 203) { //left arrow
 					CTRLleftArrow();
 					resetSelectedPosition();
@@ -352,6 +352,11 @@ public class ChatFrame {
 			if(Keyboard.getEventKey() == 211) { //suppr
 				suppr();
 				resetSelectedPosition();
+				return true;
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_TAB)
+			{
+				keyTabPressed();
 				return true;
 			}
 			if(Keyboard.getEventKey() != Keyboard.KEY_RETURN && Keyboard.getEventKey() != 156 && Keyboard.getEventKey() != Keyboard.KEY_LSHIFT && Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT) { //write
@@ -728,6 +733,16 @@ public class ChatFrame {
 		return false;
 	}
 	
+	public static void setTempMessage(String msg)
+	{
+		tempMessage = msg;
+		cursorPosition = msg.length();
+		cursorShift = FontManager.chat.getWidth(msg);
+		selectedLength = 0;
+		selectedQuadLength = 0;
+		selectedStarts = 0;
+	}
+	
 	public static void setWhisper(String name) {
 		currentMessageHeader = name+" : ";
 		selectedType = MessageType.WHISPER;
@@ -958,6 +973,22 @@ public class ChatFrame {
 			}
 		}
 		return false;
+	}
+	
+	private static void keyTabPressed()
+	{
+		if (tempMessage.length() < 4 || tempMessage.charAt(0) != '/')
+			return;
+		String msg = tempMessage.substring(1);
+		for (String string : ChatCommandMgr.getCommandMap().keySet())
+		{
+			if (string.startsWith(msg))
+			{
+				setTempMessage('/' + string);
+				return;
+			}
+			
+		}
 	}
 	
 	private static void leftArrow() {
