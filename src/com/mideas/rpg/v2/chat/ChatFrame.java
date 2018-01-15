@@ -681,7 +681,7 @@ public class ChatFrame {
 	}
 	
 	private static boolean checkNewMessageType(char c) {
-		if(tempMessage.length() == 2 && tempMessage.startsWith("/") && c == ' ') {
+		if(tempMessage.length() == 2 && tempMessage.charAt(0) == '/' && c == ' ') {
 			if(tempMessage.startsWith("/s")) {
 				selectedType = MessageType.SAY;
 				currentMessageHeader = "";
@@ -923,6 +923,7 @@ public class ChatFrame {
 		selectedStarts = 0;
 		tempLength = 0;
 		cursorShift = 0;
+		tempMessage = "";
 	}
 	
 	private static boolean CTRLleftArrow() {
@@ -987,7 +988,6 @@ public class ChatFrame {
 				setTempMessage('/' + string);
 				return;
 			}
-			
 		}
 	}
 	

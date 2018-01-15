@@ -1,0 +1,74 @@
+package com.mideas.rpg.v2.command;
+
+import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.connection.PacketID;
+import com.mideas.rpg.v2.game.item.Item;
+import com.mideas.rpg.v2.game.mail.Mail;
+import com.mideas.rpg.v2.game.mail.MailMgr;
+
+public class CommandMail extends Command {
+
+	@Override
+	public void read()
+	{
+		short packetId = ConnectionManager.getWorldServerConnection().readShort();
+		if (packetId == PacketID.MAIL_INIT)
+		{
+			int numberMail = ConnectionManager.getWorldServerConnection().readInt();
+			int i = -1;
+			while (++i < numberMail)
+			{
+				MailMgr.addMail(readMail());
+			}
+		}
+		else if (packetId == PacketID.MAIL_SEND)
+		{
+			
+		}
+		else if (packetId == PacketID.MAIL_DELETE)
+		{
+			long GUID = ConnectionManager.getWorldServerConnection().readLong();
+			MailMgr.removeMail(GUID);
+		}
+		else if (packetId == PacketID.MAIL_OPENED)
+		{
+			
+		}
+		else if (packetId == PacketID.MAIL_TAKE_ITEM)
+		{
+			
+		}
+		else if (packetId == PacketID.MAIL_RECEIVED)
+		{
+			MailMgr.addMail(readMail());
+		}
+	}
+	
+	public static Mail readMail()
+	{
+		long GUID = ConnectionManager.getWorldServerConnection().readLong();
+		long deleteDate = ConnectionManager.getWorldServerConnection().readLong();
+		String authorName = ConnectionManager.getWorldServerConnection().readString();
+		String title = ConnectionManager.getWorldServerConnection().readString();
+		String content = ConnectionManager.getWorldServerConnection().readString();
+		int gold = ConnectionManager.getWorldServerConnection().readInt();
+		boolean isCR = ConnectionManager.getWorldServerConnection().readBoolean();
+		byte template = ConnectionManager.getWorldServerConnection().readByte();
+		boolean read = ConnectionManager.getWorldServerConnection().readBoolean();
+		return (new Mail(GUID, deleteDate, authorName, title, content, gold, isCR, template, read));
+	}
+	
+	public static void sendMail(String destination, String title, String content, boolean isCr, int gold, Item[] itemList)
+	{
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL_SEND);
+		ConnectionManager.getWorldServerConnection().writeString(destination);
+		ConnectionManager.getWorldServerConnection().writeString(title);
+		ConnectionManager.getWorldServerConnection().writeString(content);
+		ConnectionManager.getWorldServerConnection().writeInt(gold);
+		ConnectionManager.getWorldServerConnection().writeBoolean(isCr);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
+	}
+}
