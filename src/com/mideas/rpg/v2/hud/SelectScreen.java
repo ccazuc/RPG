@@ -625,7 +625,7 @@ public class SelectScreen {
 	{
 		if (loginQueueAlert.isActive() && loginQueueLastTimerUpdate + 1000 <= Mideas.getLoopTickTimer())
 		{
-			loginQueueTimeInQueueString = StringUtils.convertTimeToStringimple(Mideas.getLoopTickTimer() - loginQueueJoinTimer);
+			loginQueueTimeInQueueString = StringUtils.convertTimeToStringSimple(Mideas.getLoopTickTimer() - loginQueueJoinTimer);
 			loginQueueLastTimerUpdate = Mideas.getLoopTickTimer();
 			updateLoginQueueAlertText();
 		}

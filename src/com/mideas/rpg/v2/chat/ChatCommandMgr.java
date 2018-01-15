@@ -8,6 +8,7 @@ import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.chat.CommandChannel;
+import com.mideas.rpg.v2.command.chat.CommandPlayed;
 import com.mideas.rpg.v2.stresstest.StresstestMgr;
 import com.mideas.rpg.v2.utils.StringUtils;
 
@@ -451,6 +452,15 @@ public class ChatCommandMgr {
 			Mideas.closeGame();
 		}
 	};
+	private final static ChatCommand played = new  ChatCommand("played", "Displays the time played on your character.")
+	{
+		
+		@Override
+		public void handle(String[] command)
+		{
+			CommandPlayed.requestPlayed();
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
@@ -484,6 +494,7 @@ public class ChatCommandMgr {
 		addCommand(stresstest);
 		addCommand(help);
 		addCommand(quit);
+		addCommand(played);
 	}
 	
 	public static void handleChatCommand(String str) {

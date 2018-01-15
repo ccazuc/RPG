@@ -40,7 +40,7 @@ public class StringUtils {
 		return c - 48;
 	}
 	
-	public static String convertTimeToStringimple(long delta) {
+	public static String convertTimeToStringSimple(long delta) {
 		String result = null;
 		if(delta >= MS_IN_A_YEAR) {
 			result = (delta/MS_IN_A_YEAR)+" year";
@@ -75,6 +75,78 @@ public class StringUtils {
 		else
 			result = "Less than a minute ago";
 		return result;
+	}
+	
+	public static String convertTimeToString(long delta) {
+		StringBuilder result = new StringBuilder();
+		boolean written = false;
+		if (delta >= MS_IN_A_YEAR)
+		{
+			result.append(delta / MS_IN_A_YEAR).append(" year");
+			if(delta / MS_IN_A_YEAR > 1)
+				result.append('s');
+			delta %= MS_IN_A_YEAR;
+			written = true;
+		}
+		if (delta >= MS_IN_A_MONTH)
+		{
+			if (written)
+				result.append(", ");
+			result.append(delta / MS_IN_A_MONTH).append(" month");
+			if(delta / MS_IN_A_MONTH > 1)
+				result.append('s');
+			delta %= MS_IN_A_MONTH;
+			written = true;
+		}
+		if (delta >= MS_IN_A_WEEK)
+		{
+			if (written)
+				result.append(", ");
+			result.append(delta / MS_IN_A_WEEK).append(" week");
+			if(delta / MS_IN_A_WEEK > 1)
+				result.append('s');
+			delta %= MS_IN_A_WEEK;
+			written = true;
+		}
+		if (delta >= MS_IN_A_DAY)
+		{
+			if (written)
+				result.append(", ");
+			result.append(delta / MS_IN_A_DAY).append(" day");
+			if(delta / MS_IN_A_DAY > 1)
+				result.append('s');
+			delta %= MS_IN_A_DAY;
+			written = true;
+		}
+		if (delta >= MS_IN_AN_HOUR)
+		{
+			if (written)
+				result.append(", ");
+			result.append(delta / MS_IN_AN_HOUR).append(" hour");
+			if(delta / MS_IN_AN_HOUR > 1)
+				result.append('s');
+			delta %= MS_IN_AN_HOUR;
+			written = true;
+		}
+		if (delta >= MS_IN_A_MINUTE)
+		{
+			if (written)
+				result.append(", ");
+			result.append(delta / MS_IN_A_MINUTE).append(" minute");
+			if(delta / MS_IN_A_MINUTE > 1)
+				result.append('s');
+			delta %= MS_IN_A_MINUTE;
+			written = true;
+		}
+		if (delta >= 1000)
+		{
+			if (written)
+				result.append(", ");
+			result.append(delta / 1000).append(" second");
+			if (delta / 1000> 1)
+				result.append('s');
+		}
+		return (result.toString());
 	}
 	
 	public static String removeSpaces(String str) {

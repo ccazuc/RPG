@@ -35,7 +35,7 @@ public class GuildEvent {
 	}
 	
 	private static String builderTimerString(long timer) {
-		return "("+StringUtils.convertTimeToStringimple(timer)+" ago)";
+		return "("+StringUtils.convertTimeToStringSimple(timer)+" ago)";
 	}
 	
 	private static String buildEventString(GuildJournalEventType type, String player1Name, String player2Name, String rankName) {

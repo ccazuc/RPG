@@ -25,6 +25,7 @@ import com.mideas.rpg.v2.command.CommandLoginQueue;
 import com.mideas.rpg.v2.command.CommandLoginRealm;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.command.CommandLogoutCharacter;
+import com.mideas.rpg.v2.command.CommandMail;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.command.CommandSelectScreenLoadCharacters;
@@ -41,6 +42,7 @@ import com.mideas.rpg.v2.command.chat.CommandDefaultMessage;
 import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
+import com.mideas.rpg.v2.command.chat.CommandPlayed;
 import com.mideas.rpg.v2.command.chat.CommandPlayerNotFound;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.command.item.CommandAuction;
@@ -69,9 +71,9 @@ public class ConnectionManager {
 	private static Connection authServerConnection;
 	private static SocketChannel authSocket;
 	private static SocketChannel socket;
-	private static HashMap<Short, Command> commandList = new HashMap<Short, Command>();
-	public static final String IP = "127.0.0.1";
-	public static final int AUTH_PORT = 5725;
+	private final static HashMap<Short, Command> commandList = new HashMap<Short, Command>();
+	public final static String IP = "127.0.0.1";
+	public final static int AUTH_PORT = 5725;
 	private static boolean init;
 	private static short worldLastReadedPacket;
 	private static short authLastReadedPacket;
@@ -128,6 +130,8 @@ public class ConnectionManager {
 		commandList.put(CHANNEL, new CommandChannel());
 		commandList.put(AUCTION, new CommandAuction());
 		commandList.put(LOGIN_QUEUE, new CommandLoginQueue());
+		commandList.put(MAIL, new CommandMail());
+		commandList.put(PLAYED, new CommandPlayed());
 	}
 
 	public static final boolean connectAuthServer() {

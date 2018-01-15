@@ -19,7 +19,7 @@ public class CommandLoadCharacter extends Command {
 			else
 			{
 				long duration = Mideas.getLoopTickTimer() - ConnectionManager.getWorldServerConnection().readLong();
-				SelectScreen.setAlert("This character is banned for "+StringUtils.convertTimeToStringimple(duration));
+				SelectScreen.setAlert("This character is banned for "+StringUtils.convertTimeToStringSimple(duration));
 			}
 		}
 		else if (packetId == PacketID.CHARACTER_LOGIN_SUCCESS)

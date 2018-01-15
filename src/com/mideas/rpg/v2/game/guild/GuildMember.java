@@ -50,7 +50,7 @@ public class GuildMember {
 	public void updateLastLoginTimerString() {
 		if(!this.isOnline) {
 			long delta = System.currentTimeMillis()-this.lastLoginTimer;
-			this.lastLoginTimerString = StringUtils.convertTimeToStringimple(delta);
+			this.lastLoginTimerString = StringUtils.convertTimeToStringSimple(delta);
 		}
 		else {
 			this.lastLoginTimerString = "Online";
