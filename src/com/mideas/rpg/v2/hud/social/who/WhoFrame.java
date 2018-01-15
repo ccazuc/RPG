@@ -561,11 +561,16 @@ public class WhoFrame {
 	
 	public static void addToList(WhoUnit unit) {
 		whoList.add(unit);
-		int i = 0;
+		/*int i = 0;
 		while(i < 70) {
 			whoList.add(new WhoUnit(3, "Test", "GuildTest", (int)(70*Math.random()), ClassType.DRUID, Race.DRAENEI));
 			i++;
-		}
+		}*/
 		whoList.add(new WhoUnit(3, "END", "EENNDD", 70, ClassType.DRUID, Race.DRAENEI));
+	}
+	
+	public static ArrayList<WhoUnit> getList()
+	{
+		return (whoList);
 	}
 } 

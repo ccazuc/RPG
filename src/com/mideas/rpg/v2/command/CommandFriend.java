@@ -83,22 +83,21 @@ public class CommandFriend extends Command {
 	}
 	
 	public static void addFriend(String name) {
-		if(Mideas.joueur1().getFriendList().size() < Joueur.MAXIMUM_AMOUNT_FRIENDS) {
-			if(!name.equals(Mideas.joueur1().getName())) {
-				ConnectionManager.getWorldServerConnection().startPacket();
-				ConnectionManager.getWorldServerConnection().writeShort(PacketID.FRIEND);
-				ConnectionManager.getWorldServerConnection().writeShort(PacketID.FRIEND_ADD);
-				ConnectionManager.getWorldServerConnection().writeString(name);
-				ConnectionManager.getWorldServerConnection().endPacket();
-				ConnectionManager.getWorldServerConnection().send();
-			}
-			else {
-				ChatFrame.addMessage(new Message("Can't add yourself as friend.", false, MessageType.SELF));
-			}
-		}
-		else {
+		if(Mideas.joueur1().getFriendList().size() >= Joueur.MAXIMUM_AMOUNT_FRIENDS) {
 			ChatFrame.addMessage(new Message("Your friendlist is full.", false, MessageType.SELF));
+			return;
 		}
+		if(name.equals(Mideas.joueur1().getName()))
+		{
+			ChatFrame.addMessage(new Message("You can't put yourself in your friends list.", false, MessageType.SELF));
+			return;
+		}
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.FRIEND);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.FRIEND_ADD);
+		ConnectionManager.getWorldServerConnection().writeString(name);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 	
 	public static void removeFriend(int id) {

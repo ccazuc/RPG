@@ -39,7 +39,6 @@ import com.mideas.rpg.v2.command.CommandUpdateStats;
 import com.mideas.rpg.v2.command.CommandWho;
 import com.mideas.rpg.v2.command.chat.CommandChannel;
 import com.mideas.rpg.v2.command.chat.CommandDefaultMessage;
-import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.command.chat.CommandListPlayer;
 import com.mideas.rpg.v2.command.chat.CommandNotAllowed;
 import com.mideas.rpg.v2.command.chat.CommandPlayed;
@@ -101,7 +100,7 @@ public class ConnectionManager {
 		commandList.put(SEND_SINGLE_BAG_ITEM, new CommandSendSingleBagItem());
 		commandList.put(CHAT_LIST_PLAYER, new CommandListPlayer());
 		commandList.put(LOAD_STATS, new CommandLoadStats());
-		commandList.put(CHAT_GET, new CommandGet());
+		//commandList.put(CHAT_GET, new CommandGet());
 		commandList.put(CHAT_NOT_ALLOWED, new CommandNotAllowed());
 		commandList.put(UPDATE_STATS, new CommandUpdateStats());
 		commandList.put(TRADE, new CommandTrade());

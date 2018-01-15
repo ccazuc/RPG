@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.chat.old;
+/*package com.mideas.rpg.v2.chat.old;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.chat.Message;
@@ -65,4 +65,4 @@ public class ChatCommandPlayerSet {
 			ChatCommandManager.UnknwownCommand();
 		}
 	}
-}
+}*/

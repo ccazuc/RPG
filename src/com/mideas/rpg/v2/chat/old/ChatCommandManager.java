@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.chat.old;
+/*package com.mideas.rpg.v2.chat.old;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
@@ -35,4 +35,4 @@ public class ChatCommandManager {
 	public static void UnknwownCommand() {
 		ChatFrame.addMessage(new Message("Unknown command. Type .help for help.", false, MessageType.SELF));
 	}
-}
+}*/

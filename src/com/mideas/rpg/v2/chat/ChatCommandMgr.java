@@ -7,6 +7,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandParty;
+import com.mideas.rpg.v2.command.CommandWho;
 import com.mideas.rpg.v2.command.chat.CommandChannel;
 import com.mideas.rpg.v2.command.chat.CommandPlayed;
 import com.mideas.rpg.v2.stresstest.StresstestMgr;
@@ -461,6 +462,19 @@ public class ChatCommandMgr {
 			CommandPlayed.requestPlayed();
 		}
 	};
+	private final static ChatCommand who = new  ChatCommand("who", "/who [args] to display list of players.")
+	{
+		
+		@Override
+		public void handle(String[] command)
+		{
+			StringBuilder builder = new StringBuilder();
+			int i = 0;
+			while (++i < command.length)
+				builder.append(command[i]);
+			CommandWho.write(builder.toString());
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
@@ -495,6 +509,7 @@ public class ChatCommandMgr {
 		addCommand(help);
 		addCommand(quit);
 		addCommand(played);
+		addCommand(who);
 	}
 	
 	public static void handleChatCommand(String str) {

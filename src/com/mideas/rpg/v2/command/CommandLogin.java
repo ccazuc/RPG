@@ -14,8 +14,6 @@ import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
-import com.mideas.rpg.v2.stresstest.Stresstest;
-import com.mideas.rpg.v2.stresstest.StresstestConnectionMgr;
 
 public class CommandLogin extends Command {
 

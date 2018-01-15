@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.chat.old;
+/*package com.mideas.rpg.v2.chat.old;
 
 import com.mideas.rpg.v2.command.chat.CommandGet;
 import com.mideas.rpg.v2.connection.PacketID;
@@ -25,4 +25,4 @@ public class ChatCommandPlayerGet {
 			}
 		}
 	}
-}
+}*/

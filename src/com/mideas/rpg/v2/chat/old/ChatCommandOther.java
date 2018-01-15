@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.chat.old;
+/*package com.mideas.rpg.v2.chat.old;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
@@ -150,4 +150,4 @@ public class ChatCommandOther {
 			}
 		}
 	}
-}
+}*/

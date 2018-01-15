@@ -5,7 +5,6 @@ import static com.mideas.rpg.v2.connection.PacketID.LOGOUT;
 import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.stresstest.Stresstest;
-import com.mideas.rpg.v2.stresstest.StresstestConnectionMgr;
 
 public class CommandLogout extends Command {
 

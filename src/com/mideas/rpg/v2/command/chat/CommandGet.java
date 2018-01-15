@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.command.chat;
+/*package com.mideas.rpg.v2.command.chat;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.chat.Message;
@@ -37,4 +37,4 @@ public class CommandGet extends Command {
 		ConnectionManager.getWorldServerConnection().endPacket();
 		ConnectionManager.getWorldServerConnection().send();
 	}
-}
+}*/

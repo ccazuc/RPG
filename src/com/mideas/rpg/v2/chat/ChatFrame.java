@@ -508,8 +508,7 @@ public class ChatFrame {
 							xAuthor+= FontManager.chat.getWidth(message.getAuthorText().charAt(k));
 							k++;
 						}
-						if(hasAuthor && Mideas.getHover() && Mideas.mouseX() >= xAuthor && Mideas.mouseX() <= xAuthor+FontManager.chat.getWidth(message.getAuthor()+"[]") && Mideas.mouseY() >= y && Mideas.mouseY() < y+FontManager.chat.getLineHeight()) {
-							Mideas.setHover(false);
+						if(hasAuthor && Mideas.mouseX() >= xAuthor && Mideas.mouseX() <= xAuthor+FontManager.chat.getWidth(message.getAuthor()+"[]") && Mideas.mouseY() >= y && Mideas.mouseY() < y+FontManager.chat.getLineHeight()) {
 							if(Mouse.getEventButton() == 0) {
 								if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 									if(chatActive) {
