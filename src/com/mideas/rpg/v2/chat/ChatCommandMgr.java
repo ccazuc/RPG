@@ -453,7 +453,7 @@ public class ChatCommandMgr {
 			Mideas.closeGame();
 		}
 	};
-	private final static ChatCommand played = new  ChatCommand("played", "Displays the time played on your character.")
+	private final static ChatCommand played = new ChatCommand("played", "Displays the time played on your character.")
 	{
 		
 		@Override
@@ -462,7 +462,7 @@ public class ChatCommandMgr {
 			CommandPlayed.requestPlayed();
 		}
 	};
-	private final static ChatCommand who = new  ChatCommand("who", "/who [args] to display list of players.")
+	private final static ChatCommand who = new ChatCommand("who", "/who [args] to display list of players.")
 	{
 		
 		@Override
@@ -473,6 +473,18 @@ public class ChatCommandMgr {
 			while (++i < command.length)
 				builder.append(command[i]);
 			CommandWho.write(builder.toString());
+		}
+	};
+	private final static ChatCommand mail = new ChatCommand("mail", "/mail to open or close the mailbox.")
+	{
+	
+		@Override
+		public void handle(String[] command)
+		{
+			if (Interface.isMailFrameOpen())
+				Interface.closeMailFrame();
+			else
+				Interface.openMailFrame();
 		}
 	};
 	
@@ -510,6 +522,7 @@ public class ChatCommandMgr {
 		addCommand(quit);
 		addCommand(played);
 		addCommand(who);
+		addCommand(mail);
 	}
 	
 	public static void handleChatCommand(String str) {

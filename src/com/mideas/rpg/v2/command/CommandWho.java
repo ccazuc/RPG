@@ -30,17 +30,24 @@ public class CommandWho extends Command {
 			ClassType classe = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			WhoFrame.addToList(new WhoUnit(id, name, guildName, level, classe, race));
 		}
-		if (WhoFrame.getList().size() <= 4 && WhoFrame.getList().size() > 0)
+		if (WhoFrame.getList().size() <= 4 && WhoFrame.getList().size() > 0 && !Interface.isSocialFrameActive())
 		{
 			int i = -1;
+			WhoUnit unit;
 			while (++i < WhoFrame.getList().size())
-				ChatFrame.addMessage(new Message(": Level " + WhoFrame.getList().get(i).getLevelString() + ' ' + WhoFrame.getList().get(i).getRace() + ' ' + WhoFrame.getList().get(i).getClasse() + " - Area", WhoFrame.getList().get(i).getName(), false, MessageType.SELF, false));
+			{
+				unit = WhoFrame.getList().get(i);
+				if (unit.getGuildName() != null && unit.getGuildName().length() != 0)
+					ChatFrame.addMessage(new Message(": Level " + unit.getLevelString() + ' ' + unit.getRace() + ' ' + unit.getClasse() + " <" + unit.getGuildName() + "> - Area", unit.getName(), false, MessageType.SELF, false));
+				else
+					ChatFrame.addMessage(new Message(": Level " + unit.getLevelString() + ' ' + unit.getRace() + ' ' + unit.getClasse() + " - Area", unit.getName(), false, MessageType.SELF, false));
+			}
 			if (WhoFrame.getList().size() == 1)
 				ChatFrame.addMessage(new Message("1 player total", false, MessageType.SELF));
 			else
 				ChatFrame.addMessage(new Message(WhoFrame.getList().size() + " players total", false, MessageType.SELF));
 		}
-		else
+		else if (WhoFrame.getList().size() > 0) 
 		{
 			SocialFrame.setSelectedMenu(SocialFrameMenu.WHO_FRAME);
 			Interface.setSocialFrameStatus(true);

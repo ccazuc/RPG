@@ -40,6 +40,7 @@ import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
+import com.mideas.rpg.v2.hud.mail.MailFrame;
 import com.mideas.rpg.v2.hud.social.OsefFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
@@ -78,6 +79,7 @@ public class Interface {
 	private static boolean socialFrameActive;
 	private static long time;
 	private static long socialDrawTime;
+	private static MailFrame mailFrame = new MailFrame();
 	
 	private static long LAST_CONTAINER_TIMER;
 	private final static int CONTAINER_TIMER_FREQUENCE = 1000;
@@ -135,6 +137,7 @@ public class Interface {
 				RedAlertFrame.draw();
 				SpellBarFrame.draw();
 				CastBar.event();
+				mailFrame.draw();
 				//SpellLevel.addSpell();
 				AuraFrame.draw();
 				long time = System.nanoTime();
@@ -266,6 +269,8 @@ public class Interface {
 			if(PopupFrame.mouseEvent()) {
 				return true;
 			}
+			if (mailFrame.mouseEvent())
+				return (true);
 			if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 				time = System.nanoTime();
 				if(ContainerFrame.mouseEvent()) {
@@ -767,6 +772,7 @@ public class Interface {
 		interfaceFrameActive = false;
 		dungeonFrameActive = false;
 		craftFrameActive = false;
+		mailFrame.onClose();
 		closeAuctionFrame();
 		ContainerFrame.setBagOpen(0, false);
 		ContainerFrame.setBagOpen(1, false);
@@ -780,5 +786,20 @@ public class Interface {
 				GuildFrame.resetFrame();
 			}
 		}
+	}
+	
+	public static void openMailFrame()
+	{
+		mailFrame.onOpen();
+	}
+	
+	public static void closeMailFrame()
+	{
+		mailFrame.onClose();
+	}
+	
+	public static boolean isMailFrameOpen()
+	{
+		return (mailFrame.isOpen());
 	}
 }

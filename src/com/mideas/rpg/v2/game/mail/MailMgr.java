@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class MailMgr {
 
 	private final static ArrayList<Mail> mailList = new ArrayList<Mail>();
+	public final static int SUBJECT_MAX_LENGTH = 55;
 	
 	public static void addMail(Mail mail)
 	{
