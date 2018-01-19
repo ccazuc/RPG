@@ -19,7 +19,7 @@ import com.mideas.rpg.v2.utils.CheckBox;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.DropDownMenu;
-import com.mideas.rpg.v2.utils.EditBox;
+import com.mideas.rpg.v2.utils.InputBox;
 import com.mideas.rpg.v2.utils.HorizontalBar;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.ScrollBar;
@@ -113,7 +113,7 @@ public class GuildFrame {
 			return false;
 		}
 	};*/
-	final static EditBox rankNameEditBox = new EditBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, 3, 140*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 12), false) {
+	final static InputBox rankNameEditBox = new InputBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, 3, 140*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 12), false) {
 		
 		@Override
 		public boolean keyEvent(char c) {

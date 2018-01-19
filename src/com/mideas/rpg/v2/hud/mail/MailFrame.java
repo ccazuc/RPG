@@ -11,6 +11,7 @@ public class MailFrame implements Frame {
 	private int x;
 	private int y;
 	private final MailInboxFrame inboxFrame;
+	private final MailSendMailFrame sendMailFrame;
 	private boolean shouldUpdateSize;
 	private Frame activeFrame;
 	private boolean shouldCloseBagOnClose;
@@ -21,7 +22,8 @@ public class MailFrame implements Frame {
 		this.x = (int)(FRAME_X * Mideas.getDisplayXFactor());
 		this.y = (int)(FRAME_Y * Mideas.getDisplayYFactor());
 		this.inboxFrame = new MailInboxFrame(this);
-		this.activeFrame = this.inboxFrame;
+		this.sendMailFrame = new MailSendMailFrame(this);
+		this.activeFrame = this.sendMailFrame;
 	}
 	
 	@Override
@@ -31,6 +33,7 @@ public class MailFrame implements Frame {
 			return;
 		updateSize();
 		this.inboxFrame.draw();
+		this.sendMailFrame.draw();
 	}
 	
 	@Override
@@ -40,6 +43,8 @@ public class MailFrame implements Frame {
 			return (false);
 		if (this.inboxFrame.mouseEvent())
 			return (true);
+		if (this.sendMailFrame.mouseEvent())
+			return (true);
 		return (false);
 	}
 	
@@ -48,6 +53,10 @@ public class MailFrame implements Frame {
 	{
 		if (!this.isOpen)
 			return (false);
+		if (this.inboxFrame.keyboardEvent())
+			return (true);
+		if (this.sendMailFrame.keyboardEvent())
+			return (true);
 		return (false);
 	}
 	
@@ -89,6 +98,7 @@ public class MailFrame implements Frame {
 		this.x = (int)(FRAME_X * Mideas.getDisplayXFactor());
 		this.y = (int)(FRAME_Y * Mideas.getDisplayYFactor());
 		this.inboxFrame.shouldUpdateSize();
+		this.sendMailFrame.shouldUpdateSize();
 		this.shouldUpdateSize = false;
 	}
 	
@@ -112,6 +122,11 @@ public class MailFrame implements Frame {
 	public MailInboxFrame getMailInboxFrame()
 	{
 		return (this.inboxFrame);
+	}
+	
+	public MailSendMailFrame getMailSendMailFrame()
+	{
+		return (this.sendMailFrame);
 	}
 	
 	public Frame getActiveFrame()

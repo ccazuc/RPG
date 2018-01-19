@@ -10,7 +10,7 @@ public class MailMgr {
 	
 	public static void addMail(Mail mail)
 	{
-		mailList.add(mail);
+		mailList.add(0, mail);
 	}
 	
 	public static void clearMailList()

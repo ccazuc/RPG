@@ -7,7 +7,7 @@ import com.mideas.rpg.v2.utils.render.TTF;
 
 import org.lwjgl.input.Mouse;
 
-public class EditBox {
+public class InputBox {
 
 	private final short textOffset;
 	private final short inputMaxWidth;
@@ -22,7 +22,7 @@ public class EditBox {
 	private final static byte CROSS_BUTTON_X_OFFSET = 18;
 	private final static byte CROSS_BUTTON_Y_OFFSET = 4;
 	
-	public EditBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton) {
+	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton) {
 		this.x = (short)x;
 		this.y = (short)y;
 		this.xSizeSave = (short)x_size;
@@ -34,12 +34,12 @@ public class EditBox {
 				
 				@Override
 				public boolean checkValue(int value) {
-					return EditBox.this.checkValue(value);
+					return InputBox.this.checkValue(value);
 				}
 				
 				@Override
 				public boolean keyEvent(char c) {
-					return EditBox.this.keyEvent(c);
+					return InputBox.this.keyEvent(c);
 				}
 			};
 		}
@@ -48,7 +48,7 @@ public class EditBox {
 				
 				@Override
 				public boolean keyEvent(char c) {
-					return EditBox.this.keyEvent(c);
+					return InputBox.this.keyEvent(c);
 				}
 			};
 		}
@@ -63,7 +63,7 @@ public class EditBox {
 				
 				@Override
 				public boolean activateCondition() {
-					return EditBox.this.input.isActive() || EditBox.this.input.getText().length() > 0;
+					return InputBox.this.input.isActive() || InputBox.this.input.getText().length() > 0;
 				}
 			};
 		}
@@ -72,7 +72,7 @@ public class EditBox {
 		}
 	}
 	
-	public EditBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput) {
+	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput) {
 		this(x, y, x_size, inputMaxLength, textOffset, inputMaxWidth, font, isIntegerInput, 2, 13, "", false);
 	}
 	
@@ -164,6 +164,11 @@ public class EditBox {
 	
 	public int getValue() {
 		return this.input.getTextValue();
+	}
+	
+	public void setCursorEndOfText()
+	{
+		this.input.setText(this.input.getText());
 	}
 	
 	@SuppressWarnings("unused")

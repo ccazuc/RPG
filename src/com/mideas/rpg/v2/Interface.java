@@ -536,6 +536,8 @@ public class Interface {
 							return true;
 						}
 					}
+					if (mailFrame.keyboardEvent())
+						return (true);
 					if(PopupFrame.keyEvent()) {
 						return true;
 					}
