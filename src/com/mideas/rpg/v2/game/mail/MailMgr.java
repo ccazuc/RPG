@@ -6,6 +6,7 @@ public class MailMgr {
 
 	private final static ArrayList<Mail> mailList = new ArrayList<Mail>();
 	public final static int SUBJECT_MAX_LENGTH = 55;
+	public final static int UPDATE_EXPIRE_TIMER_FREQUENCE = 60000;
 	
 	public static void addMail(Mail mail)
 	{
@@ -26,6 +27,24 @@ public class MailMgr {
 				mailList.remove(i);
 				return;
 			}
+	}
+	
+	public static void mailOpened(long GUID)
+	{
+		int i = -1;
+		while (++i < mailList.size())
+			if (mailList.get(i).getGUID() == GUID)
+			{
+				mailList.get(i).readed();
+				return;
+			}
+	}
+	
+	public static void updateMailExpireDateTimer()
+	{
+		int i = -1;
+		while (++i < mailList.size())
+			mailList.get(i).updateExpireDateString();
 	}
 	
 	public static ArrayList<Mail> getMailList()

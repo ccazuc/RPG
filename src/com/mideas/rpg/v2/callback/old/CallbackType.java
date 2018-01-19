@@ -1,4 +1,5 @@
-package com.mideas.rpg.v2.callback;
+package com.mideas.rpg.v2.callback.old;
+/*package com.mideas.rpg.v2.callback;
 
 public enum CallbackType {
 
@@ -22,4 +23,4 @@ public enum CallbackType {
 		return this.value;
 	}
 	
-}
+}*/

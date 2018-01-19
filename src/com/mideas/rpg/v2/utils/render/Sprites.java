@@ -370,6 +370,8 @@ public class Sprites {
 	public static Texture edit_box_cross_button_hover;
 	public static Texture edit_box;
 	public static Texture button_menu_sort;
+	public static Texture mail_inbox_frame;
+	public static Texture mail_opened_mail_frame;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -488,6 +490,8 @@ public class Sprites {
 		auction_browse_item_left_border = new Texture("sprite/interface/auction/browse_item_left_border.png");
 		auction_browse_item_middle_border = new Texture("sprite/interface/auction/browse_item_middle_border.png");
 		auction_browse_item_right_border = new Texture("sprite/interface/auction/browse_item_right_border.png");
+		mail_inbox_frame = new Texture("sprite/interface/mail/mail_inbox_frame.png");
+		mail_opened_mail_frame = new Texture("sprite/interface/mail/mail_opened_mail_frame.png");
 		return true;
 	}
 	

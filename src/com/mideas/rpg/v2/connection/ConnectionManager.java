@@ -11,6 +11,7 @@ import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.Command;
 import com.mideas.rpg.v2.command.CommandAddItem;
 import com.mideas.rpg.v2.command.CommandAura;
+import com.mideas.rpg.v2.command.CommandChangeGold;
 import com.mideas.rpg.v2.command.CommandCreateCharacter;
 import com.mideas.rpg.v2.command.CommandDeleteCharacter;
 import com.mideas.rpg.v2.command.CommandFriend;
@@ -131,6 +132,7 @@ public class ConnectionManager {
 		commandList.put(LOGIN_QUEUE, new CommandLoginQueue());
 		commandList.put(MAIL, new CommandMail());
 		commandList.put(PLAYED, new CommandPlayed());
+		commandList.put(CHANGE_GOLD, new CommandChangeGold());
 	}
 
 	public static final boolean connectAuthServer() {

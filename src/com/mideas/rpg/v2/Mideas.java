@@ -20,7 +20,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
-import com.mideas.rpg.v2.callback.CallbackManager;
 import com.mideas.rpg.v2.chat.ChatCommandMgr;
 import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.command.CommandLogout;
@@ -52,7 +51,6 @@ import com.mideas.rpg.v2.hud.EscapeFrame;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.PartyFrame;
 import com.mideas.rpg.v2.hud.PerformanceBarFrame;
-import com.mideas.rpg.v2.hud.PlayerPortraitFrame;
 import com.mideas.rpg.v2.hud.PopupFrame;
 import com.mideas.rpg.v2.hud.RealmListFrame;
 import com.mideas.rpg.v2.hud.SelectScreen;
@@ -196,8 +194,6 @@ public class Mideas {
 		//GemManager.loadGemSprites();
 		ConfigManager.initConfigMap();
 		ConfigManager.loadConfig();
-		CallbackManager.initCallbackList();
-		PlayerPortraitFrame.initCallback();
 		ChatConfigManager.initConfigMap();
 		StresstestMgr.initCommandMap();
 		StresstestConnectionMgr.initPacket();
@@ -307,6 +303,7 @@ public class Mideas {
 		SpellBarFrame.shouldUpdate();
 		AuraFrame.shouldUpdate();
 		AuctionHouseFrame.shouldUpdate();
+		Interface.getMailFrame().shouldUpdateSize();
 		if(joueur1 != null) {
 			if(joueur1.getFirstProfession() != null) {
 				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);

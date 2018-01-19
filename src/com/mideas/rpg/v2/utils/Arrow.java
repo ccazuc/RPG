@@ -23,8 +23,10 @@ public class Arrow {
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private boolean hasClicked;
+	private boolean lastActivateCondition;
 	
-	public Arrow(float x, float y, float x_size, float y_size, ArrowDirection direction) {
+	public Arrow(float x, float y, float x_size, float y_size, ArrowDirection direction)
+	{
 		initSprite(direction);
 		this.x = (short)x;
 		this.y = (short)y;
@@ -34,83 +36,104 @@ public class Arrow {
 		this.y_size = (short)(y_size*Mideas.getDisplayYFactor());
 	}
 
-	public Arrow(float x, float y, ArrowDirection direction) {
+	public Arrow(float x, float y, ArrowDirection direction)
+	{
 		this(x, y, Sprites.arrow_top.getImageWidth()*Mideas.getDisplayXFactor(), Sprites.arrow_top.getImageHeight()*Mideas.getDisplayYFactor(), direction);
 	}
 	
-	public void draw() {
-		if(!activateCondition()) {
+	public void draw()
+	{
+		if(!activateCondition())
+		{
 			Draw.drawQuad(this.disabledTexture, this.x, this.y, this.x_size, this.y_size);
 			return;
 		}
-		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
-		if(this.buttonHover) {
-			Draw.drawQuadBlend(this.hoverTexture, this.x, this.y, this.x_size, this.y_size);
+		if (!this.lastActivateCondition)
+		{
+			event();
+			this.lastActivateCondition = true;
 		}
+		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
+		if(this.buttonHover)
+			Draw.drawQuadBlend(this.hoverTexture, this.x, this.y, this.x_size, this.y_size);
 	}
 	
-	public boolean event() {
-		if(!activateCondition()) {
+	public boolean event()
+	{
+		if(!activateCondition())
+		{
+			this.lastActivateCondition = false;
 			return false;
 		}
-		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size)
+		{
 			this.buttonHover = true;
 			Mideas.setHover(false);
 		}
-		else {
+		else
 			this.buttonHover = false;
-		}
-		if(this.buttonHover) {
-			if(Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+		if(this.buttonHover)
+		{
+			if(Mouse.getEventButtonState()) 
+			{
+				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)
 					this.buttonDown = true;
-				}
 			}
 			else if(this.buttonDown) {
-				if(Mouse.getEventButton() == 0) {
+				if(Mouse.getEventButton() == 0)
+				{
 					this.buttonDown = false;
 					eventButtonClick();
 					this.hasClicked = true;
 					this.texture = this.defaultTexture;
+					if (!activateCondition())
+						this.buttonHover = false;
 					return true;
 				}
-				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)
+				{
 					this.buttonDown = false;
 					this.texture = this.defaultTexture;
 				}
 			}
 		}
-		else if(!Mouse.getEventButtonState()) {
-			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+		else if(!Mouse.getEventButtonState())
+		{
+			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)
+			{
 				this.buttonDown = false;
 				this.hasClicked = false;
 				this.texture = this.defaultTexture;
 			}
 		}
-		if(this.buttonDown) {
+		if(this.buttonDown)
 			this.texture = this.downTexture;
-		}
 		return false;
 	}
 	
-	public void setX(float x) {
+	public void setX(float x)
+	{
 		this.x = (short)x;
 	}
 	
-	public void setY(float y) {
+	public void setY(float y)
+	{
 		this.y = (short)y;
 	}
 	
-	public void setHoverFalse() {
+	public void setHoverFalse()
+	{
 		this.buttonHover = false;
 	}
 	
-	public void setButtonWidth(float width) {
+	public void setButtonWidth(float width)
+	{
 		this.x_size = (short)width;
 		this.x_size_save = (short)width;
 	}
 	
-	public void setButtonHeight(float height) {
+	public void setButtonHeight(float height)
+	{
 		this.y_size = (short)height;
 		this.y_size_save = (short)height;
 	}
@@ -119,19 +142,23 @@ public class Arrow {
 	protected boolean activateCondition() {return true;}
 	protected boolean hoverSpriteActivateCondition() {return false;}
 	
-	public boolean getButtonDown() {
+	public boolean getButtonDown()
+	{
 		return this.buttonDown;
 	}
 	
-	public boolean hasClicked() {
+	public boolean hasClicked()
+	{
 		return this.hasClicked;
 	}
 	
-	public boolean isHover() {
+	public boolean isHover()
+	{
 		return this.buttonHover;
 	}
 	
-	private void initSprite(ArrowDirection direction) {
+	private void initSprite(ArrowDirection direction)
+	{
 		if(direction == ArrowDirection.TOP) {
 			this.defaultTexture = Sprites.arrow_top;
 			this.downTexture = Sprites.arrow_top_down;
@@ -153,14 +180,16 @@ public class Arrow {
 		this.texture = this.defaultTexture;
 	}
 	
-	public void reset() {
+	public void reset()
+	{
 		this.buttonDown = false;
 		this.buttonHover = false;
 		this.hasClicked = false;
 		this.texture = this.defaultTexture;
 	}
 	
-	public void update(float x, float y) {
+	public void update(float x, float y)
+	{
 		this.x = (short)x;
 		this.y = (short)y;
 		this.x_size = (short)(this.x_size_save*Mideas.getDisplayXFactor());

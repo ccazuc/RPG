@@ -1,10 +1,13 @@
 package com.mideas.rpg.v2.hud.mail;
 
 import com.mideas.rpg.v2.Interface;
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.utils.Frame;
 
 public class MailFrame implements Frame {
 
+	private final static int FRAME_X = 7;
+	private final static int FRAME_Y = 105;
 	private int x;
 	private int y;
 	private final MailInboxFrame inboxFrame;
@@ -15,6 +18,8 @@ public class MailFrame implements Frame {
 	
 	public MailFrame()
 	{
+		this.x = (int)(FRAME_X * Mideas.getDisplayXFactor());
+		this.y = (int)(FRAME_Y * Mideas.getDisplayYFactor());
 		this.inboxFrame = new MailInboxFrame(this);
 		this.activeFrame = this.inboxFrame;
 	}
@@ -25,6 +30,7 @@ public class MailFrame implements Frame {
 		if (!this.isOpen)
 			return;
 		updateSize();
+		this.inboxFrame.draw();
 	}
 	
 	@Override
@@ -32,6 +38,8 @@ public class MailFrame implements Frame {
 	{
 		if (!this.isOpen)
 			return (false);
+		if (this.inboxFrame.mouseEvent())
+			return (true);
 		return (false);
 	}
 	
@@ -78,7 +86,10 @@ public class MailFrame implements Frame {
 	{
 		if (!this.shouldUpdateSize)
 			return;
-		this.inboxFrame.updateSize();
+		this.x = (int)(FRAME_X * Mideas.getDisplayXFactor());
+		this.y = (int)(FRAME_Y * Mideas.getDisplayYFactor());
+		this.inboxFrame.shouldUpdateSize();
+		this.shouldUpdateSize = false;
 	}
 	
 	@Override
@@ -91,6 +102,11 @@ public class MailFrame implements Frame {
 	public boolean isOpen()
 	{
 		return (this.isOpen);
+	}
+	
+	public void onMailReceived()
+	{
+		this.inboxFrame.onMailReceived();
 	}
 	
 	public MailInboxFrame getMailInboxFrame()

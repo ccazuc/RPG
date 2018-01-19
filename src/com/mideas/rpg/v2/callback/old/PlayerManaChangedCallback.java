@@ -1,4 +1,5 @@
-package com.mideas.rpg.v2.callback;
+package com.mideas.rpg.v2.callback.old;
+/*package com.mideas.rpg.v2.callback;
 
 import com.mideas.rpg.v2.Mideas;
 
@@ -11,4 +12,4 @@ public class PlayerManaChangedCallback implements Callback {
 			Mideas.joueur1().setHasManaChanged(false);
 		}
 	}
-}
+}*/

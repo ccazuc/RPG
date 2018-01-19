@@ -6,6 +6,7 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.CommandPing;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.guild.Guild;
+import com.mideas.rpg.v2.game.mail.MailMgr;
 
 public class TaskManager {
 
@@ -70,6 +71,22 @@ public class TaskManager {
 		@Override
 		public void action() {
 			Mideas.joueur1().getGuild().updateGuildTimer();
+		}
+	};
+	@SuppressWarnings("unused")
+	private final static Task mailUpdateExpireTimerTask = new Task(MailMgr.UPDATE_EXPIRE_TIMER_FREQUENCE)
+	{
+	
+		@Override
+		public boolean condition()
+		{
+			return (MailMgr.getMailList().size() != 0);
+		}
+		
+		@Override
+		public void action()
+		{
+			MailMgr.updateMailExpireDateTimer();
 		}
 	};
 	

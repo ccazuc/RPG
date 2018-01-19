@@ -396,9 +396,9 @@ public final class TTF {
 	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity, final float shadowOpacity, final float scaleX, final float scaleY, final boolean ignoreNewLine) {
 		float i = x-shadowSize+shadowX-1;
-		while(++i <= x+shadowSize+shadowX) {
+		while(++i < x+shadowSize+shadowX) {
 			float ii = y-shadowSize+shadowY-1;
-			while(++ii <= y+shadowSize+shadowY) {
+			while(++ii < y+shadowSize+shadowY) {
 				if(Math.abs(i-x-shadowX) != Math.abs(ii-y-shadowY)) {
 					drawStringPart(i, ii, text, shadowColor, scaleX, scaleY, shadowOpacity, ignoreNewLine);
 				}
@@ -422,9 +422,9 @@ public final class TTF {
 	
 	public final void drawStringShadowPartReversed(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY) {
 		float i = x-shadowSize+shadowX-1;
-		while(++i <= x+shadowSize+shadowX) {
+		while(++i < x+shadowSize+shadowX) {
 			float ii = y-shadowSize+shadowY-1;
-			while(++ii <= y+shadowSize+shadowY) {
+			while(++ii < y+shadowSize+shadowY) {
 				if(Math.abs(i-x-shadowX) != Math.abs(ii-y-shadowY)) {
 					drawStringPartReversed(i, ii, text, shadowColor, 1, 1, 1);
 				}

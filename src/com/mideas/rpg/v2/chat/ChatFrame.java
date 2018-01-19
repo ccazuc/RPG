@@ -306,7 +306,6 @@ public class ChatFrame {
 				else if(Keyboard.getEventKey() == Keyboard.KEY_V) { // c/c
 					String cc = Sys.getClipboard().replace("\n", "").replace("\t", "").replace("\r", "");
 					write(cc);
-					cursorPosition+= cc.length();
 					return true;
 				}
 				else if(Keyboard.getEventKey() == 203) { //left arrow
@@ -1221,16 +1220,16 @@ public class ChatFrame {
 	}
 	
 	private static void write(String add) {
-		if(cursorPosition == tempMessage.length()) {
-			tempMessage+= add;
+		if(cursorPosition == tempMessage.length())
+			tempMessage += add;
+		else
+		{
+			String beg = tempMessage.substring(0, cursorPosition + tempMessage.substring(0, tempLength).length());
+			String end = tempMessage.substring(cursorPosition + tempMessage.substring(0, tempLength).length(), tempMessage.length());
+			tempMessage = beg + add + end;
 		}
-		else {
-			String beg = tempMessage.substring(0, cursorPosition+tempMessage.substring(0, tempLength).length());
-			String end = tempMessage.substring(cursorPosition+tempMessage.substring(0, tempLength).length(), tempMessage.length());
-			tempMessage = beg+add+end;
-		}
-		cursorShift+= FontManager.chat.getWidth(add);
-		cursorPosition+= add.length();
+		cursorShift += FontManager.chat.getWidth(add);
+		cursorPosition += add.length();
 		lastKeyPressedTimer = Mideas.getLoopTickTimer();
 	}
 	

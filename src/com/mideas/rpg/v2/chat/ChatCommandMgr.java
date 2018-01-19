@@ -6,6 +6,7 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.channel.ChannelMgr;
 import com.mideas.rpg.v2.command.CommandGuild;
+import com.mideas.rpg.v2.command.CommandMail;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.command.CommandWho;
 import com.mideas.rpg.v2.command.chat.CommandChannel;
@@ -481,10 +482,32 @@ public class ChatCommandMgr {
 		@Override
 		public void handle(String[] command)
 		{
-			if (Interface.isMailFrameOpen())
-				Interface.closeMailFrame();
+			if (command.length == 1)
+				if (Interface.isMailFrameOpen())
+					Interface.closeMailFrame();
+				else
+					Interface.openMailFrame();
 			else
-				Interface.openMailFrame();
+			{
+				int i = 0;
+				while(i < this.subCommandList.size()) {
+					if(this.subCommandList.get(i).getName().equalsIgnoreCase(command[1])) {
+						this.subCommandList.get(i).handle(command);
+						return;
+					}
+					i++;
+				}
+				ChatFrame.addMessage(new Message("Mail has no such subcommand.", false, MessageType.SELF));
+			}
+		}
+	};
+	private final static ChatSubCommand mail_debug = new ChatSubCommand("debug", "mail", "/mail debug to send a mail to yourself.")
+	{
+	
+		@Override
+		public void handle(String[] command)
+		{
+			CommandMail.sendMail(Mideas.joueur1().getName(), "Test", "Ceci est un test.", false, 0, null);
 		}
 	};
 	
@@ -523,6 +546,7 @@ public class ChatCommandMgr {
 		addCommand(played);
 		addCommand(who);
 		addCommand(mail);
+		mail.addSubCommand(mail_debug);
 	}
 	
 	public static void handleChatCommand(String str) {

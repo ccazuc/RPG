@@ -1,10 +1,6 @@
 package com.mideas.rpg.v2.hud;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.callback.CallbackManager;
-import com.mideas.rpg.v2.callback.CallbackType;
-import com.mideas.rpg.v2.callback.PlayerHealthChangedCallback;
-import com.mideas.rpg.v2.callback.PlayerManaChangedCallback;
 import com.mideas.rpg.v2.game.unit.Unit;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.utils.Color;
@@ -14,13 +10,6 @@ import com.mideas.rpg.v2.utils.render.Sprites;
 public class PlayerPortraitFrame {
 	
 	private final static Color backgroundColors = new Color(0, 0, 0, .4f);
-	private final static PlayerHealthChangedCallback playerHealthChangedCallback = new PlayerHealthChangedCallback();
-	private final static PlayerManaChangedCallback playerManaChangedCallback = new PlayerManaChangedCallback();
-	
-	public static void initCallback() {
-		CallbackManager.registerCallback(CallbackType.PLAYER_HEALTH_CHANGED, playerHealthChangedCallback);
-		CallbackManager.registerCallback(CallbackType.PLAYER_MANA_CHANGED, playerManaChangedCallback);
-	}
 	
 	public static void draw(Unit joueur, float x, float y) {
 		Draw.drawColorQuad(x+70*Mideas.getDisplayXFactor(), y+15*Mideas.getDisplayYFactor(), 120*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayXFactor(), backgroundColors);

@@ -125,8 +125,8 @@ public class Interface {
 					//Mideas.joueur1().loadSpellbar();
 				}
 				if(Mideas.joueur1().getTarget() != null) {
-					PlayerPortraitFrame.draw(Mideas.joueur1().getTarget(), 320*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayYFactor());
-					PlayerPortraitFrame.draw(Mideas.joueur1(), 50*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayYFactor());
+					PlayerPortraitFrame.draw(Mideas.joueur1().getTarget(), 270*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
+					PlayerPortraitFrame.draw(Mideas.joueur1(), 31*Mideas.getDisplayXFactor(), 13*Mideas.getDisplayYFactor());
 					if((Mideas.joueur1().getStamina() <= 0 || Mideas.joueur1().getTarget().getStamina() <= 0) && !Dungeon.dungeonActive()) {
 						EndFightFrame.draw();
 					}
@@ -801,5 +801,10 @@ public class Interface {
 	public static boolean isMailFrameOpen()
 	{
 		return (mailFrame.isOpen());
+	}
+	
+	public static MailFrame getMailFrame()
+	{
+		return (mailFrame);
 	}
 }

@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.command;
 
+import com.mideas.rpg.v2.callback.CallbackManager;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.Item;
@@ -12,14 +13,17 @@ public class CommandMail extends Command {
 	public void read()
 	{
 		short packetId = ConnectionManager.getWorldServerConnection().readShort();
+		System.out.println("CommandMail");
 		if (packetId == PacketID.MAIL_INIT)
 		{
 			int numberMail = ConnectionManager.getWorldServerConnection().readInt();
+			System.out.println("Mal init size: " + numberMail);
 			int i = -1;
 			while (++i < numberMail)
 			{
 				MailMgr.addMail(readMail());
 			}
+			CallbackManager.onMailReceived();
 		}
 		else if (packetId == PacketID.MAIL_SEND)
 		{
@@ -32,7 +36,8 @@ public class CommandMail extends Command {
 		}
 		else if (packetId == PacketID.MAIL_OPENED)
 		{
-			
+			long GUID = ConnectionManager.getWorldServerConnection().readLong();
+			MailMgr.mailOpened(GUID);
 		}
 		else if (packetId == PacketID.MAIL_TAKE_ITEM)
 		{
@@ -41,6 +46,7 @@ public class CommandMail extends Command {
 		else if (packetId == PacketID.MAIL_RECEIVED)
 		{
 			MailMgr.addMail(readMail());
+			CallbackManager.onMailReceived();
 		}
 	}
 	
@@ -68,6 +74,16 @@ public class CommandMail extends Command {
 		ConnectionManager.getWorldServerConnection().writeString(content);
 		ConnectionManager.getWorldServerConnection().writeInt(gold);
 		ConnectionManager.getWorldServerConnection().writeBoolean(isCr);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
+	}
+	
+	public static void mailOpened(Mail mail)
+	{
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL_OPENED);
+		ConnectionManager.getWorldServerConnection().writeLong(mail.getGUID());
 		ConnectionManager.getWorldServerConnection().endPacket();
 		ConnectionManager.getWorldServerConnection().send();
 	}

@@ -4,30 +4,35 @@ import com.mideas.rpg.v2.Mideas;
 
 public class Task {
 
-	private int frequence;
+	private final int frequence;
 	private long lastTick;
 	
-	public Task(int frequence) {
+	public Task(int frequence)
+	{
 		this.frequence = frequence;
 		TaskManager.addTask(this);
 	}
 	
-	public final void event() {
+	public final void event()
+	{
 		if(condition() && Mideas.getLoopTickTimer()-getLastTickTimer() >= this.frequence) {
 			action();
 			this.lastTick = Mideas.getLoopTickTimer();
 		}
 	}
 	
-	public long getLastTickTimer() {
-		return this.lastTick;
+	public long getLastTickTimer()
+	{
+		return (this.lastTick);
 	}
 	
-	public void setLastTickTimer(long timer) {
+	public void setLastTickTimer(long timer)
+	{
 		this.lastTick = timer;
 	}
 	
-	public boolean condition() {
+	public boolean condition()
+	{
 		return true;
 	}
 	
