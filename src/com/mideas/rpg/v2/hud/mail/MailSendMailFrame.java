@@ -266,8 +266,20 @@ public class MailSendMailFrame implements Frame
 	}
 	
 	@Override
+	public void setX(int x)
+	{
+		
+	}
+	
+	@Override
 	public int getY()
 	{
 		return (this.frame.getY());
 	}
+	
+	@Override
+	public void setY(int y)
+	{
+		
+	}	
 }

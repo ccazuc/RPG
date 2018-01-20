@@ -323,7 +323,7 @@ public class Input
 	public static boolean hasInputActive() 
 	{
 		int i = -1;
-		while(i < inputList.size())
+		while(++i < inputList.size())
 			if(inputList.get(i).isActive)
 				return true;
 		return ChatFrame.getChatActive();

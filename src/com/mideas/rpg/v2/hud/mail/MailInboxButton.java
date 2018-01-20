@@ -90,7 +90,7 @@ public class MailInboxButton {
 	
 	public void drawHover()
 	{
-		if (this.frame.getOpenedMail() == this.mail)
+		if (this.frame.getParentFrame().getOpenedMail() == this.mail)
 			Draw.drawQuadBlend(Sprites.bag_open_border, this.buttonX - 1, this.buttonY - 1, this.buttonWidth + 2, this.buttonHeight + 2);
 		if (this.isMouseHover)
 			Draw.drawQuadBlend(Sprites.button_hover_spellbar, this.buttonX - 1, this.buttonY - 1, this.buttonWidth + 2, this.buttonHeight + 2);
@@ -150,7 +150,7 @@ public class MailInboxButton {
 	
 	public void onClick()
 	{
-		this.frame.setOpenedMail(this.mail);
+		this.frame.getParentFrame().setOpenedMail(this.mail);
 	}
 	
 	public void updateSize()
