@@ -152,6 +152,45 @@ public class Input
 		}
 	}
 	
+	public void drawTextPart()
+	{
+		int i = 0;
+		if(this.multipleLine) {
+			
+		}
+		else
+		{
+			float x = this.xDraw+this.xDefault;
+			if(this.text.length() == 0)
+				this.font.drawStringShadowPart(x, this.y, this.defaultText, Color.DARKGREY, Color.BLACK, 1, 0, 0);
+			else
+			{
+				while(i < this.text.length())
+				{
+					if(x >= this.xDefault)
+					{
+						this.font.drawCharPart(x+1, this.y, this.text.charAt(i), Color.BLACK);
+						this.font.drawCharPart(x, this.y, this.text.charAt(i), Color.WHITE);
+					}
+					x+= this.font.getWidth(this.text.charAt(i));
+					if(x >= this.xDefault+this.maxWidth || (i < this.text.length()-1 && x+this.font.getWidth(this.text.charAt(i)) >= this.xDefault+this.maxWidth))
+						break;
+					i++;
+				}
+			}
+			if(!this.isActive)
+				return;
+		}
+	}
+	
+	public void drawCursorPart()
+	{
+		if(!this.isActive)
+			return;
+		if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) 
+			Draw.drawColorQuadPart(this.xDraw+this.cursorShift+this.xDefault, this.y+1, this.cursorWidth, this.cursorHeight, Color.WHITE);
+	}
+	
 	public boolean event()
 	{
 		if(!this.isActive)

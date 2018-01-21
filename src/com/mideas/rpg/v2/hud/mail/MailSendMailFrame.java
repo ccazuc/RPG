@@ -31,135 +31,63 @@ public class MailSendMailFrame implements Frame
 	private final static short COPPER_INPUT_BOX_X = 162;
 	private final static short COPPER_INPUT_BOX_Y = 379;
 	private final static short COPPER_INPUT_BOX_WIDTH = 45;
+	private final static short CUROSR_WIDTH = 5;
+	private final static short CUROSR_HEIGHT = 14;
 	private final static TTF EDIT_BOX_FONT = FontManager.get("ARIALN", 14);
-	final InputBox senderNameInputBox = new InputBox(0, 0, SENDER_NAME_INPUT_BOX_WIDTH, 10, 8, SENDER_NAME_INPUT_BOX_WIDTH, EDIT_BOX_FONT, false, 5, 14, "", false)
+	final InputBox senderNameInputBox = new InputBox(this, SENDER_NAME_INPUT_BOX_X, SENDER_NAME_INPUT_BOX_Y, SENDER_NAME_INPUT_BOX_WIDTH, 10, 8, SENDER_NAME_INPUT_BOX_WIDTH, EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
 	{
 		
 		@Override
 		public boolean keyEvent(char c)
 		{
-			if (c == Input.ENTER_CHAR_VALUE || (c == Input.TAB_CHAR_VALUE && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				MailSendMailFrame.this.subjectInputBox.setActive(true);
-				return (true);
-			}
-			if (c == Input.TAB_CHAR_VALUE && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				return (true);
-			}
-			if (c == Input.ESCAPE_CHAR_VALUE)
-			{
-				setActive(false);
-				return (true);
-			}
-			return (false);
+			return (handleInputTab(this, MailSendMailFrame.this.subjectInputBox, MailSendMailFrame.this.copperInputBox, c));
 		}
 	};
-	final InputBox subjectInputBox = new InputBox(0, 0, SUBJECT_INPUT_BOX_WIDTH, 60, 8, SUBJECT_INPUT_BOX_WIDTH - 20, EDIT_BOX_FONT, false, 5, 14, "", false)
+	final InputBox subjectInputBox = new InputBox(this, SUBJECT_INPUT_BOX_X, SUBJECT_INPUT_BOX_Y, SUBJECT_INPUT_BOX_WIDTH, 60, 8, SUBJECT_INPUT_BOX_WIDTH - 20, EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
 	{
 		
 		@Override
 		public boolean keyEvent(char c)
 		{
-			if (c == Input.ENTER_CHAR_VALUE || (c == Input.TAB_CHAR_VALUE && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				//InputBox.setActive(true);
-				return (true);
-			}
-			if (c == Input.TAB_CHAR_VALUE && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				MailSendMailFrame.this.senderNameInputBox.setActive(true);
-				return (true);
-			}
-			if (c == Input.ESCAPE_CHAR_VALUE)
-			{
-				setActive(false);
-				return (true);
-			}
-			return (false);
+			return (handleInputTab(this, MailSendMailFrame.this.goldInputBox, MailSendMailFrame.this.senderNameInputBox, c));
 		}
 	};
-	final InputBox goldInputBox = new InputBox(0, 0, GOLD_INPUT_BOX_WIDTH, 6, 8, GOLD_INPUT_BOX_WIDTH - 10, EDIT_BOX_FONT, true, 5, 14, "", false)
+	final InputBox goldInputBox = new InputBox(this, GOLD_INPUT_BOX_X, GOLD_INPUT_BOX_Y, GOLD_INPUT_BOX_WIDTH, 6, 8, GOLD_INPUT_BOX_WIDTH - 10, EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
 	{
 		
 		@Override
 		public boolean keyEvent(char c)
 		{
-			if (c == Input.ENTER_CHAR_VALUE || (c == Input.TAB_CHAR_VALUE && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				MailSendMailFrame.this.silverInputBox.setActive(true);
-				return (true);
-			}
-			if (c == Input.TAB_CHAR_VALUE && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				MailSendMailFrame.this.senderNameInputBox.setActive(true);
-				return (true);
-			}
-			if (c == Input.ESCAPE_CHAR_VALUE)
-			{
-				setActive(false);
-				return (true);
-			}
-			return (false);
+			return (handleInputTab(this, MailSendMailFrame.this.silverInputBox, MailSendMailFrame.this.subjectInputBox, c));
 		}
 	};
-	final InputBox silverInputBox = new InputBox(0, 0, SILVER_INPUT_BOX_WIDTH, 2, 8, SILVER_INPUT_BOX_WIDTH - 10, EDIT_BOX_FONT, true, 5, 14, "", false)
+	final InputBox silverInputBox = new InputBox(this, SILVER_INPUT_BOX_X, SILVER_INPUT_BOX_Y, SILVER_INPUT_BOX_WIDTH, 2, 8, SILVER_INPUT_BOX_WIDTH - 10, EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
 	{
 		
 		@Override
 		public boolean keyEvent(char c)
 		{
-			if (c == Input.ENTER_CHAR_VALUE || (c == Input.TAB_CHAR_VALUE && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				MailSendMailFrame.this.copperInputBox.setActive(true);
-				return (true);
-			}
-			if (c == Input.TAB_CHAR_VALUE && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				MailSendMailFrame.this.goldInputBox.setActive(true);
-				return (true);
-			}
-			if (c == Input.ESCAPE_CHAR_VALUE)
-			{
-				setActive(false);
-				return (true);
-			}
-			return (false);
+			return (handleInputTab(this, MailSendMailFrame.this.copperInputBox, MailSendMailFrame.this.goldInputBox, c));
 		}
 	};
-	final InputBox copperInputBox = new InputBox(0, 0, COPPER_INPUT_BOX_WIDTH, 2, 8, COPPER_INPUT_BOX_WIDTH - 10, EDIT_BOX_FONT, true, 5, 14, "", false)
+	final InputBox copperInputBox = new InputBox(this, COPPER_INPUT_BOX_X, COPPER_INPUT_BOX_Y, COPPER_INPUT_BOX_WIDTH, 2, 8, COPPER_INPUT_BOX_WIDTH - 10, EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
 	{
 		
 		@Override
 		public boolean keyEvent(char c)
 		{
-			if (c == Input.ENTER_CHAR_VALUE || (c == Input.TAB_CHAR_VALUE && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				MailSendMailFrame.this.senderNameInputBox.setActive(true);
-				return (true);
-			}
-			if (c == Input.TAB_CHAR_VALUE && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
-			{
-				MailSendMailFrame.this.silverInputBox.setActive(true);
-				return (true);
-			}
-			if (c == Input.ESCAPE_CHAR_VALUE)
-			{
-				setActive(false);
-				return (true);
-			}
-			return (false);
+			return (handleInputTab(this, MailSendMailFrame.this.senderNameInputBox, MailSendMailFrame.this.silverInputBox, c));
 		}
 	};
 	
 	public MailSendMailFrame(MailFrame frame)
 	{
 		this.frame = frame;
-		this.senderNameInputBox.update(this.frame.getX() + SENDER_NAME_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + SENDER_NAME_INPUT_BOX_Y * Mideas.getDisplayYFactor());
-		this.subjectInputBox.update(this.frame.getX() + SUBJECT_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + SUBJECT_INPUT_BOX_Y * Mideas.getDisplayYFactor());
-		this.goldInputBox.update(this.frame.getX() + GOLD_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + GOLD_INPUT_BOX_Y * Mideas.getDisplayYFactor());
-		this.silverInputBox.update(this.frame.getX() + SILVER_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + SILVER_INPUT_BOX_Y * Mideas.getDisplayYFactor());
-		this.copperInputBox.update(this.frame.getX() + COPPER_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + COPPER_INPUT_BOX_Y * Mideas.getDisplayYFactor());
+		this.senderNameInputBox.initParentFrame(this);
+		this.subjectInputBox.initParentFrame(this);
+		this.goldInputBox.initParentFrame(this);
+		this.silverInputBox.initParentFrame(this);
+		this.copperInputBox.initParentFrame(this);
 	}
 	
 	@Override
@@ -247,15 +175,35 @@ public class MailSendMailFrame implements Frame
 		this.shouldUpdateSize = true;
 	}
 	
+	public boolean handleInputTab(InputBox currentBox, InputBox onTabPressed, InputBox onShiftTabPressed, char c)
+	{
+		if (c == Input.ENTER_CHAR_VALUE || (c == Input.TAB_CHAR_VALUE && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
+		{
+			onTabPressed.setActive(true);
+			return (true);
+		}
+		if (c == Input.TAB_CHAR_VALUE && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)))
+		{
+			onShiftTabPressed.setActive(true);
+			return (true);
+		}
+		if (c == Input.ESCAPE_CHAR_VALUE)
+		{
+			currentBox.setActive(false);
+			return (true);
+		}
+		return (false);
+	}
+	
 	public void updateSize()
 	{
 		if (!this.shouldUpdateSize)
 			return;
-		this.senderNameInputBox.update(this.frame.getX() + SENDER_NAME_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + SENDER_NAME_INPUT_BOX_Y * Mideas.getDisplayYFactor());
-		this.subjectInputBox.update(this.frame.getX() + SUBJECT_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + SUBJECT_INPUT_BOX_Y * Mideas.getDisplayYFactor());
-		this.goldInputBox.update(this.frame.getX() + GOLD_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + GOLD_INPUT_BOX_Y * Mideas.getDisplayYFactor());
-		this.silverInputBox.update(this.frame.getX() + SILVER_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + SILVER_INPUT_BOX_Y * Mideas.getDisplayYFactor());
-		this.copperInputBox.update(this.frame.getX() + COPPER_INPUT_BOX_X * Mideas.getDisplayXFactor(), this.frame.getY() + COPPER_INPUT_BOX_Y * Mideas.getDisplayYFactor());
+		this.senderNameInputBox.updateSize();
+		this.subjectInputBox.updateSize();
+		this.goldInputBox.updateSize();
+		this.silverInputBox.updateSize();
+		this.copperInputBox.updateSize();
 		this.shouldUpdateSize = false;
 	}
 	
@@ -281,5 +229,21 @@ public class MailSendMailFrame implements Frame
 	public void setY(int y)
 	{
 		
-	}	
+	}
+	
+	public void setTargetName(String name)
+	{
+		this.senderNameInputBox.setText(name);
+	}
+	
+	public void setSubject(String subject)
+	{
+		this.subjectInputBox.setText(subject);
+	}
+	
+	@Override
+	public String getName()
+	{
+		return ("MailSendMailFrame");
+	}
 }

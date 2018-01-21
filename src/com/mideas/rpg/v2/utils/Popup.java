@@ -16,9 +16,9 @@ public class Popup {
 	protected Button cancelButton;
 	protected int textWidth;
 	protected boolean isActive;
-	protected final static int BUTTON_WIDTH = 135;
-	protected final static int BUTTON_HEIGHT = 24;
-	protected final static int TEXT_FONT_SIZE = 13;
+	protected final static short BUTTON_WIDTH = 135;
+	protected final static short BUTTON_HEIGHT = 24;
+	protected final static byte TEXT_FONT_SIZE = 13;
 	protected final static TTF textFont = FontManager.get("FRIZQT", TEXT_FONT_SIZE);
 	protected final static String YES = "Yes";
 	protected final static String NO = "No";
@@ -34,10 +34,10 @@ public class Popup {
 		this.message = message;
 		this.textWidth = textFont.getWidth(this.message);
 		this.background = new AlertBackground(this.x, this.y, this.x_size, this.y_size, .7f);
-		this.cancelButton = new Button(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "No", 12, 1) {
+		this.cancelButton = new Button(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH, BUTTON_HEIGHT, "No", 12, 1) {
 			
 			@Override
-			public void eventButtonClick() {
+			public void onLeftClickUp() {
 				Popup.this.acceptButton.popupClosed();
 				Popup.this.isActive = false;
 			}
@@ -104,7 +104,7 @@ public class Popup {
 		this.x_size = (int)x_size;
 		this.y_size = (int)y_size;
 		this.background.update(this.x, this.y, this.x_size, this.y_size);
-		this.cancelButton.update(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.cancelButton.update(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor());
 		updateAcceptButton();
 	}
 	
@@ -120,7 +120,7 @@ public class Popup {
 	
 	protected void updateAcceptButton() {
 		if(this.acceptButton != null) {
-			this.acceptButton.update(this.x+this.x_size/2-10-BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+			this.acceptButton.update(this.x+this.x_size/2-10-BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.y+this.y_size-37*Mideas.getDisplayYFactor());
 		}
 	}
 	

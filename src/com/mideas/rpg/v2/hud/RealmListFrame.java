@@ -24,10 +24,10 @@ public class RealmListFrame {
 	private final static Color GREEN = Color.decode("#158816");
 	private final static ArrayList<WorldServer> realmList = new ArrayList<WorldServer>();
 	static WorldServer selectedRealm;
-	private static Button acceptButton = new Button(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 154*Mideas.getDisplayXFactor(), 31*Mideas.getDisplayXFactor(), "OK", 20, 2) {
+	private static Button acceptButton = new Button(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), (short)154, (short)31, "OK", 20, 2) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			if(selectedRealm != null) {
 				connectToWorldServer();
 				this.reset();
@@ -39,10 +39,10 @@ public class RealmListFrame {
 			return selectedRealm != null;
 		}
 	};
-	private static Button cancelButton = new Button(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 152*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor(), "Cancel", 18, 2) {
+	private static Button cancelButton = new Button(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), (short)152, (short)30, "Cancel", 18, 2) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			SelectScreen.setRealmScreenActive(false);
 			this.reset();
 		}
@@ -122,8 +122,8 @@ public class RealmListFrame {
 		if(!shouldUpdateSize) {
 			return;
 		}
-		acceptButton.update(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor(), 154*Mideas.getDisplayXFactor(), 31*Mideas.getDisplayXFactor());
-		cancelButton.update(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Window.getHeight()/2+282*Mideas.getDisplayYFactor(), 152*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+		acceptButton.update(Display.getWidth()/2+88*Mideas.getDisplayXFactor(), Display.getHeight()/2+282*Mideas.getDisplayYFactor());
+		cancelButton.update(Display.getWidth()/2+253*Mideas.getDisplayXFactor(), Window.getHeight()/2+282*Mideas.getDisplayYFactor());
 		shouldUpdateSize = false;
 	}
 	

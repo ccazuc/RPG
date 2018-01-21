@@ -144,10 +144,10 @@ public class AuctionFrameBrowseUI {
 			AuctionFrameBrowseUI.this.itemStartIndex = (short)((Mideas.joueur1().getAuctionHouse().getQueryList().size()+1-AuctionFrameBrowseUI.this.MAXIMUM_ITEM_DISPLAYED)*getScrollPercentage());
 		}
 	};
-	private final Button bidButton = new Button(this.BID_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Bid", 12, 1) {
+	private final Button bidButton = new Button(this.BID_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH, this.BUTTON_HEIGHT, "Bid", 12, 1) {
 	
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandAuction.makeABid(AuctionFrameBrowseUI.this.selectedEntry, AuctionFrameBrowseUI.this.goldBidEditBox.getValue()*10000+AuctionFrameBrowseUI.this.silverBidEditBox.getValue()*100+AuctionFrameBrowseUI.this.copperBidEditBox.getValue());
 		}
 		
@@ -156,10 +156,10 @@ public class AuctionFrameBrowseUI {
 			return AuctionFrameBrowseUI.this.selectedEntry != null && AuctionFrameBrowseUI.this.selectedEntry.canBeBuy();
 		}
 	};
-	private final Button buyoutButton = new Button(this.BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Buyout", 12, 1) {
+	private final Button buyoutButton = new Button(this.BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH, this.BUTTON_HEIGHT, "Buyout", 12, 1) {
 	
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandAuction.buyout(AuctionFrameBrowseUI.this.selectedEntry);
 		}
 		
@@ -168,18 +168,18 @@ public class AuctionFrameBrowseUI {
 			return AuctionFrameBrowseUI.this.selectedEntry != null && AuctionFrameBrowseUI.this.selectedEntry.canBeBuy();
 		}
 	};
-	private final Button closeButton = new Button(this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Close", 12, 1) {
+	private final Button closeButton = new Button(this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH, this.BUTTON_HEIGHT, "Close", 12, 1) {
 	
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			Interface.closeAuctionFrame();
 			this.reset();
 		}
 	};
-	private final Button sendQueryButton = new Button(this.SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Search", 12, 1) {
+	private final Button sendQueryButton = new Button(this.SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH, this.SEND_QUERY_BUTTON_HEIGHT, "Search", 12, 1) {
 	
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			AuctionFrameBrowseUI.this.page = 1;
 			sendSearchQuery();
 		}
@@ -189,10 +189,10 @@ public class AuctionFrameBrowseUI {
 			return !AuctionFrameBrowseUI.this.querySent;
 		}
 	};
-	private final Button resetButton = new Button(this.RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Reset", 12, 1) {
+	private final Button resetButton = new Button(this.RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH, this.SEND_QUERY_BUTTON_HEIGHT, "Reset", 12, 1) {
 	
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			resetBrowseOptions();
 		}
 		
@@ -790,9 +790,9 @@ public class AuctionFrameBrowseUI {
 		this.itemX = (short)(this.frame.getXFrame()+this.ITEM_X*Mideas.getDisplayXFactor());
 		this.itemHeight = (short)(this.ITEM_HEIGHT*Mideas.getDisplayYFactor());
 		this.itemYShift =  (short)(this.ITEM_Y_SHIFT*Mideas.getDisplayYFactor());
-		this.bidButton.update(this.frame.getXFrame()+this.BID_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.buyoutButton.update(this.frame.getXFrame()+this.BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.closeButton.update(this.frame.getXFrame()+this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.bidButton.update(this.frame.getXFrame()+this.BID_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor());
+		this.buyoutButton.update(this.frame.getXFrame()+this.BUYOUT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor());
+		this.closeButton.update(this.frame.getXFrame()+this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor());
 		this.filterScrollbar.update(this.frame.getXFrame()+this.FILTER_SCROLLBAR_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.FILTER_SCROLLBAR_Y*Mideas.getDisplayYFactor(), this.FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.FILTER_SCROLLBAR_WIDTH*Mideas.getDisplayXFactor(), this.FILTER_SCROLLBAR_HEIGHT*Mideas.getDisplayYFactor(), this.FILTER_HEIGHT*Mideas.getDisplayYFactor());
 		this.sortByRarityButton.update(this.frame.getXFrame()+this.SORT_RARITY_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_RARITY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		this.sortByLevelButton.update(this.frame.getXFrame()+this.SORT_LEVEL_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_LEVEL_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
@@ -805,8 +805,8 @@ public class AuctionFrameBrowseUI {
 			this.sortByPricePerUnitButton.update(this.frame.getXFrame()+this.SORT_PRICE_PER_UNIT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor(), this.SORT_PRICE_PER_UNIT_BUTTON_WIDTH_NO_SCROLLBAR*Mideas.getDisplayXFactor(), this.SORT_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 			
 		}
-		this.sendQueryButton.update(this.frame.getXFrame()+this.SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
-		this.resetButton.update(this.frame.getXFrame()+this.RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor(), this.SEND_QUERY_BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.SEND_QUERY_BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.sendQueryButton.update(this.frame.getXFrame()+this.SEND_QUERY_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor());
+		this.resetButton.update(this.frame.getXFrame()+this.RESET_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEND_QUERY_BUTTON_Y*Mideas.getDisplayYFactor());
 		this.searchEditBox.update(this.frame.getXFrame()+this.SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
 		this.minLevelEditBox.update(this.frame.getXFrame()+this.MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());
 		this.maxLevelEditBox.update(this.frame.getXFrame()+this.MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor());

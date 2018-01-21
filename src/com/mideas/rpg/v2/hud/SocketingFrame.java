@@ -38,14 +38,14 @@ public class SocketingFrame {
 			stuff = null;
 		}
 	};
-	private static Button putGem = new Button(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), 620*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayXFactor(), "Sertir les gemmes", 15, 1) {
+	private static Button putGem = new Button(Display.getWidth()/2-100*Mideas.getDisplayXFactor()+CharacterFrame.getMouseX(), 620*Mideas.getDisplayYFactor(), (short)184, (short)23, "Sertir les gemmes", 15, 1) {
 		@Override
 		protected boolean activateCondition() {
 			return tempGem1 != null || tempGem2 != null || tempGem3 != null;
 		}
 		
 		@Override
-		protected void eventButtonClick() {
+		protected void onLeftClickUp() {
 			if(tempGem1 != null) {
 				stuff.setEquippedGem(0, tempGem1);
 				DragManager.deleteBagItem(tempGem1);

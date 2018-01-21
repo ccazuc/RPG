@@ -150,6 +150,10 @@ public class MailInboxFrame implements Frame {
 			return (true);
 		if (this.previousPageArrow.event())
 			return (true);
+		if (Mideas.getMouseScrolledTick() < 0 && this.currentPage < this.totalPage)
+			nextPage();
+		else if (Mideas.getMouseScrolledTick() > 0 && this.currentPage > 0)
+			previousPage();
 		return (false);
 	}
 	
@@ -251,5 +255,11 @@ public class MailInboxFrame implements Frame {
 	public MailFrame getParentFrame()
 	{
 		return (this.frame);
+	}
+	
+	@Override
+	public String getName()
+	{
+		return ("MailInboxFrame");
 	}
 }

@@ -87,4 +87,14 @@ public class CommandMail extends Command {
 		ConnectionManager.getWorldServerConnection().endPacket();
 		ConnectionManager.getWorldServerConnection().send();
 	}
+	
+	public static void deleteMail(Mail mail)
+	{
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL_DELETE);
+		ConnectionManager.getWorldServerConnection().writeLong(mail.getGUID());
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
+	}
 }

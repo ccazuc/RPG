@@ -19,8 +19,8 @@ public class Alert {
 	private AlertBackground background;
 	private boolean isActive;
 	private static TTF font = FontManager.get("FRIZQT", 24);
-	private final static int BUTTON_WIDTH = 250;
-	private final static int BUTTON_HEIGHT = 35;
+	private final static short BUTTON_WIDTH = 250;
+	private final static short BUTTON_HEIGHT = 35;
 	
 	public Alert(String text, float x, float y, float x_size_alert, int font_size, String button_text) {
 		this.text = text;
@@ -30,7 +30,7 @@ public class Alert {
 		this.baseY = (int)y;
 		this.x_size_alert = (int)x_size_alert;
 		this.background = new AlertBackground(this.x, this.y, x_size_alert, 110*Mideas.getDisplayYFactor()+(font.getLineHeight()+3)*(font.getWidth(this.text)/(x_size_alert-30f)), .7f);
-		this.button = new Button(this.x+x_size_alert/2-BUTTON_WIDTH*Mideas.getDisplayXFactor()/2, this.background.getY()+this.background.getHeight()-70*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor(), button_text, font_size, 2);
+		this.button = new Button(this.x+x_size_alert/2-BUTTON_WIDTH*Mideas.getDisplayXFactor()/2, this.background.getY()+this.background.getHeight()-70*Mideas.getDisplayYFactor(), BUTTON_WIDTH, BUTTON_HEIGHT, button_text, font_size, 2);
 		setText(this.text);
 	}
 	
@@ -83,8 +83,6 @@ public class Alert {
 		this.background.setX(this.x);
 		this.background.setWidth(x_size);
 		this.button.setX(this.x+this.background.getWidth()/2-BUTTON_WIDTH*Mideas.getDisplayXFactor()/2);
-		this.button.setButtonWidth(BUTTON_WIDTH*Mideas.getDisplayXFactor());
-		this.button.setButtonHeight(BUTTON_HEIGHT*Mideas.getDisplayYFactor());
 		setText(this.text);
 	}
 	
@@ -143,7 +141,9 @@ public class Alert {
 			return;
 		}
 		this.button = button;
-		this.button.update(this.x+this.x_size_alert/2-BUTTON_WIDTH*Mideas.getDisplayXFactor()/2, this.background.getY()+this.background.getHeight()-70*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.button.setButtonWidth(BUTTON_WIDTH);
+		this.button.setButtonHeight(BUTTON_HEIGHT);
+		this.button.update(this.x+this.x_size_alert/2-BUTTON_WIDTH*Mideas.getDisplayXFactor()/2, this.background.getY()+this.background.getHeight()-70*Mideas.getDisplayYFactor());
 	}
 	
 	public int getBaseX() {
@@ -169,7 +169,7 @@ public class Alert {
 	
 	public void keyPressed() {
 		if(this.button != null) {
-			this.button.eventButtonClick();
+			this.button.onLeftClickUp();
 		}
 	}
 	

@@ -26,7 +26,7 @@ public class MailFrame implements Frame {
 		this.inboxFrame = new MailInboxFrame(this);
 		this.sendMailFrame = new MailSendMailFrame(this);
 		this.openedMailFrame = new MailOpenedMailFrame(this);
-		this.activeFrame = this.inboxFrame;
+		this.activeFrame = this.sendMailFrame;
 	}
 	
 	@Override
@@ -113,6 +113,13 @@ public class MailFrame implements Frame {
 		shouldUpdateSize();
 	}
 	
+	public void replayOpenedMail(Mail mail)
+	{
+		openSendMailFrame();
+		this.sendMailFrame.setTargetName(mail.getAuthorName());
+		this.sendMailFrame.setSubject("RE: " + mail.getTitle());
+	}
+	
 	public void updateSize()
 	{
 		if (!this.shouldUpdateSize)
@@ -123,6 +130,24 @@ public class MailFrame implements Frame {
 		this.sendMailFrame.shouldUpdateSize();
 		this.openedMailFrame.shouldUpdateSize();
 		this.shouldUpdateSize = false;
+	}
+	
+	public void openSendMailFrame()
+	{
+		if (this.activeFrame == this.openedMailFrame)
+			return;
+		this.activeFrame.onClose();
+		this.activeFrame = this.openedMailFrame;
+		this.activeFrame.onOpen();
+	}
+	
+	public void openInboxMailFrame()
+	{
+		if (this.activeFrame == this.inboxFrame)
+			return;
+		this.activeFrame.onClose();
+		this.activeFrame = this.inboxFrame;
+		this.activeFrame.onOpen();
 	}
 	
 	@Override
@@ -140,6 +165,11 @@ public class MailFrame implements Frame {
 	public void onMailReceived()
 	{
 		this.inboxFrame.onMailReceived();
+	}
+	
+	public void onMailDeleted(Mail mail)
+	{
+		this.openedMailFrame.onMailDeleted(mail);
 	}
 	
 	public MailInboxFrame getMailInboxFrame()
@@ -165,5 +195,11 @@ public class MailFrame implements Frame {
 	public Mail getOpenedMail()
 	{
 		return (this.openedMailFrame.getOpenedMail());
+	}
+	
+	@Override
+	public String getName()
+	{
+		return ("MailFrame");
 	}
 }

@@ -12,53 +12,78 @@ public class Button {
 
 	private float x;
 	private float y;
-	private float x_size;
-	private float y_size;
+	private short width;
+	private short height;
+	private short widthSave;
+	private short heightSave;
+	private float xSave;
+	private float ySave;
 	private Texture texture = Sprites.button;
 	private String text;
 	private int textWidth;
 	private int shadow_size;
 	protected TTF font;
-	private boolean buttonDown;
+	private boolean leftClickDown;
+	private boolean rightClickDown;
 	private boolean buttonHover;
 	private Color color = Color.YELLOW;
 	private Color hoveredColor;
 	private Color baseColor;
 	private boolean hasClicked;
 	private boolean isEnable = true;
+	private Frame parentFrame;
 
-	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {
+	public Button(float x, float y, short width, short height, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {
 		this.font = FontManager.get("FRIZQT", font_size);
 		this.textWidth = this.font.getWidth(text);
 		this.hoveredColor = hoveredColor;
 		this.shadow_size = shadow_size;
 		this.baseColor = baseColor;
-		this.x_size = x_size;
-		this.y_size = y_size;
+		this.width = (short)(width * Mideas.getDisplayXFactor());
+		this.height = (short)(height * Mideas.getDisplayYFactor());
+		this.widthSave = width;
+		this.heightSave = height;
 		this.text = text;
 		this.x = x;
 		this.y = y;
 	}
 
-	public Button(float x, float y, float x_size, float y_size, String text, TTF font, int shadow_size, Color baseColor, Color hoveredColor) {
+	public Button(float x, float y, short width, short height, String text, TTF font, int shadow_size, Color baseColor, Color hoveredColor) {
 		this.font = font;
 		this.textWidth = this.font.getWidth(text);
 		this.hoveredColor = hoveredColor;
 		this.shadow_size = shadow_size;
 		this.baseColor = baseColor;
-		this.x_size = x_size;
-		this.y_size = y_size;
+		this.width = (short)(width * Mideas.getDisplayXFactor());
+		this.height = (short)(height * Mideas.getDisplayYFactor());
+		this.widthSave = width;
+		this.heightSave = height;
 		this.text = text;
 		this.x = x;
 		this.y = y;
 	}
 	
-	public Button(float x, float y, float x_size, float y_size, String text, float font_size, int shadow_size) {
-		this(x, y, x_size, y_size, text, font_size, shadow_size, Color.YELLOW, Color.WHITE);
+	public Button(float x, float y, short width, short height, String text, float font_size, int shadow_size) {
+		this(x, y, width, height, text, font_size, shadow_size, Color.YELLOW, Color.WHITE);
+	}
+	
+	public Button(Frame parentFrame, float x, float y, short width, short height, String text, float font_size, int shadow_size) {
+		this.font = FontManager.get("FRIZQT", font_size);
+		this.textWidth = this.font.getWidth(text);
+		this.shadow_size = shadow_size;
+		this.width = (short)(width * Mideas.getDisplayXFactor());
+		this.height = (short)(height * Mideas.getDisplayYFactor());
+		this.widthSave = width;
+		this.heightSave = height;
+		this.text = text;
+		this.x = x * Mideas.getDisplayXFactor();
+		this.y = y * Mideas.getDisplayYFactor();
+		this.xSave = x;
+		this.ySave = y;
 	}
 
 	public Button(float x, float y, String text, float font_size) {
-		this(x, y, Sprites.button.getImageWidth(), Sprites.button.getImageHeight(), text, font_size, 0, Color.YELLOW, Color.WHITE);
+		this(x, y, (short)Sprites.button.getImageWidth(), (short)Sprites.button.getImageHeight(), text, font_size, 0, Color.YELLOW, Color.WHITE);
 	}
 	
 	public void draw() {
@@ -69,19 +94,19 @@ public class Button {
 			this.texture = Sprites.button_disabled;
 			this.color = Color.GREY;
 		}
-		else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
+		else if(!this.leftClickDown && !this.rightClickDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
 			this.texture = Sprites.button;
 			this.color = this.baseColor;
 		}
-		else if(!this.buttonDown && this.buttonHover) {
+		else if(!this.leftClickDown && !this.rightClickDown && this.buttonHover) {
 			this.texture = Sprites.button_hover;
 			this.color = this.hoveredColor;
 		}
 		else if(hoverSpriteActivateCondition()) {
 			this.color = this.hoveredColor;
 		}
-		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
-		this.font.drawStringShadow(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
+		Draw.drawQuad(this.texture, this.x, this.y, this.width, this.height);
+		this.font.drawStringShadow(this.x-this.textWidth/2+this.width/2, this.y-this.font.getLineHeight()/2+this.height/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
 	}
 	
 	public void drawTexture() {
@@ -91,10 +116,10 @@ public class Button {
 		if(!activateCondition()) {
 			this.texture = Sprites.button_disabled;
 		}
-		else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
+		else if(!this.rightClickDown && !this.leftClickDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
 			this.texture = Sprites.button;
 		}
-		Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
+		Draw.drawQuad(this.texture, this.x, this.y, this.width, this.height);
 	}
 	
 	public void drawText() {
@@ -104,13 +129,13 @@ public class Button {
 		if(!activateCondition()) {
 			this.color = Color.GREY;
 		}
-		else if(!this.buttonDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
+		else if(!this.leftClickDown && !this.rightClickDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
 			this.color = this.baseColor;
 		}
 		else if(hoverSpriteActivateCondition()) {
 			this.color = this.hoveredColor;
 		}
-		this.font.drawStringShadowPart(this.x-this.textWidth/2+this.x_size/2, this.y-this.font.getLineHeight()/2+this.y_size/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
+		this.font.drawStringShadowPart(this.x-this.textWidth/2+this.width/2, this.y-this.font.getLineHeight()/2+this.height/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
 	}
 	
 	public boolean event() {
@@ -118,7 +143,7 @@ public class Button {
 			this.buttonHover = false;
 			return false;
 		}
-		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.height) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
 		}
@@ -128,32 +153,42 @@ public class Button {
 		}
 		if(this.buttonHover) {
 			if(Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					this.buttonDown = true;
+				if(Mouse.getEventButton() == 0)
+				{
+					this.leftClickDown = true;
+					onLeftClickDown();
+				}
+				else if (Mouse.getEventButton() == 1)
+				{
+					this.rightClickDown = true;
+					onRightClickDown();
 				}
 			}
-			else if(this.buttonDown) {
-				if(Mouse.getEventButton() == 0) {
-					this.buttonDown = false;
-					this.color = this.hoveredColor;
-					this.texture = Sprites.button_hover;
-					eventButtonClick();
-					this.hasClicked = true;
-					return true;
-				}
-				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-					this.buttonDown = false;
-				}
+			else if(this.leftClickDown && Mouse.getEventButton() == 0) {
+				this.leftClickDown = false;
+				this.rightClickDown = false;
+				this.color = this.hoveredColor;
+				this.texture = Sprites.button_hover;
+				this.hasClicked = true;
+				onLeftClickUp();
+				return (true);
+			}
+			else if (this.rightClickDown && Mouse.getEventButton() == 1)
+			{
+				this.leftClickDown = false;
+				this.rightClickDown = false;
+				onRightClickUp();
 			}
 			this.color = this.hoveredColor;
 		}
 		else if(!Mouse.getEventButtonState()) {
 			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
-				this.buttonDown = false;
+				this.leftClickDown = false;
+				this.rightClickDown = false;
 				this.hasClicked = false;
 			}
 		}
-		if(this.buttonDown) {
+		if(this.leftClickDown || this.rightClickDown) {
 			if(this.buttonHover || hoverSpriteActivateCondition()) {
 				this.texture = Sprites.button_down_hover;
 			}
@@ -182,12 +217,14 @@ public class Button {
 		this.buttonHover = false;
 	}
 	
-	public void setButtonWidth(float width) {
-		this.x_size = width;
+	public void setButtonWidth(short width) {
+		this.width = (short)(width * Mideas.getDisplayXFactor());
+		this.widthSave = width;
 	}
 	
-	public void setButtonHeight(float height) {
-		this.y_size = height;
+	public void setButtonHeight(short height) {
+		this.height = (short)(height * Mideas.getDisplayYFactor());
+		this.heightSave = height;
 	}
 	
 	public void setText(String text) {
@@ -204,13 +241,16 @@ public class Button {
 		this.isEnable = false;
 	}
 	
-	protected void eventButtonClick() {}
+	protected void onLeftClickUp() {}
+	protected void onLeftClickDown() {}
+	protected void onRightClickUp() {}
+	protected void onRightClickDown() {}
 	protected boolean activateCondition() {return true;}
 	protected boolean hoverSpriteActivateCondition() {return false;}
 	protected void popupClosed() {}
 	
-	public boolean getButtonDown() {
-		return this.buttonDown;
+	public boolean getLeftClickDown() {
+		return this.leftClickDown;
 	}
 	
 	public boolean hasClicked() {
@@ -222,17 +262,32 @@ public class Button {
 	}
 	
 	public void reset() {
-		this.buttonDown = false;
+		this.leftClickDown = false;
+		this.rightClickDown = false;
 		this.buttonHover = false;
 		this.hasClicked = false;
 		this.texture = Sprites.button;
 		this.color = this.baseColor;
 	}
 	
-	public void update(float x, float y, float x_size, float y_size) {
+	public void update(float x, float y)
+	{
 		this.x = x;
 		this.y = y;
-		this.x_size = x_size;
-		this.y_size = y_size;
+		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
+		this.height = (short)(this.heightSave * Mideas.getDisplayYFactor());
+	}
+	
+	public void updateSize()
+	{
+		this.x = this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor();
+		this.y = this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor();
+	}
+	
+	public void initParentFrame(Frame frame)
+	{
+		this.parentFrame = frame;
+		this.x = this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor();
+		this.y = this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor();
 	}
 }

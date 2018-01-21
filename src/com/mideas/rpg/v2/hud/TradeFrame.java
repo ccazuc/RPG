@@ -43,10 +43,10 @@ public class TradeFrame {
 			closeFrame();
 		}
 	};
-	private static Button acceptTrade = new Button(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 93*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "Trade", 15, 1) {
+	private static Button acceptTrade = new Button(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), (short)93, (short)23, "Trade", 15, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandTrade.writeAccept();
 			tradeAcceptedSelf = true;
 		}
@@ -56,10 +56,10 @@ public class TradeFrame {
 			return !tradeAcceptedSelf;
 		}
 	};
-	private static Button cancelTrade = new Button(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 87*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "Cancel", 15, 1) {
+	private static Button cancelTrade = new Button(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), (short)87, (short)23, "Cancel", 15, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			closeFrame();
 		}
 	};
@@ -315,8 +315,8 @@ public class TradeFrame {
 		Y_HOVER_TOP = 105*Mideas.getDisplayYFactor();
 		Y_HOVER_SIZE = 45*Mideas.getDisplayYFactor();
 		Y_SHIFT = 47*Mideas.getDisplayYFactor();
-		cancelTrade.update(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 87*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
-		acceptTrade.update(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), 93*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
+		cancelTrade.update(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor());
+		acceptTrade.update(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor());
 		shouldUpdateSize = false;
 	}
 	

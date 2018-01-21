@@ -8,8 +8,6 @@ import org.lwjgl.input.Mouse;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.IconsManager;
-import com.mideas.rpg.v2.hud.Cast;
-import com.mideas.rpg.v2.hud.CastBar;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.ScrollBar;
@@ -38,9 +36,9 @@ public class Profession {
 	private static final Color GREY = Color.decode("#585758");
 	static HashMap<Integer, Integer> possibleCraftList = new HashMap<Integer, Integer>();
 
-	private Button craftButton = new Button(0, 0, 185, 34, "Create", 14, 1) {
+	private Button craftButton = new Button((short)0, (short)0, (short)185, (short)34, "Create", 14, 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			/*CastBar.addCast(new Cast(Profession.this.selectedItem.getCraftLength(), Profession.this.selectedItem.getItem().getStuffName()) {
 				@Override
 				public void endCastEvent() {
@@ -452,8 +450,6 @@ public class Profession {
 		}
 		this.craftButton.setX(x+206*Mideas.getDisplayXFactor());
 		this.craftButton.setY(y+440*Mideas.getDisplayXFactor());
-		this.craftButton.setButtonWidth(87);
-		this.craftButton.setButtonHeight(23);
 	}
 	
 	private Texture getColors(int itemLevel) {

@@ -27,24 +27,24 @@ public class LoginScreen {
 	static boolean rememberAccountName;
 	private static String realmName = "";
 	private static int realmNameWidth;
-	private final static Button leaveButton = new Button(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+426*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Quit", 16, 2) {
+	private final static Button leaveButton = new Button(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+426*Mideas.getDisplayYFactor(), (short)185, (short)34, "Quit", 16, 2) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			Mideas.closeGame();
 		}
 	};
-	private final static Button connectionButton = new Button(Display.getWidth()/2-95*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 197*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor(), "Login", 20, 2) {
+	private final static Button connectionButton = new Button(Display.getWidth()/2-95*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), (short)197, (short)33, "Login", 20, 2) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			connectionEvent();
 		}
 	};
-	private final static Button officialWebsiteButton = new Button(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor(), "Official Site", 16, 2) {
+	private final static Button officialWebsiteButton = new Button(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), (short)184, (short)33, "Official Site", 16, 2) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			Sys.openURL("https://github.com/ccazuc/RPG");
 		}
 	};
@@ -60,17 +60,17 @@ public class LoginScreen {
 			rememberAccountName = !rememberAccountName;
 		}
 	};
-	private final static Button cancelConnectionAlertButton = new Button(0, 0, 0, 0, "Cancel", 20, 2) {
+	private final static Button cancelConnectionAlertButton = new Button(0, 0, (short)0, (short)0, "Cancel", 20, 2) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			AuthServerConnectionRunnable.cancelAuthConnection();
 		}
 	};
-	private final static Button okAlertButton = new Button(0, 0, 0, 0, "OK", 20, 2) {
+	private final static Button okAlertButton = new Button(0, 0, (short)0, (short)0, "OK", 20, 2) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			alert.setInactive();
 		}
 	};
@@ -217,11 +217,11 @@ public class LoginScreen {
 		if(!shouldUpdateSize) {
 			return;
 		}
-		leaveButton.update(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+426*Mideas.getDisplayYFactor(), 185*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
-		connectionButton.update(Display.getWidth()/2-95*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor(), 197*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor());
+		leaveButton.update(Display.getWidth()/2+753*Mideas.getDisplayXFactor(), Display.getHeight()/2+426*Mideas.getDisplayYFactor());
+		connectionButton.update(Display.getWidth()/2-95*Mideas.getDisplayXFactor(), Display.getHeight()/2+185*Mideas.getDisplayYFactor());
 		alert.update(Display.getWidth()/2-720*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-60*Mideas.getDisplayYFactor(), 720*Mideas.getDisplayXFactor());
 		account.update(Display.getWidth()/2-91*Mideas.getDisplayXFactor(), Display.getHeight()/2+12*Mideas.getDisplayYFactor(), 200*Mideas.getDisplayXFactor());
-		officialWebsiteButton.update(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor(), 184*Mideas.getDisplayXFactor(), 33*Mideas.getDisplayYFactor());
+		officialWebsiteButton.update(26*Mideas.getDisplayXFactor(), Display.getHeight()-222*Mideas.getDisplayYFactor());
 		rememberAccountNameCheckBox.update(27*Mideas.getDisplayXFactor(), Display.getHeight()-167*Mideas.getDisplayYFactor(), 22*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 		shouldUpdateSize = false;
 	}

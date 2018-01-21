@@ -20,7 +20,6 @@ import com.mideas.rpg.v2.game.race.NewCharacterRace;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.DebugUtils;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.StringUtils;
 import com.mideas.rpg.v2.utils.render.Draw;
@@ -73,9 +72,9 @@ public class SelectScreen {
 				setRealmScreenActive(true);
 		}
 	}; 
-	private final static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor(), 278*Mideas.getDisplayXFactor(), 36*Mideas.getDisplayYFactor(), "Create new character", 16, 2) {
+	private final static Button newCharacterButton = new Button(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor(), (short)278, (short)36, "Create new character", 16, 2) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			creatingCharacter = true;
 			character.setIsActive(true);
 			this.reset();
@@ -86,26 +85,26 @@ public class SelectScreen {
 			return (ConnectionManager.isLoggedOnWorldServer());
 		}
 	};	
-	static final Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Accept", 16, 2) {
+	static final Button acceptCharacterButton = new Button(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), (short)195, (short)34, "Accept", 16, 2) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			SelectScreen.createCharacter();
 			returnCharacterButton.reset();
 			this.reset();
 		}
 	};	
-	static final Button returnCharacterButton = new Button(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor(), "Return", 16, 2) {
+	static final Button returnCharacterButton = new Button(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), (short)150, (short)34, "Return", 16, 2) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			creatingCharacter = false;
 			character.setIsActive(false);
 			acceptCharacterButton.reset();
 			SelectScreen.mouseEvent();
 		}
 	};
-	private final static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Return", 16, 2) {
+	private final static Button returnButton = new Button(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), (short)122, (short)28, "Return", 16, 2) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandLogout.write();
 			ConnectionManager.close();
 			ConnectionManager.closeAuth();
@@ -121,9 +120,9 @@ public class SelectScreen {
 			this.reset();
 		}
 	};
-	private final static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250*Mideas.getDisplayXFactor(), 50*Mideas.getDisplayYFactor(), "Enter game", 19, 2) {
+	private final static Button enterGameButton = new Button(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), (short)250, (short)50, "Enter game", 19, 2) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			loadCharacterInfo();
 			/*Arrays.fill(characterList, null);
 			characterLoaded = false;
@@ -137,9 +136,9 @@ public class SelectScreen {
 		}
 		
 	};
-	private final static Button changeRealmButton = new Button(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Change Realm", 16, 2) {
+	private final static Button changeRealmButton = new Button(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), (short)175, (short)28, "Change Realm", 16, 2) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			if (currentAlert == loginQueueAlert)
 			{
 				currentAlert = alert;
@@ -155,9 +154,9 @@ public class SelectScreen {
 		}
 		
 	};
-	private final static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Delete character", 16, 2) {
+	private final static Button deleteCharacterButton = new Button(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), (short)202, (short)28, "Delete character", 16, 2) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			deletingCharacter = true;
 			deleteCharacter.setIsActive(true);
 			this.reset();
@@ -168,9 +167,9 @@ public class SelectScreen {
 			return characterList[selectedCharacterIndex] != null;
 		}
 	};
-	private final static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor(), "OK", 20, 2) {
+	private final static Button confirmDeleteCharacterButton = new Button(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), (short)240, (short)32, "OK", 20, 2) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			deleteCharacter();
 			deleteCharacter.setIsActive(false);
 		}
@@ -183,9 +182,9 @@ public class SelectScreen {
 			return false;
 		}
 	};
-	private final static Button cancelDeleteCharacterButton = new Button(Display.getWidth()/2+23*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor(), "Annuler", 20, 2) {
+	private final static Button cancelDeleteCharacterButton = new Button(Display.getWidth()/2+23*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), (short)240, (short)32, "Annuler", 20, 2) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			deletingCharacter = false;
 			deleteCharacter.setIsActive(false);
 		}
@@ -548,16 +547,16 @@ public class SelectScreen {
 		if(!shouldUpdateSize) {
 			return;
 		}
-		newCharacterButton.update(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor(), 278*Mideas.getDisplayXFactor(), 36*Mideas.getDisplayYFactor());
-		acceptCharacterButton.update(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor(), 195*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
-		returnCharacterButton.update(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor(), 150*Mideas.getDisplayXFactor(), 34*Mideas.getDisplayYFactor());
-		returnButton.update(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 122*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
-		enterGameButton.update(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor(), 250*Mideas.getDisplayXFactor(), 50*Mideas.getDisplayYFactor());
-		deleteCharacterButton.update(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor(), 202*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
+		newCharacterButton.update(Display.getWidth()/2+630*Mideas.getDisplayXFactor(), Display.getHeight()/2+293*Mideas.getDisplayYFactor());
+		acceptCharacterButton.update(Display.getWidth()/2+705*Mideas.getDisplayXFactor(), Display.getHeight()/2+393*Mideas.getDisplayYFactor());
+		returnCharacterButton.update(Display.getWidth()/2+730*Mideas.getDisplayXFactor(), Display.getHeight()/2+442*Mideas.getDisplayYFactor());
+		returnButton.update(Display.getWidth()/2+785*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor());
+		enterGameButton.update(Display.getWidth()/2-125*Mideas.getDisplayXFactor(), Display.getHeight()/2+403*Mideas.getDisplayYFactor());
+		deleteCharacterButton.update(Display.getWidth()/2+558*Mideas.getDisplayXFactor(), Display.getHeight()/2+438*Mideas.getDisplayYFactor());
 		alert.update(Display.getWidth()/2-720*Mideas.getDisplayXFactor()/2, Display.getHeight()/2-60*Mideas.getDisplayYFactor(), 720*Mideas.getDisplayXFactor());
-		confirmDeleteCharacterButton.update(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor());
-		cancelDeleteCharacterButton.update(Display.getWidth()/2+23*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor(), 240, 32*Mideas.getDisplayYFactor());
-		changeRealmButton.update(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor(), 175*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
+		confirmDeleteCharacterButton.update(Display.getWidth()/2-275*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor());
+		cancelDeleteCharacterButton.update(Display.getWidth()/2+23*Mideas.getDisplayXFactor(), Display.getHeight()/2+58*Mideas.getDisplayYFactor());
+		changeRealmButton.update(Display.getWidth()/2+682*Mideas.getDisplayXFactor(), 57*Mideas.getDisplayYFactor());
 		shouldUpdateSize = false;
 	}
 	

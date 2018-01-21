@@ -35,25 +35,25 @@ import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;
 
 public class GuildFrame {
 
-	private final static int MANAGE_FRAME_ALERT_BACKGROUND_X = 394;
-	private final static int MANAGE_FRAME_ALERT_BACKGROUND_X_SIZE = 330;
-	private final static int MANAGE_FRAME_ALERT_BACKGROUND_Y = 8;
-	private final static int MANAGE_FRAME_ALERT_BACKGROUND_Y_SIZE = 460;
-	private final static int GUILD_INFORMATION_ALERT_BACKGROUND_X = 393;
-	private final static int GUILD_INFORMATION_ALERT_BACKGROUND_X_SIZE = 340;
-	private final static int GUILD_INFORMATION_ALERT_BACKGROUND_Y_SIZE = 315;
-	private final static int MEMBER_INFORMATION_ALERT_BACKGROUND_X = 395;
-	private final static int MEMBER_INFORMATION_ALERT_BACKGROUND_Y = 25;
-	private final static int MEMBER_INFORMATION_ALERT_BACKGROUND_X_SIZE = 240;
-	private final static int MEMBER_INFORMATION_ALERT_BACKGROUND_OFFICER_Y_SIZE = 275;
-	private final static int MEMBER_INFORMATION_ALERT_BACKGROUND_NO_OFFICER_Y_SIZE = 213;
-	private final static int MEMBER_DISPLAY_KICK_BUTTON_X = 405;
-	private final static int MEMBER_DISPLAY_BUTTON_X_SIZE = 108;
-	private final static int MEMBER_DISPLAY_BUTTON_Y_SIZE = 24;
-	private final static int MEMBER_DISPLAY_INVITE_BUTTON_X = 515;
-	private final static int MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y = 203;
-	private final static int MEMBER_DISPLAY_BUTTON_OFFICER_Y = 266;
-	private final static int BUTTON_MENU_SORT_Y = 74;
+	private final static short MANAGE_FRAME_ALERT_BACKGROUND_X = 394;
+	private final static short MANAGE_FRAME_ALERT_BACKGROUND_X_SIZE = 330;
+	private final static short MANAGE_FRAME_ALERT_BACKGROUND_Y = 8;
+	private final static short MANAGE_FRAME_ALERT_BACKGROUND_Y_SIZE = 460;
+	private final static short GUILD_INFORMATION_ALERT_BACKGROUND_X = 393;
+	private final static short GUILD_INFORMATION_ALERT_BACKGROUND_X_SIZE = 340;
+	private final static short GUILD_INFORMATION_ALERT_BACKGROUND_Y_SIZE = 315;
+	private final static short MEMBER_INFORMATION_ALERT_BACKGROUND_X = 395;
+	private final static short MEMBER_INFORMATION_ALERT_BACKGROUND_Y = 25;
+	private final static short MEMBER_INFORMATION_ALERT_BACKGROUND_X_SIZE = 240;
+	private final static short MEMBER_INFORMATION_ALERT_BACKGROUND_OFFICER_Y_SIZE = 275;
+	private final static short MEMBER_INFORMATION_ALERT_BACKGROUND_NO_OFFICER_Y_SIZE = 213;
+	private final static short MEMBER_DISPLAY_KICK_BUTTON_X = 405;
+	private final static short MEMBER_DISPLAY_BUTTON_X_SIZE = 108;
+	private final static short MEMBER_DISPLAY_BUTTON_Y_SIZE = 24;
+	private final static short MEMBER_DISPLAY_INVITE_BUTTON_X = 515;
+	private final static short MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y = 203;
+	private final static short MEMBER_DISPLAY_BUTTON_OFFICER_Y = 266;
+	private final static short BUTTON_MENU_SORT_Y = 74;
 	
 	private static boolean shouldUpdateSize;
 	private final static int GUILD_MEMBER_MAXIMUM_DISPLAY = 13;
@@ -140,10 +140,10 @@ public class GuildFrame {
 			manageFrameChangeMade = false;
 		}
 	};	
-	private final static Button manageRankAcceptButton = new Button(X_SOCIAL_FRAME+537*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor(), 88*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor(), "Accept", 12, 1) {
+	private final static Button manageRankAcceptButton = new Button(X_SOCIAL_FRAME+537*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor(), (short)88, (short)24, "Accept", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			selectedRank.buildTempPermission();
 			CommandGuild.updatePermission(selectedRank.getOrder(), selectedRank.getTempPermission(), rankNameEditBox.getText());
 			rankNameEditBox.setText(selectedRank.getName());
@@ -155,10 +155,10 @@ public class GuildFrame {
 			return manageFrameChangeMade;
 		}
 	};	
-	private final static Button manageRankCloseFrameButton = new Button(X_SOCIAL_FRAME+630*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor(), 84*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor(), "Cancel", 12, 1) {
+	private final static Button manageRankCloseFrameButton = new Button(X_SOCIAL_FRAME+630*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor(), (short)84, (short)24, "Cancel", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			closeManageFrame();
 		}
 	};
@@ -166,10 +166,10 @@ public class GuildFrame {
 	private final static Tooltip guildInformationTooltip = new Tooltip(X_SOCIAL_FRAME+403*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+36*Mideas.getDisplayYFactor(), 320*Mideas.getDisplayXFactor(), 242*Mideas.getDisplayYFactor(), .6f);
 	private final static Tooltip noteTooltip = new Tooltip(X_SOCIAL_FRAME+412*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+153*Mideas.getDisplayYFactor(), 205*Mideas.getDisplayXFactor(), 45*Mideas.getDisplayYFactor(), .3f);
 	private final static Tooltip officerNoteTooltip = new Tooltip(X_SOCIAL_FRAME+412*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+213*Mideas.getDisplayYFactor(), 205*Mideas.getDisplayXFactor(), 45*Mideas.getDisplayYFactor(), .3f);
-	private final static Button infoButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 134*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "Guild Information", 12, 1) {
+	private final static Button infoButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), (short)134, (short)23, "Guild Information", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			if(displayGuildInformation) {
 				informationInput.setIsActive(false);
 			}
@@ -181,10 +181,10 @@ public class GuildFrame {
 			displayGuildInformation = !displayGuildInformation;
 		}
 	};
-	private final static Button addMemberButton = new Button(X_SOCIAL_FRAME+158*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 110*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "Add Member", 12, 1) {
+	private final static Button addMemberButton = new Button(X_SOCIAL_FRAME+158*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), (short)110, (short)23, "Add Member", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			PopupFrame.activateAddGuildMemberPopupInput();
 		}
 		
@@ -193,10 +193,10 @@ public class GuildFrame {
 			return Mideas.joueur1().getGuildRank().canInvitePlayer();
 		}
 	};
-	private final static Button manageGuildButton = new Button(X_SOCIAL_FRAME+274*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 112*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor(), "Guild Control", 12, 1) {
+	private final static Button manageGuildButton = new Button(X_SOCIAL_FRAME+274*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), (short)112, (short)23, "Guild Control", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			closeGuildInformationFrame();
 			closeMemberInformationFrame();
 			manageFrameOpen = !manageFrameOpen;
@@ -226,25 +226,25 @@ public class GuildFrame {
 			return manageFrameOpen;
 		}
 	};
-	private final static Button journalButton = new Button(X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+276*Mideas.getDisplayYFactor(), 70*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor(), "Journal", 10, 1) {
+	private final static Button journalButton = new Button(X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+276*Mideas.getDisplayYFactor(), (short)70, (short)24, "Journal", 10, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			//open journal
 		}
 	};
-	private final static Button closeInformationButton = new Button(X_SOCIAL_FRAME+625*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor(), 90*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Close", 12, 1) {
+	private final static Button closeInformationButton = new Button(X_SOCIAL_FRAME+625*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor(), (short)90, (short)28, "Close", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			this.reset();
 			closeGuildInformationFrame();
 		}
 	};
-	private final static Button acceptInformationButton = new Button(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor(), 90*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor(), "Accept", 12, 1) {
+	private final static Button acceptInformationButton = new Button(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor(), (short)90, (short)28, "Accept", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			this.reset();
 			CommandGuild.setInformation(informationInput.getText());
 			closeGuildInformationFrame();
@@ -255,10 +255,10 @@ public class GuildFrame {
 			return Mideas.joueur1().getGuildRank().canModifyGuildInformation();
 		}
 	};
-	private final static Button memberDisplayKickButton = new Button(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor(), "Delete", 12, 1) {
+	private final static Button memberDisplayKickButton = new Button(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE, MEMBER_DISPLAY_BUTTON_Y_SIZE, "Delete", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			PopupFrame.activateGuildKickMemberPopup(memberInformationDisplayed.getName(), memberInformationDisplayed.getId());
 		}
 		
@@ -267,10 +267,10 @@ public class GuildFrame {
 			return memberInformationDisplayed != null && memberInformationDisplayed.getId() != Mideas.joueur1().getId() && Mideas.joueur1().getGuildRank().canKickMember() && memberInformationDisplayed.getRank().getOrder() > Mideas.joueur1().getGuildRank().getOrder();
 		}
 	};
-	private final static Button memberDisplayInviteButton = new Button(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor(), "Inv. party", 12, 1) {
+	private final static Button memberDisplayInviteButton = new Button(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE, MEMBER_DISPLAY_BUTTON_Y_SIZE, "Inv. party", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			informationInput.setIsActive(false);
 			displayGuildInformation = false;
 			CommandParty.invitePlayer(memberInformationDisplayed.getName());
@@ -843,13 +843,13 @@ public class GuildFrame {
 					selectedMember = hoveredMember;
 					if(Mideas.joueur1().getGuildRank().canSeeOfficerNote()) {
 						informationBackground.update(X_SOCIAL_FRAME+MEMBER_INFORMATION_ALERT_BACKGROUND_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_INFORMATION_ALERT_BACKGROUND_Y*Mideas.getDisplayYFactor(), MEMBER_INFORMATION_ALERT_BACKGROUND_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_INFORMATION_ALERT_BACKGROUND_OFFICER_Y_SIZE*Mideas.getDisplayYFactor());
-						memberDisplayKickButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor());
-						memberDisplayInviteButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor());
-						}
+						memberDisplayKickButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor());
+						memberDisplayInviteButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor());
+					}
 					else {
 						informationBackground.update(X_SOCIAL_FRAME+MEMBER_INFORMATION_ALERT_BACKGROUND_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_INFORMATION_ALERT_BACKGROUND_Y*Mideas.getDisplayYFactor(), MEMBER_INFORMATION_ALERT_BACKGROUND_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_INFORMATION_ALERT_BACKGROUND_NO_OFFICER_Y_SIZE*Mideas.getDisplayYFactor());
-						memberDisplayKickButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor());
-						memberDisplayInviteButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor());
+						memberDisplayKickButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y*Mideas.getDisplayYFactor());
+						memberDisplayInviteButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y*Mideas.getDisplayYFactor());
 					}
 					memberInformationDisplay = true;
 					closeGuildInformationFrame();
@@ -1178,12 +1178,12 @@ public class GuildFrame {
 		if(!shouldUpdateSize) {
 			return;
 		}
-		infoButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 134*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
-		addMemberButton.update(X_SOCIAL_FRAME+158*Mideas.getDisplayXFactor(),Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 110*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
-		manageGuildButton.update(X_SOCIAL_FRAME+274*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 112*Mideas.getDisplayXFactor(), 23*Mideas.getDisplayYFactor());
-		journalButton.update(X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+278*Mideas.getDisplayYFactor(), 65*Mideas.getDisplayXFactor(), 22*Mideas.getDisplayYFactor());
-		closeInformationButton.update(X_SOCIAL_FRAME+625*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor(), 90*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
-		acceptInformationButton.update(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor(), 90*Mideas.getDisplayXFactor(), 28*Mideas.getDisplayYFactor());
+		infoButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor());
+		addMemberButton.update(X_SOCIAL_FRAME+158*Mideas.getDisplayXFactor(),Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor());
+		manageGuildButton.update(X_SOCIAL_FRAME+274*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor());
+		journalButton.update(X_SOCIAL_FRAME+405*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+278*Mideas.getDisplayYFactor());
+		closeInformationButton.update(X_SOCIAL_FRAME+625*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor());
+		acceptInformationButton.update(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+274*Mideas.getDisplayYFactor());
 		closeInformationFrameCrossButton.update(X_SOCIAL_FRAME+701*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+10*Mideas.getDisplayYFactor(), 19*Mideas.getDisplayXFactor(), 18*Mideas.getDisplayYFactor());
 		showOfflineMembersCheckBox.update(X_SOCIAL_FRAME+353*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+44*Mideas.getDisplayYFactor(), 17*Mideas.getDisplayXFactor(), 15*Mideas.getDisplayYFactor());
 		guildInformationTooltip.update(X_SOCIAL_FRAME+403*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+36*Mideas.getDisplayYFactor(), 320*Mideas.getDisplayXFactor(), 242*Mideas.getDisplayYFactor());
@@ -1193,13 +1193,13 @@ public class GuildFrame {
 		else if(memberInformationDisplay) {
 			if(Mideas.joueur1().getGuildRank().canSeeOfficerNote()) {
 				informationBackground.update(X_SOCIAL_FRAME+MEMBER_INFORMATION_ALERT_BACKGROUND_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_INFORMATION_ALERT_BACKGROUND_Y*Mideas.getDisplayYFactor(), MEMBER_INFORMATION_ALERT_BACKGROUND_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_INFORMATION_ALERT_BACKGROUND_OFFICER_Y_SIZE*Mideas.getDisplayYFactor());
-				memberDisplayInviteButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor());
-				memberDisplayKickButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor());
+				memberDisplayInviteButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor());
+				memberDisplayKickButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_OFFICER_Y*Mideas.getDisplayYFactor());
 			}
 			else {
 				informationBackground.update(X_SOCIAL_FRAME+MEMBER_INFORMATION_ALERT_BACKGROUND_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_INFORMATION_ALERT_BACKGROUND_Y*Mideas.getDisplayYFactor(), MEMBER_INFORMATION_ALERT_BACKGROUND_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_INFORMATION_ALERT_BACKGROUND_NO_OFFICER_Y_SIZE*Mideas.getDisplayYFactor());
-				memberDisplayInviteButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor());
-				memberDisplayKickButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y*Mideas.getDisplayYFactor(), MEMBER_DISPLAY_BUTTON_X_SIZE*Mideas.getDisplayXFactor(), MEMBER_DISPLAY_BUTTON_Y_SIZE*Mideas.getDisplayYFactor());
+				memberDisplayInviteButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_INVITE_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y*Mideas.getDisplayYFactor());
+				memberDisplayKickButton.update(X_SOCIAL_FRAME+MEMBER_DISPLAY_KICK_BUTTON_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+MEMBER_DISPLAY_BUTTON_NO_OFFICER_Y*Mideas.getDisplayYFactor());
 			}
 		}
 		else if(manageFrameOpen) {
@@ -1224,8 +1224,8 @@ public class GuildFrame {
 		memberScrollBar.update(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 240*Mideas.getDisplayYFactor(), 365*Mideas.getDisplayXFactor(), 260*Mideas.getDisplayYFactor(), 18*Mideas.getDisplayYFactor());
 		manageRankDropDownMenu.update(X_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_BAR_Y*Mideas.getDisplayYFactor(), DROP_DOWN_MENU_BAR_X_SIZE*Mideas.getDisplayXFactor(), X_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_X*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+DROP_DOWN_MENU_ALERT_Y*Mideas.getDisplayXFactor(), DROP_DOWN_MENU_ALERT_X_SIZE*Mideas.getDisplayXFactor());
 		rankNameEditBox.update(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor());
-		manageRankAcceptButton.update(X_SOCIAL_FRAME+537*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor(), 88*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor());
-		manageRankCloseFrameButton.update(X_SOCIAL_FRAME+630*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor(), 84*Mideas.getDisplayXFactor(), 24*Mideas.getDisplayYFactor());
+		manageRankAcceptButton.update(X_SOCIAL_FRAME+537*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor());
+		manageRankCloseFrameButton.update(X_SOCIAL_FRAME+630*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+435*Mideas.getDisplayYFactor());
 		sortByNameButton.update(X_SOCIAL_FRAME+20*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_SORT_Y*Mideas.getDisplayYFactor(), 94*Mideas.getDisplayXFactor());
 		sortByRankButton.update(X_SOCIAL_FRAME+113*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_SORT_Y*Mideas.getDisplayYFactor(), 86*Mideas.getDisplayXFactor());
 		sortByNoteButton.update(X_SOCIAL_FRAME+198*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+BUTTON_MENU_SORT_Y*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor());

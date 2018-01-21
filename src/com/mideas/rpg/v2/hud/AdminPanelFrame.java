@@ -18,30 +18,30 @@ public class AdminPanelFrame {
 	private static int LEFT_ANCHOR = Display.getWidth()/2-325;
 	private static int y = -250;
 	private static String joueur1 = "joueur1";
-	private static Button sexMaxStaminaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor(), "Fully heals you", 12, 1) {
+	private static Button sexMaxStaminaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y, (short)130, (short)30, "Fully heals you", 12, 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			Mideas.joueur1().setStamina(Mideas.joueur1().getMaxStamina());
 		}
 	};
 	
-	private static Button sexMaxManaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+40, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor(), "Restore your mana", 12, 1) {
+	private static Button sexMaxManaPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+40, (short)130, (short)30, "Restore your mana", 12, 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			Mideas.joueur1().setMana(Mideas.joueur1().getMaxMana());
 		}
 	};
 	
-	private static Button killPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+80, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor(), "Kill you", 12, 1) {
+	private static Button killPlayer1 = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+80, (short)130, (short)30, "Kill you", 12, 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			Mideas.joueur1().setStamina(0);
 		}
 	};
 	
-	private static Button clearBag = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor(), "Clear your bag", 12, 1) {
+	private static Button clearBag = new Button(LEFT_ANCHOR, Display.getHeight()/2+y+120, (short)130, (short)30, "Clear your bag", 12, 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			Arrays.fill(Mideas.joueur1().bag().getBag(), null);
 			CharacterStuff.setBagItems();
 		}
@@ -70,10 +70,10 @@ public class AdminPanelFrame {
 			return;
 		}
 		LEFT_ANCHOR = Display.getWidth()/2-325;
-		sexMaxStaminaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
-		sexMaxManaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+40, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
-		killPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+80, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
-		clearBag.update(LEFT_ANCHOR, Display.getHeight()/2+y+120, 130*Mideas.getDisplayXFactor(), 30*Mideas.getDisplayXFactor());
+		sexMaxStaminaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y);
+		sexMaxManaPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+40);
+		killPlayer1.update(LEFT_ANCHOR, Display.getHeight()/2+y+80);
+		clearBag.update(LEFT_ANCHOR, Display.getHeight()/2+y+120);
 		shouldUpdateSize = false;
 	}
 	

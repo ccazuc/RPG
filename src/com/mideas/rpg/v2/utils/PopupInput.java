@@ -23,10 +23,10 @@ public class PopupInput extends Popup {
 		this.x = Display.getWidth()/2-this.x_size/2;
 		this.x_size_input_bar_save = (int)input_bar_width;
 		this.textWidth = textFont.getWidth(this.message);
-		this.cancelButton = new Button(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "No", 12, 1) {
+		this.cancelButton = new Button(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH, BUTTON_HEIGHT, "No", 12, 1) {
 			
 			@Override
-			public void eventButtonClick() {
+			public void onLeftClickUp() {
 				PopupInput.this.acceptButton.popupClosed();
 				PopupInput.this.isActive = false;
 			}
@@ -36,7 +36,7 @@ public class PopupInput extends Popup {
 			@Override
 			public boolean keyEvent(char c) {
 				if(c == Input.ENTER_CHAR_VALUE) {
-					PopupInput.this.acceptButton.eventButtonClick();
+					PopupInput.this.acceptButton.onLeftClickUp();
 					PopupInput.this.isActive = false;
 					setIsActive(false);
 					return true;
@@ -147,7 +147,7 @@ public class PopupInput extends Popup {
 		this.inputBar.update(Display.getWidth()/2-this.x_size_input_bar_save*Mideas.getDisplayXFactor()/2, y+42*Mideas.getDisplayYFactor(), this.x_size_input_bar_save*Mideas.getDisplayXFactor());
 		this.input.update(this.x+this.x_size/2-this.x_size_input_bar_save*Mideas.getDisplayXFactor()/2+12*Mideas.getDisplayXFactor(), y+50*Mideas.getDisplayYFactor(), this.x_size_input_bar_save*Mideas.getDisplayXFactor());
 		this.background.update(this.x, this.y, this.x_size, this.y_size);
-		this.cancelButton.update(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor(), BUTTON_WIDTH*Mideas.getDisplayXFactor(), BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.cancelButton.update(this.x+this.x_size/2+10, this.y+this.y_size-37*Mideas.getDisplayYFactor());
 		updateAcceptButton();
 	}
 	

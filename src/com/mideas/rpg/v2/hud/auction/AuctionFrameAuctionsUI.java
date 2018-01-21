@@ -22,20 +22,20 @@ public class AuctionFrameAuctionsUI {
 	private final short BUYOUT_PRICE_EDIT_BOX_Y = 302;
 	private final short GOLD_STARTING_PRICE_EDIT_BOX_X = 28;
 	private final short GOLD_BUYOUT_PRICE_EDIT_BOX_X = 28;
-	private final byte GOLD_PRICE_EDIT_BOX_WIDTH = 75;
+	private final short GOLD_PRICE_EDIT_BOX_WIDTH = 75;
 	private final short SILVER_STARTING_PRICE_EDIT_BOX_X = 108;
 	private final short SILVER_BUYOUT_PRICE_EDIT_BOX_X = 108;
-	private final byte SILVER_PRICE_EDIT_BOX_WIDTH = 43;
+	private final short SILVER_PRICE_EDIT_BOX_WIDTH = 43;
 	private final short COPPER_STARTING_PRICE_EDIT_BOX_X = 156;
 	private final short COPPER_BUYOUT_PRICE_EDIT_BOX_X = 156;
-	private final byte COPPER_PRICE_EDIT_BOX_WIDTH = 43;
+	private final short COPPER_PRICE_EDIT_BOX_WIDTH = 43;
 	
 	private final short SORT_BY_RARITY_BUTTON_X = 217;
 	private final short SORT_BY_TIME_LEFT_BUTTON_X = 400;
 	private final short SORT_BY_HIGH_BIDDER_BUTTON_X = 498;
 	private final short SORT_BY_CURRENT_BID_BUTTON_X = 604;
 	private final short SORT_BUTTON_Y = 49;
-	private final byte SORT_BUTTON_HEIGHT = 21;
+	private final short SORT_BUTTON_HEIGHT = 21;
 	private final short SORT_BY_RARITY_BUTTON_WIDTH = 185;
 	private final short SORT_BY_TIME_LEFT_BUTTON_WIDTH = 100;
 	private final short SORT_BY_HIGH_BIDDER_BUTTON_WIDTH = 108;
@@ -45,10 +45,10 @@ public class AuctionFrameAuctionsUI {
 	private final AuctionFrameUI frame;
 	private boolean shouldUpdate;
 	
-	private final Button closeButton = new Button(this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor(), "Close", 12, 1) {
+	private final Button closeButton = new Button(this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH, this.BUTTON_HEIGHT, "Close", 12, 1) {
 	
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			Interface.closeAuctionFrame();
 			this.reset();
 		}
@@ -307,7 +307,7 @@ public class AuctionFrameAuctionsUI {
 		this.sortByTimeLeftButton.update(this.frame.getXFrame()+this.SORT_BY_TIME_LEFT_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor());
 		this.sortByHighBidderButton.update(this.frame.getXFrame()+this.SORT_BY_HIGH_BIDDER_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor());
 		this.sortByCurrentBidButton.update(this.frame.getXFrame()+this.SORT_BY_CURRENT_BID_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.SORT_BUTTON_Y*Mideas.getDisplayYFactor());
-		this.closeButton.update(this.frame.getXFrame()+this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor(), this.BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.BUTTON_HEIGHT*Mideas.getDisplayYFactor());
+		this.closeButton.update(this.frame.getXFrame()+this.CLOSE_BUTTON_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.CLOSE_BUTTON_Y*Mideas.getDisplayYFactor());
 		this.goldStartingPriceEditBox.update(this.frame.getXFrame()+this.GOLD_STARTING_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.STARTING_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor());
 		this.silverStartingPriceEditBox.update(this.frame.getXFrame()+this.SILVER_STARTING_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.STARTING_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor());
 		this.copperStartingPriceEditBox.update(this.frame.getXFrame()+this.COPPER_STARTING_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.frame.getYFrame()+this.STARTING_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor());

@@ -23,10 +23,10 @@ public class PopupFrame {
 	static String name;
 	private static Popup popup = new Popup(Display.getWidth()/2-240*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), 480*Mideas.getDisplayXFactor(), 75*Mideas.getDisplayYFactor(), "Ceci est un test");
 	static PopupInput popupInput = new PopupInput(Display.getWidth()/2-POPUP_INPUT_WIDTH/2*Mideas.getDisplayXFactor(), Display.getHeight()/2-365*Mideas.getDisplayYFactor(), POPUP_INPUT_WIDTH, 120*Mideas.getDisplayYFactor(), "Ceci est un test", 150);
-	private static Button guildKickMemberButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button guildKickMemberButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandGuild.kickMember(id);
 		}
 		
@@ -35,10 +35,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button guildInvitationButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button guildInvitationButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandGuild.acceptRequest();
 		}
 		
@@ -48,10 +48,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button partyInvitationButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button partyInvitationButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandParty.acceptRequest();
 		}
 		
@@ -61,10 +61,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button addFriendButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button addFriendButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandFriend.addFriend(popupInput.getInput().getText());
 		}
 		
@@ -74,10 +74,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button addGuildMemberButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button addGuildMemberButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandGuild.addMember(popupInput.getInput().getText());
 		}
 		
@@ -87,10 +87,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button setGuildMemberNoteButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button setGuildMemberNoteButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandGuild.setMemberNote(id, popupInput.getInput().getText());
 		}
 		
@@ -100,10 +100,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button setGuildMemberOfficerNoteButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button setGuildMemberOfficerNoteButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandGuild.setMemberOfficerNote(id, popupInput.getInput().getText());
 		}
 		
@@ -113,10 +113,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button addIgnoreButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button addIgnoreButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandIgnore.addIgnore(popupInput.getInput().getText());
 		}
 		
@@ -126,10 +126,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button acceptTradeButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button acceptTradeButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandTrade.writeConfirm();
 		}
 		
@@ -139,10 +139,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button deleteItemWithoutConfirmButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button deleteItemWithoutConfirmButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			DragManager.deleteItem(DragManager.getDraggedItem());
 		}
 		
@@ -152,10 +152,10 @@ public class PopupFrame {
 			currentPopup = PopupType.NONE;
 		}
 	};
-	private static Button deleteItemWithConfirmButton = new Button(0, 0, 0, 0, "Yes", 12, 1) {
+	private static Button deleteItemWithConfirmButton = new Button(0, 0, (short)0, (short)0, "Yes", 12, 1) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			DragManager.deleteItem(DragManager.getDraggedItem());
 		}
 		

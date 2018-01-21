@@ -154,20 +154,19 @@ public class WhoFrame {
 	private final static TextMenu sortByGuild = new TextMenu(0, 0, 0, "Guild", 12, 1);
 	private final static TextMenu sortByArea = new TextMenu(0, 0, 0, "Area", 12, 1);
 	private final static TextMenu sortByRace = new TextMenu(0, 0, 0, "Race", 12, 1);
-	private final static Button updateButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), "Actualise", 12, 1) {
+	private final static Button updateButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), (short)100, (short)25, "Actualise", 12, 1) {
 	
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandWho.write(input.getText());
 		}
 	};
-	private final static Button addFriendButton = new Button(X_SOCIAL_FRAME+119*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), "Add Friend", 12, 1) {
+	private final static Button addFriendButton = new Button(X_SOCIAL_FRAME+119*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), (short)132, (short)25, "Add Friend", 12, 1) {
 	
 		@Override
-		public void eventButtonClick() {
-			if(selectedUnit != -1) {
+		public void onLeftClickUp() {
+			if(selectedUnit != -1)
 				CommandFriend.addFriend(whoList.get(selectedUnit).getName());
-			}
 		}
 		
 		@Override
@@ -175,13 +174,12 @@ public class WhoFrame {
 			return selectedUnit != -1;
 		}
 	};
-	private final static Button inviteButton = new Button(X_SOCIAL_FRAME+253*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor(), "Inv. Party", 12, 1) {
+	private final static Button inviteButton = new Button(X_SOCIAL_FRAME+253*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), (short)132, (short)25, "Inv. Party", 12, 1) {
 	
 		@Override
-		public void eventButtonClick() {
-			if(selectedUnit != -1) {
+		public void onLeftClickUp() {
+			if(selectedUnit != -1) 
 				CommandParty.invitePlayer(whoList.get(selectedUnit).getName());
-			}
 		}
 		
 		@Override
@@ -548,9 +546,9 @@ public class WhoFrame {
 		sortByLevel.update(X_SOCIAL_FRAME+234*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 40*Mideas.getDisplayXFactor());
 		sortByName.update(X_SOCIAL_FRAME+19*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+74*Mideas.getDisplayYFactor(), 95*Mideas.getDisplayXFactor());
 		scrollBar.update(X_SOCIAL_FRAME+357*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+100*Mideas.getDisplayYFactor(), 290*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 290*Mideas.getDisplayYFactor(), 20*Mideas.getDisplayYFactor());
-		updateButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 100*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
-		addFriendButton.update(X_SOCIAL_FRAME+119*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
-		inviteButton.update(X_SOCIAL_FRAME+253*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132*Mideas.getDisplayXFactor(), 25*Mideas.getDisplayYFactor());
+		updateButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor());
+		addFriendButton.update(X_SOCIAL_FRAME+119*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor());
+		inviteButton.update(X_SOCIAL_FRAME+253*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor());
 		tooltipMenu.updateSize();
 		shouldUpdateSize = false;
 	}

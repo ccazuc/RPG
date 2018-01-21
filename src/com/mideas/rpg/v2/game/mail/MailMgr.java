@@ -2,6 +2,8 @@ package com.mideas.rpg.v2.game.mail;
 
 import java.util.ArrayList;
 
+import com.mideas.rpg.v2.callback.CallbackManager;
+
 public class MailMgr {
 
 	private final static ArrayList<Mail> mailList = new ArrayList<Mail>();
@@ -24,6 +26,7 @@ public class MailMgr {
 		while (++i < mailList.size())
 			if (mailList.get(i).getGUID() == GUID)
 			{
+				CallbackManager.onMailDeleted(mailList.get(i));
 				mailList.remove(i);
 				return;
 			}

@@ -31,16 +31,16 @@ public class FriendsFrame {
 	private static int hoveredIgnore = -1;
 	private static int leftButtonDownIgnore = -1;
 	private static boolean friendInit;
-	private final static int FRIEND_BUTTON_LENGTH = 145;
-	private final static int FRIEND_BUTTON_HEIGHT = 25;
-	private final static int IGNORE_BUTTON_LENGTH = 145;
-	private final static int IGNORE_BUTTON_HEIGHT = 25;
-	private final static int FL_MAXIMUM_DISPLAY = 10;
-	private final static int IL_MAXIMUM_DISPLAY = 20;
+	private final static short FRIEND_BUTTON_LENGTH = 145;
+	private final static short FRIEND_BUTTON_HEIGHT = 25;
+	private final static short IGNORE_BUTTON_LENGTH = 145;
+	private final static short IGNORE_BUTTON_HEIGHT = 25;
+	private final static short FL_MAXIMUM_DISPLAY = 10;
+	private final static short IL_MAXIMUM_DISPLAY = 20;
 	static boolean friend_tab_active = true;
-	private final static Button deleteFriendButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Delete", 12, 1) {
+	private final static Button deleteFriendButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH, FRIEND_BUTTON_HEIGHT, "Delete", 12, 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandFriend.removeFriend(Mideas.joueur1().getFriendList().get(selectedFriend).getCharacterId());
 		}
 		
@@ -49,15 +49,15 @@ public class FriendsFrame {
 			return selectedFriend != -1;
 		}
 	};
-	private final static Button addFriendButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Add friend", 12, 1) {
+	private final static Button addFriendButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH, FRIEND_BUTTON_HEIGHT, "Add friend", 12, 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			PopupFrame.activateAddFriendPopupInput();
 		}
 	};
-	private final static Button sendMessageFriendButton = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Send message", 12, 1) {
+	private final static Button sendMessageFriendButton = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH, FRIEND_BUTTON_HEIGHT, "Send message", 12, 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			ChatFrame.setWhisper(Mideas.joueur1().getFriendList().get(selectedFriend).getName());
 			ChatFrame.setChatActive(true);
 		}
@@ -67,9 +67,9 @@ public class FriendsFrame {
 			return selectedFriend != -1 && Mideas.joueur1().getFriendList().get(selectedFriend).isOnline();
 		}
 	};
-	private final static Button invInParty = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Inv. in party", 12 , 1) {
+	private final static Button invInParty = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH, FRIEND_BUTTON_HEIGHT, "Inv. in party", 12 , 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandParty.invitePlayer(Mideas.joueur1().getFriendList().get(selectedFriend).getName());
 		}
 		
@@ -78,15 +78,15 @@ public class FriendsFrame {
 			return selectedFriend != -1 && Mideas.joueur1().getFriendList().get(selectedFriend).isOnline();
 		}
 	};
-	private final static Button ignorePlayer = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor(), IGNORE_BUTTON_LENGTH*Mideas.getDisplayXFactor(), IGNORE_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Ignore Player", 12 , 1) {
+	private final static Button ignorePlayer = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor(), IGNORE_BUTTON_LENGTH, IGNORE_BUTTON_HEIGHT, "Ignore Player", 12 , 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			PopupFrame.activateAddIgnorePopupInput();
 		}
 	};
-	private final static Button removeIgnorePlayer = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor(), IGNORE_BUTTON_LENGTH*Mideas.getDisplayXFactor(), IGNORE_BUTTON_HEIGHT*Mideas.getDisplayXFactor(), "Remove Player", 12 , 1) {
+	private final static Button removeIgnorePlayer = new Button(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor(), IGNORE_BUTTON_LENGTH, IGNORE_BUTTON_HEIGHT, "Remove Player", 12 , 1) {
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			CommandIgnore.removeIgnore(Mideas.joueur1().getIgnoreList().get(selectedIgnore).getId());
 		}
 		
@@ -367,14 +367,14 @@ public class FriendsFrame {
 		if(!shouldUpdateSize) {
 			return;
 		}
-		deleteFriendButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
-		addFriendButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
-		sendMessageFriendButton.update(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
-		invInParty.update(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), FRIEND_BUTTON_LENGTH*Mideas.getDisplayXFactor(), FRIEND_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
+		deleteFriendButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor());
+		addFriendButton.update(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor());
+		sendMessageFriendButton.update(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+410*Mideas.getDisplayYFactor());
+		invInParty.update(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor());
 		friendFrameTab.update(X_SOCIAL_FRAME+73*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+45*Mideas.getDisplayYFactor(), 57*Mideas.getDisplayXFactor(), 32*Mideas.getDisplayYFactor());
 		ignoreFrameTab.update(X_SOCIAL_FRAME+135*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+45*Mideas.getDisplayYFactor(), 77*Mideas.getDisplayXFactor(), 32*Mideas.getDisplayYFactor());
-		ignorePlayer.update(X_SOCIAL_FRAME+18*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor(), IGNORE_BUTTON_LENGTH*Mideas.getDisplayXFactor(), IGNORE_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
-		removeIgnorePlayer.update(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor(), IGNORE_BUTTON_LENGTH*Mideas.getDisplayXFactor(), IGNORE_BUTTON_HEIGHT*Mideas.getDisplayXFactor());
+		ignorePlayer.update(X_SOCIAL_FRAME+18*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor());
+		removeIgnorePlayer.update(X_SOCIAL_FRAME+241*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+439*Mideas.getDisplayYFactor());
 		friendScrollbar.update(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+77*Mideas.getDisplayYFactor(), 311*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 307*Mideas.getDisplayYFactor(), 32*Mideas.getDisplayYFactor());
 		ignoreScrollbar.update(X_SOCIAL_FRAME+358*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+77*Mideas.getDisplayYFactor(), 341*Mideas.getDisplayYFactor(), 400*Mideas.getDisplayXFactor(), 350*Mideas.getDisplayYFactor(), 17.6f*Mideas.getDisplayYFactor());
 		shouldUpdateSize = false;

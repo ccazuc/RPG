@@ -11,22 +11,25 @@ public class InputBox {
 
 	private final short textOffset;
 	private final short inputMaxWidth;
-	private final short xSizeSave;
 	protected final Input input;
 	private short x;
 	private short y;
-	private short x_size;
+	private short xSave;
+	private short ySave;
+	private short width;
+	private final short widthSave;
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private final EditBoxCrossButton crossButton;
+	private Frame parentFrame;
 	private final static byte CROSS_BUTTON_X_OFFSET = 18;
 	private final static byte CROSS_BUTTON_Y_OFFSET = 4;
 	
 	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton) {
 		this.x = (short)x;
 		this.y = (short)y;
-		this.xSizeSave = (short)x_size;
-		this.x_size = (short)(x_size*Mideas.getDisplayXFactor());
+		this.widthSave = (short)x_size;
+		this.width = (short)(x_size*Mideas.getDisplayXFactor());
 		this.textOffset = (short)textOffset;
 		this.inputMaxWidth = (short)inputMaxWidth;
 		if(isIntegerInput) {
@@ -76,12 +79,75 @@ public class InputBox {
 		this(x, y, x_size, inputMaxLength, textOffset, inputMaxWidth, font, isIntegerInput, 2, 13, "", false);
 	}
 	
+	public InputBox(Frame parentFrame, float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton) {
+		this.x = (short)x;
+		this.y = (short)y;
+		this.parentFrame = parentFrame;
+		this.xSave = (short)x;
+		this.ySave = (short)y;
+		this.widthSave = (short)x_size;
+		this.width = (short)(x_size*Mideas.getDisplayXFactor());
+		this.textOffset = (short)textOffset;
+		this.inputMaxWidth = (short)inputMaxWidth;
+		if(isIntegerInput) {
+			this.input = new IntegerInput(font, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight) {
+				
+				@Override
+				public boolean checkValue(int value) {
+					return InputBox.this.checkValue(value);
+				}
+				
+				@Override
+				public boolean keyEvent(char c) {
+					return InputBox.this.keyEvent(c);
+				}
+			};
+		}
+		else {
+			this.input = new Input(font, inputMaxLength, false, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText) {
+				
+				@Override
+				public boolean keyEvent(char c) {
+					return InputBox.this.keyEvent(c);
+				}
+			};
+		}
+		if(hasCrossButton) {
+			this.crossButton = new EditBoxCrossButton(x+x_size-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor()) {
+				
+				@Override
+				public void eventButtonClick() {
+					setActive(false);
+					resetText();
+				}
+				
+				@Override
+				public boolean activateCondition() {
+					return InputBox.this.input.isActive() || InputBox.this.input.getText().length() > 0;
+				}
+			};
+		}
+		else {
+			this.crossButton = null;
+		}
+	}
+	
 	public void drawTexturePart() {
 		int imageWidth = Sprites.edit_box_left_border.getImageWidth();
 		int imageHeight = (int)(Sprites.edit_box_left_border.getImageHeight()*Mideas.getDisplayYFactor());
 		Draw.drawQuadPart(Sprites.edit_box, this.x, this.y, imageWidth, imageHeight, 0, 0, 6, 20);				//left_border
-		Draw.drawQuadPart(Sprites.edit_box, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight, 8, 0, 1, 20);	//middle_border
-		Draw.drawQuadPart(Sprites.edit_box, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight, 11, 0, 6, 20);	//right_border
+		Draw.drawQuadPart(Sprites.edit_box, this.x+imageWidth, this.y, this.width-2*imageWidth, imageHeight, 8, 0, 1, 20);	//middle_border
+		Draw.drawQuadPart(Sprites.edit_box, this.x+this.width-imageWidth, this.y, imageWidth, imageHeight, 11, 0, 6, 20);	//right_border
+	}
+	
+	public void drawStringPart()
+	{
+		this.input.drawTextPart();
+	}
+	
+	public void drawCursorPart()
+	{
+		this.input.drawCursorPart();
 	}
 	
 	public void drawString() {
@@ -89,6 +155,12 @@ public class InputBox {
 		if(this.crossButton != null) {
 			this.crossButton.draw();
 		}
+	}
+	
+	public void drawCrossButton()
+	{
+		if (this.crossButton != null)
+			this.crossButton.draw();
 	}
 	
 	public void draw() {
@@ -100,8 +172,8 @@ public class InputBox {
 		
 		Sprites.edit_box.drawBegin();
 		Draw.drawQuadPart(Sprites.edit_box, this.x, this.y, imageWidth, imageHeight, 0, 0, 6, 20);				//left_border
-		Draw.drawQuadPart(Sprites.edit_box, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight, 8, 0, 1, 20);	//middle_border
-		Draw.drawQuadPart(Sprites.edit_box, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight, 11, 0, 6, 20);	//right_border
+		Draw.drawQuadPart(Sprites.edit_box, this.x+imageWidth, this.y, this.width-2*imageWidth, imageHeight, 8, 0, 1, 20);	//middle_border
+		Draw.drawQuadPart(Sprites.edit_box, this.x+this.width-imageWidth, this.y, imageWidth, imageHeight, 11, 0, 6, 20);	//right_border
 		Sprites.edit_box.drawEnd();
 		this.input.draw();
 		if(this.crossButton != null) {
@@ -113,7 +185,7 @@ public class InputBox {
 		if(this.crossButton != null && this.crossButton.event()) {
 			return true;
 		}
-		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+Sprites.edit_box_left_border.getImageHeight()*Mideas.getDisplayYFactor()) {
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+Sprites.edit_box_left_border.getImageHeight()*Mideas.getDisplayYFactor()) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
 		}
@@ -177,15 +249,31 @@ public class InputBox {
 	public void update(float x, float y) {
 		this.x = (short)x;
 		this.y = (short)y;
-		this.x_size = (short)(this.xSizeSave*Mideas.getDisplayXFactor());
+		this.width = (short)(this.widthSave*Mideas.getDisplayXFactor());
 		this.input.update(this.x+this.textOffset*Mideas.getDisplayXFactor(), this.y+3, this.inputMaxWidth*Mideas.getDisplayXFactor());
 		if(this.crossButton != null) {
-			this.crossButton.update(this.x+this.x_size-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor());
+			this.crossButton.update(this.x+this.width-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor());
 		}
 	}
 	
+	public void updateSize()
+	{
+		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
+		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
+		this.width = (short)(this.widthSave*Mideas.getDisplayXFactor());
+		this.input.update(this.x + this.textOffset * Mideas.getDisplayXFactor(), this.y + 3, this.inputMaxWidth * Mideas.getDisplayXFactor());
+	}
+	
+	public void initParentFrame(Frame frame)
+	{
+		this.parentFrame = frame;
+		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
+		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
+		this.input.update(this.x + this.textOffset * Mideas.getDisplayXFactor(), this.y + 3, this.inputMaxWidth * Mideas.getDisplayXFactor());
+	}
+	
 	public short getWidth() {
-		return this.x_size;
+		return this.width;
 	}
 	
 	protected boolean keyEvent(@SuppressWarnings("unused") char c) {return false;}
