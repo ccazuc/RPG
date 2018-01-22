@@ -20,7 +20,8 @@ public class Arrow {
 	private Texture downTexture;
 	private Texture defaultTexture;
 	private Texture disabledTexture;
-	private boolean buttonDown;
+	private boolean leftClickDown;
+	private boolean rightClickDown;
 	private boolean buttonHover;
 	private boolean hasClicked;
 	private boolean lastActivateCondition;
@@ -76,37 +77,44 @@ public class Arrow {
 		{
 			if(Mouse.getEventButtonState()) 
 			{
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)
-					this.buttonDown = true;
-			}
-			else if(this.buttonDown) {
 				if(Mouse.getEventButton() == 0)
 				{
-					this.buttonDown = false;
-					eventButtonClick();
-					this.hasClicked = true;
-					this.texture = this.defaultTexture;
-					if (!activateCondition())
-						this.buttonHover = false;
-					return true;
+					onLeftClickDown();
+					this.leftClickDown = true;
 				}
-				else if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)
+				else if (Mouse.getEventButton() == 1)
 				{
-					this.buttonDown = false;
-					this.texture = this.defaultTexture;
+					onRightClickDown();
+					this.rightClickDown = true;
 				}
+			}
+			else if(this.leftClickDown && Mouse.getEventButton() == 0)
+			{
+				this.leftClickDown = false;
+				onLeftClickUp();
+				this.hasClicked = true;
+				this.texture = this.defaultTexture;
+				if (!activateCondition())
+					this.buttonHover = false;
+				return (true);
+			}
+			else if(this.rightClickDown && Mouse.getEventButton() == 1)
+			{
+				this.rightClickDown = false;
+				this.texture = this.defaultTexture;
 			}
 		}
 		else if(!Mouse.getEventButtonState())
 		{
 			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)
 			{
-				this.buttonDown = false;
+				this.leftClickDown = false;
+				this.rightClickDown = false;
 				this.hasClicked = false;
 				this.texture = this.defaultTexture;
 			}
 		}
-		if(this.buttonDown)
+		if(this.leftClickDown || this.rightClickDown)
 			this.texture = this.downTexture;
 		return false;
 	}
@@ -138,13 +146,16 @@ public class Arrow {
 		this.y_size_save = (short)height;
 	}
 	
-	protected void eventButtonClick() {}
+	protected void onLeftClickUp() {}
+	protected void onLeftClickDown() {}
+	protected void onRightClickUp() {}
+	protected void onRightClickDown() {}
 	protected boolean activateCondition() {return true;}
 	protected boolean hoverSpriteActivateCondition() {return false;}
 	
-	public boolean getButtonDown()
+	public boolean getLeftClickDown()
 	{
-		return this.buttonDown;
+		return this.leftClickDown;
 	}
 	
 	public boolean hasClicked()
@@ -182,7 +193,8 @@ public class Arrow {
 	
 	public void reset()
 	{
-		this.buttonDown = false;
+		this.leftClickDown = false;
+		this.rightClickDown = false;
 		this.buttonHover = false;
 		this.hasClicked = false;
 		this.texture = this.defaultTexture;

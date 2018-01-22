@@ -774,7 +774,7 @@ public class Interface {
 		interfaceFrameActive = false;
 		dungeonFrameActive = false;
 		craftFrameActive = false;
-		mailFrame.onClose();
+		mailFrame.close();
 		closeAuctionFrame();
 		ContainerFrame.setBagOpen(0, false);
 		ContainerFrame.setBagOpen(1, false);
@@ -792,12 +792,12 @@ public class Interface {
 	
 	public static void openMailFrame()
 	{
-		mailFrame.onOpen();
+		mailFrame.open();
 	}
 	
 	public static void closeMailFrame()
 	{
-		mailFrame.onClose();
+		mailFrame.close();
 	}
 	
 	public static boolean isMailFrameOpen()

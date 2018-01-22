@@ -20,6 +20,15 @@ public class MailMgr {
 		mailList.clear();
 	}
 	
+	public static Mail getMail(long GUID)
+	{
+		int i = -1;
+		while (++i < mailList.size())
+			if (mailList.get(i).getGUID() == GUID)
+				return (mailList.get(i));
+		return (null);
+	}
+	
 	public static void removeMail(long GUID)
 	{
 		int i = -1;

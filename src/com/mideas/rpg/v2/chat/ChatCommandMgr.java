@@ -556,6 +556,15 @@ public class ChatCommandMgr {
 			CommandMail.sendMail(Mideas.joueur1().getName(), "Test", "Ceci est un test.", false, 0, null);
 		}
 	};
+	private final static ChatSubCommand mail_test = new ChatSubCommand("test", "mail", "/mail debug to send a mail to yourself.")
+	{
+	
+		@Override
+		public void handle(String[] command)
+		{
+			Interface.getMailFrame().activateMailContentInput();
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
@@ -593,6 +602,7 @@ public class ChatCommandMgr {
 		addCommand(who);
 		addCommand(mail);
 		mail.addSubCommand(mail_debug);
+		mail.addSubCommand(mail_test);
 	}
 	
 	public static void handleChatCommand(String str)

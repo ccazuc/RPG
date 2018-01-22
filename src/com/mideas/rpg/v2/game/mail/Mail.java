@@ -13,10 +13,11 @@ public class Mail {
 	private final int gold;
 	private final boolean isCR;
 	private final byte template;
+	private final boolean canReply;
 	private String expireDateString;
 	private boolean read;
 	
-	public Mail(long GUID, long deleteDate, String authorName, String title, String content, int gold, boolean isCR, byte template, boolean read)
+	public Mail(long GUID, long deleteDate, String authorName, String title, String content, int gold, boolean isCR, byte template, boolean read, boolean canReply)
 	{
 		this.GUID = GUID;
 		this.deleteDate = deleteDate;
@@ -27,6 +28,7 @@ public class Mail {
 		this.isCR = isCR;
 		this.template = template;
 		this.read = read;
+		this.canReply = canReply;
 		updateExpireDateString();
 	}
 	
@@ -88,5 +90,10 @@ public class Mail {
 	public void readed()
 	{
 		this.read = true;
+	}
+	
+	public boolean canReply()
+	{
+		return (this.canReply);
 	}
 }

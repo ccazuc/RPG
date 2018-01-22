@@ -204,7 +204,7 @@ public class AuctionFrameBrowseUI {
 	private final Arrow nextPageArrow = new Arrow(this.NEXT_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.PAGE_ARROW_Y*Mideas.getDisplayYFactor(), 27, 26, ArrowDirection.RIGHT) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			AuctionFrameBrowseUI.this.page++;
 			sendSearchQuery();
 		}
@@ -217,7 +217,7 @@ public class AuctionFrameBrowseUI {
 	private final Arrow previousPageArrow = new Arrow(this.PREVIOUS_PAGE_ARROW_X*Mideas.getDisplayXFactor(), this.PAGE_ARROW_Y*Mideas.getDisplayYFactor(), 27, 26, ArrowDirection.LEFT) {
 		
 		@Override
-		public void eventButtonClick() {
+		public void onLeftClickUp() {
 			AuctionFrameBrowseUI.this.page--;
 			sendSearchQuery();
 		}

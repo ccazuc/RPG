@@ -41,7 +41,7 @@ public class DropDownMenu {
 		this.arrow = new Arrow(this.x_bar+this.x_size_bar-ARROW_WIDTH*Mideas.getDisplayXFactor()-2, this.y_bar+2, ARROW_WIDTH*Mideas.getDisplayXFactor(), ARROW_HEIGHT*Mideas.getDisplayYFactor(), ArrowDirection.BOT) {
 			
 			@Override
-			public void eventButtonClick() {
+			public void onLeftClickUp() {
 				DropDownMenu.this.backgroundActive = !DropDownMenu.this.backgroundActive;
 			}
 		};
@@ -57,7 +57,7 @@ public class DropDownMenu {
 		this.arrow = new Arrow(this.x_bar+this.x_size_bar-ARROW_WIDTH*Mideas.getDisplayXFactor()-2, this.y_bar+2, ARROW_WIDTH*Mideas.getDisplayXFactor(), ARROW_HEIGHT*Mideas.getDisplayYFactor(), ArrowDirection.BOT) {
 			
 			@Override
-			public void eventButtonClick() {
+			public void onLeftClickUp() {
 				DropDownMenu.this.backgroundActive = !DropDownMenu.this.backgroundActive;
 			}
 		};

@@ -32,7 +32,10 @@ public class CommandMail extends Command {
 		else if (packetId == PacketID.MAIL_DELETE)
 		{
 			long GUID = ConnectionManager.getWorldServerConnection().readLong();
+			Mail mail = MailMgr.getMail(GUID);
 			MailMgr.removeMail(GUID);
+			CallbackManager.onMailDeleted(mail);
+			System.out.println("Mail deleted: " + GUID); 
 		}
 		else if (packetId == PacketID.MAIL_OPENED)
 		{
@@ -61,7 +64,8 @@ public class CommandMail extends Command {
 		boolean isCR = ConnectionManager.getWorldServerConnection().readBoolean();
 		byte template = ConnectionManager.getWorldServerConnection().readByte();
 		boolean read = ConnectionManager.getWorldServerConnection().readBoolean();
-		return (new Mail(GUID, deleteDate, authorName, title, content, gold, isCR, template, read));
+		boolean canReply = ConnectionManager.getWorldServerConnection().readBoolean();
+		return (new Mail(GUID, deleteDate, authorName, title, content, gold, isCR, template, read, canReply));
 	}
 	
 	public static void sendMail(String destination, String title, String content, boolean isCr, int gold, Item[] itemList)
@@ -93,6 +97,16 @@ public class CommandMail extends Command {
 		ConnectionManager.getWorldServerConnection().startPacket();
 		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL);
 		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL_DELETE);
+		ConnectionManager.getWorldServerConnection().writeLong(mail.getGUID());
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
+	}
+	
+	public static void returnMail(Mail mail)
+	{
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.MAIL_RETURN);
 		ConnectionManager.getWorldServerConnection().writeLong(mail.getGUID());
 		ConnectionManager.getWorldServerConnection().endPacket();
 		ConnectionManager.getWorldServerConnection().send();

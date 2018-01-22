@@ -89,6 +89,10 @@ public class Sprites {
 	public static Texture button_hover;
 	public static Texture button_hover2;
 	public static Texture button_disabled;
+	public static Texture new_button;
+	public static Texture new_button_down;
+	public static Texture new_button_hover;
+	public static Texture new_button_disabled;
 	public static Texture tooltip;
 	public static Texture cursor;
 	public static Texture cursor_buy;
@@ -712,6 +716,10 @@ public class Sprites {
 		button_hover = new Texture("sprite/interface/button_hover.png");
 		button_hover2 = new Texture("sprite/interface/button_hover.png");
 		button_down_hover = new Texture("sprite/interface/button_down_hover.png");
+		new_button = new Texture("sprite/interface/new_button.png");
+		new_button_down = new Texture("sprite/interface/new_button_down.png");
+		new_button_hover = new Texture("sprite/interface/new_button_hover.png");
+		new_button_disabled = new Texture("sprite/interface/new_button_disabled.png");
 		tooltip = new Texture("sprite/interface/tooltip.png");
 		cursor = new Texture("sprite/interface/cursor.png");
 		cursor_buy = new Texture("sprite/interface/cursor_buy.png");

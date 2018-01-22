@@ -41,8 +41,24 @@ public class Input
 	protected float y;
 	protected float maxWidth = 100;
 	protected float maxWidthSave = 100;
+	protected short maxHeight;
+	protected short maxHeightSave;
+	protected short xOffset;
+	protected short xOffsetSave;
+	protected short yOffset;
+	protected short yOffsetSave;
+	protected short cursorYOffset;
+	protected short cursorYOffsetSave;
+	protected short lineHeight;
+	protected short lineHeightSave;
+	protected short drawLineStart;
+	protected short totalLine;
+	protected short cursorCurrentLine;
+	protected short cursorPositionOnLine;
+	protected short maximumDisplayedLine;
 	private final static ArrayList<Input> inputList = new ArrayList<Input>();
 	protected static Input activatedInput;
+	private Color color = Color.WHITE;
 	
 	public final static int ESCAPE_CHAR_VALUE = 27;
 	public final static int ENTER_CHAR_VALUE = 13;
@@ -63,6 +79,53 @@ public class Input
 		this.font = font;
 		this.y = y;
 		this.defaultText = "";
+	}
+
+	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, boolean isActive, int cursorWidth, int cursorHeight, Color color)
+	{
+		this.multipleLine = multipleLine;
+		this.cursorHeight = (byte)(cursorHeight*Mideas.getDisplayYFactor());
+		this.cursorWidth = (byte)(cursorWidth*Mideas.getDisplayXFactor());
+		this.cursorHeightSave = (byte)cursorHeight;
+		this.cursorWidthSave = (byte)cursorWidth;
+		this.maxLength = maxLength;
+		this.maxWidth = maxWidth;
+		setIsActive(isActive);
+		inputList.add(this);
+		this.xDefault = x;
+		this.font = font;
+		this.y = y;
+		this.defaultText = "";
+		this.color = color;
+	}
+
+	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, float maxHeight, float xOffset, float yOffset, boolean isActive, int cursorWidth, int cursorHeight, int cursorYOffset, int lineHeight, Color color)
+	{
+		this.multipleLine = multipleLine;
+		this.cursorHeight = (byte)(cursorHeight*Mideas.getDisplayYFactor());
+		this.cursorWidth = (byte)(cursorWidth*Mideas.getDisplayXFactor());
+		this.cursorHeightSave = (byte)cursorHeight;
+		this.cursorWidthSave = (byte)cursorWidth;
+		this.cursorYOffset = (short)(cursorYOffset * Mideas.getDisplayYFactor());
+		this.cursorYOffsetSave = (short)cursorYOffset;
+		this.maxLength = maxLength;
+		this.maxWidth = (short)(maxWidth * Mideas.getDisplayXFactor());
+		this.maxWidthSave = maxWidth;
+		this.maxHeight = (short)(maxHeight * Mideas.getDisplayYFactor());
+		this.maxHeightSave = (short)maxHeight;
+		this.xOffset = (short)(xOffset * Mideas.getDisplayXFactor());
+		this.xOffsetSave = (short)xOffset;
+		this.yOffset = (short)(yOffset * Mideas.getDisplayYFactor());
+		this.yOffsetSave = (short)yOffset;
+		this.lineHeight = (short)(lineHeight * Mideas.getDisplayYFactor());
+		this.lineHeightSave = (short)lineHeight;
+		setIsActive(isActive);
+		inputList.add(this);
+		this.xDefault = x;
+		this.font = font;
+		this.y = y;
+		this.defaultText = "";
+		this.color = color;
 	}
 	
 	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, float cursorWidth, float cursorHeight, String defaultText)
@@ -119,9 +182,74 @@ public class Input
 	
 	public void draw()
 	{
-		int i = 0;
+		int i = -1;
 		if(this.multipleLine) {
-			
+			float x = this.xDraw + this.xDefault;
+			if (this.text.length() == 0)
+			{
+				this.font.drawStringShadow(x, this.y, this.defaultText, Color.DARKGREY, Color.BLACK, 1, 0, 0);
+				if(this.isActive && (Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation)) 
+					Draw.drawColorQuad(this.xDefault, this.y + this.cursorYOffset, this.cursorWidth, this.cursorHeight, this.color);
+			}
+			else
+			{
+				short yDraw = (short)this.y;
+				short cursorX = 0;
+				short cursorY = 0;
+				short currentLine = 0;
+				this.cursorPositionOnLine = 0;
+				this.font.drawBegin();
+				while (++i < this.text.length())
+				{
+					if (x >= this.xDefault + this.maxWidth)
+					{
+						yDraw += this.lineHeight;	
+						if (yDraw - this.y >= this.maxHeight)
+						{
+							break;
+						}
+						++currentLine;
+						x = this.xDraw + this.xDefault;
+					
+					}
+					if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE)
+					{
+						yDraw += this.lineHeight;
+						if (yDraw - this.y >= this.maxHeight)
+						{
+							break;
+						}
+						x = this.xDraw + this.xDefault;
+						++currentLine;
+						if (this.cursorPosition - 1 == i)
+						{
+							cursorX = (short)(x + this.font.getWidth(this.text.charAt(i)) + 1);
+							cursorY = yDraw;
+							this.cursorCurrentLine = currentLine;
+						}
+					}
+					else
+					{
+						this.font.drawCharPart(x+1, yDraw, this.text.charAt(i), Color.BLACK);
+						this.font.drawCharPart(x, yDraw, this.text.charAt(i), this.color);
+						if (this.cursorPosition - 1 == i)
+						{
+							cursorX = (short)(x + this.font.getWidth(this.text.charAt(i)) + 1);
+							cursorY = yDraw;
+							this.cursorCurrentLine = currentLine;
+						}
+					}
+					if (currentLine == this.cursorCurrentLine && i < this.cursorPosition && this.text.charAt(i) != ENTER_CHAR_VALUE && this.text.charAt(i) != '\n')
+						++this.cursorPositionOnLine; 
+					x+= this.font.getWidth(this.text.charAt(i));
+				}
+				//System.out.println("PositionOnLine: " + this.cursorPositionOnLine);
+				this.font.drawEnd();
+				if(this.isActive && ((cursorX != 0 || cursorY != 0) && (Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation))) 
+					Draw.drawColorQuad(cursorX, cursorY + this.cursorYOffset, this.cursorWidth, this.cursorHeight, this.color);
+				if(this.isActive && this.cursorPosition == 0 && (Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation)) 
+					Draw.drawColorQuad(this.xDraw + this.xDefault, this.y, this.cursorWidth, this.cursorHeight, this.color);
+			}
 		}
 		else
 		{
@@ -131,7 +259,7 @@ public class Input
 				this.font.drawStringShadowPart(x, this.y, this.defaultText, Color.DARKGREY, Color.BLACK, 1, 0, 0);
 			else
 			{
-				while(i < this.text.length())
+				while(++i < this.text.length())
 				{
 					if(x >= this.xDefault)
 					{
@@ -141,14 +269,13 @@ public class Input
 					x+= this.font.getWidth(this.text.charAt(i));
 					if(x >= this.xDefault+this.maxWidth || (i < this.text.length()-1 && x+this.font.getWidth(this.text.charAt(i)) >= this.xDefault+this.maxWidth))
 						break;
-					i++;
 				}
 			}
 			this.font.drawEnd();
 			if(!this.isActive)
 				return;
 			if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) 
-				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y+1, this.cursorWidth, this.cursorHeight, Color.WHITE);
+				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y+1, this.cursorWidth, this.cursorHeight, this.color);
 		}
 	}
 	
@@ -282,6 +409,16 @@ public class Input
 			resetSelectedPosition();
 			return true;
 		}
+		if(Keyboard.getEventKey() == 200) {  //up arrow
+			upArrow();
+			resetSelectedPosition();
+			return true;
+		}
+		if(Keyboard.getEventKey() == 208) { //down arrow
+			downArrow();
+			resetSelectedPosition();
+			return true;
+		}
 		if(!(Keyboard.getEventKey() != Keyboard.KEY_LCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RCONTROL && Keyboard.getEventKey() != Keyboard.KEY_RSHIFT))
 			return false;
 		if(Keyboard.getEventKey() == Keyboard.KEY_RETURN || Keyboard.getEventKey() == 156 || Keyboard.getEventKey() == 28)
@@ -319,16 +456,26 @@ public class Input
 	
 	public void update(float x, float y, float maxWidth)
 	{
-		this.xDefault = x;
-		this.y = y;
 		this.maxWidth = maxWidth;
-		this.cursorHeight = (byte)(this.cursorHeightSave*Mideas.getDisplayYFactor());
-		this.cursorWidth = (byte)(this.cursorWidthSave*Mideas.getDisplayXFactor());
+		this.maxHeight = (short)(this.maxHeightSave * Mideas.getDisplayYFactor());
+		this.xOffset = (short)(this.xOffsetSave * Mideas.getDisplayXFactor());
+		this.yOffset = (short)(this.yOffsetSave * Mideas.getDisplayYFactor());
+		this.cursorYOffset = (short)(this.cursorYOffsetSave * Mideas.getDisplayYFactor());
+		this.lineHeight = (short)(this.lineHeightSave * Mideas.getDisplayYFactor());
+		this.xDefault = x + this.xOffset;
+		this.y = y + this.yOffset;
 	}
 	
 	public void update(float x, float y)
 	{
-		update(x, y, this.maxWidthSave * Mideas.getDisplayXFactor());
+		this.maxWidth = (short)(this.maxWidthSave * Mideas.getDisplayXFactor());
+		this.maxHeight = (short)(this.maxHeightSave * Mideas.getDisplayYFactor());
+		this.xOffset = (short)(this.xOffsetSave * Mideas.getDisplayXFactor());
+		this.yOffset = (short)(this.yOffsetSave * Mideas.getDisplayYFactor());
+		this.cursorYOffset = (short)(this.cursorYOffsetSave * Mideas.getDisplayYFactor());
+		this.lineHeight = (short)(this.lineHeightSave * Mideas.getDisplayYFactor());
+		this.xDefault = x + this.xOffset;
+		this.y = y + this.yOffset;
 	}
 	
 	public void setMaxLength(int maxLength)
@@ -357,6 +504,11 @@ public class Input
 	public static Input getSelectedInput()
 	{
 		return activatedInput;
+	}
+	
+	public boolean hasMultipleLine()
+	{
+		return (this.multipleLine);
 	}
 	
 	public static boolean hasInputActive() 
@@ -444,6 +596,8 @@ public class Input
 	
 	private void shiftTextLeft()
 	{
+		if (this.multipleLine)
+			return;
 		if(this.cursorShift+this.xDraw > this.maxWidth && this.cursorPosition <= this.text.length())
 		{
 			float shiftWidth = this.maxWidth/2;
@@ -462,6 +616,8 @@ public class Input
 	
 	private void shiftTextRight()
 	{
+		if (this.multipleLine)
+			return;
 		//System.out.println(this.cursorShift+" "+this.xDraw+" "+this.xDefault+" "+this.cursorPosition+" RIGHT "+(this.cursorShift+this.xDraw < 0));
 		if(this.cursorShift+this.xDraw <= 0 && this.cursorPosition > 0 && this.text.length() != 0)
 		{
@@ -477,6 +633,149 @@ public class Input
 		else if(this.text.length() == 0 || this.cursorPosition == 0)
 			this.xDraw = 0;
 		this.lastWrite = Mideas.getLoopTickTimer();
+	}
+	
+	private int findNextLineEnd()
+	{
+		int i = -1;
+		float x = 0;
+		byte currentLine = 0;
+		while (++i < this.text.length())
+		{
+			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x >= this.maxWidth)
+			{
+				++currentLine;
+				if (currentLine == this.cursorCurrentLine + 2)
+				{
+					this.cursorCurrentLine = (short)(currentLine - 1);
+					return (i - 1);
+				}
+			}
+			x += this.font.getWidth(this.text.charAt(i));
+		}
+		if (i == this.text.length())
+		{
+			this.cursorCurrentLine = currentLine;
+			return (i - 1);
+		}
+		return (-1);
+	}
+	
+	private int findLineLen(int line)
+	{
+		int i = -1;
+		float x = 0;
+		byte currentLine = 0;
+		int lineLength = 0;
+		while (++i < this.text.length())
+		{
+			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x >= this.maxWidth)
+			{
+				++currentLine;
+				if (currentLine == line + 1)
+					return (lineLength);
+				x += this.font.getWidth(this.text.charAt(i));
+				continue;
+			}
+			if (currentLine == line)
+				++lineLength;
+			x += this.font.getWidth(this.text.charAt(i));
+		}
+		if (i == this.text.length())
+			return (lineLength);
+		return (-1);
+	}
+	
+	private int findPreviousLineEnd()
+	{
+		int i = -1;
+		float x = 0;
+		byte currentLine = 0;
+		while (++i < this.text.length())
+		{
+			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x >= this.maxWidth)
+			{
+				++currentLine;
+				if (currentLine == this.cursorCurrentLine)
+				{
+					this.cursorCurrentLine = (short)(currentLine - 1);
+					return (i - 1);
+				}
+			}
+			x += this.font.getWidth(this.text.charAt(i));
+		}
+		return (-1);
+	}
+	
+	private int findIndexFromLine(int index, int line)
+	{
+		int i = -1;
+		float x = 0;
+		byte currentLine = 0;
+		int indexOnLine = -1;
+		if (line == 0)
+			return (index);
+		while (++i < this.text.length())
+		{
+			//System.out.println("i: " + i + ", char: " + this.text.charAt(i));
+			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x >= this.maxWidth)
+				++currentLine;
+			if (currentLine == line)
+			{
+				//System.out.println("CurrentLine: " + currentLine + ", line: " + line);
+				++indexOnLine;
+				//System.out.println("CurrentIndex: " + indexOnLine + ", index: " + index);
+				if (indexOnLine == index)
+				{
+					//System.out.println("FINAL INDEX: " + i);
+					return (i + 1);
+				}
+			}
+			x += this.font.getWidth(this.text.charAt(i));
+		}
+		return (-1);
+	}
+	
+	private void upArrow()
+	{
+		if (!this.multipleLine)
+			return;
+		int previousLineEnd = findPreviousLineEnd();
+		//System.out.println("PreviousLineEnd: " + previousLineEnd);
+		if (previousLineEnd == -1)
+			return;
+		int previousLineLen = findLineLen(this.cursorCurrentLine);
+		//System.out.println("PreviousLineLen: " + previousLineLen + ", IndexFromLine: " + findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine));
+		if (previousLineLen == 0 && this.cursorPosition > 0)
+			--this.cursorPosition;
+		else if (this.cursorPositionOnLine <= previousLineLen)
+			this.cursorPosition = findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine);
+		else
+			this.cursorPosition = previousLineEnd;
+		//System.out.println("CursorPosition: " + this.cursorPosition);
+		this.lastWrite = Mideas.getLoopTickTimer();
+		//System.out.println("CurrentLine: " + this.cursorCurrentLine);
+	}
+	
+	private void downArrow()
+	{
+		if (!this.multipleLine)
+			return;
+		int nextLineEnd = findNextLineEnd();
+		if (nextLineEnd == -1)
+			return;
+		//System.out.println("FindNextLineEnd: " + nextLineEnd);
+		int nextLineLen = findLineLen(this.cursorCurrentLine);
+		if (nextLineLen == 0 && this.cursorPosition < this.text.length() - 1)
+			++this.cursorPosition;
+		else if (this.cursorPositionOnLine <= nextLineLen)
+			this.cursorPosition = findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine);
+		else
+			this.cursorPosition = nextLineEnd;
+		//System.out.println("NextLineLen: " + nextLineLen + "IndexFromLine: " + findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine));
+		//System.out.println("CursorPosition: " + this.cursorPosition);
+		this.lastWrite = Mideas.getLoopTickTimer();
+		//System.out.println("CurrentLine: " + this.cursorCurrentLine);
 	}
 
 	private void delete()

@@ -22,7 +22,6 @@ public class MailOpenedMailFrame implements Frame {
 	private short openedMailSubjectY;
 	private short openedMailSenderNameX;
 	private short openedMailSenderNameY;
-	private boolean canReply;
 	private final static TTF openedMailSenderFont = FontManager.get("FRIZQT", 13);
 	private final static TTF openedMailSubjectFont = FontManager.get("FRIZQT", 10);
 	private final static short OPENED_MAIL_X_OFFSET = 407;
@@ -31,15 +30,15 @@ public class MailOpenedMailFrame implements Frame {
 	private final static short OPENED_MAIL_SUBJECT_Y_OFFSET = 68;
 	private final static short OPENED_MAIL_SENDER_NAME_X_OFFSET = 128;
 	private final static short OPENED_MAIL_SENDER_NAME_Y_OFFSET = 46;
-	private final static short BUTTON_WIDTH = 100;
-	private final static short BUTTON_HEIGHT = 20;
-	private final static short REPLY_BUTTON_X = 0;
-	private final static short REPLY_BUTTON_Y = 30;
-	private final static short CLOSE_BUTTON_X = 0;
-	private final static short CLOSE_BUTTON_Y = 30;
-	private final static short DELETE_BUTTON_X = 0;
-	private final static short DELETE_BUTTON_Y = 30;
-	private final Button replyButton = new Button(this.frame, REPLY_BUTTON_X, REPLY_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Reply", 12, 1)
+	private final static short BUTTON_WIDTH = 85;
+	private final static short BUTTON_HEIGHT = 21;
+	private final static short REPLY_BUTTON_X = 105;
+	private final static short REPLY_BUTTON_Y = 410;
+	private final static short CLOSE_BUTTON_X = 279;
+	private final static short CLOSE_BUTTON_Y = 410;
+	private final static short DELETE_BUTTON_X = 192;
+	private final static short DELETE_BUTTON_Y = 410;
+	private final Button replyButton = new Button(this.frame, REPLY_BUTTON_X, REPLY_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Reply", 13, 1)
 	{
 	
 		@SuppressWarnings("synthetic-access")
@@ -53,10 +52,10 @@ public class MailOpenedMailFrame implements Frame {
 		@Override
 		public boolean activateCondition()
 		{
-			return (MailOpenedMailFrame.this.canReply);
+			return (MailOpenedMailFrame.this.openedMail.canReply());
 		}
 	};
-	private final Button deleteButton = new Button(this.frame, DELETE_BUTTON_X, DELETE_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Delete", 12, 1)
+	private final Button deleteButton = new Button(this.frame, DELETE_BUTTON_X, DELETE_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Delete", 13, 1)
 	{
 
 		@SuppressWarnings("synthetic-access")
@@ -64,31 +63,25 @@ public class MailOpenedMailFrame implements Frame {
 		public void onLeftClickUp()
 		{
 			CommandMail.deleteMail(MailOpenedMailFrame.this.openedMail);
-			this.reset();
-		}
-		
-		@SuppressWarnings("synthetic-access")
-		@Override
-		public boolean activateCondition()
-		{
-			return (MailOpenedMailFrame.this.canReply);
 		}
 	};
-	private final Button closeButton = new Button(this.frame, CLOSE_BUTTON_X, CLOSE_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Close", 12, 1)
+	private final Button returnButton = new Button(this.frame, DELETE_BUTTON_X, DELETE_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Return", 13, 1)
+	{
+
+		@SuppressWarnings("synthetic-access")
+		@Override
+		public void onLeftClickUp()
+		{
+			CommandMail.returnMail(MailOpenedMailFrame.this.openedMail);
+		}
+	};
+	private final Button closeButton = new Button(this.frame, CLOSE_BUTTON_X, CLOSE_BUTTON_Y, (short)(BUTTON_WIDTH - 2), BUTTON_HEIGHT, "Close", 13, 1)
 	{
 
 		@Override
 		public void onLeftClickUp()
 		{
-			onClose();
-			this.reset();
-		}
-		
-		@SuppressWarnings("synthetic-access")
-		@Override
-		public boolean activateCondition()
-		{
-			return (MailOpenedMailFrame.this.canReply);
+			close();
 		}
 	};
 	
@@ -103,6 +96,7 @@ public class MailOpenedMailFrame implements Frame {
 		this.openedMailSenderNameY = (short)(this.openedMailFrameY + OPENED_MAIL_SENDER_NAME_Y_OFFSET * Mideas.getDisplayYFactor());
 		this.replyButton.initParentFrame(this);
 		this.deleteButton.initParentFrame(this);
+		this.returnButton.initParentFrame(this);
 		this.closeButton.initParentFrame(this);
 	}
 	
@@ -115,9 +109,12 @@ public class MailOpenedMailFrame implements Frame {
 		Draw.drawQuad(Sprites.mail_opened_mail_frame, this.openedMailFrameX, this.openedMailFrameY);
 		openedMailSenderFont.drawStringShadow(this.openedMailSenderNameX, this.openedMailSenderNameY, this.openedMail.getAuthorName(), Color.YELLOW, MailInboxButton.senderNameFontShadowColor, 1, 1, 1);
 		openedMailSubjectFont.drawStringShadow(this.openedMailSubjectX, this.openedMailSubjectY, this.openedMail.getTitle(), Color.YELLOW, MailInboxButton.senderNameFontShadowColor, 1, 1, 1);
-		this.replyButton.draw();
-		this.deleteButton.draw();
-		this.closeButton.draw();
+		this.replyButton.draw2();
+		if (this.openedMail.isCR())
+			this.returnButton.draw2();
+		else
+			this.deleteButton.draw2();
+		this.closeButton.draw2();
 	}
 	
 	@Override
@@ -133,7 +130,9 @@ public class MailOpenedMailFrame implements Frame {
 			return (false);
 		if (this.replyButton.event())
 			return (true);
-		if (this.deleteButton.event())
+		if (this.openedMail.isCR() && this.returnButton.event())
+			return (true);
+		if (!this.openedMail.isCR() && this.deleteButton.event())
 			return (true);
 		if (this.closeButton.event())
 			return (true);
@@ -141,15 +140,19 @@ public class MailOpenedMailFrame implements Frame {
 	}
 	
 	@Override
-	public void onOpen()
+	public void open()
 	{
 		
 	}
 	
 	@Override
-	public void onClose()
+	public void close()
 	{
 		this.openedMail = null;
+		this.replyButton.reset();
+		this.deleteButton.reset();
+		this.closeButton.reset();
+		this.returnButton.reset();
 	}
 	
 	@Override
@@ -188,6 +191,7 @@ public class MailOpenedMailFrame implements Frame {
 		this.openedMailSenderNameY = (short)(this.openedMailFrameY + OPENED_MAIL_SENDER_NAME_Y_OFFSET * Mideas.getDisplayYFactor());
 		this.replyButton.updateSize();
 		this.deleteButton.updateSize();
+		this.returnButton.updateSize();
 		this.closeButton.updateSize();
 		this.shouldUpdateSize = false;
 	}
@@ -213,14 +217,13 @@ public class MailOpenedMailFrame implements Frame {
 			this.openedMail = mail;
 			if (!this.openedMail.getRead())
 				CommandMail.mailOpened(this.openedMail);
-			//this.canReply = 
 		}
 	}
 	
 	public void onMailDeleted(Mail mail)
 	{
 		if (this.openedMail == mail)
-			onClose();
+			close();
 	}
 	
 	public Mail getOpenedMail()

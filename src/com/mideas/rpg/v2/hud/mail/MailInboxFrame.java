@@ -39,7 +39,7 @@ public class MailInboxFrame implements Frame {
 	{
 	
 		@Override
-		public void eventButtonClick()
+		public void onLeftClickUp()
 		{
 			nextPage();
 		}
@@ -54,7 +54,7 @@ public class MailInboxFrame implements Frame {
 	{
 	
 		@Override
-		public void eventButtonClick()
+		public void onLeftClickUp()
 		{
 			previousPage();
 		}
@@ -158,30 +158,32 @@ public class MailInboxFrame implements Frame {
 	}
 	
 	@Override
-	public void onOpen()
+	public void open()
 	{
 		
 	}
 	
 	@Override
-	public void onClose()
+	public void close()
 	{
 		
 	}
 	
 	public void nextPage()
 	{
+		System.out.println("TotalPage: " + this.totalPage + ", currentPage: " + this.currentPage);
 		++this.currentPage;
 		fillMailPage();
 	}
 	
 	public void previousPage()
 	{
+		System.out.println("TotalPage: " + this.totalPage + ", currentPage: " + this.currentPage);
 		--this.currentPage;
 		fillMailPage();
 	}
 	
-	public void fillMailPage()
+	public void updateButtons()
 	{
 		int i = -1;
 		final int pageOffset = this.currentPage * MAIL_PER_PAGE;
@@ -189,7 +191,21 @@ public class MailInboxFrame implements Frame {
 			if (i + pageOffset < MailMgr.getMailList().size())
 				this.buttonList[i].setMail(MailMgr.getMailList().get(i + pageOffset));
 			else
-				this.buttonList[i].setMail(null);
+				this.buttonList[i].setMail(null);	
+	}
+	
+	public void fillMailPage()
+	{
+		updateButtons();
+		this.totalPage = MailMgr.getMailList().size() / MAIL_PER_PAGE;
+		if (MailMgr.getMailList().size() % MAIL_PER_PAGE == 0)
+			--this.totalPage;
+		System.out.println("TotalPage: " + this.totalPage + ", currentPage: " + this.currentPage);
+		if (this.currentPage > this.totalPage)
+		{
+			this.currentPage = this.totalPage <= 0 ? 0 : this.totalPage - 1;
+			updateButtons();
+		}
 	}
 
 	@Override
@@ -247,9 +263,11 @@ public class MailInboxFrame implements Frame {
 	public void onMailReceived()
 	{
 		fillMailPage();
-		this.totalPage = MailMgr.getMailList().size() / MAIL_PER_PAGE;
-		if (MailMgr.getMailList().size() % MAIL_PER_PAGE == 0)
-			--this.totalPage;
+	}
+	
+	public void onMailDeleted()
+	{
+		fillMailPage();
 	}
 	
 	public MailFrame getParentFrame()

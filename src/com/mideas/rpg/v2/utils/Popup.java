@@ -120,6 +120,8 @@ public class Popup {
 	
 	protected void updateAcceptButton() {
 		if(this.acceptButton != null) {
+			this.acceptButton.setButtonWidth(BUTTON_WIDTH);
+			this.acceptButton.setButtonHeight(BUTTON_HEIGHT);
 			this.acceptButton.update(this.x+this.x_size/2-10-BUTTON_WIDTH*Mideas.getDisplayXFactor(), this.y+this.y_size-37*Mideas.getDisplayYFactor());
 		}
 	}

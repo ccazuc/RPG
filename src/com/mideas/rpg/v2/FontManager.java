@@ -63,6 +63,7 @@ public class FontManager {
 	public static void init() throws FontFormatException, IOException {
 		fontMap.put("FRIZQT", new HashMap<Float, TTF>());
 		fontMap.put("ARIALN", new HashMap<Float, TTF>());
+		fontMap.put("MORPHEUS", new HashMap<Float, TTF>());
 		InputStream inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
 		Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 		awtFont = awtFont.deriveFont(18f);
@@ -76,18 +77,21 @@ public class FontManager {
 
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-		int i = 9;
-		while(i < 40) {
+		int i = 8;
+		while(++i < 40)
 			fontMap.get("FRIZQT").put((float)i, new TTF(awtFont.deriveFont((float)i), true));
-			i++;
-		}
+		
 		inputStream = ResourceLoader.getResourceAsStream("sprite/police/ARIALN.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-		i = 9;
-		while(i < 30) {
+		i = 8;
+		while(++i < 30)
 			fontMap.get("ARIALN").put((float)i, new TTF(awtFont.deriveFont((float)i), true));
-			i++;
-		}
+		
+		inputStream = ResourceLoader.getResourceAsStream("sprite/police/MORPHEUS.TTF");
+		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+		i = 8;
+		while(++i < 30)
+			fontMap.get("MORPHEUS").put((float)i, new TTF(awtFont.deriveFont((float)i), true));
 	    
 		/*inputStream = ResourceLoader.getResourceAsStream("sprite/police/FRIZQT__.TTF");
 		awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);

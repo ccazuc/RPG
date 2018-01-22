@@ -32,6 +32,11 @@ public class Button {
 	private boolean hasClicked;
 	private boolean isEnable = true;
 	private Frame parentFrame;
+	private final Texture baseTexture;
+	private final Texture hoverTextured;
+	private final Texture hoverDownTexture;
+	private final Texture downTexture;
+	private final Texture disabledTexture;
 
 	public Button(float x, float y, short width, short height, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {
 		this.font = FontManager.get("FRIZQT", font_size);
@@ -46,6 +51,11 @@ public class Button {
 		this.text = text;
 		this.x = x;
 		this.y = y;
+		this.baseTexture = Sprites.button;
+		this.downTexture = Sprites.button_down;
+		this.hoverDownTexture = Sprites.button_down_hover;
+		this.disabledTexture = Sprites.button_disabled;
+		this.hoverTextured = Sprites.button_hover;
 	}
 
 	public Button(float x, float y, short width, short height, String text, TTF font, int shadow_size, Color baseColor, Color hoveredColor) {
@@ -61,6 +71,11 @@ public class Button {
 		this.text = text;
 		this.x = x;
 		this.y = y;
+		this.baseTexture = Sprites.button;
+		this.downTexture = Sprites.button_down;
+		this.hoverDownTexture = Sprites.button_down_hover;
+		this.disabledTexture = Sprites.button_disabled;
+		this.hoverTextured = Sprites.button_hover;
 	}
 	
 	public Button(float x, float y, short width, short height, String text, float font_size, int shadow_size) {
@@ -69,6 +84,8 @@ public class Button {
 	
 	public Button(Frame parentFrame, float x, float y, short width, short height, String text, float font_size, int shadow_size) {
 		this.font = FontManager.get("FRIZQT", font_size);
+		this.baseColor = Color.YELLOW;
+		this.hoveredColor = Color.WHITE;
 		this.textWidth = this.font.getWidth(text);
 		this.shadow_size = shadow_size;
 		this.width = (short)(width * Mideas.getDisplayXFactor());
@@ -80,6 +97,11 @@ public class Button {
 		this.y = y * Mideas.getDisplayYFactor();
 		this.xSave = x;
 		this.ySave = y;
+		this.baseTexture = Sprites.new_button;
+		this.downTexture = Sprites.new_button_down;
+		this.hoverDownTexture = Sprites.new_button_down;
+		this.disabledTexture = Sprites.new_button_disabled;
+		this.hoverTextured = Sprites.new_button_hover;
 	}
 
 	public Button(float x, float y, String text, float font_size) {
@@ -91,15 +113,15 @@ public class Button {
 			return;
 		}
 		if(!activateCondition()) {
-			this.texture = Sprites.button_disabled;
+			this.texture = this.disabledTexture;
 			this.color = Color.GREY;
 		}
 		else if(!this.leftClickDown && !this.rightClickDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
-			this.texture = Sprites.button;
+			this.texture = this.baseTexture;
 			this.color = this.baseColor;
 		}
 		else if(!this.leftClickDown && !this.rightClickDown && this.buttonHover) {
-			this.texture = Sprites.button_hover;
+			this.texture = this.hoverTextured;
 			this.color = this.hoveredColor;
 		}
 		else if(hoverSpriteActivateCondition()) {
@@ -109,15 +131,41 @@ public class Button {
 		this.font.drawStringShadow(this.x-this.textWidth/2+this.width/2, this.y-this.font.getLineHeight()/2+this.height/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
 	}
 	
+	public void draw2()
+	{
+		if(!this.isEnable) {
+			return;
+		}
+		if(!activateCondition()) {
+			this.texture = this.disabledTexture;
+			this.color = Color.GREY;
+		}
+		else if(!this.leftClickDown && !this.rightClickDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
+			this.texture = this.baseTexture;
+			this.color = this.baseColor;
+		}
+		else if(hoverSpriteActivateCondition()) {
+			this.color = this.hoveredColor;
+		}
+		else if (this.buttonHover && !this.leftClickDown && !this.rightClickDown)
+			this.texture = this.baseTexture;
+		Draw.drawQuad(this.texture, this.x, this.y, this.width, this.height);
+		//if (this.buttonHover && !this.leftClickDown && !this.rightClickDown)
+			//Draw.drawQuadBlend(Sprites.new_button_hover, this.x + 4, this.y + 4, this.width - 6, this.height - 6);
+		if (this.buttonHover)
+			Draw.drawQuadBlend(Sprites.new_button_hover, this.x + 4 , this.y + 4, this.width - 6, this.height - 6);
+		this.font.drawStringShadow(this.x-this.textWidth/2+this.width/2, this.y-this.font.getLineHeight()/2+this.height/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);	
+	}
+	
 	public void drawTexture() {
 		if(!this.isEnable) {
 			return;
 		}
 		if(!activateCondition()) {
-			this.texture = Sprites.button_disabled;
+			this.texture = this.disabledTexture;
 		}
 		else if(!this.rightClickDown && !this.leftClickDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
-			this.texture = Sprites.button;
+			this.texture = this.baseTexture;
 		}
 		Draw.drawQuad(this.texture, this.x, this.y, this.width, this.height);
 	}
@@ -168,7 +216,7 @@ public class Button {
 				this.leftClickDown = false;
 				this.rightClickDown = false;
 				this.color = this.hoveredColor;
-				this.texture = Sprites.button_hover;
+				this.texture = this.hoverTextured;
 				this.hasClicked = true;
 				onLeftClickUp();
 				return (true);
@@ -190,17 +238,17 @@ public class Button {
 		}
 		if(this.leftClickDown || this.rightClickDown) {
 			if(this.buttonHover || hoverSpriteActivateCondition()) {
-				this.texture = Sprites.button_down_hover;
+				this.texture = this.hoverDownTexture;
 			}
 			else {
-				this.texture = Sprites.button_down;
+				this.texture = this.downTexture;
 			}
 		}
 		else if(this.buttonHover || hoverSpriteActivateCondition()) {
-			this.texture = Sprites.button_hover;
+			this.texture = this.hoverTextured;
 		}
 		else {
-			this.texture = Sprites.button;
+			this.texture = this.baseTexture;
 		}
 		return false;
 	}
@@ -282,6 +330,8 @@ public class Button {
 	{
 		this.x = this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor();
 		this.y = this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor();
+		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
+		this.height = (short)(this.heightSave * Mideas.getDisplayYFactor());
 	}
 	
 	public void initParentFrame(Frame frame)

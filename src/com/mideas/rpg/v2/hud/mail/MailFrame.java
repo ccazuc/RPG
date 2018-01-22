@@ -69,7 +69,7 @@ public class MailFrame implements Frame {
 	}
 	
 	@Override
-	public void onOpen()
+	public void open()
 	{
 		this.isOpen = true;
 		if (!Interface.getContainerFrameStatus())
@@ -80,7 +80,7 @@ public class MailFrame implements Frame {
 	}
 	
 	@Override
-	public void onClose()
+	public void close()
 	{
 		this.isOpen = false;
 		if (this.shouldCloseBagOnClose)
@@ -113,6 +113,11 @@ public class MailFrame implements Frame {
 		shouldUpdateSize();
 	}
 	
+	public void activateMailContentInput()
+	{
+		this.sendMailFrame.activateMailContentInput();
+	}
+	
 	public void replayOpenedMail(Mail mail)
 	{
 		openSendMailFrame();
@@ -134,20 +139,20 @@ public class MailFrame implements Frame {
 	
 	public void openSendMailFrame()
 	{
-		if (this.activeFrame == this.openedMailFrame)
+		if (this.activeFrame == this.sendMailFrame)
 			return;
-		this.activeFrame.onClose();
-		this.activeFrame = this.openedMailFrame;
-		this.activeFrame.onOpen();
+		this.activeFrame.close();
+		this.activeFrame = this.sendMailFrame;
+		this.activeFrame.open();
 	}
 	
 	public void openInboxMailFrame()
 	{
 		if (this.activeFrame == this.inboxFrame)
 			return;
-		this.activeFrame.onClose();
+		this.activeFrame.close();
 		this.activeFrame = this.inboxFrame;
-		this.activeFrame.onOpen();
+		this.activeFrame.open();
 	}
 	
 	@Override
@@ -169,6 +174,7 @@ public class MailFrame implements Frame {
 	
 	public void onMailDeleted(Mail mail)
 	{
+		this.inboxFrame.onMailDeleted();
 		this.openedMailFrame.onMailDeleted(mail);
 	}
 	

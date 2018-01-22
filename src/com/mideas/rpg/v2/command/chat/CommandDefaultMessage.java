@@ -16,7 +16,7 @@ public class CommandDefaultMessage extends Command {
 		boolean knownColor = ConnectionManager.getWorldServerConnection().readBoolean();
 		Color color;
 		if(knownColor) {
-			color = MessageColor.values()[ConnectionManager.getWorldServerConnection().readChar()].getColor();
+			color = MessageColor.values()[ConnectionManager.getWorldServerConnection().readByte()].getColor();
 		}
 		else {
 			color = ConnectionManager.getWorldServerConnection().readColor();
