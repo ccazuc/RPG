@@ -2,6 +2,8 @@ package com.mideas.rpg.v2.callback;
 
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.game.mail.Mail;
+import com.mideas.rpg.v2.game.redalert.DefaultRedAlert;
+import com.mideas.rpg.v2.hud.RedAlertFrame;
 
 public class CallbackManager {
 
@@ -13,5 +15,12 @@ public class CallbackManager {
 	public static void onMailDeleted(Mail mail)
 	{
 		Interface.getMailFrame().onMailDeleted(mail);
+	}
+	
+	public static void onMailSent()
+	{
+		Interface.getMailFrame().onMailSent();
+		RedAlertFrame.addNewAlert(DefaultRedAlert.MAIL_SENT, RedAlertFrame.YELLOW);
+		
 	}
 }

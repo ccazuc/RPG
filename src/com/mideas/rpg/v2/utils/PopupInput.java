@@ -31,7 +31,7 @@ public class PopupInput extends Popup {
 				PopupInput.this.isActive = false;
 			}
 		};
-		this.input = new Input(textFont, 30, false, this.x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2+12*Mideas.getDisplayXFactor(), y+50*Mideas.getDisplayYFactor(), input_bar_width*Mideas.getDisplayXFactor(), 4, 15, "") {
+		this.input = new Input(textFont, 30, false, this.x+this.x_size/2-input_bar_width*Mideas.getDisplayXFactor()/2, y, input_bar_width*Mideas.getDisplayXFactor(), 4, 15, "", 5, 0, Color.WHITE) {
 			
 			@Override
 			public boolean keyEvent(char c) {

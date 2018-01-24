@@ -27,7 +27,7 @@ public class InputBox {
 	private final static byte CROSS_BUTTON_X_OFFSET = 18;
 	private final static byte CROSS_BUTTON_Y_OFFSET = 4;
 	
-	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton) {
+	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, float textXOffset, float textYOffset, boolean hasCrossButton) {
 		this.x = (short)x;
 		this.y = (short)y;
 		this.widthSave = (short)x_size;
@@ -37,7 +37,7 @@ public class InputBox {
 		this.textOffset = (short)textOffset;
 		this.inputMaxWidth = (short)inputMaxWidth;
 		if(isIntegerInput) {
-			this.input = new IntegerInput(font, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight) {
+			this.input = new IntegerInput(font, x, y, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, textXOffset, textYOffset, Color.WHITE) {
 				
 				@Override
 				public boolean checkValue(int value) {
@@ -51,7 +51,7 @@ public class InputBox {
 			};
 		}
 		else {
-			this.input = new Input(font, inputMaxLength, false, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText) {
+			this.input = new Input(font, inputMaxLength, false, x, y, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText, textXOffset, textYOffset, Color.WHITE) {
 				
 				@Override
 				public boolean keyEvent(char c) {
@@ -79,21 +79,21 @@ public class InputBox {
 		}
 	}
 	
-	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput) {
-		this(x, y, x_size, inputMaxLength, textOffset, inputMaxWidth, font, isIntegerInput, 2, 13, "", false);
+	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, float textXOffset, float textYOffset) {
+		this(x, y, x_size, inputMaxLength, textOffset, inputMaxWidth, font, isIntegerInput, 2, 13, "", textXOffset, textYOffset, false);
 	}
 	
-	public InputBox(Frame parentFrame, float x,  float y, float width, float height, float inputXOffset, float inputYOffset, int inputMaxLength, int inputMaxWidth, int lineHeight, TTF font, int cursorWidth, int cursorHeight, int cursorYOffset, Color color)
+	public InputBox(Frame parentFrame, short x, short y, short width, short height, short inputXOffset, short inputYOffset, int inputMaxLength, int inputMaxWidth, int lineHeight, TTF font, int cursorWidth, int cursorHeight, int cursorYOffset, Color color)
 	{	
-		this.x = (short)x;
+		this.x = x;
 		this.y = (short)(y * Mideas.getDisplayYFactor());
-		this.xSave = (short)x;
-		this.ySave = (short)y;
-		this.widthSave = (short)width;
+		this.xSave = x;
+		this.ySave = y;
+		this.widthSave = width;
 		this.width = (short)(width * Mideas.getDisplayXFactor());
 		this.textOffset = 0;
 		this.height = (short)(height * Mideas.getDisplayYFactor());
-		this.heightSave = (short)height;
+		this.heightSave = height;
 		this.inputMaxWidth = (short)inputMaxWidth;
 		this.crossButton = null;
 		this.parentFrame = parentFrame;
@@ -108,20 +108,20 @@ public class InputBox {
 		};
 	}
 	
-	public InputBox(Frame parentFrame, float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton) {
-		this.x = (short)x;
-		this.y = (short)y;
+	public InputBox(Frame parentFrame, short x, short y, short width, short inputMaxLength, short textXOffset, short textYOffset, short inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton, Color textColor) {
+		this.x = x;
+		this.y = y;
 		this.parentFrame = parentFrame;
-		this.xSave = (short)x;
-		this.ySave = (short)y;
-		this.widthSave = (short)x_size;
-		this.width = (short)(x_size*Mideas.getDisplayXFactor());
-		this.height = (short)(Sprites.edit_box_left_border.getImageHeight()*Mideas.getDisplayYFactor());
+		this.xSave = x;
+		this.ySave = y;
+		this.widthSave = width;
+		this.width = (short)(width * Mideas.getDisplayXFactor());
+		this.height = (short)(Sprites.edit_box_left_border.getImageHeight() * Mideas.getDisplayYFactor());
 		this.heightSave = (short)Sprites.edit_box_left_border.getImageHeight();
-		this.textOffset = (short)textOffset;
-		this.inputMaxWidth = (short)inputMaxWidth;
+		this.inputMaxWidth = inputMaxWidth;
+		this.textOffset = 0;
 		if(isIntegerInput) {
-			this.input = new IntegerInput(font, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight) {
+			this.input = new IntegerInput(font, x, y, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, textXOffset, textYOffset, textColor) {
 				
 				@Override
 				public boolean checkValue(int value) {
@@ -135,7 +135,7 @@ public class InputBox {
 			};
 		}
 		else {
-			this.input = new Input(font, inputMaxLength, false, x+textOffset*Mideas.getDisplayXFactor(), y+3, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText) {
+			this.input = new Input(font, inputMaxLength, false, x, y, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText, textXOffset, textYOffset, textColor) {
 				
 				@Override
 				public boolean keyEvent(char c) {
@@ -144,7 +144,7 @@ public class InputBox {
 			};
 		}
 		if(hasCrossButton) {
-			this.crossButton = new EditBoxCrossButton(x+x_size-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor()) {
+			this.crossButton = new EditBoxCrossButton(x+width-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor()) {
 				
 				@Override
 				public void eventButtonClick() {

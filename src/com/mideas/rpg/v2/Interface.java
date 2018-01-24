@@ -137,10 +137,12 @@ public class Interface {
 				RedAlertFrame.draw();
 				SpellBarFrame.draw();
 				CastBar.event();
+				long time = System.nanoTime();
 				mailFrame.draw();
+				Mideas.nTime(time, "MailFrame draw time");
 				//SpellLevel.addSpell();
 				AuraFrame.draw();
-				long time = System.nanoTime();
+				time = System.nanoTime();
 				if(ContainerFrame.getBagOpen(0) || ContainerFrame.getBagOpen(1) || ContainerFrame.getBagOpen(2) || ContainerFrame.getBagOpen(3) || ContainerFrame.getBagOpen(4)) {
 					containerFrameActive = true;
 					ContainerFrame.draw();

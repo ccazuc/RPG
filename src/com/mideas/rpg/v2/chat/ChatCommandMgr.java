@@ -562,7 +562,7 @@ public class ChatCommandMgr {
 		@Override
 		public void handle(String[] command)
 		{
-			Interface.getMailFrame().activateMailContentInput();
+			
 		}
 	};
 	

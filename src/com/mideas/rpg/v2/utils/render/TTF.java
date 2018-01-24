@@ -387,7 +387,7 @@ public final class TTF {
 	}
 	
 	public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float opacity) {
-		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, opacity, 1, 1, 1, false);
+		drawStringShadowPart(x, y, text, color, shadowColor, shadowSize, shadowX, shadowY, opacity, opacity, 1, 1, false);
 	}
 	
 	/*public final void drawStringShadowPart(final float x, final float y, final String text, final Color color, final Color shadowColor, final int shadowSize, final int shadowX, final int shadowY, final float scaleX, final float scaleY) {

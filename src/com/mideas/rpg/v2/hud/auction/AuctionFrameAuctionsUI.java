@@ -53,7 +53,7 @@ public class AuctionFrameAuctionsUI {
 			this.reset();
 		}
 	};
-	final InputBox goldStartingPriceEditBox = new InputBox(this.GOLD_STARTING_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.STARTING_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.GOLD_PRICE_EDIT_BOX_WIDTH, 6, 5, this.GOLD_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final InputBox goldStartingPriceEditBox = new InputBox(this.GOLD_STARTING_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.STARTING_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.GOLD_PRICE_EDIT_BOX_WIDTH, 6, 5, this.GOLD_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 3) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -73,7 +73,7 @@ public class AuctionFrameAuctionsUI {
 			return value <= 999999;
 		}
 	};
-	final InputBox silverStartingPriceEditBox = new InputBox(this.SILVER_STARTING_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.STARTING_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.SILVER_PRICE_EDIT_BOX_WIDTH, 2, 5, this.SILVER_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final InputBox silverStartingPriceEditBox = new InputBox(this.SILVER_STARTING_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.STARTING_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.SILVER_PRICE_EDIT_BOX_WIDTH, 2, 5, this.SILVER_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 3) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -93,7 +93,7 @@ public class AuctionFrameAuctionsUI {
 			return value <= 99;
 		}
 	};
-	final InputBox copperStartingPriceEditBox = new InputBox(this.COPPER_STARTING_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.STARTING_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.COPPER_PRICE_EDIT_BOX_WIDTH, 2, 5, this.COPPER_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final InputBox copperStartingPriceEditBox = new InputBox(this.COPPER_STARTING_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.STARTING_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.COPPER_PRICE_EDIT_BOX_WIDTH, 2, 5, this.COPPER_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 3) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -113,7 +113,7 @@ public class AuctionFrameAuctionsUI {
 			return value <= 99;
 		}
 	};
-	final InputBox goldBuyoutPriceEditBox = new InputBox(this.GOLD_BUYOUT_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BUYOUT_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.GOLD_PRICE_EDIT_BOX_WIDTH, 6, 5, this.GOLD_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final InputBox goldBuyoutPriceEditBox = new InputBox(this.GOLD_BUYOUT_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BUYOUT_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.GOLD_PRICE_EDIT_BOX_WIDTH, 6, 5, this.GOLD_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 3) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -133,7 +133,7 @@ public class AuctionFrameAuctionsUI {
 			return value <= 999999;
 		}
 	};
-	final InputBox silverBuyoutPriceEditBox = new InputBox(this.SILVER_BUYOUT_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BUYOUT_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.SILVER_PRICE_EDIT_BOX_WIDTH, 2, 5, this.SILVER_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final InputBox silverBuyoutPriceEditBox = new InputBox(this.SILVER_BUYOUT_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BUYOUT_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.SILVER_PRICE_EDIT_BOX_WIDTH, 2, 5, this.SILVER_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 3) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -153,7 +153,7 @@ public class AuctionFrameAuctionsUI {
 			return value <= 99;
 		}
 	};
-	final InputBox copperBuyoutPriceEditBox = new InputBox(this.COPPER_BUYOUT_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BUYOUT_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.COPPER_PRICE_EDIT_BOX_WIDTH, 2, 5, this.COPPER_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true) {
+	final InputBox copperBuyoutPriceEditBox = new InputBox(this.COPPER_BUYOUT_PRICE_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BUYOUT_PRICE_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.COPPER_PRICE_EDIT_BOX_WIDTH, 2, 5, this.COPPER_PRICE_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 3) {
 		
 		@Override
 		public boolean keyEvent(char c) {

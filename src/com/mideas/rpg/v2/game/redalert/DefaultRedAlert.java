@@ -18,6 +18,7 @@ public enum DefaultRedAlert {
 	QUEST_NOT_UNLOCKED((byte)13, "You did not unlock that quest yet."),
 	QUEST_ALREADY_ACCEPTED((byte)14, "You have already accepted this quest."),
 	CANNOT_FIND_RECIPIENT((byte)15, "Cannot find recipient"),
+	MAIL_SENT((byte)16, "Mail sent."),
 	;
 	
 	private final byte value;

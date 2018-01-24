@@ -27,7 +27,7 @@ public class CommandMail extends Command {
 		}
 		else if (packetId == PacketID.MAIL_SEND)
 		{
-			
+			CallbackManager.onMailSent();
 		}
 		else if (packetId == PacketID.MAIL_DELETE)
 		{
@@ -65,6 +65,7 @@ public class CommandMail extends Command {
 		byte template = ConnectionManager.getWorldServerConnection().readByte();
 		boolean read = ConnectionManager.getWorldServerConnection().readBoolean();
 		boolean canReply = ConnectionManager.getWorldServerConnection().readBoolean();
+		System.out.println("Mail received, authorName: " + authorName + ", title: " + title + ", content: " + content);
 		return (new Mail(GUID, deleteDate, authorName, title, content, gold, isCR, template, read, canReply));
 	}
 	

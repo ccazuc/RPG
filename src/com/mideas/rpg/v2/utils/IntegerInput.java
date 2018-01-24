@@ -13,8 +13,8 @@ public class IntegerInput extends Input {
 		super(font, maxLength, false, false);
 	}
 	
-	public IntegerInput(TTF font, float x, float y, int maxLength, float maxWidth, float cursorWidth, float cursorHeight) {
-		super(font, maxLength, false, x, y, maxWidth, cursorWidth, cursorHeight, "");
+	public IntegerInput(TTF font, float x, float y, int maxLength, float maxWidth, float cursorWidth, float cursorHeight, float textXOffset, float textYOffset, Color textColor) {
+		super(font, maxLength, false, x, y, maxWidth, cursorWidth, cursorHeight, "", textXOffset, textYOffset, textColor);
 	}
 	
 	@Override
@@ -51,6 +51,7 @@ public class IntegerInput extends Input {
 		return false;
 	}
 	
+	@SuppressWarnings("unused")
 	public boolean checkValue(int value) {return true;}
 	
 	public void write(char c) {
@@ -75,6 +76,17 @@ public class IntegerInput extends Input {
 			this.cursorPosition++;
 			this.cursorShift = this.font.getWidth(tmp);
 			checkLength();
+		}
+	}
+	
+	public void updateTextValue()
+	{
+		if (this.text.length() > 0)
+		{
+			int tmpValue = Integer.parseInt(this.text);
+			if(checkValue(tmpValue)) {
+				this.textValue = tmpValue;
+			}
 		}
 	}
 	
@@ -133,6 +145,7 @@ public class IntegerInput extends Input {
 				this.text = this.text.substring(0, this.cursorPosition-1)+this.text.substring(this.cursorPosition, this.text.length());
 			}
 			this.cursorPosition--;
+			updateTextValue();
 		}
 	}
 	
@@ -140,6 +153,7 @@ public class IntegerInput extends Input {
 		if(this.text.length() > 0) {
 			if(this.cursorPosition < this.text.length()) {
 				this.text = this.text.substring(0, this.cursorPosition)+this.text.substring(this.cursorPosition+1, this.text.length());
+				updateTextValue();
 			}
 		}
 	}

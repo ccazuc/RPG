@@ -3,6 +3,9 @@ package com.mideas.rpg.v2.hud.mail;
 import org.lwjgl.input.Keyboard;
 
 import com.mideas.rpg.v2.FontManager;
+import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.command.CommandMail;
+import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Frame;
 import com.mideas.rpg.v2.utils.Input;
@@ -38,10 +41,19 @@ public class MailSendMailFrame implements Frame
 	private final static short COPPER_INPUT_BOX_X = 162;
 	private final static short COPPER_INPUT_BOX_Y = 379;
 	private final static short COPPER_INPUT_BOX_WIDTH = 45;
-	private final static short CUROSR_WIDTH = 5;
-	private final static short CUROSR_HEIGHT = 14;
+	private final static short SEND_MAIL_BUTTON_X = 192;
+	private final static short SEND_MAIL_BUTTON_Y = 410;
+	private final static short SEND_MAIL_BUTTON_WIDTH = 83;
+	private final static short SEND_MAIL_BUTTON_HEIGHT = 21;
+	private final static short CANCEL_BUTTON_X = 277;
+	private final static short CANCEL_BUTTON_Y = 410;
+	private final static short CANCEL_BUTTON_WIDTH = 83;
+	private final static short CANCEL_BUTTON_HEIGHT = 21;
+	private final static short CUROSR_WIDTH = 6;
+	private final static short CUROSR_HEIGHT = 15;
 	private final static TTF EDIT_BOX_FONT = FontManager.get("ARIALN", 14);
-	private final InputBox senderNameInputBox = new InputBox(this, SENDER_NAME_INPUT_BOX_X, SENDER_NAME_INPUT_BOX_Y, SENDER_NAME_INPUT_BOX_WIDTH, 10, 8, SENDER_NAME_INPUT_BOX_WIDTH, EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
+	private final static Color INPUT_BOX_COLOR = Color.WHITE;
+	private final InputBox senderNameInputBox = new InputBox(this, SENDER_NAME_INPUT_BOX_X, SENDER_NAME_INPUT_BOX_Y, SENDER_NAME_INPUT_BOX_WIDTH, (short)10, (short)8, (short)-2, SENDER_NAME_INPUT_BOX_WIDTH, EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -51,7 +63,7 @@ public class MailSendMailFrame implements Frame
 			return (handleInputTab(this, MailSendMailFrame.this.subjectInputBox, MailSendMailFrame.this.copperInputBox, c, true));
 		}
 	};
-	private final InputBox subjectInputBox = new InputBox(this, SUBJECT_INPUT_BOX_X, SUBJECT_INPUT_BOX_Y, SUBJECT_INPUT_BOX_WIDTH, 60, 8, SUBJECT_INPUT_BOX_WIDTH - 20, EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
+	private final InputBox subjectInputBox = new InputBox(this, SUBJECT_INPUT_BOX_X, SUBJECT_INPUT_BOX_Y, SUBJECT_INPUT_BOX_WIDTH, (short)60, (short)8, (short)-2, (short)(SUBJECT_INPUT_BOX_WIDTH - 20), EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -61,7 +73,7 @@ public class MailSendMailFrame implements Frame
 			return (handleInputTab(this, MailSendMailFrame.this.contentInputBox, MailSendMailFrame.this.senderNameInputBox, c, true));
 		}
 	};
-	private final InputBox goldInputBox = new InputBox(this, GOLD_INPUT_BOX_X, GOLD_INPUT_BOX_Y, GOLD_INPUT_BOX_WIDTH, 6, 8, GOLD_INPUT_BOX_WIDTH - 10, EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
+	private final InputBox goldInputBox = new InputBox(this, GOLD_INPUT_BOX_X, GOLD_INPUT_BOX_Y, GOLD_INPUT_BOX_WIDTH, (short)6, (short)8, (short)-2, (short)(GOLD_INPUT_BOX_WIDTH - 10), EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -71,7 +83,7 @@ public class MailSendMailFrame implements Frame
 			return (handleInputTab(this, MailSendMailFrame.this.silverInputBox, MailSendMailFrame.this.contentInputBox, c, true));
 		}
 	};
-	private final InputBox silverInputBox = new InputBox(this, SILVER_INPUT_BOX_X, SILVER_INPUT_BOX_Y, SILVER_INPUT_BOX_WIDTH, 2, 8, SILVER_INPUT_BOX_WIDTH - 10, EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
+	private final InputBox silverInputBox = new InputBox(this, SILVER_INPUT_BOX_X, SILVER_INPUT_BOX_Y, SILVER_INPUT_BOX_WIDTH, (short)2, (short)8, (short)-2, (short)(SILVER_INPUT_BOX_WIDTH - 10), EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -81,7 +93,7 @@ public class MailSendMailFrame implements Frame
 			return (handleInputTab(this, MailSendMailFrame.this.copperInputBox, MailSendMailFrame.this.goldInputBox, c, true));
 		}
 	};
-	private final InputBox copperInputBox = new InputBox(this, COPPER_INPUT_BOX_X, COPPER_INPUT_BOX_Y, COPPER_INPUT_BOX_WIDTH, 2, 8, COPPER_INPUT_BOX_WIDTH - 10, EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false)
+	private final InputBox copperInputBox = new InputBox(this, COPPER_INPUT_BOX_X, COPPER_INPUT_BOX_Y, COPPER_INPUT_BOX_WIDTH, (short)2, (short)8, (short)-2, (short)(COPPER_INPUT_BOX_WIDTH - 10), EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -101,6 +113,32 @@ public class MailSendMailFrame implements Frame
 			return (handleInputTab(this, MailSendMailFrame.this.goldInputBox, MailSendMailFrame.this.subjectInputBox, c, false));
 		}
 	};
+	private final Button sendMailButton = new Button(this, SEND_MAIL_BUTTON_X, SEND_MAIL_BUTTON_Y, SEND_MAIL_BUTTON_WIDTH, SEND_MAIL_BUTTON_HEIGHT, "Send", 13, 1)
+	{
+	
+		@Override
+		public void onLeftClickUp()
+		{
+			sendMail();
+		}
+		
+		@SuppressWarnings("synthetic-access")
+		@Override
+		public boolean activateCondition()
+		{
+			return (MailSendMailFrame.this.subjectInputBox.getText().length() > 0 && MailSendMailFrame.this.senderNameInputBox.getText().length() > 0);
+		}
+	};
+	private final Button cancelButton = new Button(this, CANCEL_BUTTON_X, CANCEL_BUTTON_Y, CANCEL_BUTTON_WIDTH, CANCEL_BUTTON_HEIGHT, "Cancel", 13, 1)
+	{
+	
+		@SuppressWarnings("synthetic-access")
+		@Override
+		public void onLeftClickUp()
+		{
+			MailSendMailFrame.this.frame.close();
+		}
+	};
 	
 	public MailSendMailFrame(MailFrame frame)
 	{
@@ -111,6 +149,8 @@ public class MailSendMailFrame implements Frame
 		this.goldInputBox.initParentFrame(this);
 		this.silverInputBox.initParentFrame(this);
 		this.copperInputBox.initParentFrame(this);
+		this.sendMailButton.initParentFrame(this);
+		this.cancelButton.initParentFrame(this);
 	}
 	
 	@Override
@@ -134,6 +174,8 @@ public class MailSendMailFrame implements Frame
 		this.silverInputBox.drawString();
 		this.copperInputBox.drawString();
 		this.contentInputBox.draw();
+		this.sendMailButton.draw2();
+		this.cancelButton.draw2();
 		//Mideas.nTime(time, "MailSendMailFrame draw time");
 	}
 	
@@ -154,6 +196,12 @@ public class MailSendMailFrame implements Frame
 			return (true);
 		if (this.copperInputBox.mouseEvent())
 			return (true);
+		if (this.sendMailButton.event())
+			return (true);
+		if (this.cancelButton.event())
+			return (true);
+		if (Mideas.getHover() && Mideas.mouseX() >= this.frame.getX() && Mideas.mouseX() <= this.frame.getX() + Sprites.mail_send_mail_frame.getImageWidth() * Mideas.getDisplayXFactor() && Mideas.mouseY() >= this.frame.getY() && Mideas.mouseY() <= this.frame.getY() + Sprites.mail_send_mail_frame.getImageHeight() * Mideas.getDisplayYFactor())
+			Mideas.setHover(false);
 		return (false);
 	}
 	
@@ -177,9 +225,9 @@ public class MailSendMailFrame implements Frame
 		return (false);
 	}
 	
-	public void activateMailContentInput()
+	public void sendMail()
 	{
-		this.contentInputBox.setActive(true);
+		CommandMail.sendMail(this.senderNameInputBox.getText(), this.subjectInputBox.getText(), this.contentInputBox.getText(), false, this.goldInputBox.getValue() * 10000 + this.silverInputBox.getValue() * 100 + this.copperInputBox.getValue(), null);
 	}
 	
 	@Override
@@ -194,12 +242,30 @@ public class MailSendMailFrame implements Frame
 	{
 		this.senderNameInputBox.setActive(false);
 		this.subjectInputBox.setActive(false);
+		this.goldInputBox.setActive(false);
+		this.silverInputBox.setActive(false);
+		this.copperInputBox.setActive(false);
+		this.cancelButton.reset();
+		this.sendMailButton.reset();
 	}
 	
 	@Override
 	public boolean isOpen()
 	{
 		return (this.frame.getActiveFrame() == this);
+	}
+	
+	public void onMailSent()
+	{
+		this.senderNameInputBox.resetText();
+		this.subjectInputBox.resetText();
+		this.contentInputBox.resetText();
+		this.goldInputBox.resetText();
+		this.silverInputBox.resetText();
+		this.copperInputBox.resetText();
+		this.sendMailButton.reset();
+		if (isOpen())
+			this.senderNameInputBox.setActive(true);
 	}
 	
 	@Override
@@ -238,6 +304,8 @@ public class MailSendMailFrame implements Frame
 		this.goldInputBox.updateSize();
 		this.silverInputBox.updateSize();
 		this.copperInputBox.updateSize();
+		this.cancelButton.updateSize();
+		this.sendMailButton.updateSize();
 		this.shouldUpdateSize = false;
 	}
 	

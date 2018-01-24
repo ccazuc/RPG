@@ -59,7 +59,7 @@ public class MailInboxButton {
 		this.subjectY = (short)(this.frame.getY() + SUBJECT_Y_OFFSET * Mideas.getDisplayYFactor() + yOffset * Mideas.getDisplayYFactor());
 		this.expireDateX = (short)(this.frame.getX() + EXPIRE_DATE_X_OFFSET * Mideas.getDisplayXFactor());
 		this.expireDateY = (short)(this.frame.getY() + EXPIRE_DATE_Y_OFFSET * Mideas.getDisplayYFactor() + yOffset * Mideas.getDisplayYFactor());
-		this.yOffset = yOffset;		
+		this.yOffset = yOffset;	
 	}
 	
 	public void drawTextureNotRead()
@@ -107,7 +107,7 @@ public class MailInboxButton {
 	
 	public void drawBorder()
 	{
-		Draw.drawQuadPart(Sprites.border, this.buttonX - 2, this.buttonY - 2, this.buttonWidth + 3, this.buttonHeight + 3);
+		Draw.drawQuadPart(Sprites.border, this.buttonX - 2, this.buttonY - 3, this.buttonWidth + 5, this.buttonHeight + 5);
 	}
 	
 	public boolean mouseEvent()

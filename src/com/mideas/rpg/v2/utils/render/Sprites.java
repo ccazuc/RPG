@@ -377,6 +377,9 @@ public class Sprites {
 	public static Texture mail_inbox_frame;
 	public static Texture mail_opened_mail_frame;
 	public static Texture mail_send_mail_frame;
+	public static Texture frame_tab_active2;
+	public static Texture frame_tab_not_active2;
+	public static Texture frame_tab_not_hover2;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -498,6 +501,9 @@ public class Sprites {
 		mail_inbox_frame = new Texture("sprite/interface/mail/mail_inbox_frame.png");
 		mail_opened_mail_frame = new Texture("sprite/interface/mail/mail_opened_mail_frame.png");
 		mail_send_mail_frame = new Texture("sprite/interface/mail/mail_send_mail_frame.png");
+		frame_tab_active2 = new Texture("sprite/interface/frame_tabv2/frame_tab_selected.png");
+		frame_tab_not_active2 = new Texture("sprite/interface/frame_tabv2/frame_tab_not_selected.png");
+		frame_tab_not_hover2 = new Texture("sprite/interface/frame_tabv2/UI-Character-Tab-RealHighlight.png");
 		return true;
 	}
 	

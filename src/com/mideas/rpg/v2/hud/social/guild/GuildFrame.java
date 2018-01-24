@@ -113,7 +113,7 @@ public class GuildFrame {
 			return false;
 		}
 	};*/
-	final static InputBox rankNameEditBox = new InputBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, 3, 140*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 12), false) {
+	final static InputBox rankNameEditBox = new InputBox(X_SOCIAL_FRAME+530*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+85*Mideas.getDisplayYFactor(), 155*Mideas.getDisplayXFactor(), 15, 3, 140*Mideas.getDisplayXFactor(), FontManager.get("FRIZQT", 12), false, 0, 3) {
 		
 		@Override
 		public boolean keyEvent(char c) {

@@ -56,6 +56,7 @@ public class Input
 	protected short cursorCurrentLine;
 	protected short cursorPositionOnLine;
 	protected short maximumDisplayedLine;
+	protected Color textColor = Color.WHITE;
 	private final static ArrayList<Input> inputList = new ArrayList<Input>();
 	protected static Input activatedInput;
 	private Color color = Color.WHITE;
@@ -123,12 +124,12 @@ public class Input
 		inputList.add(this);
 		this.xDefault = x;
 		this.font = font;
-		this.y = y;
+		this.y = y + this.yOffset;
 		this.defaultText = "";
 		this.color = color;
 	}
 	
-	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, float cursorWidth, float cursorHeight, String defaultText)
+	public Input(TTF font, int maxLength, boolean multipleLine, float x, float y, float maxWidth, float cursorWidth, float cursorHeight, String defaultText, float textXOffset, float textYOffset, Color textColor)
 	{
 		this.cursorHeight = (byte)(cursorHeight*Mideas.getDisplayYFactor());
 		this.cursorWidth = (byte)(cursorWidth*Mideas.getDisplayXFactor());
@@ -138,11 +139,16 @@ public class Input
 		this.maxLength = maxLength;
 		this.maxWidth = maxWidth * Mideas.getDisplayXFactor();
 		this.maxWidthSave = maxWidth;
+		this.xOffset = (short)(textXOffset * Mideas.getDisplayXFactor());
+		this.xOffsetSave = (short)textXOffset;
+		this.yOffset = (short)(textYOffset * Mideas.getDisplayYFactor());
+		this.yOffsetSave = (short)textYOffset;
+		this.textColor = textColor;
 		inputList.add(this);
 		this.xDefault = x;
 		this.font = font;
 		this.defaultText = defaultText;
-		this.y = y;
+		this.y = y + this.yOffset;
 	}
 	
 	public Input(TTF font, int maxLength, boolean debugActive, boolean multipleLine, float x, float y, float maxWidth, int cursorHeight)
@@ -193,7 +199,8 @@ public class Input
 			}
 			else
 			{
-				short yDraw = (short)this.y;
+				short yDraw = (short)(this.y - this.drawLineStart * this.lineHeight);
+				short totalLineDisplayed = (short)(this.maxHeight / this.lineHeight);
 				short cursorX = 0;
 				short cursorY = 0;
 				short currentLine = 0;
@@ -201,24 +208,30 @@ public class Input
 				this.font.drawBegin();
 				while (++i < this.text.length())
 				{
-					if (x >= this.xDefault + this.maxWidth)
+					if (x + this.font.getWidth(this.text.charAt(i)) >= this.xDefault + this.maxWidth)
 					{
 						yDraw += this.lineHeight;	
 						if (yDraw - this.y >= this.maxHeight)
-						{
 							break;
-						}
 						++currentLine;
 						x = this.xDraw + this.xDefault;
+						if (this.cursorPosition - 1 == i)
+						{
+							cursorX = (short)(x + this.font.getWidth(this.text.charAt(i)) + 1);
+							cursorY = yDraw;
+							this.cursorCurrentLine = currentLine;
+							if (currentLine < this.drawLineStart)
+								--this.drawLineStart;
+							else if (currentLine > this.drawLineStart && currentLine > this.drawLineStart + totalLineDisplayed)
+								++this.drawLineStart;
+						}
 					
 					}
 					if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE)
 					{
 						yDraw += this.lineHeight;
 						if (yDraw - this.y >= this.maxHeight)
-						{
 							break;
-						}
 						x = this.xDraw + this.xDefault;
 						++currentLine;
 						if (this.cursorPosition - 1 == i)
@@ -226,18 +239,29 @@ public class Input
 							cursorX = (short)(x + this.font.getWidth(this.text.charAt(i)) + 1);
 							cursorY = yDraw;
 							this.cursorCurrentLine = currentLine;
+							if (currentLine < this.drawLineStart)
+								--this.drawLineStart;
+							else if (currentLine > this.drawLineStart && currentLine > this.drawLineStart + totalLineDisplayed)
+								++this.drawLineStart;
 						}
 					}
-					else
+					else if (currentLine >= this.drawLineStart && currentLine < this.drawLineStart + totalLineDisplayed)
 					{
 						this.font.drawCharPart(x+1, yDraw, this.text.charAt(i), Color.BLACK);
 						this.font.drawCharPart(x, yDraw, this.text.charAt(i), this.color);
-						if (this.cursorPosition - 1 == i)
+						if (this.cursorPosition - 1 == i && cursorX == 0 && cursorY == 0)
 						{
 							cursorX = (short)(x + this.font.getWidth(this.text.charAt(i)) + 1);
 							cursorY = yDraw;
 							this.cursorCurrentLine = currentLine;
 						}
+					}
+					else if (i == this.cursorPosition - 1)
+					{
+						if (currentLine < this.drawLineStart)
+							--this.drawLineStart;
+						else
+							++this.drawLineStart;
 					}
 					if (currentLine == this.cursorCurrentLine && i < this.cursorPosition && this.text.charAt(i) != ENTER_CHAR_VALUE && this.text.charAt(i) != '\n')
 						++this.cursorPositionOnLine; 
@@ -253,7 +277,7 @@ public class Input
 		}
 		else
 		{
-			float x = this.xDraw+this.xDefault;
+			float x = this.xDraw + this.xDefault;
 			this.font.drawBegin();
 			if(this.text.length() == 0)
 				this.font.drawStringShadowPart(x, this.y, this.defaultText, Color.DARKGREY, Color.BLACK, 1, 0, 0);
@@ -264,7 +288,7 @@ public class Input
 					if(x >= this.xDefault)
 					{
 						this.font.drawCharPart(x+1, this.y, this.text.charAt(i), Color.BLACK);
-						this.font.drawCharPart(x, this.y, this.text.charAt(i), Color.WHITE);
+						this.font.drawCharPart(x, this.y, this.text.charAt(i), this.textColor);
 					}
 					x+= this.font.getWidth(this.text.charAt(i));
 					if(x >= this.xDefault+this.maxWidth || (i < this.text.length()-1 && x+this.font.getWidth(this.text.charAt(i)) >= this.xDefault+this.maxWidth))
@@ -275,7 +299,7 @@ public class Input
 			if(!this.isActive)
 				return;
 			if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) 
-				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y+1, this.cursorWidth, this.cursorHeight, this.color);
+				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y + 3 * Mideas.getDisplayYFactor(), this.cursorWidth, this.cursorHeight, this.color);
 		}
 	}
 	
@@ -462,6 +486,8 @@ public class Input
 		this.yOffset = (short)(this.yOffsetSave * Mideas.getDisplayYFactor());
 		this.cursorYOffset = (short)(this.cursorYOffsetSave * Mideas.getDisplayYFactor());
 		this.lineHeight = (short)(this.lineHeightSave * Mideas.getDisplayYFactor());
+		this.cursorWidth = (byte)(this.cursorWidthSave * Mideas.getDisplayXFactor());
+		this.cursorHeight = (byte)(this.cursorHeightSave * Mideas.getDisplayYFactor());
 		this.xDefault = x + this.xOffset;
 		this.y = y + this.yOffset;
 	}
@@ -474,6 +500,8 @@ public class Input
 		this.yOffset = (short)(this.yOffsetSave * Mideas.getDisplayYFactor());
 		this.cursorYOffset = (short)(this.cursorYOffsetSave * Mideas.getDisplayYFactor());
 		this.lineHeight = (short)(this.lineHeightSave * Mideas.getDisplayYFactor());
+		this.cursorWidth = (byte)(this.cursorWidthSave * Mideas.getDisplayXFactor());
+		this.cursorHeight = (byte)(this.cursorHeightSave * Mideas.getDisplayYFactor());
 		this.xDefault = x + this.xOffset;
 		this.y = y + this.yOffset;
 	}
@@ -642,21 +670,26 @@ public class Input
 		byte currentLine = 0;
 		while (++i < this.text.length())
 		{
-			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x >= this.maxWidth)
+			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x + this.font.getWidth(this.text.charAt(i)) >= this.maxWidth)
 			{
 				++currentLine;
 				if (currentLine == this.cursorCurrentLine + 2)
 				{
 					this.cursorCurrentLine = (short)(currentLine - 1);
-					return (i - 1);
+					if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE)
+						return (i - 1);
+					return (i);
 				}
+				x = 0;
 			}
 			x += this.font.getWidth(this.text.charAt(i));
 		}
 		if (i == this.text.length())
 		{
 			this.cursorCurrentLine = currentLine;
-			return (i - 1);
+			if (i > 0 && (this.text.charAt(i - 1) == '\n' || this.text.charAt(i - 1) == ENTER_CHAR_VALUE))
+				return (i - 1);
+			return (i);
 		}
 		return (-1);
 	}
@@ -669,12 +702,12 @@ public class Input
 		int lineLength = 0;
 		while (++i < this.text.length())
 		{
-			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x >= this.maxWidth)
+			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x + this.font.getWidth(this.text.charAt(i)) >= this.maxWidth)
 			{
 				++currentLine;
 				if (currentLine == line + 1)
 					return (lineLength);
-				x += this.font.getWidth(this.text.charAt(i));
+				x = this.font.getWidth(this.text.charAt(i));
 				continue;
 			}
 			if (currentLine == line)
@@ -693,14 +726,17 @@ public class Input
 		byte currentLine = 0;
 		while (++i < this.text.length())
 		{
-			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x >= this.maxWidth)
+			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x + this.font.getWidth(this.text.charAt(i)) >= this.maxWidth)
 			{
 				++currentLine;
 				if (currentLine == this.cursorCurrentLine)
 				{
 					this.cursorCurrentLine = (short)(currentLine - 1);
-					return (i - 1);
+					if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE)
+						return (i - 1);
+					return (i);
 				}
+				x = 0;
 			}
 			x += this.font.getWidth(this.text.charAt(i));
 		}
@@ -713,13 +749,18 @@ public class Input
 		float x = 0;
 		byte currentLine = 0;
 		int indexOnLine = -1;
+		boolean lastLineJumpCharIsEnter = false;
 		if (line == 0)
 			return (index);
 		while (++i < this.text.length())
 		{
 			//System.out.println("i: " + i + ", char: " + this.text.charAt(i));
-			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x >= this.maxWidth)
+			if (this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE || x  + this.font.getWidth(this.text.charAt(i)) >= this.maxWidth)
+			{
 				++currentLine;
+				x = 0;
+				lastLineJumpCharIsEnter = this.text.charAt(i) == '\n' || this.text.charAt(i) == ENTER_CHAR_VALUE ? true : false;
+			}
 			if (currentLine == line)
 			{
 				//System.out.println("CurrentLine: " + currentLine + ", line: " + line);
@@ -728,7 +769,9 @@ public class Input
 				if (indexOnLine == index)
 				{
 					//System.out.println("FINAL INDEX: " + i);
-					return (i + 1);
+					if (lastLineJumpCharIsEnter)
+						return (i + 1);
+					return (i);
 				}
 			}
 			x += this.font.getWidth(this.text.charAt(i));
@@ -741,20 +784,20 @@ public class Input
 		if (!this.multipleLine)
 			return;
 		int previousLineEnd = findPreviousLineEnd();
-		//System.out.println("PreviousLineEnd: " + previousLineEnd);
+		System.out.println("PreviousLineEnd: " + previousLineEnd);
 		if (previousLineEnd == -1)
 			return;
 		int previousLineLen = findLineLen(this.cursorCurrentLine);
-		//System.out.println("PreviousLineLen: " + previousLineLen + ", IndexFromLine: " + findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine));
+		System.out.println("PreviousLineLen: " + previousLineLen + ", IndexFromLine: " + findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine));
 		if (previousLineLen == 0 && this.cursorPosition > 0)
 			--this.cursorPosition;
 		else if (this.cursorPositionOnLine <= previousLineLen)
 			this.cursorPosition = findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine);
 		else
 			this.cursorPosition = previousLineEnd;
-		//System.out.println("CursorPosition: " + this.cursorPosition);
+		System.out.println("CursorPosition: " + this.cursorPosition);
 		this.lastWrite = Mideas.getLoopTickTimer();
-		//System.out.println("CurrentLine: " + this.cursorCurrentLine);
+		System.out.println("CurrentLine: " + this.cursorCurrentLine);
 	}
 	
 	private void downArrow()
@@ -764,18 +807,20 @@ public class Input
 		int nextLineEnd = findNextLineEnd();
 		if (nextLineEnd == -1)
 			return;
-		//System.out.println("FindNextLineEnd: " + nextLineEnd);
+		System.out.println("-----------------------------------------------------------");
+		System.out.println("FindNextLineEnd: " + nextLineEnd);
 		int nextLineLen = findLineLen(this.cursorCurrentLine);
-		if (nextLineLen == 0 && this.cursorPosition < this.text.length() - 1)
+		if (nextLineLen == 0 && this.cursorPosition < this.text.length() - 1 && (this.text.charAt(this.cursorPosition) == '\n' || this.text.charAt(this.cursorPosition) == ENTER_CHAR_VALUE))
 			++this.cursorPosition;
 		else if (this.cursorPositionOnLine <= nextLineLen)
 			this.cursorPosition = findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine);
 		else
 			this.cursorPosition = nextLineEnd;
-		//System.out.println("NextLineLen: " + nextLineLen + "IndexFromLine: " + findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine));
-		//System.out.println("CursorPosition: " + this.cursorPosition);
+		System.out.println("NextLineLen: " + nextLineLen + ", IndexFromLine: " + findIndexFromLine(this.cursorPositionOnLine, this.cursorCurrentLine));
+		System.out.println("CursorPosition: " + this.cursorPosition + ", CursorPositionOnLine: " + this.cursorPositionOnLine);
 		this.lastWrite = Mideas.getLoopTickTimer();
-		//System.out.println("CurrentLine: " + this.cursorCurrentLine);
+		System.out.println("CurrentLine: " + this.cursorCurrentLine);
+		System.out.println("-----------------------------------------------------------");
 	}
 
 	private void delete()
