@@ -8,4 +8,5 @@ public interface UIElement {
 	abstract boolean mouseEvent();
 	abstract boolean keyboardEvent();
 	abstract String getName();
+	abstract Frame getParentFrame();
 }

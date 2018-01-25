@@ -3,7 +3,7 @@ package com.mideas.rpg.v2.utils;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.utils.render.TTF;
 
-public class LargeTextDisplay {
+public class LargeTextDisplay implements UIElement {
 
 	private Frame parentFrame;
 	private final short xSave;
@@ -17,6 +17,7 @@ public class LargeTextDisplay {
 	private final short textXOffsetSave;
 	private final short textYOffsetSave;
 	private final short lineHeightSave;
+	private final String name;
 	private final Color color;
 	private final TTF font;
 	private short x;
@@ -30,8 +31,10 @@ public class LargeTextDisplay {
 	private String textSave;
 	private Color shadowcolor = Color.decode("#3B2A16");
 	
-	public LargeTextDisplay(Frame parentFrame, short x, short y, short width, short height, short textXOffset, short textYOffset, short lineHeight, short scrollbarX, short scrollbarY, short scrollbarWidt, short scrollbarHeight, TTF font, Color color)
+	public LargeTextDisplay(Frame parentFrame, String name, short x, short y, short width, short height, short textXOffset, short textYOffset, short lineHeight, short scrollbarX, short scrollbarY, short scrollbarWidt, short scrollbarHeight, TTF font, Color color)
 	{
+		this.parentFrame = parentFrame;
+		this.name = name;
 		this.xSave = x;
 		this.ySave = y;
 		this.widthSave = width;
@@ -53,6 +56,7 @@ public class LargeTextDisplay {
 		updateSize();
 	}
 	
+	@Override
 	public void draw()
 	{
 		int i = -1;
@@ -158,6 +162,42 @@ public class LargeTextDisplay {
 	{
 		this.textSave = text;
 		formatText();
+	}
+	
+	@Override
+	public boolean mouseEvent()
+	{
+		return (false);
+	}
+	
+	@Override
+	public boolean keyboardEvent()
+	{
+		return (false);
+	}
+	
+	@Override
+	public int getX()
+	{
+		return (this.x);
+	}
+	
+	@Override
+	public int getY()
+	{
+		return (this.y);
+	}
+	
+	@Override
+	public String getName()
+	{
+		return (this.name);
+	}
+	
+	@Override
+	public Frame getParentFrame()
+	{
+		return (this.parentFrame);
 	}
 	
 	public void updateSize()

@@ -91,7 +91,7 @@ public class MailOpenedMailFrame implements Frame {
 			close();
 		}
 	};
-	private final LargeTextDisplay openedMailContent = new LargeTextDisplay(this, MAIL_CONTENT_X, MAIL_CONTENT_Y, MAIL_CONTENT_WIDTH, MAIL_CONTENT_HEIGHT, MAIL_CONTENT_TEXT_X_OFFSET, MAIL_CONTENT_TEXT_Y_OFFSET, (short)15, (short)0, (short)0, (short)0, (short)0, FontManager.get("MORPHEUS", 15), Color.BLACK);
+	private final LargeTextDisplay openedMailContent = new LargeTextDisplay(this, "MailOpenedMailFrameMailContentDisplay", MAIL_CONTENT_X, MAIL_CONTENT_Y, MAIL_CONTENT_WIDTH, MAIL_CONTENT_HEIGHT, MAIL_CONTENT_TEXT_X_OFFSET, MAIL_CONTENT_TEXT_Y_OFFSET, (short)15, (short)0, (short)0, (short)0, (short)0, FontManager.get("MORPHEUS", 15), Color.BLACK);
 	
 	public MailOpenedMailFrame(MailFrame frame)
 	{
