@@ -23,4 +23,9 @@ public class CallbackManager {
 		RedAlertFrame.addNewAlert(DefaultRedAlert.MAIL_SENT, RedAlertFrame.YELLOW);
 		
 	}
+	
+	public static void onMailLoaded(Mail mail)
+	{
+		Interface.getMailFrame().onMailLoaded(mail);
+	}
 }

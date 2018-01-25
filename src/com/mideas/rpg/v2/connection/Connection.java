@@ -197,6 +197,5 @@ public class Connection {
 	
 	public final String readString() {
 		return this.rBuffer.readString();
-}
-	
+	}	
 }

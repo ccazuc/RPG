@@ -139,7 +139,6 @@ public class Interface {
 				CastBar.event();
 				long time = System.nanoTime();
 				mailFrame.draw();
-				Mideas.nTime(time, "MailFrame draw time");
 				//SpellLevel.addSpell();
 				AuraFrame.draw();
 				time = System.nanoTime();

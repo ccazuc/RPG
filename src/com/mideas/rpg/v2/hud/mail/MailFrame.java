@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.hud.mail;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.command.CommandMail;
 import com.mideas.rpg.v2.game.mail.Mail;
 import com.mideas.rpg.v2.utils.Frame;
 import com.mideas.rpg.v2.utils.FrameTab2;
@@ -166,8 +167,7 @@ public class MailFrame implements Frame {
 	public void replayOpenedMail(Mail mail)
 	{
 		openSendMailFrame();
-		this.sendMailFrame.setTargetName(mail.getAuthorName());
-		this.sendMailFrame.setSubject("RE: " + mail.getTitle());
+		this.sendMailFrame.replyOpenedMail(mail);
 	}
 	
 	public void updateSize()
@@ -234,6 +234,11 @@ public class MailFrame implements Frame {
 		this.sendMailFrame.onMailSent();
 	}
 	
+	public void onMailLoaded(Mail mail)
+	{
+		this.openedMailFrame.onMailLoaded(mail);
+	}
+	
 	public MailInboxFrame getMailInboxFrame()
 	{
 		return (this.inboxFrame);
@@ -251,6 +256,8 @@ public class MailFrame implements Frame {
 	
 	public void setOpenedMail(Mail mail)
 	{
+		if (!mail.isLoaded())
+			CommandMail.loadMail(mail);
 		this.openedMailFrame.setOpenedMail(mail);
 	}
 	

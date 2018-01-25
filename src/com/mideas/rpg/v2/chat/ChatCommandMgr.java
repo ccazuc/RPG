@@ -562,7 +562,23 @@ public class ChatCommandMgr {
 		@Override
 		public void handle(String[] command)
 		{
-			
+			StringBuilder builder = new StringBuilder();
+			int i = -1;
+			int spaceFrequence = 80;
+			if (command.length > 2 && StringUtils.isInteger(command[2]))
+				spaceFrequence = Integer.parseInt(command[2]);
+			int newLineFrequence = 10;
+			if (command.length > 3 && StringUtils.isInteger(command[3]))
+				newLineFrequence = Integer.parseInt(command[3]);
+			while (++i < 150)
+			{
+				builder.append((char)('A' + i % 26));
+				if (Math.random() < spaceFrequence / 100d)
+					builder.append(' ');
+				if (Math.random() < newLineFrequence / 100d)
+					builder.append('\n');
+			}
+			CommandMail.sendMail("Mideas", "Something", builder.toString(), false, 0, null);
 		}
 	};
 	

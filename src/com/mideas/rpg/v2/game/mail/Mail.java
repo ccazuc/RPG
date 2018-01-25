@@ -9,12 +9,13 @@ public class Mail {
 	private final long deleteDate;
 	private final String authorName;
 	private final String title;
-	private final String content;
+	private String content;
 	private final int gold;
 	private final boolean isCR;
 	private final byte template;
 	private final boolean canReply;
 	private String expireDateString;
+	private boolean isLoaded;
 	private boolean read;
 	
 	public Mail(long GUID, long deleteDate, String authorName, String title, String content, int gold, boolean isCR, byte template, boolean read, boolean canReply)
@@ -32,6 +33,21 @@ public class Mail {
 		updateExpireDateString();
 	}
 	
+	public boolean isLoaded()
+	{
+		return (this.isLoaded);
+	}
+	
+	public void setIsLoaded()
+	{
+		this.isLoaded = true;
+	}
+	
+	public void setContent(String content)
+	{
+		this.content = content;
+	}
+
 	public void updateExpireDateString()
 	{
 		this.expireDateString = StringUtils.convertTimeToStringSimple(this.deleteDate - Mideas.getLoopTickTimer());

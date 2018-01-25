@@ -21,7 +21,10 @@ public class ChatCommand {
 		builder.append(this.helpMessage + '\n');
 		builder.append("Available sub command for " + this.name + ":\n");
 		while (++i < this.subCommandList.size())
-			builder.append('-' + this.subCommandList.get(i).getName() + '\n');
+			if (i < this.subCommandList.size() - 1)
+				builder.append('-' + this.subCommandList.get(i).getName() + '\n');
+			else
+				builder.append('-' + this.subCommandList.get(i).getName());
 		return (builder.toString());
 	}
 	

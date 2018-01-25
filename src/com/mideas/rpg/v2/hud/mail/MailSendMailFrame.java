@@ -5,6 +5,7 @@ import org.lwjgl.input.Keyboard;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.CommandMail;
+import com.mideas.rpg.v2.game.mail.Mail;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Frame;
@@ -249,6 +250,14 @@ public class MailSendMailFrame implements Frame
 		this.sendMailButton.reset();
 	}
 	
+	public void replyOpenedMail(Mail mail)
+	{
+		this.senderNameInputBox.setText(mail.getAuthorName());
+		this.subjectInputBox.setText("RE: " + mail.getTitle());
+		this.contentInputBox.setActive(true);
+		this.contentInputBox.setCursorEndOfText();
+	}
+	
 	@Override
 	public boolean isOpen()
 	{
@@ -331,16 +340,6 @@ public class MailSendMailFrame implements Frame
 	public void setY(int y)
 	{
 		
-	}
-	
-	public void setTargetName(String name)
-	{
-		this.senderNameInputBox.setText(name);
-	}
-	
-	public void setSubject(String subject)
-	{
-		this.subjectInputBox.setText(subject);
 	}
 	
 	@Override

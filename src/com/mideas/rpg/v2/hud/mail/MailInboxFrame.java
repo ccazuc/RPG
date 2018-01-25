@@ -200,10 +200,9 @@ public class MailInboxFrame implements Frame {
 		this.totalPage = MailMgr.getMailList().size() / MAIL_PER_PAGE;
 		if (MailMgr.getMailList().size() % MAIL_PER_PAGE == 0)
 			--this.totalPage;
-		System.out.println("TotalPage: " + this.totalPage + ", currentPage: " + this.currentPage);
 		if (this.currentPage > this.totalPage)
 		{
-			this.currentPage = this.totalPage <= 0 ? 0 : this.totalPage - 1;
+			this.currentPage = this.totalPage <= 0 ? 0 : this.totalPage;
 			updateButtons();
 		}
 	}

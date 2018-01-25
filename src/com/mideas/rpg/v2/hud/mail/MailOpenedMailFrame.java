@@ -7,6 +7,7 @@ import com.mideas.rpg.v2.game.mail.Mail;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Frame;
+import com.mideas.rpg.v2.utils.LargeTextDisplay;
 import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.utils.render.TTF;
@@ -38,7 +39,13 @@ public class MailOpenedMailFrame implements Frame {
 	private final static short CLOSE_BUTTON_Y = 410;
 	private final static short DELETE_BUTTON_X = 192;
 	private final static short DELETE_BUTTON_Y = 410;
-	private final Button replyButton = new Button(this.frame, REPLY_BUTTON_X, REPLY_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Reply", 13, 1)
+	private final static short MAIL_CONTENT_X = 19;
+	private final static short MAIL_CONTENT_Y = 95;
+	private final static short MAIL_CONTENT_WIDTH = 300;
+	private final static short MAIL_CONTENT_HEIGHT = 251;
+	private final static short MAIL_CONTENT_TEXT_X_OFFSET = 12;
+	private final static short MAIL_CONTENT_TEXT_Y_OFFSET = 6;
+	private final Button replyButton = new Button(this, REPLY_BUTTON_X, REPLY_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Reply", 13, 1)
 	{
 	
 		@SuppressWarnings("synthetic-access")
@@ -55,7 +62,7 @@ public class MailOpenedMailFrame implements Frame {
 			return (MailOpenedMailFrame.this.openedMail.canReply());
 		}
 	};
-	private final Button deleteButton = new Button(this.frame, DELETE_BUTTON_X, DELETE_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Delete", 13, 1)
+	private final Button deleteButton = new Button(this, DELETE_BUTTON_X, DELETE_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Delete", 13, 1)
 	{
 
 		@SuppressWarnings("synthetic-access")
@@ -65,7 +72,7 @@ public class MailOpenedMailFrame implements Frame {
 			CommandMail.deleteMail(MailOpenedMailFrame.this.openedMail);
 		}
 	};
-	private final Button returnButton = new Button(this.frame, DELETE_BUTTON_X, DELETE_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Return", 13, 1)
+	private final Button returnButton = new Button(this, DELETE_BUTTON_X, DELETE_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Return", 13, 1)
 	{
 
 		@SuppressWarnings("synthetic-access")
@@ -75,7 +82,7 @@ public class MailOpenedMailFrame implements Frame {
 			CommandMail.returnMail(MailOpenedMailFrame.this.openedMail);
 		}
 	};
-	private final Button closeButton = new Button(this.frame, CLOSE_BUTTON_X, CLOSE_BUTTON_Y, (short)(BUTTON_WIDTH - 2), BUTTON_HEIGHT, "Close", 13, 1)
+	private final Button closeButton = new Button(this, CLOSE_BUTTON_X, CLOSE_BUTTON_Y, (short)(BUTTON_WIDTH - 2), BUTTON_HEIGHT, "Close", 13, 1)
 	{
 
 		@Override
@@ -84,6 +91,7 @@ public class MailOpenedMailFrame implements Frame {
 			close();
 		}
 	};
+	private final LargeTextDisplay openedMailContent = new LargeTextDisplay(this, MAIL_CONTENT_X, MAIL_CONTENT_Y, MAIL_CONTENT_WIDTH, MAIL_CONTENT_HEIGHT, MAIL_CONTENT_TEXT_X_OFFSET, MAIL_CONTENT_TEXT_Y_OFFSET, (short)15, (short)0, (short)0, (short)0, (short)0, FontManager.get("MORPHEUS", 15), Color.BLACK);
 	
 	public MailOpenedMailFrame(MailFrame frame)
 	{
@@ -98,6 +106,7 @@ public class MailOpenedMailFrame implements Frame {
 		this.deleteButton.initParentFrame(this);
 		this.returnButton.initParentFrame(this);
 		this.closeButton.initParentFrame(this);
+		this.openedMailContent.initParentFrame(this);
 	}
 	
 	@Override
@@ -109,6 +118,7 @@ public class MailOpenedMailFrame implements Frame {
 		Draw.drawQuad(Sprites.mail_opened_mail_frame, this.openedMailFrameX, this.openedMailFrameY);
 		openedMailSenderFont.drawStringShadow(this.openedMailSenderNameX, this.openedMailSenderNameY, this.openedMail.getAuthorName(), Color.YELLOW, MailInboxButton.senderNameFontShadowColor, 1, 1, 1);
 		openedMailSubjectFont.drawStringShadow(this.openedMailSubjectX, this.openedMailSubjectY, this.openedMail.getTitle(), Color.YELLOW, MailInboxButton.senderNameFontShadowColor, 1, 1, 1);
+		this.openedMailContent.draw();
 		this.replyButton.draw2();
 		if (this.openedMail.isCR())
 			this.returnButton.draw2();
@@ -193,6 +203,7 @@ public class MailOpenedMailFrame implements Frame {
 		this.deleteButton.updateSize();
 		this.returnButton.updateSize();
 		this.closeButton.updateSize();
+		this.openedMailContent.updateSize();
 		this.shouldUpdateSize = false;
 	}
 	
@@ -215,6 +226,7 @@ public class MailOpenedMailFrame implements Frame {
 		else
 		{
 			this.openedMail = mail;
+			this.openedMailContent.setText(this.openedMail.getContent());
 			if (!this.openedMail.getRead())
 				CommandMail.mailOpened(this.openedMail);
 		}
@@ -224,6 +236,12 @@ public class MailOpenedMailFrame implements Frame {
 	{
 		if (this.openedMail == mail)
 			close();
+	}
+	
+	public void onMailLoaded(Mail mail)
+	{
+		if (this.openedMail != null && this.openedMail.getGUID() == mail.getGUID())
+			this.openedMailContent.setText(mail.getContent());
 	}
 	
 	public Mail getOpenedMail()
