@@ -166,7 +166,19 @@ public class MailInboxFrame implements Frame {
 	@Override
 	public void close()
 	{
-		
+		this.currentPage = 0;
+	}
+	
+	@Override
+	public void reset()
+	{
+		this.nextPageArrow.reset();
+		this.previousPageArrow.reset();
+		this.totalPage = 0;
+		this.currentPage = 0;
+		int i = -1;
+		while (++i < this.buttonList.length)
+			this.buttonList[i].setMail(null);
 	}
 	
 	public void nextPage()
@@ -269,6 +281,7 @@ public class MailInboxFrame implements Frame {
 		fillMailPage();
 	}
 	
+	@Override
 	public MailFrame getParentFrame()
 	{
 		return (this.frame);

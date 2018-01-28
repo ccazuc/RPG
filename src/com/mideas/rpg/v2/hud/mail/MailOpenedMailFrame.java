@@ -4,6 +4,7 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.CommandMail;
 import com.mideas.rpg.v2.game.mail.Mail;
+import com.mideas.rpg.v2.game.mail.MailMgr;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Frame;
@@ -166,6 +167,12 @@ public class MailOpenedMailFrame implements Frame {
 	}
 	
 	@Override
+	public void reset()
+	{
+		close();
+	}
+	
+	@Override
 	public int getX()
 	{
 		return (this.openedMailFrameX);
@@ -225,6 +232,11 @@ public class MailOpenedMailFrame implements Frame {
 			this.openedMail = null;
 		else
 		{
+			if (!mail.isLoaded() && !MailMgr.wasLoadRequested(mail.getGUID()))
+			{
+				CommandMail.loadMail(mail);
+				MailMgr.addLoadedMail(mail.getGUID());
+			}
 			this.openedMail = mail;
 			this.openedMailContent.setText(this.openedMail.getContent());
 			if (!this.openedMail.getRead())
@@ -253,5 +265,11 @@ public class MailOpenedMailFrame implements Frame {
 	public String getName()
 	{
 		return ("MailOpenedMailFrame");
+	}
+	
+	@Override
+	public Frame getParentFrame()
+	{
+		return (this.frame);
 	}
 }

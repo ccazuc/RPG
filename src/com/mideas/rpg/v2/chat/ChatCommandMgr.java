@@ -26,7 +26,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length == 1) 
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [name] in /invite [name].", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [name] in /invite [name].", false, MessageType.SELF, true));
 				return;
 			}
 			CommandParty.invitePlayer(command[1]);
@@ -58,7 +58,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length == 1)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] in /join [channel_name] [password(optionnal)]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] in /join [channel_name] [password(optionnal)]", false, MessageType.SELF, true));
 				return;
 			}
 			int channelValue = ChannelMgr.generateChannelID();
@@ -76,7 +76,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length == 1)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] in /chan [channel_name] [password(optionnal)]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] in /chan [channel_name] [password(optionnal)]", false, MessageType.SELF, true));
 				return;
 			}
 			int channelValue = ChannelMgr.generateChannelID();
@@ -94,7 +94,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length == 1)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name || channel_index] in /leave [channel_name || channel_index]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name || channel_index] in /leave [channel_name || channel_index]", false, MessageType.SELF, true));
 				return;
 			}
 			String channelName = ChannelMgr.findChannelName(command[1]);
@@ -110,7 +110,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length <= 2)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /ban [channel_name] [player_name]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /ban [channel_name] [player_name]", false, MessageType.SELF, true));
 				return;
 			}
 			String channelName = ChannelMgr.findChannelName(command[1]);
@@ -129,7 +129,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length <= 2)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /unban [channel_name] [player_name]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /unban [channel_name] [player_name]", false, MessageType.SELF, true));
 				return;
 			}
 			String channelName = ChannelMgr.findChannelName(command[1]);
@@ -149,7 +149,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length <= 2)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /mute [channel_name] [player_name]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /mute [channel_name] [player_name]", false, MessageType.SELF, true));
 				return;
 			}
 			String channelName = ChannelMgr.findChannelName(command[1]);
@@ -178,7 +178,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length <= 2)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /unmute [channel_name] [player_name]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /unmute [channel_name] [player_name]", false, MessageType.SELF, true));
 				return;
 			}
 			String channelName = ChannelMgr.findChannelName(command[1]);
@@ -207,7 +207,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length <= 3)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] [true || false] in /moderator [channel_name] [player_name] [true || false]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] [true || false] in /moderator [channel_name] [player_name] [true || false]", false, MessageType.SELF, true));
 				return;
 			}
 			String channelName = ChannelMgr.findChannelName(command[1]);
@@ -237,7 +237,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length <= 2)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /ckick [channel_name] [player_name]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /ckick [channel_name] [player_name]", false, MessageType.SELF, true));
 				return;
 			}
 			String channelName = ChannelMgr.findChannelName(command[1]);
@@ -257,7 +257,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length <= 2)
 			{
-				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /lead [channel_name] [player_name]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [channel_name] [player_name] in /lead [channel_name] [player_name]", false, MessageType.SELF, true));
 				return;
 			}
 			String channelName = ChannelMgr.findChannelName(command[1]);
@@ -294,7 +294,7 @@ public class ChatCommandMgr {
 		public void handle(String[] command)
 		{
 			if(command.length <= 1) {
-				ChatFrame.addMessage(new Message("Invalid parameter for [motd] in /gmotd [motd]", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Invalid parameter for [motd] in /gmotd [motd]", false, MessageType.SELF, true));
 				return;
 			}
 			StringBuilder builder = new StringBuilder();
@@ -319,7 +319,7 @@ public class ChatCommandMgr {
 		@Override
 		public void handle(String[] command)
 		{
-			ChatFrame.addMessage(new Message("The game is using "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("The game is using "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF, true));
 		}
 	};
 	private final static ChatCommand gc = new ChatCommand("gc", "/gc Run a gc.")
@@ -328,9 +328,9 @@ public class ChatCommandMgr {
 		@Override
 		public void handle(String[] command)
 		{
-			ChatFrame.addMessage(new Message("Ram used before gc : "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("Ram used before gc : "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF, true));
 			System.gc();
-			ChatFrame.addMessage(new Message("Ram used after gc : "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("Ram used after gc : "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024f*1024f))+" Mb of ram.", false, MessageType.SELF, true));
 		}
 	};
 	private final static ChatCommand ah = new ChatCommand("ah", "/ah Open or close the AuctionHouse.")
@@ -353,7 +353,7 @@ public class ChatCommandMgr {
 		{
 			long timer = System.currentTimeMillis();
 			Mideas.loadingScreen();
-			ChatFrame.addMessage(new Message("UI reloaded in "+(System.currentTimeMillis()-timer)/1000f+"s.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("UI reloaded in "+(System.currentTimeMillis()-timer)/1000f+"s.", false, MessageType.SELF, true));
 		}
 	};
 	private final static ChatCommand stresstest = new ChatCommand("stresstest", "Stresstest is a command used to create client to test server performance.")
@@ -364,7 +364,7 @@ public class ChatCommandMgr {
 		{
 			if(command.length < 2)
 			{
-				ChatFrame.addMessage(new Message(this.printHelpMessage(), false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(this.printHelpMessage(), false, MessageType.SELF, true));
 				return;
 			}
 			int i = -1;
@@ -374,7 +374,7 @@ public class ChatCommandMgr {
 					this.subCommandList.get(i).handle(command);
 					return;
 				}
-			ChatFrame.addMessage(new Message("Stresstest has no such subcommand.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("Stresstest has no such subcommand.", false, MessageType.SELF, true));
 		}
 	};
 	private final static ChatSubCommand stresstest_add = new ChatSubCommand("add", "stresstest", "/stresstest add [int] to add client.")
@@ -385,16 +385,16 @@ public class ChatCommandMgr {
 		{
 			if (command.length < 3)
 			{
-				ChatFrame.addMessage(new Message(this.helpMessage, false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(this.helpMessage, false, MessageType.SELF, true));
 				return;
 			}
 			if (!StringUtils.isInteger(command[2]))
 			{
-				ChatFrame.addMessage(new Message("Incorrect value, you must specify an integer.", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Incorrect value, you must specify an integer.", false, MessageType.SELF, true));
 				return;
 			}
 			StresstestMgr.addClient(Integer.parseInt(command[2]));
-			ChatFrame.addMessage(new Message("Added " + command[2] + " clients.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("Added " + command[2] + " clients.", false, MessageType.SELF, true));
 		}
 	};
 	private final static ChatSubCommand stresstest_remove = new ChatSubCommand("remove", "stresstest", "/stresstest remove [int] to remove client.")
@@ -405,16 +405,16 @@ public class ChatCommandMgr {
 		{
 			if (command.length < 3)
 			{
-				ChatFrame.addMessage(new Message(this.helpMessage, false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(this.helpMessage, false, MessageType.SELF, true));
 				return;
 			}
 			if (!StringUtils.isInteger(command[2]))
 			{
-				ChatFrame.addMessage(new Message("Incorrect value, you must specify an integer.", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Incorrect value, you must specify an integer.", false, MessageType.SELF, true));
 				return;
 			}
 			StresstestMgr.removeClient(Integer.parseInt(command[2]));
-			ChatFrame.addMessage(new Message("Removed " + command[2] + " clients.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("Removed " + command[2] + " clients.", false, MessageType.SELF, true));
 		}
 	};
 	private final static ChatSubCommand stresstest_clear = new ChatSubCommand("clear", "stresstest", "/stresstest clear removes all clients.")
@@ -424,7 +424,7 @@ public class ChatCommandMgr {
 		public void handle(String[] command)
 		{
 			StresstestMgr.clearClient();
-			ChatFrame.addMessage(new Message("Removed all clients.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("Removed all clients.", false, MessageType.SELF, true));
 		}
 	};
 	private final static ChatSubCommand stresstest_msg = new ChatSubCommand("msg", "stresstest", "/stresstest msg [msg] to send a message from all clients.")
@@ -455,12 +455,12 @@ public class ChatCommandMgr {
 				for (ChatCommand chatCommand : getCommandMap().values()) {
 					builder.append("\n").append(chatCommand.getName());
 				}
-				ChatFrame.addMessage(new Message(builder.toString(), false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(builder.toString(), false, MessageType.SELF, true));
 				return;
 			}
 			if (getCommand(command[1]) == null)
 			{
-				ChatFrame.addMessage(new Message("This command doesn't exist", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("This command doesn't exist", false, MessageType.SELF, true));
 				return;
 			}
 			if (command.length > 2 && getCommand(command[1]).subCommandList != null) {
@@ -471,24 +471,24 @@ public class ChatCommandMgr {
 							int j = 0;
 							while (j < getCommand(command[1]).subCommandList.get(i).commandList.size()) {
 								if (getCommand(command[1]).subCommandList.get(i).commandList.get(j).getName().equalsIgnoreCase(command[3])) {
-									ChatFrame.addMessage(new Message(getCommand(command[1]).subCommandList.get(i).commandList.get(j).helpMessage, false, MessageType.SELF));
+									ChatFrame.addMessage(new Message(getCommand(command[1]).subCommandList.get(i).commandList.get(j).helpMessage, false, MessageType.SELF, true));
 									return;
 								}
 								j++;
 							}
-							ChatFrame.addMessage(new Message("This command doesn't exist.", false, MessageType.SELF));
+							ChatFrame.addMessage(new Message("This command doesn't exist.", false, MessageType.SELF, true));
 							return;
 						}
-						ChatFrame.addMessage(new Message(getCommand(command[1]).subCommandList.get(i).printHelpMessage(), false, MessageType.SELF));
+						ChatFrame.addMessage(new Message(getCommand(command[1]).subCommandList.get(i).printHelpMessage(), false, MessageType.SELF, true));
 						return;
 					}
-				ChatFrame.addMessage(new Message("This command doesn't exist.", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("This command doesn't exist.", false, MessageType.SELF, true));
 				return;
 			}
 			if (getCommand(command[1]).subCommandList != null)
-				ChatFrame.addMessage(new Message(getCommand(command[1]).printHelpMessage(), false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(getCommand(command[1]).printHelpMessage(), false, MessageType.SELF, true));
 			else
-				ChatFrame.addMessage(new Message(getCommand(command[1]).printHelpMessage(), false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(getCommand(command[1]).printHelpMessage(), false, MessageType.SELF, true));
 		}
 	};
 	private final static ChatCommand quit = new ChatCommand("quit", "/quit to quit the game.")
@@ -543,7 +543,7 @@ public class ChatCommandMgr {
 					}
 					i++;
 				}
-				ChatFrame.addMessage(new Message("Mail has no such subcommand.", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("Mail has no such subcommand.", false, MessageType.SELF, true));
 			}
 		}
 	};
@@ -633,7 +633,7 @@ public class ChatCommandMgr {
 		if(commandMap.containsKey(command))
 			commandMap.get(command).handle(value);
 		else
-			ChatFrame.addMessage(new Message("Unknown command, type /help for help.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("Unknown command, type /help for help.", false, MessageType.SELF, true));
 	}
 	
 	private static void addCommand(ChatCommand command)

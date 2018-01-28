@@ -244,16 +244,31 @@ public class MailSendMailFrame implements Frame
 		this.senderNameInputBox.setActive(false);
 		this.subjectInputBox.setActive(false);
 		this.goldInputBox.setActive(false);
+		this.contentInputBox.setActive(false);
 		this.silverInputBox.setActive(false);
 		this.copperInputBox.setActive(false);
 		this.cancelButton.reset();
 		this.sendMailButton.reset();
 	}
 	
+	@Override
+	public void reset()
+	{
+		this.senderNameInputBox.resetText();
+		this.subjectInputBox.resetText();
+		this.goldInputBox.resetText();
+		this.silverInputBox.resetText();
+		this.copperInputBox.resetText();
+		this.contentInputBox.resetText();
+		close();
+	}
+
 	public void replyOpenedMail(Mail mail)
 	{
 		this.senderNameInputBox.setText(mail.getAuthorName());
 		this.subjectInputBox.setText("RE: " + mail.getTitle());
+		if (this.subjectInputBox.getText().length() > 50)
+			this.subjectInputBox.setText(this.subjectInputBox.getText().substring(0, 50));
 		this.contentInputBox.setActive(true);
 		this.contentInputBox.setCursorEndOfText();
 	}
@@ -346,5 +361,11 @@ public class MailSendMailFrame implements Frame
 	public String getName()
 	{
 		return ("MailSendMailFrame");
+	}
+	
+	@Override
+	public Frame getParentFrame()
+	{
+		return (this.frame);
 	}
 }

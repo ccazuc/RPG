@@ -34,7 +34,7 @@ public class CommandSendMessage extends Command {
 				ChatFrame.addMessage(new Message(message, false, type, color));
 			}
 			else {
-				ChatFrame.addMessage(new Message(message, author, false, type, color, false));
+				ChatFrame.addMessage(new Message(message, author, false, type, color, false, true));
 			}
 		}
 		else if(type == MessageType.CHANNEL) {
@@ -43,10 +43,10 @@ public class CommandSendMessage extends Command {
 			if(hasAuthor) {
 			String author = ConnectionManager.getWorldServerConnection().readString();
 			boolean isGM = ConnectionManager.getWorldServerConnection().readBoolean();
-				ChatFrame.addMessage(new Message(message, channelName, author, false, isGM, true));
+				ChatFrame.addMessage(new Message(message, channelName, author, false, isGM, true, true));
 			}
 			else {
-				ChatFrame.addMessage(new Message(message, channelName, "", false, false, false));
+				ChatFrame.addMessage(new Message(message, channelName, "", false, false, false, true));
 			}
 				
 		}
@@ -60,7 +60,7 @@ public class CommandSendMessage extends Command {
 		else if(type == MessageType.SAY || type == MessageType.BATTLEGROUND || type == MessageType.GUILD || type == MessageType.PARTY || type == MessageType.RAID || type == MessageType.YELL || type == MessageType.PARTY_LEADER) {
 			String author = ConnectionManager.getWorldServerConnection().readString();
 			boolean isGM = ConnectionManager.getWorldServerConnection().readBoolean();
-			ChatFrame.addMessage(new Message(message, author, false, type, isGM));
+			ChatFrame.addMessage(new Message(message, author, false, type, isGM, true));
 		}
 	}
 	

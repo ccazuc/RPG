@@ -380,6 +380,9 @@ public class Sprites {
 	public static Texture frame_tab_active2;
 	public static Texture frame_tab_not_active2;
 	public static Texture frame_tab_not_hover2;
+	public static Texture new_cross_button;
+	public static Texture new_cross_button_down;
+	public static Texture new_cross_button_hover;
 	public static Texture[] shortcut = new Texture[8];
 	private static String easternKingdom = "sprite/interface/loading_screen/LoadScreenEasternKingdom2.png";
 	private static String outland2 = "sprite/interface/loading_screen/LOADSCREENOUTLAND2WIDE.png";
@@ -429,6 +432,7 @@ public class Sprites {
 		//shortcut[5] = lfg_open
 		shortcut[6] = new Texture("sprite/interface/shortcut/escape_frame_open.png");
 		//shortcut[7] = request_open
+		edit_box_left_border = new Texture("sprite/interface/edit_box/left_border_good.png");
 		spellbar_case = new Texture("sprite/interface/UI-Quickslot.png");
 		spellbar_case2 = new Texture("sprite/interface/UI-Quickslot.png");
 		final_spellbar = new Texture("sprite/interface/very_final_spellbar.png");
@@ -668,13 +672,15 @@ public class Sprites {
 		guild_frame = new Texture("sprite/interface/social/guild_frame.png");
 		guild_close_information_button_border = new Texture("sprite/interface/social/guild_close_information_button_border.png");
 		guild_member_display_button_border = new Texture("sprite/interface/social/guild_member_display_button_border.png");
-		edit_box_left_border = new Texture("sprite/interface/edit_box/left_border_good.png");
 		edit_box_middle_border = new Texture("sprite/interface/edit_box/middle_border_good.png");
 		edit_box_right_border = new Texture("sprite/interface/edit_box/right_border_good.png");
 		edit_box = new Texture("sprite/interface/edit_box/edit_box_good.png");
 		button_menu_sort_left_part = new Texture("sprite/interface/button_menu_sort/left_part.png");
 		button_menu_sort_middle_part = new Texture("sprite/interface/button_menu_sort/middle_part.png");
 		button_menu_sort_right_part = new Texture("sprite/interface/button_menu_sort/right_part.png");
+		new_cross_button = new Texture("sprite/interface/cross_buttonv2/UI-Panel-MinimizeButton-Up.png");
+		new_cross_button_down = new Texture("sprite/interface/cross_buttonv2/UI-Panel-MinimizeButton-Down.png");
+		new_cross_button_hover = new Texture("sprite/interface/cross_buttonv2/UI-Panel-MinimizeButton-Highlight.png");
 		return true;
 	}
 		

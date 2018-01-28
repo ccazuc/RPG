@@ -192,7 +192,10 @@ public class ChatFrame {
 				while(j < message.getDrawMessage().length()) {
 					if(message.getDrawMessage().charAt(j) == '\n') {
 						yDraw+= FontManager.chat.getLineHeight();
-						xDraw = 50;
+						if (message.getTabOnNewLine())
+							xDraw = 50;
+						else
+							xDraw = 40;
 						if(yDraw > Display.getHeight()-185) {
 							break;
 						}
@@ -205,7 +208,10 @@ public class ChatFrame {
 					j++;
 					if(xDraw-40 > maxLength-10 && j < message.getDrawMessage().length()) {
 						yDraw+= FontManager.chat.getLineHeight();
-						xDraw = 50;
+						if (message.getTabOnNewLine())
+							xDraw = 50;
+						else
+							xDraw = 40;
 						if(yDraw > Display.getHeight()-185) {
 							break;
 						}
@@ -534,12 +540,18 @@ public class ChatFrame {
 					while(j < message.getDrawMessage().length()) {
 						if(message.getDrawMessage().charAt(j) == '\n') {
 							y+= FontManager.chat.getLineHeight();
-							x = 50;
+							if (message.getTabOnNewLine())
+								x = 50;
+							else
+								x = 40;
 						}
 						x+= FontManager.chat.getWidth(message.getDrawMessage().charAt(j));
 						if(x-40 > maxLength-10 && j < message.getDrawMessage().length()) {
 							y+= FontManager.chat.getLineHeight();
-							x = 50;
+							if (message.getTabOnNewLine())
+								x = 50;
+							else
+								x = 40;
 						}
 						j++;
 					}
@@ -813,7 +825,10 @@ public class ChatFrame {
 			x+= FontManager.chat.getWidth(text.charAt(i));
 			if(text.charAt(i) == '\n' && i != text.length()-1) {
 				line++;
-				x = 10;
+				if (message.getTabOnNewLine())
+					x = 10;
+				else
+					x = 0;
 			}
 			//System.out.println("Char : "+text.charAt(i)+" "+x+" "+(maxLength-10));
 			if(x > maxLength-10) {
@@ -848,7 +863,10 @@ public class ChatFrame {
 					builder.append('\n');
 					line++;
 				}
-				x = FontManager.chat.getWidth(text.substring(previousSpace, i))+10;
+				if (message.getTabOnNewLine())
+					x = FontManager.chat.getWidth(text.substring(previousSpace, i))+10;
+				else
+					x = FontManager.chat.getWidth(text.substring(previousSpace, i));
 			}
 			i++;
 		}

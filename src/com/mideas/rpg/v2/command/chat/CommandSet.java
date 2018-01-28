@@ -19,7 +19,7 @@ public class CommandSet extends Command {
 			ConnectionManager.getWorldServerConnection().send();
 		}
 		else {
-			ChatFrame.addMessage(new Message("You don't have the right to do this.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("You don't have the right to do this.", false, MessageType.SELF, true));
 		}
 	}
 }

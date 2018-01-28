@@ -24,11 +24,12 @@ public class Message {
 	private boolean isTarget;
 	private boolean isGM;
 	private int channelHeaderWidth;
+	private boolean tabOnNewLine;
 	private final static String gmLogoSpace = "            ";
 	private final static Calendar calendar = Calendar.getInstance();
 	private final static StringBuilder builder = new StringBuilder();
 	
-	public Message(String message, boolean displayHour, MessageType type) { //used for self message
+	public Message(String message, boolean displayHour, MessageType type, boolean tabOnNewLine) { //used for self message
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -39,9 +40,10 @@ public class Message {
 		this.displayHour = displayHour;
 		this.type = type;
 		this.opacity = 1;
+		this.tabOnNewLine = tabOnNewLine;
 	}
 	
-	public Message(String message, String channelName, String author, boolean displayHour, boolean isGM, boolean isMessage) {
+	public Message(String message, String channelName, String author, boolean displayHour, boolean isGM, boolean isMessage, boolean tabOnNewLine) {
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -70,6 +72,7 @@ public class Message {
 		if(isMessage) {
 			this.authorText+= " : ";
 		}
+		this.tabOnNewLine = tabOnNewLine;
 		/*if(this.author.length() == 0) {
 			this.authorText = '['+StringUtils.value[ChannelMgr.getChannelIndex(channelName)]+". "+channelName+']';
 		}
@@ -85,7 +88,7 @@ public class Message {
 		
 	}
 	
-	public Message(String message, String author, String authorText, boolean displayHour, MessageType type, boolean isGM) { //used for self message
+	public Message(String message, String author, String authorText, boolean displayHour, MessageType type, boolean isGM, boolean tabOnNewLine) { //used for self message
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -99,6 +102,7 @@ public class Message {
 		this.author = author;
 		this.authorText = authorText;
 		this.isGM = isGM;
+		this.tabOnNewLine = tabOnNewLine;
 	}
 	
 	public Message(String message, boolean displayHour, MessageType type, Color color) { //used for self message with different color
@@ -121,9 +125,10 @@ public class Message {
 				this.authorText = builder.append('[').append(this.author).append("] ").append(type.getChatDisplay()).toString();
 			}
 		}
+		this.tabOnNewLine = tabOnNewLine;
 	}
 	
-	public Message(String message, String author, boolean displayHour, MessageType type, boolean isGM) { //used for all except whispers
+	public Message(String message, String author, boolean displayHour, MessageType type, boolean isGM, boolean tabOnNewLine) { //used for all except whispers
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -137,6 +142,7 @@ public class Message {
 		this.isGM = isGM;
 		this.opacity = 1;
 		builder.setLength(0);
+		this.tabOnNewLine = tabOnNewLine;
 		if(type == MessageType.SAY || type == MessageType.YELL) {
 			if(isGM) {
 				this.authorText = builder.append(gmLogoSpace).append("[").append(author).append("]").append(type.getChatDisplay()).toString();
@@ -164,7 +170,7 @@ public class Message {
 		}
 	}
 	
-	public Message(String message, String author, boolean displayHour, MessageType type, Color color, boolean isGM) { //used for all except whispers with different color
+	public Message(String message, String author, boolean displayHour, MessageType type, Color color, boolean isGM, boolean tabOnNewLine) { //used for all except whispers with different color
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -209,9 +215,10 @@ public class Message {
 		if(isGM) {
 			this.author = null;
 		}
+		this.tabOnNewLine = tabOnNewLine;
 	}
 	
-	public Message(String message, String author, boolean displayHour, MessageType type, boolean isTarget, boolean isGM) { //used for whispers
+	public Message(String message, String author, boolean displayHour, MessageType type, boolean isTarget, boolean isGM, boolean tabOnNewLine) { //used for whispers
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -242,6 +249,12 @@ public class Message {
 				this.authorText = builder.append("To [").append(this.author).append("] : ").toString();
 			}
 		}
+		this.tabOnNewLine = tabOnNewLine;
+	}
+	
+	public boolean getTabOnNewLine()
+	{
+		return (this.tabOnNewLine);
 	}
 	
 	public boolean isGM() {

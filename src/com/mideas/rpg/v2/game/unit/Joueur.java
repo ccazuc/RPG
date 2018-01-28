@@ -601,7 +601,7 @@ public class Joueur extends Unit {
 		if(this.friendList.size() < MAXIMUM_AMOUNT_FRIENDS) {
 			this.friendList.add(friend);
 			sortFriendList();
-			ChatFrame.addMessage(new Message(friend.getName()+" is now in your friend list.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(friend.getName()+" is now in your friend list.", false, MessageType.SELF, true));
 		}
 	}
 	
@@ -616,7 +616,7 @@ public class Joueur extends Unit {
 		while(i < this.friendList.size()) {
 			Friend friend = this.friendList.get(i);
 			if(friend.getCharacterId() == id) {
-				ChatFrame.addMessage(new Message(friend.getName()+" is no longer in your friend list.", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(friend.getName()+" is no longer in your friend list.", false, MessageType.SELF, true));
 				this.friendList.remove(i);
 				if(this.friendList.size() == 0 || FriendsFrame.getSelectedFriend() == i) {
 					FriendsFrame.resetSelectedFriend();

@@ -33,7 +33,7 @@ public class CommandFriend extends Command {
 			int i = 0;
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
-					ChatFrame.addMessage(new Message(Mideas.joueur1().getFriendList().get(i).getName().concat(" is now offline."), false, MessageType.SELF));
+					ChatFrame.addMessage(new Message(Mideas.joueur1().getFriendList().get(i).getName().concat(" is now offline."), false, MessageType.SELF, true));
 					Mideas.joueur1().getFriendList().get(i).setOnlineStatus(false);
 					return;
 				}
@@ -49,7 +49,7 @@ public class CommandFriend extends Command {
 			int i = 0;
 			while(i < Mideas.joueur1().getFriendList().size()) {
 				if(Mideas.joueur1().getFriendList().get(i).getCharacterId() == id) {
-					ChatFrame.addMessage(new Message(" is now online.", name, false, MessageType.SELF, false));
+					ChatFrame.addMessage(new Message(" is now online.", name, false, MessageType.SELF, false, true));
 					Mideas.joueur1().getFriendList().get(i).updateInformations(name, level, race, classe);
 					return;
 				}
@@ -84,12 +84,12 @@ public class CommandFriend extends Command {
 	
 	public static void addFriend(String name) {
 		if(Mideas.joueur1().getFriendList().size() >= Joueur.MAXIMUM_AMOUNT_FRIENDS) {
-			ChatFrame.addMessage(new Message("Your friendlist is full.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("Your friendlist is full.", false, MessageType.SELF, true));
 			return;
 		}
 		if(name.equals(Mideas.joueur1().getName()))
 		{
-			ChatFrame.addMessage(new Message("You can't put yourself in your friends list.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("You can't put yourself in your friends list.", false, MessageType.SELF, true));
 			return;
 		}
 		ConnectionManager.getWorldServerConnection().startPacket();

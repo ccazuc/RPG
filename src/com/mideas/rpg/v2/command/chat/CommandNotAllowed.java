@@ -9,6 +9,6 @@ public class CommandNotAllowed extends Command {
 	
 	@Override
 	public void read() {
-		ChatFrame.addMessage(new Message("You don't have the right to do this.", false, MessageType.SELF));
+		ChatFrame.addMessage(new Message("You don't have the right to do this.", false, MessageType.SELF, true));
 	}
 }

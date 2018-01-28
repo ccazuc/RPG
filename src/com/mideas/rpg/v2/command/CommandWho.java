@@ -38,14 +38,14 @@ public class CommandWho extends Command {
 			{
 				unit = WhoFrame.getList().get(i);
 				if (unit.getGuildName() != null && unit.getGuildName().length() != 0)
-					ChatFrame.addMessage(new Message(": Level " + unit.getLevelString() + ' ' + unit.getRace() + ' ' + unit.getClasse() + " <" + unit.getGuildName() + "> - Area", unit.getName(), false, MessageType.SELF, false));
+					ChatFrame.addMessage(new Message(": Level " + unit.getLevelString() + ' ' + unit.getRace() + ' ' + unit.getClasse() + " <" + unit.getGuildName() + "> - Area", unit.getName(), false, MessageType.SELF, false, true));
 				else
-					ChatFrame.addMessage(new Message(": Level " + unit.getLevelString() + ' ' + unit.getRace() + ' ' + unit.getClasse() + " - Area", unit.getName(), false, MessageType.SELF, false));
+					ChatFrame.addMessage(new Message(": Level " + unit.getLevelString() + ' ' + unit.getRace() + ' ' + unit.getClasse() + " - Area", unit.getName(), false, MessageType.SELF, false, true));
 			}
 			if (WhoFrame.getList().size() == 1)
-				ChatFrame.addMessage(new Message("1 player total", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("1 player total", false, MessageType.SELF, true));
 			else
-				ChatFrame.addMessage(new Message(WhoFrame.getList().size() + " players total", false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(WhoFrame.getList().size() + " players total", false, MessageType.SELF, true));
 		}
 		else if (WhoFrame.getList().size() > 0) 
 		{

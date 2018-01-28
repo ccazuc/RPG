@@ -37,7 +37,7 @@ public class CommandIgnore extends Command {
 	public static void addIgnore(String name) {
 		if (name.equalsIgnoreCase(Mideas.joueur1().getName()))
 		{
-			ChatFrame.addMessage(new Message("You can't ignore yourself.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("You can't ignore yourself.", false, MessageType.SELF, true));
 			return;
 		}
 		ConnectionManager.getWorldServerConnection().startPacket();

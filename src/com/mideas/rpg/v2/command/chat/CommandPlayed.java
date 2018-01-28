@@ -15,8 +15,8 @@ public class CommandPlayed extends Command {
 	{
 		long playedTimer = ConnectionManager.getWorldServerConnection().readLong();
 		long playedLevelTimer = ConnectionManager.getWorldServerConnection().readLong();
-		ChatFrame.addMessage(new Message("Total time played: " + StringUtils.convertTimeToString(playedTimer), false, MessageType.SELF));
-		ChatFrame.addMessage(new Message("Time played this level: " + StringUtils.convertTimeToString(playedLevelTimer), false, MessageType.SELF));
+		ChatFrame.addMessage(new Message("Total time played: " + StringUtils.convertTimeToString(playedTimer), false, MessageType.SELF, true));
+		ChatFrame.addMessage(new Message("Time played this level: " + StringUtils.convertTimeToString(playedLevelTimer), false, MessageType.SELF, true));
 	}
 	
 	public static void requestPlayed()

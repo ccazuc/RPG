@@ -20,11 +20,11 @@ public class CommandParty extends Command {
 		if(packetId == PacketID.PARTY_ADD_MEMBER) {
 			String name = ConnectionManager.getWorldServerConnection().readString();
 			PopupFrame.activatePartyInvitationPopup(name);
-			ChatFrame.addMessage(new Message(" invited you to join a party.", name, false, MessageType.SELF, false));
+			ChatFrame.addMessage(new Message(" invited you to join a party.", name, false, MessageType.SELF, false, true));
 		}
 		else if(packetId == PacketID.PARTY_DECLINE_REQUEST) {
 			String name = ConnectionManager.getWorldServerConnection().readString();
-			ChatFrame.addMessage(new Message(name.concat(" declined your request."), false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(name.concat(" declined your request."), false, MessageType.SELF, true));
 		}
 		else if(packetId == PacketID.PARTY_ACCEPT_REQUEST) {
 			
@@ -105,7 +105,7 @@ public class CommandParty extends Command {
 			//}
 		}
 		else {
-			ChatFrame.addMessage(new Message("You can't invite yourself in a party.", false, MessageType.SELF));
+			ChatFrame.addMessage(new Message("You can't invite yourself in a party.", false, MessageType.SELF, true));
 		}
 	}
 	

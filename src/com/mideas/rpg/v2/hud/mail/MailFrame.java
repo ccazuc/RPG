@@ -1,10 +1,12 @@
 package com.mideas.rpg.v2.hud.mail;
 
+import org.lwjgl.input.Keyboard;
+
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.command.CommandMail;
 import com.mideas.rpg.v2.game.mail.Mail;
+import com.mideas.rpg.v2.utils.CrossButton2;
 import com.mideas.rpg.v2.utils.Frame;
 import com.mideas.rpg.v2.utils.FrameTab2;
 
@@ -27,7 +29,11 @@ public class MailFrame implements Frame {
 	private final static short SEND_MAIL_FRAME_TAB_X = 144;
 	private final static short SEND_MAIL_FRAME_TAB_Y = 434;
 	private final static short SEND_MAIL_FRAME_TAB_WIDTH = 85;
-	private final FrameTab2 inboxFrameTab = new FrameTab2(this, INBOX_FRAME_TAB_X, INBOX_FRAME_TAB_Y, INBOX_FRAME_TAB_WIDTH, "Inbox", FontManager.get("FRIZQT", 11), true)
+	private final static short CLOSE_FRAME_CROSS_BUTTON_X = 346;
+	private final static short CLOSE_FRAME_CROSS_BUTTON_Y = 13;
+	private final static short CLOSE_FRAME_CROSS_BUTTON_WIDTH = 19;
+	private final static short CLOSE_FRAME_CROSS_BUTTON_HEIGHT = 18;
+	private final FrameTab2 inboxFrameTab = new FrameTab2(this, "MailFrameInboxFrameTab", INBOX_FRAME_TAB_X, INBOX_FRAME_TAB_Y, INBOX_FRAME_TAB_WIDTH, "Inbox", FontManager.get("FRIZQT", 11), true)
 	{
 	
 		@Override
@@ -43,7 +49,7 @@ public class MailFrame implements Frame {
 			return (MailFrame.this.activeFrame == MailFrame.this.inboxFrame);
 		}
 	};	
-	private final FrameTab2 sendMailFrameTab = new FrameTab2(this, SEND_MAIL_FRAME_TAB_X, SEND_MAIL_FRAME_TAB_Y, SEND_MAIL_FRAME_TAB_WIDTH, "Send Mail", FontManager.get("FRIZQT", 11), false)
+	private final FrameTab2 sendMailFrameTab = new FrameTab2(this, "MailFrameSendMailFrameTab", SEND_MAIL_FRAME_TAB_X, SEND_MAIL_FRAME_TAB_Y, SEND_MAIL_FRAME_TAB_WIDTH, "Send Mail", FontManager.get("FRIZQT", 11), false)
 	{
 	
 		@Override
@@ -59,6 +65,15 @@ public class MailFrame implements Frame {
 			return (MailFrame.this.activeFrame == MailFrame.this.sendMailFrame);
 		}
 	};
+	private final CrossButton2 closeFrameCrossButton = new CrossButton2(this, "MailFrameCloseButton", CLOSE_FRAME_CROSS_BUTTON_X, CLOSE_FRAME_CROSS_BUTTON_Y, CLOSE_FRAME_CROSS_BUTTON_WIDTH, CLOSE_FRAME_CROSS_BUTTON_HEIGHT)
+	{
+	
+		@Override
+		public void onLeftClickUp()
+		{
+			close();
+		}
+	};
 	
 	public MailFrame()
 	{
@@ -69,6 +84,7 @@ public class MailFrame implements Frame {
 		this.openedMailFrame = new MailOpenedMailFrame(this);
 		this.inboxFrameTab.initParentFrame(this);
 		this.sendMailFrameTab.initParentFrame(this);
+		this.closeFrameCrossButton.initParentFrame(this);
 		this.activeFrame = this.inboxFrame;
 	}
 	
@@ -83,6 +99,7 @@ public class MailFrame implements Frame {
 		this.openedMailFrame.draw();
 		this.inboxFrameTab.draw();
 		this.sendMailFrameTab.draw();
+		this.closeFrameCrossButton.draw();
 	}
 	
 	@Override
@@ -100,6 +117,8 @@ public class MailFrame implements Frame {
 			return (true);
 		if (this.sendMailFrameTab.mouseEvent())
 			return (true);
+		if (this.closeFrameCrossButton.mouseEvent())
+			return (true);
 		return (false);
 	}
 	
@@ -114,6 +133,11 @@ public class MailFrame implements Frame {
 			return (true);
 		if (this.openedMailFrame.keyboardEvent())
 			return (true);
+		if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE)
+		{
+			close();
+			return (true);
+		}
 		return (false);
 	}
 	
@@ -136,6 +160,18 @@ public class MailFrame implements Frame {
 		if (this.shouldCloseBagOnClose)
 			Interface.closeContainerFrame();
 		this.activeFrame.close();
+		this.openedMailFrame.close();
+		this.closeFrameCrossButton.reset();
+		this.inboxFrameTab.reset();
+		this.sendMailFrameTab.reset();
+	}
+	
+	@Override
+	public void reset()
+	{
+		this.inboxFrame.reset();
+		this.openedMailFrame.reset();
+		this.sendMailFrame.reset();
 	}
 
 	@Override
@@ -181,6 +217,7 @@ public class MailFrame implements Frame {
 		this.openedMailFrame.shouldUpdateSize();
 		this.inboxFrameTab.updateSize();
 		this.sendMailFrameTab.updateSize();
+		this.closeFrameCrossButton.updateSize();
 		this.shouldUpdateSize = false;
 	}
 	
@@ -256,14 +293,18 @@ public class MailFrame implements Frame {
 	
 	public void setOpenedMail(Mail mail)
 	{
-		if (!mail.isLoaded())
-			CommandMail.loadMail(mail);
 		this.openedMailFrame.setOpenedMail(mail);
 	}
 	
 	public Mail getOpenedMail()
 	{
 		return (this.openedMailFrame.getOpenedMail());
+	}
+	
+	@Override
+	public Frame getParentFrame()
+	{
+		return (null);
 	}
 	
 	@Override

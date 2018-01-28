@@ -4,6 +4,7 @@ public interface Frame extends UIElement {
 
 	abstract void open();
 	abstract void close();
+	abstract void reset();
 	abstract void setX(int x);
 	abstract void setY(int y);
 	abstract void shouldUpdateSize();

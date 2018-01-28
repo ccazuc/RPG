@@ -7,10 +7,10 @@ import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.utils.render.TTF;
 
-public class FrameTab2 {
+public class FrameTab2 implements UIElement {
 
 	private Frame parentFrame;
-	private final short xSave;
+	private final String name;
 	private final short ySave;
 	private final short defaultWidth;
 	private final short middleAnchorSave;
@@ -34,9 +34,10 @@ public class FrameTab2 {
 	private boolean leftClickDown;
 	private boolean rightClickDown;
 	
-	public FrameTab2(Frame parentFrame, short x, short y, short width, String text, TTF font, boolean isSelected)
+	public FrameTab2(Frame parentFrame, String name, short x, short y, short width, String text, TTF font, boolean isSelected)
 	{
 		this.parentFrame = parentFrame;
+		this.name = name;
 		this.middleAnchorSave = x;
 		this.defaultWidth = width;
 		if (isSelected)
@@ -51,7 +52,6 @@ public class FrameTab2 {
 			this.borderWidth = (short)6;
 			this.widthSave = (short)(width - 10);
 		}
-		this.xSave = x;
 		this.ySave = y;
 		this.isSelected = isSelected;
 		this.text = text;
@@ -66,6 +66,7 @@ public class FrameTab2 {
 		this.textY = (short)(this.y + this.height / 2 - this.font.getLineHeight() / 2 - 2 * Mideas.getDisplayYFactor());
 	}
 	
+	@Override
 	public void draw()
 	{
 		if (this.isSelected)
@@ -99,6 +100,7 @@ public class FrameTab2 {
 		}
 	}
 	
+	@Override
 	public boolean mouseEvent()
 	{
 		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x + this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height)
@@ -151,6 +153,12 @@ public class FrameTab2 {
 		return (false);
 	}
 	
+	@Override
+	public boolean keyboardEvent()
+	{
+		return (false);
+	}
+
 	public void setIsSelected(boolean we)
 	{
 		if (we)
@@ -185,7 +193,6 @@ public class FrameTab2 {
 	{
 		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
 		this.height = (short)(this.heightSave * Mideas.getDisplayYFactor());
-		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
 		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
 		this.x = (short)(this.parentFrame.getX() + this.middleAnchorSave * Mideas.getDisplayXFactor() - this.width / 2);
 		this.textX = (short)(this.x + this.width / 2 - this.textWidth / 2);
@@ -193,6 +200,37 @@ public class FrameTab2 {
 		this.middleWidth = (short)(this.width - 2 * this.borderWidth);
 		this.xMiddlePart = (short)(this.x + this.borderWidth);
 		this.xRightPart = (short)(this.x + this.borderWidth + this.middleWidth);
+	}
+	
+	public void reset()
+	{
+		this.mouseHover = false;
+		this.leftClickDown = false;
+		this.rightClickDown = false;
+	}
+	
+	@Override
+	public int getX()
+	{
+		return (this.x);
+	}
+	
+	@Override
+	public int getY()
+	{
+		return (this.y);
+	}
+	
+	@Override
+	public String getName()
+	{
+		return (this.name);
+	}
+	
+	@Override
+	public Frame getParentFrame()
+	{
+		return (this.parentFrame);
 	}
 	
 	public boolean isSelected()

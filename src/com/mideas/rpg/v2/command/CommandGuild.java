@@ -35,7 +35,7 @@ public class CommandGuild extends Command {
 			String player_name = ConnectionManager.getWorldServerConnection().readString();
 			String guild_name = ConnectionManager.getWorldServerConnection().readString();
 			PopupFrame.activateGuildInvitationPopup(player_name, guild_name);
-			ChatFrame.addMessage(new Message(" invited you to join ".concat(guild_name), player_name, false, MessageType.SELF, false));
+			ChatFrame.addMessage(new Message(" invited you to join ".concat(guild_name), player_name, false, MessageType.SELF, false, true));
 		}
 		else if(packetId == PacketID.GUILD_INIT) {
 			int i = 0;
@@ -122,18 +122,18 @@ public class CommandGuild extends Command {
 			ClassType type = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			long lastLoginTimer = ConnectionManager.getWorldServerConnection().readLong();
 			Mideas.joueur1().getGuild().addMember(new GuildMember(id, name, level, rank, isOnline, note, officerNote, type, lastLoginTimer));
-			ChatFrame.addMessage(new Message(name.concat(" joined the guild."), false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(name.concat(" joined the guild."), false, MessageType.SELF, true));
 		}
 		else if(packetId == PacketID.GUILD_KICK_MEMBER) {
 			String officerName = ConnectionManager.getWorldServerConnection().readString();
 			int id = ConnectionManager.getWorldServerConnection().readInt();
 			GuildMember member = Mideas.joueur1().getGuild().getMember(id);
 			if(id != Mideas.joueur1().getId()) {
-				ChatFrame.addMessage(new Message(new StringBuilder().append(member.getName()).append(" has been kicked out of the guild by ").append(officerName).toString(), false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(new StringBuilder().append(member.getName()).append(" has been kicked out of the guild by ").append(officerName).toString(), false, MessageType.SELF, true));
 				Mideas.joueur1().getGuild().removeMember(id);
 			}
 			else {
-				ChatFrame.addMessage(new Message("you have been kicked out of the guild by ".concat(officerName), false, MessageType.SELF));
+				ChatFrame.addMessage(new Message("you have been kicked out of the guild by ".concat(officerName), false, MessageType.SELF, true));
 				Mideas.joueur1().setGuild(null);
 			}
 		}
@@ -146,7 +146,7 @@ public class CommandGuild extends Command {
 			member.setOnlineStatus(true);
 			member.updateLastLoginTimerString();
 			if(Mideas.joueur1().getFriend(id) == null && id != Mideas.joueur1().getId()) {
-				ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF, false));
+				ChatFrame.addMessage(new Message(" is now online.", member.getName(), false, MessageType.SELF, false, true));
 			}
 			Mideas.joueur1().getGuild().memberLoggedIn();
 		}
@@ -160,7 +160,7 @@ public class CommandGuild extends Command {
 			member.setLastLoginTimer(Mideas.getLoopTickTimer());
 			member.updateLastLoginTimerString();
 			if(Mideas.joueur1().getFriend(id) == null) {
-				ChatFrame.addMessage(new Message(member.getName().concat(" is now offline."), false, MessageType.SELF));
+				ChatFrame.addMessage(new Message(member.getName().concat(" is now offline."), false, MessageType.SELF, true));
 			}
 			Mideas.joueur1().getGuild().memberLoggedOut();
 		}
@@ -175,7 +175,7 @@ public class CommandGuild extends Command {
 		}
 		else if(packetId == PacketID.GUILD_MEMBER_LEFT) {
 			int id = ConnectionManager.getWorldServerConnection().readInt();
-			ChatFrame.addMessage(new Message(Mideas.joueur1().getGuild().getMember(id).getName().concat(" left the guild."), false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(Mideas.joueur1().getGuild().getMember(id).getName().concat(" left the guild."), false, MessageType.SELF, true));
 			Mideas.joueur1().getGuild().removeMember(id);
 		}
 		else if(packetId == PacketID.GUILD_SET_LEADER) {
@@ -187,7 +187,7 @@ public class CommandGuild extends Command {
 			else if(id == Mideas.joueur1().getId()) {
 				Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getRankList().get(0));
 			}
-			ChatFrame.addMessage(new Message(new StringBuilder().append(leader.getName()).append(" has made ").append(Mideas.joueur1().getGuild().getMember(id).getName()).append(" the new Guild Master.").toString(), false, MessageType.SELF));
+			ChatFrame.addMessage(new Message(new StringBuilder().append(leader.getName()).append(" has made ").append(Mideas.joueur1().getGuild().getMember(id).getName()).append(" the new Guild Master.").toString(), false, MessageType.SELF, true));
 			Mideas.joueur1().getGuild().getMember(id).setRank(Mideas.joueur1().getGuild().getRankList().get(0));
 			leader.setRank(Mideas.joueur1().getGuild().getRankList().get(1));
 			Mideas.joueur1().getGuild().setLeaderId(id);

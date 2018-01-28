@@ -41,21 +41,21 @@ public class CommandChannel extends Command {
 			int id = ConnectionManager.getWorldServerConnection().readInt();
 			String name = ConnectionManager.getWorldServerConnection().readString();
 			ChannelMgr.addMember(channelName, name, id);
-			ChatFrame.addMessage(new Message(" joined the channel.", channelName, name, false, false, false));
+			ChatFrame.addMessage(new Message(" joined the channel.", channelName, name, false, false, false, true));
 		}
 		else if(packetId == PacketID.CHANNEL_MEMBER_LEFT) {
 			String channelName = ConnectionManager.getWorldServerConnection().readString();
 			int id = ConnectionManager.getWorldServerConnection().readInt();
 			String memberName = ChannelMgr.getMemberName(channelName, id);
 			if(ChannelMgr.removeMember(channelName, id)) {
-				ChatFrame.addMessage(new Message(" left the channel.", channelName, memberName, false, false, false));
+				ChatFrame.addMessage(new Message(" left the channel.", channelName, memberName, false, false, false, true));
 			}
 		}
 		else if(packetId == PacketID.CHANNEL_SET_LEADER) {
 			String channelName = ConnectionManager.getWorldServerConnection().readString();
 			int id = ConnectionManager.getWorldServerConnection().readInt();
 			ChannelMgr.setLeader(channelName, id);
-			ChatFrame.addMessage(new Message(ChannelMgr.getLeaderName(channelName)+" is now the leader.", channelName, "", false, false, false));
+			ChatFrame.addMessage(new Message(ChannelMgr.getLeaderName(channelName)+" is now the leader.", channelName, "", false, false, false, true));
 		}
 		else if(packetId == PacketID.CHANNEL_KICK_PLAYER) {
 			String channelName = ConnectionManager.getWorldServerConnection().readString();
@@ -76,7 +76,7 @@ public class CommandChannel extends Command {
 			String channelName = ConnectionManager.getWorldServerConnection().readString();
 			int playerID = ConnectionManager.getWorldServerConnection().readInt();
 			String playerName = ChannelMgr.getMemberName(channelName, playerID);
-			ChatFrame.addMessage(new Message("Password changed by "+playerName, channelName, "", false, false, false));
+			ChatFrame.addMessage(new Message("Password changed by "+playerName, channelName, "", false, false, false, true));
 		}
 	}
 	

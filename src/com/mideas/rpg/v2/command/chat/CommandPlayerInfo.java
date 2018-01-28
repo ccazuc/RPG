@@ -15,7 +15,7 @@ public class CommandPlayerInfo extends Command {
 		int id = ConnectionManager.getWorldServerConnection().readInt();
 		int rank = ConnectionManager.getWorldServerConnection().readInt();
 		String adress = ConnectionManager.getWorldServerConnection().readString();
-		ChatFrame.addMessage(new Message((name+": id = "+id+", rank = "+rank+", ip = "+adress), false, MessageType.SELF));
+		ChatFrame.addMessage(new Message((name+": id = "+id+", rank = "+rank+", ip = "+adress), false, MessageType.SELF, true));
 	}
 	
 	public static void write(int id) {
