@@ -13,12 +13,10 @@ import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.utils.render.TTF;
 
-public class MailOpenedMailFrame implements Frame {
+public class MailOpenedMailFrame extends Frame {
 
 	private final MailFrame frame;
 	private Mail openedMail;
-	private short openedMailFrameX;
-	private short openedMailFrameY;
 	private boolean shouldUpdateSize;
 	private short openedMailSubjectX;
 	private short openedMailSubjectY;
@@ -96,13 +94,14 @@ public class MailOpenedMailFrame implements Frame {
 	
 	public MailOpenedMailFrame(MailFrame frame)
 	{
+		super("MailFrameOpenedMailFrame");
 		this.frame = frame;
-		this.openedMailFrameX = (short)(this.frame.getX() + OPENED_MAIL_X_OFFSET * Mideas.getDisplayXFactor());
-		this.openedMailFrameY = (short)(this.frame.getY() + OPENED_MAIL_Y_OFFSET * Mideas.getDisplayYFactor());
-		this.openedMailSubjectX = (short)(this.openedMailFrameX + OPENED_MAIL_SUBJECT_X_OFFSET * Mideas.getDisplayXFactor());
-		this.openedMailSubjectY = (short)(this.openedMailFrameY + OPENED_MAIL_SUBJECT_Y_OFFSET * Mideas.getDisplayYFactor());
-		this.openedMailSenderNameX = (short)(this.openedMailFrameX + OPENED_MAIL_SENDER_NAME_X_OFFSET * Mideas.getDisplayXFactor());
-		this.openedMailSenderNameY = (short)(this.openedMailFrameY + OPENED_MAIL_SENDER_NAME_Y_OFFSET * Mideas.getDisplayYFactor());
+		this.x = (short)(this.frame.getX() + OPENED_MAIL_X_OFFSET * Mideas.getDisplayXFactor());
+		this.y = (short)(this.frame.getY() + OPENED_MAIL_Y_OFFSET * Mideas.getDisplayYFactor());
+		this.openedMailSubjectX = (short)(this.x + OPENED_MAIL_SUBJECT_X_OFFSET * Mideas.getDisplayXFactor());
+		this.openedMailSubjectY = (short)(this.y + OPENED_MAIL_SUBJECT_Y_OFFSET * Mideas.getDisplayYFactor());
+		this.openedMailSenderNameX = (short)(this.x + OPENED_MAIL_SENDER_NAME_X_OFFSET * Mideas.getDisplayXFactor());
+		this.openedMailSenderNameY = (short)(this.y + OPENED_MAIL_SENDER_NAME_Y_OFFSET * Mideas.getDisplayYFactor());
 		this.replyButton.initParentFrame(this);
 		this.deleteButton.initParentFrame(this);
 		this.returnButton.initParentFrame(this);
@@ -116,7 +115,7 @@ public class MailOpenedMailFrame implements Frame {
 		if (this.openedMail == null)
 			return;
 		updateSize();
-		Draw.drawQuad(Sprites.mail_opened_mail_frame, this.openedMailFrameX, this.openedMailFrameY);
+		Draw.drawQuad(Sprites.mail_opened_mail_frame, this.x, this.y);
 		openedMailSenderFont.drawStringShadow(this.openedMailSenderNameX, this.openedMailSenderNameY, this.openedMail.getAuthorName(), Color.YELLOW, MailInboxButton.senderNameFontShadowColor, 1, 1, 1);
 		openedMailSubjectFont.drawStringShadow(this.openedMailSubjectX, this.openedMailSubjectY, this.openedMail.getTitle(), Color.YELLOW, MailInboxButton.senderNameFontShadowColor, 1, 1, 1);
 		this.openedMailContent.draw();
@@ -147,6 +146,8 @@ public class MailOpenedMailFrame implements Frame {
 			return (true);
 		if (this.closeButton.event())
 			return (true);
+		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x + Sprites.mail_inbox_frame.getImageWidth() * Mideas.getDisplayXFactor() && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + Sprites.mail_inbox_frame.getImageHeight() * Mideas.getDisplayYFactor())
+			Mideas.setHover(this, false);
 		return (false);
 	}
 	
@@ -173,21 +174,9 @@ public class MailOpenedMailFrame implements Frame {
 	}
 	
 	@Override
-	public int getX()
-	{
-		return (this.openedMailFrameX);
-	}
-	
-	@Override
 	public void setX(int x)
 	{
 		
-	}
-	
-	@Override
-	public int getY()
-	{
-		return (this.openedMailFrameY);
 	}
 	
 	@Override
@@ -200,12 +189,12 @@ public class MailOpenedMailFrame implements Frame {
 	{
 		if (!this.shouldUpdateSize)
 			return;
-		this.openedMailFrameX = (short)(this.frame.getX() + OPENED_MAIL_X_OFFSET * Mideas.getDisplayXFactor());
-		this.openedMailFrameY = (short)(this.frame.getY() + OPENED_MAIL_Y_OFFSET * Mideas.getDisplayYFactor());
-		this.openedMailSubjectX = (short)(this.openedMailFrameX + OPENED_MAIL_SUBJECT_X_OFFSET * Mideas.getDisplayXFactor());
-		this.openedMailSubjectY = (short)(this.openedMailFrameY + OPENED_MAIL_SUBJECT_Y_OFFSET * Mideas.getDisplayYFactor());
-		this.openedMailSenderNameX = (short)(this.openedMailFrameX + OPENED_MAIL_SENDER_NAME_X_OFFSET * Mideas.getDisplayXFactor());
-		this.openedMailSenderNameY = (short)(this.openedMailFrameY + OPENED_MAIL_SENDER_NAME_Y_OFFSET * Mideas.getDisplayYFactor());
+		this.x = (short)(this.frame.getX() + OPENED_MAIL_X_OFFSET * Mideas.getDisplayXFactor());
+		this.y = (short)(this.frame.getY() + OPENED_MAIL_Y_OFFSET * Mideas.getDisplayYFactor());
+		this.openedMailSubjectX = (short)(this.x + OPENED_MAIL_SUBJECT_X_OFFSET * Mideas.getDisplayXFactor());
+		this.openedMailSubjectY = (short)(this.y + OPENED_MAIL_SUBJECT_Y_OFFSET * Mideas.getDisplayYFactor());
+		this.openedMailSenderNameX = (short)(this.x + OPENED_MAIL_SENDER_NAME_X_OFFSET * Mideas.getDisplayXFactor());
+		this.openedMailSenderNameY = (short)(this.y + OPENED_MAIL_SENDER_NAME_Y_OFFSET * Mideas.getDisplayYFactor());
 		this.replyButton.updateSize();
 		this.deleteButton.updateSize();
 		this.returnButton.updateSize();
@@ -219,7 +208,7 @@ public class MailOpenedMailFrame implements Frame {
 	{
 		this.shouldUpdateSize = true;
 	}
-	
+
 	@Override
 	public boolean isOpen()
 	{

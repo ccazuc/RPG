@@ -7,10 +7,8 @@ import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.utils.render.TTF;
 
-public class FrameTab2 implements UIElement {
+public class FrameTab2 extends UIElement {
 
-	private Frame parentFrame;
-	private final String name;
 	private final short ySave;
 	private final short defaultWidth;
 	private final short middleAnchorSave;
@@ -21,10 +19,8 @@ public class FrameTab2 implements UIElement {
 	private final TTF font;
 	private short textX;
 	private short textY;
-	private short x;
 	private short xMiddlePart;
 	private short xRightPart;
-	private short y;
 	private short width;
 	private short height;
 	private short middleWidth;
@@ -36,8 +32,8 @@ public class FrameTab2 implements UIElement {
 	
 	public FrameTab2(Frame parentFrame, String name, short x, short y, short width, String text, TTF font, boolean isSelected)
 	{
+		super(name, UIElementType.FRAME_TAB);
 		this.parentFrame = parentFrame;
-		this.name = name;
 		this.middleAnchorSave = x;
 		this.defaultWidth = width;
 		if (isSelected)
@@ -105,7 +101,7 @@ public class FrameTab2 implements UIElement {
 	{
 		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x + this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height)
 		{
-			Mideas.setHover(false);
+			Mideas.setHover(this, false);
 			this.mouseHover = true;
 		}
 		else
@@ -207,30 +203,6 @@ public class FrameTab2 implements UIElement {
 		this.mouseHover = false;
 		this.leftClickDown = false;
 		this.rightClickDown = false;
-	}
-	
-	@Override
-	public int getX()
-	{
-		return (this.x);
-	}
-	
-	@Override
-	public int getY()
-	{
-		return (this.y);
-	}
-	
-	@Override
-	public String getName()
-	{
-		return (this.name);
-	}
-	
-	@Override
-	public Frame getParentFrame()
-	{
-		return (this.parentFrame);
 	}
 	
 	public boolean isSelected()

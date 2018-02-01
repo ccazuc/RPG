@@ -22,6 +22,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.chat.ChatCommandMgr;
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.lua.ChatAdvancedCommandMgr;
+import com.mideas.rpg.v2.chat.lua.StoreLuaFunctions;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.connection.Connection;
@@ -65,6 +67,7 @@ import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
 import com.mideas.rpg.v2.stresstest.StresstestConnectionMgr;
 import com.mideas.rpg.v2.stresstest.StresstestMgr;
 import com.mideas.rpg.v2.utils.StringUtils;
+import com.mideas.rpg.v2.utils.UIElement;
 import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.PNGDecoder;
 import com.mideas.rpg.v2.utils.render.Sprites;
@@ -93,6 +96,7 @@ public class Mideas {
 	private static double ping;
 	private static JDO jdo;
 	//private static String cursor;
+	private static UIElement hoveredElement;
 	private static long last;
 	private static int count;
 	private static int fps;
@@ -264,8 +268,10 @@ public class Mideas {
 	}
 	
 	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException {
-		loop();
-		saveAllStats();
+		StoreLuaFunctions.initFunctionMap();
+		ChatAdvancedCommandMgr.handleCommand("GetFunction(\"a\\\"rg(1\", \"5555\", \"BLAB)LA\", \"1515151515120029990.\",GetMouseFocus(GetMouseFocus(GetMouseFocus(\"abc\"), \"def\")), \"args2\")", false);
+		//loop();
+		//saveAllStats();
 	}
 	
 	public static void closeGame() {
@@ -367,8 +373,26 @@ public class Mideas {
 		return hover;
 	}
 	
-	public static void setHover(boolean we) {
+	public static UIElement getHoveredElement()
+	{
+		return (hoveredElement);
+	}
+	
+	public static void setHover(UIElement element, boolean we)
+	{
 		hover = we;
+		hoveredElement = element;
+	}
+	
+	public static void setHover(boolean we)
+	{
+		hover = we;
+	}
+	
+	public static void resetHover()
+	{
+		hover = true;
+		hoveredElement = null;
 	}
 	
 	public static SocketChannel getSocket() {

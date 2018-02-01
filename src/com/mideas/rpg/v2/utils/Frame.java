@@ -1,12 +1,21 @@
 package com.mideas.rpg.v2.utils;
 
-public interface Frame extends UIElement {
+public abstract class Frame extends UIElement {
 
-	abstract void open();
-	abstract void close();
-	abstract void reset();
-	abstract void setX(int x);
-	abstract void setY(int y);
-	abstract void shouldUpdateSize();
-	abstract boolean isOpen();
+	public Frame(String name)
+	{
+		super(name, UIElementType.FRAME);
+	}
+
+	@Override
+	public abstract void draw();
+	@Override
+	public abstract boolean mouseEvent();
+	@Override
+	public abstract boolean keyboardEvent();
+	public abstract void open();
+	public abstract void close();
+	public abstract void reset();
+	public abstract void shouldUpdateSize();
+	public abstract boolean isOpen();
 }

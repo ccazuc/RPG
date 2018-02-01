@@ -11,7 +11,7 @@ import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.utils.render.TTF;
 
-public class MailInboxFrame implements Frame {
+public class MailInboxFrame extends Frame {
 
 	private final MailFrame frame;
 	int currentPage;
@@ -68,6 +68,7 @@ public class MailInboxFrame implements Frame {
 	
 	public MailInboxFrame(MailFrame frame)
 	{
+		super("MailFrameInboxFrame");
 		this.frame = frame;
 		this.nextPageArrowTextX = (short)(this.frame.getX() + NEXT_PAGE_ARROW_TEXT_X_OFFSET * Mideas.getDisplayXFactor());
 		this.nextPageArrowTextY = (short)(this.frame.getY() + NEXT_PAGE_ARROW_TEXT_Y_OFFSET * Mideas.getDisplayYFactor());
@@ -78,7 +79,7 @@ public class MailInboxFrame implements Frame {
 		this.buttonList = new MailInboxButton[MAIL_PER_PAGE];
 		int i = -1;
 		while (++i < this.buttonList.length)
-			this.buttonList[i] = new MailInboxButton(this, (short)(45 * i));
+			this.buttonList[i] = new MailInboxButton(this, "MailFrameMailInboxButton" + (i + 1), (short)(45 * i));
 		fillMailPage();			
 	}
 	
@@ -154,6 +155,8 @@ public class MailInboxFrame implements Frame {
 			nextPage();
 		else if (Mideas.getMouseScrolledTick() > 0 && this.currentPage > 0)
 			previousPage();
+		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x + Sprites.mail_inbox_frame.getImageWidth() * Mideas.getDisplayXFactor() && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + Sprites.mail_inbox_frame.getImageHeight() * Mideas.getDisplayYFactor())
+			Mideas.setHover(this, false);
 		return (false);
 	}
 	
@@ -220,7 +223,7 @@ public class MailInboxFrame implements Frame {
 	}
 
 	@Override
-	public int getX()
+	public short getX()
 	{
 		return (this.frame.getX());
 	}
@@ -232,7 +235,7 @@ public class MailInboxFrame implements Frame {
 	}
 	
 	@Override
-	public int getY()
+	public short getY()
 	{
 		return (this.frame.getY());
 	}

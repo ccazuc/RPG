@@ -8,11 +8,13 @@ import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.mail.Mail;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Texture;
+import com.mideas.rpg.v2.utils.UIElement;
+import com.mideas.rpg.v2.utils.UIElementType;
 import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.utils.render.TTF;
 
-public class MailInboxButton {
+public class MailInboxButton extends UIElement {
 
 	private final MailInboxFrame frame;
 	private Mail mail;
@@ -46,8 +48,9 @@ public class MailInboxButton {
 	public final static TTF senderNameFont = FontManager.get("FRIZQT", 13);
 	public final static TTF expireDateFont = FontManager.get("FRIZQT", 11);
 	
-	public MailInboxButton(MailInboxFrame frame, short yOffset)
+	public MailInboxButton(MailInboxFrame frame, String name, short yOffset)
 	{
+		super(name, UIElementType.MAIL_INBOX_BUTTON);
 		this.frame = frame;
 		this.buttonX = (short)(this.frame.getX() + BUTTON_X_OFFSET * Mideas.getDisplayXFactor());
 		this.buttonY = (short)(this.frame.getY() + BUTTON_Y_OFFSET * Mideas.getDisplayYFactor() + yOffset * Mideas.getDisplayYFactor());
@@ -60,6 +63,12 @@ public class MailInboxButton {
 		this.expireDateX = (short)(this.frame.getX() + EXPIRE_DATE_X_OFFSET * Mideas.getDisplayXFactor());
 		this.expireDateY = (short)(this.frame.getY() + EXPIRE_DATE_Y_OFFSET * Mideas.getDisplayYFactor() + yOffset * Mideas.getDisplayYFactor());
 		this.yOffset = yOffset;	
+	}
+	
+	@Override
+	public void draw()
+	{
+		
 	}
 	
 	public void drawTextureNotRead()
@@ -110,12 +119,13 @@ public class MailInboxButton {
 		Draw.drawQuadPart(Sprites.border, this.buttonX - 2, this.buttonY - 3, this.buttonWidth + 5, this.buttonHeight + 5);
 	}
 	
+	@Override
 	public boolean mouseEvent()
 	{
 		if (Mideas.getHover() && Mideas.mouseX() >= this.buttonX && Mideas.mouseX() <= this.buttonX + this.buttonWidth && Mideas.mouseY() >= this.buttonY && Mideas.mouseY() <= this.buttonY + this.buttonHeight)
 		{
 			this.isMouseHover = true;
-			Mideas.setHover(false);
+			Mideas.setHover(this, false);
 		}
 		else
 			this.isMouseHover = false;

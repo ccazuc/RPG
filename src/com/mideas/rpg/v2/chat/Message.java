@@ -105,7 +105,7 @@ public class Message {
 		this.tabOnNewLine = tabOnNewLine;
 	}
 	
-	public Message(String message, boolean displayHour, MessageType type, Color color) { //used for self message with different color
+	public Message(String message, boolean displayHour, MessageType type, Color color, boolean tabOnNewLine) { //used for self message with different color
 		this.timer = System.currentTimeMillis();
 		this.lastSeenTimer = this.timer;
 		this.message = message;
@@ -116,6 +116,7 @@ public class Message {
 		this.displayHour = displayHour;
 		this.type = type;
 		this.opacity = 1;
+		this.tabOnNewLine = tabOnNewLine;
 		if(type == MessageType.ANNOUNCE || type == MessageType.GM_ANNOUNCE) {
 			if(this.author == null) {
 				this.authorText = type.getChatDisplay();

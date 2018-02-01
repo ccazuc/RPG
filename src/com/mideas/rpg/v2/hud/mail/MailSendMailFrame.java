@@ -15,7 +15,7 @@ import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.utils.render.TTF;
 
-public class MailSendMailFrame implements Frame
+public class MailSendMailFrame extends Frame
 {
 
 	private final MailFrame frame;
@@ -143,6 +143,7 @@ public class MailSendMailFrame implements Frame
 	
 	public MailSendMailFrame(MailFrame frame)
 	{
+		super("MailFrameSendMailFrame");
 		this.frame = frame;
 		this.senderNameInputBox.initParentFrame(this);
 		this.subjectInputBox.initParentFrame(this);
@@ -202,7 +203,7 @@ public class MailSendMailFrame implements Frame
 		if (this.cancelButton.event())
 			return (true);
 		if (Mideas.getHover() && Mideas.mouseX() >= this.frame.getX() && Mideas.mouseX() <= this.frame.getX() + Sprites.mail_send_mail_frame.getImageWidth() * Mideas.getDisplayXFactor() && Mideas.mouseY() >= this.frame.getY() && Mideas.mouseY() <= this.frame.getY() + Sprites.mail_send_mail_frame.getImageHeight() * Mideas.getDisplayYFactor())
-			Mideas.setHover(false);
+			Mideas.setHover(this, false);
 		return (false);
 	}
 	
@@ -334,7 +335,7 @@ public class MailSendMailFrame implements Frame
 	}
 	
 	@Override
-	public int getX()
+	public short getX()
 	{
 		return (this.frame.getX());
 	}
@@ -346,7 +347,7 @@ public class MailSendMailFrame implements Frame
 	}
 	
 	@Override
-	public int getY()
+	public short getY()
 	{
 		return (this.frame.getY());
 	}

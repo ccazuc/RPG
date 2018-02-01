@@ -218,7 +218,7 @@ public class Interface {
 	}
 	
 	public static boolean mouseEvent() {
-		Mideas.setHover(true);
+		Mideas.resetHover();
 		if(changeBackgroundFrameActive) {
 			if(ChangeBackGroundFrame.mouseEvent()) {
 				return true;

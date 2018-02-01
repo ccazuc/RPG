@@ -10,12 +10,10 @@ import com.mideas.rpg.v2.utils.CrossButton2;
 import com.mideas.rpg.v2.utils.Frame;
 import com.mideas.rpg.v2.utils.FrameTab2;
 
-public class MailFrame implements Frame {
+public class MailFrame extends Frame {
 
 	private final static int FRAME_X = 7;
 	private final static int FRAME_Y = 105;
-	private int x;
-	private int y;
 	private final MailInboxFrame inboxFrame;
 	private final MailSendMailFrame sendMailFrame;
 	private final MailOpenedMailFrame openedMailFrame;
@@ -77,8 +75,9 @@ public class MailFrame implements Frame {
 	
 	public MailFrame()
 	{
-		this.x = (int)(FRAME_X * Mideas.getDisplayXFactor());
-		this.y = (int)(FRAME_Y * Mideas.getDisplayYFactor());
+		super("MailFrame");
+		this.x = (short)(FRAME_X * Mideas.getDisplayXFactor());
+		this.y = (short)(FRAME_Y * Mideas.getDisplayYFactor());
 		this.inboxFrame = new MailInboxFrame(this);
 		this.sendMailFrame = new MailSendMailFrame(this);
 		this.openedMailFrame = new MailOpenedMailFrame(this);
@@ -175,7 +174,7 @@ public class MailFrame implements Frame {
 	}
 
 	@Override
-	public int getX()
+	public short getX()
 	{
 		return (this.x);
 	}
@@ -183,12 +182,12 @@ public class MailFrame implements Frame {
 	@Override
 	public void setX(int x)
 	{
-		this.x = x;
+		this.x = (short)x;
 		shouldUpdateSize();
 	}
 	
 	@Override
-	public int getY()
+	public short getY()
 	{
 		return (this.y);
 	}
@@ -196,7 +195,7 @@ public class MailFrame implements Frame {
 	@Override
 	public void setY(int y)
 	{
-		this.y = y;
+		this.y = (short)y;
 		shouldUpdateSize();
 	}
 	
@@ -210,8 +209,8 @@ public class MailFrame implements Frame {
 	{
 		if (!this.shouldUpdateSize)
 			return;
-		this.x = (int)(FRAME_X * Mideas.getDisplayXFactor());
-		this.y = (int)(FRAME_Y * Mideas.getDisplayYFactor());
+		this.x = (short)(FRAME_X * Mideas.getDisplayXFactor());
+		this.y = (short)(FRAME_Y * Mideas.getDisplayYFactor());
 		this.inboxFrame.shouldUpdateSize();
 		this.sendMailFrame.shouldUpdateSize();
 		this.openedMailFrame.shouldUpdateSize();

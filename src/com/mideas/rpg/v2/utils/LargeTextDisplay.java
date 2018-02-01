@@ -3,9 +3,8 @@ package com.mideas.rpg.v2.utils;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.utils.render.TTF;
 
-public class LargeTextDisplay implements UIElement {
+public class LargeTextDisplay extends UIElement {
 
-	private Frame parentFrame;
 	private final short xSave;
 	private final short ySave;
 	private final short widthSave;
@@ -17,11 +16,8 @@ public class LargeTextDisplay implements UIElement {
 	private final short textXOffsetSave;
 	private final short textYOffsetSave;
 	private final short lineHeightSave;
-	private final String name;
 	private final Color color;
 	private final TTF font;
-	private short x;
-	private short y;
 	private short width;
 	private short height;
 	private short lineHeight;
@@ -33,8 +29,8 @@ public class LargeTextDisplay implements UIElement {
 	
 	public LargeTextDisplay(Frame parentFrame, String name, short x, short y, short width, short height, short textXOffset, short textYOffset, short lineHeight, short scrollbarX, short scrollbarY, short scrollbarWidt, short scrollbarHeight, TTF font, Color color)
 	{
+		super(name, UIElementType.LARGE_TEXT_DISPLAY);
 		this.parentFrame = parentFrame;
-		this.name = name;
 		this.xSave = x;
 		this.ySave = y;
 		this.widthSave = width;
@@ -174,24 +170,6 @@ public class LargeTextDisplay implements UIElement {
 	public boolean keyboardEvent()
 	{
 		return (false);
-	}
-	
-	@Override
-	public int getX()
-	{
-		return (this.x);
-	}
-	
-	@Override
-	public int getY()
-	{
-		return (this.y);
-	}
-	
-	@Override
-	public String getName()
-	{
-		return (this.name);
 	}
 	
 	@Override

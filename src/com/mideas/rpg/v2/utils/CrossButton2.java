@@ -6,16 +6,12 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 
-public class CrossButton2 implements UIElement {
+public class CrossButton2 extends UIElement {
 
-	private Frame parentFrame;
-	private final String name;
 	private final short xSave;
 	private final short ySave;
 	private final short widthSave;
 	private final short heightSave;
-	private short x;
-	private short y;
 	private short width;
 	private short height;
 	private boolean mouseHover;
@@ -24,8 +20,8 @@ public class CrossButton2 implements UIElement {
 	
 	public CrossButton2(Frame parentFrame, String name, short x, short y, short width, short height)
 	{
+		super(name, UIElementType.CROSS_BUTTON);
 		this.parentFrame = parentFrame;
-		this.name = name;
 		this.xSave = x;
 		this.ySave = y;
 		this.widthSave = width;
@@ -50,7 +46,7 @@ public class CrossButton2 implements UIElement {
 	{
 		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x + this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height)
 		{
-			Mideas.setHover(false);
+			Mideas.setHover(this, false);
 			this.mouseHover = true;
 		}
 		else
@@ -123,30 +119,6 @@ public class CrossButton2 implements UIElement {
 		this.mouseHover = false;
 		this.leftClickDown = false;
 		this.rightClickDown = false;
-	}
-	
-	@Override
-	public int getX()
-	{
-		return (this.x);
-	}
-	
-	@Override
-	public int getY()
-	{
-		return (this.y);
-	}
-	
-	@Override
-	public String getName()
-	{
-		return (this.name);
-	}
-	
-	@Override
-	public Frame getParentFrame()
-	{
-		return (this.parentFrame);
 	}
 	
 	public void onLeftClickUp() {}
