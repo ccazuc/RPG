@@ -67,6 +67,7 @@ import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
 import com.mideas.rpg.v2.stresstest.StresstestConnectionMgr;
 import com.mideas.rpg.v2.stresstest.StresstestMgr;
 import com.mideas.rpg.v2.utils.StringUtils;
+import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.utils.UIElement;
 import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.PNGDecoder;
@@ -121,7 +122,7 @@ public class Mideas {
 	private final static int INTERFACE_DRAW_UPDATE_FREQUENCE = 1000;
 	private final static int MOUSE_EVENT_UPDATE_FREQUENCE = 1000;
 	
-	private static void context2D() {
+	public static void context2D() {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
 		GL11.glClearColor(0f, 0f, 0f, 0f);                
 		GL11.glClearDepth(1f);     
@@ -291,7 +292,7 @@ public class Mideas {
 		}
 	}
 	
-	private static void updateDisplayFactor() {
+	public static void updateDisplayFactor() {
 		displayXFactor = Display.getWidth()/1920f;
 		displayYFactor = Display.getHeight()/1018f;
 		LoginScreen.shouldUpdate();
@@ -312,7 +313,7 @@ public class Mideas {
 		AuraFrame.shouldUpdate();
 		AuctionHouseFrame.shouldUpdate();
 		Interface.getMailFrame().shouldUpdateSize();
-		Interface.getAuctionHouseFrame().shouldUpdateSize();
+		//Interface.getAuctionHouseFrame().shouldUpdateSize();
 		if(joueur1 != null) {
 			if(joueur1.getFirstProfession() != null) {
 				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
@@ -608,7 +609,7 @@ public class Mideas {
 	}*/
 	
 	public static void loadingScreen() {
-		Sprites.initBG();
+		/*Sprites.initBG();
 		context2D();
 		int barWidth = (int)(850*Mideas.getDisplayXFactor());
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
@@ -676,7 +677,8 @@ public class Mideas {
 			context2D();
 			updateDisplayFactor();
 			barWidth = (int)(850*Mideas.getDisplayXFactor());
-		}
+		}*/
+		Texture.loadAllTexture();
 	}
 	
 	public static Joueur joueur1() {

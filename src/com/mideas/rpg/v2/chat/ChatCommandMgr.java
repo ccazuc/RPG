@@ -339,10 +339,10 @@ public class ChatCommandMgr {
 		@Override
 		public void handle(String[] command)
 		{
-			if(Interface.isAuctionFrameOpen())
+			/*if(Interface.isAuctionFrameOpen())
 				Interface.closeAuctionFrame();
 			else
-				Interface.openAuctionFrame();
+				Interface.openAuctionFrame();*/
 		}
 	};
 	private final static ChatCommand reload = new ChatCommand("reload", "/reload to reload the UI.")

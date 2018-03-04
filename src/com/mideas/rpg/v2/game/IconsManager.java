@@ -27,7 +27,7 @@ public class IconsManager {
 	private static void loadTexture37(String id) {
 		File file = new File("Icons 37-35/"+id+".jpg");
 		if(file.exists()) {
-			sprites37.put(id, new Texture(file.getAbsolutePath()));
+			sprites37.put(id, new Texture(file.getAbsolutePath(), true));
 		}
 	}
 }

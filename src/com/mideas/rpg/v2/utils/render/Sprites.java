@@ -394,9 +394,9 @@ public class Sprites {
 		bgList[0] = easternKingdom;
 		bgList[1] = outland2;
 		bgList[2] = outland;
-		loading_screen = new Texture(bgList[new Random().nextInt((bgList.length-1)+1)]);
-		loading_screen_bar = new Texture("sprite/interface/loading_screen/Loading-BarBorder.png");
-		loading_screen_bar_progress = new Texture("sprite/interface/loading_screen/Loading-BarFill.png");
+		loading_screen = new Texture(bgList[new Random().nextInt((bgList.length-1)+1)], true);
+		loading_screen_bar = new Texture("sprite/interface/loading_screen/Loading-BarBorder.png", true);
+		loading_screen_bar_progress = new Texture("sprite/interface/loading_screen/Loading-BarFill.png", true);
 	}
 	
 	public static boolean sprite() {
