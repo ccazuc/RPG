@@ -212,7 +212,7 @@ public class MailOpenedMailFrame extends Frame {
 	@Override
 	public boolean isOpen()
 	{
-		return (this.openedMail != null);
+		return (this.parentFrame.isOpen() && this.openedMail != null);
 	}
 	
 	public void setOpenedMail(Mail mail)

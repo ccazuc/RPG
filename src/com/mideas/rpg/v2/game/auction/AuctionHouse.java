@@ -2,7 +2,7 @@ package com.mideas.rpg.v2.game.auction;
 
 import java.util.ArrayList;
 
-import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
+import com.mideas.rpg.v2.hud.auction.hold.AuctionHouseFrame;
 
 public class AuctionHouse {
 

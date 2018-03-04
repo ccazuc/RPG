@@ -271,7 +271,7 @@ public class MailInboxFrame extends Frame {
 	@Override
 	public boolean isOpen()
 	{
-		return (this.frame.getActiveFrame() == this);
+		return (this.frame.isOpen() && this.frame.getActiveFrame() == this);
 	}
 	
 	public void onMailReceived()

@@ -12,53 +12,75 @@ public class ButtonMenuSort {
 
 	private short x;
 	private short y;
-	private short x_size;
-	private short y_size;
-	private short x_size_save;
-	private short y_size_save;
+	private short xSave;
+	private short ySave;
+	private short width;
+	private short height;
+	private short widthSave;
+	private short heightSave;
 	private String text;
 	private boolean buttonHover;
 	private boolean buttonDown;
 	private TTF font;
+	private Frame parentFrame;
 	
-	public ButtonMenuSort(float x, float y, float x_size, float y_size, String text, TTF font) {
+	public ButtonMenuSort(float x, float y, float width, float height, String text, TTF font) {
 		this.x = (short)x;
 		this.y = (short)y;
-		this.x_size_save = (short)x_size;
-		this.y_size_save = (short)y_size;
-		this.y_size = (short)y_size;
-		this.x_size = (short)x_size;
+		this.widthSave = (short)width;
+		this.heightSave = (short)height;
+		this.height = (short)height;
+		this.width = (short)width;
 		this.text = text;
 		this.font = font;
 	}
 	
-	public ButtonMenuSort(float x, float y, float x_size, float y_size, String text, float font_size) {
-		this(x, y, x_size, y_size, text, FontManager.get("FRIZQT", font_size));
+	public ButtonMenuSort(Frame parentFrame, float x, float y, float width, float height, String text, TTF font)
+	{
+		this.parentFrame = parentFrame;
+		this.xSave = (short)x;
+		this.ySave = (short)y;
+		this.widthSave = (short)width;
+		this.heightSave = (short)height;
+		this.height = (short)height;
+		this.width = (short)width;
+		this.text = text;
+		this.font = font;
 	}
 	
-	public ButtonMenuSort(float x, float y, float x_size, String text, float font_size) {
-		this(x, y, x_size, Sprites.button_menu_sort_middle_part.getImageHeight()*Mideas.getDisplayYFactor(), text, font_size);
+	public ButtonMenuSort(float x, float y, float width, float height, String text, float font_size) {
+		this(x, y, width, height, text, FontManager.get("FRIZQT", font_size));
+	}
+	
+	public ButtonMenuSort(float x, float y, float width, String text, float font_size) {
+		this(x, y, width, Sprites.button_menu_sort_middle_part.getImageHeight()*Mideas.getDisplayYFactor(), text, font_size);
+	}
+	
+	public void initParentFrame(Frame parentFrame)
+	{
+		this.parentFrame = parentFrame;
+		updateSize();
 	}
 	
 	public void drawTexturePart() {
 		int imageWidth = Sprites.button_menu_sort_left_part.getImageWidth();
-		Draw.drawQuadPart(Sprites.button_menu_sort, this.x, this.y, imageWidth, this.y_size, 0, 0, 6, 26);					//left_border
-		Draw.drawQuadPart(Sprites.button_menu_sort, this.x+imageWidth, this.y, this.x_size-2*imageWidth, this.y_size, 8, 0, 1, 26);		//midle_border
-		Draw.drawQuadPart(Sprites.button_menu_sort, this.x+this.x_size-imageWidth, this.y, imageWidth, this.y_size, 14, 0, 6, 26);		//right_border
+		Draw.drawQuadPart(Sprites.button_menu_sort, this.x, this.y, imageWidth, this.height, 0, 0, 6, 26);					//left_border
+		Draw.drawQuadPart(Sprites.button_menu_sort, this.x+imageWidth, this.y, this.width-2*imageWidth, this.height, 8, 0, 1, 26);		//midle_border
+		Draw.drawQuadPart(Sprites.button_menu_sort, this.x+this.width-imageWidth, this.y, imageWidth, this.height, 14, 0, 6, 26);		//right_border
 	}
 	
 	public void drawStringPart() {
 		if(this.buttonDown) {
-			this.font.drawStringShadowPart(this.x+9*Mideas.getDisplayXFactor()+2, this.y+this.y_size/2-this.font.getLineHeight()/2+2, this.text, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.font.drawStringShadowPart(this.x+9*Mideas.getDisplayXFactor()+2, this.y+this.height/2-this.font.getLineHeight()/2+2, this.text, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.font.drawStringShadowPart(this.x+9*Mideas.getDisplayXFactor(), this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.font.drawStringShadowPart(this.x+9*Mideas.getDisplayXFactor(), this.y+this.height/2-this.font.getLineHeight()/2, this.text, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 	}
 	
 	public void drawHoverPart() {
 		if(this.buttonHover) {
-			Draw.drawQuadBlendPart(Sprites.button_menu_hover, this.x-3*Mideas.getDisplayXFactor(), this.y-3*Mideas.getDisplayYFactor(), this.x_size+7*Mideas.getDisplayYFactor(), this.y_size+9*Mideas.getDisplayYFactor());
+			Draw.drawQuadBlendPart(Sprites.button_menu_hover, this.x-3*Mideas.getDisplayXFactor(), this.y-3*Mideas.getDisplayYFactor(), this.width+7*Mideas.getDisplayYFactor(), this.height+9*Mideas.getDisplayYFactor());
 		}
 	}
 	
@@ -69,24 +91,24 @@ public class ButtonMenuSort {
 		Draw.drawQuad(Sprites.button_menu_sort_right_part, this.x+this.x_size-imageWidth, this.y, imageWidth, this.y_size);*/
 
 		Sprites.button_menu_sort.drawBegin();
-		Draw.drawQuadPart(Sprites.button_menu_sort, this.x, this.y, imageWidth, this.y_size, 0, 0, 6, 26);					//left_border
-		Draw.drawQuadPart(Sprites.button_menu_sort, this.x+imageWidth, this.y, this.x_size-2*imageWidth, this.y_size, 8, 0, 1, 26);		//midle_border
-		Draw.drawQuadPart(Sprites.button_menu_sort, this.x+this.x_size-imageWidth, this.y, imageWidth, this.y_size, 14, 0, 6, 26);		//right_border
+		Draw.drawQuadPart(Sprites.button_menu_sort, this.x, this.y, imageWidth, this.height, 0, 0, 6, 26);					//left_border
+		Draw.drawQuadPart(Sprites.button_menu_sort, this.x+imageWidth, this.y, this.width-2*imageWidth, this.height, 8, 0, 1, 26);		//midle_border
+		Draw.drawQuadPart(Sprites.button_menu_sort, this.x+this.width-imageWidth, this.y, imageWidth, this.height, 14, 0, 6, 26);		//right_border
 		Sprites.button_menu_sort.drawEnd();
 		
 		if(this.buttonDown) {
-			this.font.drawStringShadow(this.x+9*Mideas.getDisplayXFactor()+2, this.y+this.y_size/2-this.font.getLineHeight()/2+2, this.text, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.font.drawStringShadow(this.x+9*Mideas.getDisplayXFactor()+2, this.y+this.height/2-this.font.getLineHeight()/2+2, this.text, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		else {
-			this.font.drawStringShadow(this.x+9*Mideas.getDisplayXFactor(), this.y+this.y_size/2-this.font.getLineHeight()/2, this.text, Color.WHITE, Color.BLACK, 1, 0, 0);
+			this.font.drawStringShadow(this.x+9*Mideas.getDisplayXFactor(), this.y+this.height/2-this.font.getLineHeight()/2, this.text, Color.WHITE, Color.BLACK, 1, 0, 0);
 		}
 		if(this.buttonHover) {
-			Draw.drawQuadBlend(Sprites.button_menu_hover, this.x-3*Mideas.getDisplayXFactor(), this.y-3*Mideas.getDisplayYFactor(), this.x_size+7*Mideas.getDisplayYFactor(), this.y_size+9*Mideas.getDisplayYFactor());
+			Draw.drawQuadBlend(Sprites.button_menu_hover, this.x-3*Mideas.getDisplayXFactor(), this.y-3*Mideas.getDisplayYFactor(), this.width+7*Mideas.getDisplayYFactor(), this.height+9*Mideas.getDisplayYFactor());
 		}
 	}
 	
-	public boolean event() {
-		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+Sprites.button_menu_sort_left_part.getImageHeight()*Mideas.getDisplayYFactor()) {
+	public boolean mouseEvent() {
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+Sprites.button_menu_sort_left_part.getImageHeight()*Mideas.getDisplayYFactor()) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
 		}
@@ -118,19 +140,27 @@ public class ButtonMenuSort {
 		return false;
 	}
 	
-	public void update(float x, float y) {
-		update(x, y, this.x_size_save*Mideas.getDisplayXFactor(), this.y_size_save*Mideas.getDisplayYFactor());
+	public void updateSize()
+	{
+		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
+		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
+		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
+		this.height = (short)(this.heightSave * Mideas.getDisplayYFactor());
 	}
 	
-	public void update(float x, float y, float x_size) {
-		update(x, y, x_size, Sprites.button_menu_sort_left_part.getImageHeight()*Mideas.getDisplayYFactor());
+	public void update(float x, float y) {
+		update(x, y, this.widthSave*Mideas.getDisplayXFactor(), this.heightSave*Mideas.getDisplayYFactor());
+	}
+	
+	public void update(float x, float y, float width) {
+		update(x, y, width, Sprites.button_menu_sort_left_part.getImageHeight()*Mideas.getDisplayYFactor());
 	}
 
-	public void update(float x, float y, float x_size, float y_size) {
+	public void update(float x, float y, float width, float height) {
 		this.x = (short)x;
 		this.y = (short)y;
-		this.x_size = (short)x_size;
-		this.y_size = (short)y_size;
+		this.width = (short)width;
+		this.height = (short)height;
 	}
 	
 	protected void eventButtonClick() {}

@@ -16,7 +16,7 @@ public class CommandListPlayer extends Command {
 		int number = ConnectionManager.getWorldServerConnection().readInt();
 		int i = 0;
 		while(i < number) {
-			ChatFrame.addMessage(new Message(ConnectionManager.getWorldServerConnection().readString(), false, MessageType.SELF, Color.convClassTypeToColor(ClassType.values()[ConnectionManager.getWorldServerConnection().readChar()])));
+			ChatFrame.addMessage(new Message(ConnectionManager.getWorldServerConnection().readString(), false, MessageType.SELF, Color.convClassTypeToColor(ClassType.values()[ConnectionManager.getWorldServerConnection().readChar()]), true));
 			i++;
 		}
 	}

@@ -179,6 +179,7 @@ public final class Draw {
 		final float xTo = 1;
 		final float yFrom = 0;
 		final float yTo = 1;
+		glColor4f(1, 1, 1, 1);
 		glTexCoord2f(xFrom, yFrom);
 		glVertex2f(x, y);
 		glTexCoord2f(xFrom, yTo);

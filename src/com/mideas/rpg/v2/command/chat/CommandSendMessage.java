@@ -31,7 +31,7 @@ public class CommandSendMessage extends Command {
 				color = ConnectionManager.getWorldServerConnection().readColor();
 			}
 			if(author == null) {
-				ChatFrame.addMessage(new Message(message, false, type, color));
+				ChatFrame.addMessage(new Message(message, false, type, color, true));
 			}
 			else {
 				ChatFrame.addMessage(new Message(message, author, false, type, color, false, true));

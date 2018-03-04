@@ -108,7 +108,7 @@ public class CommandGuild extends Command {
 			Mideas.joueur1().setGuildRank(Mideas.joueur1().getGuild().getMember(Mideas.joueur1().getId()).getRank());
 			Mideas.joueur1().getGuild().getMember(Mideas.joueur1().getId()).setOnlineStatus(true);
 			Mideas.joueur1().getGuild().initOnlineMembers();
-			ChatFrame.addMessage(new Message("[Guild Message Of The Day] : ".concat(Mideas.joueur1().getGuild().getMotd()), false, MessageType.SELF, MessageType.GUILD.getColor()));
+			ChatFrame.addMessage(new Message("[Guild Message Of The Day] : ".concat(Mideas.joueur1().getGuild().getMotd()), false, MessageType.SELF, MessageType.GUILD.getColor(), true));
 		}
 		else if(packetId == PacketID.GUILD_NEW_MEMBER) {
 			int id = ConnectionManager.getWorldServerConnection().readInt();
@@ -167,7 +167,7 @@ public class CommandGuild extends Command {
 		else if(packetId == PacketID.GUILD_SET_MOTD) {
 			String msg = ConnectionManager.getWorldServerConnection().readString();
 			Mideas.joueur1().getGuild().setMotd(msg);
-			ChatFrame.addMessage(new Message("[Guild Message Of The Day]: ".concat(msg), false, MessageType.SELF, MessageType.GUILD.getColor()));
+			ChatFrame.addMessage(new Message("[Guild Message Of The Day]: ".concat(msg), false, MessageType.SELF, MessageType.GUILD.getColor(), true));
 		}
 		else if(packetId == PacketID.GUILD_SET_INFORMATION) {
 			String msg = ConnectionManager.getWorldServerConnection().readString();

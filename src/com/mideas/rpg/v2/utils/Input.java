@@ -299,7 +299,7 @@ public class Input
 			if(!this.isActive)
 				return;
 			if(Mideas.getLoopTickTimer()%1000 < 500 || Mideas.getLoopTickTimer()-this.lastWrite <= this.writeTickTimerActivation) 
-				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y + 3 * Mideas.getDisplayYFactor(), this.cursorWidth, this.cursorHeight, this.color);
+				Draw.drawColorQuad(this.xDraw+this.cursorShift+this.xDefault, this.y + 1 * Mideas.getDisplayYFactor(), this.cursorWidth, this.cursorHeight, this.color);
 		}
 	}
 	

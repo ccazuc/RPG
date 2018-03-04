@@ -309,10 +309,10 @@ public class WhoFrame {
 		if(updateButton.event()) return true;
 		if(addFriendButton.event()) return true;
 		if(inviteButton.event()) return true;
-		if(sortByName.event()) return true;
-		if(sortByLevel.event()) return true;
+		if(sortByName.mouseEvent()) return true;
+		if(sortByLevel.mouseEvent()) return true;
 		if(dropDownMenu.event()) return true;
-		if(sortByClasse.event()) return true;
+		if(sortByClasse.mouseEvent()) return true;
 		if(tooltipMenu.event()) return true;
 		int i = 0;
 		hoveredUnit = -1;

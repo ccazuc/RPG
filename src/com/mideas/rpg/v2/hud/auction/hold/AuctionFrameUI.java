@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.hud.auction;
+package com.mideas.rpg.v2.hud.auction.hold;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.utils.ButtonMenu;

@@ -6,26 +6,44 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.utils.render.Draw;
 import com.mideas.rpg.v2.utils.render.Sprites;
 
-public class EditBoxCrossButton {
+public class EditBoxCrossButton extends UIElement
+{
 
-
-	private short x;
-	private short y;
-	private short x_size;
-	private short y_size;
+	private short width;
+	private short height;
 	private Texture texture;
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private boolean isEnable = true;
+	private short xSave;
+	private short ySave;
 
-	public EditBoxCrossButton(float x, float y) {
+	public EditBoxCrossButton(String name, float x, float y)
+	{
+		super(name, UIElementType.INPUT_BOX_CROSS_BUTTON);
 		this.x = (short)x;
 		this.y = (short)y;
-		this.x_size = (short)(Sprites.edit_box_cross_button.getImageWidth()*Mideas.getDisplayXFactor());
-		this.y_size = (short)(Sprites.edit_box_cross_button.getImageHeight()*Mideas.getDisplayYFactor());
+		this.width = (short)(Sprites.edit_box_cross_button.getImageWidth()*Mideas.getDisplayXFactor());
+		this.height = (short)(Sprites.edit_box_cross_button.getImageHeight()*Mideas.getDisplayYFactor());
+		this.texture = Sprites.edit_box_cross_button;
+	}
+	public EditBoxCrossButton(Frame parentFrame, float x, float y, String name) {
+		super(name, UIElementType.INPUT_BOX_CROSS_BUTTON);
+		this.parentFrame = parentFrame;
+		this.xSave = (short)x;
+		this.ySave = (short)y;
+		this.width = (short)(Sprites.edit_box_cross_button.getImageWidth()*Mideas.getDisplayXFactor());
+		this.height = (short)(Sprites.edit_box_cross_button.getImageHeight()*Mideas.getDisplayYFactor());
 		this.texture = Sprites.edit_box_cross_button;
 	}
 	
+	public void initParentFrame(Frame parentFrame)
+	{
+		this.parentFrame = parentFrame;
+		updateSize();
+	}
+	
+	@Override
 	public void draw() {
 		if(!this.isEnable) {
 			return;
@@ -34,19 +52,20 @@ public class EditBoxCrossButton {
 			return;
 		}
 		if(this.buttonDown) {
-			Draw.drawQuad(this.texture, this.x+1, this.y+1, this.x_size, this.y_size);
+			Draw.drawQuad(this.texture, this.x+1, this.y+1, this.width, this.height);
 		}
 		else {
-			Draw.drawQuad(this.texture, this.x, this.y, this.x_size, this.y_size);
+			Draw.drawQuad(this.texture, this.x, this.y, this.width, this.height);
 		}
 	}
 	
-	public boolean event() {
+	@Override
+	public boolean mouseEvent() {
 		if(!activateCondition()) {
 			this.buttonHover = false;
 			return false;
 		}
-		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.x_size && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_size) {
+		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.height) {
 			this.buttonHover = true;
 			Mideas.setHover(false);
 		}
@@ -87,7 +106,9 @@ public class EditBoxCrossButton {
 	}
 	
 	protected void eventButtonClick() {}
+	
 	protected boolean activateCondition() {return true;}
+	
 	protected void popupClosed() {}
 	
 	public boolean getButtonDown() {
@@ -97,10 +118,18 @@ public class EditBoxCrossButton {
 		return this.buttonHover;
 	}
 	
+	public void updateSize()
+	{
+		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
+		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
+		this.width = (short)(Sprites.edit_box_cross_button.getImageWidth()*Mideas.getDisplayXFactor());
+		this.height = (short)(Sprites.edit_box_cross_button.getImageHeight()*Mideas.getDisplayYFactor());
+	}
+	
 	public void update(float x, float y) {
 		this.x = (short)x;
 		this.y = (short)y;
-		this.x_size = (short)(Sprites.edit_box_cross_button.getImageWidth()*Mideas.getDisplayXFactor());
-		this.y_size = (short)(Sprites.edit_box_cross_button.getImageHeight()*Mideas.getDisplayYFactor());
+		this.width = (short)(Sprites.edit_box_cross_button.getImageWidth()*Mideas.getDisplayXFactor());
+		this.height = (short)(Sprites.edit_box_cross_button.getImageHeight()*Mideas.getDisplayYFactor());
 	}
 }

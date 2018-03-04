@@ -24,8 +24,8 @@ public class InputBox {
 	private boolean buttonHover;
 	private final EditBoxCrossButton crossButton;
 	private Frame parentFrame;
-	private final static byte CROSS_BUTTON_X_OFFSET = 18;
-	private final static byte CROSS_BUTTON_Y_OFFSET = 4;
+	private final static byte CROSS_BUTTON_X_OFFSET = 21;
+	private final static byte CROSS_BUTTON_Y_OFFSET = 5;
 	
 	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, float textXOffset, float textYOffset, boolean hasCrossButton) {
 		this.x = (short)x;
@@ -60,7 +60,7 @@ public class InputBox {
 			};
 		}
 		if(hasCrossButton) {
-			this.crossButton = new EditBoxCrossButton(x+x_size-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor()) {
+			this.crossButton = new EditBoxCrossButton("", x+x_size-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor()) {
 				
 				@Override
 				public void eventButtonClick() {
@@ -144,7 +144,7 @@ public class InputBox {
 			};
 		}
 		if(hasCrossButton) {
-			this.crossButton = new EditBoxCrossButton(x+width-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor()) {
+			this.crossButton = new EditBoxCrossButton(parentFrame, x + width - CROSS_BUTTON_X_OFFSET * Mideas.getDisplayXFactor(), y + CROSS_BUTTON_Y_OFFSET * Mideas.getDisplayYFactor(), "") {
 				
 				@Override
 				public void eventButtonClick() {
@@ -216,7 +216,7 @@ public class InputBox {
 	}
 	
 	public boolean mouseEvent() {
-		if(this.crossButton != null && this.crossButton.event()) {
+		if(this.crossButton != null && this.crossButton.mouseEvent()) {
 			return true;
 		}
 		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height) {
@@ -297,6 +297,8 @@ public class InputBox {
 		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
 		this.height = (short)(this.heightSave * Mideas.getDisplayYFactor());
 		this.input.update(this.x + this.textOffset * Mideas.getDisplayXFactor(), this.y + 3 * Mideas.getDisplayYFactor(), this.inputMaxWidth * Mideas.getDisplayXFactor());
+		if (this.crossButton != null)
+			this.crossButton.updateSize();
 	}
 	
 	public void initParentFrame(Frame frame)
@@ -305,6 +307,8 @@ public class InputBox {
 		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
 		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
 		this.input.update(this.x + this.textOffset * Mideas.getDisplayXFactor(), this.y + 3 * Mideas.getDisplayYFactor(), this.inputMaxWidth * Mideas.getDisplayXFactor());
+		if (this.crossButton != null)
+			this.crossButton.initParentFrame(frame);
 	}
 	
 	public short getWidth() {

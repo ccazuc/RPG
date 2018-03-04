@@ -146,9 +146,9 @@ public class ScrollBar {
 	private final float Y_ASCENSOR_UP_SHIFT = 0;
 	private int x;
 	private int y;
-	private int y_size;
-	private int x_frame_size;
-	private int y_frame_size;
+	private int scrollBarHeight;
+	private int frameWidth;
+	private int frameHeight;
 	private int scroll_tick_size;
 	private float y_ascensor = this.Y_ASCENSOR_UP_SHIFT;
 	private float y_ascensor_onclick = this.Y_ASCENSOR_UP_SHIFT;
@@ -161,36 +161,64 @@ public class ScrollBar {
 	private boolean buttonDownBotArrow;
 	private boolean buttonHoverBotArrow;
 	private boolean scrollbar_anchor_visible = true;
+	private Frame parentFrame;
+	private short xSave;
+	private short ySave;
+	private short scrollBarHeightSave;
+	private short frameWidthSave;
+	private short frameHeightSave;
+	private short scrollTickSizeSave;
+	private boolean isEnabled = true;
 	
 	public ScrollBar(float x, float y, float y_size, float x_frame_size, float y_frame_size, boolean dragAndScroll, float scroll_tick_size) {
 		this.x = (int)x;
 		this.y = (int)y;
-		this.y_size = (int)y_size;
-		this.x_frame_size = (int)x_frame_size;
-		this.y_frame_size = (int)y_frame_size;
+		this.scrollBarHeight = (int)y_size;
+		this.frameWidth = (int)x_frame_size;
+		this.frameHeight = (int)y_frame_size;
 		this.dragAndScroll = dragAndScroll;
 		this.scroll_tick_size = (int)scroll_tick_size;
-		this.Y_ASCENSOR_DOWN_SHIFT = this.y_size-45*Mideas.getDisplayYFactor();
+		this.Y_ASCENSOR_DOWN_SHIFT = this.scrollBarHeight-45*Mideas.getDisplayYFactor();
+	}
+	public ScrollBar(Frame parentFrame, int x, int y, int scrollBarHeight, int frameWidth, int frameHeight, boolean dragAndScroll, float scroll_tick_size, boolean isEnabled)
+	{
+		this.parentFrame = parentFrame;
+		this.xSave = (short)x;
+		this.ySave = (short)y;
+		this.scrollBarHeightSave = (short)scrollBarHeight;
+		this.frameWidthSave = (short)frameWidth;
+		this.frameHeightSave = (short)frameHeight;
+		this.dragAndScroll = dragAndScroll;
+		this.scrollTickSizeSave = (short)scroll_tick_size;
+		this.Y_ASCENSOR_DOWN_SHIFT = this.scrollBarHeight-45*Mideas.getDisplayYFactor();
+		this.isEnabled = isEnabled;
 	}
 	
 	public ScrollBar(float x, float y, float y_size, float x_frame_size, float y_frame_size, boolean dragAndScroll, float scroll_tick_size, boolean scrollbar_anchor_visible) {
 		this.x = (int)x;
 		this.y = (int)y;
-		this.y_size = (int)y_size;
-		this.x_frame_size = (int)x_frame_size;
-		this.y_frame_size = (int)y_frame_size;
+		this.scrollBarHeight = (int)y_size;
+		this.frameWidth = (int)x_frame_size;
+		this.frameHeight = (int)y_frame_size;
 		this.dragAndScroll = dragAndScroll;
 		this.scroll_tick_size = (int)scroll_tick_size;
-		this.Y_ASCENSOR_DOWN_SHIFT = this.y_size-45*Mideas.getDisplayYFactor();
+		this.Y_ASCENSOR_DOWN_SHIFT = this.scrollBarHeight-45*Mideas.getDisplayYFactor();
 		this.scrollbar_anchor_visible = scrollbar_anchor_visible;
 	}
 	
+	public void initParentFrame(Frame parentFrame)
+	{
+		this.parentFrame = parentFrame;
+		updateSize();
+	}
+	
 	public void draw() {
-		if(this.scrollbar_anchor_visible) {
-			Draw.drawQuad(Sprites.scrollbar, this.x, this.y+Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.scrollbar.getImageWidth()*Mideas.getDisplayYFactor(), this.y_size+19-Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor()-Sprites.bot_button.getImageHeight()*Mideas.getDisplayYFactor());
-		}
+		if (!this.isEnabled)
+			return;
+		if(this.scrollbar_anchor_visible)
+			Draw.drawQuad(Sprites.scrollbar, this.x, this.y+Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor(), Sprites.scrollbar.getImageWidth()*Mideas.getDisplayYFactor(), this.scrollBarHeight+19-Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor()-Sprites.bot_button.getImageHeight()*Mideas.getDisplayYFactor());
 		Draw.drawQuad(Sprites.top_button, this.x-3*Mideas.getDisplayXFactor(), this.y);
-		Draw.drawQuad(Sprites.bot_button, this.x-3*Mideas.getDisplayXFactor(), this.y+19+this.y_size-Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor());
+		Draw.drawQuad(Sprites.bot_button, this.x-3*Mideas.getDisplayXFactor(), this.y+19+this.scrollBarHeight-Sprites.top_button.getImageHeight()*Mideas.getDisplayYFactor());
 		drawUpArrow();
 		drawDownArrow();
 		Draw.drawQuad(Sprites.ascensor, this.x+3, this.y+this.y_ascensor+22*Mideas.getDisplayYFactor());
@@ -205,6 +233,8 @@ public class ScrollBar {
 	}
 	
 	public boolean event() {
+		if (!this.isEnabled)
+			return (false);
 		this.mouseWheel = Mideas.getMouseScrolledTick()/12;
 		if(mouseDragEvent()) return true;
 		if(topArrowEvent()) return true;
@@ -234,7 +264,7 @@ public class ScrollBar {
 				}
 				Mideas.setHover(false);
 			}
-			else if(Mideas.getHover() && Mideas.mouseY() > this.y+22*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+this.y_size) {
+			else if(Mideas.getHover() && Mideas.mouseY() > this.y+22*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+this.scrollBarHeight) {
 				if(Mouse.getEventButtonState()) {
 					if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 						setYAscensor(Mideas.mouseY()-this.y-28*Mideas.getDisplayYFactor());
@@ -274,7 +304,7 @@ public class ScrollBar {
 	}
 	
 	private void mouseScroll() {
-		if(Mideas.mouseX() >= this.x-this.x_frame_size+25 && Mideas.mouseX() <= this.x+25 && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.y_frame_size) {
+		if(Mideas.mouseX() >= this.x-this.frameWidth+25 && Mideas.mouseX() <= this.x+25 && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.frameHeight) {
 			if(this.mouseWheel != 0 ) {
 				if(this.mouseWheel > 0 && this.y_ascensor-this.scroll_tick_size > this.Y_ASCENSOR_UP_SHIFT) {
 					setYAscensor(this.y_ascensor-this.scroll_tick_size);
@@ -342,7 +372,7 @@ public class ScrollBar {
 	private boolean botArrowEvent() {
 		if(this.y_ascensor != this.Y_ASCENSOR_DOWN_SHIFT) {
 			this.buttonHoverBotArrow = false;
-			if(Mideas.mouseX() >= this.x+4*Mideas.getDisplayXFactor() && Mideas.mouseX() <= this.x+4*Mideas.getDisplayXFactor()+Sprites.scrollbar_up_arrow.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= this.y+this.y_size+2*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+this.y_size+2*Mideas.getDisplayYFactor()+Sprites.scrollbar_down_arrow.getImageHeight()*Mideas.getDisplayYFactor()) {
+			if(Mideas.mouseX() >= this.x+4*Mideas.getDisplayXFactor() && Mideas.mouseX() <= this.x+4*Mideas.getDisplayXFactor()+Sprites.scrollbar_up_arrow.getImageWidth()*Mideas.getDisplayXFactor() && Mideas.mouseY() >= this.y+this.scrollBarHeight+2*Mideas.getDisplayYFactor() && Mideas.mouseY() <= this.y+this.scrollBarHeight+2*Mideas.getDisplayYFactor()+Sprites.scrollbar_down_arrow.getImageHeight()*Mideas.getDisplayYFactor()) {
 				this.buttonHoverBotArrow = true;
 			}
 			if(this.buttonHoverBotArrow) {
@@ -396,16 +426,16 @@ public class ScrollBar {
 	
 	private void drawDownArrow() {
 		if(this.y_ascensor == this.Y_ASCENSOR_DOWN_SHIFT) {
-			Draw.drawQuad(Sprites.scrollbar_grey_down_arrow, this.x+4*Mideas.getDisplayXFactor(), this.y+this.y_size+1*Mideas.getDisplayYFactor());
+			Draw.drawQuad(Sprites.scrollbar_grey_down_arrow, this.x+4*Mideas.getDisplayXFactor(), this.y+this.scrollBarHeight+1*Mideas.getDisplayYFactor());
 		}
 		else if(this.buttonDownBotArrow) {
-			Draw.drawQuad(Sprites.scrollbar_down_arrow_down, this.x+4*Mideas.getDisplayXFactor(), this.y+this.y_size+1*Mideas.getDisplayYFactor());
+			Draw.drawQuad(Sprites.scrollbar_down_arrow_down, this.x+4*Mideas.getDisplayXFactor(), this.y+this.scrollBarHeight+1*Mideas.getDisplayYFactor());
 		}
 		else {
-			Draw.drawQuad(Sprites.scrollbar_down_arrow, this.x+4*Mideas.getDisplayXFactor(), this.y+this.y_size+1*Mideas.getDisplayYFactor());
+			Draw.drawQuad(Sprites.scrollbar_down_arrow, this.x+4*Mideas.getDisplayXFactor(), this.y+this.scrollBarHeight+1*Mideas.getDisplayYFactor());
 		}
 		if(this.buttonHoverBotArrow) {
-			Draw.drawQuadBlend(Sprites.scrollbar_arrow_hover, this.x+4*Mideas.getDisplayXFactor(), this.y+this.y_size);
+			Draw.drawQuadBlend(Sprites.scrollbar_arrow_hover, this.x+4*Mideas.getDisplayXFactor(), this.y+this.scrollBarHeight);
 		}
 	}
 	
@@ -432,26 +462,49 @@ public class ScrollBar {
 		this.x = (int)x;
 		this.y = (int)y;
 		boolean resize = this.y_ascensor == this.Y_ASCENSOR_DOWN_SHIFT;
-		this.y_size = (int)y_size;
+		this.scrollBarHeight = (int)y_size;
 		this.scroll_tick_size = (int)scroll_tick_size;
-		this.Y_ASCENSOR_DOWN_SHIFT = this.y_size-45*Mideas.getDisplayYFactor();
+		this.Y_ASCENSOR_DOWN_SHIFT = this.scrollBarHeight-45*Mideas.getDisplayYFactor();
 		if(resize) {
 			this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
 		}
+	}
+	
+	public void updateSize()
+	{
+		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
+		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
+		this.scroll_tick_size = (int)(this.scrollTickSizeSave * Mideas.getDisplayYFactor());
+		this.scrollBarHeight = (short)(this.scrollBarHeightSave * Mideas.getDisplayYFactor());
+		this.frameWidth = (int)(this.frameWidthSave * Mideas.getDisplayXFactor());
+		this.frameHeight = (int)(this.frameHeightSave * Mideas.getDisplayYFactor());
+		this.Y_ASCENSOR_DOWN_SHIFT = this.scrollBarHeight-45*Mideas.getDisplayYFactor();
+		if(this.y_ascensor == this.Y_ASCENSOR_DOWN_SHIFT)
+			this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
 	}
 	
 	public void update(float x, float y, float y_size, float x_frame_size, float y_frame_size, float scroll_tick_size) {
 		this.x = (int)x;
 		this.y = (int)y;
 		boolean resize = this.y_ascensor == this.Y_ASCENSOR_DOWN_SHIFT;
-		this.y_size = (int)y_size;
-		this.x_frame_size = (int)x_frame_size;
-		this.y_frame_size = (int)y_frame_size;
+		this.scrollBarHeight = (int)y_size;
+		this.frameWidth = (int)x_frame_size;
+		this.frameHeight = (int)y_frame_size;
 		this.scroll_tick_size = (int)scroll_tick_size;
-		this.Y_ASCENSOR_DOWN_SHIFT = this.y_size-45*Mideas.getDisplayYFactor();
+		this.Y_ASCENSOR_DOWN_SHIFT = this.scrollBarHeight-45*Mideas.getDisplayYFactor();
 		if(resize) {
 			this.y_ascensor = this.Y_ASCENSOR_DOWN_SHIFT;
 		}
+	}
+	
+	public void enable()
+	{
+		this.isEnabled = true;
+	}
+	
+	public void disable()
+	{
+		this.isEnabled = false;
 	}
 	
 	public void onScroll() {}

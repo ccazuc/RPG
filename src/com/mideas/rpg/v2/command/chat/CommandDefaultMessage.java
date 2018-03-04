@@ -21,6 +21,6 @@ public class CommandDefaultMessage extends Command {
 		else {
 			color = ConnectionManager.getWorldServerConnection().readColor();
 		}
-		ChatFrame.addMessage(new Message(value.getMessage(), false, MessageType.SELF, color));
+		ChatFrame.addMessage(new Message(value.getMessage(), false, MessageType.SELF, color, true));
 	}
 }

@@ -5,6 +5,17 @@ public class ParseData {
 	private int index;
 	private String objectName;
 	private int errorIndex;
+	private boolean errorFound;
+	
+	public boolean getErrorFound()
+	{
+		return (this.errorFound);
+	}
+	
+	public void setErrorFound(boolean we)
+	{
+		this.errorFound = we;
+	}
 	
 	public int getErrorIndex()
 	{

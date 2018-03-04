@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.hud.auction;
+package com.mideas.rpg.v2.hud.auction.hold;
 
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Interface;
@@ -49,7 +49,7 @@ public class AuctionFrameAuctionsUI {
 	
 		@Override
 		public void onLeftClickUp() {
-			Interface.closeAuctionFrame();
+			//Interface.closeAuctionFrame();
 			this.reset();
 		}
 	};
@@ -278,10 +278,10 @@ public class AuctionFrameAuctionsUI {
 		if(this.goldBuyoutPriceEditBox.mouseEvent()) return true;
 		if(this.silverBuyoutPriceEditBox.mouseEvent()) return true;
 		if(this.copperBuyoutPriceEditBox.mouseEvent()) return true;
-		if(this.sortByRarityButton.event()) return true;
-		if(this.sortByTimeLeftButton.event()) return true;
-		if(this.sortByHighBidderButton.event()) return true;
-		if(this.sortByCurrentBidButton.event()) return true;
+		if(this.sortByRarityButton.mouseEvent()) return true;
+		if(this.sortByTimeLeftButton.mouseEvent()) return true;
+		if(this.sortByHighBidderButton.mouseEvent()) return true;
+		if(this.sortByCurrentBidButton.mouseEvent()) return true;
 		return false;
 	}
 	

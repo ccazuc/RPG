@@ -74,12 +74,14 @@ public class Interface {
 	private static long dragMouseEventTime;
 	private static boolean hasLoggedInToAuth;
 	private static boolean isSpellbarFullyLoaded = true;
-	private static boolean auctionFrameActive;
 	private static boolean socketingFrameActive;
 	private static boolean socialFrameActive;
 	private static long time;
 	private static long socialDrawTime;
 	private static MailFrame mailFrame = new MailFrame();
+	private static AuctionHouseFrame auctionHouseFrame = new AuctionHouseFrame();
+	private final static boolean oldAH = false;
+	private static boolean auctionFrameActive;
 	
 	private static long LAST_CONTAINER_TIMER;
 	private final static int CONTAINER_TIMER_FREQUENCE = 1000;
@@ -189,9 +191,14 @@ public class Interface {
 				if(tradeFrameActive) {
 					TradeFrame.draw();
 				}
-				if(auctionFrameActive) {
-					AuctionHouseFrame.draw();
+				if (oldAH)
+				{
+					if(auctionFrameActive) {
+						//AuctionHouseFrame.draw();
+					}
 				}
+				else
+					auctionHouseFrame.draw();
 				ShortcutFrame.draw();
 				if(characterFrameActive) {
 					CharacterFrame.draw();
@@ -299,11 +306,15 @@ public class Interface {
 			if(PartyFrame.mouseEvent()) {
 				return true;
 			}
-			if(auctionFrameActive) {
-				if(AuctionHouseFrame.mouseEvent()) {
-					return true;
-				}
+			if (oldAH)
+			{
+				//if(auctionFrameActive)
+					//if(AuctionHouseFrame.mouseEvent())
+					//	return true;
 			}
+			else
+				if (auctionHouseFrame.mouseEvent())
+					return (true);
 			if(tradeFrameActive) {
 				if(TradeFrame.mouseEvent()) {
 					return true;
@@ -385,7 +396,18 @@ public class Interface {
 						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, false, true));
 						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "", false, false, true));
 						//ChatFrame.addMessage(new Message("Ceci est un test !", "TestChannel", "Mideas", false, true, true));
-						auctionFrameActive = !auctionFrameActive;
+						if (oldAH)
+						{
+							auctionFrameActive = !auctionFrameActive;
+						}
+						else
+						{
+							if (auctionHouseFrame.isOpen())
+								auctionHouseFrame.close();
+							else
+								auctionHouseFrame.open();
+								
+						}
 						return true;
 					}
 					if (Keyboard.getEventKey() == Keyboard.KEY_H)
@@ -532,11 +554,17 @@ public class Interface {
 							return true;
 						}
 					}
-					if(auctionFrameActive) {
-						if(AuctionHouseFrame.keyboardEvent()) {
-							return true;
-						}
+					if (oldAH)
+					{
+						/*if(auctionFrameActive) {
+							if(AuctionHouseFrame.keyboardEvent()) {
+								return true;
+							}
+						}*/
 					}
+					else if (auctionHouseFrame.keyboardEvent())
+						return (true);
+						
 					if (mailFrame.keyboardEvent())
 						return (true);
 					if(PopupFrame.keyEvent()) {
@@ -562,20 +590,17 @@ public class Interface {
 		return false;
 	}
 	
-	public static boolean isAuctionFrameOpen() {
-		return auctionFrameActive;
+	/*public static boolean isAuctionFrameOpen() {
+		return auctionHouseFrame.isOpen();
 	}
 	
 	public static void openAuctionFrame() {
-		auctionFrameActive = true;
+		auctionHouseFrame.open();
 	}
 	
 	public static void closeAuctionFrame() {
-		if(auctionFrameActive) {
-			AuctionHouseFrame.frameClosed();
-		}
-		auctionFrameActive = false;
-	}
+		auctionHouseFrame.close();
+	}*/
 	
 	public static boolean getTradeStatus() {
 		return tradeFrameActive;
@@ -776,7 +801,7 @@ public class Interface {
 		dungeonFrameActive = false;
 		craftFrameActive = false;
 		mailFrame.close();
-		closeAuctionFrame();
+		//closeAuctionFrame();
 		ContainerFrame.setBagOpen(0, false);
 		ContainerFrame.setBagOpen(1, false);
 		ContainerFrame.setBagOpen(2, false);
@@ -809,5 +834,10 @@ public class Interface {
 	public static MailFrame getMailFrame()
 	{
 		return (mailFrame);
+	}
+	
+	public static AuctionHouseFrame getAuctionHouseFrame()
+	{
+		return (auctionHouseFrame);
 	}
 }

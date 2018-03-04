@@ -995,10 +995,10 @@ public class GuildFrame {
 	}
 	
 	private static boolean mouseEventSortButton() {
-		if(sortByNameButton.event()) return true;
-		if(sortByRankButton.event()) return true;
-		if(sortByNoteButton.event()) return true;
-		if(sortByLastOnlineButton.event()) return true;
+		if(sortByNameButton.mouseEvent()) return true;
+		if(sortByRankButton.mouseEvent()) return true;
+		if(sortByNoteButton.mouseEvent()) return true;
+		if(sortByLastOnlineButton.mouseEvent()) return true;
 		return false;
 	}
 	

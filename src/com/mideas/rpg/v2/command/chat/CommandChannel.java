@@ -19,11 +19,11 @@ public class CommandChannel extends Command {
 			int channelValue = ConnectionManager.getWorldServerConnection().readInt();
 			String password = ConnectionManager.getWorldServerConnection().readString();
 			ChannelMgr.addChannel(channelName, channelID, channelValue, password);
-			ChatFrame.addMessage(new Message("Joined channel : ["+channelValue+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor()));
+			ChatFrame.addMessage(new Message("Joined channel : ["+channelValue+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor(), true));
 		}
 		else if(packetId == PacketID.CHANNEL_LEAVE) {
 			String channelName = ConnectionManager.getWorldServerConnection().readString();
-			ChatFrame.addMessage(new Message("Left channel : ["+ChannelMgr.getChannelIndex(channelName)+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor()));
+			ChatFrame.addMessage(new Message("Left channel : ["+ChannelMgr.getChannelIndex(channelName)+". "+channelName+']', false, MessageType.SELF, MessageType.CHANNEL.getColor(), true));
 			ChannelMgr.leaveChannel(channelName);
 		}
 		else if(packetId == PacketID.CHANNEL_SEND_MEMBERS) {
@@ -63,7 +63,7 @@ public class CommandChannel extends Command {
 			int id = ConnectionManager.getWorldServerConnection().readInt();
 			String memberName = ChannelMgr.getMemberName(channelName, id);
 			if(ChannelMgr.removeMember(channelName, id)) {
-				ChatFrame.addMessage(new Message(ChannelMgr.getChannelHeader(channelName)+" "+kickerName+" kicked "+memberName, false, MessageType.SELF, MessageType.CHANNEL.getColor()));
+				ChatFrame.addMessage(new Message(ChannelMgr.getChannelHeader(channelName)+" "+kickerName+" kicked "+memberName, false, MessageType.SELF, MessageType.CHANNEL.getColor(), true));
 			}
 		}
 		else if(packetId == PacketID.CHANNEL_SET_MODERATOR) {

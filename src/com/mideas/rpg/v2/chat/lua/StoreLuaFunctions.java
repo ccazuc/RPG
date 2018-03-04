@@ -25,6 +25,28 @@ public class StoreLuaFunctions {
 			return (object == null);
 		}
 	};
+	private final static LuaFunction random = new LuaFunction("Random")
+	{
+	
+		@Override
+		public Object handleFunction(Object object, ArrayList<Object> args)
+		{
+			System.out.println("Random called with list: " + args);
+			System.out.println(args.get(0).getClass());
+			if (args.size() == 2)
+			{
+				if (args.get(0) instanceof Integer && args.get(1) instanceof Integer)
+					return ((int)args.get(0) + ((int)args.get(1) - (int)args.get(0)) * Math.random());
+			}
+			return (Math.random());
+		}
+		
+		@Override
+		public boolean isFunctionVisible(Object object)
+		{
+			return (object == null);
+		}
+	};
 	private final static LuaFunction getWidth = new LuaFunction("GetWidth")
 	{
 	
@@ -45,6 +67,7 @@ public class StoreLuaFunctions {
 	{
 		functionMap.put(getMouseFocus.getName(), getMouseFocus);
 		functionMap.put(getWidth.getName(), getWidth);
+		functionMap.put(random.getName(), random);
 	}
 	
 	public static LuaFunction getFunction(Object object, String functionName)

@@ -205,6 +205,8 @@ public class StringUtils {
 			return false;
 		}
 		int i = -1;
+		if (str.charAt(0) == '-' || str.charAt(0) == '+')
+			++i;
 		while(++i < str.length()) {
 			char c = str.charAt(i);
 			if(c < '0' || c > '9') {

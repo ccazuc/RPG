@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.hud.auction;
+package com.mideas.rpg.v2.hud.auction.hold;
 
 import java.util.ArrayList;
 
@@ -172,7 +172,7 @@ public class AuctionFrameBrowseUI {
 	
 		@Override
 		public void onLeftClickUp() {
-			Interface.closeAuctionFrame();
+			//Interface.closeAuctionFrame();
 			this.reset();
 		}
 	};
@@ -711,11 +711,11 @@ public class AuctionFrameBrowseUI {
 		if(this.bidButton.event()) return true;
 		if(this.buyoutButton.event()) return true;
 		if(this.closeButton.event()) return true;
-		if(this.sortByRarityButton.event()) return true;
-		if(this.sortByLevelButton.event()) return true;
-		if(this.sortByTimeLeftButton.event()) return true;
-		if(this.sortBySellerButton.event()) return true;
-		if(this.sortByPricePerUnitButton.event()) return true;
+		if(this.sortByRarityButton.mouseEvent()) return true;
+		if(this.sortByLevelButton.mouseEvent()) return true;
+		if(this.sortByTimeLeftButton.mouseEvent()) return true;
+		if(this.sortBySellerButton.mouseEvent()) return true;
+		if(this.sortByPricePerUnitButton.mouseEvent()) return true;
 		if(this.sendQueryButton.event()) return true;
 		if(this.searchEditBox.mouseEvent()) return true;
 		if(this.minLevelEditBox.mouseEvent()) return true;

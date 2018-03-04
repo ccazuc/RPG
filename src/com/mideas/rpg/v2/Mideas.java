@@ -59,7 +59,7 @@ import com.mideas.rpg.v2.hud.SelectScreen;
 import com.mideas.rpg.v2.hud.SocketingFrame;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
-import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
+import com.mideas.rpg.v2.hud.auction.hold.AuctionHouseFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
@@ -269,9 +269,11 @@ public class Mideas {
 	
 	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException {
 		StoreLuaFunctions.initFunctionMap();
-		ChatAdvancedCommandMgr.handleCommand("GetFunction(\"a\\\"rg(1\", \"5555\", \"BLAB)LA\", \"1515151515120029990.\",GetMouseFocus(GetMouseFocus(GetMouseFocus(\"abc\"), \"def\")), \"args2\")", false);
-		//loop();
-		//saveAllStats();
+		//ChatAdvancedCommandMgr.handleCommand("GetFunction(\"a\\\"rg(1\", \"5555\",    \"BLAB)LA\",     \"1515151515120029990.\"   ,    GetMouseFocus(GetMouseFocus(GetMouseFocus(\"abc\"), \"def\")), \"args2\", 540   , 93154   )", false);
+		//ChatAdvancedCommandMgr.handleCommand("GetMouseFocus(Random(1, 100))", true);
+		//ChatAdvancedCommandMgr.handleCommand("TestFrame    :     GetWidth()", true);
+		loop();
+		saveAllStats();
 	}
 	
 	public static void closeGame() {
@@ -310,6 +312,7 @@ public class Mideas {
 		AuraFrame.shouldUpdate();
 		AuctionHouseFrame.shouldUpdate();
 		Interface.getMailFrame().shouldUpdateSize();
+		Interface.getAuctionHouseFrame().shouldUpdateSize();
 		if(joueur1 != null) {
 			if(joueur1.getFirstProfession() != null) {
 				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);

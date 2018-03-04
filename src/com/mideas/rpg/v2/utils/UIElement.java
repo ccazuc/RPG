@@ -46,8 +46,17 @@ public abstract class  UIElement {
 
 	@SuppressWarnings("unused")
 	public void setX(int x) {}
+	
 	@SuppressWarnings("unused")
 	public void setY(int y) {}
+	
+	@SuppressWarnings("unused")
+	public void setWidth(int width) {}
+	
+	@SuppressWarnings("unused")
+	public void setHeight(int height) {}
+	
 	public abstract void draw();
+	
 	public abstract boolean mouseEvent();
 }
