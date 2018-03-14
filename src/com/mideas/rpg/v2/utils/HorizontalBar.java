@@ -1,8 +1,8 @@
 package com.mideas.rpg.v2.utils;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 
 public class HorizontalBar {
 

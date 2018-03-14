@@ -17,11 +17,11 @@ import com.mideas.rpg.v2.chat.channel.ChatChannel;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.command.chat.CommandSendMessage;
 import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.InputBar;
 import com.mideas.rpg.v2.utils.StringUtils;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.utils.Color;
 
 public class ChatFrame {

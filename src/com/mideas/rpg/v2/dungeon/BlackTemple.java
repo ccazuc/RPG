@@ -4,15 +4,16 @@ import java.io.FileNotFoundException;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import com.mideas.rpg.v2.utils.Texture;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
+
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.game.classes.ClassManager;
 import com.mideas.rpg.v2.game.unit.Joueur;
 import com.mideas.rpg.v2.hud.EndFightFrame;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
+import com.mideas.rpg.v2.render.Texture;
 import com.mideas.rpg.v2.utils.Color;
 
 public class BlackTemple extends Dungeon {

@@ -1,11 +1,11 @@
 package com.mideas.rpg.v2.game.shortcut;
 
-import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.command.spell.CommandCast;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.spell.Spell;
 import com.mideas.rpg.v2.game.spell.SpellManager;
+import com.mideas.rpg.v2.render.Texture;
 
 public class SpellShortcut implements Shortcut {
 	

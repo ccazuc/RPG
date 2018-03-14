@@ -64,14 +64,14 @@ import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.PNGDecoder;
+import com.mideas.rpg.v2.render.Sprites;
+import com.mideas.rpg.v2.render.Texture;
 import com.mideas.rpg.v2.stresstest.StresstestConnectionMgr;
 import com.mideas.rpg.v2.stresstest.StresstestMgr;
 import com.mideas.rpg.v2.utils.StringUtils;
-import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.utils.UIElement;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.PNGDecoder;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class Mideas {
 	
@@ -158,7 +158,7 @@ public class Mideas {
 		GL11.glEnable(GL11.GL_BLEND);
 		FontManager.init();
 		long time = System.currentTimeMillis();
-		loadingScreen();
+		loadingScreen(true);
 		System.out.println("Sprites loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		cursor_image = ImageIO.read(new File("sprite/interface/cursor.png"));
 		final int cursor_width = cursor_image.getWidth();
@@ -248,6 +248,8 @@ public class Mideas {
 				TaskManager.executeTask();
 				time = System.nanoTime();
 				Interface.draw();
+				if (Texture.generatingTextureIdAsync)
+					Texture.generateNextTextureIdAsync();
 				if(LOOP_TICK_TIMER-LAST_INTERFACE_DRAW_TIMER >= INTERFACE_DRAW_UPDATE_FREQUENCE) {
 					interfaceDrawTime = System.nanoTime()-time;
 					LAST_INTERFACE_DRAW_TIMER = LOOP_TICK_TIMER;
@@ -608,7 +610,7 @@ public class Mideas {
 		}
 	}*/
 	
-	public static void loadingScreen() {
+	public static void loadingScreen(boolean fastReload) {
 		/*Sprites.initBG();
 		context2D();
 		int barWidth = (int)(850*Mideas.getDisplayXFactor());
@@ -678,7 +680,17 @@ public class Mideas {
 			updateDisplayFactor();
 			barWidth = (int)(850*Mideas.getDisplayXFactor());
 		}*/
-		Texture.loadAllTexture();
+		if (fastReload)
+		{
+			Sprites.initBG();
+			Sprites.sprite();
+			Sprites.sprite2();
+			Sprites.sprite8();
+			Sprites.sprite9();
+			Sprites.sprite10();
+		}
+		Texture.loadAllTextureDatasAsync();
+		Texture.loadAllTexture(fastReload);
 	}
 	
 	public static Joueur joueur1() {

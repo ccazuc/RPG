@@ -10,13 +10,13 @@ import com.mideas.rpg.v2.command.CommandIgnore;
 import com.mideas.rpg.v2.command.CommandParty;
 import com.mideas.rpg.v2.game.social.Friend;
 import com.mideas.rpg.v2.hud.PopupFrame;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
+import com.mideas.rpg.v2.render.TTF;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.FrameTab;
 import com.mideas.rpg.v2.utils.ScrollBar;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
-import com.mideas.rpg.v2.utils.render.TTF;
 
 import static com.mideas.rpg.v2.hud.social.SocialFrame.Y_SOCIAL_FRAME;
 import static com.mideas.rpg.v2.hud.social.SocialFrame.X_SOCIAL_FRAME;

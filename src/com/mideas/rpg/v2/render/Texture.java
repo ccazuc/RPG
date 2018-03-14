@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.utils;
+package com.mideas.rpg.v2.render;
 
 import static org.lwjgl.opengl.GL11.GL_DST_COLOR;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -27,33 +27,40 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.OpenGL;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public final class Texture {
 
-	private final static HashSet<Texture> textureSet = new HashSet<Texture>();
+	private final static ArrayList<Texture> textureSetLoadOnStart = new ArrayList<Texture>();
+	private final static ArrayList<Texture> textureSetLoadAsync = new ArrayList<Texture>();
+	public static volatile boolean asyncTextureLoadFinished;
+	public static boolean generatingTextureIdAsync;
+	private static int currentTextureLoadAsyncIndex;
+	private ByteBuffer textureDatas;
 	private static boolean textureLoaded = false;
 	private int textureID;
 	private int height;
 	private int width;
 	private File file;
 
-	public Texture(String string, boolean directLoad)
+	public Texture(String string, boolean directLoad, boolean loadOnStart)
 	{
-		this(new File(string), directLoad);
+		this(new File(string), directLoad, loadOnStart);
 	}
 
-	public Texture(String string)
+	public Texture(String string, boolean loadOnStart)
 	{
-		this(new File(string));
+		this(new File(string), loadOnStart);
 	}
 
-	public Texture(final File file)
+	public Texture(final File file, boolean loadOnStart)
 	{
 		this.file = file;
-		textureSet.add(this);
+		if (loadOnStart)
+		{
+			textureSetLoadOnStart.add(this);
+		}
+		else
+			textureSetLoadAsync.add(this);
 		/*try {
 			BufferedImage image = ImageIO.read(file);
 			final int width = image.getWidth();
@@ -87,7 +94,7 @@ public final class Texture {
 		}*/
 	}
 
-	public Texture(final File file, boolean directLoad) {
+	public Texture(final File file, boolean directLoad, boolean loadOnStart) {
 		if (directLoad)
 		{
 			try {
@@ -125,7 +132,79 @@ public final class Texture {
 		else
 		{
 			this.file = file;
-			textureSet.add(this);
+			if (loadOnStart)
+				textureSetLoadOnStart.add(this);
+			else
+				textureSetLoadAsync.add(this);
+		}
+	}
+	
+	public void loadTextureDatasAsync()
+	{
+		try
+		{
+			BufferedImage image = ImageIO.read(this.file);
+			final int width = image.getWidth();
+			final int height = image.getHeight();
+			final int[] pixels = new int[width*height];
+			this.textureDatas = ByteBuffer.allocateDirect(width*height*4).order(ByteOrder.nativeOrder());
+			image.getRGB(0, 0, width, height, pixels, 0, width);
+			int i = -1;
+			while(++i < pixels.length) {
+				this.textureDatas.put((byte)(pixels[i]>>16));
+				this.textureDatas.put((byte)(pixels[i]>>8));
+				this.textureDatas.put((byte) pixels[i]);
+				this.textureDatas.put((byte)(pixels[i]>>24));
+			}
+			this.textureDatas.position(0);
+			this.width = width;
+			this.height = height;
+		}
+		catch (IOException e)
+		{
+			this.height = 0;
+			this.width = 0;
+			e.printStackTrace();
+		}
+	}
+	
+	private void generateTextureIdAsync()
+	{
+		this.textureID = OpenGL.glGenTextures();
+		OpenGL.glBindTexture(OpenGL.GL_TEXTURE_2D, this.textureID);
+		OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
+		OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
+		//OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_NEAREST);
+		//OpenGL.glTexParameteri(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_NEAREST);
+		OpenGL.glTexImage2D(OpenGL.GL_TEXTURE_2D, 0, OpenGL.GL_RGBA8, this.width, this.height, 0, OpenGL.GL_RGBA, OpenGL.GL_UNSIGNED_BYTE, this.textureDatas);
+	}
+	
+	public static void loadAllTextureDatasAsync()
+	{
+		Thread thread = new Thread(new LoadTextureRunnable());
+		thread.start();
+		generatingTextureIdAsync = true;
+	}
+	
+	public static void generateNextTextureIdAsync()
+	{
+		if (!asyncTextureLoadFinished)
+			return;
+		int i = -1;
+		while (++i < 10)
+		{
+			if (currentTextureLoadAsyncIndex < textureSetLoadAsync.size())
+			{
+				textureSetLoadAsync.get(currentTextureLoadAsyncIndex).generateTextureIdAsync();
+				++currentTextureLoadAsyncIndex;
+			}
+			else
+				break;
+		}
+		if (currentTextureLoadAsyncIndex == textureSetLoadAsync.size())
+		{
+			System.out.println("Texture id generation done");
+			generatingTextureIdAsync = false;
 		}
 	}
 	
@@ -166,25 +245,20 @@ public final class Texture {
 		}
 	}
 	
-	public static void loadAllTexture()
+	public static void loadAllTexture(boolean fastReload)
 	{
 		if (!textureLoaded)
 		{
-			Sprites.initBG();
-			Sprites.sprite();
-			Sprites.sprite2();
-			Sprites.sprite8();
-			Sprites.sprite9();
-			Sprites.sprite10();
 			textureLoaded = true;
 		}
 		Mideas.context2D();
-		Display.setVSyncEnabled(false);
+		if (fastReload)
+			Display.setVSyncEnabled(false);
 		Display.sync(1000);
-		int index = 0;
 		Mideas.updateDisplayFactor();
+		int i = -1;
 		float barWidth = 700 * Mideas.getDisplayXFactor();
-		for (Texture texture : textureSet)
+		while (++i < textureSetLoadOnStart.size())
 		{
 			if(Display.wasResized())
 			{
@@ -192,16 +266,16 @@ public final class Texture {
 				Mideas.updateDisplayFactor();
 				barWidth = 700 * Mideas.getDisplayXFactor();
 			}
-			texture.loadTexture();
+			textureSetLoadOnStart.get(i).loadTexture();
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 			Draw.drawQuadBG(Sprites.loading_screen);
-			Draw.drawQuad(Sprites.loading_screen_bar_progress, Display.getWidth() / 2 - barWidth / 2 + 25 * Mideas.getDisplayXFactor(), Display.getHeight() / 2 + 350 * Mideas.getDisplayYFactor() + 7, (int)(barWidth * index / textureSet.size()) - 55 * Mideas.getDisplayXFactor(), 20);
+			Draw.drawQuad(Sprites.loading_screen_bar_progress, Display.getWidth() / 2 - barWidth / 2 + 25 * Mideas.getDisplayXFactor(), Display.getHeight() / 2 + 350 * Mideas.getDisplayYFactor() + 7, (int)(barWidth * i / textureSetLoadOnStart.size()) - 55 * Mideas.getDisplayXFactor(), 20);
 			Draw.drawQuad(Sprites.loading_screen_bar, Display.getWidth() / 2 - barWidth / 2, Display.getHeight() / 2 + 350 * Mideas.getDisplayYFactor(), barWidth, 40 * Mideas.getDisplayYFactor());
 			Display.update();
 			Display.sync(1000);
-			++index;
 		}
-		Display.setVSyncEnabled(true);
+		if (fastReload)
+			Display.setVSyncEnabled(true);
 	}
 
 	/*public Texture(final File file) throws IOException {
@@ -289,4 +363,8 @@ public final class Texture {
 		return this.textureID;
 	}
 
+	public final static ArrayList<Texture> getAsynTextureList()
+	{
+		return (textureSetLoadAsync);
+	}
 }

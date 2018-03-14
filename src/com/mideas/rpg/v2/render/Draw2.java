@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.utils.render;
+package com.mideas.rpg.v2.render;
 
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glLineWidth;
@@ -8,7 +8,6 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.Texture;
 
 import static org.lwjgl.opengl.GL11.glVertex2d;
 import static org.lwjgl.opengl.GL11.glDisable;

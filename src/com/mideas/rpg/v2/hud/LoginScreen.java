@@ -8,13 +8,13 @@ import org.lwjgl.opengl.Display;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.CheckBox;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Input;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class LoginScreen {
 
@@ -81,6 +81,7 @@ public class LoginScreen {
 	public static void draw() {
 		updateSize();
 		Draw.drawQuadBG(Sprites.login_screen);
+		//System.out.println("Login_screen: width: " + Sprites.login_screen.getImageWidth());
 		drawPassword();
 		FontManager.get("FRIZQT", 17).drawStringShadow(Display.getWidth()-23*Mideas.getDisplayXFactor()-realmNameWidth, Display.getHeight()/2+325*Mideas.getDisplayYFactor(), realmName, Color.GREY, Color.BLACK, 2, 0, 0);
 		rememberAccountNameCheckBox.draw();

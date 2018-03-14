@@ -9,10 +9,10 @@ import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.unit.ClassType;
 import com.mideas.rpg.v2.game.unit.Unit;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class EndFightFrame {
 

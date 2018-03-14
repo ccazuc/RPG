@@ -1,11 +1,10 @@
 package com.mideas.rpg.v2.game.shortcut;
 
-import com.mideas.rpg.v2.utils.Texture;
-
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.IconsManager;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
+import com.mideas.rpg.v2.render.Texture;
 
 public class PotionShortcut implements Shortcut {
 	

@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.game.shortcut;
 
-import com.mideas.rpg.v2.utils.Texture;
-
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.IconsManager;
@@ -11,6 +9,7 @@ import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.unit.Joueur;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
+import com.mideas.rpg.v2.render.Texture;
 
 public class StuffShortcut implements Shortcut {
 

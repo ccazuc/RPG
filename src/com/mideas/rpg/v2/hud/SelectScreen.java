@@ -17,13 +17,13 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.game.classes.SelectScreenPlayer;
 import com.mideas.rpg.v2.game.race.Classe;
 import com.mideas.rpg.v2.game.race.NewCharacterRace;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.utils.Alert;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.StringUtils;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class SelectScreen {
 

@@ -6,10 +6,10 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.render.TTF;
 import com.mideas.rpg.v2.utils.AlertBackground;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.render.TTF;
 
 
 public class EscapeFrame {

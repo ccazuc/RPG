@@ -6,10 +6,10 @@ import org.lwjgl.opengl.Display;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.CommandAura;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.TTF;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.StringUtils;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.TTF;
 
 public class AuraFrame {
 

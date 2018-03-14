@@ -3,7 +3,7 @@ package com.mideas.rpg.v2.utils;
 import org.lwjgl.input.Keyboard;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.utils.render.TTF;
+import com.mideas.rpg.v2.render.TTF;
 
 public class IntegerInput extends Input {
 	

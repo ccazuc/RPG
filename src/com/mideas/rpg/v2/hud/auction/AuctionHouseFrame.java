@@ -1,8 +1,8 @@
 package com.mideas.rpg.v2.hud.auction;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.utils.Frame;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class AuctionHouseFrame extends Frame {
 
@@ -14,7 +14,7 @@ public class AuctionHouseFrame extends Frame {
 	private final static short X_FRAME = 19;
 	private final static short Y_FRAME = 118;
 	private final static short FRAME_WIDTH = (short)879;
-	private final static short FRAME_HEIGHT = (short)Sprites.auction_browse_frame.getImageHeight();
+	private final static short FRAME_HEIGHT = (short)434;
 	
 	public AuctionHouseFrame()
 	{

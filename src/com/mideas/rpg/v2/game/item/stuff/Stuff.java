@@ -1,7 +1,5 @@
 package com.mideas.rpg.v2.game.item.stuff;
 
-import com.mideas.rpg.v2.utils.Texture;
-import com.mideas.rpg.v2.utils.render.Sprites;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.Item;
@@ -12,6 +10,8 @@ import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
 import com.mideas.rpg.v2.game.unit.ClassType;
+import com.mideas.rpg.v2.render.Sprites;
+import com.mideas.rpg.v2.render.Texture;
 
 public class Stuff extends Item {
 

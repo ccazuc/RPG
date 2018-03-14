@@ -21,10 +21,10 @@ import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.stuff.StuffType;
 import com.mideas.rpg.v2.game.item.weapon.WeaponSlot;
 import com.mideas.rpg.v2.game.redalert.DefaultRedAlert;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class DragManager {
 	

@@ -3,8 +3,8 @@ package com.mideas.rpg.v2.game.talent;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 
 public class Talent {
 	private static int x = -480;

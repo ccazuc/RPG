@@ -36,4 +36,9 @@ public class CallbackManager {
 		MailMgr.clearMailList();
 		Interface.getMailFrame().close();
 	}
+	
+	public static void onAuctionQueryResult()
+	{
+		
+	}
 }

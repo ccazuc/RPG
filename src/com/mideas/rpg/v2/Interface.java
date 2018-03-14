@@ -44,10 +44,10 @@ import com.mideas.rpg.v2.hud.mail.MailFrame;
 import com.mideas.rpg.v2.hud.social.OsefFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.hud.social.guild.GuildFrame;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.stresstest.StresstestMgr;
 import com.mideas.rpg.v2.utils.Input;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class Interface {
 	

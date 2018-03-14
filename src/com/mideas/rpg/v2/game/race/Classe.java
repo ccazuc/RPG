@@ -1,7 +1,7 @@
 package com.mideas.rpg.v2.game.race;
 
-import com.mideas.rpg.v2.utils.Texture;
-import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.render.Sprites;
+import com.mideas.rpg.v2.render.Texture;
 
 public enum Classe {
 
@@ -18,7 +18,7 @@ public enum Classe {
 	private final Texture texture;
 	private final String name;
 	
-	Classe(Texture texture, String name) {
+	private Classe(Texture texture, String name) {
 		this.texture = texture;
 		this.name = name;
 	}

@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import org.newdawn.slick.util.ResourceLoader;
 
-import com.mideas.rpg.v2.utils.render.TTF;
+import com.mideas.rpg.v2.render.TTF;
 
 public class FontManager {
 

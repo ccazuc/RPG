@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mideas.rpg.v2.utils.Texture;
+import com.mideas.rpg.v2.render.Texture;
 
 public class IconsManager {
 
@@ -27,7 +27,7 @@ public class IconsManager {
 	private static void loadTexture37(String id) {
 		File file = new File("Icons 37-35/"+id+".jpg");
 		if(file.exists()) {
-			sprites37.put(id, new Texture(file.getAbsolutePath(), true));
+			sprites37.put(id, new Texture(file.getAbsolutePath(), true, true));
 		}
 	}
 }

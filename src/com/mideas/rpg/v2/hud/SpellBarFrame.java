@@ -10,12 +10,12 @@ import com.mideas.rpg.v2.game.item.ItemType;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.shortcut.Shortcut;
 import com.mideas.rpg.v2.game.shortcut.ShortcutType;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
+import com.mideas.rpg.v2.render.Texture;
 import com.mideas.rpg.v2.utils.ButtonSpellbar;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.Texture;
 import com.mideas.rpg.v2.utils.Tooltip;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class SpellBarFrame {
 

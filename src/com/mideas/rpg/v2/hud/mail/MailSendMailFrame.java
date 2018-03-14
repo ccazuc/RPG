@@ -6,14 +6,14 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.CommandMail;
 import com.mideas.rpg.v2.game.mail.Mail;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
+import com.mideas.rpg.v2.render.TTF;
 import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Frame;
 import com.mideas.rpg.v2.utils.Input;
 import com.mideas.rpg.v2.utils.InputBox;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
-import com.mideas.rpg.v2.utils.render.TTF;
 
 public class MailSendMailFrame extends Frame
 {

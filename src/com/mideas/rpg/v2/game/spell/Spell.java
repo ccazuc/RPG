@@ -1,9 +1,8 @@
 package com.mideas.rpg.v2.game.spell;
 
-import com.mideas.rpg.v2.utils.Texture;
-
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.IconsManager;
+import com.mideas.rpg.v2.render.Texture;
 
 public class Spell {
 	

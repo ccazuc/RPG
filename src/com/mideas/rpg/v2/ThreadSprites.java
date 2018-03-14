@@ -1,6 +1,6 @@
 package com.mideas.rpg.v2;
 
-import com.mideas.rpg.v2.utils.render.Sprites;
+import com.mideas.rpg.v2.render.Sprites;
 
 public class ThreadSprites implements Runnable {
 

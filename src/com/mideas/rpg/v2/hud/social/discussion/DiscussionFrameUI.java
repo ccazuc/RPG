@@ -10,12 +10,12 @@ import com.mideas.rpg.v2.chat.ChatFrame;
 import com.mideas.rpg.v2.chat.channel.ChannelMember;
 import com.mideas.rpg.v2.chat.channel.ChatChannel;
 import com.mideas.rpg.v2.command.chat.CommandChannel;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
+import com.mideas.rpg.v2.render.TTF;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.TextMenu;
 import com.mideas.rpg.v2.utils.TooltipMenu;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
-import com.mideas.rpg.v2.utils.render.TTF;
 
 public class DiscussionFrameUI {
 

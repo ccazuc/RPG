@@ -13,13 +13,13 @@ import com.mideas.rpg.v2.game.item.gem.GemBonusType;
 import com.mideas.rpg.v2.game.item.gem.GemColor;
 import com.mideas.rpg.v2.game.item.potion.Potion;
 import com.mideas.rpg.v2.game.item.stuff.Stuff;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.CrossButton;
 import com.mideas.rpg.v2.utils.IntegerInput;
 import com.mideas.rpg.v2.utils.StringUtils;
 import com.mideas.rpg.v2.utils.Tooltip;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class ContainerFrame {
 	

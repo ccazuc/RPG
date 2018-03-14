@@ -28,9 +28,9 @@ import com.mideas.rpg.v2.hud.ContainerFrame;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.LogChat;
 import com.mideas.rpg.v2.jdo.JDOStatement;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
 
 public class ShopManager {
 	

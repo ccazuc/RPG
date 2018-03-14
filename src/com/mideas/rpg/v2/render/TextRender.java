@@ -1,4 +1,4 @@
-package com.mideas.rpg.v2.utils.render;
+package com.mideas.rpg.v2.render;
 
 import java.util.ArrayList;
 

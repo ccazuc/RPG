@@ -17,9 +17,9 @@ import com.mideas.rpg.v2.game.spell.SpellManager;
 import com.mideas.rpg.v2.hud.DragManager;
 import com.mideas.rpg.v2.hud.DragSpellManager;
 import com.mideas.rpg.v2.hud.SpellBarFrame;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.Sprites;
-import com.mideas.rpg.v2.utils.render.TTF;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.Sprites;
+import com.mideas.rpg.v2.render.TTF;
 
 public class ButtonSpellbar {
 

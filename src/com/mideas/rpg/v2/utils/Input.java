@@ -11,8 +11,8 @@ import org.lwjgl.input.Keyboard;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
-import com.mideas.rpg.v2.utils.render.Draw;
-import com.mideas.rpg.v2.utils.render.TTF;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.render.TTF;
 
 public class Input
 {

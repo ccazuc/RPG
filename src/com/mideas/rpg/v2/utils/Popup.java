@@ -1,7 +1,7 @@
 package com.mideas.rpg.v2.utils;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.utils.render.TTF;
+import com.mideas.rpg.v2.render.TTF;
 import com.mideas.rpg.v2.FontManager;
 
 public class Popup {
