@@ -581,6 +581,41 @@ public class ChatCommandMgr {
 			CommandMail.sendMail("Mideas", "Something", builder.toString(), false, 0, null);
 		}
 	};
+	private final static ChatCommand rand = new ChatCommand("rand", "/rand [min] [max] to generate a pseudo-random numbet between min and max, defaut is 1 100")
+	{
+		
+		@Override
+		public void handle(String[] command)
+		{
+			if (command.length == 1 || (command.length >= 2 && !StringUtils.isInteger(command[1])))
+			{
+				ChatFrame.addMessage(new Message(Mideas.joueur1().getName() + " rolls " + (int)((1 + Math.random() * 100)) + " (1-100)", false, MessageType.SELF, false));
+			}
+			else if (command.length == 2 || (command.length >= 3 && !StringUtils.isInteger(command[2])))
+			{
+				long value = Long.valueOf(command[1]);
+				if (value > Integer.MAX_VALUE || value <= 0)
+					value = 100;
+				ChatFrame.addMessage(new Message(Mideas.joueur1().getName() + " rolls " + (int)((1 + Math.random() * (value))) + " (1-" + value + ")", false, MessageType.SELF, false));
+			}
+			else if (command.length >= 3)
+			{
+				long min = Long.valueOf(command[1]);
+				long max = Long.valueOf(command[2]);
+				if (min > max)
+				{
+					ChatFrame.addMessage(new Message("Max value should be superior or equal to min value.", false, MessageType.SELF, false));
+					return;
+				}
+				if (min > Integer.MAX_VALUE || max > Integer.MAX_VALUE || min <= 0 || max <= 0)
+				{
+					min = 1;
+					max = 100;
+				}
+				ChatFrame.addMessage(new Message(Mideas.joueur1().getName() + " rolls " + (int)((min + Math.random() * (max - min + 1))) + " (" + min + "-" + max+ ")", false, MessageType.SELF, false));
+			}
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
@@ -619,6 +654,7 @@ public class ChatCommandMgr {
 		addCommand(mail);
 		mail.addSubCommand(mail_debug);
 		mail.addSubCommand(mail_test);
+		addCommand(rand);
 	}
 	
 	public static void handleChatCommand(String str)

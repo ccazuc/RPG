@@ -23,7 +23,7 @@ public class CommandSelectScreenLoadCharacters extends Command {
 			SelectScreen.setCharacterList(new SelectScreenPlayer(id, name, level, classe, race), i);
 			i++;
 		}
-			SelectScreen.setTotalCharacter(i);
+		SelectScreen.setTotalCharacter(i);
 		SelectScreen.getAlert().setInactive();
 	}
 	
