@@ -54,7 +54,7 @@ public class CommandSendMessage extends Command {
 			String name = ConnectionManager.getWorldServerConnection().readString();
 			boolean isTarget = ConnectionManager.getWorldServerConnection().readBoolean();
 			boolean isGM = ConnectionManager.getWorldServerConnection().readBoolean();
-			ChatFrame.addMessage(new Message(message, name, false, MessageType.WHISPER, isTarget, isGM));
+			ChatFrame.addMessage(new Message(message, name, false, MessageType.WHISPER, isTarget, isGM, true));
 			ChatFrame.setPreviousWhisper(name);
 		}
 		else if(type == MessageType.SAY || type == MessageType.BATTLEGROUND || type == MessageType.GUILD || type == MessageType.PARTY || type == MessageType.RAID || type == MessageType.YELL || type == MessageType.PARTY_LEADER) {

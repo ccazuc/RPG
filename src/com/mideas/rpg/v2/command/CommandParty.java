@@ -37,7 +37,7 @@ public class CommandParty extends Command {
 			int maxMana = ConnectionManager.getWorldServerConnection().readInt();
 			int level = ConnectionManager.getWorldServerConnection().readInt();
 			int id = ConnectionManager.getWorldServerConnection().readInt();
-			ClassType type = ClassType.values()[ConnectionManager.getWorldServerConnection().readChar()];
+			ClassType type = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			Mideas.joueur1().getParty().addMember(new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type));
 		}
 		else if(packetId == PacketID.PARTY_NEW) {
@@ -49,7 +49,7 @@ public class CommandParty extends Command {
 			int maxMana = ConnectionManager.getWorldServerConnection().readInt();
 			int level = ConnectionManager.getWorldServerConnection().readInt();
 			int id = ConnectionManager.getWorldServerConnection().readInt();
-			ClassType type = ClassType.values()[ConnectionManager.getWorldServerConnection().readChar()];
+			ClassType type = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			//System.out.println(name+" "+stamina+" "+maxStamina+" "+mana+" "+maxMana+" "+level+" "+id+" "+isLeader);
 			Unit member = new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type);
 			Unit leader = isLeader ? Mideas.joueur1() : member;
@@ -70,6 +70,28 @@ public class CommandParty extends Command {
 		}
 		else if(packetId == PacketID.PARTY_SET_LEADER) {
 			setLeader(ConnectionManager.getWorldServerConnection().readInt());
+		}
+		else if (packetId == PacketID.PARTY_INIT)
+		{
+			int i = -1;
+			int length = ConnectionManager.getWorldServerConnection().readInt();
+			int leaderId = ConnectionManager.getWorldServerConnection().readInt();
+			if (length > 0)
+				Mideas.joueur1().setParty(new Party());
+			while (++i < length)
+			{
+				String name = ConnectionManager.getWorldServerConnection().readString();
+				int stamina = ConnectionManager.getWorldServerConnection().readInt();
+				int maxStamina = ConnectionManager.getWorldServerConnection().readInt();
+				int mana = ConnectionManager.getWorldServerConnection().readInt();
+				int maxMana = ConnectionManager.getWorldServerConnection().readInt();
+				int level = ConnectionManager.getWorldServerConnection().readInt();
+				int id = ConnectionManager.getWorldServerConnection().readInt();
+				ClassType type = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
+				Unit member = new Unit(id, stamina, maxStamina, mana, maxMana, level, name, type);
+				Mideas.joueur1().getParty().addMember(member);
+			}
+			setLeader(leaderId);
 		}
 	}
 	

@@ -231,6 +231,7 @@ public class ChatFrame {
 		Sprites.chat_logo_blizz.drawBegin();
 		while(i < messages.size()) {
 			Message message = messages.get(i);
+			//System.out.println(message.isGM());
 			if(message.isGM() && message.getOpacity() > 0) {
 				if(message.getType() == MessageType.WHISPER && !message.isTarget()) {
 					Draw.drawQuadPart(Sprites.chat_logo_blizz, xDraw+16, yDraw, Sprites.chat_logo_blizz.getImageWidth(), Sprites.chat_logo_blizz.getImageHeight());

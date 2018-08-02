@@ -197,7 +197,7 @@ public class Interface {
 						//AuctionHouseFrame.draw();
 					}
 				}
-				else
+				else if (auctionHouseFrame.isOpen())					
 					auctionHouseFrame.draw();
 				ShortcutFrame.draw();
 				if(characterFrameActive) {
@@ -313,7 +313,7 @@ public class Interface {
 					//	return true;
 			}
 			else
-				if (auctionHouseFrame.mouseEvent())
+				if (auctionHouseFrame.isOpen() && auctionHouseFrame.mouseEvent())
 					return (true);
 			if(tradeFrameActive) {
 				if(TradeFrame.mouseEvent()) {

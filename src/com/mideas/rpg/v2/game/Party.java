@@ -13,6 +13,11 @@ public class Party {
 		this.leader = leader;
 	}
 	
+	public Party()
+	{
+		this.partyList = new Unit[4];
+	}
+	
 	public boolean isPartyLeader(Unit unit) {
 		return this.leader.getId() == unit.getId();
 	}
