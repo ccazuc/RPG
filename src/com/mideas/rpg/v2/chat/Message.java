@@ -145,30 +145,23 @@ public class Message {
 		builder.setLength(0);
 		this.tabOnNewLine = tabOnNewLine;
 		if(type == MessageType.SAY || type == MessageType.YELL) {
-			if(isGM) {
+			if(isGM)
 				this.authorText = builder.append(gmLogoSpace).append("[").append(author).append("]").append(type.getChatDisplay()).toString();
-			}
-			else {
+			else
 				this.authorText = builder.append("[").append(author).append("]").append(type.getChatDisplay()).toString();
-			}
 		}
 		else if(type != MessageType.SELF) {
-			if(isGM) {
+			if(isGM)
 				this.authorText = builder.append(type.getChatDisplay()).append(gmLogoSpace).append("[").append(author).append("] : ").toString();
-			}
-			else {
+			else
 				this.authorText = builder.append(type.getChatDisplay()).append("[").append(author).append("] : ").toString();
-			}
 		}
-		else if(isGM) {
+		else if(isGM)
 			this.authorText = builder.append(gmLogoSpace).append("[").append(author).append(']').toString();
-		}
-		else {
+		else
 			this.authorText = builder.append('[').append(author).append(']').toString();
-		}
-		if(isGM) {
+		if(isGM)
 			this.author = null;
-		}
 	}
 	
 	public Message(String message, String author, boolean displayHour, MessageType type, Color color, boolean isGM, boolean tabOnNewLine) { //used for all except whispers with different color
@@ -186,36 +179,28 @@ public class Message {
 		this.opacity = 1;
 		builder.setLength(0);
 		if(type == MessageType.ANNOUNCE || type == MessageType.GM_ANNOUNCE) {
-			if(this.author == null) {
+			if(this.author == null)
 				this.authorText = type.getChatDisplay();
-			}
-			else {
+			else
 				this.authorText = builder.append('[').append(this.author).append("] ").append(type.getChatDisplay()).toString();
-			}
 			this.isGM = false;
 		}
 		else if(type == MessageType.SAY || type == MessageType.YELL) {
-			if(isGM) {
+			if(isGM)
 				this.authorText = builder.append(gmLogoSpace).append("[").append(author).append("]").append(type.getChatDisplay()).toString();
-			}
-			else {
+			else
 				this.authorText = builder.append("[").append(author).append("]").append(type.getChatDisplay()).toString();
-			}
 		}
 		else if(type != MessageType.SELF) {
-			if(isGM) {
+			if(isGM)
 				this.authorText = builder.append(type.getChatDisplay()).append(gmLogoSpace).append("[").append(author).append("] : ").toString();
-			}
 		}
-		else if(isGM) {
+		else if(isGM)
 			this.authorText = builder.append(gmLogoSpace).append("[").append(author).append(']').toString();
-		}
-		else {
+		else
 			this.authorText = builder.append('[').append(author).append(']').toString();
-		}
-		if(isGM) {
+		if(isGM)
 			this.author = null;
-		}
 		this.tabOnNewLine = tabOnNewLine;
 	}
 	
@@ -235,20 +220,16 @@ public class Message {
 		this.isTarget = isTarget;
 		builder.setLength(0);
 		if(isTarget) {
-			if(isGM) {
+			if(isGM)
 				this.authorText = builder.append(gmLogoSpace).append("[").append(this.author).append("] whispers : ").toString();
-			}
-			else {
+			else
 				this.authorText = builder.append('[').append(this.author).append("] whispers : ").toString();
-			}
 		}
 		else {
-			if(isGM) {
+			if(isGM)
 				this.authorText = builder.append("To").append(gmLogoSpace).append("[").append(this.author).append("] : ").toString();
-			}
-			else {
+			else
 				this.authorText = builder.append("To [").append(this.author).append("] : ").toString();
-			}
 		}
 		this.tabOnNewLine = tabOnNewLine;
 	}

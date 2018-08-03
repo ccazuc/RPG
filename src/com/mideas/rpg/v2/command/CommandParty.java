@@ -164,4 +164,13 @@ public class CommandParty extends Command {
 		ConnectionManager.getWorldServerConnection().endPacket();
 		ConnectionManager.getWorldServerConnection().send();
 	}
+	
+	public static void leaveParty()
+	{
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PARTY_LEFT);
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
+	}
 }
