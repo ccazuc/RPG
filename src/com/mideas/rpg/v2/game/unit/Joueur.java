@@ -23,6 +23,7 @@ import com.mideas.rpg.v2.game.item.stuff.Stuff;
 import com.mideas.rpg.v2.game.item.stuff.StuffManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponManager;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
+import com.mideas.rpg.v2.game.preamade_group.PremadeGroup;
 import com.mideas.rpg.v2.game.profession.Profession;
 import com.mideas.rpg.v2.game.profession.ProfessionManager;
 import com.mideas.rpg.v2.game.race.Race;
@@ -46,6 +47,7 @@ public class Joueur extends Unit {
 	private final AuctionHouse auctionHouse;
 	private WeaponType[] weaponType;
 	private ArrayList<Integer> spellUnlockedList;
+	private PremadeGroup premadeGroup;
 	private int numberYellowGem;
 	private GuildRank guildRank;
 	private Bag bag = new Bag();
@@ -701,6 +703,16 @@ public class Joueur extends Unit {
 			}
 			i++;
 		}
+	}
+	
+	public PremadeGroup getPremadeGroup()
+	{
+		return (this.premadeGroup);
+	}
+	
+	public void setPremadeGroup(PremadeGroup group)
+	{
+		this.premadeGroup = group;
 	}
 	
 	public ArrayList<Ignore> getIgnoreList() {

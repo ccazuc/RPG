@@ -22,4 +22,11 @@ public enum ClassType {
 	public byte getValue() {
 		return this.value;
 	}
+	
+	public static ClassType getValue(byte value)
+	{
+		if (value < 0 || value >= ClassType.values().length)
+			return (null);
+		return (ClassType.values()[value]);
+	}
 }
