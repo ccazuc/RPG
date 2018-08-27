@@ -154,14 +154,14 @@ public class WhoFrame {
 	private final static TextMenu sortByGuild = new TextMenu(0, 0, 0, "Guild", 12, 1);
 	private final static TextMenu sortByArea = new TextMenu(0, 0, 0, "Area", 12, 1);
 	private final static TextMenu sortByRace = new TextMenu(0, 0, 0, "Race", 12, 1);
-	private final static Button updateButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), (short)100, (short)25, "Actualise", 12, 1) {
+	private final static Button updateButton = new Button(X_SOCIAL_FRAME+17*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 100, 25, "Actualise", 12, 1) {
 	
 		@Override
 		public void onLeftClickUp() {
 			CommandWho.write(input.getText());
 		}
 	};
-	private final static Button addFriendButton = new Button(X_SOCIAL_FRAME+119*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), (short)132, (short)25, "Add Friend", 12, 1) {
+	private final static Button addFriendButton = new Button(X_SOCIAL_FRAME+119*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132, 25, "Add Friend", 12, 1) {
 	
 		@Override
 		public void onLeftClickUp() {
@@ -174,7 +174,7 @@ public class WhoFrame {
 			return selectedUnit != -1;
 		}
 	};
-	private final static Button inviteButton = new Button(X_SOCIAL_FRAME+253*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), (short)132, (short)25, "Inv. Party", 12, 1) {
+	private final static Button inviteButton = new Button(X_SOCIAL_FRAME+253*Mideas.getDisplayXFactor(), Y_SOCIAL_FRAME+437*Mideas.getDisplayYFactor(), 132, 25, "Inv. Party", 12, 1) {
 	
 		@Override
 		public void onLeftClickUp() {

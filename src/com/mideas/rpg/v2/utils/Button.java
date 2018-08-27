@@ -39,7 +39,7 @@ public class Button {
 	private final Texture downTexture;
 	private final Texture disabledTexture;
 
-	public Button(float x, float y, short width, short height, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {
+	public Button(float x, float y, int width, int height, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {
 		this.font = FontManager.get("FRIZQT", font_size);
 		this.textWidth = this.font.getWidth(text);
 		this.hoveredColor = hoveredColor;
@@ -47,8 +47,8 @@ public class Button {
 		this.baseColor = baseColor;
 		this.width = (short)(width * Mideas.getDisplayXFactor());
 		this.height = (short)(height * Mideas.getDisplayYFactor());
-		this.widthSave = width;
-		this.heightSave = height;
+		this.widthSave = (short)width;
+		this.heightSave = (short)height;
 		this.text = text;
 		this.x = x;
 		this.y = y;
@@ -79,11 +79,11 @@ public class Button {
 		this.hoverTextured = Sprites.button_hover;
 	}
 	
-	public Button(float x, float y, short width, short height, String text, float font_size, int shadow_size) {
+	public Button(float x, float y, int width, int height, String text, float font_size, int shadow_size) {
 		this(x, y, width, height, text, font_size, shadow_size, Color.YELLOW, Color.WHITE);
 	}
 	
-	public Button(Frame parentFrame, float x, float y, short width, short height, String text, float font_size, int shadow_size) {
+	public Button(Frame parentFrame, float x, float y, int width, int height, String text, float font_size, int shadow_size) {
 		this.font = FontManager.get("FRIZQT", font_size);
 		this.baseColor = Color.YELLOW;
 		this.hoveredColor = Color.WHITE;
@@ -91,8 +91,8 @@ public class Button {
 		this.shadow_size = shadow_size;
 		this.width = (short)(width * Mideas.getDisplayXFactor());
 		this.height = (short)(height * Mideas.getDisplayYFactor());
-		this.widthSave = width;
-		this.heightSave = height;
+		this.widthSave = (short)width;
+		this.heightSave = (short)height;
 		this.text = text;
 		this.x = x * Mideas.getDisplayXFactor();
 		this.y = y * Mideas.getDisplayYFactor();

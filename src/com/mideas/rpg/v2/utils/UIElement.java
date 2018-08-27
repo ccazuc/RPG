@@ -7,6 +7,7 @@ public abstract class  UIElement {
 	protected Frame parentFrame;
 	protected short x;
 	protected short y;
+	protected boolean shouldUpdateSize;
 
 	public UIElement(String name, UIElementType type)
 	{
@@ -43,6 +44,13 @@ public abstract class  UIElement {
 	{
 		return (false);
 	}
+	
+	public void shouldUpdateSize()
+	{
+		this.shouldUpdateSize = true;
+	}
+	
+	public void resetState() {}
 
 	@SuppressWarnings("unused")
 	public void setX(int x) {}

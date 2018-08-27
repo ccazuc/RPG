@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.utils;
 
-public abstract class Frame extends UIElement {
+public abstract class Frame extends UIElement
+{
 
 	public Frame(String name)
 	{
@@ -16,6 +17,5 @@ public abstract class Frame extends UIElement {
 	public abstract void open();
 	public abstract void close();
 	public abstract void reset();
-	public abstract void shouldUpdateSize();
 	public abstract boolean isOpen();
 }
