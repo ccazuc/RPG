@@ -169,10 +169,20 @@ public class SocialFrame {
 		draw = !draw;
 	}
 	
-	public static void setSelectedMenu(SocialFrameMenu menu) {
-		selectedMenu = menu;
+	public static void setSelectedMenu(SocialFrameMenu menu)
+	{
 		unselectAllButton();
-		friendButtonMenu.setIsSelected(true);
+		selectedMenu = menu;
+		if (menu == SocialFrameMenu.WHO_FRAME)
+			whoButtonMenu.setIsSelected(true);
+		else if (menu == SocialFrameMenu.DISCUSSION_FRAME)
+			discussionButtonMenu.setIsSelected(true);
+		else if (menu == SocialFrameMenu.FRIEND_FRAME)
+			friendButtonMenu.setIsSelected(true);
+		else if (menu == SocialFrameMenu.GUILD_FRAME)
+			guildButtonMenu.setIsSelected(true);
+		else if (menu == SocialFrameMenu.RAID_FRAME)
+			raidButtonMenu.setIsSelected(true);
 	}
 	
 	public static boolean isGuildFrameActive() {

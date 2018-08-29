@@ -6,21 +6,22 @@ import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.files.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.classes.Wear;
 import com.mideas.rpg.v2.game.item.weapon.WeaponType;
-import com.mideas.rpg.v2.game.mail.MailMgr;
 import com.mideas.rpg.v2.game.unit.ClassType;
 import com.mideas.rpg.v2.game.unit.Joueur;
 
 public class CommandSendPlayer extends Command {
 	
 	@Override
-	public void read() {
+	public void read()
+	{
 		ClassType classType = ClassType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 		int id = ConnectionManager.getWorldServerConnection().readInt();
 		String name = ConnectionManager.getWorldServerConnection().readString();
 		Wear wear = Wear.values()[ConnectionManager.getWorldServerConnection().readByte()];
 		WeaponType[] weaponType = new WeaponType[ConnectionManager.getWorldServerConnection().readByte()];
 		int i = 0;
-		while(i < weaponType.length) {
+		while(i < weaponType.length)
+		{
 			weaponType[i] = WeaponType.values()[ConnectionManager.getWorldServerConnection().readByte()];
 			i++;
 		}
@@ -35,5 +36,4 @@ public class CommandSendPlayer extends Command {
 		ChatConfigManager.loadConfig();
 		CallbackMgr.onPlayerLoaded();
 	}
-
 }

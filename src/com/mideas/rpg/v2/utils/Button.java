@@ -9,7 +9,8 @@ import com.mideas.rpg.v2.render.TTF;
 import com.mideas.rpg.v2.render.Texture;
 import com.mideas.rpg.v2.FontManager;
 
-public class Button {
+public class Button extends UIElement
+{
 
 	private float x;
 	private float y;
@@ -39,7 +40,9 @@ public class Button {
 	private final Texture downTexture;
 	private final Texture disabledTexture;
 
-	public Button(float x, float y, int width, int height, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor) {
+	public Button(float x, float y, int width, int height, String text, float font_size, int shadow_size, Color baseColor, Color hoveredColor)
+	{
+		super("a", UIElementType.BUTTON);
 		this.font = FontManager.get("FRIZQT", font_size);
 		this.textWidth = this.font.getWidth(text);
 		this.hoveredColor = hoveredColor;
@@ -59,7 +62,9 @@ public class Button {
 		this.hoverTextured = Sprites.button_hover;
 	}
 
-	public Button(float x, float y, short width, short height, String text, TTF font, int shadow_size, Color baseColor, Color hoveredColor) {
+	public Button(float x, float y, short width, short height, String text, TTF font, int shadow_size, Color baseColor, Color hoveredColor)
+	{
+		super("a", UIElementType.BUTTON);
 		this.font = font;
 		this.textWidth = this.font.getWidth(text);
 		this.hoveredColor = hoveredColor;
@@ -83,7 +88,9 @@ public class Button {
 		this(x, y, width, height, text, font_size, shadow_size, Color.YELLOW, Color.WHITE);
 	}
 	
-	public Button(Frame parentFrame, float x, float y, int width, int height, String text, float font_size, int shadow_size) {
+	public Button(Frame parentFrame, float x, float y, int width, int height, String text, float font_size, int shadow_size)
+	{
+		super("a", UIElementType.BUTTON);
 		this.font = FontManager.get("FRIZQT", font_size);
 		this.baseColor = Color.YELLOW;
 		this.hoveredColor = Color.WHITE;
@@ -105,11 +112,14 @@ public class Button {
 		this.hoverTextured = Sprites.new_button_hover;
 	}
 
-	public Button(float x, float y, String text, float font_size) {
+	public Button(float x, float y, String text, float font_size)
+	{
 		this(x, y, (short)Sprites.button.getImageWidth(), (short)Sprites.button.getImageHeight(), text, font_size, 0, Color.YELLOW, Color.WHITE);
 	}
 	
-	public void draw() {
+	@Override
+	public void draw()
+	{
 		if(!this.isEnable) {
 			return;
 		}
@@ -187,6 +197,12 @@ public class Button {
 		this.font.drawStringShadowPart(this.x-this.textWidth/2+this.width/2, this.y-this.font.getLineHeight()/2+this.height/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
 	}
 	
+	@Override
+	public boolean mouseEvent()
+	{
+		return (event());
+	}
+
 	public boolean event() {
 		if(!(this.isEnable && activateCondition())) {
 			this.buttonHover = false;
@@ -194,7 +210,7 @@ public class Button {
 		}
 		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y+this.height) {
 			this.buttonHover = true;
-			Mideas.setHover(false);
+			Mideas.setHover(this, false);
 		}
 		else {
 			this.color = this.baseColor;

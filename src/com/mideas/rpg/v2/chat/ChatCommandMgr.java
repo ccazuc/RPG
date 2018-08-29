@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.channel.ChannelMgr;
+import com.mideas.rpg.v2.chat.lua.ChatAdvancedCommandMgr;
 import com.mideas.rpg.v2.command.CommandGuild;
 import com.mideas.rpg.v2.command.CommandMail;
 import com.mideas.rpg.v2.command.CommandParty;
@@ -616,6 +617,24 @@ public class ChatCommandMgr {
 			}
 		}
 	};
+	private final static ChatCommand run = new ChatCommand("run", "/run Lua code")
+	{
+		
+		@Override
+		public void handle(String[] command, String line)
+		{
+			ChatAdvancedCommandMgr.handleCommand(line.substring(5), false);
+		}
+	};
+	private final static ChatCommand dump = new ChatCommand("dump", "/dump Lua code")
+	{
+		
+		@Override
+		public void handle(String[] command, String line)
+		{
+			ChatAdvancedCommandMgr.handleCommand(line.substring(6), true);
+		}
+	};
 	
 	public static void initCommandMap() {
 		addCommand(invite);
@@ -655,6 +674,8 @@ public class ChatCommandMgr {
 		mail.addSubCommand(mail_debug);
 		mail.addSubCommand(mail_test);
 		addCommand(rand);
+		addCommand(run);
+		addCommand(dump);
 	}
 	
 	public static void handleChatCommand(String str)
@@ -667,9 +688,14 @@ public class ChatCommandMgr {
 		if (command.length() == 0)
 			return;
 		if(commandMap.containsKey(command))
+		{
+			commandMap.get(command).handle(value, str);
 			commandMap.get(command).handle(value);
+		}
 		else
+		{
 			ChatFrame.addMessage(new Message("Unknown command, type /help for help.", false, MessageType.SELF, true));
+		}
 	}
 	
 	private static void addCommand(ChatCommand command)

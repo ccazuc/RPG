@@ -2,7 +2,7 @@ package com.mideas.rpg.v2.utils;
 
 public abstract class  UIElement {
 
-	private final String name;
+	private String name;
 	private final UIElementType type;
 	protected Frame parentFrame;
 	protected short x;
@@ -18,6 +18,11 @@ public abstract class  UIElement {
 	public String getName()
 	{
 		return (this.name);
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 
 	public short getX()

@@ -6,7 +6,6 @@ import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.files.logs.LogsMgr;
 import com.mideas.rpg.v2.stresstest.Stresstest;
-import com.mideas.rpg.v2.utils.DebugUtils;
 
 public class CommandLogout extends Command
 {
@@ -37,7 +36,6 @@ public class CommandLogout extends Command
 			ConnectionManager.getAuthConnection().send();
 			LogsMgr.writeConnectionLog("Logout from account requested to world server.");
 		}
-		DebugUtils.printStackTrace("CommandLogout:write");
 	}
 	
 	public static void logoutWorldServer()

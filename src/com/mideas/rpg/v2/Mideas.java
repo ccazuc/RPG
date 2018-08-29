@@ -141,6 +141,7 @@ public class Mideas {
 		//Display.setDisplayMode(new DisplayMode(1200, 930));
 		//setDisplayMode(1920, 1080, false);
 		//Display.setFullscreen(true);
+		LogsMgr.createThread();
 		Display.setTitle("World Of Warcraft");
 		final String[] ICON_PATHS = {"sprite/interface/icon_32.png", "sprite/interface/icon_128.png"};
 		final ByteBuffer[] icon_array = new ByteBuffer[ICON_PATHS.length];
@@ -201,7 +202,6 @@ public class Mideas {
 		ChatConfigManager.initConfigMap();
 		StresstestMgr.initCommandMap();
 		StresstestConnectionMgr.initPacket();
-		LogsMgr.createThread();
 		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		authServerConnectionRunnable = new AuthServerConnectionRunnable();
 		authServerConnectionThread = new Thread(authServerConnectionRunnable);

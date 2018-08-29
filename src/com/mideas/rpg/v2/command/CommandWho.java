@@ -18,11 +18,11 @@ public class CommandWho extends Command {
 	@Override
 	public void read() {
 		WhoFrame.clearList();
-		while(ConnectionManager.getWorldServerConnection().hasRemaining()) {
+		while(ConnectionManager.getWorldServerConnection().hasRemaining())
+		{
 			int id = ConnectionManager.getWorldServerConnection().readInt();
-			if(id == -1) {
+			if(id == -1)
 				break;
-			}
 			String name = ConnectionManager.getWorldServerConnection().readString();
 			String guildName = ConnectionManager.getWorldServerConnection().readString();
 			Race race = Race.values()[ConnectionManager.getWorldServerConnection().readByte()];

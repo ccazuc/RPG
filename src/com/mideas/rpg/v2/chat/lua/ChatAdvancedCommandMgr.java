@@ -12,7 +12,7 @@ public class ChatAdvancedCommandMgr {
 
 	private static boolean errorFound = false;
 	private static int currentIndex;
-	private static boolean debug = false;
+	private static boolean debug = true;
 	
 	public static void handleCommand(String commandLine, boolean shouldPrint)
 	{
@@ -23,6 +23,8 @@ public class ChatAdvancedCommandMgr {
 		System.out.println(commandLine);
 		while (++currentIndex < commandLine.length())
 		{
+			//if (commandLine.charAt(currentIndex) == ':')
+			//	continue;
 			currentObject = getObject(currentIndex, commandLine, currentObject, true, null);
 			if (currentObject == null)
 				break;
@@ -41,7 +43,8 @@ public class ChatAdvancedCommandMgr {
 		{
 			if (commandLine.charAt(i) == '(')
 			{
-				String functionName = commandLine.substring(start, i);
+				//String functionName = commandLine.substring(start, i);
+				String functionName = commandLine.substring(getFunctionBeginning(commandLine, i), i);
 				//parseData.setObjectName(functionName);
 				if (parseData != null)
 					parseData.setObjectName(functionName);
@@ -50,7 +53,7 @@ public class ChatAdvancedCommandMgr {
 				{
 					//ChatFrame.addMessage(new Message("Function " + functionName + " not found.", false, MessageType.SELF, Color.WHITE, true));
 					errorFound = true;
-					System.out.println("Null function: " + functionName);
+					System.out.println("Null function: '" + functionName+ "'");
 					//return (null);
 				}
 				System.out.println("Function found: " + functionName);
@@ -74,13 +77,13 @@ public class ChatAdvancedCommandMgr {
 				System.out.println("Function result: " + result);
 				return (result);
 			}
-			else if (commandLine.charAt(i) == ':')
+			/*else if (commandLine.charAt(i) == ':')
 			{
-				System.out.println("Object found: '" + commandLine.substring(start, i).trim() + "'");
+				System.out.println("Object found: '" + commandLine.substring(start, i).trim() + "', start: " + start + ", i: " + i);
 				String objectName = commandLine.substring(start, i);
 				if (parseData != null)
 					parseData.setObjectName(objectName);
-			}
+			}*/
 		}
 		return (result);
 	}
@@ -183,6 +186,16 @@ public class ChatAdvancedCommandMgr {
 				System.out.println("Result[" + j + "]: " + result.get(j));
 		}
 		return (result);
+	}
+	
+	private static int getFunctionBeginning(String arg, int start)
+	{
+		while (--start >= 0)
+		{
+			if (arg.charAt(start) == ' ' || arg.charAt(start) == ':' || arg.charAt(start) == ',')
+				return (start + 1);
+		}
+		return (0);
 	}
 	
 	private static int getNextIntArg(String args, int start, ParseData parseData)

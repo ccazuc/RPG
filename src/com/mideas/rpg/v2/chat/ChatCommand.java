@@ -38,6 +38,9 @@ public class ChatCommand {
 	@SuppressWarnings("unused")
 	public void handle(String[] command) {}
 	
+	@SuppressWarnings("unused")
+	public void handle(String[] command, String line) {}
+	
 	public String getName() {
 		return this.name;
 	}
