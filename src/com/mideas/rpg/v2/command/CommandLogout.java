@@ -6,30 +6,38 @@ import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.files.logs.LogsMgr;
 import com.mideas.rpg.v2.stresstest.Stresstest;
+import com.mideas.rpg.v2.utils.DebugUtils;
 
-public class CommandLogout extends Command {
+public class CommandLogout extends Command
+{
 
 	@Override
-	public void read() {
+	public void read()
+	{
 		System.out.println("Logout received");
 		ConnectionManager.disconnect();
 		LogsMgr.writeConnectionLog("Logout from account accepted.");
 	}
 	
-	public static void write() {
-		if(ConnectionManager.isConnected()) {
+	public static void write()
+	{
+		if (ConnectionManager.isConnected())
+		{
 			ConnectionManager.getWorldServerConnection().startPacket();
 			ConnectionManager.getWorldServerConnection().writeShort(LOGOUT);
 			ConnectionManager.getWorldServerConnection().endPacket();
 			ConnectionManager.getWorldServerConnection().send();
+			LogsMgr.writeConnectionLog("Logout from account requested to auth server.");
 		}
-		if(ConnectionManager.isAuthServerConnected()) {
+		if (ConnectionManager.isAuthServerConnected())
+		{
 			ConnectionManager.getAuthConnection().startPacket();
 			ConnectionManager.getAuthConnection().writeShort(LOGOUT);
 			ConnectionManager.getAuthConnection().endPacket();
 			ConnectionManager.getAuthConnection().send();
+			LogsMgr.writeConnectionLog("Logout from account requested to world server.");
 		}
-		LogsMgr.writeConnectionLog("Logout from account requested.");
+		DebugUtils.printStackTrace("CommandLogout:write");
 	}
 	
 	public static void logoutWorldServer()

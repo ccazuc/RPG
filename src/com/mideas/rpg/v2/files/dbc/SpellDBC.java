@@ -12,6 +12,7 @@ import org.lwjgl.Sys;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.Buffer;
+import com.mideas.rpg.v2.files.logs.LogsMgr;
 import com.mideas.rpg.v2.game.spell.SpellManager;
 
 public class SpellDBC {
@@ -51,12 +52,15 @@ public class SpellDBC {
 			fc.read(readBuffer.getBuffer());
 			readBuffer.flip();
 			i = 0;
+			LogsMgr.writeMiscLog("Started reading Spell.dbc");
 			while(readBuffer.hasRemaining()) {
 				SpellManager.storeSpell(readBuffer.readSpell());
 				i++;
  			}
+			LogsMgr.writeMiscLog("Finished reading Spell.dbc");
 			if(i != numberSpell) {
 				System.out.println("**ERROR** "+FILE_PATH+" number of spell is not correct, the game will now exit.");
+				LogsMgr.writeMiscLog("Error while reading Spell.dbc, incorrect number of row.");
 				Mideas.closeGame();
 				return;
 			}

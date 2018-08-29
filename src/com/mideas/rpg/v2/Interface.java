@@ -369,6 +369,8 @@ public class Interface {
 					return true;
 				}
 			}
+			if (instanceFrame.mouseEvent())
+				return (true);
 			time = System.nanoTime();
 			if(DragManager.mouseEvent()) {
 	    			if(System.currentTimeMillis()-LAST_DRAGMANAGER_MOUSE_EVENT_TIMER >= DRAGMANAGER_MOUSE_EVENT_TIMER_FREQUENCE) {
@@ -578,6 +580,8 @@ public class Interface {
 					if(ChatFrame.event()) {
 						return true;
 					}
+					if (instanceFrame.keyboardEvent())
+						return (true);
 				}
 				else if(!hasLoggedInToAuth) {
 					LoginScreen.event();

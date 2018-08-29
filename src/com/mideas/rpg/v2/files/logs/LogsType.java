@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.files.logs;
 public enum LogsType {
 
 	CONNECTION("Connection.log", (byte)0),
+	MISC("Misc.log", (byte)1),
 	;
 	
 	private final String path;

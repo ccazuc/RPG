@@ -22,7 +22,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.chat.ChatCommandMgr;
 import com.mideas.rpg.v2.chat.ChatFrame;
-import com.mideas.rpg.v2.chat.lua.ChatAdvancedCommandMgr;
 import com.mideas.rpg.v2.chat.lua.StoreLuaFunctions;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
@@ -65,7 +64,6 @@ import com.mideas.rpg.v2.hud.social.SocialFrame;
 import com.mideas.rpg.v2.jdo.JDO;
 import com.mideas.rpg.v2.jdo.JDOStatement;
 import com.mideas.rpg.v2.jdo.wrapper.MariaDB;
-import com.mideas.rpg.v2.render.Draw;
 import com.mideas.rpg.v2.render.PNGDecoder;
 import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.render.Texture;

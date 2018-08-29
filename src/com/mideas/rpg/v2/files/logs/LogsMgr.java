@@ -21,4 +21,9 @@ public class LogsMgr
 	{
 		logsRunnable.addLog(LogsType.CONNECTION, log);
 	}
+	
+	public static void writeMiscLog(String log)
+	{
+		logsRunnable.addLog(LogsType.MISC, log);
+	}
 }

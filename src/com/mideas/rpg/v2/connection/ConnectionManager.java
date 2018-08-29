@@ -94,6 +94,7 @@ public class ConnectionManager {
 		commandList.put(LOAD_EQUIPPED_ITEMS, new CommandLoadEquippedItems());
 		commandList.put(LOAD_BAG_ITEMS, new CommandLoadBagItems());
 		commandList.put(CHARACTER_LOGIN, new CommandLoadCharacter());
+		commandList.put(CHARACTER_LOGOUT, new CommandLogoutCharacter());
 		commandList.put(PING, new CommandPing());
 		commandList.put(STUFF, new CommandStuff());
 		commandList.put(WEAPON, new CommandWeapon());
@@ -138,31 +139,35 @@ public class ConnectionManager {
 		commandList.put(CHANGE_GOLD, new CommandChangeGold());
 	}
 
-	public static final boolean connectAuthServer() {
-		if(!init) {
+	public static final boolean connectAuthServer()
+	{
+		if(!init)
+		{
 			LogsMgr.writeConnectionLog("Init auth server packet.");
 			initPacket();
 			init = true;
 		}
-		try {
+		try
+		{
 			authSocket = SocketChannel.open();
 			authSocket.socket().connect(new InetSocketAddress(IP, AUTH_PORT), 5000);
 			LogsMgr.writeConnectionLog("Trying to connect to auth server.");
-			if(authSocket.isConnected()) {
+			if(authSocket.isConnected())
+			{
 				LogsMgr.writeConnectionLog("Successfully connected to auth server.");
 				authSocket.socket().setTcpNoDelay(true);
 				authSocket.configureBlocking(false);
-				if(authServerConnection == null) {
+				if(authServerConnection == null)
 					authServerConnection = new Connection(authSocket);
-				}
-				else {
+				else
 					authServerConnection.setSocket(socket);
-				}
-				return true;
+				return (true);
 			}
 		}
-		catch(IOException e) {
-			if(!authConnectionCanceled) {
+		catch (IOException e)
+		{
+			if(!authConnectionCanceled)
+			{
 				e.printStackTrace();
 				LogsMgr.writeConnectionLog("Could not connect to auth.");
 				LoginScreen.getAlert().setActive();
@@ -172,30 +177,30 @@ public class ConnectionManager {
 				Interface.closeAllFrame();
 				close();
 			}
-			else {
+			else
 				authConnectionCanceled = false;
-			}
 		}
 		return false;
 	}
 	
-	public static final boolean connectWorldServer(int port) {
-		try {
+	public static final boolean connectWorldServer(int port)
+	{
+		try
+		{
 			socket = SocketChannel.open();
 			socket.socket().connect(new InetSocketAddress(IP, port), 5000);
 			if(socket.isConnected()) {
 				socket.socket().setTcpNoDelay(true);
 				socket.configureBlocking(false);
-				if(worldServerConnection == null) {
+				if (worldServerConnection == null)
 					worldServerConnection = new Connection(socket);
-				}
-				else {
+				else
 					worldServerConnection.setSocket(socket);
-				}
-				return true;
+				return (true);
 			}
 		}
-		catch(IOException e) {
+		catch (IOException e)
+		{
 			e.printStackTrace();
 			LoginScreen.getAlert().setActive();
 			LoginScreen.getAlert().setText("Impossible de se connecter.");
@@ -204,68 +209,73 @@ public class ConnectionManager {
 			Interface.closeAllFrame();
 			close();
 		}
-		return false;
+		return (false);
 	}
 	
-	public static Connection getWorldServerConnection() {
-		return worldServerConnection;
+	public static Connection getWorldServerConnection()
+	{
+		return (worldServerConnection);
 	}
 	
-	public static Connection getAuthConnection() {
-		return authServerConnection;
+	public static Connection getAuthConnection()
+	{
+		return (authServerConnection);
 	}
 	
 	public static boolean isConnected() {
-		if(socket != null) {
-			return socket.isConnected();
-		}
+		if (socket != null)
+			return (socket.isConnected());
 		return false;
 	}
 	
-	public static boolean isAuthServerConnected() {
-		if(authSocket != null) {
-			return authSocket.isConnected();
-		}
+	public static boolean isAuthServerConnected()
+	{
+		if (authSocket != null)
+			return (authSocket.isConnected());
 		return false;
 	}
 	
- 	public static void close() {
- 		if(worldServerConnection != null) {
+ 	public static void close()
+ 	{
+ 		if(worldServerConnection != null)
  			worldServerConnection.close();
- 		}
 		socket = null;
 		worldServerConnection = null;
 		loggedServer = null;
 		isLoggedOnWorldServer = false;
 	}
 	
- 	public static void closeAuth() {
+ 	public static void closeAuth()
+ 	{
 		Interface.setHasLoggedInToAuth(false);
- 		if(authServerConnection != null) {
- 			CommandLogout.write();
+ 		if (authServerConnection != null)
  			authServerConnection.close();
- 		}
 		authSocket = null;
 		authServerConnection = null;
 	}
  	
- 	public static void authCloseRequested() {
+ 	public static void authCloseRequested()
+ 	{
 		Interface.setHasLoggedInToAuth(false);
- 		if(authServerConnection != null) {
+ 		if (authServerConnection != null)
+ 		{
  			authServerConnection.close();
  		}
 		authSocket = null;
 		authServerConnection = null;
  	}
 	
-	public static void read() {
-		if(worldServerConnection != null && socket.isConnected()) {
-			try {
-				if(worldServerConnection.read() == 1) {
+	public static void read()
+	{
+		if (worldServerConnection != null && socket.isConnected())
+		{
+			try
+			{
+				if (worldServerConnection.read() == 1)
 					readPacket();
-				}
 			} 
-			catch (IOException e) {
+			catch (IOException e)
+			{
 				e.printStackTrace();
 				disconnect();
 				return;
@@ -273,14 +283,17 @@ public class ConnectionManager {
 		}
 	}
 	
-	public static void readAuthServer() {
-		if(authServerConnection != null && authSocket.isConnected()) {
-			try {
-				if(authServerConnection.read() == 1) {
+	public static void readAuthServer()
+	{
+		if (authServerConnection != null && authSocket.isConnected())
+		{
+			try
+			{
+				if(authServerConnection.read() == 1)
 					readAuthPacket();
-				}
 			} 
-			catch (IOException e) {
+			catch (IOException e)
+			{
 				e.printStackTrace();
 				disconnect();
 				return;
@@ -288,15 +301,17 @@ public class ConnectionManager {
 		}
 	}
 	
-	public static void logoutCharacter() {
-		ChatConfigManager.saveConfig();
+	public static void logoutCharacter()
+	{
+		//ChatConfigManager.saveConfig();
 		CommandLogoutCharacter.write();
-		Mideas.setJoueur1Null();
-		Interface.closeAllFrame();
-		Interface.setCharacterLoaded(false);
+		//Mideas.setJoueur1Null();
+		//Interface.closeAllFrame();
+		//Interface.setCharacterLoaded(false);
 	}
 	
-	public static void disconnect() {
+	public static void disconnect()
+	{
 		ChatConfigManager.saveConfig();
 		CommandLogout.write();
 		close();
@@ -316,70 +331,87 @@ public class ConnectionManager {
 		LoginScreen.resetMenuState();
 	}
 	
-	private static void readAuthPacket() {
-		while(authServerConnection != null && authServerConnection.hasRemaining() && authServerConnection.rBufferRemaining() > 4) {
+	private static void readAuthPacket()
+	{
+		while (authServerConnection != null && authServerConnection.hasRemaining() && authServerConnection.rBufferRemaining() > 4)
+		{
 			int packetLength = authServerConnection.readInt();
-			if(authServerConnection.rBufferRemaining()+4 < packetLength) {
-				authServerConnection.rBufferSetPosition(authServerConnection.rBufferPosition()-4);
+			if (authServerConnection.rBufferRemaining() + 4 < packetLength) 
+			{
+				authServerConnection.rBufferSetPosition(authServerConnection.rBufferPosition() - 4);
 				return;
 			}
 			short packetId = authServerConnection.readShort();
-			if(commandList.containsKey(packetId)) {
+			if (commandList.containsKey(packetId))
+			{
 				commandList.get(packetId).read();
 				authLastReadedPacket = packetId;
 			}
-			else {
-				System.out.println("Unknown Auth packet: "+packetId+", last readed packet: "+authLastReadedPacket);
+			else
+			{
+				System.out.println("Unknown Auth packet: " + packetId + ", last readed packet: " + authLastReadedPacket);
+				LogsMgr.writeConnectionLog("Received an invalid Opcode (" + packetId + ") from auth server.");
 			}
 		}
 	}
 	
-	private static void readPacket() {
-		while(worldServerConnection != null && worldServerConnection.hasRemaining() && worldServerConnection.rBufferRemaining() > 4) {
+	private static void readPacket()
+	{
+		while (worldServerConnection != null && worldServerConnection.hasRemaining() && worldServerConnection.rBufferRemaining() > 4)
+		{
 			int packetLength = worldServerConnection.readInt();
-			if(worldServerConnection.rBufferRemaining()+4 < packetLength) {
-				worldServerConnection.rBufferSetPosition(worldServerConnection.rBufferPosition()-4);
+			if (worldServerConnection.rBufferRemaining() + 4 < packetLength)
+			{
+				worldServerConnection.rBufferSetPosition(worldServerConnection.rBufferPosition() - 4);
 				return;
 			}
 			short packetId = worldServerConnection.readShort();
-			if(commandList.containsKey(packetId)) {
+			if (commandList.containsKey(packetId)) {
 				commandList.get(packetId).read();
 				worldLastReadedPacket = packetId;
 			}
-			else {
-				System.out.println("Unknown World packet: "+packetId+", last readed packet: "+worldLastReadedPacket);
+			else
+			{
+				System.out.println("Unknown World packet: " + packetId + ", last readed packet: " + worldLastReadedPacket);
+				LogsMgr.writeConnectionLog("Received an invalid Opcode (" + packetId + ") from world server.");
 			}
 		}
-		if(worldServerConnection != null) {
+		if (worldServerConnection != null)
 			worldServerConnection.clearEmptyRBuffer();
-		}
 	}
 	
-	public static boolean isLoggedOnWorldServer() {
-		return isLoggedOnWorldServer;
+	public static boolean isLoggedOnWorldServer()
+	{
+		return (isLoggedOnWorldServer);
 	}
 	
-	public static void setIsLoggedOnWorldServer(boolean we) {
+	public static void setIsLoggedOnWorldServer(boolean we)
+	{
 		isLoggedOnWorldServer = we;
 	}
 	
-	public static void setWorldServer(WorldServer server) {
+	public static void setWorldServer(WorldServer server)
+	{
 		loggedServer = server;
-		if(server != null) {
+		if (server != null)
+		{
 			lastLoggedRealm = server;
 			LoginScreen.setRealmName(server.getRealmName());
 		}
 	}
 		
-	public static WorldServer getLastLoggedWorldServer() {
-		return lastLoggedRealm;
+	public static WorldServer getLastLoggedWorldServer()
+	{
+		return (lastLoggedRealm);
 	}
 	 
-	public static WorldServer getWorldServer() {
-		return loggedServer;
+	public static WorldServer getWorldServer()
+	{
+		return (loggedServer);
 	}
 	
-	public static void setAuthConnectionCanceled(boolean we) {
+	public static void setAuthConnectionCanceled(boolean we)
+	{
 		authConnectionCanceled = we;
 	}
 }

@@ -12,6 +12,7 @@ import org.lwjgl.Sys;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.connection.Buffer;
+import com.mideas.rpg.v2.files.logs.LogsMgr;
 import com.mideas.rpg.v2.game.aura.AuraMgr;
 
 public class AuraDBC {
@@ -52,12 +53,15 @@ public class AuraDBC {
 			fc.read(readBuffer.getBuffer());
 			readBuffer.flip();
 			i = 0;
+			LogsMgr.writeMiscLog("Started reading Aura.dbc");
 			while(readBuffer.hasRemaining()) {
 				AuraMgr.storeAura(readBuffer.readAura());
 				i++;
  			}
+			LogsMgr.writeMiscLog("Finished reading Aura.dbc");
 			if(i != numberAura) {
 				System.out.println("**ERROR** "+FILE_PATH+" number of aura is not correct, the game will now exit.");
+				LogsMgr.writeMiscLog("Error while reading Aura.dbc, incorrect number of row.");
 				Mideas.closeGame();
 				return;
 			}

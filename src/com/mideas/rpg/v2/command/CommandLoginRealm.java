@@ -9,9 +9,11 @@ import com.mideas.rpg.v2.hud.SelectScreen;
 public class CommandLoginRealm extends Command {
 
 	@Override
-	public void read() {
+	public void read()
+	{
 		short packetId = ConnectionManager.getWorldServerConnection().readShort();
-		if(packetId == PacketID.LOGIN_REALM_SUCCESS) {
+		if (packetId == PacketID.LOGIN_REALM_SUCCESS)
+		{
 			System.out.println("LOGIN:LOGIN_REALM_SUCCESS");
 			ConnectionManager.setIsLoggedOnWorldServer(true);
 			ConnectionManager.setWorldServer(RealmListFrame.getSelectedRealm());
@@ -24,6 +26,5 @@ public class CommandLoginRealm extends Command {
 		{
 			LogsMgr.writeConnectionLog("Connection to world server failed, server is closed.");
 		}
-		//else if (packetId == PacketID.)
 	}
 }
