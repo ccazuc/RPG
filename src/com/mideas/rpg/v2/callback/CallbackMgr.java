@@ -6,7 +6,7 @@ import com.mideas.rpg.v2.game.mail.MailMgr;
 import com.mideas.rpg.v2.game.redalert.DefaultRedAlert;
 import com.mideas.rpg.v2.hud.RedAlertFrame;
 
-public class CallbackManager {
+public class CallbackMgr {
 
 	public static void onMailReceived()
 	{
@@ -38,6 +38,16 @@ public class CallbackManager {
 	}
 	
 	public static void onAuctionQueryResult()
+	{
+		
+	}
+	
+	public static void onPremadeGroupCreated()
+	{
+		
+	}
+	
+	public static void onPremadeGroupJoined()
 	{
 		
 	}

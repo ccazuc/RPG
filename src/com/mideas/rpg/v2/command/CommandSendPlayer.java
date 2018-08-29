@@ -1,7 +1,7 @@
 package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Mideas;
-import com.mideas.rpg.v2.callback.CallbackManager;
+import com.mideas.rpg.v2.callback.CallbackMgr;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.files.config.ChatConfigManager;
 import com.mideas.rpg.v2.game.classes.Wear;
@@ -33,7 +33,7 @@ public class CommandSendPlayer extends Command {
 		int critical = ConnectionManager.getWorldServerConnection().readInt();
 		Mideas.setJoueur1(new Joueur(classType, id, name, wear, weaponType, stamina, mana, strength, armor, armor, critical, maxStamina, maxMana));
 		ChatConfigManager.loadConfig();
-		CallbackManager.onPlayerLoaded();
+		CallbackMgr.onPlayerLoaded();
 	}
 
 }

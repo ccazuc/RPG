@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.connection;
 
 import com.mideas.rpg.v2.command.CommandLogin;
+import com.mideas.rpg.v2.files.logs.LogsMgr;
 import com.mideas.rpg.v2.hud.LoginManager;
 import com.mideas.rpg.v2.hud.LoginScreen;
 
@@ -52,6 +53,7 @@ public class AuthServerConnectionRunnable implements Runnable {
 		ConnectionManager.closeAuth();
 		LoginScreen.resetPassword();
 		LoginScreen.getAlert().setInactive();
+		LogsMgr.writeConnectionLog("Canceled connection to auth server.");
 	}
 	
 	public static void connectToWorldServer(int realmId) {

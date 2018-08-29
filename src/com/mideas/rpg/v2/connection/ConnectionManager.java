@@ -58,6 +58,7 @@ import com.mideas.rpg.v2.command.spell.CommandSendGCD;
 import com.mideas.rpg.v2.command.spell.CommandSendSpellCD;
 import com.mideas.rpg.v2.command.spell.CommandSpellUnlocked;
 import com.mideas.rpg.v2.files.config.ChatConfigManager;
+import com.mideas.rpg.v2.files.logs.LogsMgr;
 import com.mideas.rpg.v2.game.WorldServer;
 import com.mideas.rpg.v2.hud.LoginScreen;
 import com.mideas.rpg.v2.hud.RealmListFrame;
@@ -82,7 +83,9 @@ public class ConnectionManager {
 	private static WorldServer lastLoggedRealm;
 	private static boolean authConnectionCanceled;
 	
-	private static void initPacket() {
+	private static void initPacket()
+	{
+		LogsMgr.writeConnectionLog("Init world server packet.");
 		commandList.put(LOGIN, new CommandLogin());
 		commandList.put(LOGOUT, new CommandLogout());
 		commandList.put(SELECT_SCREEN_LOAD_CHARACTERS, new CommandSelectScreenLoadCharacters());
@@ -137,13 +140,16 @@ public class ConnectionManager {
 
 	public static final boolean connectAuthServer() {
 		if(!init) {
+			LogsMgr.writeConnectionLog("Init auth server packet.");
 			initPacket();
 			init = true;
 		}
 		try {
 			authSocket = SocketChannel.open();
 			authSocket.socket().connect(new InetSocketAddress(IP, AUTH_PORT), 5000);
+			LogsMgr.writeConnectionLog("Trying to connect to auth server.");
 			if(authSocket.isConnected()) {
+				LogsMgr.writeConnectionLog("Successfully connected to auth server.");
 				authSocket.socket().setTcpNoDelay(true);
 				authSocket.configureBlocking(false);
 				if(authServerConnection == null) {
@@ -158,6 +164,7 @@ public class ConnectionManager {
 		catch(IOException e) {
 			if(!authConnectionCanceled) {
 				e.printStackTrace();
+				LogsMgr.writeConnectionLog("Could not connect to auth.");
 				LoginScreen.getAlert().setActive();
 				LoginScreen.getAlert().setText("Impossible de se connecter.");
 				LoginScreen.setAlertButtonOk();

@@ -50,8 +50,11 @@ public class InstanceCategoryButton extends UIElement
 	@Override
 	public boolean mouseEvent()
 	{
-		if (Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x + this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height)
+		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x + this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height)
+		{
 			this.isMouseOver = true;
+			Mideas.setHover(false);
+		}
 		else
 			this.isMouseOver = false;
 		if (this.isMouseOver)

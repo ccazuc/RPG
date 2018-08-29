@@ -40,6 +40,7 @@ import com.mideas.rpg.v2.hud.SpellBarFrame;
 import com.mideas.rpg.v2.hud.SpellBookFrame;
 import com.mideas.rpg.v2.hud.TradeFrame;
 import com.mideas.rpg.v2.hud.auction.AuctionHouseFrame;
+import com.mideas.rpg.v2.hud.instance.InstanceFrame;
 import com.mideas.rpg.v2.hud.mail.MailFrame;
 import com.mideas.rpg.v2.hud.social.OsefFrame;
 import com.mideas.rpg.v2.hud.social.SocialFrame;
@@ -80,6 +81,7 @@ public class Interface {
 	private static long socialDrawTime;
 	private static MailFrame mailFrame = new MailFrame();
 	private static AuctionHouseFrame auctionHouseFrame = new AuctionHouseFrame();
+	private static InstanceFrame instanceFrame = new InstanceFrame();
 	private final static boolean oldAH = false;
 	private static boolean auctionFrameActive;
 	
@@ -89,6 +91,8 @@ public class Interface {
 	private final static int SPELLBAR_TIMER_FREQUENCE = 1000;
 	private static long LAST_SOCIAL_TIMER;
 	private final static int SOCIAL_TIMER_FREQUENCE = 1000;
+	private static long LAST_INSTANCE_FRAME_TIMER;
+	private final static int INSTANCFE_FRAME_TIMER_FREQUENCE = 1000;
 	private static long LAST_CHARACTER_MOUSE_EVENT_TIMER;
 	private final static int CHARACTER_MOUSE_EVENT_TIMER_FREQUENCE = 1000;
 	private static long LAST_CONTAINER_MOUSE_EVENT_TIMER;
@@ -212,6 +216,7 @@ public class Interface {
 				DragManager.draw();
 				DragBagManager.draw();
 				DragSpellManager.draw();
+				instanceFrame.draw();
 				Mideas.joueur1().bag().event();
 				//Draw.drawQuad(Sprites.interface_option_frame, Display.getWidth()/2-200, Display.getHeight()/2-200);
 			}

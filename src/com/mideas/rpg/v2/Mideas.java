@@ -33,6 +33,7 @@ import com.mideas.rpg.v2.files.config.ChatConfigManager;
 import com.mideas.rpg.v2.files.config.ConfigManager;
 import com.mideas.rpg.v2.files.dbc.AuraDBC;
 import com.mideas.rpg.v2.files.dbc.SpellDBC;
+import com.mideas.rpg.v2.files.logs.LogsMgr;
 import com.mideas.rpg.v2.game.CharacterStuff;
 import com.mideas.rpg.v2.game.GameState;
 import com.mideas.rpg.v2.game.classes.ClassManager;
@@ -202,6 +203,7 @@ public class Mideas {
 		ChatConfigManager.initConfigMap();
 		StresstestMgr.initCommandMap();
 		StresstestConnectionMgr.initPacket();
+		LogsMgr.createThread();
 		System.out.println(PotionManager.getNumberPotionLoaded()+" potions loaded, "+SpellManager.getNumberSpellLoaded()+" spells loaded in "+(System.currentTimeMillis()-time)/1000.0+"s.");
 		authServerConnectionRunnable = new AuthServerConnectionRunnable();
 		authServerConnectionThread = new Thread(authServerConnectionRunnable);
@@ -264,6 +266,7 @@ public class Mideas {
 		ChatConfigManager.saveConfig();
 		CommandLogout.write();
 		ConnectionManager.close();
+		LogsMgr.closeThread();
 		ConfigManager.saveConfig();
 		ItemCacheMgr.writeItemCache();
 		authServerConnectionRunnable.setRun(false);

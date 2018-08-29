@@ -1,6 +1,6 @@
 package com.mideas.rpg.v2.command;
 
-import com.mideas.rpg.v2.callback.CallbackManager;
+import com.mideas.rpg.v2.callback.CallbackMgr;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
 import com.mideas.rpg.v2.game.item.Item;
@@ -23,18 +23,18 @@ public class CommandMail extends Command {
 			{
 				MailMgr.addMail(readMail());
 			}
-			CallbackManager.onMailReceived();
+			CallbackMgr.onMailReceived();
 		}
 		else if (packetId == PacketID.MAIL_SEND)
 		{
-			CallbackManager.onMailSent();
+			CallbackMgr.onMailSent();
 		}
 		else if (packetId == PacketID.MAIL_DELETE)
 		{
 			long GUID = ConnectionManager.getWorldServerConnection().readLong();
 			Mail mail = MailMgr.getMail(GUID);
 			MailMgr.removeMail(GUID);
-			CallbackManager.onMailDeleted(mail);
+			CallbackMgr.onMailDeleted(mail);
 		}
 		else if (packetId == PacketID.MAIL_OPENED)
 		{
@@ -48,7 +48,7 @@ public class CommandMail extends Command {
 		else if (packetId == PacketID.MAIL_RECEIVED)
 		{
 			MailMgr.addMail(readMail());
-			CallbackManager.onMailReceived();
+			CallbackMgr.onMailReceived();
 		}
 		else if (packetId == PacketID.MAIL_LOAD_MAIL)
 		{
@@ -57,7 +57,7 @@ public class CommandMail extends Command {
 			Mail mail = MailMgr.getMail(GUID);
 			mail.setContent(content);
 			mail.setIsLoaded();
-			CallbackManager.onMailLoaded(mail);
+			CallbackMgr.onMailLoaded(mail);
 		}
 	}
 	

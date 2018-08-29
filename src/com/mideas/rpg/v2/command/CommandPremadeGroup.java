@@ -1,6 +1,7 @@
 package com.mideas.rpg.v2.command;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.callback.CallbackMgr;
 import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
 import com.mideas.rpg.v2.connection.PacketID;
@@ -9,6 +10,7 @@ import com.mideas.rpg.v2.game.preamade_group.PremadeGroupApplicationMember;
 import com.mideas.rpg.v2.game.preamade_group.PremadeGroupMgr;
 import com.mideas.rpg.v2.game.preamade_group.PremadeGroupReceivedApplication;
 import com.mideas.rpg.v2.game.preamade_group.PremadeGroupSentApplication;
+import com.mideas.rpg.v2.game.preamade_group.PremadeGroupType;
 import com.mideas.rpg.v2.game.unit.ClassType;
 
 public class CommandPremadeGroup extends Command {
@@ -26,6 +28,7 @@ public class CommandPremadeGroup extends Command {
 			long createTimer = connection.readLong();
 			boolean isAutoAccept = connection.readBoolean();
 			Mideas.joueur1().setPremadeGroup(new PremadeGroup(id, title, description, requiredLevel, isAutoAccept, createTimer));
+			CallbackMgr.onPremadeGroupCreated();
 		}
 		else if (packetId == PacketID.PREMADE_GROUP_DELIST)
 		{
@@ -91,5 +94,15 @@ public class CommandPremadeGroup extends Command {
 	{
 		//						1: Name			2: Level			3: ClassType				4: isLeader
 		return (new PremadeGroupApplicationMember(connection.readString(), connection.readInt(), ClassType.getValue(connection.readByte()), connection.readBoolean()));
+	}
+	
+	public static void fetchGroupList(PremadeGroupType type)
+	{
+		ConnectionManager.getWorldServerConnection().startPacket();
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PREMADE_GROUP);
+		ConnectionManager.getWorldServerConnection().writeShort(PacketID.PREMADE_GROUP_REQUEST_FETCH);
+		ConnectionManager.getWorldServerConnection().writeByte(type.getValue());
+		ConnectionManager.getWorldServerConnection().endPacket();
+		ConnectionManager.getWorldServerConnection().send();
 	}
 }

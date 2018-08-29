@@ -3,7 +3,7 @@ package com.mideas.rpg.v2.game.mail;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.mideas.rpg.v2.callback.CallbackManager;
+import com.mideas.rpg.v2.callback.CallbackMgr;
 
 public class MailMgr {
 
@@ -52,7 +52,7 @@ public class MailMgr {
 		while (++i < mailList.size())
 			if (mailList.get(i).getGUID() == GUID)
 			{
-				CallbackManager.onMailDeleted(mailList.get(i));
+				CallbackMgr.onMailDeleted(mailList.get(i));
 				mailList.remove(i);
 				return;
 			}

@@ -4,6 +4,7 @@ import static com.mideas.rpg.v2.connection.PacketID.LOGOUT;
 
 import com.mideas.rpg.v2.connection.Connection;
 import com.mideas.rpg.v2.connection.ConnectionManager;
+import com.mideas.rpg.v2.files.logs.LogsMgr;
 import com.mideas.rpg.v2.stresstest.Stresstest;
 
 public class CommandLogout extends Command {
@@ -12,6 +13,7 @@ public class CommandLogout extends Command {
 	public void read() {
 		System.out.println("Logout received");
 		ConnectionManager.disconnect();
+		LogsMgr.writeConnectionLog("Logout from account accepted.");
 	}
 	
 	public static void write() {
@@ -27,6 +29,7 @@ public class CommandLogout extends Command {
 			ConnectionManager.getAuthConnection().endPacket();
 			ConnectionManager.getAuthConnection().send();
 		}
+		LogsMgr.writeConnectionLog("Logout from account requested.");
 	}
 	
 	public static void logoutWorldServer()

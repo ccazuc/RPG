@@ -995,7 +995,7 @@ public class ChatFrame {
 	
 	private static void keyTabPressed()
 	{
-		if (tempMessage.length() < 4 || tempMessage.charAt(0) != '/')
+		if (tempMessage.length() < 2 || tempMessage.charAt(0) != '/')
 			return;
 		String msg = tempMessage.substring(1);
 		for (String string : ChatCommandMgr.getCommandMap().keySet())
