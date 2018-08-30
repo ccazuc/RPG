@@ -1,9 +1,8 @@
-package com.mideas.rpg.v2.hud.auction.hold;
+package com.mideas.rpg.v2.hud.auction.old;
 
 import java.util.ArrayList;
 
 import com.mideas.rpg.v2.FontManager;
-import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.command.item.CommandAuction;
 import com.mideas.rpg.v2.game.auction.AuctionEntry;
@@ -227,7 +226,7 @@ public class AuctionFrameBrowseUI {
 			return !AuctionFrameBrowseUI.this.querySent && AuctionFrameBrowseUI.this.page > 1;
 		}
 	};
-	final InputBox searchEditBox = new InputBox(this.SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.SEARCH_EDIT_BOX_WIDTH, 63, 21, this.SEARCH_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), false, 4, 13, "Search", 0, 0, true) {
+	final InputBox searchEditBox = new InputBox("AuctionHouseFrameSearchInputBox", this.SEARCH_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.SEARCH_EDIT_BOX_WIDTH, 63, 21, this.SEARCH_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), false, 4, 13, "Search", 0, 0, true) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -247,7 +246,7 @@ public class AuctionFrameBrowseUI {
 			return false;
 		}
 	};
-	final InputBox minLevelEditBox = new InputBox(this.MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.LEVEL_EDIT_BOX_WIDTH, 4, 13, this.LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
+	final InputBox minLevelEditBox = new InputBox("AuctionHouseFrameMinLevelInputBox", this.MIN_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.LEVEL_EDIT_BOX_WIDTH, 4, 13, this.LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -267,7 +266,7 @@ public class AuctionFrameBrowseUI {
 			return value <= 999;
 		}
 	};
-	final InputBox maxLevelEditBox = new InputBox(this.MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.LEVEL_EDIT_BOX_WIDTH, 4, 13, this.LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
+	final InputBox maxLevelEditBox = new InputBox("AuctionHouseFrameMaxLevelInputBox", this.MAX_LEVEL_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.SEARCH_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.LEVEL_EDIT_BOX_WIDTH, 4, 13, this.LEVEL_EDIT_BOX_INPUT_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -287,7 +286,7 @@ public class AuctionFrameBrowseUI {
 			return value <= 999;
 		}
 	};
-	final InputBox goldBidEditBox = new InputBox(this.BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BID_GOLD_EDIT_BOX_WIDTH, 4, 13, this.BID_GOLD_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
+	final InputBox goldBidEditBox = new InputBox("AuctionHouseFrameGoldBidInputBox", this.BID_GOLD_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BID_GOLD_EDIT_BOX_WIDTH, 4, 13, this.BID_GOLD_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -307,7 +306,7 @@ public class AuctionFrameBrowseUI {
 			return value <= 999999;
 		}
 	};
-	final InputBox silverBidEditBox = new InputBox(this.BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BID_COPPER_EDIT_BOX_WIDTH, 4, 13, this.BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
+	final InputBox silverBidEditBox = new InputBox("AuctionHouseFrameSilverBidInputBox", this.BID_SILVER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BID_COPPER_EDIT_BOX_WIDTH, 4, 13, this.BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
 		
 		@Override
 		public boolean keyEvent(char c) {
@@ -327,7 +326,7 @@ public class AuctionFrameBrowseUI {
 			return value <= 99;
 		}
 	};
-	final InputBox copperBidEditBox = new InputBox(this.BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BID_COPPER_EDIT_BOX_WIDTH, 4, 13, this.BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
+	final InputBox copperBidEditBox = new InputBox("AuctionHouseFrameCopperBidInputBox", this.BID_COPPER_EDIT_BOX_X*Mideas.getDisplayXFactor(), this.BID_EDIT_BOX_Y*Mideas.getDisplayYFactor(), this.BID_COPPER_EDIT_BOX_WIDTH, 4, 13, this.BID_COPPER_EDIT_BOX_WIDTH, FontManager.get("FRIZQT", 11), true, 0, 0) {
 		
 		@Override
 		public boolean keyEvent(char c) {

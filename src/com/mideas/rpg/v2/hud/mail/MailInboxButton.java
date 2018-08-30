@@ -14,7 +14,8 @@ import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.UIElement;
 import com.mideas.rpg.v2.utils.UIElementType;
 
-public class MailInboxButton extends UIElement {
+public class MailInboxButton extends UIElement
+{
 
 	private final MailInboxFrame frame;
 	private Mail mail;

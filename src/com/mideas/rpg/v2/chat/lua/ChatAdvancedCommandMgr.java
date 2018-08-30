@@ -7,12 +7,13 @@ import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.StringUtils;
+import com.mideas.rpg.v2.utils.UIElement;
 
 public class ChatAdvancedCommandMgr {
 
 	private static boolean errorFound = false;
 	private static int currentIndex;
-	private static boolean debug = true;
+	private static boolean debug = false;
 	
 	public static void handleCommand(String commandLine, boolean shouldPrint)
 	{
@@ -77,13 +78,27 @@ public class ChatAdvancedCommandMgr {
 				System.out.println("Function result: " + result);
 				return (result);
 			}
-			/*else if (commandLine.charAt(i) == ':')
+			else if (commandLine.charAt(i) == ':')
 			{
+				System.out.println(": found");
+				char c = getPreviousCharWithoutSpace(commandLine, i);
+				System.out.println("Previous char: '" + c + "'");
+				if (c == -1)
+				{
+					System.out.println("Parse error near: '" + commandLine.charAt(i) + "'");
+					return (null);
+				}
+				if (c == ')')
+					continue;
 				System.out.println("Object found: '" + commandLine.substring(start, i).trim() + "', start: " + start + ", i: " + i);
 				String objectName = commandLine.substring(start, i);
+				System.out.println("ObjectName: '" + objectName + "'");
+				result = UIElement.getElementByName(objectName);
 				if (parseData != null)
 					parseData.setObjectName(objectName);
-			}*/
+				currentIndex = i;
+				return (result);
+			}
 		}
 		return (result);
 	}
@@ -113,7 +128,7 @@ public class ChatAdvancedCommandMgr {
 				if (debug)
 					result.add("String: '" + args.substring(i + 1, strEnd) + "'");
 				else
-					result.add(args.substring(1 + 1, strEnd));
+					result.add(args.substring(i + 1, strEnd));
 				System.out.println("Str Result: '" + result.get(result.size() - 1) + '\'');
 				i = findNextArgs(strEnd + 1, args, false, parseData) - 1;
 				System.out.println("i: " + i);
@@ -186,6 +201,16 @@ public class ChatAdvancedCommandMgr {
 				System.out.println("Result[" + j + "]: " + result.get(j));
 		}
 		return (result);
+	}
+	
+	private static char getPreviousCharWithoutSpace(String str, int start)
+	{
+		while (--start >= 0)
+		{
+			if (str.charAt(start) != ' ')
+				return (str.charAt(start));
+		}
+		return ((char)-1);
 	}
 	
 	private static int getFunctionBeginning(String arg, int start)

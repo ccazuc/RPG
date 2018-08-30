@@ -6,7 +6,7 @@ import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.game.auction.AuctionHouseFilter;
 import com.mideas.rpg.v2.game.auction.AuctionHouseSort;
-import com.mideas.rpg.v2.hud.auction.hold.AuctionFrameBrowseUI;
+import com.mideas.rpg.v2.hud.auction.old.AuctionFrameBrowseUI;
 import com.mideas.rpg.v2.render.Draw;
 import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.render.TTF;
@@ -16,18 +16,18 @@ import com.mideas.rpg.v2.utils.Frame;
 import com.mideas.rpg.v2.utils.InputBox;
 import com.mideas.rpg.v2.utils.ScrollBar;
 
-public class AuctionHouseBrowseFrame extends Frame {
+public class AuctionHouseBrowseFrame extends Frame
+{
 	
 	@SuppressWarnings("hiding")
 	private AuctionHouseFrame parentFrame;
-	private boolean shouldUpdateSize;
 	private final ArrayList<AuctionHouseBrowseCategoryFilterButton> categoryList;
 	private AuctionHouseFilter categoryFilter = AuctionHouseFilter.NONE;
 	private boolean categoryFilterScrollbarEnabled;
 	private short filterScrollbarYOffset;
 	private short categoryFilterTotalLine;
-	private AuctionHouseSort selectedSort = AuctionHouseSort.RARITY_ASCENDING;
-	private final InputBox searchInputBox = new InputBox(this, SEARCH_INPUT_BOX_X, SEARCH_INPUT_BOX_Y, SEARCH_INPUT_BOX_WIDTH, (short)63, SEARCH_INPUT_BOX_TEXT_X_OFFSET, SEARCH_INPUT_BOX_TEXT_Y_OFFSET, SEARCH_INPUT_BOX_TEXT_MAX_WIDTH, INPUT_BOX_FONT, false, SEARCH_INPUT_BOX_CURSOR_WIDTH, SEARCH_INPUT_BOX_CURSOR_HEIGHT, "Search", true, INPUT_BOX_COLOR)
+	AuctionHouseSort selectedSort = AuctionHouseSort.RARITY_ASCENDING;
+	private final InputBox searchInputBox = new InputBox(this, "AuctionHouseFrameSearchInputBox", SEARCH_INPUT_BOX_X, SEARCH_INPUT_BOX_Y, SEARCH_INPUT_BOX_WIDTH, (short)63, SEARCH_INPUT_BOX_TEXT_X_OFFSET, SEARCH_INPUT_BOX_TEXT_Y_OFFSET, SEARCH_INPUT_BOX_TEXT_MAX_WIDTH, INPUT_BOX_FONT, false, SEARCH_INPUT_BOX_CURSOR_WIDTH, SEARCH_INPUT_BOX_CURSOR_HEIGHT, "Search", true, INPUT_BOX_COLOR)
 	{
 	
 		@Override
@@ -36,7 +36,7 @@ public class AuctionHouseBrowseFrame extends Frame {
 			return (false);
 		}
 	};	
-	private final InputBox minLevelInputBox = new InputBox(this, MIN_LEVEL_INPUT_BOX_X, MIN_LEVEL_INPUT_BOX_Y, MIN_LEVEL_INPUT_BOX_WIDTH, (short)2, MIN_LEVEL_INPUT_BOX_TEXT_X_OFFSET, MIN_LEVEL_INPUT_BOX_TEXT_Y_OFFSET, MIN_LEVEL_INPUT_BOX_TEXT_MAX_WIDTH, INPUT_BOX_FONT, true, MIN_LEVEL_INPUT_BOX_CURSOR_WIDTH, MIN_LEVEL_INPUT_BOX_CURSOR_HEIGHT, "", false, INPUT_BOX_COLOR)
+	private final InputBox minLevelInputBox = new InputBox(this, "AuctionHouseFrameMinLevelInputBox", MIN_LEVEL_INPUT_BOX_X, MIN_LEVEL_INPUT_BOX_Y, MIN_LEVEL_INPUT_BOX_WIDTH, (short)2, MIN_LEVEL_INPUT_BOX_TEXT_X_OFFSET, MIN_LEVEL_INPUT_BOX_TEXT_Y_OFFSET, MIN_LEVEL_INPUT_BOX_TEXT_MAX_WIDTH, INPUT_BOX_FONT, true, MIN_LEVEL_INPUT_BOX_CURSOR_WIDTH, MIN_LEVEL_INPUT_BOX_CURSOR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 	
 		@Override
@@ -45,7 +45,7 @@ public class AuctionHouseBrowseFrame extends Frame {
 			return (false);
 		}
 	};	
-	private final InputBox maxLevelInputBox = new InputBox(this, MAX_LEVEL_INPUT_BOX_X, MAX_LEVEL_INPUT_BOX_Y, MAX_LEVEL_INPUT_BOX_WIDTH, (short)2, MAX_LEVEL_INPUT_BOX_TEXT_X_OFFSET, MAX_LEVEL_INPUT_BOX_TEXT_Y_OFFSET, MAX_LEVEL_INPUT_BOX_TEXT_MAX_WIDTH, INPUT_BOX_FONT, true, MAX_LEVEL_INPUT_BOX_CURSOR_WIDTH, MAX_LEVEL_INPUT_BOX_CURSOR_HEIGHT, "", false, INPUT_BOX_COLOR)
+	private final InputBox maxLevelInputBox = new InputBox(this, "AuctionHouseFrameMaxLevelInputBox", MAX_LEVEL_INPUT_BOX_X, MAX_LEVEL_INPUT_BOX_Y, MAX_LEVEL_INPUT_BOX_WIDTH, (short)2, MAX_LEVEL_INPUT_BOX_TEXT_X_OFFSET, MAX_LEVEL_INPUT_BOX_TEXT_Y_OFFSET, MAX_LEVEL_INPUT_BOX_TEXT_MAX_WIDTH, INPUT_BOX_FONT, true, MAX_LEVEL_INPUT_BOX_CURSOR_WIDTH, MAX_LEVEL_INPUT_BOX_CURSOR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 	
 		@Override
@@ -307,7 +307,7 @@ public class AuctionHouseBrowseFrame extends Frame {
 		return (false);
 	}
 	
-	private void sendSearchQuery()
+	void sendSearchQuery()
 	{
 		
 	}

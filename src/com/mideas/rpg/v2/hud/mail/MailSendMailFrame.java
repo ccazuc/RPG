@@ -53,7 +53,7 @@ public class MailSendMailFrame extends Frame
 	private final static short CUROSR_HEIGHT = 15;
 	private final static TTF EDIT_BOX_FONT = FontManager.get("ARIALN", 14);
 	private final static Color INPUT_BOX_COLOR = Color.WHITE;
-	private final InputBox senderNameInputBox = new InputBox(this, SENDER_NAME_INPUT_BOX_X, SENDER_NAME_INPUT_BOX_Y, SENDER_NAME_INPUT_BOX_WIDTH, (short)10, (short)8, (short)-2, SENDER_NAME_INPUT_BOX_WIDTH, EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
+	private final InputBox senderNameInputBox = new InputBox(this, "MailFrameSendMailSenderNameInputBox", SENDER_NAME_INPUT_BOX_X, SENDER_NAME_INPUT_BOX_Y, SENDER_NAME_INPUT_BOX_WIDTH, (short)10, (short)8, (short)-2, SENDER_NAME_INPUT_BOX_WIDTH, EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -63,7 +63,7 @@ public class MailSendMailFrame extends Frame
 			return (handleInputTab(this, MailSendMailFrame.this.subjectInputBox, MailSendMailFrame.this.copperInputBox, c, true));
 		}
 	};
-	private final InputBox subjectInputBox = new InputBox(this, SUBJECT_INPUT_BOX_X, SUBJECT_INPUT_BOX_Y, SUBJECT_INPUT_BOX_WIDTH, (short)60, (short)8, (short)-2, (short)(SUBJECT_INPUT_BOX_WIDTH - 20), EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
+	private final InputBox subjectInputBox = new InputBox(this, "MailFrameSendMailSubjectInputBox", SUBJECT_INPUT_BOX_X, SUBJECT_INPUT_BOX_Y, SUBJECT_INPUT_BOX_WIDTH, (short)60, (short)8, (short)-2, (short)(SUBJECT_INPUT_BOX_WIDTH - 20), EDIT_BOX_FONT, false, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -73,7 +73,7 @@ public class MailSendMailFrame extends Frame
 			return (handleInputTab(this, MailSendMailFrame.this.contentInputBox, MailSendMailFrame.this.senderNameInputBox, c, true));
 		}
 	};
-	private final InputBox goldInputBox = new InputBox(this, GOLD_INPUT_BOX_X, GOLD_INPUT_BOX_Y, GOLD_INPUT_BOX_WIDTH, (short)6, (short)8, (short)-2, (short)(GOLD_INPUT_BOX_WIDTH - 10), EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
+	private final InputBox goldInputBox = new InputBox(this, "MailFrameSendMailGoldInputBox", GOLD_INPUT_BOX_X, GOLD_INPUT_BOX_Y, GOLD_INPUT_BOX_WIDTH, (short)6, (short)8, (short)-2, (short)(GOLD_INPUT_BOX_WIDTH - 10), EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -83,7 +83,7 @@ public class MailSendMailFrame extends Frame
 			return (handleInputTab(this, MailSendMailFrame.this.silverInputBox, MailSendMailFrame.this.contentInputBox, c, true));
 		}
 	};
-	private final InputBox silverInputBox = new InputBox(this, SILVER_INPUT_BOX_X, SILVER_INPUT_BOX_Y, SILVER_INPUT_BOX_WIDTH, (short)2, (short)8, (short)-2, (short)(SILVER_INPUT_BOX_WIDTH - 10), EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
+	private final InputBox silverInputBox = new InputBox(this, "MailFrameSendMailSilverInputBox", SILVER_INPUT_BOX_X, SILVER_INPUT_BOX_Y, SILVER_INPUT_BOX_WIDTH, (short)2, (short)8, (short)-2, (short)(SILVER_INPUT_BOX_WIDTH - 10), EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -93,7 +93,7 @@ public class MailSendMailFrame extends Frame
 			return (handleInputTab(this, MailSendMailFrame.this.copperInputBox, MailSendMailFrame.this.goldInputBox, c, true));
 		}
 	};
-	private final InputBox copperInputBox = new InputBox(this, COPPER_INPUT_BOX_X, COPPER_INPUT_BOX_Y, COPPER_INPUT_BOX_WIDTH, (short)2, (short)8, (short)-2, (short)(COPPER_INPUT_BOX_WIDTH - 10), EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
+	private final InputBox copperInputBox = new InputBox(this, "MailFrameSendMailCopperInputBox", COPPER_INPUT_BOX_X, COPPER_INPUT_BOX_Y, COPPER_INPUT_BOX_WIDTH, (short)2, (short)8, (short)-2, (short)(COPPER_INPUT_BOX_WIDTH - 10), EDIT_BOX_FONT, true, CUROSR_WIDTH, CUROSR_HEIGHT, "", false, INPUT_BOX_COLOR)
 	{
 		
 		@SuppressWarnings("synthetic-access")
@@ -103,7 +103,7 @@ public class MailSendMailFrame extends Frame
 			return (handleInputTab(this, MailSendMailFrame.this.senderNameInputBox, MailSendMailFrame.this.silverInputBox, c, true));
 		}
 	};
-	private final InputBox contentInputBox = new InputBox(this, CONTENT_INPUT_BOX_X, CONTENT_INPUT_BOX_Y, CONTENT_INPUT_BOX_WIDTH, CONTENT_INPUT_BOX_HEIGHT, CONTENT_INPUT_BOX_INPUT_X_OFFSET, CONTENT_INPUT_BOX_INPUT_Y_OFFSET, 450, CONTENT_INPUT_BOX_INPUT_MAX_WIDTH, 15, FontManager.get("MORPHEUS", 15), 5, 17, 3, Color.BLACK)
+	private final InputBox contentInputBox = new InputBox(this, "MailFrameSendMailContentInputBox", CONTENT_INPUT_BOX_X, CONTENT_INPUT_BOX_Y, CONTENT_INPUT_BOX_WIDTH, CONTENT_INPUT_BOX_HEIGHT, CONTENT_INPUT_BOX_INPUT_X_OFFSET, CONTENT_INPUT_BOX_INPUT_Y_OFFSET, 450, CONTENT_INPUT_BOX_INPUT_MAX_WIDTH, 15, FontManager.get("MORPHEUS", 15), 5, 17, 3, Color.BLACK)
 	{
 		
 		@SuppressWarnings("synthetic-access")

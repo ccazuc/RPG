@@ -11,7 +11,8 @@ import com.mideas.rpg.v2.utils.ArrowDirection;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.Frame;
 
-public class MailInboxFrame extends Frame {
+public class MailInboxFrame extends Frame
+{
 
 	private final MailFrame frame;
 	int currentPage;
@@ -20,6 +21,8 @@ public class MailInboxFrame extends Frame {
 	private short nextPageArrowTextY;
 	private short previousPageArrowTextX;
 	private short previousPageArrowTextY;
+	int totalPage;
+	
 	private final static TTF changePageFont = FontManager.get("FRIZQT", 13);
 	private final static byte MAIL_PER_PAGE = 7;
 	private final static short NEXT_PAGE_ARROW_X_OFFSET = 319;
@@ -32,7 +35,6 @@ public class MailInboxFrame extends Frame {
 	private final static short NEXT_PAGE_ARROW_TEXT_Y_OFFSET = 402;
 	private final static short PREVIOUS_PAGE_ARROW_TEXT_X_OFFSET = 57;
 	private final static short PREVIOUS_PAGE_ARROW_TEXT_Y_OFFSET = 402;
-	int totalPage;
 	
 	private final Arrow nextPageArrow = new Arrow(0, 0, CHANGE_PAGE_ARROW_WIDTH, CHANGE_PAGE_ARROW_HEIGHT, ArrowDirection.RIGHT)
 	{
@@ -76,8 +78,7 @@ public class MailInboxFrame extends Frame {
 		this.nextPageArrow.update((this.frame.getX() + NEXT_PAGE_ARROW_X_OFFSET * Mideas.getDisplayXFactor()), this.frame.getY() + NEXT_PAGE_ARROW_Y_OFFSET * Mideas.getDisplayYFactor());
 		this.previousPageArrow.update((this.frame.getX() + PREVIOUS_PAGE_ARROW_X_OFFSET * Mideas.getDisplayXFactor()), this.frame.getY() + PREVIOUS_PAGE_ARROW_Y_OFFSET * Mideas.getDisplayYFactor());
 		this.buttonList = new MailInboxButton[MAIL_PER_PAGE];
-		int i = -1;
-		while (++i < this.buttonList.length)
+		for (int i = 0; i < this.buttonList.length; ++i)
 			this.buttonList[i] = new MailInboxButton(this, "MailFrameMailInboxButton" + (i + 1), (short)(45 * i));
 		fillMailPage();			
 	}
@@ -101,33 +102,27 @@ public class MailInboxFrame extends Frame {
 		changePageFont.drawStringShadowPart(this.nextPageArrowTextX, this.nextPageArrowTextY, "Next", Color.YELLOW, MailInboxButton.senderNameFontShadowColor, 1, 1, 1);
 		changePageFont.drawStringShadowPart(this.previousPageArrowTextX, this.previousPageArrowTextY, "Prev", Color.YELLOW, MailInboxButton.senderNameFontShadowColor, 1, 1, 1);
 		changePageFont.drawEnd();
-		int i = -1;
 		MailInboxButton.mailIcon.drawBegin();
-		while (++i < this.buttonList.length && this.buttonList[i].getMail() != null)
+		for (int i = 0; i < this.buttonList.length && this.buttonList[i].getMail() != null; ++i)
 			this.buttonList[i].drawTextureNotRead();
 		MailInboxButton.mailIcon.drawEnd();
-		i = -1;
 		MailInboxButton.mailReadIcon.drawBegin();
-		while (++i < this.buttonList.length && this.buttonList[i].getMail() != null)
+		for (int i = 0; i < this.buttonList.length && this.buttonList[i].getMail() != null; ++i)
 			this.buttonList[i].drawTextureRead();
 		MailInboxButton.mailReadIcon.drawEnd();
-		i = -1;
 		MailInboxButton.senderNameFont.drawBegin();
-		while (++i < this.buttonList.length && this.buttonList[i].getMail() != null)
+		for (int i = 0; i < this.buttonList.length && this.buttonList[i].getMail() != null; ++i)
 			this.buttonList[i].drawSenderAndSubject();
 		MailInboxButton.senderNameFont.drawEnd();
-		i = -1;
 		MailInboxButton.expireDateFont.drawBegin();
-		while (++i < this.buttonList.length && this.buttonList[i].getMail() != null)
+		for (int i = 0; i < this.buttonList.length && this.buttonList[i].getMail() != null; ++i)
 			this.buttonList[i].drawExpireDate();
 		MailInboxButton.expireDateFont.drawEnd();
-		i = -1;
 		Sprites.border.drawBegin();
-		while (++i < this.buttonList.length && this.buttonList[i].getMail() != null)
+		for (int i = 0; i < this.buttonList.length && this.buttonList[i].getMail() != null; ++i)
 			this.buttonList[i].drawBorder();
 		Sprites.border.drawEnd();
-		i = -1;
-		while (++i < this.buttonList.length && this.buttonList[i].getMail() != null)
+		for (int i = 0; i < this.buttonList.length && this.buttonList[i].getMail() != null; ++i)
 			this.buttonList[i].drawHover();
 	}
 	
@@ -142,8 +137,7 @@ public class MailInboxFrame extends Frame {
 	{
 		if (this.frame.getActiveFrame() != this)
 			return (false);
-		int i = -1;
-		while (++i < this.buttonList.length)
+		for (int i = 0; i < this.buttonList.length; ++i)
 			if (this.buttonList[i].mouseEvent())
 				return (true);
 		if (this.nextPageArrow.event())
@@ -185,23 +179,20 @@ public class MailInboxFrame extends Frame {
 	
 	public void nextPage()
 	{
-		System.out.println("TotalPage: " + this.totalPage + ", currentPage: " + this.currentPage);
 		++this.currentPage;
 		fillMailPage();
 	}
 	
 	public void previousPage()
 	{
-		System.out.println("TotalPage: " + this.totalPage + ", currentPage: " + this.currentPage);
 		--this.currentPage;
 		fillMailPage();
 	}
 	
 	public void updateButtons()
 	{
-		int i = -1;
 		final int pageOffset = this.currentPage * MAIL_PER_PAGE;
-		while (++i < this.buttonList.length)
+		for (int i = 0; i < this.buttonList.length; ++i)
 			if (i + pageOffset < MailMgr.getMailList().size())
 				this.buttonList[i].setMail(MailMgr.getMailList().get(i + pageOffset));
 			else
@@ -255,8 +246,7 @@ public class MailInboxFrame extends Frame {
 		this.previousPageArrowTextY = (short)(this.frame.getY() + PREVIOUS_PAGE_ARROW_TEXT_Y_OFFSET * Mideas.getDisplayYFactor());
 		this.nextPageArrow.update((this.frame.getX() + NEXT_PAGE_ARROW_X_OFFSET * Mideas.getDisplayXFactor()), this.frame.getY() + NEXT_PAGE_ARROW_Y_OFFSET * Mideas.getDisplayYFactor());
 		this.previousPageArrow.update((this.frame.getX() + PREVIOUS_PAGE_ARROW_X_OFFSET * Mideas.getDisplayXFactor()), this.frame.getY() + PREVIOUS_PAGE_ARROW_Y_OFFSET * Mideas.getDisplayYFactor());
-		int i = -1;
-		while (++i < this.buttonList.length)
+		for (int i = 0; i < this.buttonList.length; ++i)
 			this.buttonList[i].updateSize();
 		this.shouldUpdateSize = false;
 	}
@@ -287,11 +277,5 @@ public class MailInboxFrame extends Frame {
 	public MailFrame getParentFrame()
 	{
 		return (this.frame);
-	}
-	
-	@Override
-	public String getName()
-	{
-		return ("MailInboxFrame");
 	}
 }

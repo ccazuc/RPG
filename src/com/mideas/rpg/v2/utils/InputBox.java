@@ -7,7 +7,8 @@ import com.mideas.rpg.v2.render.TTF;
 
 import org.lwjgl.input.Mouse;
 
-public class InputBox {
+public class InputBox extends UIElement
+{
 
 	private final short textOffset;
 	private final short inputMaxWidth;
@@ -23,12 +24,12 @@ public class InputBox {
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private final EditBoxCrossButton crossButton;
-	private Frame parentFrame;
 	private final static byte CROSS_BUTTON_X_OFFSET = 21;
 	private final static byte CROSS_BUTTON_Y_OFFSET = 5;
 	
-	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, float textXOffset, float textYOffset, boolean hasCrossButton)
+	public InputBox(String name, float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, float textXOffset, float textYOffset, boolean hasCrossButton)
 	{
+		super(name, UIElementType.INPUT_BOX);
 		this.x = (short)x;
 		this.y = (short)y;
 		this.widthSave = (short)x_size;
@@ -92,13 +93,14 @@ public class InputBox {
 		}
 	}
 	
-	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, float textXOffset, float textYOffset)
+	public InputBox(String name, float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, float textXOffset, float textYOffset)
 	{
-		this(x, y, x_size, inputMaxLength, textOffset, inputMaxWidth, font, isIntegerInput, 2, 13, "", textXOffset, textYOffset, false);
+		this(name, x, y, x_size, inputMaxLength, textOffset, inputMaxWidth, font, isIntegerInput, 2, 13, "", textXOffset, textYOffset, false);
 	}
 	
-	public InputBox(Frame parentFrame, short x, short y, short width, short height, short inputXOffset, short inputYOffset, int inputMaxLength, int inputMaxWidth, int lineHeight, TTF font, int cursorWidth, int cursorHeight, int cursorYOffset, Color color)
+	public InputBox(Frame parentFrame, String name, short x, short y, short width, short height, short inputXOffset, short inputYOffset, int inputMaxLength, int inputMaxWidth, int lineHeight, TTF font, int cursorWidth, int cursorHeight, int cursorYOffset, Color color)
 	{	
+		super(name, UIElementType.INPUT_BOX);
 		this.x = x;
 		this.y = (short)(y * Mideas.getDisplayYFactor());
 		this.xSave = x;
@@ -122,8 +124,9 @@ public class InputBox {
 		};
 	}
 	
-	public InputBox(Frame parentFrame, short x, short y, short width, short inputMaxLength, short textXOffset, short textYOffset, short inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton, Color textColor)
+	public InputBox(Frame parentFrame, String name, short x, short y, short width, short inputMaxLength, short textXOffset, short textYOffset, short inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton, Color textColor)
 	{
+		super(name, UIElementType.INPUT_BOX);
 		this.x = x;
 		this.y = y;
 		this.parentFrame = parentFrame;
@@ -222,14 +225,12 @@ public class InputBox {
 			this.crossButton.draw();
 	}
 	
+	@Override
 	public void draw() {
 		if (!this.input.hasMultipleLine())
 		{
 			int imageWidth = Sprites.edit_box_left_border.getImageWidth();
 			int imageHeight = (int)(Sprites.edit_box_left_border.getImageHeight()*Mideas.getDisplayYFactor());
-			/*Draw.drawQuad(Sprites.edit_box_left_border, this.x, this.y, imageWidth, imageHeight);
-			Draw.drawQuad(Sprites.edit_box_middle_border, this.x+imageWidth, this.y, this.x_size-2*imageWidth, imageHeight);
-			Draw.drawQuad(Sprites.edit_box_right_border, this.x+this.x_size-imageWidth, this.y, imageWidth, imageHeight);*/
 			
 			Sprites.edit_box.drawBegin();
 			Draw.drawQuadPart(Sprites.edit_box, this.x, this.y, imageWidth, imageHeight, 0, 0, 6, 20);				//left_border
@@ -242,6 +243,7 @@ public class InputBox {
 			this.crossButton.draw();
 	}
 	
+	@Override
 	public boolean mouseEvent()
 	{
 		if (this.crossButton != null && this.crossButton.mouseEvent())
@@ -249,8 +251,7 @@ public class InputBox {
 		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height)
 		{
 			this.buttonHover = true;
-			Mideas.setHover(false);
-			System.out.println("d");
+			Mideas.setHover(this, false);
 		}
 		else
 		{
@@ -278,6 +279,12 @@ public class InputBox {
 		return (false);
 	}
 	
+	@Override
+	public boolean keyboardEvent()
+	{
+		return (this.input.event());
+	}
+	
 	public void setText(String text)
 	{
 		this.input.setText(text);
@@ -291,11 +298,6 @@ public class InputBox {
 	public String getText()
 	{
 		return (this.input.getText());
-	}
-	
-	public boolean keyboardEvent()
-	{
-		return (this.input.event());
 	}
 	
 	public void setActive(boolean we)
@@ -328,7 +330,8 @@ public class InputBox {
 	
 	public void updateSize()
 	{
-		this.heightSave = (short)Sprites.edit_box_left_border.getImageHeight();
+		if (!this.input.hasMultipleLine())
+			this.heightSave = (short)Sprites.edit_box_left_border.getImageHeight();
 		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
 		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
 		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());

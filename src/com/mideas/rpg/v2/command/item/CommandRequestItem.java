@@ -8,7 +8,7 @@ import com.mideas.rpg.v2.game.item.DragItem;
 import com.mideas.rpg.v2.game.item.Item;
 import com.mideas.rpg.v2.game.item.RequestItem;
 import com.mideas.rpg.v2.game.item.container.Container;
-import com.mideas.rpg.v2.hud.auction.hold.AuctionHouseFrame;
+import com.mideas.rpg.v2.hud.auction.old.AuctionHouseFrame;
 
 public class CommandRequestItem extends Command {
 

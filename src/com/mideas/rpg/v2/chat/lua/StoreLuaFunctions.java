@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.utils.InputBox;
 import com.mideas.rpg.v2.utils.UIElement;
 
 public class StoreLuaFunctions {
@@ -113,6 +114,24 @@ public class StoreLuaFunctions {
 			return (object instanceof UIElement);
 		}
 	};
+	private final static LuaFunction setText = new LuaFunction("SetText")
+	{
+	
+		@Override
+		public Object handleFunction(Object object, ArrayList<Object> args)
+		{
+			if (args == null || args.size() == 0)
+				return (null);
+			((InputBox)object).setText((String)args.get(0));
+			return (null);
+		}
+		
+		@Override
+		public boolean isFunctionVisible(Object object)
+		{
+			return (object instanceof InputBox);
+		}
+	};
 	
 	public static void initFunctionMap()
 	{
@@ -121,6 +140,7 @@ public class StoreLuaFunctions {
 		functionMap.put(random.getName(), random);
 		functionMap.put(getName.getName(), getName);
 		functionMap.put(setName.getName(), setName);
+		functionMap.put(setText.getName(), setText);
 	}
 	
 	public static LuaFunction getFunction(Object object, String functionName)

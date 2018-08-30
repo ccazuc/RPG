@@ -1,5 +1,7 @@
 package com.mideas.rpg.v2.utils;
 
+import java.util.HashMap;
+
 public abstract class  UIElement {
 
 	private String name;
@@ -8,11 +10,21 @@ public abstract class  UIElement {
 	protected short x;
 	protected short y;
 	protected boolean shouldUpdateSize;
+	private final static HashMap<String, UIElement> elementMap = new HashMap<String, UIElement>();
 
 	public UIElement(String name, UIElementType type)
 	{
 		this.name = name;
 		this.type = type;
+		if (elementMap.containsKey(this.name))
+		{
+			System.out.println("ERROR: Duplicate name for an UIElmeent: " + this.name);
+			DebugUtils.printStackTrace("Element creation trace:");
+		}
+		else
+		{
+			elementMap.put(this.name, this);
+		}
 	}
 	
 	public String getName()
@@ -22,7 +34,14 @@ public abstract class  UIElement {
 	
 	public void setName(String name)
 	{
+		if (elementMap.containsKey(name))
+		{
+			System.out.println("ERROR: Duplicate name for an UIElmeent: " + this.name);
+			return;
+		}
+		elementMap.remove(this.name);
 		this.name = name;
+		elementMap.put(this.name, this);
 	}
 
 	public short getX()
@@ -53,6 +72,11 @@ public abstract class  UIElement {
 	public void shouldUpdateSize()
 	{
 		this.shouldUpdateSize = true;
+	}
+	
+	public static UIElement getElementByName(String name)
+	{
+		return (elementMap.get(name));
 	}
 	
 	public void resetState() {}
