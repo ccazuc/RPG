@@ -19,7 +19,7 @@ public class InputBox {
 	private short width;
 	private short height;
 	private final short widthSave;
-	private final short heightSave;
+	private short heightSave;
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private final EditBoxCrossButton crossButton;
@@ -27,7 +27,8 @@ public class InputBox {
 	private final static byte CROSS_BUTTON_X_OFFSET = 21;
 	private final static byte CROSS_BUTTON_Y_OFFSET = 5;
 	
-	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, float textXOffset, float textYOffset, boolean hasCrossButton) {
+	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, float textXOffset, float textYOffset, boolean hasCrossButton)
+	{
 		this.x = (short)x;
 		this.y = (short)y;
 		this.widthSave = (short)x_size;
@@ -36,50 +37,63 @@ public class InputBox {
 		this.heightSave = (short)Sprites.edit_box_left_border.getImageHeight();
 		this.textOffset = (short)textOffset;
 		this.inputMaxWidth = (short)inputMaxWidth;
-		if(isIntegerInput) {
-			this.input = new IntegerInput(font, x, y, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, textXOffset, textYOffset, Color.WHITE) {
+		if (isIntegerInput)
+		{
+			this.input = new IntegerInput(font, x, y, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, textXOffset, textYOffset, Color.WHITE)
+			{
 				
 				@Override
-				public boolean checkValue(int value) {
+				public boolean checkValue(int value)
+				{
 					return InputBox.this.checkValue(value);
 				}
 				
 				@Override
-				public boolean keyEvent(char c) {
+				public boolean keyEvent(char c)
+				{
 					return InputBox.this.keyEvent(c);
 				}
 			};
 		}
-		else {
-			this.input = new Input(font, inputMaxLength, false, x, y, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText, textXOffset, textYOffset, Color.WHITE) {
+		else
+		{
+			this.input = new Input(font, inputMaxLength, false, x, y, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText, textXOffset, textYOffset, Color.WHITE)
+			{
 				
 				@Override
-				public boolean keyEvent(char c) {
-					return InputBox.this.keyEvent(c);
+				public boolean keyEvent(char c)
+				{
+					return (InputBox.this.keyEvent(c));
 				}
 			};
 		}
-		if(hasCrossButton) {
-			this.crossButton = new EditBoxCrossButton("", x+x_size-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor()) {
+		if (hasCrossButton)
+		{
+			this.crossButton = new EditBoxCrossButton("", x+x_size-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor())
+			{
 				
 				@Override
-				public void eventButtonClick() {
+				public void eventButtonClick()
+				{
 					setActive(false);
 					resetText();
 				}
 				
 				@Override
-				public boolean activateCondition() {
+				public boolean activateCondition()
+				{
 					return InputBox.this.input.isActive() || InputBox.this.input.getText().length() > 0;
 				}
 			};
 		}
-		else {
+		else
+		{
 			this.crossButton = null;
 		}
 	}
 	
-	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, float textXOffset, float textYOffset) {
+	public InputBox(float x, float y, float x_size, int inputMaxLength, float textOffset, float inputMaxWidth, TTF font, boolean isIntegerInput, float textXOffset, float textYOffset)
+	{
 		this(x, y, x_size, inputMaxLength, textOffset, inputMaxWidth, font, isIntegerInput, 2, 13, "", textXOffset, textYOffset, false);
 	}
 	
@@ -103,12 +117,13 @@ public class InputBox {
 			@Override
 			public boolean keyEvent(char c)
 			{
-				return InputBox.this.keyEvent(c);
+				return (InputBox.this.keyEvent(c));
 			}
 		};
 	}
 	
-	public InputBox(Frame parentFrame, short x, short y, short width, short inputMaxLength, short textXOffset, short textYOffset, short inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton, Color textColor) {
+	public InputBox(Frame parentFrame, short x, short y, short width, short inputMaxLength, short textXOffset, short textYOffset, short inputMaxWidth, TTF font, boolean isIntegerInput, int cursorWidth, int cursorHeight, String defaultText, boolean hasCrossButton, Color textColor)
+	{
 		this.x = x;
 		this.y = y;
 		this.parentFrame = parentFrame;
@@ -120,50 +135,63 @@ public class InputBox {
 		this.heightSave = (short)Sprites.edit_box_left_border.getImageHeight();
 		this.inputMaxWidth = inputMaxWidth;
 		this.textOffset = 0;
-		if(isIntegerInput) {
-			this.input = new IntegerInput(font, x, y, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, textXOffset, textYOffset, textColor) {
+		if (isIntegerInput)
+		{
+			this.input = new IntegerInput(font, x, y, inputMaxLength, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, textXOffset, textYOffset, textColor)
+			{
 				
 				@Override
-				public boolean checkValue(int value) {
-					return InputBox.this.checkValue(value);
+				public boolean checkValue(int value)
+				{
+					return (InputBox.this.checkValue(value));
 				}
 				
 				@Override
-				public boolean keyEvent(char c) {
-					return InputBox.this.keyEvent(c);
-				}
-			};
-		}
-		else {
-			this.input = new Input(font, inputMaxLength, false, x, y, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText, textXOffset, textYOffset, textColor) {
-				
-				@Override
-				public boolean keyEvent(char c) {
-					return InputBox.this.keyEvent(c);
+				public boolean keyEvent(char c)
+				{
+					return (InputBox.this.keyEvent(c));
 				}
 			};
 		}
-		if(hasCrossButton) {
-			this.crossButton = new EditBoxCrossButton(parentFrame, x + width - CROSS_BUTTON_X_OFFSET * Mideas.getDisplayXFactor(), y + CROSS_BUTTON_Y_OFFSET * Mideas.getDisplayYFactor(), "") {
+		else
+		{
+			this.input = new Input(font, inputMaxLength, false, x, y, inputMaxWidth*Mideas.getDisplayXFactor(), cursorWidth, cursorHeight, defaultText, textXOffset, textYOffset, textColor)
+			{
 				
 				@Override
-				public void eventButtonClick() {
+				public boolean keyEvent(char c)
+				{
+					return (InputBox.this.keyEvent(c));
+				}
+			};
+		}
+		if (hasCrossButton)
+		{
+			this.crossButton = new EditBoxCrossButton(parentFrame, x + width - CROSS_BUTTON_X_OFFSET * Mideas.getDisplayXFactor(), y + CROSS_BUTTON_Y_OFFSET * Mideas.getDisplayYFactor(), "")
+			{
+				
+				@Override
+				public void eventButtonClick()
+				{
 					setActive(false);
 					resetText();
 				}
 				
 				@Override
-				public boolean activateCondition() {
-					return InputBox.this.input.isActive() || InputBox.this.input.getText().length() > 0;
+				public boolean activateCondition()
+				{
+					return (InputBox.this.input.isActive() || InputBox.this.input.getText().length() > 0);
 				}
 			};
 		}
-		else {
+		else
+		{
 			this.crossButton = null;
 		}
 	}
 	
-	public void drawTexturePart() {
+	public void drawTexturePart()
+	{
 		int imageWidth = Sprites.edit_box_left_border.getImageWidth();
 		int imageHeight = (int)(Sprites.edit_box_left_border.getImageHeight()*Mideas.getDisplayYFactor());
 		Draw.drawQuadPart(Sprites.edit_box, this.x, this.y, imageWidth, imageHeight, 0, 0, 6, 20);				//left_border
@@ -181,11 +209,11 @@ public class InputBox {
 		this.input.drawCursorPart();
 	}
 	
-	public void drawString() {
+	public void drawString()
+	{
 		this.input.draw();
-		if(this.crossButton != null) {
+		if (this.crossButton != null)
 			this.crossButton.draw();
-		}
 	}
 	
 	public void drawCrossButton()
@@ -210,66 +238,74 @@ public class InputBox {
 			Sprites.edit_box.drawEnd();
 		}
 		this.input.draw();
-		if(this.crossButton != null) {
+		if (this.crossButton != null)
 			this.crossButton.draw();
-		}
 	}
 	
-	public boolean mouseEvent() {
-		if(this.crossButton != null && this.crossButton.mouseEvent()) {
-			return true;
-		}
-		if(Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height) {
+	public boolean mouseEvent()
+	{
+		if (this.crossButton != null && this.crossButton.mouseEvent())
+			return (true);
+		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x+this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height)
+		{
 			this.buttonHover = true;
 			Mideas.setHover(false);
+			System.out.println("d");
 		}
-		else {
+		else
+		{
 			this.buttonHover = false;
 		}
-		if(this.buttonHover) {
-			if(Mouse.getEventButtonState()) {
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+		if (this.buttonHover)
+		{
+			if (Mouse.getEventButtonState())
+			{
+				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)
 					this.buttonDown = true;
-				}
 			}
-			else if(this.buttonDown) {
-				if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+			else if (this.buttonDown)
+			{
+				if (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
 					this.buttonDown = false;
 					this.input.setIsActive(true);
 					return true;
 				}
 			}
 		}
-		else if(!Mouse.getEventButtonState()) {
-			if(Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1) {
+		else if (!Mouse.getEventButtonState())
+			if (Mouse.getEventButton() == 0 || Mouse.getEventButton() == 1)
 				this.buttonDown = false;
-			}
-		}
-		return false;
+		return (false);
 	}
 	
-	public void setText(String text) {
+	public void setText(String text)
+	{
 		this.input.setText(text);
 	}
 	
-	public void resetText() {
+	public void resetText()
+	{
 		this.input.resetText();
 	}
 	
-	public String getText() {
-		return this.input.getText();
+	public String getText()
+	{
+		return (this.input.getText());
 	}
 	
-	public boolean keyboardEvent() {
-		return this.input.event();
+	public boolean keyboardEvent()
+	{
+		return (this.input.event());
 	}
 	
-	public void setActive(boolean we) {
+	public void setActive(boolean we)
+	{
 		this.input.setIsActive(we);
 	}
 	
-	public int getValue() {
-		return this.input.getTextValue();
+	public int getValue()
+	{
+		return (this.input.getTextValue());
 	}
 	
 	public void setCursorEndOfText()
@@ -280,18 +316,19 @@ public class InputBox {
 	@SuppressWarnings("unused")
 	public boolean checkValue(int value) {return true;}
 	
-	public void update(float x, float y) {
+	public void update(float x, float y)
+	{
 		this.x = (short)x;
 		this.y = (short)y;
 		this.width = (short)(this.widthSave*Mideas.getDisplayXFactor());
 		this.input.update(this.x+this.textOffset*Mideas.getDisplayXFactor(), this.y + 3 * Mideas.getDisplayYFactor(), this.inputMaxWidth*Mideas.getDisplayXFactor());
-		if(this.crossButton != null) {
+		if (this.crossButton != null)
 			this.crossButton.update(this.x+this.width-CROSS_BUTTON_X_OFFSET*Mideas.getDisplayXFactor(), y+CROSS_BUTTON_Y_OFFSET*Mideas.getDisplayYFactor());
-		}
 	}
 	
 	public void updateSize()
 	{
+		this.heightSave = (short)Sprites.edit_box_left_border.getImageHeight();
 		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
 		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
 		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
@@ -311,8 +348,9 @@ public class InputBox {
 			this.crossButton.initParentFrame(frame);
 	}
 	
-	public short getWidth() {
-		return this.width;
+	public short getWidth()
+	{
+		return (this.width);
 	}
 	
 	protected boolean keyEvent(@SuppressWarnings("unused") char c) {return false;}

@@ -17,7 +17,6 @@ public class MailFrame extends Frame {
 	private final MailInboxFrame inboxFrame;
 	private final MailSendMailFrame sendMailFrame;
 	private final MailOpenedMailFrame openedMailFrame;
-	private boolean shouldUpdateSize;
 	private Frame activeFrame;
 	private boolean shouldCloseBagOnClose;
 	private boolean isOpen;

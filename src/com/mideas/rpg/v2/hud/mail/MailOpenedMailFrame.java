@@ -17,7 +17,6 @@ public class MailOpenedMailFrame extends Frame {
 
 	private final MailFrame frame;
 	private Mail openedMail;
-	private boolean shouldUpdateSize;
 	private short openedMailSubjectX;
 	private short openedMailSubjectY;
 	private short openedMailSenderNameX;

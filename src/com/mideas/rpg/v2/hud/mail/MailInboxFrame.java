@@ -16,7 +16,6 @@ public class MailInboxFrame extends Frame {
 	private final MailFrame frame;
 	int currentPage;
 	private final MailInboxButton[] buttonList;
-	private boolean shouldUpdateSize;
 	private short nextPageArrowTextX;
 	private short nextPageArrowTextY;
 	private short previousPageArrowTextX;

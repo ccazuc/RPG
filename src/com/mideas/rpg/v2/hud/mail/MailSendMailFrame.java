@@ -19,7 +19,6 @@ public class MailSendMailFrame extends Frame
 {
 
 	private final MailFrame frame;
-	private boolean shouldUpdateSize;
 	private final static short SENDER_NAME_INPUT_BOX_X = 97;
 	private final static short SENDER_NAME_INPUT_BOX_Y = 41;
 	private final static short SENDER_NAME_INPUT_BOX_WIDTH = 123;

@@ -1,5 +1,6 @@
 package com.mideas.rpg.v2.render;
 
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.files.logs.LogsMgr;
 
 public class LoadTextureRunnable implements Runnable
@@ -17,5 +18,6 @@ public class LoadTextureRunnable implements Runnable
 		Texture.asyncTextureLoadFinished = true;
 		System.out.println("Texture data load ended");
 		LogsMgr.writeMiscLog("Finished loading texture async.");
+		Mideas.updateDisplayFactor();
 	}
 }

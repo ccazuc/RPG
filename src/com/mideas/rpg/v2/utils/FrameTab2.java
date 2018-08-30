@@ -7,7 +7,8 @@ import com.mideas.rpg.v2.render.Draw;
 import com.mideas.rpg.v2.render.Sprites;
 import com.mideas.rpg.v2.render.TTF;
 
-public class FrameTab2 extends UIElement {
+public class FrameTab2 extends UIElement
+{
 
 	private final short ySave;
 	private final short defaultWidth;
@@ -187,6 +188,10 @@ public class FrameTab2 extends UIElement {
 	
 	public void updateSize()
 	{
+		if (this.isSelected)
+			this.heightSave = (short)Sprites.frame_tab_active2.getImageHeight();
+		else
+			this.heightSave = (short)(Sprites.frame_tab_not_active2.getImageHeight() + 3);
 		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
 		this.height = (short)(this.heightSave * Mideas.getDisplayYFactor());
 		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
