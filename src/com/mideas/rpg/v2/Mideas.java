@@ -22,8 +22,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.mideas.rpg.v2.chat.ChatCommandMgr;
 import com.mideas.rpg.v2.chat.ChatFrame;
-import com.mideas.rpg.v2.chat.lua.EvalMathExpression;
-import com.mideas.rpg.v2.chat.lua.StoreLuaFunctions;
 import com.mideas.rpg.v2.command.CommandLogout;
 import com.mideas.rpg.v2.connection.AuthServerConnectionRunnable;
 import com.mideas.rpg.v2.connection.Connection;
@@ -122,7 +120,8 @@ public class Mideas {
 	private final static int INTERFACE_DRAW_UPDATE_FREQUENCE = 1000;
 	private final static int MOUSE_EVENT_UPDATE_FREQUENCE = 1000;
 	
-	public static void context2D() {
+	public static void context2D()
+	{
 		GL11.glEnable(GL11.GL_TEXTURE_2D);            
 		GL11.glClearColor(0f, 0f, 0f, 0f);                
 		GL11.glClearDepth(1f);     
@@ -136,7 +135,8 @@ public class Mideas {
 		GL11.glLoadIdentity();
 	}
 	
-	private static void loop() throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException {
+	private static void loop() throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException
+	{
 		//System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
 		//Display.setDisplayMode(new DisplayMode(1200, 800));
 		//Display.setDisplayMode(new DisplayMode(1200, 930));
@@ -147,9 +147,8 @@ public class Mideas {
 		final String[] ICON_PATHS = {"sprite/interface/icon_32.png", "sprite/interface/icon_128.png"};
 		final ByteBuffer[] icon_array = new ByteBuffer[ICON_PATHS.length];
 		int i = ICON_PATHS.length;
-		while(--i >= 0) {
+		while (--i >= 0)
 			icon_array[i] = PNGDecoder.decode(new File(ICON_PATHS[i]));
-		}
 		Display.setIcon(icon_array);
 		Display.create();
 		Display.setResizable(true);
@@ -168,9 +167,11 @@ public class Mideas {
 		final ByteBuffer cursor_buffer = BufferUtils.createByteBuffer(cursor_width*cursor_height*4);
 		cursor_image.getRGB(0, 0, cursor_width, cursor_height, cursor_pixels, 0, cursor_width);
 		int cursor_y = 32;
-		while(--cursor_y >= 0) {
+		while (--cursor_y >= 0)
+		{
 			int cursor_x = -1;
-			while(++cursor_x < 32) {
+			while(++cursor_x < 32)
+			{
 				int j = cursor_y*32+cursor_x;
 				cursor_buffer.put((byte)(cursor_pixels[j]>>16));
 				cursor_buffer.put((byte)(cursor_pixels[j]>>8));
@@ -212,36 +213,34 @@ public class Mideas {
 		Keyboard.enableRepeatEvents(true);
 		context2D();
 		try {
-			while(!closeRequested) {
+			while (!closeRequested)
+			{
 				LOOP_TICK_TIMER = System.currentTimeMillis();
-				if(Display.isCloseRequested()) {
+				if(Display.isCloseRequested())
 					closeRequested = true;
-				}
 				fpsUpdate();
 				GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-				if(ConnectionManager.isConnected()) {
+				if (ConnectionManager.isConnected())
 					ConnectionManager.read();
-				}
-				if(ConnectionManager.isAuthServerConnected()) {
+				if (ConnectionManager.isAuthServerConnected())
 					ConnectionManager.readAuthServer();
-				}
 				time = System.nanoTime();
-				while(Mouse.next()) {
+				while (Mouse.next())
+				{
 					mouseScrolledTick = (short)Mouse.getDWheel();
-					if(Interface.mouseEvent()) {
+					if (Interface.mouseEvent())
 						continue;
-					}
 				}
-				if(LOOP_TICK_TIMER-LAST_MOUSE_EVENT_TIMER >= MOUSE_EVENT_UPDATE_FREQUENCE) {
+				if (LOOP_TICK_TIMER-LAST_MOUSE_EVENT_TIMER >= MOUSE_EVENT_UPDATE_FREQUENCE)
+				{
 					mouseEventTime = System.nanoTime()-time;
 					LAST_MOUSE_EVENT_TIMER = LOOP_TICK_TIMER;
 				}
-				while(Keyboard.next()) {
-					if(Interface.keyboardEvent()) {
+				while (Keyboard.next())
+					if (Interface.keyboardEvent())
 						continue;
-					}
-				}
-				if(Display.wasResized()) {
+				if (Display.wasResized())
+				{
 					context2D();
 					updateDisplayFactor();
 				}
@@ -251,7 +250,8 @@ public class Mideas {
 				Interface.draw();
 				if (Texture.generatingTextureIdAsync)
 					Texture.generateNextTextureIdAsync();
-				if(LOOP_TICK_TIMER-LAST_INTERFACE_DRAW_TIMER >= INTERFACE_DRAW_UPDATE_FREQUENCE) {
+				if (LOOP_TICK_TIMER-LAST_INTERFACE_DRAW_TIMER >= INTERFACE_DRAW_UPDATE_FREQUENCE)
+				{
 					interfaceDrawTime = System.nanoTime()-time;
 					LAST_INTERFACE_DRAW_TIMER = LOOP_TICK_TIMER;
 				}
@@ -259,7 +259,8 @@ public class Mideas {
 				//Display.sync(240);
 			}
 		}
-		catch(IllegalStateException e) {
+		catch (IllegalStateException e)
+		{
 			e.printStackTrace();
 		}
 		ChatConfigManager.saveConfig();
@@ -272,8 +273,8 @@ public class Mideas {
 		
 	}
 	
-	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException {
-		StoreLuaFunctions.initFunctionMap();
+	public static void main(String[] args) throws FontFormatException, IOException, LWJGLException, IllegalAccessException, ClassNotFoundException
+	{
 		//ChatAdvancedCommandMgr.handleCommand("GetFunction(\"a\\\"rg(1\", \"5555\",    \"BLAB)LA\",     \"1515151515120029990.\"   ,    GetMouseFocus(GetMouseFocus(GetMouseFocus(\"abc\"), \"def\")), \"args2\", 540   , 93154   )", false);
 		//ChatAdvancedCommandMgr.handleCommand("GetMouseFocus(Random(1, 100))", true);
 		//ChatAdvancedCommandMgr.handleCommand("TestFrame    :     GetWidth()", true);
@@ -281,22 +282,27 @@ public class Mideas {
 		saveAllStats();
 	}
 	
-	public static void closeGame() {
+	public static void closeGame()
+	{
 		closeRequested = true;
 	}
 	
-	public static void initSQL() throws IllegalAccessException, ClassNotFoundException {
-		try {
+	public static void initSQL() throws IllegalAccessException, ClassNotFoundException
+	{
+		try
+		{
 			jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
 			//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
 			//jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
 		} 
-		catch (SQLException e) {
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 	}
 	
-	public static void updateDisplayFactor() {
+	public static void updateDisplayFactor()
+	{
 		displayXFactor = Display.getWidth()/1920f;
 		displayYFactor = Display.getHeight()/1018f;
 		LoginScreen.shouldUpdate();
@@ -318,38 +324,44 @@ public class Mideas {
 		AuctionHouseFrame.shouldUpdate();
 		Interface.getMailFrame().shouldUpdateSize();
 		//Interface.getAuctionHouseFrame().shouldUpdateSize();
-		if(joueur1 != null) {
-			if(joueur1.getFirstProfession() != null) {
+		if(joueur1 != null)
+		{
+			if(joueur1.getFirstProfession() != null)
 				joueur1.getFirstProfession().updateSize(Display.getWidth()/2-200, Display.getHeight()/2-300);
-			}
-			if(joueur1.getGuild() != null) {
+			if(joueur1.getGuild() != null)
 				joueur1.getGuild().updateMemberNote();
-			}
 			ContainerFrame.updateBagFrameSize();
 		}
 	}
 	
-	public static JDO getJDO() {
-		return jdo;
+	public static JDO getJDO()
+	{
+		return (jdo);
 	}
 	
-	public static int mouseX() {
-		return Mouse.getX();
+	public static int mouseX()
+	{
+		return (Mouse.getX());
 	}
 	
-	public static int mouseY() {
-		return Display.getHeight()-Mouse.getY();
+	public static int mouseY()
+	{
+		return (Display.getHeight()-Mouse.getY());
 	}
 	
-	public static long getLoopTickTimer() {
-		return LOOP_TICK_TIMER;
+	public static long getLoopTickTimer()
+	{
+		return (LOOP_TICK_TIMER);
 	}
 	
-	public static void fpsUpdate() {
+	public static void fpsUpdate()
+	{
 		count++;
-		if(System.currentTimeMillis()-last >= 1000) {
+		if (System.currentTimeMillis()-last >= 1000)
+		{
 			last = System.currentTimeMillis();
-			if(count != fps) {
+			if(count != fps)
+			{
 				fps = count;
 				fpsString = String.valueOf(fps);
 			}
@@ -357,28 +369,34 @@ public class Mideas {
 		}
 	}
 	
-	public static String getFPSString() {
-		return fpsString;
+	public static String getFPSString()
+	{
+		return (fpsString);
 	}
 	
-	public static void setUsedRam(long ram) {
+	public static void setUsedRam(long ram)
+	{
 		usedRAM = ram;
 	}
 	
-	public static void setPing(double pings) {
+	public static void setPing(double pings)
+	{
 		ping = pings;
 	}
 	
-	public static short getMouseScrolledTick() {
-		return mouseScrolledTick;
+	public static short getMouseScrolledTick()
+	{
+		return (mouseScrolledTick);
 	}
 	
-	public static double getPing() {
-		return ping;
+	public static double getPing()
+	{
+		return (ping);
 	}
 	
-	public static boolean getHover() {
-		return hover;
+	public static boolean getHover()
+	{
+		return (hover);
 	}
 	
 	public static UIElement getHoveredElement()
@@ -403,84 +421,102 @@ public class Mideas {
 		hoveredElement = null;
 	}
 	
-	public static SocketChannel getSocket() {
-		return socket;
+	public static SocketChannel getSocket()
+	{
+		return (socket);
 	}
 	
-	public static void connectToServer() throws IOException {
+	public static void connectToServer() throws IOException
+	{
 		socket = SocketChannel.open();
 		socket.socket().connect(new InetSocketAddress(IP, PORT), 5000);
 	}
 	
-	public static Connection getConnection() {
-		return connection;
+	public static Connection getConnection()
+	{
+		return (connection);
 	}
 	
-	public static void setConnection(Connection connections) {
+	public static void setConnection(Connection connections)
+	{
 		connection = connections;
 	}
 	
-	public static double getInterfaceDrawTime() {
-		return interfaceDrawTime;
+	public static double getInterfaceDrawTime()
+	{
+		return (interfaceDrawTime);
 	}
 	
-	public static double getMouseEventTime() {
-		return mouseEventTime;
+	public static double getMouseEventTime()
+	{
+		return (mouseEventTime);
 	}
 	
-	public static long getUsedRAM() {
-		return usedRAM;
+	public static long getUsedRAM()
+	{
+		return (usedRAM);
 	}
 	
-	public static Joueur getRandomClass(int id) {
+	public static Joueur getRandomClass(int id)
+	{
 		double rand = Math.random();
 		rand = 1/9f;
-		if(rand <= 1/9f) {
-			return ClassManager.getClone("Guerrier");
-		}
-		else if(rand <= 2/9f) {
+		if (rand <= 1/9f)
+			return (ClassManager.getClone("Guerrier"));
+		else if (rand <= 2/9f)
+		{
 			System.out.println("Le joueur "+id+" est un Priest !");
-			return ClassManager.getClone("Priest");
+			return (ClassManager.getClone("Priest"));
 		}
-		else if(rand <= 3/9f){
+		else if (rand <= 3/9f)
+		{
 			System.out.println("Le joueur "+id+" est un Mage !");
-			return ClassManager.getClone("Mage");
+			return (ClassManager.getClone("Mage"));
 		}
-		else if(rand <= 4/9f) {
+		else if (rand <= 4/9f)
+		{
 			System.out.println("Le joueur "+id+" est un Hunter !");
-			return ClassManager.getClone("Hunter");
+			return (ClassManager.getClone("Hunter"));
 		}
-		else if(rand <= 5/9f) {
+		else if (rand <= 5/9f)
+		{
 			System.out.println("Le joueur "+id+" est un Paladin !");
-			return ClassManager.getClone("Paladin");
+			return (ClassManager.getClone("Paladin"));
 		}
-		else if(rand <= 6/9f) {
+		else if (rand <= 6/9f)
+		{
 			System.out.println("Le joueur "+id+" est un Rogue !");
-			return ClassManager.getClone("Rogue");
+			return (ClassManager.getClone("Rogue"));
 		}
-		else if(rand <= 7/9f) {
+		else if (rand <= 7/9f)
+		{
 			System.out.println("Le joueur "+id+" est un Shaman !");
-			return ClassManager.getClone("Shaman");
+			return (ClassManager.getClone("Shaman"));
 		}
-		else if(rand <= 8/9f) {
+		else if (rand <= 8/9f)
+		{
 			System.out.println("Le joueur "+id+" est un Druide !");
-			return ClassManager.getClone("Druid");
+			return (ClassManager.getClone("Druid"));
 		}
 		System.out.println("Le joueur "+id+" est un Warlock !");
-		return ClassManager.getClone("Warlock");
+		return (ClassManager.getClone("Warlock"));
 	}
 	
-	public static void mTime(long time, String text) {
+	public static void mTime(long time, String text)
+	{
 		System.out.println(System.currentTimeMillis()-time+"ms "+text);
 	}
 	
-	public static void nTime(long time, String text) {
+	public static void nTime(long time, String text)
+	{
 		long timer = System.nanoTime();
 		System.out.println((timer-time)+"ns "+((timer-time)/1000)+"µs "+((timer-time)/1000000)+"ms "+text);
 	}
 	
-	public static void setConfig() {
-		try {
+	public static void setConfig()
+	{
+		try
+		{
 			JDOStatement statement = Mideas.getJDO().prepare("UPDATE config SET value = ? WHERE `key` = ?");
 			statement.putString("bg");
 			statement.putString("background");
@@ -496,99 +532,110 @@ public class Mideas {
 			statement.putString("y_inventory_frame");
 			statement.execute();
 		}
-		catch(SQLException e) {
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public static void getConfig() throws NumberFormatException {
-		try {
+	public static void getConfig() throws NumberFormatException
+	{
+		try
+		{
 			String temp = "";
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
 			statement.putString("background");
 			statement.execute();
-			if(statement.fetch()) {
+			if (statement.fetch())
 				temp = statement.getString();
-			}
 			ChangeBackGroundFrame.loadBG(temp);
 			
 			statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
 			statement.putString("x_inventory_frame");
 			statement.execute();
-			if(statement.fetch()) {
+			if (statement.fetch())
 				temp = statement.getString();
-			}
 			CharacterFrame.setMouseX(Integer.parseInt(temp));
 	
 			statement = Mideas.getJDO().prepare("SELECT value FROM config WHERE `key` = ?");
 			statement.putString("y_inventory_frame");
 			statement.execute();
-			if(statement.fetch()) {
+			if (statement.fetch())
 				temp = statement.getString();
-			}
 			CharacterFrame.setMouseY(Integer.parseInt(temp));
 		}
-		catch(SQLException e) {
+		catch(SQLException e)
+		{
 			e.printStackTrace();
 		}
 	}
 	
-	public static int calcGoldCoin() {
+	public static int calcGoldCoin()
+	{
 		gold_calc = Mideas.joueur1.getGold();
 		i = 0;
-		while(gold_calc-10000 >= 0) {
+		while (gold_calc-10000 >= 0)
+		{
 			gold_calc-= 10000;
 			i++;
 		}
-		return i;
+		return (i);
 	}
 	
-	public static int calcSilverCoin() {
+	public static int calcSilverCoin()
+	{
 		gold_calc = Mideas.joueur1().getGold()-i*10000;
 		k = 0;
-		while(gold_calc-100 >= 0) {
+		while (gold_calc-100 >= 0)
+		{
 			gold_calc-= 100;
 			k++;
 		}
-		return k;
+		return (k);
 	}
 	
 	public static int calcGoldCoinCost(long cost) {
 		i = 0;
-		while(cost-10000 >= 0) {
+		while (cost-10000 >= 0)
+		{
 			cost-= 10000;
 			i++;
 		}
-		return i;
+		return (i);
 	}
 	
 	public static int calcSilverCoinCost(long cost) {
 		k = 0;
 		cost-= calcGoldCoinCost(cost)*10000;
-		while(cost-100 >= 0) {
+		while (cost-100 >= 0)
+		{
 			cost-= 100;
 			k++;
 		}
-		return k;
+		return (k);
 	}
 
-	public static void setAccountId(int id) {
+	public static void setAccountId(int id)
+	{
 		accountId = id;
 	}
 	
 	public static int getAccountId() {
-		return accountId;
+		return (accountId);
 	}
 	
-	public static String getAccountName() {
-		return accountName;
+	public static String getAccountName()
+	{
+		return (accountName);
 	}
 	
-	public static void setAccountName(String accountName) {
+	public static void setAccountName(String accountName)
+	{
 		Mideas.accountName = accountName;
 	}
 
-	public static void setJoueur1(Joueur joueur) {
+	public static void setJoueur1(Joueur joueur)
+	{
 		joueur1 = new Joueur(joueur);
 	}
 	
@@ -612,7 +659,8 @@ public class Mideas {
 		}
 	}*/
 	
-	public static void loadingScreen(boolean fastReload) {
+	public static void loadingScreen(boolean fastReload)
+	{
 		/*Sprites.initBG();
 		context2D();
 		int barWidth = (int)(850*Mideas.getDisplayXFactor());
@@ -695,83 +743,101 @@ public class Mideas {
 		Texture.loadAllTexture(fastReload);
 	}
 	
-	public static Joueur joueur1() {
-		return joueur1;
+	public static Joueur joueur1()
+	{
+		return (joueur1);
 	}
 	
-	public static void setJoueur1Null() {
+	public static void setJoueur1Null()
+	{
 		joueur1 = null;
 	}
 	
-	public static Shop shop() {
-		return shop;
+	public static Shop shop()
+	{
+		return (shop);
 	}
 	
-	public static boolean getCurrentPlayer() {
-		return currentPlayer;
+	public static boolean getCurrentPlayer()
+	{
+		return (currentPlayer);
 	}
 	
-	public static void setCurrentPlayer(boolean we) {
+	public static void setCurrentPlayer(boolean we)
+	{
 		currentPlayer = we;
 	}
 	
-	public static int getFps() {
-		return fps;
+	public static int getFps()
+	{
+		return (fps);
 	}
 	
-	public static int getRank() {
-		return rank;
+	public static int getRank()
+	{
+		return (rank);
 	}
 	
-	public static void setRank(int ranks) {
+	public static void setRank(int ranks)
+	{
 		rank = ranks;
 	}
 	
-	
-	
-	public static void setDisplayMode(int width, int height, boolean fullscreen) {	 
+	public static void setDisplayMode(int width, int height, boolean fullscreen)
+	{	 
 	    // return if requested DisplayMode is already set
-	    if((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen)) {
+	    if ((Display.getDisplayMode().getWidth() == width) && (Display.getDisplayMode().getHeight() == height) && (Display.isFullscreen() == fullscreen))
 	        return;
-	    }
-	    try {
+	    try
+	    {
 	        DisplayMode targetDisplayMode = null;
-		    if(fullscreen) {
+		    if (fullscreen)
+		    {
 		        DisplayMode[] modes = Display.getAvailableDisplayModes();
 		        int freq = 0;             
-		        for(int i=0;i<modes.length;i++) {
+		        for (int i = 0; i < modes.length; i++)
+		        {
 		            DisplayMode current = modes[i];       
-			        if((current.getWidth() == width) && (current.getHeight() == height)) {
-			            if((targetDisplayMode == null) || (current.getFrequency() >= freq)) {
-			                if((targetDisplayMode == null) || (current.getBitsPerPixel() > targetDisplayMode.getBitsPerPixel())) {
+			        if ((current.getWidth() == width) && (current.getHeight() == height))
+			        {
+			            if ((targetDisplayMode == null) || (current.getFrequency() >= freq))
+			            {
+			                if ((targetDisplayMode == null) || (current.getBitsPerPixel() > targetDisplayMode.getBitsPerPixel()))
+			                {
 			                	targetDisplayMode = current;
 			                	freq = targetDisplayMode.getFrequency();
 			                }
 			            }
-			            if((current.getBitsPerPixel() == Display.getDesktopDisplayMode().getBitsPerPixel()) && (current.getFrequency() == Display.getDesktopDisplayMode().getFrequency())) {
-		                    targetDisplayMode = current;
-		                    break;
+			            if ((current.getBitsPerPixel() == Display.getDesktopDisplayMode().getBitsPerPixel()) && (current.getFrequency() == Display.getDesktopDisplayMode().getFrequency()))
+			            {
+			        	    targetDisplayMode = current;
+			        	    break;
 			            }
 			        }
 		        }
 		    } 
-		    else {
+		    else
+		    {
 		    	targetDisplayMode = new DisplayMode(width,height);
 	        }
-	        if(targetDisplayMode == null) {
-	            System.out.println("Failed to find value mode: "+width+"x"+height+" fs="+fullscreen);
+	        if (targetDisplayMode == null)
+	        {
+	            System.out.println("Failed to find value mode: " + width + "x" + height + " fs = " + fullscreen);
 	            return;
 	        }
 	        Display.setDisplayMode(targetDisplayMode);
 	        Display.setFullscreen(fullscreen);        
 	    } 
-	    catch(LWJGLException e) {
-	        System.out.println("Unable to setup mode "+width+"x"+height+" fullscreen="+fullscreen + e);
+	    catch(LWJGLException e)
+	    {
+	        System.out.println("Unable to setup mode " + width + "x" + height + " fullscreen = " + fullscreen + e);
 	    }
 	}
 	
-	public static void saveAllStats() {
-		if(Mideas.joueur1() != null) {
+	public static void saveAllStats()
+	{
+		if (Mideas.joueur1() != null)
+		{
 			CharacterStuff.setBagItems();
 			CharacterStuff.setEquippedBags();
 			CharacterStuff.setEquippedItems();
@@ -781,226 +847,161 @@ public class Mideas {
 		Mideas.setConfig();
 	}
 	
-	public static GameState getGameState() {
-		return gameState;
+	public static GameState getGameState()
+	{
+		return (gameState);
 	}
 	
-	public static void setGameState(GameState state) {
+	public static void setGameState(GameState state)
+	{
 		gameState = state;
 	}
 	
-	public static int getLevel(long exp) {
-		if(exp <= 400) {
-			return 1;
-		}
-		else if(exp <= 900) {
-			return 2;
-		}
-		else if(exp <= 1400) {
-			return 3;
-		}
-		else if(exp <= 2100) {
-			return 4;
-		}
-		else if(exp <= 2800) {
-			return 5;
-		}
-		else if(exp <= 3600) {
-			return 6;
-		}
-		else if(exp <= 4500) {
-			return 7;
-		}
-		else if(exp <= 5400) {
-			return 8;
-		}
-		else if(exp <= 6500) {
-			return 9;
-		}
-		else if(exp <= 7600) {
-			return 10;
-		}
-		else if(exp <= 8700) {
-			return 11;
-		}
-		else if(exp <= 9800) {
-			return 12;
-		}
-		else if(exp <= 11000) {
-			return 13;
-		}
-		else if(exp <= 12300) {
-			return 14;
-		}
-		else if(exp <= 13600) {
-			return 15;
-		}
-		else if(exp <= 15000) {
-			return 16;
-		}
-		else if(exp <= 16400) {
-			return 17;
-		}
-		else if(exp <= 17800) {
-			return 18;
-		}
-		else if(exp <= 19300) {
-			return 19;
-		}
-		else if(exp <= 20800) {
-			return 20;
-		}
-		else if(exp <= 22400) {
-			return 21;
-		}
-		else if(exp <= 24000) {
-			return 22;
-		}
-		else if(exp <= 25500) {
-			return 23;
-		}
-		else if(exp <= 27200) {
-			return 24;
-		}
-		else if(exp <= 28900) {
-			return 25;
-		}
-		else if(exp <= 30500) {
-			return 26;
-		}
-		else if(exp <= 32200) {
-			return 27;
-		}
-		else if(exp <= 33900) {
-			return 28;
-		}
-		else if(exp <= 36300) {
-			return 29;
-		}
-		else if(exp <= 38800) {
-			return 30;
-		}
-		else if(exp <= 41600) {
-			return 31;
-		}
-		else if(exp <= 44600) {
-			return 32;
-		}
-		else if(exp <= 48000) {
-			return 33;
-		}
-		else if(exp <= 51400) {
-			return 34;
-		}
-		else if(exp <= 55000) {
-			return 35;
-		}
-		else if(exp <= 58700) {
-			return 36;
-		}
-		else if(exp <= 62400) {
-			return 37;
-		}
-		else if(exp <= 66200) {
-			return 38;
-		}
-		else if(exp <= 70200) {
-			return 39;
-		}
-		else if(exp <= 74300) {
-			return 40;
-		}
-		else if(exp <= 78500) {
-			return 41;
-		}
-		else if(exp <= 82800) {
-			return 42;
-		}
-		else if(exp <= 87100) {
-			return 43;
-		}
-		else if(exp <= 91600) {
-			return 44;
-		}
-		else if(exp <= 96300) {
-			return 45;
-		}
-		else if(exp <= 101000) {
-			return 46;
-		}
-		else if(exp <= 105800) {
-			return 47;
-		}
-		else if(exp <= 110700) {
-			return 48;
-		}
-		else if(exp <= 115700) {
-			return 49;
-		}
-		else if(exp <= 120900) {
-			return 50;
-		}
-		else if(exp <= 126100) {
-			return 51;
-		}
-		else if(exp <= 131500) {
-			return 52;
-		}
-		else if(exp <= 137000) {
-			return 53;
-		}
-		else if(exp <= 142500) {
-			return 54;
-		}
-		else if(exp <= 148200) {
-			return 55;
-		}
-		else if(exp <= 154000) {
-			return 56;
-		}
-		else if(exp <= 159900) {
-			return 57;
-		}
-		else if(exp <= 165800) {
-			return 58;
-		}
-		else if(exp <= 172000) {
-			return 59;
-		}
-		else if(exp <= 290000) {
-			return 60;
-		}
-		else if(exp <= 317000) {
-			return 61;
-		}
-		else if(exp <= 349000) {
-			return 62;
-		}
-		else if(exp <= 386000) {
-			return 63;
-		}
-		else if(exp <= 428000) {
-			return 64;
-		}
-		else if(exp <= 475000) {
-			return 65;
-		}
-		else if(exp <= 527000) {
-			return 66;
-		}
-		else if(exp <= 585000) {
-			return 67;
-		}
-		else if(exp <= 648000) {
-			return 68;
-		}
-		else if(exp <= 717000) {
-			return 69;
-		}
-		return 70;
+	public static int getLevel(long exp)
+	{
+		if (exp <= 400)
+			return (1);
+		else if (exp <= 900)
+			return (2);
+		else if (exp <= 1400)
+			return (3);
+		else if (exp <= 2100)
+			return (4);
+		else if (exp <= 2800)
+			return (5);
+		else if (exp <= 3600)
+			return (6);
+		else if (exp <= 4500)
+			return (7);
+		else if (exp <= 5400)
+			return (8);
+		else if (exp <= 6500)
+			return (9);
+		else if (exp <= 7600)
+			return (10);
+		else if (exp <= 8700)
+			return (11);
+		else if (exp <= 9800)
+			return (12);
+		else if (exp <= 11000)
+			return (13);
+		else if (exp <= 12300)
+			return (14);
+		else if (exp <= 13600)
+			return (15);
+		else if (exp <= 15000)
+			return (16);
+		else if (exp <= 16400)
+			return (17);
+		else if (exp <= 17800)
+			return (18);
+		else if (exp <= 19300)
+			return (19);
+		else if (exp <= 20800)
+			return (20);
+		else if (exp <= 22400)
+			return (21);
+		else if (exp <= 24000)
+			return (22);
+		else if (exp <= 25500)
+			return (23);
+		else if (exp <= 27200)
+			return (24);
+		else if (exp <= 28900)
+			return (25);
+		else if (exp <= 30500)
+			return (26);
+		else if (exp <= 32200)
+			return (27);
+		else if (exp <= 33900)
+			return (28);
+		else if (exp <= 36300)
+			return (29);
+		else if (exp <= 38800)
+			return (30);
+		else if (exp <= 41600)
+			return (31);
+		else if (exp <= 44600)
+			return (32);
+		else if (exp <= 48000)
+			return (33);
+		else if (exp <= 51400)
+			return (34);
+		else if (exp <= 55000)
+			return (35);
+		else if (exp <= 58700)
+			return (36);
+		else if (exp <= 62400)
+			return (37);
+		else if (exp <= 66200)
+			return (38);
+		else if (exp <= 70200)
+			return (39);
+		else if (exp <= 74300)
+			return (40);
+		else if (exp <= 78500)
+			return (41);
+		else if (exp <= 82800)
+			return (42);
+		else if (exp <= 87100)
+			return (43);
+		else if (exp <= 91600)
+			return (44);
+		else if (exp <= 96300)
+			return (45);
+		else if (exp <= 101000)
+			return (46);
+		else if (exp <= 105800)
+			return (47);
+		else if (exp <= 110700)
+			return (48);
+		else if (exp <= 115700)
+			return (49);
+		else if (exp <= 120900)
+			return (50);
+		else if (exp <= 126100)
+			return (51);
+		else if (exp <= 131500)
+			return (52);
+		else if (exp <= 137000)
+			return (53);
+		else if (exp <= 142500)
+			return (54);
+		else if (exp <= 148200)
+			return (55);
+		else if (exp <= 154000)
+			return (56);
+		else if (exp <= 159900)
+			return (57);
+		else if (exp <= 165800)
+			return (58);
+		else if (exp <= 172000)
+			return (59);
+		else if (exp <= 290000)
+			return (60);
+		else if (exp <= 317000)
+			return (61);
+		else if (exp <= 349000)
+			return (62);
+		else if (exp <= 386000)
+			return (63);
+		else if (exp <= 428000)
+			return (64);
+		else if (exp <= 475000)
+			return (65);
+		else if (exp <= 527000)
+			return (66);
+		else if (exp <= 585000)
+			return (67);
+		else if (exp <= 648000)
+			return (68);
+		else if (exp <= 717000)
+			return (69);
+		return (70);
 	}
 	
-	public static int getExpNeeded(int level) {
+	public static int getExpNeeded(int level)
+	{
 		if(level == 1) {
 			expNeeded = 400;
 			return expNeeded;
@@ -1283,19 +1284,23 @@ public class Mideas {
 		}
 	}
 
-	public static float getDisplayXFactor() {
-		return displayXFactor;
+	public static float getDisplayXFactor()
+	{
+		return (displayXFactor);
 	}
 
-	public static void setDisplayXFactor(float displayXFactor) {
+	public static void setDisplayXFactor(float displayXFactor)
+	{
 		Mideas.displayXFactor = displayXFactor;
 	}
 
-	public static float getDisplayYFactor() {
-		return displayYFactor;
+	public static float getDisplayYFactor()
+	{
+		return (displayYFactor);
 	}
 
-	public static void setDisplayYFactor(float displayYFactor) {
+	public static void setDisplayYFactor(float displayYFactor)
+	{
 		Mideas.displayYFactor = displayYFactor;
 	}
 }

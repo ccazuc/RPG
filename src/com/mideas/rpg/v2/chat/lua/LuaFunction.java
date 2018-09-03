@@ -9,6 +9,7 @@ public class LuaFunction {
 	public LuaFunction(String name)
 	{
 		this.name = name;
+		StoreLuaFunctions.addFunction(this);
 	}
 	
 	public String getName()

@@ -599,6 +599,13 @@ public class Interface {
 		return false;
 	}
 	
+	public static void reloadUI()
+	{
+		instanceFrame = new InstanceFrame();
+		mailFrame = new MailFrame();
+		auctionHouseFrame = new AuctionHouseFrame();
+	}
+	
 	/*public static boolean isAuctionFrameOpen() {
 		return auctionHouseFrame.isOpen();
 	}

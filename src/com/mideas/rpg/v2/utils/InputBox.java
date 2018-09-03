@@ -315,6 +315,13 @@ public class InputBox extends UIElement
 		this.input.setText(this.input.getText());
 	}
 	
+	@Override
+	public void setX(int x)
+	{
+		this.xSave = (short)x;
+		updateSize();
+	}
+	
 	@SuppressWarnings("unused")
 	public boolean checkValue(int value) {return true;}
 	

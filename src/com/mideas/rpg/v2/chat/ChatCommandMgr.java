@@ -354,6 +354,7 @@ public class ChatCommandMgr {
 		{
 			long timer = System.currentTimeMillis();
 			Mideas.loadingScreen(false);
+			Interface.reloadUI();
 			ChatFrame.addMessage(new Message("UI reloaded in "+(System.currentTimeMillis()-timer)/1000f+"s.", false, MessageType.SELF, true));
 		}
 	};

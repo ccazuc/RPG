@@ -132,15 +132,28 @@ public class StoreLuaFunctions {
 			return (object instanceof InputBox);
 		}
 	};
-	
-	public static void initFunctionMap()
+	private final static LuaFunction setX = new LuaFunction("SetX")
 	{
-		functionMap.put(getMouseFocus.getName(), getMouseFocus);
-		functionMap.put(getWidth.getName(), getWidth);
-		functionMap.put(random.getName(), random);
-		functionMap.put(getName.getName(), getName);
-		functionMap.put(setName.getName(), setName);
-		functionMap.put(setText.getName(), setText);
+	
+		@Override
+		public Object handleFunction(Object object, ArrayList<Object> args)
+		{
+			if (args == null || args.size() == 0 || !(args.get(0) instanceof Integer))
+				return (null);
+			((UIElement)object).setX((Integer)args.get(0));
+			return (null);
+		}
+		
+		@Override
+		public boolean isFunctionVisible(Object object)
+		{
+			return (object instanceof UIElement);
+		}
+	};
+	
+	public static void addFunction(LuaFunction function)
+	{
+		functionMap.put(function.getName(), function);
 	}
 	
 	public static LuaFunction getFunction(Object object, String functionName)
