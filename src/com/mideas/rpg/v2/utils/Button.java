@@ -33,6 +33,7 @@ public class Button extends UIElement
 	private Color baseColor;
 	private boolean hasClicked;
 	private boolean isEnable = true;
+	private boolean isActivated = true;
 	private Frame parentFrame;
 	private final Texture baseTexture;
 	private final Texture hoverTextured;
@@ -119,6 +120,33 @@ public class Button extends UIElement
 	
 	@Override
 	public void draw()
+	{
+		if(!this.isEnable) {
+			return;
+		}
+		if(!activateCondition()) {
+			this.texture = this.disabledTexture;
+			this.color = Color.GREY;
+		}
+		else if(!this.leftClickDown && !this.rightClickDown && !this.buttonHover && !hoverSpriteActivateCondition()) {
+			this.texture = this.baseTexture;
+			this.color = this.baseColor;
+		}
+		else if(!this.leftClickDown && !this.rightClickDown && this.buttonHover) {
+			this.texture = this.hoverTextured;
+			this.color = this.hoveredColor;
+		}
+		else if(hoverSpriteActivateCondition()) {
+			this.color = this.hoveredColor;
+		}
+		Draw.drawQuad(this.texture, this.x, this.y, this.width, this.height);
+		this.font.drawStringShadow(this.x-this.textWidth/2+this.width/2, this.y-this.font.getLineHeight()/2+this.height/2, this.text, this.color, Color.BLACK, this.shadow_size, 0, 0);
+	}
+	
+	/*
+	 * Using new callback system instead of calling activateCondition() every frame
+	 */
+	public void drawNew()
 	{
 		if(!this.isEnable) {
 			return;
@@ -304,6 +332,16 @@ public class Button extends UIElement
 	public void disable() {
 		reset();
 		this.isEnable = false;
+	}
+	
+	public void activate()
+	{
+		this.isActivated = true;
+	}
+	
+	public void desactivate()
+	{
+		this.isActivated = false;
 	}
 	
 	protected void onLeftClickUp() {}

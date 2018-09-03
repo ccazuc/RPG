@@ -67,8 +67,8 @@ public class CommandTrade extends Command {
 				item.setAmount(amount);
 				TradeFrame.addItem(item, tradeSlot);
 			}
-			TradeFrame.setTraceAcceptedOther(false);
-			TradeFrame.setTraceAcceptedSelf(false);
+			TradeFrame.setTradeAcceptedOther(false);
+			TradeFrame.setTradeAcceptedSelf(false);
 		}
 		else if(packetId == PacketID.TRADE_REQUEST) {
 			//check if windows are open etc
@@ -77,10 +77,10 @@ public class CommandTrade extends Command {
 			PopupFrame.activateTradePopup(name);
 		}
 		else if(packetId == PacketID.TRADE_ACCEPT) {
-			TradeFrame.setTraceAcceptedOther(true);
+			TradeFrame.setTradeAcceptedOther(true);
 		}
 		else if(packetId == PacketID.TRADE_UNACCEPT) {
-			TradeFrame.setTraceAcceptedOther(false);
+			TradeFrame.setTradeAcceptedOther(false);
 		}
 		else if(packetId == PacketID.TRADE_REMOVE_ITEM) {
 			int slot = ConnectionManager.getWorldServerConnection().readInt();
@@ -91,10 +91,10 @@ public class CommandTrade extends Command {
 			}
 			TradeFrame.addItem(null, slot);
 			if(slot <= 6) {
-				TradeFrame.setTraceAcceptedSelf(false);
+				TradeFrame.setTradeAcceptedSelf(false);
 			}
 			else {
-				TradeFrame.setTraceAcceptedOther(false);
+				TradeFrame.setTradeAcceptedOther(false);
 			}
 		}
 		else if(packetId == PacketID.TRADE_CLOSE) {

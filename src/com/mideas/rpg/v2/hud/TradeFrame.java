@@ -16,7 +16,8 @@ import com.mideas.rpg.v2.utils.Button;
 import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.CrossButton;
 
-public class TradeFrame {
+public class TradeFrame
+{
 
 	private static boolean shouldUpdateSize;
 	private static String name = "";
@@ -36,35 +37,43 @@ public class TradeFrame {
 	static boolean tradeAcceptedOther;
 	static Item[] itemList = new Item[14];
 	private static int hoveredSlot = -1;
-	private static CrossButton closeFrame = new CrossButton(Display.getWidth()/2-272*Mideas.getDisplayXFactor(), Display.getHeight()/2-285*Mideas.getDisplayYFactor()) {
+	private static CrossButton closeFrame = new CrossButton(Display.getWidth()/2-272*Mideas.getDisplayXFactor(), Display.getHeight()/2-285*Mideas.getDisplayYFactor())
+	{
 		
 		@Override
-		public void eventButtonClick() {
+		public void eventButtonClick()
+		{
 			closeFrame();
 		}
 	};
-	private static Button acceptTrade = new Button(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), (short)93, (short)23, "Trade", 15, 1) {
+	private static Button acceptTrade = new Button(Display.getWidth()/2-438*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), (short)93, (short)23, "Trade", 15, 1)
+	{
 		
 		@Override
-		public void onLeftClickUp() {
+		public void onLeftClickUp()
+		{
 			CommandTrade.writeAccept();
-			tradeAcceptedSelf = true;
+			setTradeAcceptedSelf(true);
 		}
 		
-		@Override
-		public boolean activateCondition() {
-			return !tradeAcceptedSelf;
-		}
+		/*@Override
+		public boolean activateCondition()
+		{
+			return (!tradeAcceptedSelf);
+		}*/
 	};
-	private static Button cancelTrade = new Button(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), (short)87, (short)23, "Cancel", 15, 1) {
+	private static Button cancelTrade = new Button(Display.getWidth()/2-340*Mideas.getDisplayXFactor(), Display.getHeight()/2+167*Mideas.getDisplayYFactor(), (short)87, (short)23, "Cancel", 15, 1)
+	{
 		
 		@Override
-		public void onLeftClickUp() {
+		public void onLeftClickUp()
+		{
 			closeFrame();
 		}
 	};
 	
-	public static void draw() {
+	public static void draw()
+	{
 		updateSize();
 		Draw.drawQuad(Sprites.trade_frame, X_FRAME, Y_FRAME);
 		FontManager.get("FRIZQT", 13).drawStringShadow(X_FRAME+140*Mideas.getDisplayXFactor()-FontManager.get("FRIZQT", 13).getWidth(Mideas.joueur1().getName())/2, Y_FRAME+15*Mideas.getDisplayYFactor(), Mideas.joueur1().getName(), Color.YELLOW, Color.BLACK, 1, 0, 0);
@@ -73,31 +82,30 @@ public class TradeFrame {
 		float y = 0;
 		int i = 0;
 		int j = 0;
-		if(tradeAcceptedSelf) {
+		if (tradeAcceptedSelf)
 			Draw.drawQuad(Sprites.trade_accepted, X_FRAME+20*Mideas.getDisplayXFactor(), Y_FRAME+108*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 355*Mideas.getDisplayYFactor());
-		}
-		if(tradeAcceptedOther) {
+		if (tradeAcceptedOther)
 			Draw.drawQuad(Sprites.trade_accepted, X_FRAME+215*Mideas.getDisplayXFactor(), Y_FRAME+108*Mideas.getDisplayYFactor(), 180*Mideas.getDisplayXFactor(), 355*Mideas.getDisplayYFactor());
-		}
-		while(i < itemList.length) {
-			if(itemList[i] != null) {
+		while (i < itemList.length)
+		{
+			if (itemList[i] != null)
+			{
 				Draw.drawQuad(IconsManager.getSprite37(itemList[i].getSpriteId()), x+3*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+9*Mideas.getDisplayYFactor(), 38*Mideas.getDisplayXFactor(), 35*Mideas.getDisplayYFactor());
-				if(itemList[i].getAmount() > 1) {
+				if (itemList[i].getAmount() > 1)
 					FontManager.get("FRIZQT", 13).drawStringShadow(x+22*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+27*Mideas.getDisplayYFactor(), itemList[i].getAmountString(), Color.WHITE, Color.BLACK, 1, 1, 1);
-				}
 			}
-			if(DragManager.getTradeLeftClickDown() == i || DragManager.getTradeRightClickDown() == i) {
+			if (DragManager.getTradeLeftClickDown() == i || DragManager.getTradeRightClickDown() == i)
 				Draw.drawQuad(Sprites.button_down_spellbar, x+1*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+5*Mideas.getDisplayYFactor(), 44*Mideas.getDisplayXFactor(), 41*Mideas.getDisplayYFactor());
-			}
-			if(hoveredSlot == i) {
+			if (hoveredSlot == i)
 				Draw.drawQuadBlend(Sprites.button_hover_spellbar, x+1*Mideas.getDisplayXFactor(), Y_FRAME+Y_HOVER_TOP+j*Y_SHIFT+y+5*Mideas.getDisplayYFactor(), 44*Mideas.getDisplayXFactor(), 41*Mideas.getDisplayYFactor());
-			}
 			i++;
 			j++;
-			if(i == 6 || i == 13) {
+			if (i == 6 || i == 13)
+			{
 				y = 25*Mideas.getDisplayYFactor();
 			}
-			else if(i == 7) {
+			else if (i == 7)
+			{
 				x = X_FRAME+218*Mideas.getDisplayXFactor();
 				y = 0;
 				j = 0;
@@ -105,26 +113,33 @@ public class TradeFrame {
 		}
 		cancelTrade.draw();
 		closeFrame.draw();
-		acceptTrade.draw();
+		acceptTrade.drawNew();
 	}
 	
-	public static boolean mouseEvent() {
+	public static boolean mouseEvent()
+	{
 		hoveredSlot = -1;
 		float x = X_FRAME+25*Mideas.getDisplayXFactor();
 		float y = 0;
-		if(cancelTrade.event()) return true;
-		if(closeFrame.event()) return true;
-		if(acceptTrade.event()) return true;
+		if (cancelTrade.event())
+			return (true);
+		if (closeFrame.event())
+			return (true);
+		if (acceptTrade.event())
+			return (true);
 		int i = 0;
 		int j = 0;
-		while(i < itemList.length) {
+		while (i < itemList.length)
+		{
 			isHover(i, j, x, y);
 			i++;
 			j++;
-			if(i == 6 || i == 13) {
+			if (i == 6 || i == 13)
+			{
 				y = 25*Mideas.getDisplayYFactor();
 			}
-			else if(i == 7) {
+			else if (i == 7)
+			{
 				x = X_FRAME+218*Mideas.getDisplayXFactor();
 				j = 0;
 				y = 0;
@@ -169,7 +184,7 @@ public class TradeFrame {
 			else if(rightClickDown != -1) {
 			}
 		}*/
-		return false;
+		return (false);
 	}
 	
 	public static void event() { //TODO: use Popup classe
@@ -206,46 +221,51 @@ public class TradeFrame {
 		tradeAcceptedOther = false;
 	}*/
 	
-	private static void isHover(int j, int i, float x, float y) {
-		if(Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+50*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Y_FRAME+Y_HOVER_TOP+i*Y_SHIFT+y && Mideas.mouseY() <= Y_FRAME+Y_HOVER_SIZE+Y_HOVER_TOP+i*Y_SHIFT+y) {
+	private static void isHover(int j, int i, float x, float y)
+	{
+		if (Mideas.getHover() && Mideas.mouseX() >= x && Mideas.mouseX() <= x+50*Mideas.getDisplayXFactor() && Mideas.mouseY() >= Y_FRAME+Y_HOVER_TOP+i*Y_SHIFT+y && Mideas.mouseY() <= Y_FRAME+Y_HOVER_SIZE+Y_HOVER_TOP+i*Y_SHIFT+y)
+		{
 			hoveredSlot = j;
 			Mideas.setHover(false);
 		}
 	}
 	
-	public static void addItem(int id, int slot) {
-		if(slot < itemList.length) {
+	public static void addItem(int id, int slot)
+	{
+		if (slot < itemList.length) {
 			itemList[slot] = Item.getItem(id);
 		}
 	}
 	
-	public static void addItem(Item item, int slot) {
-		if(slot >= 0 && slot < itemList.length) {
+	public static void addItem(Item item, int slot)
+	{
+		if (slot >= 0 && slot < itemList.length)
 			itemList[slot] = item;
-		}
 	}
 	
-	public static Item getItem(int slot) {
-		if(slot < itemList.length) {
-			return itemList[slot];
-		}
-		return null;
+	public static Item getItem(int slot)
+	{
+		if (slot < itemList.length)
+			return (itemList[slot]);
+		return (null);
 	}
 	
-	public static void setAllItemSelectable() {
+	public static void setAllItemSelectable()
+	{
 		int i = 0;
-		while(i < itemList.length) {
-			if(itemList[i] != null) {
+		while (i < itemList.length)
+		{
+			if (itemList[i] != null)
 				itemList[i].setIsSelectable(true);
-			}
 			i++;
 		}
 	}
 	
-	public static int getFirstEmptySlot() {
+	public static int getFirstEmptySlot()
+	{
 		int i = 0;
-		while(i < 6) {
-			if(itemList[i] == null) {
+		while (i < 6) {
+			if (itemList[i] == null) {
 				return i;
 			}
 			i++;
@@ -253,37 +273,48 @@ public class TradeFrame {
 		return -1;
 	}
 	
-	public static void setName(String names) {
+	public static void setName(String names)
+	{
 		name = names;
 	}
 	
-	public static float getXFrame() {
-		return X_FRAME;
+	public static float getXFrame()
+	{
+		return (X_FRAME);
 	}
 	
-	public static  float getYFrame() {
-		return Y_FRAME;
+	public static  float getYFrame()
+	{
+		return (Y_FRAME);
 	}
 	
-	public static void setTraceAcceptedOther(boolean we) {
+	public static void setTradeAcceptedOther(boolean we)
+	{
 		tradeAcceptedOther = we;
 	}
 	
-	public static void setTraceAcceptedSelf(boolean we) {
+	public static void setTradeAcceptedSelf(boolean we)
+	{
 		tradeAcceptedSelf = we;
+		if (we)
+			acceptTrade.desactivate();
+		else
+			acceptTrade.activate();
 	}
 	
-	public static void removedTradedItems() {
+	public static void removedTradedItems()
+	{
 		int i = 0;
-		while(i < itemList.length-1) {
-			if(itemList[i] != null) {
+		while (i < itemList.length-1)
+		{
+			if(itemList[i] != null)
 				Mideas.joueur1().bag().setBag(Mideas.joueur1().bag().getBagSlot(itemList[i]), null);
-			}
 			i++;
 		}
 	}
 	
-	public static void reset() {
+	public static void reset()
+	{
 		tradeAcceptedSelf = false;
 		tradeAcceptedOther = false;
 		name = "";
@@ -293,7 +324,8 @@ public class TradeFrame {
 		//rightClickDown = -1;
 	}
 	
-	static void closeFrame() {
+	static void closeFrame()
+	{
 		Interface.setTradeFrameStatus(false);
 		CommandTrade.writeCloseTrade();
 		setAllItemSelectable();
@@ -301,14 +333,15 @@ public class TradeFrame {
 		tradeAcceptedOther = false;
 	}
 	
-	public static int getSlotHover() {
-		return hoveredSlot;
+	public static int getSlotHover()
+	{
+		return (hoveredSlot);
 	}
 	
-	public static void updateSize() {
-		if(!shouldUpdateSize) {
+	public static void updateSize()
+	{
+		if(!shouldUpdateSize)
 			return;
-		}
 		closeFrame.update(Display.getWidth()/2-272*Mideas.getDisplayXFactor(), Display.getHeight()/2-285*Mideas.getDisplayYFactor(), CrossButton.DEFAULT_WIDTH*Mideas.getDisplayXFactor(), CrossButton.DEFAULT_HEIGHT*Mideas.getDisplayYFactor());
 		X_FRAME = Display.getWidth()/2-650*Mideas.getDisplayXFactor();
 		Y_FRAME = Display.getHeight()/2-300*Mideas.getDisplayYFactor();
@@ -320,7 +353,8 @@ public class TradeFrame {
 		shouldUpdateSize = false;
 	}
 	
-	public static void shouldUpdate() {
+	public static void shouldUpdate()
+	{
 		shouldUpdateSize = true;
 	}
 }

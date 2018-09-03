@@ -650,3 +650,28 @@
 [Fri Aug 31 00:14:34 CEST 2018] Character logout accepted.
 [Fri Aug 31 00:14:34 CEST 2018] Logout from account requested to auth server.
 [Fri Aug 31 00:14:34 CEST 2018] Logout from account requested to world server.
+[Mon Sep 03 22:25:02 CEST 2018] Init auth server packet.
+[Mon Sep 03 22:25:02 CEST 2018] Init world server packet.
+[Mon Sep 03 22:25:02 CEST 2018] Trying to connect to auth server.
+[Mon Sep 03 22:25:02 CEST 2018] Successfully connected to auth server.
+[Mon Sep 03 22:25:02 CEST 2018] Sent account and password to auth server.
+[Mon Sep 03 22:25:02 CEST 2018] Auth connection accepted.
+[Mon Sep 03 22:25:56 CEST 2018] Init auth server packet.
+[Mon Sep 03 22:25:56 CEST 2018] Init world server packet.
+[Mon Sep 03 22:25:56 CEST 2018] Trying to connect to auth server.
+[Mon Sep 03 22:25:56 CEST 2018] Successfully connected to auth server.
+[Mon Sep 03 22:25:56 CEST 2018] Sent account and password to auth server.
+[Mon Sep 03 22:25:56 CEST 2018] Auth connection accepted.
+[Mon Sep 03 22:25:56 CEST 2018] Logout from account requested to world server.
+[Mon Sep 03 22:32:40 CEST 2018] Init auth server packet.
+[Mon Sep 03 22:32:40 CEST 2018] Init world server packet.
+[Mon Sep 03 22:32:40 CEST 2018] Trying to connect to auth server.
+[Mon Sep 03 22:32:40 CEST 2018] Successfully connected to auth server.
+[Mon Sep 03 22:32:40 CEST 2018] Sent account and password to auth server.
+[Mon Sep 03 22:32:40 CEST 2018] Auth connection accepted.
+[Mon Sep 03 22:32:40 CEST 2018] Logout from account requested to world server.
+[Mon Sep 03 22:32:40 CEST 2018] Trying to connect to auth server.
+[Mon Sep 03 22:32:40 CEST 2018] Successfully connected to auth server.
+[Mon Sep 03 22:32:40 CEST 2018] Sent account and password to auth server.
+[Mon Sep 03 22:32:40 CEST 2018] Auth connection accepted.
+[Mon Sep 03 22:32:40 CEST 2018] Logout from account requested to world server.
