@@ -24,17 +24,24 @@ public class ChatFrameTab extends UIElement
 		this.messageList = new ArrayList<Message>();
 		this.rawMessageList = new ArrayList<String>();
 		this.parentFrame = parentFrame;
+		this.button = new ChatFrameTabButton(this, "", 0, 0);
 	}
 	
 	@Override
 	public void draw()
 	{
-		
+		this.button.draw();
+		if (isActiveTab())
+		{
+			
+		}
 	}
 	
 	@Override
 	public boolean mouseEvent()
 	{
+		if (this.button.mouseEvent())
+			return (true);
 		return (false);
 	}
 	

@@ -388,15 +388,12 @@ public class ChatFrame {
 				if(tempMessage.length() != 0) {
 					rawMessages.add(tempMessage);
 					if(tempMessage.length() > 0 && tempMessage.charAt(0) != '/') {
-						if(selectedType == MessageType.WHISPER) {
+						if(selectedType == MessageType.WHISPER)
 							CommandSendMessage.writeWhisper(tempMessage, currentMessageHeader.substring(0, currentMessageHeader.length()-3));
-						}
-						else if(selectedType == MessageType.CHANNEL) {
+						else if(selectedType == MessageType.CHANNEL)
 							CommandSendMessage.writeChannel(tempMessage, currentChannel.getID());
-						}
-						else {
+						else
 							CommandSendMessage.write(tempMessage, selectedType, ConnectionManager.getWorldServerConnection());
-						}
 					}
 					else {
 						ChatCommandMgr.handleChatCommand(tempMessage);
@@ -421,6 +418,16 @@ public class ChatFrame {
 			return true;
 	        }
 	        return false;
+	}
+	
+	public static void sendChatMessage(String message, MessageType type, String target)
+	{
+		if(type == MessageType.WHISPER)
+			CommandSendMessage.writeWhisper(message, target);
+		else if(type == MessageType.CHANNEL)
+			CommandSendMessage.writeChannel(message, target);
+		else
+			CommandSendMessage.write(message, type, ConnectionManager.getWorldServerConnection());
 	}
 	
 	private static boolean isValidCharacter(char c) {

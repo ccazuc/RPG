@@ -79,9 +79,10 @@ public class Interface {
 	private static boolean socialFrameActive;
 	private static long time;
 	private static long socialDrawTime;
-	private static MailFrame mailFrame = new MailFrame();
-	private static AuctionHouseFrame auctionHouseFrame = new AuctionHouseFrame();
-	private static InstanceFrame instanceFrame = new InstanceFrame();
+	private static MailFrame mailFrame;
+	private static AuctionHouseFrame auctionHouseFrame;
+	private static InstanceFrame instanceFrame;
+	private static ChatFrame chatFrame;
 	private final static boolean oldAH = false;
 	private static boolean auctionFrameActive;
 	
@@ -604,6 +605,7 @@ public class Interface {
 		instanceFrame = new InstanceFrame();
 		mailFrame = new MailFrame();
 		auctionHouseFrame = new AuctionHouseFrame();
+		chatFrame = new ChatFrame();
 	}
 	
 	/*public static boolean isAuctionFrameOpen() {

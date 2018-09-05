@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.MessageType;
 import com.mideas.rpg.v2.utils.InputBox;
 import com.mideas.rpg.v2.utils.UIElement;
 
@@ -148,6 +149,29 @@ public class StoreLuaFunctions {
 		public boolean isFunctionVisible(Object object)
 		{
 			return (object instanceof UIElement);
+		}
+	};
+	private final static LuaFunction sendChatMessage = new LuaFunction("SendChatMessage")
+	{
+	
+		@Override
+		public Object handleFunction(Object object, ArrayList<Object> args)
+		{
+			if (args == null || args.size() < 3)
+				return (null);
+			String message = (String)args.get(0);
+			MessageType type = MessageType.getMessageType((String)args.get(1));
+			if (type == null)
+				return (null);
+			String target = (String)args.get(2);
+			ChatFrame.sendChatMessage(message, type, target);
+			return (null);
+		}
+		
+		@Override
+		public boolean isFunctionVisible(Object object)
+		{
+			return (object == null);
 		}
 	};
 	

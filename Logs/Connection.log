@@ -675,3 +675,31 @@
 [Mon Sep 03 22:32:40 CEST 2018] Sent account and password to auth server.
 [Mon Sep 03 22:32:40 CEST 2018] Auth connection accepted.
 [Mon Sep 03 22:32:40 CEST 2018] Logout from account requested to world server.
+[Wed Sep 05 13:35:44 CEST 2018] Init auth server packet.
+[Wed Sep 05 13:35:44 CEST 2018] Init world server packet.
+[Wed Sep 05 13:35:44 CEST 2018] Trying to connect to auth server.
+[Wed Sep 05 13:35:44 CEST 2018] Successfully connected to auth server.
+[Wed Sep 05 13:35:44 CEST 2018] Sent account and password to auth server.
+[Wed Sep 05 13:35:44 CEST 2018] Auth connection accepted.
+[Wed Sep 05 13:35:44 CEST 2018] Requested world server information to auth server.
+[Wed Sep 05 13:35:44 CEST 2018] Received world server information from auth.
+[Wed Sep 05 13:35:44 CEST 2018] Trying to connect to world server.
+[Wed Sep 05 13:35:44 CEST 2018] Connected to world server.
+[Wed Sep 05 13:35:44 CEST 2018] Sending login proof to world server.
+[Wed Sep 05 13:35:44 CEST 2018] Connection to world server accepted.
+[Wed Sep 05 13:35:44 CEST 2018] Logout from account requested to auth server.
+[Wed Sep 05 13:35:44 CEST 2018] Logout from account requested to world server.
+[Wed Sep 05 13:49:34 CEST 2018] Init auth server packet.
+[Wed Sep 05 13:49:34 CEST 2018] Init world server packet.
+[Wed Sep 05 13:49:34 CEST 2018] Trying to connect to auth server.
+[Wed Sep 05 13:49:34 CEST 2018] Successfully connected to auth server.
+[Wed Sep 05 13:49:34 CEST 2018] Sent account and password to auth server.
+[Wed Sep 05 13:49:34 CEST 2018] Auth connection accepted.
+[Wed Sep 05 13:49:34 CEST 2018] Requested world server information to auth server.
+[Wed Sep 05 13:49:34 CEST 2018] Received world server information from auth.
+[Wed Sep 05 13:49:34 CEST 2018] Trying to connect to world server.
+[Wed Sep 05 13:49:34 CEST 2018] Connected to world server.
+[Wed Sep 05 13:49:34 CEST 2018] Sending login proof to world server.
+[Wed Sep 05 13:49:34 CEST 2018] Connection to world server accepted.
+[Wed Sep 05 13:49:34 CEST 2018] Logout from account requested to auth server.
+[Wed Sep 05 13:49:34 CEST 2018] Logout from account requested to world server.

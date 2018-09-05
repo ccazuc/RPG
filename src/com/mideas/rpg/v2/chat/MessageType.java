@@ -58,4 +58,14 @@ public enum MessageType {
 	public String getChatDisplay() {
 		return this.chatDisplay;
 	}
+	
+	public static MessageType getMessageType(String type)
+	{
+		for (int i = 0; i < values().length; ++i)
+		{
+			if (type.equals(values()[i].toString()))
+				return (values()[i]);
+		}
+		return (null);
+	}
 }

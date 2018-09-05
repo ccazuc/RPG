@@ -13,14 +13,17 @@ public class ChatFrameTabButton extends UIElement
 	private boolean isLeftClickDown;
 	private boolean isRightClickDown;
 	private short width;
-	private short x;
+	private short height;
+	private short xSave;
+	private short ySave;
 	private final ChatFrameTab parentFrame;
 
 	public ChatFrameTabButton(ChatFrameTab parentFrame, String name, int x, int y)
 	{
 		super(name, UIElementType.CHAT_FRAME_TAB);
 		this.parentFrame = parentFrame;
-		
+		this.xSave = (short)x;
+		this.ySave = (short)y;
 	}
 	
 	@Override
@@ -86,7 +89,7 @@ public class ChatFrameTabButton extends UIElement
 	
 	protected void onLeftClickDown()
 	{
-		if (this.parentFrame.getIsActiveTab())
+		if (this.parentFrame.isActiveTab())
 			return;
 	}
 	

@@ -212,6 +212,7 @@ public class Mideas {
 		usedRAM = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 		Keyboard.enableRepeatEvents(true);
 		context2D();
+		Interface.reloadUI();
 		try {
 			while (!closeRequested)
 			{
@@ -322,7 +323,8 @@ public class Mideas {
 		SpellBarFrame.shouldUpdate();
 		AuraFrame.shouldUpdate();
 		AuctionHouseFrame.shouldUpdate();
-		Interface.getMailFrame().shouldUpdateSize();
+		if (Interface.getMailFrame() != null)
+			Interface.getMailFrame().shouldUpdateSize();
 		//Interface.getAuctionHouseFrame().shouldUpdateSize();
 		if(joueur1 != null)
 		{
