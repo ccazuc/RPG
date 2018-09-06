@@ -2,6 +2,8 @@ package com.mideas.rpg.v2.chat.new_chat;
 
 import java.util.ArrayList;
 
+import com.mideas.rpg.v2.chat.MessageType;
+
 public class ChatFrameMgr
 {
 	
@@ -36,7 +38,15 @@ public class ChatFrameMgr
 	
 	public void createDefaultChatFrame()
 	{
-		
+		ChatFrame frame = new ChatFrame("CHAT_FRAME1", ChatFrame.DEFAULT_X, ChatFrame.DEFAULT_Y, ChatFrame.DEFAULT_WIDTH, ChatFrame.DEFAULT_HEIGHT, false);
+		ChatFrameTab tab = new ChatFrameTab(frame, "WINDOW1TAB1", "General");
+		tab.addAcceptedMessageType(MessageType.GUILD);
+		tab.addAcceptedMessageType(MessageType.SAY);
+		tab.addAcceptedMessageType(MessageType.PARTY);
+		tab.addAcceptedMessageType(MessageType.PARTY_LEADER);
+		tab.addAcceptedMessageType(MessageType.CHANNEL);
+		frame.addChatFrameTab(tab);
+		this.chatFrameList.add(frame);
 	}
 	
 	public ArrayList<ChatFrame> getChatFrameList()

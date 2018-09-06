@@ -83,4 +83,10 @@ public class InstanceFrame extends Frame
 		this.pvpFrame.shouldUpdateSize();
 		this.pveFrame.shouldUpdateSize();
 	}
+	
+	@Override
+	public void updateSize()
+	{
+		
+	}
 }

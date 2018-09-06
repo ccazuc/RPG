@@ -3,6 +3,8 @@ package com.mideas.rpg.v2.chat.new_chat;
 import org.lwjgl.input.Mouse;
 
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.UIElement;
 import com.mideas.rpg.v2.utils.UIElementType;
 
@@ -19,13 +21,18 @@ public class ChatFrameTabButton extends UIElement
 		super(name, UIElementType.CHAT_FRAME_TAB);
 		this.parentFrame = parentFrame;
 		this.xSave = (short)x;
+		this.x = (short)(x * Mideas.getDisplayXFactor());
 		this.ySave = (short)y;
+		this.y = (short)(y * Mideas.getDisplayYFactor());
 	}
 	
 	@Override
 	public void draw()
 	{
-		
+		if (this.parentFrame.isActiveTab())
+			Draw.drawColorQuad(this.x, this.y, 50, 50, Color.GREEN);
+		else
+			Draw.drawColorQuad(this.x, this.y, 50, 50, Color.RED);
 	}
 	
 	@Override
@@ -103,5 +110,26 @@ public class ChatFrameTabButton extends UIElement
 	protected void onRightClickUp()
 	{
 		
+	}
+	
+	@Override
+	public void setX(float x)
+	{
+		this.xSave = (short)x;
+		this.x = (short)(this.parentFrame.getFrame().getX() + x * Mideas.getDisplayXFactor());
+	}
+	
+	@Override
+	public void setY(float y)
+	{
+		this.ySave = (short)y;
+		this.y = (short)(this.parentFrame.getFrame().getY() + y * Mideas.getDisplayYFactor());
+	}
+	
+	@Override
+	public void updateSize()
+	{
+		this.x = (short)(this.parentFrame.getFrame().getX() + this.xSave * Mideas.getDisplayXFactor());
+		this.y = (short)(this.parentFrame.getFrame().getY() + this.ySave * Mideas.getDisplayYFactor());
 	}
 }

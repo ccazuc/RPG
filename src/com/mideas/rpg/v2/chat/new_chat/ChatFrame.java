@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.render.Draw;
+import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.UIElement;
 import com.mideas.rpg.v2.utils.UIElementType;
 
@@ -38,9 +40,11 @@ public class ChatFrame extends UIElement
 	@Override
 	public void draw()
 	{
+		//ArrayList<Message> messageList = this.activeFrameTab.getMessageList();
+		updateSize();
+		Draw.drawColorQuad(this.x, this.y, this.width, this.height, Color.WHITE);
 		for (int i = 0; i < this.tabList.size(); ++i)
 			this.tabList.get(i).draw();
-		ArrayList<Message> messageList = this.activeFrameTab.getMessageList();
 	}
 	
 	@Override
@@ -49,18 +53,22 @@ public class ChatFrame extends UIElement
 		for (int i = 0; i < this.tabList.size(); ++i)
 			if (this.tabList.get(i).mouseEvent())
 				return (true);
+		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x + this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height)
+			Mideas.setHover(this, false);
 		return (false);
 	}
 
 	public void addMessage(Message message)
 	{
 		for (int i = 0; i < this.tabList.size(); ++i)
-			if (this.tabList.get(i).acceptMessageType(message.getType()))
+			if (this.tabList.get(i).isMessageTypeAccepted(message.getType()))
 				this.tabList.get(i).addMessage(message);
 	}
 	
 	public void addChatFrameTab(ChatFrameTab tab)
 	{
+		tab.setX(10 + this.tabList.size() * 70);
+		tab.setY(-55);
 		this.tabList.add(tab);
 		if (this.tabList.size() == 1)
 			this.activeFrameTab = tab;
@@ -86,12 +94,24 @@ public class ChatFrame extends UIElement
 		return (this.isLocked);
 	}
 	
+	@Override
 	public void updateSize()
 	{
 		if (!this.shouldUpdateSize)
 			return;
 		for (int i = 0; i < this.tabList.size(); ++i)
-			this.tabList.get(i).shouldUpdateSize();
+			this.tabList.get(i).updateSize();
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
+		System.out.println("UPDATE SIZE");
 		this.shouldUpdateSize = false;
 	}
 }

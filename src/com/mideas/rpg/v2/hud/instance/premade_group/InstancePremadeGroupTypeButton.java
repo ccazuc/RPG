@@ -102,7 +102,8 @@ public class InstancePremadeGroupTypeButton extends UIElement
 		return (false);
 	}
 	
-	private void updateSize()
+	@Override
+	public void updateSize()
 	{
 		if (!this.shouldUpdateSize)
 			return;

@@ -110,7 +110,8 @@ public class InstancePremadeGroupBrowseCategoryFrame extends Frame
 		this.findGroupButton.reset();
 	}
 	
-	private void updateSize()
+	@Override
+	public void updateSize()
 	{
 		if (!this.shouldUpdateSize)
 			return;

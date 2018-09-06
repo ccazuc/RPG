@@ -72,4 +72,10 @@ public class PremadeGroupPvPFrame extends Frame
 	{
 		
 	}
+	
+	@Override
+	public void updateSize()
+	{
+		
+	}
 }

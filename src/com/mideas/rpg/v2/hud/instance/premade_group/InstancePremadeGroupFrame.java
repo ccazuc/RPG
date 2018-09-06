@@ -63,4 +63,10 @@ public class InstancePremadeGroupFrame extends InstanceCategoryFrame
 	{
 		
 	}
+	
+	@Override
+	public void updateSize()
+	{
+		
+	}
 }

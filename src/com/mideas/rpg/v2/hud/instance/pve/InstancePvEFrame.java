@@ -71,4 +71,10 @@ public class InstancePvEFrame extends Frame
 	{
 		
 	}
+	
+	@Override
+	public void updateSize()
+	{
+		
+	}
 }

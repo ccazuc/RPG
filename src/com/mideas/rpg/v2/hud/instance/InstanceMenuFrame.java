@@ -92,4 +92,10 @@ public class InstanceMenuFrame extends Frame {
 		if (this.buttonList.size() == 1)
 			this.selectedMenu = button;
 	}
+	
+	@Override
+	public void updateSize()
+	{
+		
+	}
 }

@@ -26,8 +26,8 @@ public abstract class  UIElement {
 		this.type = type;
 		if (elementMap.containsKey(this.name))
 		{
-			System.out.println("ERROR: Duplicate name for an UIElmeent: " + this.name);
-			DebugUtils.printStackTrace("Element creation trace:");
+			//System.out.println("ERROR: Duplicate name for an UIElmeent: " + this.name);
+			//DebugUtils.printStackTrace("Element creation trace:");
 		}
 		else
 		{
@@ -84,6 +84,9 @@ public abstract class  UIElement {
 		this.xSave = (short)x;
 		if (this.parentFrame != null) //TODO: fix every Frame and remove this check
 			this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
+		else
+			this.x = (short)(this.xSave * Mideas.getDisplayXFactor());
+		shouldUpdateSize();
 	}
 
 	public void setY(float y)
@@ -91,11 +94,24 @@ public abstract class  UIElement {
 		this.ySave = (short)y;
 		if (this.parentFrame != null) //TODO: fix every Frame and remove this check
 			this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
+		else
+			this.y = (short)(this.ySave * Mideas.getDisplayYFactor());
+		shouldUpdateSize();
 	}
 
 	public short getX()
 	{
 		return (this.x);
+	}
+	
+	public short getXSave()
+	{
+		return (this.xSave);
+	}
+	
+	public short getYSave()
+	{
+		return (this.ySave);
 	}
 	
 	public short getY()
@@ -107,12 +123,14 @@ public abstract class  UIElement {
 	{
 		this.widthSave = (short)width;
 		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
+		shouldUpdateSize();
 	}
 	
 	public void setHeight(float height)
 	{
 		this.heightSave = (short)height;
 		this.height = (short)(this.heightSave * Mideas.getDisplayXFactor());
+		shouldUpdateSize();
 	}
 	
 	public short getWidth()
@@ -120,10 +138,22 @@ public abstract class  UIElement {
 		return (this.width);
 	}
 	
+	public short getWidthSave()
+	{
+		return (this.widthSave);
+	}
+	
+	public short getHeightSave()
+	{
+		return (this.heightSave);
+	}
+	
 	public short getHeight()
 	{
 		return (this.height);
 	}
+	
+	public abstract void updateSize();
 	
 	public abstract void draw();
 	

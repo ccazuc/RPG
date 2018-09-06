@@ -89,6 +89,7 @@ public class ChatConfigManager
 		COLORS.add(IGNORE);
 		configMap.put(COLORS.getName(), COLORS);
 		configMap.put(CHANNELS.getName(), CHANNELS);
+		configMap.put(CHAT_FRAME.getName(), CHAT_FRAME);
 	}
 	
 	public static void saveConfig()
@@ -109,8 +110,9 @@ public class ChatConfigManager
 			for (ConfigList configList : configMap.values())
 			{
 				//ChatConfigType type = configList.getType();
-				content.append(configList.getName() + System.lineSeparator());
+				content.append(configList.getName() + System.lineSeparator() + System.lineSeparator());
 				configList.write(content);
+				System.out.println("Config Type: " + configList.getType());
 				/*if (type == ChatConfigType.CHANNELS)
 				{
 					content.append(writeChannels());
@@ -168,10 +170,13 @@ public class ChatConfigManager
 				if (list.getType() == ChatConfigType.CHAT_FRAME)
 				{
 					readChatFrame(buffer);
+					++j;
 					continue;
 				}
-				while ((currentLine = buffer.readLine()) != null)
+				while ((currentLine = buffer.readLine().trim()) != null)
 				{
+					if (currentLine.length() == 0)
+						continue;
 					i = 0;
 					if (currentLine.equals("END"))
 						break;
@@ -188,7 +193,7 @@ public class ChatConfigManager
 					else if (list.getType() == ChatConfigType.CHANNELS)
 						readChannel(currentLine);
 					else
-						System.out.println("Error load " + FILE_NAME + " on line " + j + " line value: \"" + currentLine + "\".");
+						System.out.println("Error load " + FILE_NAME + " on line " + j + " line value: \"" + currentLine + "\", listType: " + list.getType());
 					j++;
 				}
 				j++;
@@ -234,23 +239,25 @@ public class ChatConfigManager
 		for (int i = 0; i < Interface.getChatFrameMgr().getChatFrameList().size(); ++i)
 		{
 			ChatFrame frame = Interface.getChatFrameMgr().getChatFrameList().get(i);
-			builder.append("WINDOW " + i);
-			builder.append("X " + frame.getX());
-			builder.append("Y " + frame.getY());
-			builder.append("WIDTH " + frame.getWidth());
-			builder.append("HEIGHT " + frame.getHeight());
-			builder.append("LOCKED " + writeBoolean(frame.getIsLocked()));
+			builder.append("\tWINDOW " + i + System.lineSeparator());
+			builder.append("\tX " + frame.getXSave() + System.lineSeparator());
+			builder.append("\tY " + frame.getYSave() + System.lineSeparator());
+			builder.append("\tWIDTH " + frame.getWidthSave() + System.lineSeparator());
+			builder.append("\tHEIGHT " + frame.getHeightSave() + System.lineSeparator());
+			builder.append("\tLOCKED " + writeBoolean(frame.getIsLocked()) + System.lineSeparator() + System.lineSeparator());
 			for (int j = 0; j < frame.getTabList().size(); ++j)
 			{
+				System.out.println("Tab found");
 				ChatFrameTab tab = frame.getTabList().get(j);
-				builder.append("TAB " + j);
-				builder.append("NAME " + tab.getName());
-				builder.append("MESSAGES");
+				builder.append("\t\tTAB " + j + System.lineSeparator());
+				builder.append("\t\t\tNAME " + tab.getName() + System.lineSeparator());
+				builder.append("\t\t\tMESSAGES" + System.lineSeparator());
 				for (MessageType type : tab.getAllowedMessageType())
-					builder.append(type.toString());
-				builder.append("END" + System.lineSeparator() + System.lineSeparator());
+					builder.append("\t\t\t" + type.toString() + System.lineSeparator());
+				builder.append("\t\t\tEND" + System.lineSeparator());
+				builder.append("\t\tEND" + System.lineSeparator() + System.lineSeparator());
 			}
-			builder.append("END" + System.lineSeparator() + System.lineSeparator());
+			builder.append("\tEND" + System.lineSeparator() + System.lineSeparator());
 		}
 	}
 	
@@ -258,11 +265,14 @@ public class ChatConfigManager
 	{
 		try
 		{
+			System.out.println("Read ChatFrame");
 			String currentLine;
 			ChatFrame frame = null;
 			int index = 1;
 			while ((currentLine = buffer.readLine()) != null)
 			{
+				currentLine = currentLine.trim();
+				System.out.println("CurrentLine: '" + currentLine + "'");
 				if (currentLine.startsWith("WINDOW "))
 				{
 					frame = readChatFrameWindow(buffer, index);
@@ -272,10 +282,28 @@ public class ChatConfigManager
 					++index;
 				}
 			}
+			printFrameDebug();
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
+		}
+	}
+	
+	private static void printFrameDebug()
+	{
+		for (int i = 0; i < Interface.getChatFrameMgr().getChatFrameList().size(); ++i)
+		{
+			ChatFrame frame = Interface.getChatFrameMgr().getChatFrameList().get(i);
+			System.out.println("Frame: name: '" + frame.getName() + "', width: " + frame.getWidth() + ", height: " + frame.getHeight() + ", x: " + frame.getX() + ", y: " + frame.getY());
+			for (int j = 0; j < frame.getTabList().size(); ++j)
+			{
+				ChatFrameTab tab = frame.getTabList().get(j);
+				System.out.print("\tTab: name: '" + tab.getName() + "', allowedType: ");
+				for (MessageType type : tab.getAllowedMessageType())
+					System.out.print(type + ", ");
+				System.out.println("\n");
+			}
 		}
 	}
 	
@@ -291,8 +319,10 @@ public class ChatConfigManager
 			int y = 0;
 			int tabIndex = 1;
 			boolean isLocked = true;
+			System.out.println("Read ChatFrameWindow");
 			while ((currentLine = buffer.readLine()) != null)
 			{
+				currentLine = currentLine.trim();
 				if (currentLine.startsWith("WIDTH "))
 				{
 					width = parseChatFrameWindowValue(currentLine, ChatFrame.DEFAULT_WIDTH, ChatFrame.MIN_WIDTH);
@@ -363,8 +393,10 @@ public class ChatConfigManager
 			String currentLine = null;
 			String name = null;
 			ArrayList<MessageType> messageTypeList = null;
+			System.out.println("Read ChatFrameTab");
 			while ((currentLine = buffer.readLine()) != null)
 			{
+				currentLine = currentLine.trim();
 				if (currentLine.startsWith("NAME "))
 				{
 					currentLine = currentLine.trim();
@@ -381,14 +413,15 @@ public class ChatConfigManager
 				else if (currentLine.startsWith("MESSAGES"))
 				{
 					messageTypeList = readChatFrameTabAllowedMessageType(buffer);
-					if (messageTypeList == null)
-						continue;
 				}
 			}
 			ChatFrameTab tab = new ChatFrameTab(null, "CHAT_FRAME" + windowIndex + "TAB" + tabIndex, name);
 			if (messageTypeList != null)
 				for (int i = 0; i < messageTypeList.size(); ++i)
-					tab.acceptMessageType(messageTypeList.get(i));
+				{
+					tab.addAcceptedMessageType(messageTypeList.get(i));
+					System.out.println("Debug type: " + messageTypeList.get(i));
+				}
 			return (tab);
 		}
 		catch (IOException e)
@@ -404,8 +437,10 @@ public class ChatConfigManager
 		{
 			String currentLine = null;
 			ArrayList<MessageType> typeList = new ArrayList<MessageType>();
-			while ((currentLine = buffer.readLine().trim()) != null)
+			System.out.println("Read ChatFrameTabAllowedMessageType");
+			while ((currentLine = buffer.readLine()) != null)
 			{
+				currentLine = currentLine.trim();
 				if (currentLine.startsWith("END"))
 				{
 					break;
@@ -413,6 +448,7 @@ public class ChatConfigManager
 				MessageType type = MessageType.getMessageType(currentLine);
 				if (type != null)
 					typeList.add(type);
+				System.out.println("CurrentLine: '" + currentLine + "', type: " + type);
 			}
 			return (typeList);
 		}

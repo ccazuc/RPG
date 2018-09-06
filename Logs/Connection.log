@@ -819,3 +819,951 @@
 [Thu Sep 06 14:33:03 CEST 2018] Connection to world server accepted.
 [Thu Sep 06 14:33:03 CEST 2018] Logout from account requested to auth server.
 [Thu Sep 06 14:33:03 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 17:35:58 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:35:58 CEST 2018] Init world server packet.
+[Thu Sep 06 17:35:58 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:35:58 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:35:58 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:35:58 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:35:58 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:35:58 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:35:58 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:35:58 CEST 2018] Connected to world server.
+[Thu Sep 06 17:35:58 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:35:58 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:36:34 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:36:34 CEST 2018] Init world server packet.
+[Thu Sep 06 17:36:34 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:36:34 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:36:34 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:36:34 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:36:34 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:36:34 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:36:34 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:36:34 CEST 2018] Connected to world server.
+[Thu Sep 06 17:36:34 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:36:34 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:37:06 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:37:06 CEST 2018] Init world server packet.
+[Thu Sep 06 17:37:06 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:37:06 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:37:06 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:37:06 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:37:06 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:37:06 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:37:06 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:37:06 CEST 2018] Connected to world server.
+[Thu Sep 06 17:37:06 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:37:06 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:38:21 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:38:21 CEST 2018] Init world server packet.
+[Thu Sep 06 17:38:21 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:38:21 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:38:21 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:38:21 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:38:21 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:38:21 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:38:21 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:38:21 CEST 2018] Connected to world server.
+[Thu Sep 06 17:38:21 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:38:21 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:38:21 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 17:38:21 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 17:39:56 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:39:56 CEST 2018] Init world server packet.
+[Thu Sep 06 17:39:56 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:39:56 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:39:56 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:39:56 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:39:56 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:39:56 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:39:56 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:39:56 CEST 2018] Connected to world server.
+[Thu Sep 06 17:39:56 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:39:56 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:40:34 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:40:34 CEST 2018] Init world server packet.
+[Thu Sep 06 17:40:34 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:40:34 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:40:34 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:40:34 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:40:34 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:40:34 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:40:34 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:40:34 CEST 2018] Connected to world server.
+[Thu Sep 06 17:40:34 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:40:34 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:40:34 CEST 2018] Requested character logout.
+[Thu Sep 06 17:40:34 CEST 2018] Character logout accepted.
+[Thu Sep 06 17:40:34 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 17:40:34 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 17:43:16 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:43:16 CEST 2018] Init world server packet.
+[Thu Sep 06 17:43:16 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:43:16 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:43:16 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:43:16 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:43:16 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:43:16 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:43:16 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:43:16 CEST 2018] Connected to world server.
+[Thu Sep 06 17:43:16 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:43:16 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:43:16 CEST 2018] Requested character logout.
+[Thu Sep 06 17:43:16 CEST 2018] Character logout accepted.
+[Thu Sep 06 17:43:16 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 17:43:16 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 17:46:41 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:46:41 CEST 2018] Init world server packet.
+[Thu Sep 06 17:46:41 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:46:41 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:46:41 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:46:41 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:46:41 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:46:41 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:46:41 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:46:41 CEST 2018] Connected to world server.
+[Thu Sep 06 17:46:41 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:46:41 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:46:41 CEST 2018] Requested character logout.
+[Thu Sep 06 17:46:41 CEST 2018] Character logout accepted.
+[Thu Sep 06 17:46:41 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 17:46:41 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 17:49:32 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:49:32 CEST 2018] Init world server packet.
+[Thu Sep 06 17:49:32 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:49:32 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:49:32 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:49:32 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:49:32 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:49:32 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:49:32 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:49:32 CEST 2018] Connected to world server.
+[Thu Sep 06 17:49:32 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:49:32 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:49:32 CEST 2018] Requested character logout.
+[Thu Sep 06 17:49:32 CEST 2018] Character logout accepted.
+[Thu Sep 06 17:49:32 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 17:49:32 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 17:49:58 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:49:58 CEST 2018] Init world server packet.
+[Thu Sep 06 17:49:58 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:49:58 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:49:58 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:49:58 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:49:58 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:49:58 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:49:58 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:49:58 CEST 2018] Connected to world server.
+[Thu Sep 06 17:49:58 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:49:58 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:49:58 CEST 2018] Requested character logout.
+[Thu Sep 06 17:49:58 CEST 2018] Character logout accepted.
+[Thu Sep 06 17:49:58 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 17:49:58 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 17:53:51 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:53:51 CEST 2018] Init world server packet.
+[Thu Sep 06 17:53:51 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:53:51 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:53:51 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:53:51 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:53:51 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:53:51 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:53:51 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:53:51 CEST 2018] Connected to world server.
+[Thu Sep 06 17:53:51 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:53:51 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:53:51 CEST 2018] Requested character logout.
+[Thu Sep 06 17:53:51 CEST 2018] Character logout accepted.
+[Thu Sep 06 17:53:51 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 17:53:51 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 17:54:57 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:54:57 CEST 2018] Init world server packet.
+[Thu Sep 06 17:54:57 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:54:57 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:54:57 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:54:57 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:54:57 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:54:57 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:54:57 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:54:57 CEST 2018] Connected to world server.
+[Thu Sep 06 17:54:57 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:54:57 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:54:57 CEST 2018] Requested character logout.
+[Thu Sep 06 17:54:57 CEST 2018] Character logout accepted.
+[Thu Sep 06 17:54:57 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 17:54:57 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 17:56:10 CEST 2018] Init auth server packet.
+[Thu Sep 06 17:56:10 CEST 2018] Init world server packet.
+[Thu Sep 06 17:56:10 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 17:56:10 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 17:56:10 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 17:56:10 CEST 2018] Auth connection accepted.
+[Thu Sep 06 17:56:10 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 17:56:10 CEST 2018] Received world server information from auth.
+[Thu Sep 06 17:56:10 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 17:56:10 CEST 2018] Connected to world server.
+[Thu Sep 06 17:56:10 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 17:56:10 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 17:56:10 CEST 2018] Requested character logout.
+[Thu Sep 06 17:56:10 CEST 2018] Character logout accepted.
+[Thu Sep 06 17:56:10 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 17:56:10 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 18:52:40 CEST 2018] Init auth server packet.
+[Thu Sep 06 18:52:40 CEST 2018] Init world server packet.
+[Thu Sep 06 18:52:40 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 18:52:40 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 18:52:40 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 18:52:40 CEST 2018] Auth connection accepted.
+[Thu Sep 06 18:52:40 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 18:52:40 CEST 2018] Received world server information from auth.
+[Thu Sep 06 18:52:40 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 18:52:40 CEST 2018] Connected to world server.
+[Thu Sep 06 18:52:40 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 18:52:40 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 18:55:02 CEST 2018] Init auth server packet.
+[Thu Sep 06 18:55:02 CEST 2018] Init world server packet.
+[Thu Sep 06 18:55:02 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 18:55:02 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 18:55:02 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 18:55:02 CEST 2018] Auth connection accepted.
+[Thu Sep 06 18:55:02 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 18:55:02 CEST 2018] Received world server information from auth.
+[Thu Sep 06 18:55:02 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 18:55:02 CEST 2018] Connected to world server.
+[Thu Sep 06 18:55:02 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 18:55:02 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 18:56:25 CEST 2018] Init auth server packet.
+[Thu Sep 06 18:56:25 CEST 2018] Init world server packet.
+[Thu Sep 06 18:56:25 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 18:56:25 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 18:56:25 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 18:56:25 CEST 2018] Auth connection accepted.
+[Thu Sep 06 18:56:25 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 18:56:25 CEST 2018] Received world server information from auth.
+[Thu Sep 06 18:56:25 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 18:56:25 CEST 2018] Connected to world server.
+[Thu Sep 06 18:56:25 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 18:56:25 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 18:57:15 CEST 2018] Init auth server packet.
+[Thu Sep 06 18:57:15 CEST 2018] Init world server packet.
+[Thu Sep 06 18:57:15 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 18:57:15 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 18:57:15 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 18:57:15 CEST 2018] Auth connection accepted.
+[Thu Sep 06 18:57:15 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 18:57:15 CEST 2018] Received world server information from auth.
+[Thu Sep 06 18:57:15 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 18:57:15 CEST 2018] Connected to world server.
+[Thu Sep 06 18:57:15 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 18:57:15 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 18:57:57 CEST 2018] Init auth server packet.
+[Thu Sep 06 18:57:57 CEST 2018] Init world server packet.
+[Thu Sep 06 18:57:57 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 18:57:57 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 18:57:57 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 18:57:57 CEST 2018] Auth connection accepted.
+[Thu Sep 06 18:57:57 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 18:57:57 CEST 2018] Received world server information from auth.
+[Thu Sep 06 18:57:57 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 18:57:57 CEST 2018] Connected to world server.
+[Thu Sep 06 18:57:57 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 18:57:57 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 18:58:33 CEST 2018] Init auth server packet.
+[Thu Sep 06 18:58:33 CEST 2018] Init world server packet.
+[Thu Sep 06 18:58:33 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 18:58:33 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 18:58:33 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 18:58:33 CEST 2018] Auth connection accepted.
+[Thu Sep 06 18:58:33 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 18:58:33 CEST 2018] Received world server information from auth.
+[Thu Sep 06 18:58:33 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 18:58:33 CEST 2018] Connected to world server.
+[Thu Sep 06 18:58:33 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 18:58:33 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 18:59:19 CEST 2018] Init auth server packet.
+[Thu Sep 06 18:59:19 CEST 2018] Init world server packet.
+[Thu Sep 06 18:59:19 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 18:59:19 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 18:59:19 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 18:59:19 CEST 2018] Auth connection accepted.
+[Thu Sep 06 18:59:19 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 18:59:19 CEST 2018] Received world server information from auth.
+[Thu Sep 06 18:59:19 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 18:59:19 CEST 2018] Connected to world server.
+[Thu Sep 06 18:59:19 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 18:59:19 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:01:31 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:01:31 CEST 2018] Init world server packet.
+[Thu Sep 06 19:01:31 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:01:31 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:01:31 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:01:31 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:01:31 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:01:31 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:01:31 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:01:31 CEST 2018] Connected to world server.
+[Thu Sep 06 19:01:31 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:01:31 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:02:14 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:02:14 CEST 2018] Init world server packet.
+[Thu Sep 06 19:02:14 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:02:14 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:02:14 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:02:14 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:02:14 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:02:14 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:02:14 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:02:14 CEST 2018] Connected to world server.
+[Thu Sep 06 19:02:14 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:02:14 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:03:26 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:03:26 CEST 2018] Init world server packet.
+[Thu Sep 06 19:03:26 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:03:26 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:03:26 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:03:26 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:03:26 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:03:26 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:03:26 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:03:26 CEST 2018] Connected to world server.
+[Thu Sep 06 19:03:26 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:03:26 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:14:42 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:14:42 CEST 2018] Init world server packet.
+[Thu Sep 06 19:14:42 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:14:42 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:14:42 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:14:42 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:14:42 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:14:42 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:14:42 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:14:42 CEST 2018] Connected to world server.
+[Thu Sep 06 19:14:42 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:14:42 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:16:40 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:16:40 CEST 2018] Init world server packet.
+[Thu Sep 06 19:16:40 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:16:40 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:16:40 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:16:40 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:16:40 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:16:40 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:16:40 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:16:40 CEST 2018] Connected to world server.
+[Thu Sep 06 19:16:40 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:16:40 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:19:01 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:19:01 CEST 2018] Init world server packet.
+[Thu Sep 06 19:19:01 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:19:01 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:19:01 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:19:01 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:19:01 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:19:01 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:19:01 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:19:01 CEST 2018] Connected to world server.
+[Thu Sep 06 19:19:01 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:19:01 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:20:09 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:20:09 CEST 2018] Init world server packet.
+[Thu Sep 06 19:20:09 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:20:09 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:20:09 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:20:09 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:20:09 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:20:09 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:20:09 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:20:09 CEST 2018] Connected to world server.
+[Thu Sep 06 19:20:09 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:20:09 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:35:17 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:35:17 CEST 2018] Init world server packet.
+[Thu Sep 06 19:35:17 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:35:17 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:35:17 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:35:17 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:35:17 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:35:17 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:35:17 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:35:17 CEST 2018] Connected to world server.
+[Thu Sep 06 19:35:17 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:35:17 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:35:17 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:35:17 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:43:15 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:43:15 CEST 2018] Init world server packet.
+[Thu Sep 06 19:43:15 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:43:15 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:43:15 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:43:15 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:43:15 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:43:15 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:43:15 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:43:15 CEST 2018] Connected to world server.
+[Thu Sep 06 19:43:15 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:43:15 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:43:15 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:43:15 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:45:41 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:45:41 CEST 2018] Init world server packet.
+[Thu Sep 06 19:45:41 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:45:41 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:45:41 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:45:41 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:45:41 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:45:41 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:45:41 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:45:41 CEST 2018] Connected to world server.
+[Thu Sep 06 19:45:41 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:45:41 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:45:41 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:45:41 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:46:21 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:46:21 CEST 2018] Init world server packet.
+[Thu Sep 06 19:46:21 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:46:21 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:46:21 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:46:21 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:46:21 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:46:21 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:46:21 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:46:21 CEST 2018] Connected to world server.
+[Thu Sep 06 19:46:21 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:46:21 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:47:30 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:47:30 CEST 2018] Init world server packet.
+[Thu Sep 06 19:47:30 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:47:30 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:47:30 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:47:30 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:47:30 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:47:30 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:47:30 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:47:30 CEST 2018] Connected to world server.
+[Thu Sep 06 19:47:30 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:47:30 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:47:30 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:47:30 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:48:57 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:48:57 CEST 2018] Init world server packet.
+[Thu Sep 06 19:48:57 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:48:57 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:48:57 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:48:57 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:48:57 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:48:57 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:48:57 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:48:57 CEST 2018] Connected to world server.
+[Thu Sep 06 19:48:57 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:48:57 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:48:57 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:48:57 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:50:16 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:50:16 CEST 2018] Init world server packet.
+[Thu Sep 06 19:50:16 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:50:16 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:50:16 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:50:16 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:50:16 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:50:16 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:50:16 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:50:16 CEST 2018] Connected to world server.
+[Thu Sep 06 19:50:16 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:50:16 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:50:16 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:50:16 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:52:59 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:52:59 CEST 2018] Init world server packet.
+[Thu Sep 06 19:52:59 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:52:59 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:52:59 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:52:59 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:52:59 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:52:59 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:52:59 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:52:59 CEST 2018] Connected to world server.
+[Thu Sep 06 19:52:59 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:52:59 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:52:59 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:52:59 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:53:33 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:53:33 CEST 2018] Init world server packet.
+[Thu Sep 06 19:53:33 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:53:33 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:53:33 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:53:33 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:53:33 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:53:33 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:53:33 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:53:33 CEST 2018] Connected to world server.
+[Thu Sep 06 19:53:33 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:53:33 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:53:33 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:53:33 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:54:09 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:54:09 CEST 2018] Init world server packet.
+[Thu Sep 06 19:54:09 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:54:09 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:54:09 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:54:09 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:54:09 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:54:09 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:54:09 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:54:09 CEST 2018] Connected to world server.
+[Thu Sep 06 19:54:09 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:54:09 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:54:09 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:54:09 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:55:09 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:55:09 CEST 2018] Init world server packet.
+[Thu Sep 06 19:55:09 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:55:09 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:55:09 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:55:09 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:55:09 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:55:09 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:55:09 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:55:09 CEST 2018] Connected to world server.
+[Thu Sep 06 19:55:09 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:55:09 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:55:09 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:55:09 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:55:29 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:55:29 CEST 2018] Init world server packet.
+[Thu Sep 06 19:55:29 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:55:29 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:55:29 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:55:29 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:55:29 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:55:29 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:55:29 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:55:29 CEST 2018] Connected to world server.
+[Thu Sep 06 19:55:29 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:55:29 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 19:55:29 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 19:55:29 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 19:56:34 CEST 2018] Init auth server packet.
+[Thu Sep 06 19:56:34 CEST 2018] Init world server packet.
+[Thu Sep 06 19:56:34 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 19:56:34 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 19:56:34 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 19:56:34 CEST 2018] Auth connection accepted.
+[Thu Sep 06 19:56:34 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 19:56:34 CEST 2018] Received world server information from auth.
+[Thu Sep 06 19:56:34 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 19:56:34 CEST 2018] Connected to world server.
+[Thu Sep 06 19:56:34 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 19:56:34 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:00:01 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:00:01 CEST 2018] Init world server packet.
+[Thu Sep 06 20:00:01 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:00:01 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:00:01 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:00:01 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:00:01 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:00:01 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:00:01 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:00:01 CEST 2018] Connected to world server.
+[Thu Sep 06 20:00:01 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:00:01 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:02:12 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:02:12 CEST 2018] Init world server packet.
+[Thu Sep 06 20:02:12 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:02:12 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:02:12 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:02:12 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:02:12 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:02:12 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:02:12 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:02:12 CEST 2018] Connected to world server.
+[Thu Sep 06 20:02:12 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:02:12 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:02:12 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:02:12 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:08:31 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:08:31 CEST 2018] Init world server packet.
+[Thu Sep 06 20:08:31 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:08:31 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:08:31 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:08:31 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:08:31 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:08:31 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:08:31 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:08:31 CEST 2018] Connected to world server.
+[Thu Sep 06 20:08:31 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:08:31 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:08:31 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:08:31 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:10:09 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:10:09 CEST 2018] Init world server packet.
+[Thu Sep 06 20:10:09 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:10:09 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:10:09 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:10:09 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:10:09 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:10:09 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:10:09 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:10:09 CEST 2018] Connected to world server.
+[Thu Sep 06 20:10:09 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:10:09 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:10:09 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:10:09 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:10:39 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:10:39 CEST 2018] Init world server packet.
+[Thu Sep 06 20:10:39 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:10:39 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:10:39 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:10:39 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:10:39 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:10:39 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:10:39 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:10:39 CEST 2018] Connected to world server.
+[Thu Sep 06 20:10:39 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:10:39 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:10:39 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:10:39 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:12:15 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:12:15 CEST 2018] Init world server packet.
+[Thu Sep 06 20:12:15 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:12:15 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:12:15 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:12:15 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:12:15 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:12:15 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:12:15 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:12:15 CEST 2018] Connected to world server.
+[Thu Sep 06 20:12:15 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:12:15 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:12:15 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:12:15 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:13:28 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:13:28 CEST 2018] Init world server packet.
+[Thu Sep 06 20:13:28 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:13:28 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:13:28 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:13:28 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:13:28 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:13:28 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:13:28 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:13:28 CEST 2018] Connected to world server.
+[Thu Sep 06 20:13:28 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:13:28 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:13:28 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:13:28 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:16:58 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:16:58 CEST 2018] Init world server packet.
+[Thu Sep 06 20:16:58 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:16:58 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:16:58 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:16:58 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:16:58 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:16:58 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:16:58 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:16:58 CEST 2018] Connected to world server.
+[Thu Sep 06 20:16:58 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:16:58 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:16:58 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:16:58 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:18:18 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:18:18 CEST 2018] Init world server packet.
+[Thu Sep 06 20:18:18 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:18:18 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:18:18 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:18:18 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:18:18 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:18:18 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:18:18 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:18:18 CEST 2018] Connected to world server.
+[Thu Sep 06 20:18:18 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:18:18 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:18:18 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:18:18 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:19:03 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:19:03 CEST 2018] Init world server packet.
+[Thu Sep 06 20:19:03 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:19:03 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:19:03 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:19:03 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:19:03 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:19:03 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:19:03 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:19:03 CEST 2018] Connected to world server.
+[Thu Sep 06 20:19:03 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:19:03 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:19:03 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:19:03 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:19:24 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:19:24 CEST 2018] Init world server packet.
+[Thu Sep 06 20:19:24 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:19:24 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:19:24 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:19:24 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:19:24 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:19:24 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:19:24 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:19:24 CEST 2018] Connected to world server.
+[Thu Sep 06 20:19:24 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:19:24 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:19:24 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:19:24 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:19:55 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:19:55 CEST 2018] Init world server packet.
+[Thu Sep 06 20:19:55 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:19:55 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:19:55 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:19:55 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:19:55 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:19:55 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:19:55 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:19:55 CEST 2018] Connected to world server.
+[Thu Sep 06 20:19:55 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:19:55 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:19:55 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:19:55 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:21:02 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:21:02 CEST 2018] Init world server packet.
+[Thu Sep 06 20:21:02 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:21:02 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:21:02 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:21:02 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:21:02 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:21:02 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:21:02 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:21:02 CEST 2018] Connected to world server.
+[Thu Sep 06 20:21:02 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:21:02 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:21:23 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:21:23 CEST 2018] Init world server packet.
+[Thu Sep 06 20:21:23 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:21:23 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:21:23 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:21:23 CEST 2018] Auth connection refused, account already logged.
+[Thu Sep 06 20:21:23 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:21:23 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:21:23 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:21:23 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:21:23 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:21:23 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:21:23 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:21:23 CEST 2018] Connected to world server.
+[Thu Sep 06 20:21:23 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:21:23 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:21:23 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:21:23 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:21:56 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:21:56 CEST 2018] Init world server packet.
+[Thu Sep 06 20:21:56 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:21:56 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:21:56 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:21:56 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:21:56 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:21:56 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:21:56 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:21:56 CEST 2018] Connected to world server.
+[Thu Sep 06 20:21:56 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:21:56 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:21:56 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:21:56 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:23:08 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:23:08 CEST 2018] Init world server packet.
+[Thu Sep 06 20:23:08 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:23:08 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:23:08 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:23:08 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:23:08 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:23:08 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:23:08 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:23:08 CEST 2018] Connected to world server.
+[Thu Sep 06 20:23:08 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:23:08 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:24:21 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:24:21 CEST 2018] Init world server packet.
+[Thu Sep 06 20:24:21 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:24:21 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:24:21 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:24:21 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:24:21 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:24:21 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:24:21 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:24:21 CEST 2018] Connected to world server.
+[Thu Sep 06 20:24:21 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:24:21 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:25:34 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:25:34 CEST 2018] Init world server packet.
+[Thu Sep 06 20:25:34 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:25:34 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:25:34 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:25:34 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:25:34 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:25:34 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:25:34 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:25:34 CEST 2018] Connected to world server.
+[Thu Sep 06 20:25:34 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:25:34 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:26:24 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:26:24 CEST 2018] Init world server packet.
+[Thu Sep 06 20:26:24 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:26:24 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:26:24 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:26:24 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:26:24 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:26:24 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:26:24 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:26:24 CEST 2018] Connected to world server.
+[Thu Sep 06 20:26:24 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:26:24 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:26:24 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:26:24 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:27:12 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:27:12 CEST 2018] Init world server packet.
+[Thu Sep 06 20:27:12 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:27:12 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:27:12 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:27:12 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:27:12 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:27:12 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:27:12 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:27:12 CEST 2018] Connected to world server.
+[Thu Sep 06 20:27:12 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:27:12 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:27:12 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:27:12 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:32:50 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:32:50 CEST 2018] Init world server packet.
+[Thu Sep 06 20:32:50 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:32:50 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:32:50 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:32:50 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:32:50 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:32:50 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:32:50 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:32:50 CEST 2018] Connected to world server.
+[Thu Sep 06 20:32:50 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:32:50 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:32:50 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:32:50 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:35:56 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:35:56 CEST 2018] Init world server packet.
+[Thu Sep 06 20:35:56 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:35:56 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:35:56 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:35:56 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:35:56 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:35:56 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:35:56 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:35:56 CEST 2018] Connected to world server.
+[Thu Sep 06 20:35:56 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:35:56 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:40:05 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:40:05 CEST 2018] Init world server packet.
+[Thu Sep 06 20:40:05 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:40:05 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:40:05 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:40:05 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:40:05 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:40:05 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:40:05 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:40:05 CEST 2018] Connected to world server.
+[Thu Sep 06 20:40:05 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:40:05 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:40:05 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:40:05 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:40:43 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:40:43 CEST 2018] Init world server packet.
+[Thu Sep 06 20:40:43 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:40:43 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:40:43 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:40:43 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:40:43 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:40:43 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:40:43 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:40:43 CEST 2018] Connected to world server.
+[Thu Sep 06 20:40:43 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:40:43 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:40:43 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:40:43 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:42:44 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:42:44 CEST 2018] Init world server packet.
+[Thu Sep 06 20:42:44 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:42:44 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:42:44 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:42:44 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:42:44 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:42:44 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:42:44 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:42:44 CEST 2018] Connected to world server.
+[Thu Sep 06 20:42:44 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:42:44 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:42:44 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:42:44 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:44:37 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:44:37 CEST 2018] Init world server packet.
+[Thu Sep 06 20:44:37 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:44:37 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:44:37 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:44:37 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:44:37 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:44:37 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:44:37 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:44:37 CEST 2018] Connected to world server.
+[Thu Sep 06 20:44:37 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:44:37 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:44:37 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:44:37 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:45:15 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:45:15 CEST 2018] Init world server packet.
+[Thu Sep 06 20:45:15 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:45:15 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:45:15 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:45:15 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:45:15 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:45:15 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:45:15 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:45:15 CEST 2018] Connected to world server.
+[Thu Sep 06 20:45:15 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:45:15 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:45:15 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:45:15 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:46:08 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:46:08 CEST 2018] Init world server packet.
+[Thu Sep 06 20:46:08 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:46:08 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:46:08 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:46:08 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:46:08 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:46:08 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:46:08 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:46:08 CEST 2018] Connected to world server.
+[Thu Sep 06 20:46:08 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:46:08 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:46:08 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:46:08 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:46:32 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:46:32 CEST 2018] Init world server packet.
+[Thu Sep 06 20:46:32 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:46:32 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:46:32 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:46:32 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:46:32 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:46:32 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:46:32 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:46:32 CEST 2018] Connected to world server.
+[Thu Sep 06 20:46:32 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:46:32 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:46:32 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:46:32 CEST 2018] Logout from account requested to world server.
+[Thu Sep 06 20:46:49 CEST 2018] Init auth server packet.
+[Thu Sep 06 20:46:49 CEST 2018] Init world server packet.
+[Thu Sep 06 20:46:49 CEST 2018] Trying to connect to auth server.
+[Thu Sep 06 20:46:49 CEST 2018] Successfully connected to auth server.
+[Thu Sep 06 20:46:49 CEST 2018] Sent account and password to auth server.
+[Thu Sep 06 20:46:49 CEST 2018] Auth connection accepted.
+[Thu Sep 06 20:46:49 CEST 2018] Requested world server information to auth server.
+[Thu Sep 06 20:46:49 CEST 2018] Received world server information from auth.
+[Thu Sep 06 20:46:49 CEST 2018] Trying to connect to world server.
+[Thu Sep 06 20:46:49 CEST 2018] Connected to world server.
+[Thu Sep 06 20:46:49 CEST 2018] Sending login proof to world server.
+[Thu Sep 06 20:46:49 CEST 2018] Connection to world server accepted.
+[Thu Sep 06 20:46:49 CEST 2018] Logout from account requested to auth server.
+[Thu Sep 06 20:46:49 CEST 2018] Logout from account requested to world server.

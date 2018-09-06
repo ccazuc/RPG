@@ -63,4 +63,10 @@ public class PremadeGroupPvPQuickMatchFrame extends Frame
 	{
 		
 	}
+	
+	@Override
+	public void updateSize()
+	{
+		
+	}
 }

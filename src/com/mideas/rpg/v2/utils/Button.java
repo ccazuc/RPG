@@ -364,8 +364,11 @@ public class Button extends UIElement
 		this.height = (short)(this.heightSave * Mideas.getDisplayYFactor());
 	}
 	
+	@Override
 	public void updateSize()
 	{
+		if (this.parentFrame == null)
+			return;
 		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
 		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
 		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());

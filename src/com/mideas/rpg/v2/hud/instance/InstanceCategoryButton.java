@@ -101,7 +101,8 @@ public class InstanceCategoryButton extends UIElement
 		this.frame.resetState();
 	}
 	
-	private void updateSize()
+	@Override
+	public void updateSize()
 	{
 		if (!this.shouldUpdateSize)
 			return;

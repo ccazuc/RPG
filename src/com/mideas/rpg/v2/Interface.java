@@ -220,6 +220,7 @@ public class Interface {
 				DragSpellManager.draw();
 				instanceFrame.draw();
 				Mideas.joueur1().bag().event();
+				chatFrameMgr.drawChatFrame();
 				//Draw.drawQuad(Sprites.interface_option_frame, Display.getWidth()/2-200, Display.getHeight()/2-200);
 			}
 		}
@@ -371,6 +372,8 @@ public class Interface {
 					return true;
 				}
 			}
+			if (chatFrameMgr.mouseEventChatFrame())
+				return (true);
 			if (instanceFrame.mouseEvent())
 				return (true);
 			time = System.nanoTime();
