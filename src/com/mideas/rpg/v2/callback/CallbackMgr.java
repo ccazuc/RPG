@@ -30,6 +30,16 @@ public class CallbackMgr {
 		Interface.getMailFrame().onMailLoaded(mail);
 	}
 	
+	public static void onMailOpened()
+	{
+		Interface.getMailFrame().onMailOpened();
+	}
+	
+	public static void onMailMenuChanged()
+	{
+		Interface.getMailFrame().onMailMenuChanged();
+	}
+	
 	public static void onPlayerLoaded()
 	{
 		MailMgr.clearLoadedMail();
@@ -50,5 +60,11 @@ public class CallbackMgr {
 	public static void onPremadeGroupJoined()
 	{
 		
+	}
+	
+	public static void onConfigLoaded()
+	{
+		if (Interface.getChatFrameMgr().getChatFrameList().size() == 0)
+			Interface.getChatFrameMgr().createDefaultChatFrame();
 	}
 }

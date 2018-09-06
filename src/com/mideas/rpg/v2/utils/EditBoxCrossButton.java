@@ -10,14 +10,10 @@ import com.mideas.rpg.v2.render.Texture;
 public class EditBoxCrossButton extends UIElement
 {
 
-	private short width;
-	private short height;
 	private Texture texture;
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private boolean isEnable = true;
-	private short xSave;
-	private short ySave;
 
 	public EditBoxCrossButton(String name, float x, float y)
 	{

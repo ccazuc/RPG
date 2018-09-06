@@ -10,11 +10,8 @@ import com.mideas.rpg.v2.render.TTF;
 public class FrameTab2 extends UIElement
 {
 
-	private final short ySave;
 	private final short defaultWidth;
 	private final short middleAnchorSave;
-	private short widthSave;
-	private short heightSave;
 	private final String text;
 	private final short textWidth;
 	private final TTF font;
@@ -22,8 +19,6 @@ public class FrameTab2 extends UIElement
 	private short textY;
 	private short xMiddlePart;
 	private short xRightPart;
-	private short width;
-	private short height;
 	private short middleWidth;
 	private short borderWidth;
 	private boolean isSelected;
@@ -128,8 +123,9 @@ public class FrameTab2 extends UIElement
 			{
 				if (Mouse.getEventButton() == 0)
 				{
+					if (this.leftClickDown)
+						onLeftClickUp();
 					this.leftClickDown = false;
-					onLeftClickUp();
 					return (true);
 				}
 				else if (Mouse.getEventButton() == 1)
@@ -158,21 +154,20 @@ public class FrameTab2 extends UIElement
 
 	public void setIsSelected(boolean we)
 	{
+		this.isSelected = we;
 		if (we)
 		{
 			this.heightSave = (short)Sprites.frame_tab_active2.getImageHeight();
 			this.borderWidth = (short)24;
 			this.widthSave = this.defaultWidth;
-			updateSize();
 		}
 		else
 		{
 			this.heightSave = (short)(Sprites.frame_tab_not_active2.getImageHeight() + 3);
 			this.borderWidth = (short)6;
 			this.widthSave = (short)(this.defaultWidth - 10);
-			updateSize();
 		}
-		this.isSelected = we;
+		updateSize();
 	}
 	
 	public void initParentFrame(Frame parentFrame)
@@ -210,8 +205,8 @@ public class FrameTab2 extends UIElement
 		this.rightClickDown = false;
 	}
 	
-	public boolean isSelected()
+	/*public boolean isSelected()
 	{
 		return (true);
-	}
+	}*/
 }

@@ -20,13 +20,6 @@ public class AuctionHouseBrowseCategoryFilterButton extends UIElement
 	private final ArrayList<AuctionHouseBrowseSubcategoryFilterButton> filterList;
 	@SuppressWarnings("hiding")
 	private AuctionHouseBrowseFrame parentFrame;
-	private final String name;
-	private short xSave;
-	private short ySave;
-	private short width;
-	private short height;
-	private short widthSave;
-	private short heightSave;
 	private final AuctionHouseFilter filter;
 	private boolean buttonHover;
 	private boolean leftButtonDown;
@@ -209,7 +202,7 @@ public class AuctionHouseBrowseCategoryFilterButton extends UIElement
 	}
 	
 	@Override
-	public void setWidth(int width)
+	public void setWidth(float width)
 	{
 		this.width = (short)(width * Mideas.getDisplayXFactor());
 		this.widthSave = (short)width;
@@ -219,7 +212,7 @@ public class AuctionHouseBrowseCategoryFilterButton extends UIElement
 	}
 
 	@Override
-	public void setY(int y)
+	public void setY(float y)
 	{
 		this.y = (short)(this.parentFrame.getY() + y * Mideas.getDisplayYFactor());
 		this.ySave = (short)y;

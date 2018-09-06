@@ -5,6 +5,7 @@ import org.lwjgl.input.Keyboard;
 import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
+import com.mideas.rpg.v2.callback.CallbackMgr;
 import com.mideas.rpg.v2.game.mail.Mail;
 import com.mideas.rpg.v2.utils.CrossButton2;
 import com.mideas.rpg.v2.utils.Frame;
@@ -38,13 +39,6 @@ public class MailFrame extends Frame {
 		{
 			openInboxMailFrame();
 		}
-		
-		@SuppressWarnings("synthetic-access")
-		@Override
-		public boolean isSelected()
-		{
-			return (MailFrame.this.activeFrame == MailFrame.this.inboxFrame);
-		}
 	};	
 	private final FrameTab2 sendMailFrameTab = new FrameTab2(this, "MailFrameSendMailFrameTab", SEND_MAIL_FRAME_TAB_X, SEND_MAIL_FRAME_TAB_Y, SEND_MAIL_FRAME_TAB_WIDTH, "Send Mail", FontManager.get("FRIZQT", 11), false)
 	{
@@ -53,13 +47,6 @@ public class MailFrame extends Frame {
 		public void onLeftClickUp()
 		{
 			openSendMailFrame();
-		}
-		
-		@SuppressWarnings("synthetic-access")
-		@Override
-		public boolean isSelected()
-		{
-			return (MailFrame.this.activeFrame == MailFrame.this.sendMailFrame);
 		}
 	};
 	private final CrossButton2 closeFrameCrossButton = new CrossButton2(this, "MailFrameCloseButton", CLOSE_FRAME_CROSS_BUTTON_X, CLOSE_FRAME_CROSS_BUTTON_Y, CLOSE_FRAME_CROSS_BUTTON_WIDTH, CLOSE_FRAME_CROSS_BUTTON_HEIGHT)
@@ -171,28 +158,16 @@ public class MailFrame extends Frame {
 		this.openedMailFrame.reset();
 		this.sendMailFrame.reset();
 	}
-
-	@Override
-	public short getX()
-	{
-		return (this.x);
-	}
 	
 	@Override
-	public void setX(int x)
+	public void setX(float x)
 	{
 		this.x = (short)x;
 		shouldUpdateSize();
 	}
 	
 	@Override
-	public short getY()
-	{
-		return (this.y);
-	}
-	
-	@Override
-	public void setY(int y)
+	public void setY(float y)
 	{
 		this.y = (short)y;
 		shouldUpdateSize();
@@ -219,32 +194,30 @@ public class MailFrame extends Frame {
 		this.shouldUpdateSize = false;
 	}
 	
+	public void onMailMenuChanged()
+	{
+		this.sendMailFrameTab.setIsSelected(this.activeFrame == this.sendMailFrame);
+		this.inboxFrameTab.setIsSelected(this.activeFrame == this.inboxFrame);
+	}
+	
 	public void openSendMailFrame()
 	{
 		if (this.activeFrame == this.sendMailFrame)
 			return;
-		this.inboxFrameTab.setIsSelected(false);
-		this.sendMailFrameTab.setIsSelected(true);
 		this.activeFrame.close();
 		this.activeFrame = this.sendMailFrame;
 		this.activeFrame.open();
+		CallbackMgr.onMailMenuChanged();
 	}
 	
 	public void openInboxMailFrame()
 	{
 		if (this.activeFrame == this.inboxFrame)
 			return;
-		this.inboxFrameTab.setIsSelected(true);
-		this.sendMailFrameTab.setIsSelected(false);
 		this.activeFrame.close();
 		this.activeFrame = this.inboxFrame;
 		this.activeFrame.open();
-	}
-	
-	@Override
-	public void shouldUpdateSize()
-	{
-		this.shouldUpdateSize = true;
+		CallbackMgr.onMailMenuChanged();
 	}
 	
 	@Override
@@ -292,6 +265,12 @@ public class MailFrame extends Frame {
 	public void setOpenedMail(Mail mail)
 	{
 		this.openedMailFrame.setOpenedMail(mail);
+		CallbackMgr.onMailOpened();
+	}
+	
+	public void onMailOpened()
+	{
+		this.openedMailFrame.onMailOpened();
 	}
 	
 	public Mail getOpenedMail()
@@ -303,11 +282,5 @@ public class MailFrame extends Frame {
 	public Frame getParentFrame()
 	{
 		return (null);
-	}
-	
-	@Override
-	public String getName()
-	{
-		return ("MailFrame");
 	}
 }

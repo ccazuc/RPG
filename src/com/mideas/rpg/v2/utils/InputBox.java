@@ -13,14 +13,6 @@ public class InputBox extends UIElement
 	private final short textOffset;
 	private final short inputMaxWidth;
 	protected final Input input;
-	private short x;
-	private short y;
-	private short xSave;
-	private short ySave;
-	private short width;
-	private short height;
-	private final short widthSave;
-	private short heightSave;
 	private boolean buttonDown;
 	private boolean buttonHover;
 	private final EditBoxCrossButton crossButton;
@@ -316,7 +308,7 @@ public class InputBox extends UIElement
 	}
 	
 	@Override
-	public void setX(int x)
+	public void setX(float x)
 	{
 		this.xSave = (short)x;
 		updateSize();
@@ -356,11 +348,6 @@ public class InputBox extends UIElement
 		this.input.update(this.x + this.textOffset * Mideas.getDisplayXFactor(), this.y + 3 * Mideas.getDisplayYFactor(), this.inputMaxWidth * Mideas.getDisplayXFactor());
 		if (this.crossButton != null)
 			this.crossButton.initParentFrame(frame);
-	}
-	
-	public short getWidth()
-	{
-		return (this.width);
 	}
 	
 	protected boolean keyEvent(@SuppressWarnings("unused") char c) {return false;}

@@ -7,6 +7,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import com.mideas.rpg.v2.chat.ChatFrame;
+import com.mideas.rpg.v2.chat.new_chat.ChatFrameMgr;
 import com.mideas.rpg.v2.dungeon.BlackTemple;
 import com.mideas.rpg.v2.dungeon.Dungeon;
 import com.mideas.rpg.v2.game.item.shop.ShopManager;
@@ -82,7 +83,7 @@ public class Interface {
 	private static MailFrame mailFrame;
 	private static AuctionHouseFrame auctionHouseFrame;
 	private static InstanceFrame instanceFrame;
-	private static ChatFrame chatFrame;
+	private static ChatFrameMgr chatFrameMgr = new ChatFrameMgr();
 	private final static boolean oldAH = false;
 	private static boolean auctionFrameActive;
 	
@@ -605,7 +606,12 @@ public class Interface {
 		instanceFrame = new InstanceFrame();
 		mailFrame = new MailFrame();
 		auctionHouseFrame = new AuctionHouseFrame();
-		chatFrame = new ChatFrame();
+		//chatFrameList = new ChatFrame();
+	}
+	
+	public static ChatFrameMgr getChatFrameMgr()
+	{
+		return (chatFrameMgr);
 	}
 	
 	/*public static boolean isAuctionFrameOpen() {

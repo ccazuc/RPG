@@ -9,12 +9,8 @@ import com.mideas.rpg.v2.utils.UIElementType;
 public class InstanceCategoryButton extends UIElement
 {
 
-	private short xSave;
-	private short ySave;
 	private final InstanceMenuFrame parentFrame;
 	private InstanceCategoryFrame frame;
-	private short width;
-	private short height;
 	private boolean isLeftClickDown;
 	private boolean isRightClickDown;
 	private boolean isMouseOver;
@@ -125,14 +121,14 @@ public class InstanceCategoryButton extends UIElement
 	}
 	
 	@Override
-	public void setX(int x)
+	public void setX(float x)
 	{
 		this.xSave = (short)x;
 		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
 	}
 	
 	@Override
-	public void setY(int y)
+	public void setY(float y)
 	{
 		this.xSave = (short)y;
 		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());

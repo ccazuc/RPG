@@ -53,12 +53,12 @@ public class MailOpenedMailFrame extends Frame {
 			MailOpenedMailFrame.this.frame.replayOpenedMail(MailOpenedMailFrame.this.openedMail);
 		}
 		
-		@SuppressWarnings("synthetic-access")
+		/*@SuppressWarnings("synthetic-access")
 		@Override
 		public boolean activateCondition()
 		{
 			return (MailOpenedMailFrame.this.openedMail.canReply());
-		}
+		}*/
 	};
 	private final Button deleteButton = new Button(this, DELETE_BUTTON_X, DELETE_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Delete", 13, 1)
 	{
@@ -172,18 +172,6 @@ public class MailOpenedMailFrame extends Frame {
 		close();
 	}
 	
-	@Override
-	public void setX(int x)
-	{
-		
-	}
-	
-	@Override
-	public void setY(int y)
-	{
-		
-	}
-	
 	public void updateSize()
 	{
 		if (!this.shouldUpdateSize)
@@ -238,6 +226,16 @@ public class MailOpenedMailFrame extends Frame {
 			close();
 	}
 	
+	public void onMailOpened()
+	{
+		if (this.openedMail == null)
+			return;
+		if (this.openedMail.canReply())
+			this.replyButton.activate();
+		else
+			this.replyButton.desactivate();
+	}
+	
 	public void onMailLoaded(Mail mail)
 	{
 		if (this.openedMail != null && this.openedMail.getGUID() == mail.getGUID())
@@ -247,12 +245,6 @@ public class MailOpenedMailFrame extends Frame {
 	public Mail getOpenedMail()
 	{
 		return (this.openedMail);
-	}
-	
-	@Override
-	public String getName()
-	{
-		return ("MailOpenedMailFrame");
 	}
 	
 	@Override

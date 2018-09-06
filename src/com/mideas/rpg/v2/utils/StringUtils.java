@@ -32,6 +32,14 @@ public class StringUtils {
 		return new String(table);
 	}
 	
+	public static int findNextNonSpaceChar(String str, int start)
+	{
+		for (int i = start; i < str.length(); ++i)
+			if (str.charAt(i) != ' ')
+				return (i);
+		return (-1);
+	}
+	
 	public static char toUpperCase(char c) {
 		return c >= 'a' && c <= 'z' ? (char)(c-32) : c;
 	}

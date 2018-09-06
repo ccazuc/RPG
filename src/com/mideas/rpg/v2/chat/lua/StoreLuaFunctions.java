@@ -174,6 +174,21 @@ public class StoreLuaFunctions {
 			return (object == null);
 		}
 	};
+	private final static LuaFunction getObjectType = new LuaFunction("GetObjectType")
+	{
+	
+		@Override
+		public Object handleFunction(Object object, ArrayList<Object> args)
+		{
+			return (((UIElement)object).getElementType());
+		}
+		
+		@Override
+		public boolean isFunctionVisible(Object object)
+		{
+			return (object instanceof UIElement);
+		}
+	};
 	
 	public static void addFunction(LuaFunction function)
 	{

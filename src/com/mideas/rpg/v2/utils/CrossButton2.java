@@ -6,14 +6,9 @@ import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.render.Draw;
 import com.mideas.rpg.v2.render.Sprites;
 
-public class CrossButton2 extends UIElement {
+public class CrossButton2 extends UIElement
+{
 
-	private final short xSave;
-	private final short ySave;
-	private final short widthSave;
-	private final short heightSave;
-	private short width;
-	private short height;
 	private boolean mouseHover;
 	private boolean leftClickDown;
 	private boolean rightClickDown;

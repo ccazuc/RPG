@@ -12,13 +12,20 @@ public class LuaFunction {
 		StoreLuaFunctions.addFunction(this);
 	}
 	
-	public String getName()
+	public final String getName()
 	{
 		return (this.name);
 	}
 	
-	public Object handleFunction(Object object, ArrayList<Object> args) { return (null); }
-	public boolean isFunctionVisible(Object object) { return (false); }
+	public Object handleFunction(Object object, ArrayList<Object> args)
+	{
+		return (null);
+	}
+	
+	public boolean isFunctionVisible(Object object)
+	{
+		return (false);
+	}
 	
 	@Override
 	public String toString()

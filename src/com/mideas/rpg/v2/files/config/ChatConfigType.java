@@ -4,5 +4,6 @@ public enum ChatConfigType {
 
 	COLORS,
 	CHANNELS,
+	CHAT_FRAME,
 	;
 }

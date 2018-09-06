@@ -12,10 +12,6 @@ public class ChatFrameTabButton extends UIElement
 	private boolean isMouseHover;
 	private boolean isLeftClickDown;
 	private boolean isRightClickDown;
-	private short width;
-	private short height;
-	private short xSave;
-	private short ySave;
 	private final ChatFrameTab parentFrame;
 
 	public ChatFrameTabButton(ChatFrameTab parentFrame, String name, int x, int y)
@@ -89,13 +85,14 @@ public class ChatFrameTabButton extends UIElement
 	
 	protected void onLeftClickDown()
 	{
-		if (this.parentFrame.isActiveTab())
-			return;
+		
 	}
 	
 	protected void onLeftClickUp()
 	{
-		
+		if (this.parentFrame.isActiveTab())
+			return;
+		this.parentFrame.setActiveTab();
 	}
 	
 	protected void onRightClickDown()

@@ -340,21 +340,9 @@ public class MailSendMailFrame extends Frame
 	}
 	
 	@Override
-	public void setX(int x)
-	{
-		
-	}
-	
-	@Override
 	public short getY()
 	{
 		return (this.frame.getY());
-	}
-	
-	@Override
-	public void setY(int y)
-	{
-		
 	}
 	
 	@Override

@@ -2,16 +2,54 @@ package com.mideas.rpg.v2.chat.new_chat;
 
 import java.util.ArrayList;
 
+import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.Message;
+import com.mideas.rpg.v2.utils.UIElement;
+import com.mideas.rpg.v2.utils.UIElementType;
 
-public class ChatFrame
+public class ChatFrame extends UIElement
 {
 	private final ArrayList<ChatFrameTab> tabList;
 	private ChatFrameTab activeFrameTab;
+	private boolean isLocked;
 	
-	public ChatFrame()
+	public final static short DEFAULT_X = 20;
+	public final static short DEFAULT_Y = 200;
+	public final static short DEFAULT_WIDTH = 400;
+	public final static short MIN_WIDTH = 200;
+	public final static short DEFAULT_HEIGHT = 250;
+	public final static short MIN_HEIGHT = 150;
+	
+	public ChatFrame(String name, int x, int y, int width, int height, boolean isLocked)
 	{
+		super(name, UIElementType.CHAT_FRAME);
+		this.xSave = (short)x;
+		this.x = (short)(x * Mideas.getDisplayXFactor());
+		this.ySave = (short)y;
+		this.y = (short)(y * Mideas.getDisplayYFactor());
+		this.widthSave = (short)width;
+		this.width = (short)(width * Mideas.getDisplayXFactor());
+		this.heightSave = (short)height;
+		this.height = (short)(height * Mideas.getDisplayYFactor());
 		this.tabList = new ArrayList<ChatFrameTab>();
+		this.isLocked = isLocked;
+	}
+	
+	@Override
+	public void draw()
+	{
+		for (int i = 0; i < this.tabList.size(); ++i)
+			this.tabList.get(i).draw();
+		ArrayList<Message> messageList = this.activeFrameTab.getMessageList();
+	}
+	
+	@Override
+	public boolean mouseEvent()	
+	{
+		for (int i = 0; i < this.tabList.size(); ++i)
+			if (this.tabList.get(i).mouseEvent())
+				return (true);
+		return (false);
 	}
 
 	public void addMessage(Message message)
@@ -21,11 +59,6 @@ public class ChatFrame
 				this.tabList.get(i).addMessage(message);
 	}
 	
-	public void draw()
-	{
-		
-	}
-	
 	public void addChatFrameTab(ChatFrameTab tab)
 	{
 		this.tabList.add(tab);
@@ -33,8 +66,32 @@ public class ChatFrame
 			this.activeFrameTab = tab;
 	}
 	
+	public void setActiveTab(ChatFrameTab tab)
+	{
+		this.activeFrameTab = tab;
+	}
+	
 	public ChatFrameTab getActiveTab()
 	{
 		return (this.activeFrameTab);
+	}
+	
+	public ArrayList<ChatFrameTab> getTabList()
+	{
+		return (this.tabList);
+	}
+	
+	public boolean getIsLocked()
+	{
+		return (this.isLocked);
+	}
+	
+	public void updateSize()
+	{
+		if (!this.shouldUpdateSize)
+			return;
+		for (int i = 0; i < this.tabList.size(); ++i)
+			this.tabList.get(i).shouldUpdateSize();
+		this.shouldUpdateSize = false;
 	}
 }

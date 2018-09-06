@@ -2,13 +2,21 @@ package com.mideas.rpg.v2.utils;
 
 import java.util.HashMap;
 
+import com.mideas.rpg.v2.Mideas;
+
 public abstract class  UIElement {
 
-	private String name;
+	protected String name;
 	private final UIElementType type;
 	protected Frame parentFrame;
+	protected short xSave;
 	protected short x;
+	protected short ySave;
 	protected short y;
+	protected short widthSave;
+	protected short width;
+	protected short heightSave;
+	protected short height;
 	protected boolean shouldUpdateSize;
 	private final static HashMap<String, UIElement> elementMap = new HashMap<String, UIElement>();
 
@@ -43,16 +51,6 @@ public abstract class  UIElement {
 		this.name = name;
 		elementMap.put(this.name, this);
 	}
-
-	public short getX()
-	{
-		return (this.x);
-	}
-	
-	public short getY()
-	{
-		return (this.y);
-	}
 	
 	public Frame getParentFrame()
 	{
@@ -81,17 +79,51 @@ public abstract class  UIElement {
 	
 	public void resetState() {}
 
-	@SuppressWarnings("unused")
-	public void setX(int x) {}
+	public void setX(float x)
+	{
+		this.xSave = (short)x;
+		if (this.parentFrame != null) //TODO: fix every Frame and remove this check
+			this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
+	}
+
+	public void setY(float y)
+	{
+		this.ySave = (short)y;
+		if (this.parentFrame != null) //TODO: fix every Frame and remove this check
+			this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
+	}
+
+	public short getX()
+	{
+		return (this.x);
+	}
 	
-	@SuppressWarnings("unused")
-	public void setY(int y) {}
+	public short getY()
+	{
+		return (this.y);
+	}
+
+	public void setWidth(float width)
+	{
+		this.widthSave = (short)width;
+		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
+	}
 	
-	@SuppressWarnings("unused")
-	public void setWidth(int width) {}
+	public void setHeight(float height)
+	{
+		this.heightSave = (short)height;
+		this.height = (short)(this.heightSave * Mideas.getDisplayXFactor());
+	}
 	
-	@SuppressWarnings("unused")
-	public void setHeight(int height) {}
+	public short getWidth()
+	{
+		return (this.width);
+	}
+	
+	public short getHeight()
+	{
+		return (this.height);
+	}
 	
 	public abstract void draw();
 	

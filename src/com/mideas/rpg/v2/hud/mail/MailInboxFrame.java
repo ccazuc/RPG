@@ -219,9 +219,9 @@ public class MailInboxFrame extends Frame
 	}
 	
 	@Override
-	public void setX(int x)
+	public void setX(float x)
 	{
-		
+		this.frame.setX(x);
 	}
 	
 	@Override
@@ -231,9 +231,9 @@ public class MailInboxFrame extends Frame
 	}
 	
 	@Override
-	public void setY(int y)
+	public void setY(float y)
 	{
-		
+		this.frame.setX(y);
 	}
 	
 	public void updateSize()

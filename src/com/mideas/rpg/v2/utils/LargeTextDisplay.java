@@ -5,10 +5,6 @@ import com.mideas.rpg.v2.render.TTF;
 
 public class LargeTextDisplay extends UIElement {
 
-	private final short xSave;
-	private final short ySave;
-	private final short widthSave;
-	private final short heightSave;
 	private final short scrollbarXSave;
 	private final short scrollbarYSave;
 	private final short scrollbarWidthSave;

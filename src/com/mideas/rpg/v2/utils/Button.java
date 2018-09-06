@@ -12,14 +12,6 @@ import com.mideas.rpg.v2.FontManager;
 public class Button extends UIElement
 {
 
-	private float x;
-	private float y;
-	private short width;
-	private short height;
-	private short widthSave;
-	private short heightSave;
-	private float xSave;
-	private float ySave;
 	private Texture texture = Sprites.button;
 	private String text;
 	private int textWidth;
@@ -34,7 +26,6 @@ public class Button extends UIElement
 	private boolean hasClicked;
 	private boolean isEnable = true;
 	private boolean isActivated = true;
-	private Frame parentFrame;
 	private final Texture baseTexture;
 	private final Texture hoverTextured;
 	private final Texture hoverDownTexture;
@@ -54,8 +45,8 @@ public class Button extends UIElement
 		this.widthSave = (short)width;
 		this.heightSave = (short)height;
 		this.text = text;
-		this.x = x;
-		this.y = y;
+		this.x = (short)x;
+		this.y = (short)y;
 		this.baseTexture = Sprites.button;
 		this.downTexture = Sprites.button_down;
 		this.hoverDownTexture = Sprites.button_down_hover;
@@ -76,8 +67,8 @@ public class Button extends UIElement
 		this.widthSave = width;
 		this.heightSave = height;
 		this.text = text;
-		this.x = x;
-		this.y = y;
+		this.x = (short)x;
+		this.y = (short)y;
 		this.baseTexture = Sprites.button;
 		this.downTexture = Sprites.button_down;
 		this.hoverDownTexture = Sprites.button_down_hover;
@@ -102,10 +93,10 @@ public class Button extends UIElement
 		this.widthSave = (short)width;
 		this.heightSave = (short)height;
 		this.text = text;
-		this.x = x * Mideas.getDisplayXFactor();
-		this.y = y * Mideas.getDisplayYFactor();
-		this.xSave = x;
-		this.ySave = y;
+		this.x = (short)(x * Mideas.getDisplayXFactor());
+		this.y = (short)(y * Mideas.getDisplayYFactor());
+		this.xSave = (short)x;
+		this.ySave = (short)y;
 		this.baseTexture = Sprites.new_button;
 		this.downTexture = Sprites.new_button_down;
 		this.hoverDownTexture = Sprites.new_button_down;
@@ -151,7 +142,7 @@ public class Button extends UIElement
 		if(!this.isEnable) {
 			return;
 		}
-		if(!activateCondition()) {
+		if(!this.isActivated) {
 			this.texture = this.disabledTexture;
 			this.color = Color.GREY;
 		}
@@ -298,14 +289,6 @@ public class Button extends UIElement
 		return false;
 	}
 	
-	public void setX(float x) {
-		this.x = x;
-	}
-	
-	public void setY(float y) {
-		this.y = y;
-	}
-	
 	public void setHoverFalse() {
 		this.buttonHover = false;
 	}
@@ -375,16 +358,16 @@ public class Button extends UIElement
 	
 	public void update(float x, float y)
 	{
-		this.x = x;
-		this.y = y;
+		this.x = (short)x;
+		this.y = (short)y;
 		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
 		this.height = (short)(this.heightSave * Mideas.getDisplayYFactor());
 	}
 	
 	public void updateSize()
 	{
-		this.x = this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor();
-		this.y = this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor();
+		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
+		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
 		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
 		this.height = (short)(this.heightSave * Mideas.getDisplayYFactor());
 	}
@@ -392,7 +375,7 @@ public class Button extends UIElement
 	public void initParentFrame(Frame frame)
 	{
 		this.parentFrame = frame;
-		this.x = this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor();
-		this.y = this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor();
+		this.x = (short)(this.parentFrame.getX() + this.xSave * Mideas.getDisplayXFactor());
+		this.y = (short)(this.parentFrame.getY() + this.ySave * Mideas.getDisplayYFactor());
 	}
 }
