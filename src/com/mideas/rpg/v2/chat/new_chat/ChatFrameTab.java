@@ -3,13 +3,9 @@ package com.mideas.rpg.v2.chat.new_chat;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.mideas.rpg.v2.FontManager;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.chat.MessageType;
-import com.mideas.rpg.v2.render.Draw;
-import com.mideas.rpg.v2.utils.Color;
-import com.mideas.rpg.v2.utils.Frame;
 import com.mideas.rpg.v2.utils.UIElement;
 import com.mideas.rpg.v2.utils.UIElementType;
 
@@ -44,7 +40,7 @@ public class ChatFrameTab extends UIElement
 		this.button.draw();
 		//if (System.currentTimeMillis() % 2 == 0)
 		//	Draw.drawColorQuad(this.x, this.y, 50, 50, Color.RED);
-		FontManager.get("FRIZQT", 10).drawString(this.x, this.y, this.name, Color.BLACK);
+		//FontManager.get("FRIZQT", 10).drawString(this.x, this.y, this.name, Color.BLACK);
 		if (isActiveTab())
 		{
 			

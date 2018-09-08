@@ -2,10 +2,6 @@ package com.mideas.rpg.v2.chat.lua;
 
 import java.util.ArrayList;
 
-import com.mideas.rpg.v2.chat.ChatFrame;
-import com.mideas.rpg.v2.chat.Message;
-import com.mideas.rpg.v2.chat.MessageType;
-import com.mideas.rpg.v2.utils.Color;
 import com.mideas.rpg.v2.utils.StringUtils;
 import com.mideas.rpg.v2.utils.UIElement;
 

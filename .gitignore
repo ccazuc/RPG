@@ -1,3 +1,5 @@
 bin
 spellbar_icons
 tmp
+Logs/Connection.log
+Logs/Misc.log

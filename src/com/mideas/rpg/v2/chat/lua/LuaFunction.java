@@ -2,7 +2,8 @@ package com.mideas.rpg.v2.chat.lua;
 
 import java.util.ArrayList;
 
-public class LuaFunction {
+public class LuaFunction
+{
 
 	private final String name;
 

@@ -67,8 +67,8 @@ public class ChatFrame extends UIElement
 	
 	public void addChatFrameTab(ChatFrameTab tab)
 	{
-		tab.setX(10 + this.tabList.size() * 70);
-		tab.setY(-55);
+		tab.setX(20 + this.tabList.size() * (ChatFrameTabButton.BUTTON_WIDTH + 20));
+		tab.setY(-ChatFrameTabButton.BUTTON_HEIGHT + 5);
 		this.tabList.add(tab);
 		if (this.tabList.size() == 1)
 			this.activeFrameTab = tab;

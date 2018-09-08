@@ -91,7 +91,22 @@ public class StoreLuaFunctions {
 		@Override
 		public Object handleFunction(Object object, ArrayList<Object> args)
 		{
-			return (null);
+			return (((UIElement)object).getWidth());
+		}
+		
+		@Override
+		public boolean isFunctionVisible(Object object)
+		{
+			return (object instanceof UIElement);
+		}
+	};
+	private final static LuaFunction getHeight = new LuaFunction("GetHeight")
+	{
+	
+		@Override
+		public Object handleFunction(Object object, ArrayList<Object> args)
+		{
+			return (((UIElement)object).getHeight());
 		}
 		
 		@Override
@@ -142,6 +157,42 @@ public class StoreLuaFunctions {
 			if (args == null || args.size() == 0 || !(args.get(0) instanceof Integer))
 				return (null);
 			((UIElement)object).setX((Integer)args.get(0));
+			return (null);
+		}
+		
+		@Override
+		public boolean isFunctionVisible(Object object)
+		{
+			return (object instanceof UIElement);
+		}
+	};
+	private final static LuaFunction setY = new LuaFunction("SetY")
+	{
+	
+		@Override
+		public Object handleFunction(Object object, ArrayList<Object> args)
+		{
+			if (args == null || args.size() == 0 || !(args.get(0) instanceof Integer))
+				return (null);
+			((UIElement)object).setY((Integer)args.get(0));
+			return (null);
+		}
+		
+		@Override
+		public boolean isFunctionVisible(Object object)
+		{
+			return (object instanceof UIElement);
+		}
+	};
+	private final static LuaFunction setHeight = new LuaFunction("SetHeight")
+	{
+	
+		@Override
+		public Object handleFunction(Object object, ArrayList<Object> args)
+		{
+			if (args == null || args.size() == 0 || !(args.get(0) instanceof Integer))
+				return (null);
+			((UIElement)object).setHeight((Integer)args.get(0));
 			return (null);
 		}
 		

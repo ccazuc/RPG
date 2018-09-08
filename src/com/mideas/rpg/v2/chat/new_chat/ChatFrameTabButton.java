@@ -15,6 +15,9 @@ public class ChatFrameTabButton extends UIElement
 	private boolean isLeftClickDown;
 	private boolean isRightClickDown;
 	private final ChatFrameTab parentFrame;
+	
+	public final static short BUTTON_WIDTH = 80;
+	public final static short BUTTON_HEIGHT = 50;
 
 	public ChatFrameTabButton(ChatFrameTab parentFrame, String name, int x, int y)
 	{
@@ -22,17 +25,21 @@ public class ChatFrameTabButton extends UIElement
 		this.parentFrame = parentFrame;
 		this.xSave = (short)x;
 		this.x = (short)(x * Mideas.getDisplayXFactor());
+		this.widthSave = BUTTON_WIDTH;
+		this.width = (short)(BUTTON_WIDTH * Mideas.getDisplayXFactor());
 		this.ySave = (short)y;
 		this.y = (short)(y * Mideas.getDisplayYFactor());
+		this.heightSave = BUTTON_HEIGHT;
+		this.height = (short)(BUTTON_HEIGHT * Mideas.getDisplayYFactor());
 	}
 	
 	@Override
 	public void draw()
 	{
 		if (this.parentFrame.isActiveTab())
-			Draw.drawColorQuad(this.x, this.y, 50, 50, Color.GREEN);
+			Draw.drawColorQuad(this.x, this.y, this.width, this.height, Color.GREEN);
 		else
-			Draw.drawColorQuad(this.x, this.y, 50, 50, Color.RED);
+			Draw.drawColorQuad(this.x, this.y, this.width, this.height, Color.RED);
 	}
 	
 	@Override
@@ -41,6 +48,7 @@ public class ChatFrameTabButton extends UIElement
 		if (Mideas.getHover() && Mideas.mouseX() >= this.x && Mideas.mouseX() <= this.x + this.width && Mideas.mouseY() >= this.y && Mideas.mouseY() <= this.y + this.height)
 		{
 			Mideas.setHover(this, true);
+			this.isMouseHover = true;
 		}
 		else
 		{
@@ -131,5 +139,7 @@ public class ChatFrameTabButton extends UIElement
 	{
 		this.x = (short)(this.parentFrame.getFrame().getX() + this.xSave * Mideas.getDisplayXFactor());
 		this.y = (short)(this.parentFrame.getFrame().getY() + this.ySave * Mideas.getDisplayYFactor());
+		this.width = (short)(this.widthSave * Mideas.getDisplayXFactor());
+		this.height = (short)(this.height * Mideas.getDisplayYFactor());
 	}
 }
