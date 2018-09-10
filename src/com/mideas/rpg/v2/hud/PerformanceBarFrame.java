@@ -26,7 +26,7 @@ public class PerformanceBarFrame {
 	private final static String character = "Character : ";
 	private final static String spellbar = "Spellbar : ";
 	private final static String drag = "Drag : ";
-	private final static String 탎 = " 탎";
+	private final static String ms = " 占퐏";
 	private final static String mo = " Mo";
 	
 	private final static int x = -390;
@@ -45,19 +45,19 @@ public class PerformanceBarFrame {
 			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+yShift, fps.concat(Mideas.getFPSString()), Color.WHITE, Color.BLACK, 1);
 			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+2*yShift, ping+Mideas.getPing(), Color.WHITE, Color.BLACK, 1);
 			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+3*yShift, drawTime, Color.WHITE, Color.BLACK, 1);
-			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
-			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+5*yShift, container+(Interface.getContainerDrawTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
-			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+6*yShift, "Social : "+(Interface.getSocialDrawTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+4*yShift, interfaces+(Mideas.getInterfaceDrawTime()/1000)+ms, Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+5*yShift, container+(Interface.getContainerDrawTime()/1000)+ms, Color.WHITE, Color.BLACK, 1);
+			font.drawStringShadowPart(Display.getWidth()+x, Display.getHeight()+y+6*yShift, "Social : "+(Interface.getSocialDrawTime()/1000)+ms, Color.WHITE, Color.BLACK, 1);
 			font.drawEnd();
 		}
 		if(topPerformanceBarActive) {
 			Draw.drawColorQuad(0, 0, Display.getWidth(), 15, Color.GREY);
 			FontManager.font2.drawBegin();
-			FontManager.font2.drawStringShadowPart(1, 0, total+(Mideas.getMouseEventTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
-			FontManager.font2.drawStringShadowPart(121, 0, container+(Interface.getContainerMouseEventTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
-			FontManager.font2.drawStringShadowPart(241, 0, character+(Interface.getCharacterMouseEventTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
-			FontManager.font2.drawStringShadowPart(361, 0, spellbar+(Interface.getSpellBarMouseEventTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
-			FontManager.font2.drawStringShadowPart(481, 0, drag+(Interface.getDragMouseEventTime()/1000)+탎, Color.WHITE, Color.BLACK, 1);
+			FontManager.font2.drawStringShadowPart(1, 0, total+(Mideas.getMouseEventTime()/1000)+ms, Color.WHITE, Color.BLACK, 1);
+			FontManager.font2.drawStringShadowPart(121, 0, container+(Interface.getContainerMouseEventTime()/1000)+ms, Color.WHITE, Color.BLACK, 1);
+			FontManager.font2.drawStringShadowPart(241, 0, character+(Interface.getCharacterMouseEventTime()/1000)+ms, Color.WHITE, Color.BLACK, 1);
+			FontManager.font2.drawStringShadowPart(361, 0, spellbar+(Interface.getSpellBarMouseEventTime()/1000)+ms, Color.WHITE, Color.BLACK, 1);
+			FontManager.font2.drawStringShadowPart(481, 0, drag+(Interface.getDragMouseEventTime()/1000)+ms, Color.WHITE, Color.BLACK, 1);
 			FontManager.font2.drawEnd();
 		}
 	}
