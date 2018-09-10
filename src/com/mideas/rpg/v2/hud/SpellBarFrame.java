@@ -192,7 +192,7 @@ public class SpellBarFrame {
 		buttonList[slot].setShortcut(shortcut);
 	}
 	
-	//TODO: à dégager
+	//TODO: ï¿½ dï¿½gager
 	public static boolean doHealingPotion(Potion item) {
 		if(item != null && item.getItemType() == ItemType.POTION) {
 			if(Mideas.joueur1().getStamina()+item.getPotionHeal() >= Mideas.joueur1().getMaxStamina() && Mideas.joueur1().getStamina() != Mideas.joueur1().getMaxStamina()) {
@@ -208,9 +208,9 @@ public class SpellBarFrame {
 			else {
 				LogChat.setStatusText3("Vos HP ï¿½taient dï¿½jï¿½ au maximum");
 			}
-			CharacterStuff.setBagItems();
+			//CharacterStuff.setBagItems();
 			if(item.getAmount() <= 0) {
-				CharacterStuff.setBagItems();
+				//CharacterStuff.setBagItems();
 				return true;
 			}
 		}

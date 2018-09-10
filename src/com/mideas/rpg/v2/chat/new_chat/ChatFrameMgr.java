@@ -49,6 +49,15 @@ public class ChatFrameMgr
 		this.chatFrameList.add(frame);
 	}
 	
+	public void undockTab(ChatFrameTab tab)
+	{
+		/*ChatFrame frame = new ChatFrame("CHAT_FRAME" + (this.chatFrameList.size() + 1), ChatFrame.UNDOCK_X, ChatFrame.UNDOCK_Y, ChatFrame.UNDOCK_WIDTH, ChatFrame.UNDOCK_HEIGHT, false);
+		frame.addChatFrameTab(tab);
+		this.chatFrameList.add(frame);
+		tab.getFrame().removeChatFrameTab(tab);*/
+		
+	}
+	
 	public ArrayList<ChatFrame> getChatFrameList()
 	{
 		return (this.chatFrameList);

@@ -11,7 +11,7 @@ public class GemManager {
 	private static HashMap<Integer, Gem> gemList = new HashMap<Integer, Gem>();
 	//private static HashMap<Integer, Texture> gemSprites = new HashMap<Integer, Texture>();
 	
-	public static void loadGems() {
+	/*public static void loadGems() {
 		try {
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, color, sellprice, stat1Type, stat1Value, stat2Type, stat2Value, stat3Type, stat3Value FROM item_gem");
 			statement.execute();
@@ -35,7 +35,7 @@ public class GemManager {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	/*public static Texture getGemSprite(int id) {
 		return gemSprites.get(id);

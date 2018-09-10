@@ -12,7 +12,7 @@ public class DropManager {
 
 	private static HashMap<Integer, ArrayList<Drop>> dropList = new HashMap<Integer, ArrayList<Drop>>();
 	
-	public static void loadDropTable(int id) throws SQLException {
+	/*public static void loadDropTable(int id) throws SQLException {
 		if(!dropList.containsKey(id)) {
 			ArrayList<Drop> temp = new ArrayList<Drop>();
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT item_id, amount, drop_rate FROM `drop` WHERE mob_id = ?");
@@ -26,7 +26,7 @@ public class DropManager {
 			}
 			dropList.put(id, temp);
 		}
-	}
+	}*/
 	
 	public static HashMap<Integer, ArrayList<Drop>> getDropList() {
 		return dropList;

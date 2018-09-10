@@ -15,7 +15,7 @@ import com.mideas.rpg.v2.jdo.JDOStatement;
 
 public class SpellBarManager {
 
-	public static void loadSpellBar() {
+	/*public static void loadSpellBar() {
 		try {
 			int i = 0;
 			int id;
@@ -66,5 +66,5 @@ public class SpellBarManager {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 }

@@ -37,7 +37,7 @@ public class LogChat {
 	}
 	
 	public static void setStatusText(String text) {
-		try {
+		/*try {
 			statusText = text;
 			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
 			statement.putLong(System.nanoTime());
@@ -46,11 +46,11 @@ public class LogChat {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public static void setStatusText2(String text) {
-		try {
+		/*try {
 			statusText2 = text;
 			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
 			statement.putLong(System.nanoTime());
@@ -59,11 +59,11 @@ public class LogChat {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public static void setStatusText3(String text) {
-		try {
+		/*try {
 			statusText3 = text;
 			JDOStatement statement = Mideas.getJDO().prepare("INSERT INTO chatlog (date, message) VALUES (?, ?)");
 			statement.putLong(System.nanoTime());
@@ -72,6 +72,6 @@ public class LogChat {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }

@@ -93,7 +93,7 @@ public class Mideas {
 	private static int expNeeded;
 	private static long gold_calc;
 	private static double ping;
-	private static JDO jdo;
+	//private static JDO jdo;
 	//private static String cursor;
 	private static UIElement hoveredElement;
 	private static long last;
@@ -182,8 +182,8 @@ public class Mideas {
 		cursor_buffer.position(0);
 		Mouse.setNativeCursor(new Cursor(32, 32, 0, 31, 1, cursor_buffer.asIntBuffer(), null));
 		time = System.currentTimeMillis();
-		initSQL();
-		CharacterStuff.initSQLRequest();
+		//initSQL();
+		//CharacterStuff.initSQLRequest();
 		//GemManager.loadGems();
 		//WeaponManager.loadWeapons();
 		ItemCacheMgr.readItemCache();
@@ -191,12 +191,12 @@ public class Mideas {
 		AuraDBC.readFile();
 		//PotionManager.loadPotions();
 		ChatCommandMgr.initCommandMap();
-		ContainerManager.loadBags();
+		//ContainerManager.loadBags();
 		ContainerManager.loadBagsSprites();
 		//StuffManager.loadStuffs();
-		ShopManager.loadStuffs();
+		//ShopManager.loadStuffs();
 		//SpellManager.loadSpells();
-		ClassManager.loadClasses();
+		//ClassManager.loadClasses();
 		StringUtils.initValues();
 		//GemManager.loadGemSprites();
 		ConfigManager.initConfigMap();
@@ -280,7 +280,7 @@ public class Mideas {
 		//ChatAdvancedCommandMgr.handleCommand("GetMouseFocus(Random(1, 100))", true);
 		//ChatAdvancedCommandMgr.handleCommand("TestFrame    :     GetWidth()", true);
 		loop();
-		saveAllStats();
+		//saveAllStats();
 	}
 	
 	public static void closeGame()
@@ -290,16 +290,16 @@ public class Mideas {
 	
 	public static void initSQL() throws IllegalAccessException, ClassNotFoundException
 	{
-		try
+		/*try
 		{
-			jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
+			//jdo = new MariaDB("127.0.0.1", 3306, "rpg", "root", "mideas");
 			//jdo = new MariaDB("88.163.90.215", 3306, "rpg", "root", "mideas");
 			//jdo = new MariaDB("82.236.60.133", 3306, "rpg", "root", "mideas");
 		} 
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public static void updateDisplayFactor()
@@ -336,10 +336,10 @@ public class Mideas {
 		}
 	}
 	
-	public static JDO getJDO()
+	/*public static JDO getJDO()
 	{
 		return (jdo);
-	}
+	}*/
 	
 	public static int mouseX()
 	{
@@ -512,10 +512,10 @@ public class Mideas {
 	public static void nTime(long time, String text)
 	{
 		long timer = System.nanoTime();
-		System.out.println((timer-time)+"ns "+((timer-time)/1000)+"µs "+((timer-time)/1000000)+"ms "+text);
+		System.out.println((timer-time)+"ns "+((timer-time)/1000)+"ï¿½s "+((timer-time)/1000000)+"ms "+text);
 	}
 	
-	public static void setConfig()
+	/*public static void setConfig()
 	{
 		try
 		{
@@ -570,7 +570,7 @@ public class Mideas {
 		{
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public static int calcGoldCoin()
 	{
@@ -836,7 +836,7 @@ public class Mideas {
 	    }
 	}
 	
-	public static void saveAllStats()
+	/*public static void saveAllStats()
 	{
 		if (Mideas.joueur1() != null)
 		{
@@ -847,7 +847,7 @@ public class Mideas {
 			Mideas.joueur1().setExp(Mideas.joueur1().getExp());
 		}
 		Mideas.setConfig();
-	}
+	}*/
 	
 	public static GameState getGameState()
 	{

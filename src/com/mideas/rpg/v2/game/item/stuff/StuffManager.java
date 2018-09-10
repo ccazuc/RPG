@@ -16,7 +16,7 @@ public class StuffManager {
 	private static HashMap<Integer, Stuff> stuffList = new HashMap<Integer, Stuff>();
 	private static int numberStuffLoaded;
 	
-	public static void loadStuffs() {
+	/*public static void loadStuffs() {
 		try {
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, type, name, class, wear, sprite_id, quality, gem_slot1, gem_slot2, gem_slot3, gem_bonus_type, gem_bonus_value, level, armor, stamina, mana, critical, strength, sellprice FROM item_stuff");
 			statement.execute();
@@ -55,7 +55,7 @@ public class StuffManager {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public static boolean canEquipStuff(Stuff stuff) {
 		if(Mideas.joueur1().getLevel() >= stuff.getLevel() && Mideas.joueur1().canWear(stuff) && stuff.canEquipTo(Mideas.joueur1().getClassType())) {

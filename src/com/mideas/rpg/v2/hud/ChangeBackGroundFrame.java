@@ -66,7 +66,7 @@ public class ChangeBackGroundFrame {
 	private static void changeBackground(int i, Texture texture) {
 		if(hoveredSlot == i) {
 			Sprites.current_bg = texture;
-			Mideas.setConfig();
+			//Mideas.setConfig();
 			Interface.closeChangeBackgroundFrame();
 		}
 	}

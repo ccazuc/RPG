@@ -1945,3 +1945,6 @@
 [Fri Sep 07 13:52:10 CEST 2018] Connection to world server accepted.
 [Fri Sep 07 13:52:10 CEST 2018] Logout from account requested to auth server.
 [Fri Sep 07 13:52:10 CEST 2018] Logout from account requested to world server.
+[Mon Sep 10 14:32:09 CEST 2018] Init auth server packet.
+[Mon Sep 10 14:32:09 CEST 2018] Init world server packet.
+[Mon Sep 10 14:32:09 CEST 2018] Could not connect to auth.

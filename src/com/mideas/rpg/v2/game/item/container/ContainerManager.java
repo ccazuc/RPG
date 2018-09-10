@@ -13,7 +13,7 @@ public class ContainerManager {
 	private static HashMap<Integer, Container> containerList = new HashMap<Integer, Container>();
 	private static HashMap<Integer, Texture> bagsSprites = new HashMap<Integer, Texture>();
 	
-	public static void loadBags() {
+	/*public static void loadBags() {
 		try {
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, quality, size, sellprice FROM item_container");
 			statement.execute();
@@ -31,7 +31,7 @@ public class ContainerManager {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public static void storeNewPiece(Container container) {
 		if(container != null) {

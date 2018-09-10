@@ -105,7 +105,7 @@ public class Interface {
 	public static void draw() throws IOException, NumberFormatException {
 		Draw.drawQuadBG(Sprites.current_bg);
 		if(!isConfigLoaded) {
-			Mideas.getConfig();
+			//Mideas.getConfig();
 			isConfigLoaded = true;
 			Mideas.setDisplayXFactor(Display.getWidth()/1920f);
 			Mideas.setDisplayYFactor(Display.getHeight()/1018f);
@@ -120,11 +120,11 @@ public class Interface {
 			}
 			else if(Mideas.joueur1() != null) {
 				if(!isCharacterLoaded) {
-					SpellBarManager.loadSpellBar();
+					//SpellBarManager.loadSpellBar();
 					//CharacterStuff.getEquippedBags();
 					//CharacterStuff.getBagItems();
-					ProfessionManager.LoadAllCraft();
-					Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
+					//ProfessionManager.LoadAllCraft();
+					//Mideas.joueur1().setFirstProfession(ProfessionManager.getProfession(100001));
 					Talent.getTalent();
 					//Mideas.joueur1().setTarget(new Unit(100, 10000, 10000, 3000, 3000, 1, "", ClassType.NPC));
 					isCharacterLoaded = true;

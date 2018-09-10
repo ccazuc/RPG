@@ -43,7 +43,7 @@ public class AdminPanelFrame {
 		@Override
 		public void onLeftClickUp() {
 			Arrays.fill(Mideas.joueur1().bag().getBag(), null);
-			CharacterStuff.setBagItems();
+			//CharacterStuff.setBagItems();
 		}
 	};
 	

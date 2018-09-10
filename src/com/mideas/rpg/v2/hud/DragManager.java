@@ -60,8 +60,8 @@ public class DragManager {
 				calcStatsLess(draggedItem);
 			}
 			draggedItem = null;
-			CharacterStuff.setEquippedItems();
-			CharacterStuff.setBagItems();
+			//CharacterStuff.setEquippedItems();
+			//CharacterStuff.setBagItems();
 			this.setHoverFalse();
 			deleteItem = false;
 		}
@@ -825,7 +825,7 @@ public class DragManager {
 	
 	public static void calcStats(Item stuff) {
 		if(stuff != null && (stuff.isStuff() || stuff.isWeapon())) {
-			CharacterStuff.setEquippedItems();
+			//CharacterStuff.setEquippedItems();
 			Mideas.joueur1().setStuffArmor(((Stuff)stuff).getArmor());
 			Mideas.joueur1().setStuffStamina(((Stuff)stuff).getStamina());
 			Mideas.joueur1().setStuffStrength(((Stuff)stuff).getStrength());

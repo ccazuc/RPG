@@ -18,7 +18,7 @@ public class ProfessionManager {
 	private static ArrayList<Profession> professionList = new ArrayList<Profession>();
 	private static ArrayList<Integer> unlockedCraftList = new ArrayList<Integer>();
 	
-	private static void loadUnlockedCraft() throws SQLException {
+	/*private static void loadUnlockedCraft() throws SQLException {
 		JDOStatement statement = Mideas.getJDO().prepare("SELECT craft_id FROM craft_unlocked WHERE character_id = ?");
 		statement.putInt(Mideas.joueur1().getId());
 		statement.execute();
@@ -139,27 +139,11 @@ public class ProfessionManager {
 				Category category8 = getCategory(statement.getInt());
 				professionList.add(new Profession(professionId, professionName, category1, category2, category3, category4, category5, category6, category7, category8));
 			}
-			/*int i = 0;
-			int j = 0;
-			int k = 0;
-			while(i < professionList.size()) {
-				j = 0;
-				while(j < professionList.get(i).getCategoryList().size()) {
-					k = 0;
-					while(k < professionList.get(i).getCategoryList().get(j).getCraftList().size()) {
-						System.out.println(professionList.get(i).getCategoryList().get(j).getCraftList().get(k).getItem().getStuffName()+" "+professionList.get(i).getCategoryList().get(j).getCraftList().get(k).getId());
-						k++;
-					}
-					System.out.println(professionList.get(i).getCategoryList().get(j).getName());
-					j++;
-				}
-				i++;
-			}*/
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	private static Item getItem(int id) {
 		if(WeaponManager.getClone(id) != null) {

@@ -45,7 +45,7 @@ public class ShopManager {
 
 	private static ArrayList<Shop> shopList = new ArrayList<Shop>();
 	
-	public static void loadStuffs() {
+	/*public static void loadStuffs() {
 		try {
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, class, price FROM shop");
 			statement.execute();
@@ -63,7 +63,7 @@ public class ShopManager {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public static Item getItem(int id) {
 		if(StuffManager.exists(id)) {
@@ -227,7 +227,7 @@ public class ShopManager {
 				Mideas.joueur1().setGold(Mideas.joueur1().getGold()+item.getSellPrice());
 				LogChat.setStatusText3("Vous avez vendu "+item.getStuffName()+" pour "+item.getSellPrice());
 			}
-			CharacterStuff.setBagItems();
+			//CharacterStuff.setBagItems();
 			DragManager.mouseEvent();
 			return true;
 		}
@@ -239,9 +239,9 @@ public class ShopManager {
 			while(i < Mideas.joueur1().bag().getBag().length) {
 				if(Mideas.joueur1().bag().getBag(i) == null) {
 					Mideas.joueur1().bag().setBag(i, StuffManager.getClone(item.getId()));
-					LogChat.setStatusText3("Vous avez bien acheté "+StuffManager.getStuff(item.getId()).getStuffName());
+					LogChat.setStatusText3("Vous avez bien achetï¿½ "+StuffManager.getStuff(item.getId()).getStuffName());
 					Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
-					CharacterStuff.setBagItems();
+					//CharacterStuff.setBagItems();
 					return true;
 				}
 				i++;
@@ -252,9 +252,9 @@ public class ShopManager {
 				while(i < Mideas.joueur1().bag().getBag().length) {
 					if(Mideas.joueur1().bag().getBag(i) != null && Mideas.joueur1().bag().getBag(i).getId() == item.getId()) {
 						Mideas.joueur1().bag().getBag(i).setAmount(Mideas.joueur1().bag().getBag(i).getAmount()+1);
-						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
+						LogChat.setStatusText3("Vous avez bien achetï¿½ "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
-						CharacterStuff.setBagItems();
+						//CharacterStuff.setBagItems();
 						return true;
 					}
 					i++;
@@ -266,9 +266,9 @@ public class ShopManager {
 						Potion temp = PotionManager.getClone(item.getId());
 						Mideas.joueur1().bag().setBag(i, temp);
 						temp.setAmount(1);
-						LogChat.setStatusText3("Vous avez bien acheté "+PotionManager.getPotion(item.getId()).getStuffName());
+						LogChat.setStatusText3("Vous avez bien achetï¿½ "+PotionManager.getPotion(item.getId()).getStuffName());
 						Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
-						CharacterStuff.setBagItems();
+						//CharacterStuff.setBagItems();
 						return true;
 					}
 					i++;
@@ -279,9 +279,9 @@ public class ShopManager {
 			while(i < Mideas.joueur1().bag().getBag().length) {
 				if(Mideas.joueur1().bag().getBag(i) == null) {
 					Mideas.joueur1().bag().setBag(i, GemManager.getClone(item.getId()));
-					LogChat.setStatusText3("Vous avez bien acheté "+GemManager.getGem(item.getId()).getStuffName());
+					LogChat.setStatusText3("Vous avez bien achetï¿½ "+GemManager.getGem(item.getId()).getStuffName());
 					Mideas.joueur1().setGold(Mideas.joueur1().getGold()-item.getSellPrice());
-					CharacterStuff.setBagItems();
+					//CharacterStuff.setBagItems();
 					return true;
 				}
 				i++;

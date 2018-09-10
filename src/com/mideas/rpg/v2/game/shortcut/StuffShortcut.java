@@ -34,8 +34,8 @@ public class StuffShortcut implements Shortcut {
 								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
 								DragManager.setNullContainer(Mideas.joueur1().bag().getBag(i));
-								CharacterStuff.setBagItems();
-								CharacterStuff.setEquippedItems();
+								//CharacterStuff.setBagItems();
+								//CharacterStuff.setEquippedItems();
 								break;
 							}
 							Item tempItem = Mideas.joueur1().getStuff(i);
@@ -43,8 +43,8 @@ public class StuffShortcut implements Shortcut {
 							Mideas.joueur1().setStuff(i, this.stuff);
 							DragManager.calcStats(Mideas.joueur1().getStuff(i));
 							Mideas.joueur1().bag().setBag(DragManager.checkItemSlotInventory(this.stuff), tempItem);
-							CharacterStuff.setBagItems();
-							CharacterStuff.setEquippedItems();
+							//CharacterStuff.setBagItems();
+							//CharacterStuff.setEquippedItems();
 							break;
 						}
 					}
@@ -56,8 +56,8 @@ public class StuffShortcut implements Shortcut {
 								Mideas.joueur1().setStuff(i, this.stuff);
 								DragManager.calcStats(Mideas.joueur1().getStuff(i));
 								DragManager.setNullContainer(Mideas.joueur1().bag().getBag(i));
-								CharacterStuff.setBagItems();
-								CharacterStuff.setEquippedItems();
+								//CharacterStuff.setBagItems();
+								//CharacterStuff.setEquippedItems();
 								break;
 							}
 							Item tempItem = Mideas.joueur1().getStuff(i);
@@ -65,8 +65,8 @@ public class StuffShortcut implements Shortcut {
 							Mideas.joueur1().setStuff(i, this.stuff);
 							DragManager.calcStats(Mideas.joueur1().getStuff(i));
 							Mideas.joueur1().bag().setBag(DragManager.checkItemSlotInventory(this.stuff), tempItem);
-							CharacterStuff.setBagItems();
-							CharacterStuff.setEquippedItems();
+							//CharacterStuff.setBagItems();
+							//CharacterStuff.setEquippedItems();
 							break;
 						}
 					}

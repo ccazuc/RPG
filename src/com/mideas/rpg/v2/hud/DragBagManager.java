@@ -103,8 +103,8 @@ public class DragBagManager {
 					if(checkEmptyBag()) {
 						deleteBag(draggedBag);
 						draggedBag = null;
-						CharacterStuff.setEquippedBags();
-						CharacterStuff.setBagItems();
+						//CharacterStuff.setEquippedBags();
+						//CharacterStuff.setBagItems();
 						deleteItem = false;
 						ContainerFrame.setBagchange(true);
 					}

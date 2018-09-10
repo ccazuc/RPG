@@ -14,7 +14,7 @@ public class ClassManager {
 	private static HashMap<String, Joueur> playerList = new HashMap<String, Joueur>();
 	private static HashMap<String, Joueur> iaList = new HashMap<String, Joueur>();
 	
-	public static void loadClasses() {
+	/*public static void loadClasses() {
 		try {
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, tempId, wear, weapon_type, stamina, mana, strength, armor, default_armor, critical, max_stamina, max_mana FROM player");
 			statement.execute();
@@ -41,7 +41,7 @@ public class ClassManager {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public static WeaponType[] getWeaponTypes(short type) {
 		int i = 0;

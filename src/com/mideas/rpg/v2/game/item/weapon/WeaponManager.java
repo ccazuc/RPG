@@ -17,7 +17,7 @@ public class WeaponManager {
 	
 	private static HashMap<Integer, Stuff> weaponList = new HashMap<Integer, Stuff>();
 	
-	public static void loadWeapons() {
+	/*public static void loadWeapons() {
 		try {
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, name, sprite_id, class, type, slot, quality, color1, color2, color3, gem_bonus_type, gem_bonus_value, level, armor, stamina, mana, critical, strength, sellprice FROM item_weapon");
 			statement.execute();
@@ -55,7 +55,8 @@ public class WeaponManager {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
+	
 	public static Stuff getWeapon(int id) {
 		if(weaponList.containsKey(id)) {
 			return weaponList.get(id);

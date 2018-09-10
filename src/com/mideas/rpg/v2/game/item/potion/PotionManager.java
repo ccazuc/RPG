@@ -11,7 +11,7 @@ public class PotionManager {
 	private static HashMap<Integer, Potion> potionList = new HashMap<Integer, Potion>();
 	private static int numberPotionLoaded;
 	
-	public static void loadPotions() {
+	/*public static void loadPotions() {
 		try {
 			JDOStatement statement = Mideas.getJDO().prepare("SELECT id, sprite_id, name, level, heal, mana, sellprice FROM item_potion");
 			statement.execute();
@@ -31,7 +31,7 @@ public class PotionManager {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public static void storeNewPiece(Potion potion) {
 		if(potion != null) {

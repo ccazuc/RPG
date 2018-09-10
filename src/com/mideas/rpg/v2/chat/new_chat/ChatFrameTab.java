@@ -3,6 +3,7 @@ package com.mideas.rpg.v2.chat.new_chat;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.mideas.rpg.v2.Interface;
 import com.mideas.rpg.v2.Mideas;
 import com.mideas.rpg.v2.chat.Message;
 import com.mideas.rpg.v2.chat.MessageType;
@@ -59,6 +60,11 @@ public class ChatFrameTab extends UIElement
 	public boolean keyboardEvent()
 	{
 		return (false);
+	}
+	
+	public void undockTab()
+	{
+		Interface.getChatFrameMgr().undockTab(this);
 	}
 	
 	public boolean isActiveTab()

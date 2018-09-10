@@ -474,13 +474,13 @@ public class Joueur extends Unit {
 				}
 				i++;
 			}
-			CharacterStuff.setBagItems();
+			//CharacterStuff.setBagItems();
 		}
 		else {
 			while(i < this.bag.getBag().length) {
 				if(this.bag.getBag(i) != null && this.bag.getBag(i).equals(item)) {
 					this.bag.setBag(i, item, this.bag.getBag(i).getAmount()+amount);
-					CharacterStuff.setBagItems();
+					//CharacterStuff.setBagItems();
 					return true;
 				}
 				i++;
@@ -489,7 +489,7 @@ public class Joueur extends Unit {
 			while(i < this.bag.getBag().length) {
 				if(this.bag.getBag(i) == null) {
 					this.bag.setBag(i, item, amount);
-					CharacterStuff.setBagItems();
+					//CharacterStuff.setBagItems();
 					return true;
 				}
 				i++;
@@ -535,7 +535,7 @@ public class Joueur extends Unit {
 				}
 				i++;
 			}
-			CharacterStuff.setBagItems();
+			//CharacterStuff.setBagItems();
 		}
 		return returns;
 	}
@@ -550,7 +550,7 @@ public class Joueur extends Unit {
 				}
 				i++;
 			}
-			CharacterStuff.setBagItems();
+			//CharacterStuff.setBagItems();
 		}
 		else {
 			while(i < this.bag.getBag().length && amount > 0) {
@@ -561,7 +561,7 @@ public class Joueur extends Unit {
 				}
 				i++;
 			}
-			CharacterStuff.setBagItems();
+			//CharacterStuff.setBagItems();
 		}
 	}
 	

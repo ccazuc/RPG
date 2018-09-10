@@ -20,7 +20,7 @@ public class CharacterStuff {
 	private static String getBagRequest;
 	private static String setBagRequest;
 	
-	public static void initSQLRequest() {
+	/*public static void initSQLRequest() {
 		int x = 1;
 		int i = 1;
 		StringBuilder builderSetBagItemsRequest = new StringBuilder();
@@ -269,24 +269,6 @@ public class CharacterStuff {
 					putGem(statement, i, 0);
 					putGem(statement, i, 1);
 					putGem(statement, i, 2);
-					/*if(Mideas.joueur1().getStuff(i).getEquippedGem(1) != null) {
-						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem(1).getId());
-					}
-					else {
-						statement.putInt(0);
-					}
-					if(Mideas.joueur1().getStuff(i).getEquippedGem(2) != null) {
-						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem(2).getId());
-					}
-					else {
-						statement.putInt(0);
-					}	
-					if(Mideas.joueur1().getStuff(i).getEquippedGem(3) != null) {
-						statement.putInt(Mideas.joueur1().getStuff(i).getEquippedGem(3).getId());
-					}
-					else {
-						statement.putInt(0);
-					}*/
 				}
 				i++;
 			}
@@ -296,7 +278,7 @@ public class CharacterStuff {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	private static void putGem(JDOStatement statement, int stuffSlot, int gemSlot) throws SQLException {	
 		if(Mideas.joueur1().getStuff(stuffSlot).getEquippedGem(gemSlot) != null) {
@@ -306,184 +288,6 @@ public class CharacterStuff {
 			statement.putInt(0);
 		}
 	}
-	
-	/*public static void getEquippedItems() throws SQLException {
-		int id;
-		int gem1Id;
-		int gem2Id;
-		int gem3Id;
-		Stuff temp;
-		JDOStatement statement = Mideas.getJDO().prepare("SELECT head, head_gem1, head_gem2, head_gem3, necklace, necklace_gem1, necklace_gem2, necklace_gem3, shoulders, shoulders_gem1, shoulders_gem2, shoulders_gem3, back, back_gem1, back_gem2, back_gem3, chest, chest_gem1, chest_gem2, chest_gem3, wrists, wrists_gem1, wrists_gem2, wrists_gem3, gloves, gloves_gem1, gloves_gem2, gloves_gem3, belt, belt_gem1, belt_gem2, belt_gem3, leggings, leggings_gem1, leggings_gem2, leggings_gem3, boots, boots_gem1, boots_gem2, boots_gem3, ring, ring2, trinket, trinket2, mainhand, mainhand_gem1, mainhand_gem2, mainhand_gem3, offhand, offhand_gem1, offhand_gem2, offhand_gem3, ranged, ranged_gem1, ranged_gem2, ranged_gem3 FROM character_stuff WHERE character_id = ?");
-		statement.putInt(Mideas.getCharacterId());
-		statement.execute();
-		if(statement.fetch()) {
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isHead() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(0, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isNecklace() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(1, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isShoulders() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(2, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBack() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(3, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isChest() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(4, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isWrists() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(7, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isGloves() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(8, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBelt() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(9, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isLeggings() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(10, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isBoots() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				temp = StuffManager.getClone(id);
-				Mideas.joueur1().setStuff(11, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				Mideas.joueur1().setStuff(12, StuffManager.getClone(id));
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isRing() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				Mideas.joueur1().setStuff(13, StuffManager.getClone(id));
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isTrinket() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				Mideas.joueur1().setStuff(14, StuffManager.getClone(id));
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			if(StuffManager.exists(id) && StuffManager.getStuff(id).isTrinket() && StuffManager.canEquipStuff(StuffManager.getStuff(id))) {
-				Mideas.joueur1().setStuff(15, StuffManager.getClone(id));
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(WeaponManager.exists(id) && WeaponManager.canEquipWeapon(WeaponManager.getWeapon(id))) {
-				temp = WeaponManager.getClone(id);
-				Mideas.joueur1().setStuff(16, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(WeaponManager.exists(id) && WeaponManager.canEquipWeapon(WeaponManager.getWeapon(id))) {
-				temp = WeaponManager.getClone(id);
-				Mideas.joueur1().setStuff(17, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-			id = statement.getInt();
-			gem1Id = statement.getInt();
-			gem2Id = statement.getInt();
-			gem3Id = statement.getInt();
-			if(WeaponManager.exists(id) && WeaponManager.getWeapon(id).isRanged() && WeaponManager.canEquipWeapon(WeaponManager.getWeapon(id))) {
-				temp = WeaponManager.getClone(id);
-				Mideas.joueur1().setStuff(18, temp);
-				setGems(temp, gem1Id, gem2Id, gem3Id);
-				numberPieceLoaded++;
-			}
-		}
-		else {
-			System.out.println("statement error (stuff load)");
-		}
-	}*/
-	
-	/*private static void setGems(Stuff stuff, int gem1Id, int gem2Id, int gem3Id) {
-		if(stuff.getGemSlot1() != GemColor.NONE && GemManager.exists(gem1Id)) {
-			stuff.setEquippedGem1(GemManager.getClone(gem1Id));
-		}
-		if(stuff.getGemSlot2() != GemColor.NONE && GemManager.exists(gem2Id)) {
-			stuff.setEquippedGem1(GemManager.getClone(gem2Id));
-		}
-		if(stuff.getGemSlot3() != GemColor.NONE && GemManager.exists(gem3Id)) {
-			stuff.setEquippedGem1(GemManager.getClone(gem3Id));
-		}
-	}*/
 
 	public static void calcStuffStats() {
 		if(Mideas.joueur1() != null) {

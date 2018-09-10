@@ -65,6 +65,20 @@ public class ChatFrame extends UIElement
 				this.tabList.get(i).addMessage(message);
 	}
 	
+	public void removeChatFrameTab(ChatFrameTab tab)
+	{
+		for (int i = 0; i < this.tabList.size(); ++i)
+			if (this.tabList.get(i) == tab)
+				this.tabList.remove(i);
+		if (this.activeFrameTab == tab)
+		{
+			if (this.tabList.size() == 0)
+				System.out.println("Error ChatFrame.removeChatFrameTab, tabList.size == 0");
+			else
+				this.activeFrameTab = this.tabList.get(0);
+		}
+	}
+	
 	public void addChatFrameTab(ChatFrameTab tab)
 	{
 		tab.setX(20 + this.tabList.size() * (ChatFrameTabButton.BUTTON_WIDTH + 20));
@@ -101,17 +115,6 @@ public class ChatFrame extends UIElement
 			return;
 		for (int i = 0; i < this.tabList.size(); ++i)
 			this.tabList.get(i).updateSize();
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
-		System.out.println("UPDATE SIZE");
 		this.shouldUpdateSize = false;
 	}
 }
