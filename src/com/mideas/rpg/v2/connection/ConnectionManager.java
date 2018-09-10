@@ -222,17 +222,18 @@ public class ConnectionManager {
 		return (authServerConnection);
 	}
 	
-	public static boolean isConnected() {
+	public static boolean isConnected()
+	{
 		if (socket != null)
 			return (socket.isConnected());
-		return false;
+		return (false);
 	}
 	
 	public static boolean isAuthServerConnected()
 	{
 		if (authSocket != null)
 			return (authSocket.isConnected());
-		return false;
+		return (false);
 	}
 	
  	public static void close()
